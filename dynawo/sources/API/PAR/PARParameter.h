@@ -23,10 +23,6 @@
 #include <boost/any.hpp>
 #include <string>
 
-#ifndef LANG_CXX11
-#include <boost/static_assert.hpp>
-#endif
-
 namespace parameters {
 
 /**
@@ -150,18 +146,10 @@ class Parameter {
 };
 static const char* ParameterTypeNames[Parameter::SIZE_OF_ENUM] = {"boolean", "integer", "double", "string"};  ///< string conversion of enum values
 // statically check that the size of ParameterTypeNames fits the number of ParameterTypes
-#ifdef LANG_CXX11
 /**
  * @brief Test if the size of ParameterTypeNames is relevant with the enumeration size
  */
 static_assert(sizeof(ParameterTypeNames) / sizeof(char*) == Parameter::SIZE_OF_ENUM, "Parameters string size does not match ParameterType enumeration");
-#else
-/**
- * @brief Test if the size of ParameterTypeNames is relevant with the enumeration size
- */
-BOOST_STATIC_ASSERT_MSG(sizeof(ParameterTypeNames) / sizeof(char*) == Parameter::SIZE_OF_ENUM,
-                        "Parameters string size does not match ParameterType enumeration");
-#endif
 }  // namespace parameters
 
 #endif  // API_PAR_PARPARAMETER_H_

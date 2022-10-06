@@ -26,6 +26,7 @@ import webbrowser
 from optparse import OptionParser
 import iidmDiff
 import constraintsDiff
+import finalStateValuesDiff
 import settings
 import XMLUtils
 
@@ -914,7 +915,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_err_absolute > 0) or (nb_err_relative > 0):
                 return_value = DIFFERENT
 
@@ -943,7 +944,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         elif (file_extension == ".log" or "timeline" in file_name):
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font>  "
             nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different_within_tolerance, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)
             if (nb_lines_different == 0) and (nb_lines_identical_but_timestamp == 0) and (nb_lines_different_within_tolerance == 0):
                 return_value = IDENTICAL
@@ -967,7 +968,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_err_absolute > 0) or (nb_err_relative > 0):
                 return_value = DIFFERENT
 
@@ -1018,7 +1019,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences) = InitValuesCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different initial values"
@@ -1028,7 +1029,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences, msg) = iidmDiff.OutputIIDMCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different output values\n" + msg
@@ -1038,14 +1039,24 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences, msg) = constraintsDiff.output_constraints_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " different output values\n" + msg
+            else:
+                return_value = IDENTICAL
+        elif "finalStateValues" in file_name:
+            (nb_differences, msg) = finalStateValuesDiff.output_xml_fsv_close_enough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
         else:
-            message = "Problem with " + os.path.basename(path_left)
+            message = "<font color=\"red\">Problem with " + os.path.basename(path_left) + "</font>"
             return_value = DIFFERENT
 
 
@@ -1240,6 +1251,11 @@ def XMLCloseEnough (path_left, path_right):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
+    max_dtw = settings.max_DTW
+    for exception in settings.dtw_exceptions:
+        if exception in path_left or exception in path_right:
+            max_dtw = settings.dtw_exceptions[exception]
+            break
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         left = []
@@ -1248,9 +1264,9 @@ def XMLCloseEnough (path_left, path_right):
             left.append(float (left_curve[curve][t]))
         for t in sorted(times_right):
             right.append(float (right_curve[curve][t]))
-        if settings.max_DTW is not None:
+        if max_dtw is not None:
            distance = DTWDistance(left, right)
-           if distance > settings.max_DTW:
+           if distance > max_dtw:
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)
@@ -1268,7 +1284,7 @@ def DTWDistance(left, right) :
     m = len(right)
     if left == right:
         return 0.
-    DTW = [[0 if (j == 0 or i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
+    DTW = [[0 if (j == 0 and i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
 
     for i in range(1, n+1):
         leftValue = left[i-1]
@@ -1396,7 +1412,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             for v in row:
                 if (index > 0) and (v.strip() != ""):
                     val = float(v)
-                    if (val_previous is None) or (val > val_previous):
+                    if (val_previous is None) or (val >= val_previous):
                         times_left[val] = index
 
                 if (index == 0):
@@ -1422,7 +1438,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             for v in row:
                 if (index > 0) and (v.strip() != ""):
                     val = float(v)
-                    if (val_previous is None) or (val > val_previous):
+                    if (val_previous is None) or (val >= val_previous):
                         times_right[val] = index
 
                 if (index == 0):
@@ -1461,6 +1477,11 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
+    max_dtw = settings.max_DTW
+    for exception in settings.dtw_exceptions:
+        if exception in path_left or exception in path_right:
+            max_dtw = settings.dtw_exceptions[exception]
+            break
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         data_left = reader_left [curve_left]
@@ -1471,9 +1492,9 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             left.append(float (data_left [times_left[t]] .strip()))
         for t in sorted(times_right.keys()):
             right.append(float (data_right [times_right[t]] .strip()))
-        if settings.max_DTW is not None:
+        if max_dtw is not None:
             distance = DTWDistance(left, right)
-            if distance > settings.max_DTW:
+            if distance > max_dtw:
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)

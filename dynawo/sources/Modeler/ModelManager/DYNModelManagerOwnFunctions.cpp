@@ -27,6 +27,7 @@
 #include <cstdarg>
 #include <cassert>
 #include <cstring>
+#include <limits>
 #include <cctype>
 #include "DYNModelManagerOwnFunctions.h"
 
@@ -628,6 +629,47 @@ void put_real_element(modelica_real value, int i1, real_array_t *dest) {
   real_set_(dest, i1, value);
 }
 
+modelica_real max_real_array(const real_array_t a) {
+    size_t nr_of_elements;
+    modelica_real max_element =  std::numeric_limits<double>::min();
+
+    assert(base_array_ok(&a));
+
+    nr_of_elements = base_array_nr_of_elements(a);
+
+    if (nr_of_elements > 0) {
+        size_t i;
+        max_element = real_get(a, 0);
+        for (i = 1; i < nr_of_elements; ++i) {
+            if (max_element < real_get(a, i)) {
+                max_element = real_get(a, i);
+            }
+        }
+    }
+    return max_element;
+}
+
+modelica_real min_real_array(const real_array_t a) {
+    size_t nr_of_elements;
+    modelica_real min_element = std::numeric_limits<double>::max();
+
+    assert(base_array_ok(&a));
+
+    nr_of_elements = base_array_nr_of_elements(a);
+
+    if (nr_of_elements > 0) {
+        size_t i;
+        min_element = real_get(a, 0);
+        for (i = 1; i < nr_of_elements; ++i) {
+            if (min_element > real_get(a, i)) {
+                min_element = real_get(a, i);
+            }
+        }
+    }
+    return min_element;
+}
+
+
 void simple_alloc_1d_real_array(real_array_t* dest, int n) {
   simple_alloc_1d_base_array(dest, n, new modelica_real[n]());
 }
@@ -842,6 +884,10 @@ modelica_real* real_array_element_addr1(const real_array_t * source, int /*ndims
     return real_ptrget(source, dim1 - 1);
 }
 
+modelica_real* real_array_element_addr2(const real_array_t * source, int /*ndims*/, int dim1, int dim2) {
+    return real_ptrget(source, ((dim1 - 1) * source->dim_size[1]) + (dim2 - 1));
+}
+
 static modelica_integer integer_le(modelica_integer x, modelica_integer y) {
     return (x <= y);
 }
@@ -877,6 +923,43 @@ void create_integer_array_from_range(integer_array_t *dest, modelica_integer sta
 
 _index_t* integer_array_make_index_array(const integer_array_t *arr) {
     return reinterpret_cast<int*>(arr->data);
+}
+
+/* allocates n booleans in the boolean_buffer */
+m_boolean* boolean_alloc(int n) {
+  return reinterpret_cast<m_boolean*>(malloc(n*sizeof(m_boolean)));
+}
+
+m_boolean* boolean_array_element_addr1(const boolean_array_t* source, int /*ndims*/, int dim1) {
+    return boolean_ptrget(source, dim1 - 1);
+}
+
+void simple_alloc_1d_boolean_array(boolean_array_t* dest, int n) {
+    simple_alloc_1d_base_array(dest, n, boolean_alloc(n));
+}
+
+
+void put_boolean_element(m_boolean value, int i1, boolean_array_t *dest) {
+    /* Assert that dest has correct dimension */
+    /* Assert that i1 is a valid index */
+    boolean_set(dest, i1, value);
+}
+
+
+/* array_alloc_scalar_boolean_array
+ *
+ * Creates(incl allocation) an array from scalar elements.
+ */
+
+void array_alloc_scalar_boolean_array(boolean_array_t* dest, int n, ...) {
+    int i;
+    va_list ap;
+    simple_alloc_1d_boolean_array(dest, n);
+    va_start(ap, n);
+    for (i = 0; i < n; ++i) {
+        put_boolean_element((m_boolean) va_arg(ap, int), i, dest);
+    }
+    va_end(ap);
 }
 
 /* Fills an array with a value. */

@@ -161,11 +161,11 @@ HvdcLineInterfaceIIDM::importStaticParameters() {
   if (conv1_->getBusInterface()) {
     double U10 = conv1_->getBusInterface()->getV0();
     double U1Nom = conv1_->getVNom();
-    double teta1 = conv1_->getBusInterface()->getAngle0();
+    double theta1 = conv1_->getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(U10)));
-    staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(teta1)));
+    staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(theta1)));
     staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(U10 / U1Nom)));
-    staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(teta1 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(theta1 * M_PI / 180)));
   } else {
     staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(0.)));
@@ -175,11 +175,11 @@ HvdcLineInterfaceIIDM::importStaticParameters() {
   if (conv2_->getBusInterface()) {
     double U20 = conv2_->getBusInterface()->getV0();
     double U2Nom = conv2_->getVNom();
-    double teta2 = conv2_->getBusInterface()->getAngle0();
+    double theta2 = conv2_->getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(U20)));
-    staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(teta2)));
+    staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(theta2)));
     staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(U20 / U2Nom)));
-    staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle2_pu", StaticParameter::DOUBLE).setValue(teta2 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle2_pu", StaticParameter::DOUBLE).setValue(theta2 * M_PI / 180)));
 
   } else {
     staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(0.)));

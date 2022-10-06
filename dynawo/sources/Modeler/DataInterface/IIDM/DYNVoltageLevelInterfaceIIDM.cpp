@@ -207,6 +207,18 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   return false;
 }
 
+unsigned
+VoltageLevelInterfaceIIDM::countNumberOfSwitchesToClose(const std::vector<std::string>& path) const {
+  unsigned res = 0;
+  for (std::vector<std::string>::const_iterator it =  path.begin(), itEnd = path.end(); it != itEnd; ++it) {
+    IIDM::Switch sw = *(voltageLevelIIDM_.find_switch(*it));
+    if (sw.opened()) {
+      ++res;
+    }
+  }
+  return res;
+}
+
 void
 VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
   // should be removed once a solution has been found to propagate switches (de)connection
@@ -215,13 +227,25 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
 
   // close the shortest path to one bus bar section
   vector<string> shortestPath;
+  unsigned nbSwitchToClose = 0;
   for (IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
       itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
     int nodeBBS = itBBS->node();
     vector<string> ret;
     graph_.shortestPath(nodeToConnect, nodeBBS, weights1_, ret);
-    if (!ret.empty() && ( ret.size() < shortestPath.size() || shortestPath.size() == 0) )
+    if (shortestPath.empty()) {
       shortestPath = ret;
+      nbSwitchToClose = countNumberOfSwitchesToClose(ret);
+    } else if (!ret.empty() && ret.size() < shortestPath.size()) {
+      shortestPath = ret;
+      nbSwitchToClose = countNumberOfSwitchesToClose(ret);
+    } else if (!ret.empty() && shortestPath.size() == ret.size()) {  // Tie-breaker
+      unsigned currentNbSwitchToClose = countNumberOfSwitchesToClose(ret);
+      if (currentNbSwitchToClose < nbSwitchToClose) {
+        shortestPath = ret;
+        nbSwitchToClose = currentNbSwitchToClose;
+      }
+    }
   }
 
   for (vector<string>::iterator iter = shortestPath.begin(); iter != shortestPath.end(); ++iter) {
@@ -251,11 +275,12 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
     }
 
     int node = itBBS->node();
-    list<vector<string> > paths;
-    graph_.findAllPaths(nodeToDisconnect, node, weights, paths);
+    vector<string> path;
+    graph_.shortestPath(nodeToDisconnect, node, weights, path);
+    bool somethingWasDisconnected = true;
 
-    for (list<vector<string> >::const_iterator iter = paths.begin(); iter != paths.end(); ++iter) {
-      const vector<string>& path = *iter;
+    while (!path.empty() && somethingWasDisconnected) {
+      somethingWasDisconnected = false;
       for (vector<string>::const_iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
         string switchID = *itSwitch;
         IIDM::Switch sw = *(voltageLevelIIDM_.switches().find(switchID));
@@ -266,10 +291,14 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
               switchState_[itSw->second] = OPEN;
             }
             sw.open();
+            weights[switchID] = 0;
+            somethingWasDisconnected = true;
           }
           break;  // no more things to do, one breaker is open
         }
       }
+      path.clear();
+      graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(node), weights, path);
     }
   }
 }

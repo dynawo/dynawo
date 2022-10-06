@@ -50,7 +50,7 @@ type_(e.type_),
 msgToReturn_(e.msgToReturn_) {
 }
 
-const char * Error::what() const DYN_NOEXCEPT {
+const char * Error::what() const noexcept {
   return (msgToReturn_.c_str());
 }
 
@@ -72,7 +72,7 @@ std::exception(),
 msgToReturn_(message) {
 }
 
-const char * MessageError::what() const DYN_NOEXCEPT {
+const char * MessageError::what() const noexcept {
   return (msgToReturn_.c_str());
 }
 

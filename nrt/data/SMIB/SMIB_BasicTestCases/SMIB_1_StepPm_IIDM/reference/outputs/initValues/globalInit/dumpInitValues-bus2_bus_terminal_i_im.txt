@@ -1,0 +1,4 @@
+ ====== INIT VARIABLES VALUES ======
+connector_bus2_bus_terminal_i_im                  : y =       0.000000 yp =       0.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======

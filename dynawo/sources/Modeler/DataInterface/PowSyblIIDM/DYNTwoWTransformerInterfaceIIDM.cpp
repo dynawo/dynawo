@@ -253,12 +253,12 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
       voltageLevelInterface1_->connectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode()));
     else if (!connected1 && getInitialConnected1())
       voltageLevelInterface1_->disconnectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode()));
+  } else {
+    if (connected1)
+      tfoIIDM_.getTerminal1().connect();
+    else
+      tfoIIDM_.getTerminal1().disconnect();
   }
-  if (connected1)
-    tfoIIDM_.getTerminal1().connect();
-  else
-    tfoIIDM_.getTerminal1().disconnect();
-
   if (voltageLevelInterface2_->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
@@ -266,11 +266,12 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
       voltageLevelInterface2_->connectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode()));
     else if (!connected2 && getInitialConnected2())
       voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode()));
+  } else {
+    if (connected2)
+      tfoIIDM_.getTerminal2().connect();
+    else
+      tfoIIDM_.getTerminal2().disconnect();
   }
-  if (connected2)
-    tfoIIDM_.getTerminal2().connect();
-  else
-    tfoIIDM_.getTerminal2().disconnect();
 }
 
 double
@@ -344,9 +345,9 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   double i1 = 0;
   if (getInitialConnected1() && !doubleIsZero(busInterface1_->getV0())) {
     double V = busInterface1_->getV0() / getVNom1();
-    double teta = busInterface1_->getAngle0();
-    double ur = V * cos(teta);
-    double ui = V * sin(teta);
+    double theta = busInterface1_->getAngle0();
+    double ur = V * cos(theta);
+    double ui = V * sin(theta);
     double ir = 1 / SNREF * (ur * P1 + ui * Q1) / (V * V);
     double ii = 1 / SNREF * (ui * P1 - ur * Q1) / (V * V);
     i1 = sqrt(ir * ir + ii * ii);
@@ -355,9 +356,9 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   double i2 = 0;
   if (getInitialConnected2() && !doubleIsZero(busInterface2_->getV0())) {
     double V = busInterface2_->getV0() / getVNom2();
-    double teta = busInterface2_->getAngle0();
-    double ur = V * cos(teta);
-    double ui = V * sin(teta);
+    double theta = busInterface2_->getAngle0();
+    double ur = V * cos(theta);
+    double ui = V * sin(theta);
     double ir = 1 / SNREF * (ur * P2 + ui * Q2) / (V * V);
     double ii = 1 / SNREF * (ui * P2 - ur * Q2) / (V * V);
     i2 = sqrt(ir * ir + ii * ii);

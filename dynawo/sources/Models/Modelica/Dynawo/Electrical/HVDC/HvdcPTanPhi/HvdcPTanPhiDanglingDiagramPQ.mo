@@ -26,20 +26,20 @@ model HvdcPTanPhiDanglingDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ dia
 
 */
 
-  input Real tanPhi1Ref(start = s10Pu.im/s10Pu.re) "tan(Phi) regulation set point at terminal 1";
+  input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
+
+  parameter Real TanPhi1Ref0 "Start value of tan(Phi) regulation set point at terminal 1";
 
 protected
-
   Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
 
 equation
-
   s1Pu = Complex(P1Pu, Q1Pu);
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
-  // Reactive power control of the connected side
+  //Reactive power control of the connected side
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
-  if running.value then
+  if runningSide1.value then
     if QInj1RawPu >= QInj1MaxPu then
      QInj1Pu = QInj1MaxPu;
     elseif QInj1RawPu <= QInj1MinPu then

@@ -24,7 +24,6 @@ model Line "AC power line - PI model"
                     |           |
                    ---         ---
 */
-
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
@@ -41,17 +40,16 @@ model Line "AC power line - PI model"
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)";
   parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)";
 
-protected
-  parameter Types.ComplexImpedancePu ZPu (re = RPu, im = XPu) "Line impedance";
-  parameter Types.ComplexAdmittancePu YPu (re = GPu, im = BPu) "Line half-admittance";
-
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef)";
   Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef)";
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef)";
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef)";
 
-equation
+protected
+  parameter Types.ComplexImpedancePu ZPu(re = RPu, im = XPu) "Line impedance";
+  parameter Types.ComplexAdmittancePu YPu(re = GPu, im = BPu) "Line half-admittance";
 
+equation
   if (running.value) then
     ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
     ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
@@ -65,7 +63,7 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>
 The line model is a classical Pi-line mode with the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>

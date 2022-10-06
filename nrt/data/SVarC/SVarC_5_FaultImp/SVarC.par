@@ -14,17 +14,17 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <!-- InfiniteBus -->
   <set id="1">
-    <par type="DOUBLE" name="UPu" value="1"/>
-    <par type="DOUBLE" name="UPhase" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
   </set>
-  <!-- Line-->
+  <!-- Line -->
   <set id="2">
-    <par type="DOUBLE" name="RPu" value="0"/>
-    <par type="DOUBLE" name="XPu" value="0.027654"/>
-    <par type="DOUBLE" name="BPu" value="0.0"/>
-    <par type="DOUBLE" name="GPu" value="0.0"/>
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.027654"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
-  <!-- SVarC  -->
+  <!-- SVarC -->
   <set id="3">
     <par type="DOUBLE" name="SVarC_U0Pu" value="1"/>
     <par type="DOUBLE" name="SVarC_UPhase0" value="0"/>

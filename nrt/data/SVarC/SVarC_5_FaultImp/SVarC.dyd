@@ -12,16 +12,11 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Network model -->
-  <dyn:modelicaModel id="Network">
-    <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SVarC.par" parId="1"/>
-    <dyn:unitDynamicModel id="line" name="Dynawo.Electrical.Lines.Line" parFile="SVarC.par" parId="2"/>
-    <dyn:connect id1="busInf" var1="terminal" id2="line" var2="terminal1"/>
-  </dyn:modelicaModel>
-  <!-- SVarC -->
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SVarC.par" parId="1"/>
+  <dyn:blackBoxModel id="line" lib="Line" parFile="SVarC.par" parId="2"/>
   <dyn:blackBoxModel id="SVarC" lib="StaticVarCompensator" parFile="SVarC.par" parId="3"/>
-  <!-- Fault -->
   <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="SVarC.par" parId="4"/>
-  <dyn:connect id1="Network" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
-  <dyn:connect id1="Fault" var1="fault_terminal" id2="Network" var2="line_terminal2"/>
+  <dyn:connect id1="line" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
+  <dyn:connect id1="Fault" var1="fault_terminal" id2="line" var2="line_terminal2"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>
 </dyn:dynamicModelsArchitecture>

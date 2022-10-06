@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.DCVoltageControl;
 */
 
 model DCVoltageControl "DC Voltage Control for the HVDC VSC model"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
 
@@ -21,18 +20,18 @@ model DCVoltageControl "DC Voltage Control for the HVDC VSC model"
   extends HVDC.HvdcVSC.BaseControls.DCVoltageControl.BaseDCVoltageControl;
 
   Modelica.Blocks.Interfaces.BooleanOutput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(
-    Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {200, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  HVDC.HvdcVSC.BaseControls.DCVoltageControl.ActivateDeltaP activateDeltaPfunction(DUDC = DUDC, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu)  "Function that activates the DeltaP when necessary" annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  HVDC.HvdcVSC.BaseControls.DCVoltageControl.ActivateDeltaP activateDeltaPfunction(DUDC = DUDC, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu) "Function that activates the DeltaP when necessary" annotation(
+    Placement(visible = true, transformation(origin = {170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   connect(activateDeltaPfunction.activateDeltaP, activateDeltaP) annotation(
-    Line(points = {{81, -40}, {102, -40}, {102, -40}, {110, -40}}, color = {255, 0, 255}));
+    Line(points = {{181, -40}, {200, -40}}, color = {255, 0, 255}));
   connect(gain1.y, activateDeltaPfunction.ipRefUdcPu) annotation(
-    Line(points = {{10, 0}, {30, 0}, {30, -40}, {59, -40}, {59, -40}}, color = {0, 0, 127}));
+    Line(points = {{141, -6}, {150, -6}, {150, -40}, {159, -40}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1})),
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-170, -100}, {160, 100}})),
     Icon(coordinateSystem(grid = {1, 1})));
 end DCVoltageControl;

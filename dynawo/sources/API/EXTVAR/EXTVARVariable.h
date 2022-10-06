@@ -37,7 +37,7 @@ class Variable : public boost::noncopyable {
   /**
    * @brief Available model types enum
    */
-  enum Type {
+  enum class Type {
     CONTINUOUS,        ///< For continuous variables
     DISCRETE,          ///< For discrete (discrete real) variables
     BOOLEAN,           ///< For boolean variables

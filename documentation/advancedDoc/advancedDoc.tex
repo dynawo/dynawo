@@ -34,7 +34,7 @@ The \Dynawo source code \href{https://github.com/dynawo/dynawo.git}
 {\underline{repository}} is organized as follows:
 \dirtree{%
 .1 cpplint.
-.1 document.
+.1 documentation.
 .1 dynawo.
 .2 3rd party.
 .2 cmake.
@@ -48,15 +48,20 @@ The \Dynawo source code \href{https://github.com/dynawo/dynawo.git}
 .3 Models.
 .3 Simulation.
 .3 Solvers.
+.1 examples.
+.2 DynaFlow.
+.2 DynaSwing.
+.2 DynaWaltz.
 .1 nrt.
 .1 util.
 }
 \begin{itemize}
 \item the cpplint directory contains the Python scripts needed to use cpplint;
-\item the document directory contains the different latex documents used to
+\item the documentation directory contains the different latex documents used to
 create this documentation as well as the \Dynawo website;
 \item the dynawo directory contains all the code related to \Dynawo itself and
 the modifications on 3rd party. This is the most important directory;
+\item the examples directory contains the functional testcases used to show the main principles of each tool;
 \item the nrt directory contains the testsuite used to check the correct
 behaviour of the simulation tool. They also serve as examples of the simulation
 tool behaviour and main principles;
@@ -392,6 +397,6 @@ step;
 \item the \textit{reinit} method is in charge of the algebraic equation restoration when this step is needed.
 \end{itemize}
 
-If you want to add your own solver implementation, the simplest way is to create a new directory SolverX and then to implement your solver there. You can have a look to the SolverIDA and SolverSIM directories ; the first one shows how to get connected to an existing solver library whereas the second one is an example of a solver implementation specific to \Dynawo. Once it is done and the solver compiled, you can use it directly into the jobs file in a similar way than existing \Dynawo solvers.
+If you want to add your own solver implementation, the simplest way is to create a new directory SolverX and then to implement your solver there. You can have a look to the existing solver directories to see concrete examples. Once it is done and the solver compiled, you can use it directly into the jobs file in a similar way than existing \Dynawo solvers.
 
 \end{document}

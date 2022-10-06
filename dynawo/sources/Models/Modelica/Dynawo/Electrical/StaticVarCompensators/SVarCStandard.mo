@@ -59,16 +59,15 @@ model SVarCStandard "Standard static var compensator model"
   BaseControls.BlockingFunction blockingFunction(UBlock = UBlock, UNom = UNom, UUnblockDown = UUnblockDown, UUnblockUp = UUnblockUp)  annotation(
     Placement(visible = true, transformation(origin = {-91, 27}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
 
-protected
   parameter Types.PerUnit G0Pu "Start value of the conductance in pu (base SNom)";
   parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base SNom)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in pu (base UNom)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at injector terminal in pu (base UNom)";
-  parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at injector terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.VoltageModule URef0  "Start value of voltage reference in kV";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
+  parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at injector terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.VoltageModule URef0 "Start value of voltage reference in kV";
   final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in pu";
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";

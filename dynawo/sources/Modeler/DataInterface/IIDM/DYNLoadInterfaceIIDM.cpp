@@ -108,11 +108,11 @@ LoadInterfaceIIDM::importStaticParameters() {
       vNom_ = loadIIDM_.voltageLevel().nominalV();
     else
       throw DYNError(Error::MODELER, UndefinedNominalV, loadIIDM_.voltageLevel().id());
-    double teta = busInterface_->getAngle0();
+    double theta = busInterface_->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(v0_ / vNom_)));
-    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(theta * M_PI / 180)));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(v0_)));
-    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(theta)));
   } else {
     v0_ = 0;
     vNom_ = 0;
@@ -177,6 +177,11 @@ LoadInterfaceIIDM::getID() const {
 double
 LoadInterfaceIIDM::getPUnderVoltage() {
   return loadPUnderV_;
+}
+
+bool
+LoadInterfaceIIDM::isFictitious() {
+  return (loadIIDM_.type() == IIDM::Load::type_fictitious);
 }
 
 }  // namespace DYN

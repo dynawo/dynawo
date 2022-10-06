@@ -367,9 +367,9 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   double i1 = 0;
   if (getInitialConnected1() && !doubleIsZero(busInterface1_->getV0())) {
     double V = busInterface1_->getV0() / getVNom1();
-    double teta = busInterface1_->getAngle0();
-    double ur = V * cos(teta);
-    double ui = V * sin(teta);
+    double theta = busInterface1_->getAngle0();
+    double ur = V * cos(theta);
+    double ui = V * sin(theta);
     double ir = 1 / SNREF * (ur * P1 + ui * Q1) / (V * V);
     double ii = 1 / SNREF * (ui * P1 - ur * Q1) / (V * V);
     i1 = sqrt(ir * ir + ii * ii);
@@ -378,9 +378,9 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   double i2 = 0;
   if (getInitialConnected2() && !doubleIsZero(busInterface2_->getV0())) {
     double V = busInterface2_->getV0() / getVNom2();
-    double teta = busInterface2_->getAngle0();
-    double ur = V * cos(teta);
-    double ui = V * sin(teta);
+    double theta = busInterface2_->getAngle0();
+    double ur = V * cos(theta);
+    double ui = V * sin(theta);
     double ir = 1 / SNREF * (ur * P2 + ui * Q2) / (V * V);
     double ii = 1 / SNREF * (ui * P2 - ur * Q2) / (V * V);
     i2 = sqrt(ir * ir + ii * ii);

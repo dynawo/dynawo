@@ -44,6 +44,8 @@ equation
   sVarCStandard.injector.switchOffSignal3.value = false;
   loadPQ.switchOffSignal1.value = false;
   loadPQ.switchOffSignal2.value = false;
+  loadPQ.deltaP = 0;
+  loadPQ.deltaQ = 0;
   connect(nodeFault.terminal, sVarCStandard.terminal) annotation(
     Line(points = {{0, 42}, {-3.55271e-15, 42}, {-3.55271e-15, 20}}, color = {0, 0, 255}));
   connect(loadPQ.terminal, sVarCStandard.terminal) annotation(

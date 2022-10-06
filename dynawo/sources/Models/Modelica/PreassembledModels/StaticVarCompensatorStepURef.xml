@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="StaticVarCompensatorStepURef">
+    <dyn:unitDynamicModel id="SVarC" name="Dynawo.Electrical.StaticVarCompensators.SVarCStandard" initName="Dynawo.Electrical.StaticVarCompensators.SVarCStandard_INIT"/>
+    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT"/>
+    <dyn:initConnect id1="URef" var1="Value0" id2="SVarC" var2="URef0"/>
+    <dyn:connect id1="URef" var1="step.value" id2="SVarC" var2="URef"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

@@ -18,7 +18,6 @@ jobs:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_FORCE_CXX11_ABI: "true"
-      DYNAWO_CXX11_ENABLED: YES
       DYNAWO_NB_PROCESSORS_USED: 2
       GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
       CURL_JSON: 'curl --silent --header "Content-Type": "application/json"'

@@ -58,13 +58,12 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput Conv2_QInjPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Constants.state Conv2_state (start = Conv2_State0) "Converter 2 connection state";
+  Constants.state Conv2_state(start = Conv2_State0) "Converter 2 connection state";
 
-protected
-  parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
-  parameter Types.Angle UPhase10  "Start value of voltage angle at terminal 1 (in rad)";
-  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
+  parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 (in rad)";
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";

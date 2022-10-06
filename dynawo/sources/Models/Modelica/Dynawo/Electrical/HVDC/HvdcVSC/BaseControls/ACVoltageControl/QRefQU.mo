@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ACVoltageControl;
 */
 
 model QRefQU "Function that calculates QRef for the Q mode and the U mode depending on the setpoints for URef and QRef"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.NonElectrical.Blocks;
@@ -52,10 +51,8 @@ model QRefQU "Function that calculates QRef for the Q mode and the U mode depend
   Blocks.Continuous.PIAntiWindup PI(Ki = KiACVoltageControl, Kp = KpACVoltageControl, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu)  annotation(
     Placement(visible = true, transformation(origin = {25, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
 
 equation
   connect(UPu, feedback.u2) annotation(
@@ -82,8 +79,8 @@ equation
     Line(points = {{4, 20}, {11, 20}, {11, 20}, {13, 20}}, color = {0, 0, 127}));
   connect(PI.y, QRefUPu) annotation(
     Line(points = {{36, 20}, {110, 20}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end QRefQU;

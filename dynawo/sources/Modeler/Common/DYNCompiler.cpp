@@ -369,7 +369,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 #endif
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
-  string lib = modelDirPath_ + "/" + libName;
+  string lib = absolute(libName, modelDirPath_);
   if ((!exists(lib)) || hasUndefinedSymbol)
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
@@ -677,7 +677,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
             atLeastOneExternalVariable = true;
             extvarIds.insert(variable->getId());
           }
-        } else if ((*itExternalVariable)->getType() == externalVariables::Variable::DISCRETE) {
+        } else if ((*itExternalVariable)->getType() == externalVariables::Variable::Type::DISCRETE) {
           connectedDiscreteExtVar.insert(std::make_pair(itUnitDynamicModelName + "." + modelicaObjectName, *itExternalVariable));
         }
       }

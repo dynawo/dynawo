@@ -18,6 +18,7 @@ set(MODULE_SOURCES
   TestDanglingLineInterface.cpp
   TestDataInterface.cpp
   TestFictBusInterface.cpp
+  TestFictTwoWTransformerInterface.cpp
   TestFictVoltageLevelInterface.cpp
   TestGeneratorInterface.cpp
   TestHvdcLineInterface.cpp

@@ -48,14 +48,12 @@ model HvdcPQPropDiagramPQ "Model of HVDC link with a proportional reactive power
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 protected
-
   Types.ReactivePowerPu QInj1RawModeUPu(start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in pu and for mode U activated (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj2RawModeUPu(start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in pu and for mode U activated (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj2RawPu(start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
-
   Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
   Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
 
@@ -64,9 +62,8 @@ equation
   QInj1RawPu = if modeU1 then QInj1RawModeUPu else - Q1RefPu;
   QInj2RawPu = if modeU2 then QInj2RawModeUPu else - Q2RefPu;
 
-  if running.value then
-
   // Reactive power regulation at terminal 1
+  if runningSide1.value then
     if QInj1RawPu <= QInj1MinPu then
       QInj1Pu = QInj1MinPu;
     elseif QInj1RawPu >= QInj1MaxPu then
@@ -74,8 +71,12 @@ equation
     else
       QInj1Pu = QInj1RawPu;
     end if;
+  else
+    QInj1Pu = 0;
+  end if;
 
   // Reactive power regulation at terminal 2
+  if runningSide2.value then
     if QInj2RawPu <= QInj2MinPu then
       QInj2Pu = QInj2MinPu;
     elseif QInj2RawPu >= QInj2MaxPu then
@@ -83,14 +84,10 @@ equation
     else
       QInj2Pu = QInj2RawPu;
     end if;
-
   else
-
-    terminal1.i.im = 0;
-    terminal2.i.im = 0;
-
+    QInj2Pu = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the reactive power at each of its terminals (with a fixed Q reference or a proportional regulation). The active power setpoint is given as an input and can be modified during the simulation, as well as the reactive power references. The reactive power limits are given by a PQ diagram.</div></body></html>"));
 end HvdcPQPropDiagramPQ;

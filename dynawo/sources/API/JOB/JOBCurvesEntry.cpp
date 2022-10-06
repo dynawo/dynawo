@@ -36,19 +36,39 @@ CurvesEntry::getExportMode() const {
   return exportMode_;
 }
 
+boost::optional<int>
+CurvesEntry::getIterationStep() const {
+  return iterationStep_;
+}
+
+boost::optional<double>
+CurvesEntry::getTimeStep() const {
+  return timeStep_;
+}
+
 void
-CurvesEntry::setInputFile(const std::string & inputFile) {
+CurvesEntry::setInputFile(const std::string& inputFile) {
   inputFile_ = inputFile;
 }
 
 void
-CurvesEntry::setOutputFile(const std::string & outputFile) {
+CurvesEntry::setOutputFile(const std::string& outputFile) {
   outputFile_ = outputFile;
 }
 
 void
-CurvesEntry::setExportMode(const std::string & exportMode) {
+CurvesEntry::setExportMode(const std::string& exportMode) {
   exportMode_ = exportMode;
+}
+
+void
+CurvesEntry::setIterationStep(boost::optional<int> iterationStep) {
+  iterationStep_ = iterationStep;
+}
+
+void
+CurvesEntry::setTimeStep(boost::optional<double> timeStep) {
+  timeStep_ = timeStep;
 }
 
 }  // namespace job

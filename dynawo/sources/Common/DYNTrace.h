@@ -305,6 +305,14 @@ class Trace {
   static void resetPersistantCustomAppenders();
 
   /**
+   * @brief Reset a specific persistant custom appenders of trace system
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   */
+  static void resetPersistantCustomAppender(const std::string& tag, SeverityLevel slv);
+
+  /**
    * @brief Get SeverityLevel associated to a string
    *
    * @note Must be accorded to @p SeverityLevel enum in @p DYNTraceStream.h.
@@ -491,6 +499,16 @@ class Trace {
    * Implementation of static function
    */
   void resetPersistantCustomAppenders_();
+
+  /**
+   * @brief Reset a specific persistant custom appenders of trace system
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   *
+   * Implementation of static function
+   */
+  void resetPersistantCustomAppender_(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief test if a log exists

@@ -358,6 +358,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
   bool optimizeReinitAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals during reinit
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
+  modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationInit_;  ///< parameter to set the minimum mode level
+                                                                       ///< at which algebraic restoration will occur at init
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver

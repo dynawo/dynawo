@@ -424,62 +424,192 @@ class ReaderOMC:
                         if name not in self.initial_defined: # if/else split in two in the json file
                             self.initial_defined.append(name)
 
+
+    class Node:
+        def __init__(self):
+            self.type = None
+            self.diff_var = []
+            self.children = []
+            self.eq = ""
+
+        def print_node(self, prefix):
+            print (prefix + "NODE : ")
+            print (prefix + "NODE TYPE: " + str(self.type))
+            print (prefix + "NODE DIFF VAR: " + str(self.diff_var))
+            print (prefix + "NODE EQ: " + self.eq)
+            for child in self.children:
+                child.print_node(prefix + " " )
+
+        def get_types(self):
+            types = []
+            for child in self.children:
+                types.extend(child.get_types())
+            if self.type != None and len(self.children) == 0:
+                types.append(self.type)
+            return types
+
+        def get_diff_vars(self, diff_var):
+            diff_var.append(self.diff_var)
+            for child in self.children:
+                child.get_diff_vars(diff_var)
+
+        def get_equations(self):
+            equations = []
+            for child in self.children:
+                equations.extend(child.get_equations())
+            if self.type != None:
+                equations.append(self.eq)
+            return equations
+
+        def propagate_differential(self):
+            for child in self.children:
+                if self.type != None and self.type == DIFFERENTIAL:
+                    child.force_differential()
+                else:
+                    child.propagate_differential()
+
+
+        def force_differential(self):
+            if self.type != None:
+                self.type = DIFFERENTIAL
+            for child in self.children:
+                child.force_differential()
+
+    def create_nodes_for_min_and_max(self, root):
+        if len(root.children) == 0:
+            nodes_to_add = 0
+            if "min" in root.eq:
+                nodes_to_add+= root.eq.count("min(")
+            if "max" in root.eq:
+                nodes_to_add+= root.eq.count("max(")
+            for _ in range(0, nodes_to_add):
+                node = self.Node()
+                node.eq = "MIN/MAX"
+                node.type = root.type
+                root.children.append(node)
+                node2 = self.Node()
+                node2.eq = "MIN/MAX"
+                node2.type = root.type
+                root.children.append(node2)
+        else:
+            for child in root.children:
+                self.create_nodes_for_min_and_max(child)
+
+    def analyse_eq_expr(self, eq, root):
+        der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+?)\)')
+        splitted_eq = eq.replace('[u\'', '').split(" ")
+        idx = 0
+        while idx < len(splitted_eq):
+            expr = splitted_eq[idx]
+            if (len(expr) == 0):
+                idx += 1
+                continue
+            if expr.startswith("(if") or expr.startswith("-(if") or expr.startswith("- (if"):
+                nb_parenthesis = 1
+                sub_eq= expr.replace("(","", 1)
+                idx+=1
+                while nb_parenthesis > 0:
+                    if "(" in splitted_eq[idx]:
+                        nb_parenthesis+=splitted_eq[idx].count("(")
+                    if ")" in splitted_eq[idx]:
+                        nb_parenthesis-=splitted_eq[idx].count(")")
+                    sub_eq+= " " + splitted_eq[idx]
+                    idx+=1
+                self.analyse_eq_expr(sub_eq[:-1], root)
+            elif expr.startswith("if") or expr.startswith("-if") or expr.startswith("- if"):
+                idx = self.remove_condition(idx, splitted_eq)
+                node = self.Node()
+                node.eq = "IF"
+                root.children.append(node)
+                (final_expr, idx) = self.find_value(idx, splitted_eq)
+                self.analyse_eq_expr(final_expr, node)
+            elif expr.startswith("else"):
+                node = self.Node()
+                root.children.append(node)
+                node.eq = "ELSE"
+                idx += 1
+                (final_expr, idx) = self.find_value(idx, splitted_eq)
+                self.analyse_eq_expr(final_expr, node)
+            else:
+                (final_expr, idx) = self.find_value(idx, splitted_eq)
+                root.eq = final_expr
+                if "der(" in final_expr or "der (" in final_expr:
+                    root.type = DIFFERENTIAL
+                    match2 = re.findall(der_var_ptrn, final_expr)
+                    for m2 in match2:
+                        root.diff_var.append(m2)
+                else:
+                    root.type = ALGEBRAIC
+
+    def remove_condition(self, initial_idx, splitted_eq):
+        idx = initial_idx
+        while idx < len(splitted_eq) and splitted_eq[idx] != "then":
+            idx+=1
+        return idx+1
+
+    def find_value(self, initial_idx, splitted_eq):
+        idx = initial_idx
+        if splitted_eq[idx].startswith("if") or splitted_eq[idx].startswith("-if"):
+            idx = self.remove_condition(idx, splitted_eq)
+        final_expr = ""
+
+        if splitted_eq[idx].startswith("(if") or splitted_eq[idx].startswith("-(if") or splitted_eq[idx].startswith("- (if"):
+            nb_parenthesis = 1
+            sub_eq= splitted_eq[idx].replace("(","", 1)
+            idx+=1
+            while nb_parenthesis > 0:
+                if "(" in splitted_eq[idx]:
+                    nb_parenthesis+=splitted_eq[idx].count("(")
+                if ")" in splitted_eq[idx]:
+                    nb_parenthesis-=splitted_eq[idx].count(")")
+                sub_eq+= " " + splitted_eq[idx]
+                idx+=1
+            return (sub_eq[:-1], idx)
+        else:
+            keywords = ["else", "if", "-if"]
+            operation_ptrn = re.compile(r'[+-]')
+            variable_ptrn = re.compile(r'[\S.]+')
+            while idx < len(splitted_eq) and splitted_eq[idx] not in keywords \
+            and (re.search(operation_ptrn,splitted_eq[idx]) != None or re.search(variable_ptrn,splitted_eq[idx]) != None):
+                if splitted_eq[idx].startswith("(if"):
+                    (tmp, idx) = self.find_value(idx, splitted_eq)
+                    final_expr += tmp
+                else:
+                    final_expr += " " + splitted_eq[idx]
+                    idx+=1
+            return (final_expr, idx)
     ##
     # Analyse the equation to retrieve the type (ALGEBRAIC, DIFFERENTIAL or MIXED) and the differential variables in a branch
     # @param self : object pointer
     # @param eq : equation pseudo code
     # @param defined_var_eq : name of the variable defined by this equation
     def analyse_equations_and_get_types(self, eq, defined_var_eq):
-        if_ptrn = re.compile(r'if\s*(?P<cond>[\(\S\) ]+)\s*then\s*(?P<eq>[\(\S\) ]+)\s*')
+        if eq.startswith("[{"): return
         der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+?)\)')
         diff_var = []
-        idx = 0
         types = []
-        if_statement = eq
-        splitted_eq_parenthesis = eq.split('(if')
-        if len(splitted_eq_parenthesis) > 1:
-            idx = 1
-            nb_opening = 1
-            nb_closing = 0
-            if_statement = ""
-            while idx < len(splitted_eq_parenthesis):
-                for char in splitted_eq_parenthesis[idx]:
-                    if char == '(':
-                        nb_opening+=1
-                    if char == ')':
-                        nb_closing+=1
-                    if_statement+=char
-                    if nb_opening == nb_closing:
-                        idx = len(splitted_eq_parenthesis)
-                        break
-                idx += 1
-        if "if" in if_statement and ("der(" in eq.replace(if_statement,"") or "der (" in eq.replace(if_statement,"")):
-            types.append(DIFFERENTIAL)
-            match2 = re.findall(der_var_ptrn, eq)
-            diff_var.append([])
-            for m2 in match2:
-                diff_var[len(diff_var) - 1].append(m2)
-        elif "if" in if_statement:
-            slitted_eq = if_statement.split('else')
-            for sub_eq in slitted_eq:
+        eq = eq.replace("['","")
+        eq = eq.replace("']","")
+        if "if" not in eq:
+            # not conditional
+            if "der(" in eq or "der (" in eq:
+                types = [DIFFERENTIAL]
+                match2 = re.findall(der_var_ptrn, eq)
                 diff_var.append([])
-                match = re.findall(if_ptrn, sub_eq)
-                for m in match:
-                    if "der(" in m[1] or "der (" in m[1]:
-                        types.append(DIFFERENTIAL)
-                        match2 = re.findall(der_var_ptrn, m[1])
-                        for m2 in match2:
-                            diff_var[len(diff_var) - 1].append(m2)
-                    else:
-                        types.append(ALGEBRAIC)
-                if len(match) == 0: # else case
-                    if "der(" in sub_eq or "der (" in sub_eq:
-                        types.append(DIFFERENTIAL)
-                        match2 = re.findall(der_var_ptrn, sub_eq)
-                        for m2 in match2:
-                            diff_var[len(diff_var) - 1].append(m2)
-                    else:
-                        types.append(ALGEBRAIC)
+                for m2 in match2:
+                    diff_var[len(diff_var) - 1].append(m2)
+            else:
+                types = [ALGEBRAIC]
+
+            self.var_name_to_eq_type[defined_var_eq] = types[0]
+            self.var_name_to_differential_dependency_variables[defined_var_eq] = diff_var
+        else:
+            root = self.Node()
+            self.analyse_eq_expr(eq, root)
+            root.propagate_differential()
+            self.create_nodes_for_min_and_max(root)
+            types = root.get_types()
+
             assert(len(types) > 0)
             ref = types[0]
             keep_it = False
@@ -488,22 +618,16 @@ class ReaderOMC:
                     keep_it = True
             if not keep_it:
                 types = [ref]
-        elif "der(" in eq or "der (" in eq:
-            types = [DIFFERENTIAL]
-            match2 = re.findall(der_var_ptrn, eq)
-            diff_var.append([])
-            for m2 in match2:
-                diff_var[len(diff_var) - 1].append(m2)
-        else:
-            types = [ALGEBRAIC]
 
-        if len(types) == 1:
-            self.var_name_to_eq_type[defined_var_eq] = types[0]
-        else:
-            self.var_name_to_eq_type[defined_var_eq] = MIXED
-            self.var_name_to_mixed_residual_vars_types[defined_var_eq] = types
+            if len(types) == 1:
+                self.var_name_to_eq_type[defined_var_eq] = types[0]
+            else:
+                self.var_name_to_eq_type[defined_var_eq] = MIXED
+            self.var_name_to_mixed_residual_vars_types[defined_var_eq] = root
 
-        self.var_name_to_differential_dependency_variables[defined_var_eq] = diff_var
+            diff_vars = []
+            root.get_diff_vars(diff_vars)
+            self.var_name_to_differential_dependency_variables[defined_var_eq] = diff_vars
 
 
 
@@ -954,9 +1078,10 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         # Regular expression to recognize a line of type $Pvar = $Prhs
-        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->(?P<var>\S*)\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/.start[ ]*=[^;]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->(?P<var>\S*)\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
         ptrn_param = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_param_boolean_test = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*==[^;]*;')
+        ptrn_param_bool_assignment = re.compile(r'data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
         ptrn_assign_extobjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
 
@@ -976,6 +1101,10 @@ class ReaderOMC:
                 for line in list_body:
                     if ptrn_assign_var.search(line) is not None:
                         match = re.search(ptrn_assign_var, line)
+                        var = match.group('varName')
+                        self.var_init_val[ var ] = list_body
+                    if ptrn_param_bool_assignment.search(line) is not None:
+                        match = re.search(ptrn_param, line)
                         var = match.group('varName')
                         self.var_init_val[ var ] = list_body
                     if ptrn_param.search(line) is not None and ptrn_param_boolean_test.search(line) is None:
@@ -1208,6 +1337,7 @@ class ReaderOMC:
         ptrn_var2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
         ptrn_table_size= re.compile(r'static _index_t _OMC_LIT[0-9]+_dims*')
         ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*')
+        ptrn_real_array= re.compile(r'static const modelica_real _OMC_LIT[0-9]+_data*')
 
         with open(file_to_read,'r') as f:
             while True:
@@ -1232,7 +1362,19 @@ class ReaderOMC:
                     next_iter = next(it, None)
                 table_declaration+=next_iter
                 self.list_vars_literal.append(table_declaration)
-                next(it, None)
+
+        with open(file_to_read,'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: (ptrn_real_array.search(line) is None), f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+
+                table_declaration = ""
+                while next_iter.strip() != "};" :
+                    table_declaration+=next_iter
+                    next_iter = next(it, None)
+                table_declaration+=next_iter
+                self.list_vars_literal.append(table_declaration)
 
     ##
     # Read *_literals.h file and store all string declaration with type '_OMC_LIT'
@@ -1525,7 +1667,8 @@ class ReaderOMC:
         map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
         name_func_to_search = {}
         for func in self.list_omc_functions:
-            if "omc_Modelica_" in func.get_name() and not "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): continue
+            if "omc_Modelica_" in func.get_name() and "omc_Modelica_Blocks_Tables_Internal_getTable" not in func.get_name() \
+            and "omc_Modelica_Blocks_Tables_Internal_getTimeTable" not in func.get_name(): continue
             name_func_to_search[func.get_name()] = func
 
         # dictionary that stores the number of equations that depends on a specific variable
@@ -1708,6 +1851,19 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("time", "modelica_real", 3, True))
         func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 4, True))
         func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("array_alloc_scalar_real_array")
+        func.set_signature("void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real first, ...)")
+        func.set_return_type("void")
+        func.add_params(OmcFunctionParameter("dest", "real_array_t*", 0, True))
+        func.add_params(OmcFunctionParameter("n", "int", 1, True))
+        func.add_params(OmcFunctionParameter("first", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("second", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("third", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("fourth", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("fifth", "modelica_real", 2, True))
         self.list_omc_functions.append(func)
 
 

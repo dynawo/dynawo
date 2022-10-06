@@ -19,7 +19,7 @@ model TestCase2 "Active power variation on the load"
   extends Icons.Example;
 
   // Generator and regulations
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0.76,
    Cm0Pu = 0.8,
    Cos2Eta0 = 0.459383,
@@ -116,6 +116,8 @@ equation
   load.QRefPu = QRefPu.setPoint.value;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
+  load.deltaP = 0;
+  load.deltaQ = 0;
   connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
     Line);
   connect(governor.PmRefPu, PmRefPu.y);
@@ -127,12 +129,12 @@ equation
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
     Line(points = {{102, -30}, {102, -30.5}, {110, -30.5}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
   connect(const.y, avr.UpssPu) annotation(
     Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(const1.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {50, 60}, {50, 24}, {118, 24}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
+    Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -116,11 +116,7 @@ ModelicaModel::addConnect(const string& model1, const string& var1, const string
   // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   pair<map<string, shared_ptr<Connector> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = connectorsMap_.emplace(connectionId, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
-#else
-  ret = connectorsMap_.insert(make_pair(connectionId, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2))));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
   return *this;
@@ -132,11 +128,7 @@ ModelicaModel::addInitConnect(const string& model1, const string& var1, const st
   // Used instead of initConnectorsMap_[ic_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   pair<map<string, shared_ptr<Connector> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = initConnectorsMap_.emplace(ic_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
-#else
-  ret = initConnectorsMap_.insert(make_pair(ic_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2))));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
   return *this;
@@ -146,11 +138,7 @@ ModelicaModel&
 ModelicaModel::addMacroConnect(const shared_ptr<MacroConnect>& macroConnect) {
   string id = getMacroConnectionId(macroConnect->getFirstModelId(), macroConnect->getSecondModelId(), getId(), unitDynamicModelsMap_);
   pair<map<string, shared_ptr<MacroConnect> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = macroConnectsMap_.emplace(id, macroConnect);
-#else
-  ret = macroConnectsMap_.insert(make_pair(id, macroConnect));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectIDNotUnique, id);
   return *this;

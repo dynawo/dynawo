@@ -24,7 +24,7 @@
     <dyn:outputs directory="outputs">
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
-        </dyn:logs>
+      </dyn:logs>
     </dyn:outputs>
   </dyn:job>
 </dyn:jobs>

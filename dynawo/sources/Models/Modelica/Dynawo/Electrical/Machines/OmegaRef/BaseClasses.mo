@@ -19,19 +19,26 @@ package BaseClasses
     import Dynawo.Electrical.Machines;
     import Dynawo.NonElectrical.Logs.Timeline;
     import Dynawo.NonElectrical.Logs.TimelineKeys;
+
     extends Machines.BaseClasses.BaseGeneratorSimplified;
+
     type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
+
     Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
+
     parameter Types.ActivePower PMin "Minimum active power in MW";
     parameter Types.ActivePower PMax "Maximum active power in MW";
     parameter Types.ActivePower PNom "Nominal active power in MW";
     parameter Types.PerUnit AlphaPuPNom "Frequency sensitivity in pu (base PNom, OmegaNom)";
-  protected
+
     final parameter Types.ActivePowerPu PMinPu = PMin / SystemBase.SnRef "Minimum active power in pu (base SnRef)";
     final parameter Types.ActivePowerPu PMaxPu = PMax / SystemBase.SnRef "Maximum active power in pu (base SnRef)";
     final parameter Types.PerUnit AlphaPu = AlphaPuPNom * PNom / SystemBase.SnRef "Frequency sensitivity in pu (base SnRef, OmegaNom)";
+
+  protected
     Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
     PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
+
   equation
     when PGenRawPu >= PMaxPu and pre(pStatus) <> PStatus.LimitPMax then
       pStatus = PStatus.LimitPMax;
@@ -53,11 +60,13 @@ package BaseClasses
       PGenRawPu = 0;
       terminal.i.re = 0;
     end if;
+
     annotation(preferredView = "text");
   end BaseGeneratorSimplifiedPFBehavior;
 
   record GeneratorSynchronousParameters "Synchronous machine record: Common parameters to the init and the dynamic models"
-    type ExcitationPuType = enumeration(NominalStatorVoltageNoLoad "1 pu gives nominal air-gap stator voltage at no load", Kundur "Base voltage as per Kundur, Power System Stability and Control", UserBase "User defined base for the excitation voltage");
+    type ExcitationPuType = enumeration(NominalStatorVoltageNoLoad "1 pu gives nominal air-gap stator voltage at no load", Kundur "Base voltage as per Kundur, Power System Stability and Control", UserBase "User defined base for the excitation voltage", Nominal "Base for excitation voltage in nominal conditions (PNomAlt, QNom, UNom)");
+
     // General parameters of the synchronous machine
     parameter Types.VoltageModule UNom "Nominal voltage in kV";
     parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -67,6 +76,7 @@ package BaseClasses
     parameter ExcitationPuType ExcitationPu "Choice of excitation base voltage";
     parameter Types.Time H "Kinetic constant = kinetic energy / rated power";
     parameter Types.PerUnit DPu "Damping coefficient of the swing equation in pu";
+
     // Transformer input parameters
     parameter Types.ApparentPowerModule SnTfo "Nominal apparent power of the generator transformer in MVA";
     parameter Types.VoltageModule UNomHV "Nominal voltage on the network side of the transformer in kV";
@@ -75,16 +85,18 @@ package BaseClasses
     parameter Types.VoltageModule UBaseLV "Base voltage on the generator side of the transformer in kV";
     parameter Types.PerUnit RTfPu "Resistance of the generator transformer in pu (base UBaseHV, SnTfo)";
     parameter Types.PerUnit XTfPu "Reactance of the generator transformer in pu (base UBaseHV, SnTfo)";
+
     // Mutual inductances saturation parameters, Shackshaft modelisation
     parameter Types.PerUnit md "Parameter for direct axis mutual inductance saturation modelling";
     parameter Types.PerUnit mq "Parameter for quadrature axis mutual inductance saturation modelling";
     parameter Types.PerUnit nd "Parameter for direct axis mutual inductance saturation modelling";
     parameter Types.PerUnit nq "Parameter for quadrature axis mutual inductance saturation modelling";
-  protected
+
     // Transformer internal parameters
     final parameter Types.PerUnit RTfoPu = RTfPu * (UNomHV / UBaseHV) ^ 2 * (SNom / SnTfo) "Resistance of the generator transformer in pu (base SNom, UNom)";
     final parameter Types.PerUnit XTfoPu = XTfPu * (UNomHV / UBaseHV) ^ 2 * (SNom / SnTfo) "Reactance of the generator transformer in pu (base SNom, UNom)";
     final parameter Types.PerUnit rTfoPu = if RTfPu > 0.0 or XTfPu > 0.0 then UNomHV / UBaseHV / (UNomLV / UBaseLV) else 1.0 "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
+
     annotation(preferredView = "text");
   end GeneratorSynchronousParameters;
 
@@ -92,20 +104,21 @@ package BaseClasses
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
     import Dynawo.Electrical.SystemBase;
+
     extends GeneratorSynchronousParameters;
     extends SwitchOff.SwitchOffGenerator;
 
-  public
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
       Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
     // Input variables
     Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in pu";
     Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in pu (base PNomTurb)";
     Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in pu (user-selected base voltage)";
+
     // Output variables
     Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in pu";
 
-  protected
     // Internal parameters of the synchronous machine in pu (base UNom, SNom)
     // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
     // These are the parameters used in the dynamic equations of the synchronous machine
@@ -127,14 +140,15 @@ package BaseClasses
     parameter Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";
     // pu factor for excitation voltage
     parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in pu";
-    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdPPu "Scaling factor for excitation pu voltage";
+    parameter Types.PerUnit MdPPuEfdNom "Direct axis mutual inductance used to determine the excitation voltage in nominal conditions in pu";
+    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd elseif ExcitationPu == ExcitationPuType.NominalStatorVoltageNoLoad then RfPPu / MdPPu else RfPPu / MdPPuEfdNom "Scaling factor for excitation pu voltage";
 
-  public
     // Start values given as inputs of the initialization process
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
     parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
     parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
+
     // Start values used by the regulations
     parameter Types.PerUnit Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
     parameter Types.PerUnit Pm0Pu "Start value of mechanical power in pu (base PNomTurb/OmegaNom)";
@@ -145,7 +159,6 @@ package BaseClasses
     parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef)";
     parameter Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
 
-  protected
     // Start values calculated by the initialization model
     parameter Types.PerUnit Ud0Pu "Start value of voltage of direct axis in pu";
     parameter Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in pu";
@@ -172,7 +185,6 @@ package BaseClasses
     parameter Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in pu";
     parameter Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in pu";
 
-  public
     // d-q axis pu variables (base UNom, SNom)
     Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in pu";
     Types.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in pu";
@@ -189,13 +201,13 @@ package BaseClasses
     Types.PerUnit lambdafPu(start = Lambdaf0Pu) "Flux of excitation winding in pu";
     Types.PerUnit lambdaQ1Pu(start = LambdaQ10Pu) "Flux of quadrature axis 1st damper in pu";
     Types.PerUnit lambdaQ2Pu(start = LambdaQ20Pu) "Flux of quadrature axis 2nd damper in pu";
+
     // Other variables
     Types.Angle theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
     Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in pu (base PNomTurb/OmegaNom)";
     Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in pu (base SNom/OmegaNom)";
     Types.PerUnit PePu(start = Ce0Pu * SystemBase.omega0Pu) "Electrical active power in pu (base SNom)";
 
-  protected
     // Saturated mutual inductances and related variables
     Types.PerUnit MdSatPPu(start = MdSat0PPu) "Direct axis saturated mutual inductance in pu";
     Types.PerUnit MqSatPPu(start = MqSat0PPu) "Quadrature axis saturated mutual inductance in pu";
@@ -252,7 +264,7 @@ package BaseClasses
     else
       udPu = 0;
       uqPu = 0;
-      terminal.i = Complex(0);
+      terminal.i = Complex(0,0);
       idPu = 0;
       iqPu = 0;
       ifPu = 0;
@@ -282,6 +294,7 @@ package BaseClasses
       MdSatPPu = MdPPu;
       MqSatPPu = MqPPu;
     end if;
+
     annotation(preferredView = "text");
   end BaseGeneratorSynchronous;
 

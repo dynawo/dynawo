@@ -12,7 +12,7 @@ within Dynawo.Examples.ENTSOE.INIT;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model InitCase3 "Synchronous generator starting at 475 MW and 156 MVar - Start values and parameters calculation from internal parameters"
+model InitCase3 "Synchronous generator starting at 475 MW and 156 Mvar - Start values and parameters calculation from internal parameters"
   import Dynawo;
 
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousInt_INIT generatorSynchronousInt_INIT(

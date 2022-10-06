@@ -41,12 +41,8 @@ public:
   /**
    * @brief Destructor
    */
-#ifdef LANG_CXX11
   // not using override keyword generates a warning, processed as an error, in dynawo
   ~ComposableDocumentHandler() override {}
-#else
-  virtual ~ComposableDocumentHandler() {}
-#endif
 
   /**
    * @brief Called when a document parsing starts. Calls begin()

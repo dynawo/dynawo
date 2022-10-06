@@ -17,8 +17,6 @@ package Constants "Defining constants for network components"
      between C++ and Modelica. */
   extends Icons.Package;
 
-  public
-
   final constant Real Open = 1 " Component disconnected";
   final constant Real Closed = 2 "Component connected";
   final constant Real Closed1 = 3 "Component connected on side 1";
@@ -28,47 +26,55 @@ package Constants "Defining constants for network components"
 
   type state = enumeration(Open "Component disconnected", Closed "Component connected", Closed1 "Component connected on side 1", Closed2 "Component connected on side 2", Closed3 "Component connected on side 3", Undefined "Component status undefined");
 
-  function stateToReal "Converts a component connection state from enumeration to real"
-    input state stateAsEnumeration;
-    output Real stateAsReal;
-  algorithm
-    if (stateAsEnumeration == state.Open) then
-      stateAsReal := Open;
-    elseif (stateAsEnumeration == state.Closed) then
-      stateAsReal := Closed;
-    elseif (stateAsEnumeration == state.Closed1) then
-      stateAsReal := Closed1;
-    elseif (stateAsEnumeration == state.Closed2) then
-      stateAsReal := Closed2;
-    elseif (stateAsEnumeration == state.Closed3) then
-      stateAsReal := Closed3;
-    elseif (stateAsEnumeration == state.Undefined) then
-      stateAsReal := Undefined;
-    else
-      assert(false, "Bad handling of component connection state " + String (stateAsEnumeration) + " when trying to convert it to real");
-    end if;
-  end stateToReal;
+function stateToReal "Converts a component connection state from enumeration to real"
 
-  function realToState "Converts a component connection state from real to enumeration"
-    input Real stateAsReal;
-    output state stateAsEnumeration;
-  algorithm
-    if (stateAsReal == Open) then
-      stateAsEnumeration := state.Open;
-    elseif (stateAsReal == Closed) then
-      stateAsEnumeration := state.Closed;
-    elseif (stateAsReal == Closed1) then
-      stateAsEnumeration := state.Closed1;
-    elseif (stateAsReal == Closed2) then
-      stateAsEnumeration := state.Closed2;
-    elseif (stateAsReal == Closed3) then
-      stateAsEnumeration := state.Closed3;
-    elseif (stateAsReal == Undefined) then
-      stateAsEnumeration := state.Undefined;
-    else
-      assert(false, "Invalid real value when trying to convert to enumeration " + String(stateAsReal));
-    end if;
-  end realToState;
+  input state stateAsEnumeration;
 
-annotation(preferredView = "text");
+  output Real stateAsReal;
+
+algorithm
+  if (stateAsEnumeration == state.Open) then
+    stateAsReal := Open;
+  elseif (stateAsEnumeration == state.Closed) then
+    stateAsReal := Closed;
+  elseif (stateAsEnumeration == state.Closed1) then
+    stateAsReal := Closed1;
+  elseif (stateAsEnumeration == state.Closed2) then
+    stateAsReal := Closed2;
+  elseif (stateAsEnumeration == state.Closed3) then
+    stateAsReal := Closed3;
+  elseif (stateAsEnumeration == state.Undefined) then
+    stateAsReal := Undefined;
+  else
+    assert(false, "Bad handling of component connection state " + String (stateAsEnumeration) + " when trying to convert it to real");
+  end if;
+
+end stateToReal;
+
+function realToState "Converts a component connection state from real to enumeration"
+
+  input Real stateAsReal;
+
+  output state stateAsEnumeration;
+
+algorithm
+  if (stateAsReal == Open) then
+    stateAsEnumeration := state.Open;
+  elseif (stateAsReal == Closed) then
+    stateAsEnumeration := state.Closed;
+  elseif (stateAsReal == Closed1) then
+    stateAsEnumeration := state.Closed1;
+  elseif (stateAsReal == Closed2) then
+    stateAsEnumeration := state.Closed2;
+  elseif (stateAsReal == Closed3) then
+    stateAsEnumeration := state.Closed3;
+  elseif (stateAsReal == Undefined) then
+    stateAsEnumeration := state.Undefined;
+  else
+    assert(false, "Invalid real value when trying to convert to enumeration " + String(stateAsReal));
+  end if;
+
+end realToState;
+
+  annotation(preferredView = "text");
 end Constants;

@@ -111,10 +111,10 @@ modelType_("DanglingLine")  {
   // calculate voltage at the fictitious node
   // node attributes
   double uNode = line->getBusInterface()->getV0();
-  double tetaNode = line->getBusInterface()->getAngle0();
+  double thetaNode = line->getBusInterface()->getAngle0();
   double unomNode = line->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
   ir0_ = (P * ur0 + Q * ui0) / (ur0 * ur0 + ui0 * ui0);
   ii0_ = (P * ui0 - Q * ur0) / (ur0 * ur0 + ui0 * ui0);
 

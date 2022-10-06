@@ -259,9 +259,13 @@ bool
 SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& change) {
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, g1_);
+  modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
     return true;
   } else {
+#ifdef _DEBUG_
+    printUnstableRoot(tSolve_ + h_, g0_, g1_);
+#endif
     g0_.assign(g1_.begin(), g1_.end());
     change = evalZMode(g0_, g1_, tSolve_);
   }
@@ -272,6 +276,9 @@ SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& chang
 
   // Maximum number of initialization calculation
   ++counter;
+  if (modeChangeType < minimumModeChangeTypeForAlgebraicRestorationInit_) {
+    return true;
+  }
   if (counter >= maxNumberUnstableRoots)
     throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepUnstableRoots, solverType());
   return false;

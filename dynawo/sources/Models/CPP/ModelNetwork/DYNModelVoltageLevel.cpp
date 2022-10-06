@@ -258,16 +258,15 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
 
       // find all path between the node to disconnect and the closest bus bar section
       int nodeBBS = (*itBBS)->getBusIndex();
-      list<vector<string> > paths;
-      graph_->findAllPaths(nodeToDisconnect, nodeBBS, weights, paths);
+      vector<string> path;
+      graph_->shortestPath(nodeToDisconnect, nodeBBS, weights, path);
 
-      // iterate on the paths found, then open first identified switch
-      for (list<vector<string> >::const_iterator iter = paths.begin(); iter != paths.end(); ++iter) {
-        const vector<string>& path = *iter;
-        if (!path.empty()) {
-          shared_ptr<ModelSwitch> sw = switchesById_.find(*path.begin())->second;
-          sw->open();
-        }
+      while (!path.empty()) {
+        shared_ptr<ModelSwitch> sw = switchesById_.find(*path.begin())->second;
+        sw->open();
+        weights[*path.begin()] = 0;
+        path.clear();
+        graph_->shortestPath(nodeToDisconnect, nodeBBS, weights, path);
       }
     }
   }

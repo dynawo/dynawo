@@ -13,10 +13,12 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
+  BacklashHysteresis.mo
+  DeadBand.mo
+  DelayFlag.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
-  Hysteresis.mo
   IntegratorOrFirstOrder.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
@@ -25,8 +27,13 @@ set(MODEL_FILES
   LimiterWithLag_INIT.mo
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
+  MultiSwitch.mo
+  PIAntiWindUpTable.mo
+  PIAntiWindUpTable.extvar
   PulseFixedDuration.mo
   PulseMinimumDuration.mo
+  SwitchInteger.mo
+  VariableDelayFlag.mo
   VariableLimiter.mo
   )
 

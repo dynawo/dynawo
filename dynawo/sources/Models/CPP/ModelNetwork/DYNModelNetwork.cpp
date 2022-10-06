@@ -170,16 +170,20 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     vector<shared_ptr<BusInterface> >::const_iterator iBus;
     for (iBus = buses.begin(); iBus != buses.end(); ++iBus) {
       string id = (*iBus)->getID();
-      Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
       shared_ptr<ModelBus> modelBus(new ModelBus(*iBus, (*iVL)->isNodeBreakerTopology()));
       componentsById[id] = (*iBus);
       modelBusById[id] = modelBus;
       // Add to containers
-      modelVoltageLevel->addBus(modelBus);
       modelVoltageLevelInit->addBus(modelBus);
-      busContainer_->add(modelBus);
       modelBus->setNetwork(this);
       modelBus->setVoltageLevel(modelVoltageLevel);
+      if ((*iBus)->hasDynamicModel()) {
+        Trace::debug(Trace::network()) << DYNLog(BusExtDynModel, id) << Trace::endline;
+        continue;
+      }
+      Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
+      modelVoltageLevel->addBus(modelBus);
+      busContainer_->add(modelBus);
       // declare reference between subModel and static data
       data->setReference("v", id, id, "U_value");
       data->setReference("angle", id, id, "phi_value");
@@ -646,7 +650,8 @@ ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
   shared_ptr<NetworkInterface> network = data->getNetwork();
   unsigned nbVoltageLevels = 0;
-  unsigned nbBuses = 0;
+  unsigned nbStaticBuses = 0;
+  unsigned nbDynamicBuses = 0;
   unsigned nbStaticSwitches = 0;
   unsigned nbDynamicSwitches = 0;
   unsigned nbStaticLoads = 0;
@@ -673,7 +678,14 @@ ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
   nbVoltageLevels = static_cast<unsigned>(voltageLevels.size());
   for (vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL = voltageLevels.begin();
       iVL != voltageLevels.end(); ++iVL) {
-    nbBuses += (*iVL)->getBuses().size();
+    const vector<shared_ptr<BusInterface> >& buses = (*iVL)->getBuses();
+    for (vector<shared_ptr<BusInterface> >::const_iterator iBus = buses.begin(); iBus != buses.end(); ++iBus) {
+      if ((*iBus)->hasDynamicModel()) {
+        ++nbDynamicBuses;
+        continue;
+      }
+      ++nbStaticBuses;
+    }
     const vector<shared_ptr<SwitchInterface> >& switches = (*iVL)->getSwitches();
     for (vector<shared_ptr<SwitchInterface> >::const_iterator iSwitch = switches.begin(); iSwitch != switches.end(); ++iSwitch) {
       if ((*iSwitch)->hasDynamicModel()) {
@@ -760,9 +772,7 @@ ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
   stringstream ss;
   ss << nbVoltageLevels;
   Trace::debug(Trace::network()) << DYNLog(NetworkNbVoltagelevel, ss.str()) << Trace::endline;
-  ss.str("");
-  ss << nbBuses;
-  Trace::debug(Trace::network()) << DYNLog(NetworkNbBus, ss.str()) << Trace::endline;
+  printComponentStats(KeyLog_t::NetworkNbBus, nbStaticBuses, nbDynamicBuses);
   printComponentStats(KeyLog_t::NetworkNbSwitches, nbStaticSwitches, nbDynamicSwitches);
   printComponentStats(KeyLog_t::NetworkNbLoads, nbStaticLoads, nbDynamicLoads);
   printComponentStats(KeyLog_t::NetworkNbGenerators, nbStaticGens, nbDynamicGens);
@@ -1251,6 +1261,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelThreeWindingsTransformer::defineParameters(parameters);
   ModelTwoWindingsTransformer::defineParameters(parameters);
   ModelHvdcLink::defineParameters(parameters);
+  parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
 
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {

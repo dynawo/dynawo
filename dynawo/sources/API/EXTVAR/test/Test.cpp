@@ -40,14 +40,14 @@ TEST(APIEXTVARTest, ExternalContinuousVariable) {
   // create object
   const std::string varId = "continuous_variable_1";
   boost::shared_ptr<Variable> variable;
-  variable = VariableFactory::newVariable(varId, Variable::CONTINUOUS);
+  variable = VariableFactory::newVariable(varId, Variable::Type::CONTINUOUS);
 
   ASSERT_NO_THROW(collection->addVariable(variable));
   ASSERT_THROW_DYNAWO(collection->addVariable(variable), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
 
   ASSERT_EQ(variable->getId(), varId);
-  ASSERT_EQ(variable->getType(), Variable::CONTINUOUS);
+  ASSERT_EQ(variable->getType(), Variable::Type::CONTINUOUS);
 
   ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
   ASSERT_EQ(variable->hasDefaultValue(), false);
@@ -62,9 +62,9 @@ TEST(APIEXTVARTest, ExternalContinuousVariable) {
   ASSERT_THROW_DYNAWO(variable->setSize(3), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArray);
   ASSERT_THROW_DYNAWO(variable->getSize(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
 
-  ASSERT_EQ(variable->hasOptional(), false);
-  ASSERT_THROW_DYNAWO(variable->setOptional(true), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArray);
-  ASSERT_THROW_DYNAWO(variable->getOptional(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
+  ASSERT_FALSE(variable->hasOptional());
+  ASSERT_NO_THROW(variable->setOptional(true));
+  ASSERT_TRUE(variable->getOptional());
 
 
   for (variable_iterator itVariable = collection->endVariable(); itVariable == collection->beginVariable(); --itVariable) {
@@ -107,14 +107,14 @@ TEST(APIEXTVARTest, ExternalDiscreteVariable) {
   // create object
   const std::string varId = "discrete_variable_1";
   boost::shared_ptr<Variable> variable;
-  variable = VariableFactory::newVariable(varId, Variable::DISCRETE);
+  variable = VariableFactory::newVariable(varId, Variable::Type::DISCRETE);
 
   collection->addVariable(variable);
   ASSERT_THROW_DYNAWO(collection->addVariable(variable), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
 
   ASSERT_EQ(variable->getId(), varId);
-  ASSERT_EQ(variable->getType(), Variable::DISCRETE);
+  ASSERT_EQ(variable->getType(), Variable::Type::DISCRETE);
 
   ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
   ASSERT_EQ(variable->hasDefaultValue(), false);
@@ -130,7 +130,7 @@ TEST(APIEXTVARTest, ExternalDiscreteVariable) {
   ASSERT_THROW_DYNAWO(variable->getSize(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
 
   ASSERT_EQ(variable->hasOptional(), false);
-  ASSERT_THROW_DYNAWO(variable->setOptional(true), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArray);
+  ASSERT_THROW_DYNAWO(variable->setOptional(true), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArrayAndContinuous);
   ASSERT_THROW_DYNAWO(variable->getOptional(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
 }
 
@@ -144,14 +144,14 @@ TEST(APIEXTVARTest, ExternalBooleanVariable) {
   // create object
   const std::string varId = "boolean_variable_1";
   boost::shared_ptr<Variable> variable;
-  variable = VariableFactory::newVariable(varId, Variable::BOOLEAN);
+  variable = VariableFactory::newVariable(varId, Variable::Type::BOOLEAN);
 
   collection->addVariable(variable);
   ASSERT_THROW_DYNAWO(collection->addVariable(variable), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
 
   ASSERT_EQ(variable->getId(), varId);
-  ASSERT_EQ(variable->getType(), Variable::BOOLEAN);
+  ASSERT_EQ(variable->getType(), Variable::Type::BOOLEAN);
 
   ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
   ASSERT_EQ(variable->hasDefaultValue(), false);
@@ -167,7 +167,7 @@ TEST(APIEXTVARTest, ExternalBooleanVariable) {
   ASSERT_THROW_DYNAWO(variable->getSize(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
 
   ASSERT_EQ(variable->hasOptional(), false);
-  ASSERT_THROW_DYNAWO(variable->setOptional(true), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArray);
+  ASSERT_THROW_DYNAWO(variable->setOptional(true), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArrayAndContinuous);
   ASSERT_THROW_DYNAWO(variable->getOptional(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
 }
 
@@ -181,14 +181,14 @@ TEST(APIEXTVARTest, ExternalContinuousArrayVariable) {
   // create object
   const std::string varId = "continuous_array";
   boost::shared_ptr<Variable> variable;
-  variable = VariableFactory::newVariable(varId, Variable::CONTINUOUS_ARRAY);
+  variable = VariableFactory::newVariable(varId, Variable::Type::CONTINUOUS_ARRAY);
 
   collection->addVariable(variable);
   ASSERT_THROW_DYNAWO(collection->addVariable(variable), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
 
   ASSERT_EQ(variable->getId(), varId);
-  ASSERT_EQ(variable->getType(), Variable::CONTINUOUS_ARRAY);
+  ASSERT_EQ(variable->getType(), Variable::Type::CONTINUOUS_ARRAY);
   ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
   ASSERT_EQ(variable->hasDefaultValue(), false);
 
@@ -219,14 +219,14 @@ TEST(APIEXTVARTest, ExternalDiscreteArrayVariable) {
   // create object
   const std::string varId = "discrete_array";
   boost::shared_ptr<Variable> variable;
-  variable = VariableFactory::newVariable(varId, Variable::DISCRETE_ARRAY);
+  variable = VariableFactory::newVariable(varId, Variable::Type::DISCRETE_ARRAY);
 
   collection->addVariable(variable);
   ASSERT_THROW_DYNAWO(collection->addVariable(variable), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
 
   ASSERT_EQ(variable->getId(), varId);
-  ASSERT_EQ(variable->getType(), Variable::DISCRETE_ARRAY);
+  ASSERT_EQ(variable->getType(), Variable::Type::DISCRETE_ARRAY);
   ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
   ASSERT_EQ(variable->hasDefaultValue(), false);
 
@@ -257,13 +257,13 @@ TEST(APIEXTVARTest, ExternalDuplicateVariable) {
   // create object
   const std::string varId = "discrete_variable_1";
   boost::shared_ptr<Variable> variable;
-  variable = VariableFactory::newVariable(varId, Variable::DISCRETE);
+  variable = VariableFactory::newVariable(varId, Variable::Type::DISCRETE);
 
   ASSERT_NO_THROW(collection->addVariable(variable));
 
   const std::string varId2 = "continuous_variable_1";
   boost::shared_ptr<Variable> variable2;
-  variable2 = VariableFactory::newVariable(varId, Variable::CONTINUOUS);
+  variable2 = VariableFactory::newVariable(varId, Variable::Type::CONTINUOUS);
   ASSERT_THROW_DYNAWO(collection->addVariable(variable2), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
   variable2->setId(varId2);
@@ -287,7 +287,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   const std::string varId1 = "discrete_variable_1";
   boost::shared_ptr<Variable> variable1;
   const std::string defaultVal = "1";
-  variable1 = VariableFactory::newVariable(varId1, Variable::DISCRETE);
+  variable1 = VariableFactory::newVariable(varId1, Variable::Type::DISCRETE);
   variable1->setDefaultValue(defaultVal);
   ASSERT_NO_THROW(variable1->getDefaultValue());
   collection->addVariable(variable1);
@@ -295,13 +295,13 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   // continuous variable
   const std::string varId2 = "continuous_variable_1";
   boost::shared_ptr<Variable> variable2;
-  variable2 = VariableFactory::newVariable(varId2, Variable::CONTINUOUS);
+  variable2 = VariableFactory::newVariable(varId2, Variable::Type::CONTINUOUS);
   ASSERT_NO_THROW(collection->addVariable(variable2));
 
   // continous array
   const std::string varId3 = "continuous_array_variable";
   boost::shared_ptr<Variable> variable3;
-  variable3 = VariableFactory::newVariable(varId3, Variable::CONTINUOUS_ARRAY);
+  variable3 = VariableFactory::newVariable(varId3, Variable::Type::CONTINUOUS_ARRAY);
   variable3->setDefaultValue("0.");
   variable3->setOptional(true);
   variable3->setSize(3);
@@ -310,7 +310,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   // discrete array
   const std::string varId4 = "discrete_array_variable";
   boost::shared_ptr<Variable> variable4;
-  variable4 = VariableFactory::newVariable(varId4, Variable::DISCRETE_ARRAY);
+  variable4 = VariableFactory::newVariable(varId4, Variable::Type::DISCRETE_ARRAY);
   variable4->setDefaultValue("0.");
   variable4->setSize(10);
   ASSERT_NO_THROW(collection->addVariable(variable4));
@@ -319,7 +319,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   const std::string varId5 = "boolean_variable_1";
   boost::shared_ptr<Variable> variable5;
   const std::string defaultValBool = "true";
-  variable5 = VariableFactory::newVariable(varId5, Variable::BOOLEAN);
+  variable5 = VariableFactory::newVariable(varId5, Variable::Type::BOOLEAN);
   variable5->setDefaultValue(defaultValBool);
   ASSERT_NO_THROW(variable5->getDefaultValue());
   collection->addVariable(variable5);
@@ -336,18 +336,18 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   for (variable_iterator itVariable = collection1->beginVariable(); itVariable != collection1->endVariable(); ++itVariable) {
     const boost::shared_ptr<Variable> variable = *itVariable;
-    if (variable->getType() == Variable::CONTINUOUS) {
+    if (variable->getType() == Variable::Type::CONTINUOUS) {
       ASSERT_EQ(variable->getId(), varId2);
       ASSERT_EQ(variable->hasDefaultValue(), false);
-    } else if (variable->getType() == Variable::DISCRETE) {
+    } else if (variable->getType() == Variable::Type::DISCRETE) {
       ASSERT_EQ(variable->getId(), varId1);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), defaultVal);
-    } else if (variable->getType() == Variable::BOOLEAN) {
+    } else if (variable->getType() == Variable::Type::BOOLEAN) {
       ASSERT_EQ(variable->getId(), varId5);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), defaultValBool);
-    } else if (variable->getType() == Variable::CONTINUOUS_ARRAY) {
+    } else if (variable->getType() == Variable::Type::CONTINUOUS_ARRAY) {
       ASSERT_EQ(variable->getId(), varId3);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), "0.");
@@ -355,7 +355,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
       ASSERT_EQ(variable->getOptional(), true);
       ASSERT_EQ(variable->hasSize(), true);
       ASSERT_EQ(variable->getSize(), 3);
-    } else if (variable->getType() == Variable::DISCRETE_ARRAY) {
+    } else if (variable->getType() == Variable::Type::DISCRETE_ARRAY) {
       ASSERT_EQ(variable->getId(), varId4);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), "0.");

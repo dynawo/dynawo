@@ -32,3 +32,5 @@ maximum_threads_nb = 4
 # log destination
 logs_destination = "text file" # "console" or "text file"
 logs_file_path = os.path.join(os.path.dirname(__file__), "nrtDiff.txt")
+
+dtw_exceptions = {}

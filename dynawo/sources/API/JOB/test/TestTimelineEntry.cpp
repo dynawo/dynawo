@@ -29,17 +29,20 @@ TEST(APIJOBTest, testTimelineEntry) {
   ASSERT_EQ(timeline->getExportWithTime(), true);
   ASSERT_FALSE(timeline->getMaxPriority());
   ASSERT_EQ(timeline->getOutputFile(), "");
+  ASSERT_EQ(timeline->isFilter(), false);
 
   timeline->setExportMode("TXT");
   timeline->setExportWithTime(false);
   timeline->setMaxPriority(2);
   timeline->setOutputFile("/tmp/output.txt");
+  timeline->setFilter(true);
 
   ASSERT_EQ(timeline->getExportMode(), "TXT");
   ASSERT_EQ(timeline->getExportWithTime(), false);
   ASSERT_TRUE(timeline->getMaxPriority());
   ASSERT_EQ(*timeline->getMaxPriority(), 2.);
   ASSERT_EQ(timeline->getOutputFile(), "/tmp/output.txt");
+  ASSERT_EQ(timeline->isFilter(), true);
 }
 
 }  // namespace job

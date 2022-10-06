@@ -16,17 +16,12 @@ package BaseClasses
   extends Icons.BasesPackage;
 
   partial model BaseGeneratorSimplified "Base model for simplified generator models"
-
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
     extends SwitchOff.SwitchOffGenerator;
 
-  public
-
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
       Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  protected
 
     parameter Types.VoltageModulePu U0Pu "Start value of voltage at terminal amplitude in pu (base UNom)";
     parameter Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
@@ -40,7 +35,6 @@ package BaseClasses
     Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
 
   equation
-
     SGenPu = Complex(PGenPu, QGenPu);
     SGenPu = -terminal.V * ComplexMath.conj(terminal.i);
     if running.value then

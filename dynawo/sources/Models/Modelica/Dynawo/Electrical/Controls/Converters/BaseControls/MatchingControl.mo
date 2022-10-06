@@ -1,19 +1,18 @@
 within Dynawo.Electrical.Controls.Converters.BaseControls;
 
-  /*
-    * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-    */
+/*
+* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+*/
 
 model MatchingControl "Matching Control"
-
   import Modelica;
   import Dynawo.Types;
   import Dynawo.Connectors;
@@ -62,14 +61,11 @@ model MatchingControl "Matching Control"
   Modelica.Blocks.Sources.Constant omegaSetPu(k = SystemBase.omegaRef0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
   parameter Types.PerUnit UdFilter0Pu;
   parameter Types.Angle Theta0;
   parameter Types.PerUnit UdcSource0Pu;
 
 equation
-
   connect(feedback1.y, gain.u) annotation(
     Line(points = {{-62, 40}, {-49, 40}}, color = {0, 0, 127}));
   connect(add1.y, omegaPu) annotation(
@@ -106,9 +102,9 @@ equation
     Line(points = {{-120, -20}, {0, -20}, {0, -42}, {0, -42}}, color = {0, 0, 127}));
   connect(omegaSetPu.y, add1.u1) annotation(
     Line(points = {{-99, 70}, {-12, 70}, {-12, 70}, {-12, 70}}, color = {0, 0, 127}));
+
   annotation(
     Icon(coordinateSystem(grid = {1, 1})),
     preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})));
-
 end MatchingControl;

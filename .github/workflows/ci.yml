@@ -12,7 +12,6 @@ jobs:
     container: dynawo/dynawo-ci:latest
     env:
       DYNAWO_BUILD_TYPE: Debug
-      DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
@@ -34,11 +33,23 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: curl -sw '%{http_code}\n' --header "Content-Type":" application/json" -X POST --data '{"dynawo":"Update"}' https://hub.docker.com/api/build/v1/source/$DOCKER_HUB_TOKEN1/trigger/$DOCKER_HUB_TOKEN2/call/
 
+      - name: Doxygen build
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-doxygen-doc
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./install/gcc8/HEAD/Debug/shared/dynawo/doxygen/html
+
   coverage:
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci:latest
     env:
-      DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install

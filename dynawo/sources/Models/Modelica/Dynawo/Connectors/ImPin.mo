@@ -13,8 +13,7 @@ within Dynawo.Connectors;
 */
 
 connector ImPin "Connector for propagating continuous real value"
-  public
-    Real value;
+  Real value;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end ImPin;

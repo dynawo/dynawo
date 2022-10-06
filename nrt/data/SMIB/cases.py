@@ -29,6 +29,17 @@ job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
 ########################################
+#           SMIB_1_StepPm_IIDM         #
+########################################
+
+case_name = "SMIB - StepPm IIDM"
+case_description = "SMIB test case with a step on the mechanical power and an iidm network"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm_IIDM", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+
+########################################
 #           SMIB_2_StepEfd             #
 ########################################
 
@@ -67,3 +78,33 @@ case_description = "SMIB test case with a fault"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_5_Fault", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+###############################################
+#           SMIB Test Case 1 ST4B             #
+###############################################
+
+case_name = "SMIB - Test Case 1 ST4B"
+case_description = "Voltage reference step on the synchronous machine (and its regulations) connected to a zero current bus"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "SMIB", "Standard", "TestCase1ST4B", "TestCase1ST4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+###############################################
+#           SMIB Test Case 2 ST4B             #
+###############################################
+
+case_name = "SMIB - Test Case 2 ST4B"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "SMIB", "Standard", "TestCase2ST4B", "TestCase2ST4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+###############################################
+#           SMIB Test Case 3 ST4B             #
+###############################################
+
+case_name = "SMIB - Test Case 3 ST4B"
+case_description = "Bolted three-phase short circuit at the high-level side of the transformer"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "SMIB", "Standard", "TestCase3ST4B", "TestCase3ST4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

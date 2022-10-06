@@ -62,6 +62,7 @@ TEST(DataInterfaceTest, Load_1) {
       .setConnectableBus("VL1_BUS1")
       .setName("LOAD1_NAME")
       .setLoadType(LoadType::UNDEFINED)
+      .setFictitious(true)
       .setP0(50.0)
       .setQ0(40.0)
       .add();
@@ -108,6 +109,8 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_TRUE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 499.0);
 
+  ASSERT_TRUE(loadIfce.isFictitious());
+
   loadIfce.importStaticParameters();
   loadIfce.setBusInterface(nullptr);
   loadIfce.importStaticParameters();
@@ -117,6 +120,11 @@ TEST(DataInterfaceTest, Load_1) {
 
   ASSERT_DOUBLE_EQ(loadIfce.getVNomInjector(), 382.0);
   ASSERT_EQ(loadIfce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
+
+  load.setFictitious(false);
+  LoadInterfaceIIDM loadIfceNotFictitious(load);
+  loadIfceNotFictitious.setVoltageLevelInterface(voltageLevelIfce);
+  ASSERT_FALSE(loadIfceNotFictitious.isFictitious());
 }  // TEST(DataInterfaceTest, Load_1)
 
 TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == false
@@ -145,7 +153,8 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
       .setBus("VL1_BUS1")
       .setConnectableBus("VL1_BUS1")
       .setName("LOAD1_NAME")
-      .setLoadType(LoadType::UNDEFINED)
+      .setLoadType(LoadType::FICTITIOUS)
+      .setFictitious(false)
       .setP0(5000.0)
       .setQ0(4000.0)
       .add();
@@ -163,5 +172,6 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
   ASSERT_FALSE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 0.0);
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 0.0);
+  ASSERT_TRUE(loadIfce.isFictitious());
 }  // TEST(DataInterfaceTest, Load_2)
 }  // namespace DYN

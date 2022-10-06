@@ -46,6 +46,16 @@ class ParameterSolver : public ParameterCommon {
   ParameterSolver(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   /**
+   * @brief Default copy Constructor
+   */
+  ParameterSolver(const ParameterSolver&) = default;
+  /**
+   * @brief Default assignement operator
+   * @returns *this
+   */
+  ParameterSolver& operator=(const ParameterSolver&) = delete;
+
+  /**
     * @brief check whether the parameter's value is set
     * @return whether the parameter's value is set
     */
@@ -78,11 +88,7 @@ class ParameterSolver : public ParameterCommon {
   Error::TypeError_t getTypeError() const;
 
  private:
-#ifdef LANG_CXX11
   ParameterSolver() = delete;  ///< default constructor
-#else
-  ParameterSolver();  ///< private default constructor
-#endif
 
   boost::optional<boost::any> value_;  ///< value of the parameter
 };

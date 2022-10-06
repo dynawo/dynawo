@@ -13,12 +13,9 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl;
 */
 
 model RPFaultFunction "rpfault function for HVDC"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_RPFaultFunction;
 
@@ -29,13 +26,11 @@ model RPFaultFunction "rpfault function for HVDC"
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-
   Types.Time Timer(start = 0);
 
 equation
-
   when blocked == true then
-    Timer = 10;
+    Timer = Modelica.Constants.inf;
   elsewhen blocked == false then
     Timer = time;
   end when;
@@ -46,5 +41,4 @@ equation
     Documentation(info = "<html><head></head><body> This function calculates a signal that is equal to 1 in normal conditions, 0 when the HVDC link is blocked, and that goes back to 1 with a ramp when it is unblocked.</body></html>"),
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end RPFaultFunction;

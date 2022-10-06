@@ -42,6 +42,9 @@ endif()
 
 if(DEFINED ENV{DYNAWO_BOOST_HOME})
   set(BOOST_ROOT $ENV{DYNAWO_BOOST_HOME})
+  if(MSVC)
+    set(BOOST_LIBRARYDIR ${BOOST_ROOT}/bin)
+  endif()
 endif()
 
 file(TO_CMAKE_PATH  "$ENV{DYNAWO_INSTALL_DIR}" DYNAWO_INSTALL_DIR)
@@ -58,7 +61,6 @@ endif()
 if(MSVC)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS)
-  add_definitions(-DLANG_CXX11)
   add_compile_options(-bigobj)
 endif()
 

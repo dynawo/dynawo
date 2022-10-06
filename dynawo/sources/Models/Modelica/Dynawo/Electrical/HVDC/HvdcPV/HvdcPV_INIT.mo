@@ -17,5 +17,10 @@ model HvdcPV_INIT "Initialisation model of PV HVDC link"
   extends AdditionalIcons.Init;
   extends BaseClasses_INIT.BaseHVDC_INIT;
 
-annotation(preferredView = "text");
+  parameter Types.ActivePowerPu P1RefSetPu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
+
+equation
+  P1Ref0Pu = P1RefSetPu;
+
+  annotation(preferredView = "text");
 end HvdcPV_INIT;

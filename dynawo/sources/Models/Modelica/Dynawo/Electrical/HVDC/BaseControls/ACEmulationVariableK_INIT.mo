@@ -17,11 +17,9 @@ model ACEmulationVariableK_INIT "Initialisation model for AC Emulation for HVDC 
 
   import Dynawo.Types;
 
-protected
-
   Types.Angle Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   Types.Angle Theta20 "Start value of angle of the voltage at terminal 2 in rad";
   Types.ActivePowerPu PRef0Pu "Start value of active power reference in pu (base SnRef) (receptor convention)";
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end ACEmulationVariableK_INIT;

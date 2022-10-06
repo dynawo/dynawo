@@ -18,6 +18,7 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
   import Dynawo;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   type status = enumeration(Standard "Active power is modulated by the frequency deviation",
                             LimitPMin "Active power is fixed to its minimum value",
                             LimitPMax "Active power is fixed to its maximum value");
@@ -55,14 +56,13 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
   Modelica.Blocks.Sources.BooleanConstant activeFrequencyRegulation(k = ActiveFrequencyRegulation) annotation(
     Placement(visible = true, transformation(origin = {14, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
   final parameter Types.ActivePowerPu PMinPu = PMin / PNom "Minimum mechanical power in pu (base PNom)";
   final parameter Types.ActivePowerPu PMaxPu = PMax / PNom "Maximum mechanical power in pu (base PNom)";
   final parameter Boolean ActiveFrequencyRegulation = if Pm0Pu < PMin / PNom or Pm0Pu > PMax / PNom then false else true "Boolean indicating whether the group participates to primary frequency control or not";
   status state(start = status.Standard);
-equation
 
+equation
   connect(activeFrequencyRegulation.y, switch.u2) annotation(
     Line(points = {{25, -34}, {41.5, -34}, {41.5, 0}, {66, 0}}, color = {255, 0, 255}));
   connect(PmCst.y, switch.u3) annotation(

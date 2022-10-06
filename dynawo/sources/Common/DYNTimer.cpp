@@ -21,10 +21,8 @@
 
 #include "DYNTimer.h"
 
-#ifdef LANG_CXX11
 #include <thread>
 #include <sstream>
-#endif
 
 namespace DYN {
 
@@ -42,11 +40,7 @@ Timers::~Timers() {
 
 Timers&
 Timers::instance() {
-#ifdef LANG_CXX11
   static thread_local Timers instance;
-#else
-  static Timers instance;
-#endif
   return instance;
 }
 
@@ -58,22 +52,16 @@ Timers::add(const std::string& name, const double& time) {
 
 void
 Timers::add_(const std::string& name, const double& time) {
-#ifdef LANG_CXX11
   std::stringstream ss;
   ss << std::this_thread::get_id() << "_" << name;
   std::string name_formatted = ss.str();
-#else
-  std::string name_formatted = name;
-#endif
   timers_[name_formatted] += time;
   nbAppels_[name_formatted] += 1;
 }
 
 Timer::Timer(const std::string& name) :
 name_(name),
-#ifdef LANG_CXX11
 startPoint_(std::chrono::steady_clock::now()),
-#endif
 isStopped_(false) {
 }
 
@@ -95,12 +83,8 @@ double Timer::elapsed() const {
   if (isStopped_) {
     return 0.;
   }
-#ifdef LANG_CXX11
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startPoint_);
   return static_cast<double>(duration.count()) / 1000000;  // For the result in seconds
-#else
-  return timer_.elapsed();
-#endif
 }
 
 }  // namespace DYN

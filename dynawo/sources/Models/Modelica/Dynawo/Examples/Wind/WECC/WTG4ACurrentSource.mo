@@ -45,6 +45,10 @@ equation
     Line(points = {{69, -40}, {54, -40}, {54, -12}, {42, -12}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
+  WT4A.line.switchOffSignal2.value = false;
+  WT4A.injector.switchOffSignal1.value = false;
+  WT4A.injector.switchOffSignal2.value = false;
+  WT4A.injector.switchOffSignal3.value = false;
 
   annotation(
     preferredView = "diagram",
@@ -52,7 +56,7 @@ equation
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
      This test case consists in one simplified drive train model Wind Turbine park connected to an infinite bus which voltage is reduced to 0.5pu from t=1s to t=2s, and which frequency is increased to 1.01pu from t=6s to t=6.5s. This is a way to observe the behavior of the drive train of a Wind Turbine type 4A park in response to a voltage and frequency variation at its terminal.    </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
-    "),
+ "),
   __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
   __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
 end WTG4ACurrentSource;

@@ -23,7 +23,6 @@ set(DYNAWO_DICTIONARIES
 
 set(DYNAWO_DICTIONARIES_MAPPING
   Dictionaries/dictionaries_mapping.dic
-  DYNTimeline_en_GB_oppositeEvents.py
   Dictionaries/DYNTimeline_oppositeEvents.dic
   )
 
@@ -105,7 +104,6 @@ set(COMMON_INCLUDE_HEADERS
   DYNTrace.h
   DYNTraceStream.h
   DYNClone.hpp
-  DYNCompatibility.h
   )
 
 add_library(dynawo_Interface INTERFACE)

@@ -125,3 +125,13 @@ case_description = "Bolted three-phase short circuit at the high-level side of t
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "ENTSOE", "TestCase3", "TestCase3.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################
+#     ENTSO-E Test Case 3 PlayBack            #
+###############################################
+
+case_name = "DynaSwing - ENTSO-E - Test Case 3 - PlayBack"
+case_description = "Bolted three-phase short circuit at the high-level side of the transformer played back using an infinite bus with table data"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "DynaSwing", "EntsoeTestCase3PlayBack", "TestCase3.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

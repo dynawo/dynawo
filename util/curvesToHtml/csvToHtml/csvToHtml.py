@@ -18,6 +18,7 @@ from optparse import OptionParser
 
 csvToHtml_resources_dir = os.path.join(os.path.dirname(__file__),"../resources")
 jsFileIn=csvToHtml_resources_dir+"/curves.js.in"
+jsRefFileIn=csvToHtml_resources_dir+"/curves_ref.js.in"
 htmlFileIn=csvToHtml_resources_dir+"/curves.html.in"
 
 def cleanIdForJS(id):
@@ -38,7 +39,7 @@ class Data:
     def serie(self):
         return self.serie_
 
-def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
+def readCsvToHtml(csv_file, ref_csv_file, output_dir, withoutOffset, showpoints):
     full_path = os.path.expanduser(output_dir)
     # Copy resources in output directory
     output_resources_dir = os.path.join(full_path,"curvesResources")
@@ -69,6 +70,26 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
             datas[index].add(value)
             index = index + 1
 
+    ref_datas = []
+    if (ref_csv_file is not None):
+        ref_full_path = os.path.expanduser(ref_csv_file)
+        ref_cr = csv.reader(open(ref_full_path,"r"),delimiter=";")
+        for row in ref_cr:
+          #first line
+          if( row[0] == "time" ):
+            index  = 0
+            for value in row:
+              if(value != ""):
+                data = Data("REF_" + value)
+                ref_datas.append(data)
+          else:
+            index = 0
+            for value in row:
+              if(value != ""):
+                ref_datas[index].add(value)
+                index = index + 1
+
+
     # ## dump dataStructures in javascript data
     full_path =  os.path.expanduser(output_dir)
     jsDst=os.path.join(full_path,"curves.js")
@@ -80,11 +101,18 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
     timeSerie=datas[timeIndex].serie()
 
     del datas[0] # remove time from datas to print
+    if (len(ref_datas) > 0):
+        refTimeSerie=ref_datas[timeIndex].serie()
+        del ref_datas[0]
 
     if withoutOffset:
         minTime = timeSerie[0]
         for i in range(0,len(timeSerie)):
             timeSerie[i] = str(float(timeSerie[i]) - float(minTime))
+        if (len(ref_datas) > 0):
+            minTime = refTimeSerie[0]
+            for i in range(0,len(refTimeSerie)):
+                refTimeSerie[i] = str(float(refTimeSerie[i]) - float(minTime))
 
     index = 0
     for data in datas:
@@ -101,7 +129,7 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
         textBody ="\t{\n"
         textBody +='\t\tlabel:"'+data.name()+'",\n'
         textBody +="\t\tdata:"+name+"\n"
-        if(index < len(datas)-1):
+        if(index < len(datas)-1 or len(ref_datas) > 0):
             textBody +="\t},\n"
         else:
             textBody +="\t}\n"
@@ -109,12 +137,39 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
 
         index +=1
 
+    if (len(ref_datas) > 0):
+        for data in ref_datas:
+            dataToPrint.append("")
+            text = "\n"
+            name = cleanIdForJS(data.name())
+            text += "\tvar "+name+"=[];\n"
+            serie = data.serie()
+            for i in range(0,len(serie)):
+                text += "\t"+name+".push(["+refTimeSerie[i]+","+serie[i]+"]);\n"
+            dataToPrint[index] = text
+
+            dataToPrintBody.append("")
+            textBody ="\t{\n"
+            textBody +='\t\tlabel:"'+data.name()+'",\n'
+            textBody +="\t\tdata:"+name+"\n"
+            if(index < len(datas) + len(ref_datas)-1):
+                textBody +="\t},\n"
+            else:
+                textBody +="\t}\n"
+            dataToPrintBody[index] = textBody
+
+            index +=1
 
     titleToPrint = os.path.basename(csv_file)
     ## javascript file
-    fileSrc = open(jsFileIn,'r')
-    lines = fileSrc.readlines()
-    fileSrc.close()
+    if (len(ref_datas) > 0) :
+        fileSrc = open(jsRefFileIn,'r')
+        lines = fileSrc.readlines()
+        fileSrc.close()
+    else:
+        fileSrc = open(jsFileIn,'r')
+        lines = fileSrc.readlines()
+        fileSrc.close()
     fileDst = open(jsDst,'w')
 
     for line in lines:
@@ -169,6 +224,8 @@ def main():
     parser = OptionParser(usage)
     parser.add_option( '--csvFile', dest="csvFile",
                        help=u'File to read')
+    parser.add_option( '--refCsvFile', dest="refCsvFile",
+                       help=u'Reference file to read')
     parser.add_option( '--outputDir', dest="outputdir",
                        help=u"Output directory for html files created")
     parser.add_option("--withoutOffset", action="store_true", dest="withoutOffset",
@@ -183,7 +240,7 @@ def main():
     if options.outputdir == None:
         parser.error("Output directory should be informed")
 
-    readCsvToHtml(options.csvFile, options.outputdir, options.withoutOffset, options.showpoints)
+    readCsvToHtml(options.csvFile, options.refCsvFile, options.outputdir, options.withoutOffset, options.showpoints)
 
 if __name__ == "__main__":
     main()

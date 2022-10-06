@@ -18,7 +18,7 @@ package BaseClasses_INIT
 function TapEstimation "Function that estimates the initial tap of a transformer"
   extends Icons.Function;
 
-/*
+  /*
   It is done using the voltage and current values on side 1 and the set point value for the voltage module on side 2.
 
   The algorithm uses the following equations related to the input data:
@@ -33,14 +33,14 @@ function TapEstimation "Function that estimates the initial tap of a transformer
     (5) Ax² + Bx + C = 0 with x = rcTfo0Pu²
 
   We then solve for (rcTfo0Pu²) and deduce rcTfo0Pu that is used to find the closest tap - Tap0 -.
-*/
+  */
 
   input Types.ComplexImpedancePu ZPu " Transformer impedance in pu (base U2Nom, SnRef)";
   input Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
   input Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
   input Integer NbTap "Number of taps";
-  input Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base UNom)";
-  input Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+  input Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  input Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
   input Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
 
   output Integer Tap0 "Estimated tap";
@@ -57,7 +57,6 @@ protected
   Real tapEstimation "Intermediate real value corresponding to the tap estimation based on the minimum and maximum tap values";
 
 algorithm
-
   // Handling the one tap case
   if (NbTap == 1) then
     Tap0 := 0;
@@ -93,7 +92,7 @@ algorithm
     Tap0 := integer(ceil(tapEstimation));
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end TapEstimation;
 
 function IdealTransformerTapEstimation "Function that estimates the initial tap of an ideal transformer"
@@ -107,7 +106,7 @@ function IdealTransformerTapEstimation "Function that estimates the initial tap 
   input Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
   input Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
   input Integer NbTap "Number of taps";
-  input Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  input Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
   input Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
 
   output Integer Tap0 "Estimated tap";
@@ -117,7 +116,6 @@ protected
   Real tapEstimation "Intermediate real value corresponding to the tap estimation based on the minimum and maximum tap values";
 
 algorithm
-
   // Handling the one tap case
   if (NbTap == 1) then
     Tap0 := 0;
@@ -145,48 +143,44 @@ algorithm
     Tap0 := integer(ceil(tapEstimation));
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end IdealTransformerTapEstimation;
 
 
 // Base model for initialization of transformers with parameters
 partial model BaseTransformerParameters_INIT "Base model for initialization of transformers"
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
+  parameter Types.Angle U1Phase0 "Start value of voltage angle at terminal 1 in rad";
 
-    parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-    parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
-    parameter Types.Angle U1Phase0  "Start value of voltage angle at terminal 1 in rad";
-
-    Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base UNom)";
-    Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
-    flow Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
 
 equation
-
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
   s10Pu = Complex(P10Pu, Q10Pu);
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTransformerParameters_INIT;
 
 // Base model for initialization of transformers with variables
 partial model BaseTransformerVariables_INIT "Base model for initialization of transformers"
+  Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
 
-    Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base UNom)";
-    flow Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
-
-    Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
-    Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
+  Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
 
 equation
-
   U10Pu = ComplexMath.'abs' (u10Pu);
   P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
   Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTransformerVariables_INIT;
 
 // Base model for initialization of transformers with variable tap
@@ -197,29 +191,24 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
   From these values, the tap position and its corresponding ratio are determined.
   From the tap and ratio values, the final U2, P2 and Q2 values are calculated.
 */
-
   import Dynawo.Electrical.SystemBase;
 
-  public
+  // Transformer's parameters
+  parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
+  parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
+  parameter Integer NbTap "Number of taps";
+  parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
 
-    // Transformer's parameters
-    parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
-    parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
-    parameter Integer NbTap "Number of taps";
-    parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
+  // Transformer start values
+  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  flow Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
-  protected
-    // Transformer start values
-    Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
-    flow Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
-    Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
-
-    Integer Tap0 "Start value of transformer tap";
-    Types.PerUnit rTfo0Pu "Start value of transformer ratio";
-    Constants.state state0 = Constants.state.Closed "Start value of connection state";
+  Integer Tap0 "Start value of transformer tap";
+  Types.PerUnit rTfo0Pu "Start value of transformer ratio";
+  Constants.state state0 = Constants.state.Closed "Start value of connection state";
 
 equation
-
   // Initial ratio estimation
   if (NbTap == 1) then
     rTfo0Pu = rTfoMinPu;
@@ -230,7 +219,7 @@ equation
   // Voltage at terminal 2
   U20Pu = ComplexMath.'abs' (u20Pu);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTransformerVariableTapCommon_INIT;
 
 partial model BaseTransformerVariableTap_INIT "Base model for initialization of TransformerVariableTap"
@@ -246,21 +235,18 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
                                ---
 */
 
-  public
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+  parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
+  parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
+  parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
+  parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
 
-    parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-    parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
-    parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
-    parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
-    parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
+protected
+  // Transformer's impedance and susceptance
+  parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in pu (base U2Nom, SnRef)";
+  parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
 
-  protected
-
-    // Transformer's impedance and susceptance
-    parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in pu (base U2Nom, SnRef)";
-    parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTransformerVariableTap_INIT;
 
 partial model BaseGeneratorTransformer_INIT "Base model for initialization of GeneratorTransformer"
@@ -278,31 +264,25 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
                                 |
                                ---
 */
-
   import Dynawo.Electrical.SystemBase;
 
-  public
+  // Start values at terminal (network terminal side)
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
+  parameter Types.Angle U1Phase0 "Start value of voltage angle at terminal 1 in rad";
 
-    // Start values at terminal (network terminal side)
-    parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-    parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
-    parameter Types.Angle U1Phase0  "Start value of voltage angle at terminal 1 in rad";
-
-    Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
-    Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
-    Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";
-
-    Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 (base U2Nom)";
-    Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
-
-    Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
-    Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (generator convention)";
-    Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
-    Types.Angle U2Phase0 "Start value of voltage angle in rad";
+  Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
+  Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";
+  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 (base U2Nom)";
+  Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
+  Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
+  Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
+  Types.Angle U2Phase0 "Start value of voltage angle in rad";
 
 equation
-
   s10Pu = Complex(P10Pu, Q10Pu);
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
@@ -312,7 +292,7 @@ equation
   U20Pu = ComplexMath.'abs' (u20Pu);
   U2Phase0 = ComplexMath.arg(u20Pu);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseGeneratorTransformer_INIT;
 
 

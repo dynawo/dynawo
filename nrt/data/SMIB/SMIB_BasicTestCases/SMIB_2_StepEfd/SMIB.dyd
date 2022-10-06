@@ -12,38 +12,16 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Network model -->
-  <dyn:modelicaModel id="Network">
-    <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SMIB.par" parId="1"/>
-    <dyn:unitDynamicModel id="line1" name="Dynawo.Electrical.Lines.Line" parFile="SMIB.par" parId="2"/>
-    <dyn:unitDynamicModel id="line2" name="Dynawo.Electrical.Lines.Line" parFile="SMIB.par" parId="3"/>
-    <dyn:unitDynamicModel id="tfo" name="Dynawo.Electrical.Transformers.TransformerFixedRatio" parFile="SMIB.par" parId="4"/>
-    <dyn:connect id1="busInf" var1="terminal" id2="line1" var2="terminal1"/>
-    <dyn:connect id1="busInf" var1="terminal" id2="line2" var2="terminal1"/>
-    <dyn:connect id1="line1" var1="terminal2" id2="tfo" var2="terminal1"/>
-    <dyn:connect id1="line2" var1="terminal2" id2="tfo" var2="terminal1"/>
-  </dyn:modelicaModel>
-  <!-- Generator with four windings with proportional speed regulation and proportional excitation control-->
-  <dyn:modelicaModel id="SM">
-    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5"/>
-    <dyn:unitDynamicModel id="gover" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT" parFile="SMIB.par" parId="6"/>
-    <dyn:unitDynamicModel id="avr" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional_INIT" parFile="SMIB.par" parId="7"/>
-    <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="SMIB.par" parId="8"/>
-    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT" parFile="event.par" parId="1"/>
-    <dyn:unitDynamicModel id="omegaRef" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="SMIB.par" parId="10"/>
-    <dyn:initConnect id1="gover" var1="Pm0Pu" id2="Pm" var2="Value0"/>
-    <dyn:initConnect id1="gen" var1="Pm0Pu" id2="gover" var2="Pm0Pu"/>
-    <dyn:initConnect id1="avr" var1="UsRef0Pu" id2="URef" var2="Value0"/>
-    <dyn:initConnect id1="avr" var1="Efd0PuLF" id2="gen" var2="Efd0Pu"/>
-    <dyn:initConnect id1="avr" var1="Us0Pu" id2="gen" var2="UStator0Pu"/>
-    <dyn:connect id1="gover" var1="PmRefPu" id2="Pm" var2="setPoint.value"/>
-    <dyn:connect id1="gen" var1="PmPu.value" id2="gover" var2="PmPu"/>
-    <dyn:connect id1="gen" var1="omegaPu.value" id2="gover" var2="omegaPu"/>
-    <dyn:connect id1="avr" var1="UsRefPu" id2="URef" var2="step.value"/>
-    <dyn:connect id1="avr" var1="UsPu" id2="gen" var2="UStatorPu.value"/>
-    <dyn:connect id1="avr" var1="EfdPu" id2="gen" var2="efdPu.value"/>
-    <dyn:connect id1="gen" var1="omegaRefPu" id2="omegaRef" var2="setPoint"/>
-  </dyn:modelicaModel>
-  <!-- Connections -->
-  <dyn:connect id1="Network" var1="tfo_terminal2" id2="SM" var2="gen_terminal"/>
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SMIB.par" parId="1"/>
+  <dyn:blackBoxModel id="line1" lib="Line" parFile="SMIB.par" parId="2"/>
+  <dyn:blackBoxModel id="line2" lib="Line" parFile="SMIB.par" parId="3"/>
+  <dyn:blackBoxModel id="tfo" lib="TransformerFixedRatio" parFile="SMIB.par" parId="4"/>
+  <dyn:blackBoxModel id="SM" lib="GeneratorSynchronousFourWindingsProportionalRegulationsStepURef" parFile="SMIB.par" parId="5"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="6"/>
+  <dyn:connect id1="SM" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+  <dyn:connect id1="tfo" var1="transformer_terminal2" id2="SM" var2="generator_terminal"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line2" var2="line_terminal1"/>
+  <dyn:connect id1="line1" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="line2" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
 </dyn:dynamicModelsArchitecture>

@@ -96,7 +96,7 @@ DataInterfaceIIDM::loadExtensions(const std::vector<std::string>& paths) {
       Trace::debug() << path << " is not a valid directory for IIDM extensions" << Trace::endline;
       continue;
     }
-    std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
+    std::regex fileRegex(stdcxx::format(".*iidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
     powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(path, fileRegex);
   }
 }
@@ -957,8 +957,9 @@ const shared_ptr<vector<shared_ptr<ComponentInterface> > >
 DataInterfaceIIDM::findConnectedComponents() {
   auto connectedComponents = boost::make_shared<vector<shared_ptr<ComponentInterface> > >();
   for (auto& component : components_) {
-    if ((component.second)->isPartiallyConnected())
+    if ((component.second)->isPartiallyConnected()) {
       connectedComponents->push_back(component.second);
+    }
   }
   return connectedComponents;
 }

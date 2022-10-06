@@ -169,7 +169,7 @@ static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolve
 
   data->mapConnections();
 
-  std::string ddb_dir = getEnvVar("PWD") + "/../../../../Models/CPP/ModelNetwork/";
+  std::string ddb_dir = getEnvVar("PWD") + "/../../../../../M/CPP/ModelNetwork/";
 #ifndef _MSC_VER
   setenv("DYNAWO_DDB_DIR", ddb_dir.c_str(), 0);
 #else
@@ -998,7 +998,7 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestoration", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 40);
+  ASSERT_EQ(solver->getParametersMap().size(), 41);
 }
 
 TEST(ParametersTest, testParametersInit) {
@@ -1044,9 +1044,10 @@ TEST(ParametersTest, testParametersInit) {
   params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlgInit", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlgInit", 2));
   params->addParameter(parameters::ParameterFactory::newParameter("printflAlgInit", 0));
+  params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestorationInit", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 40);
+  ASSERT_EQ(solver->getParametersMap().size(), 41);
 }
 
 }  // namespace DYN

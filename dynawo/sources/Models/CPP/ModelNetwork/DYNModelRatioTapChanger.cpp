@@ -67,11 +67,13 @@ bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
 }
 
 void
-ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed) {
+ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed, double deltaUTarget) {
   int currentStepIndex = getCurrentStepIndex();
-  g[0] = (uValue > targetV_ + tolV_ && doubleNotEquals(uValue, targetV_ + tolV_)
+  double maxTargetV = targetV_ + tolV_ + deltaUTarget;
+  double minTargetV = targetV_ - tolV_ + deltaUTarget;
+  g[0] = (uValue > maxTargetV && doubleNotEquals(uValue, maxTargetV)
   && !(disable > 0) && !nodeOff && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U > Uc + deadBand
-  g[1] = (uValue < targetV_ - tolV_ && doubleNotEquals(uValue, targetV_ - tolV_)
+  g[1] = (uValue < minTargetV && doubleNotEquals(uValue, minTargetV)
   && !(disable > 0) && !nodeOff && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U < Uc - deadBand
   g[2] = (moveUp_ && ((t - whenUp_ >= getTFirst() && currentStepIndex == tapRefUp_) || (t - whenLastTap_ >= getTNext() && currentStepIndex != tapRefUp_))
           && currentStepIndex < getHighStepIndex() && !(locked > 0) && getRegulating()

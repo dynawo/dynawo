@@ -70,7 +70,7 @@ StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varNa
     index = VAR_Q;
   else if ( varName == "state" )
     index = VAR_STATE;
-  else if ( varName == "regulatingMode" )
+  else if ( varName == "regulatingMode" && extension_ && extension_->hasStandbyAutomaton())
     index = VAR_REGULATINGMODE;
   return index;
 }
@@ -109,12 +109,12 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(staticVarCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(staticVarCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      staticVarCompensatorIIDM_.getTerminal().connect();
+    else
+      staticVarCompensatorIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    staticVarCompensatorIIDM_.getTerminal().connect();
-  else
-    staticVarCompensatorIIDM_.getTerminal().disconnect();
 }
 
 void
@@ -134,11 +134,11 @@ StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
     else
       throw DYNError(Error::MODELER, UndefinedNominalV, staticVarCompensatorIIDM_.getTerminal().getVoltageLevel().getId());
 
-    double teta = getBusInterface()->getAngle0();
+    double theta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
-    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(theta)));
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
-    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(theta * M_PI / 180)));
   } else {
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));

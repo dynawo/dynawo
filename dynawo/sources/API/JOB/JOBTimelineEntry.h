@@ -85,11 +85,24 @@ class TimelineEntry {
    */
   boost::optional<int> getMaxPriority() const;
 
+  /**
+   * @brief filter setter
+   * @param filter whether to filter the timeline
+   */
+  void setFilter(bool filter);
+
+  /**
+   * @brief filter getter
+   * @return whether to filter the timeline
+   */
+  bool isFilter() const;
+
  private:
   std::string outputFile_;  ///< Export file for timeline
   std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file
   bool exportWithTime_;  ///< boolean indicating whether to export time when exporting timeline
   boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
+  bool filter_;  ///< boolean indicating whether to filter timeline
 };
 
 }  // namespace job

@@ -83,35 +83,15 @@ void
 VariableHandler::create(attributes_type const& attributes) {
   Variable::Type variableType;
   if (attributes["type"].as_string() == "continuous") {
-#ifdef LANG_CXX11
     variableType = Variable::Type::CONTINUOUS;
-#else
-    variableType = Variable::CONTINUOUS;
-#endif
   } else if (attributes["type"].as_string() == "discrete") {
-#ifdef LANG_CXX11
     variableType = Variable::Type::DISCRETE;
-#else
-    variableType = Variable::DISCRETE;
-#endif
   } else if (attributes["type"].as_string() == "boolean") {
-#ifdef LANG_CXX11
     variableType = Variable::Type::BOOLEAN;
-#else
-    variableType = Variable::BOOLEAN;
-#endif
   } else if (attributes["type"].as_string() == "discreteArray") {
-#ifdef LANG_CXX11
     variableType = Variable::Type::DISCRETE_ARRAY;
-#else
-    variableType = Variable::DISCRETE_ARRAY;
-#endif
   } else if (attributes["type"].as_string() == "continuousArray") {
-#ifdef LANG_CXX11
     variableType = Variable::Type::CONTINUOUS_ARRAY;
-#else
-    variableType = Variable::CONTINUOUS_ARRAY;
-#endif
   } else {
     throw DYNError(DYN::Error::API, XmlParsingError, "variable type should be one of continuous|discrete|discreteArray|continuousArray");
   }

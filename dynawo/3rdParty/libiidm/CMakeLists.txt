@@ -26,8 +26,6 @@ option(BUILD_XML "enables the XML support." OFF)
 
 option(BUILD_SAMPLES "enables the building of the samples (only those related to built components)." OFF)
 
-set(CXX11_ENABLED OFF CACHE BOOL "activates the C++11 compilation")
-
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -66,29 +64,7 @@ add_definitions(-DBOOST_NO_LONG_LONG)
 
 if(NOT MSVC)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
-
-  # see http://stackoverflow.com/a/25836953
-  if(CXX11_ENABLED)
-    # Test if a C++11 flag is supported
-    include(CheckCXXCompilerFlag)
-    check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-    check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
-    check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
-    if(COMPILER_SUPPORTS_CXX14)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-      add_definitions(-DLANG_CXX14)
-    elseif(COMPILER_SUPPORTS_CXX11)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-      add_definitions(-DLANG_CXX11)
-    elseif(COMPILER_SUPPORTS_CXX0X)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-      add_definitions(-DLANG_CXX0X)
-    else()
-      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
-    endif()
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-  endif()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
 
 # Add specific options for gcc

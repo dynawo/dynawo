@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.BlockingFunction;
 */
 
 model BlockingFunction "Undervoltage blocking function for one side of an HVDC Link"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -28,10 +27,9 @@ model BlockingFunction "Undervoltage blocking function for one side of an HVDC L
   Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
+
 protected
-
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
-
   Types.Time TimerPrepareBlock(start = Modelica.Constants.inf) "Timer to prepare the blocking";
   Types.Time TimerStartBlock(start = Modelica.Constants.inf) "Timer to start the blocking, TBlockUV after TimerPrepareBlock";
   Types.Time TimerMaintainBlock(start = Modelica.Constants.inf) "Timer to maintain the blocking at least TBlock";
@@ -39,7 +37,6 @@ protected
   Types.VoltageModulePu UFilteredPu(start = U0Pu) "Filtered voltage module in pu (base UNom)";
 
 equation
-
   UFilteredPu + tFilter * der(UFilteredPu) = UPu;
 
   when UFilteredPu < UBlockUVPu then
@@ -72,5 +69,4 @@ equation
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})),
   experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
-
 end BlockingFunction;

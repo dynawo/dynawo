@@ -128,6 +128,11 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
   double getPUnderVoltage();
 
   /**
+   * @copydoc LoadInterface::isFictitious()
+   */
+  bool isFictitious();
+
+  /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;

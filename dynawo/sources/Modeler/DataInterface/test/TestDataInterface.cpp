@@ -40,6 +40,14 @@
 #include <powsybl/iidm/LoadAdder.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
+#include <powsybl/iidm/GeneratorAdder.hpp>
+#include <powsybl/iidm/ShuntCompensatorAdder.hpp>
+#include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
+#include <powsybl/iidm/DanglingLineAdder.hpp>
+#include <powsybl/iidm/ThreeWindingsTransformerAdder.hpp>
+#include <powsybl/iidm/LccConverterStationAdder.hpp>
+#include <powsybl/iidm/HvdcLineAdder.hpp>
+#include <powsybl/iidm/VscConverterStationAdder.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 
 #else
@@ -52,6 +60,13 @@
 #include <IIDM/builders/SwitchBuilder.h>
 #include <IIDM/builders/Transformer2WindingsBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
+#include <IIDM/builders/GeneratorBuilder.h>
+#include <IIDM/builders/ShuntCompensatorBuilder.h>
+#include <IIDM/builders/StaticVarCompensatorBuilder.h>
+#include <IIDM/extensions/standbyAutomaton/StandbyAutomatonBuilder.h>
+#include <IIDM/builders/DanglingLineBuilder.h>
+#include <IIDM/builders/HvdcLineBuilder.h>
+#include <IIDM/builders/LccConverterStationBuilder.h>
 #endif
 
 using boost::shared_ptr;
@@ -60,7 +75,7 @@ namespace DYN {
 
 static shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
-  shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
+  shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../M/CPP/ModelNetwork/DYNModelNetwork" +
                                                                              std::string(sharedLibraryExtension()));
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
@@ -95,7 +110,12 @@ exportStateVariables(shared_ptr<DataInterface> data) {
   data->importStaticParameters();
 }
 
-TEST(DataInterfaceTest, testLostEquipments) {
+#ifdef USE_POWSYBL
+static shared_ptr<powsybl::iidm::Network>
+#else
+static shared_ptr<IIDM::Network>
+#endif
+initIIDMNetwork() {
 #ifdef USE_POWSYBL
   auto network = boost::make_shared<powsybl::iidm::Network>("test", "test");
 
@@ -132,6 +152,52 @@ TEST(DataInterfaceTest, testLostEquipments) {
     .add();
 
   vl2.getBusBreakerView().newBus().setId("VL2_BUS1").add().setAngle(1.5).setV(150.);
+
+  vl2.newGenerator()
+    .setId("VL2_GENERATOR")
+    .setBus("VL2_BUS1")
+    .setMinP(0.)
+    .setMaxP(1.)
+    .setTargetP(1.)
+    .setVoltageRegulatorOn(true)
+    .setTargetV(1.)
+    .setTargetQ(0.)
+    .add();
+
+  vl2.newShuntCompensator()
+    .setId("VL2_SHUNT1")
+    .setName("SHUNT1_NAME")
+    .setBus("VL2_BUS1")
+    .newLinearModel()
+    .setBPerSection(12.0)
+    .setMaximumSectionCount(3UL)
+    .add()
+    .setSectionCount(2UL)
+    .add();
+
+  vl2.newStaticVarCompensator()
+    .setId("VL2_SVC1")
+    .setName("SVC1_NAME")
+    .setBus("VL2_BUS1")
+    .setBmin(-0.01)
+    .setBmax(0.02)
+    .setVoltageSetpoint(380.0)
+    .setReactivePowerSetpoint(90.0)
+    .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF)
+    .add();
+
+  vl2.newDanglingLine()
+    .setId("DANGLING_LINE1")
+    .setBus("VL2_BUS1")
+    .setName("DANGLING_LINE1_NAME")
+    .setB(1.0)
+    .setG(2.0)
+    .setP0(3.0)
+    .setQ0(4.0)
+    .setR(5.0)
+    .setX(6.0)
+    .setUcteXnodeCode("ucteXnodeCodeTest")
+    .add();
 
   network->newLine()
     .setId("LINE_VL1_VL2")
@@ -188,6 +254,37 @@ TEST(DataInterfaceTest, testLostEquipments) {
     .setQ0(4000.)
     .add();
 
+  vl1.newLccConverterStation()
+    .setId("LCC1")
+    .setName("LCC1_NAME")
+    .setBus("VL1_BUS1")
+    .setConnectableBus("VL1_BUS1")
+    .setLossFactor(2.0)
+    .setPowerFactor(-.2)
+    .add();
+
+  vl1.newLccConverterStation()
+    .setId("LCC2")
+    .setName("LCC2_NAME")
+    .setBus("VL1_BUS1")
+    .setConnectableBus("VL1_BUS1")
+    .setLossFactor(2.0)
+    .setPowerFactor(-.2)
+    .add();
+
+  network->newHvdcLine()
+    .setId("HVDC1")
+    .setName("HVDC1_NAME")
+    .setActivePowerSetpoint(111.1)
+    .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
+    .setConverterStationId1("LCC1")
+    .setConverterStationId2("LCC2")
+    .setMaxP(12.0)
+    .setNominalV(13.0)
+    .setR(14.0)
+    .add();
+
+  return network;
 #else
   IIDM::builders::NetworkBuilder nb;
   shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("test"));
@@ -212,7 +309,25 @@ TEST(DataInterfaceTest, testLostEquipments) {
   IIDM::Connection c1("VL1", p1, IIDM::side_1);
 
   IIDM::builders::LoadBuilder ldb;
-  vl1.add(ldb.p0(5000.).q0(4000.).build("VL1_LOAD"), c1);
+  vl1.add(ldb.p0(5000.).q0(4000.).build("VL1_LOAD1"), c1);
+
+  IIDM::builders::LccConverterStationBuilder lcsb;
+  lcsb.p(105.);
+  lcsb.q(90.);
+  lcsb.powerFactor(2.);
+  IIDM::LccConverterStation lcc = lcsb.build("LCC1");
+  lcc.connectTo("VL1", p1);
+  vl1.add(lcc);
+  IIDM::LccConverterStation lcc2 = lcsb.build("LCC2");
+  lcc2.connectTo("VL1", p1);
+  vl1.add(lcc2);
+
+  IIDM::builders::HvdcLineBuilder hvdcb;
+  hvdcb.converterStation1("LCC1");
+  hvdcb.converterStation2("LCC2");
+  hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
+  IIDM::HvdcLine hvdc = hvdcb.build("HVDC1");
+  network->add(hvdc);
 
   ss1.add(vl1);
 
@@ -220,13 +335,68 @@ TEST(DataInterfaceTest, testLostEquipments) {
 
   vl2.add(bb.build("VL2_BUS1"));
 
+  IIDM::Port p2("VL2_BUS1", cs);
+  IIDM::Connection vl2_c1("VL2", p2, IIDM::side_1);
+  IIDM::Connection vl2_c2("VL2", p2, IIDM::side_2);
+
+  IIDM::builders::GeneratorBuilder gb;
+  gb.p(1.);
+  gb.q(1.);
+  IIDM::MinMaxReactiveLimits limits(1., 10.);
+  gb.minMaxReactiveLimits(limits);
+  gb.targetP(-105.);
+  gb.pmin(-150.);
+  gb.pmax(200.);
+  IIDM::Generator g = gb.build("VL2_GENERATOR");
+  g.p(-105.);
+  g.q(-90.);
+  g.targetQ(-90.);
+  g.targetV(150.);
+  g.connectTo("VL2", p2);
+  vl2.add(g, vl2_c1);
+
+  IIDM::builders::ShuntCompensatorBuilder scb;
+  scb.q(90.);
+  scb.section_max(20);
+  scb.b_per_section(2.);
+  scb.p(105.);
+  scb.q(90.);
+  IIDM::ShuntCompensator sc = scb.build("VL2_SHUNT1");
+  sc.currentSection(8);
+  vl2.add(sc, vl2_c1);
+
+  IIDM::builders::StaticVarCompensatorBuilder svcb;
+  svcb.regulationMode(IIDM::StaticVarCompensator::regulation_reactive_power);
+  svcb.bmin(1.0);
+  svcb.bmax(10.0);
+  svcb.p(5.);
+  svcb.q(90.);
+  IIDM::StaticVarCompensator svc = svcb.build("VL2_SVC1");
+  IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbab;
+  sbab.standBy(true);
+  svc.setExtension(sbab.build());
+  vl2.add(svc, vl2_c1);
+
+  IIDM::builders::DanglingLineBuilder dlb;
+  IIDM::CurrentLimits limits2(200.);
+  limits2.add("MyLimit", 10., 5.);
+  dlb.currentLimits(limits2);
+  dlb.r(3.);
+  dlb.x(3.);
+  dlb.g(3.);
+  dlb.b(3.);
+  dlb.p0(105.);
+  dlb.p(105.);
+  dlb.q0(90.);
+  dlb.q(90.);
+  IIDM::DanglingLine dl = dlb.build("DANGLING_LINE1");
+  dl.connectTo("VL2", p2);
+  vl2.add(dl);
+
   ss1.add(vl2);
 
-  IIDM::Port p2("VL2_BUS1", cs);
-  IIDM::Connection c2("VL2", p2, IIDM::side_2);
-
   IIDM::builders::Transformer2WindingsBuilder t2Wb;
-  ss1.add(t2Wb.build("2WT_VL1_VL2"), c1, c2);
+  ss1.add(t2Wb.build("2WT_VL1_VL2"), c1, vl2_c2);
 
   vlb.mode(IIDM::VoltageLevel::node_breaker);
   IIDM::VoltageLevel vl3 = vlb.nominalV(360.).node_count(2).build("VL3");
@@ -246,8 +416,14 @@ TEST(DataInterfaceTest, testLostEquipments) {
   network->add(ss1);
 
   IIDM::builders::LineBuilder lnb;
-  network->add(lnb.build("LINE_VL1_VL2"), c1, c2);
+  network->add(lnb.build("LINE_VL1_VL2"), c1, vl2_c2);
+
+  return network;
 #endif
+}
+
+TEST(DataInterfaceTest, testLostEquipments) {
+  auto network = initIIDMNetwork();
 
   shared_ptr<DataInterfaceIIDM> data(new DataInterfaceIIDM(network));
   data->initFromIIDM();
@@ -336,10 +512,22 @@ TEST(DataInterfaceTest, testLostEquipments) {
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
+
+  // line from CLOSED_1 to OPEN
+  connectedComponents = data->findConnectedComponents();
+  line->setValue(LINE_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
   ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), line->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), line->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
+
+  line->setValue(LINE_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
 
   // transf from CLOSED to CLOSED_2
   connectedComponents = data->findConnectedComponents();
@@ -347,10 +535,21 @@ TEST(DataInterfaceTest, testLostEquipments) {
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
+
+  // transf from CLOSED_2 to OPEN
+  connectedComponents = data->findConnectedComponents();
+  tfo->setValue(TRANSF_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
   ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), tfo->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), tfo->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
+  tfo->setValue(TRANSF_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
 
   // switch from CLOSED to CLOSED_3 (no sense: it's for test only)
   connectedComponents = data->findConnectedComponents();
@@ -363,6 +562,10 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ASSERT_EQ((*itLostEquipment)->getType(), sw->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
+  line->setValue(LINE_STATE, CLOSED_1);
+  tfo->setValue(TRANSF_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
+
   // line, transf and switch from CLOSED_* to OPEN
   connectedComponents = data->findConnectedComponents();
   line->setValue(LINE_STATE, OPEN);
@@ -370,7 +573,13 @@ TEST(DataInterfaceTest, testLostEquipments) {
   sw->setValue(SWITCH_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
-  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
+  std::map<std::string, std::string> mapIdToType;
+  for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
+    mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
+  }
+  ASSERT_EQ(mapIdToType.size(), 2);
+  ASSERT_EQ(mapIdToType[line->getID()], line->getTypeAsString());
+  ASSERT_EQ(mapIdToType[tfo->getID()], tfo->getTypeAsString());
 
   // all from CLOSED to OPEN
   sw->setValue(SWITCH_STATE, CLOSED);
@@ -385,7 +594,7 @@ TEST(DataInterfaceTest, testLostEquipments) {
   tfo->setValue(TRANSF_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
-  std::map<std::string, std::string> mapIdToType;
+  mapIdToType.clear();
   for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
     mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
   }
@@ -412,6 +621,47 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ASSERT_EQ(mapIdToType.size(), 2);
   ASSERT_EQ(mapIdToType[swNB->getID()], swNB->getTypeAsString());
   ASSERT_EQ(mapIdToType[loadNB->getID()], loadNB->getTypeAsString());
+}
+
+TEST(DataInterfaceTest, testInstatiateNetwork) {
+  auto network = initIIDMNetwork();
+
+  shared_ptr<DataInterfaceIIDM> data(new DataInterfaceIIDM(network));
+  data->initFromIIDM();
+
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL1_BUS1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL1_BUS2");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL2_BUS1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("calculatedBus_VL3_0");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("calculatedBus_VL3_1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL1_SW12");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL3_SW01");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL1_LOAD1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL3_LOAD");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL2_GENERATOR");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL2_SHUNT1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("VL2_SVC1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("DANGLING_LINE1");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("LINE_VL1_VL2");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("2WT_VL1_VL2");
+  ASSERT_TRUE(data->instantiateNetwork());
+  data->hasDynamicModel("HVDC1");
+  ASSERT_FALSE(data->instantiateNetwork());
 }
 
 }  // namespace DYN

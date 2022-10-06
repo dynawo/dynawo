@@ -19,7 +19,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
   extends Icons.Example;
 
   // Generator and regulations
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0.95,
    Cm0Pu = 1,
    Cos2Eta0 = 0.586492,
@@ -128,6 +128,8 @@ equation
   transformer.switchOffSignal2.value = false;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
+  load.deltaP = 0;
+  load.deltaQ = 0;
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;

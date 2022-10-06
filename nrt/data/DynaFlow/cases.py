@@ -28,16 +28,6 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-###########################################################
-#     IEEE 14 - Disconnect Line with intermediate dump    #
-###########################################################
-
-case_name = "DynaFlow - IEEE14 - DisconnectLine intermediate"
-case_description = "IEEE 14 test case with a line disconnection and intermediate dumps"
-job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "IEEE14", "IEEE14_DisconnectLine_intermediate_dump", "IEEE14.jobs")
-
-test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
-
 #####################################
 #     WSCC9 - Disconnect Line     #
 #####################################
@@ -124,6 +114,16 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcDangling", "HvdcDangling
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#######################################################################################
+#  Small System with generators with tfo and a secondary voltage control              #
+#######################################################################################
+
+case_name = "DynaFlow - Generator PV with transformer and a secondary voltage control"
+case_description = "Small System with generators with transformers and a secondary voltage control"
+job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfo", "GeneratorPVTfo.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ####################################################################################
 #  Small System with two HVDC links with AC Emulation and a power transfer control #
 ####################################################################################
@@ -158,7 +158,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #  Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams #
 ######################################################################################################
 
-if os.environ["DYNAWO_CXX11_ENABLED"] == "YES" and os.environ.get("DYNAWO_USE_LEGACY_IIDM", "NO") != "YES":
+if os.environ.get("DYNAWO_USE_LEGACY_IIDM", "NO") != "YES":
     case_name = "DynaFlow - HVDC links with AC Emulation, a centralized voltage control and PQ diagrams"
     case_description = "Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams"
     job_file = os.path.join(os.path.dirname(__file__), "HvdcPQPropDiagramPQ", "HvdcPQPropDiagramPQ.jobs")

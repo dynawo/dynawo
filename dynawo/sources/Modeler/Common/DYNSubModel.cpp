@@ -1242,7 +1242,7 @@ SubModel::addMessage(const string& message) {
 void
 SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeline) {
   if (timeline_) {
-    timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority());
+    timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
   }
 }
 

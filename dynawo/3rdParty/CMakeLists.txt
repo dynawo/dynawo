@@ -12,7 +12,6 @@
 cmake_minimum_required(VERSION 3.9.6 FATAL_ERROR)
 
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
-option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
 option(USE_LEGACY_IIDM "Force use of legacy IIDM library" FALSE)
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
@@ -59,26 +58,7 @@ set(ZLIB_ROOT         CACHE PATH "Path where a ZLib installation already exists"
 set(LIBXML2_HOME      CACHE PATH "Path where a libxml2 installation already exists")
 
 if(NOT MSVC)
-  # check if c++11 can be enabled
-  if(CXX11_ENABLED)
-    # see http://stackoverflow.com/a/25836953
-    include(CheckCXXCompilerFlag)
-    unset(COMPILER_SUPPORTS_CXX11 CACHE)
-    check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
-    unset(COMPILER_SUPPORTS_CXX0X CACHE)
-    check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-    if(COMPILER_SUPPORTS_CXX11)
-      set(CXX_STDFLAG "-std=c++11")
-    elseif(COMPILER_SUPPORTS_CXX0X)
-      set(CXX_STDFLAG "-std=c++0x")
-    else()
-      message("The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Fall back to C++98 standard.")
-      set(CXX11_ENABLED FALSE CACHE BOOL "Enable support of C++11 standard" FORCE)
-    endif()
-  endif()
-  if(NOT CXX11_ENABLED)
-    set(CXX_STDFLAG "-std=c++98")
-  endif()
+  set(CXX_STDFLAG "-std=c++11")
 endif()
 
 # Try to get the number of processors (core/thread)
@@ -114,12 +94,10 @@ else()
   set(boost_md5            319C6FFBBECCC366F14BB68767A6DB79)
 endif()
 
-if(CXX11_ENABLED)
-  if(${boost_version} STRLESS "1.70.0")
-    set(boost_version "1.70.0")
-    set(boost_md5          fea771fe8176828fabf9c09242ee8c26)
-  endif()
-endif(CXX11_ENABLED)
+if(${boost_version} STRLESS "1.70.0")
+  set(boost_version "1.70.0")
+  set(boost_md5          fea771fe8176828fabf9c09242ee8c26)
+endif()
 
 string(REPLACE "." "_" boost_version_ ${boost_version})
 set(boost_name           boost_${boost_version_}.tar.gz)
@@ -397,16 +375,9 @@ set(Boost_USE_STATIC_RUNTIME False)
 find_package(Boost ${boost_version} QUIET)
 
 if(Boost_FOUND)
-  if(CXX11_ENABLED)
-    find_package(Boost ${boost_version} QUIET
-      COMPONENTS date_time filesystem program_options serialization system log iostreams thread regex chrono atomic
-    )
-  else()
-    find_package(Boost ${boost_version} QUIET
-      COMPONENTS filesystem program_options serialization system log iostreams thread regex chrono atomic
-    )
-  endif()
-
+  find_package(Boost ${boost_version} QUIET
+    COMPONENTS date_time filesystem program_options serialization system log iostreams thread regex chrono atomic
+  )
 endif()
 
 if(MSVC)
@@ -438,6 +409,7 @@ else()
                           -sNO_BZIP2=1
                           install
                           --prefix=<INSTALL_DIR>
+                          --libdir=<INSTALL_DIR>/bin
                           --disable-icu
                           --with-date_time
                           --with-filesystem
@@ -458,11 +430,7 @@ else()
     )
 
   else()
-    if(CXX11_ENABLED)
-      set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams")
-    else()
-      set(TmpVar "--with-libraries=filesystem,program_options,serialization,system,log,iostreams")
-    endif()
+    set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams")
 
     ExternalProject_Add(boost
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
@@ -581,6 +549,7 @@ else()
 
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                        -DBUILD_SHARED_LIBS=ON
   )
   ExternalProject_Get_Property(suitesparse install_dir)
   set(SUITESPARSE_HOME ${install_dir})
@@ -668,6 +637,7 @@ else()
                         -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib
                         -DNICSLU_ENABLE=$<BOOL:${NICSLU_FOUND}>
                         -DNICSLU_HOME=${NICSLU_HOME}
+                        $<$<BOOL:${MSVC}>:-DCMAKE_INSTALL_LIBDIR=bin>
   )
   ExternalProject_Get_Property(sundials install_dir)
   set(SUNDIALS_HOME ${install_dir})
@@ -744,10 +714,11 @@ if(NOT OMCompiler)
       COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
       CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
-                COMMAND   autoreconf
+                COMMAND   autoreconf || autoupdate && autoreconf --install
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
+                          "CXXFLAGS=-std=c++11"
                           --prefix=<INSTALL_DIR>
                           --disable-modelica3d
                           --disable-omnotebook
@@ -805,7 +776,7 @@ else()
       SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libzip
 
       CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-                          -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
+                          -DCXX11_ENABLED:BOOL=TRUE
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -814,6 +785,7 @@ else()
                           -DLIBZIP_BUILD_SAMPLES:BOOL=$<BOOL:${LIBZIP_BUILD_SAMPLES}>
                           -DLIBARCHIVE_HOME:PATH=${LIBARCHIVE_HOME}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
+                          $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT}
                           $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
   )
@@ -921,7 +893,7 @@ else()
       SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libxml
 
       CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-                          -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
+                          -DCXX11_ENABLED:BOOL=TRUE
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
@@ -930,13 +902,14 @@ else()
                           -DLibXML_SAX_BUILD_SAMPLES:BOOL=$<BOOL:${LIBXML_BUILD_SAMPLES}>
                           -DXERCESC_HOME:PATH=${XERCESC_HOME}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
+                          $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
   )
   ExternalProject_Get_Property(libxml install_dir)
   set(LIBXML_HOME ${install_dir})
 endif()
 
-if(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)
+if(NOT USE_LEGACY_IIDM)
  cmake_minimum_required(VERSION 3.12)
 
  include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
@@ -962,7 +935,7 @@ else()
           SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
 
           CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-                              -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
+                              -DCXX11_ENABLED:BOOL=TRUE
 
           CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                               -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -972,8 +945,9 @@ else()
                               -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME}
                               -DXERCESC_HOME:PATH=${XERCESC_HOME}
                               -DBOOST_ROOT:PATH=${BOOST_ROOT}
+                              $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
   )
   ExternalProject_Get_Property(libiidm0 install_dir)
   set(LIBIIDM_HOME ${install_dir})
 endif()
-endif(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)
+endif(NOT USE_LEGACY_IIDM)

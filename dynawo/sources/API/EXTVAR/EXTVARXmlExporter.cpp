@@ -76,19 +76,19 @@ XmlExporter::writeVariable(const shared_ptr<Variable>& variable, Formatter& form
   attrs.add("id", variable->getId());
   std::string type;
   switch (variable->getType()) {
-    case Variable::CONTINUOUS:
+    case Variable::Type::CONTINUOUS:
       type = "continuous";
       break;
-    case Variable::DISCRETE:
+    case Variable::Type::DISCRETE:
       type = "discrete";
       break;
-    case Variable::BOOLEAN:
+    case Variable::Type::BOOLEAN:
       type = "boolean";
       break;
-    case Variable::CONTINUOUS_ARRAY:
+    case Variable::Type::CONTINUOUS_ARRAY:
       type = "continuousArray";
       break;
-    case Variable::DISCRETE_ARRAY:
+    case Variable::Type::DISCRETE_ARRAY:
       type = "discreteArray";
       break;
   }

@@ -11,6 +11,7 @@
 // simulation tool for power systems.
 //
 
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
@@ -29,6 +30,8 @@
 #include "DYNTwoWTransformerInterface.h"
 #include "gtest_dynawo.h"
 
+#include <powsybl/iidm/Battery.hpp>
+#include <powsybl/iidm/BatteryAdder.hpp>
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/BusbarSection.hpp>
 #include <powsybl/iidm/BusbarSectionAdder.hpp>
@@ -474,6 +477,17 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
                               .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(load.getTerminal()))
                               .add();
 
+  powsybl::iidm::Battery& battery = vlIIDM1.newBattery()
+                      .setId("BAT1")
+                      .setName("BAT1_NAME")
+                      .setBus(b1.getId())
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setP0(5.0)
+                      .setQ0(5.0)
+                      .add();
+
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
   VoltageLevelInterfaceIIDM vl2(vlIIDM2);
   GeneratorInterfaceIIDM genItf(gen);
@@ -490,6 +504,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   StaticVarCompensatorInterfaceIIDM svcItf2(svc2);
   LoadInterfaceIIDM loadItf(load);
   VscConverterInterfaceIIDM vscItf(vsc);
+  BatteryInterfaceIIDM batItf(battery);
 
   shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
   shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
@@ -523,6 +538,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   svcItf2.setBusInterface(bus2);
   loadItf.setBusInterface(bus1);
   vscItf.setBusInterface(bus1);
+  batItf.setBusInterface(bus1);
 
   interface.initFromIIDM();
 
@@ -541,6 +557,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   ASSERT_EQ(serviceManager->getRegulatedBus(svcItf2.getID())->getID(), bus1->getID());
   ASSERT_EQ(serviceManager->getRegulatedBus(vscItf.getID())->getID(), bus1->getID());
   ASSERT_FALSE(serviceManager->getRegulatedBus(lineItf.getID()));
+  ASSERT_FALSE(serviceManager->getRegulatedBus(batItf.getID()));
 }
 
 }  // namespace DYN

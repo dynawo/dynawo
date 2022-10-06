@@ -23,58 +23,57 @@ package Event
    Depending on the type of model variable they are connected to, the event model is different */
 
 partial model EventEquations
-    parameter typeParameter stateEvent1   "Post event state";
-    parameter typeParameter stateEvent2  if (nbEventVariables >= 2);
-    parameter typeParameter stateEvent3  if (nbEventVariables >= 3);
-    parameter typeParameter stateEvent4  if (nbEventVariables >= 4);
-    parameter typeParameter stateEvent5  if (nbEventVariables >= 5);
+  parameter typeParameter stateEvent1 "Post event state";
+  parameter typeParameter stateEvent2  if (nbEventVariables >= 2);
+  parameter typeParameter stateEvent3  if (nbEventVariables >= 3);
+  parameter typeParameter stateEvent4  if (nbEventVariables >= 4);
+  parameter typeParameter stateEvent5  if (nbEventVariables >= 5);
 
-    typeConnector state1 "Current state";
-    typeConnector state2 if (nbEventVariables >= 2);
-    typeConnector state3 if (nbEventVariables >= 3);
-    typeConnector state4 if (nbEventVariables >= 4);
-    typeConnector state5 if (nbEventVariables >= 5);
+  typeConnector state1 "Current state";
+  typeConnector state2 if (nbEventVariables >= 2);
+  typeConnector state3 if (nbEventVariables >= 3);
+  typeConnector state4 if (nbEventVariables >= 4);
+  typeConnector state5 if (nbEventVariables >= 5);
 
-  public
-    parameter Types.Time tEvent "Event time";
+  parameter Types.Time tEvent "Event time";
 
-    parameter Integer nbEventVariables (min = 1, max = 5) "Number of variables to update during the event";
+  parameter Integer nbEventVariables(min = 1, max = 5) "Number of variables to update during the event";
 
-  protected
-    // Replaceable items in order to allow using this model for various types (integer, boolean, real...)
-    replaceable connector typeConnector = Connectors.ZPin;
-    replaceable type typeParameter = Real;
+protected
+  // Replaceable items in order to allow using this model for various types (integer, boolean, real...)
+  replaceable connector typeConnector = Connectors.ZPin;
+  replaceable type typeParameter = Real;
 
-  equation
+equation
+  when (time >= tEvent) then
+    state1.value = stateEvent1;
+  end when;
+
+  if (nbEventVariables >= 2) then
     when (time >= tEvent) then
-      state1.value = stateEvent1;
+      state2.value = stateEvent2;
     end when;
+  end if;
 
-    if (nbEventVariables >= 2) then
-      when (time >= tEvent) then
-        state2.value = stateEvent2;
-      end when;
-    end if;
+  if (nbEventVariables >= 3) then
+    when (time >= tEvent) then
+      state3.value = stateEvent3;
+    end when;
+  end if;
 
-    if (nbEventVariables >= 3) then
-      when (time >= tEvent) then
-        state3.value = stateEvent3;
-      end when;
-    end if;
+  if (nbEventVariables >= 4) then
+    when (time >= tEvent) then
+      state4.value = stateEvent4;
+    end when;
+  end if;
 
-    if (nbEventVariables >= 4) then
-      when (time >= tEvent) then
-        state4.value = stateEvent4;
-      end when;
-    end if;
+  if (nbEventVariables >= 5) then
+    when (time >= tEvent) then
+      state5.value = stateEvent5;
+    end when;
+  end if;
 
-    if (nbEventVariables >= 5) then
-      when (time >= tEvent) then
-        state5.value = stateEvent5;
-      end when;
-    end if;
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end EventEquations;
 
 // Specific model for Boolean variables events
@@ -94,51 +93,45 @@ model TripleBooleanEvent = EventBoolean (nbEventVariables = 3);
 
 // Event for quadripole opening or closing (for example, for tripping)
 model EventQuadripoleStatus
-
   extends SingleRealEvent (stateEvent1 = if(openOrigin and openExtremity) then Constants.stateToReal(Constants.state.Open)
                                          elseif (openOrigin and not openExtremity) then Constants.stateToReal(Constants.state.Closed2)
                                          elseif (not openOrigin and openExtremity) then Constants.stateToReal(Constants.state.Closed1)
                                          else Constants.stateToReal(Constants.state.Closed));
 
-  public
-    parameter Boolean openOrigin  "Open the quadripole origin ?";
-    parameter Boolean openExtremity  "Open the quadripole extremity ?";
+  parameter Boolean openOrigin "Open the quadripole origin ?";
+  parameter Boolean openExtremity "Open the quadripole extremity ?";
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end EventQuadripoleStatus;
 
 // Event for quadripole connection
 model EventQuadripoleConnection
+  extends EventQuadripoleStatus(openOrigin = not(connectOrigin), openExtremity = not(connectExtremity));
 
-  extends EventQuadripoleStatus (openOrigin = not(connectOrigin), openExtremity = not(connectExtremity));
+  parameter Boolean connectOrigin "Connect the quadripole origin ?";
+  parameter Boolean connectExtremity "Connect the quadripole extremity ?";
 
-  public
-    parameter Boolean connectOrigin  "Connect the quadripole origin ?";
-    parameter Boolean connectExtremity  "Connect the quadripole extremity ?";
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end EventQuadripoleConnection;
 
 // Event for quadripole disconnection
 model EventQuadripoleDisconnection
+  extends EventQuadripoleStatus(openOrigin = disconnectOrigin, openExtremity = disconnectExtremity);
 
-  extends EventQuadripoleStatus (openOrigin = disconnectOrigin, openExtremity = disconnectExtremity);
+  parameter Boolean disconnectOrigin "Disconnect the quadripole origin ?";
+  parameter Boolean disconnectExtremity "Disconnect the quadripole extremity ?";
 
-  public
-    parameter Boolean disconnectOrigin  "Disconnect the quadripole origin ?";
-    parameter Boolean disconnectExtremity  "Disconnect the quadripole extremity ?";
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end EventQuadripoleDisconnection;
 
 // Event for changing connection status of a component (connected or disconnected)
 model EventConnectedStatus
   extends SingleRealEvent (stateEvent1 = if(open) then Constants.stateToReal(Constants.state.Open)
                                          else Constants.stateToReal(Constants.state.Closed));
-  public
+
   parameter Boolean open "Disconnect the component ?";
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end EventConnectedStatus;
 
 annotation(preferredView = "text");

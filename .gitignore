@@ -2,7 +2,6 @@ build/
 build-code/
 dynawo/sources/Common/*_keys.cpp
 dynawo/sources/Common/*_keys.h
-dynawo/sources/Common/*_oppositeEvents.py
 dynawo/sources/Models/Modelica/Dynawo/NonElectrical/Logs/*Keys.mo
 dynawo/sources/config.h
 dynawo/sources/gitversion.h*
@@ -28,6 +27,7 @@ examples/*/description/*toc
 examples/*/description/*out
 examples/*/description/*log
 !nrt/data/*/*/reference/outputs*/
+!nrt/data/*/*/*/reference/outputs*/
 nrt/data/*/*/execution/
 nrt/data/*/*/description/*.log
 nrt/data/*/*/description/*.pdf
@@ -44,7 +44,9 @@ dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
 dynawo/sources/Models/CPP/Components/ModelLoadRestorativeWithLimits/DYNModelLoadRestorativeWithLimits.hpp
 dynawo/sources/Models/CPP/Controls/Shunts/ModelCentralizedShuntsSectionControl/DYNModelCentralizedShuntsSectionControl.hpp
+dynawo/sources/Models/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/DYNModelVoltageMeasurementsUtilities.hpp
 dynawo/sources/Models/CPP/Events/ModelVariationArea/DYNModelVariationArea.hpp
+dynawo/sources/Models/CPP/Events/ModelAreaShedding/DYNModelAreaShedding.hpp
 dynawo/sources/Models/CPP/Events/ModelVoltageSetPointChange/DYNModelVoltageSetPointChange.hpp
 nrt/output/
 *.pyc
@@ -232,6 +234,9 @@ documentation/licenses/sundials/license-no-numbering.pdf
 documentation/licenses/xerces-c/license-no-numbering.aux
 documentation/licenses/xerces-c/license-no-numbering.log
 documentation/licenses/xerces-c/license-no-numbering.pdf
+documentation/licenses/*/license-no-numbering.aux
+documentation/licenses/*/license-no-numbering.log
+documentation/licenses/*/license-no-numbering.pdf
 documentation/advancedDoc/advancedDoc.aux
 documentation/advancedDoc/advancedDoc.log
 documentation/advancedDoc/advancedDoc.out

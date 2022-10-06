@@ -16,7 +16,6 @@ package BaseClasses
   extends Icons.BasesPackage;
 
 record TransformerParameters "Classical transformer parameters"
-
   parameter Types.PerUnit RPu "Resistance of the generator transformer in pu (base U2Nom, SnRef)";
   parameter Types.PerUnit XPu "Reactance of the generator transformer in pu (base U2Nom, SnRef)";
   parameter Types.PerUnit GPu "Conductance of the generator transformer in pu (base U2Nom, SnRef)";
@@ -25,7 +24,7 @@ record TransformerParameters "Classical transformer parameters"
   final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in pu (base U2Nom, SnRef)";
   final parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in pu (base U2Nom, SnRef)";
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end TransformerParameters;
 
 partial model BaseTransformerVariableTap "Base class for ideal and classical transformers with variable tap"
@@ -44,21 +43,19 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input connectors
-  Connectors.ZPin tap (value (start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
+  Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Output connectors
-  Connectors.ImPin U1Pu (value (start = U10Pu)) "Absolute voltage on side 1";
-  Connectors.ImPin P1Pu (value (start = P10Pu)) "Active power on side 1";
-  Connectors.ImPin Q1Pu (value (start = Q10Pu)) "Reactive power on side 1";
-  Connectors.ImPin U2Pu (value (start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
-
-protected
+  Connectors.ImPin U1Pu(value(start = U10Pu)) "Absolute voltage on side 1";
+  Connectors.ImPin P1Pu(value(start = P10Pu)) "Active power on side 1";
+  Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power on side 1";
+  Connectors.ImPin U2Pu(value(start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   // Parameters coming from the initialization process
-  parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
-  parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
-  parameter Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
+  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
 
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
   parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
@@ -69,10 +66,9 @@ protected
   parameter Types.PerUnit rTfo0Pu "Start value of transformer ratio";
 
   // Internal variables
-  discrete Types.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
+  discrete Types.PerUnit rTfoPu(start = rTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
 equation
-
   when (tap.value <> pre(tap.value)) then
     // Transformer ratio calculation
     if (NbTap == 1) then
@@ -95,7 +91,7 @@ equation
     U2Pu.value = 0;
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTransformerVariableTap;
 
 

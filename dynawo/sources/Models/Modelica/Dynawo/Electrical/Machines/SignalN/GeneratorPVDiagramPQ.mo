@@ -13,8 +13,8 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the frequency handling with an N points PQ diagram."
-
   import Modelica;
+
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -40,10 +40,9 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 
 protected
-  QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-
   PGenPu = tableQMin.u[1];
   tFilter * der(QMinPu) + QMinPu = tableQMin.y[1];
   PGenPu = tableQMax.u[1];
@@ -57,18 +56,18 @@ equation
     qStatus = QStatus.Standard;
   end when;
 
-if running.value then
-  if qStatus == QStatus.GenerationMax then
-    QGenPu = QMaxPu;
-  elseif qStatus == QStatus.AbsorptionMax then
-    QGenPu = QMinPu;
+  if running.value then
+    if qStatus == QStatus.GenerationMax then
+      QGenPu = QMaxPu;
+    elseif qStatus == QStatus.AbsorptionMax then
+      QGenPu = QMinPu;
+    else
+      UPu = URefPu;
+    end if;
   else
-    UPu = URefPu;
+    terminal.i.im = 0;
   end if;
-else
-  terminal.i.im = 0;
-end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>  This generator provides an active power PGenPu that depends on an emulated frequency regulation and regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu. These limits are calculated in the model depending on PGenPu.</div></body></html>"));
 end GeneratorPVDiagramPQ;

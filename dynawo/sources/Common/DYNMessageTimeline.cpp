@@ -44,11 +44,7 @@ MessageTimeline::initialize(const string& key) {
   if (IoDicos::hasIoDico(dicoName)) {
     try {
       string priority = IoDicos::getIoDico(dicoName)->msg(key);
-#ifdef LANG_CXX11
       priority_ = std::stoi(priority);
-#else
-      priority_ = std::atoi(priority.c_str());
-#endif
     } catch (const MessageError&) {
       std::cerr << "Could not load the message associated to key " << key << std::endl;
     }

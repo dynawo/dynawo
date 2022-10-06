@@ -80,13 +80,8 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current in pu (base UNom, SnRef) (receptor convention)";
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  source.switchOffSignal1.value = false;
-  source.switchOffSignal2.value = false;
-  injector.switchOffSignal1.value = false;
-  injector.switchOffSignal2.value = false;
-  injector.switchOffSignal3.value = false;
+  line.switchOffSignal1.value = injector.switchOffSignal1.value;
+  source.switchOffSignal1.value = injector.switchOffSignal1.value;
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-109, -14}, {-91, -14}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

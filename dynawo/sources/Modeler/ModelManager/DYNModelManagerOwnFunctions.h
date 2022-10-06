@@ -97,6 +97,17 @@ void put_real_element(modelica_real value, int i1, real_array_t *dest);
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
+modelica_real min_real_array(const real_array_t a);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real max_real_array(const real_array_t a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
 void simple_alloc_1d_real_array(real_array_t* dest, int n);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
@@ -257,6 +268,12 @@ void put_real_matrix_element(modelica_real value, int r, int c, real_array_t* de
 modelica_real* real_array_element_addr1(const real_array_t * source, int ndims, int dim1);
 
 /**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real* real_array_element_addr2(const real_array_t * source, int ndims, int dim1, int dim2);
+
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
@@ -267,6 +284,52 @@ void create_integer_array_from_range(integer_array_t *dest, modelica_integer sta
  * It is needed for Dynawo models dynamic libraries compilation
  */
 _index_t* integer_array_make_index_array(const integer_array_t *arr);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/gc/memory_pool.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+m_boolean* boolean_alloc(int n);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+inline modelica_boolean *boolean_ptrget(const boolean_array_t *a, size_t i) {
+    return reinterpret_cast<modelica_boolean *>(a->data) + i;
+}
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+m_boolean* boolean_array_element_addr1(const boolean_array_t* source, int ndims, int dim1);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+inline void boolean_set(boolean_array_t *a, size_t i, modelica_boolean r) {
+    reinterpret_cast<modelica_boolean *> (a->data)[i] = r;
+}
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+extern void simple_alloc_1d_boolean_array(boolean_array_t* dest, int n);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void put_boolean_element(m_boolean value, int i1, boolean_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void array_alloc_scalar_boolean_array(boolean_array_t* dest, int n, ...);
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h

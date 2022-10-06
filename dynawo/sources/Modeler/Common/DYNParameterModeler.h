@@ -50,6 +50,16 @@ class ParameterModeler : public ParameterCommon {
             const std::string& cardinalityInformator = "");
 
   /**
+   * @brief Default copy Constructor
+   */
+  ParameterModeler(const ParameterModeler&) = default;
+  /**
+   * @brief Default assignement operator
+   * @returns *this
+   */
+  ParameterModeler& operator=(const ParameterModeler&) = delete;
+
+  /**
    * @brief checks whether a parameter value may be set
    * @param origin tested origin for the parameter
    * @throws when it is forbidden to write data for the current parameter and origin
@@ -220,6 +230,8 @@ class ParameterModeler : public ParameterCommon {
   Error::TypeError_t getTypeError() const;
 
  private:
+  ParameterModeler() = delete;  ///< default constructor
+
   std::map<parameterOrigin_t, bool> writeRights_;  ///< whether it is allowed to write a given parameter value from a given origin
   std::map <parameterOrigin_t, boost::any> values_;  ///< values of the parameter and its origin
   boost::optional<parameterOrigin_t> origin_;  ///< priority origin of the parameter's value

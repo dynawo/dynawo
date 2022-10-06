@@ -16,26 +16,23 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.TapChanger);
+  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET(targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.TapChanger);
 
-  public
-    parameter Types.VoltageModule UTarget "Voltage set-point";
-    parameter Types.VoltageModule UDeadBand (min = 0) "Voltage dead-band";
-    parameter Types.VoltageModule U0  "Initial voltage";
+  parameter Types.VoltageModule UTarget "Voltage set-point";
+  parameter Types.VoltageModule UDeadBand(min = 0) "Voltage dead-band";
+  parameter Types.VoltageModule U0 "Initial voltage";
 
-    Connectors.ImPin UMonitored (value (start = U0)) "Initial voltage";
+  Connectors.ImPin UMonitored(value(start = U0)) "Initial voltage";
 
 equation
+  connect(UMonitored, valueToMonitor);
+  when (valueToMonitor.value < valueMin) and not(locked) then
+    Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
+  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+    Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
+  end when;
 
-    connect(UMonitored, valueToMonitor);
-
-    when (valueToMonitor.value < valueMin) and not(locked) then
-      Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
-    elsewhen (valueToMonitor.value > valueMax) and not(locked) then
-      Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
-    end when;
-
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The tap changer controls a monitored voltage to keep it within a voltage range defined by [UMin ; UMax]. When the voltage goes above UMax or below UMin, the tap-changer is ready to begin increasing its tap until the voltage value comes back to an acceptable value.<div><br></div><div>The time interval before the first time change is specified with a first timer and a second timer indicates the time interval between further changes. The automaton can be locked by an external controller: in this case, it stops acting.&nbsp;</div><div><br></div><div>The detailed tap-changer behavior is explained in the following state diagram:
 
 <figure>

@@ -27,7 +27,6 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
                                ---
 
 */
-
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
@@ -35,9 +34,9 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
   extends BaseClasses.TransformerParameters;
   extends AdditionalIcons.Transformer;
 
-  Connectors.ACPower terminal1 (V (re (start = u10Pu.re), im (start = u10Pu.im)),i (re (start = i10Pu.re), im (start = i10Pu.im))) annotation(
+  Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)),i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2 (V (re (start = u20Pu.re), im (start = u20Pu.im)),i (re (start = i20Pu.re), im (start = i20Pu.im))) annotation(
+  Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)),i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
@@ -53,15 +52,13 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
   Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
-protected
-
   // Transformer start values
-  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
 
-  parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q20Pu  "Start value of reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
@@ -70,7 +67,6 @@ protected
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
 
 equation
-
   if (running.value) then
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
@@ -99,7 +95,7 @@ equation
     Q2Pu = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>
 The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>

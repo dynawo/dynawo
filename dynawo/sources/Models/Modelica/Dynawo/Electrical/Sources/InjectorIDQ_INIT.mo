@@ -17,23 +17,18 @@ model InjectorIDQ_INIT "Initialisation model for the injector controlled by d an
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0  "Start value of voltage angle at injector terminal (in rad)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
-
-protected
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal (in rad)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at injector terminal in pu (base SnRef) (receptor convention)";
   flow Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
-
   Types.PerUnit Id0Pu "Start value of id in pu (base SNom)";
   Types.PerUnit Iq0Pu "Start value of iq in pu (base SNom)";
 
-
 equation
-
   s0Pu = Complex(P0Pu, Q0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
@@ -42,5 +37,5 @@ equation
   i0Pu.re = -1 * (cos(UPhase0) * Id0Pu - sin(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
   i0Pu.im = -1 * (sin(UPhase0) * Id0Pu + cos(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end InjectorIDQ_INIT;

@@ -21,6 +21,7 @@
 #define API_JOB_JOBCURVESENTRY_H_
 
 #include <string>
+#include <boost/optional.hpp>
 
 namespace job {
 
@@ -49,6 +50,18 @@ class CurvesEntry {
   const std::string& getExportMode() const;
 
   /**
+   * @brief Iteration step attribute getter
+   * @return Integer step to dump curve values every N iterations
+   */
+  boost::optional<int> getIterationStep() const;
+
+  /**
+   * @brief Time step attribute getter
+   * @return Time step to dump curve values every N seconds
+   */
+  boost::optional<double> getTimeStep() const;
+
+  /**
    * @brief Input file attribute setter
    * @param inputFile Input file for curves
    */
@@ -66,10 +79,24 @@ class CurvesEntry {
    */
   void setExportMode(const std::string& exportMode);
 
+  /**
+   * @brief Iteration step attribute setter
+   * @param iterationStep Integer step to dump curve values every N iterations
+   */
+  void setIterationStep(boost::optional<int> iterationStep);
+
+    /**
+   * @brief Time step attribute setter
+   * @param timeStep Time step to dump curve values every N seconds
+   */
+  void setTimeStep(boost::optional<double> timeStep);
+
  private:
-  std::string inputFile_;   ///< Input file for curves
-  std::string outputFile_;  ///< Output file for curves
-  std::string exportMode_;  ///< Export mode TXT, CSV, XML for curves output file
+  std::string inputFile_;                 ///< Input file for curves
+  std::string outputFile_;                ///< Output file for curves
+  std::string exportMode_;                ///< Export mode TXT, CSV, XML for curves output file
+  boost::optional<int> iterationStep_;    ///< Integer step to dump curve values every N iterations
+  boost::optional<double> timeStep_;      ///< Time step to dump curve values every N seconds
 };
 
 }  // namespace job

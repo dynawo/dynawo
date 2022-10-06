@@ -15,18 +15,16 @@ within Dynawo.Electrical.Controls.Basics;
 model Perturbation "Parametrable perturbation model : adds a constant signal at a given time"
   import Dynawo.Connectors;
 
-  public
-    Connectors.ImPin signal (value(start = Value0));
-    Connectors.ImPin perturbatedSignal (value(start = Value0));
+  Connectors.ImPin signal(value(start = Value0));
+  Connectors.ImPin perturbatedSignal(value(start = Value0));
 
-    parameter Real Height "Amplitude of the peturbation to be added";
-    parameter Types.Time tStep "Time instant when the perturbation occurs";
+  parameter Real Height "Amplitude of the peturbation to be added";
+  parameter Types.Time tStep "Time instant when the perturbation occurs";
 
-  protected
-    parameter Real Value0 "Start value of the output";
+  parameter Real Value0 "Start value of the output";
 
 equation
   perturbatedSignal.value = signal.value + (if time < tStep then 0 else Height);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end Perturbation;

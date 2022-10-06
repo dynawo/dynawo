@@ -13,16 +13,15 @@ within Dynawo.Electrical.StaticVarCompensators;
 */
 
 model SVarCStandard_INIT "Initialization for standard static var compensator model"
-
   import Dynawo.Electrical.Sources.InjectorBG_INIT;
   import Dynawo.Electrical.SystemBase;
 
   extends AdditionalIcons.Init;
 
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0  "Start value of voltage angle at injector terminal (in rad)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal (in rad)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   parameter Types.ApparentPowerModule SNom "Static var compensator nominal apparent power in MVA";
@@ -34,12 +33,11 @@ model SVarCStandard_INIT "Initialization for standard static var compensator mod
 
   Types.PerUnit G0Pu "Start value of the conductance in pu (base SNom)";
   Types.PerUnit B0Pu "Start value of the susceptance in pu (base SNom)";
-  Types.VoltageModule URef0  "Start value of voltage reference in kV";
+  Types.VoltageModule URef0 "Start value of voltage reference in kV";
 
   InjectorBG_INIT injector(SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu);
 
 equation
-
   URef0 = (U0Pu - Lambda*Q0Pu*SystemBase.SnRef/SNom) * UNom;
 
   u0Pu = injector.u0Pu;
@@ -49,5 +47,5 @@ equation
   G0Pu = injector.G0Pu;
   B0Pu = injector.B0Pu;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SVarCStandard_INIT;

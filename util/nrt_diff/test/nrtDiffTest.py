@@ -20,6 +20,7 @@ try:
     nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
     sys.path.append(nrtDiff_dir)
     import nrtDiff
+    import settings
 except:
     print ("Failed to import non-regression test diff")
     sys.exit(1)
@@ -35,13 +36,29 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves2.csv"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 5 absolute errors", "GEN____8_SM_generator_UStatorPu", "GEN____6_SM_voltageRegulator_EfdPu", "GEN____8_SM_voltageRegulator_EfdPu", "GEN____1_SM_voltageRegulator_EfdPu", "GEN____2_SM_voltageRegulator_EfdPu"})
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
 
     def test_curves_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
+
+    def test_curves_max_dtw(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        settings.dtw_exceptions = {"curves3.csv" : 73, "curves3.xml" : 50}
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        settings.dtw_exceptions = {}
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
+
 
     def test_timeline_log(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -122,6 +139,20 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
 [ERROR] object BUS_TYPE_DIFF_787_U &lt; Umin has different types in the two files\n\
 [ERROR] values of object BUS_LARGE_VALUE_DIFF_778_U &lt; Umin are different (delta = 2.0) \n")
 
+    def test_fqv_xml(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues2.fsv"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues3.fsv"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/finalStateValues.fsv: 6 different output values\n\
+[ERROR] object modelDifferentName_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentVariable_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentName2_variable is in right path but not in left one\n\
+[ERROR] object modelDifferentVariable_variable2 is in right path but not in left one\n\
+[ERROR] object modelNotThere_variable is in right path but not in left one\n\
+[ERROR] values of object modelDifferentValue_variable are different (delta = 3.0) \n")
+
 class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -164,7 +195,7 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
         (diff_statuses, return_message_str) = nrtDiff.DirectoryDiffReferenceDataJob (os.path.join(dir_path, "test.jobs"))
         self.assertEqual(diff_statuses, nrtDiff.DIFFERENT)
         self.assertEqual(len(return_message_str), 1)
-        if "output/Job2/curves.csv: 5 absolute errors" not in return_message_str[0]:
+        if "output/Job2/curves.csv: 6 absolute errors coming from more than 5 curves" not in return_message_str[0]:
             self.assertTrue(False)
 
 

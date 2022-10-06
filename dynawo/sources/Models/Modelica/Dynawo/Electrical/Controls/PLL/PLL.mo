@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.PLL;
 */
 
 model PLL "Phase-Locked Loop"
-
   import Modelica;
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
@@ -58,7 +57,6 @@ model PLL "Phase-Locked Loop"
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PCC in pu (base UNom)";
 
 equation

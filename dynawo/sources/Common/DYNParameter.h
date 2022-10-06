@@ -47,23 +47,16 @@ class ParameterCommon {
   ParameterCommon(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   /**
-  * @brief Default copy Constructor
-  *
-  * @param parameter the parameter to copy
-  */
-#ifdef LANG_CXX11
+   * @brief Default copy Constructor
+   */
   ParameterCommon(const ParameterCommon&) = default;
-#else
-  ParameterCommon(const ParameterCommon& parameter);
-#endif
 
-#ifdef LANG_CXX11
   /**
-  * @brief Default copy assigment operator
-  */
+   * @brief Default copy assigment operator
+   *
+   * @return a new parameter
+   */
   ParameterCommon& operator=(const ParameterCommon&) = delete;
-#endif
-
   /**
    * @brief Destructor
    */
@@ -138,6 +131,8 @@ class ParameterCommon {
   virtual Error::TypeError_t getTypeError() const = 0;
 
  private:
+  ParameterCommon() = delete;  ///< default constructor
+
   std::string name_;  ///< name of the parameter
   typeVarC_t valueType_;  ///< type of the parameter value (BOOL, INT, DOUBLE, STRING: as defined in enum)
   boost::optional<unsigned int> index_;  ///< parameter index in the raw parameters' vector

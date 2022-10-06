@@ -49,54 +49,80 @@ namespace DYN {
 
 ModelHvdcLink::ModelHvdcLink(const shared_ptr<HvdcLineInterface>& dcLine) :
 NetworkComponent(dcLine->getID()),
-stateModified_(false) {
+dcLine_(dcLine),
+stateModified_(false),
+ir01_(0.),
+ii01_(0.),
+ir02_(0.),
+ii02_(0.),
+startingPointMode_(WARM) {
   // retrieve data from VscConverterInterface and HvdcLineInterface (IIDM)
-  setAttributes(dcLine);
-
-  // calculate active power at the two points of common coupling
-  setConvertersActivePower(dcLine);
-
-  // calculate reactive power at the two points of common coupling
-  setConvertersReactivePower(dcLine);
-
-  ir01_ = 0;
-  ii01_ = 0;
-  if (dcLine->getConverter1()->getBusInterface()) {
-    double P01 = dcLine->getConverter1()->getP() / SNREF;
-    double Q01 = dcLine->getConverter1()->getQ() / SNREF;
-    double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
-    double tetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
-    double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-    double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
-    double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
-    double U201 = ur01 * ur01 + ui01 * ui01;
-    if (!doubleIsZero(U201)) {
-      ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
-      ii01_ = (P01 * ui01 - Q01 * ur01) / U201;
-    }
-  }
-
-  ir02_ = 0;
-  ii02_ = 0;
-  if (dcLine->getConverter2()->getBusInterface()) {
-    double P02 = dcLine->getConverter2()->getP() / SNREF;
-    double Q02 = dcLine->getConverter2()->getQ() / SNREF;
-    double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
-    double tetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
-    double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-    double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
-    double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
-    double U202 = ur02 * ur02 + ui02 * ui02;
-    if (!doubleIsZero(U202)) {
-      ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
-      ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
-    }
-  }
+  setAttributes(dcLine_);
 }
 
 void
 ModelHvdcLink::init(int& /*yNum*/) {
   // no state variable for simple hvdc model: no indexes to set
+  // calculate active power at the two points of common coupling
+  setConvertersActivePower(dcLine_);
+
+  // calculate reactive power at the two points of common coupling
+  setConvertersReactivePower(dcLine_);
+
+  switch (startingPointMode_) {
+  case FLAT:
+    if (dcLine_->getConverter1()->getBusInterface()) {
+      double uNode1 = dcLine_->getConverter1()->getBusInterface()->getVNom();
+      double thetaNode1 = dcLine_->getConverter1()->getBusInterface()->getAngle0();
+      double unomNode1 = dcLine_->getConverter1()->getBusInterface()->getVNom();
+      double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+      double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+      double U201 = ur01 * ur01 + ui01 * ui01;
+      if (!doubleIsZero(U201)) {
+        ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
+        ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+      }
+    }
+    if (dcLine_->getConverter2()->getBusInterface()) {
+      double uNode2 = dcLine_->getConverter2()->getBusInterface()->getVNom();
+      double thetaNode2 = dcLine_->getConverter2()->getBusInterface()->getAngle0();
+      double unomNode2 = dcLine_->getConverter2()->getBusInterface()->getVNom();
+      double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+      double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+      double U202 = ur02 * ur02 + ui02 * ui02;
+      if (!doubleIsZero(U202)) {
+        ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
+        ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+      }
+    }
+    break;
+  case WARM:
+    if (dcLine_->getConverter1()->getBusInterface()) {
+      double uNode1 = dcLine_->getConverter1()->getBusInterface()->getV0();
+      double thetaNode1 = dcLine_->getConverter1()->getBusInterface()->getAngle0();
+      double unomNode1 = dcLine_->getConverter1()->getBusInterface()->getVNom();
+      double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+      double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+      double U201 = ur01 * ur01 + ui01 * ui01;
+      if (!doubleIsZero(U201)) {
+        ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
+        ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+      }
+    }
+    if (dcLine_->getConverter2()->getBusInterface()) {
+      double uNode2 = dcLine_->getConverter2()->getBusInterface()->getV0();
+      double thetaNode2 = dcLine_->getConverter2()->getBusInterface()->getAngle0();
+      double unomNode2 = dcLine_->getConverter2()->getBusInterface()->getVNom();
+      double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+      double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+      double U202 = ur02 * ur02 + ui02 * ui02;
+      if (!doubleIsZero(U202)) {
+        ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
+        ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+      }
+    }
+    break;
+  }
 }
 
 void
@@ -233,22 +259,18 @@ ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculated
   switch (numCalculatedVar) {
     case p1Num_:
     case q1Num_: {
-      if (isConnected1()) {
-        int urYNum1 = modelBus1_->urYNum();
-        int uiYNum1 = modelBus1_->uiYNum();
-        numVars.push_back(urYNum1);
-        numVars.push_back(uiYNum1);
-      }
+      int urYNum1 = modelBus1_->urYNum();
+      int uiYNum1 = modelBus1_->uiYNum();
+      numVars.push_back(urYNum1);
+      numVars.push_back(uiYNum1);
       break;
     }
     case p2Num_:
     case q2Num_: {
-      if (isConnected2()) {
-        int urYNum2 = modelBus2_->urYNum();
-        int uiYNum2 = modelBus2_->uiYNum();
-        numVars.push_back(urYNum2);
-        numVars.push_back(uiYNum2);
-      }
+      int urYNum2 = modelBus2_->urYNum();
+      int uiYNum2 = modelBus2_->uiYNum();
+      numVars.push_back(urYNum2);
+      numVars.push_back(uiYNum2);
       break;
     }
     default:
@@ -509,7 +531,7 @@ ModelHvdcLink::setAttributes(const shared_ptr<HvdcLineInterface>& dcLine) {
 
 void
 ModelHvdcLink::setConvertersActivePower(const shared_ptr<HvdcLineInterface>& dcLine) {
-  if (dcLine->getConverter1()->hasP() && dcLine->getConverter2()->hasP()) {
+  if (dcLine->getConverter1()->hasP() && dcLine->getConverter2()->hasP() && startingPointMode_ == WARM) {
     // retrieve active power at the two points of common coupling from load flow data in IIDM file
     P01_ = -dcLine->getConverter1()->getP() / SNREF;
     P02_ = -dcLine->getConverter2()->getP() / SNREF;
@@ -531,7 +553,7 @@ ModelHvdcLink::setConvertersActivePower(const shared_ptr<HvdcLineInterface>& dcL
 
 void
 ModelHvdcLink::setConvertersReactivePower(const shared_ptr<HvdcLineInterface>& dcLine) {
-  if (dcLine->getConverter1()->hasQ() && dcLine->getConverter2()->hasQ()) {
+  if (dcLine->getConverter1()->hasQ() && dcLine->getConverter2()->hasQ() && startingPointMode_ == WARM) {
     // retrieve reactive power at the two points of common coupling from load flow data in IIDM file
     Q01_ = -dcLine->getConverter1()->getQ() / SNREF;
     Q02_ = -dcLine->getConverter2()->getQ() / SNREF;
@@ -713,8 +735,12 @@ ModelHvdcLink::defineNonGenericParameters(vector<ParameterModeler>& /*parameters
 }
 
 void
-ModelHvdcLink::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
-  /* no parameter */
+ModelHvdcLink::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+  bool startingPointModeFound = false;
+  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  if (startingPointModeFound) {
+    startingPointMode_ = getStartingPointMode(startingPointMode);
+  }
 }
 
 }  // namespace DYN

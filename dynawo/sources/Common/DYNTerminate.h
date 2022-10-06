@@ -27,8 +27,6 @@
 #include <stdio.h>
 #include <string>
 
-#include "DYNCompatibility.h"
-
 namespace DYN {
 class Message;
 
@@ -65,13 +63,13 @@ class Terminate : public std::exception {
    *
    * @return terminate description
    */
-  virtual const char* what() const DYN_NOEXCEPT;
+  virtual const char* what() const noexcept;
 
   /**
    * @brief default destructor
    *
    */
-  virtual ~Terminate() DYN_NOEXCEPT { }
+  virtual ~Terminate() noexcept { }
 
   /**
    * @brief Operator << overload for error

@@ -13,21 +13,19 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadAlphaBeta "Load with voltage dependant active and reactive power (alpha-beta model)"
-
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
-  public
-    parameter Real alpha "Active load sensitivity to voltage";
-    parameter Real beta "Reactive load sensitivity to voltage";
+  parameter Real alpha "Active load sensitivity to voltage";
+  parameter Real beta "Reactive load sensitivity to voltage";
 
-  equation
-    if (running.value) then
-      PPu = PRefPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
-      QPu = QRefPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta);
-    else
-      terminal.i = Complex(0);
-    end if;
+equation
+  if (running.value) then
+    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
+    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta);
+  else
+    terminal.i = Complex(0);
+  end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end LoadAlphaBeta;

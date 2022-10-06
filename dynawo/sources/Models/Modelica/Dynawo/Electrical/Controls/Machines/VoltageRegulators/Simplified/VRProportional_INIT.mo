@@ -13,12 +13,9 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportional_INIT "Simple Proportional Voltage Regulator INIT Model. Here one of the inputs is Efd0PuLF. This value will initialize the limiter's input variable, but since it could be out the saturation bounds, the initial value kept for EfdPu is Efd0Pu which is min(max(Efd0PuLF, EfdMinPu), EfdMaxPu)"
-
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT;
 
   extends AdditionalIcons.Init;
-
-public
 
   parameter Types.VoltageModulePu EfdMinPu "Minimum exciter field voltage";
   parameter Types.VoltageModulePu EfdMaxPu "Maximum exciter field voltage";
@@ -29,15 +26,12 @@ public
   Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, pu = Unom";
   Types.VoltageModulePu Us0Pu "Initial stator voltage, pu = Unom";
 
-protected
-
   LimiterWithLag_INIT limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu);
 
 equation
-
   limiterWithLag.y0LF = Efd0PuLF;
   Efd0Pu = limiterWithLag.y0;
   limiterWithLag.u0 = (UsRef0Pu - Us0Pu)*Gain;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end VRProportional_INIT;

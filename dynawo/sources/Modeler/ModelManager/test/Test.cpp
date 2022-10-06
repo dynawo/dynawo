@@ -406,6 +406,38 @@ class MyModelicaInit: public MyModelica {
     data->modelData->nAliasInteger = 0;
     data->modelData->nAliasBoolean = 0;
     data->modelData->nAliasString = 0;
+
+    // buffer for all parameters values
+    long nb = (data->modelData->nParametersReal > 0) ? data->modelData->nParametersReal : 0;
+    data->simulationInfo->realParameter = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
+
+    nb = (data->modelData->nParametersBoolean > 0) ? data->modelData->nParametersBoolean : 0;
+    data->simulationInfo->booleanParameter = reinterpret_cast<modelica_boolean *>(calloc(nb, sizeof(modelica_boolean)));
+
+    nb = (data->modelData->nParametersInteger > 0) ? data->modelData->nParametersInteger : 0;
+    data->simulationInfo->integerParameter = reinterpret_cast<modelica_integer *>(calloc(nb, sizeof(modelica_integer)));
+
+    nb = (data->modelData->nParametersString > 0) ? data->modelData->nParametersString : 0;
+    data->simulationInfo->stringParameter = reinterpret_cast<modelica_string *>(calloc(nb, sizeof(modelica_string)));
+
+    nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
+    data->simulationInfo->realVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
+
+    nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
+    data->simulationInfo->derivativesVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
+
+    nb = (data->modelData->nDiscreteReal >0) ? data->modelData->nDiscreteReal : 0;
+    data->simulationInfo->discreteVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
+
+    nb = (data->modelData->nVariablesBoolean > 0) ? data->modelData->nVariablesBoolean : 0;
+    data->localData[0]->booleanVars = reinterpret_cast<modelica_boolean *>(calloc(nb, sizeof(modelica_boolean)));
+    data->simulationInfo->booleanVarsPre = reinterpret_cast<modelica_boolean *>(calloc(nb, sizeof(modelica_boolean)));
+
+    nb = (data->modelData->nVariablesInteger > 0) ? data->modelData->nVariablesInteger : 0;
+    data->simulationInfo->integerDoubleVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
+
+    nb = (data->modelData->nExtObjs > 0) ? data->modelData->nExtObjs : 0;
+    data->simulationInfo->extObjs = reinterpret_cast<void**>(calloc(nb, sizeof(void*)));
   }
 
  private:

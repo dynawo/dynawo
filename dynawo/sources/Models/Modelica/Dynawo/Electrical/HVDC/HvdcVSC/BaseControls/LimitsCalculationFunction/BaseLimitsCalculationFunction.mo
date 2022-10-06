@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.LimitsCalculationFunction;
 */
 
 model BaseLimitsCalculationFunction "Reactive and active currents limits calculation base function for the HVDC VSC model"
-
   import Modelica;
   import Dynawo.Types;
 
@@ -36,7 +35,6 @@ model BaseLimitsCalculationFunction "Reactive and active currents limits calcula
   Modelica.Blocks.Interfaces.RealOutput IpMinPu(start = - IpMaxCstPu) "Min active current reference in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
-protected
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
   parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom)";
 

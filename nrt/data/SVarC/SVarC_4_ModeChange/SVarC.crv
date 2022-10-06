@@ -9,7 +9,7 @@
     SPDX-License-Identifier: MPL-2.0
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systeTest.
+    simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="Test" variable="svarc_injector_UPu"/>

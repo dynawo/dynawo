@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.BlockingFunction;
 */
 
 model GeneralBlockingFunction "Undervoltage blocking function for the two sides of an HVDC Link"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -37,10 +36,8 @@ model GeneralBlockingFunction "Undervoltage blocking function for the two sides 
   Modelica.Blocks.Logical.Or or1 annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
-  parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
-  parameter Types.VoltageModulePu U20Pu  "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
+  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
 
 equation
   connect(U1Pu, blockingFunction1.UPu) annotation(
@@ -53,8 +50,8 @@ equation
     Line(points = {{-29, -30}, {0, -30}, {0, -8}, {8, -8}, {8, -8}}, color = {255, 0, 255}));
   connect(or1.y, blocked) annotation(
     Line(points = {{31, 0}, {102, 0}, {102, 0}, {110, 0}}, color = {255, 0, 255}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end GeneralBlockingFunction;

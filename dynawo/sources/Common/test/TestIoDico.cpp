@@ -72,6 +72,18 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   ASSERT_NO_THROW(dicos.addDico("TIMELINE_PRIORITY", "TIMELINE_PRIORITY", ""));
   MessageTimeline tmess0("MyEntry");
   assert(tmess0.priority() == boost::none);
+  assert(IoDicos::getOppositeEventsDico("TIMELINE"));
+  const auto& oeDicoTimeline = IoDicos::getOppositeEventsDico("TIMELINE");
+  ASSERT_EQ(oeDicoTimeline->getOppositeEvents().find("MyEntry")->second.size(), 1);
+  ASSERT_EQ(oeDicoTimeline->getOppositeEvents().find("MySecondEntry")->second.size(), 1);
+  auto oeDico = dicos.mergeOppositeEventsDicos();
+  ASSERT_EQ(oeDico.size(), 2);
+  ASSERT_TRUE(oeDico.find("MyEntry") != oeDico.end());
+  ASSERT_TRUE(oeDico.find("MySecondEntry") != oeDico.end());
+  ASSERT_EQ(oeDico.find("MyEntry")->second.size(), 1);
+  ASSERT_EQ(oeDico.find("MySecondEntry")->second.size(), 1);
+  ASSERT_TRUE(oeDico.find("MyEntry")->second.find("MySecondEntry") != oeDico.find("MyEntry")->second.end());
+  ASSERT_TRUE(oeDico.find("MySecondEntry")->second.find("MyEntry") != oeDico.find("MySecondEntry")->second.end());
 
   MessageTimeline tmess("MySecondEntry");
   assert(tmess.priority() != boost::none);

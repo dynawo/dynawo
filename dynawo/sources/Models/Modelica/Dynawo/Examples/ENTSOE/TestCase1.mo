@@ -19,7 +19,7 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
   extends Icons.Example;
 
   // Generator and regulations
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0,
    Cm0Pu = 0,
    Cos2Eta0 = 1,

@@ -22,6 +22,8 @@
 
 #include "DYNLoadInterfaceIIDM.h"
 
+#include "DYNCommon.h"
+
 #include <powsybl/iidm/Load.hpp>
 
 using boost::shared_ptr;
@@ -60,8 +62,17 @@ void
 LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
 
-  loadIIDM_.getTerminal().setP(getValue<double>(VAR_P) * SNREF);
-  loadIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
+  double P = getValue<double>(VAR_P);
+  double Q = getValue<double>(VAR_Q);
+  if (!doubleIsZero(P))
+    loadIIDM_.getTerminal().setP(P * SNREF);
+  else
+    loadIIDM_.getTerminal().setP(0.);
+
+  if (!doubleIsZero(Q))
+    loadIIDM_.getTerminal().setQ(Q * SNREF);
+  else
+    loadIIDM_.getTerminal().setQ(0.);
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection
@@ -70,12 +81,12 @@ LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(loadIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(loadIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      loadIIDM_.getTerminal().connect();
+    else
+      loadIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    loadIIDM_.getTerminal().connect();
-  else
-    loadIIDM_.getTerminal().disconnect();
 }
 
 void
@@ -104,11 +115,11 @@ LoadInterfaceIIDM::importStaticParameters() {
     v0_ = getBusInterface()->getV0();
     vNom_ = loadIIDM_.getTerminal().getVoltageLevel().getNominalV();
 
-    double teta = getBusInterface()->getAngle0();
+    double theta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(v0_ / vNom_)));
-    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(theta * M_PI / 180)));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(v0_)));
-    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(theta)));
   } else {
     v0_ = 0;
     vNom_ = 0;
@@ -168,6 +179,11 @@ LoadInterfaceIIDM::getQ0() {
 double
 LoadInterfaceIIDM::getPUnderVoltage() {
   return loadPUnderV_;
+}
+
+bool
+LoadInterfaceIIDM::isFictitious() {
+  return (loadIIDM_.isFictitious() || loadIIDM_.getLoadType() == powsybl::iidm::LoadType::FICTITIOUS);
 }
 
 }  // namespace DYN

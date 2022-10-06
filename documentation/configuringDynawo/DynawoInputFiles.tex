@@ -36,23 +36,38 @@ The list of input files and the most important output files are summarized in th
 
 \subsection[Dynawo inputs]{\Dynawo inputs}
 
-To run a simulation, \Dynawo needs most of the time five input files:
+To run a simulation, \Dynawo needs most of the time four input files:
 \begin{itemize}
 \item A file providing the simulation settings: the jobs file (\textbf{.jobs} extension);
 \item A file providing the static description of the test grid to simulate: the iidm file (\textbf{.iidm} extension);
 \item A file providing the dynamic description of the test grid to simulate: the dynamic data file (\textbf{.dyd} extension);
 \item A file providing the needed parameters of the simulation: the parameter file (\textbf{.par} extension);
-\item A file providing the list of the variables to plot at the end of the simulation: the curves file (\textbf{.crv} extension);
 \end{itemize}
-The crv file is optional: with no crv file, no curves will be available at the end of the simulation but the simulation can be run anyway. The iidm file can also be optional for small test cases where the whole system is represented in the dyd file (see paragraph \ref{sec:Run a simulation with no iidm file}). Other files are mandatory. \\
+The iidm file can be optional for small test cases where the whole system is represented in the dyd file (see paragraph \ref{sec:Run a simulation with no iidm file}).
+Other files are mandatory. \\
 
-All jobs, iidm, dyd, par and crv files are XML files. Their extension can also be .xml. For each file, there is an associated xsd file used to validate the xml file and to check that it respects a certain format. The xsd file defines which elements and attributes are permitted and in which order. In that sense, they can help the user write or modify one or several input files. The different xsd files are to be found in the install directory in \path{dynawo/share/xsd}.
+Others optional files can be given as inputs:
+\begin{itemize}
+\item A file providing the list of the variables to plot at the end of the simulation: the curves file (\textbf{.crv} extension);
+\item A file providing the final values for a list of variables: the final state value file (\textbf{.fsv} extension);
+\item A file providing the list of the criteria to check during the simulation: the criteria file (\textbf{.crt} extension);
+\item A file providing an initial state for the dynamic variables, provided by a previous \Dynawo simulation: the initial state file (\textbf{.dmp} extension);
+\end{itemize}
+
+All jobs, iidm, dyd, par, crv, fsv and crt files are XML files.
+Their extension can also be .xml.
+For each file, there is an associated xsd file used to validate the xml file and to check that it respects a certain format.
+The xsd file defines which elements and attributes are permitted and in which order.
+In that sense, they can help the user write or modify one or several input files.
+The different xsd files are to be found in the install directory in \path{dynawo/share/xsd}.
 
 \begin{itemize}
 \item jobs.xsd for the jobs file;
 \item dyd.xsd for the dyd file;
 \item parameters.xsd for the par file;
 \item curvesInput.xsd for the crv file;
+\item finalStateValuesInput.xsd for the fsv file;
+\item criteria.xsd for the crt file;
 \end{itemize}
 
 The iidm.xsd is directly located in the install directory of the IIDM library and can be found in \path{share/iidm/xsd}.
@@ -64,8 +79,11 @@ After a simulation that went well, \Dynawo generates the following output files:
 \item A file providing the chronological list of events that happened during the simulation: component connection, disconnection, automata activation, etc (timeline.txt).
 \item A file providing the list of constraints that happened in the network during the simulation (constraints.txt);
 \item A file providing the static state of the network at the end of the simulation (output.iidm). This iidm file can be used to start another dynamic simulation;
+\item A binary file providing the dynamic state of the network at the end of the simulation (output.dmp). This file can be used to start another dynamic simulation;
 \item A file providing the value of the desired variables at each time step in order to visualize their evolution through time (curves.crv);
-\item A file providing information about how the simulation went (dynamo.log). This log file contains error messages if the simulation crashed;
+\item A file providing the value of the desired variables at the final time step (finalStateValues.fsv);
+\item A file providing the static ids of the nodes that were disconnected during the simulation (lostEquipments.leq);
+\item A file providing information about how the simulation went (dynawo.log). This log file contains error messages if the simulation crashed;
 \item Files providing the variables values after initialization for each model. The values can be printed after local (or individual model) initialization or global (or system) initialization.
 \end{itemize}
 
@@ -153,6 +171,24 @@ For each parameter, the user should give the name, the type (DOUBLE, INT, BOOL o
 
 Sometimes, the par file contains references to parameters present in the iidm file (see paragraph \ref{sec:Set a reference to a value stored in the iidm file}).
 
+\subsection{crv file}
+
+The curves file lists all variables or parameters to plot. \\
+
+Here is an example of a crv file (extraction from IEEE14.crv):
+\lstinputlisting[language=XML, morekeywords={id},title=crv file example]{../resources/syntaxExample/syntaxExample.crv}
+
+In this example, the curves available are the voltage amplitudes of buses \_BUS\_\_\_10\_TN and \_BUS\_\_\_10\_TN in per unit.
+
+\subsection{fsv file}
+
+The input final state values file lists all variables or parameters for which we want to observe the final value. \\
+
+Here is an example of a fsv file (extraction from IEEE14):
+\lstinputlisting[language=XML, morekeywords={id},title=fsv file example]{../resources/syntaxExample/syntaxExample.fsv}
+
+In this example, the final state values available are the voltage amplitudes of buses \_BUS\_\_\_10\_TN and \_BUS\_\_\_10\_TN in per unit.
+
 \subsection{crt file}
 
 The crt file contains all the criteria to be checked during the
@@ -233,15 +269,6 @@ $UNomMin$, $UNomMax$, $UMinPu$ and $UMaxPu$ are optionals. If one of them is not
 specified, the corresponding condition is not applied.
 If several voltage levels are specified then all loads satisfying at least one of the conditions will be taken into account.
 
-\subsection{crv file}
-
-The curves file lists all variables or parameters to plot. \\
-
-Here is an example of a crv file (extraction from IEEE14.crv):
-\lstinputlisting[language=XML, morekeywords={id},title=crv file example]{../resources/syntaxExample/syntaxExample.crv}
-
-In this example, the curves available are the voltage amplitudes of buses \_BUS\_\_\_10\_TN and \_BUS\_\_\_10\_TN in per unit.
-
 \section[Dynawo input files modification]{\Dynawo input files modification}
 
 \Dynawo input files (jobs, iidm, dyd, par and crv) have been briefly described in the previous section. This section aims at giving more details on each file in order to help the user parametrize its inputs easily and autonomously.
@@ -293,7 +320,7 @@ The jobs file specifies the following simulation settings:
 
 When no criteria is specified, simulation will stop at the stop time given by
 the user. Otherwise, the simulation could stop before the stop
-time if a criteria is not respected.
+time if a criterion is not respected.
 
 \begin{lstlisting}[language=XML, morekeywords={activateCriteria}]
 <job name="MyJOB">
@@ -365,12 +392,18 @@ Several outputs are available with \Dynawo:
 \end{lstlisting}
 Two export modes are available for constraints: TXT or XML.
 
-\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode.
+\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode. It is also possible to automatically filter the timeline by removing duplicated events and opposed events that happen during the same timestep.
 
 \begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
-<timeline exportMode="TXT"/>
+<timeline exportMode="TXT" filter="true"/>
 \end{lstlisting}
 Three export modes are available for the timeline: TXT, XML or CSV.
+
+\item \textbf{Timetable}: The user can follows the advancement of \Dynawo during the simulation by adding the item ``timetable'' in the jobs file, and by specifying the number of iterations between two dumps in the file.
+
+\begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
+<timetable step="10"/>
+\end{lstlisting}
 
 \item \textbf{Final state}: the user can have access to the final state of the simulation thanks to two files: the iidm file and the dump file. The user can specify which of those he wants to obtain. The iidm output file contains the static data of the network at the end of the simulation. The dump file is a binary file that contains the value of all dynamic variables and derivatives at the end of the simulation and that enables to restart another simulation from this operating point.
 
@@ -378,11 +411,34 @@ Three export modes are available for the timeline: TXT, XML or CSV.
 <finalState exportIIDMFile="true" exportDumpFile="true"/>
 \end{lstlisting}
 
-\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted and the export mode.
+\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted, the export mode and optionally a step on simulation iteration or on simulation time (in seconds).
+
 \begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
 <curves inputFile="MyCurves.crv" exportMode="CSV"/>
 \end{lstlisting}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="CSV" iterationStep="8"/>
+\end{lstlisting}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="CSV" timeStep="0.4"/>
+\end{lstlisting}
+
 Two export modes are available for curves export: CSV or XML.
+It's impossible to define both an iterationStep and a timeStep.
+
+\item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.
+
+\begin{lstlisting}[language=XML, morekeywords={finalStateValues},numbers=none]
+<finalStateValues inputFile="MyFinalStateValues.fsv"/>
+\end{lstlisting}
+
+\item \textbf{Lost equipments}:  the user can have access to the list of nodes that were initially connected and that are disconnected at the end of the simulation by adding the item ``lostEquipments'' in the jobs file.
+
+\begin{lstlisting}[language=XML, morekeywords={lostEquipments},numbers=none]
+<lostEquipments/>
+\end{lstlisting}
 
 \item \textbf{Logs}: the user can have access to different log files that give information about the execution of the compilation and the simulation, and that could help him in case of failure. The main log file corresponds to the appender with no tag named ``dynawo.log'' in the example below.
 \begin{lstlisting}[language=XML, morekeywords={logs}]

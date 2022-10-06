@@ -51,6 +51,8 @@ annotation(preferredView = "info",
 <li><strong>Functions</strong>: start with lower case letter</li>
 </ul>
 
+<p>The names of component instances of a base model should not be used again in the models which extend the base model.</p>
+
 <p>In addition to this, please follow the additional naming conventions below (in that order):</p>
 
 <ul dir=\"auto\">
@@ -82,7 +84,9 @@ e.g tInteger, t0...</li>
 
 <p>Initialization models name should end with <strong>_INIT</strong>. There can be several initialization models for one dynamic model. </p>
 
-<p> The initialization models variables are the parameters of the dynamic models so they should start with an upper case letter. </p>
+<p> The initialization models variables are the parameters of the dynamic models so they should start with an upper case letter.</p>
+
+<p>In an initialization model, the names of component instances should end in \"Init\", and this ending should never be used for instances of dynamic models.</p>
 
 <h3>Types conventions</h3>
 

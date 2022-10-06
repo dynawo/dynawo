@@ -18,8 +18,8 @@ model SEXS_INIT "IEEE Automatic Voltage Regulator type SEXS initialization model
   parameter Types.VoltageModulePu Upss0Pu = 0 "Initial PSS output voltage in pu (base UNom)";
   parameter Types.PerUnit K "Controller gain";
 
-  Types.VoltageModulePu Efd0Pu (start = 1) "Initial voltage output in pu (base UNom)";
-  Types.VoltageModulePu Us0Pu (start = 1) "Initial stator voltage in pu (base UNom)";
+  Types.VoltageModulePu Efd0Pu(start = 1) "Initial voltage output in pu (base UNom)";
+  Types.VoltageModulePu Us0Pu(start = 1) "Initial stator voltage in pu (base UNom)";
   Types.VoltageModulePu UsRef0Pu "Initial control voltage in pu (base UNom)";
 
 equation

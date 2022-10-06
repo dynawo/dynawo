@@ -45,27 +45,22 @@ namespace DYN {
 
 ModelShuntCompensator::ModelShuntCompensator(const shared_ptr<ShuntCompensatorInterface>& shunt) :
 NetworkComponent(shunt->getID()),
+shunt_(shunt),
 modelBus_(),
 noReclosingDelay_(0.),
-stateModified_(false) {
+stateModified_(false),
+ir0_(0.),
+ii0_(0.),
+startingPointMode_(WARM) {
   // init data
-  currentSection_ = shunt->getCurrentSection();
-  maximumSection_ = shunt->getMaximumSection();
-  suscepAtMaximumSec_ = shunt->getB(maximumSection_);
-  vNom_ = shunt->getVNom();
-  suscepPu_ = shunt->getB(currentSection_) * vNom_ * vNom_ / SNREF;
+  currentSection_ = shunt_->getCurrentSection();
+  maximumSection_ = shunt_->getMaximumSection();
+  suscepAtMaximumSec_ = shunt_->getB(maximumSection_);
+  vNom_ = shunt_->getVNom();
+  suscepPu_ = shunt_->getB(currentSection_) * vNom_ * vNom_ / SNREF;
   tLastOpening_ = VALDEF;
   type_ = (suscepAtMaximumSec_ > 0) ? CAPACITOR : REACTANCE;
-  connectionState_ = shunt->getInitialConnected() ? CLOSED : OPEN;
-
-  double Q = shunt->getQ() / SNREF;
-  double uNode = shunt->getBusInterface()->getV0();
-  double tetaNode = shunt->getBusInterface()->getAngle0();
-  double unomNode = shunt->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
-  ir0_ = Q * ui0 / (ur0 * ur0 + ui0 * ui0);
-  ii0_ = - Q * ur0 / (ur0 * ur0 + ui0 * ui0);
+  connectionState_ = shunt_->getInitialConnected() ? CLOSED : OPEN;
 }
 
 void
@@ -265,6 +260,11 @@ ModelShuntCompensator::isAvailable() const {
 
 void
 ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+  bool startingPointModeFound = false;
+  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  if (startingPointModeFound) {
+    startingPointMode_ = getStartingPointMode(startingPointMode);
+  }
   try {
     switch (type_) {
       case CAPACITOR: {
@@ -321,12 +321,10 @@ void
 ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case qNum_: {
-      if (isConnected()) {
-        int urYNum = modelBus_->urYNum();
-        int uiYNum = modelBus_->uiYNum();
-        numVars.push_back(urYNum);
-        numVars.push_back(uiYNum);
-      }
+      int urYNum = modelBus_->urYNum();
+      int uiYNum = modelBus_->uiYNum();
+      numVars.push_back(urYNum);
+      numVars.push_back(uiYNum);
       break;
     }
     default:
@@ -373,7 +371,24 @@ ModelShuntCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
 
 void
 ModelShuntCompensator::init(int& /*yNum*/) {
-  /* not needed */
+  double Q = 0.;
+  double uNode = 0.;
+  double thetaNode = shunt_->getBusInterface()->getAngle0();
+  double unomNode = shunt_->getBusInterface()->getVNom();
+  switch (startingPointMode_) {
+  case FLAT:
+    uNode = shunt_->getBusInterface()->getVNom();
+    Q = shunt_->getB(currentSection_) * vNom_ * vNom_ / SNREF;
+    break;
+  case WARM:
+    Q = shunt_->getQ() / SNREF;
+    uNode = shunt_->getBusInterface()->getV0();
+    break;
+  }
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+  ir0_ = Q * ui0 / (ur0 * ur0 + ui0 * ui0);
+  ii0_ = - Q * ur0 / (ur0 * ur0 + ui0 * ui0);
 }
 
 void

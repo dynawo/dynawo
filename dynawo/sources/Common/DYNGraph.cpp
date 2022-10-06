@@ -21,6 +21,7 @@
 #include <sstream>
 #include "DYNGraph.h"
 #include "DYNMacrosMessage.h"
+#include <boost/graph/dijkstra_shortest_paths.hpp>
 
 using std::string;
 using std::vector;
@@ -31,10 +32,6 @@ using boost::add_vertex;
 using boost::put;
 using boost::edge;
 using boost::add_edge;
-
-static bool path_length_is_shorter(const PathDescription& path1, const PathDescription& path2) {
-  return (path1.size() < path2.size());
-}
 
 namespace DYN {
 
@@ -48,7 +45,7 @@ Graph::addVertex(unsigned vertexId) {
 }
 
 void
-Graph::addEdge(const unsigned int& indexVertex1, const unsigned int& indexVertex2, const string& id) {
+Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
   if (!hasVertex(indexVertex1))
     throw DYNError(DYN::Error::GENERAL, UnknownVertex, indexVertex1);
   if (!hasVertex(indexVertex2))
@@ -70,18 +67,10 @@ Graph::setEdgesWeight(const boost::unordered_map<string, float>& edgeWeights) {
   }
 }
 
-bool
-Graph::pathExist(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const boost::unordered_map<string, float> & edgeWeights) {
-  if (vertexOrigin == vertexExtremity)
-    return true;
-  std::list<PathDescription> paths;
-  findAllPaths(vertexOrigin, vertexExtremity, edgeWeights, paths, true);
-  return (!paths.empty());
-}
-
 void
-Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const boost::unordered_map<string, float> & edgeWeights,
-    std::list<PathDescription>& paths, bool stopWhenExtremityReached) {
+Graph::dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
+    const boost::unordered_map<std::string, float>& edgeWeights,
+    PathDescription& path) {
   if (vertexOrigin == vertexExtremity)
     return;
 
@@ -89,94 +78,50 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
   positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
   FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
   if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
-    // explore graph thanks to AdjacentVertices
-    adjacency_iterator_filtered neighbourIt;
-    adjacency_iterator_filtered neighbourEnd;
-    boost::tie(neighbourIt, neighbourEnd) = boost::adjacent_vertices(vertices_[vertexOrigin], filteredGraph);
-    for (; neighbourIt != neighbourEnd; ++neighbourIt) {
-      assert(*neighbourIt < verticesIds_.size());
-      const unsigned int neighbour = verticesIds_[static_cast<unsigned int>(*neighbourIt)];
-      boost::unordered_set<unsigned int> encounteredIds;
-      encounteredIds.insert(vertexOrigin);
-      encounteredIds.insert(neighbour);
+    Vertex start = vertices_[vertexOrigin];
+    std::vector<Vertex> predecessor(boost::num_vertices(filteredGraph));
+    std::vector<int> distance(boost::num_vertices(filteredGraph));
+    dijkstra_shortest_paths(filteredGraph, start, boost::predecessor_map(&predecessor[0]).distance_map(&distance[0]) );
 
-      std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[neighbour], filteredGraph);
-      string edgeId = boost::get(boost::edge_name, filteredGraph, edgePair.first);
-      PathDescription currentPath;
-      currentPath.push_back(edgeId);
-
-      if (*neighbourIt != vertexExtremity) {
-        if (findAllPaths(neighbour, vertexExtremity, currentPath, encounteredIds, paths, filteredGraph, stopWhenExtremityReached) && stopWhenExtremityReached)
-          break;
-      } else {  // vertexExtremity found
-        paths.push_back(currentPath);
-        if (stopWhenExtremityReached)
-          break;
-      }
+    Vertex node = vertices_[vertexExtremity];
+    if (distance[node] == std::numeric_limits<int>::max())
+      return;
+    while (node != start) {
+      Vertex prec = predecessor[node];
+      Edge edge = boost::edge(node, prec, filteredGraph).first;
+      string edgeId = boost::get(boost::edge_name, filteredGraph, edge);
+      path.insert(path.begin(), edgeId);
+      node = prec;
     }
   }
-  paths.sort(path_length_is_shorter);
 }
 
 bool
-Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
-        PathDescription& currentPath, boost::unordered_set<unsigned int>& encountered, list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
-        bool stopWhenExtremityReached) {
-  adjacency_iterator_filtered neighbourIt;
-  adjacency_iterator_filtered neighbourEnd;
-  boost::tie(neighbourIt, neighbourEnd) = boost::adjacent_vertices(vertices_[vertexOrigin], filteredGraph);
-  for (; neighbourIt != neighbourEnd; ++neighbourIt) {
-    assert(*neighbourIt < verticesIds_.size());
-    const unsigned int neighbour = verticesIds_[static_cast<unsigned int>(*neighbourIt)];
-    if (encountered.count(neighbour) > 0)
-      continue;
-
-    std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[neighbour], filteredGraph);
-    string edgeId = boost::get(boost::edge_name, filteredGraph, edgePair.first);
-
-    PathDescription currentPath2 = currentPath;
-    if (findAllPaths(edgeId, neighbour, vertexExtremity, currentPath2, encountered, paths, filteredGraph, stopWhenExtremityReached)) {
-      currentPath.insert(currentPath.end(), currentPath2.begin(), currentPath2.end());
-      if (stopWhenExtremityReached)
-        return true;
-    }
-  }
-  return false;
-}
-
-bool
-Graph::findAllPaths(const string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity, PathDescription& currentPath,
-                    boost::unordered_set<unsigned int>& encountered, list<PathDescription>& paths, FilteredBoostGraph& filteredGraph,
-                    bool stopWhenExtremityReached) {
-  encountered.insert(vertex);
-
-  currentPath.push_back(edgeId);
-
-  if (vertex == vertexExtremity) {  // vertexExtremity found
-    paths.push_back(currentPath);
+Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const boost::unordered_map<string, float> & edgeWeights) {
+  if (vertexOrigin == vertexExtremity)
     return true;
-  } else {
-    if (findAllPaths(vertex, vertexExtremity, currentPath, encountered, paths, filteredGraph, stopWhenExtremityReached))
-      return true;
+  PathDescription path;
+
+  setEdgesWeight(edgeWeights);
+  positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
+  FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
+  if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
+    Vertex start = vertices_[vertexOrigin];
+    std::vector<Vertex> predecessor(boost::num_vertices(filteredGraph));
+    std::vector<int> distance(boost::num_vertices(filteredGraph));
+    dijkstra_shortest_paths(filteredGraph, start, boost::predecessor_map(&predecessor[0]).distance_map(&distance[0]) );
+    return distance[vertices_[vertexExtremity]] != std::numeric_limits<int>::max();
   }
   return false;
 }
 
 void
-Graph::shortestPath(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
+Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
     const boost::unordered_map<string, float> & edgeWeights, PathDescription& path) {
   if (vertexOrigin == vertexExtremity)
     return;
 
-  list<PathDescription> allPaths;
-  findAllPaths(vertexOrigin, vertexExtremity, edgeWeights, allPaths);
-
-  // case of no paths
-  if (allPaths.empty())
-    return;
-
-  // paths sorted by size
-  path = *allPaths.begin();
+  dijkstra(vertexOrigin, vertexExtremity, edgeWeights, path);
 }
 
 std::pair<unsigned int, vector<unsigned int> >

@@ -491,6 +491,7 @@ class ModelLoad : public NetworkComponent {
     return yOffset_ + localIndex;
   }
 
+  const boost::shared_ptr<LoadInterface> load_;  ///< reference to the load interface object
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
@@ -528,6 +529,7 @@ class ModelLoad : public NetworkComponent {
   unsigned int DeltaQcYNum_;  ///< local Y index for DeltaQc
   unsigned int zPYNum_;  ///< local Y index for zP
   unsigned int zQYNum_;  ///< local Y index for zQ
+  startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };  ///< class for Load model
 
 }  // namespace DYN

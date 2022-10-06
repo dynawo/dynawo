@@ -80,7 +80,7 @@ TEST(DataInterfaceTest, SVarC_1) {
   ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("P1")), -1);
   ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("q")), StaticVarCompensatorInterfaceIIDM::VAR_Q);
   ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("state")), StaticVarCompensatorInterfaceIIDM::VAR_STATE);
-  ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("regulatingMode")), StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE);
+  ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("regulatingMode")), -1);
 
   ASSERT_EQ(svcInterface.getID(), svc.getId());
 

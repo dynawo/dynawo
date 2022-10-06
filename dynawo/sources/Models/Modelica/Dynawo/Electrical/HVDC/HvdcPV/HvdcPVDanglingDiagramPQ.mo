@@ -39,15 +39,13 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
 
 protected
-
-  QStatus q1Status (start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
+  QStatus q1Status(start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
 
 equation
-
   s1Pu = Complex(P1Pu, Q1Pu);
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
-  // Voltage/Reactive power regulation at terminal 1
+  //Voltage/Reactive power regulation at terminal 1
   when QInj1Pu >= QInj1MaxPu and U1Pu <= U1RefPu then
     q1Status = QStatus.GenerationMax;
   elsewhen QInj1Pu <= QInj1MinPu and U1Pu >= U1RefPu then
@@ -56,7 +54,7 @@ equation
     q1Status = QStatus.Standard;
   end when;
 
-  if running.value then
+  if runningSide1.value then
     if modeU1 then
       if q1Status == QStatus.GenerationMax then
         QInj1Pu = QInj1MaxPu;

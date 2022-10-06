@@ -13,10 +13,8 @@ within Dynawo.Electrical.Sources;
 */
 
 model InjectorIDQ "Injector controlled by d and q current components idPu and iqPu"
-
   import Modelica;
   import Modelica.ComplexMath;
-
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
@@ -51,16 +49,13 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   // Internal variables:
   Types.Angle UPhase(start = UPhase0) "Rotor angle: angle between machine rotor frame and port phasor frame";
 
-protected
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0  "Start value of voltage angle at injector terminal in rad";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
-
-  parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at injector terminal in pu (base UNom)";
-  parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at injector terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
-
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal in rad";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
+  parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at injector terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.CurrentModulePu Id0Pu "Start value of idPu in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu Iq0Pu "Start value of iqPu in pu (base SNom, UNom)";
 

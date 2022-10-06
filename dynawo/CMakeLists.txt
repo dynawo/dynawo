@@ -28,7 +28,7 @@ set(USE_LEGACY_IIDM OFF CACHE BOOL "Force use of legacy IIDM library")
 # Project Dynawo
 project(dynawo)
 set(DYNAWO_VERSION_MAJOR 1)
-set(DYNAWO_VERSION_MINOR 3)
+set(DYNAWO_VERSION_MINOR 4)
 set(DYNAWO_VERSION_PATCH 0)
 set(DYNAWO_VERSION_STRING ${DYNAWO_VERSION_MAJOR}.${DYNAWO_VERSION_MINOR}.${DYNAWO_VERSION_PATCH})
 
@@ -66,35 +66,13 @@ get_filename_component(INSTALL_OPENMODELICA ${INSTALL_OPENMODELICA} ABSOLUTE)
 set(OMC_INCLUDE_DIR ${INSTALL_OPENMODELICA}/include/omc/c)
 set(OPENMODELICA_VERSION "1_13_2" CACHE STRING "Version of OpenModelica")
 
-# If C++11 is enabled, check flags availability
-set(CXX11_ENABLED ON CACHE BOOL "")
-
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0601)
-  set(CXX11_ENABLED ON CACHE BOOL "" FORCE)
-  add_definitions(-DLANG_CXX11)
-elseif(CXX11_ENABLED)
-  # Test if a C++11 flag is supported
-  include(CheckCXXCompilerFlag)
-  check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
-  check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-  if(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -DLANG_CXX11")
-    if(FORCE_CXX11_ABI)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=1")
-    endif()
-  elseif(COMPILER_SUPPORTS_CXX0X)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -DLANG_CXX0X")
-  else()
-    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
-    set(CXX11_ENABLED OFF CACHE BOOL "" FORCE)
-  endif()
 else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-endif()
-
-if(NOT CXX11_ENABLED)
-  set(USE_LEGACY_IIDM ON CACHE BOOL "Force use of legacy IIDM library" FORCE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+  if(FORCE_CXX11_ABI)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=1")
+  endif()
 endif()
 
 if(NOT USE_LEGACY_IIDM)
@@ -135,16 +113,9 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   # => caused by NULL macro use in many places (mandatory with c++98, should be replaced by nullptr with c++11)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-zero-as-null-pointer-constant")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Werror")
-  if(CXX11_ENABLED)
-    # -Wno-c++98-compat shall be kept to allow c++11 code !
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-std-move-in-c++11")
-  else()
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-pedantic")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-variadic-macros")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++11-extensions")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++11-long-long")
-  endif()
+  # -Wno-c++98-compat shall be kept to allow c++11 code !
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-std-move-in-c++11")
 endif()
 
 if(DEFINED DYNAWO_THIRD_PARTY_DIR)
@@ -160,6 +131,9 @@ if(DEFINED DYNAWO_THIRD_PARTY_DIR)
     set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm CACHE PATH "Path where an libiidm installation already exists")
   endif()
   set(BOOST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/boost CACHE PATH "Path where a Boost installation already exists")
+  if(MSVC)
+    set(BOOST_LIBRARYDIR ${DYNAWO_THIRD_PARTY_DIR}/boost/bin CACHE PATH "Path where a Boost lib installation already exists")
+  endif()
   set(GTEST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/googletest CACHE PATH "Path where a GoogleTest installation already exists")
   set(GMOCK_HOME ${DYNAWO_THIRD_PARTY_DIR}/googletest CACHE PATH "Path where a GoogleTest installation already exists")
   set(LIBARCHIVE_HOME ${DYNAWO_THIRD_PARTY_DIR}/libarchive CACHE PATH "Path where a LibArchive installation already exists")
@@ -192,11 +166,7 @@ add_definitions(-DBOOST_ALL_DYN_LINK)
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
 
-if(CXX11_ENABLED)
-  set(Boost_RequiredVersion  "1.70")
-else()
-  set(Boost_RequiredVersion  "1.64")
-endif()
+set(Boost_RequiredVersion  "1.70")
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
@@ -212,10 +182,11 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
           regex
           chrono
           atomic
+          date_time
           )
 else()
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
-    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic
+    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic date_time
   )
 endif()
 
@@ -343,23 +314,16 @@ else()
   )
 endif()
 
-#
-# Target used to ensure that ddbdir directory is created
-#
-add_custom_target(CREATE_DDBDIR
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${ddbdir}
-)
-
 if(MSVC)
-  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
+  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
-    set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
+    set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
 else() # Linux
-  set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=\"${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${NICSLU_HOME}/lib:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}\"")
+  set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=\"${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LIBIIDM_HOME}/lib:${LibXML_LIB_DIR}:${NICSLU_HOME}/lib:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}\"")
   set(runtime_PATH "PATH=\"${INSTALL_OPENMODELICA}/bin:$ENV{PATH}\"")
-  if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-    set(runtime_tests_PATH "LD_LIBRARY_PATH=${GTEST_ROOT}/lib:${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${NICSLU_HOME}/lib:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}")
+  if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+    set(runtime_tests_PATH "LD_LIBRARY_PATH=${GTEST_ROOT}/lib:${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LIBIIDM_HOME}/lib:${LibXML_LIB_DIR}:${NICSLU_HOME}/lib:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}")
   endif()
 endif()
 
@@ -374,7 +338,7 @@ add_subdirectory(sources/Modeler)
 add_subdirectory(sources/Simulation)
 add_subdirectory(sources/Launcher)
 add_subdirectory(sources/ModelicaCompiler)
-add_subdirectory(sources/Models)
+add_subdirectory(sources/Models M)
 add_subdirectory(doxygen)
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(sources/Test)

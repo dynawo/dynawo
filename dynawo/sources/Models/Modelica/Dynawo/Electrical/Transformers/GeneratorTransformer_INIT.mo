@@ -1,4 +1,5 @@
 within Dynawo.Electrical.Transformers;
+
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -12,30 +13,26 @@ within Dynawo.Electrical.Transformers;
 */
 
 model GeneratorTransformer_INIT
-
   import Dynawo.Electrical.SystemBase;
 
   extends BaseClasses_INIT.BaseGeneratorTransformer_INIT;
   extends AdditionalIcons.Init;
 
-  public
+  // Transformer internal parameters
+  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
+  parameter Types.PerUnit RPu "Resistance of the generator transformer in pu (base U2Nom, SnRef)";
+  parameter Types.PerUnit BPu "Susceptance of the generator transformer in pu (base U2Nom, SnRef)";
+  parameter Types.PerUnit XPu "Reactance of the generator transformer in pu (base U2Nom, SnRef)";
+  parameter Types.PerUnit GPu "Conductance of the generator transformer in pu (base U2Nom, SnRef)";
 
-    // Transformer internal parameters
-    parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
-    parameter Types.PerUnit RPu "Resistance of the generator transformer in pu (base U2Nom, SnRef)";
-    parameter Types.PerUnit BPu "Susceptance of the generator transformer in pu (base U2Nom, SnRef)";
-    parameter Types.PerUnit XPu "Reactance of the generator transformer in pu (base U2Nom, SnRef)";
-    parameter Types.PerUnit GPu "Conductance of the generator transformer in pu (base U2Nom, SnRef)";
-
-    // Transformer parameters
-    parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in pu (base U2Nom, SnRef)";
-    parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in pu (base U2Nom, SnRef)";
+  // Transformer parameters
+  parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in pu (base U2Nom, SnRef)";
+  parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in pu (base U2Nom, SnRef)";
 
 equation
-
   // Transformer equations
   i10Pu = rTfoPu * (YPu * u20Pu - i20Pu);
   rTfoPu * rTfoPu * u10Pu = rTfoPu * u20Pu + ZPu * i10Pu;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorTransformer_INIT;

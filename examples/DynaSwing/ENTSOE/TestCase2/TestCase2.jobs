@@ -22,6 +22,7 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="15"/>
       <dyn:outputs directory="outputsTestCase2">
-        </dyn:outputs>
+        <dyn:curves inputFile="TestCase2.crv" exportMode="CSV"/>
+      </dyn:outputs>
   </dyn:job>
 </dyn:jobs>

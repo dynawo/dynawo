@@ -11,13 +11,15 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
+<external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="terminal1.V.re"/>
   <variable type="continuous" id="terminal1.V.im"/>
   <variable type="continuous" id="terminal2.V.re"/>
   <variable type="continuous" id="terminal2.V.im"/>
   <variable type="discrete" id="P1RefPu"/>
   <variable type="discrete" id="tanPhi1Ref"/>
-  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1Side1.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2Side1.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1Side2.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2Side2.value" defaultValue="false"/>
 </external_variables>

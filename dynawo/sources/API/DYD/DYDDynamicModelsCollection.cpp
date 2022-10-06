@@ -50,11 +50,7 @@ DynamicModelsCollection::addModel(const shared_ptr<Model>& model) {
   // Used instead of models_[name] = ModelFactory::newModel(id)
   // to avoid necessity to create Model default constructor
   std::pair<std::map<std::string, boost::shared_ptr<Model> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = models_.emplace(id, model);
-#else
-  ret = models_.insert(std::make_pair(id, model));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ModelIDNotUnique, id);
 }
@@ -76,11 +72,7 @@ void
 DynamicModelsCollection::addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector) {
   const string& id = macroConnector->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnector> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = macroConnectors_.emplace(id, macroConnector);
-#else
-  ret = macroConnectors_.insert(std::make_pair(id, macroConnector));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectorIDNotUnique, id);
 }
@@ -89,11 +81,7 @@ void
 DynamicModelsCollection::addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference) {
   const string& id = macroStaticReference->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroStaticReference> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = macroStaticReferences_.emplace(id, macroStaticReference);
-#else
-  ret = macroStaticReferences_.insert(std::make_pair(id, macroStaticReference));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroStaticReferenceNotUnique, id);
 }

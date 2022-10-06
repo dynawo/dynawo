@@ -28,7 +28,7 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 
 \begin{document}
 
-\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.3.0} \\
+\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.4.0} \\
 \includegraphics[width=0.7\textwidth]{../resources/dynawoLogo.png}}
 \date\today
 
@@ -57,7 +57,7 @@ echo "" >> dynawoDocumentation/$output_file
 
 echo "\begin{appendices}" >> dynawoDocumentation/$output_file
 
-licenses_folders=(licenses/dynawo licenses/dynawo-documentation licenses/OpenModelica licenses/sundials licenses/suitesparse licenses/Adept licenses/xerces-c licenses/Nicslu
+licenses_folders=(licenses/dynawo licenses/dynawo-documentation licenses/OpenModelica licenses/sundials licenses/suitesparse licenses/Adept licenses/xerces-c licenses/libxml2 licenses/powsybl licenses/Nicslu
 licenses/jQuery licenses/cpplint)
 
 # Latex compile
@@ -70,7 +70,7 @@ for folder in ${licenses_folders[*]}; do
   done
 done
 
-license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'SuiteSparse' 'Adept' 'Xerces-C++' 'NICSLU' 'jQuery MIT' 'jQuery GPL' 'cpplint')
+license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'SuiteSparse' 'Adept' 'Xerces-C++' 'Libxml2' 'PowSyBl' 'NICSLU' 'jQuery MIT' 'jQuery GPL' 'cpplint')
 
 i=0
 j=1

@@ -51,6 +51,7 @@ namespace DYN {
 
 ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
 NetworkComponent(load->getID()),
+load_(load),
 stateModified_(false),
 kp_(0.),
 kq_(0.),
@@ -77,18 +78,9 @@ yOffset_(0),
 DeltaPcYNum_(0),
 DeltaQcYNum_(0),
 zPYNum_(0),
-zQYNum_(0) {
-  // init data
-  P0_ = load->getP() / SNREF;
-  Q0_ = load->getQ() / SNREF;
-  connectionState_ = load->getInitialConnected() ? CLOSED : OPEN;
-  double uNode = load->getBusInterface()->getV0();
-  double tetaNode = load->getBusInterface()->getAngle0();
-  double unomNode = load->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
-  ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
-  ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
+zQYNum_(0),
+startingPointMode_(WARM) {
+  connectionState_ = load_->getInitialConnected() ? CLOSED : OPEN;
 }
 
 void
@@ -209,6 +201,31 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
+  double thetaNode = load_->getBusInterface()->getAngle0();
+  double unomNode = load_->getBusInterface()->getVNom();
+  switch (startingPointMode_) {
+  case FLAT:
+    P0_ = load_->getP0() / SNREF;
+    Q0_ = load_->getQ0() / SNREF;
+    u0_ = load_->getBusInterface()->getVNom() / unomNode;
+    break;
+  case WARM:
+    P0_ = load_->getP() / SNREF;
+    Q0_ = load_->getQ() / SNREF;
+    u0_ = load_->getBusInterface()->getV0() / unomNode;
+    break;
+  }
+  double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
+  ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
+  ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
+  if (isConnected() && !doubleIsZero(u0_)) {
+    kp_ = 1. / pow_dynawo(u0_, alpha_);
+    kq_ = 1. / pow_dynawo(u0_, beta_);
+  } else {
+    kp_ = 0.;
+    kq_ = 0.;
+  }
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
     yOffset_ = static_cast<unsigned int>(yNum);
@@ -626,6 +643,11 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
   vector<string> ids;
   ids.push_back(id_);
   ids.push_back("load");
+  bool startingPointModeFound = false;
+  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  if (startingPointModeFound) {
+    startingPointMode_ = getStartingPointMode(startingPointMode);
+  }
   try {
     // Non generic parameters have a higher priority than generic ones
     alpha_ = getParameterDynamic<double>(params, "alpha", ids);
@@ -645,16 +667,6 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
     throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
-  }
-
-  // Connection ModelBus is supposed to be initialized before parameters set
-  u0_ = modelBus_->getU0();
-  if (isConnected() && !doubleIsZero(u0_)) {
-    kp_ = 1. / pow_dynawo(u0_, alpha_);
-    kq_ = 1. / pow_dynawo(u0_, beta_);
-  } else {
-    kp_ = 0.;
-    kq_ = 0.;
   }
   return;
 }
@@ -725,35 +737,31 @@ void
 ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case pNum_: {
-      if (isRunning()) {
-        numVars.push_back(modelBus_->urYNum());
-        numVars.push_back(modelBus_->uiYNum());
-        if (isControllable_)
-          numVars.push_back(DeltaPcYNum_ + yOffset_);
-        if (isRestorative_)
-          numVars.push_back(zPYNum_ + yOffset_);
-      }
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isControllable_)
+        numVars.push_back(DeltaPcYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zPYNum_ + yOffset_);
     }
     break;
     case qNum_: {
-      if (isRunning()) {
-        numVars.push_back(modelBus_->urYNum());
-        numVars.push_back(modelBus_->uiYNum());
-        if (isControllable_)
-          numVars.push_back(DeltaQcYNum_ + yOffset_);
-        if (isRestorative_)
-          numVars.push_back(zQYNum_ + yOffset_);
-      }
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isControllable_)
+        numVars.push_back(DeltaQcYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zQYNum_ + yOffset_);
     }
     break;
     case pcNum_: {
-      if (isRunning() && isControllable_) {
+      if (isControllable_) {
         numVars.push_back(DeltaPcYNum_ + yOffset_);
       }
     }
     break;
     case qcNum_: {
-      if (isRunning() && isControllable_) {
+      if (isControllable_) {
         numVars.push_back(DeltaQcYNum_ + yOffset_);
       }
     }

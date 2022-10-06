@@ -13,9 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportional "Simple Proportional Voltage Regulator"
-
   import Modelica;
-
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
@@ -33,11 +31,12 @@ model VRProportional "Simple Proportional Voltage Regulator"
     Placement(visible = true, transformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage" annotation(
     Placement(visible = true, transformation(origin = {-22, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
   // Outputs
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage" annotation(
     Placement(visible = true, transformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.BPin  limitationUp (value (start = false)) "Limitation up reached ?";
-  Connectors.BPin  limitationDown (value (start = false)) "Limitation down reached ?";
+  Connectors.BPin  limitationUp(value(start = false)) "Limitation up reached ?";
+  Connectors.BPin  limitationDown(value(start = false)) "Limitation down reached ?";
 
   //Blocks
   LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
@@ -49,17 +48,16 @@ model VRProportional "Simple Proportional Voltage Regulator"
   Modelica.Blocks.Nonlinear.Limiter limUsRef(limitsAtInit = true, uMax = UsRefMaxPu, uMin = UsRefMinPu)  annotation(
     Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage";
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd, i.e Efd0PuLF if compliant with saturations";
   parameter Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
 
-  Boolean limitationUsRefMax (start = false) "UsRefMax reached ?";
-  Boolean limitationUsRefMin (start = false) "UsRefMin reached ?";
-  Boolean limitationEfdMax (start = false) "EfdMax limitation?";
-  Boolean limitationEfdMin (start = false) "EfdMin limitation?";
+protected
+  Boolean limitationUsRefMax(start = false) "UsRefMax reached ?";
+  Boolean limitationUsRefMin(start = false) "UsRefMin reached ?";
+  Boolean limitationEfdMax(start = false) "EfdMax limitation?";
+  Boolean limitationEfdMin(start = false) "EfdMin limitation?";
 
 equation
   connect(limUsRef.y, feedback.u1) annotation(
@@ -75,7 +73,7 @@ equation
   connect(UsPu, feedback.u2) annotation(
     Line(points = {{-22, -48}, {-22, -48}, {-22, -8}, {-22, -8}}, color = {0, 0, 127}));
 
-// Low limit (EfdMin)
+  //Low limit (EfdMin)
   when time - limiterWithLag.tUMinReached >= LagEfdMin then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMin);
     limitationEfdMin = true;
@@ -84,7 +82,7 @@ equation
     limitationEfdMin = false;
   end when;
 
-// High limit (EfdMax)
+  //High limit (EfdMax)
   when time - limiterWithLag.tUMaxReached >= LagEfdMax then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMax);
     limitationEfdMax = true;
@@ -93,7 +91,7 @@ equation
     limitationEfdMax = false;
   end when;
 
-  // UsRef limits
+  //UsRef limits
   when UsRefPu <= UsRefMinPu then
     Timeline.logEvent1(TimelineKeys.VRLimitationUsRefMin);
     limitationUsRefMin = true;
@@ -111,5 +109,5 @@ equation
   limitationUp.value = limitationUsRefMax or limitationEfdMax;
   limitationDown.value = limitationUsRefMin or limitationEfdMin;
 
-annotation(preferredView = "diagram");
+  annotation(preferredView = "diagram");
 end VRProportional;

@@ -69,7 +69,7 @@ class Data:
     def serie(self):
         return self.serie_
 
-def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
+def readXmlToHtml(xml_file, ref_xml_file, output_dir, withoutOffset, showpoints):
     full_path = os.path.expanduser(output_dir)
     # Copy resources in output directory
     output_resources_dir = os.path.join(full_path,"curvesResources")
@@ -98,6 +98,24 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
                 timeSerie.append(timeValue)
         index = index + 1
 
+    ref_datas = []
+    if (ref_xml_file is not None):
+        refTimeSerie = []
+        ref_full_path = os.path.expanduser(ref_xml_file)
+        xml_curves = etree.parse(ref_full_path).getroot()
+        for curve in xml_curves.iter(namespaceDYN("curve")):
+            model = curve.get("model")
+            variable = curve.get("variable")
+            data= Data("REF_" + model+"_"+variable)
+            datas.append(data)
+            for point in curve.iter(namespaceDYN("point")):
+                timeValue = point.get("time")
+                value = point.get("value")
+                datas[index].add(value)
+                if index == 0:
+                    refTimeSerie.append(timeValue)
+            index = index + 1
+
 
     # ## dump dataStructures in javascript data
     full_path =  os.path.expanduser(output_dir)
@@ -111,6 +129,10 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
         minTime = timeSerie[0]
         for i in range(0,len(timeSerie)):
             timeSerie[i] = str(float(timeSerie[i]) - float(minTime))
+        if (len(ref_datas) > 0):
+            minTime = refTimeSerie[0]
+            for i in range(0,len(refTimeSerie)):
+                refTimeSerie[i] = str(float(refTimeSerie[i]) - float(minTime))
 
     index = 0
     for data in datas:
@@ -122,11 +144,34 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
         dataToPrintBody.append("\t{\n")
         dataToPrintBody.append('\t\tlabel:"'+data.name()+'",\n')
         dataToPrintBody.append("\t\tdata:"+cleanIdForJS(data.name())+"\n")
-        if(index < len(datas)-1):
+        if(index < len(datas)-1 or len(ref_datas) > 0):
             dataToPrintBody.append("\t},\n")
         else:
             dataToPrintBody.append("\t}\n")
         index += 1
+
+    if (len(ref_datas) > 0):
+        for data in ref_datas:
+            dataToPrint.append("")
+            text = "\n"
+            name = cleanIdForJS(data.name())
+            text += "\tvar "+name+"=[];\n"
+            serie = data.serie()
+            for i in range(0,len(serie)):
+                text += "\t"+name+".push(["+refTimeSerie[i]+","+serie[i]+"]);\n"
+            dataToPrint[index] = text
+
+            dataToPrintBody.append("")
+            textBody ="\t{\n"
+            textBody +='\t\tlabel:"'+data.name()+'",\n'
+            textBody +="\t\tdata:"+name+"\n"
+            if(index < len(datas) + len(ref_datas)-1):
+                textBody +="\t},\n"
+            else:
+                textBody +="\t}\n"
+            dataToPrintBody[index] = textBody
+
+            index +=1
 
     titleToPrint = os.path.basename(xml_file)
     ## javascript file
@@ -186,6 +231,8 @@ def main():
     parser = OptionParser(usage)
     parser.add_option( '--xmlFile', dest="xmlFile",
                        help=u'File to read')
+    parser.add_option( '--refXmlFile', dest="refXmlFile",
+                       help=u'Reference file to read')
     parser.add_option( '--outputDir', dest="outputdir",
                        help=u"Output directory for html files created")
     parser.add_option("--withoutOffset", action="store_true", dest="withoutOffset",
@@ -200,7 +247,7 @@ def main():
     if options.outputdir == None:
         parser.error("Output directory should be informed")
 
-    readXmlToHtml(options.xmlFile, options.outputdir, options.withoutOffset, options.showpoints)
+    readXmlToHtml(options.xmlFile, options.refXmlFile, options.outputdir, options.withoutOffset, options.showpoints)
 
 if __name__ == "__main__":
     main()

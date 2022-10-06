@@ -24,11 +24,7 @@
 #include <string>
 #include <vector>
 
-#ifdef LANG_CXX11
 #include <chrono>
-#else
-#include <boost/timer.hpp>
-#endif
 #include <boost/core/noncopyable.hpp>
 
 // #define PRINT_TIMERS
@@ -114,11 +110,7 @@ class Timer : private boost::noncopyable {
 
  private:
   std::string name_;  ///< name of timer
-#ifdef LANG_CXX11
   std::chrono::steady_clock::time_point startPoint_;  ///< start time point of the timer
-#else
-  boost::timer timer_;  ///< boost timer to compute time elapsed
-#endif
   bool isStopped_;  ///< @b true is the timer is stopped
 };
 

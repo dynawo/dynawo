@@ -53,8 +53,10 @@ where [option] can be:"
         build-3rd-party                       build 3rd party softwares
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
+        build-dynaflow                        build DynaFlow related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaFlow models and solvers)
+        build-dynaswing                       build DynaSwing related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaSwing models and solvers)
         build-dynawo-core                     build Dynawo without models
-        build-dynawo-lib                      build a specific Dynawo library
+        build-dynawo-target                   build a specific Dynawo target (use help to see all cmake targets)
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
@@ -93,6 +95,7 @@ where [option] can be:"
         unittest-gdb [arg]                    call unittest in gdb
         curves [arg]                          plot curves of job
         curves-reference [arg]                plot curves of job's reference
+        curves-reference-same-graph [arg]     plot curves of job and job's reference on the same graph
 
         =========== Distribution
         distrib                               create distribution of Dynawo
@@ -106,7 +109,6 @@ where [option] can be:"
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         nrt-xsl ([args])                      update automatically the xml input files from the nrt
-        filter-timeline ([args])              filter timeline file to remove duplicated or opposed elements
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
         list-models                           list all preassembled models you can use with clean-models or clean-build-models
@@ -316,7 +318,6 @@ set_environment() {
   export_var_env DYNAWO_BUILD_TESTS=OFF
   export_var_env DYNAWO_BUILD_TESTS_COVERAGE=OFF
   export_var_env DYNAWO_BUILD_TYPE=UNDEFINED
-  export_var_env DYNAWO_CXX11_ENABLED=UNDEFINED
   export_var_env DYNAWO_USE_LEGACY_IIDM=NO
   export_var_env_force DYNAWO_USE_ADEPT=YES
 
@@ -328,21 +329,14 @@ set_environment() {
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
   export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
 
-  SUFFIX_CX11=""
-  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
-    SUFFIX_CX11="-cxx11"
-    export_var_env DYNAWO_CXX11_ENABLED=YES
-  else
-    export_var_env_force DYNAWO_USE_LEGACY_IIDM=YES
-  fi
   DIR_LIBIIDM="libiidm"
   if [ "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     DIR_LIBIIDM="libiidm0"
   fi
 
   if [ ! -z "$DYNAWO_JENKINS_MODE" ]; then
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared$SUFFIX_CX11/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared$SUFFIX_CX11/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
   else
     export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/shared/dynawo
     export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/shared/dynawo
@@ -436,11 +430,11 @@ set_environment() {
   export_var_env DYNAWO_BROWSER=firefox
   export_var_env DYNAWO_PDFVIEWER=xdg-open
   export_var_env_force DYNAWO_NRT_DIR=$DYNAWO_HOME/nrt
+  export_var_env_force DYNAWO_EXAMPLES_DIR=$DYNAWO_HOME/examples
   export_var_env DYNAWO_RESULTS_SHOW=true
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
-  export_var_env_force DYNAWO_TIMELINE_FILTER_DIR=$DYNAWO_HOME/util/timeline_filter
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -459,9 +453,6 @@ set_environment() {
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
-  if [ $DYNAWO_NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
-    error_exit "PROCESSORS_USED ($DYNAWO_NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
-  fi
 
   # OpenModelica config
   export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_13_2
@@ -714,7 +705,6 @@ config_3rd_party() {
     -DTMP_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR/tmp \
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
-    -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
     -DUSE_LEGACY_IIDM=$DYNAWO_USE_LEGACY_IIDM \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
@@ -837,7 +827,6 @@ config_dynawo() {
     -DUSE_ADEPT:BOOL=$DYNAWO_USE_ADEPT \
     -DINSTALL_OPENMODELICA:PATH=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
-    -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
     -DUSE_LEGACY_IIDM=$DYNAWO_USE_LEGACY_IIDM \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
@@ -887,16 +876,16 @@ build_dynawo_core() {
   fi
   if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
     cd $DYNAWO_BUILD_DIR
-    make -j $DYNAWO_NB_PROCESSORS_USED && make -j $DYNAWO_NB_PROCESSORS_USED install
+    make -j $DYNAWO_NB_PROCESSORS_USED install
   else
-    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE && cmake --build $DYNAWO_BUILD_DIR --target install --config $DYNAWO_BUILD_TYPE
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target install
   fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-# Compile a Dynawo library, use help to see all targets
-build_dynawo_lib() {
+# Compile a Dynawo target, use help to see all targets
+build_dynawo_target() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
@@ -960,6 +949,28 @@ build_dynawo() {
   return ${RETURN_CODE}
 }
 
+build_dynaX() {
+  config_dynawo || error_exit "Error during config_dynawo."
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  cd $DYNAWO_BUILD_DIR
+  build_dynawo_core || error_exit "Error during build_dynawo_core."
+  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
+  build_dynawo_solvers || error_exit "Error during build_dynawo_solvers."
+  build_dynawo_target $@
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+build_dynaflow() {
+  build_dynaX DYNAFLOW_MODELS || error_exit "Error during build_dynaflow."
+}
+
+build_dynaswing() {
+  build_dynaX DYNASWING_MODELS || error_exit "Error during build_dynaflow."
+}
+
 build_user() {
   install_launcher || error_exit "Error during Dynawo installation."
 }
@@ -1007,7 +1018,6 @@ build_tests() {
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
-  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_TIMELINE_FILTER_DIR/test/timelineFilterTest.py
   return ${RETURN_CODE}
 }
 
@@ -1094,7 +1104,7 @@ clean_models() {
     return 0
   fi
   for model in `echo $@`; do
-    rm -rf $DYNAWO_BUILD_DIR/sources/Models/Modelica/P/${model}*
+    rm -rf $DYNAWO_BUILD_DIR/M/M/P/${model}*
   done
 }
 
@@ -1108,7 +1118,7 @@ clean_build_models() {
       error_exit "$model is not a valid model to build."
     fi
   done
-  build_dynawo_lib $@
+  build_dynawo_target $@
 }
 
 list_models() {
@@ -1345,6 +1355,11 @@ curves_visu() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
+curves_visu_reference_same_graph() {
+  verify_browser
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" --plotRef || return 1
+}
+
 curves_visu_reference() {
   jobs=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
   sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' $jobs
@@ -1440,6 +1455,7 @@ nrt() {
 
 nrt_clean() {
   find $DYNAWO_NRT_DIR/data -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
+  find $DYNAWO_EXAMPLES_DIR -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
   rm -rf $DYNAWO_NRT_DIR/output
   rm -rf $DYNAWO_HOME/util/nrt_diff/output
   find $DYNAWO_NRT_DIR -name "*.pyc" -exec rm -rf {} \;
@@ -1570,10 +1586,6 @@ nrt_ref() {
 nrt_xsl() {
   export_var_env_force DYNAWO_NRT_SCRIPT_DIR=$DYNAWO_NRT_DIR
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/xsl/applyXsltToXml.py $@
-}
-
-filter_timeline() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_TIMELINE_FILTER_DIR/timelineFilter.py $@
 }
 
 check_coding_files() {
@@ -1789,6 +1801,9 @@ deploy_dynawo() {
   if [ -f "$boost_system_folder/libboost_iostreams.$LIBRARY_SUFFIX" ]; then
     cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX* lib/
   fi
+  if [ -f "$boost_system_folder/libboost_date_time.$LIBRARY_SUFFIX" ]; then
+    cp -P $boost_system_folder/libboost_date_time*.$LIBRARY_SUFFIX* lib/
+  fi
   cp -n -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
@@ -1830,7 +1845,7 @@ deploy_dynawo() {
     cp -n $libarchive_system_folder_include/archive_entry.h include/
     cp -n $libarchive_system_folder_include/archive.h include/
     if [ "`uname`" = "Linux" ]; then
-      for lib in {crypto,lzma,bz2,xml2}; do
+      for lib in {crypto,lzma,bz2,xml2,lzo2}; do
         if [ ! -z "$(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
           cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
         fi
@@ -1891,21 +1906,11 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
-  cp -r $DYNAWO_HOME/util/timeline_filter sbin/.
 
   rm -f lib/*.la
   find OpenModelica/lib -name "*.la" -exec rm {} \;
 
   cd $current_dir
-}
-
-copy_sources() {
-  mkdir -p $DYNAWO_DEPLOY_DIR/sources || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
-  if [ -e "$DYNAWO_HOME/.git" ]; then
-    for file in $(git ls-files); do
-      tar cf - $file | (cd $DYNAWO_DEPLOY_DIR/sources && tar xf -)
-    done
-  fi
 }
 
 create_modelica_distrib() {
@@ -1960,9 +1965,7 @@ create_distrib_with_headers() {
     fi
   fi
 
-  copy_sources
-
-  ln -s $DYNAWO_DEPLOY_DIR/sources/nrt/data $DYNAWO_DEPLOY_DIR/testcases
+  ln -s $DYNAWO_HOME/examples $DYNAWO_DEPLOY_DIR/examples
 
   if [ ! -x "$(command -v zip)" ]; then
     error_exit "You need to install zip command line utility."
@@ -1983,11 +1986,10 @@ create_distrib_with_headers() {
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
   cd "$DYNAWO_DEPLOY_DIR/.."
-  zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/sources/ dynawo/testcases/
+  zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/share/
+  zip -r -g -y $ZIP_FILE dynawo/examples/ -x "*.py"
   zip -r -g -y $ZIP_FILE dynawo/dynawo.sh
   zip -r -g -y $ZIP_FILE dynawo/dynawoEnv.txt
-
-  zip -r -g -y $ZIP_FILE dynawo/share/iidm dynawo/share/xsd dynawo/share/*.dic dynawo/share/*.par dynawo/share/cmake dynawo/share/dynawo-*.cmake
 
   # need with omc binary
   zip -r -g -y $ZIP_FILE dynawo/ddb/ dynawo/include/ dynawo/sbin/ dynawo/cmake/
@@ -2024,10 +2026,20 @@ create_distrib() {
 
   create_modelica_distrib $version
 
-  copy_sources
+  ln -s $DYNAWO_HOME/examples $DYNAWO_DEPLOY_DIR/examples
 
   if [ ! -x "$(command -v zip)" ]; then
     error_exit "You need to install zip command line utility."
+  fi
+
+  if [ "`uname`" = "Linux" ]; then
+    if [ -x "$(command -v chrpath)" ]; then
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libamd.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libbtf.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libcolamd.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libklu.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libsuitesparseconfig.so
+    fi
   fi
 
   # create distribution
@@ -2035,7 +2047,8 @@ create_distrib() {
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
   cd "$DYNAWO_DEPLOY_DIR/.."
-  zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/share/ dynawo/sources/
+  zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/share/
+  zip -r -g -y $ZIP_FILE dynawo/examples/ -x "*.py" "*DynaSwing/Kundur_Example13*"
   zip -r -g -y $ZIP_FILE dynawo/dynawo.sh
   zip -r -g -y $ZIP_FILE dynawo/ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX dynawo/ddb/*.desc.xml dynawo/ddb/*.extvar
   zip -r -g -y $ZIP_FILE dynawo/sbin/curvesToHtml
@@ -2121,7 +2134,7 @@ unittest_gdb() {
     build_dynawo_core || error_exit
     build_dynawo_models_cpp || error_exit
   fi
-  list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -executable -type f -exec basename {} \; | grep test))
+  list_of_tests=($(find $DYNAWO_BUILD_DIR -executable -type f -exec basename {} \; | grep test))
   if [[ ${#list_of_tests[@]} == 0 ]]; then
     echo "The list of tests is empty. This should not happen."
     exit 1
@@ -2134,7 +2147,7 @@ unittest_gdb() {
     done
     exit 1
   fi
-  unittest_exe=$(find $DYNAWO_BUILD_DIR/sources -name "$1")
+  unittest_exe=$(find $DYNAWO_BUILD_DIR -name "$1")
   if [ -z "$unittest_exe" ]; then
     echo "The unittest you gave is not available."
     echo "List of available unittests:"
@@ -2169,7 +2182,7 @@ reset_environment_variables() {
   path_remove $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_remove $DYNAWO_SCRIPTS_DIR
 
-  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_USE_LEGACY_IIDM DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
+  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_USE_LEGACY_IIDM DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
 DYNAWO_SRC_OPENMODELICA DYNAWO_ZLIB_HOME DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME DYNAWO_XSD_DIR"
 
   for var in $(printenv | grep DYNAWO_ | cut -d '=' -f 1); do
@@ -2183,7 +2196,6 @@ reset_environment_variables_full() {
   reset_environment_variables
   unset DYNAWO_BUILD_TYPE
   unset DYNAWO_COMPILER
-  unset DYNAWO_CXX11_ENABLED
   unset DYNAWO_USE_LEGACY_IIDM
   unset DYNAWO_HOME
   unset DYNAWO_INSTALL_OPENMODELICA
@@ -2198,13 +2210,6 @@ reset_environment_variables_full() {
 #################################
 ########### Main script #########
 #################################
-
-if [ "`uname`" = "Linux" ]; then
-  TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
-else
-  echo "OS not supported."
-  exit 1
-fi
 
 if [ -n "$BASH_VERSION" ]; then
   SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
@@ -2248,13 +2253,20 @@ case $MODE in
     build_dynawo || error_exit "Error while building Dynawo"
     ;;
 
+  build-dynaflow)
+    build_dynaflow || error_exit "Error while building DynaFlow"
+    ;;
+
+  build-dynaswing)
+    build_dynaswing || error_exit "Error while building DynaSwing"
+    ;;
+
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
 
-  build-dynawo-lib)
-    config_dynawo || error_exit "Error while configuring Dynawo"
-    build_dynawo_lib ${ARGS} || error_exit "Failed to build Dynawo lib"
+  build-dynawo-target)
+    build_dynawo_target ${ARGS} || error_exit "Failed to build Dynawo target"
     ;;
 
   build-dynawo-models)
@@ -2363,6 +2375,10 @@ case $MODE in
 
   curves-reference)
     curves_visu_reference ${ARGS} || error_exit "Error with reference curves plot"
+    ;;
+
+  curves-reference-same-graph)
+    curves_visu_reference_same_graph ${ARGS} || error_exit "Error with reference curves plot"
     ;;
 
   deploy)
@@ -2479,10 +2495,6 @@ case $MODE in
 
   nrt-xsl)
     nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
-    ;;
-
-  filter-timeline)
-    filter_timeline ${ARGS} || error_exit "Error during timeline filtering"
     ;;
 
   nrt-doc)

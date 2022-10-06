@@ -51,6 +51,7 @@ set_environment() {
   else
     export_var_env DYNAWO_OPENMODELICA_VERSION=NOT-FOUND
   fi
+  export_var_env OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
 
   export_var_env DYNAWO_ADEPT_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
   export_var_env DYNAWO_SUITESPARSE_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
@@ -60,7 +61,6 @@ set_environment() {
   export_var_env DYNAWO_LIBXML_HOME="$DYNAWO_INSTALL_DIR"
   export_var_env DYNAWO_BOOST_HOME="$DYNAWO_INSTALL_DIR"
 
-  export_var_env DYNAWO_IIDM_EXTENSION="$DYNAWO_INSTALL_DIR/lib/libdynawo_DataInterfaceIIDMExtension.so"
   export_var_env DYNAWO_LIBIIDM_EXTENSIONS="$DYNAWO_LIBIIDM_INSTALL_DIR/lib"
 
   export_var_env DYNAWO_LOCALE=en_GB

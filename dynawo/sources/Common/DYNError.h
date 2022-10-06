@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include <string>
 
-#include "DYNCompatibility.h"
 #include "DYNMessage.h"
 
 namespace DYN {
@@ -87,12 +86,12 @@ class Error : public std::exception {
    *
    * @return error's description
    */
-  virtual const char * what() const DYN_NOEXCEPT;
+  virtual const char * what() const noexcept;
 
   /**
    * @brief destructor
    */
-  virtual ~Error() DYN_NOEXCEPT { }
+  virtual ~Error() noexcept { }
 
   /**
    * @brief returns the error's type
@@ -170,12 +169,12 @@ class MessageError : public std::exception {
    *
    * @return error's description
    */
-  virtual const char * what() const DYN_NOEXCEPT;
+  virtual const char * what() const noexcept;
 
   /**
    * @brief destructor
    */
-  virtual ~MessageError() DYN_NOEXCEPT { }
+  virtual ~MessageError() noexcept { }
 
   /**
    * @brief returns the error's message

@@ -4,18 +4,18 @@ generator_QMaxPu                                  : y =       0.250000 yp =     
 generator_QMinPu                                  : y =      -0.070000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.262912 yp =       0.000000
 generator_terminal_V_re                           : y =       1.037496 yp =       0.000000
+generator_PGenPu                                  : y =       0.000000 yp =       0.000000
 generator_PGenRawPu                               : y =       0.000000 yp =       0.000000
 generator_QGenPu                                  : y =       0.127300 yp =       0.000000
 generator_UPu                                     : y =       1.070290 yp =       0.000000
-generator_tableQMax_u_1_                          : y =       0.000000 yp =       0.000000
 generator_tableQMax_y_1_                          : y =       0.240000 yp =       0.000000
 generator_tableQMin_y_1_                          : y =      -0.060000 yp =       0.000000
 generator_terminal_i_im                           : y =       0.115295 yp =       0.000000
 generator_terminal_i_re                           : y =       0.029217 yp =       0.000000
-generator_PGenPu                                  : alias of generator_tableQMax_u_1_
 generator_SGenPu_im                               : alias of generator_QGenPu
-generator_SGenPu_re                               : alias of generator_tableQMax_u_1_
-generator_tableQMin_u_1_                          : alias of generator_tableQMax_u_1_
+generator_SGenPu_re                               : alias of generator_PGenPu
+generator_tableQMax_u_1_                          : alias of generator_PGenPu
+generator_tableQMin_u_1_                          : alias of generator_PGenPu
  ====== INIT DISCRETE VARIABLES VALUES ======
 generator_URefPu                                  : z =       1.070000
 generator_running_value                           : z =       1.000000

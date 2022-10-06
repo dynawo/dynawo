@@ -51,5 +51,6 @@
   <dyn:connect id1="Hvdc1" var1="hvdc_NQ2" id2="HvdcVoltageRegulationTerminal2" var2="vrremote_NQ"/>
   <dyn:connect id1="Hvdc2" var1="hvdc_NQ2" id2="HvdcVoltageRegulationTerminal2" var2="vrremote_NQ"/>
   <dyn:connect id1="HvdcVoltageRegulationTerminal2" var1="vrremote_URegulated" id2="NETWORK" var2="_BUS___10_TN_U_value"/>
-  <dyn:connect id1="Disconnect_Hvdc1" var1="event_state1" id2="Hvdc1" var2="hvdc_switchOffSignal2"/>
+  <dyn:connect id1="Disconnect_Hvdc1" var1="event_state1" id2="Hvdc1" var2="hvdc_switchOffSignal2Side1"/>
+  <dyn:connect id1="Disconnect_Hvdc1" var1="event_state1" id2="Hvdc1" var2="hvdc_switchOffSignal2Side2"/>
 </dyn:dynamicModelsArchitecture>

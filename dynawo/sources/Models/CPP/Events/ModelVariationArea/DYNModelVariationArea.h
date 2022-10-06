@@ -77,8 +77,6 @@ class ModelVariationArea : public ModelCPP {
   ModelVariationArea();
   /**
    * @brief Default destructor
-   *
-   * Creates a new ModelVariationArea instance.
    */
   ~ModelVariationArea() { }
 
@@ -121,8 +119,6 @@ class ModelVariationArea : public ModelCPP {
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
    * @param[in] t Simulation instant
-   * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
-   * it shows that there is a bug in the selection of activated shunt.
    */
   void evalZ(const double t);
 

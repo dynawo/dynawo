@@ -13,15 +13,14 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 model PhaseShifterI_INIT "Initialisation model for a phase-shifter monitoring the current"
-  extends BaseClasses_INIT.BaseTapChangerPhaseShifter_MAX_INIT (valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, increaseTapToIncreaseValue = (sign * increasePhase < 0));
+  extends BaseClasses_INIT.BaseTapChangerPhaseShifter_MAX_INIT(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, increaseTapToIncreaseValue = (sign * increasePhase < 0));
   extends AdditionalIcons.Init;
 
-  public
-    parameter Types.CurrentModule iMax  "Maximum allowed current";
-    parameter Types.CurrentModule iStop  "Current below which the phase-shifter will not take action";
-    parameter Types.CurrentModule I0 "Initial current module";
-    parameter Real sign;
-    parameter Integer increasePhase;
+  parameter Types.CurrentModule iMax "Maximum allowed current";
+  parameter Types.CurrentModule iStop "Current below which the phase-shifter will not take action";
+  parameter Types.CurrentModule I0 "Initial current module";
+  parameter Real sign;
+  parameter Integer increasePhase;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end PhaseShifterI_INIT;

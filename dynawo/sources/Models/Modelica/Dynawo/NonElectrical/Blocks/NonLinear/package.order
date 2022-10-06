@@ -1,8 +1,10 @@
 BaseClasses
+BacklashHysteresis
+DeadBand
+DelayFlag
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS
-Hysteresis
 IntegratorOrFirstOrder
 LimitedFirstOrder
 LimitedIntegrator
@@ -11,6 +13,10 @@ LimiterWithLag
 LimiterWithLag_INIT
 MaxThresholdSwitch
 MinThresholdSwitch
+MultiSwitch
 PulseFixedDuration
 PulseMinimumDuration
+SwitchInteger
+VariableDelayFlag
 VariableLimiter
+PIAntiWindUpTable

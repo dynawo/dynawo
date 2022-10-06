@@ -29,7 +29,7 @@ for %%i in ("%thirdPartyInstallPath_arg%") do set "thirdPartyInstallPath=%%~fi"
 for %%i in ("%OPENMODELICA_HOME_arg%") do set "OPENMODELICA_HOME=%%~fi"
 
 set script_dir=%~DP0
-set deploy_dir=%script_dir%..\..\deploy
+set deploy_dir=%script_dir%..\..\deploy\dynawo
 set dynawo_source_dir=%~DP0..\..
 
 for %%i in ("%deploy_dir%") do set "deploy_dir_abs=%%~fi"
@@ -61,34 +61,20 @@ xcopy %dynawo_source_dir%\util\nrt_diff\*.py %deploy_dir%\sbin\nrt\nrt_diff /i
 xcopy %dynawo_source_dir%\nrt\nrt.py %deploy_dir%\sbin\nrt /i
 xcopy %dynawo_source_dir%\nrt\resources %deploy_dir%\sbin\nrt /i
 
-pushd %dynawo_source_dir%
-
-:: Copy sources
-SETLOCAL ENABLEDELAYEDEXPANSION
-for /f %%i in ('git ls-files') do (
-  SET FILE=%%i
-  set FILE_DIR=%%~dpi
-  set FILE_INTERMEDIATE_DIR=!FILE_DIR:%dynawo_source_dir_abs%=!
-  xcopy !FILE:/=\! %deploy_dir_abs%\sources!FILE_INTERMEDIATE_DIR! /i /y
-  )
-ENDLOCAL
-
-popd
-
-xcopy %deploy_dir_abs%\sources\nrt\data %deploy_dir%\testcases /E /i
-forfiles /p %deploy_dir%\testcases /m *.py /s /c "cmd /c del @path /s /f /q"
+xcopy %dynawo_source_dir%\examples %deploy_dir%\examples /E /i
+forfiles /p %deploy_dir%\examples /m *.py /s /c "cmd /c del @path /s /f /q"
 
 :: Third parties
 xcopy %thirdPartyInstallPath%\adept\cmake %deploy_dir%\cmake /E /i
 xcopy %thirdPartyInstallPath%\adept\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\adept\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\adept\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\adept\bin %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\boost\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\boost\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\boost\bin %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\libarchive\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libarchive\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\libarchive\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\libarchive\bin\archive* %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\libiidm\bin %deploy_dir%\bin /E /i
@@ -100,34 +86,34 @@ xcopy %thirdPartyInstallPath%\libiidm\LibIIDM %deploy_dir%\LibIIDM /E /i
 
 xcopy %thirdPartyInstallPath%\libxml\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libxml\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\libxml\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\libxml\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\libzip\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libzip\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libzip\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\libzip\lib %deploy_dir%\lib /E /i
 
 xcopy %thirdPartyInstallPath%\suitesparse\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\suitesparse\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\suitesparse\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\suitesparse\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\suitesparse\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\sundials\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\sundials\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\sundials\bin %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\xerces-c\bin\*.dll %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\bin\*.lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\xerces-c\lib\xerces*.lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\xerces-c\lib\xerces*.lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\zlib\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\zlib\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\zlib\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\zlib\bin\zlib* %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\libxml2\bin\*.dll %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml2\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libxml2\lib %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\libxml2\lib %deploy_dir%\lib /E /i
 
 :: OpenModelica
 xcopy %OPENMODELICA_HOME%\bin %deploy_dir%\OpenModelica\bin /E /i
@@ -143,4 +129,4 @@ xcopy %dynawo_source_dir_abs%\util\windows\dynawo.cmd %deploy_dir% /i
 :: Create zip
 for /f %%i in ('%deploy_dir_abs%\dynawo.cmd version') do set dynawo_version=%%i
 if exist %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip del %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip /s /f /q
-7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\*
+7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\..\*
