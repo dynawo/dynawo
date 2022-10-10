@@ -105,7 +105,7 @@ model TestCase2 "Active power variation on the load"
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint QRefPu(Value0 = 0);
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0);
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1);
 
 equation
@@ -113,7 +113,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
   load.PRefPu = PRefPu.y;
-  load.QRefPu = QRefPu.setPoint.value;
+  load.QRefPu = QRefPu.y;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
   load.deltaP = 0;

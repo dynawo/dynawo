@@ -111,10 +111,4 @@
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
-  <set id="5">
-    <par type="DOUBLE" name="setPoint_Value0" value="0.7"/>
-  </set>
-  <set id="6">
-    <par type="DOUBLE" name="setPoint_Value0" value="0.2"/>
-  </set>
 </parametersSet>

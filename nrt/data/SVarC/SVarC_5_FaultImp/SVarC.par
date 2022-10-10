@@ -51,7 +51,6 @@
     <par type="DOUBLE" name="SVarC_tThresholdUp" value="60"/>
     <par type="DOUBLE" name="SVarC_tThresholdDown" value="0"/>
     <par type="INT" name="SVarC_Mode0" value="3"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="225"/>
   </set>
   <!-- Fault -->
   <set id="4">

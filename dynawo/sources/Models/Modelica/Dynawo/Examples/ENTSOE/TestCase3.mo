@@ -112,16 +112,16 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
     Placement(visible = true, transformation(origin = {-80, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint PRefPu(Value0 = 4.75);
-  Dynawo.Electrical.Controls.Basics.SetPoint QRefPu(Value0 = 0.76);
+  Modelica.Blocks.Sources.Constant PRefPu(k = 4.75);
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0.76);
 
   // Three-phase short circuit
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.000173, XPu = 0, tBegin = 0.1, tEnd = 0.2) annotation(
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  load.PRefPu = PRefPu.setPoint.value;
-  load.QRefPu = QRefPu.setPoint.value;
+  load.PRefPu = PRefPu.y;
+  load.QRefPu = QRefPu.y;
   gridImpedance.switchOffSignal1.value = false;
   gridImpedance.switchOffSignal2.value = false;
   transformer.switchOffSignal1.value = false;

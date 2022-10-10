@@ -8,6 +8,8 @@ generator_omegaRefPu_value                        : y =       1.000000 yp =     
 generator_terminal_V_im                           : y =      -0.090760 yp =       0.000000
 generator_terminal_V_re                           : y =       1.041092 yp =       0.000000
 generator_theta                                   : y =      -0.014079 yp =      -0.000000
+governor_PmRefPu                                  : y =       0.039693 yp =       0.000000
+voltageRegulator_UsRefPu                          : y =       1.112246 yp =       0.000000
 generator_MdSatPPu                                : y =       2.109541 yp =       0.000000
 generator_MqSatPPu                                : y =       2.109541 yp =       0.000000
 generator_cePu                                    : y =       0.035836 yp =       0.000000
@@ -42,11 +44,13 @@ governor_feedback_y                               : y =       0.000000 yp =     
 governor_limiter_y                                : y =       0.039693 yp =       0.000000
 voltageRegulator_EfdPu                            : y =       1.269364 yp =       0.000000
 voltageRegulator_UsPu                             : y =       1.048778 yp =       0.000000
+voltageRegulator_feedback_u1                      : y =       1.112246 yp =       0.000000
 voltageRegulator_feedback_y                       : y =       0.063468 yp =       0.000000
 voltageRegulator_gain_y                           : y =       1.269364 yp =       0.000000
 generator_PmPu_value                              : alias of governor_PmPu
 generator_UStatorPu_value                         : alias of voltageRegulator_UsPu
 generator_efdPu_value                             : alias of voltageRegulator_EfdPu
+governor_PmRawPu_u1                               : alias of governor_PmRefPu
 governor_feedback_u2                              : alias of generator_omegaPu_value
 governor_gain_u                                   : alias of governor_feedback_y
 governor_gain_y                                   : alias of governor_PmRawPu_u2
@@ -57,6 +61,9 @@ governor_switch_u1                                : alias of governor_limiter_y
 governor_switch_y                                 : alias of governor_PmPu
 voltageRegulator_feedback_u2                      : alias of voltageRegulator_UsPu
 voltageRegulator_gain_u                           : alias of voltageRegulator_feedback_y
+voltageRegulator_limUsRef_simplifiedExpr          : alias of voltageRegulator_UsRefPu
+voltageRegulator_limUsRef_u                       : alias of voltageRegulator_UsRefPu
+voltageRegulator_limUsRef_y                       : alias of voltageRegulator_feedback_u1
 voltageRegulator_limiterWithLag_u                 : alias of voltageRegulator_gain_y
 voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_EfdPu
  ====== INIT CALCULATED VARIABLES VALUES ======
@@ -77,19 +84,10 @@ generator_sStatorPu_re                            : y =      -0.401262
 generator_thetaInternal_value                     : y =       0.072879
 generator_uPu_im                                  : y =      -0.090760
 generator_uPu_re                                  : y =       1.041092
-voltageRegulator_feedback_u1                      : y =       1.112246
-Pm_setPoint_value                                 : y =       0.039693
-URef_setPoint_value                               : y =       1.112246
 governor_PmCst_y                                  : y =       0.039693
-governor_PmRawPu_u1                               : y =       0.039693
-governor_PmRefPu                                  : y =       0.039693
 governor_feedback_u1                              : y =       1.000000
 governor_omegaRefPu_y                             : y =       1.000000
 governor_switch_u3                                : y =       0.039693
-voltageRegulator_UsRefPu                          : y =       1.112246
-voltageRegulator_limUsRef_simplifiedExpr          : y =       1.112246
-voltageRegulator_limUsRef_u                       : y =       1.112246
-voltageRegulator_limUsRef_y                       : y =       1.112246
  ====== INIT DISCRETE VARIABLES VALUES ======
 voltageRegulator_limiterWithLag_tUMaxReached      : z =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached      : z =   1.000000e+60
@@ -110,8 +108,6 @@ governor_switch_u2                                : z =       1.000000
 generator_state                                   : z =       2.000000
 governor_state                                    : z =       1.000000
  ====== PARAMETERS VALUES ======
-Pm_Value0                                          =       0.039693
-URef_Value0                                        =       1.112246
 generator_Ce0Pu                                    =       0.035723
 generator_Cm0Pu                                    =       0.039693
 generator_Cos2Eta0                                 =       0.996080

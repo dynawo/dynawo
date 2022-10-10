@@ -77,14 +77,6 @@
     <par type="DOUBLE" name="U0Pu" value="1"/>
     <par type="DOUBLE" name="UPhase0" value="0.49445"/>
   </set>
-  <!-- Pm SetPoint - valueIn is overwritten by init -->
-  <set id="SetPointGovernor">
-    <par type="DOUBLE" name="ValueIn" value="0"/>
-  </set>
-  <!-- Efd SetPoint - valueIn is overwritten by init -->
-  <set id="SetPointVoltageRegulator">
-    <par type="DOUBLE" name="ValueIn" value="0"/>
-  </set>
   <!-- OmegaRef -->
   <set id="SetPointOmegaRef">
     <par type="DOUBLE" name="Value0" value="1"/>
