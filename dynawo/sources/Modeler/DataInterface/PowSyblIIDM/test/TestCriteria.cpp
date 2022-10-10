@@ -34,6 +34,8 @@
 #include "CRTCriteriaParamsFactory.h"
 #include "CRTCriteriaCollection.h"
 #include "CRTCriteriaCollectionFactory.h"
+#include "TLTimelineFactory.h"
+#include <boost/algorithm/string.hpp>
 
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
@@ -386,6 +388,291 @@ exportStates(shared_ptr<DataInterface> data) {
   data->exportStateVariables();
   data->updateFromModel(false);
   data->importStaticParameters();
+}
+
+TEST(DataInterfaceIIDMTest, Timeline) {
+  std::array<criteria::CriteriaParams::CriteriaScope_t, 2> criteriaScopeArray = {CriteriaParams::DYNAMIC,
+                                                                                CriteriaParams::FINAL};
+
+  for (criteria::CriteriaParams::CriteriaScope_t criteriaScope : criteriaScopeArray) {
+    boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
+    criteriaParams->setPMax(200);
+    criteriaParams->setPMin(150);
+    criteriaParams->setType(CriteriaParams::LOCAL_VALUE);
+    criteriaParams->setScope(criteriaScope);
+    criteria::CriteriaParamsVoltageLevel voltageLevel;
+    voltageLevel.setUMinPu(0.99);
+    voltageLevel.setUMaxPu(1.01);
+    criteriaParams->addVoltageLevel(voltageLevel);
+
+    BusCriteria busCriteria(criteriaParams);
+    std::vector<boost::shared_ptr<DataInterface> > dataInterfaceArray;
+    constexpr int nominalBusVoltage = 150;
+    constexpr int numberOfNodes = 10;
+    std::array<int, numberOfNodes> busVoltage = {200, 190, 180, 170, 160, 145, 135, 125, 115, 105};
+    for (int busVIndex = 0; busVIndex < numberOfNodes; ++busVIndex) {
+      boost::shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(busVoltage[busVIndex], nominalBusVoltage));
+      exportStates(data);
+      dataInterfaceArray.push_back(data);
+    }
+    for (int busIndex = 0; busIndex < numberOfNodes; ++busIndex) {
+      boost::shared_ptr<BusInterface> bus = dataInterfaceArray[busIndex]->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
+      busCriteria.addBus(bus);
+    }
+
+    boost::shared_ptr<timeline::Timeline> timeline = timeline::TimelineFactory::newInstance("TestCriteria");
+    switch (criteriaScope) {
+      case CriteriaParams::DYNAMIC:
+        busCriteria.checkCriteria(0, false, timeline);
+        break;
+      case CriteriaParams::FINAL:
+        busCriteria.checkCriteria(0, true, timeline);
+        break;
+      case CriteriaParams::UNDEFINED_SCOPE:
+        GTEST_FAIL();
+        break;
+    }
+    double previousVoltageDistancePu = std::numeric_limits<double>::max();
+    constexpr int maxNumberOfEvents = 5;
+    ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents);  // timeline can't contain more than 5 events for each FailingCriteria
+    for (timeline::Timeline::event_const_iterator timelineIt = timeline->cbeginEvent();
+          timelineIt != timeline->cendEvent();
+          ++timelineIt) {
+      const std::string timelineLog = (*timelineIt)->getMessage();
+      std::vector<std::string> splitTimelineLog;
+      boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
+      const std::string loadErrorLogName = splitTimelineLog[0];
+      ASSERT_TRUE(loadErrorLogName == "BusAboveVoltage" || loadErrorLogName == "BusUnderVoltage");
+      const double currentVoltagePu = std::stod(splitTimelineLog[3]);
+      const double voltageBoundPu = std::stod(splitTimelineLog[5]);
+      const double currentVoltageDistancePu = std::abs(currentVoltagePu - voltageBoundPu);
+      // the timeline should display logs with the biggest gap between the voltage and the nominal voltage first
+      ASSERT_TRUE(previousVoltageDistancePu >= currentVoltageDistancePu);
+      previousVoltageDistancePu = currentVoltageDistancePu;
+    }
+
+    LoadCriteria loadCriteria(criteriaParams);
+    std::vector<boost::shared_ptr<DataInterface> > loadDataInterfaceArray;
+    const std::array<std::pair<int, int>, numberOfNodes> loadPowers = {{{190, 250},
+                                                                        {190, 240},
+                                                                        {190, 230},
+                                                                        {190, 220},
+                                                                        {190, 210},
+                                                                        {190, 145},
+                                                                        {190, 135},
+                                                                        {190, 125},
+                                                                        {190, 115},
+                                                                        {190, 105}}};
+    for (int loadPowerIndex = 0; loadPowerIndex < numberOfNodes; ++loadPowerIndex) {
+      boost::shared_ptr<powsybl::iidm::Network> loadNetwork = createBusBreakerNetworkWithLoads(loadPowers[loadPowerIndex].first,
+                                                                                                loadPowers[loadPowerIndex].first,
+                                                                                                loadPowers[loadPowerIndex].second,
+                                                                                                loadPowers[loadPowerIndex].second);
+      boost::shared_ptr<DataInterface> loadData = createDataItfFromNetworkCriteria(loadNetwork);
+      exportStates(loadData);
+      loadDataInterfaceArray.push_back(loadData);
+    }
+    for (int loadDataIndex = 0; loadDataIndex < numberOfNodes; ++loadDataIndex) {
+      std::vector<boost::shared_ptr<LoadInterface> > loads = loadDataInterfaceArray[loadDataIndex]->getNetwork()->getVoltageLevels()[0]->getLoads();
+      for (size_t loadsIdx = 0; loadsIdx < loads.size(); ++loadsIdx) {
+        loadCriteria.addLoad(loads[loadsIdx]);
+      }
+    }
+
+    switch (criteriaScope) {
+      case CriteriaParams::DYNAMIC:
+        loadCriteria.checkCriteria(0, false, timeline);
+        break;
+      case CriteriaParams::FINAL:
+        loadCriteria.checkCriteria(0, true, timeline);
+        break;
+      case CriteriaParams::UNDEFINED_SCOPE:
+        GTEST_FAIL();
+        break;
+    }
+    double previousLoadPowerDistance = std::numeric_limits<double>::max();
+    ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 2);  // timeline can't contain more than 5 events for each FailingCriteria
+    timeline::Timeline::event_const_iterator firstTimelineLoadEvent = timeline->cbeginEvent();
+    // increment the iterator to place it on the first load timeline event
+    for (int i = 0; i < maxNumberOfEvents; ++i) {
+      ++firstTimelineLoadEvent;
+    }
+    for (timeline::Timeline::event_const_iterator timelineIt = firstTimelineLoadEvent;
+          timelineIt != timeline->cendEvent();
+          ++timelineIt) {
+      const std::string timelineLog = (*timelineIt)->getMessage();
+      std::vector<std::string> splitTimelineLog;
+      boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
+      const std::string loadErrorLogName = splitTimelineLog[0];
+      ASSERT_TRUE(loadErrorLogName == "SourceAbovePower" || loadErrorLogName == "SourceUnderPower");
+      const double loadPower = std::stod(splitTimelineLog[2]);
+      const double loadPowerBound = std::stod(splitTimelineLog[3]);
+      const double currentLoadPowerDistance = std::abs(loadPower - loadPowerBound);
+      // the timeline should display logs with the biggest gap between the load power and the nominal load power first
+      ASSERT_TRUE(previousLoadPowerDistance >= currentLoadPowerDistance);
+      previousLoadPowerDistance = currentLoadPowerDistance;
+    }
+
+    GeneratorCriteria generatorCriteria(criteriaParams);
+    std::vector<boost::shared_ptr<DataInterface> > generatorDataInterfaceArray;
+    const std::array<std::pair<int, int>, numberOfNodes> generatorPowers = {{{190, 250},
+                                                                              {190, 240},
+                                                                              {190, 230},
+                                                                              {190, 220},
+                                                                              {190, 210},
+                                                                              {190, 145},
+                                                                              {190, 135},
+                                                                              {190, 125},
+                                                                              {190, 115},
+                                                                              {190, 105}}};
+    for (int generatorPowerIndex = 0; generatorPowerIndex < numberOfNodes; ++generatorPowerIndex) {
+      boost::shared_ptr<powsybl::iidm::Network> generatorNetwork = createBusBreakerNetworkWithGenerators(generatorPowers[generatorPowerIndex].first,
+                                                                                                          generatorPowers[generatorPowerIndex].first,
+                                                                                                          generatorPowers[generatorPowerIndex].second,
+                                                                                                          generatorPowers[generatorPowerIndex].second);
+      boost::shared_ptr<DataInterface> generatorData = createDataItfFromNetworkCriteria(generatorNetwork);
+      exportStates(generatorData);
+      generatorDataInterfaceArray.push_back(generatorData);
+    }
+    for (int generatorDataIndex = 0; generatorDataIndex < numberOfNodes; ++generatorDataIndex) {
+      std::vector< boost::shared_ptr<GeneratorInterface> > generators =
+                                                    generatorDataInterfaceArray[generatorDataIndex]->getNetwork()->getVoltageLevels()[0]->getGenerators();
+      for (size_t generatorsIdx = 0; generatorsIdx < generators.size(); ++generatorsIdx) {
+        generatorCriteria.addGenerator(generators[generatorsIdx]);
+      }
+    }
+
+    switch (criteriaScope) {
+      case CriteriaParams::DYNAMIC:
+        generatorCriteria.checkCriteria(0, false, timeline);
+        break;
+      case CriteriaParams::FINAL:
+        generatorCriteria.checkCriteria(0, true, timeline);
+        break;
+      case CriteriaParams::UNDEFINED_SCOPE:
+        GTEST_FAIL();
+        break;
+    }
+    double previousGeneratorPowerDistance = std::numeric_limits<double>::max();
+    ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 3);  // timeline can't contain more than 5 events for each FailingCriteria
+    timeline::Timeline::event_const_iterator firstTimelineGeneratorEvent = timeline->cbeginEvent();
+    // increment the iterator to place it on the first generator timeline event
+    for (int i = 0; i < maxNumberOfEvents * 2; ++i) {
+      ++firstTimelineGeneratorEvent;
+    }
+    for (timeline::Timeline::event_const_iterator timelineIt = firstTimelineGeneratorEvent;
+          timelineIt != timeline->cendEvent();
+          ++timelineIt) {
+      const std::string timelineLog = (*timelineIt)->getMessage();
+      std::vector<std::string> splitTimelineLog;
+      boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
+      const std::string generatorErrorLogName = splitTimelineLog[0];
+      ASSERT_TRUE(generatorErrorLogName == "SourceAbovePower" || generatorErrorLogName == "SourceUnderPower");
+      const double generatorPower = std::stod(splitTimelineLog[2]);
+      const double generatorPowerBound = std::stod(splitTimelineLog[3]);
+      double currentGeneratorPowerDistance = std::abs(generatorPower - generatorPowerBound);
+      // the timeline should display logs with the biggest gap between the load power and the nominal load power first
+      ASSERT_TRUE(previousGeneratorPowerDistance >= currentGeneratorPowerDistance);
+      previousGeneratorPowerDistance = currentGeneratorPowerDistance;
+    }
+  }
+
+  for (criteria::CriteriaParams::CriteriaScope_t criteriaScope : criteriaScopeArray) {
+    boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
+    criteriaParams->setPMax(200);
+    criteriaParams->setPMin(150);
+    criteriaParams->setType(CriteriaParams::SUM);
+    criteriaParams->setScope(criteriaScope);
+    criteria::CriteriaParamsVoltageLevel voltageLevel;
+    voltageLevel.setUMinPu(0.99);
+    voltageLevel.setUMaxPu(1.01);
+    criteriaParams->addVoltageLevel(voltageLevel);
+
+    constexpr int numberOfNodes = 10;
+    LoadCriteria loadCriteria(criteriaParams);
+    std::vector<boost::shared_ptr<DataInterface> > loadDataInterfaceArray;
+    const std::array<std::pair<int, int>, numberOfNodes> loadPowers = {{{190, 250},
+                                                                        {190, 240},
+                                                                        {190, 230},
+                                                                        {190, 220},
+                                                                        {190, 210},
+                                                                        {190, 145},
+                                                                        {190, 135},
+                                                                        {190, 125},
+                                                                        {190, 115},
+                                                                        {190, 105}}};
+    for (int loadPowerIndex = 0; loadPowerIndex < numberOfNodes; ++loadPowerIndex) {
+      boost::shared_ptr<powsybl::iidm::Network> loadNetwork = createBusBreakerNetworkWithLoads(loadPowers[loadPowerIndex].first,
+                                                                                                loadPowers[loadPowerIndex].first,
+                                                                                                loadPowers[loadPowerIndex].second,
+                                                                                                loadPowers[loadPowerIndex].second);
+      boost::shared_ptr<DataInterface> loadData = createDataItfFromNetworkCriteria(loadNetwork);
+      exportStates(loadData);
+      loadDataInterfaceArray.push_back(loadData);
+    }
+    for (int loadDataIndex = 0; loadDataIndex < numberOfNodes; ++loadDataIndex) {
+      std::vector<boost::shared_ptr<LoadInterface> > loads = loadDataInterfaceArray[loadDataIndex]->getNetwork()->getVoltageLevels()[0]->getLoads();
+      for (size_t loadsIdx = 0; loadsIdx < loads.size(); ++loadsIdx) {
+        loadCriteria.addLoad(loads[loadsIdx]);
+      }
+    }
+
+    boost::shared_ptr<timeline::Timeline> loadTimeline = timeline::TimelineFactory::newInstance("TestLoadCriteria");
+    switch (criteriaScope) {
+      case CriteriaParams::DYNAMIC:
+        loadCriteria.checkCriteria(0, false, loadTimeline);
+        break;
+      case CriteriaParams::FINAL:
+        loadCriteria.checkCriteria(0, true, loadTimeline);
+        break;
+      case CriteriaParams::UNDEFINED_SCOPE:
+        GTEST_FAIL();
+        break;
+    }
+    ASSERT_EQ(loadTimeline->getSizeEvents(), 1);  // timeline contains only one event
+    GeneratorCriteria generatorCriteria(criteriaParams);
+    std::vector<boost::shared_ptr<DataInterface> > generatorDataInterfaceArray;
+    const std::array<std::pair<int, int>, numberOfNodes> generatorPowers = {{{190, 250},
+                                                                              {190, 240},
+                                                                              {190, 230},
+                                                                              {190, 220},
+                                                                              {190, 210},
+                                                                              {190, 145},
+                                                                              {190, 135},
+                                                                              {190, 125},
+                                                                              {190, 115},
+                                                                              {190, 105}}};
+    for (int generatorPowerIndex = 0; generatorPowerIndex < numberOfNodes; ++generatorPowerIndex) {
+      boost::shared_ptr<powsybl::iidm::Network> generatorNetwork = createBusBreakerNetworkWithGenerators(generatorPowers[generatorPowerIndex].first,
+                                                                                                          generatorPowers[generatorPowerIndex].first,
+                                                                                                          generatorPowers[generatorPowerIndex].second,
+                                                                                                          generatorPowers[generatorPowerIndex].second);
+      boost::shared_ptr<DataInterface> generatorData = createDataItfFromNetworkCriteria(generatorNetwork);
+      exportStates(generatorData);
+      generatorDataInterfaceArray.push_back(generatorData);
+    }
+    for (int generatorDataIndex = 0; generatorDataIndex < numberOfNodes; ++generatorDataIndex) {
+      std::vector< boost::shared_ptr<GeneratorInterface> > generators =
+                                                    generatorDataInterfaceArray[generatorDataIndex]->getNetwork()->getVoltageLevels()[0]->getGenerators();
+      for (size_t generatorsIdx = 0; generatorsIdx < generators.size(); ++generatorsIdx) {
+        generatorCriteria.addGenerator(generators[generatorsIdx]);
+      }
+    }
+
+    boost::shared_ptr<timeline::Timeline> generatorTimeline = timeline::TimelineFactory::newInstance("TestGeneratorCriteria");
+    switch (criteriaScope) {
+      case CriteriaParams::DYNAMIC:
+        generatorCriteria.checkCriteria(0, false, generatorTimeline);
+        break;
+      case CriteriaParams::FINAL:
+        generatorCriteria.checkCriteria(0, true, generatorTimeline);
+        break;
+      case CriteriaParams::UNDEFINED_SCOPE:
+        GTEST_FAIL();
+        break;
+    }
+    ASSERT_EQ(generatorTimeline->getSizeEvents(), 1);  // timeline contains only one event
+  }
 }
 
 TEST(DataInterfaceIIDMTest, testBusCriteria) {
@@ -897,7 +1184,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria6.addLoad(loads[i]);
   ASSERT_FALSE(criteria6.empty());
   ASSERT_FALSE(criteria6.checkCriteria(0, false));
-  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_GT(criteria6.getFailingCriteria().size(), 0);
   ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourceAbovePower MyLoad 250 200 MyCriteria");
 }
 
@@ -1588,7 +1875,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria6.addGenerator(generators[i]);
   ASSERT_FALSE(criteria6.empty());
   ASSERT_FALSE(criteria6.checkCriteria(0, false));
-  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_GT(criteria6.getFailingCriteria().size(), 0);
   ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourceAbovePower MyGen 250 200 MyCriteria");
 }
 

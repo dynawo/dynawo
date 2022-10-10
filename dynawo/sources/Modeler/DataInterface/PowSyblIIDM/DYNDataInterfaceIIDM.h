@@ -452,14 +452,21 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    */
   static void loadExtensions(const std::vector<std::string>& paths);
 
+  /**
+   * @brief Setter for timeline
+   * @param timeline timeline output
+   */
+  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+
  private:
-  boost::shared_ptr<powsybl::iidm::Network> networkIIDM_;                                              ///< instance of the IIDM network
-  boost::shared_ptr<NetworkInterfaceIIDM> network_;                                                    ///< instance of the network interface
-  boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> > components_;               ///< map of components
+  boost::shared_ptr<powsybl::iidm::Network> networkIIDM_;                                          ///< instance of the IIDM network
+  boost::shared_ptr<NetworkInterfaceIIDM> network_;                                                ///< instance of the network interface
+  boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> > components_;           ///< map of components
   boost::unordered_map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;     ///< map of voltageLevel by name
   boost::unordered_map<std::string, boost::shared_ptr<BusInterface> > busComponents_;              ///< map of bus by name
-  boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> > loadComponents_;            ///< map of loads by name
-  std::vector<boost::shared_ptr<Criteria> > criteria_;                                                 ///< table of criteria to check
+  boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> > loadComponents_;        ///< map of loads by name
+  std::vector<boost::shared_ptr<Criteria> > criteria_;                                             ///< table of criteria to check
+  boost::shared_ptr<timeline::Timeline> timeline_;                                                 ///< instance of the timeline where events are stored
   boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
