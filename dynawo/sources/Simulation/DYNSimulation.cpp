@@ -601,6 +601,8 @@ Simulation::loadDynamicData() {
 
   data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
 
+  data_->setTimeline(timeline_);
+
   dyd_->setDataInterface(data_);
 
   dyd_->initFromDydFiles(dydFiles_);

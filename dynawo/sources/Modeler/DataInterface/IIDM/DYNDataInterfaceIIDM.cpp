@@ -1437,7 +1437,7 @@ DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
   bool criteriaOk = true;
   for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
       it != itEnd; ++it) {
-    criteriaOk &= (*it)->checkCriteria(t, finalStep);
+    criteriaOk &= (*it)->checkCriteria(t, finalStep, timeline_);
   }
 #ifdef _DEBUG_
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
@@ -1469,6 +1469,11 @@ DataInterfaceIIDM::getStaticParameterIntValue(const std::string& staticID, const
 bool
 DataInterfaceIIDM::getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName) {
   return findComponent(staticID)->getStaticParameterValue<bool>(refOrigName);
+}
+
+void
+DataInterfaceIIDM::setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) {
+  timeline_ = timeline;
 }
 
 void
