@@ -29,11 +29,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPQPropDiagramPQSignalN.xml
   GeneratorPV.xml
   GeneratorPVSignalN.xml
+  GeneratorPVRpclSignalN.xml
   GeneratorPVTfoSignalN.xml
   GeneratorPVTfoDiagramPQSignalN.xml
   GeneratorPVTfoRpclSignalN.xml
   GeneratorPVTfoDiagramPQRpclSignalN.xml
   GeneratorPVDiagramPQSignalN.xml
+  GeneratorPVDiagramPQRpclSignalN.xml
   GeneratorPVPropSignalN.xml
   GeneratorPVRemoteSignalN.xml
   GeneratorPVRemoteDiagramPQSignalN.xml

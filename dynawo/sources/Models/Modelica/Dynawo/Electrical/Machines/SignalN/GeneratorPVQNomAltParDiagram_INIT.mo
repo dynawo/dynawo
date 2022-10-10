@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Machines.SignalN;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Machines.SignalN;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GeneratorPVDiagram_INIT "Initialisation model for generator PV based on SignalN for the frequency handling and with a diagram for handling the reactive power limits. In this model, QNomAlt is calculated using QMax0."
+model GeneratorPVQNomAltParDiagram_INIT "Initialisation model for generator PV based on SignalN for the frequency handling and with a diagram for handling the reactive power limits. In this model, QNomAlt is a parameter."
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
@@ -23,19 +23,23 @@ model GeneratorPVDiagram_INIT "Initialisation model for generator PV based on Si
   parameter Types.ActivePowerPu PMax "Maximum active power in MW";
   parameter Types.ReactivePowerPu QMin0 "Start value of minimum reactive power in Mvar";
   parameter Types.ReactivePowerPu QMax0 "Start value of maximum reactive power in Mvar";
+  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
 
   Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
   Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
   Types.ReactivePowerPu QMin0Pu "Start value of minimum reactive power in pu (base SnRef)";
   Types.ReactivePowerPu QMax0Pu "Start value of maximum reactive power in pu (base SnRef)";
-  Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
+  Types.VoltageModulePu URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
+  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
 
 equation
   PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;
   QMin0Pu = QMin0 / Dynawo.Electrical.SystemBase.SnRef;
   PMaxPu = PMax / Dynawo.Electrical.SystemBase.SnRef;
   QMax0Pu = QMax0 / Dynawo.Electrical.SystemBase.SnRef;
-  QNomAlt = QMax0;
+  URef0PuVar = URef0Pu;
+  QStator0Pu = QGen0Pu * SystemBase.SnRef / QNomAlt;
 
   annotation(preferredView = "text");
-end GeneratorPVDiagram_INIT;
+end GeneratorPVQNomAltParDiagram_INIT;
