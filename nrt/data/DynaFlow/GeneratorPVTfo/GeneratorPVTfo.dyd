@@ -67,4 +67,27 @@
   <dyn:connect id1="Generator6" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="SVC" var1="secondaryVoltageControl_UpPu" id2="Generator5" var2="generator_UPu"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line3Bis" var2="line_switchOffSignal2"/>
+  <!-- System 4 without transformers and with a secondary voltage control -->
+  <dyn:blackBoxModel id="Generator7" lib="GeneratorPVRpclSignalN" parFile="GeneratorPVTfo.par" parId="Generator7"/>
+  <dyn:blackBoxModel id="Generator8" lib="GeneratorPVDiagramPQRpclSignalN" parFile="GeneratorPVTfo.par" parId="Generator8"/>
+  <dyn:blackBoxModel id="Line4" lib="Line" parFile="GeneratorPVTfo.par" parId="Line"/>
+  <dyn:blackBoxModel id="Line4Bis" lib="Line" parFile="GeneratorPVTfo.par" parId="Line"/>
+  <dyn:blackBoxModel id="Line7" lib="Line" parFile="GeneratorPVTfo.par" parId="LineFict"/>
+  <dyn:blackBoxModel id="Line8" lib="Line" parFile="GeneratorPVTfo.par" parId="LineFict"/>
+  <dyn:blackBoxModel id="InfiniteBus4" lib="InfiniteBus" parFile="GeneratorPVTfo.par" parId="InfiniteBus1"/>
+  <dyn:blackBoxModel id="SVC1" lib="SecondaryVoltageControlSimp" parFile="GeneratorPVTfo.par" parId="SVC1"/>
+  <dyn:connect id1="Generator7" var1="generator_terminal" id2="Line7" var2="line_terminal1"/>
+  <dyn:connect id1="Generator8" var1="generator_terminal" id2="Line8" var2="line_terminal1"/>
+  <dyn:connect id1="Line7" var1="line_terminal2" id2="Line4" var2="line_terminal1"/>
+  <dyn:connect id1="Line8" var1="line_terminal2" id2="Line4" var2="line_terminal1"/>
+  <dyn:connect id1="Line7" var1="line_terminal2" id2="Line4Bis" var2="line_terminal1"/>
+  <dyn:connect id1="Line8" var1="line_terminal2" id2="Line4Bis" var2="line_terminal1"/>
+  <dyn:connect id1="InfiniteBus4" var1="infiniteBus_terminal" id2="Line4" var2="line_terminal2"/>
+  <dyn:connect id1="InfiniteBus4" var1="infiniteBus_terminal" id2="Line4Bis" var2="line_terminal2"/>
+  <dyn:connect id1="Generator7" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator8" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator7" var1="reactivePowerControlLoop_level" id2="SVC1" var2="secondaryVoltageControl_level"/>
+  <dyn:connect id1="Generator8" var1="reactivePowerControlLoop_level" id2="SVC1" var2="secondaryVoltageControl_level"/>
+  <dyn:connect id1="SVC1" var1="secondaryVoltageControl_UpPu" id2="Generator7" var2="generator_UPu"/>
+  <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line4Bis" var2="line_switchOffSignal2"/>
 </dyn:dynamicModelsArchitecture>

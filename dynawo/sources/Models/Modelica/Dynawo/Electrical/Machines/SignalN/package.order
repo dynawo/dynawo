@@ -3,8 +3,10 @@ GeneratorPQProp
 GeneratorPQPropDiagramPQ
 GeneratorPV
 GeneratorPV_INIT
+GeneratorPVQNomAltPar_INIT
 GeneratorPVDiagramPQ
 GeneratorPVDiagram_INIT
+GeneratorPVQNomAltParDiagram_INIT
 GeneratorPVProp
 GeneratorPVRemote
 GeneratorPVRemoteDiagramPQ

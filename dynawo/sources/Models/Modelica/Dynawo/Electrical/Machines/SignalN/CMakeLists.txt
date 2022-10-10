@@ -21,9 +21,11 @@ set(MODEL_FILES
   GeneratorPV.mo
   GeneratorPV.extvar
   GeneratorPV_INIT.mo
+  GeneratorPVQNomAltPar_INIT.mo
   GeneratorPVDiagramPQ.mo
   GeneratorPVDiagramPQ.extvar
   GeneratorPVDiagram_INIT.mo
+  GeneratorPVQNomAltParDiagram_INIT.mo
   GeneratorPVProp.mo
   GeneratorPVProp.extvar
   GeneratorPVRemote.mo

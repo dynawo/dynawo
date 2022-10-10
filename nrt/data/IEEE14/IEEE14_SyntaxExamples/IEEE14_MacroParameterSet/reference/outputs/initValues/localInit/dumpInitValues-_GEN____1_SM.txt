@@ -2,6 +2,7 @@
 generator_N                                       : y =       0.000000 yp =       0.000000
 generator_QMaxPu                                  : y =      10.000000 yp =       0.000000
 generator_QMinPu                                  : y =     -10.000000 yp =       0.000000
+generator_URefPu                                  : y =       1.060000 yp =       0.000000
 generator_terminal_V_im                           : y =       0.000000 yp =       0.000000
 generator_terminal_V_re                           : y =       1.060000 yp =       0.000000
 generator_PGenPu                                  : y =       2.323900 yp =       0.000000
@@ -16,8 +17,11 @@ generator_SGenPu_im                               : alias of generator_QGenPu
 generator_SGenPu_re                               : alias of generator_PGenPu
 generator_tableQMax_u_1_                          : alias of generator_PGenPu
 generator_tableQMin_u_1_                          : alias of generator_PGenPu
+ ====== INIT CALCULATED VARIABLES VALUES ======
+generator_QStatorPu                               : y =      -0.016550
  ====== INIT DISCRETE VARIABLES VALUES ======
-generator_URefPu                                  : z =       1.060000
+generator_limUQDown                               : z =      -1.000000
+generator_limUQUp                                 : z =      -1.000000
 generator_running_value                           : z =       1.000000
 generator_switchOffSignal1_value                  : z =      -1.000000
 generator_switchOffSignal2_value                  : z =      -1.000000
@@ -35,6 +39,7 @@ generator_PRef0Pu                                  =      -2.323463
 generator_QGen0Pu                                  =      -0.165500
 generator_QMax0Pu                                  =      10.000000
 generator_QMin0Pu                                  =     -10.000000
+generator_QNomAlt                                  =    1000.000000
 generator_U0Pu                                     =       1.060000
 generator_URef0Pu                                  =       1.060000
 generator_i0Pu_im                                  =      -0.156132
