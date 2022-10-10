@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="PI">
-    <dyn:unitDynamicModel id="pI" name="Dynawo.NonElectrical.Blocks.Continuous.PI"/>
+  <dyn:modelicaModel id="DiscretePI">
+    <dyn:unitDynamicModel id="pI" name="Dynawo.NonElectrical.Blocks.Continuous.DiscretePI"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

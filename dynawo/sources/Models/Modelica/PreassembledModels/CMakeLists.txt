@@ -15,6 +15,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   Bus.xml
   CombiTimeTable.xml
   CurrentLimitAutomaton.xml
+  DiscretePI.xml
   DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
@@ -117,7 +118,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
-  PI.xml
   PIAntiWindUpTable.xml
   ShuntBWithSections.xml
   SecondaryFrequencyRegulation.xml
