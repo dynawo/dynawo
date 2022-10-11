@@ -155,8 +155,17 @@ void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
 
   bool isACEmulationEnabled = hvdcActivePowerControl_ && hvdcActivePowerControl_->isEnabled() && hvdcActivePowerControl_->isEnabled().get();
+  double p0ACEmulationPu = 0;
+  if (isACEmulationEnabled) {
+    double p0ACEmulation = (hvdcLineIIDM_.getConvertersMode() == powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER) ?
+                           hvdcActivePowerControl_->getP0().get() :
+                           - hvdcActivePowerControl_->getP0().get();
+    p0ACEmulationPu = p0ACEmulation / SNREF;
+  }
   staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
                              StaticParameter::BOOL).setValue(isACEmulationEnabled)));
+  staticParameters_.insert(std::make_pair("p0ACEmulationPu", StaticParameter("p0ACEmulationPu",
+                             StaticParameter::DOUBLE).setValue(p0ACEmulationPu)));
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
   staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(conv1_->getP() / SNREF)));

@@ -57,6 +57,8 @@
     <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
     <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
+    <par type="DOUBLE" name="acemulation_KACEmulation0" value="250"/>
+    <par type="DOUBLE" name="acemulation_PRefSet0Pu" value="0"/>
   </set>
   <set id="5">
     <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
@@ -81,6 +83,8 @@
     <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
     <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
+    <par type="DOUBLE" name="acemulation_KACEmulation0" value="250"/>
+    <par type="DOUBLE" name="acemulation_PRefSet0Pu" value="0"/>
   </set>
   <set id="6">
     <par type="DOUBLE" name="powertransferhvdcemulation_KACEmulation10" value="250"/>
