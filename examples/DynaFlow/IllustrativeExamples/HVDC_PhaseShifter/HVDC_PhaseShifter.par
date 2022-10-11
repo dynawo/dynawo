@@ -72,16 +72,6 @@
     <par type="DOUBLE" name="acemulation_KACEmulation" value="500"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
   </set>
-  <set id="6">
-    <par type="DOUBLE" name="Value0" value="1.0"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="1.0"/>
-    <par type="DOUBLE" name="event_tEvent" value="25"/>
-  </set>
-  <set id="7">
-    <par type="DOUBLE" name="Value0" value="1.0"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="1.0"/>
-    <par type="DOUBLE" name="event_tEvent" value="50"/>
-  </set>
   <set id="8">
     <par type="DOUBLE" name="Value0" value="0"/>
     <par type="DOUBLE" name="event_stateEvent1" value="0"/>
