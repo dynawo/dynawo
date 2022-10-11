@@ -30,8 +30,6 @@
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="PhaseShifter_5_6" lib="PhaseShifterP" parFile="HVDC_PhaseShifter.par" parId="4"/>
   <dyn:blackBoxModel id="HVDC" lib="HvdcPVEmulation" parFile="HVDC_PhaseShifter.par" parId="5"/>
-  <dyn:blackBoxModel id="U1RefPu" lib="EventSetPointReal" parFile="HVDC_PhaseShifter.par" parId="6"/>
-  <dyn:blackBoxModel id="U2RefPu" lib="EventSetPointReal" parFile="HVDC_PhaseShifter.par" parId="7"/>
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="HVDC_PhaseShifter.par" parId="9"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
@@ -44,7 +42,5 @@
   <dyn:connect id1="PhaseShifter_5_6" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger"/>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDC" var2="hvdc_terminal2"/>
   <dyn:connect id1="NETWORK" var1="_BUS____8_TN_ACPIN" id2="HVDC" var2="hvdc_terminal1"/>
-  <dyn:connect id1="HVDC" var1="hvdc_U1RefPu" id2="U1RefPu" var2="event_state1_value"/>
-  <dyn:connect id1="HVDC" var1="hvdc_U2RefPu" id2="U2RefPu" var2="event_state1_value"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
 </dyn:dynamicModelsArchitecture>
