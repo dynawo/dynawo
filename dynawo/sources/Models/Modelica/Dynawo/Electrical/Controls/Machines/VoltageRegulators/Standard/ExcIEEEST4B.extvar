@@ -15,8 +15,8 @@
   <variable id="IfdPu" type="continuous"/>
   <variable id="itPuRe" type="continuous"/>
   <variable id="itPuIm" type="continuous"/>
-  <variable id="UPssPu" type="continuous"/>
+  <variable id="UPssPu" type="continuous" optional="true"/>
   <variable id="UsPu" type="continuous"/>
-  <variable id="UsRefPu" type="discrete"/>
+  <variable id="UsRefPu" type="continuous" optional="true"/>
   <variable id="utPu" type="continuous"/>
 </external_variables>

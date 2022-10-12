@@ -156,8 +156,8 @@ SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const doub
 
   Solver::Impl::init(t0, model);
   Solver::Impl::resetStats();
-  g0_.assign(model_->sizeG(), NO_ROOT);
-  g1_.assign(model_->sizeG(), NO_ROOT);
+  g0_.assign(model_->sizeG(), ROOT_DOWN);
+  g1_.assign(model_->sizeG(), ROOT_DOWN);
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
@@ -259,6 +259,7 @@ bool
 SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& change) {
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, g1_);
+  modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
     return true;
   } else {
@@ -275,6 +276,9 @@ SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& chang
 
   // Maximum number of initialization calculation
   ++counter;
+  if (modeChangeType < minimumModeChangeTypeForAlgebraicRestorationInit_) {
+    return true;
+  }
   if (counter >= maxNumberUnstableRoots)
     throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepUnstableRoots, solverType());
   return false;

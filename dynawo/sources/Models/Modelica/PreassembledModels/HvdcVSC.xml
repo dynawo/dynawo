@@ -14,29 +14,5 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="HvdcVSC">
     <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSC" initName ="Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSC_INIT"/>
-    <dyn:unitDynamicModel id="PRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="QRef1Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="URef1Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="QRef2Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="URef2Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="UdcRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="modeU1" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="modeU2" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="hvdc" var1="PRef0Pu" id2="PRefPu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="QRef10Pu" id2="QRef1Pu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="QRef20Pu" id2="QRef2Pu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="URef10Pu" id2="URef1Pu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="URef20Pu" id2="URef2Pu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="UdcRef0Pu" id2="UdcRefPu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="modeU10" id2="modeU1" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="modeU20" id2="modeU2" var2="Value0"/>
-    <dyn:connect id1="hvdc" var1="PRefPu" id2="PRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="QRef1Pu" id2="QRef1Pu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="QRef2Pu" id2="QRef2Pu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="URef1Pu" id2="URef1Pu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="URef2Pu" id2="URef2Pu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="UdcRefPu" id2="UdcRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="modeU1" id2="modeU1" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="modeU2" id2="modeU2" var2="setPoint.value"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

@@ -14,8 +14,5 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="HvdcPQPropDiagramPQ">
     <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPQProp.HvdcPQPropDiagramPQ" initName="Dynawo.Electrical.HVDC.HvdcPQProp.HvdcPQProp_INIT"/>
-    <dyn:unitDynamicModel id="P1Ref" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="hvdc" var1="P1Ref0Pu" id2="P1Ref" var2="Value0"/>
-    <dyn:connect id1="hvdc" var1="P1RefPu" id2="P1Ref" var2="setPoint.value"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

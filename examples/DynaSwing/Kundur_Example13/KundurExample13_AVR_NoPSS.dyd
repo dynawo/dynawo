@@ -20,13 +20,10 @@
   <!-- Generator four windings with fixed mechanical power and a proportional average voltage regulator -->
   <dyn:modelicaModel id="SM">
     <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT" parFile="KundurExample13.par" parId="SynchronousMachine"/>
-    <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="KundurExample13.par" parId="SetPointGovernor"/>
     <dyn:unitDynamicModel id="VR" name="AVRNoPSS" moFile="AVRNoPSS.mo" initName="AVR_INIT" initFile="AVR_INIT.mo" parFile="KundurExample13.par" parId="AVR_NoPSS"/>
     <dyn:unitDynamicModel id="omega" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="KundurExample13.par" parId="SetPointOmegaRef"/>
-    <dyn:initConnect id1="gen" var1="Pm0Pu" id2="Pm" var2="Value0"/>
     <dyn:initConnect id1="gen" var1="Efd0Pu" id2="VR" var2="Efd0Pu"/>
     <dyn:initConnect id1="gen" var1="UStator0Pu" id2="VR" var2="UStator0Pu"/>
-    <dyn:connect id1="gen" var1="PmPu" id2="Pm" var2="setPoint"/>
     <dyn:connect id1="gen" var1="UStatorPu.value" id2="VR" var2="UStatorPu"/>
     <dyn:connect id1="gen" var1="efdPu" id2="VR" var2="efdPuPin"/>
     <dyn:connect id1="gen" var1="omegaRefPu" id2="omega" var2="setPoint"/>

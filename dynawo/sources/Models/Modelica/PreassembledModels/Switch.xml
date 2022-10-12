@@ -12,9 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="LoadAlphaBetaStepP">
-    <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.Load_INIT"/>
-    <dyn:unitDynamicModel id="step" name="Dynawo.Electrical.Controls.Basics.Step"/>
-    <dyn:connect id1="load" var1="PRefPu" id2="step" var2="step.value"/>
+  <dyn:modelicaModel id="Switch">
+    <dyn:unitDynamicModel id="switch" name="Dynawo.NonElectrical.Blocks.NonLinear.Switch"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

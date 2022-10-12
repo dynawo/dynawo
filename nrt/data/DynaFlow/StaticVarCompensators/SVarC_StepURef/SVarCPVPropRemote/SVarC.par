@@ -45,11 +45,10 @@
     <par type="DOUBLE" name="SVarC_BMinPu" value="-1.0466"/>
   </set>
   <set id="5">
-    <par type="DOUBLE" name="event_stateEvent1" value="1.044"/>
-    <par type="DOUBLE" name="event_tEvent" value="10"/>
-  </set>
-  <set id="6">
-    <par type="DOUBLE" name="event_stateEvent1" value="1.022"/>
-    <par type="DOUBLE" name="event_tEvent" value="20"/>
+    <par type="DOUBLE" name="doubleStep_Height1" value="0.044"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="0.022"/>
+    <par type="DOUBLE" name="doubleStep_tStep1" value="10"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="20"/>
+    <par type="DOUBLE" name="doubleStep_Value0" value="1"/>
   </set>
 </parametersSet>

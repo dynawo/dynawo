@@ -22,6 +22,7 @@ echo \
    --valgrind-massif                             launch DYNAWO with valgrind using memory tool (must be the first argument)
    --valgrind-dhat                               launch DYNAWO with valgrind using dhat tool (must be the first argument)
    --gdb                                         launch DYNAWO with gdb (must be the first argument)
+   --gdbserver                                   launch DYNAWO with gdbserver (must be the first argument)
    --compile                                     launch DYNAWO for compilation of Modelica models (must be the first argument)
    --generate-preassembled                       launch DYNAWO dynamic library generator (must be the first argument)
    --generate-preassembled-gdb                   launch DYNAWO dynamic library generator with gdb (must be the first argument)
@@ -43,6 +44,7 @@ echo \
    --valgrind-massif                             launch DYNAWO with valgrind using memory tool (must be the first argument)
    --valgrind-dhat                               launch DYNAWO with valgrind using dhat tool (must be the first argument)
    --gdb                                         launch DYNAWO with gdb (must be the first argument)
+   --gdbserver                                   launch DYNAWO with gdbserver (must be the first argument)
    --version                                     show dynawo version (must be the first argument)
    --help                                        produce help message (must be the first argument)"
   fi
@@ -100,6 +102,9 @@ case $1 in
 --gdb)
   MODE=GDB
   ;;
+--gdbserver)
+  MODE=GDBSERVER
+  ;;
 --generate-preassembled)
   MODE=GENERATE_PREASSEMBLED
   ;;
@@ -147,6 +152,9 @@ VALGRIND_MASSIF)
 GDB)
   ARGS=`echo ${ARGS} | sed -e 's/--gdb//g'`
   ;;
+GDBSERVER)
+  ARGS=`echo ${ARGS} | sed -e 's/--gdbserver//g'`
+  ;;
 GENERATE_PREASSEMBLED)
   ARGS=`echo ${ARGS} | sed -e 's/--generate-preassembled//g'`
 ;;
@@ -191,6 +199,15 @@ VALGRIND_MASSIF)
 GDB)
   if [ "`uname`" = "Linux" ]; then
     gdb -q --args ${DYNAWO} ${ARGS}
+  else
+    echo "OS not supported."
+    exit 1
+  fi
+  RETURN_CODE=$?
+  ;;
+GDBSERVER)
+  if [ "`uname`" = "Linux" ]; then
+    gdbserver localhost:10000 ${DYNAWO} ${ARGS}
   else
     echo "OS not supported."
     exit 1

@@ -53,11 +53,10 @@
     <par type="INT" name="SVarC_Mode0" value="3"/>
   </set>
   <set id="5">
-    <par type="DOUBLE" name="event_stateEvent1" value="235"/>
-    <par type="DOUBLE" name="event_tEvent" value="10"/>
-  </set>
-  <set id="6">
-    <par type="DOUBLE" name="event_stateEvent1" value="230"/>
-    <par type="DOUBLE" name="event_tEvent" value="20"/>
+    <par type="DOUBLE" name="doubleStep_Height1" value="9.9999"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="4.9999"/>
+    <par type="DOUBLE" name="doubleStep_tStep1" value="10"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="20"/>
+    <par type="DOUBLE" name="doubleStep_Value0" value="225"/>
   </set>
 </parametersSet>

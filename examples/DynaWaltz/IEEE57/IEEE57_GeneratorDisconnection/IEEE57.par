@@ -158,8 +158,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1008"/>
     <par type="DOUBLE" name="governor_PNom" value="1008"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
@@ -208,8 +206,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1008"/>
     <par type="DOUBLE" name="governor_PNom" value="1008"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
@@ -258,8 +254,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1539"/>
     <par type="DOUBLE" name="governor_PNom" value="1539"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
@@ -308,8 +302,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1539"/>
     <par type="DOUBLE" name="governor_PNom" value="1539"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
@@ -358,8 +350,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1090"/>
     <par type="DOUBLE" name="governor_PNom" value="1090"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
@@ -408,8 +398,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1090"/>
     <par type="DOUBLE" name="governor_PNom" value="1090"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
@@ -458,8 +446,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="1485"/>
     <par type="DOUBLE" name="governor_PNom" value="1485"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>

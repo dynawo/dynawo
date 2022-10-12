@@ -18,6 +18,7 @@ from optparse import OptionParser
 
 csvToHtml_resources_dir = os.path.join(os.path.dirname(__file__),"../resources")
 jsFileIn=csvToHtml_resources_dir+"/curves.js.in"
+jsRefFileIn=csvToHtml_resources_dir+"/curves_ref.js.in"
 htmlFileIn=csvToHtml_resources_dir+"/curves.html.in"
 
 def cleanIdForJS(id):
@@ -161,9 +162,14 @@ def readCsvToHtml(csv_file, ref_csv_file, output_dir, withoutOffset, showpoints)
 
     titleToPrint = os.path.basename(csv_file)
     ## javascript file
-    fileSrc = open(jsFileIn,'r')
-    lines = fileSrc.readlines()
-    fileSrc.close()
+    if (len(ref_datas) > 0) :
+        fileSrc = open(jsRefFileIn,'r')
+        lines = fileSrc.readlines()
+        fileSrc.close()
+    else:
+        fileSrc = open(jsFileIn,'r')
+        lines = fileSrc.readlines()
+        fileSrc.close()
     fileDst = open(jsDst,'w')
 
     for line in lines:

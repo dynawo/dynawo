@@ -20,6 +20,7 @@
       <parameter name="maxNewtonTry" valueType="INT" cardinality="1"/>
       <parameter name="minimalAcceptableStep" valueType="DOUBLE" cardinality="1"/>
       <parameter name="minimumModeChangeTypeForAlgebraicRestoration" valueType="STRING" cardinality="1"/>
+      <parameter name="minimumModeChangeTypeForAlgebraicRestorationInit" valueType="STRING" cardinality="1"/>
       <parameter name="msbset" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlg" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgInit" valueType="INT" cardinality="1"/>

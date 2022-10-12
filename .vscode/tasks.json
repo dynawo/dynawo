@@ -4,10 +4,37 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Deploy Dynawo",
+            "label": "Deploy Dynawo Release",
             "type": "shell",
             "command": "util/envDynawo.sh",
-            "args": ["deploy"],
+            "args": [
+                "deploy"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "DYNAWO_HOME": "${workspaceFolder}",
+                    "DYNAWO_SRC_OPENMODELICA": "${workspaceFolder}/OpenModelica/Source",
+                    "DYNAWO_INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
+                    "DYNAWO_LOCALE": "en_GB",
+                    "DYNAWO_RESULTS_SHOW": "false",
+                    "DYNAWO_BROWSER": "firefox",
+                    "DYNAWO_BUILD_TYPE": "Release",
+                    "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/build/dynawo/Release",
+                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/install/dynawo/Release",
+                    "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy/Release/dynawo",
+                    "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/build/3rdParty/Release",
+                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/install/3rdParty/Release"
+                }
+            }
+        },
+        {
+            "label": "Deploy Dynawo Debug",
+            "type": "shell",
+            "command": "util/envDynawo.sh",
+            "args": [
+                "deploy"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}",
                 "env": {
@@ -18,13 +45,65 @@
                     "DYNAWO_RESULTS_SHOW": "false",
                     "DYNAWO_BROWSER": "firefox",
                     "DYNAWO_BUILD_TYPE": "Debug",
-                    "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/dynawo",
-                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/install/dynawo",
-                    "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy",
-                    "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/3rdParty",
-                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/install/3rdParty",
+                    "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/build/dynawo/Debug",
+                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/install/dynawo/Debug",
+                    "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy/Debug/dynawo",
+                    "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/build/3rdParty/Debug",
+                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/install/3rdParty/Debug"
                 }
-              }
-        }
+            }
+        },
+        {
+            "label": "NRT Dynawo Release",
+            "type": "shell",
+            "command": "util/envDynawo.sh",
+            "args": [
+                "nrt"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "DYNAWO_HOME": "${workspaceFolder}",
+                    "DYNAWO_SRC_OPENMODELICA": "${workspaceFolder}/OpenModelica/Source",
+                    "DYNAWO_INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
+                    "DYNAWO_LOCALE": "en_GB",
+                    "DYNAWO_RESULTS_SHOW": "true",
+                    "DYNAWO_BROWSER": "firefox",
+                    "DYNAWO_BUILD_TYPE": "Release",
+                    "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/build/dynawo/Release",
+                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/install/dynawo/Release",
+                    "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy/Release/dynawo",
+                    "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/build/3rdParty/Release",
+                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/install/3rdParty/Release",
+                    "DYNAWO_NB_PROCESSORS_USED": "4"
+                }
+            }
+        },
+        {
+            "label": "NRT Dynawo Debug",
+            "type": "shell",
+            "command": "util/envDynawo.sh",
+            "args": [
+                "nrt"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "DYNAWO_HOME": "${workspaceFolder}",
+                    "DYNAWO_SRC_OPENMODELICA": "${workspaceFolder}/OpenModelica/Source",
+                    "DYNAWO_INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
+                    "DYNAWO_LOCALE": "en_GB",
+                    "DYNAWO_RESULTS_SHOW": "true",
+                    "DYNAWO_BROWSER": "firefox",
+                    "DYNAWO_BUILD_TYPE": "Debug",
+                    "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/build/dynawo/Debug",
+                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/install/dynawo/Debug",
+                    "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy/Debug/dynawo",
+                    "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/build/3rdParty/Debug",
+                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/install/3rdParty/Debug",
+                    "DYNAWO_NB_PROCESSORS_USED": "4"
+                }
+            }
+        },
     ]
 }

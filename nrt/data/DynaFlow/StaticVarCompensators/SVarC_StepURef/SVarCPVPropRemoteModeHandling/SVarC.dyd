@@ -12,18 +12,16 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-<dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SVarC.par" parId="1"/>
-<dyn:blackBoxModel id="line1" lib="Line" parFile="SVarC.par" parId="2"/>
-<dyn:blackBoxModel id="load" lib="LoadPQ" parFile="SVarC.par" parId="3"/>
-<dyn:blackBoxModel id="line2" lib="Line" parFile="SVarC.par" parId="2"/>
-<dyn:blackBoxModel id="svarc" lib="StaticVarCompensatorPVPropRemoteModeHandling" parFile="SVarC.par" parId="4"/>
-<dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
-<dyn:connect id1="line1" var1="line_terminal2" id2="load" var2="load_terminal"/>
-<dyn:connect id1="load" var1="load_terminal" id2="line2" var2="line_terminal1"/>
-<dyn:connect id1="line2" var1="line_terminal2" id2="svarc" var2="SVarC_terminal"/>
-<dyn:connect id1="load" var1="load_UPu_value" id2="svarc" var2="SVarC_URegulatedPu"/>
-<dyn:blackBoxModel id="URef1" lib="EventSetPointReal" parFile="SVarC.par" parId="5"/>
-<dyn:blackBoxModel id="URef2" lib="EventSetPointReal" parFile="SVarC.par" parId="6"/>
-<dyn:connect id1="URef1" var1="event_state1_value" id2="svarc" var2="SVarC_URef"/>
-<dyn:connect id1="URef2" var1="event_state1_value" id2="svarc" var2="SVarC_URef"/>
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SVarC.par" parId="1"/>
+  <dyn:blackBoxModel id="line1" lib="Line" parFile="SVarC.par" parId="2"/>
+  <dyn:blackBoxModel id="load" lib="LoadPQ" parFile="SVarC.par" parId="3"/>
+  <dyn:blackBoxModel id="line2" lib="Line" parFile="SVarC.par" parId="2"/>
+  <dyn:blackBoxModel id="svarc" lib="StaticVarCompensatorPVPropRemoteModeHandling" parFile="SVarC.par" parId="4"/>
+  <dyn:blackBoxModel id="URef" lib="DoubleStep" parFile="SVarC.par" parId="5"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
+  <dyn:connect id1="line1" var1="line_terminal2" id2="load" var2="load_terminal"/>
+  <dyn:connect id1="load" var1="load_terminal" id2="line2" var2="line_terminal1"/>
+  <dyn:connect id1="line2" var1="line_terminal2" id2="svarc" var2="SVarC_terminal"/>
+  <dyn:connect id1="load" var1="load_UPu_value" id2="svarc" var2="SVarC_URegulatedPu"/>
+  <dyn:connect id1="URef" var1="doubleStep_step_value" id2="svarc" var2="SVarC_URef"/>
 </dyn:dynamicModelsArchitecture>

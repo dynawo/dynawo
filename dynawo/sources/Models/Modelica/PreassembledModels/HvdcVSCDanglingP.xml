@@ -14,17 +14,5 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="HvdcVSCDanglingP">
     <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSCDanglingP" initName ="Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSCDanglingP_INIT"/>
-    <dyn:unitDynamicModel id="PRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="QRef1Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="URef1Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="modeU1" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="hvdc" var1="PRef0Pu" id2="PRefPu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="QRef10Pu" id2="QRef1Pu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="URef10Pu" id2="URef1Pu" var2="Value0"/>
-    <dyn:initConnect id1="hvdc" var1="modeU10" id2="modeU1" var2="Value0"/>
-    <dyn:connect id1="hvdc" var1="PRefPu" id2="PRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="QRef1Pu" id2="QRef1Pu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="URef1Pu" id2="URef1Pu" var2="setPoint.value"/>
-    <dyn:connect id1="hvdc" var1="modeU1" id2="modeU1" var2="setPoint.value"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

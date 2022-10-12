@@ -29,18 +29,25 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
     def test_log(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "dynawo.log"), '|', os.path.join(dir_path, "dynawo2.log"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
+        message = message.replace(":  ", ": ")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "nrt_diff/test/dynawo.log: 2 differences")
 
     def test_curves_different(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves2.csv"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
 
     def test_curves_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves2.xml"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
 
@@ -48,14 +55,22 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         settings.dtw_exceptions = {"curves3.csv" : 73, "curves3.xml" : 50}
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         settings.dtw_exceptions = {}
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
 
@@ -66,6 +81,9 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "timeline.log"), '|', os.path.join(dir_path, "timeline3.log"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
+        message = message.replace(":  ", ": ")
         self.assertEqual(message, "nrt_diff/test/timeline.log: 1 difference")
 
     def test_timeline_xml(self):
@@ -74,18 +92,25 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "timeline.xml"), '|', os.path.join(dir_path, "timeline3.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
+        message = message.replace(":  ", ": ")
         self.assertEqual(message, "nrt_diff/test/timeline.xml: 1 difference")
 
     def test_other_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "result.xml"), '|', os.path.join(dir_path, "result2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(message, "Problem with result.xml")
 
     def test_output_iidm(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "outputIIDM.xml"), '|', os.path.join(dir_path, "outputIIDM2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(message, "nrt_diff/test/outputIIDM.xml: 2 different output values\n[ERROR] attribute bus of object BVIL7T 1 (type generator) value: FSLACK11 is not in the equivalent object on right side\n[ERROR] attribute v of object FF11 (type bus) has different values (delta = 1.0) \n")
 
     def test_output_iidm_powsybl(self):
@@ -99,6 +124,8 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "constraints.xml"), '|', os.path.join(dir_path, "constraints3.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(message, "nrt_diff/test/constraints.xml: 13 different output values\n\
 [ERROR] object BUS_DESC_DIFF_787_U < Umin is in left path but not in right one\n\
 [ERROR] object BUS_NAME_DIFF_781_U < Umin is in left path but not in right one\n\
@@ -120,6 +147,8 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "constraints.txt"), '|', os.path.join(dir_path, "constraints3.txt"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(message, "nrt_diff/test/constraints.txt: 17 different output values\n\
 [ERROR] object BUS_DESC_DIFF_787_U &lt; Umin is in left path but not in right one\n\
 [ERROR] object BUS_NAME_DIFF_781_U &lt; Umin is in left path but not in right one\n\
@@ -145,6 +174,8 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues3.fsv"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
         self.assertEqual(message, "nrt_diff/test/finalStateValues.fsv: 6 different output values\n\
 [ERROR] object modelDifferentName_variable is in left path but not in right one\n\
 [ERROR] object modelDifferentVariable_variable is in left path but not in right one\n\
@@ -162,6 +193,8 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
                 self.assertEqual(diff_statuses[i], nrtDiff.IDENTICAL)
             else:
                 self.assertEqual(diff_statuses[i], nrtDiff.DIFFERENT)
+        return_message_str = return_message_str.replace("<font color=\"red\">", "")
+        return_message_str = return_message_str.replace("</font>", "")
         if return_message_str.startswith("globalInit/dumpInitValues-GEN____1_SM.txt") :
             self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (initValues/globalInit/dumpInitValues-GEN____1_SM.txt: 1 different initial values)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (initValues/globalInit/dumpInitValues-_LOAD___2_EC.txt: 1 different initial values)\n(all other files are identical)\n")
         else:
@@ -195,6 +228,8 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
         (diff_statuses, return_message_str) = nrtDiff.DirectoryDiffReferenceDataJob (os.path.join(dir_path, "test.jobs"))
         self.assertEqual(diff_statuses, nrtDiff.DIFFERENT)
         self.assertEqual(len(return_message_str), 1)
+        return_message_str[0] = return_message_str[0].replace("<font color=\"red\">", "")
+        return_message_str[0] = return_message_str[0].replace("</font>", "")
         if "output/Job2/curves.csv: 6 absolute errors coming from more than 5 curves" not in return_message_str[0]:
             self.assertTrue(False)
 

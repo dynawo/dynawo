@@ -14,7 +14,7 @@
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="URegulatedPu"/>
-  <variable type="discrete" id="URef"/>
+  <variable type="continuous" id="URef" optional="true"/>
   <variable type="discrete" id="setModeManual"/>
   <variable type="discrete" id="selectModeAuto" defaultValue="true"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>

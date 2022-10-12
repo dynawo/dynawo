@@ -49,7 +49,6 @@
     <par type="DOUBLE" name="generator_Q0Pu" value="0"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>
     <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <par type="DOUBLE" name="governor_Db1" value="0"/>
     <par type="DOUBLE" name="governor_Db2" value="0"/>
     <par type="DOUBLE" name="governor_Eps" value="0"/>
@@ -123,9 +122,12 @@
     <par type="DOUBLE" name="pss_VstMaxPu" value="0.1"/>
     <par type="DOUBLE" name="pss_VstMinPu" value="-0.1"/>
     <par type="DOUBLE" name="pss_UPss0Pu" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="1.005"/>
-    <par type="DOUBLE" name="URef_Height" value="0.05"/>
-    <par type="DOUBLE" name="URef_tStep" value="0.1"/>
+  </set>
+  <!-- URef step -->
+  <set id="URef">
+    <par type="DOUBLE" name="step_Value0" value="1"/>
+    <par type="DOUBLE" name="step_Height" value="0.05"/>
+    <par type="DOUBLE" name="step_tStep" value="0.1"/>
   </set>
   <!-- OmegaRef Set Point -->
   <set id="OmegaRef">
