@@ -58,6 +58,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
+  GeneratorSynchronousProportionalRegulationsInternalParameters.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml

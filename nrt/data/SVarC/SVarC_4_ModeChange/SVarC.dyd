@@ -13,17 +13,15 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- SVarC and infinite bus-->
-  <dyn:modelicaModel id="Test">
-    <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SVarC.par" parId="1"/>
-    <dyn:unitDynamicModel id="line" name="Dynawo.Electrical.Lines.Line" parFile="SVarC.par" parId="2"/>
-    <dyn:unitDynamicModel id="svarc" name="Dynawo.Electrical.StaticVarCompensators.SVarCStandard" initName="Dynawo.Electrical.StaticVarCompensators.SVarCStandard_INIT" parFile="SVarC.par" parId="3"/>
-    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT" parFile="SVarC.par" parId="4"/>
-    <dyn:unitDynamicModel id="modeChange" name="ModeChange" moFile="ModeChange.mo"/>
-    <dyn:initConnect id1="URef" var1="Value0" id2="svarc" var2="URef0"/>
-    <dyn:connect id1="busInf" var1="terminal" id2="line" var2="terminal1"/>
-    <dyn:connect id1="line" var1="terminal2" id2="svarc" var2="terminal"/>
-    <dyn:connect id1="URef" var1="step.value" id2="svarc" var2="URef"/>
-    <dyn:connect id1="modeChange" var1="setModeManual" id2="svarc" var2="setModeManual"/>
-    <dyn:connect id1="modeChange" var1="selectModeAuto" id2="svarc" var2="selectModeAuto"/>
-  </dyn:modelicaModel>
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SVarC.par" parId="1"/>
+  <dyn:blackBoxModel id="line" lib="Line" parFile="SVarC.par" parId="2"/>
+  <dyn:blackBoxModel id="SVarC" lib="StaticVarCompensator" parFile="SVarC.par" parId="3"/>
+  <dyn:blackBoxModel id="URef" lib="Step" parFile="SVarC.par" parId="4"/>
+  <dyn:blackBoxModel id="selectModeAuto" lib="BooleanTable" parFile="SVarC.par" parId="5"/>
+  <dyn:blackBoxModel id="setModeManual" lib="IntegerDoubleStep" parFile="SVarC.par" parId="6"/>
+  <dyn:connect id1="SVarC" var1="SVarC_URef" id2="URef" var2="step_step_value"/>
+  <dyn:connect id1="selectModeAuto" var1="booleanTable_source_value" id2="SVarC" var2="SVarC_selectModeAuto"/>
+  <dyn:connect id1="setModeManual" var1="integerDoubleStep_step_value" id2="SVarC" var2="SVarC_setModeManual"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>
+  <dyn:connect id1="line" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
 </dyn:dynamicModelsArchitecture>
