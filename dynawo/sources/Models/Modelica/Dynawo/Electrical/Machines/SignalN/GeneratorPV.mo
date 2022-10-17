@@ -22,7 +22,7 @@ model GeneratorPV "Model for generator PV based on SignalN for the frequency han
 
   parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
