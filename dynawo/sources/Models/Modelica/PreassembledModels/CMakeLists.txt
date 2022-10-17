@@ -26,19 +26,26 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorFictitious.xml
   GeneratorPQ.xml
   GeneratorPQPropSignalN.xml
+  GeneratorPQPropSignalNSFR.xml
   GeneratorPQPropDiagramPQSignalN.xml
+  GeneratorPQPropDiagramPQSignalNSFR.xml
   GeneratorPV.xml
   GeneratorPVSignalN.xml
   GeneratorPVRpclSignalN.xml
+  GeneratorPVSignalNSFR.xml
   GeneratorPVTfoSignalN.xml
   GeneratorPVTfoDiagramPQSignalN.xml
   GeneratorPVTfoRpclSignalN.xml
   GeneratorPVTfoDiagramPQRpclSignalN.xml
   GeneratorPVDiagramPQSignalN.xml
   GeneratorPVDiagramPQRpclSignalN.xml
+  GeneratorPVDiagramPQSignalNSFR.xml
   GeneratorPVPropSignalN.xml
+  GeneratorPVPropSignalNSFR.xml
   GeneratorPVRemoteSignalN.xml
+  GeneratorPVRemoteSignalNSFR.xml
   GeneratorPVRemoteDiagramPQSignalN.xml
+  GeneratorPVRemoteDiagramPQSignalNSFR.xml
   GeneratorSynchronousFourWindings.xml
   GeneratorSynchronousThreeWindings.xml
   GeneratorSynchronousFourWindingsProportionalRegulations.xml
@@ -108,6 +115,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   ShuntBWithSections.xml
+  SecondaryFrequencyRegulation.xml
   SecondaryVoltageControlSimp.xml
   SetPoint.xml
   ShuntB.xml

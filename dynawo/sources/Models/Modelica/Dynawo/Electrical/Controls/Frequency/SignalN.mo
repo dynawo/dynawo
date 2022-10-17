@@ -14,10 +14,8 @@ within Dynawo.Electrical.Controls.Frequency;
 
 model SignalN "Model for frequency regulation"
 
-import Dynawo.Connectors;
-
   input Types.Angle thetaRef(start = 0) "Voltage angle reference";
-  output Types.PerUnit N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
+  output Types.PerUnit N "Signal to change the active power reference setpoint of the generators participating in the primary frequency regulation in pu (base SnRef)";
 
 equation
   der(thetaRef) = 0;
