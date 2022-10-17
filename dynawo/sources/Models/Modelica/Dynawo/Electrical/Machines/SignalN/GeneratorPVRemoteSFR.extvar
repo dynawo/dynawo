@@ -16,7 +16,7 @@
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="N"/>
   <variable type="continuous" id="NSFR"/>
-  <variable type="discrete" id="URef"/>
+  <variable type="continuous" id="URef" optional="true"/>
   <variable type="continuous" id="URegulated"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
