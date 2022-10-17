@@ -18,6 +18,7 @@
  */
 
 #include "JOBTimelineEntry.h"
+#include "DYNExecUtils.h"
 
 namespace job {
 
@@ -25,8 +26,9 @@ TimelineEntry::TimelineEntry() :
     outputFile_(""),
     exportMode_(""),
     exportWithTime_(true),
-    maxPriority_(boost::none),
-    filter_(false) {}
+    maxPriority_(boost::none) {
+  filter_ = hasEnvVar("DYNAWO_FILTER_TIMELINE");
+}
 
 void
 TimelineEntry::setOutputFile(const std::string& outputFile) {
