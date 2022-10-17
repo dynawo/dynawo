@@ -28,7 +28,7 @@ model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN f
   Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
   Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
   Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
-  Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
+  Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
 equation
   PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;

@@ -24,7 +24,7 @@ model GeneratorPVQNomAltPar_INIT "Initialisation model for generator PV based on
   parameter Types.ReactivePowerPu QMin "Minimum reactive power in Mvar";
   parameter Types.ReactivePowerPu QMax "Maximum reactive power in Mvar";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
-  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
   Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
   Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";

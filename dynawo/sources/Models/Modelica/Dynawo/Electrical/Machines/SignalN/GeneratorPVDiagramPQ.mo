@@ -27,7 +27,7 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
-  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
