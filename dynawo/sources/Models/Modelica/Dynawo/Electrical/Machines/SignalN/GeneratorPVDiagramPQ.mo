@@ -38,9 +38,10 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in pu (base SnRef)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
+  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 protected
-  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
   PGenPu = tableQMin.u[1];

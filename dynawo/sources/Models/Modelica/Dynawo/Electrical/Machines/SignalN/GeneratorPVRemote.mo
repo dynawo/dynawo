@@ -27,9 +27,10 @@ model GeneratorPVRemote "Model for generator PV based on SignalN for the frequen
   input Types.VoltageModule URef(start = URef0) "Voltage regulation set point in kV";
 
   parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
+  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 protected
-  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
   when QGenPu <= QMinPu and URegulated >= URef then

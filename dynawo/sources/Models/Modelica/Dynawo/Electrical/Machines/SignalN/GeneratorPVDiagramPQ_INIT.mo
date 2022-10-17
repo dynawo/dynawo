@@ -9,33 +9,33 @@ within Dynawo.Electrical.Machines.SignalN;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN for the frequency handling"
+model GeneratorPVDiagramPQ_INIT "Initialisation model for generator PV based on SignalN for the frequency handling and with a diagram for handling the reactive power limits"
 
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
-  extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSignalNPQDiagram_INIT;
   extends AdditionalIcons.Init;
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                                AbsorptionMax "Reactive power is fixed to its absorption limit",
-                                GenerationMax "Reactive power is fixed to its generation limit");
+                              AbsorptionMax "Reactive power is fixed to its absorption limit",
+                              GenerationMax "Reactive power is fixed to its generation limit");
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 
   QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-  if QGen0Pu <= QMinPu and U0Pu >= URef0Pu then
+  if QGen0Pu <= QMin0Pu and U0Pu >= URef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
-  elseif QGen0Pu >= QMaxPu and U0Pu <= URef0Pu then
+  elseif QGen0Pu >= QMax0Pu and U0Pu <= URef0Pu then
     qStatus0 = QStatus.GenerationMax;
-  elseif (QGen0Pu > QMinPu or U0Pu < URef0Pu) and (QGen0Pu < QMaxPu or U0Pu > URef0Pu) then
+  elseif (QGen0Pu > QMin0Pu or U0Pu < URef0Pu) and (QGen0Pu < QMax0Pu or U0Pu > URef0Pu) then
     qStatus0 = QStatus.Standard;
   end if;
 
-  annotation(preferredView = "text");
-end GeneratorPV_INIT;
+annotation(preferredView = "text");
+end GeneratorPVDiagramPQ_INIT;

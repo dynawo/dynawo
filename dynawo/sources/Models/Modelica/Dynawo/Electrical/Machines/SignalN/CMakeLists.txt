@@ -14,22 +14,28 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseClasses.mo
+  BaseClasses_INIT.mo
   GeneratorPQProp.mo
+  GeneratorPQProp_INIT.mo
   GeneratorPQProp.extvar
   GeneratorPQPropDiagramPQ.mo
   GeneratorPQPropDiagramPQ.extvar
+  GeneratorPQPropDiagramPQ_INIT.mo
   GeneratorPV.mo
   GeneratorPV.extvar
   GeneratorPV_INIT.mo
   GeneratorPVDiagramPQ.mo
   GeneratorPVDiagramPQ.extvar
-  GeneratorPVDiagram_INIT.mo
+  GeneratorPVDiagramPQ_INIT.mo
   GeneratorPVProp.mo
   GeneratorPVProp.extvar
+  GeneratorPVProp_INIT.mo
   GeneratorPVRemote.mo
   GeneratorPVRemote.extvar
+  GeneratorPVRemote_INIT.mo
   GeneratorPVRemoteDiagramPQ.mo
   GeneratorPVRemoteDiagramPQ.extvar
+  GeneratorPVRemoteDiagramPQ_INIT.mo
   GeneratorPVTfo.mo
   GeneratorPVTfo.extvar
   GeneratorPVTfo_INIT.mo
