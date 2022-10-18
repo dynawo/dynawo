@@ -19,6 +19,9 @@ set(MODEL_FILES
   SEXS_INIT.mo
   SEXS.mo
   SEXS.extvar
+  VRKundur.mo
+  VRKundur.extvar
+  VRKundur_INIT.mo
   )
 
 #

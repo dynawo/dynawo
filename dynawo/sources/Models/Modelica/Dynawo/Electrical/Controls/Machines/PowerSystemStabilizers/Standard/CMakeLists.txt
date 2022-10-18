@@ -18,6 +18,8 @@ set(MODEL_FILES
   PSS2A_INIT.mo
   PssIEEE2B.mo
   PssIEEE2B.extvar
+  PssKundur.mo
+  PssKundur.extvar
   )
 
 #

@@ -183,11 +183,11 @@ The solver used is the variable time step solver IDA with the following paramete
 
 \section{Results}
 
-The results of the simulations performed with the different excitation controls are presented bellow. Here are the different observations:
+The results of the simulations performed with the different excitation controls are presented below. Here are the different observations:
 \begin{itemize}
 \item with a constant excitation voltage, the system remains stable but the level of the oscillations damping is low;
 \item with the proportional voltage regulator, the system loses synchronism in the third swing. The regulator's gain is very high and the control acts to fast, it destabilizes the system;
-\item with the proportional voltage including a PSS function, the system remains stable and the oscillations are very well damped. We see here the positive impact of the PSS on the machine's stability;
+\item with the proportional voltage including a power system stabilizer function, the system remains stable and the oscillations are very well damped. We see here the positive impact of the power system stabilizer on the machine's stability;
 \end{itemize}
 
 These results match the results obtained in the example 13 of the "Power System Stability and Control" book of P.Kundur.
@@ -197,15 +197,15 @@ These results match the results obtained in the example 13 of the "Power System 
   \begin{tikzpicture}
     \begin{axis} [ymin = 0, ymax = 3.14, legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
-        table[x=time, y=SM_gen_theta]
-        {../Kundur_Example13/reference/outputs_AVR_SetPoint/curves/curves.csv};
+        table[x=time, y=SM_generator_theta]
+        {../Kundur_Example13/reference/outputs_SetPoint/curves/curves.csv};
         \addplot[color=blue!50]
-        table[x=time, y=SM_gen_theta]
-        {../Kundur_Example13/reference/outputs_AVR_NoPSS/curves/curves.csv};
+        table[x=time, y=SM_generator_theta]
+        {../Kundur_Example13/reference/outputs_VR_NoPss/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time, y=SM_gen_theta]
-        {../Kundur_Example13/reference/outputs_AVR_PSS/curves/curves.csv};
-        \legend{$SetPoint$, $AVRNoPSS$, $AVRWithPSS$}
+        table[x=time, y=SM_generator_theta]
+        {../Kundur_Example13/reference/outputs_VR_Pss/curves/curves.csv};
+        \legend{$SetPoint$, $VRNoPss$, $VRWithPss$}
     \end{axis}
   \end{tikzpicture}
 \end{figure}
@@ -215,15 +215,15 @@ These results match the results obtained in the example 13 of the "Power System 
   \begin{tikzpicture}
     \begin{axis}[legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
-        table[x=time, y=SM_gen_UPu]
-        {../Kundur_Example13/reference/outputs_AVR_SetPoint/curves/curves.csv};
+        table[x=time, y=SM_generator_UPu]
+        {../Kundur_Example13/reference/outputs_SetPoint/curves/curves.csv};
         \addplot[color=blue!50]
-        table[x=time, y=SM_gen_UPu]
-        {../Kundur_Example13/reference/outputs_AVR_NoPSS/curves/curves.csv};
+        table[x=time, y=SM_generator_UPu]
+        {../Kundur_Example13/reference/outputs_VR_NoPss/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time, y=SM_gen_UPu]
-        {../Kundur_Example13/reference/outputs_AVR_PSS/curves/curves.csv};
-        \legend{$SetPoint$, $AVRNoPSS$, $AVRWithPSS$}
+        table[x=time, y=SM_generator_UPu]
+        {../Kundur_Example13/reference/outputs_VR_Pss/curves/curves.csv};
+        \legend{$SetPoint$, $VRNoPss$, $VRWithPss$}
     \end{axis}
   \end{tikzpicture}
 \end{figure}
@@ -233,15 +233,15 @@ These results match the results obtained in the example 13 of the "Power System 
   \begin{tikzpicture}
     \begin{axis} [ymin = 0, legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
-        table[x=time, y=SM_gen_PGenPu]
-        {../Kundur_Example13/reference/outputs_AVR_SetPoint/curves/curves.csv};
+        table[x=time, y=SM_generator_PGenPu]
+        {../Kundur_Example13/reference/outputs_SetPoint/curves/curves.csv};
         \addplot[color=blue!50]
-        table[x=time, y=SM_gen_PGenPu]
-        {../Kundur_Example13/reference/outputs_AVR_NoPSS/curves/curves.csv};
+        table[x=time, y=SM_generator_PGenPu]
+        {../Kundur_Example13/reference/outputs_VR_NoPss/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time, y=SM_gen_PGenPu]
-        {../Kundur_Example13/reference/outputs_AVR_PSS/curves/curves.csv};
-        \legend{$SetPoint$, $AVRNoPSS$, $AVRWithPSS$}
+        table[x=time, y=SM_generator_PGenPu]
+        {../Kundur_Example13/reference/outputs_VR_Pss/curves/curves.csv};
+        \legend{$SetPoint$, $VRNoPss$, $VRWithPss$}
     \end{axis}
   \end{tikzpicture}
 \end{figure}
