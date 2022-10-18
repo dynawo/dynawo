@@ -35,7 +35,7 @@ equation
       qStatus0 = QStatus.AbsorptionMax;
     elseif QGen0Pu >= QMaxPu and URegulated0 <= URef0 then
       qStatus0 = QStatus.GenerationMax;
-    elseif (QGen0Pu > QMinPu or URegulated0 < URef0) and (QGen0Pu < QMaxPu or URegulated0 > URef0) then
+    else
       qStatus0 = QStatus.Standard;
     end if;
 
