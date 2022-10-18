@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Machine with four windings, fixed mechanical power and a Kundur proportional voltage regulator with no power system stabilizer -->
+ <dyn:modelicaModel id="GeneratorSynchronousFourWindingsVRKundur">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.VRKundur" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.VRKundur_INIT"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
+    <dyn:connect id1="voltageRegulator" var1="efdPu" id2="generator" var2="efdPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu.value"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
