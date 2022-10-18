@@ -120,6 +120,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   SetPoint.xml
   ShuntB.xml
   SignalN.xml
+  SineWave.xml
   StaticVarCompensator.xml
   StaticVarCompensatorPV.xml
   StaticVarCompensatorPVModeHandling.xml
