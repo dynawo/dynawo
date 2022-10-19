@@ -24,9 +24,9 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput limUQUp "Whether the maximum reactive power limits are reached or not" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not" annotation(
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput limUQDown "Whether the minimum reactive power limits are reached or not" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not" annotation(
     Placement(visible = true, transformation(origin = {-170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QStatorPu(start = QStator0Pu) "Generator stator reactive power in pu (base QNomAlt) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-172, -40}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-164, -28}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
@@ -61,6 +61,8 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
 
   parameter Types.PerUnit UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
   parameter Types.PerUnit QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
+  parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
 
 equation
   connect(rampLim.u, gainIntegrator.y) annotation(

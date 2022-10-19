@@ -16,28 +16,36 @@ model GeneratorPVQNomAltPar_INIT "Initialisation model for generator PV based on
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
-  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;
 
-  parameter Types.ActivePowerPu PMin "Minimum active power in MW";
-  parameter Types.ActivePowerPu PMax "Maximum active power in MW";
-  parameter Types.ReactivePowerPu QMin "Minimum reactive power in Mvar";
-  parameter Types.ReactivePowerPu QMax "Maximum reactive power in Mvar";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
   parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
-  Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
-  Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
-  Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-  Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                              AbsorptionMax "Reactive power is fixed to its absorption limit",
+                              GenerationMax "Reactive power is fixed to its generation limit");
+
+  QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
+  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   Types.VoltageModulePu URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
   Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
 
 equation
-  PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;
-  QMinPu = QMin / Dynawo.Electrical.SystemBase.SnRef;
-  PMaxPu = PMax / Dynawo.Electrical.SystemBase.SnRef;
-  QMaxPu = QMax / Dynawo.Electrical.SystemBase.SnRef;
+  if QGen0Pu <= QMinPu and U0Pu >= URef0Pu then
+    qStatus0 = QStatus.AbsorptionMax;
+    limUQUp0 = false;
+    limUQDown0 = true;
+  elseif QGen0Pu >= QMaxPu and U0Pu <= URef0Pu then
+    qStatus0 = QStatus.GenerationMax;
+    limUQUp0 = true;
+    limUQDown0 = false;
+  else
+    qStatus0 = QStatus.Standard;
+    limUQUp0 = false;
+    limUQDown0 = false;
+  end if;
   URef0PuVar = URef0Pu;
   QStator0Pu = QGen0Pu * SystemBase.SnRef / QNomAlt;
 

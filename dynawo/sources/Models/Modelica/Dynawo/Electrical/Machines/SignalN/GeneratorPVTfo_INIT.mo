@@ -17,13 +17,9 @@ model GeneratorPVTfo_INIT "Initialisation model for generator PV based on Signal
   import Dynawo.Electrical.Machines;
   import Modelica.ComplexMath;
 
-  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;
 
-  parameter Types.ActivePower PMin "Minimum active power in MW (generator convention)";
-  parameter Types.ActivePower PMax "Maximum active power in MW (generator convention)";
-  parameter Types.ReactivePower QMin "Minimum reactive power in Mvar (generator convention)";
-  parameter Types.ReactivePower QMax "Maximum reactive power in Mvar (generator convention)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
   parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
   parameter Types.PerUnit RTfoPu "Resistance of the generator transformer in pu (base UNomHV, SNom)";
@@ -31,10 +27,13 @@ model GeneratorPVTfo_INIT "Initialisation model for generator PV based on Signal
   parameter Types.PerUnit rTfoPu "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point at terminal in pu (base UNom)";
 
-  Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef) (generator convention)";
-  Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef (generator convention))";
-  Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef) (generator convention)";
+  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                              AbsorptionMax "Reactive power is fixed to its absorption limit",
+                              GenerationMax "Reactive power is fixed to its generation limit");
+
+  QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
+  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStatorRef0Pu "Start value of complex voltage regulation set point at stator in pu (base UNom)";
@@ -48,10 +47,19 @@ protected
   Types.ComplexCurrentPu iRef0Pu "Start value of complex current reference at terminal in pu (base UNom, SnRef) (receptor convention)";
 
 equation
-  PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;
-  QMinPu = QMin / Dynawo.Electrical.SystemBase.SnRef;
-  PMaxPu = PMax / Dynawo.Electrical.SystemBase.SnRef;
-  QMaxPu = QMax / Dynawo.Electrical.SystemBase.SnRef;
+  if QGen0Pu <= QMinPu and UStator0Pu >= UStatorRef0Pu then
+    qStatus0 = QStatus.AbsorptionMax;
+    limUQUp0 = false;
+    limUQDown0 = true;
+  elseif QGen0Pu >= QMaxPu and UStator0Pu <= UStatorRef0Pu then
+    qStatus0 = QStatus.GenerationMax;
+    limUQUp0 = true;
+    limUQDown0 = false;
+  else
+    qStatus0 = QStatus.Standard;
+    limUQUp0 = false;
+    limUQDown0 = false;
+  end if;
 
   uRef0Pu = ComplexMath.fromPolar(URef0Pu, UPhase0);
   Complex(P0Pu, Q0Pu) = uRef0Pu * ComplexMath.conj(iRef0Pu);
