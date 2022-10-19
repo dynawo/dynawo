@@ -12,43 +12,29 @@ within Dynawo.Electrical.Machines.SignalN;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GeneratorPVQNomAltParDiagram_INIT "Initialisation model for generator PV based on SignalN for the frequency handling and with a diagram for handling the reactive power limits. In this model, QNomAlt is a parameter."
+model GeneratorPVPropSFR_INIT "Initialisation model for generator PV based on SignalN for the frequency handling, with a proportional voltage regulation and that participates in the Secondary Frequency Regulation (SFR)"
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
-  extends BaseClasses_INIT.BaseGeneratorSignalNPQDiagram_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
-  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  Types.VoltageModulePu URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
   QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
-  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
 
 equation
-  if QGen0Pu <= QMin0Pu and U0Pu >= URef0Pu then
+  if QGen0Pu <= QMinPu and U0Pu >= URef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
-    limUQUp0 = false;
-    limUQDown0 = true;
-  elseif QGen0Pu >= QMax0Pu and U0Pu <= URef0Pu then
+  elseif QGen0Pu >= QMaxPu and U0Pu <= URef0Pu then
     qStatus0 = QStatus.GenerationMax;
-    limUQUp0 = true;
-    limUQDown0 = false;
   else
     qStatus0 = QStatus.Standard;
-    limUQUp0 = false;
-    limUQDown0 = false;
   end if;
 
-  URef0PuVar = URef0Pu;
-  QStator0Pu = QGen0Pu * SystemBase.SnRef / QNomAlt;
-
   annotation(preferredView = "text");
-end GeneratorPVQNomAltParDiagram_INIT;
+end GeneratorPVPropSFR_INIT;

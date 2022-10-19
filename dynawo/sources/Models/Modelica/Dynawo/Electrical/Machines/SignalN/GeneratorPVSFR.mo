@@ -16,19 +16,20 @@ model GeneratorPVSFR "Model for generator PV based on SignalN for the frequency 
   extends BaseClasses.BaseGeneratorSignalNSFR;
   extends AdditionalIcons.Machine;
 
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
-
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
+  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 protected
-  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
   when QGenPu <= QMinPu and UPu >= URefPu then
