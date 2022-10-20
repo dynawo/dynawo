@@ -1859,11 +1859,8 @@ class ReaderOMC:
         func.set_return_type("void")
         func.add_params(OmcFunctionParameter("dest", "real_array_t*", 0, True))
         func.add_params(OmcFunctionParameter("n", "int", 1, True))
-        func.add_params(OmcFunctionParameter("first", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("second", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("third", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("fourth", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("fifth", "modelica_real", 2, True))
+        for i in range(100):
+            func.add_params(OmcFunctionParameter("%dth" % (i), "modelica_real", 2, True))
         self.list_omc_functions.append(func)
 
 
