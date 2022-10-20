@@ -18,8 +18,8 @@ model PssKundur "Power system stabilizer based on Kundur's book"
   import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit KStab "PSS gain";
-  parameter Types.Time t1 "Phase compensation time constant in s";
-  parameter Types.Time t2 "Phase compensation time constant in s";
+  parameter Types.Time t1 "Phase compensation lead time constant in s";
+  parameter Types.Time t2 "Phase compensation lag time constant in s";
   parameter Types.Time tW "Washout time constant in s";
   parameter Types.VoltageModulePu VsMinPu "Minimum output of PSS in pu (base UNom)";
   parameter Types.VoltageModulePu VsMaxPu "Maximum output of PSS in pu (base UNom)";
@@ -27,7 +27,7 @@ model PssKundur "Power system stabilizer based on Kundur's book"
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-46, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-46, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
