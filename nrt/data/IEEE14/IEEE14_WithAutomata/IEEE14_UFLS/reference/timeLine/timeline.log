@@ -1,0 +1,12 @@
+0.000000 | GEN____8_SM | PMIN : activation
+0.030691 | GEN____3_SM | PMIN : activation
+0.348405 | GEN____8_SM | PMIN : deactivation
+0.828675 | GEN____3_SM | PMIN : deactivation
+0.834701 | GEN____8_SM | PMIN : activation
+1.905712 | GEN____8_SM | PMIN : deactivation
+2.183867 | GEN____3_SM | PMIN : activation
+2.338445 | GEN____8_SM | PMIN : activation
+2.758086 | GEN____3_SM | PMIN : deactivation
+5.099999 | GEN____1_SM | GENERATOR : disconnecting
+5.099999 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+5.099999 | GEN____8_SM | PMIN : deactivation
