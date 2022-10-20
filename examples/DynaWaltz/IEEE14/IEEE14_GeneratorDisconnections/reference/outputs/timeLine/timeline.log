@@ -45,11 +45,11 @@
 57.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
 60.000000 | UVA | Under-voltage automaton for generator arming
 64.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-65.000000 | UVA | Under-voltage generator trip
+65.000000 | UVA | Under-voltage generator tripped
 65.000000 | GEN____3_SM | GENERATOR : disconnecting
-65.000000 | UVA | Under-voltage generator trip
+65.000000 | UVA | Under-voltage generator tripped
 65.000000 | GEN____3_SM | GENERATOR : disconnecting
-65.000000 | UVA | Under-voltage generator trip
+65.000000 | UVA | Under-voltage generator tripped
 65.000000 | _LOAD__11_EC | Tap-changer : below minimum allowed value
 65.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
 65.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
