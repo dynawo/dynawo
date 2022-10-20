@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   BooleanTable.mo
   CombiTimeTable.mo
+  CombiTimeTableDiscrete.mo
   DoubleStep.mo
   IntegerDoubleStep.mo
   Perturbation.mo

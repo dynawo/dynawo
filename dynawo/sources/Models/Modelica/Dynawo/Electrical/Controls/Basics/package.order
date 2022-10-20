@@ -1,6 +1,7 @@
 SwitchOff
 BooleanTable
 CombiTimeTable
+CombiTimeTableDiscrete
 DoubleStep
 IntegerDoubleStep
 Perturbation

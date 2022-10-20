@@ -14,6 +14,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   BooleanTable.xml
   Bus.xml
   CombiTimeTable.xml
+  CombiTimeTableDiscrete.xml
   CurrentLimitAutomaton.xml
   DoubleStep.xml
   EventConnectedStatus.xml
