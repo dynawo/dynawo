@@ -81,10 +81,23 @@ VRLimitationEfdMin        =             Voltage regulator : lower limit reached 
 VRLimitationEfdMax        =             Voltage regulator : upper limit reached (Efd)
 VRLimitationUsRefMin      =             Voltage regulator : lower limit reached (UsRef)
 VRLimitationUsRefMax      =             Voltage regulator : upper limit reached (UsRef)
+// --> Protection
+ProtectionDisconnected    =              Protection disconnected
+ProtectionConnected       =              Protection connected
 // --> Under-voltage automaton
-UVATripped                =              Under-voltage generator trip
+UVATripped                =              Under-voltage generator tripped
 UVAArming                 =              Under-voltage automaton for generator arming
 UVADisarming              =              Under-voltage automaton for generator disarming
+// --> Loss of synchronism protection
+LossOfSynchronismArming   =              Loss of synchronism protection arming
+LossOfSynchronismTripped  =              Loss of synchronism protection tripped
+// --> Speed protection
+OverspeedArming           =              Overspeed protection arming
+OverspeedDisarming        =              Overspeed protection disarming
+OverspeedTripped          =              Overspeed protection tripped
+UnderspeedArming          =              Underspeed protection arming
+UnderspeedDisarming       =              Underspeed protection disarming
+UnderspeedTripped         =              Underspeed protection tripped
 // --> CurrentLimit
 OverloadUp                =             Overload %1% : activation
 OverloadDown              =             Overload %1% : deactivation
@@ -98,6 +111,44 @@ IdealSwitchSwitchOn       =             Ideal switch closed
 // --> HVDC Line
 DCLineOpen                =             DC line open
 DCLineClosed              =             DC line closed
+// --> Low voltage ride-through automaton
+LVRTTripped                =              LVRT generator tripped
+LVRTArming                 =              LVRT automaton for generator arming
+LVRTDisarming              =              LVRT automaton for generator disarming
+// --> Distance protection
+DistanceTrippedZone1       =              Distance protection tripped zone 1
+DistanceTrippedZone2       =              Distance protection tripped zone 2
+DistanceTrippedZone3       =              Distance protection tripped zone 3
+DistanceTrippedZone4       =              Distance protection tripped zone 4
+Zone1Arming                =              Distance protection zone 1 arming
+Zone2Arming                =              Distance protection zone 2 arming
+Zone3Arming                =              Distance protection zone 3 arming
+Zone4Arming                =              Distance protection zone 4 arming
+Zone1Disarming             =              Distance protection zone 1 disarming
+Zone2Disarming             =              Distance protection zone 2 disarming
+Zone3Disarming             =              Distance protection zone 3 disarming
+Zone4Disarming             =              Distance protection zone 4 disarming
+// --> Under-frequency load shedding
+UFLS1Arming                =              UFLS step 1 arming
+UFLS2Arming                =              UFLS step 2 arming
+UFLS3Arming                =              UFLS step 3 arming
+UFLS4Arming                =              UFLS step 4 arming
+UFLS5Arming                =              UFLS step 5 arming
+UFLS6Arming                =              UFLS step 6 arming
+UFLS7Arming                =              UFLS step 7 arming
+UFLS8Arming                =              UFLS step 8 arming
+UFLS9Arming                =              UFLS step 9 arming
+UFLS10Arming               =              UFLS step 10 arming
+UFLS1Activated             =              UFLS step 1 activated
+UFLS2Activated             =              UFLS step 2 activated
+UFLS3Activated             =              UFLS step 3 activated
+UFLS4Activated             =              UFLS step 4 activated
+UFLS5Activated             =              UFLS step 5 activated
+UFLS6Activated             =              UFLS step 6 activated
+UFLS7Activated             =              UFLS step 7 activated
+UFLS8Activated             =              UFLS step 8 activated
+UFLS9Activated             =              UFLS step 9 activated
+UFLS10Activated            =              UFLS step 10 activated
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
