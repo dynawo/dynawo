@@ -19,9 +19,9 @@ block DiscretePI "Proportional integrator with discrete input"
 
 
   discrete Interfaces.RealInput u "Input connector" annotation(
-    Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.RealOutput y(start = Y0) "Output of the PI controller." annotation(
-    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModule Y0 "Start value of the PI";
   parameter Real Gain "Control gain";
@@ -49,16 +49,6 @@ the output y as <em>PI</em> system:
              tIntegral*s + 1
    = Gain * ----------------- * u
                tIntegral*s
-</pre>
-<pre>
-Example:
-
- parameter: k = 0.3,  T = 0.4
-
- results in:
-             0.4 s + 1
-    y = 0.3 ----------- * u
-               0.4 s
 </pre>
 
 
