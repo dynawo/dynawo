@@ -19,6 +19,7 @@ set(MODEL_FILES
   Perturbation_INIT.mo
   SetPoint.mo
   SetPoint_INIT.mo
+  SineWave.mo
   Step.mo
   Step_INIT.mo
   SwitchOff.mo

@@ -1,3 +1,4 @@
+SwitchOff
 BooleanTable
 CombiTimeTable
 DoubleStep
@@ -6,6 +7,6 @@ Perturbation
 Perturbation_INIT
 SetPoint
 SetPoint_INIT
+SineWave
 Step
 Step_INIT
-SwitchOff
