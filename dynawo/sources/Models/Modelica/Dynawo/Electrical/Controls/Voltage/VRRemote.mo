@@ -42,6 +42,5 @@ equation
   connect(pi.y, NQ) annotation(
     Line(points = {{11, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
 
-
-annotation(preferredView = "diagram");
+  annotation(preferredView = "diagram");
 end VRRemote;
