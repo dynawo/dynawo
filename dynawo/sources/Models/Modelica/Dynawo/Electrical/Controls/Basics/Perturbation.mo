@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Basics;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model Perturbation "Parametrable perturbation model : adds a constant signal at a given time"
+model Perturbation "Parameterizable perturbation model : adds a constant signal at a given time"
   import Dynawo.Connectors;
 
   Connectors.ImPin signal(value(start = Value0));

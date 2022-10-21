@@ -12,30 +12,30 @@ within Dynawo.Electrical.Machines.SignalN;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN for the frequency handling"
-
+model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN for the frequency handling. In this model, QNomAlt is calculated using QMax."
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
-    parameter Types.ActivePowerPu PMin "Minimum active power in MW";
-    parameter Types.ActivePowerPu PMax "Maximum active power in MW";
-    parameter Types.ReactivePowerPu QMin "Minimum reactive power in Mvar";
-    parameter Types.ReactivePowerPu QMax "Maximum reactive power in Mvar";
+  parameter Types.ActivePowerPu PMin "Minimum active power in MW";
+  parameter Types.ActivePowerPu PMax "Maximum active power in MW";
+  parameter Types.ReactivePowerPu QMin "Minimum reactive power in Mvar";
+  parameter Types.ReactivePowerPu QMax "Maximum reactive power in Mvar";
 
-    Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
-    Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
-    Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-    Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+  Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
+  Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
+  Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+  Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+  Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
 equation
+  PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;
+  QMinPu = QMin / Dynawo.Electrical.SystemBase.SnRef;
+  PMaxPu = PMax / Dynawo.Electrical.SystemBase.SnRef;
+  QMaxPu = QMax / Dynawo.Electrical.SystemBase.SnRef;
+  QNomAlt = QMax;
 
-    PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;
-    QMinPu = QMin / Dynawo.Electrical.SystemBase.SnRef;
-    PMaxPu = PMax / Dynawo.Electrical.SystemBase.SnRef;
-    QMaxPu = QMax / Dynawo.Electrical.SystemBase.SnRef;
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorPV_INIT;

@@ -27,8 +27,13 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+
+  Types.ReactivePowerPu QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt) "Stator reactive power in pu (base QNomAlt) (generator convention)";
+  Boolean limUQUp(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
+  Boolean limUQDown(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
 
   Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
   Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";
@@ -50,10 +55,16 @@ equation
 
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
+    limUQUp = false;
+    limUQDown = true;
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
+    limUQUp = true;
+    limUQDown = false;
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
+    limUQUp = false;
+    limUQDown = false;
   end when;
 
   if running.value then
@@ -67,6 +78,8 @@ equation
   else
     terminal.i.im = 0;
   end if;
+
+  QStatorPu = QGenPu * SystemBase.SnRef / QNomAlt;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>  This generator provides an active power PGenPu that depends on an emulated frequency regulation and regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu. These limits are calculated in the model depending on PGenPu.</div></body></html>"));

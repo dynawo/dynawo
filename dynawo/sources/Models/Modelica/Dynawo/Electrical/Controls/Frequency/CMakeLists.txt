@@ -14,6 +14,8 @@ set(MODEL_FILES
   package.order
   SignalN.mo
   SignalN.extvar
+  SecondaryFrequencyRegulation.mo
+  SecondaryFrequencyRegulation.extvar
   )
 
 #

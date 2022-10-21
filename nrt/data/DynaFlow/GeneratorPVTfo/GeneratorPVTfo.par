@@ -153,8 +153,60 @@
     <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
     <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
   </set>
+  <set id="Generator7">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-200"/>
+    <par type="DOUBLE" name="generator_QMax" value="200"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+  </set>
+  <set id="Generator8">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
+    <par type="DOUBLE" name="generator_QMax0" value="200"/>
+    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
+    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
+  </set>
   <set id="SVC">
     <par type="DOUBLE" name="secondaryVoltageControl_Level0" value="0.21892"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_tI" value="180"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_tau" value="40"/>
+  </set>
+  <set id="SVC1">
+    <par type="DOUBLE" name="secondaryVoltageControl_Level0" value="0.17857142"/>
     <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
@@ -165,6 +217,12 @@
   <set id="Line">
     <par type="DOUBLE" name="line_RPu" value="0"/>
     <par type="DOUBLE" name="line_XPu" value="0.045044"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="LineFict">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="1e-6"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>

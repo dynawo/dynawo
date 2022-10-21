@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Basics;
 * for power systems.
 */
 
-model IntegerDoubleStep "Parametrable step model : applies two changes of amplitude at given times"
+model IntegerDoubleStep "Parameterizable step model : applies two changes of amplitude at given times"
   import Dynawo.Connectors;
 
   Connectors.IntPin step(value(start = Value0));

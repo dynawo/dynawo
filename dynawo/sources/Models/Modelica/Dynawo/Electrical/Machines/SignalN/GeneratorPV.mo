@@ -22,8 +22,13 @@ model GeneratorPV "Model for generator PV based on SignalN for the frequency han
 
   parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+
+  Types.ReactivePowerPu QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt) "Stator reactive power in pu (base QNomAlt) (generator convention)";
+  Boolean limUQUp(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
+  Boolean limUQDown(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 
@@ -33,10 +38,16 @@ protected
 equation
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
+    limUQUp = false;
+    limUQDown = true;
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
+    limUQUp = true;
+    limUQDown = false;
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
+    limUQUp = false;
+    limUQDown = false;
   end when;
 
   if running.value then
@@ -50,6 +61,8 @@ equation
   else
     terminal.i.im = 0;
   end if;
+
+  QStatorPu = QGenPu * SystemBase.SnRef / QNomAlt;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));

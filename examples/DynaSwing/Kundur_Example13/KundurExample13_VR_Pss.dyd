@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Network -->
+  <dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBus" parFile="KundurExample13.par" parId="InfiniteBus"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="KundurExample13.par" parId="Line1"/>
+  <dyn:blackBoxModel id="Line2" lib="Line" parFile="KundurExample13.par" parId="Line2"/>
+  <dyn:blackBoxModel id="Transformer" lib="TransformerFixedRatio" parFile="KundurExample13.par" parId="Transformer"/>
+  <!-- Generator four windings with fixed mechanical power and a Kundur proportional voltage regulator with a power system stabilizer -->
+  <dyn:blackBoxModel id="SM" lib="GeneratorSynchronousFourWindingsVRKundurPssKundur" parFile="KundurExample13.par" parId="SynchronousMachine"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="KundurExample13.par" parId="SetPointOmegaRef"/>
+  <!-- Line opening -->
+  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="KundurExample13.par" parId="Fault"/>
+  <dyn:blackBoxModel id="OpenLine" lib="EventSetPointBoolean" parFile="KundurExample13.par" parId="LineOpening"/>
+  <!-- Connections -->
+  <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="Line2" var2="line_terminal1"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="Transformer" var2="transformer_terminal1"/>
+  <dyn:connect id1="Line2" var1="line_terminal2" id2="Transformer" var2="transformer_terminal1"/>
+  <dyn:connect id1="Transformer" var1="transformer_terminal1" id2="Fault" var2="fault_terminal"/>
+  <dyn:connect id1="Transformer" var1="transformer_terminal2" id2="SM" var2="generator_terminal"/>
+  <dyn:connect id1="OpenLine" var1="event_state1" id2="Line2" var2="line_switchOffSignal2"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint_value" id2="SM" var2="pss_omegaRefPu"/>
+</dyn:dynamicModelsArchitecture>

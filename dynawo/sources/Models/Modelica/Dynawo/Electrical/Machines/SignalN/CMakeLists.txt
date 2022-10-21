@@ -16,20 +16,36 @@ set(MODEL_FILES
   BaseClasses.mo
   GeneratorPQProp.mo
   GeneratorPQProp.extvar
+  GeneratorPQPropSFR.mo
+  GeneratorPQPropSFR.extvar
   GeneratorPQPropDiagramPQ.mo
   GeneratorPQPropDiagramPQ.extvar
+  GeneratorPQPropDiagramPQSFR.mo
+  GeneratorPQPropDiagramPQSFR.extvar
   GeneratorPV.mo
   GeneratorPV.extvar
+  GeneratorPVSFR.mo
+  GeneratorPVSFR.extvar
   GeneratorPV_INIT.mo
+  GeneratorPVQNomAltPar_INIT.mo
   GeneratorPVDiagramPQ.mo
   GeneratorPVDiagramPQ.extvar
+  GeneratorPVDiagramPQSFR.mo
+  GeneratorPVDiagramPQSFR.extvar
   GeneratorPVDiagram_INIT.mo
+  GeneratorPVQNomAltParDiagram_INIT.mo
   GeneratorPVProp.mo
   GeneratorPVProp.extvar
+  GeneratorPVPropSFR.mo
+  GeneratorPVPropSFR.extvar
   GeneratorPVRemote.mo
   GeneratorPVRemote.extvar
+  GeneratorPVRemoteSFR.mo
+  GeneratorPVRemoteSFR.extvar
   GeneratorPVRemoteDiagramPQ.mo
   GeneratorPVRemoteDiagramPQ.extvar
+  GeneratorPVRemoteDiagramPQSFR.mo
+  GeneratorPVRemoteDiagramPQSFR.extvar
   GeneratorPVTfo.mo
   GeneratorPVTfo.extvar
   GeneratorPVTfo_INIT.mo
