@@ -9,7 +9,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suit of time domain simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 */
 
 block DiscretePI "Proportional integrator with discrete input"
@@ -17,13 +17,12 @@ block DiscretePI "Proportional integrator with discrete input"
   import Modelica.Blocks.Interfaces;
   import Modelica;
 
-
   discrete Interfaces.RealInput u "Input connector" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.RealOutput y(start = Y0) "Output of the PI controller." annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.VoltageModule Y0 "Start value of the PI";
+  parameter Real Y0 "Start value of the PI output ";
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 

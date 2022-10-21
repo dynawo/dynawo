@@ -13,10 +13,8 @@ within Dynawo.Electrical.Controls.Voltage;
 */
 
 model VRRemote "Model for centralized remote voltage regulation"
-
-import Dynawo.Connectors;
-import Dynawo.Types;
-import Modelica;
+  import Dynawo.Types;
+  import Modelica;
 
   parameter Types.VoltageModule URef0 "Start value of the regulated voltage reference in kV";
   parameter Types.VoltageModule U0 "Start value of the regulated voltage in kV";
@@ -43,6 +41,7 @@ equation
     Line(points = {{-31, 0}, {-13, 0}, {-13, 0}, {-12, 0}}, color = {0, 0, 127}));
   connect(pi.y, NQ) annotation(
     Line(points = {{11, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
+
 
 annotation(preferredView = "diagram");
 end VRRemote;
