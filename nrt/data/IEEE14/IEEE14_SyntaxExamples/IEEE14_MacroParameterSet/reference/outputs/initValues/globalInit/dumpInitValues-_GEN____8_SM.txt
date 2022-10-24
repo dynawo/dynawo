@@ -1,5 +1,6 @@
  ====== INIT VARIABLES VALUES ======
 generator_N                                       : y =       0.000002 yp =       0.000000
+generator_PRefPu                                  : y =      -0.000000 yp =       0.000000
 generator_QMaxPu                                  : y =       0.250000 yp =       0.000000
 generator_QMinPu                                  : y =      -0.070000 yp =       0.000000
 generator_URefPu                                  : y =       1.090000 yp =       0.000000
