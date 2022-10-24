@@ -16,6 +16,7 @@
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="N"/>
   <variable type="continuous" id="URefPu" optional="true"/>
+  <variable type="continuous" id="PRefPu" optional="true"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal3.value" defaultValue="false"/>
