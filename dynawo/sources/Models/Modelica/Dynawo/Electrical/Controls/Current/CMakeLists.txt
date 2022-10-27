@@ -11,7 +11,6 @@
 set(MODEL_FILES
   # Current control models
   package.mo
-  package.order
   CurrentLimitAutomaton.mo
   CurrentLimitAutomaton.extvar
   PhaseShifterBlockingI.mo

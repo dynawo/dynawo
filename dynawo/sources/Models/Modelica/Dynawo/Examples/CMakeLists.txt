@@ -19,7 +19,6 @@ add_subdirectory(Wind W)
 
 set(MODEL_FILES
   package.mo
-  package.order
   Overview.mo
   )
 

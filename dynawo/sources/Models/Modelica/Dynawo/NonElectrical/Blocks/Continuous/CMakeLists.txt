@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   AbsLimRateLimFeedthroughFreeze.mo
   AbsLimRateLimFirstOrderFreeze.mo
   AbsLimRateLimFirstOrderFreezeLimDetection.mo

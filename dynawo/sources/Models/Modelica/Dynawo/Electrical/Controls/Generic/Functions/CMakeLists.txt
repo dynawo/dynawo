@@ -11,7 +11,6 @@
 set(MODEL_FILES
   # Generic automaton
   package.mo
-  package.order
   Automaton.mo
   )
 

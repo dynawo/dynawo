@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   BaseDriveTrain.mo
   CurrentLimitsCalculationPV.mo
   CurrentLimitsCalculationWind.mo

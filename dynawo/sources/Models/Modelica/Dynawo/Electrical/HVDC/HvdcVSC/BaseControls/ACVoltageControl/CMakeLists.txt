@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   QRefQU.mo
   QRefLim.mo
   ACVoltageControl.mo

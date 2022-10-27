@@ -11,7 +11,6 @@
 set(MODEL_FILES
   # Sources models
   package.mo
-  package.order
   Converter.mo
   Converter.extvar
   Converter_INIT.mo

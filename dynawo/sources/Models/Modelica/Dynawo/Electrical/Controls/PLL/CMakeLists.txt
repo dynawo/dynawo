@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   PLL.mo
   PLL.extvar
   PLL_INIT.mo

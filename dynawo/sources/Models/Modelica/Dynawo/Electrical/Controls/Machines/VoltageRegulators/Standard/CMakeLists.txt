@@ -12,7 +12,6 @@ add_subdirectory(BaseBlocks B)
 
 set(MODEL_FILES
   package.mo
-  package.order
   ExcIEEEST4B.mo
   ExcIEEEST4B.extvar
   ExcIEEEST4B_INIT.mo

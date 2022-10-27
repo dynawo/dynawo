@@ -11,7 +11,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   PotentialCircuit.mo
   RectifierRegulationCharacteristic.mo
   )

@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   WTG4ACurrentSource.mo
   WTG4ACurrentSource.extvar
   WTG4BCurrentSource.mo

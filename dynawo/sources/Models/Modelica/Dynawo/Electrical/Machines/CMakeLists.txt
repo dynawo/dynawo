@@ -15,7 +15,6 @@ add_subdirectory(SignalN N)
 
 set(MODEL_FILES
   package.mo
-  package.order
   BaseClasses.mo
   BaseClasses_INIT.mo
   GeneratorFictitious.mo

@@ -15,7 +15,6 @@ add_subdirectory(Standard St)
 
 set(MODEL_FILES
   package.mo
-  package.order
   Governor_INIT.mo
   )
 

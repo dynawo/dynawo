@@ -25,7 +25,6 @@ add_subdirectory(Wind W)
 
 set(MODEL_FILES
   package.mo
-  package.order
   SystemBase.mo
   Constants.mo
   )

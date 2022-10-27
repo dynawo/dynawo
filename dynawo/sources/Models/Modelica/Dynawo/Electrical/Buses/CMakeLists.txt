@@ -11,7 +11,6 @@
 set(MODEL_FILES
   # Electrical Buses models
   package.mo
-  package.order
   Bus.mo
   Bus.extvar
   InfiniteBus.mo

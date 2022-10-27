@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   ACEmulation.mo
   ACEmulation_INIT.mo
   ACEmulationSet_INIT.mo

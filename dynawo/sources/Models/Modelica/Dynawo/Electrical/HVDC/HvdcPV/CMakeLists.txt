@@ -10,7 +10,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   HvdcPV.mo
   HvdcPV_INIT.mo
   HvdcPV.extvar

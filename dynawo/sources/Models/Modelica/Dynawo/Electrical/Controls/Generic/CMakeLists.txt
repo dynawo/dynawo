@@ -13,7 +13,6 @@ add_subdirectory(Functions F)
 set(MODEL_FILES
   # Generic automaton
   package.mo
-  package.order
   GenericAutomaton.mo
   GenericAutomatonConstants.mo
   GenericAutomaton.extvar

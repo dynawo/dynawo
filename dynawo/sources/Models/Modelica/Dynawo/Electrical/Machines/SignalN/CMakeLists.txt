@@ -12,7 +12,6 @@
 
 set(MODEL_FILES
   package.mo
-  package.order
   BaseClasses.mo
   GeneratorPQProp.mo
   GeneratorPQProp.extvar

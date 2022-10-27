@@ -11,7 +11,6 @@
 set(MODEL_FILES
   # Frequency control models
   package.mo
-  package.order
   SignalN.mo
   SignalN.extvar
   SecondaryFrequencyRegulation.mo

@@ -12,7 +12,6 @@ add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo
-  package.order
   BacklashHysteresis.mo
   DeadBand.mo
   DelayFlag.mo
