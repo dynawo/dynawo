@@ -11,6 +11,7 @@
 
 set(MODEL_FILES
     package.mo
+    package.order
     ReactivePowerControlLoop.mo
     ReactivePowerControlLoop.extvar
     ReactivePowerControlLoop_INIT.mo

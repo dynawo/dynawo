@@ -15,6 +15,7 @@ add_subdirectory(Simplified S)
 
 SET(MODEL_FILES
     package.mo
+    package.order
     )
 
 #
