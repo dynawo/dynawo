@@ -14,6 +14,7 @@ add_subdirectory(Images I)
 
 set(MODEL_FILES
   package.mo
+  package.order
   BaseClasses.mo
   BaseClasses_INIT.mo
   PhaseShifterI.mo

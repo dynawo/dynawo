@@ -10,6 +10,7 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   InitCase1.mo
   InitCase2.mo
   InitCase3.mo

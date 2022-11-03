@@ -12,6 +12,7 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   VRProportional.extvar
   VRProportional.mo
   VRProportional_INIT.mo

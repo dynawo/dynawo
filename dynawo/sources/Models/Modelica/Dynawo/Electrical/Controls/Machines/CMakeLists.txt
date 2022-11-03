@@ -17,6 +17,7 @@ add_subdirectory(ReactivePowerControlLoops R)
 set(MODEL_FILES
   # Machines control models
   package.mo
+  package.order
   )
 
 #

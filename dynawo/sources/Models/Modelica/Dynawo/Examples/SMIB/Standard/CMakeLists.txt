@@ -11,6 +11,7 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   GovSteam1ExcIEEEST4BPssIEEE2B1.mo
   GovSteam1ExcIEEEST4BPssIEEE2B2.mo
   GovSteam1ExcIEEEST4BPssIEEE2B3.mo

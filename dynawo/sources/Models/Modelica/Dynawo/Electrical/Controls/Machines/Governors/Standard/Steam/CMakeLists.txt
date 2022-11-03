@@ -12,6 +12,7 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   GovSteam1.mo
   GovSteam1.extvar
   GovSteam1_INIT.mo

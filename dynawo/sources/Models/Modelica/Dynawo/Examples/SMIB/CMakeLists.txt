@@ -14,6 +14,7 @@ add_subdirectory(Standard S)
 
 set(MODEL_FILES
   package.mo
+  package.order
   SMIBStepPm.mo
   )
 

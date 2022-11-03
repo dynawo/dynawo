@@ -13,6 +13,7 @@ add_subdirectory(INIT I)
 
 set(MODEL_FILES
   package.mo
+  package.order
   TestCase1.mo
   TestCase2.mo
   TestCase3.mo

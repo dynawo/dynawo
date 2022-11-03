@@ -12,6 +12,7 @@ add_subdirectory(BaseControls B)
 
 set(MODEL_FILES
   package.mo
+  package.order
   HvdcVSC.mo
   HvdcVSC_INIT.mo
   HvdcVSC.extvar

@@ -14,6 +14,7 @@ add_subdirectory(Images I)
 set(MODEL_FILES
   # Voltage control models
   package.mo
+  package.order
   BaseClasses.mo
   TapChangerBlocking1.mo
   TapChangerBlocking1.extvar

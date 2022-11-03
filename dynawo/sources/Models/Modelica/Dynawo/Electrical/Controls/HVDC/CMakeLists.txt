@@ -11,6 +11,7 @@
 set(MODEL_FILES
   # HVDC control models
   package.mo
+  package.order
   PowerTransferHVDC.mo
   PowerTransferHVDC.extvar
   PowerTransferHVDCEmulation.mo

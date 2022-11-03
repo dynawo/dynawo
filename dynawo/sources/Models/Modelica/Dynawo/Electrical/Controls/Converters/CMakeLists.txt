@@ -13,6 +13,7 @@ add_subdirectory(BaseControls B)
 set(MODEL_FILES
   # Converter control models
   package.mo
+  package.order
   GridFormingControlDroopControl.mo
   GridFormingControlDroopControl.extvar
   GridFormingControlMatchingControl.mo

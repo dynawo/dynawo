@@ -17,6 +17,7 @@ add_subdirectory(DCLine H)
 
 set(MODEL_FILES
   package.mo
+  package.order
   Parameters.mo
   DCVoltageControlSide.mo
   DCVoltageControlSideDangling.mo

@@ -12,6 +12,7 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   PSS2A.mo
   PSS2A.extvar
   PSS2A_INIT.mo

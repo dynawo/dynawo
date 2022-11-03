@@ -23,6 +23,7 @@ add_subdirectory(WECC W)
 
 set(MODEL_FILES
   package.mo
+  package.order
   )
 
 #

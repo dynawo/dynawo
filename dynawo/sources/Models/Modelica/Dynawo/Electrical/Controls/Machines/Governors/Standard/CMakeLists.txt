@@ -14,6 +14,7 @@ add_subdirectory(Steam S)
 
 set(MODEL_FILES
   package.mo
+  package.order
   )
 
 #

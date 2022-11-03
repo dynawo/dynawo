@@ -11,6 +11,7 @@
 set(MODEL_FILES
   # Converter control elements models
   package.mo
+  package.order
   CurrentLoop.mo
   CurrentLoop.extvar
   VoltageLoop.mo

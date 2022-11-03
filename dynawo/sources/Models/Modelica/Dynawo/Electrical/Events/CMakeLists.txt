@@ -11,6 +11,7 @@
 set(MODEL_FILES
   # Events-related models
   package.mo
+  package.order
   Event.mo
   NodeFault.mo
   NodeFault.extvar

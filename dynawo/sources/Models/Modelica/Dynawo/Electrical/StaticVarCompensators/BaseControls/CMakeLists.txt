@@ -13,6 +13,7 @@
 set(MODEL_FILES
   # Voltage control models
   package.mo
+  package.order
   Parameters.mo
   BlockingFunction.mo
   CalculBG.mo

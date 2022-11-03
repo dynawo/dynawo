@@ -11,6 +11,7 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   SVarCStepUref.mo
   SVarCLoadVarQ.mo
   SVarCLoadVarQLarge.mo

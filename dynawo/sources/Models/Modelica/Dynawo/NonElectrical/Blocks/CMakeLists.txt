@@ -14,6 +14,7 @@ add_subdirectory(NonLinear N)
 
 set(MODEL_FILES
   package.mo
+  package.order
   )
 
 #

@@ -13,6 +13,7 @@ add_subdirectory(Utilities U)
 
 set(MODEL_FILES
   package.mo
+  package.order
   Parameters.mo
   DriveTrainPeFiltered.mo
   DriveTrainPmConstant.mo
