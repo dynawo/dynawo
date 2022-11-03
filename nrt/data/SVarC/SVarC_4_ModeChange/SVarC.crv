@@ -3,7 +3,7 @@
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
-    This Source Code Form is subject to the terTest of the Mozilla Public
+    This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
@@ -12,13 +12,13 @@
     simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="Test" variable="svarc_injector_UPu"/>
-  <curve model="Test" variable="svarc_injector_BPu"/>
-  <curve model="Test" variable="svarc_injector_GPu"/>
-  <curve model="Test" variable="svarc_injector_PInjPu"/>
-  <curve model="Test" variable="svarc_injector_QInjPu"/>
-  <curve model="Test" variable="svarc_modeHandling_mode"/>
-  <curve model="Test" variable="svarc_modeHandling_URefPu"/>
-  <curve model="Test" variable="svarc_modeHandling_setModeManual"/>
-  <curve model="Test" variable="svarc_modeHandling_selectModeAuto"/>
+  <curve model="SVarC" variable="SVarC_injector_UPu"/>
+  <curve model="SVarC" variable="SVarC_injector_BPu"/>
+  <curve model="SVarC" variable="SVarC_injector_GPu"/>
+  <curve model="SVarC" variable="SVarC_injector_PInjPu"/>
+  <curve model="SVarC" variable="SVarC_injector_QInjPu"/>
+  <curve model="SVarC" variable="SVarC_modeHandling_mode"/>
+  <curve model="SVarC" variable="SVarC_modeHandling_URefPu"/>
+  <curve model="SVarC" variable="SVarC_modeHandling_setModeManual"/>
+  <curve model="SVarC" variable="SVarC_modeHandling_selectModeAuto"/>
 </curvesInput>

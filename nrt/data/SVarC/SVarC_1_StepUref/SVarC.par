@@ -53,7 +53,7 @@
     <par type="BOOL" name="SVarC_selectModeAuto0" value="false"/>
     <par type="INT" name="SVarC_Mode0" value="3"/>
   </set>
-  <!-- SVarC -->
+  <!-- URef step -->
   <set id="4">
     <par type="DOUBLE" name="step_Value0" value="225"/>
     <par type="DOUBLE" name="step_Height" value="5"/>
