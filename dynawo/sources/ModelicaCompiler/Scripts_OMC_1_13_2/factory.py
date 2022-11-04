@@ -2440,7 +2440,7 @@ class Factory:
                             if match is not None:
                                 # Specific treatment for combiTables
                                 if is_a_table(func) is True:
-                                    if name in get_text_in_method(line, func.get_name()):
+                                    if name in get_text_in_method(line, func.get_name()) or name.replace(' ','') in get_text_in_method(line, func.get_name()).replace(' ',''):
                                         l = l.replace(name, "xd[" + match.group('varId')+"].value()")
                                     else:
                                         l = l.replace(name, "xd[" + match.group('varId')+"]")
@@ -2450,7 +2450,7 @@ class Factory:
                             if match is not None:
                                 # Specific treatment for combiTables
                                 if is_a_table(func) is True:
-                                    if name in get_text_in_method(line, func.get_name()):
+                                    if name in get_text_in_method(line, func.get_name()) or name.replace(' ','') in get_text_in_method(line, func.get_name()).replace(' ',''):
                                         l = l.replace(name, "x[" + match.group('varId')+"].value()")
                                     else:
                                         l = l.replace(name, "x[" + match.group('varId')+"]")
