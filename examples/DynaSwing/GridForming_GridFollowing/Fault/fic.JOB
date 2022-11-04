@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="All converter-interfaced 5-machine system (3 GFM + 2 GFL)">
+    <job name="All converter-interfaced 5-machine system (3 GFM + 2 GFL) - Fault">
         <solver lib="dynawo_SolverSIM" parFile="fic.PAR" parId="SimplifiedSolver"/>
         <modeler compileDir="outputs/compilation">
             <network iidmFile="fic.IIDM" parFile="fic.PAR" parId="NETWORK"/>
@@ -20,11 +20,11 @@
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true"/>
         </modeler>
-        <simulation startTime="0" stopTime="9" precision="1e-05"/>
+        <simulation startTime="0" stopTime="3" precision="1e-05"/>
         <outputs directory="outputs">
             <curves inputFile="fic.CRV" exportMode="CSV"/>
             <logs>
-                <appender tag="" file="dynawaltz.log" lvlFilter="INFO"/>
+                <appender tag="" file="dynaswing.log" lvlFilter="INFO"/>
             </logs>
         </outputs>
     </job>

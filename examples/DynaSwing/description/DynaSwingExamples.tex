@@ -610,9 +610,10 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 
 \chapter{Grid Forming - Grid Following}
 
-This chapter presents a test case that simulates a 5-machine all-converter-interfaced power system. Two converters are grid following and use the WECC WTG4A model presented above and three converters are grid forming converters using a droop control.
+This chapter presents three test cases that simulate a 5-machine all-converter-interfaced power system.
+Two converters are grid following and use the WECC WTG4A model presented above and three converters are grid forming converters using a droop control.
 
-\section{Test case description}
+\section{Test cases description}
 
 \par The test case is presented in the following figure. INF, HVDC1 and HVDC2 are grid forming converters while WP1 and WP2 are wind plants using the grid following WECC WTG4A model.
 
@@ -635,13 +636,19 @@ This chapter presents a test case that simulates a 5-machine all-converter-inter
 \item $minimalAcceptableStep$=$10^{-6}$.
 \end{itemize}
 
-\subsection{Scenario}
+\subsection{Scenarios}
 
-\par First, an active power double step is played at WP2 at t=1s and t=2s. Then a line is disconnected at t=3s. Then an active power double step is played at HVDC1 at t=4s and t=5s. Finally, a fault is played at t=7s and cleared at t=7.1s.
+\par Three test cases are simulated in three different simulations:
+
+\begin{itemize}
+\item An active power double step at WP2 at t=1s and t=2s and an active power double step at HVDC1 at t=4s and t=5s.
+\item A line disconnection at t=1s.
+\item A fault at t=1s and cleared at t=1.1s.
+\end{itemize}
 
 \section{Results}
 
-\par As an example, the injected active and reactive powers of WP2 and HVDC1 are shown in the following:
+\par As an example, the injected active and reactive powers of WP2 and HVDC1 during the fault are shown in the following:
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{PQWP2.png}
