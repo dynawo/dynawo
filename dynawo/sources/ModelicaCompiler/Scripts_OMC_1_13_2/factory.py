@@ -2438,10 +2438,24 @@ class Factory:
                         for name in match_global:
                             match = ptrn_real_der_var.search(l)
                             if match is not None:
-                                l = l.replace(name, "xd[" + match.group('varId')+"].value()")
+                                # Specific treatment for combiTables
+                                if is_a_table(func) is True:
+                                    if name in get_text_in_method(line, func.get_name()):
+                                        l = l.replace(name, "xd[" + match.group('varId')+"].value()")
+                                    else:
+                                        l = l.replace(name, "xd[" + match.group('varId')+"]")
+                                else:
+                                    l = l.replace(name, "xd[" + match.group('varId')+"].value()")
                             match = ptrn_real_var.search(l)
                             if match is not None:
-                                l = l.replace(name, "x[" + match.group('varId')+"].value()")
+                                # Specific treatment for combiTables
+                                if is_a_table(func) is True:
+                                    if name in get_text_in_method(line, func.get_name()):
+                                        l = l.replace(name, "x[" + match.group('varId')+"].value()")
+                                    else:
+                                        l = l.replace(name, "x[" + match.group('varId')+"]")
+                                else:
+                                    l = l.replace(name, "x[" + match.group('varId')+"].value()")
                     call_line += l
                     if call_line[-1] != ';':
                         call_line += ', '

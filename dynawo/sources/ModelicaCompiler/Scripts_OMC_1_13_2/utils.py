@@ -89,6 +89,38 @@ def is_adept_func(func, list_adept_structs):
     return False
 
 ##
+# Indicates whether the function is using a CombiTable (only, combiTimeTable are not considered here)
+#
+# @param func : function to analyse
+# @return @b true if the function is using a combiTable
+def is_a_table(func):
+    if "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): return True
+    return False
+
+##
+# Retrieve the text part representing a method parameters:
+# e.g. if the line as something like myFunc((par1), par2, (((par3)))), it will return ((par1), par2, (((par3))))
+#
+# @param line: string line to analyse
+# @param method_name : the method name for which the parameters need to be retrieved
+# @return string of method arguments
+def get_text_in_method(line, method_name):
+    count = 0
+    isStarted = False
+    inside = ""
+    line_tmp = line.split(method_name)[1]
+    for c in line_tmp:
+        if c == '(':
+            count +=1
+            isStarted = True
+        elif c == ')':
+            count -=1
+        inside += c
+        if isStarted == True and count == 0:
+            return inside
+    return inside
+
+##
 # replace '.' by '_' so that var_name should be correctly analyse by gcc
 # replace ']' by '_' A[1] => A_1_
 # replace ']' by '_'
