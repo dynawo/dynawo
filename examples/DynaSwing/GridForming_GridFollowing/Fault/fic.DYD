@@ -57,12 +57,6 @@
   <macroConnect connector="OmegaRefToWTG4A" id1="OMEGAREF" id2="WP2" index1="4"/>
   <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="4" name2="WP2"/>
 <!-- Events -->
-  <blackBoxModel id="STEPPWP2" lib="DoubleStep" parFile="fic.PAR" parId="STEPPWP2"/>
-  <connect id1="STEPPWP2" var1="doubleStep_step_value" id2="WP2" var2="WTG4A_PRefPu"/>
-  <blackBoxModel id="DISCONNECTLINE" lib="EventQuadripoleDisconnection" parFile="fic.PAR" parId="DISCONNECTLINE"/>
-  <connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="AAAAAL72BBBBB_state_value"/>
-  <blackBoxModel id="STEPPHVDC1" lib="DoubleStep" parFile="fic.PAR" parId="STEPPHVDC1"/>
-  <connect id1="STEPPHVDC1" var1="doubleStep_step_value" id2="HVDC1" var2="control_PRefPu"/>
   <blackBoxModel id="FAULT" lib="NodeFault" parFile="fic.PAR" parId="FAULT"/>
   <connect id1="NETWORK" var1="DDDDDP71_ACPIN" id2="FAULT" var2="fault_terminal"/>
 <!-- Macro-connectors-->

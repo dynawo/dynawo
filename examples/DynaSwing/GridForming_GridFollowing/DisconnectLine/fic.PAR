@@ -168,29 +168,9 @@
     <par type="DOUBLE" name="weight_gen_3" value="25"/>
     <par type="DOUBLE" name="weight_gen_4" value="5000"/>
   </set>
-  <set id="STEPPWP2">
-    <par type="DOUBLE" name="doubleStep_Value0" value="0.87"/>
-    <par type="DOUBLE" name="doubleStep_tStep1" value="1"/>
-    <par type="DOUBLE" name="doubleStep_Height1" value="0.1"/>
-    <par type="DOUBLE" name="doubleStep_tStep2" value="2"/>
-    <par type="DOUBLE" name="doubleStep_Height2" value="-0.1"/>
-  </set>
   <set id="DISCONNECTLINE">
-    <par type="DOUBLE" name="event_tEvent" value="3"/>
+    <par type="DOUBLE" name="event_tEvent" value="1"/>
     <par type="BOOL" name="event_disconnectOrigin" value="true"/>
     <par type="BOOL" name="event_disconnectExtremity" value="true"/>
-  </set>
-   <set id="STEPPHVDC1">
-    <par type="DOUBLE" name="doubleStep_Value0" value="0.87"/>
-    <par type="DOUBLE" name="doubleStep_tStep1" value="4"/>
-    <par type="DOUBLE" name="doubleStep_Height1" value="0.1"/>
-    <par type="DOUBLE" name="doubleStep_tStep2" value="5"/>
-    <par type="DOUBLE" name="doubleStep_Height2" value="-0.1"/>
-  </set>
-  <set id="FAULT">
-    <par type="DOUBLE" name="fault_tBegin" value="7"/>
-    <par type="DOUBLE" name="fault_tEnd" value="7.1"/>
-    <par type="DOUBLE" name="fault_RPu" value="0"/>
-    <par type="DOUBLE" name="fault_XPu" value="0.06"/>
   </set>
 </parametersSet>
