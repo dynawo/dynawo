@@ -607,6 +607,59 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
   \caption{Active and reactive powers in pu}
 \end{figure}
 
+
+\chapter{Grid Forming - Grid Following}
+
+This chapter presents three test cases that simulate a 5-machine all-converter-interfaced power system.
+Two converters are grid following and use the WECC WTG4A model presented above and three converters are grid forming converters using a droop control.
+
+\section{Test cases description}
+
+\par The test case is presented in the following figure. INF, HVDC1 and HVDC2 are grid forming converters while WP1 and WP2 are wind plants using the grid following WECC WTG4A model.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{GFMGFL.png}
+  \caption{Test case diagram}
+\end{figure}
+
+\subsection{Models}
+
+\par The models used for the converters and their control are fully described in the \Dynawo library.
+
+\subsection{Solver}
+
+\par The solver used is the simplified solver SIM with the following parameters:
+
+\begin{itemize}
+\item $hMin$=$10^{-4}$;
+\item $hMax$=$0.003$;
+\item $minimalAcceptableStep$=$10^{-6}$.
+\end{itemize}
+
+\subsection{Scenarios}
+
+\par Three test cases are simulated in three different simulations:
+
+\begin{itemize}
+\item An active power double step at WP2 at t=1s and t=2s and an active power double step at HVDC1 at t=4s and t=5s.
+\item A line disconnection at t=1s.
+\item A fault at t=1s and cleared at t=1.1s.
+\end{itemize}
+
+\section{Results}
+
+\par As an example, the injected active and reactive powers of WP2 and HVDC1 during the fault are shown in the following:
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{PQWP2.png}
+  \caption{Active and reactive powers of WP2 in pu}
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{PQHVDC1.png}
+  \caption{Active and reactive powers of HVDC1 in pu}
+\end{figure}
+
 \chapter{IEEE14}
 
 The IEEE 14-bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.

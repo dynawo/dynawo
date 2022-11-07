@@ -15,6 +15,8 @@
   <dyn:modelicaModel id="GridFormingConverterMatchingControl">
     <dyn:unitDynamicModel id="converter" name="Dynawo.Electrical.Sources.Converter" initName="Dynawo.Electrical.Sources.Converter_INIT"/>
     <dyn:unitDynamicModel id="control" name="Dynawo.Electrical.Controls.Converters.GridFormingControlMatchingControl" initName="Dynawo.Electrical.Controls.Converters.GridFormingControl_INIT"/>
+    <dyn:initConnect id1="converter" var1="PFilter0Pu" id2="control" var2="PFilter0Pu"/>
+    <dyn:initConnect id1="converter" var1="QFilter0Pu" id2="control" var2="QFilter0Pu"/>
     <dyn:initConnect id1="converter" var1="UdConv0Pu" id2="control" var2="UdConv0Pu"/>
     <dyn:initConnect id1="converter" var1="UqConv0Pu" id2="control" var2="UqConv0Pu"/>
     <dyn:initConnect id1="converter" var1="IdcSource0Pu" id2="control" var2="IdcSource0Pu"/>
@@ -23,6 +25,7 @@
     <dyn:initConnect id1="control" var1="IdPcc0Pu" id2="converter" var2="IdPcc0Pu"/>
     <dyn:initConnect id1="control" var1="IqPcc0Pu" id2="converter" var2="IqPcc0Pu"/>
     <dyn:initConnect id1="control" var1="UdFilter0Pu" id2="converter" var2="UdFilter0Pu"/>
+    <dyn:initConnect id1="control" var1="UqFilter0Pu" id2="converter" var2="UqFilter0Pu"/>
     <dyn:initConnect id1="control" var1="IdConv0Pu" id2="converter" var2="IdConv0Pu"/>
     <dyn:initConnect id1="control" var1="IqConv0Pu" id2="converter" var2="IqConv0Pu"/>
     <dyn:connect id1="converter" var1="udConvRefPu" id2="control" var2="udConvRefPu"/>

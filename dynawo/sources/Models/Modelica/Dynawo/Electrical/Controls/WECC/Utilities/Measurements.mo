@@ -33,9 +33,9 @@ model Measurements "This block measures the voltage, current, active power and r
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side 1 in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side 1 in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side 1 in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side 1 in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -43,6 +43,10 @@ model Measurements "This block measures the voltage, current, active power and r
     Placement(visible = true, transformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput UPu "Voltage module at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput PPuSnRef "Active power on side 1 in pu (base SnRef) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput QPuSnRef "Reactive power on side 1 in pu (base SnRef) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
 equation
   terminal1.i = - terminal2.i;
@@ -52,6 +56,8 @@ equation
   UPu = Modelica.ComplexMath.'abs'(uPu);
   PPu =  (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
   QPu =  (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
+  PPuSnRef =  (SNom / SystemBase.SnRef) * PPu;
+  QPuSnRef =  (SNom / SystemBase.SnRef) * QPu;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end Measurements;
