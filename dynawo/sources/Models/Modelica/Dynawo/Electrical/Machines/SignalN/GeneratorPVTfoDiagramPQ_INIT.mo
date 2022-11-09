@@ -68,7 +68,7 @@ equation
   uStatorRef0Pu = 1 / rTfoPu * (uRef0Pu - iRef0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
   UStator0Pu = ComplexMath.'abs'(uStator0Pu);
   UStatorRef0Pu = ComplexMath.'abs'(uStatorRef0Pu);
-  iStator0Pu = - i0Pu * SystemBase.SnRef / SNom;
+  iStator0Pu = - rTfoPu * i0Pu * SystemBase.SnRef / SNom;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
   QStator0Pu = sStator0Pu.im * SNom / QNomAlt;
 

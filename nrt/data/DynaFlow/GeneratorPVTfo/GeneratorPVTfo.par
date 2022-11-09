@@ -197,22 +197,50 @@
     <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
   </set>
   <set id="SVC">
-    <par type="DOUBLE" name="secondaryVoltageControl_Level0" value="0.21892"/>
+    <!-- Generator 1 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
+    <!-- Generator 2 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.1"/>
+    <!-- SVC parameters -->
     <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
     <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_tI" value="180"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_tau" value="40"/>
   </set>
   <set id="SVC1">
-    <par type="DOUBLE" name="secondaryVoltageControl_Level0" value="0.17857142"/>
+    <!-- Generator 1 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
+    <!-- Generator 2 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
+    <!-- SVC parameters -->
     <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
     <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_tI" value="180"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_tau" value="40"/>
   </set>
   <set id="Line">
     <par type="DOUBLE" name="line_RPu" value="0"/>
