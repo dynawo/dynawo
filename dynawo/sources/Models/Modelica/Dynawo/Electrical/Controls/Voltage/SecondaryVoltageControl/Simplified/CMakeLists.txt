@@ -16,6 +16,7 @@ SET(MODEL_FILES
     package.order
     SecondaryVoltageControl.mo
     SecondaryVoltageControl.extvar
+    SecondaryVoltageControl_INIT.mo
     )
 
 #
