@@ -1,8 +1,12 @@
 var a03087 =
 [
-    [ "memoryManagerChars", "dc/dc0/a03087.html#a48854f613c484d91f28fafff8bd0dc05", null ],
-    [ "~memoryManagerChars", "dc/dc0/a03087.html#a6c9fc65b54ebec577eade3621b94cff9", null ],
-    [ "getInstance", "dc/dc0/a03087.html#a9a327615153450dbbfe54ef8286b90c2", null ],
-    [ "keep", "dc/dc0/a03087.html#a405846834c838b9f9a56fb00687ec486", null ],
-    [ "string2Keep_", "dc/dc0/a03087.html#ac649e86df282bca2f389161c3b49b8c5", null ]
+    [ "~StaticVarCompensatorInterfaceIIDMExtension", "dc/dc0/a03087.html#a1d73bf010bd4f314319c4354dc268bca", null ],
+    [ "exportStandByMode", "dc/dc0/a03087.html#ab5a43df78d26b2ba94fb0ad06dbd5411", null ],
+    [ "getB0", "dc/dc0/a03087.html#ab22b01f04351778463071073d3f8062e", null ],
+    [ "getUMaxActivation", "dc/dc0/a03087.html#ad7bdff51890f3025a8751fb570e18e38", null ],
+    [ "getUMinActivation", "dc/dc0/a03087.html#a3e2bd5c3425c38b71b2e9930ddbfeb05", null ],
+    [ "getUSetPointMax", "dc/dc0/a03087.html#a8dffff27e20436d1d90f7d875f0ae251", null ],
+    [ "getUSetPointMin", "dc/dc0/a03087.html#adfb4bb53f0efda454d541da8e0864231", null ],
+    [ "hasStandbyAutomaton", "dc/dc0/a03087.html#ae82fbb9bbf3176aa513c14adbce13e80", null ],
+    [ "isStandBy", "dc/dc0/a03087.html#a9824a971d819855462787f996432c5ca", null ]
 ];

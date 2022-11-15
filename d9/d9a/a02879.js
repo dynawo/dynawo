@@ -1,22 +1,9 @@
 var a02879 =
 [
-    [ "StaticParameterType", "d9/d9a/a02879.html#a3269f81522dc42ab14097f0605f66b9e", [
-      [ "BOOL", "d9/d9a/a02879.html#a3269f81522dc42ab14097f0605f66b9eac8ce86025a27e6c8021de9383fe9d849", null ],
-      [ "INT", "d9/d9a/a02879.html#a3269f81522dc42ab14097f0605f66b9eac2c1047e0d61d0b733a3c3264be5f878", null ],
-      [ "DOUBLE", "d9/d9a/a02879.html#a3269f81522dc42ab14097f0605f66b9ea4eb4a48039f8d2ffd8a7868f5662d9ef", null ]
-    ] ],
-    [ "StaticParameter", "d9/d9a/a02879.html#a36f4ef95e095ecd5d75cf7fdedea793c", null ],
-    [ "StaticParameter", "d9/d9a/a02879.html#a3d654117eda911d0a9e0a9ee621a53ef", null ],
-    [ "getName", "d9/d9a/a02879.html#ad29b5da794c37033479ec8157352f399", null ],
-    [ "getType", "d9/d9a/a02879.html#a3b83581cdab5494fb3f51e104ed184d5", null ],
-    [ "getValue", "d9/d9a/a02879.html#a5d43831c7144c68ca82259a73852b04f", null ],
-    [ "setValue", "d9/d9a/a02879.html#a730a7798a1b33a9b7a2ed6bae6627ed9", null ],
-    [ "setValue", "d9/d9a/a02879.html#a57a3736ebb1950e6d7dfe4afec3b18f4", null ],
-    [ "setValue", "d9/d9a/a02879.html#a0a079db4bed757ebd031ec9866280c40", null ],
-    [ "setValue", "d9/d9a/a02879.html#ac98395ba51a01242f71d33c81d4f0297", null ],
-    [ "typeAsString", "d9/d9a/a02879.html#a2109890840287804bae56d489f85fd00", null ],
-    [ "valueAffected", "d9/d9a/a02879.html#a8019c7dd53a9e898b2ebf89f0427f18b", null ],
-    [ "name_", "d9/d9a/a02879.html#ae489bc4405938cc4418d7e3dece4ba8f", null ],
-    [ "type_", "d9/d9a/a02879.html#af0913628498393525979de5877593258", null ],
-    [ "value_", "d9/d9a/a02879.html#a3e5ec78daaf40cc297b320926781b75c", null ]
+    [ "~ServiceManagerInterface", "d9/d9a/a02879.html#aabe211f4c0d244587d3e0c26f7366bdd", null ],
+    [ "ServiceManagerInterface", "d9/d9a/a02879.html#a46a765792942770f4a45fc2acd9adc6f", null ],
+    [ "ServiceManagerInterface", "d9/d9a/a02879.html#aaea774a60389d942a25c03d058f55db5", null ],
+    [ "getBusesConnectedBySwitch", "d9/d9a/a02879.html#a89a6a148066dedcefa6f5b37fad28ecc", null ],
+    [ "getRegulatedBus", "d9/d9a/a02879.html#a1f6b5edb3ffaf038f8331e36722fbe99", null ],
+    [ "operator=", "d9/d9a/a02879.html#a43db9815ee959eb1faee9d80f5cfab86", null ]
 ];

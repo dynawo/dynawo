@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['regulationmode_5ft',['RegulationMode_t',['../dd/db9/a02883.html#a76a7f5186b999ddb0b6cd0f6fcac4ea5',1,'DYN::StaticVarCompensatorInterface']]],
-  ['rootvars_5ft',['RootVars_t',['../d2/df0/a03119.html#a38df204f2e5a1dfffc3b652b9bf68a5e',1,'DYN::ModelVoltageMeasurementsUtilities']]]
+  ['parameterorigin_5ft',['parameterOrigin_t',['../d4/de5/a00503.html#a291ef7e1a977f032272b802e8363df01',1,'DYN']]],
+  ['parameterscope_5ft',['parameterScope_t',['../dd/d63/a00455.html#aced0ccefc9b7e7ed8b64a4ece366863e',1,'DYN']]],
+  ['parametertype',['ParameterType',['../d7/d90/a02391.html#a2cbaec8f87518439389f2969d247f7b9',1,'parameters::Parameter']]],
+  ['propertycontinuousvar_5ft',['propertyContinuousVar_t',['../dd/d63/a00455.html#a732348349c2b2231cfb2b9d0417349a6',1,'DYN']]],
+  ['propertyf_5ft',['propertyF_t',['../dd/d63/a00455.html#a8b1ac858a7be39680e8c19dc9e860dd2',1,'DYN']]]
 ];

@@ -1,7 +1,8 @@
 var a03099 =
 [
-    [ "ModelLoadRestorativeWithLimitsFactory", "d4/d6e/a03099.html#ab74cdb27d136535b151af2844bb50ffd", null ],
-    [ "~ModelLoadRestorativeWithLimitsFactory", "d4/d6e/a03099.html#a282ec97b06a09cc1a2383ed973b10729", null ],
-    [ "create", "d4/d6e/a03099.html#ab90ef519f09c7ed9e5e4b719aa1ce452", null ],
-    [ "destroy", "d4/d6e/a03099.html#a0f831c064d913953dd12fd4b0460fc35", null ]
+    [ "memoryManagerChars", "d4/d6e/a03099.html#a48854f613c484d91f28fafff8bd0dc05", null ],
+    [ "~memoryManagerChars", "d4/d6e/a03099.html#a6c9fc65b54ebec577eade3621b94cff9", null ],
+    [ "getInstance", "d4/d6e/a03099.html#a9a327615153450dbbfe54ef8286b90c2", null ],
+    [ "keep", "d4/d6e/a03099.html#a405846834c838b9f9a56fb00687ec486", null ],
+    [ "string2Keep_", "d4/d6e/a03099.html#ac649e86df282bca2f389161c3b49b8c5", null ]
 ];

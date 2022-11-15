@@ -232,7 +232,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a373d1eefe0e5174deebee0242c1375fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d59/a02659.html#a373d1eefe0e5174deebee0242c1375fd">setGequationsInit</a> ()</td></tr>
 <tr class="memdesc:a373d1eefe0e5174deebee0242c1375fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' root equation for init model  <a href="#a373d1eefe0e5174deebee0242c1375fd">More...</a><br /></td></tr>
 <tr class="separator:a373d1eefe0e5174deebee0242c1375fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4de35b10ddfa56e0f852a1e5808bf90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d59/a02659.html#ac4de35b10ddfa56e0f852a1e5808bf90">initializeFromData</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/da7/a02815.html">DataInterface</a> &gt; &amp;data)</td></tr>
+<tr class="memitem:ac4de35b10ddfa56e0f852a1e5808bf90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d59/a02659.html#ac4de35b10ddfa56e0f852a1e5808bf90">initializeFromData</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/df5/a02827.html">DataInterface</a> &gt; &amp;data)</td></tr>
 <tr class="memdesc:ac4de35b10ddfa56e0f852a1e5808bf90"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the model from data interface  <a href="#ac4de35b10ddfa56e0f852a1e5808bf90">More...</a><br /></td></tr>
 <tr class="separator:ac4de35b10ddfa56e0f852a1e5808bf90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3744ee675aa01cf4229524a426da5f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d59/a02659.html#aa3744ee675aa01cf4229524a426da5f6">setParams</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/db4/a02715.html">SubModel</a> &gt; &amp;model, const int indexCalculatedVariable)</td></tr>
@@ -287,7 +287,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a0b3b495d1855319c0a4515dcbc43f734 inherit pub_methods_a02715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db4/a02715.html#a0b3b495d1855319c0a4515dcbc43f734">initStaticData</a> ()</td></tr>
 <tr class="memdesc:a0b3b495d1855319c0a4515dcbc43f734 inherit pub_methods_a02715"><td class="mdescLeft">&#160;</td><td class="mdescRight">common to each subModels  <a href="../../d1/db4/a02715.html#a0b3b495d1855319c0a4515dcbc43f734">More...</a><br /></td></tr>
 <tr class="separator:a0b3b495d1855319c0a4515dcbc43f734 inherit pub_methods_a02715"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35a57de8e2623d3ad31c294a34aa1453 inherit pub_methods_a02715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db4/a02715.html#a35a57de8e2623d3ad31c294a34aa1453">initFromData</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/da7/a02815.html">DataInterface</a> &gt; &amp;data)</td></tr>
+<tr class="memitem:a35a57de8e2623d3ad31c294a34aa1453 inherit pub_methods_a02715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db4/a02715.html#a35a57de8e2623d3ad31c294a34aa1453">initFromData</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/df5/a02827.html">DataInterface</a> &gt; &amp;data)</td></tr>
 <tr class="memdesc:a35a57de8e2623d3ad31c294a34aa1453 inherit pub_methods_a02715"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the model thanks to data stored in dataInterface (IIDM,...)  <a href="../../d1/db4/a02715.html#a35a57de8e2623d3ad31c294a34aa1453">More...</a><br /></td></tr>
 <tr class="separator:a35a57de8e2623d3ad31c294a34aa1453 inherit pub_methods_a02715"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af972027fc0039f6f06a0e95e649f018b inherit pub_methods_a02715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db4/a02715.html#af972027fc0039f6f06a0e95e649f018b">initSub</a> (const double t0)</td></tr>
@@ -1331,7 +1331,7 @@ std::map&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bo
 <p><a class="el" href="../../d3/d25/a02683.html" title="Generic model Generic class for Model. ">Model</a> F(t,y,y') function evaluation. </p>
 <p>Get the residues' values at a certain instant time with given state variables, state variables derivatives </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../d5/d8f/a03255.html" title="Simulation class. ">Simulation</a> instant </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../de/d11/a03267.html" title="Simulation class. ">Simulation</a> instant </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>type of the residues to compute (algebraic, differential or both) </td></tr>
   </table>
   </dd>
@@ -1368,7 +1368,7 @@ std::map&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bo
 <p><a class="el" href="../../d3/d25/a02683.html" title="Generic model Generic class for Model. ">Model</a> G(t,y,y') function evaluation. </p>
 <p>Get the roots' value </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../d5/d8f/a03255.html" title="Simulation class. ">Simulation</a> instant </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../de/d11/a03267.html" title="Simulation class. ">Simulation</a> instant </td></tr>
   </table>
   </dd>
 </dl>
@@ -1573,7 +1573,7 @@ std::map&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bo
 <p><a class="el" href="../../d3/d25/a02683.html" title="Generic model Generic class for Model. ">Model</a> mode change type evaluation. </p>
 <p>Set the mode change type value depending on current simulation instant and current state variables values. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../d5/d8f/a03255.html" title="Simulation class. ">Simulation</a> instant </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../de/d11/a03267.html" title="Simulation class. ">Simulation</a> instant </td></tr>
   </table>
   </dd>
 </dl>
@@ -1668,7 +1668,7 @@ std::map&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bo
 <p><a class="el" href="../../d3/d25/a02683.html" title="Generic model Generic class for Model. ">Model</a> discrete variables evaluation. </p>
 <p>Get the discrete variables' value depending on current simulation instant and current state variables values. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../d5/d8f/a03255.html" title="Simulation class. ">Simulation</a> instant </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../de/d11/a03267.html" title="Simulation class. ">Simulation</a> instant </td></tr>
   </table>
   </dd>
 </dl>
@@ -1892,7 +1892,7 @@ std::map&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bo
         <tr>
           <td class="memname">void DYN::ConnectorCalculatedDiscreteVariable::initializeFromData </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/da7/a02815.html">DataInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/df5/a02827.html">DataInterface</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
@@ -2457,7 +2457,7 @@ std::map&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bo
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d59/a02659.html">ConnectorCalculatedDiscreteVariable</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:17 for Dynawo by
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:37 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

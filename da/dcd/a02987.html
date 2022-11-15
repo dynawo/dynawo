@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::StepInterfaceIIDM Class Reference</title>
+<title>Dynawo: DYN::ServiceManagerInterfaceIIDM Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,132 +97,87 @@ $(document).ready(function(){initNavTree('da/dcd/a02987.html','../../');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../dd/d7e/a02984.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::StepInterfaceIIDM Class Reference</div>  </div>
+<div class="title">DYN::ServiceManagerInterfaceIIDM Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>IIDM Step interface implementation interface class for step of tap changer.  
+<p>Implementation for IIDM dynawo service.  
  <a href="../../da/dcd/a02987.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../de/df2/a04096_source.html">DYNStepInterfaceIIDM.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../da/d40/a04090_source.html">DYNServiceManagerInterfaceIIDM.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for DYN::StepInterfaceIIDM:</div>
+Inheritance diagram for DYN::ServiceManagerInterfaceIIDM:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../da/dcd/a02987.png" usemap="#DYN::StepInterfaceIIDM_map" alt=""/>
-  <map id="DYN::StepInterfaceIIDM_map" name="DYN::StepInterfaceIIDM_map">
-<area href="../../dd/d04/a02887.html" alt="DYN::StepInterface" shape="rect" coords="0,0,146,24"/>
-<area href="../../dd/d04/a02887.html" alt="DYN::StepInterface" shape="rect" coords="156,0,302,24"/>
+  <img src="../../da/dcd/a02987.png" usemap="#DYN::ServiceManagerInterfaceIIDM_map" alt=""/>
+  <map id="DYN::ServiceManagerInterfaceIIDM_map" name="DYN::ServiceManagerInterfaceIIDM_map">
+<area href="../../d9/d9a/a02879.html" title="Interface for dynawo service interface. " alt="DYN::ServiceManagerInterface" shape="rect" coords="0,0,216,24"/>
+<area href="../../d9/d9a/a02879.html" title="Interface for dynawo service interface. " alt="DYN::ServiceManagerInterface" shape="rect" coords="226,0,442,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7be7e137616dd80354c3478755a6fb46"><td class="memItemLeft" align="right" valign="top"><a id="a7be7e137616dd80354c3478755a6fb46"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a7be7e137616dd80354c3478755a6fb46">~StepInterfaceIIDM</a> ()</td></tr>
-<tr class="memdesc:a7be7e137616dd80354c3478755a6fb46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a7be7e137616dd80354c3478755a6fb46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2491b583720a13e561e93ef50c17552c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a2491b583720a13e561e93ef50c17552c">StepInterfaceIIDM</a> (const IIDM::PhaseTapChangerStep &amp;step)</td></tr>
-<tr class="memdesc:a2491b583720a13e561e93ef50c17552c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a2491b583720a13e561e93ef50c17552c">More...</a><br /></td></tr>
-<tr class="separator:a2491b583720a13e561e93ef50c17552c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11e6defcacb92c16ab8abb4ffccee278"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a11e6defcacb92c16ab8abb4ffccee278">StepInterfaceIIDM</a> (const IIDM::RatioTapChangerStep &amp;step)</td></tr>
-<tr class="memdesc:a11e6defcacb92c16ab8abb4ffccee278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a11e6defcacb92c16ab8abb4ffccee278">More...</a><br /></td></tr>
-<tr class="separator:a11e6defcacb92c16ab8abb4ffccee278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516c5b8e274b4ba26aa24bfb8a9540ef"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a516c5b8e274b4ba26aa24bfb8a9540ef">getR</a> () const</td></tr>
-<tr class="memdesc:a516c5b8e274b4ba26aa24bfb8a9540ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the resistance of the step.  <a href="#a516c5b8e274b4ba26aa24bfb8a9540ef">More...</a><br /></td></tr>
-<tr class="separator:a516c5b8e274b4ba26aa24bfb8a9540ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ef76453bcf640a199be878a12bdb317"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a9ef76453bcf640a199be878a12bdb317">getX</a> () const</td></tr>
-<tr class="memdesc:a9ef76453bcf640a199be878a12bdb317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactance of the step.  <a href="#a9ef76453bcf640a199be878a12bdb317">More...</a><br /></td></tr>
-<tr class="separator:a9ef76453bcf640a199be878a12bdb317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9d3bec31e2f69f867a891958fc77ab0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#ad9d3bec31e2f69f867a891958fc77ab0">getB</a> () const</td></tr>
-<tr class="memdesc:ad9d3bec31e2f69f867a891958fc77ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the susceptance of the step.  <a href="#ad9d3bec31e2f69f867a891958fc77ab0">More...</a><br /></td></tr>
-<tr class="separator:ad9d3bec31e2f69f867a891958fc77ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e1dc3739d7697867671b65d3450df12"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a0e1dc3739d7697867671b65d3450df12">getG</a> () const</td></tr>
-<tr class="memdesc:a0e1dc3739d7697867671b65d3450df12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the conductance of the step.  <a href="#a0e1dc3739d7697867671b65d3450df12">More...</a><br /></td></tr>
-<tr class="separator:a0e1dc3739d7697867671b65d3450df12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04e44a11aedf42ddd35f23dce655ff4b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a04e44a11aedf42ddd35f23dce655ff4b">getRho</a> () const</td></tr>
-<tr class="memdesc:a04e44a11aedf42ddd35f23dce655ff4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the ratio of the step.  <a href="#a04e44a11aedf42ddd35f23dce655ff4b">More...</a><br /></td></tr>
-<tr class="separator:a04e44a11aedf42ddd35f23dce655ff4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a49beba2c9cec55920b50205607092a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a7a49beba2c9cec55920b50205607092a">getAlpha</a> () const</td></tr>
-<tr class="memdesc:a7a49beba2c9cec55920b50205607092a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the phase shift of the step.  <a href="#a7a49beba2c9cec55920b50205607092a">More...</a><br /></td></tr>
-<tr class="separator:a7a49beba2c9cec55920b50205607092a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7be7e137616dd80354c3478755a6fb46"><td class="memItemLeft" align="right" valign="top"><a id="a7be7e137616dd80354c3478755a6fb46"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a7be7e137616dd80354c3478755a6fb46">~StepInterfaceIIDM</a> ()</td></tr>
-<tr class="memdesc:a7be7e137616dd80354c3478755a6fb46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a7be7e137616dd80354c3478755a6fb46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63383f2cfc2f275b4de35be7d22cec42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a63383f2cfc2f275b4de35be7d22cec42">StepInterfaceIIDM</a> (const powsybl::iidm::PhaseTapChangerStep &amp;step)</td></tr>
-<tr class="memdesc:a63383f2cfc2f275b4de35be7d22cec42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a63383f2cfc2f275b4de35be7d22cec42">More...</a><br /></td></tr>
-<tr class="separator:a63383f2cfc2f275b4de35be7d22cec42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa909c95427e77bb0bb61c8ecd176b50a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#aa909c95427e77bb0bb61c8ecd176b50a">StepInterfaceIIDM</a> (const powsybl::iidm::RatioTapChangerStep &amp;step)</td></tr>
-<tr class="memdesc:aa909c95427e77bb0bb61c8ecd176b50a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aa909c95427e77bb0bb61c8ecd176b50a">More...</a><br /></td></tr>
-<tr class="separator:aa909c95427e77bb0bb61c8ecd176b50a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516c5b8e274b4ba26aa24bfb8a9540ef"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a516c5b8e274b4ba26aa24bfb8a9540ef">getR</a> () const</td></tr>
-<tr class="memdesc:a516c5b8e274b4ba26aa24bfb8a9540ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the resistance of the step.  <a href="#a516c5b8e274b4ba26aa24bfb8a9540ef">More...</a><br /></td></tr>
-<tr class="separator:a516c5b8e274b4ba26aa24bfb8a9540ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ef76453bcf640a199be878a12bdb317"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a9ef76453bcf640a199be878a12bdb317">getX</a> () const</td></tr>
-<tr class="memdesc:a9ef76453bcf640a199be878a12bdb317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactance of the step.  <a href="#a9ef76453bcf640a199be878a12bdb317">More...</a><br /></td></tr>
-<tr class="separator:a9ef76453bcf640a199be878a12bdb317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9d3bec31e2f69f867a891958fc77ab0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#ad9d3bec31e2f69f867a891958fc77ab0">getB</a> () const</td></tr>
-<tr class="memdesc:ad9d3bec31e2f69f867a891958fc77ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the susceptance of the step.  <a href="#ad9d3bec31e2f69f867a891958fc77ab0">More...</a><br /></td></tr>
-<tr class="separator:ad9d3bec31e2f69f867a891958fc77ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e1dc3739d7697867671b65d3450df12"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a0e1dc3739d7697867671b65d3450df12">getG</a> () const</td></tr>
-<tr class="memdesc:a0e1dc3739d7697867671b65d3450df12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the conductance of the step.  <a href="#a0e1dc3739d7697867671b65d3450df12">More...</a><br /></td></tr>
-<tr class="separator:a0e1dc3739d7697867671b65d3450df12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04e44a11aedf42ddd35f23dce655ff4b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a04e44a11aedf42ddd35f23dce655ff4b">getRho</a> () const</td></tr>
-<tr class="memdesc:a04e44a11aedf42ddd35f23dce655ff4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the ratio of the step.  <a href="#a04e44a11aedf42ddd35f23dce655ff4b">More...</a><br /></td></tr>
-<tr class="separator:a04e44a11aedf42ddd35f23dce655ff4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a49beba2c9cec55920b50205607092a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a7a49beba2c9cec55920b50205607092a">getAlpha</a> () const</td></tr>
-<tr class="memdesc:a7a49beba2c9cec55920b50205607092a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the phase shift of the step.  <a href="#a7a49beba2c9cec55920b50205607092a">More...</a><br /></td></tr>
-<tr class="separator:a7a49beba2c9cec55920b50205607092a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02887"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02887')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/d04/a02887.html">DYN::StepInterface</a></td></tr>
-<tr class="memitem:adf53671be62b77abe8f5dd374de5f287 inherit pub_methods_a02887"><td class="memItemLeft" align="right" valign="top"><a id="adf53671be62b77abe8f5dd374de5f287"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d04/a02887.html#adf53671be62b77abe8f5dd374de5f287">~StepInterface</a> ()</td></tr>
-<tr class="memdesc:adf53671be62b77abe8f5dd374de5f287 inherit pub_methods_a02887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:adf53671be62b77abe8f5dd374de5f287 inherit pub_methods_a02887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ecb839fe531d6a44f8d16e81183be7e"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a4ecb839fe531d6a44f8d16e81183be7e">getBusesConnectedBySwitch</a> (const std::string &amp;busId, const std::string &amp;VLId) const</td></tr>
+<tr class="memdesc:a4ecb839fe531d6a44f8d16e81183be7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the buses linked to a bus by a switches network path.  <a href="#a4ecb839fe531d6a44f8d16e81183be7e">More...</a><br /></td></tr>
+<tr class="separator:a4ecb839fe531d6a44f8d16e81183be7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91003d111aa2bad24607eab81fad4c8d"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../dc/d40/a02767.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a91003d111aa2bad24607eab81fad4c8d">getRegulatedBus</a> (const std::string &amp;regulatingComponent) const</td></tr>
+<tr class="memdesc:a91003d111aa2bad24607eab81fad4c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the regulated bus interface.  <a href="#a91003d111aa2bad24607eab81fad4c8d">More...</a><br /></td></tr>
+<tr class="separator:a91003d111aa2bad24607eab81fad4c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b79af58e9ba76eaf278fbed3739ae5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a10b79af58e9ba76eaf278fbed3739ae5">ServiceManagerInterfaceIIDM</a> (const <a class="el" href="../../df/d93/a02947.html">DataInterfaceIIDM</a> *const dataInterface)</td></tr>
+<tr class="memdesc:a10b79af58e9ba76eaf278fbed3739ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a10b79af58e9ba76eaf278fbed3739ae5">More...</a><br /></td></tr>
+<tr class="separator:a10b79af58e9ba76eaf278fbed3739ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a308135a9555587f824fdd04d9699662d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a308135a9555587f824fdd04d9699662d">getBusesConnectedBySwitch</a> (const std::string &amp;busId, const std::string &amp;VLId) const final</td></tr>
+<tr class="memdesc:a308135a9555587f824fdd04d9699662d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the buses linked to a bus by a switches network path.  <a href="#a308135a9555587f824fdd04d9699662d">More...</a><br /></td></tr>
+<tr class="separator:a308135a9555587f824fdd04d9699662d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa91069c9cc0ba85fb0a4df77ede2dcb0"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../dc/d40/a02767.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#aa91069c9cc0ba85fb0a4df77ede2dcb0">getRegulatedBus</a> (const std::string &amp;regulatingComponent) const</td></tr>
+<tr class="memdesc:aa91069c9cc0ba85fb0a4df77ede2dcb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the regulated bus interface.  <a href="#aa91069c9cc0ba85fb0a4df77ede2dcb0">More...</a><br /></td></tr>
+<tr class="separator:aa91069c9cc0ba85fb0a4df77ede2dcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02879"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02879')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/d9a/a02879.html">DYN::ServiceManagerInterface</a></td></tr>
+<tr class="memitem:aabe211f4c0d244587d3e0c26f7366bdd inherit pub_methods_a02879"><td class="memItemLeft" align="right" valign="top"><a id="aabe211f4c0d244587d3e0c26f7366bdd"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aabe211f4c0d244587d3e0c26f7366bdd">~ServiceManagerInterface</a> ()</td></tr>
+<tr class="memdesc:aabe211f4c0d244587d3e0c26f7366bdd inherit pub_methods_a02879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aabe211f4c0d244587d3e0c26f7366bdd inherit pub_methods_a02879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46a765792942770f4a45fc2acd9adc6f inherit pub_methods_a02879"><td class="memItemLeft" align="right" valign="top"><a id="a46a765792942770f4a45fc2acd9adc6f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a46a765792942770f4a45fc2acd9adc6f">ServiceManagerInterface</a> ()=default</td></tr>
+<tr class="memdesc:a46a765792942770f4a45fc2acd9adc6f inherit pub_methods_a02879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a46a765792942770f4a45fc2acd9adc6f inherit pub_methods_a02879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaea774a60389d942a25c03d058f55db5 inherit pub_methods_a02879"><td class="memItemLeft" align="right" valign="top"><a id="aaea774a60389d942a25c03d058f55db5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aaea774a60389d942a25c03d058f55db5">ServiceManagerInterface</a> (const <a class="el" href="../../d9/d9a/a02879.html">ServiceManagerInterface</a> &amp;)=default</td></tr>
+<tr class="memdesc:aaea774a60389d942a25c03d058f55db5 inherit pub_methods_a02879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy constructor. <br /></td></tr>
+<tr class="separator:aaea774a60389d942a25c03d058f55db5 inherit pub_methods_a02879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43db9815ee959eb1faee9d80f5cfab86 inherit pub_methods_a02879"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d9a/a02879.html">ServiceManagerInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a43db9815ee959eb1faee9d80f5cfab86">operator=</a> (const <a class="el" href="../../d9/d9a/a02879.html">ServiceManagerInterface</a> &amp;)=default</td></tr>
+<tr class="memdesc:a43db9815ee959eb1faee9d80f5cfab86 inherit pub_methods_a02879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assignement operator.  <a href="../../d9/d9a/a02879.html#a43db9815ee959eb1faee9d80f5cfab86">More...</a><br /></td></tr>
+<tr class="separator:a43db9815ee959eb1faee9d80f5cfab86 inherit pub_methods_a02879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a7162adcb476c064e2c4e147e9cae44d4"><td class="memItemLeft" align="right" valign="top"><a id="a7162adcb476c064e2c4e147e9cae44d4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a7162adcb476c064e2c4e147e9cae44d4">StepInterfaceIIDM</a> ()</td></tr>
-<tr class="memdesc:a7162adcb476c064e2c4e147e9cae44d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:a7162adcb476c064e2c4e147e9cae44d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7162adcb476c064e2c4e147e9cae44d4"><td class="memItemLeft" align="right" valign="top"><a id="a7162adcb476c064e2c4e147e9cae44d4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a7162adcb476c064e2c4e147e9cae44d4">StepInterfaceIIDM</a> ()</td></tr>
-<tr class="memdesc:a7162adcb476c064e2c4e147e9cae44d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">empty constructor <br /></td></tr>
-<tr class="separator:a7162adcb476c064e2c4e147e9cae44d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e92ffdb53ab80b3b340cb7cb38905d6"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../dc/d40/a02767.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a3e92ffdb53ab80b3b340cb7cb38905d6">getRegulatedBusOnSide</a> (const powsybl::iidm::Terminal &amp;terminal) const</td></tr>
+<tr class="memdesc:a3e92ffdb53ab80b3b340cb7cb38905d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the regulated bus on the side of the regulated object  <a href="#a3e92ffdb53ab80b3b340cb7cb38905d6">More...</a><br /></td></tr>
+<tr class="separator:a3e92ffdb53ab80b3b340cb7cb38905d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a004c7058956976e90ad87f48bdc93aba"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a004c7058956976e90ad87f48bdc93aba">buildGraph</a> (<a class="el" href="../../d8/d1b/a02555.html">Graph</a> &amp;graph, const boost::shared_ptr&lt; <a class="el" href="../../d6/deb/a02915.html">VoltageLevelInterface</a> &gt; &amp;vl)</td></tr>
+<tr class="memdesc:a004c7058956976e90ad87f48bdc93aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build graph associated with a voltage level.  <a href="#a004c7058956976e90ad87f48bdc93aba">More...</a><br /></td></tr>
+<tr class="separator:a004c7058956976e90ad87f48bdc93aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a52c90e269a46b878f97d080241080bcd"><td class="memItemLeft" align="right" valign="top"><a id="a52c90e269a46b878f97d080241080bcd"></a>
-boost::optional&lt; IIDM::PhaseTapChangerStep &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a52c90e269a46b878f97d080241080bcd">phaseStep_</a></td></tr>
-<tr class="memdesc:a52c90e269a46b878f97d080241080bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm phase tap changer step instance <br /></td></tr>
-<tr class="separator:a52c90e269a46b878f97d080241080bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69abb20ab62e3fd1942871479fafe13f"><td class="memItemLeft" align="right" valign="top"><a id="a69abb20ab62e3fd1942871479fafe13f"></a>
-boost::optional&lt; IIDM::RatioTapChangerStep &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a69abb20ab62e3fd1942871479fafe13f">ratioStep_</a></td></tr>
-<tr class="memdesc:a69abb20ab62e3fd1942871479fafe13f"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm ratio tap changer step instance <br /></td></tr>
-<tr class="separator:a69abb20ab62e3fd1942871479fafe13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a288a0ddf78e8b5ff3514f29eba17a718"><td class="memItemLeft" align="right" valign="top"><a id="a288a0ddf78e8b5ff3514f29eba17a718"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a288a0ddf78e8b5ff3514f29eba17a718">isPhaseStep_</a></td></tr>
-<tr class="memdesc:a288a0ddf78e8b5ff3514f29eba17a718"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the step belongs to a phase tap changer <br /></td></tr>
-<tr class="separator:a288a0ddf78e8b5ff3514f29eba17a718"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9355c1a848e95054bf9b62a19bb51ba9"><td class="memItemLeft" align="right" valign="top"><a id="a9355c1a848e95054bf9b62a19bb51ba9"></a>
-boost::optional&lt; powsybl::iidm::PhaseTapChangerStep &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a9355c1a848e95054bf9b62a19bb51ba9">phaseStep_</a></td></tr>
-<tr class="memdesc:a9355c1a848e95054bf9b62a19bb51ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm phase tap changer step instance <br /></td></tr>
-<tr class="separator:a9355c1a848e95054bf9b62a19bb51ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37e3b8bd85cfe0023885b0c102813972"><td class="memItemLeft" align="right" valign="top"><a id="a37e3b8bd85cfe0023885b0c102813972"></a>
-boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#a37e3b8bd85cfe0023885b0c102813972">ratioStep_</a></td></tr>
-<tr class="memdesc:a37e3b8bd85cfe0023885b0c102813972"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm ratio tap changer step instance <br /></td></tr>
-<tr class="separator:a37e3b8bd85cfe0023885b0c102813972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebea6aa4aed93becafdd1ea71480a822"><td class="memItemLeft" align="right" valign="top"><a id="aebea6aa4aed93becafdd1ea71480a822"></a>
+const <a class="el" href="../../df/d93/a02947.html">DataInterfaceIIDM</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcd/a02987.html#aebea6aa4aed93becafdd1ea71480a822">dataInterface_</a></td></tr>
+<tr class="memdesc:aebea6aa4aed93becafdd1ea71480a822"><td class="mdescLeft">&#160;</td><td class="mdescRight">data interface <br /></td></tr>
+<tr class="separator:aebea6aa4aed93becafdd1ea71480a822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>IIDM Step interface implementation interface class for step of tap changer. </p>
-<p>interface class for step of tap changer </p>
+<div class="textblock"><p>Implementation for IIDM dynawo service. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2491b583720a13e561e93ef50c17552c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2491b583720a13e561e93ef50c17552c">&#9670;&nbsp;</a></span>StepInterfaceIIDM() <span class="overload">[1/4]</span></h2>
+<a id="a10b79af58e9ba76eaf278fbed3739ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b79af58e9ba76eaf278fbed3739ae5">&#9670;&nbsp;</a></span>ServiceManagerInterfaceIIDM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,10 +186,10 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::StepInterfaceIIDM::StepInterfaceIIDM </td>
+          <td class="memname">DYN::ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM </td>
           <td>(</td>
-          <td class="paramtype">const IIDM::PhaseTapChangerStep &amp;&#160;</td>
-          <td class="paramname"><em>step</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../df/d93/a02947.html">DataInterfaceIIDM</a> *const&#160;</td>
+          <td class="paramname"><em>dataInterface</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -248,109 +203,7 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">step</td><td>phase tap changer step's iidm instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a11e6defcacb92c16ab8abb4ffccee278"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11e6defcacb92c16ab8abb4ffccee278">&#9670;&nbsp;</a></span>StepInterfaceIIDM() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::StepInterfaceIIDM::StepInterfaceIIDM </td>
-          <td>(</td>
-          <td class="paramtype">const IIDM::RatioTapChangerStep &amp;&#160;</td>
-          <td class="paramname"><em>step</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">step</td><td>ratio tap changer step's iidm instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a63383f2cfc2f275b4de35be7d22cec42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63383f2cfc2f275b4de35be7d22cec42">&#9670;&nbsp;</a></span>StepInterfaceIIDM() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::StepInterfaceIIDM::StepInterfaceIIDM </td>
-          <td>(</td>
-          <td class="paramtype">const powsybl::iidm::PhaseTapChangerStep &amp;&#160;</td>
-          <td class="paramname"><em>step</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">step</td><td>phase tap changer step's iidm instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa909c95427e77bb0bb61c8ecd176b50a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa909c95427e77bb0bb61c8ecd176b50a">&#9670;&nbsp;</a></span>StepInterfaceIIDM() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::StepInterfaceIIDM::StepInterfaceIIDM </td>
-          <td>(</td>
-          <td class="paramtype">const powsybl::iidm::RatioTapChangerStep &amp;&#160;</td>
-          <td class="paramname"><em>step</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">step</td><td>ratio tap changer step's iidm instance </td></tr>
+    <tr><td class="paramname">dataInterface</td><td>data interface corresponding to current service manager </td></tr>
   </table>
   </dd>
 </dl>
@@ -358,8 +211,8 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7a49beba2c9cec55920b50205607092a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a49beba2c9cec55920b50205607092a">&#9670;&nbsp;</a></span>getAlpha() <span class="overload">[1/2]</span></h2>
+<a id="a004c7058956976e90ad87f48bdc93aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a004c7058956976e90ad87f48bdc93aba">&#9670;&nbsp;</a></span>buildGraph()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,9 +221,155 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getAlpha </td>
+          <td class="memname">static void DYN::ServiceManagerInterfaceIIDM::buildGraph </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d8/d1b/a02555.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/deb/a02915.html">VoltageLevelInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build graph associated with a voltage level. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td><a class="el" href="../../d8/d1b/a02555.html" title="Graph class to manipulate topology graph. ">Graph</a> to update </td></tr>
+    <tr><td class="paramname">vl</td><td>the voltage level to process </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4ecb839fe531d6a44f8d16e81183be7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ecb839fe531d6a44f8d16e81183be7e">&#9670;&nbsp;</a></span>getBusesConnectedBySwitch() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;std::string&gt; DYN::ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>busId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>VLId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve the buses linked to a bus by a switches network path. </p>
+<p>precondition: bus of id <code>busId</code> is contained in voltage level <code>VLId</code> . <code>VLId</code> argument is here to improve performance and avoid searching for the container of the bus.</p>
+<p>The voltage level interface must have a bus breaker topology</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">busId</td><td>bus id to check </td></tr>
+    <tr><td class="paramname">VLId</td><td>the id of the voltage level containing <code>busId</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the list of the bus ids linked to <code>busId</code> </dd></dl>
+
+<p>Implements <a class="el" href="../../d9/d9a/a02879.html#a89a6a148066dedcefa6f5b37fad28ecc">DYN::ServiceManagerInterface</a>.</p>
+
+</div>
+</div>
+<a id="a308135a9555587f824fdd04d9699662d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308135a9555587f824fdd04d9699662d">&#9670;&nbsp;</a></span>getBusesConnectedBySwitch() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; DYN::ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>busId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>VLId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve the buses linked to a bus by a switches network path. </p>
+<p>precondition: bus of id <code>busId</code> is contained in voltage level <code>VLId</code> . <code>VLId</code> argument is here to improve performance and avoid searching for the container of the bus.</p>
+<p>The voltage level interface must have a bus breaker topology</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">busId</td><td>bus id to check </td></tr>
+    <tr><td class="paramname">VLId</td><td>the id of the voltage level containing <code>busId</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the list of the bus ids linked to <code>busId</code> </dd></dl>
+
+<p>Implements <a class="el" href="../../d9/d9a/a02879.html#a89a6a148066dedcefa6f5b37fad28ecc">DYN::ServiceManagerInterface</a>.</p>
+
+</div>
+</div>
+<a id="a91003d111aa2bad24607eab81fad4c8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91003d111aa2bad24607eab81fad4c8d">&#9670;&nbsp;</a></span>getRegulatedBus() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../dc/d40/a02767.html">BusInterface</a>&gt; DYN::ServiceManagerInterfaceIIDM::getRegulatedBus </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>regulatingComponent</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -381,15 +380,21 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the phase shift of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The phase shift of the step in degree </dd></dl>
+<p>Retrieve the regulated bus interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regulatingComponent</td><td>id of the regulating object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>regulated bus interface </dd></dl>
 
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#ae79c100856d3b7549c96ff1ed53efe15">DYN::StepInterface</a>.</p>
+<p>Implements <a class="el" href="../../d9/d9a/a02879.html#a1f6b5edb3ffaf038f8331e36722fbe99">DYN::ServiceManagerInterface</a>.</p>
 
 </div>
 </div>
-<a id="a7a49beba2c9cec55920b50205607092a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a49beba2c9cec55920b50205607092a">&#9670;&nbsp;</a></span>getAlpha() <span class="overload">[2/2]</span></h2>
+<a id="aa91069c9cc0ba85fb0a4df77ede2dcb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa91069c9cc0ba85fb0a4df77ede2dcb0">&#9670;&nbsp;</a></span>getRegulatedBus() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,9 +403,10 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getAlpha </td>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../dc/d40/a02767.html">BusInterface</a>&gt; DYN::ServiceManagerInterfaceIIDM::getRegulatedBus </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>regulatingComponent</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -411,15 +417,21 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the phase shift of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The phase shift of the step in degree </dd></dl>
+<p>Retrieve the regulated bus interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regulatingComponent</td><td>id of the regulating object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>regulated bus interface </dd></dl>
 
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#ae79c100856d3b7549c96ff1ed53efe15">DYN::StepInterface</a>.</p>
+<p>Implements <a class="el" href="../../d9/d9a/a02879.html#a1f6b5edb3ffaf038f8331e36722fbe99">DYN::ServiceManagerInterface</a>.</p>
 
 </div>
 </div>
-<a id="ad9d3bec31e2f69f867a891958fc77ab0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9d3bec31e2f69f867a891958fc77ab0">&#9670;&nbsp;</a></span>getB() <span class="overload">[1/2]</span></h2>
+<a id="a3e92ffdb53ab80b3b340cb7cb38905d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e92ffdb53ab80b3b340cb7cb38905d6">&#9670;&nbsp;</a></span>getRegulatedBusOnSide()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,298 +440,33 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getB </td>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../dc/d40/a02767.html">BusInterface</a>&gt; DYN::ServiceManagerInterfaceIIDM::getRegulatedBusOnSide </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const powsybl::iidm::Terminal &amp;&#160;</td>
+          <td class="paramname"><em>terminal</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the susceptance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The susceptance of the step in siemens </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#a73a17d68be9ed824de6dd2373ed31a6a">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="ad9d3bec31e2f69f867a891958fc77ab0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9d3bec31e2f69f867a891958fc77ab0">&#9670;&nbsp;</a></span>getB() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getB </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the susceptance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The susceptance of the step in siemens </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#a73a17d68be9ed824de6dd2373ed31a6a">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a0e1dc3739d7697867671b65d3450df12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e1dc3739d7697867671b65d3450df12">&#9670;&nbsp;</a></span>getG() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getG </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the conductance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The conductance of the step in siemens </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#a363cc6fb9cab520bf62c5e5777378a1c">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a0e1dc3739d7697867671b65d3450df12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e1dc3739d7697867671b65d3450df12">&#9670;&nbsp;</a></span>getG() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getG </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the conductance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The conductance of the step in siemens </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#a363cc6fb9cab520bf62c5e5777378a1c">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a516c5b8e274b4ba26aa24bfb8a9540ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a516c5b8e274b4ba26aa24bfb8a9540ef">&#9670;&nbsp;</a></span>getR() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the resistance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The resistance of the step in ohms </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#aa136a845822728fe6421e862103ee9b1">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a516c5b8e274b4ba26aa24bfb8a9540ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a516c5b8e274b4ba26aa24bfb8a9540ef">&#9670;&nbsp;</a></span>getR() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the resistance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The resistance of the step in ohms </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#aa136a845822728fe6421e862103ee9b1">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a04e44a11aedf42ddd35f23dce655ff4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04e44a11aedf42ddd35f23dce655ff4b">&#9670;&nbsp;</a></span>getRho() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getRho </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the ratio of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The ratio of the step in pu </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#af4e9c658158f1dfc32c12934f700d9fb">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a04e44a11aedf42ddd35f23dce655ff4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04e44a11aedf42ddd35f23dce655ff4b">&#9670;&nbsp;</a></span>getRho() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getRho </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the ratio of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The ratio of the step in pu </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#af4e9c658158f1dfc32c12934f700d9fb">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a9ef76453bcf640a199be878a12bdb317"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ef76453bcf640a199be878a12bdb317">&#9670;&nbsp;</a></span>getX() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the reactance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The reactance of the step in ohms </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#a949d63cd0e570645063ce921680d386d">DYN::StepInterface</a>.</p>
-
-</div>
-</div>
-<a id="a9ef76453bcf640a199be878a12bdb317"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ef76453bcf640a199be878a12bdb317">&#9670;&nbsp;</a></span>getX() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::StepInterfaceIIDM::getX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the reactance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The reactance of the step in ohms </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d04/a02887.html#a949d63cd0e570645063ce921680d386d">DYN::StepInterface</a>.</p>
+<p>retrieve the regulated bus on the side of the regulated object </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">terminal</td><td>regulated terminal </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>regulated bus on the side of the regulated object </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../de/df2/a04096_source.html">IIDM/DYNStepInterfaceIIDM.h</a></li>
+<li><a class="el" href="../../da/d40/a04090_source.html">IIDM/DYNServiceManagerInterfaceIIDM.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -737,8 +484,8 @@ boost::optional&lt; powsybl::iidm::RatioTapChangerStep &gt;&#160;</td><td class=
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/dcd/a02987.html">StepInterfaceIIDM</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:18 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/dcd/a02987.html">ServiceManagerInterfaceIIDM</a></li>
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:38 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

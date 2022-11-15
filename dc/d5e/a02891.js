@@ -1,13 +1,22 @@
 var a02891 =
 [
-    [ "~SwitchInterface", "dc/d5e/a02891.html#a3b371d57e49a1bc8637b57fe1f0a41de", null ],
-    [ "close", "dc/d5e/a02891.html#adbfa7cb8947709a26dcdfda10365b723", null ],
-    [ "exportStateVariablesUnitComponent", "dc/d5e/a02891.html#a9d1ced7bffc0a996a09041e548778552", null ],
-    [ "getBusInterface1", "dc/d5e/a02891.html#a88caa9f742324d9131ac6e2332e14827", null ],
-    [ "getBusInterface2", "dc/d5e/a02891.html#a8d319afb423db271fca2d7a619de44d8", null ],
-    [ "getID", "dc/d5e/a02891.html#a0fc1e903927a7ef131f034b756af2fd0", null ],
-    [ "isOpen", "dc/d5e/a02891.html#acdd54991cade55b13dd3d9d611a9d1b3", null ],
-    [ "open", "dc/d5e/a02891.html#ae6ec783d9c026478bd7b12fa25046b5b", null ],
-    [ "setBusInterface1", "dc/d5e/a02891.html#aeb312c40ae6b92a52c80ae82fb05ca44", null ],
-    [ "setBusInterface2", "dc/d5e/a02891.html#aed88e8b2acad7d153108fec64987ef3b", null ]
+    [ "StaticParameterType", "dc/d5e/a02891.html#a3269f81522dc42ab14097f0605f66b9e", [
+      [ "BOOL", "dc/d5e/a02891.html#a3269f81522dc42ab14097f0605f66b9eac8ce86025a27e6c8021de9383fe9d849", null ],
+      [ "INT", "dc/d5e/a02891.html#a3269f81522dc42ab14097f0605f66b9eac2c1047e0d61d0b733a3c3264be5f878", null ],
+      [ "DOUBLE", "dc/d5e/a02891.html#a3269f81522dc42ab14097f0605f66b9ea4eb4a48039f8d2ffd8a7868f5662d9ef", null ]
+    ] ],
+    [ "StaticParameter", "dc/d5e/a02891.html#a36f4ef95e095ecd5d75cf7fdedea793c", null ],
+    [ "StaticParameter", "dc/d5e/a02891.html#a3d654117eda911d0a9e0a9ee621a53ef", null ],
+    [ "getName", "dc/d5e/a02891.html#ad29b5da794c37033479ec8157352f399", null ],
+    [ "getType", "dc/d5e/a02891.html#a3b83581cdab5494fb3f51e104ed184d5", null ],
+    [ "getValue", "dc/d5e/a02891.html#a5d43831c7144c68ca82259a73852b04f", null ],
+    [ "setValue", "dc/d5e/a02891.html#a730a7798a1b33a9b7a2ed6bae6627ed9", null ],
+    [ "setValue", "dc/d5e/a02891.html#a57a3736ebb1950e6d7dfe4afec3b18f4", null ],
+    [ "setValue", "dc/d5e/a02891.html#a0a079db4bed757ebd031ec9866280c40", null ],
+    [ "setValue", "dc/d5e/a02891.html#ac98395ba51a01242f71d33c81d4f0297", null ],
+    [ "typeAsString", "dc/d5e/a02891.html#a2109890840287804bae56d489f85fd00", null ],
+    [ "valueAffected", "dc/d5e/a02891.html#a8019c7dd53a9e898b2ebf89f0427f18b", null ],
+    [ "name_", "dc/d5e/a02891.html#ae489bc4405938cc4418d7e3dece4ba8f", null ],
+    [ "type_", "dc/d5e/a02891.html#af0913628498393525979de5877593258", null ],
+    [ "value_", "dc/d5e/a02891.html#a3e5ec78daaf40cc297b320926781b75c", null ]
 ];

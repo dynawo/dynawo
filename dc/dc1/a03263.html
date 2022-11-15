@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SimulationContext Class Reference</title>
+<title>Dynawo: DYN::SignalHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,251 +95,136 @@ $(document).ready(function(){initNavTree('dc/dc1/a03263.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="../../d1/dda/a03260.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SimulationContext Class Reference</div>  </div>
+<div class="title">DYN::SignalHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dc/dc1/a03263.html" title="SimulationContext class. ">SimulationContext</a> class.  
+<p>Signal handler class.  
  <a href="../../dc/dc1/a03263.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d5/d6c/a00977_source.html">DYNSimulationContext.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d0/d3c/a00971_source.html">DYNSignalHandler.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a22492704aa12860898ece9dfa12f1b8a"><td class="memItemLeft" align="right" valign="top"><a id="a22492704aa12860898ece9dfa12f1b8a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a22492704aa12860898ece9dfa12f1b8a">~SimulationContext</a> ()</td></tr>
-<tr class="memdesc:a22492704aa12860898ece9dfa12f1b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a22492704aa12860898ece9dfa12f1b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab54366144fcbc2cc2dab25bf98f49f58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#ab54366144fcbc2cc2dab25bf98f49f58">setWorkingDirectory</a> (const std::string &amp;directory)</td></tr>
-<tr class="memdesc:ab54366144fcbc2cc2dab25bf98f49f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the working directory of the simulation  <a href="#ab54366144fcbc2cc2dab25bf98f49f58">More...</a><br /></td></tr>
-<tr class="separator:ab54366144fcbc2cc2dab25bf98f49f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a348d074f4af20ac1614a6ee87d2f8feb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a348d074f4af20ac1614a6ee87d2f8feb">setInputDirectory</a> (const std::string &amp;directory)</td></tr>
-<tr class="memdesc:a348d074f4af20ac1614a6ee87d2f8feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the input directory of the simulation  <a href="#a348d074f4af20ac1614a6ee87d2f8feb">More...</a><br /></td></tr>
-<tr class="separator:a348d074f4af20ac1614a6ee87d2f8feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377ae8008bab4eb873705f088d899cb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a377ae8008bab4eb873705f088d899cb9">setResourcesDirectory</a> (const std::string &amp;directory)</td></tr>
-<tr class="memdesc:a377ae8008bab4eb873705f088d899cb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the resources directory of the simulation  <a href="#a377ae8008bab4eb873705f088d899cb9">More...</a><br /></td></tr>
-<tr class="separator:a377ae8008bab4eb873705f088d899cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a352c3fbb1a535163cd38b0824d42cd1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a352c3fbb1a535163cd38b0824d42cd1e">setLocale</a> (const std::string &amp;locale)</td></tr>
-<tr class="memdesc:a352c3fbb1a535163cd38b0824d42cd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the locale of the simulation  <a href="#a352c3fbb1a535163cd38b0824d42cd1e">More...</a><br /></td></tr>
-<tr class="separator:a352c3fbb1a535163cd38b0824d42cd1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb04e66e465c668870c8bd8f310e65fb"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#aeb04e66e465c668870c8bd8f310e65fb">getWorkingDirectory</a> ()</td></tr>
-<tr class="memdesc:aeb04e66e465c668870c8bd8f310e65fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the working directory of the simulation  <a href="#aeb04e66e465c668870c8bd8f310e65fb">More...</a><br /></td></tr>
-<tr class="separator:aeb04e66e465c668870c8bd8f310e65fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dcf5b27640ff3c69fbdf2c588cd2cec"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a6dcf5b27640ff3c69fbdf2c588cd2cec">getInputDirectory</a> ()</td></tr>
-<tr class="memdesc:a6dcf5b27640ff3c69fbdf2c588cd2cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the input directory of the simulation  <a href="#a6dcf5b27640ff3c69fbdf2c588cd2cec">More...</a><br /></td></tr>
-<tr class="separator:a6dcf5b27640ff3c69fbdf2c588cd2cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f074a9cd4414b38170d57344b69f595"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a7f074a9cd4414b38170d57344b69f595">getResourcesDirectory</a> ()</td></tr>
-<tr class="memdesc:a7f074a9cd4414b38170d57344b69f595"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the resources directory of the simulation  <a href="#a7f074a9cd4414b38170d57344b69f595">More...</a><br /></td></tr>
-<tr class="separator:a7f074a9cd4414b38170d57344b69f595"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17a1be26dbed984848d531f38d2e73e0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a17a1be26dbed984848d531f38d2e73e0">getLocale</a> ()</td></tr>
-<tr class="memdesc:a17a1be26dbed984848d531f38d2e73e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the locale of the simulation  <a href="#a17a1be26dbed984848d531f38d2e73e0">More...</a><br /></td></tr>
-<tr class="separator:a17a1be26dbed984848d531f38d2e73e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aea2ba054914832f2b2c2af7551709099"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#aea2ba054914832f2b2c2af7551709099">gotExitSignal</a> ()</td></tr>
+<tr class="memdesc:aea2ba054914832f2b2c2af7551709099"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter to check if one signal was intercepted  <a href="#aea2ba054914832f2b2c2af7551709099">More...</a><br /></td></tr>
+<tr class="separator:aea2ba054914832f2b2c2af7551709099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f480bb0cbc26a149d3662edc455aab"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#ab1f480bb0cbc26a149d3662edc455aab">setExitSignal</a> (bool exitSignal)</td></tr>
+<tr class="memdesc:ab1f480bb0cbc26a149d3662edc455aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">setter to indicate if one signal was intercepted  <a href="#ab1f480bb0cbc26a149d3662edc455aab">More...</a><br /></td></tr>
+<tr class="separator:ab1f480bb0cbc26a149d3662edc455aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d783c044febeb6a334b65cd574b8bd"><td class="memItemLeft" align="right" valign="top"><a id="a02d783c044febeb6a334b65cd574b8bd"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a02d783c044febeb6a334b65cd574b8bd">setSignalHandlers</a> ()</td></tr>
+<tr class="memdesc:a02d783c044febeb6a334b65cd574b8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">declare the signal to intercept <br /></td></tr>
+<tr class="separator:a02d783c044febeb6a334b65cd574b8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803e8baf904bb93ddd0c8a110bd987a3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a803e8baf904bb93ddd0c8a110bd987a3">exitSignalHandler</a> (int signal)</td></tr>
+<tr class="memdesc:a803e8baf904bb93ddd0c8a110bd987a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler to intercept signal  <a href="#a803e8baf904bb93ddd0c8a110bd987a3">More...</a><br /></td></tr>
+<tr class="separator:a803e8baf904bb93ddd0c8a110bd987a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a4d8956d767c64c19a49653517d54a737"><td class="memItemLeft" align="right" valign="top"><a id="a4d8956d767c64c19a49653517d54a737"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a4d8956d767c64c19a49653517d54a737">workingDirectory_</a></td></tr>
-<tr class="memdesc:a4d8956d767c64c19a49653517d54a737"><td class="mdescLeft">&#160;</td><td class="mdescRight">working directory of the simulation : where files should be created <br /></td></tr>
-<tr class="separator:a4d8956d767c64c19a49653517d54a737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85eaa39dfc2adaca373a6935c6b67936"><td class="memItemLeft" align="right" valign="top"><a id="a85eaa39dfc2adaca373a6935c6b67936"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a85eaa39dfc2adaca373a6935c6b67936">inputDirectory_</a></td></tr>
-<tr class="memdesc:a85eaa39dfc2adaca373a6935c6b67936"><td class="mdescLeft">&#160;</td><td class="mdescRight">input directory : where files describing the simulation are located <br /></td></tr>
-<tr class="separator:a85eaa39dfc2adaca373a6935c6b67936"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95521f2e6d52016aa69015b0b2750091"><td class="memItemLeft" align="right" valign="top"><a id="a95521f2e6d52016aa69015b0b2750091"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a95521f2e6d52016aa69015b0b2750091">resourcesDirectory_</a></td></tr>
-<tr class="memdesc:a95521f2e6d52016aa69015b0b2750091"><td class="mdescLeft">&#160;</td><td class="mdescRight">directory where resources files are located <br /></td></tr>
-<tr class="separator:a95521f2e6d52016aa69015b0b2750091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e4ef77268b037f15556d928b23b67b5"><td class="memItemLeft" align="right" valign="top"><a id="a9e4ef77268b037f15556d928b23b67b5"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#a9e4ef77268b037f15556d928b23b67b5">locale_</a></td></tr>
-<tr class="memdesc:a9e4ef77268b037f15556d928b23b67b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">locale to use for log messages <br /></td></tr>
-<tr class="separator:a9e4ef77268b037f15556d928b23b67b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:abfe79732bd8c65d979b162dbcfa79f8a"><td class="memItemLeft" align="right" valign="top"><a id="abfe79732bd8c65d979b162dbcfa79f8a"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html#abfe79732bd8c65d979b162dbcfa79f8a">gotExitSignal_</a></td></tr>
+<tr class="memdesc:abfe79732bd8c65d979b162dbcfa79f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">one signal was intercepted <br /></td></tr>
+<tr class="separator:abfe79732bd8c65d979b162dbcfa79f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dc/dc1/a03263.html" title="SimulationContext class. ">SimulationContext</a> class. </p>
-<p><a class="el" href="../../dc/dc1/a03263.html" title="SimulationContext class. ">SimulationContext</a> class describes the configuration options of the simulation </p>
+<div class="textblock"><p>Signal handler class. </p>
+<p>Signal handler object intercepts signal from the outside </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6dcf5b27640ff3c69fbdf2c588cd2cec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dcf5b27640ff3c69fbdf2c588cd2cec">&#9670;&nbsp;</a></span>getInputDirectory()</h2>
+<a id="a803e8baf904bb93ddd0c8a110bd987a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803e8baf904bb93ddd0c8a110bd987a3">&#9670;&nbsp;</a></span>exitSignalHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string&amp; DYN::SimulationContext::getInputDirectory </td>
+          <td class="memname">static void DYN::SignalHandler::exitSignalHandler </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>signal</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>get the input directory of the simulation </p>
-<dl class="section return"><dt>Returns</dt><dd>the input directory of the simulation </dd></dl>
-
-</div>
-</div>
-<a id="a17a1be26dbed984848d531f38d2e73e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17a1be26dbed984848d531f38d2e73e0">&#9670;&nbsp;</a></span>getLocale()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; DYN::SimulationContext::getLocale </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the locale of the simulation </p>
-<dl class="section return"><dt>Returns</dt><dd>locale of the simulation </dd></dl>
-
-</div>
-</div>
-<a id="a7f074a9cd4414b38170d57344b69f595"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f074a9cd4414b38170d57344b69f595">&#9670;&nbsp;</a></span>getResourcesDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; DYN::SimulationContext::getResourcesDirectory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the resources directory of the simulation </p>
-<dl class="section return"><dt>Returns</dt><dd>the resources directory of the simulation </dd></dl>
-
-</div>
-</div>
-<a id="aeb04e66e465c668870c8bd8f310e65fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb04e66e465c668870c8bd8f310e65fb">&#9670;&nbsp;</a></span>getWorkingDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; DYN::SimulationContext::getWorkingDirectory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the working directory of the simulation </p>
-<dl class="section return"><dt>Returns</dt><dd>the working directory of the simulation </dd></dl>
-
-</div>
-</div>
-<a id="a348d074f4af20ac1614a6ee87d2f8feb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a348d074f4af20ac1614a6ee87d2f8feb">&#9670;&nbsp;</a></span>setInputDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SimulationContext::setInputDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directory</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set the input directory of the simulation </p>
+<p>handler to intercept signal </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">directory</td><td>directory where input files are located </td></tr>
+    <tr><td class="paramname">signal</td><td>num of the signal intercepted </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a352c3fbb1a535163cd38b0824d42cd1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a352c3fbb1a535163cd38b0824d42cd1e">&#9670;&nbsp;</a></span>setLocale()</h2>
+<a id="aea2ba054914832f2b2c2af7551709099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2ba054914832f2b2c2af7551709099">&#9670;&nbsp;</a></span>gotExitSignal()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::SimulationContext::setLocale </td>
+          <td class="memname">static bool DYN::SignalHandler::gotExitSignal </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>locale</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>set the locale of the simulation </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">locale</td><td>locale to use for log messages </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>getter to check if one signal was intercepted </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if one signal was intercepted </dd></dl>
 
 </div>
 </div>
-<a id="a377ae8008bab4eb873705f088d899cb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a377ae8008bab4eb873705f088d899cb9">&#9670;&nbsp;</a></span>setResourcesDirectory()</h2>
+<a id="ab1f480bb0cbc26a149d3662edc455aab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f480bb0cbc26a149d3662edc455aab">&#9670;&nbsp;</a></span>setExitSignal()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::SimulationContext::setResourcesDirectory </td>
+          <td class="memname">static void DYN::SignalHandler::setExitSignal </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directory</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>exitSignal</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>set the resources directory of the simulation </p>
+<p>setter to indicate if one signal was intercepted </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">directory</td><td>directory where resources files are located </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab54366144fcbc2cc2dab25bf98f49f58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab54366144fcbc2cc2dab25bf98f49f58">&#9670;&nbsp;</a></span>setWorkingDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SimulationContext::setWorkingDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directory</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set the working directory of the simulation </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">directory</td><td>directory to use for creating output file </td></tr>
+    <tr><td class="paramname">exitSignal</td><td><b>true</b> if one signal is intercepted </td></tr>
   </table>
   </dd>
 </dl>
@@ -347,7 +232,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d5/d6c/a00977_source.html">DYNSimulationContext.h</a></li>
+<li><a class="el" href="../../d0/d3c/a00971_source.html">DYNSignalHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -365,8 +250,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/dc1/a03263.html">SimulationContext</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:18 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/dc1/a03263.html">SignalHandler</a></li>
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:38 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

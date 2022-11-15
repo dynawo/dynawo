@@ -1,12 +1,9 @@
 var a03307 =
 [
-    [ "ncfn_", "dc/dc1/a03307.html#ace65dd182b205a692777a5e45ccc7e94", null ],
-    [ "netf_", "dc/dc1/a03307.html#a8ddf47089b7a5641feebb61c1884d6ff", null ],
-    [ "nge_", "dc/dc1/a03307.html#a1e89355a9557448a1c007f600327604b", null ],
-    [ "nje_", "dc/dc1/a03307.html#a5aacaea3e1bbde675903c15ef2bb9bd5", null ],
-    [ "nme_", "dc/dc1/a03307.html#a7c5b44af2629997e8b1ed21a89b70f5f", null ],
-    [ "nni_", "dc/dc1/a03307.html#a2a7399c4643bf4ea03807ee5bb187eca", null ],
-    [ "nre_", "dc/dc1/a03307.html#a5368dfe73f3d2c7f1835152ba3a48815", null ],
-    [ "nst_", "dc/dc1/a03307.html#a0a3377f7fff14783360e8cab6464ce94", null ],
-    [ "nze_", "dc/dc1/a03307.html#af8a6184cff0391105cae2b4e50081cf0", null ]
+    [ "SolverFactory", "dc/dc1/a03307.html#a1a9995b963846832f7c1fd906c7f8d08", null ],
+    [ "~SolverFactory", "dc/dc1/a03307.html#acab1ac8b0d0f36a325c891a939f2d0e5", null ],
+    [ "create", "dc/dc1/a03307.html#ac65d140b18f58dda550003c47e97fc2e", null ],
+    [ "createSolverFromLib", "dc/dc1/a03307.html#a3504ac5d306e30488a661a38225a7573", null ],
+    [ "destroy", "dc/dc1/a03307.html#a8dccb03730530e6b2bf7e0eec8d42492", null ],
+    [ "lib_", "dc/dc1/a03307.html#abbfdaf69d4a3f097dc187edac6c723c1", null ]
 ];

@@ -95,24 +95,25 @@ $(document).ready(function(){initNavTree('de/dc8/a02791.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::GeneratorCriteria Member List</div>  </div>
+<div class="title">DYN::BusCriteria::BusFailingCriteria Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#a83e09fa55611777bd74feaa6e4f244e5">addGenerator</a>(const boost::shared_ptr&lt; GeneratorInterface &gt; &amp;generator)</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#a7de0c73911eb770eadbefe6cfde17573">checkCriteria</a>(double t, bool finalStep)</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dc/d6a/a02779.html#ab0211f97b4a4105abfe70989068d7034">Criteria</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../dc/d6a/a02779.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#a5c72a09196491c85c08ee93658976b46">criteriaEligibleForGenerator</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#adccf8513b1ba749ab0515b3370675d03">empty</a>() const</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dc/d6a/a02779.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td><td class="entry"><a class="el" href="../../dc/d6a/a02779.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#ae4fb4b6761e4c3def5e944d944c4a954">GeneratorCriteria</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#ad1392da3e52e020715b11d4d4b474160">generators_</a></td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dc/d6a/a02779.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a>() const</td><td class="entry"><a class="el" href="../../dc/d6a/a02779.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dc/d6a/a02779.html#a0bb1b98b66257511889a334efd7d2a81">params_</a></td><td class="entry"><a class="el" href="../../dc/d6a/a02779.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dc/d6a/a02779.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a>()</td><td class="entry"><a class="el" href="../../dc/d6a/a02779.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#afa15046b694a6dc2cf9a241cb1eed8a1">~GeneratorCriteria</a>()</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::GeneratorCriteria</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d69/a02783.html#ac44454bf196561f60aee0ccc895cded8">bound_</a></td><td class="entry"><a class="el" href="../../d7/d69/a02783.html">DYN::Criteria::FailingCriteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#ab9d417097f28ffac70ab3aba33b046b4">BusFailingCriteria</a>(Bound bound, std::string busId, double v, double vPu, double vBound, double vBoundPu, const std::string &amp;criteriaId)</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d69/a02783.html#af148f22030e0d930120ea21d4f2e489b">criteriaId_</a></td><td class="entry"><a class="el" href="../../d7/d69/a02783.html">DYN::Criteria::FailingCriteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d69/a02783.html#afda670074d93f6adb4bb677a2be79d55">FailingCriteria</a>(Bound bound, std::string nodeId, const std::string &amp;criteriaId)</td><td class="entry"><a class="el" href="../../d7/d69/a02783.html">DYN::Criteria::FailingCriteria</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#a0636fced5d74e9123d52f34a01aa8303">getDistance</a>() const override</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d69/a02783.html#a77b3855413f7469fb1c6d6fdc3e85a6c">nodeId_</a></td><td class="entry"><a class="el" href="../../d7/d69/a02783.html">DYN::Criteria::FailingCriteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#a0b2b18592f8f3a0a3442bcb6005bc409">printOneFailingCriteriaIntoLog</a>() const override</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#a0a19dded3ed7306cfc510f572413ec63">printOneFailingCriteriaIntoTimeline</a>(const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline, double currentTime) const override</td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#af9f40a2ed42b95f8ba91d323c7667c5d">v_</a></td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#af9add492a21834086f8c4f03081d81e1">vBound_</a></td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/dc8/a02791.html#affc15977cc37c6f1cfca44294ba67cc8">vBoundPu_</a></td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/dc8/a02791.html#acc8d14ba539819028ef3843adc93e9ee">vPu_</a></td><td class="entry"><a class="el" href="../../de/dc8/a02791.html">DYN::BusCriteria::BusFailingCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d69/a02783.html#a963f267d42e411fc03637c2ca8a6dff3">~FailingCriteria</a>()=default</td><td class="entry"><a class="el" href="../../d7/d69/a02783.html">DYN::Criteria::FailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -129,7 +130,7 @@ $(document).ready(function(){initNavTree('de/dc8/a02791.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:17 for Dynawo by
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:37 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

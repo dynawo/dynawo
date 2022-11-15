@@ -1,10 +1,10 @@
 var searchData=
 [
   ['tableparameternames',['tableParameterNames',['../da/d11/a02399.html#a08469d6391a572bef84a0bbbf5281ddf',1,'parameters::ParametersSet']]],
-  ['tapchangerstep',['TapChangerStep',['../d4/d9c/a03231.html#a8f3048080d6957fb43fb05c92edcac6e',1,'DYN::TapChangerStep::TapChangerStep()'],['../d4/d9c/a03231.html#a993b63dd7682cdc0bf727fd586eece9e',1,'DYN::TapChangerStep::TapChangerStep(double rho, double alpha, double r, double x, double g, double b)']]],
-  ['terminate',['Terminate',['../d1/d23/a02603.html#a4f9ea1f9c0222c943c01ee94025a046a',1,'DYN::Terminate::Terminate(const Terminate &amp;t)'],['../d1/d23/a02603.html#ac21913ddd679a095f2d61d3693c5c7da',1,'DYN::Terminate::Terminate(const Message &amp;m)'],['../d1/d23/a02603.html#a31fe7daca668bf1b350b121714d76cb0',1,'DYN::Terminate::Terminate()'],['../d5/d8f/a03255.html#a77704a8e3e6726cd34391b65abf061af',1,'DYN::Simulation::terminate()']]],
+  ['tapchangerstep',['TapChangerStep',['../db/d36/a03243.html#a8f3048080d6957fb43fb05c92edcac6e',1,'DYN::TapChangerStep::TapChangerStep()'],['../db/d36/a03243.html#a993b63dd7682cdc0bf727fd586eece9e',1,'DYN::TapChangerStep::TapChangerStep(double rho, double alpha, double r, double x, double g, double b)']]],
+  ['terminate',['terminate',['../de/d11/a03267.html#a77704a8e3e6726cd34391b65abf061af',1,'DYN::Simulation::terminate()'],['../d1/d23/a02603.html#a4f9ea1f9c0222c943c01ee94025a046a',1,'DYN::Terminate::Terminate(const Terminate &amp;t)'],['../d1/d23/a02603.html#ac21913ddd679a095f2d61d3693c5c7da',1,'DYN::Terminate::Terminate(const Message &amp;m)'],['../d1/d23/a02603.html#a31fe7daca668bf1b350b121714d76cb0',1,'DYN::Terminate::Terminate()']]],
   ['terminate_5f',['terminate_',['../d7/dcf/a00845.html#a48c9454e148dcf3c46b60e8923db1f63',1,'DYN']]],
-  ['threewtransformerinterfaceiidm',['ThreeWTransformerInterfaceIIDM',['../de/d4f/a02995.html#a2e1e802bf30cb30544c6e0aa80e20500',1,'DYN::ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(IIDM::Transformer3Windings &amp;tfo)'],['../de/d4f/a02995.html#a91ef339c1a7cd80d5d40840d0a444a45',1,'DYN::ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(powsybl::iidm::ThreeWindingsTransformer &amp;tfo)']]],
+  ['threewtransformerinterfaceiidm',['ThreeWTransformerInterfaceIIDM',['../db/d52/a03007.html#a2e1e802bf30cb30544c6e0aa80e20500',1,'DYN::ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(IIDM::Transformer3Windings &amp;tfo)'],['../db/d52/a03007.html#a91ef339c1a7cd80d5d40840d0a444a45',1,'DYN::ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(powsybl::iidm::ThreeWindingsTransformer &amp;tfo)']]],
   ['throw_5f',['throw_',['../d7/dcf/a00845.html#ab13a552d570a91d4d37a70be723024e2',1,'DYN']]],
   ['throwifallmodelicafilesarenotavailable',['throwIfAllModelicaFilesAreNotAvailable',['../dd/d75/a02639.html#ac72bf72880b9f2a08cf9aae7a9e2fa6f',1,'DYN::Compiler']]],
   ['timeline',['Timeline',['../d0/d7c/a02499.html#aa9523afe943277a6874a86dd4676530e',1,'timeline::Timeline']]],
@@ -21,11 +21,11 @@ var searchData=
   ['tracestream',['TraceStream',['../d9/d07/a02635.html#ae7df8c032e4d11eef89546aac34d3ee7',1,'DYN::TraceStream::TraceStream()'],['../d9/d07/a02635.html#aa0e4b2acdd42a5fbbd28108be73fe980',1,'DYN::TraceStream::TraceStream(SeverityLevel slv, const std::string &amp;tag=&quot;&quot;)'],['../d9/d07/a02635.html#a4eec4b675a663502e5bf8998cde98740',1,'DYN::TraceStream::TraceStream(const TraceStream &amp;ts)']]],
   ['trigger',['trigger',['../dc/d58/a02667.html#a7e66f795abb1d007458c93c91848e17f',1,'DYN::Delay']]],
   ['triggerdelay',['triggerDelay',['../d8/dc9/a02671.html#a54a644c3715eeaea50be07b5369cd078',1,'DYN::DelayManager']]],
-  ['turnonnodes',['turnOnNodes',['../d2/d94/a03167.html#a37da1452e45285345454c9a78f1d1522',1,'DYN::SubNetwork']]],
-  ['twowtransformerinterfaceiidm',['TwoWTransformerInterfaceIIDM',['../dc/d94/a02999.html#a41466e1266f3cf2b6c9145540adc04c5',1,'DYN::TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(IIDM::Transformer2Windings &amp;tfo)'],['../dc/d94/a02999.html#a75fbfc6703726522c293f69f869e41fc',1,'DYN::TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWindingsTransformer &amp;tfo)']]],
+  ['turnonnodes',['turnOnNodes',['../db/d65/a03179.html#a37da1452e45285345454c9a78f1d1522',1,'DYN::SubNetwork']]],
+  ['twowtransformerinterfaceiidm',['TwoWTransformerInterfaceIIDM',['../d6/d97/a03011.html#a41466e1266f3cf2b6c9145540adc04c5',1,'DYN::TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(IIDM::Transformer2Windings &amp;tfo)'],['../d6/d97/a03011.html#a75fbfc6703726522c293f69f869e41fc',1,'DYN::TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWindingsTransformer &amp;tfo)']]],
   ['type',['type',['../d9/dc8/a02531.html#aac9062d6b4ec4b85e227edfba4c2d4a5',1,'DYN::Error']]],
   ['type2str',['type2Str',['../d9/d44/a00527.html#a98ebff40c1bc80287831c01bbe12e650',1,'gtest_dynawo.h']]],
-  ['typeasstring',['typeAsString',['../d2/d80/a02875.html#af8f562ad1637dc955516a24393799a15',1,'DYN::StateVariable::typeAsString()'],['../d9/d9a/a02879.html#a2109890840287804bae56d489f85fd00',1,'DYN::StaticParameter::typeAsString()']]],
+  ['typeasstring',['typeAsString',['../dd/d04/a02887.html#af8f562ad1637dc955516a24393799a15',1,'DYN::StateVariable::typeAsString()'],['../dc/d5e/a02891.html#a2109890840287804bae56d489f85fd00',1,'DYN::StaticParameter::typeAsString()']]],
   ['typevar2str',['typeVar2Str',['../dd/d63/a00455.html#abcd849de73c4366b6b042cee940ccba1',1,'DYN']]],
   ['typevarc2str',['typeVarC2Str',['../d9/d10/a00449.html#a9499b0afeece29de9e1bdbc9b1b6bcd5',1,'DYN']]]
 ];

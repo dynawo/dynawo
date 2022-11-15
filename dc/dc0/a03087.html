@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::memoryManagerChars Class Reference</title>
+<title>Dynawo: DYN::StaticVarCompensatorInterfaceIIDMExtension Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,59 +96,50 @@ $(document).ready(function(){initNavTree('dc/dc0/a03087.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../dc/de6/a03084.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::memoryManagerChars Class Reference</div>  </div>
+<div class="title">DYN::StaticVarCompensatorInterfaceIIDMExtension Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Keep track of chars created and which should be deleted at the end of the execution.  
- <a href="../../dc/dc0/a03087.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d7/dcf/a00845_source.html">DYNModelManagerCommon.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../df/de8/a00839_source.html">DYNStaticVarCompensatorInterfaceIIDMExtension.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6c9fc65b54ebec577eade3621b94cff9"><td class="memItemLeft" align="right" valign="top"><a id="a6c9fc65b54ebec577eade3621b94cff9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a6c9fc65b54ebec577eade3621b94cff9">~memoryManagerChars</a> ()</td></tr>
-<tr class="memdesc:a6c9fc65b54ebec577eade3621b94cff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
-<tr class="separator:a6c9fc65b54ebec577eade3621b94cff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a405846834c838b9f9a56fb00687ec486"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a405846834c838b9f9a56fb00687ec486">keep</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a405846834c838b9f9a56fb00687ec486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keep track of a string.  <a href="#a405846834c838b9f9a56fb00687ec486">More...</a><br /></td></tr>
-<tr class="separator:a405846834c838b9f9a56fb00687ec486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a48854f613c484d91f28fafff8bd0dc05"><td class="memItemLeft" align="right" valign="top"><a id="a48854f613c484d91f28fafff8bd0dc05"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a48854f613c484d91f28fafff8bd0dc05">memoryManagerChars</a> ()</td></tr>
-<tr class="memdesc:a48854f613c484d91f28fafff8bd0dc05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
-<tr class="separator:a48854f613c484d91f28fafff8bd0dc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a9a327615153450dbbfe54ef8286b90c2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dc/dc0/a03087.html">memoryManagerChars</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a9a327615153450dbbfe54ef8286b90c2">getInstance</a> ()</td></tr>
-<tr class="memdesc:a9a327615153450dbbfe54ef8286b90c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get instance of modelica chars manager.  <a href="#a9a327615153450dbbfe54ef8286b90c2">More...</a><br /></td></tr>
-<tr class="separator:a9a327615153450dbbfe54ef8286b90c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ac649e86df282bca2f389161c3b49b8c5"><td class="memItemLeft" align="right" valign="top"><a id="ac649e86df282bca2f389161c3b49b8c5"></a>
-std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#ac649e86df282bca2f389161c3b49b8c5">string2Keep_</a></td></tr>
-<tr class="memdesc:ac649e86df282bca2f389161c3b49b8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">string created along the simulation and that should be deleted at the end of the simulation <br /></td></tr>
-<tr class="separator:ac649e86df282bca2f389161c3b49b8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d73bf010bd4f314319c4354dc268bca"><td class="memItemLeft" align="right" valign="top"><a id="a1d73bf010bd4f314319c4354dc268bca"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a1d73bf010bd4f314319c4354dc268bca">~StaticVarCompensatorInterfaceIIDMExtension</a> ()=default</td></tr>
+<tr class="memdesc:a1d73bf010bd4f314319c4354dc268bca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a1d73bf010bd4f314319c4354dc268bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a43df78d26b2ba94fb0ad06dbd5411"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#ab5a43df78d26b2ba94fb0ad06dbd5411">exportStandByMode</a> (bool standByMode)=0</td></tr>
+<tr class="memdesc:ab5a43df78d26b2ba94fb0ad06dbd5411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface to export the stand by mode of the svc.  <a href="#ab5a43df78d26b2ba94fb0ad06dbd5411">More...</a><br /></td></tr>
+<tr class="separator:ab5a43df78d26b2ba94fb0ad06dbd5411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e2bd5c3425c38b71b2e9930ddbfeb05"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a3e2bd5c3425c38b71b2e9930ddbfeb05">getUMinActivation</a> () const =0</td></tr>
+<tr class="memdesc:a3e2bd5c3425c38b71b2e9930ddbfeb05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage limit inf for running mode activation when in standby.  <a href="#a3e2bd5c3425c38b71b2e9930ddbfeb05">More...</a><br /></td></tr>
+<tr class="separator:a3e2bd5c3425c38b71b2e9930ddbfeb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7bdff51890f3025a8751fb570e18e38"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#ad7bdff51890f3025a8751fb570e18e38">getUMaxActivation</a> () const =0</td></tr>
+<tr class="memdesc:ad7bdff51890f3025a8751fb570e18e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage limit sup for running mode activation when in standby.  <a href="#ad7bdff51890f3025a8751fb570e18e38">More...</a><br /></td></tr>
+<tr class="separator:ad7bdff51890f3025a8751fb570e18e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfb4bb53f0efda454d541da8e0864231"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#adfb4bb53f0efda454d541da8e0864231">getUSetPointMin</a> () const =0</td></tr>
+<tr class="memdesc:adfb4bb53f0efda454d541da8e0864231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage target once Umin has been reached.  <a href="#adfb4bb53f0efda454d541da8e0864231">More...</a><br /></td></tr>
+<tr class="separator:adfb4bb53f0efda454d541da8e0864231"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dffff27e20436d1d90f7d875f0ae251"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a8dffff27e20436d1d90f7d875f0ae251">getUSetPointMax</a> () const =0</td></tr>
+<tr class="memdesc:a8dffff27e20436d1d90f7d875f0ae251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage target once Umax has been reached.  <a href="#a8dffff27e20436d1d90f7d875f0ae251">More...</a><br /></td></tr>
+<tr class="separator:a8dffff27e20436d1d90f7d875f0ae251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae82fbb9bbf3176aa513c14adbce13e80"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#ae82fbb9bbf3176aa513c14adbce13e80">hasStandbyAutomaton</a> () const =0</td></tr>
+<tr class="memdesc:ae82fbb9bbf3176aa513c14adbce13e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the extension's presence.  <a href="#ae82fbb9bbf3176aa513c14adbce13e80">More...</a><br /></td></tr>
+<tr class="separator:ae82fbb9bbf3176aa513c14adbce13e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9824a971d819855462787f996432c5ca"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#a9824a971d819855462787f996432c5ca">isStandBy</a> () const =0</td></tr>
+<tr class="memdesc:a9824a971d819855462787f996432c5ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the standby state of the svc.  <a href="#a9824a971d819855462787f996432c5ca">More...</a><br /></td></tr>
+<tr class="separator:a9824a971d819855462787f996432c5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab22b01f04351778463071073d3f8062e"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc0/a03087.html#ab22b01f04351778463071073d3f8062e">getB0</a> () const =0</td></tr>
+<tr class="memdesc:ab22b01f04351778463071073d3f8062e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the constant shunt susceptance used in standby mode.  <a href="#ab22b01f04351778463071073d3f8062e">More...</a><br /></td></tr>
+<tr class="separator:ab22b01f04351778463071073d3f8062e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Keep track of chars created and which should be deleted at the end of the execution. </p>
+<div class="textblock"><p>class <a class="el" href="../../de/d4f/a02995.html">StaticVarCompensatorInterfaceIIDM</a> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9a327615153450dbbfe54ef8286b90c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a327615153450dbbfe54ef8286b90c2">&#9670;&nbsp;</a></span>getInstance()</h2>
+<a id="ab5a43df78d26b2ba94fb0ad06dbd5411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a43df78d26b2ba94fb0ad06dbd5411">&#9670;&nbsp;</a></span>exportStandByMode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,61 +148,228 @@ std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../dc/dc0/a03087.html">memoryManagerChars</a>&amp; DYN::memoryManagerChars::getInstance </td>
+          <td class="memname">virtual void DYN::StaticVarCompensatorInterfaceIIDMExtension::exportStandByMode </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>standByMode</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get instance of modelica chars manager. </p>
-<dl class="section return"><dt>Returns</dt><dd>the unique instance </dd></dl>
-
-</div>
-</div>
-<a id="a405846834c838b9f9a56fb00687ec486"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a405846834c838b9f9a56fb00687ec486">&#9670;&nbsp;</a></span>keep()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static const char* DYN::memoryManagerChars::keep </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Keep track of a string. </p>
+<p>Interface to export the stand by mode of the svc. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>the string to keep track of </td></tr>
+    <tr><td class="paramname">standByMode</td><td>svc in standby or no </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the string as null-terminated const char pointer </dd></dl>
+
+</div>
+</div>
+<a id="ab22b01f04351778463071073d3f8062e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab22b01f04351778463071073d3f8062e">&#9670;&nbsp;</a></span>getB0()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getB0 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the constant shunt susceptance used in standby mode. </p>
+<dl class="section return"><dt>Returns</dt><dd>the constant shunt susceptance used in standby mode </dd></dl>
+
+</div>
+</div>
+<a id="ad7bdff51890f3025a8751fb570e18e38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7bdff51890f3025a8751fb570e18e38">&#9670;&nbsp;</a></span>getUMaxActivation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUMaxActivation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the voltage limit sup for running mode activation when in standby. </p>
+<dl class="section return"><dt>Returns</dt><dd>the the voltage limit sup for running mode activation when in standby </dd></dl>
+
+</div>
+</div>
+<a id="a3e2bd5c3425c38b71b2e9930ddbfeb05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e2bd5c3425c38b71b2e9930ddbfeb05">&#9670;&nbsp;</a></span>getUMinActivation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUMinActivation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the voltage limit inf for running mode activation when in standby. </p>
+<dl class="section return"><dt>Returns</dt><dd>the the voltage limit inf for running mode activation when in standby </dd></dl>
+
+</div>
+</div>
+<a id="a8dffff27e20436d1d90f7d875f0ae251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dffff27e20436d1d90f7d875f0ae251">&#9670;&nbsp;</a></span>getUSetPointMax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUSetPointMax </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the voltage target once Umax has been reached. </p>
+<dl class="section return"><dt>Returns</dt><dd>the voltage target once Umax has been reached </dd></dl>
+
+</div>
+</div>
+<a id="adfb4bb53f0efda454d541da8e0864231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfb4bb53f0efda454d541da8e0864231">&#9670;&nbsp;</a></span>getUSetPointMin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUSetPointMin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the voltage target once Umin has been reached. </p>
+<dl class="section return"><dt>Returns</dt><dd>the voltage target once Umin has been reached </dd></dl>
+
+</div>
+</div>
+<a id="ae82fbb9bbf3176aa513c14adbce13e80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae82fbb9bbf3176aa513c14adbce13e80">&#9670;&nbsp;</a></span>hasStandbyAutomaton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::StaticVarCompensatorInterfaceIIDMExtension::hasStandbyAutomaton </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the extension's presence. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the extension is loaded </dd></dl>
+
+</div>
+</div>
+<a id="a9824a971d819855462787f996432c5ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9824a971d819855462787f996432c5ca">&#9670;&nbsp;</a></span>isStandBy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::StaticVarCompensatorInterfaceIIDMExtension::isStandBy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the standby state of the svc. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if in standby mode </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d7/dcf/a00845_source.html">DYNModelManagerCommon.h</a></li>
+<li><a class="el" href="../../df/de8/a00839_source.html">DYNStaticVarCompensatorInterfaceIIDMExtension.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -229,8 +387,8 @@ std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/dc0/a03087.html">memoryManagerChars</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/dc0/a03087.html">StaticVarCompensatorInterfaceIIDMExtension</a></li>
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:38 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

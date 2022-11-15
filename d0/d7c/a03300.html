@@ -95,15 +95,19 @@ $(document).ready(function(){initNavTree('d5/d04/a03303.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::SolverDelete Member List</div>  </div>
+<div class="title">DYN::SolverCommon Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d5/d04/a03303.html">DYN::SolverDelete</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d5/d04/a03303.html#af04dc4fb659d1587f7f3a1acf66c9836">factory_</a></td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverDelete</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d5/d04/a03303.html#ad4f88820569b4e255fdd75b2ddc7f9a8">operator()</a>(Solver *solver)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverDelete</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d5/d04/a03303.html#a0a2b426b56dc6989922372e3f5f947fa">SolverDelete</a>(SolverFactory *factory)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverDelete</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d04/a03303.html#ae22a765890981f862cc40c7f1ae313a2">copySparseToKINSOL</a>(const SparseMatrix &amp;smj, SUNMatrix &amp;JJ, const int &amp;size, sunindextype *lastRowVals)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d04/a03303.html#afc90baae8ddadbd9db634c38fd678f32">printLargestErrors</a>(std::vector&lt; std::pair&lt; double, size_t &gt; &gt; &amp;fErr, const Model &amp;model, int nbErrors)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d04/a03303.html#a7936485d1c04a194541588fb27b18c1b">propagateMatrixStructureChangeToKINSOL</a>(const SparseMatrix &amp;smj, SUNMatrix &amp;JJ, const int &amp;size, sunindextype **lastRowVals, SUNLinearSolver &amp;LS, const std::string &amp;linearSolverName, bool log)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d04/a03303.html#a9a5db2f9fc86f4d05d026e36941946f7">weightedInfinityNorm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d04/a03303.html#a770961aba4603c6b798c09a35ae2bb33">weightedInfinityNorm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d04/a03303.html#ad73387d9a562e36de7b071196eece157">weightedL2Norm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d04/a03303.html#ab4aaac216b64f4c4666c25f96327cb62">weightedL2Norm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d5/d04/a03303.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +124,7 @@ $(document).ready(function(){initNavTree('d5/d04/a03303.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:18 for Dynawo by
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:38 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

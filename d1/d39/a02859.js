@@ -1,6 +1,15 @@
 var a02859 =
 [
-    [ "ReactiveCurvePoint", "d9/d8b/a02863.html", "d9/d8b/a02863" ],
-    [ "~ReactiveCurvePointsInterface", "d1/d39/a02859.html#a7dcad3da41d9061f219fcfa544876554", null ],
-    [ "getReactiveCurvesPoints", "d1/d39/a02859.html#a350a4f24a851be8819f7d049cb144ebd", null ]
+    [ "~NetworkInterface", "d1/d39/a02859.html#a77cd19544abc83a7f36d48a7a5ee4acc", null ],
+    [ "addHvdcLine", "d1/d39/a02859.html#a4d86cd2d641b6be759a2ac2ff642cbd2", null ],
+    [ "addLine", "d1/d39/a02859.html#a825c696d9979c88d6e883b2ab8e4862f", null ],
+    [ "addThreeWTransformer", "d1/d39/a02859.html#a57bae281aca5976cada6db9b99d1c36b", null ],
+    [ "addTwoWTransformer", "d1/d39/a02859.html#a11f1d554b4f29227aaa8c16e0b5142f3", null ],
+    [ "addVoltageLevel", "d1/d39/a02859.html#aeb67769efc18b4c5577a73910e226b6c", null ],
+    [ "getHvdcLines", "d1/d39/a02859.html#a9d029e88c4af37ed85953d99aaf04f29", null ],
+    [ "getLines", "d1/d39/a02859.html#a1d0a3c0629f876f7c51d6af735de933c", null ],
+    [ "getSlackNodeBusId", "d1/d39/a02859.html#a802c8d2a32bfc399e430b9f3f9de0486", null ],
+    [ "getThreeWTransformers", "d1/d39/a02859.html#a9ef5794228b58fd7b0b0a73d1c676184", null ],
+    [ "getTwoWTransformers", "d1/d39/a02859.html#ab36098660e517287107777e257f9d173", null ],
+    [ "getVoltageLevels", "d1/d39/a02859.html#a5e4ac46ed407e3cba252734f6bf3ad97", null ]
 ];

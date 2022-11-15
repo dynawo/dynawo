@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::DataInterfaceFactory Class Reference</title>
+<title>Dynawo: DYN::CurrentLimits Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,111 +95,29 @@ $(document).ready(function(){initNavTree('d6/d6c/a02819.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d4/d97/a02816.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::DataInterfaceFactory Class Reference</div>  </div>
+<div class="title">DYN::CurrentLimits Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d6/d6c/a02819.html" title="DataInterfaceFactory class: factory to handle the different possible formats of static network inputs...">DataInterfaceFactory</a> class: factory to handle the different possible formats of static network inputs.  
+<p>Current limits.  
  <a href="../../d6/d6c/a02819.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dc/d91/a00659_source.html">DYNDataInterfaceFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../da/d36/a00650_source.html">DYNCurrentLimits.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:af267d6198a033f242b66120c84cae469"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469">dataInterfaceType_t</a> { <a class="el" href="../../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469a5dd818d1bf6ed77013d76940139e2f0f">DATAINTERFACE_IIDM</a>
- }</td></tr>
-<tr class="memdesc:af267d6198a033f242b66120c84cae469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of possibles inputs.  <a href="../../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469">More...</a><br /></td></tr>
-<tr class="separator:af267d6198a033f242b66120c84cae469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a82ccbaee5d34acacd97797a27d59c43b"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d3/da7/a02815.html">DataInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a82ccbaee5d34acacd97797a27d59c43b">build</a> (<a class="el" href="../../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469">dataInterfaceType_t</a> type, const std::string &amp;filepath, unsigned int nbVariants=1)</td></tr>
-<tr class="memdesc:a82ccbaee5d34acacd97797a27d59c43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build an instance of a static network by reading a file.  <a href="#a82ccbaee5d34acacd97797a27d59c43b">More...</a><br /></td></tr>
-<tr class="separator:a82ccbaee5d34acacd97797a27d59c43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae926ff2029c6c78a6c819463cce9e159"><td class="memItemLeft" align="right" valign="top"><a id="ae926ff2029c6c78a6c819463cce9e159"></a>
+boost::unordered_map&lt; <a class="el" href="../../da/d36/a00650.html#a226f780bafecbaf93400149cb031d002">CurrentLimitSide</a>, boost::shared_ptr&lt; <a class="el" href="../../d3/da7/a02815.html">CurrentLimit</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#ae926ff2029c6c78a6c819463cce9e159">currentLimits</a></td></tr>
+<tr class="memdesc:ae926ff2029c6c78a6c819463cce9e159"><td class="mdescLeft">&#160;</td><td class="mdescRight">current limits <br /></td></tr>
+<tr class="separator:ae926ff2029c6c78a6c819463cce9e159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d6/d6c/a02819.html" title="DataInterfaceFactory class: factory to handle the different possible formats of static network inputs...">DataInterfaceFactory</a> class: factory to handle the different possible formats of static network inputs. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="af267d6198a033f242b66120c84cae469"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af267d6198a033f242b66120c84cae469">&#9670;&nbsp;</a></span>dataInterfaceType_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469">DYN::DataInterfaceFactory::dataInterfaceType_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Type of possibles inputs. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af267d6198a033f242b66120c84cae469a5dd818d1bf6ed77013d76940139e2f0f"></a>DATAINTERFACE_IIDM&#160;</td><td class="fielddoc"><p>Use IIDM library. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a82ccbaee5d34acacd97797a27d59c43b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82ccbaee5d34acacd97797a27d59c43b">&#9670;&nbsp;</a></span>build()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d3/da7/a02815.html">DataInterface</a>&gt; DYN::DataInterfaceFactory::build </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469">dataInterfaceType_t</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filepath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>nbVariants</em> = <code>1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Build an instance of a static network by reading a file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>format of the file </td></tr>
-    <tr><td class="paramname">filepath</td><td>input file path </td></tr>
-    <tr><td class="paramname">nbVariants</td><td>number of variants to handle (relevant only with basic network models with variant) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The data interface built from the input file </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dc/d91/a00659_source.html">DYNDataInterfaceFactory.h</a></li>
+<div class="textblock"><p>Current limits. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="../../da/d36/a00650_source.html">DYNCurrentLimits.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -217,8 +135,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d6c/a02819.html">DataInterfaceFactory</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d6c/a02819.html">CurrentLimits</a></li>
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:37 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

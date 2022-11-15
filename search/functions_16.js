@@ -1,8 +1,8 @@
 var searchData=
 [
   ['warn',['warn',['../da/dfd/a02619.html#aed71ecb5071fd4ad758cb4a11afe90d0',1,'DYN::Trace']]],
-  ['weightedinfinitynorm',['weightedInfinityNorm',['../da/dbb/a03291.html#a9a5db2f9fc86f4d05d026e36941946f7',1,'DYN::SolverCommon::weightedInfinityNorm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)'],['../da/dbb/a03291.html#a770961aba4603c6b798c09a35ae2bb33',1,'DYN::SolverCommon::weightedInfinityNorm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)']]],
-  ['weightedl2norm',['weightedL2Norm',['../da/dbb/a03291.html#ad73387d9a562e36de7b071196eece157',1,'DYN::SolverCommon::weightedL2Norm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)'],['../da/dbb/a03291.html#ab4aaac216b64f4c4666c25f96327cb62',1,'DYN::SolverCommon::weightedL2Norm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)']]],
+  ['weightedinfinitynorm',['weightedInfinityNorm',['../d5/d04/a03303.html#a9a5db2f9fc86f4d05d026e36941946f7',1,'DYN::SolverCommon::weightedInfinityNorm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)'],['../d5/d04/a03303.html#a770961aba4603c6b798c09a35ae2bb33',1,'DYN::SolverCommon::weightedInfinityNorm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)']]],
+  ['weightedl2norm',['weightedL2Norm',['../d5/d04/a03303.html#ad73387d9a562e36de7b071196eece157',1,'DYN::SolverCommon::weightedL2Norm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)'],['../d5/d04/a03303.html#ab4aaac216b64f4c4666c25f96327cb62',1,'DYN::SolverCommon::weightedL2Norm(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)']]],
   ['what',['what',['../d9/dc8/a02531.html#ac77cf04ce3f2298b818d0da46d0fb07f',1,'DYN::Error::what()'],['../d6/d51/a02535.html#a7a5eeebb19424335bdea6b7a9b583755',1,'DYN::MessageError::what()'],['../d1/d23/a02603.html#a9e8d73b9aa8f8c4cfb45afe1b318b9cc',1,'DYN::Terminate::what()']]],
   ['withoutinf',['withoutInf',['../d8/d4e/a02595.html#a622e645a49f43a5dc5590652b83f6d4b',1,'DYN::SparseMatrix']]],
   ['withoutnan',['withoutNan',['../d8/d4e/a02595.html#a97e6e0d3295595931185dfc28d296781',1,'DYN::SparseMatrix']]],
@@ -23,7 +23,7 @@ var searchData=
   ['writemodelicamodel',['writeModelicaModel',['../d6/d19/a01947.html#a8c3d2f963859a5999e5e2b89d9f39bbd',1,'dynamicdata::XmlExporter']]],
   ['writemodeltemplate',['writeModelTemplate',['../d6/d19/a01947.html#a7c47d10f778f910d46021fe70283e9e0',1,'dynamicdata::XmlExporter']]],
   ['writemodeltemplateexpansion',['writeModelTemplateExpansion',['../d6/d19/a01947.html#a9de8060f45ebfa1e24eedc9edda999c4',1,'dynamicdata::XmlExporter']]],
-  ['writeparametersfinalvalues',['writeParametersFinalValues',['../dd/d41/a03079.html#af459dff9a5a508cc1d4e3eb4d34a6022',1,'DYN::ModelManager']]],
+  ['writeparametersfinalvalues',['writeParametersFinalValues',['../da/dbe/a03091.html#af459dff9a5a508cc1d4e3eb4d34a6022',1,'DYN::ModelManager']]],
   ['writestaticref',['writeStaticRef',['../d6/d19/a01947.html#aadd22219d6647314d3cf08a7f5e294bd',1,'dynamicdata::XmlExporter']]],
   ['writeunitdynamicmodel',['writeUnitDynamicModel',['../d6/d19/a01947.html#ab6ac66dd898eab1052cf8c7d42f16ab0',1,'dynamicdata::XmlExporter']]],
   ['writevariable',['writeVariable',['../d4/d2e/a02051.html#afc40684d5dd725fbde5fa81dbe4f1df9',1,'externalVariables::XmlExporter']]]

@@ -13,6 +13,8 @@ var searchData=
   ['macrostaticrefnotunique',['MacroStaticRefNotUnique',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea94d242b29d752dd8afb0028c0cf343f0',1,'DYN::KeyError_t']]],
   ['macrostaticrefundefined',['MacroStaticRefUndefined',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea387e489b134bfbece2199a498924e702',1,'DYN::KeyError_t']]],
   ['matrixstructurechange',['MatrixStructureChange',['../d4/d70/a02579.html#a963225344a251150ba0ad6d5264f567faa4010a1ff8a7da75d4d780e442cf5dba',1,'DYN::KeyLog_t']]],
+  ['max',['MAX',['../dc/d6a/a02779.html#a2a006412a6c16ae87e540f83e99f7ec3a26a4b44a837bf97b972628509912b4a5',1,'DYN::Criteria']]],
+  ['min',['MIN',['../dc/d6a/a02779.html#a2a006412a6c16ae87e540f83e99f7ec3ace31e2a082d17e038fcc6e3006166653',1,'DYN::Criteria']]],
   ['mismatchingvariablesizes',['MismatchingVariableSizes',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea736d47d53bad8495dac1451d85394f35',1,'DYN::KeyError_t']]],
   ['missingdydinitname',['MissingDYDInitName',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4eceaea0bf3a673083cde4bb60393b05a4aa6',1,'DYN::KeyError_t']]],
   ['missingenvironmentvariable',['MissingEnvironmentVariable',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea760cfda1918564e4df7f4866cb19e188',1,'DYN::KeyError_t']]],

@@ -1,10 +1,15 @@
 var a03291 =
 [
-    [ "copySparseToKINSOL", "da/dbb/a03291.html#ae22a765890981f862cc40c7f1ae313a2", null ],
-    [ "printLargestErrors", "da/dbb/a03291.html#afc90baae8ddadbd9db634c38fd678f32", null ],
-    [ "propagateMatrixStructureChangeToKINSOL", "da/dbb/a03291.html#a7936485d1c04a194541588fb27b18c1b", null ],
-    [ "weightedInfinityNorm", "da/dbb/a03291.html#a9a5db2f9fc86f4d05d026e36941946f7", null ],
-    [ "weightedInfinityNorm", "da/dbb/a03291.html#a770961aba4603c6b798c09a35ae2bb33", null ],
-    [ "weightedL2Norm", "da/dbb/a03291.html#ad73387d9a562e36de7b071196eece157", null ],
-    [ "weightedL2Norm", "da/dbb/a03291.html#ab4aaac216b64f4c4666c25f96327cb62", null ]
+    [ "SolverKINSubModel", "da/dbb/a03291.html#a7d9de9f1828e63b4c89fcdba5ca734c7", null ],
+    [ "~SolverKINSubModel", "da/dbb/a03291.html#abf56a0c97f3b11da2176f484d1c4d1f3", null ],
+    [ "evalFInit_KIN", "da/dbb/a03291.html#a78b92b31c506932abdb80ad901b79881", null ],
+    [ "evalJInit_KIN", "da/dbb/a03291.html#a8ee12bd64883ef7160ac200c1d91e601", null ],
+    [ "getSubModel", "da/dbb/a03291.html#ada1b4ab092bc1ea4ca7cee2e4f9c7ed4", null ],
+    [ "getYBuffer", "da/dbb/a03291.html#acb0d9f86ffac61c918e66166b2cf9892", null ],
+    [ "init", "da/dbb/a03291.html#a3a2d8fb148ff4415bc409b6a7c72e5f5", null ],
+    [ "solve", "da/dbb/a03291.html#a5a433c9fc656f1c9bc0dbefb060d7cdf", null ],
+    [ "fBuffer_", "da/dbb/a03291.html#a425934b03e7c2a7b52aed5348fb681f5", null ],
+    [ "subModel_", "da/dbb/a03291.html#aab8dac538b6809a962aa17508c461812", null ],
+    [ "vectorYSubModel_", "da/dbb/a03291.html#a3d13f941d32477bd36e2161d459e376e", null ],
+    [ "yBuffer_", "da/dbb/a03291.html#abeec415dfb647fe5dc637088b2306aa9", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt; Struct Template Reference</title>
+<title>Dynawo: DYN::HvdcOperatorActivePowerRangeIIDMExtension Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,40 +95,92 @@ $(document).ready(function(){initNavTree('df/d4a/a03051.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../dc/d92/a03048.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt; Struct Template Reference</div>  </div>
+<div class="title">DYN::HvdcOperatorActivePowerRangeIIDMExtension Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialization trait for <a class="el" href="../../d3/dbd/a03075.html">StaticVarCompensatorInterfaceIIDMExtension</a>.  
+<p>Interface.  
  <a href="../../df/d4a/a03051.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d3/d13/a00836_source.html">DYNIIDMExtensionsTraits.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d9/daf/a00830_source.html">DYNHvdcOperatorActivePowerRangeIIDMExtension.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a27aa02153648a1ac222b3a42f9b02307"><td class="memItemLeft" align="right" valign="top"><a id="a27aa02153648a1ac222b3a42f9b02307"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4a/a03051.html#a27aa02153648a1ac222b3a42f9b02307">NetworkComponentType</a> = powsybl::iidm::StaticVarCompensator</td></tr>
-<tr class="memdesc:a27aa02153648a1ac222b3a42f9b02307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network component type. <br /></td></tr>
-<tr class="separator:a27aa02153648a1ac222b3a42f9b02307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:ac12dbd90f292fd642a30c5789ab9bd26"><td class="memItemLeft" align="right" valign="top"><a id="ac12dbd90f292fd642a30c5789ab9bd26"></a>
-static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4a/a03051.html#ac12dbd90f292fd642a30c5789ab9bd26">name</a> []</td></tr>
-<tr class="memdesc:ac12dbd90f292fd642a30c5789ab9bd26"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the extension <br /></td></tr>
-<tr class="separator:ac12dbd90f292fd642a30c5789ab9bd26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9e4e8718598775595c04de997739fae8"><td class="memItemLeft" align="right" valign="top"><a id="a9e4e8718598775595c04de997739fae8"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4a/a03051.html#a9e4e8718598775595c04de997739fae8">~HvdcOperatorActivePowerRangeIIDMExtension</a> ()=default</td></tr>
+<tr class="memdesc:a9e4e8718598775595c04de997739fae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a9e4e8718598775595c04de997739fae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b280a23fdf2d6d1a2a039fc7f6ae6e"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4a/a03051.html#ae0b280a23fdf2d6d1a2a039fc7f6ae6e">getOprFromCS1toCS2</a> () const =0</td></tr>
+<tr class="memdesc:ae0b280a23fdf2d6d1a2a039fc7f6ae6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OPR from CS1 to CS2.  <a href="#ae0b280a23fdf2d6d1a2a039fc7f6ae6e">More...</a><br /></td></tr>
+<tr class="separator:ae0b280a23fdf2d6d1a2a039fc7f6ae6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a2bf1e1aa229155c17081f16227dffc"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4a/a03051.html#a1a2bf1e1aa229155c17081f16227dffc">getOprFromCS2toCS1</a> () const =0</td></tr>
+<tr class="memdesc:a1a2bf1e1aa229155c17081f16227dffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OPR from CS2 to CS1.  <a href="#a1a2bf1e1aa229155c17081f16227dffc">More...</a><br /></td></tr>
+<tr class="separator:a1a2bf1e1aa229155c17081f16227dffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;&gt;<br />
-struct DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt;</h3>
+<div class="textblock"><p>Interface. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae0b280a23fdf2d6d1a2a039fc7f6ae6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0b280a23fdf2d6d1a2a039fc7f6ae6e">&#9670;&nbsp;</a></span>getOprFromCS1toCS2()</h2>
 
-<p>Specialization trait for <a class="el" href="../../d3/dbd/a03075.html">StaticVarCompensatorInterfaceIIDMExtension</a>. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d13/a00836_source.html">DYNIIDMExtensionsTraits.hpp</a></li>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::optional&lt;double&gt; DYN::HvdcOperatorActivePowerRangeIIDMExtension::getOprFromCS1toCS2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve OPR from CS1 to CS2. </p>
+<dl class="section return"><dt>Returns</dt><dd>the value or nullopt if extension containing the data not found </dd></dl>
+
+</div>
+</div>
+<a id="a1a2bf1e1aa229155c17081f16227dffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a2bf1e1aa229155c17081f16227dffc">&#9670;&nbsp;</a></span>getOprFromCS2toCS1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::optional&lt;double&gt; DYN::HvdcOperatorActivePowerRangeIIDMExtension::getOprFromCS2toCS1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve OPR from CS2 to CS1. </p>
+<dl class="section return"><dt>Returns</dt><dd>the value or nullopt if extension containing the data not found </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d9/daf/a00830_source.html">DYNHvdcOperatorActivePowerRangeIIDMExtension.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -146,8 +198,8 @@ struct DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &g
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d4a/a03051.html">IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt;</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d4a/a03051.html">HvdcOperatorActivePowerRangeIIDMExtension</a></li>
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:37 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

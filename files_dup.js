@@ -213,32 +213,32 @@ var files_dup =
       [ "XmlImporter", "de/d0a/a02015.html", "de/d0a/a02015" ]
     ] ],
     [ "DYNActiveSeasonIIDMExtension.h", "dd/d7e/a00809.html", [
-      [ "ActiveSeasonIIDMExtension", "d6/d97/a03011.html", "d6/d97/a03011" ]
+      [ "ActiveSeasonIIDMExtension", "d9/df8/a03023.html", "d9/df8/a03023" ]
     ] ],
-    [ "IIDM/DYNBatteryInterfaceIIDM.h", "d6/d02/a03988.html", [
-      [ "BatteryInterfaceIIDM", "d9/d08/a02911.html", "d9/d08/a02911" ]
+    [ "IIDM/DYNBatteryInterfaceIIDM.h", "d7/d02/a04000.html", [
+      [ "BatteryInterfaceIIDM", "d6/df9/a02923.html", "d6/df9/a02923" ]
     ] ],
-    [ "PowSyblIIDM/DYNBatteryInterfaceIIDM.h", "d2/d89/a03991.html", [
-      [ "BatteryInterfaceIIDM", "d9/d08/a02911.html", "d9/d08/a02911" ]
+    [ "PowSyblIIDM/DYNBatteryInterfaceIIDM.h", "d6/d5b/a04003.html", [
+      [ "BatteryInterfaceIIDM", "d6/df9/a02923.html", "d6/df9/a02923" ]
     ] ],
     [ "DYNBitMask.h", "d0/dc4/a00443_source.html", null ],
     [ "DYNBusBarSectionInterface.h", "d6/dfa/a00626.html", [
       [ "BusBarSectionInterface", "d5/d4d/a02763.html", "d5/d4d/a02763" ]
     ] ],
     [ "DYNBusBarSectionInterfaceIIDM.h", "d6/dc0/a00734.html", [
-      [ "BusBarSectionInterfaceIIDM", "d6/deb/a02915.html", "d6/deb/a02915" ]
+      [ "BusBarSectionInterfaceIIDM", "d5/dea/a02927.html", "d5/dea/a02927" ]
     ] ],
     [ "DYNBusInterface.h", "da/dd1/a00629.html", [
       [ "BusInterface", "dc/d40/a02767.html", "dc/d40/a02767" ]
     ] ],
-    [ "IIDM/DYNBusInterfaceIIDM.h", "d2/dc1/a03994.html", [
-      [ "BusInterfaceIIDM", "db/da5/a02919.html", "db/da5/a02919" ]
+    [ "IIDM/DYNBusInterfaceIIDM.h", "dd/da0/a04006.html", [
+      [ "BusInterfaceIIDM", "df/d74/a02931.html", "df/d74/a02931" ]
     ] ],
-    [ "PowSyblIIDM/DYNBusInterfaceIIDM.h", "dd/dc3/a03997.html", [
-      [ "BusInterfaceIIDM", "db/da5/a02919.html", "db/da5/a02919" ]
+    [ "PowSyblIIDM/DYNBusInterfaceIIDM.h", "dc/de5/a04009.html", [
+      [ "BusInterfaceIIDM", "df/d74/a02931.html", "df/d74/a02931" ]
     ] ],
-    [ "IIDM/DYNCalculatedBusInterfaceIIDM.h", "d7/d02/a04000_source.html", null ],
-    [ "PowSyblIIDM/DYNCalculatedBusInterfaceIIDM.h", "d6/d5b/a04003_source.html", null ],
+    [ "IIDM/DYNCalculatedBusInterfaceIIDM.h", "d4/d26/a04012_source.html", null ],
+    [ "PowSyblIIDM/DYNCalculatedBusInterfaceIIDM.h", "db/da3/a04015_source.html", null ],
     [ "DYNClone.hpp", "d3/def/a00446.html", "d3/def/a00446" ],
     [ "DYNCommon.h", "d9/d10/a00449.html", "d9/d10/a00449" ],
     [ "DYNCommonConstants.h", "d4/d2a/a00632.html", "d4/d2a/a00632" ],
@@ -268,39 +268,39 @@ var files_dup =
     [ "DYNConverterInterface.h", "db/d3a/a00641_source.html", null ],
     [ "DYNCriteria.h", "d9/d0f/a00644_source.html", null ],
     [ "DYNCurrentLimitInterface.h", "d3/d8e/a00647.html", [
-      [ "CurrentLimitInterface", "de/d05/a02795.html", "de/d05/a02795" ]
+      [ "CurrentLimitInterface", "d9/daf/a02807.html", "d9/daf/a02807" ]
     ] ],
-    [ "IIDM/DYNCurrentLimitInterfaceIIDM.h", "dd/da0/a04006.html", [
-      [ "CurrentLimitInterfaceIIDM", "d5/dea/a02927.html", "d5/dea/a02927" ]
+    [ "IIDM/DYNCurrentLimitInterfaceIIDM.h", "d7/d1d/a04018.html", [
+      [ "CurrentLimitInterfaceIIDM", "de/d87/a02939.html", "de/d87/a02939" ]
     ] ],
-    [ "PowSyblIIDM/DYNCurrentLimitInterfaceIIDM.h", "dc/de5/a04009.html", [
-      [ "CurrentLimitInterfaceIIDM", "d5/dea/a02927.html", "d5/dea/a02927" ]
+    [ "PowSyblIIDM/DYNCurrentLimitInterfaceIIDM.h", "d9/d4d/a04021.html", [
+      [ "CurrentLimitInterfaceIIDM", "de/d87/a02939.html", "de/d87/a02939" ]
     ] ],
     [ "DYNCurrentLimits.h", "da/d36/a00650.html", "da/d36/a00650" ],
     [ "DYNCurrentLimitsPerSeasonIIDMExtension.h", "d8/db7/a00812.html", [
-      [ "CurrentLimitsPerSeasonIIDMExtension", "de/d1e/a03015.html", "de/d1e/a03015" ]
+      [ "CurrentLimitsPerSeasonIIDMExtension", "dd/da9/a03027.html", "dd/da9/a03027" ]
     ] ],
     [ "DYNDanglingLineInterface.h", "de/ddd/a00653.html", [
-      [ "DanglingLineInterface", "d7/d5a/a02811.html", "d7/d5a/a02811" ]
+      [ "DanglingLineInterface", "df/d37/a02823.html", "df/d37/a02823" ]
     ] ],
-    [ "IIDM/DYNDanglingLineInterfaceIIDM.h", "d4/d26/a04012.html", [
-      [ "DanglingLineInterfaceIIDM", "df/d74/a02931.html", "df/d74/a02931" ]
+    [ "IIDM/DYNDanglingLineInterfaceIIDM.h", "d4/d9a/a04024.html", [
+      [ "DanglingLineInterfaceIIDM", "d4/d48/a02943.html", "d4/d48/a02943" ]
     ] ],
-    [ "PowSyblIIDM/DYNDanglingLineInterfaceIIDM.h", "db/da3/a04015.html", [
-      [ "DanglingLineInterfaceIIDM", "df/d74/a02931.html", "df/d74/a02931" ]
+    [ "PowSyblIIDM/DYNDanglingLineInterfaceIIDM.h", "de/d56/a04027.html", [
+      [ "DanglingLineInterfaceIIDM", "d4/d48/a02943.html", "d4/d48/a02943" ]
     ] ],
     [ "DYNDataInterface.h", "dc/df2/a00656.html", [
-      [ "DataInterface", "d3/da7/a02815.html", "d3/da7/a02815" ]
+      [ "DataInterface", "d3/df5/a02827.html", "d3/df5/a02827" ]
     ] ],
     [ "DYNDataInterfaceFactory.h", "dc/d91/a00659_source.html", null ],
-    [ "IIDM/DYNDataInterfaceIIDM.h", "d7/d1d/a04018.html", [
-      [ "DataInterfaceIIDM", "d9/da5/a02935.html", "d9/da5/a02935" ]
+    [ "IIDM/DYNDataInterfaceIIDM.h", "d2/d95/a04030.html", [
+      [ "DataInterfaceIIDM", "df/d93/a02947.html", "df/d93/a02947" ]
     ] ],
-    [ "PowSyblIIDM/DYNDataInterfaceIIDM.h", "d9/d4d/a04021.html", [
-      [ "DataInterfaceIIDM", "d9/da5/a02935.html", "d9/da5/a02935" ]
+    [ "PowSyblIIDM/DYNDataInterfaceIIDM.h", "d0/d54/a04033.html", [
+      [ "DataInterfaceIIDM", "df/d93/a02947.html", "df/d93/a02947" ]
     ] ],
     [ "DYNDataInterfaceImpl.h", "dc/df1/a00662.html", [
-      [ "DataInterfaceImpl", "df/d37/a02823.html", "df/d37/a02823" ]
+      [ "DataInterfaceImpl", "d6/d97/a02835.html", "d6/d97/a02835" ]
     ] ],
     [ "DYNDelay.h", "d9/d87/a00551.html", [
       [ "Delay", "dc/d58/a02667.html", "dc/d58/a02667" ]
@@ -324,64 +324,64 @@ var files_dup =
     [ "DYNErrorQueue.h", "d2/d9d/a00464_source.html", null ],
     [ "DYNExecUtils.h", "d7/d5e/a00467.html", "d7/d5e/a00467" ],
     [ "DYNFictBusInterfaceIIDM.h", "d8/d2d/a00815.html", [
-      [ "FictBusInterfaceIIDM", "de/dc6/a03019.html", "de/dc6/a03019" ]
+      [ "FictBusInterfaceIIDM", "d4/de4/a03031.html", "d4/de4/a03031" ]
     ] ],
     [ "DYNFictTwoWTransformerInterfaceIIDM.h", "d3/d60/a00818.html", [
-      [ "FictTwoWTransformerInterfaceIIDM", "d9/df8/a03023.html", "d9/df8/a03023" ]
+      [ "FictTwoWTransformerInterfaceIIDM", "d1/d89/a03035.html", "d1/d89/a03035" ]
     ] ],
     [ "DYNFictVoltageLevelInterfaceIIDM.h", "d6/d8b/a00821.html", [
-      [ "FictVoltageLevelInterfaceIIDM", "dd/da9/a03027.html", "dd/da9/a03027" ]
+      [ "FictVoltageLevelInterfaceIIDM", "d4/df1/a03039.html", "d4/df1/a03039" ]
     ] ],
     [ "DYNFileSystemUtils.h", "d0/d29/a00470.html", "d0/d29/a00470" ],
     [ "DYNGeneratorActivePowerControlIIDMExtension.h", "d8/d1c/a00824.html", [
-      [ "GeneratorActivePowerControlIIDMExtension", "d4/de4/a03031.html", "d4/de4/a03031" ]
+      [ "GeneratorActivePowerControlIIDMExtension", "d1/de6/a03043.html", "d1/de6/a03043" ]
     ] ],
     [ "DYNGeneratorInterface.h", "da/d46/a00665.html", [
-      [ "GeneratorInterface", "d3/df5/a02827.html", "d3/df5/a02827" ]
+      [ "GeneratorInterface", "d8/d87/a02839.html", "d8/d87/a02839" ]
     ] ],
-    [ "IIDM/DYNGeneratorInterfaceIIDM.h", "d4/d9a/a04024.html", [
-      [ "GeneratorInterfaceIIDM", "de/d87/a02939.html", "de/d87/a02939" ]
+    [ "IIDM/DYNGeneratorInterfaceIIDM.h", "dc/d1f/a04036.html", [
+      [ "GeneratorInterfaceIIDM", "d4/d32/a02951.html", "d4/d32/a02951" ]
     ] ],
-    [ "PowSyblIIDM/DYNGeneratorInterfaceIIDM.h", "de/d56/a04027.html", [
-      [ "GeneratorInterfaceIIDM", "de/d87/a02939.html", "de/d87/a02939" ]
+    [ "PowSyblIIDM/DYNGeneratorInterfaceIIDM.h", "d5/ddf/a04039.html", [
+      [ "GeneratorInterfaceIIDM", "d4/d32/a02951.html", "d4/d32/a02951" ]
     ] ],
     [ "DYNGraph.h", "dc/d8e/a00473.html", "dc/d8e/a00473" ],
     [ "DYNHvdcAngleDroopActivePowerControlIIDMExtension.h", "dc/d1b/a00827.html", [
-      [ "HvdcAngleDroopActivePowerControlIIDMExtension", "d1/d89/a03035.html", "d1/d89/a03035" ]
+      [ "HvdcAngleDroopActivePowerControlIIDMExtension", "d2/de4/a03047.html", "d2/de4/a03047" ]
     ] ],
     [ "DYNHvdcLineInterface.h", "d0/d5c/a00668.html", [
-      [ "HvdcLineInterface", "d0/d82/a02831.html", "d0/d82/a02831" ]
+      [ "HvdcLineInterface", "d0/d45/a02843.html", "d0/d45/a02843" ]
     ] ],
-    [ "IIDM/DYNHvdcLineInterfaceIIDM.h", "d2/d95/a04030.html", [
-      [ "HvdcLineInterfaceIIDM", "d4/d48/a02943.html", "d4/d48/a02943" ]
+    [ "IIDM/DYNHvdcLineInterfaceIIDM.h", "d9/d2c/a04042.html", [
+      [ "HvdcLineInterfaceIIDM", "da/d0d/a02955.html", "da/d0d/a02955" ]
     ] ],
-    [ "PowSyblIIDM/DYNHvdcLineInterfaceIIDM.h", "d0/d54/a04033.html", [
-      [ "HvdcLineInterfaceIIDM", "d4/d48/a02943.html", "d4/d48/a02943" ]
+    [ "PowSyblIIDM/DYNHvdcLineInterfaceIIDM.h", "da/da3/a04045.html", [
+      [ "HvdcLineInterfaceIIDM", "da/d0d/a02955.html", "da/d0d/a02955" ]
     ] ],
     [ "DYNHvdcOperatorActivePowerRangeIIDMExtension.h", "d9/daf/a00830.html", [
-      [ "HvdcOperatorActivePowerRangeIIDMExtension", "d4/df1/a03039.html", "d4/df1/a03039" ]
+      [ "HvdcOperatorActivePowerRangeIIDMExtension", "df/d4a/a03051.html", "df/d4a/a03051" ]
     ] ],
     [ "DYNIIDMExtensions.hpp", "dc/d6e/a00833.html", [
-      [ "IIDMExtensions", "d1/de6/a03043.html", "d1/de6/a03043" ]
+      [ "IIDMExtensions", "df/d0c/a03055.html", "df/d0c/a03055" ]
     ] ],
     [ "DYNIIDMExtensionsTraits.hpp", "d3/d13/a00836.html", [
-      [ "IIDMExtensionTrait", "d2/de4/a03047.html", null ],
-      [ "IIDMExtensionTrait< StaticVarCompensatorInterfaceIIDMExtension >", "df/d4a/a03051.html", "df/d4a/a03051" ],
-      [ "IIDMExtensionTrait< ActiveSeasonIIDMExtension >", "df/d0c/a03055.html", "df/d0c/a03055" ],
-      [ "IIDMExtensionTrait< CurrentLimitsPerSeasonIIDMExtension >", "da/d9e/a03059.html", "da/d9e/a03059" ],
-      [ "IIDMExtensionTrait< GeneratorActivePowerControlIIDMExtension >", "dc/dec/a03063.html", "dc/dec/a03063" ],
-      [ "IIDMExtensionTrait< HvdcAngleDroopActivePowerControlIIDMExtension >", "da/de2/a03067.html", "da/de2/a03067" ],
-      [ "IIDMExtensionTrait< HvdcOperatorActivePowerRangeIIDMExtension >", "df/d48/a03071.html", "df/d48/a03071" ]
+      [ "IIDMExtensionTrait", "da/d9e/a03059.html", null ],
+      [ "IIDMExtensionTrait< StaticVarCompensatorInterfaceIIDMExtension >", "dc/dec/a03063.html", "dc/dec/a03063" ],
+      [ "IIDMExtensionTrait< ActiveSeasonIIDMExtension >", "da/de2/a03067.html", "da/de2/a03067" ],
+      [ "IIDMExtensionTrait< CurrentLimitsPerSeasonIIDMExtension >", "df/d48/a03071.html", "df/d48/a03071" ],
+      [ "IIDMExtensionTrait< GeneratorActivePowerControlIIDMExtension >", "d3/dbd/a03075.html", "d3/dbd/a03075" ],
+      [ "IIDMExtensionTrait< HvdcAngleDroopActivePowerControlIIDMExtension >", "dd/d41/a03079.html", "dd/d41/a03079" ],
+      [ "IIDMExtensionTrait< HvdcOperatorActivePowerRangeIIDMExtension >", "d5/dd8/a03083.html", "d5/dd8/a03083" ]
     ] ],
     [ "DYNInitXml.h", "d9/d34/a00476.html", [
       [ "InitXerces", "d3/d80/a02559.html", "d3/d80/a02559" ],
       [ "InitLibXml2", "dd/db2/a02563.html", "dd/db2/a02563" ]
     ] ],
-    [ "IIDM/DYNInjectorInterfaceIIDM.h", "dc/d1f/a04036.html", [
-      [ "InjectorInterfaceIIDM", "df/d93/a02947.html", "df/d93/a02947" ]
+    [ "IIDM/DYNInjectorInterfaceIIDM.h", "d4/db0/a04048.html", [
+      [ "InjectorInterfaceIIDM", "d3/de2/a02959.html", "d3/de2/a02959" ]
     ] ],
-    [ "PowSyblIIDM/DYNInjectorInterfaceIIDM.h", "d5/ddf/a04039.html", [
-      [ "InjectorInterfaceIIDM", "df/d93/a02947.html", "df/d93/a02947" ]
+    [ "PowSyblIIDM/DYNInjectorInterfaceIIDM.h", "dd/dc4/a04051.html", [
+      [ "InjectorInterfaceIIDM", "d3/de2/a02959.html", "d3/de2/a02959" ]
     ] ],
     [ "DYNInjectorInterfaceIIDM.hpp", "d3/d4f/a00761.html", null ],
     [ "DYNIoDico.h", "d9/d4a/a00479.html", [
@@ -390,31 +390,31 @@ var files_dup =
       [ "IoDicos", "db/d39/a02575.html", "db/d39/a02575" ]
     ] ],
     [ "DYNLccConverterInterface.h", "d8/d13/a00671.html", [
-      [ "LccConverterInterface", "d6/d97/a02835.html", "d6/d97/a02835" ]
+      [ "LccConverterInterface", "d1/d24/a02847.html", "d1/d24/a02847" ]
     ] ],
-    [ "IIDM/DYNLccConverterInterfaceIIDM.h", "d9/d2c/a04042.html", [
-      [ "LccConverterInterfaceIIDM", "d4/d32/a02951.html", "d4/d32/a02951" ]
+    [ "IIDM/DYNLccConverterInterfaceIIDM.h", "d3/d54/a04054.html", [
+      [ "LccConverterInterfaceIIDM", "d7/dc1/a02963.html", "d7/dc1/a02963" ]
     ] ],
-    [ "PowSyblIIDM/DYNLccConverterInterfaceIIDM.h", "da/da3/a04045.html", [
-      [ "LccConverterInterfaceIIDM", "d4/d32/a02951.html", "d4/d32/a02951" ]
+    [ "PowSyblIIDM/DYNLccConverterInterfaceIIDM.h", "dc/d32/a04057.html", [
+      [ "LccConverterInterfaceIIDM", "d7/dc1/a02963.html", "d7/dc1/a02963" ]
     ] ],
     [ "DYNLineInterface.h", "d8/d73/a00674.html", [
-      [ "LineInterface", "d8/d87/a02839.html", "d8/d87/a02839" ]
+      [ "LineInterface", "d0/de4/a02851.html", "d0/de4/a02851" ]
     ] ],
-    [ "IIDM/DYNLineInterfaceIIDM.h", "d4/db0/a04048.html", [
-      [ "LineInterfaceIIDM", "da/d0d/a02955.html", "da/d0d/a02955" ]
+    [ "IIDM/DYNLineInterfaceIIDM.h", "d5/dbe/a04060.html", [
+      [ "LineInterfaceIIDM", "dd/d81/a02967.html", "dd/d81/a02967" ]
     ] ],
-    [ "PowSyblIIDM/DYNLineInterfaceIIDM.h", "dd/dc4/a04051.html", [
-      [ "LineInterfaceIIDM", "da/d0d/a02955.html", "da/d0d/a02955" ]
+    [ "PowSyblIIDM/DYNLineInterfaceIIDM.h", "da/d90/a04063.html", [
+      [ "LineInterfaceIIDM", "dd/d81/a02967.html", "dd/d81/a02967" ]
     ] ],
     [ "DYNLoadInterface.h", "dc/de4/a00677.html", [
-      [ "LoadInterface", "d0/d45/a02843.html", "d0/d45/a02843" ]
+      [ "LoadInterface", "dc/d05/a02855.html", "dc/d05/a02855" ]
     ] ],
-    [ "IIDM/DYNLoadInterfaceIIDM.h", "d3/d54/a04054.html", [
-      [ "LoadInterfaceIIDM", "d3/de2/a02959.html", "d3/de2/a02959" ]
+    [ "IIDM/DYNLoadInterfaceIIDM.h", "d4/d02/a04066.html", [
+      [ "LoadInterfaceIIDM", "dd/d4e/a02971.html", "dd/d4e/a02971" ]
     ] ],
-    [ "PowSyblIIDM/DYNLoadInterfaceIIDM.h", "dc/d32/a04057.html", [
-      [ "LoadInterfaceIIDM", "d3/de2/a02959.html", "d3/de2/a02959" ]
+    [ "PowSyblIIDM/DYNLoadInterfaceIIDM.h", "d1/d6d/a04069.html", [
+      [ "LoadInterfaceIIDM", "dd/d4e/a02971.html", "dd/d4e/a02971" ]
     ] ],
     [ "DYNLog_keys.h", "db/d8e/a00482_source.html", null ],
     [ "DYNMacrosMessage.h", "d6/d1a/a00485_source.html", null ],
@@ -430,29 +430,29 @@ var files_dup =
       [ "Model", "d3/d25/a02683.html", "d3/d25/a02683" ]
     ] ],
     [ "DYNModelAreaShedding.h", "d5/d69/a00878.html", [
-      [ "ModelAreaSheddingFactory", "dc/d11/a03123.html", "dc/d11/a03123" ],
-      [ "ModelAreaShedding", "d7/d2e/a03127.html", "d7/d2e/a03127" ]
+      [ "ModelAreaSheddingFactory", "d7/d36/a03135.html", "d7/d36/a03135" ],
+      [ "ModelAreaShedding", "d6/d09/a03139.html", "d6/d09/a03139" ]
     ] ],
     [ "DYNModelAreaShedding.hpp", "df/d41/a00881_source.html", null ],
     [ "DYNModelBus.h", "da/d5b/a00905.html", [
-      [ "ModelBus", "d0/da2/a03163.html", "d0/da2/a03163" ],
-      [ "SubNetwork", "d2/d94/a03167.html", "d2/d94/a03167" ],
-      [ "ModelBusContainer", "d3/dca/a03171.html", "d3/dca/a03171" ]
+      [ "ModelBus", "d7/d45/a03175.html", "d7/d45/a03175" ],
+      [ "SubNetwork", "db/d65/a03179.html", "db/d65/a03179" ],
+      [ "ModelBusContainer", "d5/d27/a03183.html", "d5/d27/a03183" ]
     ] ],
     [ "DYNModelCentralizedShuntsSectionControl.h", "dd/db2/a00866.html", [
-      [ "ModelCentralizedShuntsSectionControlFactory", "da/d4a/a03107.html", "da/d4a/a03107" ],
-      [ "ModelCentralizedShuntsSectionControl", "df/d9e/a03111.html", "df/d9e/a03111" ]
+      [ "ModelCentralizedShuntsSectionControlFactory", "d2/df0/a03119.html", "d2/df0/a03119" ],
+      [ "ModelCentralizedShuntsSectionControl", "dc/d11/a03123.html", "dc/d11/a03123" ]
     ] ],
     [ "DYNModelCentralizedShuntsSectionControl.hpp", "d3/db2/a00869_source.html", null ],
     [ "DYNModelConstants.h", "d0/d3e/a00566.html", "d0/d3e/a00566" ],
     [ "DYNModelCPP.h", "d0/d82/a00857.html", [
-      [ "ModelCPP", "d0/d2b/a03095.html", "d0/d2b/a03095" ]
+      [ "ModelCPP", "da/d4a/a03107.html", "da/d4a/a03107" ]
     ] ],
     [ "DYNModelCurrentLimits.h", "d0/d85/a00908.html", [
-      [ "ModelCurrentLimits", "d7/d45/a03175.html", "d7/d45/a03175" ]
+      [ "ModelCurrentLimits", "d7/d49/a03187.html", "d7/d49/a03187" ]
     ] ],
     [ "DYNModelDanglingLine.h", "d7/d12/a00911.html", [
-      [ "ModelDanglingLine", "db/d65/a03179.html", "db/d65/a03179" ]
+      [ "ModelDanglingLine", "d1/d45/a03191.html", "d1/d45/a03191" ]
     ] ],
     [ "DYNModelDescription.h", "d4/d9e/a00569.html", [
       [ "ModelDescription", "d5/d25/a02687.html", "d5/d25/a02687" ]
@@ -461,30 +461,30 @@ var files_dup =
       [ "Modeler", "dc/d8b/a02691.html", "dc/d8b/a02691" ]
     ] ],
     [ "DYNModelGenerator.h", "d3/dd1/a00914.html", [
-      [ "ModelGenerator", "d5/d27/a03183.html", "d5/d27/a03183" ]
+      [ "ModelGenerator", "d8/dd4/a03195.html", "d8/dd4/a03195" ]
     ] ],
     [ "DYNModelHvdcLink.h", "d4/ddc/a00917.html", [
-      [ "ModelHvdcLink", "d7/d49/a03187.html", "d7/d49/a03187" ]
+      [ "ModelHvdcLink", "db/d47/a03199.html", "db/d47/a03199" ]
     ] ],
     [ "DYNModelLine.h", "d6/d82/a00920.html", [
-      [ "ModelLine", "d1/d45/a03191.html", "d1/d45/a03191" ]
+      [ "ModelLine", "d5/d73/a03203.html", "d5/d73/a03203" ]
     ] ],
     [ "DYNModelLoad.h", "df/de9/a00923.html", [
-      [ "ModelLoad", "d8/dd4/a03195.html", "d8/dd4/a03195" ]
+      [ "ModelLoad", "db/d4b/a03207.html", "db/d4b/a03207" ]
     ] ],
     [ "DYNModelLoadRestorativeWithLimits.h", "d2/d5e/a00860.html", [
-      [ "ModelLoadRestorativeWithLimitsFactory", "d4/d6e/a03099.html", "d4/d6e/a03099" ],
-      [ "ModelLoadRestorativeWithLimits", "d0/d9b/a03103.html", "d0/d9b/a03103" ]
+      [ "ModelLoadRestorativeWithLimitsFactory", "df/d9e/a03111.html", "df/d9e/a03111" ],
+      [ "ModelLoadRestorativeWithLimits", "d2/d7a/a03115.html", "d2/d7a/a03115" ]
     ] ],
     [ "DYNModelLoadRestorativeWithLimits.hpp", "d7/d49/a00863_source.html", null ],
     [ "DYNModelManager.h", "d0/d11/a00842.html", [
-      [ "ModelManager", "dd/d41/a03079.html", "dd/d41/a03079" ]
+      [ "ModelManager", "da/dbe/a03091.html", "da/dbe/a03091" ]
     ] ],
     [ "DYNModelManagerCommon.h", "d7/dcf/a00845.html", "d7/dcf/a00845" ],
     [ "DYNModelManagerOwnFunctions.h", "d9/d30/a00848.html", null ],
     [ "DYNModelManagerOwnTypes.h", "df/d4c/a00851.html", null ],
     [ "DYNModelModelica.h", "d6/d2f/a00854.html", [
-      [ "ModelModelica", "da/dbe/a03091.html", "da/dbe/a03091" ]
+      [ "ModelModelica", "d0/d9b/a03103.html", "d0/d9b/a03103" ]
     ] ],
     [ "DYNModelMulti.h", "d9/d42/a00575.html", [
       [ "ModelMulti", "de/dde/a02695.html", "de/dde/a02695" ],
@@ -493,68 +493,68 @@ var files_dup =
     [ "DYNModelNetwork.h", "d8/d38/a00926.html", "d8/d38/a00926" ],
     [ "DYNModelNetwork.hpp", "dc/d92/a00929_source.html", null ],
     [ "DYNModelOmegaRef.h", "da/dd6/a00896.html", [
-      [ "ModelOmegaRefFactory", "d5/d1f/a03147.html", "d5/d1f/a03147" ],
-      [ "ModelOmegaRef", "d3/dd4/a03151.html", "d3/dd4/a03151" ]
+      [ "ModelOmegaRefFactory", "d4/dbc/a03159.html", "d4/dbc/a03159" ],
+      [ "ModelOmegaRef", "d0/da2/a03163.html", "d0/da2/a03163" ]
     ] ],
     [ "DYNModelOmegaRef.hpp", "d3/d8a/a00899_source.html", null ],
     [ "DYNModelPhaseTapChanger.h", "d8/dbb/a00932.html", [
-      [ "ModelPhaseTapChanger", "db/d4b/a03207.html", "db/d4b/a03207" ]
+      [ "ModelPhaseTapChanger", "d6/dcf/a03219.html", "d6/dcf/a03219" ]
     ] ],
     [ "DYNModelRatioTapChanger.h", "d8/d19/a00935.html", [
-      [ "ModelRatioTapChanger", "d5/ddf/a03211.html", "d5/ddf/a03211" ]
+      [ "ModelRatioTapChanger", "dd/de1/a03223.html", "dd/de1/a03223" ]
     ] ],
     [ "DYNModelShuntCompensator.h", "d5/d54/a00938.html", [
-      [ "ModelShuntCompensator", "d9/d65/a03215.html", "d9/d65/a03215" ]
+      [ "ModelShuntCompensator", "d3/d1b/a03227.html", "d3/d1b/a03227" ]
     ] ],
     [ "DYNModelStaticVarCompensator.h", "d6/dad/a00941.html", [
-      [ "ModelStaticVarCompensator", "d6/dcf/a03219.html", "d6/dcf/a03219" ]
+      [ "ModelStaticVarCompensator", "d4/d9c/a03231.html", "d4/d9c/a03231" ]
     ] ],
     [ "DYNModelSwitch.h", "d9/dce/a00944.html", [
-      [ "ModelSwitch", "dd/de1/a03223.html", "dd/de1/a03223" ]
+      [ "ModelSwitch", "dd/d87/a03235.html", "dd/d87/a03235" ]
     ] ],
     [ "DYNModelTapChanger.h", "d3/d29/a00947.html", [
-      [ "ModelTapChanger", "d3/d1b/a03227.html", "d3/d1b/a03227" ]
+      [ "ModelTapChanger", "db/d5f/a03239.html", "db/d5f/a03239" ]
     ] ],
     [ "DYNModelTapChangerStep.h", "df/d39/a00950.html", [
-      [ "TapChangerStep", "d4/d9c/a03231.html", "d4/d9c/a03231" ]
+      [ "TapChangerStep", "db/d36/a03243.html", "db/d36/a03243" ]
     ] ],
     [ "DYNModelThreeWindingsTransformer.h", "d5/da3/a00953.html", [
-      [ "ModelThreeWindingsTransformer", "dd/d87/a03235.html", "dd/d87/a03235" ]
+      [ "ModelThreeWindingsTransformer", "dd/dc3/a03247.html", "dd/dc3/a03247" ]
     ] ],
     [ "DYNModelTwoWindingsTransformer.h", "d3/de5/a00956.html", [
-      [ "ModelTwoWindingsTransformer", "db/d5f/a03239.html", "db/d5f/a03239" ]
+      [ "ModelTwoWindingsTransformer", "db/dd3/a03251.html", "db/dd3/a03251" ]
     ] ],
     [ "DYNModelUtil.h", "dd/d5c/a00578.html", "dd/d5c/a00578" ],
     [ "DYNModelVariationArea.h", "dd/d08/a00884.html", [
-      [ "ModelVariationAreaFactory", "db/d09/a03131.html", "db/d09/a03131" ],
-      [ "ModelVariationArea", "d7/d36/a03135.html", "d7/d36/a03135" ]
+      [ "ModelVariationAreaFactory", "d4/d43/a03143.html", "d4/d43/a03143" ],
+      [ "ModelVariationArea", "d5/d1f/a03147.html", "d5/d1f/a03147" ]
     ] ],
     [ "DYNModelVariationArea.hpp", "d7/d92/a00887_source.html", null ],
     [ "DYNModelVoltageLevel.h", "db/d40/a00959.html", [
-      [ "ModelVoltageLevel", "db/d36/a03243.html", "db/d36/a03243" ]
+      [ "ModelVoltageLevel", "d5/d8f/a03255.html", "d5/d8f/a03255" ]
     ] ],
     [ "DYNModelVoltageMeasurementsUtilities.h", "dc/d17/a00872.html", [
-      [ "ModelVoltageMeasurementsUtilitiesFactory", "d2/d7a/a03115.html", "d2/d7a/a03115" ],
-      [ "ModelVoltageMeasurementsUtilities", "d2/df0/a03119.html", "d2/df0/a03119" ]
+      [ "ModelVoltageMeasurementsUtilitiesFactory", "d7/d2e/a03127.html", "d7/d2e/a03127" ],
+      [ "ModelVoltageMeasurementsUtilities", "db/d09/a03131.html", "db/d09/a03131" ]
     ] ],
     [ "DYNModelVoltageMeasurementsUtilities.hpp", "d1/d93/a00875_source.html", null ],
     [ "DYNModelVoltageSetPointChange.h", "d7/d46/a00890.html", [
-      [ "ModelVoltageSetPointChangeFactory", "d6/d09/a03139.html", "d6/d09/a03139" ],
-      [ "ModelVoltageSetPointChange", "d4/d43/a03143.html", "d4/d43/a03143" ]
+      [ "ModelVoltageSetPointChangeFactory", "d3/dd4/a03151.html", "d3/dd4/a03151" ],
+      [ "ModelVoltageSetPointChange", "dc/d9b/a03155.html", "dc/d9b/a03155" ]
     ] ],
     [ "DYNModelVoltageSetPointChange.hpp", "dc/d2c/a00893_source.html", null ],
     [ "DYNNetworkComponent.h", "df/d88/a00962.html", [
-      [ "NetworkComponent", "dd/dc3/a03247.html", "dd/dc3/a03247" ]
+      [ "NetworkComponent", "d6/d38/a03259.html", "d6/d38/a03259" ]
     ] ],
     [ "DYNNetworkComponent.hpp", "d3/dcd/a00965.html", null ],
     [ "DYNNetworkInterface.h", "d4/d9b/a00680.html", [
-      [ "NetworkInterface", "d1/d24/a02847.html", "d1/d24/a02847" ]
+      [ "NetworkInterface", "d1/d39/a02859.html", "d1/d39/a02859" ]
     ] ],
-    [ "IIDM/DYNNetworkInterfaceIIDM.h", "d5/dbe/a04060.html", [
-      [ "NetworkInterfaceIIDM", "d7/dc1/a02963.html", "d7/dc1/a02963" ]
+    [ "IIDM/DYNNetworkInterfaceIIDM.h", "d2/dbb/a04072.html", [
+      [ "NetworkInterfaceIIDM", "d1/d24/a02975.html", "d1/d24/a02975" ]
     ] ],
-    [ "PowSyblIIDM/DYNNetworkInterfaceIIDM.h", "da/d90/a04063.html", [
-      [ "NetworkInterfaceIIDM", "d7/dc1/a02963.html", "d7/dc1/a02963" ]
+    [ "PowSyblIIDM/DYNNetworkInterfaceIIDM.h", "d3/d9a/a04075.html", [
+      [ "NetworkInterfaceIIDM", "d1/d24/a02975.html", "d1/d24/a02975" ]
     ] ],
     [ "DYNNumericalUtils.h", "de/d4e/a00500_source.html", null ],
     [ "DYNParameter.h", "d4/de5/a00503.html", "d4/de5/a00503" ],
@@ -564,135 +564,135 @@ var files_dup =
     ] ],
     [ "DYNParameterModeler.hpp", "d7/d21/a00584.html", null ],
     [ "DYNParameterSolver.h", "dd/d48/a00995.html", [
-      [ "ParameterSolver", "d2/dd0/a03283.html", "d2/dd0/a03283" ]
+      [ "ParameterSolver", "d7/d35/a03295.html", "d7/d35/a03295" ]
     ] ],
     [ "DYNParameterSolver.hpp", "d9/d9a/a00998.html", null ],
     [ "DYNPhaseTapChangerInterface.h", "db/d77/a00683.html", [
-      [ "PhaseTapChangerInterface", "d0/de4/a02851.html", "d0/de4/a02851" ]
+      [ "PhaseTapChangerInterface", "d9/d8b/a02863.html", "d9/d8b/a02863" ]
     ] ],
-    [ "IIDM/DYNPhaseTapChangerInterfaceIIDM.h", "d4/d02/a04066.html", [
-      [ "PhaseTapChangerInterfaceIIDM", "dd/d81/a02967.html", "dd/d81/a02967" ]
+    [ "IIDM/DYNPhaseTapChangerInterfaceIIDM.h", "d7/d34/a04078.html", [
+      [ "PhaseTapChangerInterfaceIIDM", "d4/d2b/a02979.html", "d4/d2b/a02979" ]
     ] ],
-    [ "PowSyblIIDM/DYNPhaseTapChangerInterfaceIIDM.h", "d1/d6d/a04069.html", [
-      [ "PhaseTapChangerInterfaceIIDM", "dd/d81/a02967.html", "dd/d81/a02967" ]
+    [ "PowSyblIIDM/DYNPhaseTapChangerInterfaceIIDM.h", "d2/d5a/a04081.html", [
+      [ "PhaseTapChangerInterfaceIIDM", "d4/d2b/a02979.html", "d4/d2b/a02979" ]
     ] ],
     [ "DYNRatioTapChangerInterface.h", "df/d9e/a00686.html", [
-      [ "RatioTapChangerInterface", "dc/d05/a02855.html", "dc/d05/a02855" ]
+      [ "RatioTapChangerInterface", "d6/d92/a02867.html", "d6/d92/a02867" ]
     ] ],
-    [ "IIDM/DYNRatioTapChangerInterfaceIIDM.h", "d2/dbb/a04072.html", [
-      [ "RatioTapChangerInterfaceIIDM", "dd/d4e/a02971.html", "dd/d4e/a02971" ]
+    [ "IIDM/DYNRatioTapChangerInterfaceIIDM.h", "d1/dae/a04084.html", [
+      [ "RatioTapChangerInterfaceIIDM", "dd/d2f/a02983.html", "dd/d2f/a02983" ]
     ] ],
-    [ "PowSyblIIDM/DYNRatioTapChangerInterfaceIIDM.h", "d3/d9a/a04075.html", [
-      [ "RatioTapChangerInterfaceIIDM", "dd/d4e/a02971.html", "dd/d4e/a02971" ]
+    [ "PowSyblIIDM/DYNRatioTapChangerInterfaceIIDM.h", "df/dc6/a04087.html", [
+      [ "RatioTapChangerInterfaceIIDM", "dd/d2f/a02983.html", "dd/d2f/a02983" ]
     ] ],
     [ "DYNReactiveCurvePointsInterface.h", "d1/d87/a00689.html", [
-      [ "ReactiveCurvePointsInterface", "d1/d39/a02859.html", "d1/d39/a02859" ],
-      [ "ReactiveCurvePoint", "d9/d8b/a02863.html", "d9/d8b/a02863" ]
+      [ "ReactiveCurvePointsInterface", "db/d08/a02871.html", "db/d08/a02871" ],
+      [ "ReactiveCurvePoint", "d2/d80/a02875.html", "d2/d80/a02875" ]
     ] ],
     [ "DYNRingBuffer.h", "de/dde/a00587.html", [
       [ "RingBuffer", "d8/d0f/a02707.html", "d8/d0f/a02707" ]
     ] ],
     [ "DYNServiceManagerInterface.h", "d0/db6/a00692.html", [
-      [ "ServiceManagerInterface", "d6/d92/a02867.html", "d6/d92/a02867" ]
+      [ "ServiceManagerInterface", "d9/d9a/a02879.html", "d9/d9a/a02879" ]
     ] ],
-    [ "IIDM/DYNServiceManagerInterfaceIIDM.h", "d7/d34/a04078.html", [
-      [ "ServiceManagerInterfaceIIDM", "d1/d24/a02975.html", "d1/d24/a02975" ]
+    [ "IIDM/DYNServiceManagerInterfaceIIDM.h", "da/d40/a04090.html", [
+      [ "ServiceManagerInterfaceIIDM", "da/dcd/a02987.html", "da/dcd/a02987" ]
     ] ],
-    [ "PowSyblIIDM/DYNServiceManagerInterfaceIIDM.h", "d2/d5a/a04081.html", [
-      [ "ServiceManagerInterfaceIIDM", "d1/d24/a02975.html", "d1/d24/a02975" ]
+    [ "PowSyblIIDM/DYNServiceManagerInterfaceIIDM.h", "d7/dc4/a04093.html", [
+      [ "ServiceManagerInterfaceIIDM", "da/dcd/a02987.html", "da/dcd/a02987" ]
     ] ],
     [ "DYNShuntCompensatorInterface.h", "d5/d5b/a00695.html", [
-      [ "ShuntCompensatorInterface", "db/d08/a02871.html", "db/d08/a02871" ]
+      [ "ShuntCompensatorInterface", "dd/db9/a02883.html", "dd/db9/a02883" ]
     ] ],
-    [ "IIDM/DYNShuntCompensatorInterfaceIIDM.h", "d1/dae/a04084.html", [
-      [ "ShuntCompensatorInterfaceIIDM", "d4/d2b/a02979.html", "d4/d2b/a02979" ]
+    [ "IIDM/DYNShuntCompensatorInterfaceIIDM.h", "de/df2/a04096.html", [
+      [ "ShuntCompensatorInterfaceIIDM", "dd/d65/a02991.html", "dd/d65/a02991" ]
     ] ],
-    [ "PowSyblIIDM/DYNShuntCompensatorInterfaceIIDM.h", "df/dc6/a04087.html", [
-      [ "ShuntCompensatorInterfaceIIDM", "d4/d2b/a02979.html", "d4/d2b/a02979" ]
+    [ "PowSyblIIDM/DYNShuntCompensatorInterfaceIIDM.h", "d1/dc1/a04099.html", [
+      [ "ShuntCompensatorInterfaceIIDM", "dd/d65/a02991.html", "dd/d65/a02991" ]
     ] ],
     [ "DYNSignalHandler.h", "d0/d3c/a00971.html", [
-      [ "SignalHandler", "db/dd3/a03251.html", "db/dd3/a03251" ]
+      [ "SignalHandler", "dc/dc1/a03263.html", "dc/dc1/a03263" ]
     ] ],
     [ "DYNSimulation.h", "df/dce/a00974.html", [
-      [ "Simulation", "d5/d8f/a03255.html", "d5/d8f/a03255" ],
-      [ "ExportStateDefinition", "d6/d38/a03259.html", "d6/d38/a03259" ]
+      [ "Simulation", "de/d11/a03267.html", "de/d11/a03267" ],
+      [ "ExportStateDefinition", "df/d13/a03271.html", "df/d13/a03271" ]
     ] ],
     [ "DYNSimulationContext.h", "d5/d6c/a00977.html", [
-      [ "SimulationContext", "dc/dc1/a03263.html", "dc/dc1/a03263" ]
+      [ "SimulationContext", "d8/dbf/a03275.html", "d8/dbf/a03275" ]
     ] ],
     [ "DYNSimulationLauncher.h", "db/d20/a00980.html", "db/d20/a00980" ],
     [ "DYNSolver.h", "df/d59/a01001.html", "df/d59/a01001" ],
     [ "DYNSolverCommon.h", "df/dbc/a01004.html", [
-      [ "SolverCommon", "da/dbb/a03291.html", "da/dbb/a03291" ]
+      [ "SolverCommon", "d5/d04/a03303.html", "d5/d04/a03303" ]
     ] ],
     [ "DYNSolverCommonFixedTimeStep.h", "de/def/a01016.html", [
-      [ "SolverCommonFixedTimeStep", "dd/d6f/a03315.html", "dd/d6f/a03315" ]
+      [ "SolverCommonFixedTimeStep", "d5/d7a/a03327.html", "d5/d7a/a03327" ]
     ] ],
     [ "DYNSolverFactory.h", "d6/d8d/a01007.html", "d6/d8d/a01007" ],
     [ "DYNSolverIDA.h", "db/d23/a01025.html", [
-      [ "SolverIDAFactory", "d9/db1/a03335.html", "d9/db1/a03335" ],
-      [ "SolverIDA", "d1/d13/a03339.html", "d1/d13/a03339" ]
+      [ "SolverIDAFactory", "d9/dc9/a03347.html", "d9/dc9/a03347" ],
+      [ "SolverIDA", "d2/d7d/a03351.html", "d2/d7d/a03351" ]
     ] ],
     [ "DYNSolverImpl.h", "d0/d2b/a01010.html", [
-      [ "stat_t", "dc/dc1/a03307.html", "dc/dc1/a03307" ],
-      [ "Impl", "de/d19/a03311.html", "de/d19/a03311" ]
+      [ "stat_t", "d6/d05/a03319.html", "d6/d05/a03319" ],
+      [ "Impl", "d4/d00/a03323.html", "d4/d00/a03323" ]
     ] ],
     [ "DYNSolverImpl.hpp", "d7/d59/a01013.html", null ],
     [ "DYNSolverKINAlgRestoration.h", "d7/d98/a00983.html", [
-      [ "SolverKINAlgRestoration", "de/d11/a03267.html", "de/d11/a03267" ]
+      [ "SolverKINAlgRestoration", "d0/de5/a03279.html", "d0/de5/a03279" ]
     ] ],
     [ "DYNSolverKINCommon.h", "d3/d7b/a00986.html", [
-      [ "SolverKINCommon", "df/d13/a03271.html", "df/d13/a03271" ]
+      [ "SolverKINCommon", "d2/dd0/a03283.html", "d2/dd0/a03283" ]
     ] ],
     [ "DYNSolverKINEuler.h", "d4/d95/a00989.html", [
-      [ "SolverKINEuler", "d8/dbf/a03275.html", "d8/dbf/a03275" ]
+      [ "SolverKINEuler", "d8/dcc/a03287.html", "d8/dcc/a03287" ]
     ] ],
     [ "DYNSolverKINSubModel.h", "d7/d76/a00992.html", [
-      [ "SolverKINSubModel", "d0/de5/a03279.html", "d0/de5/a03279" ]
+      [ "SolverKINSubModel", "da/dbb/a03291.html", "da/dbb/a03291" ]
     ] ],
     [ "DYNSolverSIM.h", "db/daf/a01019.html", [
-      [ "SolverSIMFactory", "d6/d05/a03319.html", "d6/d05/a03319" ],
-      [ "SolverSIM", "d4/d00/a03323.html", "d4/d00/a03323" ]
+      [ "SolverSIMFactory", "df/de2/a03331.html", "df/de2/a03331" ],
+      [ "SolverSIM", "d9/db1/a03335.html", "d9/db1/a03335" ]
     ] ],
     [ "DYNSolverTRAP.h", "d1/dd8/a01022.html", [
-      [ "SolverTRAPFactory", "d5/d7a/a03327.html", "d5/d7a/a03327" ],
-      [ "SolverTRAP", "df/de2/a03331.html", "df/de2/a03331" ]
+      [ "SolverTRAPFactory", "d1/d13/a03339.html", "d1/d13/a03339" ],
+      [ "SolverTRAP", "d5/d9d/a03343.html", "d5/d9d/a03343" ]
     ] ],
     [ "DYNSparseMatrix.h", "df/db6/a00509.html", [
       [ "SparseMatrix", "d8/d4e/a02595.html", "d8/d4e/a02595" ],
       [ "CheckError", "df/df0/a02599.html", "df/df0/a02599" ]
     ] ],
     [ "DYNStateVariable.h", "df/dbb/a00698.html", [
-      [ "StateVariable", "d2/d80/a02875.html", "d2/d80/a02875" ]
+      [ "StateVariable", "dd/d04/a02887.html", "dd/d04/a02887" ]
     ] ],
     [ "DYNStateVariable.hpp", "dd/d57/a00701.html", null ],
     [ "DYNStaticParameter.h", "d4/d6a/a00704.html", [
-      [ "StaticParameter", "d9/d9a/a02879.html", "d9/d9a/a02879" ]
+      [ "StaticParameter", "dc/d5e/a02891.html", "dc/d5e/a02891" ]
     ] ],
     [ "DYNStaticParameter.hpp", "d1/d56/a00707.html", null ],
     [ "DYNStaticRefInterface.h", "d7/db1/a00590.html", [
       [ "StaticRefInterface", "d8/dd0/a02711.html", "d8/dd0/a02711" ]
     ] ],
     [ "DYNStaticVarCompensatorInterface.h", "d4/deb/a00710.html", [
-      [ "StaticVarCompensatorInterface", "dd/db9/a02883.html", "dd/db9/a02883" ]
+      [ "StaticVarCompensatorInterface", "d6/d1a/a02895.html", "d6/d1a/a02895" ]
     ] ],
-    [ "IIDM/DYNStaticVarCompensatorInterfaceIIDM.h", "da/d40/a04090.html", [
-      [ "StaticVarCompensatorInterfaceIIDM", "dd/d2f/a02983.html", "dd/d2f/a02983" ]
+    [ "IIDM/DYNStaticVarCompensatorInterfaceIIDM.h", "d4/da2/a04102.html", [
+      [ "StaticVarCompensatorInterfaceIIDM", "de/d4f/a02995.html", "de/d4f/a02995" ]
     ] ],
-    [ "PowSyblIIDM/DYNStaticVarCompensatorInterfaceIIDM.h", "d7/dc4/a04093.html", [
-      [ "StaticVarCompensatorInterfaceIIDM", "dd/d2f/a02983.html", "dd/d2f/a02983" ]
+    [ "PowSyblIIDM/DYNStaticVarCompensatorInterfaceIIDM.h", "d8/d7f/a04105.html", [
+      [ "StaticVarCompensatorInterfaceIIDM", "de/d4f/a02995.html", "de/d4f/a02995" ]
     ] ],
     [ "DYNStaticVarCompensatorInterfaceIIDMExtension.h", "df/de8/a00839.html", [
-      [ "StaticVarCompensatorInterfaceIIDMExtension", "d3/dbd/a03075.html", "d3/dbd/a03075" ]
+      [ "StaticVarCompensatorInterfaceIIDMExtension", "dc/dc0/a03087.html", "dc/dc0/a03087" ]
     ] ],
     [ "DYNStepInterface.h", "d1/d04/a00713.html", [
-      [ "StepInterface", "dd/d04/a02887.html", "dd/d04/a02887" ]
+      [ "StepInterface", "dc/d44/a02899.html", "dc/d44/a02899" ]
     ] ],
-    [ "IIDM/DYNStepInterfaceIIDM.h", "de/df2/a04096.html", [
-      [ "StepInterfaceIIDM", "da/dcd/a02987.html", "da/dcd/a02987" ]
+    [ "IIDM/DYNStepInterfaceIIDM.h", "d3/ddf/a04108.html", [
+      [ "StepInterfaceIIDM", "dc/d94/a02999.html", "dc/d94/a02999" ]
     ] ],
-    [ "PowSyblIIDM/DYNStepInterfaceIIDM.h", "d1/dc1/a04099.html", [
-      [ "StepInterfaceIIDM", "da/dcd/a02987.html", "da/dcd/a02987" ]
+    [ "PowSyblIIDM/DYNStepInterfaceIIDM.h", "da/d53/a04111.html", [
+      [ "StepInterfaceIIDM", "dc/d94/a02999.html", "dc/d94/a02999" ]
     ] ],
     [ "DYNSubModel.h", "d2/da3/a00593.html", [
       [ "SubModel", "d1/db4/a02715.html", "d1/db4/a02715" ],
@@ -701,25 +701,25 @@ var files_dup =
     [ "DYNSubModel.hpp", "dc/d25/a00596.html", null ],
     [ "DYNSubModelFactory.h", "d5/d8a/a00599.html", "d5/d8a/a00599" ],
     [ "DYNSwitchInterface.h", "d2/d94/a00716.html", [
-      [ "SwitchInterface", "dc/d5e/a02891.html", "dc/d5e/a02891" ]
+      [ "SwitchInterface", "d9/d6c/a02903.html", "d9/d6c/a02903" ]
     ] ],
-    [ "IIDM/DYNSwitchInterfaceIIDM.h", "d4/da2/a04102.html", [
-      [ "SwitchInterfaceIIDM", "dd/d65/a02991.html", "dd/d65/a02991" ]
+    [ "IIDM/DYNSwitchInterfaceIIDM.h", "d2/d0e/a04114.html", [
+      [ "SwitchInterfaceIIDM", "dd/d26/a03003.html", "dd/d26/a03003" ]
     ] ],
-    [ "PowSyblIIDM/DYNSwitchInterfaceIIDM.h", "d8/d7f/a04105.html", [
-      [ "SwitchInterfaceIIDM", "dd/d65/a02991.html", "dd/d65/a02991" ]
+    [ "PowSyblIIDM/DYNSwitchInterfaceIIDM.h", "d5/d37/a04117.html", [
+      [ "SwitchInterfaceIIDM", "dd/d26/a03003.html", "dd/d26/a03003" ]
     ] ],
     [ "DYNTerminate.h", "d4/dfb/a00512.html", [
       [ "Terminate", "d1/d23/a02603.html", "d1/d23/a02603" ]
     ] ],
     [ "DYNThreeWTransformerInterface.h", "dd/dd8/a00719.html", [
-      [ "ThreeWTransformerInterface", "d6/d1a/a02895.html", "d6/d1a/a02895" ]
+      [ "ThreeWTransformerInterface", "dd/d15/a02907.html", "dd/d15/a02907" ]
     ] ],
-    [ "IIDM/DYNThreeWTransformerInterfaceIIDM.h", "d3/ddf/a04108.html", [
-      [ "ThreeWTransformerInterfaceIIDM", "de/d4f/a02995.html", "de/d4f/a02995" ]
+    [ "IIDM/DYNThreeWTransformerInterfaceIIDM.h", "d5/dd1/a04120.html", [
+      [ "ThreeWTransformerInterfaceIIDM", "db/d52/a03007.html", "db/d52/a03007" ]
     ] ],
-    [ "PowSyblIIDM/DYNThreeWTransformerInterfaceIIDM.h", "da/d53/a04111.html", [
-      [ "ThreeWTransformerInterfaceIIDM", "de/d4f/a02995.html", "de/d4f/a02995" ]
+    [ "PowSyblIIDM/DYNThreeWTransformerInterfaceIIDM.h", "d2/d40/a04123.html", [
+      [ "ThreeWTransformerInterfaceIIDM", "db/d52/a03007.html", "db/d52/a03007" ]
     ] ],
     [ "DYNTimeline_keys.h", "dc/d19/a00515_source.html", null ],
     [ "DYNTimer.h", "d5/dee/a00518.html", [
@@ -734,13 +734,13 @@ var files_dup =
     ] ],
     [ "DYNTraceStream.h", "d9/d24/a00524.html", "d9/d24/a00524" ],
     [ "DYNTwoWTransformerInterface.h", "db/d7c/a00722.html", [
-      [ "TwoWTransformerInterface", "dc/d44/a02899.html", "dc/d44/a02899" ]
+      [ "TwoWTransformerInterface", "d9/d08/a02911.html", "d9/d08/a02911" ]
     ] ],
-    [ "IIDM/DYNTwoWTransformerInterfaceIIDM.h", "d2/d0e/a04114.html", [
-      [ "TwoWTransformerInterfaceIIDM", "dc/d94/a02999.html", "dc/d94/a02999" ]
+    [ "IIDM/DYNTwoWTransformerInterfaceIIDM.h", "d7/d60/a04126.html", [
+      [ "TwoWTransformerInterfaceIIDM", "d6/d97/a03011.html", "d6/d97/a03011" ]
     ] ],
-    [ "PowSyblIIDM/DYNTwoWTransformerInterfaceIIDM.h", "d5/d37/a04117.html", [
-      [ "TwoWTransformerInterfaceIIDM", "dc/d94/a02999.html", "dc/d94/a02999" ]
+    [ "PowSyblIIDM/DYNTwoWTransformerInterfaceIIDM.h", "d4/d47/a04129.html", [
+      [ "TwoWTransformerInterfaceIIDM", "d6/d97/a03011.html", "d6/d97/a03011" ]
     ] ],
     [ "DYNVariable.h", "d5/d0a/a00602.html", [
       [ "Variable", "d6/df4/a02735.html", "d6/df4/a02735" ]
@@ -765,22 +765,22 @@ var files_dup =
       [ "VariableNativeFactory", "da/d8e/a02759.html", "da/d8e/a02759" ]
     ] ],
     [ "DYNVoltageLevelInterface.h", "d8/db9/a00725.html", [
-      [ "VoltageLevelInterface", "d9/d6c/a02903.html", "d9/d6c/a02903" ]
+      [ "VoltageLevelInterface", "d6/deb/a02915.html", "d6/deb/a02915" ]
     ] ],
-    [ "IIDM/DYNVoltageLevelInterfaceIIDM.h", "d5/dd1/a04120.html", [
-      [ "VoltageLevelInterfaceIIDM", "dd/d26/a03003.html", "dd/d26/a03003" ]
+    [ "IIDM/DYNVoltageLevelInterfaceIIDM.h", "da/dca/a04132.html", [
+      [ "VoltageLevelInterfaceIIDM", "de/d1e/a03015.html", "de/d1e/a03015" ]
     ] ],
-    [ "PowSyblIIDM/DYNVoltageLevelInterfaceIIDM.h", "d2/d40/a04123.html", [
-      [ "VoltageLevelInterfaceIIDM", "dd/d26/a03003.html", "dd/d26/a03003" ]
+    [ "PowSyblIIDM/DYNVoltageLevelInterfaceIIDM.h", "da/d76/a04135.html", [
+      [ "VoltageLevelInterfaceIIDM", "de/d1e/a03015.html", "de/d1e/a03015" ]
     ] ],
     [ "DYNVscConverterInterface.h", "df/d3b/a00728.html", [
-      [ "VscConverterInterface", "dd/d15/a02907.html", "dd/d15/a02907" ]
+      [ "VscConverterInterface", "db/da5/a02919.html", "db/da5/a02919" ]
     ] ],
-    [ "IIDM/DYNVscConverterInterfaceIIDM.h", "d7/d60/a04126.html", [
-      [ "VscConverterInterfaceIIDM", "db/d52/a03007.html", "db/d52/a03007" ]
+    [ "IIDM/DYNVscConverterInterfaceIIDM.h", "d0/de3/a04138.html", [
+      [ "VscConverterInterfaceIIDM", "de/dc6/a03019.html", "de/dc6/a03019" ]
     ] ],
-    [ "PowSyblIIDM/DYNVscConverterInterfaceIIDM.h", "d4/d47/a04129.html", [
-      [ "VscConverterInterfaceIIDM", "db/d52/a03007.html", "db/d52/a03007" ]
+    [ "PowSyblIIDM/DYNVscConverterInterfaceIIDM.h", "d3/d63/a04141.html", [
+      [ "VscConverterInterfaceIIDM", "de/dc6/a03019.html", "de/dc6/a03019" ]
     ] ],
     [ "EXTVARExporter.h", "d3/db1/a00200.html", [
       [ "Exporter", "df/d78/a02019.html", "df/d78/a02019" ]

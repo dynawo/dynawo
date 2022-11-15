@@ -1,29 +1,5 @@
 var a02815 =
 [
-    [ "~DataInterface", "d3/da7/a02815.html#a49d7b7626958df5a2d0911ddd2d03b6a", null ],
-    [ "canUseVariant", "d3/da7/a02815.html#a309971065dd1d2a60dd8e4f86b1cbd2d", null ],
-    [ "checkCriteria", "d3/da7/a02815.html#ae080140fa11498e1ccc1c60634d1cd9f", null ],
-    [ "clone", "d3/da7/a02815.html#a486f40ff74deb16fc05a1010049994f2", null ],
-    [ "configureCriteria", "d3/da7/a02815.html#ab70045c218610a14d7ea244b77f5c4fd", null ],
-    [ "dumpToFile", "d3/da7/a02815.html#aa303994128dd1a2aa273eef4fd4023f9", null ],
-    [ "exportStateVariables", "d3/da7/a02815.html#ad32280961eccbf724e85f4212f5a7f7e", null ],
-    [ "findConnectedComponents", "d3/da7/a02815.html#a203d3376b7c0bec0f5ae1a9233bac5a9", null ],
-    [ "findLostEquipments", "d3/da7/a02815.html#ac0b110419b38ea8a8ace47670c73f740", null ],
-    [ "getBusName", "d3/da7/a02815.html#a21474236ac4bddbe79e961f4f122c9b8", null ],
-    [ "getFailingCriteria", "d3/da7/a02815.html#acfd29130a1dbaf8aaee502cb69b09cc4", null ],
-    [ "getNetwork", "d3/da7/a02815.html#adb99731cce9499275f295f3fd39b35eb", null ],
-    [ "getServiceManager", "d3/da7/a02815.html#a9fe64f91c9735ca519b6860e880e3e58", null ],
-    [ "getStateVariableReference", "d3/da7/a02815.html#a3617b374079355f94f5a20021a1611d9", null ],
-    [ "getStaticParameterBoolValue", "d3/da7/a02815.html#a0d63da2d2ae541a31cf0f5f2b6628523", null ],
-    [ "getStaticParameterDoubleValue", "d3/da7/a02815.html#ab7a9e5977fd429c705a2d88307d52e75", null ],
-    [ "getStaticParameterIntValue", "d3/da7/a02815.html#aeec47a5e21d12bd0fed9f7415e7022de", null ],
-    [ "hasDynamicModel", "d3/da7/a02815.html#a61ab2ac0087f4a108732c9021593594b", null ],
-    [ "importStaticParameters", "d3/da7/a02815.html#ab83835e5ce431fbd30e2fc0288855b89", null ],
-    [ "instantiateNetwork", "d3/da7/a02815.html#a8166fe6ebeb950f2fc2c00797cda8ff5", null ],
-    [ "mapConnections", "d3/da7/a02815.html#ab9d813fbc8e629cd936ffe135cb4c651", null ],
-    [ "selectVariant", "d3/da7/a02815.html#a5b1de608cf26541a8625f95bb850cd8b", null ],
-    [ "setDynamicModel", "d3/da7/a02815.html#a9f0b4d080ed74d6a018c89000d3dac60", null ],
-    [ "setModelNetwork", "d3/da7/a02815.html#a2f16859a4c2e1ae667a7a86c34f57d91", null ],
-    [ "setReference", "d3/da7/a02815.html#a7b843fda45e9bbd64849f35c94ed8434", null ],
-    [ "updateFromModel", "d3/da7/a02815.html#a1297af56124573be3c453bd69e69fc0d", null ]
+    [ "permanentLimit", "d3/da7/a02815.html#a2fa50a31a8a0240a66c84545e561afad", null ],
+    [ "temporaryLimits", "d3/da7/a02815.html#a254447bdefd7b47cf3fddb535d86c230", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::IIDMExtensionTrait&lt; T &gt; Struct Template Reference</title>
+<title>Dynawo: DYN::HvdcAngleDroopActivePowerControlIIDMExtension Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,26 +94,124 @@ $(document).ready(function(){initNavTree('d2/de4/a03047.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../d7/d98/a03044.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::IIDMExtensionTrait&lt; T &gt; Struct Template Reference</div>  </div>
+<div class="title">DYN::HvdcAngleDroopActivePowerControlIIDMExtension Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base template class for traits.  
+<p>HVDC Angle Droop active power control IIDM extension interface.  
  <a href="../../d2/de4/a03047.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d3/d13/a00836_source.html">DYNIIDMExtensionsTraits.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dc/d1b/a00827_source.html">DYNHvdcAngleDroopActivePowerControlIIDMExtension.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aab719d30ebf54d52ecba6c5af8115af2"><td class="memItemLeft" align="right" valign="top"><a id="aab719d30ebf54d52ecba6c5af8115af2"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de4/a03047.html#aab719d30ebf54d52ecba6c5af8115af2">~HvdcAngleDroopActivePowerControlIIDMExtension</a> ()=default</td></tr>
+<tr class="memdesc:aab719d30ebf54d52ecba6c5af8115af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aab719d30ebf54d52ecba6c5af8115af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3193365d52ecdb5e3deef9ea9929d0d7"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de4/a03047.html#a3193365d52ecdb5e3deef9ea9929d0d7">getDroop</a> () const =0</td></tr>
+<tr class="memdesc:a3193365d52ecdb5e3deef9ea9929d0d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get droop.  <a href="#a3193365d52ecdb5e3deef9ea9929d0d7">More...</a><br /></td></tr>
+<tr class="separator:a3193365d52ecdb5e3deef9ea9929d0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b5aa6ef1a12c13231eeea478926af7"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de4/a03047.html#ab9b5aa6ef1a12c13231eeea478926af7">getP0</a> () const =0</td></tr>
+<tr class="memdesc:ab9b5aa6ef1a12c13231eeea478926af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get P0.  <a href="#ab9b5aa6ef1a12c13231eeea478926af7">More...</a><br /></td></tr>
+<tr class="separator:ab9b5aa6ef1a12c13231eeea478926af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b002695d899cc45887212876d281a06"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de4/a03047.html#a4b002695d899cc45887212876d281a06">isEnabled</a> () const =0</td></tr>
+<tr class="memdesc:a4b002695d899cc45887212876d281a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the HVDC is enabled.  <a href="#a4b002695d899cc45887212876d281a06">More...</a><br /></td></tr>
+<tr class="separator:a4b002695d899cc45887212876d281a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class T&gt;<br />
-struct DYN::IIDMExtensionTrait&lt; T &gt;</h3>
+<div class="textblock"><p>HVDC Angle Droop active power control IIDM extension interface. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3193365d52ecdb5e3deef9ea9929d0d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3193365d52ecdb5e3deef9ea9929d0d7">&#9670;&nbsp;</a></span>getDroop()</h2>
 
-<p>Base template class for traits. </p>
-<p>Traits for IIDM extensions are:</p><ul>
-<li>NetworkComponentType: the powsybl type of input for the extension</li>
-<li>name: the name of the extension, used to build the creation/destruction functions </li>
-</ul>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d13/a00836_source.html">DYNIIDMExtensionsTraits.hpp</a></li>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::optional&lt;double&gt; DYN::HvdcAngleDroopActivePowerControlIIDMExtension::getDroop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get droop. </p>
+<dl class="section return"><dt>Returns</dt><dd>the droop value or nullopt if the extension containing the data is not defined </dd></dl>
+
+</div>
+</div>
+<a id="ab9b5aa6ef1a12c13231eeea478926af7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b5aa6ef1a12c13231eeea478926af7">&#9670;&nbsp;</a></span>getP0()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::optional&lt;double&gt; DYN::HvdcAngleDroopActivePowerControlIIDMExtension::getP0 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get P0. </p>
+<dl class="section return"><dt>Returns</dt><dd>the P0 value or nullopt if the extension containing the data is not defined </dd></dl>
+
+</div>
+</div>
+<a id="a4b002695d899cc45887212876d281a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b002695d899cc45887212876d281a06">&#9670;&nbsp;</a></span>isEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::optional&lt;bool&gt; DYN::HvdcAngleDroopActivePowerControlIIDMExtension::isEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if the HVDC is enabled. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if enabled, false if not or nullopt if the extension containing the data is not defined </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../dc/d1b/a00827_source.html">DYNHvdcAngleDroopActivePowerControlIIDMExtension.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -131,8 +229,8 @@ struct DYN::IIDMExtensionTrait&lt; T &gt;</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/de4/a03047.html">IIDMExtensionTrait</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 13:27:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/de4/a03047.html">HvdcAngleDroopActivePowerControlIIDMExtension</a></li>
+    <li class="footer">Generated on Tue Nov 15 2022 15:08:37 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,10 +1,11 @@
 var a02787 =
 [
-    [ "LoadCriteria", "da/d37/a02787.html#a2828401857d7bf09c0452fe3d8968481", null ],
-    [ "~LoadCriteria", "da/d37/a02787.html#aeb88f2b6869c34e7c1133eb92189e4ce", null ],
-    [ "addLoad", "da/d37/a02787.html#abce7996ee5b4b87592c62190ec3de065", null ],
-    [ "checkCriteria", "da/d37/a02787.html#ac1b86a289b058e718e1cd218149bd562", null ],
-    [ "criteriaEligibleForLoad", "da/d37/a02787.html#a5d130cd4fc40090e0f65f790e4741def", null ],
-    [ "empty", "da/d37/a02787.html#a785c1680679616417e73762815078c19", null ],
-    [ "loads_", "da/d37/a02787.html#acf0679e6c321eabc939eda55d5a00d58", null ]
+    [ "BusFailingCriteria", "de/dc8/a02791.html", "de/dc8/a02791" ],
+    [ "BusCriteria", "da/d37/a02787.html#a0ab52896701c89a6c53256fc3146f7f9", null ],
+    [ "~BusCriteria", "da/d37/a02787.html#aea7a2daea6eb1b13556028b46a82ab0b", null ],
+    [ "addBus", "da/d37/a02787.html#a399ef76918b051f208b4e023ffbef2c2", null ],
+    [ "checkCriteria", "da/d37/a02787.html#a205fc902aceedd88ee637cb827cd135e", null ],
+    [ "criteriaEligibleForBus", "da/d37/a02787.html#aa460bb562821587e2c6acb42d89145b0", null ],
+    [ "empty", "da/d37/a02787.html#aa709f28a847f4680db9e9356b6a723e2", null ],
+    [ "buses_", "da/d37/a02787.html#a3398d7c85e7298391f2ba6d6079f4c46", null ]
 ];
