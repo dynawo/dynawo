@@ -2336,9 +2336,13 @@ class Factory:
                 func_call_line = line_split_by_equal[0]
             # Split this line at each function call ('(') and parameter (',')
             line_split_by_parenthesis = re.split('(\()', func_call_line)
-            line_split = []
+            line_split_by_comma = []
             for l in line_split_by_parenthesis:
-                line_split.extend(l.split(','))
+                line_split_by_comma.extend(l.split(','))
+            line_split = []
+            for l in line_split_by_comma:
+                line_split.extend(re.split('(\))', l))
+            line_split = [i for i in line_split if i and i != " "]
 
             # stack (FILO) containing the function called sorted by call stack
             stack_func_called = []
@@ -2370,13 +2374,20 @@ class Factory:
                         # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
                         idx+=1
                         l+=", " +line_split[idx].strip()
-
-                while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
+                    # final )
                     idx+=1
                     l+=line_split[idx].strip()
-                    idx+=1
-                    while l.endswith("("):
+                    if l[-1] == ')':
+                        # final */
+                        idx+=1
                         l+=line_split[idx].strip()
+
+                if l.endswith("modelica_integer") or l.endswith("modelica_real") or l.endswith("modelica_boolean"):
+                    idx+=1
+                    l+=line_split[idx].strip()
+                    call_line+= l
+                    idx+=1
+                    continue
                 #Filter empty indexes
                 if len(l) == 0:
                     idx+=1
@@ -2384,6 +2395,14 @@ class Factory:
 
                 #Put back any opening parenthesis into the final line
                 if l =='(':
+                    call_line+= l
+                    idx+=1
+                    continue
+                if l ==')':
+                    call_line+= l
+                    idx+=1
+                    continue
+                if l ==';':
                     call_line+= l
                     idx+=1
                     continue
@@ -2411,10 +2430,17 @@ class Factory:
                             main_func_is_adept = True
                     else:
                         call_line += l
+                    l = line_split[idx].strip()
+                    assert(l == '(')
+                    call_line += l
+                    idx+=1
+
                 elif len(stack_func_called) == 0:
                     #Second case: no function being currently called, lets go to the next index
                     # e.g. a + f(...)
                     call_line+= l
+                    if call_line[-1] == ';':
+                        call_line += "\n"
                     idx+=1
                 else :
                     #Third case: parameter of the latest function in the stack
@@ -2443,23 +2469,27 @@ class Factory:
                             if match is not None:
                                 l = l.replace(name, "x[" + match.group('varId')+"].value()")
                     call_line += l
-                    if call_line[-1] != ';':
-                        call_line += ', '
-                    else:
-                        call_line += "\n"
-
-                    if curr_param_idx == len(func.get_params()) - 1:
+                    add_comma = True
+                    if curr_param_idx == len(func.get_params()) - 1 \
+                        or (curr_param_idx > 1 and func.get_name() == "array_alloc_scalar_real_array" \
+                            and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array\(&tmp[0-9]+, (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
                         # This is the last parameter, we need to pop the function
                         stack_func_called.pop()
                         stack_param_idx_func_called.pop()
-                        if len(stack_param_idx_func_called) > 1:
-                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 2]+=1
+                        if len(stack_param_idx_func_called) > 0:
+                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
                         if len(stack_param_idx_func_called) == 0:
                             # end of main function
                             main_func_is_adept = False
-
+                        if len(stack_func_called) == 0:
+                            add_comma = False
+                    if add_comma:
+                        while idx + 1 < len(line_split) and line_split[idx + 1].strip() == ')':
+                            call_line+= ')'
+                            idx+=1
+                        call_line += ', '
                     idx+=1
-            line_tmp = call_line
+            line_tmp = call_line + "\n"
         return line_tmp
 
     ##
