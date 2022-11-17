@@ -24,6 +24,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Criteria class: handle the check of criteria
  */
