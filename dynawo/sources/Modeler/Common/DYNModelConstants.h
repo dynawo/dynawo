@@ -25,7 +25,7 @@
 namespace DYN {
 static const double FNOM = 50.;  ///< AC-system frequency
 static const double OMEGA_NOM = FNOM * 2 * M_PI;  ///< AC-system angular frequency
-static const double SNREF = 100.;  ///< per-unitage base Sn
+static const double SNREF = 100.;  ///< per unit base Sn
 static const double VALDEF = 999999;  ///< VALDEF a constant
 static const double DEG_TO_RAD = M_PI / 180.0;  ///< degree to radius conversion constant
 static const double RAD_TO_DEG = 180.0 / M_PI;  ///< radius to degree conversion constant

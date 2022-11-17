@@ -319,7 +319,7 @@ class Curve {
   std::string foundName_;                          ///< variable name found in models
   bool available_;                                 ///< @b true if the variable is available, @b false else
   bool negated_;                                   ///< @b true if the variable must be negated at the export, @b false else
-  const double* buffer_;                           ///< adress buffer where to find value
+  const double* buffer_;                           ///< address buffer where to find value
   std::vector<boost::shared_ptr<Point> > points_;  ///< vector of each values
   bool isParameterCurve_;                          ///< @b true if a parameter curve, @b false if variable
   CurveType_t curveType_;                          ///< @b true if a calculated variable curve, @b false if variable

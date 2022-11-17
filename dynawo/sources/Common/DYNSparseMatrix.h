@@ -243,9 +243,9 @@ class SparseMatrix {
   SparseMatrix(const SparseMatrix & M);
 
  public:
-  std::vector<unsigned> Ap_;  ///< for each column, first non null element index in Ai and Ax
-  std::vector<unsigned> Ai_;  ///< row index for each non null element
-  std::vector<double> Ax_;  ///< non null element value;
+  std::vector<unsigned> Ap_;  ///< for each column, first non-null element index in Ai and Ax
+  std::vector<unsigned> Ai_;  ///< row index for each non-null element
+  std::vector<double> Ax_;  ///< non-null element value;
 
  private:
   bool withoutNan_;  ///< @b true if there isn't any NaN value in the Sparse Matrix

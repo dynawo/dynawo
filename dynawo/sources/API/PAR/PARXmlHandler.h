@@ -398,7 +398,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
  private:
   SetHandler setHandler_;  ///< handler used to read a set of parameter element
   boost::shared_ptr<ParametersSetCollection> parametersSetCollection_;  ///< Parameters sets collection parsed
-  MacroParameterSetHandler macroParameterSetHandler_;  ///< handler used to read a macroärameterSet element
+  MacroParameterSetHandler macroParameterSetHandler_;  ///< handler used to read a macroParameterSet element
 };
 
 }  // namespace parameters

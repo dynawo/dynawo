@@ -12,7 +12,7 @@ within Dynawo.Electrical.Shunts;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model ShuntBWithSections "Shunt element with voltage dependent reactive power and a variable susceptance given by a table and a section"
+model ShuntBWithSections "Shunt element with voltage-dependent reactive power and a variable susceptance given by a table and a section"
   import Dynawo.Connectors;
   import Dynawo.Types;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;

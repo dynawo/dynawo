@@ -12,7 +12,7 @@ within Dynawo.Electrical.Loads;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model LoadAlphaBeta "Load with voltage dependant active and reactive power (alpha-beta model)"
+model LoadAlphaBeta "Load with voltage-dependent active and reactive power (alpha-beta model)"
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 

@@ -169,7 +169,7 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNumMaxIters");
 
   // Specify the maximum number of iteration without pre-conditionner call
-  // Passing 0 means default ie 10 iterations
+  // Passing 0 means default i.e. 10 iterations
   // Passing 1 means exact Newton
   flag = KINSetMaxSetupCalls(KINMem_, msbset);
   if (flag < 0)

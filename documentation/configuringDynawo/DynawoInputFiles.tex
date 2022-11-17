@@ -91,7 +91,7 @@ The input jobs file should be configured properly in order to give access to all
 
 \section[Dynawo input files]{\Dynawo input files}
 
-The following sections get into more details regarding the five input files and give some examples based on the non regression test IEEE14 present in the \Dynawo repository. \\
+The following sections get into more details regarding the five input files and give some examples based on the non-regression test IEEE14 present in the \Dynawo repository. \\
 Warning: the following example files are extracted from IEEE14 case in \Dynawo and might not be complete, hence not work as they are presented here.
 
 \subsection{jobs file}
@@ -671,7 +671,7 @@ These error messages can be found in the dynawo.log file in the outputs director
 
 \subsubsection{Missing connection}
 
-To be able to compile a Modelica model, \Dynawo needs it to be square, i.e to have equal numbers of equations and variables. If it is not the case, \Dynawo should return the following message in dynawo.log: ``missing connection for one/several external variable(s)'' and provide the corresponding variables when in DEBUG mode. Typically, this situation can happen if one forgot to set a connect within a Modelica model in the .dyd file. \\
+To be able to compile a Modelica model, \Dynawo needs it to be square, i.e. to have equal numbers of equations and variables. If it is not the case, \Dynawo should return the following message in dynawo.log: ``missing connection for one/several external variable(s)'' and provide the corresponding variables when in DEBUG mode. Typically, this situation can happen if one forgot to set a connect within a Modelica model in the .dyd file. \\
 
 For example, if the user forgets to set the connection of Generator\_omegaRefPu, he might get the following error message:
 

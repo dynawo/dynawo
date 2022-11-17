@@ -28,7 +28,7 @@ The IEEE 14-bus system is a standard test case in the power system community. It
 
 \textbf{Note. The test case is used in a modified way in this example: arbitrary dynamic data are added to the test case and synchronous condensers 3, 6 and 8 are considered as classical synchronous machines (their active power can be different from zero).}
 
-% Generic description of the non regression test
+% Generic description of the non-regression test
 % List of scenarios
 \section{Test case description}
 
@@ -539,13 +539,13 @@ The speed governor is as follows - omegaRef being 1 pu in this control scheme -:
 \caption{Speed Governor}
 \end{figure}
 
-The loads are modeled as voltage-dependant loads behind one or two transformers equipped with tap-changers:
+The loads are modeled as voltage-dependent loads behind one or two transformers equipped with tap-changers:
 \begin{equation*}
 \begin{aligned}
 & P = P_{0} * (\frac{U}{U_{0}})^\alpha \\
 & Q = Q_{0} * (\frac{U}{U_{0}})^\beta
 \end{aligned}
-\label{Voltage-dependant load model}
+\label{Voltage-dependent load model}
 \end{equation*}
 
 The system reference frequency is calculated by the OmegaRef model using the different generators speeds.\\

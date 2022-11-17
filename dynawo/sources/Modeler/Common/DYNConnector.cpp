@@ -716,7 +716,7 @@ ConnectorContainer::getY0ConnectorForYConnector() {
 void
 ConnectorContainer::getY0ConnectorForZConnector() {
   // for each ZConnector, copy z0 from one pin to z0 of the other pin
-  // if one pin is equal to zero and the other not, the non zero should be the reference
+  // if one pin is equal to zero and the other not, the non-zero should be the reference
   for (unsigned int i = 0; i < nbZConnectors(); ++i) {
     boost::shared_ptr<Connector> zc = zConnectors_[i];
     if (zc->connectedSubModels().empty()) {
@@ -731,7 +731,7 @@ ConnectorContainer::getY0ConnectorForZConnector() {
         it != zc->connectedSubModels().end();
         ++it) {
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      if (doubleNotEquals(zLocal_[numVar], 0)) {  // non zero variable
+      if (doubleNotEquals(zLocal_[numVar], 0)) {  // non-zero variable
         itReference = it;
         zNegated = it->negated();
         nonZeroVariableFound = true;
