@@ -123,7 +123,7 @@ Most of the classical approaches for long-term stability studies use simplified 
 
 \textbf{Our long-term stability simulation tool DynaWaltz uses a different paradigm. Instead of doing a priori simplifications or hypothesis on the modelling side, it is the numerical method that will take charge of filtering the fast dynamics while keeping as detailed models as necessary.} Thanks to an intensive research work conducted during the Pegase project on the numerical method and an important effort on the simulation tool itself (\cite{SpeedUpDynaWaltz}), DynaWaltz manages to achieve simular simulation times than current long-term stability simulation tools.\\
 
-\textbf{DynaWaltz is the most advanced simulation tool of the \Dynawo initiative. It is operationnaly used on a daily basis in RTE national control center to deal with voltage stability issues.} In its operational use, DynaWaltz enables to launch individual simulation but also contingency analysis as well as  margin calculation thanks to the algorithms implemented and available into the dynawo-algorithm repository (\url{https://github.com/dynawo/dynawo-algorithms}).
+\textbf{DynaWaltz is the most advanced simulation tool of the \Dynawo initiative. It is operationally used on a daily basis in RTE national control center to deal with voltage stability issues.} In its operational use, DynaWaltz enables to launch individual simulation but also contingency analysis as well as  margin calculation thanks to the algorithms implemented and available into the dynawo-algorithm repository (\url{https://github.com/dynawo/dynawo-algorithms}).
 
 \begin{center}
 \includegraphics[width=0.2\textwidth]{../resources/DynaWaltz.png}
@@ -280,7 +280,7 @@ In addition, the line can also be dynamic. In this case, the derivative terms ($
 \paragraph{Transformer}
 ~~\\
 
-Only two-windings transformers are handled by \Dynawo C++ model at the moment. In the transformer model, conductance and susceptance are only defined at the side 2 voltage level and they are, as the resistance and the reactance, defined in side 2 voltage per-unit basis. \\
+Only two-windings transformers are handled by \Dynawo C++ model at the moment. In the transformer model, conductance and susceptance are only defined at the side 2 voltage level and they are, as the resistance and the reactance, defined in side 2 voltage per unit basis. \\
 The transformer model could be connected to either a phase shifter automaton to regulate the current on a line or to a tap changer to control the bus module voltage. The tap changer automaton modifies the voltage ratio applied between side 1 and side 2 to respect a certain set point on side 2, whereas the phase shifter can add a contribution to the voltage angle to change the power flow going through a line. There are logs indicating a tap change when the automata have to act. \\
 As the line model it is possible to display the P, Q, current values going through the transformer. In a similar way, maximum current limits could be added to the transformer. \\
 
@@ -310,7 +310,7 @@ The load model can represent different behaviours, depending on the parameters g
 
 The possible behaviours are:
 \begin{itemize}
-\item A voltage dependant load if the load is neither declared as restorative or controllable - $z_{P} = z_{Q} = 1$ and $\Delta P_{C} = \Delta Q_{C} = 0 $. This is the default model.
+\item A voltage-dependent load if the load is neither declared as restorative or controllable - $z_{P} = z_{Q} = 1$ and $\Delta P_{C} = \Delta Q_{C} = 0 $. This is the default model.
 \item A load with a possible variation coming from another model (for example the variation area model). In this case, there is a delta applied on P and Q at each instant that is determined by the other model. For example, if we choose to apply a variation of 10 MW over 10 s, the load value will vary by 1 MW every 1 s. In this case, $\Delta P_{C}$ and $\Delta Q_{C}$ are varying over time but $z_{P}$ and $z_{Q}$ are kept constant equal to 1. This is the controllable load model.
 \item A restorative load model in which the load works as a first order restorative one. $z_{P}$ and $z_{Q}$ can vary during the simulation.
 \end{itemize}
@@ -461,8 +461,8 @@ There is at the moment one $\pi$ line model included into \Dynawo.
 
 Three load models are included into the package:
 \begin{itemize}
-\item A voltage dependent load model (LoadAlphaBeta)
-\item A restorative voltage dependent load model (LoadAlphaBetaRestorative): the load behaves as a constant P,Q load model when its voltage is in the normal range and as a voltage dependent load if its voltage is lower (or higher) than a minimum (maximum) value. This model emulates the behavior of a load connected to the network behind a transformer with a tap-changer.
+\item A voltage-dependent load model (LoadAlphaBeta)
+\item A restorative voltage-dependent load model (LoadAlphaBetaRestorative): the load behaves as a constant P,Q load model when its voltage is in the normal range and as a voltage-dependent load if its voltage is lower (or higher) than a minimum (maximum) value. This model emulates the behavior of a load connected to the network behind a transformer with a tap-changer.
 \item A constant P,Q load  model (LoadPQ)
 \item A ZIP model (LoadZIP)
 \end{itemize}
@@ -582,7 +582,7 @@ This problem could be rewritten as a semi-explicit one:
 \end{equation}
 where $f_d$ represents the differential equations vector, $f_a$ the algebraic equations vector, $y_d$ the differential continuous variables vector and $y_a$ the algebraic continuous variables vector. \\
 
-The \textbf{algebraic equations} represent the network that is considered to have an instantaneous response in phasor time-domain simulations (no delay) as well as time-independant parts of the other models.\\
+The \textbf{algebraic equations} represent the network that is considered to have an instantaneous response in phasor time-domain simulations (no delay) as well as time-independent parts of the other models.\\
 
 The \textbf{differential equations} correspond to a broad range of phenomena, from short-term dynamics existing into the machine regulations, static var compensator behaviours, induction machines, etc., to long-term dynamics coming from the long-term regulations (secondary voltage/frequency controls), load restoration behaviour, etc.
 
@@ -660,7 +660,7 @@ A \textbf{mode change} corresponds for example to the switch from one regulation
 
 It is important to be able to correctly determine the time instants corresponding to a discrete variable value change or to a mode change. This is done by using a root detection mechanism that detects the zero crossing of a set of functions called root functions (denoted $r(y(t), \dot{y}(t), z(t), t) = 0$) associated to each discrete variable or each f function that can change over time. \\
 
-Some events can lead to very important discontinuities that dramatically change the system evolution. For these events, a reinitialization of the \ac{DAE} system - ie calculation of new initial conditions - is necessary to manage to go over the event and continue the simulation. \\
+Some events can lead to very important discontinuities that dramatically change the system evolution. For these events, a reinitialization of the \ac{DAE} system - i.e. calculation of new initial conditions - is necessary to manage to go over the event and continue the simulation. \\
 
 \subsubsection[Solvers in Dynawo]{Solvers in \Dynawo}
 
@@ -757,18 +757,18 @@ When the Jacobian is evaluated, its LU decomposition is calculated in order to s
 
 Most LU decomposition methods perform these two main steps:
 \begin{itemize}
-\item A symbolical factorization or pre-ordering in which the non zero structure (ie sparsity pattern) of the matrix gets permuted in order to improve numerical properties as well as performance.
+\item A symbolical factorization or pre-ordering in which the non-zero structure (ie sparsity pattern) of the matrix gets permuted in order to improve numerical properties as well as performance.
 \item A numerical factorization or factorization where the LU decomposition is really done.
 \end{itemize}
 
-The symbolical factorization is the most costly part in the overall process. That's why, when the matrix structure doesn't evolve (constant number and position of the non zero entries), we only call the numerical part.
+The symbolical factorization is the most costly part in the overall process. That's why, when the matrix structure doesn't evolve (constant number and position of the non-zero entries), we only call the numerical part.
 
 \subparagraph{Symbolical vs numerical decomposition}
 ~~\\
 
 After a call to the Jacobian evaluation method in \Dynawo, a method is called to check if the matrix structure has changed or not. If the structure has changed, the LU decomposition is reinitialized in order to force a new complete decomposition (symbolical + numerical). Otherwise, only the numerical part is done.  \\
 
-One can expect that symbolical decomposition is required only in the case of important change in the system such as topological change, running status of generators changes, etc. In practice, due to some numerical noises, the number of non zeros elements in the matrix in large test cases often varies from one decomposition to another. Complementary studies on this point will be done in the next few months to try to detect the origin of these numerical noises and decrease their impact on the computation time.
+One can expect that symbolical decomposition is required only in the case of important change in the system such as topological change, running status of generators changes, etc. In practice, due to some numerical noises, the number of non-zero elements in the matrix in large test cases often varies from one decomposition to another. Complementary studies on this point will be done in the next few months to try to detect the origin of these numerical noises and decrease their impact on the computation time.
 
 \subparagraph{LU decomposition libraries}
 ~~\\
@@ -960,7 +960,7 @@ The integration method used in \ac{IDA} is a variable-coefficient, variable-orde
 
 The method order supported by \ac{IDA} ranges from 1 to 5. Nevertheless all tests done in \Dynawo have used order 1 or order 2 as the maximum possible order. It seems sufficient enough to get accurate results while keeping acceptable time durations. This parameter could be set to any value (between 1 and 5) by the user. \\
 
-The \ac{IDA} solver contains a root finding routine enabling the solver to detect the exact moment of a zero crossing, ie the exact moment corresponding to a discrete variable value or a mode change. When such a moment is detected, the solver will stop at this time-step and calculates the solution for this time. Compared to the Simplified solver, the \ac{IDA} solver focuses on accuracy, especially when used with small minimal time-step and high order.
+The \ac{IDA} solver contains a root finding routine enabling the solver to detect the exact moment of a zero crossing, i.e. the exact moment corresponding to a discrete variable value or a mode change. When such a moment is detected, the solver will stop at this time-step and calculates the solution for this time. Compared to the Simplified solver, the \ac{IDA} solver focuses on accuracy, especially when used with small minimal time-step and high order.
 We recommend to use it in off-line simulations to run very accurate simulations. \\
 
 It has to be noticed that \ac{IDA} is used in the ONE STEP mode in \Dynawo : it means that the solver resolves one step and then returns to the main \Dynawo code. Between time steps, a series of additional routines are called into \Dynawo main code:
@@ -975,9 +975,9 @@ In the next following parts, the main principles for this approach will be brief
 
 \subsubsection{Prediction step}
 
-\ac{IDA} uses a predictor-corrector scheme, ie initial values for the next time step $y_0(t_{n+1})$ are initialized using the historical values of $y(t_n)$ and $\dot{y}(t_n)$. It is done using an interpolating polynomial that matches the previous values and is coherent with the chosen multi-step method. \\
+\ac{IDA} uses a predictor-corrector scheme, i.e. initial values for the next time step $y_0(t_{n+1})$ are initialized using the historical values of $y(t_n)$ and $\dot{y}(t_n)$. It is done using an interpolating polynomial that matches the previous values and is coherent with the chosen multi-step method. \\
 
-This prediction step enables to have initial values for the correction step that should be close to the final values calculated, ie to have a correction step that is convergent with only a few iterations.
+This prediction step enables to have initial values for the correction step that should be close to the final values calculated, i.e. to have a correction step that is convergent with only a few iterations.
 
 \subsubsection{Correction step}
 

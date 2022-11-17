@@ -95,7 +95,7 @@ FormatterImpl::startElement(std::string const& namespacePrefix, std::string cons
       namespace_prefix_type const& prefix = it->first;
       std::string const& uri = it->second;
 
-      if (prefix == "" && uri != "") { // non empty default namespace
+      if (prefix == "" && uri != "") { // non-empty default namespace
         out_ << " xmlns=\"" << uri << "\"";
         continue;
       }

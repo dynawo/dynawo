@@ -50,7 +50,7 @@ model VRProportional "Simple Proportional Voltage Regulator"
 
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage";
-  parameter Types.VoltageModulePu Efd0Pu "Initial Efd, i.e Efd0PuLF if compliant with saturations";
+  parameter Types.VoltageModulePu Efd0Pu "Initial Efd, i.e. Efd0PuLF if compliant with saturations";
   parameter Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
 
 protected
