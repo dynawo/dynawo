@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="INT" name="mxiter" value="25"/>
+    <par type="DOUBLE" name="fnormtol" value="1e-6"/>
+    <par type="DOUBLE" name="initialaddtol" value="0.01"/>
+    <par type="DOUBLE" name="scsteptol" value="1e-5"/>
+    <par type="DOUBLE" name="mxnewtstep" value="10000"/>
+    <par type="INT" name="msbset" value="3"/>
+    <par type="INT" name="printfl" value="0"/>
+  </set>
+</parametersSet>

@@ -88,19 +88,21 @@ JobHandler::JobHandler(elementName_type const& root_element) :
 solverHandler_(parser::ElementName(namespace_uri(), "solver")),
 modelerHandler_(parser::ElementName(namespace_uri(), "modeler")),
 simulationHandler_(parser::ElementName(namespace_uri(), "simulation")),
-outputsHandler_(parser::ElementName(namespace_uri(), "outputs")) {
+outputsHandler_(parser::ElementName(namespace_uri(), "outputs")),
+localInitHandler_(parser::ElementName(namespace_uri(), "localInit")) {
   onStartElement(root_element, lambda::bind(&JobHandler::create, lambda::ref(*this), lambda_args::arg2));
 
   onElement(root_element + namespace_uri()("solver"), solverHandler_);
   onElement(root_element + namespace_uri()("modeler"), modelerHandler_);
   onElement(root_element + namespace_uri()("simulation"), simulationHandler_);
   onElement(root_element + namespace_uri()("outputs"), outputsHandler_);
-
+  onElement(root_element + namespace_uri()("localInit"), localInitHandler_);
 
   solverHandler_.onEnd(lambda::bind(&JobHandler::addSolver, lambda::ref(*this)));
   modelerHandler_.onEnd(lambda::bind(&JobHandler::addModeler, lambda::ref(*this)));
   simulationHandler_.onEnd(lambda::bind(&JobHandler::addSimulation, lambda::ref(*this)));
   outputsHandler_.onEnd(lambda::bind(&JobHandler::addOutputs, lambda::ref(*this)));
+  localInitHandler_.onEnd(lambda::bind(&JobHandler::addLocalInit, lambda::ref(*this)));
 }
 
 JobHandler::~JobHandler() {}
@@ -123,6 +125,11 @@ JobHandler::addSimulation() {
 void
 JobHandler::addOutputs() {
   job_->setOutputsEntry(outputsHandler_.get());
+}
+
+void
+JobHandler::addLocalInit() {
+  job_->setLocalInitEntry(localInitHandler_.get());
 }
 
 void
@@ -353,6 +360,24 @@ OutputsHandler::create(attributes_type const& attributes) {
 shared_ptr<OutputsEntry>
 OutputsHandler::get() const {
   return outputs_;
+}
+
+LocalInitHandler::LocalInitHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&LocalInitHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+LocalInitHandler::~LocalInitHandler() {}
+
+void
+LocalInitHandler::create(attributes_type const& attributes) {
+  localInit_ = shared_ptr<LocalInitEntry>(new LocalInitEntry());
+  localInit_->setParFile(attributes["parFile"]);
+  localInit_->setParId(attributes["parId"]);
+}
+
+shared_ptr<LocalInitEntry>
+LocalInitHandler::get() const {
+  return localInit_;
 }
 
 InitValuesHandler::InitValuesHandler(elementName_type const& root_element) {

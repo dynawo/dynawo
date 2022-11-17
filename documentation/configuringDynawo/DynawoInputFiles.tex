@@ -463,6 +463,70 @@ where ``lvlFilter'' is used to filter the trace exported by giving the minimum l
 The available filters are: DEBUG, INFO, WARN, ERROR.
 \end{itemize}
 
+\subsubsection{Specify the local initialization solver parameters}
+
+You can modify the values of the local initialization solver parameters by adding the localInit attribute :
+
+\begin{lstlisting}[language=XML]
+<job name="MyJOB">
+  ...
+  <dyn:localInit parFile="init.par" parId="1"/>
+  ...
+</job>
+\end{lstlisting}
+
+Here is the list of every local initialization solver parameters the user can configure :
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}} & \textbf{{Default value}}\\
+\midrule
+\rowcolor{white}
+\small{mxiter} & \small{int} & \small{maximum number of nonlinear iterations} & \small{30} \\
+\rowcolor{gray!10}
+ &  & \small{stopping tolerance on L2-norm} &  \\
+\rowcolor{gray!10}
+\multirow{-2}{*}{\small{fnormtol}} & \multirow{-2}{*}{\small{double}} & \small{of function value} & \multirow{-2}{*}{\small{1e-4}} \\
+\rowcolor{white}
+\small{initialaddtol} & \small{double} & \small{stopping tolerance at initialization} & \small{0.1} \\
+\rowcolor{gray!10}
+\small{scsteptol} & \small{double} & \small{scaled step length tolerance} & \small{1e-4} \\
+\rowcolor{white}
+\small{mxnewtstep} & \small{double} & \small{maximum allowable scaled step length} & \small{100000} \\
+\rowcolor{gray!10}
+ &  & \small{maximum number of nonlinear iterations} &  \\
+\rowcolor{gray!10}
+\small{msbset} & \small{int} & \small{that may be performed between calls to} & \small{0} \\
+\rowcolor{gray!10}
+ &  & \small{the linear solver setup routine} &  \\
+ \rowcolor{gray!10}
+\rowcolor{white}
+\small{printfl} & \small{int} & \small{level of verbosity of output (from 0 to 3)} & \small{0} \\
+\bottomrule
+\end{tabular}
+\caption{Local initialization solver parameters}
+\end{table}
+
+Here is an example of a par file containing local initialization solver parameters :
+
+\begin{lstlisting}[language=XML]
+<set id="1">
+  <par type="INT" name="mxiter" value="30"/>
+  <par type="DOUBLE" name="fnormtol" value="1e-4"/>
+  <par type="DOUBLE" name="initialaddtol" value="0.1"/>
+  <par type="DOUBLE" name="scsteptol" value="1e-4"/>
+  <par type="DOUBLE" name="mxnewtstep" value="100000"/>
+  <par type="INT" name="msbset" value="0"/>
+  <par type="INT" name="printfl" value="0"/>
+</set>
+<set id="2">
+  <par type="INT" name="mxiter" value="25"/>
+  <par type="DOUBLE" name="fnormtol" value="1e-6"/>
+</set>
+\end{lstlisting}
+
 \subsection{dyd file}
 
 Different types of dynamic models can be used by \Dynawo and specified in the dyd file:
