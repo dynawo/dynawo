@@ -211,6 +211,27 @@ GeneratorInterfaceIIDM::getQMax() {
     return 0.3 * getPMax();
   }
 }
+double
+GeneratorInterfaceIIDM::getDiagramQMax() {
+  if (generatorIIDM_.has_minMaxReactiveLimits()) {
+    return generatorIIDM_.minMaxReactiveLimits().max();
+  } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    assert(generatorIIDM_.reactiveCapabilityCurve().size() > 0);
+    double qMax = 0;
+    const double pGen = - getP();
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
+    double qMax = 0.0;
+    for (unsigned int i = 0; i < reactiveCurve.size(); ++i) {
+      IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+      if (qMax < current_point.qmax) {
+        qMax = current_point.qmax;
+      }
+    }
+    return qMax;
+  } else {
+    return 0.3 * getPMax();
+  }
+}
 
 double
 GeneratorInterfaceIIDM::getQMin() {

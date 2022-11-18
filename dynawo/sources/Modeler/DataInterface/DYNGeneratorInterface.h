@@ -95,6 +95,12 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
   virtual double getQMax() = 0;
 
   /**
+   * @brief Getter for the maximum reactive power of the generator diagram
+   * @return The maximum reactive power of the generator diagram in Mvar (generator convention)
+   */
+  virtual double getDiagramQMax() = 0;
+
+  /**
    * @brief Getter for the minimum reactive power of the generator
    * @return The minimum reactive power of the generator in Mvar (generator convention)
    */

@@ -221,6 +221,26 @@ GeneratorInterfaceIIDM::getQMax() {
 }
 
 double
+GeneratorInterfaceIIDM::getDiagramQMax() {
+  if (generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::MIN_MAX) {
+    return generatorIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMaxQ();
+  } else if (generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::CURVE) {
+    assert(generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveCapabilityCurve>().getPointCount() > 0);
+    double qMax = 0.0;
+    const auto& points = getReactiveCurvesPoints();
+    for (unsigned int i = 0; i < points.size(); ++i) {
+      auto current_point = points[i];
+      if (qMax < current_point.qmax) {
+        qMax = current_point.qmax;
+      }
+    }
+    return qMax;
+  } else {
+    return 0.3 * getPMax();
+  }
+}
+
+double
 GeneratorInterfaceIIDM::getQMin() {
   if (generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::MIN_MAX) {
     return generatorIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMinQ();

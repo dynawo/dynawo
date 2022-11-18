@@ -121,6 +121,11 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   double getQMax();
 
   /**
+   * @copydoc GeneratorInterface::getDiagramQMax()
+   */
+  double getDiagramQMax();
+
+  /**
    * @copydoc GeneratorInterface::getQMin()
    */
   double getQMin();
