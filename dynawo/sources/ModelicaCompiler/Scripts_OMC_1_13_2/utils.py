@@ -861,21 +861,6 @@ def transform_atan3_operator_evalf(line):
     return line_tmp_bis
 
 ##
-# Transform _event_floor(x, index, data) to (modelica_integer)floor(x)
-# and event_integer(x, index, data) to (modelica_integer)floor(x)
-# @param line : line to analyse
-# @return line transformed
-def replace_event_floor(line):
-    if "_event_floor" not in line and "_event_integer" not in line:
-        return line
-    event_floor_ptrn = re.compile(r'_event_floor\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
-    line = event_floor_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
-    event_int_ptrn = re.compile(r'_event_integer\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
-    line = event_int_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
-
-    return line
-
-##
 # Transform a line so that it can be compiled
 # @param line : line to analyse
 # @return line transformed
@@ -885,7 +870,8 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
-    line_tmp = replace_event_floor(line_tmp)
+    line_tmp = line_tmp.replace("threadData,", "")
+    line_tmp = line_tmp.replace(", threadData)", ")")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp
@@ -908,6 +894,8 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
     line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
+    line_tmp = line_tmp.replace("threadData,", "")
+    line_tmp = line_tmp.replace(", threadData)", ")")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp
