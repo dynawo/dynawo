@@ -208,6 +208,28 @@ BatteryInterfaceIIDM::getQMax() {
 }
 
 double
+BatteryInterfaceIIDM::getDiagramQMax() {
+  if (batteryIIDM_.has_minMaxReactiveLimits()) {
+    return batteryIIDM_.minMaxReactiveLimits().max();
+  } else if (batteryIIDM_.has_reactiveCapabilityCurve()) {
+    assert(batteryIIDM_.reactiveCapabilityCurve().size() > 0);
+    double qMax = 0;
+    const double pGen = - getP();
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = batteryIIDM_.reactiveCapabilityCurve();
+    double qMax = 0.0;
+    for (unsigned int i = 0; i < reactiveCurve.size(); ++i) {
+      IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+      if (qMax < current_point.qmax) {
+        qMax = current_point.qmax;
+      }
+    }
+    return qMax;
+  } else {
+    return 0.3 * getPMax();
+  }
+}
+
+double
 BatteryInterfaceIIDM::getQMin() {
   if (batteryIIDM_.has_minMaxReactiveLimits()) {
     return batteryIIDM_.minMaxReactiveLimits().min();
