@@ -430,7 +430,6 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         break;
       case CriteriaParams::UNDEFINED_SCOPE:
         GTEST_FAIL();
-        break;
     }
     double previousVoltageDistancePu = std::numeric_limits<double>::max();
     constexpr int maxNumberOfEvents = 5;
@@ -488,7 +487,6 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         break;
       case CriteriaParams::UNDEFINED_SCOPE:
         GTEST_FAIL();
-        break;
     }
     double previousLoadPowerDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 2);  // timeline can't contain more than 5 events for each FailingCriteria
@@ -551,7 +549,6 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         break;
       case CriteriaParams::UNDEFINED_SCOPE:
         GTEST_FAIL();
-        break;
     }
     double previousGeneratorPowerDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 3);  // timeline can't contain more than 5 events for each FailingCriteria
@@ -627,7 +624,6 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         break;
       case CriteriaParams::UNDEFINED_SCOPE:
         GTEST_FAIL();
-        break;
     }
     ASSERT_EQ(loadTimeline->getSizeEvents(), 1);  // timeline contains only one event
     GeneratorCriteria generatorCriteria(criteriaParams);
@@ -669,7 +665,6 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         break;
       case CriteriaParams::UNDEFINED_SCOPE:
         GTEST_FAIL();
-        break;
     }
     ASSERT_EQ(generatorTimeline->getSizeEvents(), 1);  // timeline contains only one event
   }
