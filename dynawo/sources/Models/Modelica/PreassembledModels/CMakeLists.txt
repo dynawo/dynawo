@@ -105,6 +105,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
+  LoadShedding.xml
   LoadTwoTransformers.xml
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
