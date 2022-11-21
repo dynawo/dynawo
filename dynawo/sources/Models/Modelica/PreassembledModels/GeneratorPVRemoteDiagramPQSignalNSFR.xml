@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GeneratorPVRemoteDiagramPQSignalNSFR">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.SignalN.GeneratorPVRemoteDiagramPQSFR" initName="Dynawo.Electrical.Machines.SignalN.GeneratorPVDiagram_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.SignalN.GeneratorPVRemoteDiagramPQSFR" initName="Dynawo.Electrical.Machines.SignalN.GeneratorPVRemoteDiagramPQSFR_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

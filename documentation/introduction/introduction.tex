@@ -70,6 +70,33 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 
 \section{Changes from previous versions}
 
+\subsection{Changes from v1.3.1}
+
+\underline{Main changes:}
+\begin{itemize}
+\item Additional event models (area shedding) and improvements in HVDCs
+\item Automatic timeline filtering to improve readability
+\item Few fixes to improve solver stability
+\item Fixed Windows compilation
+\end{itemize}
+
+\underline{New features:}
+\begin{itemize}
+\item Added a JOBS attribute and an environment variable to automatically filter the timeline (e.g. remove duplicated entries)
+\end{itemize}
+
+\underline{New models:}
+\begin{itemize}
+\item Added Area shedding model
+\item Added possibility to enable/disable ACEmulation in Hvdcs with a parameter and improvements in initialization
+\item Loads PRef and QRef are now optional continuous external variables
+\end{itemize}
+
+\underline{Solvers:}
+\begin{itemize}
+\item Fixed Jacobian computation in some models
+\end{itemize}
+
 \subsection{Changes from v1.3.0}
 
 \underline{Main changes:}

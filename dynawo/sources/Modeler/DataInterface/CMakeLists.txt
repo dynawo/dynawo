@@ -91,6 +91,7 @@ target_link_libraries(dynawo_DataInterface
     dynawo_Common
     dynawo_ModelerCommon
     dynawo_API_CRT
+    dynawo_API_TL
   )
 
 set_target_properties(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}

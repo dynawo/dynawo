@@ -19,8 +19,15 @@
 #include "DYNBusInterface.h"
 #include "DYNLoadInterface.h"
 #include "DYNGeneratorInterface.h"
+#include "TLTimeline.h"
+#include <map>
 
 namespace DYN {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
 
 /**
  * @brief Criteria class: handle the check of criteria
@@ -42,10 +49,11 @@ class Criteria {
    * @brief returns true if the criteria is respected, false otherwise
    * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
+   * @param timeline timeline
    *
    * @return true if the criteria is respected, false otherwise
    */
-  virtual bool checkCriteria(double t, bool finalStep) = 0;
+  virtual bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) = 0;
 
   /**
    * @brief returns the list of failing criteria
@@ -55,6 +63,67 @@ class Criteria {
   const std::vector<std::pair<double, std::string> >& getFailingCriteria() const {return failingCriteria_;}
 
  protected:
+  /**
+   * @brief Crossed bound for a failing criteria
+   */
+  enum class Bound {
+    MAX = 0,  ///< Upper bound
+    MIN       ///< Lower bound
+  };
+  /**
+   * @brief structure containing information about a failing criteria and related methods
+   */
+  class FailingCriteria {
+   public:
+    /**
+     * @brief constructor
+     * @param bound Crossed bound for a failing criteria
+     * @param nodeId Node id
+     * @param criteriaId Criteria id
+     */
+    FailingCriteria(Bound bound, std::string nodeId, const std::string& criteriaId);
+
+    /**
+     * @brief Destructor
+     */
+    virtual ~FailingCriteria() = default;
+
+    /**
+     * @brief return the distance between the current value tested and the threshold
+     * @return the distance between the current value tested and the threshold
+     */
+    virtual double getDistance() const = 0;
+
+    /**
+     * @brief print the failing criteria log in the log file
+     */
+    virtual void printOneFailingCriteriaIntoLog() const = 0;
+
+    /**
+     * @brief print the failing criteria log in the timeline file
+     * @param timeline timeline
+     * @param currentTime current simulation time
+     */
+    virtual void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                                      double currentTime) const = 0;
+
+   protected:
+    Bound bound_;                   ///< Crossed bound : min or max
+    std::string nodeId_;            ///< node id
+    const std::string criteriaId_;  ///< criteria id
+  };
+
+  /**
+   * @brief print all the failing criteria in the log file and the timeline file
+   * @param distanceToFailingCriteriaMap map which contains the distance between a specific value and the crossed
+   *                                      criteria bound and the related FailingCriteria object
+   * @param timeline timeline
+   * @param currentTime current simulation time
+   */
+  void printAllFailingCriteriaIntoLog(std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToFailingCriteriaMap,
+                                      const boost::shared_ptr<timeline::Timeline>& timeline,
+                                      double currentTime) const;
+
   const boost::shared_ptr<criteria::CriteriaParams>& params_;  ///< parameters of this criteria
   std::vector<std::pair<double, std::string> > failingCriteria_;  ///< keeps the ids of the failing criteria
 };
@@ -86,10 +155,11 @@ class BusCriteria : public Criteria {
    * @brief returns true if the criteria is respected, false otherwise
    * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
+   * @param timeline timeline
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(double t, bool finalStep);
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
 
   /**
    * @brief add a bus to the criteria
@@ -102,6 +172,55 @@ class BusCriteria : public Criteria {
    * @return true if no bus was added
    */
   bool empty() const {return buses_.empty();}
+
+  /**
+   * @brief structure containing information about a failing criteria on a bus and related methods
+   */
+  class BusFailingCriteria : public FailingCriteria {
+   public:
+    /**
+     * @brief Constructor
+     * @param bound Crossed bound for a failing criteria
+     * @param busId bud id
+     * @param v voltage in kV
+     * @param vPu voltage in pu
+     * @param vBound voltage bound in kV
+     * @param vBoundPu voltage bound in pu
+     * @param criteriaId criteria id
+     */
+    BusFailingCriteria(Bound bound,
+                        std::string busId,
+                        double v,
+                        double vPu,
+                        double vBound,
+                        double vBoundPu,
+                        const std::string& criteriaId);
+
+    /**
+     * @brief return the distance between the voltage in pu and the crossed criteria bound
+     * @return the distance between the voltage in pu and the crossed criteria bound
+     */
+    double getDistance() const override { return std::abs(vPu_ - vBoundPu_); }
+
+    /**
+     * @brief print the failing criteria log in the log file
+     */
+    void printOneFailingCriteriaIntoLog() const override;
+
+    /**
+     * @brief print the failing criteria log in the timeline file
+     * @param timeline timeline
+     * @param currentTime current simulation time
+     */
+    void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                              double currentTime) const override;
+
+   private:
+    double v_;         ///< bus voltage in kV
+    double vPu_;       ///< bus voltage in pu
+    double vBound_;    ///< bus voltage limit in kV
+    double vBoundPu_;  ///< bus voltage limit in pu
+  };
 
  private:
   std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< buses of this criteria
@@ -135,10 +254,11 @@ class LoadCriteria : public Criteria {
    * @brief returns true if the criteria is respected, false otherwise
    * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
+   * @param timeline timeline
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(double t, bool finalStep);
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
 
   /**
    * @brief add a load to the criteria
@@ -151,6 +271,49 @@ class LoadCriteria : public Criteria {
    * @return true if no load was added
    */
   bool empty() const {return loads_.empty();}
+
+  /**
+   * @brief structure containing information about a failing criteria on a load and related methods
+   */
+  class LoadFailingCriteria : public FailingCriteria {
+   public:
+    /**
+     * @brief Constructor
+     * @param bound Crossed bound for a failing criteria
+     * @param loadId load id
+     * @param p load power in MW
+     * @param pBound load power bound in MW
+     * @param criteriaId criteria id
+     */
+    LoadFailingCriteria(Bound bound,
+                        std::string loadId,
+                        double p,
+                        double pBound,
+                        const std::string& criteriaId);
+
+    /**
+     * @brief return the distance between the load power in MW and the crossed criteria bound
+     * @return the distance between the load power in MW and the crossed criteria bound
+     */
+    double getDistance() const override { return std::abs(p_ - pBound_); }
+
+     /**
+     * @brief print the failing criteria log in the log file
+     */
+    void printOneFailingCriteriaIntoLog() const override;
+
+    /**
+     * @brief print the failing criteria log in the timeline file
+     * @param timeline timeline
+     * @param currentTime current simulation time
+     */
+    void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                              double currentTime) const override;
+
+   private:
+    double p_;       ///< load power in MW
+    double pBound_;  ///< load power limit in MW
+  };
 
  private:
   std::vector<boost::shared_ptr<LoadInterface> > loads_;  ///< loads of this criteria
@@ -184,10 +347,11 @@ class GeneratorCriteria : public Criteria {
    * @brief returns true if the criteria is respected, false otherwise
    * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
+   * @param timeline timeline
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(double t, bool finalStep);
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
 
   /**
    * @brief add a generator to the criteria

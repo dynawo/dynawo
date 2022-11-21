@@ -28,13 +28,14 @@ package BaseClasses
     final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the primary frequency regulation";
 
     input Types.PerUnit N "Signal to change the active power reference setpoint of the generators participating in the primary frequency regulation in pu (base SnRef)";
+    input Types.ActivePowerPu PRefPu(start = PRef0Pu) "Active power set point in pu (base Snref) (receptor convention)";
 
   protected
     Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
   equation
     if running.value then
-      PGenRawPu = - PRef0Pu + Alpha * N;
+      PGenRawPu = - PRefPu + Alpha * N;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;
@@ -60,13 +61,14 @@ package BaseClasses
 
     input Types.PerUnit N "Signal to change the active power reference setpoint of the generators participating in the primary frequency regulation in pu (base SnRef)";
     input Types.PerUnit NSFR "Signal to change the active power reference setpoint of the generators participating in the secondary frequency regulation in pu (base SnRef)";
+    input Types.ActivePowerPu PRefPu(start = PRef0Pu) "Active power set point in pu (base Snref) (receptor convention)";
 
   protected
     Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
   equation
     if running.value then
-      PGenRawPu = - PRef0Pu + Alpha * N + AlphaSFR * NSFR;
+      PGenRawPu = - PRefPu + Alpha * N + AlphaSFR * NSFR;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;

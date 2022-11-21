@@ -16,20 +16,22 @@ model GeneratorPVRemoteSFR "Model for generator PV based on SignalN for the freq
   extends BaseClasses.BaseGeneratorSignalNSFR;
   extends AdditionalIcons.Machine;
 
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
-
-  input Types.VoltageModule URegulated "Regulated voltage in kV";
+  input Types.VoltageModule URegulated(start = URegulated0) "Regulated voltage in kV";
   input Types.VoltageModule URef(start = URef0) "Voltage regulation set point in kV";
 
   parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
+  parameter Types.VoltageModule URegulated0 "Start value of the regulated voltage in kV";
+  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 protected
-  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
   when QGenPu <= QMinPu and URegulated >= URef then

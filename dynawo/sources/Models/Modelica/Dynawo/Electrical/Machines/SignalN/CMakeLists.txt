@@ -14,38 +14,51 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseClasses.mo
+  BaseClasses_INIT.mo
   GeneratorPQProp.mo
   GeneratorPQProp.extvar
+  GeneratorPQProp_INIT.mo
   GeneratorPQPropSFR.mo
   GeneratorPQPropSFR.extvar
+  GeneratorPQPropSFR_INIT.mo
   GeneratorPQPropDiagramPQ.mo
   GeneratorPQPropDiagramPQ.extvar
+  GeneratorPQPropDiagramPQ_INIT.mo
   GeneratorPQPropDiagramPQSFR.mo
   GeneratorPQPropDiagramPQSFR.extvar
+  GeneratorPQPropDiagramPQSFR_INIT.mo
   GeneratorPV.mo
   GeneratorPV.extvar
+  GeneratorPV_INIT.mo
   GeneratorPVSFR.mo
   GeneratorPVSFR.extvar
-  GeneratorPV_INIT.mo
+  GeneratorPVSFR_INIT.mo
   GeneratorPVQNomAltPar_INIT.mo
   GeneratorPVDiagramPQ.mo
   GeneratorPVDiagramPQ.extvar
+  GeneratorPVDiagramPQ_INIT.mo
   GeneratorPVDiagramPQSFR.mo
   GeneratorPVDiagramPQSFR.extvar
-  GeneratorPVDiagram_INIT.mo
+  GeneratorPVDiagramPQSFR_INIT.mo
   GeneratorPVQNomAltParDiagram_INIT.mo
   GeneratorPVProp.mo
   GeneratorPVProp.extvar
+  GeneratorPVProp_INIT.mo
   GeneratorPVPropSFR.mo
   GeneratorPVPropSFR.extvar
+  GeneratorPVPropSFR_INIT.mo
   GeneratorPVRemote.mo
   GeneratorPVRemote.extvar
+  GeneratorPVRemote_INIT.mo
   GeneratorPVRemoteSFR.mo
   GeneratorPVRemoteSFR.extvar
+  GeneratorPVRemoteSFR_INIT.mo
   GeneratorPVRemoteDiagramPQ.mo
   GeneratorPVRemoteDiagramPQ.extvar
+  GeneratorPVRemoteDiagramPQ_INIT.mo
   GeneratorPVRemoteDiagramPQSFR.mo
   GeneratorPVRemoteDiagramPQSFR.extvar
+  GeneratorPVRemoteDiagramPQSFR_INIT.mo
   GeneratorPVTfo.mo
   GeneratorPVTfo.extvar
   GeneratorPVTfo_INIT.mo

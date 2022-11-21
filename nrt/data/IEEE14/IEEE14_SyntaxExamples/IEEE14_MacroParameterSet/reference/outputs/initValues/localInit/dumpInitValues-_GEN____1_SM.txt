@@ -1,5 +1,6 @@
  ====== INIT VARIABLES VALUES ======
 generator_N                                       : y =       0.000000 yp =       0.000000
+generator_PRefPu                                  : y =      -2.323463 yp =       0.000000
 generator_QMaxPu                                  : y =      10.000000 yp =       0.000000
 generator_QMinPu                                  : y =     -10.000000 yp =       0.000000
 generator_URefPu                                  : y =       1.060000 yp =       0.000000
@@ -51,6 +52,8 @@ generator_tableQMin_u_max                          =       0.000000
 generator_tableQMin_u_min                          =       0.000000
 generator_u0Pu_im                                  =       0.000000
 generator_u0Pu_re                                  =       1.060000
+generator_limUQDown0                               =      -1.000000
+generator_limUQUp0                                 =      -1.000000
 generator_tableQMax_tableOnFile                    =       1.000000
 generator_tableQMax_verboseExtrapolation           =      -1.000000
 generator_tableQMax_verboseRead                    =       1.000000
@@ -59,6 +62,7 @@ generator_tableQMin_verboseExtrapolation           =      -1.000000
 generator_tableQMin_verboseRead                    =       1.000000
 generator_NbSwitchOffSignals                       =              3
 generator_State0                                   =              2
+generator_qStatus0                                 =              1
 generator_tableQMax_columns_1_                     =              2
 generator_tableQMax_extrapolation                  =              2
 generator_tableQMax_n                              =              1
