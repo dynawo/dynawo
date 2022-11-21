@@ -19,19 +19,19 @@ model LoadShedding "Load shedding model using a CombiTimeTable"
   parameter String LoadSheddingProfileFileName = "NoName" "Name of the file where the table describing the load shedding profile over time is stored";
   parameter String LoadSheddingProfileTableName = "NoName" "Name of the table describing the load shedding profile over time";
 
-  Modelica.Blocks.Interfaces.RealInput deltaPNom(start = 0) "Nominal deltaP required by the load shedding" annotation(
+  Modelica.Blocks.Interfaces.RealInput deltaPNom(start = 0) "Nominal active power variation required by the load shedding" annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput deltaQNom(start = 0) "Nominal deltaQ required by the load shedding" annotation(
+  Modelica.Blocks.Interfaces.RealInput deltaQNom(start = 0) "Nominal reactive power variation required by the load shedding" annotation(
     Placement(visible = true, transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput deltaP(start = 0) "deltaP applied to the load after applying the load shedding profile" annotation(
+  Modelica.Blocks.Interfaces.RealOutput deltaP(start = 0) "Active power variation applied to the load after applying the load shedding profile" annotation(
     Placement(visible = true, transformation(origin = {110, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput deltaQ(start = 0) "deltaQ applied to the load after applying the load shedding profile" annotation(
+  Modelica.Blocks.Interfaces.RealOutput deltaQ(start = 0) "Reactive power variation applied to the load after applying the load shedding profile" annotation(
     Placement(visible = true, transformation(origin = {110, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.CombiTimeTable loadSheddingProfileP(fileName = LoadSheddingProfileFileName, tableName = LoadSheddingProfileTableName, tableOnFile = true) "CombiTimeTable describing the load shedding profile for P. The values are normalized as the output is multiplied by deltaPNom." annotation(
+  Modelica.Blocks.Sources.CombiTimeTable loadSheddingProfileP(fileName = LoadSheddingProfileFileName, tableName = LoadSheddingProfileTableName, tableOnFile = true) "CombiTimeTable describing the load shedding profile for the active power. The values are normalized as the output is multiplied by deltaPNom." annotation(
     Placement(visible = true, transformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.CombiTimeTable loadSheddingProfileQ(fileName = LoadSheddingProfileFileName, tableName = LoadSheddingProfileTableName, tableOnFile = true) "CombiTimeTable describing the load shedding profile for Q. The values are normalized as the output is multiplied by deltaQNom." annotation(
+  Modelica.Blocks.Sources.CombiTimeTable loadSheddingProfileQ(fileName = LoadSheddingProfileFileName, tableName = LoadSheddingProfileTableName, tableOnFile = true) "CombiTimeTable describing the load shedding profile for the reactive power. The values are normalized as the output is multiplied by deltaQNom." annotation(
     Placement(visible = true, transformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {0, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
