@@ -209,20 +209,24 @@ BatteryInterfaceIIDM::getQMax() {
 }
 
 double
-BatteryInterfaceIIDM::getDiagramQMax() {
+BatteryInterfaceIIDM::getQNom() {
   if (batteryIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::MIN_MAX) {
-    return batteryIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMaxQ();
+    return std::max(std::abs(batteryIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMaxQ()),
+        std::abs(batteryIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMinQ()));
   } else if (batteryIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::CURVE) {
     assert(batteryIIDM_.getReactiveLimits<powsybl::iidm::ReactiveCapabilityCurve>().getPointCount() > 0);
-    double qMax = 0.0;
+    double qNom = 0.0;
     const auto& points = getReactiveCurvesPoints();
     for (unsigned int i = 0; i < points.size(); ++i) {
       auto current_point = points[i];
-      if (qMax < current_point.qmax) {
-        qMax = current_point.qmax;
+      if (qNom <  std::abs(current_point.qmax)) {
+        qNom =  std::abs(current_point.qmax);
+      }
+      if (qNom < std::abs(current_point.qmin)) {
+        qNom = std::abs(current_point.qmin);
       }
     }
-    return qMax;
+    return qNom;
   } else {
     return 0.3 * getPMax();
   }

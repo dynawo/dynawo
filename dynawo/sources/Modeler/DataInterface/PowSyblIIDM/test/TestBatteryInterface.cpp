@@ -122,11 +122,11 @@ TEST(DataInterfaceTest, Battery_1) {
 
   ASSERT_EQ(batItf.getQMin(), -std::numeric_limits<double>::max());
   ASSERT_EQ(batItf.getQMax(), std::numeric_limits<double>::max());
-  ASSERT_EQ(batItf.getDiagramQMax(), std::numeric_limits<double>::max());
+  ASSERT_EQ(batItf.getQNom(), std::numeric_limits<double>::max());
   bat.newMinMaxReactiveLimits().setMinQ(1.0).setMaxQ(2.0).add();
   ASSERT_EQ(batItf.getQMin(), 1.0);
   ASSERT_EQ(batItf.getQMax(), 2.0);
-  ASSERT_EQ(batItf.getDiagramQMax(), 2.0);
+  ASSERT_EQ(batItf.getQNom(), 2.0);
   bat.newReactiveCapabilityCurve()
      .beginPoint()
        .setP(1)
@@ -141,7 +141,7 @@ TEST(DataInterfaceTest, Battery_1) {
      .add();
   ASSERT_EQ(batItf.getQMin(), 15.0);
   ASSERT_EQ(batItf.getQMax(), 25.0);
-  ASSERT_EQ(batItf.getDiagramQMax(), 25.0);
+  ASSERT_EQ(batItf.getQNom(), 25.0);
   bat.newReactiveCapabilityCurve()
      .beginPoint()
        .setP(-30)
@@ -156,7 +156,7 @@ TEST(DataInterfaceTest, Battery_1) {
      .add();
   ASSERT_EQ(batItf.getQMin(), 10.0);
   ASSERT_EQ(batItf.getQMax(), 20.0);
-  ASSERT_EQ(batItf.getDiagramQMax(), 25.0);
+  ASSERT_EQ(batItf.getQNom(), 25.0);
   bat.newReactiveCapabilityCurve()
      .beginPoint()
        .setP(-20)
@@ -171,8 +171,21 @@ TEST(DataInterfaceTest, Battery_1) {
      .add();
   ASSERT_EQ(batItf.getQMin(), 12.5);
   ASSERT_EQ(batItf.getQMax(), 22.5);
-  ASSERT_EQ(batItf.getDiagramQMax(), 25.0);
+  ASSERT_EQ(batItf.getQNom(), 25.0);
   ASSERT_EQ(batItf.getReactiveCurvesPoints().size(), 2);
+  bat.newReactiveCapabilityCurve()
+     .beginPoint()
+       .setP(-10)
+       .setMinQ(-30)
+       .setMaxQ(25)
+     .endPoint()
+     .beginPoint()
+       .setP(0)
+       .setMinQ(10)
+       .setMaxQ(20)
+     .endPoint()
+     .add();
+  ASSERT_EQ(batItf.getQNom(), 30.0);
 
   // TODO(TBA) batItf.exportStateVariablesUnitComponent();
   bat.getTerminal().disconnect();

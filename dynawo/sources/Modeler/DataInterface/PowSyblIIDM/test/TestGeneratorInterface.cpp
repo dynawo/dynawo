@@ -126,11 +126,11 @@ TEST(DataInterfaceTest, Generator_1) {
 
   ASSERT_EQ(genItf.getQMin(), -std::numeric_limits<double>::max());
   ASSERT_EQ(genItf.getQMax(), std::numeric_limits<double>::max());
-  ASSERT_EQ(genItf.getDiagramQMax(), std::numeric_limits<double>::max());
+  ASSERT_EQ(genItf.getQNom(), std::numeric_limits<double>::max());
   gen.newMinMaxReactiveLimits().setMinQ(1.0).setMaxQ(2.0).add();
   ASSERT_EQ(genItf.getQMin(), 1.0);
   ASSERT_EQ(genItf.getQMax(), 2.0);
-  ASSERT_EQ(genItf.getDiagramQMax(), 2.0);
+  ASSERT_EQ(genItf.getQNom(), 2.0);
   gen.newReactiveCapabilityCurve()
      .beginPoint()
        .setP(1)
@@ -145,7 +145,7 @@ TEST(DataInterfaceTest, Generator_1) {
      .add();
   ASSERT_EQ(genItf.getQMin(), 15.0);
   ASSERT_EQ(genItf.getQMax(), 25.0);
-  ASSERT_EQ(genItf.getDiagramQMax(), 25.0);
+  ASSERT_EQ(genItf.getQNom(), 25.0);
   gen.newReactiveCapabilityCurve()
      .beginPoint()
        .setP(-30)
@@ -160,7 +160,7 @@ TEST(DataInterfaceTest, Generator_1) {
      .add();
   ASSERT_EQ(genItf.getQMin(), 10.0);
   ASSERT_EQ(genItf.getQMax(), 20.0);
-  ASSERT_EQ(genItf.getDiagramQMax(), 25.0);
+  ASSERT_EQ(genItf.getQNom(), 25.0);
   gen.newReactiveCapabilityCurve()
      .beginPoint()
        .setP(-20)
@@ -175,8 +175,21 @@ TEST(DataInterfaceTest, Generator_1) {
      .add();
   ASSERT_EQ(genItf.getQMin(), 12.5);
   ASSERT_EQ(genItf.getQMax(), 22.5);
-  ASSERT_EQ(genItf.getDiagramQMax(), 25.0);
+  ASSERT_EQ(genItf.getQNom(), 25.0);
   ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 2);
+  gen.newReactiveCapabilityCurve()
+     .beginPoint()
+       .setP(-10)
+       .setMinQ(-30)
+       .setMaxQ(25)
+     .endPoint()
+     .beginPoint()
+       .setP(0)
+       .setMinQ(10)
+       .setMaxQ(20)
+     .endPoint()
+     .add();
+  ASSERT_EQ(genItf.getQNom(), 30.0);
 
   ASSERT_TRUE(genItf.isConnected());
   ASSERT_TRUE(genItf.isPartiallyConnected());
