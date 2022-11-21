@@ -208,19 +208,21 @@ BatteryInterfaceIIDM::getQMax() {
 }
 
 double
-BatteryInterfaceIIDM::getDiagramQMax() {
+BatteryInterfaceIIDM::getQNom() {
   if (batteryIIDM_.has_minMaxReactiveLimits()) {
-    return batteryIIDM_.minMaxReactiveLimits().max();
+    return std::max(std::abs(batteryIIDM_.minMaxReactiveLimits().max()), std::abs(batteryIIDM_.minMaxReactiveLimits().min()));
   } else if (batteryIIDM_.has_reactiveCapabilityCurve()) {
     assert(batteryIIDM_.reactiveCapabilityCurve().size() > 0);
-    double qMax = 0;
-    const double pGen = - getP();
+    double qNom = 0;
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = batteryIIDM_.reactiveCapabilityCurve();
-    double qMax = 0.0;
+    double qNom = 0.0;
     for (unsigned int i = 0; i < reactiveCurve.size(); ++i) {
       IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
-      if (qMax < current_point.qmax) {
-        qMax = current_point.qmax;
+      if (qNom < std::abs(current_point.qmax)) {
+        qNom = std::abs(current_point.qmax);
+      }
+      if (qNom < std::abs(current_point.qmin)) {
+        qNom = std::abs(current_point.qmin);
       }
     }
     return qMax;

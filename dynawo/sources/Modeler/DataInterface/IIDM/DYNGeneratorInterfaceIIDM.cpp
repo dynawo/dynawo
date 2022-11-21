@@ -212,19 +212,21 @@ GeneratorInterfaceIIDM::getQMax() {
   }
 }
 double
-GeneratorInterfaceIIDM::getDiagramQMax() {
+GeneratorInterfaceIIDM::getQNom() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
-    return generatorIIDM_.minMaxReactiveLimits().max();
+    return std::max(std::abs(generatorIIDM_.minMaxReactiveLimits().max()), std::abs(generatorIIDM_.minMaxReactiveLimits().min()));
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
     assert(generatorIIDM_.reactiveCapabilityCurve().size() > 0);
     double qMax = 0;
-    const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
-    double qMax = 0.0;
+    double qNom = 0.0;
     for (unsigned int i = 0; i < reactiveCurve.size(); ++i) {
       IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
-      if (qMax < current_point.qmax) {
-        qMax = current_point.qmax;
+      if (qNom < std::abs(current_point.qmax)) {
+        qNom = std::abs(current_point.qmax);
+      }
+      if (qNom < std::abs(current_point.qmin)) {
+        qNom = std::abs(current_point.qmin);
       }
     }
     return qMax;
