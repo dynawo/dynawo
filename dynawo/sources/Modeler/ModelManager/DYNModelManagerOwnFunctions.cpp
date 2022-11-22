@@ -29,6 +29,7 @@
 #include <cstring>
 #include <limits>
 #include <cctype>
+#include <string>
 #include "DYNModelManagerOwnFunctions.h"
 
 #if defined(_LP64)
@@ -1215,6 +1216,35 @@ int index_spec_fit_base_array(const index_spec_t *s, const base_array_t *a) {
     }
 
     return 1;
+}
+
+size_t calc_base_index_dims_subs(int ndims, ...) {
+    int i;
+    size_t index;
+
+    _index_t *dims = reinterpret_cast<_index_t*>(malloc(sizeof(_index_t)*ndims));
+    _index_t *subs = reinterpret_cast<_index_t*>(malloc(sizeof(_index_t)*ndims));
+
+    va_list ap;
+    va_start(ap, ndims);
+    for (i = 0; i < ndims; ++i) {
+        dims[i] = va_arg(ap, _index_t);
+    }
+    for (i = 0; i < ndims; ++i) {
+        subs[i] = va_arg(ap, _index_t) - 1;
+    }
+    va_end(ap);
+
+    index = 0;
+    for (i = 0; i < ndims; ++i) {
+        if (subs[i] < 0 || subs[i] >= dims[i]) {
+          assert("Dimension " + std::to_string(i+1) + " has bounds 1.." + std::to_string(dims[i]) +", got array subscript " + std::to_string(subs[i]+1));
+        }
+        index = (index * dims[i]) + subs[i];
+    }
+
+
+    return index;
 }
 
 #ifdef __clang__
