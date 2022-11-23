@@ -53,7 +53,7 @@ This repository contains Dyna&omega;o's project code.
 
 <a name="contributions"></a>
 ## Get involved!
-Dynaflow-launcher is an open-source project and as such, questions, discussions, feedbacks and more generally any form of contribution are very welcome and greatly appreciated!
+Dyna&omega;o is an open-source project and as such, questions, discussions, feedbacks and more generally any form of contribution are very welcome and greatly appreciated!
 
 For further informations about contributing guidelines, please refers to the [contributing documentation](https://github.com/dynawo/.github/blob/master/CONTRIBUTING.md).
 
