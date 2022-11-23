@@ -2355,36 +2355,36 @@ class Factory:
             main_func_is_adept = False
 
             while idx < len(line_split):
-                l = line_split[idx].strip()
+                l = line_split[idx]
 
                 #hack to handle the case data->localData[0]->derivativesVars[...] /* der(a) STATE_DER /
                 if l.endswith("/* der"):
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                 #hack to handle cast
 
                 if l.endswith("STATE"):
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     if l[-1].isdigit():
                         # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
                         idx+=1
-                        l+=", " +line_split[idx].strip()
+                        l+=", " +line_split[idx]
                     # final )
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     if l[-1] == ')':
                         # final */
                         idx+=1
-                        l+=line_split[idx].strip()
+                        l+=line_split[idx]
 
                 if l.endswith("modelica_integer") or l.endswith("modelica_real") or l.endswith("modelica_boolean"):
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     call_line+= l
                     idx+=1
                     continue
@@ -2430,7 +2430,7 @@ class Factory:
                             main_func_is_adept = True
                     else:
                         call_line += l
-                    l = line_split[idx].strip()
+                    l = line_split[idx]
                     assert(l == '(')
                     call_line += l
                     idx+=1
@@ -2483,11 +2483,14 @@ class Factory:
                             main_func_is_adept = False
                         if len(stack_func_called) == 0:
                             add_comma = False
+                        if len(stack_func_called) == 1 and \
+                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 1] > len(called_func[stack_func_called[len(stack_func_called) - 1]].get_params()) - 1:
+                            add_comma = False
                     if add_comma:
-                        while idx + 1 < len(line_split) and line_split[idx + 1].strip() == ')':
+                        while idx + 1 < len(line_split) and line_split[idx + 1] == ')':
                             call_line+= ')'
                             idx+=1
-                        call_line += ', '
+                        call_line += ','
                     idx+=1
             line_tmp = call_line + "\n"
         return line_tmp
