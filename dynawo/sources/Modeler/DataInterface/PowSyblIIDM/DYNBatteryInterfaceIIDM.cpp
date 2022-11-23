@@ -98,7 +98,8 @@ BatteryInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("qMin", StaticParameter("qMin", StaticParameter::DOUBLE).setValue(qMin)));
   staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP_pu", StaticParameter::DOUBLE).setValue(getTargetP() / SNREF)));
   staticParameters_.insert(std::make_pair("targetP", StaticParameter("targetP", StaticParameter::DOUBLE).setValue(getTargetP())));
-  double sNom = sqrt(pMax * pMax + qMax * qMax);
+  double qNom = getQNom();
+  double sNom = sqrt(pMax * pMax + qNom * qNom);
   staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
@@ -219,8 +220,8 @@ BatteryInterfaceIIDM::getQNom() {
     const auto& points = getReactiveCurvesPoints();
     for (unsigned int i = 0; i < points.size(); ++i) {
       auto current_point = points[i];
-      if (qNom <  std::abs(current_point.qmax)) {
-        qNom =  std::abs(current_point.qmax);
+      if (qNom < std::abs(current_point.qmax)) {
+        qNom = std::abs(current_point.qmax);
       }
       if (qNom < std::abs(current_point.qmin)) {
         qNom = std::abs(current_point.qmin);
