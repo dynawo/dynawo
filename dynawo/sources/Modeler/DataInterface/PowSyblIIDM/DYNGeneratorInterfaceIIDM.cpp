@@ -106,6 +106,7 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP_pu", StaticParameter::DOUBLE).setValue(getTargetP() / SNREF)));
   staticParameters_.insert(std::make_pair("targetP", StaticParameter("targetP", StaticParameter::DOUBLE).setValue(getTargetP())));
   double qNom = getQNom();
+  staticParameters_.insert(std::make_pair("qNom", StaticParameter("qNom", StaticParameter::DOUBLE).setValue(qNom)));
   double sNom = sqrt(pMax * pMax + qNom * qNom);
   staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (getBusInterface()) {
