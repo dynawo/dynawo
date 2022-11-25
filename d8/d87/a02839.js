@@ -13,6 +13,7 @@ var a02839 =
     [ "getQ", "d8/d87/a02839.html#adc718be1b4a71f3d927f7bfde2808ab0", null ],
     [ "getQMax", "d8/d87/a02839.html#aea945ff05de6a11f23386f9ddf0535d6", null ],
     [ "getQMin", "d8/d87/a02839.html#a959b6d614c81e93caa39db58504e748e", null ],
+    [ "getQNom", "d8/d87/a02839.html#ad075cfbfc79cc23c87504539d667164f", null ],
     [ "getReactiveCurvesPoints", "d8/d87/a02839.html#a5ec00ddc15b5678710256ae4936ed6b6", null ],
     [ "getTargetP", "d8/d87/a02839.html#a338ccd6fb6bad3e0afedd48a046f12ab", null ],
     [ "getTargetQ", "d8/d87/a02839.html#a9ea7495ce4e64cc077b6a3b9f0d29eeb", null ],

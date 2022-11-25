@@ -50,6 +50,8 @@ var a02923 =
     [ "getQMax", "d6/df9/a02923.html#a8e10ee6d5a8be0d4e0f17c06b7de2050", null ],
     [ "getQMin", "d6/df9/a02923.html#a65adec3508459bae6c28f972579093c0", null ],
     [ "getQMin", "d6/df9/a02923.html#a65adec3508459bae6c28f972579093c0", null ],
+    [ "getQNom", "d6/df9/a02923.html#a1610cbd963bf44dc22a6a2afba34548f", null ],
+    [ "getQNom", "d6/df9/a02923.html#a1610cbd963bf44dc22a6a2afba34548f", null ],
     [ "getReactiveCurvesPoints", "d6/df9/a02923.html#acb6312a6593b12740cf46fbe63511b28", null ],
     [ "getReactiveCurvesPoints", "d6/df9/a02923.html#acb6312a6593b12740cf46fbe63511b28", null ],
     [ "getTargetP", "d6/df9/a02923.html#a141c34ff2133ef23d60230ed063622ef", null ],

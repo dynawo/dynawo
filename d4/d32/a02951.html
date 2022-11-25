@@ -222,6 +222,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a23ae94042b6965334dafdc93fb7d8584"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d32/a02951.html#a23ae94042b6965334dafdc93fb7d8584">getQMax</a> ()</td></tr>
 <tr class="memdesc:a23ae94042b6965334dafdc93fb7d8584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the maximum reactive power of the generator.  <a href="#a23ae94042b6965334dafdc93fb7d8584">More...</a><br /></td></tr>
 <tr class="separator:a23ae94042b6965334dafdc93fb7d8584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4176b4159b6ae17fd9fdedfd642d37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d32/a02951.html#a2e4176b4159b6ae17fd9fdedfd642d37">getQNom</a> ()</td></tr>
+<tr class="memdesc:a2e4176b4159b6ae17fd9fdedfd642d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal reactive power of the generator.  <a href="#a2e4176b4159b6ae17fd9fdedfd642d37">More...</a><br /></td></tr>
+<tr class="separator:a2e4176b4159b6ae17fd9fdedfd642d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55e91ecd3291e563428e04b0e0814e79"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d32/a02951.html#a55e91ecd3291e563428e04b0e0814e79">getQMin</a> ()</td></tr>
 <tr class="memdesc:a55e91ecd3291e563428e04b0e0814e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the minimum reactive power of the generator.  <a href="#a55e91ecd3291e563428e04b0e0814e79">More...</a><br /></td></tr>
 <tr class="separator:a55e91ecd3291e563428e04b0e0814e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -316,6 +319,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a23ae94042b6965334dafdc93fb7d8584"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d32/a02951.html#a23ae94042b6965334dafdc93fb7d8584">getQMax</a> ()</td></tr>
 <tr class="memdesc:a23ae94042b6965334dafdc93fb7d8584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the maximum reactive power of the generator.  <a href="#a23ae94042b6965334dafdc93fb7d8584">More...</a><br /></td></tr>
 <tr class="separator:a23ae94042b6965334dafdc93fb7d8584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4176b4159b6ae17fd9fdedfd642d37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d32/a02951.html#a2e4176b4159b6ae17fd9fdedfd642d37">getQNom</a> ()</td></tr>
+<tr class="memdesc:a2e4176b4159b6ae17fd9fdedfd642d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal reactive power of the generator.  <a href="#a2e4176b4159b6ae17fd9fdedfd642d37">More...</a><br /></td></tr>
+<tr class="separator:a2e4176b4159b6ae17fd9fdedfd642d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55e91ecd3291e563428e04b0e0814e79"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d32/a02951.html#a55e91ecd3291e563428e04b0e0814e79">getQMin</a> ()</td></tr>
 <tr class="memdesc:a55e91ecd3291e563428e04b0e0814e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the minimum reactive power of the generator.  <a href="#a55e91ecd3291e563428e04b0e0814e79">More...</a><br /></td></tr>
 <tr class="separator:a55e91ecd3291e563428e04b0e0814e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1670,6 +1676,66 @@ boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
+<a id="a2e4176b4159b6ae17fd9fdedfd642d37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e4176b4159b6ae17fd9fdedfd642d37">&#9670;&nbsp;</a></span>getQNom() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::GeneratorInterfaceIIDM::getQNom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the nominal reactive power of the generator. </p>
+<dl class="section return"><dt>Returns</dt><dd>The nominal reactive power of the generator in Mvar (generator convention), computed as the maximum absolute value of the PQ diagram </dd></dl>
+
+<p>Implements <a class="el" href="../../d8/d87/a02839.html#ad075cfbfc79cc23c87504539d667164f">DYN::GeneratorInterface</a>.</p>
+
+</div>
+</div>
+<a id="a2e4176b4159b6ae17fd9fdedfd642d37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e4176b4159b6ae17fd9fdedfd642d37">&#9670;&nbsp;</a></span>getQNom() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::GeneratorInterfaceIIDM::getQNom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the nominal reactive power of the generator. </p>
+<dl class="section return"><dt>Returns</dt><dd>The nominal reactive power of the generator in Mvar (generator convention), computed as the maximum absolute value of the PQ diagram </dd></dl>
+
+<p>Implements <a class="el" href="../../d8/d87/a02839.html#ad075cfbfc79cc23c87504539d667164f">DYN::GeneratorInterface</a>.</p>
+
+</div>
+</div>
 <a id="ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d">&#9670;&nbsp;</a></span>getReactiveCurvesPoints() <span class="overload">[1/2]</span></h2>
 
@@ -2560,7 +2626,7 @@ boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/d32/a02951.html">GeneratorInterfaceIIDM</a></li>
-    <li class="footer">Generated on Fri Nov 25 2022 12:33:57 for Dynawo by
+    <li class="footer">Generated on Fri Nov 25 2022 15:49:13 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

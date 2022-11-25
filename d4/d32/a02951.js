@@ -50,6 +50,8 @@ var a02951 =
     [ "getQMax", "d4/d32/a02951.html#a23ae94042b6965334dafdc93fb7d8584", null ],
     [ "getQMin", "d4/d32/a02951.html#a55e91ecd3291e563428e04b0e0814e79", null ],
     [ "getQMin", "d4/d32/a02951.html#a55e91ecd3291e563428e04b0e0814e79", null ],
+    [ "getQNom", "d4/d32/a02951.html#a2e4176b4159b6ae17fd9fdedfd642d37", null ],
+    [ "getQNom", "d4/d32/a02951.html#a2e4176b4159b6ae17fd9fdedfd642d37", null ],
     [ "getReactiveCurvesPoints", "d4/d32/a02951.html#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d", null ],
     [ "getReactiveCurvesPoints", "d4/d32/a02951.html#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d", null ],
     [ "getTargetP", "d4/d32/a02951.html#a00862185113f1610612bdee0e88aaee4", null ],
