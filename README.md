@@ -17,7 +17,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=coverage)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Documentation](https://dynawo.github.io/assets/images/doxygen_badge.svg)](https://dynawo.github.io/dynawo/index.html)
-
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6730/badge)](https://bestpractices.coreinfrastructure.org/projects/6730)
 [http://dynawo.org](http://dynawo.org)
 
 This repository contains Dyna&omega;o's project code.
@@ -28,6 +28,7 @@ This repository contains Dyna&omega;o's project code.
 
 ## Table of Contents
 
+- [Get involved!](#contributions)
 - [About Dyna&omega;o](#about)
 - [Getting started!](#start)
 - [Installation](#installation)
@@ -44,12 +45,17 @@ This repository contains Dyna&omega;o's project code.
   * [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
   * [Doxygen](#doxygen)
-- [Get involved](#contributions)
 - [Quoting Dyna&omega;o](#quoting)
 - [License](#license)
 - [Maintainers](#maintainers)
 - [Roadmap](#roadmap)
 - [Links](#links)
+
+<a name="contributions"></a>
+## Get involved!
+Dyna&omega;o is an open-source project and as such, questions, discussions, feedbacks and more generally any form of contribution are very welcome and greatly appreciated!
+
+For further informations about contributing guidelines, please refers to the [contributing documentation](https://github.com/dynawo/.github/blob/master/CONTRIBUTING.md).
 
 <a name="about"></a>
 ## About Dyna&omega;o
@@ -348,13 +354,6 @@ You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dyn
 ### Doxygen
 
 You can consult Doxygen documentation of the master branch [here](https://dynawo.github.io/dynawo/).
-
-<a name="contributions"></a>
-## Get involved!
-
-Dyna&omega;o is an open-source project and as such, questions, discussions, contributions and feedbacks are very welcome. It is also an ongoing project and we are actively working on improving it and making it better so we encourage you to regularly check the project status and progresses.
-
-Regarding contributions, the final details, methodology and testing procedures for accepting a contribution is still under discussion. Until it is defined, we recommend to proceed in the following way: first report the problem or explain the planned modifications in an e-mail to [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com) in order to get a first feedback from us (we will check if efforts are already conducted on the topic on our side and if your proposition is in phase with the project evolution) and then submit a pull-request that will serve as the basis for final discussions and review.
 
 <a name="quoting"></a>
 ## Quoting Dyna&omega;o

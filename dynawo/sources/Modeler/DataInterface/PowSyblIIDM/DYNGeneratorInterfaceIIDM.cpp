@@ -105,7 +105,9 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("qMin", StaticParameter("qMin", StaticParameter::DOUBLE).setValue(qMin)));
   staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP_pu", StaticParameter::DOUBLE).setValue(getTargetP() / SNREF)));
   staticParameters_.insert(std::make_pair("targetP", StaticParameter("targetP", StaticParameter::DOUBLE).setValue(getTargetP())));
-  double sNom = sqrt(pMax * pMax + qMax * qMax);
+  double qNom = getQNom();
+  staticParameters_.insert(std::make_pair("qNom", StaticParameter("qNom", StaticParameter::DOUBLE).setValue(qNom)));
+  double sNom = sqrt(pMax * pMax + qNom * qNom);
   staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
@@ -215,6 +217,30 @@ GeneratorInterfaceIIDM::getQMax() {
       }
     }
     return qMax;
+  } else {
+    return 0.3 * getPMax();
+  }
+}
+
+double
+GeneratorInterfaceIIDM::getQNom() {
+  if (generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::MIN_MAX) {
+    return std::max(std::abs(generatorIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMaxQ()),
+        std::abs(generatorIIDM_.getReactiveLimits<powsybl::iidm::MinMaxReactiveLimits>().getMinQ()));
+  } else if (generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::CURVE) {
+    assert(generatorIIDM_.getReactiveLimits<powsybl::iidm::ReactiveCapabilityCurve>().getPointCount() > 0);
+    double qNom = 0.0;
+    const auto& points = getReactiveCurvesPoints();
+    for (unsigned int i = 0; i < points.size(); ++i) {
+      auto current_point = points[i];
+      if (qNom < std::abs(current_point.qmax)) {
+        qNom = std::abs(current_point.qmax);
+      }
+      if (qNom < std::abs(current_point.qmin)) {
+        qNom = std::abs(current_point.qmin);
+      }
+    }
+    return qNom;
   } else {
     return 0.3 * getPMax();
   }

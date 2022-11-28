@@ -126,6 +126,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getQMax();
 
   /**
+   * @copydoc GeneratorInterface::getQNom()
+   */
+  double getQNom();
+
+  /**
    * @copydoc GeneratorInterface::getQMin()
    */
   double getQMin();
