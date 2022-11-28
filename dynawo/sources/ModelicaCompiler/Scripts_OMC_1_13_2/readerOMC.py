@@ -1674,6 +1674,8 @@ class ReaderOMC:
         # dictionary that stores the number of equations that depends on a specific variable
         variable_to_equation_dependencies = {}
         function_to_eval_variable = {}
+
+        # used to detect cases v1 = table[v2]. In this case OMCompiler generates &table[firstIndex][calc_base_index_dims_subs(v2)]=> not compatible with calculated vars
         ptrn_var_dynamic_index = re.compile(r'data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs')
         variable_with_dynamic_indexing = []
         for f in self.list_func_16dae_c:
