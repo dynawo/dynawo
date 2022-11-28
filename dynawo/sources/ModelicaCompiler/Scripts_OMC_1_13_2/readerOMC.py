@@ -1674,6 +1674,10 @@ class ReaderOMC:
         # dictionary that stores the number of equations that depends on a specific variable
         variable_to_equation_dependencies = {}
         function_to_eval_variable = {}
+
+        # used to detect cases v1 = table[v2]. In this case OMCompiler generates &table[firstIndex][calc_base_index_dims_subs(v2)]=> not compatible with calculated vars
+        ptrn_var_dynamic_index = re.compile(r'data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs')
+        variable_with_dynamic_indexing = []
         for f in self.list_func_16dae_c:
             f_num_omc = f.get_num_omc()
             name_var_eval = None
@@ -1697,6 +1701,12 @@ class ReaderOMC:
                 if "RELATIONHYSTERESIS" in line:
                     # equations with potential mode change should be kept in F
                     is_eligible = False
+                if "calc_base_index_dims_subs" in line:
+                    # equations with dynamic index in tables should be kept in F
+                    match = ptrn_var_dynamic_index.findall(line)
+                    for var, varName in match:
+                        variable_with_dynamic_indexing.append(varName)
+                        variable_with_dynamic_indexing.append(name_var_eval)
                 for func_name in name_func_to_search:
                     if func_name +"("  in line or func_name +" (" in line:
                         is_eligible = False
@@ -1730,7 +1740,8 @@ class ReaderOMC:
         function_to_remove = []
         for f in function_to_eval_variable:
             var_name = function_to_eval_variable[f]
-            if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
+            if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1 \
+            and var_name not in variable_with_dynamic_indexing:
                 var = self.find_variable_from_name(var_name)
                 assert(var != None)
                 self.list_complex_calculated_vars[var] = f
@@ -1750,7 +1761,8 @@ class ReaderOMC:
             function_to_remove = []
             for f in function_to_eval_variable:
                 var_name = function_to_eval_variable[f]
-                if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
+                if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1\
+                and var_name not in variable_with_dynamic_indexing:
                     var = self.find_variable_from_name(var_name)
                     assert(var != None)
                     self.list_complex_calculated_vars[var] = f
