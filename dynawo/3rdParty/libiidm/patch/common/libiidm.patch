@@ -1,7 +1,6 @@
-diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 9cd4a76..2f9e5f9 100644
---- a/src/CMakeLists.txt
-+++ b/src/CMakeLists.txt
+diff --color -urpN powsybl-iidm4cpp/src/CMakeLists.txt powsybl-iidm4cpp.patch/src/CMakeLists.txt
+--- powsybl-iidm4cpp/src/CMakeLists.txt	2022-11-28 09:12:52.481370771 +0100
++++ powsybl-iidm4cpp.patch/src/CMakeLists.txt	2022-11-28 09:13:15.561370794 +0100
 @@ -181,6 +181,7 @@ set(IIDM_SOURCES
      iidm/extensions/LoadDetailXmlSerializer.cpp
      iidm/extensions/SlackTerminal.cpp
@@ -10,10 +9,9 @@ index 9cd4a76..2f9e5f9 100644
  
      iidm/util/ConnectedComponents.cpp
      iidm/util/DistinctPredicate.cpp
-diff --git a/src/iidm/ExtensionProviders.cpp b/src/iidm/ExtensionProviders.cpp
-index cf0d07c..04bb7a9 100644
---- a/src/iidm/ExtensionProviders.cpp
-+++ b/src/iidm/ExtensionProviders.cpp
+diff --color -urpN powsybl-iidm4cpp/src/iidm/ExtensionProviders.cpp powsybl-iidm4cpp.patch/src/iidm/ExtensionProviders.cpp
+--- powsybl-iidm4cpp/src/iidm/ExtensionProviders.cpp	2022-11-28 09:12:52.485370771 +0100
++++ powsybl-iidm4cpp.patch/src/iidm/ExtensionProviders.cpp	2022-11-28 09:13:15.565370794 +0100
 @@ -19,6 +19,7 @@
  #include <powsybl/stdcxx/format.hpp>
  
@@ -30,11 +28,9 @@ index cf0d07c..04bb7a9 100644
  }
  
  template <typename T, typename Dummy>
-diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-new file mode 100644
-index 0000000..ccc2bb6
---- /dev/null
-+++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
+diff --color -urpN powsybl-iidm4cpp/src/iidm/extensions/SlackTerminalXmlSerializer.cpp powsybl-iidm4cpp.patch/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
+--- powsybl-iidm4cpp/src/iidm/extensions/SlackTerminalXmlSerializer.cpp	1970-01-01 01:00:00.000000000 +0100
++++ powsybl-iidm4cpp.patch/src/iidm/extensions/SlackTerminalXmlSerializer.cpp	2022-11-28 09:13:15.565370794 +0100
 @@ -0,0 +1,75 @@
 +/**
 + * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -111,11 +107,9 @@ index 0000000..ccc2bb6
 +}  // namespace iidm
 +
 +}  // namespace powsybl
-diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.hpp b/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
-new file mode 100644
-index 0000000..e6e4730
---- /dev/null
-+++ b/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
+diff --color -urpN powsybl-iidm4cpp/src/iidm/extensions/SlackTerminalXmlSerializer.hpp powsybl-iidm4cpp.patch/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
+--- powsybl-iidm4cpp/src/iidm/extensions/SlackTerminalXmlSerializer.hpp	1970-01-01 01:00:00.000000000 +0100
++++ powsybl-iidm4cpp.patch/src/iidm/extensions/SlackTerminalXmlSerializer.hpp	2022-11-28 09:13:15.569370794 +0100
 @@ -0,0 +1,37 @@
 +/**
 + * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -154,3 +148,20 @@ index 0000000..e6e4730
 +}  // namespace powsybl
 +
 +#endif  // POWSYBL_IIDM_EXTENSIONS_SLACKTERMINALXMLSERIALIZER_HPP_
+diff --color -urpN powsybl-iidm4cpp/src/xml/XmlStreamWriter.cpp powsybl-iidm4cpp.patch/src/xml/XmlStreamWriter.cpp
+--- powsybl-iidm4cpp/src/xml/XmlStreamWriter.cpp	2022-11-28 09:11:09.085370667 +0100
++++ powsybl-iidm4cpp.patch/src/xml/XmlStreamWriter.cpp	2022-11-28 09:14:26.801370866 +0100
+@@ -82,10 +82,9 @@ void XmlStreamWriter::writeEmptyElement(
+ }
+ 
+ void XmlStreamWriter::writeEndDocument() {
+-    int written = xmlTextWriterEndDocument(m_writer.get());
+-    if (written < 0) {
+-        throw XmlStreamException("Failed to write end document");
+-    }
++    // deleting the xmlTextWriter pointer automatically calls xmlTextWriterFlush() and write to stream
++    // m_writer is instanciated in writeStartElement, so it must be deleted here
++    m_writer.reset();
+ }
+ 
+ void XmlStreamWriter::writeEndElement() {
