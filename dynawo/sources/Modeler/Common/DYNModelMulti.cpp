@@ -714,8 +714,10 @@ void
 ModelMulti::getModelParameterValue(const string& curveModelName, const string& curveVariable, double& value, bool& found) {
   shared_ptr<SubModel> subModel = findSubModelByName(curveModelName);
   if (subModel) {
-    subModel->getSubModelParameterValue(curveVariable, value, found);
+    std::string strValue;
+    subModel->getSubModelParameterValue(curveVariable, strValue, found);
     if (found) {
+      value = stod(strValue);
       return;
     }
   }

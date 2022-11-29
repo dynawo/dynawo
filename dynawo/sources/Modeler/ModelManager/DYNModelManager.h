@@ -190,9 +190,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void writeParametersFinalValues();
 
   /**
-   * @copydoc SubModel::getSubModelParameterValue(const std::string & nameParameter, double & value, bool & found)
+   * @copydoc SubModel::getSubModelParameterValue(const std::string & nameParameter, std::string& value, bool & found)
    */
-  void getSubModelParameterValue(const std::string& nameParameter, double& value, bool& found);
+  void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found);
 
   /**
    * @copydoc SubModel::loadParameters(const std::string & parameters)
