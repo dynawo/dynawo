@@ -183,7 +183,6 @@ TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
   CsvExporter exporter;
   std::stringstream ss;
   exporter.exportToStream(curvesCollection, ss);
-  std::string wawa = ss.str();
   // Check that variable2 curve is not printed
   ASSERT_EQ(ss.str(), "time;_variable1;\n0.000000;0.000000;\n1.000000;0.000000;\n2.000000;0.000000;\n");
 }

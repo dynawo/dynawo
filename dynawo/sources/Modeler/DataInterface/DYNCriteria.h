@@ -15,6 +15,7 @@
 #define MODELER_DATAINTERFACE_DYNCRITERIA_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_set.hpp>
 #include "CRTCriteriaParams.h"
 #include "DYNBusInterface.h"
 #include "DYNLoadInterface.h"
@@ -316,6 +317,29 @@ class LoadCriteria : public Criteria {
   };
 
  private:
+  /**
+   * @brief check criteria in type LOCAL_VALUE or SUM
+   *
+   * @param t current time of the simulation
+   * @param load load to check
+   * @param loadActivePower active power of the load to check
+   * @param loadToSourcesAddedIntoSumMap map associating active power to the related load
+   * @param distanceToLoadFailingCriteriaMap map associating the distance between active power and the crossed bound, and the related load
+   * @param alreadyChecked set containing the loads already checked to not check them several times
+   * @param isCriteriaOk true if criteria is ok, false otherwise
+   * @param sum sum of network loads active powers
+   * @param atLeastOneEligibleLoadWasFound true if there is at least one load to calculate the sum of network loads active powers
+   */
+  void checkCriteriaInLocalValueOrSumType(double t,
+                                          boost::shared_ptr<DYN::LoadInterface> load,
+                                          double loadActivePower,
+                                          std::multimap<double, boost::shared_ptr<LoadInterface> >& loadToSourcesAddedIntoSumMap,
+                                          std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToLoadFailingCriteriaMap,
+                                          std::unordered_set<std::string>& alreadyChecked,
+                                          bool& isCriteriaOk,
+                                          double& sum,
+                                          bool& atLeastOneEligibleLoadWasFound);
+
   std::vector<boost::shared_ptr<LoadInterface> > loads_;  ///< loads of this criteria
 };
 
@@ -366,6 +390,29 @@ class GeneratorCriteria : public Criteria {
   bool empty() const {return generators_.empty();}
 
  private:
+  /**
+   * @brief check criteria in type LOCAL_VALUE or SUM
+   *
+   * @param t current time of the simulation
+   * @param generator generator to check
+   * @param generatorActivePower active power of the generator to check
+   * @param generatorToSourcesAddedIntoSumMap map associating active power to the related generator
+   * @param distanceToGeneratorFailingCriteriaMap map associating the distance between active power and the crossed bound, and the related generator
+   * @param alreadyChecked set containing the generators already checked to not check them several times
+   * @param isCriteriaOk true if criteria is ok, false otherwise
+   * @param sum sum of network generators active powers
+   * @param atLeastOneEligibleGeneratorWasFound true if there is at least one generator to calculate the sum of network generators active powers
+   */
+  void checkCriteriaInLocalValueOrSumType(double t,
+                                          boost::shared_ptr<DYN::GeneratorInterface> generator,
+                                          double generatorActivePower,
+                                          std::multimap<double, boost::shared_ptr<GeneratorInterface> >& generatorToSourcesAddedIntoSumMap,
+                                          std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToGeneratorFailingCriteriaMap,
+                                          std::unordered_set<std::string>& alreadyChecked,
+                                          bool& isCriteriaOk,
+                                          double& sum,
+                                          bool& atLeastOneEligibleGeneratorWasFound);
+
   std::vector<boost::shared_ptr<GeneratorInterface> > generators_;  ///< loads of this criteria
 };
 }  // namespace DYN
