@@ -20,7 +20,9 @@
     <par type="STRING" name="linearSolverName" value="KLU"/>
     <par type="INT" name="msbsetAlg" value="1"/>
   </set>
-  <set id="Generator1">
+  <macroParameterSet id="macro_generator">
+    <par type="DOUBLE" name="generator_QMin" value="-200"/>
+    <par type="DOUBLE" name="generator_QMax" value="200"/>
     <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
     <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
@@ -30,173 +32,54 @@
     <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
     <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
     <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin" value="-200"/>
-    <par type="DOUBLE" name="generator_QMax" value="200"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
     <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_generator_diagram">
+    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
+    <par type="DOUBLE" name="generator_QMax0" value="200"/>
+    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
+    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_qnomalt">
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_tfo">
+    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
+    <par type="DOUBLE" name="generator_SNom" value="200"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_rpcl">
+    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_rpcl2">
+    <par type="DOUBLE" name="reactivePowerControlLoop_DeltaURefMaxPu" value="0.002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par name="reactivePowerControlLoop_CqMaxPu" type="DOUBLE" value="15"/>
+    <par name="reactivePowerControlLoop_Tech" type="DOUBLE" value="10"/>
+    <par name="reactivePowerControlLoop_Ti" type="DOUBLE" value="60"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_pqprop">
     <par type="DOUBLE" name="generator_QPercent" value="1"/>
-  </set>
-  <set id="Generator2">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
-    <par type="DOUBLE" name="generator_QMax0" value="200"/>
-    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_QPercent" value="1"/>
-    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
-    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
-  </set>
-  <set id="Generator3">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin" value="-200"/>
-    <par type="DOUBLE" name="generator_QMax" value="200"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
-    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
-    <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
-    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
-  </set>
-  <set id="Generator4">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
-    <par type="DOUBLE" name="generator_QMax0" value="200"/>
-    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
-    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
-    <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
-    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
-    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
-    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
-  </set>
-  <set id="Generator5">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin" value="-200"/>
-    <par type="DOUBLE" name="generator_QMax" value="200"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
-    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
-    <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
-    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
-  </set>
-  <set id="Generator6">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
-    <par type="DOUBLE" name="generator_QMax0" value="200"/>
-    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
-    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
-    <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
-    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
-    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
-    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
-  </set>
-  <set id="Generator7">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin" value="-200"/>
-    <par type="DOUBLE" name="generator_QMax" value="200"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
-  </set>
-  <set id="Generator8">
-    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
-    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
-    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
-    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
-    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
-    <par type="DOUBLE" name="generator_QMax0" value="200"/>
-    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
-    <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
-    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
-    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
-    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
-    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
-  </set>
-  <set id="SVC">
+  </macroParameterSet>
+  <macroParameterSet id="macro_svc">
     <!-- Generator 1 parameters -->
     <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
     <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
@@ -204,43 +87,94 @@
     <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
     <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
+    <!-- Generator 2 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
+    <!-- SVC parameters -->
+    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_svc_tfo">
+    <!-- Generator 1 parameters -->
     <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
     <!-- Generator 2 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
     <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.1"/>
-    <!-- SVC parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+  </macroParameterSet>
+  <set id="Generator1">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_pqprop"/>
+  </set>
+  <set id="Generator2">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_pqprop"/>
+  </set>
+  <set id="Generator3">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+  </set>
+  <set id="Generator4">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+  </set>
+  <set id="Generator5">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl"/>
+  </set>
+  <set id="Generator6">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl"/>
+  </set>
+  <set id="Generator7">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl"/>
+  </set>
+  <set id="Generator8">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl"/>
+  </set>
+  <set id="Generator9">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl2"/>
+  </set>
+  <set id="Generator10">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl2"/>
+  </set>
+  <set id="Generator11">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl2"/>
+  </set>
+  <set id="Generator12">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl2"/>
+  </set>
+  <set id="SVC">
+    <macroParSet id="macro_svc"/>
+    <macroParSet id="macro_svc_tfo"/>
   </set>
   <set id="SVC1">
-    <!-- Generator 1 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-0.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
-    <!-- Generator 2 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
-    <!-- SVC parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+    <macroParSet id="macro_svc"/>
   </set>
   <set id="Line">
     <par type="DOUBLE" name="line_RPu" value="0"/>
