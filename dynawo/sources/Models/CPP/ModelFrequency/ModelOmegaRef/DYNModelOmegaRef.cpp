@@ -453,9 +453,15 @@ ModelOmegaRef::setSubModelParameters() {
   omegaRef0_.assign(nbMaxCC, 1.);
 
   // Get omegaRefMin and omegaRefMax parameters from the par file if they exist
-  bool success;
-  getSubModelParameterValue("omegaRefMin", omegaRefMin_, success);
-  getSubModelParameterValue("omegaRefMax", omegaRefMax_, success);
+  const bool isInitParam = false;
+  const ParameterModeler& parameter = findParameter("omegaRefMin", isInitParam);
+  if (parameter.hasValue()) {
+    omegaRefMin_ = parameter.getDoubleValue();
+  }
+  const ParameterModeler& parameter2 = findParameter("omegaRefMax", isInitParam);
+  if (parameter2.hasValue()) {
+    omegaRefMax_ = parameter2.getDoubleValue();
+  }
 }
 
 /**
