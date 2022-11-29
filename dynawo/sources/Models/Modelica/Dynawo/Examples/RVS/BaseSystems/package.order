@@ -1,8 +1,15 @@
 BaseSystems_INIT
 Network
+NetworkHalfSusceptance
 NetworkWithPQLoads
 Loadflow
 Loadflow_GenPVs
 Loadflow_GenPQs
 Loadflow_equiv
 Loadflow_equiv_extended
+Loadflow_equiv_extended_simple_init
+Loadflow_exact_init
+Loadflow_equiv_extended_sVarC_local
+Loadflow_equiv_extended_correct_init
+Loadflow_exact_init_sVarC_local
+Loadflow_sVarC_local

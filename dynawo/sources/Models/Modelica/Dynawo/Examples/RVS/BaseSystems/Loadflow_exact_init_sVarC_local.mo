@@ -1,6 +1,6 @@
 within Dynawo.Examples.RVS.BaseSystems;
 
-model Loadflow
+model Loadflow_exact_init_sVarC_local
   import Modelica.SIunits.Conversions.from_deg;
   import Dynawo;
   import Dynawo.Types;
@@ -27,24 +27,22 @@ model Loadflow
   final parameter Types.VoltageModule URef0_bus_121 = 1.0468 * UNom_upper;
   final parameter Types.VoltageModule URef0_bus_122 = 1.05 * UNom_upper;
   final parameter Types.VoltageModule URef0_bus_123 = 1.0499 * UNom_upper;
-  
-  final parameter Types.ReactivePowerPu Q0Pu_line_reactor_106 = 78.889 / SnRef;
-  final parameter Types.ComplexVoltagePu u0Pu_line_reactor_106 = ComplexMath.fromPolar(URef0_bus_106 / UNom_lower, from_deg(-23.8321));
+  final parameter Types.ReactivePowerPu Q0Pu_line_reactor_106 = 78.878 / SnRef;
+  final parameter Types.ComplexVoltagePu u0Pu_line_reactor_106 = ComplexMath.fromPolar(URef0_bus_106 / UNom_lower, from_deg(-23.7));
   final parameter Types.ComplexApparentPowerPu s0Pu_line_reactor_106 = Complex(0, Q0Pu_line_reactor_106);
   final parameter Types.ComplexCurrentPu i0Pu_line_reactor_106 = ComplexMath.conj(s0Pu_line_reactor_106 / u0Pu_line_reactor_106);
-  final parameter Types.ReactivePowerPu Q0Pu_line_reactor_110 = 78.889 / SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_line_reactor_110 = 76.443 / SnRef;
   final parameter Types.ComplexVoltagePu u0Pu_line_reactor_110 = ComplexMath.fromPolar(URef0_bus_110 / UNom_lower, from_deg(-19.8));
   final parameter Types.ComplexApparentPowerPu s0Pu_line_reactor_110 = Complex(0, Q0Pu_line_reactor_110);
   final parameter Types.ComplexCurrentPu i0Pu_line_reactor_110 = ComplexMath.conj(s0Pu_line_reactor_110 / u0Pu_line_reactor_110);
-  
-  final parameter Types.VoltageModulePu URef0Pu_sVarC_10106 = 1.025;
-  final parameter Types.ReactivePowerPu Q0Pu_sVarC_10106 = 61.572 / SnRef;
-  final parameter Types.ComplexVoltagePu u0Pu_sVarC_10106 = ComplexMath.fromPolar(1.05, from_deg(-23.8321));
+  final parameter Types.VoltageModulePu URef0Pu_sVarC_10106 = 1.05;
+  final parameter Types.ReactivePowerPu Q0Pu_sVarC_10106 = -61.579 / SnRef;
+  final parameter Types.ComplexVoltagePu u0Pu_sVarC_10106 = ComplexMath.fromPolar(URef0Pu_sVarC_10106, from_deg(-23.8));
   final parameter Types.ComplexCurrentPu i0Pu_sVarC_10106 = ComplexMath.conj(Complex(0, Q0Pu_sVarC_10106) / u0Pu_sVarC_10106);
   final parameter Types.PerUnit B0Pu_sVarC_10106 = Q0Pu_sVarC_10106 / ComplexMath.'abs'(u0Pu_sVarC_10106) ^ 2;
-  final parameter Types.VoltageModulePu URef0Pu_sVarC_10114 = 1.0033;
-  final parameter Types.ReactivePowerPu Q0Pu_sVarC_10114 = 125.129 / SnRef;
-  final parameter Types.ComplexVoltagePu u0Pu_sVarC_10114 = ComplexMath.fromPolar(1.05, from_deg(-9.7799));
+  final parameter Types.VoltageModulePu URef0Pu_sVarC_10114 = 1.05;
+  final parameter Types.ReactivePowerPu Q0Pu_sVarC_10114 = -125.143 / SnRef;
+  final parameter Types.ComplexVoltagePu u0Pu_sVarC_10114 = ComplexMath.fromPolar(URef0Pu_sVarC_10114, from_deg(-9.9));
   final parameter Types.ComplexCurrentPu i0Pu_sVarC_10114 = ComplexMath.conj(Complex(0, Q0Pu_sVarC_10114) / u0Pu_sVarC_10114);
   final parameter Types.PerUnit B0Pu_sVarC_10114 = Q0Pu_sVarC_10114 / ComplexMath.'abs'(u0Pu_sVarC_10114) ^ 2;
   final parameter Types.ActivePowerPu PRef0Pu_gen_10101 = 10 / SnRef;
@@ -60,12 +58,12 @@ model Loadflow
   final parameter Types.ActivePowerPu PRef0Pu_gen_30101 = 76 / SnRef;
   final parameter Types.ReactivePowerPu QRef0Pu_gen_30101 = 21.7756 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_30101 = Complex(PRef0Pu_gen_30101, QRef0Pu_gen_30101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_30101 = ComplexMath.fromPolar(1.0115, from_deg(-11.2));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_30101 = ComplexMath.fromPolar(1.0155, from_deg(-11.2));
   final parameter Types.ComplexCurrentPu i0Pu_gen_30101 = ComplexMath.conj(s0Pu_gen_30101 / u0Pu_gen_30101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_40101 = 76 / SnRef;
   final parameter Types.ReactivePowerPu QRef0Pu_gen_40101 = 21.7756 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_40101 = Complex(PRef0Pu_gen_40101, QRef0Pu_gen_40101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_40101 = ComplexMath.fromPolar(1.0115, from_deg(-11.2));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_40101 = ComplexMath.fromPolar(1.0155, from_deg(-11.2));
   final parameter Types.ComplexCurrentPu i0Pu_gen_40101 = ComplexMath.conj(s0Pu_gen_40101 / u0Pu_gen_40101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_10102 = 10 / SnRef;
   final parameter Types.ReactivePowerPu QRef0Pu_gen_10102 = 09.5355 / SnRef;
@@ -150,7 +148,7 @@ model Loadflow
   final parameter Types.ActivePowerPu PRef0Pu_gen_10116 = 155 / SnRef;
   final parameter Types.ReactivePowerPu QRef0Pu_gen_10116 = 65.9791 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_10116 = Complex(PRef0Pu_gen_10116, QRef0Pu_gen_10116);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_10116 = ComplexMath.fromPolar(1.0159, from_deg(7.9));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_10116 = ComplexMath.fromPolar(1.0159, from_deg(7.8));
   final parameter Types.ComplexCurrentPu i0Pu_gen_10116 = ComplexMath.conj(s0Pu_gen_10116 / u0Pu_gen_10116);
   final parameter Types.ActivePowerPu PRef0Pu_gen_10118 = 400 / SnRef;
   final parameter Types.ReactivePowerPu QRef0Pu_gen_10118 = 200 / SnRef;
@@ -212,41 +210,41 @@ model Loadflow
   SetPoint URefPu_sVarC_10114(Value0 = URef0Pu_sVarC_10114);
   GeneratorPQProp gen_10101_ABEL_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10101, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_10101, QGen0Pu = QRef0Pu_gen_10101, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.126, QRef0Pu = -QRef0Pu_gen_10101, U0Pu = 1.029, i0Pu = i0Pu_gen_10101, u0Pu = u0Pu_gen_10101) annotation(
     Placement(visible = true, transformation(origin = {-250, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_20101_ABEL_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20101, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_20101, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.126, U0Pu = 1.029, i0Pu = i0Pu_gen_20101, u0Pu = u0Pu_gen_20101) annotation(
+  GeneratorPQProp gen_20101_ABEL_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20101, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_20101, QGen0Pu = QRef0Pu_gen_20101, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.126, QRef0Pu = -QRef0Pu_gen_20101, U0Pu = 1.029, i0Pu = i0Pu_gen_20101, u0Pu = u0Pu_gen_20101) annotation(
     Placement(visible = true, transformation(origin = {-210, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_30101_ABEL_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30101, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_30101, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.374, U0Pu = 1.0155, i0Pu = i0Pu_gen_30101, u0Pu = u0Pu_gen_30101) annotation(
+  GeneratorPQProp gen_30101_ABEL_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30101, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_30101, QGen0Pu = QRef0Pu_gen_30101, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.374, QRef0Pu = -QRef0Pu_gen_30101, U0Pu = 1.0155, i0Pu = i0Pu_gen_30101, u0Pu = u0Pu_gen_30101) annotation(
     Placement(visible = true, transformation(origin = {-170, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_40101_ABEL_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40101, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_40101, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.374, U0Pu = 1.0155, i0Pu = i0Pu_gen_40101, u0Pu = u0Pu_gen_40101) annotation(
+  GeneratorPQProp gen_40101_ABEL_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40101, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_40101, QGen0Pu = QRef0Pu_gen_40101, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.374, QRef0Pu = -QRef0Pu_gen_40101, U0Pu = 1.0155, i0Pu = i0Pu_gen_40101, u0Pu = u0Pu_gen_40101) annotation(
     Placement(visible = true, transformation(origin = {-130, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   GeneratorPQProp gen_10102_ADAMS_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10102, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_10102, QGen0Pu = QRef0Pu_gen_10102, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.178, QRef0Pu = -QRef0Pu_gen_10102, U0Pu = 1.043, i0Pu = i0Pu_gen_10102, u0Pu = u0Pu_gen_10102) annotation(
     Placement(visible = true, transformation(origin = {-40, -270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_20102_ADAMS_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20102, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_20102, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.178, U0Pu = 1.043, i0Pu = i0Pu_gen_20102, u0Pu = u0Pu_gen_20102) annotation(
+  GeneratorPQProp gen_20102_ADAMS_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20102, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_20102, QGen0Pu = QRef0Pu_gen_20102, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.178, QRef0Pu = -QRef0Pu_gen_20102, U0Pu = 1.043, i0Pu = i0Pu_gen_20102, u0Pu = u0Pu_gen_20102) annotation(
     Placement(visible = true, transformation(origin = {0, -270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_30102_ADAMS_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30102, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_30102, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.322, U0Pu = 1.0096, i0Pu = i0Pu_gen_30102, u0Pu = u0Pu_gen_30102) annotation(
+  GeneratorPQProp gen_30102_ADAMS_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30102, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_30102, QGen0Pu = QRef0Pu_gen_30102, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.322, QRef0Pu = -QRef0Pu_gen_30102, U0Pu = 1.0096, i0Pu = i0Pu_gen_30102, u0Pu = u0Pu_gen_30102) annotation(
     Placement(visible = true, transformation(origin = {40, -270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_40102_ADAMS_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40102, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_40102, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.322, U0Pu = 1.0096, i0Pu = i0Pu_gen_40102, u0Pu = u0Pu_gen_40102) annotation(
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_40102_ADAMS_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40102, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_40102, QGen0Pu = QRef0Pu_gen_40102, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.322, QRef0Pu = -QRef0Pu_gen_40102, U0Pu = 1.0096, i0Pu = i0Pu_gen_40102, u0Pu = u0Pu_gen_40102) annotation(
     Placement(visible = true, transformation(origin = {80, -270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  GeneratorPQProp gen_10107_ALDER_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_10107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, U0Pu = 1.037, i0Pu = i0Pu_gen_10107, u0Pu = u0Pu_gen_10107) annotation(
+  GeneratorPQProp gen_10107_ALDER_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_10107, QGen0Pu = QRef0Pu_gen_10107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, QRef0Pu = -QRef0Pu_gen_10107, U0Pu = 1.037, i0Pu = i0Pu_gen_10107, u0Pu = u0Pu_gen_10107) annotation(
     Placement(visible = true, transformation(origin = {270, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_20107_ALDER_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_20107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, U0Pu = 1.037, i0Pu = i0Pu_gen_20107, u0Pu = u0Pu_gen_20107) annotation(
+  GeneratorPQProp gen_20107_ALDER_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_20107, QGen0Pu = QRef0Pu_gen_20107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, QRef0Pu = -QRef0Pu_gen_20107, U0Pu = 1.037, i0Pu = i0Pu_gen_20107, u0Pu = u0Pu_gen_20107) annotation(
     Placement(visible = true, transformation(origin = {270, -150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   GeneratorPQProp gen_30107_ALDER_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_30107, QGen0Pu = QRef0Pu_gen_30107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, QRef0Pu = -QRef0Pu_gen_30107, U0Pu = 1.037, i0Pu = i0Pu_gen_30107, u0Pu = u0Pu_gen_30107) annotation(
     Placement(visible = true, transformation(origin = {270, -190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_10113_ARNE_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10113, PMaxPu = 999, PMinPu = 0, PNom = 197, PRef0Pu = -PRef0Pu_gen_10113, QMaxPu = 0.827791, QMinPu = 0, QPercent = 0.01492537, U0Pu = 1.0198, i0Pu = i0Pu_gen_10113, u0Pu = u0Pu_gen_10113) annotation(
+  GeneratorPQProp gen_10113_ARNE_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10113, PMaxPu = 999, PMinPu = 0, PNom = 197, PRef0Pu = -PRef0Pu_gen_10113, QGen0Pu = QRef0Pu_gen_10113, QMaxPu = 0.827791, QMinPu = 0, QPercent = 0.01492537, QRef0Pu = -QRef0Pu_gen_10113, U0Pu = 1.0198, i0Pu = i0Pu_gen_10113, u0Pu = u0Pu_gen_10113) annotation(
     Placement(visible = true, transformation(origin = {190, 10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_20113_ARNE_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20113, PMaxPu = 999, PMinPu = 0, PNom = 197, PRef0Pu = -PRef0Pu_gen_20113, QMaxPu = 0.8, QMinPu = 0, QPercent = 0.4925373, U0Pu = 1.0181, i0Pu = i0Pu_gen_20113, u0Pu = u0Pu_gen_20113) annotation(
+  GeneratorPQProp gen_20113_ARNE_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20113, PMaxPu = 999, PMinPu = 0, PNom = 197, PRef0Pu = -PRef0Pu_gen_20113, QGen0Pu = QRef0Pu_gen_20113, QMaxPu = 0.8, QMinPu = 0, QPercent = 0.4925373, QRef0Pu = -QRef0Pu_gen_20113, U0Pu = 1.0181, i0Pu = i0Pu_gen_20113, u0Pu = u0Pu_gen_20113) annotation(
     Placement(visible = true, transformation(origin = {190, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   GeneratorPQProp gen_30113_ARNE_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30113, PMaxPu = 999, PMinPu = 0, PNom = 197, PRef0Pu = -PRef0Pu_gen_30113, QGen0Pu = QRef0Pu_gen_30113, QMaxPu = 0.8, QMinPu = 0, QPercent = 0.4925373, QRef0Pu = -QRef0Pu_gen_30113, U0Pu = 1.0181, i0Pu = i0Pu_gen_30113, u0Pu = u0Pu_gen_30113) annotation(
     Placement(visible = true, transformation(origin = {190, -70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_10115_ARTHUR_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_10115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, U0Pu = 1.0204, i0Pu = i0Pu_gen_10115, u0Pu = u0Pu_gen_10115) annotation(
+  GeneratorPQProp gen_10115_ARTHUR_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_10115, QGen0Pu = QRef0Pu_gen_10115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, QRef0Pu = -QRef0Pu_gen_10115, U0Pu = 1.0204, i0Pu = i0Pu_gen_10115, u0Pu = u0Pu_gen_10115) annotation(
     Placement(visible = true, transformation(origin = {-250, 250}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  GeneratorPQProp gen_20115_ARTHUR_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_20115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, U0Pu = 1.0204, i0Pu = i0Pu_gen_20115, u0Pu = u0Pu_gen_20115) annotation(
+  GeneratorPQProp gen_20115_ARTHUR_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_20115, QGen0Pu = QRef0Pu_gen_20115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, QRef0Pu = -QRef0Pu_gen_20115, U0Pu = 1.0204, i0Pu = i0Pu_gen_20115, u0Pu = u0Pu_gen_20115) annotation(
     Placement(visible = true, transformation(origin = {-250, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  GeneratorPQProp gen_30115_ARTHUR_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_30115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, U0Pu = 1.0204, i0Pu = i0Pu_gen_30115, u0Pu = u0Pu_gen_30115) annotation(
+  GeneratorPQProp gen_30115_ARTHUR_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_30115, QGen0Pu = QRef0Pu_gen_30115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, QRef0Pu = -QRef0Pu_gen_30115, U0Pu = 1.0204, i0Pu = i0Pu_gen_30115, u0Pu = u0Pu_gen_30115) annotation(
     Placement(visible = true, transformation(origin = {-250, 170}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  GeneratorPQProp gen_40115_ARTHUR_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_40115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, U0Pu = 1.0204, i0Pu = i0Pu_gen_40115, u0Pu = u0Pu_gen_40115) annotation(
+  GeneratorPQProp gen_40115_ARTHUR_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_40115, QGen0Pu = QRef0Pu_gen_40115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, QRef0Pu = -QRef0Pu_gen_40115, U0Pu = 1.0204, i0Pu = i0Pu_gen_40115, u0Pu = u0Pu_gen_40115) annotation(
     Placement(visible = true, transformation(origin = {-250, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  GeneratorPQProp gen_50115_ARTHUR_G5(KGover = 0, PGen0Pu = PRef0Pu_gen_50115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_50115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, U0Pu = 1.0204, i0Pu = i0Pu_gen_50115, u0Pu = u0Pu_gen_50115) annotation(
+  GeneratorPQProp gen_50115_ARTHUR_G5(KGover = 0, PGen0Pu = PRef0Pu_gen_50115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_50115, QGen0Pu = QRef0Pu_gen_50115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, QRef0Pu = -QRef0Pu_gen_50115, U0Pu = 1.0204, i0Pu = i0Pu_gen_50115, u0Pu = u0Pu_gen_50115) annotation(
     Placement(visible = true, transformation(origin = {-250, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   GeneratorPQProp gen_60115_ARTHUR_G6(KGover = 0, PGen0Pu = PRef0Pu_gen_60115, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_60115, QGen0Pu = QRef0Pu_gen_60115, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 0.7294589, QRef0Pu = -QRef0Pu_gen_60115, U0Pu = 1.022, i0Pu = i0Pu_gen_60115, u0Pu = u0Pu_gen_60115) annotation(
     Placement(visible = true, transformation(origin = {-250, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -255,23 +253,23 @@ model Loadflow
   GeneratorPQProp gen_10118_ASTOR_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10118, PMaxPu = 999, PMinPu = 0, PNom = 400, PRef0Pu = -PRef0Pu_gen_10118, QGen0Pu = QRef0Pu_gen_10118, QMaxPu = 2, QMinPu = -0.5, QPercent = 1, QRef0Pu = -QRef0Pu_gen_10118, U0Pu = 1.0487, i0Pu = i0Pu_gen_10118, u0Pu = u0Pu_gen_10118) annotation(
     Placement(visible = true, transformation(origin = {-30, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   /*  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_10121_ATTLEE_G1( KGover = 0, PGen0Pu = PRef0Pu_gen_10121, PMaxPu = 999, PMinPu = 0, PNom = 400, PRef0Pu = -PRef0Pu_gen_10121, QMaxPu = 2, QMinPu = -0.5, QPercent = 1, U0Pu = 1.0468, i0Pu = Complex(1, 0), u0Pu = Complex(1.0468, from_deg(13.4))) annotation(
-            Placement(visible = true, transformation(origin = {-150, 250}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-    */
-  GeneratorPQProp gen_10122_AUBREY_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_10122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, U0Pu = 1.0034, i0Pu = i0Pu_gen_10122, u0Pu = u0Pu_gen_10122) annotation(
+              Placement(visible = true, transformation(origin = {-150, 250}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+      */
+  GeneratorPQProp gen_10122_AUBREY_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_10122, QGen0Pu = QRef0Pu_gen_10122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, QRef0Pu = -QRef0Pu_gen_10122, U0Pu = 1.0034, i0Pu = i0Pu_gen_10122, u0Pu = u0Pu_gen_10122) annotation(
     Placement(visible = true, transformation(origin = {110, 230}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  GeneratorPQProp gen_20122_AUBREY_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_20122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, U0Pu = 1.0034, i0Pu = i0Pu_gen_20122, u0Pu = u0Pu_gen_20122) annotation(
+  GeneratorPQProp gen_20122_AUBREY_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_20122, QGen0Pu = QRef0Pu_gen_20122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, QRef0Pu = -QRef0Pu_gen_20122, U0Pu = 1.0034, i0Pu = i0Pu_gen_20122, u0Pu = u0Pu_gen_20122) annotation(
     Placement(visible = true, transformation(origin = {110, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  GeneratorPQProp gen_30122_AUBREY_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_30122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, U0Pu = 1.0034, i0Pu = i0Pu_gen_30122, u0Pu = u0Pu_gen_30122) annotation(
+  GeneratorPQProp gen_30122_AUBREY_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_30122, QGen0Pu = QRef0Pu_gen_30122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, QRef0Pu = -QRef0Pu_gen_30122, U0Pu = 1.0034, i0Pu = i0Pu_gen_30122, u0Pu = u0Pu_gen_30122) annotation(
     Placement(visible = true, transformation(origin = {230, 260}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_40122_AUBREY_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_40122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, U0Pu = 1.0034, i0Pu = i0Pu_gen_40122, u0Pu = u0Pu_gen_40122) annotation(
+  GeneratorPQProp gen_40122_AUBREY_G4(KGover = 0, PGen0Pu = PRef0Pu_gen_40122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_40122, QGen0Pu = QRef0Pu_gen_40122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, QRef0Pu = -QRef0Pu_gen_40122, U0Pu = 1.0034, i0Pu = i0Pu_gen_40122, u0Pu = u0Pu_gen_40122) annotation(
     Placement(visible = true, transformation(origin = {230, 220}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_50122_AUBREY_G5(KGover = 0, PGen0Pu = PRef0Pu_gen_50122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_50122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, U0Pu = 1.0034, i0Pu = i0Pu_gen_50122, u0Pu = u0Pu_gen_50122) annotation(
+  GeneratorPQProp gen_50122_AUBREY_G5(KGover = 0, PGen0Pu = PRef0Pu_gen_50122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_50122, QGen0Pu = QRef0Pu_gen_50122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, QRef0Pu = -QRef0Pu_gen_50122, U0Pu = 1.0034, i0Pu = i0Pu_gen_50122, u0Pu = u0Pu_gen_50122) annotation(
     Placement(visible = true, transformation(origin = {230, 180}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   GeneratorPQProp gen_60122_AUBREY_G6(KGover = 0, PGen0Pu = PRef0Pu_gen_60122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_60122, QGen0Pu = QRef0Pu_gen_60122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, QRef0Pu = -QRef0Pu_gen_60122, U0Pu = 1.0034, i0Pu = i0Pu_gen_60122, u0Pu = u0Pu_gen_60122) annotation(
     Placement(visible = true, transformation(origin = {230, 140}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_10123_AUSTEN_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10123, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_10123, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 0.258, U0Pu = 1.0491, i0Pu = i0Pu_gen_10123, u0Pu = u0Pu_gen_10123) annotation(
+  GeneratorPQProp gen_10123_AUSTEN_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10123, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_10123, QGen0Pu = QRef0Pu_gen_10123, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 0.258, QRef0Pu = -QRef0Pu_gen_10123, U0Pu = 1.0491, i0Pu = i0Pu_gen_10123, u0Pu = u0Pu_gen_10123) annotation(
     Placement(visible = true, transformation(origin = {270, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  GeneratorPQProp gen_20123_AUSTEN_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20123, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_20123, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 0.258, U0Pu = 1.0491, i0Pu = i0Pu_gen_20123, u0Pu = u0Pu_gen_20123) annotation(
+  GeneratorPQProp gen_20123_AUSTEN_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20123, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_20123, QGen0Pu = QRef0Pu_gen_20123, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 0.258, QRef0Pu = -QRef0Pu_gen_20123, U0Pu = 1.0491, i0Pu = i0Pu_gen_20123, u0Pu = u0Pu_gen_20123) annotation(
     Placement(visible = true, transformation(origin = {270, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   GeneratorPQProp gen_30123_AUSTEN_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30123, PMaxPu = 999, PMinPu = 0, PNom = 350, PRef0Pu = -PRef0Pu_gen_30123, QGen0Pu = QRef0Pu_gen_30123, QMaxPu = 1.5, QMinPu = -0.5, QPercent = 0.484, QRef0Pu = -QRef0Pu_gen_30123, U0Pu = 1.0401, i0Pu = i0Pu_gen_30123, u0Pu = u0Pu_gen_30123) annotation(
     Placement(visible = true, transformation(origin = {270, 30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -295,7 +293,7 @@ model Loadflow
     Placement(visible = true, transformation(origin = {80, -230}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   TransformerFixedRatio tfo_1102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 / 0.9614) annotation(
     Placement(visible = true, transformation(origin = {-70, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  TransformerFixedRatio tfo_103_124(BPu = 0, GPu = 0, RPu = 0.002 * 100 / 400, XPu = 0.084 * 100 / 400, rTfoPu =  1 /0.9125) annotation(
+  TransformerFixedRatio tfo_103_124(BPu = 0, GPu = 0, RPu = 0.002 * 100 / 400, XPu = 0.084 * 100 / 400, rTfoPu = 1 / 0.9125) annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   TransformerFixedRatio tfo_1103_103(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 / 0.9359) annotation(
     Placement(visible = true, transformation(origin = {-190, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -389,9 +387,9 @@ model Loadflow
     Placement(visible = true, transformation(origin = {230, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = from_deg(13.4), UPu = 1.0468) annotation(
     Placement(visible = true, transformation(origin = {-110, 290}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.StaticVarCompensators.SVarCPVRemote sVarC_10114_ARNOLD_SVC( BMaxPu = 0.5, BMinPu = -2, BShuntPu = 0.1, U0Pu = 1.05, UNomRemote = 230, URef0Pu = URef0Pu_sVarC_10114, i0Pu = i0Pu_sVarC_10114, u0Pu = u0Pu_sVarC_10114) annotation(
+  Dynawo.Electrical.StaticVarCompensators.SVarCPV sVarC_10114_ARNOLD_SVC(B0Pu = B0Pu_sVarC_10114, BMaxPu = 0.5, BMinPu = -2, BShuntPu = 0, U0Pu = 1.05, UNom = 18, URef0Pu = URef0Pu_sVarC_10114, i0Pu = i0Pu_sVarC_10114, u0Pu = u0Pu_sVarC_10114) annotation(
     Placement(visible = true, transformation(origin = {10, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.StaticVarCompensators.SVarCPVRemote sVarC_10106_ALBER_SVC( BMaxPu = 0.5, BMinPu = -1, BShuntPu = 0.1, U0Pu = 1.05, UNomRemote = 138, URef0Pu = URef0Pu_sVarC_10106, i0Pu = i0Pu_sVarC_10106, u0Pu = u0Pu_sVarC_10106) annotation(
+  Dynawo.Electrical.StaticVarCompensators.SVarCPV sVarC_10106_ALBER_SVC(B0Pu = B0Pu_sVarC_10106, BMaxPu = 0.5, BMinPu = -1, BShuntPu = 0, U0Pu = 1.05, UNom = 18, URef0Pu = URef0Pu_sVarC_10106, i0Pu = i0Pu_sVarC_10106, u0Pu = u0Pu_sVarC_10106) annotation(
     Placement(visible = true, transformation(origin = {150, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_101(Gain = 1, U0 = URef0_bus_101, URef0 = URef0_bus_101, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-270, -170}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -408,17 +406,17 @@ model Loadflow
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_118(Gain = 1, U0 = URef0_bus_118, URef0 = URef0_bus_118, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {28, 232}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   /*  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_121(Gain = 1, U0 = URef0_bus_121, URef0 = URef0_bus_121, tIntegral = 0.1)  annotation(
-        Placement(visible = true, transformation(origin = {-70, 270}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-    */
+          Placement(visible = true, transformation(origin = {-70, 270}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+      */
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_122(Gain = 1, U0 = URef0_bus_122, URef0 = URef0_bus_122, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {170, 280}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_123(Gain = 1, U0 = URef0_bus_123, URef0 = URef0_bus_123, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {210, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-/*  Dynawo.Electrical.Shunts.ShuntB shuntB(BPu = 0.75, i0Pu = i0Pu_line_reactor_110, s0Pu = s0Pu_line_reactor_110, u0Pu = u0Pu_line_reactor_110) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shuntB(BPu = 0.75, i0Pu = i0Pu_line_reactor_110, s0Pu = s0Pu_line_reactor_110, u0Pu = u0Pu_line_reactor_110) annotation(
     Placement(visible = true, transformation(origin = {40, -100}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
   Dynawo.Electrical.Shunts.ShuntB shuntB1(BPu = 0.75, i0Pu = i0Pu_line_reactor_106, s0Pu = s0Pu_line_reactor_106, u0Pu = u0Pu_line_reactor_106) annotation(
     Placement(visible = true, transformation(origin = {40, -140}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-*/equation
+equation
   connect(gen_10101_ABEL_G1.terminal, bus_10101_ABEL_G1.terminal) annotation(
     Line(points = {{-250, -230}, {-250, -210}}, color = {0, 0, 255}));
   connect(gen_20101_ABEL_G2.terminal, bus_20101_ABEL_G2.terminal) annotation(
@@ -877,11 +875,9 @@ model Loadflow
   gen_30123_AUSTEN_G3.NQ = vRRemote_bus_123.NQ;
   sVarC_10106_ALBER_SVC.switchOffSignal1.value = false;
   sVarC_10106_ALBER_SVC.switchOffSignal2.value = false;
-  sVarC_10106_ALBER_SVC.URegulatedPu = ComplexMath.'abs'(tfo_10106_106.terminal1.V);
   sVarC_10106_ALBER_SVC.URefPu = URefPu_sVarC_10106.setPoint.value;
   sVarC_10114_ARNOLD_SVC.switchOffSignal1.value = false;
   sVarC_10114_ARNOLD_SVC.switchOffSignal2.value = false;
-  sVarC_10114_ARNOLD_SVC.URegulatedPu = ComplexMath.'abs'(tfo_10114_114.terminal1.V);
   sVarC_10114_ARNOLD_SVC.URefPu = URefPu_sVarC_10114.setPoint.value;
   tfo_1101_101.switchOffSignal1.value = false;
   tfo_1101_101.switchOffSignal2.value = false;
@@ -995,22 +991,22 @@ model Loadflow
   tfo_20123_123.switchOffSignal2.value = false;
   tfo_30123_123.switchOffSignal1.value = false;
   tfo_30123_123.switchOffSignal2.value = false;
-/*  shuntB.switchOffSignal1.value = false;
+  shuntB.switchOffSignal1.value = false;
   shuntB.switchOffSignal2.value = false;
   shuntB1.switchOffSignal1.value = false;
   shuntB1.switchOffSignal2.value = false;
-*/  connect(infiniteBus.terminal, bus_10121_ATTLEE_G1.terminal) annotation(
+  connect(infiniteBus.terminal, bus_10121_ATTLEE_G1.terminal) annotation(
     Line(points = {{-110, 290}, {-110, 250}}, color = {0, 0, 255}));
   connect(sVarC_10114_ARNOLD_SVC.terminal, bus_10114_ARNOLD_SVC.terminal) annotation(
     Line(points = {{10, 90}, {-10, 90}}, color = {0, 0, 255}));
   connect(sVarC_10106_ALBER_SVC.terminal, bus_10106_ALBER_SVC.terminal) annotation(
     Line(points = {{150, -190}, {130, -190}}, color = {0, 0, 255}));
-/*  connect(shuntB1.terminal, bus1.terminal) annotation(
+  connect(shuntB1.terminal, bus1.terminal) annotation(
     Line(points = {{40, -140}, {54, -140}}, color = {0, 0, 255}));
   connect(shuntB.terminal, bus.terminal) annotation(
     Line(points = {{40, -100}, {54, -100}}, color = {0, 0, 255}));
-*/  annotation(
-    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian -d=nonewInst --daeMode",
+  annotation(
+    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"),
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02));
-end Loadflow;
+end Loadflow_exact_init_sVarC_local;

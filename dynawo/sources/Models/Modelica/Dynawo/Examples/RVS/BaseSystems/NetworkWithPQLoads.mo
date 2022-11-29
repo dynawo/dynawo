@@ -21,7 +21,7 @@ model NetworkWithPQLoads "RVS test system network extended with PQ loads"
   import Dynawo.Electrical.Loads.LoadPQ;
   import Dynawo.Electrical.Controls.Basics.SetPoint;
   
-  extends Network;
+  extends NetworkHalfSusceptance;
 
   final parameter Types.ActivePowerPu P0Pu_load_1101 = 118.8 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1101 = 24.2 / SystemBase.SnRef;
@@ -35,34 +35,79 @@ model NetworkWithPQLoads "RVS test system network extended with PQ loads"
   final parameter Types.ComplexCurrentPu i0Pu_load_1102 = ComplexMath.conj(s0Pu_load_1102 / u0Pu_load_1102);
   final parameter Types.ActivePowerPu P0Pu_load_1103 = 198.0 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1103 = 40.7 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1103 = Complex(P0Pu_load_1103, Q0Pu_load_1103);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1103 = ComplexMath.fromPolar(1.0446, from_deg(-22.2));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1103 = ComplexMath.conj(s0Pu_load_1103 / u0Pu_load_1103);
   final parameter Types.ActivePowerPu P0Pu_load_1104 = 81.4 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1104 = 16.5 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1104 = Complex(P0Pu_load_1104, Q0Pu_load_1104);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1104 = ComplexMath.fromPolar(1.0450, from_deg(-26.5));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1104 = ComplexMath.conj(s0Pu_load_1104 / u0Pu_load_1104);
   final parameter Types.ActivePowerPu P0Pu_load_1105 = 78.1 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1105 = 15.4 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1105 = Complex(P0Pu_load_1105, Q0Pu_load_1105);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1105 = ComplexMath.fromPolar(1.0488, from_deg(-26.8));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1105 = ComplexMath.conj(s0Pu_load_1105 / u0Pu_load_1105);
   final parameter Types.ActivePowerPu P0Pu_load_1106 = 149.6 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1106 = 30.8 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1106 = Complex(P0Pu_load_1106, Q0Pu_load_1106);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1106 = ComplexMath.fromPolar(1.035, from_deg(-29.5));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1106 = ComplexMath.conj(s0Pu_load_1106 / u0Pu_load_1106);
   final parameter Types.ActivePowerPu P0Pu_load_1107 = 137.5 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1107 = 27.5 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1107 = Complex(P0Pu_load_1107, Q0Pu_load_1107);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1107 = ComplexMath.fromPolar(1.0497, from_deg(-27.4));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1107 = ComplexMath.conj(s0Pu_load_1107 / u0Pu_load_1107);
   final parameter Types.ActivePowerPu P0Pu_load_1108 = 188.1 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1108 = 38.5 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1108 = Complex(P0Pu_load_1108, Q0Pu_load_1108);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1108 = ComplexMath.fromPolar(1.0442, from_deg(-28.6));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1108 = ComplexMath.conj(s0Pu_load_1108 / u0Pu_load_1108);
   final parameter Types.ActivePowerPu P0Pu_load_1109 = 192.5 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1109 = 39.6 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1109 = Complex(P0Pu_load_1109, Q0Pu_load_1109);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1109 = ComplexMath.fromPolar(1.0477, from_deg(-23.2));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1109 = ComplexMath.conj(s0Pu_load_1109 / u0Pu_load_1109);
   final parameter Types.ActivePowerPu P0Pu_load_1110 = 214.5 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1110 = 44.0 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1110 = Complex(P0Pu_load_1110, Q0Pu_load_1110);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1110 = ComplexMath.fromPolar(1.0484, from_deg(-26.3));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1110 = ComplexMath.conj(s0Pu_load_1110 / u0Pu_load_1110);
   final parameter Types.ActivePowerPu P0Pu_load_1113 = 291.5 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1113 = 59.4 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1113 = Complex(P0Pu_load_1113, Q0Pu_load_1113);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1113 = ComplexMath.fromPolar(1.0453, from_deg(-12.5));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1113 = ComplexMath.conj(s0Pu_load_1113 / u0Pu_load_1113);
   final parameter Types.ActivePowerPu P0Pu_load_1114 = 213.4 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1114 = 42.9 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1114 = Complex(P0Pu_load_1114, Q0Pu_load_1114);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1114 = ComplexMath.fromPolar(1.0433, from_deg(-16.3));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1114 = ComplexMath.conj(s0Pu_load_1114 / u0Pu_load_1114);
   final parameter Types.ActivePowerPu P0Pu_load_1115 = 348.7 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1115 = 70.4 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1115 = Complex(P0Pu_load_1115, Q0Pu_load_1115);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1115 = ComplexMath.fromPolar(1.0497, from_deg(-5.6));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1115 = ComplexMath.conj(s0Pu_load_1115 / u0Pu_load_1115);
   final parameter Types.ActivePowerPu P0Pu_load_1116 = 110.0 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1116 = 22.0 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1116 = Complex(P0Pu_load_1116, Q0Pu_load_1116);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1116 = ComplexMath.fromPolar(1.0496, from_deg(-5.2));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1116 = ComplexMath.conj(s0Pu_load_1116 / u0Pu_load_1116);
   final parameter Types.ActivePowerPu P0Pu_load_1118 = 366.3 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1118 = 74.8 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1118 = Complex(P0Pu_load_1118, Q0Pu_load_1118);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1118 = ComplexMath.fromPolar(1.0492, from_deg(-0.5));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1118 = ComplexMath.conj(s0Pu_load_1118 / u0Pu_load_1118);
   final parameter Types.ActivePowerPu P0Pu_load_1119 = 199.1 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1119 = 40.7 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1119 = Complex(P0Pu_load_1119, Q0Pu_load_1119);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1119 = ComplexMath.fromPolar(1.0498, from_deg(-6.7));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1119 = ComplexMath.conj(s0Pu_load_1119 / u0Pu_load_1119);
   final parameter Types.ActivePowerPu P0Pu_load_1120 = 140.8 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1120 = 28.6 / SystemBase.SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_load_1120 = Complex(P0Pu_load_1120, Q0Pu_load_1120);
+  final parameter Types.ComplexVoltagePu u0Pu_load_1120 = ComplexMath.fromPolar(1.0497, from_deg(-4.9));
+  final parameter Types.ComplexCurrentPu i0Pu_load_1120 = ComplexMath.conj(s0Pu_load_1120 / u0Pu_load_1120);
   
   Electrical.Controls.Basics.SetPoint PrefPu_load_1101(Value0 = P0Pu_load_1101);
   Electrical.Controls.Basics.SetPoint QrefPu_load_1101(Value0 = Q0Pu_load_1101);
@@ -99,39 +144,39 @@ model NetworkWithPQLoads "RVS test system network extended with PQ loads"
   Electrical.Controls.Basics.SetPoint PrefPu_load_1120(Value0 = P0Pu_load_1120);
   Electrical.Controls.Basics.SetPoint QrefPu_load_1120(Value0 = Q0Pu_load_1120);
   
-  Dynawo.Electrical.Loads.LoadPQ load_1101_ABEL(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1101, Q0Pu_load_1101), u0Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadPQ load_1101_ABEL(i0Pu = i0Pu_load_1101, s0Pu = s0Pu_load_1101, u0Pu = u0Pu_load_1101) annotation(
     Placement(visible = true, transformation(origin = {-270, -150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1102_ADAMS(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1102, Q0Pu_load_1102), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1102_ADAMS(i0Pu = i0Pu_load_1102, s0Pu = s0Pu_load_1102, u0Pu = u0Pu_load_1102) annotation(
     Placement(visible = true, transformation(origin = {-110, -230}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1103_ADLER(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1103, Q0Pu_load_1103), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1103_ADLER(i0Pu = i0Pu_load_1103, s0Pu = s0Pu_load_1103, u0Pu = u0Pu_load_1103) annotation(
     Placement(visible = true, transformation(origin = {-230, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1104_AGRICOLA(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1104, Q0Pu_load_1104), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1104_AGRICOLA(i0Pu = i0Pu_load_1104, s0Pu = s0Pu_load_1104, u0Pu = u0Pu_load_1104) annotation(
     Placement(visible = true, transformation(origin = {-130, -130}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1105_AIKEN(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1105, Q0Pu_load_1105), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1105_AIKEN(i0Pu = i0Pu_load_1105, s0Pu = s0Pu_load_1105, u0Pu = u0Pu_load_1105) annotation(
     Placement(visible = true, transformation(origin = {-40, -190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1106_ALBER(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1106, Q0Pu_load_1106), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1106_ALBER(i0Pu = i0Pu_load_1106, s0Pu = s0Pu_load_1106, u0Pu = u0Pu_load_1106) annotation(
     Placement(visible = true, transformation(origin = {150, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1107_ALDER(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1107, Q0Pu_load_1107), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1107_ALDER(i0Pu = i0Pu_load_1107, s0Pu = s0Pu_load_1107, u0Pu = u0Pu_load_1107) annotation(
     Placement(visible = true, transformation(origin = {190, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  LoadPQ load_1108_ALGER(s0Pu = Complex(P0Pu_load_1108, Q0Pu_load_1108)) annotation(
+  LoadPQ load_1108_ALGER(i0Pu = i0Pu_load_1108, s0Pu = s0Pu_load_1108, u0Pu = u0Pu_load_1108) annotation(
     Placement(visible = true, transformation(origin = {190, -150}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1109_ALI(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1109, Q0Pu_load_1109), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1109_ALI(i0Pu = i0Pu_load_1109, s0Pu = s0Pu_load_1109, u0Pu = u0Pu_load_1109) annotation(
     Placement(visible = true, transformation(origin = {-130, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1110_ALLEN(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1110, Q0Pu_load_1110), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1110_ALLEN(i0Pu = i0Pu_load_1110, s0Pu = s0Pu_load_1110, u0Pu = u0Pu_load_1110) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1113_ARNE(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1113, Q0Pu_load_1113), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1113_ARNE(i0Pu = i0Pu_load_1113, s0Pu = s0Pu_load_1113, u0Pu = u0Pu_load_1113) annotation(
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadPQ load_1114_ARNOLD(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1114, Q0Pu_load_1114), u0Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadPQ load_1114_ARNOLD(i0Pu = i0Pu_load_1114, s0Pu = s0Pu_load_1114, u0Pu = u0Pu_load_1114) annotation(
     Placement(visible = true, transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1115_ARTHUR(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1115, Q0Pu_load_1115), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1115_ARTHUR(i0Pu = i0Pu_load_1115, s0Pu = s0Pu_load_1115, u0Pu = u0Pu_load_1115) annotation(
     Placement(visible = true, transformation(origin = {-110, 152}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1116_ASSER(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1116, Q0Pu_load_1116), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1116_ASSER(i0Pu = i0Pu_load_1116, s0Pu = s0Pu_load_1116, u0Pu = u0Pu_load_1116) annotation(
     Placement(visible = true, transformation(origin = {-150, 82}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  LoadPQ load_1118_ASTOR(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1118, Q0Pu_load_1118), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1118_ASTOR(i0Pu = i0Pu_load_1118, s0Pu = s0Pu_load_1118, u0Pu = u0Pu_load_1118) annotation(
     Placement(visible = true, transformation(origin = {90, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1119_ATTAR(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1119, Q0Pu_load_1119), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1119_ATTAR(i0Pu = i0Pu_load_1119, s0Pu = s0Pu_load_1119, u0Pu = u0Pu_load_1119) annotation(
     Placement(visible = true, transformation(origin = {90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  LoadPQ load_1120_ATTILA(i0Pu = Complex(1, 0), s0Pu = Complex(P0Pu_load_1120, Q0Pu_load_1120), u0Pu = Complex(1, 0)) annotation(
+  LoadPQ load_1120_ATTILA(i0Pu = i0Pu_load_1120, s0Pu = s0Pu_load_1120, u0Pu = u0Pu_load_1120) annotation(
     Placement(visible = true, transformation(origin = {170, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation

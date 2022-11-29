@@ -1,6 +1,6 @@
 within Dynawo.Examples.RVS.BaseSystems;
 
-model Loadflow_equiv_extended
+model Loadflow_equiv_extended_sVarC_local
   import Modelica.ComplexMath;
   import Modelica.SIunits.Conversions.from_deg;
   import Dynawo;
@@ -8,53 +8,68 @@ model Loadflow_equiv_extended
   import Dynawo.Electrical;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.SystemBase.SnRef;
+  
   final parameter Types.VoltageModule UNom_lower = 138 "Nominal Voltage of the lower part of the network in kV";
 
   final parameter Types.VoltageModule URef0_bus_101 = 1.0342 * UNom_lower;
   final parameter Types.VoltageModule URef0_bus_102 = 1.0358 * UNom_lower;
     
-  final parameter Types.VoltageModulePu URef0Pu_sVarC_10106 = 0.9852;
+  final parameter Types.VoltageModulePu URef0Pu_sVarC_10106 = 1.05;
   final parameter Types.ReactivePowerPu Q0Pu_sVarC_10106 = 93.841 / SnRef;
   final parameter Types.ComplexVoltagePu u0Pu_sVarC_10106 = ComplexMath.fromPolar(URef0Pu_sVarC_10106, from_deg(-40.8077));
   final parameter Types.ComplexCurrentPu i0Pu_sVarC_10106 = ComplexMath.conj(Complex(0, Q0Pu_sVarC_10106) / u0Pu_sVarC_10106);
   
   final parameter Types.ActivePowerPu PRef0Pu_gen_10101 = 10 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_10101 = 3.877 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_10101 = 3.441 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_10101 = Complex(PRef0Pu_gen_10101, QRef0Pu_gen_10101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_10101 = ComplexMath.fromPolar(1.0083, from_deg(1.1881));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_10101 = ComplexMath.fromPolar(1.0056, from_deg(-18.7721));
   final parameter Types.ComplexCurrentPu i0Pu_gen_10101 = ComplexMath.conj(s0Pu_gen_10101 / u0Pu_gen_10101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_20101 = 10 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_20101 = 3.877 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_20101 = 3.441 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_20101 = Complex(PRef0Pu_gen_20101, QRef0Pu_gen_20101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_20101 = ComplexMath.fromPolar(1.0083, from_deg(1.1881));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_20101 = ComplexMath.fromPolar(1.0056, from_deg(-18.7721));
   final parameter Types.ComplexCurrentPu i0Pu_gen_20101 = ComplexMath.conj(s0Pu_gen_20101 / u0Pu_gen_20101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_30101 = 76 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_30101 = 11.508 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_30101 = 10.215 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_30101 = Complex(PRef0Pu_gen_30101, QRef0Pu_gen_30101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_30101 = ComplexMath.fromPolar(0.9986, from_deg(5.068));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_30101 = ComplexMath.fromPolar(0.9964, from_deg(-14.8858));
   final parameter Types.ComplexCurrentPu i0Pu_gen_30101 = ComplexMath.conj(s0Pu_gen_30101 / u0Pu_gen_30101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_40101 = 76 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_40101 = 11.508 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_40101 = 10.215 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_40101 = Complex(PRef0Pu_gen_40101, QRef0Pu_gen_40101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_40101 = ComplexMath.fromPolar(0.9986, from_deg(5.068));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_40101 = ComplexMath.fromPolar(0.9964, from_deg(-14.8858));
   final parameter Types.ComplexCurrentPu i0Pu_gen_40101 = ComplexMath.conj(s0Pu_gen_40101 / u0Pu_gen_40101);
+  
   final parameter Types.ActivePowerPu PRef0Pu_gen_10102 = 10 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_10102 = 09.5355 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_10102 = 10 / SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_gen_10102 = Complex(PRef0Pu_gen_10102, QRef0Pu_gen_10102);
+  final parameter Types.ComplexVoltagePu u0Pu_gen_10102 = ComplexMath.fromPolar(1.0457, from_deg(-19.7476));
+  final parameter Types.ComplexCurrentPu i0Pu_gen_10102 = ComplexMath.conj(s0Pu_gen_10102 / u0Pu_gen_10102);
   final parameter Types.ActivePowerPu PRef0Pu_gen_20102 = 10 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_20102 = 09.5355 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_20102 = 10 / SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_gen_20102 = Complex(PRef0Pu_gen_20102, QRef0Pu_gen_20102);
+  final parameter Types.ComplexVoltagePu u0Pu_gen_20102 = ComplexMath.fromPolar(1.0457, from_deg(-19.7476));
+  final parameter Types.ComplexCurrentPu i0Pu_gen_20102 = ComplexMath.conj(s0Pu_gen_20102 / u0Pu_gen_20102);
   final parameter Types.ActivePowerPu PRef0Pu_gen_30102 = 76 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_30102 = 21.7756 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_30102 = 25.803 / SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_gen_30102 = Complex(PRef0Pu_gen_30102, QRef0Pu_gen_30102);
+  final parameter Types.ComplexVoltagePu u0Pu_gen_30102 = ComplexMath.fromPolar(1.0236, from_deg(-15.9137));
+  final parameter Types.ComplexCurrentPu i0Pu_gen_30102 = ComplexMath.conj(s0Pu_gen_30102 / u0Pu_gen_30102);
   final parameter Types.ActivePowerPu PRef0Pu_gen_40102 = 76 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_40102 = 21.7756 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_40102 = 25.803 / SnRef;
+  final parameter Types.ComplexApparentPowerPu s0Pu_gen_40102 = Complex(PRef0Pu_gen_40102, QRef0Pu_gen_40102);
+  final parameter Types.ComplexVoltagePu u0Pu_gen_40102 = ComplexMath.fromPolar(1.0236, from_deg(-15.9137));
+  final parameter Types.ComplexCurrentPu i0Pu_gen_40102 = ComplexMath.conj(s0Pu_gen_40102 / u0Pu_gen_40102);
+  
   final parameter Types.ActivePowerPu P0Pu_load_1101 = 118.8 / SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1101 = 24.2 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_1101 = Complex(P0Pu_load_1101, Q0Pu_load_1101);
-  final parameter Types.ComplexVoltagePu u0Pu_load_1101 = ComplexMath.fromPolar(1.043, from_deg(-8.4522));
+  final parameter Types.ComplexVoltagePu u0Pu_load_1101 = ComplexMath.fromPolar(1.043, from_deg(-28.425));
   final parameter Types.ComplexCurrentPu i0Pu_load_1101 = ComplexMath.conj(s0Pu_load_1101 / u0Pu_load_1101);
   final parameter Types.ActivePowerPu P0Pu_load_1102 = 106.7 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1102 = 22.0 / SystemBase.SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_1102 = Complex(P0Pu_load_1102, Q0Pu_load_1102);
-  final parameter Types.ComplexVoltagePu u0Pu_load_1102 = ComplexMath.fromPolar(1.0496, from_deg(-7.3096));
+  final parameter Types.ComplexVoltagePu u0Pu_load_1102 = ComplexMath.fromPolar(1.0412, from_deg(-28.6291));
   final parameter Types.ComplexCurrentPu i0Pu_load_1102 = ComplexMath.conj(s0Pu_load_1102 / u0Pu_load_1102);
   final parameter Types.ActivePowerPu P0Pu_load_1106 = 149.6 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1106 = 30.8 / SystemBase.SnRef;
@@ -64,6 +79,7 @@ model Loadflow_equiv_extended
   
   Types.ActivePowerPu check_Pinfbus;
   Types.ReactivePowerPu check_Qinfbus;
+  Types.VoltageModulePu check_USVC;
   Dynawo.Electrical.Controls.Basics.SetPoint N(Value0 = 0);
   Electrical.Controls.Basics.SetPoint PrefPu_load_1101(Value0 = P0Pu_load_1101);
   Electrical.Controls.Basics.SetPoint QrefPu_load_1101(Value0 = Q0Pu_load_1101);
@@ -138,7 +154,7 @@ model Loadflow_equiv_extended
     Placement(visible = true, transformation(origin = {272, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {152, -70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_30102_ADAMS_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30102, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_30102, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.322) annotation(
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_30102_ADAMS_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30102, PMaxPu = 999, PMinPu = 0, PNom = 76, PRef0Pu = -PRef0Pu_gen_30102, QMaxPu = 0.3, QMinPu = -0.25, QPercent = 0.322, U0Pu = 1) annotation(
     Placement(visible = true, transformation(origin = {232, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus bus_10102_ADAMS_G1 annotation(
     Placement(visible = true, transformation(origin = {152, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -166,17 +182,18 @@ model Loadflow_equiv_extended
     Placement(visible = true, transformation(origin = {336, -62}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Buses.Bus bus_10106_ALBER_SVC annotation(
     Placement(visible = true, transformation(origin = {336, -22}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.StaticVarCompensators.SVarCPVRemote sVarC_10106_ALBER_SVC(B0Pu = 0.1, BMaxPu = 0.5, BMinPu = -1, BShuntPu = 0.1, U0Pu = 1, UNomRemote = 138, URef0Pu = URef0Pu_sVarC_10106, i0Pu = Complex(1, 0), u0Pu = Complex(1, 0)) annotation(
-    Placement(visible = true, transformation(origin = {356, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line_102_106(BPu = 0.052 / 2, GPu = 0, RPu = 0.05, XPu = 0.192)  annotation(
     Placement(visible = true, transformation(origin = {270, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Buses.Bus bus_106_ALBER annotation(
     Placement(visible = true, transformation(origin = {286, -2}, extent = {{-30, -10}, {30, 10}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 / 0.9625) annotation(
     Placement(visible = true, transformation(origin = {316, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.StaticVarCompensators.SVarCPV sVarC_10106_ALBER_SVC(B0Pu = 0, BMaxPu = 0.5, BMinPu = -1, BShuntPu = 0, U0Pu = 1, UNom = 18, URef0Pu = URef0Pu_sVarC_10106, i0Pu = Complex(1, 0), u0Pu = Complex(1, 0))  annotation(
+    Placement(visible = true, transformation(origin = {360, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   check_Pinfbus = SnRef * ComplexMath.real(infiniteBus.terminal.V * ComplexMath.conj(infiniteBus.terminal.i));
   check_Qinfbus = SnRef * ComplexMath.imag(infiniteBus.terminal.V * ComplexMath.conj(infiniteBus.terminal.i));
+  check_USVC = ComplexMath.'abs'(sVarC_10106_ALBER_SVC.terminal.V);
   connect(gen_20101_ABEL_G2.terminal, bus_20101_ABEL_G2.terminal) annotation(
     Line(points = {{-20, -70}, {-20, -50}}, color = {0, 0, 255}));
   connect(tfo_1101_101.terminal1, bus_101_ABEL.terminal) annotation(
@@ -215,7 +232,6 @@ equation
   line_102_106.switchOffSignal2.value = false;
   sVarC_10106_ALBER_SVC.switchOffSignal1.value = false;
   sVarC_10106_ALBER_SVC.switchOffSignal2.value = false;
-  sVarC_10106_ALBER_SVC.URegulatedPu = ComplexMath.'abs'(tfo_10106_106.terminal2.V);
   sVarC_10106_ALBER_SVC.URefPu = URefPu_sVarC_10106.setPoint.value;
   load_1101_ABEL.switchOffSignal1.value = false;
   load_1101_ABEL.switchOffSignal2.value = false;
@@ -339,8 +355,6 @@ equation
     Line(points = {{326, -22}, {336, -22}}, color = {0, 0, 255}));
   connect(tfo_1106_106.terminal2, bus_1106_ALBER.terminal) annotation(
     Line(points = {{326, -62}, {336, -62}}, color = {0, 0, 255}));
-  connect(sVarC_10106_ALBER_SVC.terminal, bus_10106_ALBER_SVC.terminal) annotation(
-    Line(points = {{356, -22}, {336, -22}}, color = {0, 0, 255}));
   connect(tfo_1106_106.terminal1, bus_106_ALBER.terminal) annotation(
     Line(points = {{306, -62}, {300, -62}, {300, -2}, {286, -2}}, color = {0, 0, 255}));
   connect(load_1106_ALBER.terminal, bus_1106_ALBER.terminal) annotation(
@@ -351,8 +365,9 @@ equation
     Line(points = {{270, -38}, {272, -38}, {272, -50}, {192, -50}}, color = {0, 0, 255}));
   connect(line_102_106.terminal2, bus_106_ALBER.terminal) annotation(
     Line(points = {{270, -18}, {270, -2}, {286, -2}}, color = {0, 0, 255}));
+  connect(sVarC_10106_ALBER_SVC.terminal, bus_10106_ALBER_SVC.terminal);
   annotation(
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"));
-end Loadflow_equiv_extended;
+end Loadflow_equiv_extended_sVarC_local;

@@ -1,6 +1,6 @@
 within Dynawo.Examples.RVS.BaseSystems;
 
-model Loadflow_equiv_extended
+model Loadflow_equiv_extended_correct_init
   import Modelica.ComplexMath;
   import Modelica.SIunits.Conversions.from_deg;
   import Dynawo;
@@ -19,42 +19,42 @@ model Loadflow_equiv_extended
   final parameter Types.ComplexCurrentPu i0Pu_sVarC_10106 = ComplexMath.conj(Complex(0, Q0Pu_sVarC_10106) / u0Pu_sVarC_10106);
   
   final parameter Types.ActivePowerPu PRef0Pu_gen_10101 = 10 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_10101 = 3.877 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_10101 = 3.441 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_10101 = Complex(PRef0Pu_gen_10101, QRef0Pu_gen_10101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_10101 = ComplexMath.fromPolar(1.0083, from_deg(1.1881));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_10101 = ComplexMath.fromPolar(1.0056, from_deg(-18.7721));
   final parameter Types.ComplexCurrentPu i0Pu_gen_10101 = ComplexMath.conj(s0Pu_gen_10101 / u0Pu_gen_10101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_20101 = 10 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_20101 = 3.877 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_20101 = 3.441 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_20101 = Complex(PRef0Pu_gen_20101, QRef0Pu_gen_20101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_20101 = ComplexMath.fromPolar(1.0083, from_deg(1.1881));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_20101 = ComplexMath.fromPolar(1.0056, from_deg(-18.7721));
   final parameter Types.ComplexCurrentPu i0Pu_gen_20101 = ComplexMath.conj(s0Pu_gen_20101 / u0Pu_gen_20101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_30101 = 76 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_30101 = 11.508 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_30101 = 10.215 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_30101 = Complex(PRef0Pu_gen_30101, QRef0Pu_gen_30101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_30101 = ComplexMath.fromPolar(0.9986, from_deg(5.068));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_30101 = ComplexMath.fromPolar(0.9964, from_deg(-14.8858));
   final parameter Types.ComplexCurrentPu i0Pu_gen_30101 = ComplexMath.conj(s0Pu_gen_30101 / u0Pu_gen_30101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_40101 = 76 / SnRef;
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_40101 = 11.508 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_40101 = 10.215 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_gen_40101 = Complex(PRef0Pu_gen_40101, QRef0Pu_gen_40101);
-  final parameter Types.ComplexVoltagePu u0Pu_gen_40101 = ComplexMath.fromPolar(0.9986, from_deg(5.068));
+  final parameter Types.ComplexVoltagePu u0Pu_gen_40101 = ComplexMath.fromPolar(0.9964, from_deg(-14.8858));
   final parameter Types.ComplexCurrentPu i0Pu_gen_40101 = ComplexMath.conj(s0Pu_gen_40101 / u0Pu_gen_40101);
   final parameter Types.ActivePowerPu PRef0Pu_gen_10102 = 10 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_10102 = 09.5355 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_10102 = 10 / SnRef;
   final parameter Types.ActivePowerPu PRef0Pu_gen_20102 = 10 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_20102 = 09.5355 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_20102 = 10 / SnRef;
   final parameter Types.ActivePowerPu PRef0Pu_gen_30102 = 76 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_30102 = 21.7756 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_30102 = 25.803 / SnRef;
   final parameter Types.ActivePowerPu PRef0Pu_gen_40102 = 76 / SnRef; 
-  final parameter Types.ReactivePowerPu QRef0Pu_gen_40102 = 21.7756 / SnRef;
+  final parameter Types.ReactivePowerPu QRef0Pu_gen_40102 = 25.803 / SnRef;
   final parameter Types.ActivePowerPu P0Pu_load_1101 = 118.8 / SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1101 = 24.2 / SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_1101 = Complex(P0Pu_load_1101, Q0Pu_load_1101);
-  final parameter Types.ComplexVoltagePu u0Pu_load_1101 = ComplexMath.fromPolar(1.043, from_deg(-8.4522));
+  final parameter Types.ComplexVoltagePu u0Pu_load_1101 = ComplexMath.fromPolar(1.043, from_deg(-28.425));
   final parameter Types.ComplexCurrentPu i0Pu_load_1101 = ComplexMath.conj(s0Pu_load_1101 / u0Pu_load_1101);
   final parameter Types.ActivePowerPu P0Pu_load_1102 = 106.7 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1102 = 22.0 / SystemBase.SnRef;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_1102 = Complex(P0Pu_load_1102, Q0Pu_load_1102);
-  final parameter Types.ComplexVoltagePu u0Pu_load_1102 = ComplexMath.fromPolar(1.0496, from_deg(-7.3096));
+  final parameter Types.ComplexVoltagePu u0Pu_load_1102 = ComplexMath.fromPolar(1.0412, from_deg(-28.6291));
   final parameter Types.ComplexCurrentPu i0Pu_load_1102 = ComplexMath.conj(s0Pu_load_1102 / u0Pu_load_1102);
   final parameter Types.ActivePowerPu P0Pu_load_1106 = 149.6 / SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_load_1106 = 30.8 / SystemBase.SnRef;
@@ -355,4 +355,4 @@ equation
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"));
-end Loadflow_equiv_extended;
+end Loadflow_equiv_extended_correct_init;

@@ -1,24 +1,22 @@
 within Dynawo.Examples.RVS.BaseSystems;
 
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
-model Network
+model NetworkHalfSusceptance
+  /*
+  * Copyright (c) 2022, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+  */
   import Modelica.SIunits.Conversions.from_deg;
   import Dynawo;
   import Dynawo.Types;
   import Dynawo.Electrical.Buses.Bus;
   import Dynawo.Electrical.Lines.Line;
-  
   Bus bus_101_ABEL annotation(
     Placement(visible = true, transformation(origin = {-170, -170}, extent = {{-90, -10}, {90, 10}}, rotation = 180)));
   Bus bus_1101_ABEL annotation(
@@ -169,74 +167,73 @@ model Network
     Placement(visible = true, transformation(origin = {250, 30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Bus bus_124_AVERY annotation(
     Placement(visible = true, transformation(origin = {-150, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Line line_101_102( BPu=0.461, GPu = 0,RPu=0.003, XPu=0.014) annotation(
+  Line line_101_102(BPu = 0.461 / 2, GPu = 0, RPu = 0.003, XPu = 0.014) annotation(
     Placement(visible = true, transformation(origin = {-84, -190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Line line_101_103( BPu=0.057, GPu = 0,RPu=0.055, XPu= 0.211) annotation(
+  Line line_101_103(BPu = 0.057 / 2, GPu = 0, RPu = 0.055, XPu = 0.211) annotation(
     Placement(visible = true, transformation(origin = {-160, -122}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Line line_101_105( BPu=0.023, GPu = 0,RPu=0.022, XPu=0.085) annotation(
+  Line line_101_105(BPu = 0.023 / 2, GPu = 0, RPu = 0.022, XPu = 0.085) annotation(
     Placement(visible = true, transformation(origin = {-30, -150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_102_104( BPu=0.034, GPu = 0,RPu=0.033, XPu=0.127) annotation(
+  Line line_102_104(BPu = 0.034 / 2, GPu = 0, RPu = 0.033, XPu = 0.127) annotation(
     Placement(visible = true, transformation(origin = {-60, -170}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Line line_102_106( BPu=0.052, GPu = 0,RPu=0.05, XPu=0.192) annotation(
+  Line line_102_106(BPu = 0.052 / 2, GPu = 0, RPu = 0.05, XPu = 0.192) annotation(
     Placement(visible = true, transformation(origin = {80, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Line line_103_109( BPu=0.032, GPu = 0,RPu=0.031, XPu=0.119) annotation(
+  Line line_103_109(BPu = 0.032 / 2, GPu = 0, RPu = 0.031, XPu = 0.119) annotation(
     Placement(visible = true, transformation(origin = {-120, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_104_109( BPu=0.028, GPu = 0,RPu=0.027, XPu=0.104) annotation(
+  Line line_104_109(BPu = 0.028 / 2, GPu = 0, RPu = 0.027, XPu = 0.104) annotation(
     Placement(visible = true, transformation(origin = {-60, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Lines.Line line_105_110( BPu=0.024, GPu = 0,RPu=0.023, XPu=0.088) annotation(
+  Dynawo.Electrical.Lines.Line line_105_110(BPu = 0.024 / 2, GPu = 0, RPu = 0.023, XPu = 0.088) annotation(
     Placement(visible = true, transformation(origin = {10, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Lines.Line line_106_110( BPu=2.459, GPu = 0,RPu=0.014, XPu=0.061) annotation(
+  Dynawo.Electrical.Lines.Line line_106_110(BPu = 2.459 / 2, GPu = 0, RPu = 0.014, XPu = 0.061) annotation(
     Placement(visible = true, transformation(origin = {54, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Line line_107_108a( BPu=0.0085, GPu = 0,RPu=0.008, XPu=0.03) annotation(
+  Line line_107_108a(BPu = 0.0085 / 2, GPu = 0, RPu = 0.008, XPu = 0.03) annotation(
     Placement(visible = true, transformation(origin = {170, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_107_108b( BPu=0.0085, GPu = 0,RPu=0.008, XPu=0.03) annotation(
+  Line line_107_108b(BPu = 0.0085 / 2, GPu = 0, RPu = 0.008, XPu = 0.03) annotation(
     Placement(visible = true, transformation(origin = {170, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Lines.Line line_108_109( BPu=0.045, GPu = 0,RPu=0.043, XPu=0.165) annotation(
+  Dynawo.Electrical.Lines.Line line_108_109(BPu = 0.045 / 2, GPu = 0, RPu = 0.043, XPu = 0.165) annotation(
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_108_110( BPu=0.045, GPu = 0,RPu=0.043, XPu=0.165) annotation(
+  Line line_108_110(BPu = 0.045 / 2, GPu = 0, RPu = 0.043, XPu = 0.165) annotation(
     Placement(visible = true, transformation(origin = {90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_111_113( BPu=0.1, GPu = 0,RPu=0.006, XPu=0.048) annotation(
+  Line line_111_113(BPu = 0.1 / 2, GPu = 0, RPu = 0.006, XPu = 0.048) annotation(
     Placement(visible = true, transformation(origin = {70, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_111_114( BPu=0.088, GPu = 0,RPu=0.005, XPu=0.042) annotation(
+  Line line_111_114(BPu = 0.088 / 2, GPu = 0, RPu = 0.005, XPu = 0.042) annotation(
     Placement(visible = true, transformation(origin = {-70, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_112_113( BPu=0.1, GPu = 0,RPu=0.006, XPu=0.048) annotation(
+  Line line_112_113(BPu = 0.1 / 2, GPu = 0, RPu = 0.006, XPu = 0.048) annotation(
     Placement(visible = true, transformation(origin = {70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_112_123( BPu=0.203, GPu = 0,RPu=0.012, XPu=0.097) annotation(
+  Line line_112_123(BPu = 0.203 / 2, GPu = 0, RPu = 0.012, XPu = 0.097) annotation(
     Placement(visible = true, transformation(origin = {70, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_113_123( BPu=0.182, GPu = 0,RPu=0.011, XPu=0.087) annotation(
+  Line line_113_123(BPu = 0.182 / 2, GPu = 0, RPu = 0.011, XPu = 0.087) annotation(
     Placement(visible = true, transformation(origin = {170, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_114_116( BPu=0.082, GPu = 0,RPu=0.005, XPu=0.059) annotation(
+  Line line_114_116(BPu = 0.082 / 2, GPu = 0, RPu = 0.005, XPu = 0.059) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_115_116( BPu=0.036, GPu = 0,RPu=0.002, XPu=0.017) annotation(
+  Line line_115_116(BPu = 0.036 / 2, GPu = 0, RPu = 0.002, XPu = 0.017) annotation(
     Placement(visible = true, transformation(origin = {-140, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_115_121a( BPu=0.103, GPu = 0,RPu=0.006, XPu=0.049) annotation(
+  Line line_115_121a(BPu = 0.103 / 2, GPu = 0, RPu = 0.006, XPu = 0.049) annotation(
     Placement(visible = true, transformation(origin = {-130, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_115_121b( BPu=0.103, GPu = 0,RPu=0.006, XPu=0.049) annotation(
+  Line line_115_121b(BPu = 0.103 / 2, GPu = 0, RPu = 0.006, XPu = 0.049) annotation(
     Placement(visible = true, transformation(origin = {-130, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_115_124( BPu=0.109, GPu = 0,RPu=0.007, XPu=0.052) annotation(
+  Line line_115_124(BPu = 0.109 / 2, GPu = 0, RPu = 0.007, XPu = 0.052) annotation(
     Placement(visible = true, transformation(origin = {-170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_116_117( BPu=0.055, GPu = 0,RPu=0.003, XPu=0.026) annotation(
+  Line line_116_117(BPu = 0.055 / 2, GPu = 0, RPu = 0.003, XPu = 0.026) annotation(
     Placement(visible = true, transformation(origin = {-20, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_116_119( BPu=0.049, GPu = 0,RPu=0.003, XPu=0.023) annotation(
+  Line line_116_119(BPu = 0.049 / 2, GPu = 0, RPu = 0.003, XPu = 0.023) annotation(
     Placement(visible = true, transformation(origin = {-20, 116}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_117_118( BPu=0.03, GPu = 0,RPu=0.002, XPu=0.014) annotation(
+  Line line_117_118(BPu = 0.03 / 2, GPu = 0, RPu = 0.002, XPu = 0.014) annotation(
     Placement(visible = true, transformation(origin = {50, 164}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_117_122( BPu=0.221, GPu = 0,RPu=0.014, XPu=0.105) annotation(
+  Line line_117_122(BPu = 0.221 / 2, GPu = 0, RPu = 0.014, XPu = 0.105) annotation(
     Placement(visible = true, transformation(origin = {120, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_118_121a( BPu=0.055, GPu = 0,RPu=0.003, XPu=0.026) annotation(
+  Line line_118_121a(BPu = 0.055 / 2, GPu = 0, RPu = 0.003, XPu = 0.026) annotation(
     Placement(visible = true, transformation(origin = {-20, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_118_121b( BPu=0.055, GPu = 0,RPu=0.003, XPu=0.026) annotation(
+  Line line_118_121b(BPu = 0.055 / 2, GPu = 0, RPu = 0.003, XPu = 0.026) annotation(
     Placement(visible = true, transformation(origin = {-20, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Line line_119_120a( BPu=0.083, GPu = 0,RPu=0.005, XPu=0.04) annotation(
+  Line line_119_120a(BPu = 0.083 / 2, GPu = 0, RPu = 0.005, XPu = 0.04) annotation(
     Placement(visible = true, transformation(origin = {70, 116}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_119_120b( BPu=0.083, GPu = 0,RPu=0.005, XPu=0.04) annotation(
+  Line line_119_120b(BPu = 0.083 / 2, GPu = 0, RPu = 0.005, XPu = 0.04) annotation(
     Placement(visible = true, transformation(origin = {70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_120_123a( BPu=0.046, GPu = 0,RPu=0.003, XPu=0.022) annotation(
+  Line line_120_123a(BPu = 0.046 / 2, GPu = 0, RPu = 0.003, XPu = 0.022) annotation(
     Placement(visible = true, transformation(origin = {160, 116}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_120_123b( BPu=0.046, GPu = 0,RPu=0.003, XPu=0.022) annotation(
+  Line line_120_123b(BPu = 0.046 / 2, GPu = 0, RPu = 0.003, XPu = 0.022) annotation(
     Placement(visible = true, transformation(origin = {160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Line line_121_122( BPu=0.142, GPu = 0,RPu=0.009, XPu=0.068) annotation(
+  Line line_121_122(BPu = 0.142 / 2, GPu = 0, RPu = 0.009, XPu = 0.068) annotation(
     Placement(visible = true, transformation(origin = {50, 250}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus bus annotation(
     Placement(visible = true, transformation(origin = {54, -100}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
@@ -464,4 +461,4 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-300, -300}, {300, 300}})),
     Icon(coordinateSystem(extent = {{-300, -300}, {300, 300}})));
-end Network;
+end NetworkHalfSusceptance;
