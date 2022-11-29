@@ -1525,7 +1525,7 @@ class SubModel {
   int gDeb_;  ///< offset to use to find root functions values inside the global buffer
 
   bool withLoadedParameters_;  ///< whether to load parameters values (from a dump)
-  bool withLoadedVariables_;  ///< whether to laod variable values (from a dump)
+  bool withLoadedVariables_;  ///< whether to load variable values (from a dump)
 
   std::map<int, std::string> fEquationIndex_;  ///< for DEBUG log, map of index of equation and equation in string
   std::map<int, std::string> gEquationIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string
