@@ -668,9 +668,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a67234526c485cc0c34cc057d99939b36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a67234526c485cc0c34cc057d99939b36">setPARParameters</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/d09/a02398.html">parameters::ParametersSet</a> &gt; &amp;params)</td></tr>
 <tr class="memdesc:a67234526c485cc0c34cc057d99939b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">setter for the parameters set read from PAR file  <a href="#a67234526c485cc0c34cc057d99939b36">More...</a><br /></td></tr>
 <tr class="separator:a67234526c485cc0c34cc057d99939b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a429f035fbb8dd4c0e6217abbb61212"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a8a429f035fbb8dd4c0e6217abbb61212">getSubModelParameterValue</a> (const std::string &amp;nameParameter, double &amp;value, bool &amp;found)</td></tr>
-<tr class="memdesc:a8a429f035fbb8dd4c0e6217abbb61212"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the value of a parameter  <a href="#a8a429f035fbb8dd4c0e6217abbb61212">More...</a><br /></td></tr>
-<tr class="separator:a8a429f035fbb8dd4c0e6217abbb61212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a302c6467e3d026811083b2bade8df020"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a302c6467e3d026811083b2bade8df020">getSubModelParameterValue</a> (const std::string &amp;nameParameter, std::string &amp;value, bool &amp;found)</td></tr>
+<tr class="memdesc:a302c6467e3d026811083b2bade8df020"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the value of a parameter  <a href="#a302c6467e3d026811083b2bade8df020">More...</a><br /></td></tr>
+<tr class="separator:a302c6467e3d026811083b2bade8df020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed59444912b966cd6fa30e953fc7fc1d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aed59444912b966cd6fa30e953fc7fc1d">getOffsetY</a> () const</td></tr>
 <tr class="memdesc:aed59444912b966cd6fa30e953fc7fc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get index of this submodel in the global continuous variable table  <a href="#aed59444912b966cd6fa30e953fc7fc1d">More...</a><br /></td></tr>
 <tr class="separator:aed59444912b966cd6fa30e953fc7fc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3111,8 +3111,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
-<a id="a8a429f035fbb8dd4c0e6217abbb61212"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a429f035fbb8dd4c0e6217abbb61212">&#9670;&nbsp;</a></span>getSubModelParameterValue()</h2>
+<a id="a302c6467e3d026811083b2bade8df020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302c6467e3d026811083b2bade8df020">&#9670;&nbsp;</a></span>getSubModelParameterValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3129,7 +3129,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
           <td class="paramname"><em>value</em>, </td>
         </tr>
         <tr>
@@ -3161,7 +3161,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="../../d2/d8b/a03090.html#af3bd4b5f356fb5b6581c1ab6950d856b">DYN::ModelManager</a>, <a class="el" href="../../df/d14/a02658.html#a1844e9ce089bd49aaa63529ea696c722">DYN::ConnectorCalculatedDiscreteVariable</a>, and <a class="el" href="../../d3/dd0/a02662.html#a01ba3173d40c250589a0f359f5742ed5">DYN::ConnectorCalculatedVariable</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d2/d8b/a03090.html#a65c1fc3b16307e625d925dd0e52d5768">DYN::ModelManager</a>, <a class="el" href="../../df/d14/a02658.html#a6e9d7648e585a330971c9e6a66c47476">DYN::ConnectorCalculatedDiscreteVariable</a>, and <a class="el" href="../../d3/dd0/a02662.html#a287a6945cfeab55abfca3d0d5ef92711">DYN::ConnectorCalculatedVariable</a>.</p>
 
 </div>
 </div>
@@ -5670,7 +5670,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/d3c/a02714.html">SubModel</a></li>
-    <li class="footer">Generated on Wed Nov 30 2022 15:36:23 for Dynawo by
+    <li class="footer">Generated on Wed Nov 30 2022 17:25:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

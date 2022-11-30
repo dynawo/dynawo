@@ -26,7 +26,7 @@ var a02658 =
     [ "evalZ", "df/d14/a02658.html#a1c692ac6ef522feaaae90fe4e09b3fb1", null ],
     [ "getIndexesOfVariablesUsedForCalculatedVarI", "df/d14/a02658.html#a970b8620a24533e4ed496cdae42506b4", null ],
     [ "getSize", "df/d14/a02658.html#ad8ce0d83beab3721b76dc90bb46fb13b", null ],
-    [ "getSubModelParameterValue", "df/d14/a02658.html#a1844e9ce089bd49aaa63529ea696c722", null ],
+    [ "getSubModelParameterValue", "df/d14/a02658.html#a6e9d7648e585a330971c9e6a66c47476", null ],
     [ "getY0", "df/d14/a02658.html#a9f97a6ccf2c6050664b98f4122263e63", null ],
     [ "init", "df/d14/a02658.html#a8f8bb8c56867fda22f9eae7f5996a82f", null ],
     [ "initializeFromData", "df/d14/a02658.html#ac4de35b10ddfa56e0f852a1e5808bf90", null ],

@@ -35,7 +35,7 @@ var a03090 =
     [ "evalZ", "d2/d8b/a03090.html#aebcb9bf2e96c1a7ab4ed362ba43b04ff", null ],
     [ "getIndexesOfVariablesUsedForCalculatedVarI", "d2/d8b/a03090.html#a15f6012d9dc0e2ec5c6cff9228ba0cee", null ],
     [ "getSize", "d2/d8b/a03090.html#a69edac6b647d508fbe915fdb6f53a44a", null ],
-    [ "getSubModelParameterValue", "d2/d8b/a03090.html#af3bd4b5f356fb5b6581c1ab6950d856b", null ],
+    [ "getSubModelParameterValue", "d2/d8b/a03090.html#a65c1fc3b16307e625d925dd0e52d5768", null ],
     [ "getY0", "d2/d8b/a03090.html#a96862ecf192dc8847cc3403ea7f66854", null ],
     [ "hasDataCheckCoherence", "d2/d8b/a03090.html#a5059664c08497bcc8addcd7873fc002b", null ],
     [ "hasInit", "d2/d8b/a03090.html#a806fd130510cfe620a0bf40b858f8884", null ],
