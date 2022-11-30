@@ -109,6 +109,7 @@ TEST(DataInterfaceTest, Battery_1) {
   ASSERT_EQ(batItf.getTargetP(), 0.0);
   ASSERT_EQ(batItf.getTargetQ(), 0.0);
   ASSERT_EQ(batItf.getTargetV(), 0.0);
+  ASSERT_EQ(batItf.getEnergySource(), GeneratorInterface::SOURCE_OTHER);
 
   ASSERT_FALSE(batItf.isVoltageRegulationOn());
 
