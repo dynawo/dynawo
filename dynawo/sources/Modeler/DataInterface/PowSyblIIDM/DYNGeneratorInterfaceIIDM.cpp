@@ -355,12 +355,33 @@ GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
   return 0.;
 }
 
-boost::optional<double> GeneratorInterfaceIIDM::getDroop() const {
+boost::optional<double>
+GeneratorInterfaceIIDM::getDroop() const {
   return generatorActivePowerControl_ ? generatorActivePowerControl_->getDroop() : boost::optional<double>();
 }
 
-boost::optional<bool> GeneratorInterfaceIIDM::isParticipate() const {
+boost::optional<bool>
+GeneratorInterfaceIIDM::isParticipate() const {
   return generatorActivePowerControl_ ? generatorActivePowerControl_->isParticipate() : boost::optional<bool>();
+}
+
+GeneratorInterface::EnergySource_t
+GeneratorInterfaceIIDM::getEnergySource() const {
+  switch (generatorIIDM_.getEnergySource()) {
+  case powsybl::iidm::EnergySource::HYDRO:
+    return SOURCE_HYDRO;
+  case powsybl::iidm::EnergySource::NUCLEAR:
+    return SOURCE_NUCLEAR;
+  case powsybl::iidm::EnergySource::SOLAR:
+    return SOURCE_SOLAR;
+  case powsybl::iidm::EnergySource::THERMAL:
+    return SOURCE_THERMAL;
+  case powsybl::iidm::EnergySource::WIND:
+    return SOURCE_WIND;
+  case powsybl::iidm::EnergySource::OTHER:
+    return SOURCE_OTHER;
+  }
+  return SOURCE_OTHER;
 }
 
 }  // namespace DYN

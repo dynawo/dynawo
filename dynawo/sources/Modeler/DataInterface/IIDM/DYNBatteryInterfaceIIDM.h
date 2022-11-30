@@ -211,6 +211,11 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
     country_ = country;
   }
 
+  /**
+   * @copydoc GeneratorInterface::getEnergySource() const
+   */
+  EnergySource_t getEnergySource() const;
+
  private:
   IIDM::Battery& batteryIIDM_;  ///< reference to the iidm generator instance
   std::string country_;  ///< country of the generator

@@ -340,4 +340,9 @@ BatteryInterfaceIIDM::isParticipate() const {
   return boost::none;
 }
 
+GeneratorInterface::EnergySource_t
+BatteryInterfaceIIDM::getEnergySource() const {
+  return SOURCE_OTHER;
+}
+
 }  // namespace DYN
