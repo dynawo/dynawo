@@ -12,13 +12,13 @@ within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model for renewables"
+model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model for renewable energy sources"
   import Modelica;
   import Dynawo.Types;
 
   parameter Types.PerUnit CqMaxPu "Max of Cq in the different exploitation schemes in pu (base UNom, QNom)";
-  parameter Types.PerUnit DeltaURefMaxPu "Maximum of deltaURef on one activation period (URef(t+1) - URef(t)) in pu (base UNom)";
-  parameter Types.PerUnit QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNom)";
+  parameter Types.VoltageModulePu DeltaURefMaxPu "Maximum of deltaURef on one activation period (URef(t+1) - URef(t)) in pu (base UNom)";
+  parameter Types.ReactivePowerPu QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNom)";
   parameter Types.Time Tech "Sampling time in s";
   parameter Types.Time Tech2 = Tech "Integrator's time constant equal to sampling time in s";
   parameter Types.Time Ti "Filters' time constant in s";
@@ -71,8 +71,8 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  parameter Types.PerUnit QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
-  parameter Types.PerUnit UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
+  parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
+  parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
 
 equation
   connect(integrator.u, rampLim.y) annotation(
