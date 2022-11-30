@@ -12,7 +12,7 @@ within Dynawo.Electrical;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package SystemBase "Dynawo system base definition (for per-unit purposes)"
+package SystemBase "Dynawo system base definition (for per unit purposes)"
   import Modelica.Constants;
 
   extends Icons.Package;

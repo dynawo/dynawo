@@ -309,10 +309,10 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 16);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[1], 3);  // 3 elements non zero for numCC_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[1], 3);  // 3 elements non-zero for numCC_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[2], 4);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[10], 12);  // omega_grp_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[11], 14);  // 2 elements non zero for omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[11], 14);  // 2 elements non-zero for omega_grp_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[1], 10);  // first index of omega
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[2], 11);
@@ -365,7 +365,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_EQ(smj2.nbElem(), 14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[9], 10);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[10], 11);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[11], 12);  // 1 element non zero for omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[11], 12);  // 1 element non-zero for omega_grp_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[11], 12);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[13], 13);

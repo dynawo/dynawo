@@ -118,7 +118,7 @@ class SolverIDA : public Solver::Impl {
   void printHeaderSpecific(std::stringstream& ss) const;
 
   /**
-   * @brief print specific info regarding the latest step made by the solver (i.e solution)
+   * @brief print specific info regarding the latest step made by the solver (i.e. solution)
    *
    * @param msg stringstream to modify
    */

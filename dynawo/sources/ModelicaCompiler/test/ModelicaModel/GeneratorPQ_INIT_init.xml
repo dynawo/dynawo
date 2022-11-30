@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 
-<!-- description of the model interface using an extention of the FMI standard -->
+<!-- description of the model interface using an extension of the FMI standard -->
 <fmiModelDescription
   fmiVersion                          = "1.0"
 

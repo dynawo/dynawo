@@ -61,7 +61,7 @@ TEST_F(TestAttributeList, ValueCreation) {
   ASSERT_FALSE(list.empty());
   ASSERT_EQ(list.size(), 1);
 
-  ASSERT_TRUE(list.begin() != list.end()) << "begin() and end() shall not be equal on non empty AttributeList";
+  ASSERT_TRUE(list.begin() != list.end()) << "begin() and end() shall not be equal on non-empty AttributeList";
 
   ASSERT_EQ(list.begin()->name, "key");
   ASSERT_EQ(list.begin()->value, "value");

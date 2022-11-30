@@ -250,7 +250,7 @@ void create_directory(const std::string & path);
 std::string extension(const std::string & path);
 
 /**
- * @brief Check wether given extentions are found in a directory
+ * @brief Check whether given extensions are found in a directory
  * @param[in] directoryToScan : directory to scan
  * @param[in] extensionList : list of extensions to search in the directory
  * @return whether given extensions are found in directory
@@ -258,7 +258,7 @@ std::string extension(const std::string & path);
 bool extensionFound(const std::string directoryToScan, const std::vector <std::string> & extensionList);
 
 /**
- * @brief Check wether file path ends with a given extension
+ * @brief Check whether file path ends with a given extension
  * @param[in] path : the path to compare with the file extension
  * @param[in] extension : given extension to compare with the path
  * @return whether they are equals

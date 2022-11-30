@@ -73,7 +73,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @brief initialize the solver
    *
    * @param model the model to simulate
-   * @param mode mode of the solver (i.e algebraic equations or derivative)
+   * @param mode mode of the solver (i.e. algebraic equations or derivative)
    */
   void init(const boost::shared_ptr<Model>& model, modeKin_t mode);
 
@@ -241,7 +241,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   boost::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
-  modeKin_t mode_;  ///< mode of the solver (i.e algebraic equations or derivative)
+  modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)
 
 #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian

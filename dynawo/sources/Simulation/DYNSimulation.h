@@ -237,13 +237,13 @@ class Simulation {
   void dumpIIDMFile(const boost::filesystem::path& iidmFile);
 
   /**
-   * @brief import curves request from a file (i.e curves that the user wants to plot)
+   * @brief import curves request from a file (i.e. curves that the user wants to plot)
    * @warning the file should be set before the call of this method
    */
   void importCurvesRequest();
 
   /**
-   * @brief import final state values request from a file (i.e final states values that the user wants to see)
+   * @brief import final state values request from a file (i.e. final states values that the user wants to see)
    * @warning the file should be set before the call of this method
    */
   void importFinalStateValuesRequest();
