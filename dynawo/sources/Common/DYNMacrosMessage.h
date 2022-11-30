@@ -28,7 +28,7 @@
 /**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call a log message with the key to access
- *  to the message (+ optionnal arguments if the message need)
+ *  to the message (+ optional arguments if the message need)
  *
  * @param key  key of the message description
  *
@@ -86,7 +86,7 @@
 /**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call an error with the type and the key to access
- *  to the message (+ optionnal arguments if the message need)
+ *  to the message (+ optional arguments if the message need)
  *  File error localisation and line error localisation are added
  *
  * @param type type of the error, refer to enum
@@ -100,7 +100,7 @@
 /**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call a terminate with the key to access
- *  to the message (+ optionnal arguments if the message need)
+ *  to the message (+ optional arguments if the message need)
  *
  * @param key  key of the message description
  *

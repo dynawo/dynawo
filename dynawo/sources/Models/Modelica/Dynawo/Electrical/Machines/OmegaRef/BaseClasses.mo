@@ -122,7 +122,7 @@ package BaseClasses
     // Internal parameters of the synchronous machine in pu (base UNom, SNom)
     // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
     // These are the parameters used in the dynamic equations of the synchronous machine
-    // Notation: Ra (resistance) + P ("'" or "Prim") + Pu (Per-unit)
+    // Notation: Ra (resistance) + P ("'" or "Prim") + Pu (Per unit)
     parameter Types.PerUnit RaPPu "Armature resistance in pu";
     parameter Types.PerUnit LdPPu "Direct axis stator leakage in pu";
     parameter Types.PerUnit MdPPu "Direct axis mutual inductance in pu";

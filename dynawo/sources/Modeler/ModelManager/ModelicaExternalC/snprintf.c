@@ -943,7 +943,7 @@ fmtint(char *str, size_t *len, size_t size, INTMAX_T value, int base, int width,
          * For `o' conversion, it increases the precision, if and only
          * if necessary, to force the first digit of the result to be a
          * zero (if the value and precision are both 0, a single 0 is
-         * printed).  For `x' (or `X') conversion, a nonzero result has
+         * printed).  For `x' (or `X') conversion, a non-zero result has
          * `0x' (or `0X') prefixed to it." (7.19.6.1, 6)
          */
         switch (base) {
@@ -1162,7 +1162,7 @@ again:
      * "e-style", the precision must be adjusted and the integer and
      * fractional parts must be recalculated from the original value.
      *
-     * C99 says: "Let P equal the precision if nonzero, 6 if the precision
+     * C99 says: "Let P equal the precision if non-zero, 6 if the precision
      * is omitted, or 1 if the precision is zero.  Then, if a conversion
      * with style `E' would have an exponent of X:
      *

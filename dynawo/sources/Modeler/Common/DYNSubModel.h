@@ -1107,7 +1107,7 @@ class SubModel {
   }
 
   /**
-   * @brief get the staticId of the subModel (i.e the name of the model in the IIDM structure)
+   * @brief get the staticId of the subModel (i.e. the name of the model in the IIDM structure)
    *
    * @return staticId of the subModel
    */
@@ -1418,7 +1418,7 @@ class SubModel {
   virtual void printInitValuesParameters(std::ofstream& fstream);
 
   /**
-   * @brief Determines if the sub model has a data check coherence operation (non empty function)
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
    * @returns true if the sub model has a data check coherence operation, false if not
    */
   virtual bool hasDataCheckCoherence() const {

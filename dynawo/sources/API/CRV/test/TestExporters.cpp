@@ -75,6 +75,46 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0.000000;5.000000;7.000000;\n1.000000;5.000000;7.000000;\n2.000000;5.000000;7.000000;\n");
 }
 
+TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
+  boost::shared_ptr<CurvesCollection> curvesCollection = CurvesCollectionFactory::newInstance("Curves");
+
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+
+  curve1->setVariable("variable1");
+  curve1->setAvailable(true);
+  curve1->setNegated(false);
+  curve1->setAsParameterCurve(true);
+  std::vector<double> variables;
+  variables.assign(2, 1);
+  curve1->setBuffer(&variables[0]);
+  curvesCollection->add(curve1);
+  curve1->update(0);
+  curve1->update(1);
+  curve1->update(2);
+
+  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+
+  curve2->setVariable("variable2");
+  curve2->setAvailable(true);
+  curve2->setNegated(false);
+  curve2->setAsParameterCurve(true);
+  std::vector<double> variables2;
+  variables2.assign(3, 4);
+  curve2->setBuffer(&variables[0]);
+  curve2->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
+  curvesCollection->add(curve2);
+  curve2->update(0);
+  curve2->update(1);
+  curve2->update(2);
+
+  CsvExporter exporter;
+  std::stringstream ss;
+  exporter.exportToStream(curvesCollection, ss);
+  std::string wawa = ss.str();
+  // Check that variable2 curve is not printed
+  ASSERT_EQ(ss.str(), "time;_variable1;\n0.000000;0.000000;\n1.000000;0.000000;\n2.000000;0.000000;\n");
+}
+
 TEST(APICRVTest, CurvesCollectionXmlExporter) {
   boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
 
