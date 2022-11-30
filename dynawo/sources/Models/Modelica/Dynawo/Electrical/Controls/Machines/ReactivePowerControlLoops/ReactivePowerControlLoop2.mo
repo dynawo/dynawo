@@ -13,24 +13,23 @@ within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 */
 
 model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model for renewables"
-  /* The reactive control loop gets a level K from the secondary voltage control and transforms it to a voltage reference for the generator voltage regulator */
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNom)";
-  parameter Types.PerUnit DeltaURefMaxPu "Maximum of deltaUref on one activation period (Uref(t+1) - Uref(t)) (base UNom)";
   parameter Types.PerUnit CqMaxPu "Max of Cq in the different exploitation schemes in pu (base UNom, QNom)";
-  parameter Types.Time Ti "Filters' time constant in s";
+  parameter Types.PerUnit DeltaURefMaxPu "Maximum of deltaURef on one activation period (URef(t+1) - URef(t)) in pu (base UNom)";
+  parameter Types.PerUnit QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNom)";
   parameter Types.Time Tech "Sampling time in s";
   parameter Types.Time Tech2 = Tech "Integrator's time constant equal to sampling time in s";
+  parameter Types.Time Ti "Filters' time constant in s";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not" annotation(
-    Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not" annotation(
     Placement(visible = true, transformation(origin = {-170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not" annotation(
+    Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QStatorPu(start = QStator0Pu) "Generator stator reactive power in pu (base QNomAlt) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-172, -40}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-164, -28}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
 
@@ -47,7 +46,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainIntegrator(k = 1 / CqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter rampLim(limitsAtInit = true) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter rampLim annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch swLimUp annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,10 +69,10 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   Modelica.Blocks.Math.Gain gain(k = Ti / Tech)  annotation(
     Placement(visible = true, transformation(origin = {10, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
-  parameter Types.PerUnit QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
-  parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
+  parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  parameter Types.PerUnit QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
+  parameter Types.PerUnit UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
 
 equation
   connect(integrator.u, rampLim.y) annotation(
@@ -118,5 +117,6 @@ equation
     Line(points = {{0, -40}, {-40, -40}, {-40, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(extent = {{-160, -180}, {140, 140}})));
+    Diagram(coordinateSystem(extent = {{-160, -180}, {140, 140}})),
+    Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
 end ReactivePowerControlLoop2;
