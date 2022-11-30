@@ -16,8 +16,8 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit DerURefMaxPu "Maximum variation rate of UStatorRefPu in pu (base UNom)";
-  parameter Types.PerUnit QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNomAlt)";
+  parameter Types.PerUnit DerURefMaxPu "Maximum variation rate of UStatorRefPu in pu/s (base UNom)";
+  parameter Types.ReactivePowerPu QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNomAlt)";
   parameter Types.Time TiQ "Reactive power control loop integrator time constant in s";
 
   // Input variables
@@ -60,8 +60,8 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  parameter Types.PerUnit QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
-  parameter Types.PerUnit UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
+  parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
+  parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
 
 equation
   connect(rampLim.u, gainIntegrator.y) annotation(
