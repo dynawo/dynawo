@@ -3,6 +3,7 @@ AbsLimRateLimFirstOrderFreeze
 AbsLimRateLimFirstOrderFreezeLimDetection
 AntiWindupIntegrator
 DecreaseDetection
+DiscretePI
 IncreaseDetection
 IntegratorWithReset
 IntegratorSetFreeze
