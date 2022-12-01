@@ -200,8 +200,8 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
   virtual boost::optional<bool> isParticipate() const = 0;
 
   /**
-   * @brief Getter for energy source
-   * @returns energy source
+   * @brief Getter for energy source type
+   * @returns energy source type
    */
   virtual EnergySource_t getEnergySource() const = 0;
 };  ///< Class for Generator data interface
