@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="MultiSwitch" lib="IECMultiSwitch"/>
+  <dyn:blackBoxModel id="Input1" lib="SetPoint" parFile="Test.par" parId="u1"/>
+  <dyn:blackBoxModel id="Input2" lib="SetPoint" parFile="Test.par" parId="u2"/>
+  <dyn:blackBoxModel id="Input3" lib="SetPoint" parFile="Test.par" parId="u3"/>
+  <dyn:connect id1="Input1" var1="setPoint_setPoint_value" id2="MultiSwitch" var2="MultiSwitch_u1"/>
+  <dyn:connect id1="Input2" var1="setPoint_setPoint_value" id2="MultiSwitch" var2="MultiSwitch_u2"/>
+  <dyn:connect id1="Input3" var1="setPoint_setPoint_value" id2="MultiSwitch" var2="MultiSwitch_u3"/>
+</dyn:dynamicModelsArchitecture>

@@ -12,6 +12,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  MultiSwitch.mo
+  MultiSwitch.extvar
   WT4ACurrentSource.mo
   )
 

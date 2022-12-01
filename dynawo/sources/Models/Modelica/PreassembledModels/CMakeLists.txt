@@ -96,6 +96,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingP.xml
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
+  IECMultiSwitch.xml
   IECWT4ACurrentSource.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
