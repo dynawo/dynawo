@@ -32,7 +32,7 @@
 2022-09-26 17:06:12 | INFO | starting simulation with solver IDASolver
 2022-09-26 17:06:12 | INFO | -----------------------------------------------------------------------
 2022-09-26 17:06:12 | INFO | -----------------------------------------------------------------------
-2022-09-26 17:06:12 | INFO | number of continuous variables : 432
+2022-09-26 17:06:12 | INFO | number of continuous variables : 447
 2022-09-26 17:06:12 | INFO | number of discrete variables : 261
 2022-09-26 17:06:12 | INFO | number of root functions : 253
 2022-09-26 17:06:12 | INFO | -----------------------------------------------------------------------
@@ -460,12 +460,12 @@
 2022-09-26 17:06:12 | INFO | execution statistics :
 2022-09-26 17:06:12 | INFO | 
 2022-09-26 17:06:12 | INFO | number of time iterations                  = 342
-2022-09-26 17:06:12 | INFO | number of residual evaluations             = 459
+2022-09-26 17:06:12 | INFO | number of residual evaluations             = 458
 2022-09-26 17:06:12 | INFO | number of Jacobian evaluations             = 293
-2022-09-26 17:06:12 | INFO | number of nonlinear iterations             = 427
+2022-09-26 17:06:12 | INFO | number of nonlinear iterations             = 426
 2022-09-26 17:06:12 | INFO | number of error test failures              = 0
 2022-09-26 17:06:12 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 17:06:12 | INFO | number of root functions evaluations       = 1912
+2022-09-26 17:06:12 | INFO | number of root functions evaluations       = 1916
 2022-09-26 17:06:12 | INFO | number of discrete variables evaluations   = 85
 2022-09-26 17:06:12 | INFO | number of mode evaluations                 = 62
 2022-09-26 17:06:12 | INFO | end of job 'IEEE14 - TapChanger'

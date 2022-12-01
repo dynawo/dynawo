@@ -31,7 +31,7 @@
 2022-09-26 09:09:13 | INFO | starting simulation with solver IDASolver
 2022-09-26 09:09:13 | INFO | -----------------------------------------------------------------------
 2022-09-26 09:09:13 | INFO | -----------------------------------------------------------------------
-2022-09-26 09:09:13 | INFO | number of continuous variables : 982
+2022-09-26 09:09:13 | INFO | number of continuous variables : 1003
 2022-09-26 09:09:13 | INFO | number of discrete variables : 720
 2022-09-26 09:09:13 | INFO | number of root functions : 556
 2022-09-26 09:09:13 | INFO | -----------------------------------------------------------------------
@@ -908,13 +908,13 @@
 2022-09-26 09:09:14 | INFO | 
 2022-09-26 09:09:14 | INFO | execution statistics :
 2022-09-26 09:09:14 | INFO | 
-2022-09-26 09:09:14 | INFO | number of time iterations                  = 657
-2022-09-26 09:09:14 | INFO | number of residual evaluations             = 930
-2022-09-26 09:09:14 | INFO | number of Jacobian evaluations             = 604
-2022-09-26 09:09:14 | INFO | number of nonlinear iterations             = 834
+2022-09-26 09:09:14 | INFO | number of time iterations                  = 660
+2022-09-26 09:09:14 | INFO | number of residual evaluations             = 938
+2022-09-26 09:09:14 | INFO | number of Jacobian evaluations             = 609
+2022-09-26 09:09:14 | INFO | number of nonlinear iterations             = 836
 2022-09-26 09:09:14 | INFO | number of error test failures              = 0
 2022-09-26 09:09:14 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 09:09:14 | INFO | number of root functions evaluations       = 4457
-2022-09-26 09:09:14 | INFO | number of discrete variables evaluations   = 193
-2022-09-26 09:09:14 | INFO | number of mode evaluations                 = 154
+2022-09-26 09:09:14 | INFO | number of root functions evaluations       = 4512
+2022-09-26 09:09:14 | INFO | number of discrete variables evaluations   = 196
+2022-09-26 09:09:14 | INFO | number of mode evaluations                 = 157
 2022-09-26 09:09:14 | INFO | end of job 'IEEE57 - Three phase impedant short circuit at node 12'

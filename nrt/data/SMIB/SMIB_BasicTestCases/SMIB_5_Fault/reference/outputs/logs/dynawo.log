@@ -31,7 +31,7 @@
 2022-09-26 17:30:37 | INFO | starting simulation with solver IDASolver
 2022-09-26 17:30:37 | INFO | -----------------------------------------------------------------------
 2022-09-26 17:30:37 | INFO | -----------------------------------------------------------------------
-2022-09-26 17:30:37 | INFO | number of continuous variables : 81
+2022-09-26 17:30:37 | INFO | number of continuous variables : 84
 2022-09-26 17:30:37 | INFO | number of discrete variables : 31
 2022-09-26 17:30:37 | INFO | number of root functions : 41
 2022-09-26 17:30:37 | INFO | -----------------------------------------------------------------------
@@ -1220,13 +1220,13 @@
 2022-09-26 17:30:37 | INFO | 
 2022-09-26 17:30:37 | INFO | execution statistics :
 2022-09-26 17:30:37 | INFO | 
-2022-09-26 17:30:37 | INFO | number of time iterations                  = 1169
-2022-09-26 17:30:37 | INFO | number of residual evaluations             = 1926
+2022-09-26 17:30:37 | INFO | number of time iterations                  = 1154
+2022-09-26 17:30:37 | INFO | number of residual evaluations             = 1901
 2022-09-26 17:30:37 | INFO | number of Jacobian evaluations             = 111
-2022-09-26 17:30:37 | INFO | number of nonlinear iterations             = 1916
+2022-09-26 17:30:37 | INFO | number of nonlinear iterations             = 1891
 2022-09-26 17:30:37 | INFO | number of error test failures              = 12
 2022-09-26 17:30:37 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 17:30:37 | INFO | number of root functions evaluations       = 1307
+2022-09-26 17:30:37 | INFO | number of root functions evaluations       = 1293
 2022-09-26 17:30:37 | INFO | number of discrete variables evaluations   = 11
 2022-09-26 17:30:37 | INFO | number of mode evaluations                 = 7
 2022-09-26 17:30:37 | INFO | end of job 'SMIB_Fault'
