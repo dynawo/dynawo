@@ -31,7 +31,7 @@
 2022-09-26 17:20:57 | INFO | starting simulation with solver IDASolver
 2022-09-26 17:20:57 | INFO | -----------------------------------------------------------------------
 2022-09-26 17:20:57 | INFO | -----------------------------------------------------------------------
-2022-09-26 17:20:57 | INFO | number of continuous variables : 488
+2022-09-26 17:20:57 | INFO | number of continuous variables : 509
 2022-09-26 17:20:57 | INFO | number of discrete variables : 594
 2022-09-26 17:20:57 | INFO | number of root functions : 387
 2022-09-26 17:20:57 | INFO | -----------------------------------------------------------------------
@@ -532,13 +532,13 @@
 2022-09-26 17:20:57 | INFO | 
 2022-09-26 17:20:57 | INFO | execution statistics :
 2022-09-26 17:20:57 | INFO | 
-2022-09-26 17:20:57 | INFO | number of time iterations                  = 370
-2022-09-26 17:20:57 | INFO | number of residual evaluations             = 533
-2022-09-26 17:20:57 | INFO | number of Jacobian evaluations             = 324
-2022-09-26 17:20:57 | INFO | number of nonlinear iterations             = 479
+2022-09-26 17:20:57 | INFO | number of time iterations                  = 368
+2022-09-26 17:20:57 | INFO | number of residual evaluations             = 526
+2022-09-26 17:20:57 | INFO | number of Jacobian evaluations             = 321
+2022-09-26 17:20:57 | INFO | number of nonlinear iterations             = 476
 2022-09-26 17:20:57 | INFO | number of error test failures              = 0
 2022-09-26 17:20:57 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 17:20:57 | INFO | number of root functions evaluations       = 2537
-2022-09-26 17:20:57 | INFO | number of discrete variables evaluations   = 107
-2022-09-26 17:20:57 | INFO | number of mode evaluations                 = 86
+2022-09-26 17:20:57 | INFO | number of root functions evaluations       = 2516
+2022-09-26 17:20:57 | INFO | number of discrete variables evaluations   = 105
+2022-09-26 17:20:57 | INFO | number of mode evaluations                 = 84
 2022-09-26 17:20:57 | INFO | end of job 'IEEE57 - Disconnect line 6-8 - IDA Solver'
