@@ -18,14 +18,14 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
 
-  //Nominal parameter
+  //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
 
   //QControl parameters
-  parameter Types.PerUnit DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
@@ -53,7 +53,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Dialog(tab = "QControl"));
   parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected" annotation(
+  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(
     Dialog(tab = "QControl"));
   parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
     Dialog(tab = "QControl"));
@@ -85,7 +85,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Placement(visible = true, transformation(origin = {-320, 240}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QWTMinPu(start = QMin0Pu) "Minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 49.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu (base SNom))" annotation(
+  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-100, 20}, extent = {{20, -20}, {-20, 20}}, rotation = 0), iconTransformation(origin = {-49, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UWTCFiltPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

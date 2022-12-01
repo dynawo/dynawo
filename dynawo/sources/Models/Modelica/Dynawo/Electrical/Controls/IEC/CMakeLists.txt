@@ -17,6 +17,7 @@ set(MODEL_FILES
   package.mo
   package.order
   Control4A.mo
+  Control4B.mo
   )
 
 #

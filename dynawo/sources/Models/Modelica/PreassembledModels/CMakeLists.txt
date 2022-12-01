@@ -99,6 +99,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   IECWT4ACurrentSource.xml
+  IECWT4BCurrentSource.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml

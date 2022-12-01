@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-  <set id="WT4A">
+  <set id="WT4B">
     <!-- Nominal -->
     <par type="DOUBLE" name="WT_SNom" value="100"/>
     <par type="DOUBLE" name="WT_tS" value="0.001"/>
@@ -40,13 +40,13 @@
     <par type="DOUBLE" name="WT_UPll1Pu" value="999"/>
     <par type="DOUBLE" name="WT_UPll2Pu" value="0.13"/>
     <!-- PControl -->
-    <par type="DOUBLE" name="WT_DPMaxP4APu" value="1"/>
-    <par type="DOUBLE" name="WT_DPRefMax4APu" value="100"/>
-    <par type="DOUBLE" name="WT_DPRefMin4APu" value="-100"/>
+    <par type="DOUBLE" name="WT_DPMaxP4BPu" value="1"/>
+    <par type="DOUBLE" name="WT_DPRefMax4BPu" value="100"/>
+    <par type="DOUBLE" name="WT_DPRefMin4BPu" value="-100"/>
     <par type="DOUBLE" name="WT_Kpaw" value="1000"/>
     <par type="BOOL" name="WT_MpUScale" value="false"/>
-    <par type="DOUBLE" name="WT_tPOrdP4A" value="0.1"/>
-    <par type="DOUBLE" name="WT_tPWTRef4A" value="0.01"/>
+    <par type="DOUBLE" name="WT_tPAero" value="0.1"/>
+    <par type="DOUBLE" name="WT_tPOrdP4B" value="0.05"/>
     <par type="DOUBLE" name="WT_UpDipPu" value="0"/>
     <!-- CurrentLimiter -->
     <par type="DOUBLE" name="WT_IMaxPu" value="1.3"/>
@@ -89,6 +89,11 @@
     <par type="DOUBLE" name="WT_fUnderPu" value="0.9"/>
     <par type="DOUBLE" name="WT_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WT_UUnderPu" value="0.9"/>
+    <!-- Mechanical -->
+    <par type="DOUBLE" name="WT_CdrtPu" value="15"/>
+    <par type="DOUBLE" name="WT_Hwtr" value="5"/>
+    <par type="DOUBLE" name="WT_Hgen" value="1"/>
+    <par type="DOUBLE" name="WT_KdrtPu" value="500"/>
     <!-- Operating Point -->
     <par type="DOUBLE" name="WT_U0Pu" value="1"/>
     <par type="DOUBLE" name="WT_UPhase0" value="0.21949"/>
