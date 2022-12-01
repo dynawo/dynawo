@@ -45,11 +45,11 @@ block VDrop "Calculates the voltage in the serial impedance distance r+jx from t
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SNom) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SNom) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
 
   final parameter Types.VoltageModulePu UDrop0Pu = sqrt((U0Pu - RDropPu * P0Pu / U0Pu - XDropPu * Q0Pu / U0Pu) ^ 2 + (XDropPu * P0Pu / U0Pu - RDropPu * Q0Pu / U0Pu) ^ 2) "Initial voltage amplitude at the point of control in pu (base UNom)";

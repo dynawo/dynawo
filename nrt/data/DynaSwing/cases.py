@@ -107,6 +107,26 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+###################################################
+#   IEC Wind Power Plant Type 4A Current Source   #
+###################################################
+
+case_name = "DynaSwing - IEC - Wind Power Plant Type 4A - Current source"
+case_description = "IEC - Wind Power Plant Type 4A - Current source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WPP4ACurrentSource", "WPP4ACurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+###################################################
+#   IEC Wind Power Plant Type 4B Current Source   #
+###################################################
+
+case_name = "DynaSwing - IEC - Wind Power Plant Type 4B - Current source"
+case_description = "IEC - Wind Power Plant Type 4B - Current source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WPP4BCurrentSource", "WPP4BCurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ##################################
 #     WECC PV Current Source     #
 ##################################

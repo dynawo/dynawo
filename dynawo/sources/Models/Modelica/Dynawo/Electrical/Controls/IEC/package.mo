@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package IEC "WT converter-control models from IEC N°61400-27-1 standard"
+package IEC "Wind converter-control models from IEC N°61400-27-1 standard"
   extends Icons.Package;
 end IEC;

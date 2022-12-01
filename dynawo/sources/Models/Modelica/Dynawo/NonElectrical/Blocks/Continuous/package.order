@@ -1,4 +1,5 @@
 AbsLimRateLimFeedthroughFreeze
+AbsLimRateLimFeedthroughFreezeLimDetection
 AbsLimRateLimFirstOrderAntiWindup
 AbsLimRateLimFirstOrderFreeze
 AbsLimRateLimFirstOrderFreezeLimDetection

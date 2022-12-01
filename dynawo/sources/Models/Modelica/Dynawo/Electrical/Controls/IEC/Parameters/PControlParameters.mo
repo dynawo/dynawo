@@ -13,20 +13,20 @@ within Dynawo.Electrical.Controls.IEC.Parameters;
 */
 
 record PControlParameters
-  parameter Real TablePwpbiasFwpFiltCom11 = 0.95 annotation(
+  parameter Real TablePwpBiasfwpFiltCom11 = 0.95 annotation(
     Dialog(tab = "PControlTables"));
-  parameter Real TablePwpbiasFwpFiltCom12 = 1 annotation(
+  parameter Real TablePwpBiasfwpFiltCom12 = 1 annotation(
     Dialog(tab = "PControlTables"));
-  parameter Real TablePwpbiasFwpFiltCom21 = 1 annotation(
+  parameter Real TablePwpBiasfwpFiltCom21 = 1 annotation(
     Dialog(tab = "PControlTables"));
-  parameter Real TablePwpbiasFwpFiltCom22 = 0 annotation(
+  parameter Real TablePwpBiasfwpFiltCom22 = 0 annotation(
     Dialog(tab = "PControlTables"));
-  parameter Real TablePwpbiasFwpFiltCom31 = 1.05 annotation(
+  parameter Real TablePwpBiasfwpFiltCom31 = 1.05 annotation(
     Dialog(tab = "PControlTables"));
-  parameter Real TablePwpbiasFwpFiltCom32 = -1 annotation(
+  parameter Real TablePwpBiasfwpFiltCom32 = -1 annotation(
     Dialog(tab = "PControlTables"));
 
-  parameter Real TablePwpbiasFwpFiltCom[:,:] = [TablePwpbiasFwpFiltCom11,TablePwpbiasFwpFiltCom12;TablePwpbiasFwpFiltCom21,TablePwpbiasFwpFiltCom22;TablePwpbiasFwpFiltCom31,TablePwpbiasFwpFiltCom32] "Table for defining power variation versus frequency" annotation(
+  parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32] "Table for defining power variation versus frequency" annotation(
     Dialog(tab = "PControlTables"));
 
   annotation(
