@@ -25,7 +25,7 @@ record QControlParameters
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpMaxPwpFiltCom32 = 0.33 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom[:,:] = [TableQwpMaxPwpFiltCom11,TableQwpMaxPwpFiltCom12;TableQwpMaxPwpFiltCom21,TableQwpMaxPwpFiltCom22;TableQwpMaxPwpFiltCom31,TableQwpMaxPwpFiltCom32] "Power dependent reactive power maximum limit" annotation(
+  parameter Real TableQwpMaxPwpFiltCom[:,:] = [TableQwpMaxPwpFiltCom11, TableQwpMaxPwpFiltCom12; TableQwpMaxPwpFiltCom21, TableQwpMaxPwpFiltCom22; TableQwpMaxPwpFiltCom31, TableQwpMaxPwpFiltCom32] "Power dependent reactive power maximum limit" annotation(
     Dialog(tab = "QControlTables"));
 
   parameter Real TableQwpMinPwpFiltCom11 = 0 annotation(
@@ -40,22 +40,22 @@ record QControlParameters
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpMinPwpFiltCom32 = -0.33 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11,TableQwpMinPwpFiltCom12;TableQwpMinPwpFiltCom21,TableQwpMinPwpFiltCom22;TableQwpMinPwpFiltCom31,TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(
+  parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11, TableQwpMinPwpFiltCom12; TableQwpMinPwpFiltCom21, TableQwpMinPwpFiltCom22; TableQwpMinPwpFiltCom31, TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(
     Dialog(tab = "QControlTables"));
 
-  parameter Real TableQwpUerr11 = -0.05 annotation(
+  parameter Real TableQwpUErr11 = -0.05 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUerr12 = 1.21 annotation(
+  parameter Real TableQwpUErr12 = 1.21 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUerr21 = 0 annotation(
+  parameter Real TableQwpUErr21 = 0 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUerr22 = 0.21 annotation(
+  parameter Real TableQwpUErr22 = 0.21 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUerr31 = 0.05 annotation(
+  parameter Real TableQwpUErr31 = 0.05 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUerr32 = -0.79 annotation(
+  parameter Real TableQwpUErr32 = -0.79 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUerr[:,:] = [TableQwpUerr11,TableQwpUerr12;TableQwpUerr21,TableQwpUerr22;TableQwpUerr31,TableQwpUerr32] "Table for the UQ static mode" annotation(
+  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
 
   annotation(
