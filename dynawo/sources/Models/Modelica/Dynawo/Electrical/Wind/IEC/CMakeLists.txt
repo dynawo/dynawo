@@ -9,12 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+add_subdirectory(BaseClasses B)
+
 set(MODEL_FILES
   package.mo
   package.order
+  WT4CurrentSource_INIT.mo
   WT4ACurrentSource.mo
   WT4ACurrentSource.extvar
-  WT4ACurrentSource_INIT.mo
+  WT4BCurrentSource.mo
+  WT4BCurrentSource.extvar
   )
 
 #

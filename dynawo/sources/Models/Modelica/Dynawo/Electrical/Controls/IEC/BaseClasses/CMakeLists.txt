@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseControl4.mo
   BasePControl4.mo
   VDrop.mo
   )

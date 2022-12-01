@@ -15,7 +15,9 @@ set(MODEL_FILES
   CurrentLimiter.mo
   GridProtection.mo
   Measurements.mo
+  Mechanical.mo
   PControl4A.mo
+  PControl4B.mo
   PLL.mo
   QControl.mo
   QLimiter.mo

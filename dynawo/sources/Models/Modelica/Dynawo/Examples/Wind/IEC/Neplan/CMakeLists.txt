@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.mo
   package.order
   WT4ACurrentSource.mo
+  WT4BCurrentSource.mo
   )
 
 #

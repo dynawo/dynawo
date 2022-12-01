@@ -1,7 +1,7 @@
-within Dynawo.Examples.Wind.IEC;
+within Dynawo.Electrical.Wind.IEC;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,6 @@ within Dynawo.Examples.Wind.IEC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package IECWT4ANeplan "Neplan test model for type 4A WT"
-    extends Icons.Package;
-end IECWT4ANeplan;
+package BaseClasses "Base models for IEC N°61400-27-1 standard WT"
+  extends Icons.Package;
+end BaseClasses;

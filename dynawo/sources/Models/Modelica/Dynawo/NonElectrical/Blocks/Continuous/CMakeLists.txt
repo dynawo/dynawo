@@ -26,6 +26,7 @@ set(MODEL_FILES
   LeadMOrderLag.mo
   LimitedPI.mo
   LimPIDFreeze.mo
+  PI.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
   PIFreeze.mo
