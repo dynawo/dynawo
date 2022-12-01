@@ -34,6 +34,8 @@ var a02950 =
     [ "getCountry", "df/d16/a02950.html#afa7554b28c98c674cb0fe36ccea5c31b", null ],
     [ "getDroop", "df/d16/a02950.html#a462974684e7e26b8cb2a558b8f052329", null ],
     [ "getDroop", "df/d16/a02950.html#a10d2816d685720c7c45150f17925d009", null ],
+    [ "getEnergySource", "df/d16/a02950.html#a5e784307db3e2c2a4e2463d7ebde05e1", null ],
+    [ "getEnergySource", "df/d16/a02950.html#a5e784307db3e2c2a4e2463d7ebde05e1", null ],
     [ "getID", "df/d16/a02950.html#a3c6649cdb759b9b00d13c6bcb83a378a", null ],
     [ "getID", "df/d16/a02950.html#a3c6649cdb759b9b00d13c6bcb83a378a", null ],
     [ "getInitialConnected", "df/d16/a02950.html#ad4eaf7433f23922abe16715a2ffe7757", null ],

@@ -1,10 +1,19 @@
 var a02838 =
 [
+    [ "EnergySource_t", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2", [
+      [ "SOURCE_HYDRO", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2afc493fcfdb54e9e4004b6227ef66772f", null ],
+      [ "SOURCE_NUCLEAR", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2a9b1eb4a18a3cb7b9afd6770111b75851", null ],
+      [ "SOURCE_WIND", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2acd9e518b9f3acf5efe73c04aa2b720a4", null ],
+      [ "SOURCE_THERMAL", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2a07290f6984a5f9f0df95a892909f74e5", null ],
+      [ "SOURCE_SOLAR", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2a16ea54f8174a9c9bb12e06f4de030380", null ],
+      [ "SOURCE_OTHER", "d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2a107b8d2a8773e2688b9f00a1ac64f521", null ]
+    ] ],
     [ "exportStateVariablesUnitComponent", "d5/dde/a02838.html#a2ed809a16c8bfeebaab68ff6396204eb", null ],
     [ "getActivePowerControlDroop", "d5/dde/a02838.html#ac34a414b8430102497f6db8982e53d88", null ],
     [ "getBusInterface", "d5/dde/a02838.html#ac6882a3a8cbbecad6ba2a53f4d68aa5e", null ],
     [ "getCoordinatedReactiveControlPercentage", "d5/dde/a02838.html#a70e20753b48f642a1d35396ab7df6102", null ],
     [ "getDroop", "d5/dde/a02838.html#a2d8f812c29f3a894cb92120be7327ef3", null ],
+    [ "getEnergySource", "d5/dde/a02838.html#a6a5dfac90bd1fbc6920bcb67a0072a2e", null ],
     [ "getID", "d5/dde/a02838.html#a32bff2372d8aa397a8c30ef7f4d623a4", null ],
     [ "getInitialConnected", "d5/dde/a02838.html#a99e95d7e7989c1e67817ad8a25e5a12c", null ],
     [ "getP", "d5/dde/a02838.html#a38ebbba54ff5715bbe4e9efa5f5ec735", null ],

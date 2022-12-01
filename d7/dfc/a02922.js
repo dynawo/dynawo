@@ -34,6 +34,8 @@ var a02922 =
     [ "getCountry", "d7/dfc/a02922.html#a6a501063aea5b928eb582714e390e93b", null ],
     [ "getDroop", "d7/dfc/a02922.html#a37f57a94e689b58fab1f095790900062", null ],
     [ "getDroop", "d7/dfc/a02922.html#a9328df806ea6ebc40c1a86f02d7d07c1", null ],
+    [ "getEnergySource", "d7/dfc/a02922.html#a869449b8dd9845668e51984d5fcc0add", null ],
+    [ "getEnergySource", "d7/dfc/a02922.html#a869449b8dd9845668e51984d5fcc0add", null ],
     [ "getID", "d7/dfc/a02922.html#aaf4880d9c9be0fc44f876163572d8fcc", null ],
     [ "getID", "d7/dfc/a02922.html#aaf4880d9c9be0fc44f876163572d8fcc", null ],
     [ "getInitialConnected", "d7/dfc/a02922.html#aa65a0d360b151b7cc6944a52328d7f13", null ],

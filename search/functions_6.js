@@ -123,6 +123,7 @@ var searchData=
   ['getdynamicmodelscollection',['getDynamicModelsCollection',['../d3/d59/a02010.html#a3aa8ee1bcd9b900ce21dfcaa27175b45',1,'dynamicdata::XmlHandler::getDynamicModelsCollection()'],['../d5/dc3/a02674.html#a3cf3e54930c887db26c9bef3a96e766b',1,'DYN::DynamicData::getDynamicModelsCollection()']]],
   ['getdynmodelsentries',['getDynModelsEntries',['../dc/dc3/a02190.html#af2fe100c46e02b90fd74f3b2ef7b2b3a',1,'job::ModelerEntry']]],
   ['getelements',['getElements',['../d1/d3c/a02714.html#a6b29a20466472e45e348133b1b548bfe',1,'DYN::SubModel']]],
+  ['getenergysource',['getEnergySource',['../d5/dde/a02838.html#a6a5dfac90bd1fbc6920bcb67a0072a2e',1,'DYN::GeneratorInterface::getEnergySource()'],['../d7/dfc/a02922.html#a869449b8dd9845668e51984d5fcc0add',1,'DYN::BatteryInterfaceIIDM::getEnergySource()'],['../df/d16/a02950.html#a5e784307db3e2c2a4e2463d7ebde05e1',1,'DYN::GeneratorInterfaceIIDM::getEnergySource()'],['../d7/dfc/a02922.html#a869449b8dd9845668e51984d5fcc0add',1,'DYN::BatteryInterfaceIIDM::getEnergySource()'],['../df/d16/a02950.html#a5e784307db3e2c2a4e2463d7ebde05e1',1,'DYN::GeneratorInterfaceIIDM::getEnergySource()']]],
   ['getenvvar',['getEnvVar',['../d7/d5e/a00467.html#a0ff5923e5500aa2dba0507dbd347c33a',1,'DYNExecUtils.h']]],
   ['getexportdumpfile',['getExportDumpFile',['../db/d6c/a02130.html#a9e63a3bce1fb1f32f7c5fe79926b16bc',1,'job::FinalStateEntry']]],
   ['getexportiidmfile',['getExportIIDMFile',['../db/d6c/a02130.html#a650fd2dc7c0cda47a33d4e5129137b6d',1,'job::FinalStateEntry']]],

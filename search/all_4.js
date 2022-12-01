@@ -27,6 +27,7 @@ var searchData=
   ['endstaticref',['endStaticRef',['../d0/d45/a01890.html#a7a2e57263bef8364d08c6da656cecbc3',1,'dynamicdata::MacroStaticReference::endStaticRef()'],['../d2/dd7/a01902.html#a5ca980395e046c4d70d3b521c18c2c66',1,'dynamicdata::Model::endStaticRef()']]],
   ['endtimelineadded_5f',['endTimelineAdded_',['../d4/d1a/a03154.html#a7b6e4d0ef3ef33e08f32b89900c40f93',1,'DYN::ModelVoltageSetPointChange']]],
   ['endvariable',['endVariable',['../d1/dc4/a02042.html#a1ffaf209f750049a746edca5002a3d4f',1,'externalVariables::VariablesCollection']]],
+  ['energysource_5ft',['EnergySource_t',['../d5/dde/a02838.html#a872c0d65cf9d9cebb4f650d98e5f49c2',1,'DYN::GeneratorInterface']]],
   ['enumtomodelicastring_5f',['enumToModelicaString_',['../d7/dcf/a00845.html#aa0f9bbc68184fbabc1c1b18556273da7',1,'DYN']]],
   ['eol',['eol',['../d9/d24/a00524.html#a0b992bada48a2eb748585beda635bd92',1,'DYN']]],
   ['equations',['equations',['../d7/df0/a02618.html#a5d65c604c5c6cbf5617b38f0b4b97ddd',1,'DYN::Trace']]],
