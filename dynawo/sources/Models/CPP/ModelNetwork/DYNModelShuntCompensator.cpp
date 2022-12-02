@@ -61,6 +61,7 @@ startingPointMode_(WARM) {
   tLastOpening_ = VALDEF;
   type_ = (suscepAtMaximumSec_ > 0) ? CAPACITOR : REACTANCE;
   connectionState_ = shunt->getInitialConnected() ? CLOSED : OPEN;
+  cannotBeDisconnected_ = false;
 }
 
 void
@@ -127,6 +128,12 @@ ModelShuntCompensator::ii_dUr() const {
 double
 ModelShuntCompensator::ii_dUi() const {
   return 0.;
+}
+
+void
+ModelShuntCompensator::setModelBus(const boost::shared_ptr<ModelBus>& model) {
+  modelBus_ = model;
+  cannotBeDisconnected_ = connectionState_ == CLOSED && !modelBus_->getVoltageLevel()->canBeDisconnected(modelBus_->getBusIndex());
 }
 
 void
@@ -248,7 +255,9 @@ ModelShuntCompensator::isAvailable() const {
   if (!zConnected_[isAvailableNum_]) {
     return true;
   }
-  if (modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
+  if (getConnected() == CLOSED && cannotBeDisconnected_) {
+    return false;
+  } else if (getConnected() == OPEN && modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
     return false;
   } else {
     if (g_[0] == ROOT_UP)

@@ -137,6 +137,13 @@ createNodeBreakerNetworkIIDM() {
       .setRetained(false)
       .setOpen(true)
       .add();
+  vl.getNodeBreakerView().newBreaker()
+      .setId("BK11")
+      .setNode1(5)
+      .setNode2(3)
+      .setRetained(true)
+      .setOpen(true)
+      .add();
   vl.getNodeBreakerView().newDisconnector()
       .setId("DC12")
       .setNode1(5)
@@ -737,6 +744,8 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
       boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK1"));
   boost::shared_ptr<SwitchInterfaceIIDM> switchDC11 =
       boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("DC11"));
+  boost::shared_ptr<SwitchInterfaceIIDM> switchBK11 =
+      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK11"));
   ASSERT_FALSE(switchBK2->isOpen());
   ASSERT_TRUE(switchBK1->isOpen());
   ASSERT_TRUE(switchDC11->isOpen());
@@ -746,12 +755,14 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
   ASSERT_TRUE(switchBK2->isOpen());
   ASSERT_TRUE(switchBK1->isOpen());
   ASSERT_TRUE(switchDC11->isOpen());
+  ASSERT_TRUE(switchBK11->isOpen());
   ASSERT_FALSE(vl->isNodeConnected(1));
   ASSERT_FALSE(vl->isNodeConnected(0));
   vl->connectNode(0);
   ASSERT_TRUE(switchBK2->isOpen());
   ASSERT_FALSE(switchBK1->isOpen());
-  ASSERT_FALSE(switchDC11->isOpen());
+  ASSERT_TRUE(switchDC11->isOpen());
+  ASSERT_FALSE(switchBK11->isOpen());
   ASSERT_FALSE(vl->isNodeConnected(1));
   ASSERT_TRUE(vl->isNodeConnected(0));
 }

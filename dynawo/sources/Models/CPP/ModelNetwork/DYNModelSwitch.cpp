@@ -43,7 +43,8 @@ namespace DYN {
 ModelSwitch::ModelSwitch(const shared_ptr<SwitchInterface>& sw) :
 NetworkComponent(sw->getID()),
 topologyModified_(false),
-inLoop_(false) {
+inLoop_(false),
+canBeClosed_(!sw->isOpen() || sw->isRetained()) {
   // init data
   if (sw->isOpen())
     connectionState_ = OPEN;

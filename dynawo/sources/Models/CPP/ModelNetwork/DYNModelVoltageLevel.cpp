@@ -85,6 +85,8 @@ ModelVoltageLevel::defineGraph() {
 
   // add edges to voltage level graph
   for (vector<shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
+    if (!(*itSw)->canBeClosed())
+      continue;
     int node1 = (*itSw)->getModelBus1()->getBusIndex();
     int node2 = (*itSw)->getModelBus2()->getBusIndex();
     graph_->addEdge(node1, node2, (*itSw)->id());
@@ -213,7 +215,7 @@ ModelVoltageLevel::isClosestBBSSwitchedOff(const shared_ptr<ModelBus>& bus) {
 
       map<int, shared_ptr<ModelBus> >::const_iterator itBus = busesByIndex_.find(nodeBBS);
       if (itBus == busesByIndex_.end())
-        throw DYNError(Error::MODELER, VoltageLevelBBSError, id());
+        return true;
 
       return itBus->second->getSwitchOff();
     }
@@ -239,6 +241,25 @@ ModelVoltageLevel::connectNode(const unsigned int nodeToConnect) {
   }
 }
 
+
+bool
+ModelVoltageLevel::canBeDisconnected(const unsigned int node) {
+  if (topologyKind_ == VoltageLevelInterface::NODE_BREAKER) {
+    // define the voltage level graph if it hasn't been defined yet
+    if (graph_ == boost::none)
+      defineGraph();
+
+    for (const auto& BBS : busesWithBBS_) {
+      unsigned int nodeBBS = BBS->getBusIndex();
+      // If the node is the same as a BBS node then it is connected with only not retained switches and cannot be disconnected
+      if (nodeBBS == node)
+        return false;
+    }
+    return true;
+  }
+  return true;
+}
+
 void
 ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
 //  This method is used to open the first switch found between a node to disconnect and its closest bus bar section
@@ -253,6 +274,8 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
       // define a weight for each switch inside the voltage level depending on their connection state
       boost::unordered_map<string, float> weights;
       for (vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
+        if (!(*itSwitch)->canBeClosed())
+          continue;
         weights[(*itSwitch)->id()] = ((*itSwitch)->getConnectionState() == OPEN) ? 0 : 1;
       }
 
