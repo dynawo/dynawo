@@ -18,14 +18,23 @@ block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate l
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
-  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
+  parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximum falling slew rate of output";
   parameter Types.Time tI "Filter time constant in s";
+  parameter Boolean UseLimits = false "True if the limits of the output are variable" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true));
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
   Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
-    Placement(visible = true, transformation(origin = {-220, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput yMax if UseLimits "Upper limit of output" annotation(
+    Placement(visible = true, transformation(origin = {-220, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput yMin if UseLimits "Lower limit of output" annotation(
+    Placement(visible = true, transformation(origin = {-220, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -37,10 +46,10 @@ block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate l
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = YMax, uMin = YMin) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput freeze annotation(
-    Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
@@ -48,14 +57,28 @@ block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate l
 
   parameter Types.PerUnit Y0 "Initial value of output";
 
+protected
+  Modelica.Blocks.Interfaces.RealOutput yMaxLocal annotation(
+    HideResult = true);
+  Modelica.Blocks.Interfaces.RealOutput yMinLocal annotation(
+    HideResult = true);
+
 equation
+  if UseLimits then
+    connect(yMax, yMaxLocal);
+    connect(yMin, yMinLocal);
+  else
+    yMaxLocal = YMax;
+    yMinLocal = YMin;
+  end if;
+
   connect(gain.y, limiter.u) annotation(
     Line(points = {{-99, 0}, {-62, 0}}, color = {0, 0, 127}));
   connect(u, feedback.u1) annotation(
     Line(points = {{-220, 0}, {-168, 0}}, color = {0, 0, 127}));
   connect(feedback.y, gain.u) annotation(
     Line(points = {{-151, 0}, {-122, 0}}, color = {0, 0, 127}));
-  connect(limiter1.y, y) annotation(
+  connect(variableLimiter.y, y) annotation(
     Line(points = {{121, 0}, {210, 0}}, color = {0, 0, 127}));
   connect(freeze, switch1.u2) annotation(
     Line(points = {{0, 120}, {0, 0}, {18, 0}}, color = {255, 0, 255}));
@@ -63,15 +86,17 @@ equation
     Line(points = {{-39, -40}, {0, -40}, {0, -8}, {18, -8}}, color = {0, 0, 127}));
   connect(switch1.y, integrator.u) annotation(
     Line(points = {{42, 0}, {58, 0}}, color = {0, 0, 127}));
-  connect(integrator.y, limiter1.u) annotation(
+  connect(integrator.y, variableLimiter.u) annotation(
     Line(points = {{82, 0}, {98, 0}}, color = {0, 0, 127}));
-  connect(limiter1.y, feedback.u2) annotation(
+  connect(variableLimiter.y, feedback.u2) annotation(
     Line(points = {{121, 0}, {180, 0}, {180, -60}, {-160, -60}, {-160, -8}}, color = {0, 0, 127}));
   connect(limiter.y, switch1.u3) annotation(
     Line(points = {{-38, 0}, {-20, 0}, {-20, 8}, {18, 8}}, color = {0, 0, 127}));
+  connect(yMaxLocal, variableLimiter.limit1);
+  connect(yMinLocal, variableLimiter.limit2);
 
   annotation(
   preferredView = "diagram",
   Icon(coordinateSystem(grid = {0.1, 0.1}, initialScale = 0.1), graphics = {Line(origin = {-40, 1.06}, points = {{-40, -121.057}, {20, 118.943}}), Line(origin = {40, 1.05741}, points = {{-80, -121.057}, {-40, -121.057}, {20, 118.943}, {60, 118.943}}), Rectangle(lineColor = {0, 0, 127}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {12, 28}, extent = {{-44, 34}, {26, -16}}, textString = "1"), Text(origin = {2, -44}, extent = {{-60, 22}, {60, -22}}, textString = "1 + sT"), Line(origin = {4, 0}, points = {{-86, 0}, {86, 0}})}),
-    Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}})));
+    Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}}), graphics = {Line(origin = {-52, 34}, points = {{-148, 26}, {142, 26}, {142, -26}, {148, -26}}, pattern = LinePattern.Dot), Line(origin = {-51, -34}, points = {{-149, -26}, {141, -26}, {141, 26}, {149, 26}}, pattern = LinePattern.Dot)}));
 end AbsLimRateLimFirstOrderFreeze;

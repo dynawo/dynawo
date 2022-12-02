@@ -222,6 +222,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
     country_ = country;
   }
 
+  /**
+   * @copydoc GeneratorInterface::getEnergySource() const
+   */
+  EnergySource_t getEnergySource() const;
+
  private:
   IIDM::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
   std::string country_;  ///< country of the generator

@@ -338,4 +338,24 @@ bool GeneratorInterfaceIIDM::isVoltageRegulationOn() const {
   return generatorIIDM_.voltageRegulatorOn();
 }
 
+GeneratorInterface::EnergySource_t
+GeneratorInterfaceIIDM::getEnergySource() const {
+  switch (generatorIIDM_.energySource()) {
+  case IIDM::Generator::source_hydro:
+    return SOURCE_HYDRO;
+  case IIDM::Generator::source_nuclear:
+    return SOURCE_NUCLEAR;
+  case IIDM::Generator::source_solar:
+    return SOURCE_SOLAR;
+  case IIDM::Generator::source_thermal:
+    return SOURCE_THERMAL;
+  case IIDM::Generator::source_wind:
+    return SOURCE_WIND;
+  case IIDM::Generator::source_other:
+    return SOURCE_OTHER;
+  }
+  return SOURCE_OTHER;
+}
+
+
 }  // namespace DYN
