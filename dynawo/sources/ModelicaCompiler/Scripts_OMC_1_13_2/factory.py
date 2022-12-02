@@ -2478,6 +2478,14 @@ class Factory:
                         stack_param_idx_func_called.pop()
                         if len(stack_param_idx_func_called) > 0:
                             stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
+                            func = called_func[stack_func_called[len(stack_func_called) - 1]]
+                            while len(stack_param_idx_func_called) > 0 and \
+                              stack_param_idx_func_called[len(stack_param_idx_func_called) - 1] >= len(func.get_params()):
+                                stack_func_called.pop()
+                                stack_param_idx_func_called.pop()
+                                if (len(stack_param_idx_func_called) > 0):
+                                    func = called_func[stack_func_called[len(stack_func_called) - 1]]
+
                         if len(stack_param_idx_func_called) == 0:
                             # end of main function
                             main_func_is_adept = False
