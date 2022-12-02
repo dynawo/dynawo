@@ -19,7 +19,7 @@
 The IEEE57 bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.
 
 
-% Generic description of the non regression test
+% Generic description of the non-regression test
 % List of scenarios
 \section{Test case description}
 
@@ -76,13 +76,13 @@ The speed governor is as follows - omegaRef being 1 pu in this control scheme -:
 \caption{Speed Governor}
 \end{figure}
 
-The loads are modeled as voltage-dependant loads:
+The loads are modeled as voltage-dependent loads:
 \begin{equation*}
 \begin{aligned}
 & P = P_{0} * (\frac{U}{U_{0}})^\alpha \\
 & Q = Q_{0} * (\frac{U}{U_{0}})^\beta
 \end{aligned}
-\label{Voltage-dependant load model}
+\label{Voltage-dependent load model}
 \end{equation*}
 
 The system reference frequency is calculated by the OmegaRef model using the different generators speeds.\\
@@ -119,7 +119,7 @@ The complete set of parameters used for the solvers are available into the solve
 \subsection{Load variation}
 \label{LoadVariation}
 
-At $t=1s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=1s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependant model used). \\
+At $t=1s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=1s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependent model used). \\
 
 The load increase induces an higher active power demand from the network to the generators and causes a speed decrease. The governor's proportional action limits this speed decrease by increasing the final active power delivered by the machines. Without the regulation action, the final active power delivered by the machines - after the transient behavior - would have been similar to the pre-event active power. \\
 

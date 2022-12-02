@@ -27,11 +27,11 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
   parameter Types.VoltageComponent VDLIq12;
   parameter Types.VoltageComponent VDLIq21;
   parameter Types.VoltageComponent VDLIq22;
-  parameter Types.VoltageComponent VDLIpPoints[:, :] = [VDLIp11, VDLIp12 ; VDLIp21, VDLIp22] "Pair of points for voltage dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]";
-  parameter Types.VoltageComponent VDLIqPoints[:, :] =  [VDLIq11, VDLIq12 ; VDLIq21, VDLIq22]"Pair of points for voltage dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]";
+  parameter Types.VoltageComponent VDLIpPoints[:, :] = [VDLIp11, VDLIp12 ; VDLIp21, VDLIp22] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]";
+  parameter Types.VoltageComponent VDLIqPoints[:, :] =  [VDLIq11, VDLIq12 ; VDLIq21, VDLIq22]"Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]";
   parameter Types.PerUnit VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)";
   parameter Types.Time HoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s";
-  parameter Types.Time HoldIq "Absolute value of HoldIq defines seconds to hold current injection after voltage dip ended. HoldIq < 0 for constant, 0 for no injection after voltage dip, HoldIq > 0 for voltage dependent injection (typical: -1 .. 1 s)";
+  parameter Types.Time HoldIq "Absolute value of HoldIq defines seconds to hold current injection after voltage dip ended. HoldIq < 0 for constant, 0 for no injection after voltage dip, HoldIq > 0 for voltage-dependent injection (typical: -1 .. 1 s)";
   parameter Types.PerUnit IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)";
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)";
 

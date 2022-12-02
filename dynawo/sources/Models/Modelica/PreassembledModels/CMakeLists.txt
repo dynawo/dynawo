@@ -15,6 +15,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   Bus.xml
   CombiTimeTable.xml
   CurrentLimitAutomaton.xml
+  DiscretePI.xml
   DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
@@ -32,13 +33,17 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPV.xml
   GeneratorPVSignalN.xml
   GeneratorPVRpclSignalN.xml
+  GeneratorPVRpcl2SignalN.xml
   GeneratorPVSignalNSFR.xml
   GeneratorPVTfoSignalN.xml
   GeneratorPVTfoDiagramPQSignalN.xml
   GeneratorPVTfoRpclSignalN.xml
+  GeneratorPVTfoRpcl2SignalN.xml
   GeneratorPVTfoDiagramPQRpclSignalN.xml
+  GeneratorPVTfoDiagramPQRpcl2SignalN.xml
   GeneratorPVDiagramPQSignalN.xml
   GeneratorPVDiagramPQRpclSignalN.xml
+  GeneratorPVDiagramPQRpcl2SignalN.xml
   GeneratorPVDiagramPQSignalNSFR.xml
   GeneratorPVPropSignalN.xml
   GeneratorPVPropSignalNSFR.xml
@@ -91,6 +96,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingP.xml
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
+  IECWT4ACurrentSource.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml

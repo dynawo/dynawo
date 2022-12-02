@@ -1107,7 +1107,7 @@ class SubModel {
   }
 
   /**
-   * @brief get the staticId of the subModel (i.e the name of the model in the IIDM structure)
+   * @brief get the staticId of the subModel (i.e. the name of the model in the IIDM structure)
    *
    * @return staticId of the subModel
    */
@@ -1356,7 +1356,7 @@ class SubModel {
    * @param value value of the parameter
    * @param found @b true if the parameter exist, @b false else
    */
-  virtual void getSubModelParameterValue(const std::string & nameParameter, double& value, bool& found);
+  virtual void getSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found);
 
   /**
    * @brief get index of this submodel in the global continuous variable table
@@ -1418,7 +1418,7 @@ class SubModel {
   virtual void printInitValuesParameters(std::ofstream& fstream);
 
   /**
-   * @brief Determines if the sub model has a data check coherence operation (non empty function)
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
    * @returns true if the sub model has a data check coherence operation, false if not
    */
   virtual bool hasDataCheckCoherence() const {

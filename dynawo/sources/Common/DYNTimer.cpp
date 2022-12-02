@@ -33,7 +33,7 @@ Timers::~Timers() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   std::map<std::string, double>::const_iterator itT;
   for (itT = timers_.begin(); itT != timers_.end(); ++itT) {
-    std::cout << "TIMER[" << itT->first << "] = " << itT->second << " secondes en " << nbAppels_[itT->first] << " appels" << std::endl;
+    std::cout << "TIMER[" << itT->first << "] = " << itT->second << " seconds in " << nbAppels_[itT->first] << " calls" << std::endl;
   }
 #endif
 }

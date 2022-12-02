@@ -493,7 +493,7 @@ class Model {
   /**
    * @brief Copy the discrete variable values from the solver data structure to the model data structure
    *
-   * This fonction is necessary when a solver has to go back in time for non convergence reasons to begin the new resolution with
+   * This function is necessary when a solver has to go back in time for non convergence reasons to begin the new resolution with
    * the correct discrete variable value (for example for simplified solver)
    *
    * @param z vector of discrete values from the solver data structure

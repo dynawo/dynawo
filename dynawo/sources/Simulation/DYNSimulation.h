@@ -43,10 +43,6 @@ namespace curves {
 class CurvesCollection;
 }
 
-namespace finalState {
-class FinalStateCollection;
-}
-
 namespace constraints {
 class ConstraintsCollection;
 }
@@ -241,13 +237,13 @@ class Simulation {
   void dumpIIDMFile(const boost::filesystem::path& iidmFile);
 
   /**
-   * @brief import curves request from a file (i.e curves that the user wants to plot)
+   * @brief import curves request from a file (i.e. curves that the user wants to plot)
    * @warning the file should be set before the call of this method
    */
   void importCurvesRequest();
 
   /**
-   * @brief import final state values request from a file (i.e final states values that the user wants to see)
+   * @brief import final state values request from a file (i.e. final states values that the user wants to see)
    * @warning the file should be set before the call of this method
    */
   void importFinalStateValuesRequest();
@@ -634,7 +630,6 @@ class Simulation {
   boost::shared_ptr<DynamicData> dyd_;  ///< Dynamic data container associated to the job
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< instance of the timeline where events are stored
   boost::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
-  boost::shared_ptr<finalState::FinalStateCollection> finalStateCollection_;  ///< instance of final state collection where final state are stored
   boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
   boost::shared_ptr<std::vector<

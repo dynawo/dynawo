@@ -43,7 +43,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 43}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput QInjPu(start = -Q0Pu) "Injected reactive power in pu (base SnRef)";
   Modelica.Blocks.Interfaces.RealOutput PInjPu(start = -P0Pu) "Injected active power in pu (base SnRef)";
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start=u0Pu.im)) "Complex inverter terminal voltage, used as complex conector instead of terminal connector, terminal only used for physical connection, in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start=u0Pu.im)) "Complex inverter terminal voltage, used as complex connector instead of terminal connector, terminal only used for physical connection, in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -33}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   // Internal variables:

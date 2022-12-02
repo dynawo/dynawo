@@ -437,9 +437,9 @@ class Factory:
         # ... We group some vars into categories.
         # For filters, see dataContainer.py
         self.list_vars_der = list(filter (is_der_real_var, list_vars_read)) # Derived from state vars
-        self.list_vars_discr =  list(filter(is_discrete_real_var, list_vars_read)) # Vars discretes reelles
-        self.list_vars_int =  list(filter(is_integer_var, list_vars_read)) # vars entieres
-        self.list_vars_bool =  list(filter(is_bool_var, list_vars_read)) # Vars booleennes
+        self.list_vars_discr =  list(filter(is_discrete_real_var, list_vars_read)) # Vars discrete real
+        self.list_vars_int =  list(filter(is_integer_var, list_vars_read)) # Vars integer
+        self.list_vars_bool =  list(filter(is_bool_var, list_vars_read)) # Vars boolean
         self.list_vars_when =  list(filter(is_when_var, list_vars_read)) # Vars when (bool & "$whenCondition")
         self.list_vars_dummy =  list(filter(is_dummy_var, list_vars_read))
 
@@ -2478,6 +2478,14 @@ class Factory:
                         stack_param_idx_func_called.pop()
                         if len(stack_param_idx_func_called) > 0:
                             stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
+                            func = called_func[stack_func_called[len(stack_func_called) - 1]]
+                            while len(stack_param_idx_func_called) > 0 and \
+                              stack_param_idx_func_called[len(stack_param_idx_func_called) - 1] >= len(func.get_params()):
+                                stack_func_called.pop()
+                                stack_param_idx_func_called.pop()
+                                if (len(stack_param_idx_func_called) > 0):
+                                    func = called_func[stack_func_called[len(stack_func_called) - 1]]
+
                         if len(stack_param_idx_func_called) == 0:
                             # end of main function
                             main_func_is_adept = False
@@ -2525,7 +2533,7 @@ class Factory:
         # thanks to the translator (the discreet vars are not replaced)
 
         # ... Transpose to translate
-        #     vars [ var or der(var) ] --> [ x[i]  xd[i] ou rpar[i] ]
+        #     vars [ var or der(var) ] --> [ x[i]  xd[i] or rpar[i] ]
         trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars_to_address_map)
 
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
@@ -2596,7 +2604,7 @@ class Factory:
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
 
-                # L'equation transformee est incorporee dans la fonction a imprimer
+                # Transformed equation is incorporated in the function to be printed
                 self.list_for_evalfadept.extend(body_translated)
 
                 self.list_for_evalfadept.append("\n\n")

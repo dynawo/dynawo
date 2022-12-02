@@ -859,7 +859,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria6.addLoad(loads[i]);
   ASSERT_FALSE(criteria6.empty());
   ASSERT_FALSE(criteria6.checkCriteria(0, false));
-  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria6.getFailingCriteria().size(), 2);
   ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourceAbovePower MyLoad 250 200 MyCriteria");
 }
 
@@ -1550,7 +1550,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria6.addGenerator(generators[i]);
   ASSERT_FALSE(criteria6.empty());
   ASSERT_FALSE(criteria6.checkCriteria(0, false));
-  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria6.getFailingCriteria().size(), 2);
   ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourceAbovePower MyGen 250 200 MyCriteria");
 }
 

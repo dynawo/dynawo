@@ -1245,7 +1245,7 @@ class EqMaker():
     ##
     # default constructor
     # @param self : object pointer
-    # @param raw_fct : raw fonction where come from the equation
+    # @param raw_fct : raw function where come from the equation
     def __init__(self, raw_fct = None):
         ## Name of the function in *c files
         self.name = ""
@@ -1253,7 +1253,7 @@ class EqMaker():
         self.num_omc = ""
         ##  body of the function to analyze to get the equation
         self.body_func = []
-        ##  raw body  of the function to analyze to get the equation
+        ##  raw body of the function to analyze to get the equation
         self.raw_body = []
         ## variable evaluated by this equation
         self.evaluated_var = ""

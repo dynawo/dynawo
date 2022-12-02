@@ -292,7 +292,7 @@ class ModelModelica {
   virtual bool isDataStructInitialized() const = 0;
 
   /**
-   * @brief Determines if the sub model has a data check coherence operation (non empty function)
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
    * @return true if the sub model has a data check coherence operation, false if not
    */
   inline bool hasCheckDataCoherence() const { return hasCheckDataCoherence_; }

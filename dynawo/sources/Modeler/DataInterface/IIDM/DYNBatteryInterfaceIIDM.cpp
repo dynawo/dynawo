@@ -98,7 +98,8 @@ BatteryInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("qMin", StaticParameter("qMin", StaticParameter::DOUBLE).setValue(qMin)));
   staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP_pu", StaticParameter::DOUBLE).setValue(getTargetP() / SNREF)));
   staticParameters_.insert(std::make_pair("targetP", StaticParameter("targetP", StaticParameter::DOUBLE).setValue(getTargetP())));
-  double sNom = sqrt(pMax * pMax + qMax * qMax);
+  double qNom = getQNom();
+  double sNom = sqrt(pMax * pMax + qNom * qNom);
   staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (busInterface_) {
     double U0 = busInterface_->getV0();
@@ -208,6 +209,29 @@ BatteryInterfaceIIDM::getQMax() {
 }
 
 double
+BatteryInterfaceIIDM::getQNom() {
+  if (batteryIIDM_.has_minMaxReactiveLimits()) {
+    return std::max(std::abs(batteryIIDM_.minMaxReactiveLimits().max()), std::abs(batteryIIDM_.minMaxReactiveLimits().min()));
+  } else if (batteryIIDM_.has_reactiveCapabilityCurve()) {
+    assert(batteryIIDM_.reactiveCapabilityCurve().size() > 0);
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = batteryIIDM_.reactiveCapabilityCurve();
+    double qNom = 0.0;
+    for (unsigned int i = 0; i < reactiveCurve.size(); ++i) {
+      IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+      if (qNom < std::abs(current_point.qmax)) {
+        qNom = std::abs(current_point.qmax);
+      }
+      if (qNom < std::abs(current_point.qmin)) {
+        qNom = std::abs(current_point.qmin);
+      }
+    }
+    return qNom;
+  } else {
+    return 0.3 * getPMax();
+  }
+}
+
+double
 BatteryInterfaceIIDM::getQMin() {
   if (batteryIIDM_.has_minMaxReactiveLimits()) {
     return batteryIIDM_.minMaxReactiveLimits().min();
@@ -311,6 +335,11 @@ boost::optional<bool>
 BatteryInterfaceIIDM::isParticipate() const {
   // external IIDM extension is irrelevant for batteries
   return boost::none;
+}
+
+GeneratorInterface::EnergySource_t
+BatteryInterfaceIIDM::getEnergySource() const {
+  return SOURCE_OTHER;
 }
 
 }  // namespace DYN

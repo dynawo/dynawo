@@ -12,7 +12,7 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorFictitious "Fictitious generator with voltage dependant active and reactive power (alpha-beta model)"
+model GeneratorFictitious "Fictitious generator with voltage-dependent active and reactive power (alpha-beta model)"
   extends BaseClasses.BaseGeneratorSimplified;
   extends AdditionalIcons.Machine;
 

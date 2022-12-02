@@ -73,7 +73,7 @@ CsvExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, o
   for (CurvesCollection::iterator itCurve = curves->begin();
           itCurve != curves->end();
           ++itCurve) {
-    if ((*itCurve)->getAvailable()) {
+    if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
       stream << (*itCurve)->getModelName() << "_"
               << (*itCurve)->getVariable() << CSVEXPORTER_SEPARATOR;
     }
@@ -100,7 +100,7 @@ CsvExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, o
     for (CurvesCollection::iterator itCurve = curves->begin();
             itCurve != curves->end();
             ++itCurve) {
-      if ((*itCurve)->getAvailable()) {
+      if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
         stream << DYN::double2String((*((*itCurve)->at(i)))->getValue()) << CSVEXPORTER_SEPARATOR;
       }
     }

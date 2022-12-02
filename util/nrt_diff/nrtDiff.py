@@ -234,13 +234,13 @@ def main():
     global totalTime
 
     usage=u""" Usage: %prog --firstDirectory=<directory> --secondDirectory=<directory> --outputDir=<directory> --displayMissingDirectories
-    Compare two launches of non regression test and check if there is differences between their outputs
+    Compare two launches of non-regression test and check if there are differences between their outputs
     """
     parser = OptionParser(usage)
     parser.add_option( '--firstDirectory', dest='firstDirectory',
-                       help=u"directory where the output of the first non-regression test are located")
+                       help=u"directory where the outputs of the first non-regression test are located")
     parser.add_option( '--secondDirectory', dest='secondDirectory',
-                       help=u"directory where the output of the second non-regression test are located")
+                       help=u"directory where the outputs of the second non-regression test are located")
     parser.add_option( '--outputDir', dest='outputDir',
                        help=u"directory where the resulting files will be stored (default: <current_folder>/nrt-diff-output)")
     parser.add_option( '--displayMissingDirectories', dest='display_missing_directory',
@@ -1554,7 +1554,7 @@ def writeFooter(file):
 def writeResume(file):
     file.write("<section>")
     file.write('<h2 id="resume">Resume</h2>')
-    # Analyse pour statistics
+    # Analyze for statistics
     diff_ok = diff_ok_statuses (False)
     diff_warn = diff_warn_statuses ()
     diff_error = diff_error_statuses (False)

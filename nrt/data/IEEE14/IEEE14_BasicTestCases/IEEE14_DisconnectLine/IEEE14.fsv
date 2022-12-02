@@ -54,4 +54,6 @@
   <finalStateValue model="GEN____8_SM" variable="voltageRegulator_EfdPu"/>
   <finalStateValue model="_LOAD___2_EC" variable="load_PPu"/>
   <finalStateValue model="_LOAD___2_EC" variable="load_QPu"/>
+  <finalStateValue model="_LOAD___3_EC" variable="load_PPu"/>
+  <finalStateValue model="_LOAD___3_EC" variable="load_QPu"/>
 </finalStateValuesInput>

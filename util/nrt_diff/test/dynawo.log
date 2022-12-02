@@ -93,7 +93,7 @@
 2019-10-07 17:29:32 | DEBUG | nbSubNetwork = 1 nbsub = 1
 2019-10-07 17:29:32 | DEBUG | subNetwork[0] nbBus = 14
 2019-10-07 17:29:32 | DEBUG | keep SubNetworks num : 0
-2019-10-07 17:29:33 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-07 17:29:33 | DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
 2019-10-07 17:29:33 | DEBUG | -----------------------------------------------------------------------
 2019-10-07 17:29:33 | DEBUG | number of continuous variables : 553 (display limited to 4 variables)
 2019-10-07 17:29:33 | DEBUG | number of discrete variables : 232
@@ -168,7 +168,7 @@
 2019-10-07 17:29:33 | DEBUG | Algebraic mode (with J recalculation) change for model NETWORK
 2019-10-07 17:29:33 | DEBUG |        1.000  1.014831e+00 -2.737533e-01 -6.830798e-02  7.559496e-02 |  17 2 3.276800e-02
 2019-10-07 17:29:33 | DEBUG | calculation of the new starting point of the simulation.
-2019-10-07 17:29:33 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-07 17:29:33 | DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
 2019-10-07 17:29:33 | DEBUG |        1.000  1.003634e+00 -2.965595e-01 -6.641052e-02  7.680308e-02 |   0 0 0.000000e+00
 2019-10-07 17:29:33 | DEBUG |        1.000  1.003634e+00 -2.965597e-01 -6.641051e-02  7.680310e-02 |   1 1 1.000000e-06
 2019-10-07 17:29:33 | DEBUG |        1.000  1.003634e+00 -2.965599e-01 -6.641049e-02  7.680311e-02 |   2 1 1.000000e-06
