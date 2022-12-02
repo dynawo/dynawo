@@ -18,7 +18,6 @@ model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, base
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
-  parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
   parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
@@ -47,9 +46,9 @@ protected
 
 equation
   PGenPu = tableQMin.u[1];
-  tFilter * der(QMinPu) + QMinPu = tableQMin.y[1];
+  QMinPu = tableQMin.y[1];
   PGenPu = tableQMax.u[1];
-  tFilter * der(QMaxPu) + QMaxPu = tableQMax.y[1];
+  QMaxPu = tableQMax.y[1];
 
   when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;

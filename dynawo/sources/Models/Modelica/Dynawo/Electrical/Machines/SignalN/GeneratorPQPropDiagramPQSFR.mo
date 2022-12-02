@@ -19,7 +19,6 @@ model GeneratorPQPropDiagramPQSFR "Model for generator PQ with a PQ diagram, bas
   extends AdditionalIcons.Machine;
 
   parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
-  parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
   parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
@@ -41,9 +40,9 @@ protected
 
 equation
   PGenPu = tableQMin.u[1];
-  tFilter * der(QMinPu) + QMinPu = tableQMin.y[1];
+  QMinPu = tableQMin.y[1];
   PGenPu = tableQMax.u[1];
-  tFilter * der(QMaxPu) + QMaxPu = tableQMax.y[1];
+  QMaxPu = tableQMax.y[1];
 
   QGenRawPu = - QRef0Pu + QPercent * NQ;
 
