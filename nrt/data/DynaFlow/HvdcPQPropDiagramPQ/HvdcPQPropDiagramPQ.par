@@ -58,7 +58,6 @@
     <par type="DOUBLE" name="hvdc_QInj2Min0Pu" value="-6"/>
     <par type="DOUBLE" name="hvdc_QInj2Max0Pu" value="1.7"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
-    <par type="DOUBLE" name="hvdc_tFilter" value="0.01"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
     <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>
@@ -94,7 +93,6 @@
     <par type="DOUBLE" name="hvdc_QInj2Min0Pu" value="-6"/>
     <par type="DOUBLE" name="hvdc_QInj2Max0Pu" value="1.7"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
-    <par type="DOUBLE" name="hvdc_tFilter" value="0.01"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
     <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>
