@@ -14,7 +14,8 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
     package.mo
     package.order
-    FullDynamicModel.mo
+    FullDynamicModelA.mo
+    FullDynamicModelB.mo
     )
 
 #

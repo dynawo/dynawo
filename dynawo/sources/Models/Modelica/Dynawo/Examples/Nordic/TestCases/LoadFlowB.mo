@@ -1,0 +1,163 @@
+within Dynawo.Examples.Nordic.TestCases;
+
+/*
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model LoadFlowB "Model of load flow calculation for the Nordic 32 test system used for voltage stability studies (operating point B)"
+  import Modelica.ComplexMath;
+  import Modelica.SIunits;
+  import Dynawo;
+  import Dynawo.Electrical.SystemBase;
+  import Dynawo.Types;
+
+  extends Dynawo.Examples.Nordic.TestCases.LoadFlowA(
+    g15(PGen0Pu = P0Pu_g15a, QGen0Pu = Q0Pu_g15a),
+    g16(PGen0Pu = P0Pu_g16a, QGen0Pu = Q0Pu_g16a),
+    g18(PGen0Pu = P0Pu_g18a, QGen0Pu = Q0Pu_g18a),
+    trafo_g15_4047.XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0),
+    trafo_g18_4063.XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0));
+
+  Dynawo.Electrical.Buses.Bus bus_BG15b annotation(
+    Placement(visible = true, transformation(origin = {95, -95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus bus_BG16b annotation(
+    Placement(visible = true, transformation(origin = {5, -145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus bus_BG18b annotation(
+    Placement(visible = true, transformation(origin = {-110, -145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+
+  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g15b_4047(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0), rTfoPu = 1.05) annotation(
+    Placement(visible = true, transformation(origin = {95, -103}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g16b_4051(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
+    Placement(visible = true, transformation(origin = {5, -137}, extent = {{5, -5}, {-5, 5}}, rotation = -90)));
+  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g18b_4063(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0), rTfoPu = 1.05) annotation(
+    Placement(visible = true, transformation(origin = {-110, -137}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+
+  Dynawo.Electrical.Machines.OmegaRef.GeneratorPQ g15b(PMin = 0, PMax = 9999, PNom = 540.0, u0Pu = u0Pu_g15b, i0Pu = i0Pu_g15, PGen0Pu = P0Pu_g15b, QGen0Pu = Q0Pu_g15b, U0Pu = U0Pu_g15b, AlphaPuPNom = 0) annotation(
+    Placement(visible = true, transformation(origin = {95, -89}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+  Dynawo.Electrical.Machines.OmegaRef.GeneratorPQ g16b(PMin = 0, PMax = 9999, PNom = 630.0, u0Pu = u0Pu_g16b, i0Pu = i0Pu_g16, PGen0Pu = P0Pu_g16b, QGen0Pu = Q0Pu_g16b, U0Pu = U0Pu_g16b, AlphaPuPNom = 0) annotation(
+    Placement(visible = true, transformation(origin = {5, -150}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+  Dynawo.Electrical.Machines.OmegaRef.GeneratorPQ g18b(PMin = 0, PMax = 9999, PNom = 540.0, u0Pu = u0Pu_g18b, i0Pu = i0Pu_g18, PGen0Pu = P0Pu_g18b, QGen0Pu = Q0Pu_g18b, U0Pu = U0Pu_g18b, AlphaPuPNom = 0) annotation(
+    Placement(visible = true, transformation(origin = {-110, -151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+
+protected
+  // Generator g15a init values:
+  // P0Pu, Q0Pu in SnRef, generator convention
+  // i0Pu in receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g15a = 540.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g15a = 74.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g15a = 1.0455;
+  final parameter Types.Angle UPhase0_g15a = SIunits.Conversions.from_deg(-52.19);
+  final parameter Types.ComplexApparentPowerPu s0Pu_g15a = Complex(P0Pu_g15a, Q0Pu_g15a);
+  final parameter Types.ComplexVoltagePu u0Pu_g15a = ComplexMath.fromPolar(U0Pu_g15a, UPhase0_g15a);
+  final parameter Types.ComplexCurrentPu i0Pu_g15a = -1 * ComplexMath.conj(s0Pu_g15a / u0Pu_g15a);
+
+  // Generator g15b init values:
+  // P0Pu, Q0Pu in SnRef, generator convention
+  // i0Pu in receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g15b = 540.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g15b = 74.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g15b = 1.0455;
+  final parameter Types.Angle UPhase0_g15b = SIunits.Conversions.from_deg(-52.19);
+  final parameter Types.ComplexApparentPowerPu s0Pu_g15b = Complex(P0Pu_g15b, Q0Pu_g15b);
+  final parameter Types.ComplexVoltagePu u0Pu_g15b = ComplexMath.fromPolar(U0Pu_g15b, UPhase0_g15b);
+  final parameter Types.ComplexCurrentPu i0Pu_g15b = -1 * ComplexMath.conj(s0Pu_g15b / u0Pu_g15b);
+
+  // Generator g16a init values:
+  // P0Pu, Q0Pu in SnRef, generator convention
+  // i0Pu in receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g16a = 600.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g16a = 59.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g16a = 1.0531;
+  final parameter Types.Angle UPhase0_g16a = SIunits.Conversions.from_deg(-64.1);
+  final parameter Types.ComplexApparentPowerPu s0Pu_g16a = Complex(P0Pu_g16a, Q0Pu_g16a);
+  final parameter Types.ComplexVoltagePu u0Pu_g16a = ComplexMath.fromPolar(U0Pu_g16a, UPhase0_g16a);
+  final parameter Types.ComplexCurrentPu i0Pu_g16a = -1 * ComplexMath.conj(s0Pu_g16a / u0Pu_g16a);
+
+  // Generator g16b init values:
+  // P0Pu, Q0Pu in SnRef, generator convention
+  // i0Pu in receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g16b = 600.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g16b = 59.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g16b = 1.0531;
+  final parameter Types.Angle UPhase0_g16b = SIunits.Conversions.from_deg(-64.1);
+  final parameter Types.ComplexApparentPowerPu s0Pu_g16b = Complex(P0Pu_g16b, Q0Pu_g16b);
+  final parameter Types.ComplexVoltagePu u0Pu_g16b = ComplexMath.fromPolar(U0Pu_g16b, UPhase0_g16b);
+  final parameter Types.ComplexCurrentPu i0Pu_g16b = -1 * ComplexMath.conj(s0Pu_g16b / u0Pu_g16b);
+
+  // Generator g18a init values:
+  // P0Pu, Q0Pu in SnRef, generator convention
+  // i0Pu in receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g18a = 530.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g18a = 110.5 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g18a = 1.0307;
+  final parameter Types.Angle UPhase0_g18a = SIunits.Conversions.from_deg(-43.32);
+  final parameter Types.ComplexApparentPowerPu s0Pu_g18a = Complex(P0Pu_g18a, Q0Pu_g18a);
+  final parameter Types.ComplexVoltagePu u0Pu_g18a = ComplexMath.fromPolar(U0Pu_g18a, UPhase0_g18a);
+  final parameter Types.ComplexCurrentPu i0Pu_g18a = -1 * ComplexMath.conj(s0Pu_g18a / u0Pu_g18a);
+
+  // Generator g18b init values:
+  // P0Pu, Q0Pu in SnRef, generator convention
+  // i0Pu in receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g18b = 530.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g18b = 110.5 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g18b = 1.0307;
+  final parameter Types.Angle UPhase0_g18b = SIunits.Conversions.from_deg(-43.32);
+  final parameter Types.ComplexApparentPowerPu s0Pu_g18b = Complex(P0Pu_g18b, Q0Pu_g18b);
+  final parameter Types.ComplexVoltagePu u0Pu_g18b = ComplexMath.fromPolar(U0Pu_g18b, UPhase0_g18b);
+  final parameter Types.ComplexCurrentPu i0Pu_g18b = -1 * ComplexMath.conj(s0Pu_g18b / u0Pu_g18b);
+
+equation
+  trafo_g15b_4047.switchOffSignal1.value = false;
+  trafo_g15b_4047.switchOffSignal2.value = false;
+  trafo_g16b_4051.switchOffSignal1.value = false;
+  trafo_g16b_4051.switchOffSignal2.value = false;
+  trafo_g18b_4063.switchOffSignal1.value = false;
+  trafo_g18b_4063.switchOffSignal2.value = false;
+  g15b.switchOffSignal1.value = false;
+  g15b.switchOffSignal2.value = false;
+  g15b.switchOffSignal3.value = false;
+  g15b.omegaRefPu.value = 1;
+  g16b.switchOffSignal1.value = false;
+  g16b.switchOffSignal2.value = false;
+  g16b.switchOffSignal3.value = false;
+  g16b.omegaRefPu.value = 1;
+  g18b.switchOffSignal1.value = false;
+  g18b.switchOffSignal2.value = false;
+  g18b.switchOffSignal3.value = false;
+  g18b.omegaRefPu.value = 1;
+
+  connect(trafo_g15b_4047.terminal1, bus_BG15b.terminal) annotation(
+    Line(points = {{95, -98}, {95, -95}}, color = {0, 0, 255}));
+  connect(trafo_g15b_4047.terminal2, bus_4047.terminal) annotation(
+    Line(points = {{95, -108}, {95, -110}, {70, -110}}, color = {0, 0, 255}));
+  connect(trafo_g16b_4051.terminal1, bus_BG16b.terminal) annotation(
+    Line(points = {{5, -142}, {5, -145}}, color = {0, 0, 255}));
+  connect(trafo_g16b_4051.terminal2, bus_4051.terminal) annotation(
+    Line(points = {{5, -132}, {5, -130}, {14, -130}}, color = {0, 0, 255}));
+  connect(trafo_g18b_4063.terminal1, bus_BG18b.terminal) annotation(
+    Line(points = {{-110, -142}, {-110, -145}}, color = {0, 0, 255}));
+  connect(trafo_g18b_4063.terminal2, bus_4063.terminal) annotation(
+    Line(points = {{-110, -132}, {-110, -130}, {-87, -130}}, color = {0, 0, 255}));
+  connect(g15b.terminal, bus_BG15b.terminal) annotation(
+    Line(points = {{95, -89}, {95, -95}}, color = {0, 0, 255}));
+  connect(g16b.terminal, bus_BG16b.terminal) annotation(
+    Line(points = {{5, -151}, {5, -145}}, color = {0, 0, 255}));
+  connect(g18b.terminal, bus_BG18b.terminal) annotation(
+    Line(points = {{-110, -151}, {-110, -145}}, color = {0, 0, 255}));
+
+  annotation(preferredView = "diagram",
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
+    Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+    Documentation(info = "<html><head></head><body>The LoadFlow model for operating point B extends the LoadFlow model for operating point A. The initial power values have been taken from the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. The initial voltage values are taken from the report, operating point B.</span><div>The initial power and voltage values should produce steady state.</div></body></html>"),
+  Icon);
+end LoadFlowB;

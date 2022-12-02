@@ -12,8 +12,10 @@
 set(MODEL_FILES
     package.mo
     package.order
-    LoadFlow.mo
-    TestCase.mo
+    LoadFlowA.mo
+    LoadFlowB.mo
+    TestCaseA.mo
+    TestCaseB.mo
     )
 
 #

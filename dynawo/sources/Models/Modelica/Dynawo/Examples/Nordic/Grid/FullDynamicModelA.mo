@@ -13,7 +13,7 @@ within Dynawo.Examples.Nordic.Grid;
 * of simulation tools for power systems.
 */
 
-model FullDynamicModel "Nordic test grid with buses, lines, shunts, voltage-dependent loads, transformers and generators"
+model FullDynamicModelA "Nordic test grid with buses, lines, shunts, voltage-dependent loads, transformers and generators (operating point A)"
   import Modelica.SIunits;
   import Dynawo;
   import Dynawo.Electrical;
@@ -164,7 +164,7 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, voltage-depe
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g19(P0Pu = P0Pu_g19, Q0Pu = Q0Pu_g19, U0Pu = 1.03, UPhase0 = SIunits.Conversions.from_deg(0.03), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g19) annotation(
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = 1.0185, UPhase0 = SIunits.Conversions.from_deg(0), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
-    Placement(visible = true, transformation(origin = {30, -110}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
 
 protected
   // Generator g01 init values:
@@ -325,8 +325,6 @@ equation
   trafo_2031_4031.switchOffSignal1.value = false;
   trafo_2031_4031.switchOffSignal2.value = false;
 
-  connect(g20.terminal, bus_BG20.terminal) annotation(
-    Line(points = {{-75, 58}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal2, bus_1041.terminal) annotation(
     Line(points = {{-55, -92}, {-55, -90}, {-60, -90}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal1, bus_B01.terminal) annotation(
@@ -565,6 +563,8 @@ equation
     Line(points = {{-95, -151}, {-95, -145}}, color = {0, 0, 255}));
   connect(g19.terminal, bus_BG19.terminal) annotation(
     Line(points = {{-75, 151}, {-75, 145}}, color = {0, 0, 255}));
+  connect(g20.terminal, bus_BG20.terminal) annotation(
+    Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
 
   annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.001), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
