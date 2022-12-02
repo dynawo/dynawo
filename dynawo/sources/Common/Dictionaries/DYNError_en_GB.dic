@@ -185,7 +185,6 @@ SwitchMissingBus1           =             SWITCH %1% : bus 1 is missing
 SwitchMissingBus2           =             SWITCH %1% : bus 2 is missing
 UndefinedNominalV           =             VOLTAGE LEVEL %1% : nominal value is undefined or badly defined (< 0)
 VoltageLevelGraphUndefined  =             VOLTAGE LEVEL %1% : graph is undefined
-VoltageLevelBBSError        =             VOLTAGE LEVEL %1% : error while looking for the closest bus bar section
 FrequencyCollapse           =             frequency collapse (%1% Hz < %2% Hz)
 FrequencyIncrease           =             high frequency (%1% Hz > %2% Hz)
 CalculatedBusNoSwitchStateChange =        calculated bus %1% cannot change state as there is no retained switch in the node

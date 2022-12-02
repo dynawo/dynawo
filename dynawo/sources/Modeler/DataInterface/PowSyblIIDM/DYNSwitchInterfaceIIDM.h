@@ -109,6 +109,11 @@ class SwitchInterfaceIIDM : public SwitchInterface {
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @copydoc SwitchInterface::isRetained()
+   */
+  bool isRetained() const;
+
  private:
   powsybl::iidm::Switch& switchIIDM_;              ///< reference to the iidm switch instance
   boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the switch is connected

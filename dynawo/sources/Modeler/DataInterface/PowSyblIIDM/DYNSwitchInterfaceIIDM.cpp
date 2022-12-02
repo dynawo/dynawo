@@ -98,4 +98,9 @@ SwitchInterfaceIIDM::importStaticParameters() {
   // no static parameter
 }
 
+bool
+SwitchInterfaceIIDM::isRetained() const {
+  return switchIIDM_.isRetained();
+}
+
 }  // namespace DYN
