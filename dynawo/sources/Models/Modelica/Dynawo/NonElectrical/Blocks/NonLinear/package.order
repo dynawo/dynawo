@@ -16,6 +16,7 @@ MinThresholdSwitch
 MultiSwitch
 PulseFixedDuration
 PulseMinimumDuration
+StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter

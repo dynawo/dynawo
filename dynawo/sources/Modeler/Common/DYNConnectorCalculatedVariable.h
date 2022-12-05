@@ -159,9 +159,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void dumpParameters(std::map<std::string, std::string >& mapParameters);
 
   /**
-   * @copydoc SubModel::getSubModelParameterValue(const std::string& nameParameter, double& value, bool& found)
+   * @copydoc SubModel::getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found)
    */
-  void getSubModelParameterValue(const std::string& nameParameter, double& value, bool& found);
+  void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found);
 
   /**
    * @copydoc SubModel::dumpVariables(std::map<std::string, std::string >& mapVariables)

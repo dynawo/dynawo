@@ -1358,7 +1358,7 @@ class SubModel {
    * @param value value of the parameter
    * @param found @b true if the parameter exist, @b false else
    */
-  virtual void getSubModelParameterValue(const std::string & nameParameter, double& value, bool& found);
+  virtual void getSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found);
 
   /**
    * @brief get index of this submodel in the global continuous variable table

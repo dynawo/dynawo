@@ -693,10 +693,10 @@ SubModel::printInitValuesParameters(std::ofstream& fstream) {
   fstream << " ====== PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
     bool found = false;
-    double value;
+    std::string value;
     getSubModelParameterValue(it->first, value, found);
     if (found) {
-      fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << DYN::double2String(value) << std::endl;
+      fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << value << std::endl;
     }
   }
 }
@@ -1301,14 +1301,17 @@ SubModel::gEquationIndex() {
 }
 
 void
-SubModel::getSubModelParameterValue(const string& nameParameter, double& value, bool& found) {
+SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
   const bool isInitParam = false;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
     found = false;
   } else {
     found = true;
-    value = parameter.getDoubleValue();
+    if (parameter.getValueType() == VAR_TYPE_STRING)
+      value = parameter.getValue<std::string>();
+    else
+      value = DYN::double2String(parameter.getDoubleValue());
   }
 }
 

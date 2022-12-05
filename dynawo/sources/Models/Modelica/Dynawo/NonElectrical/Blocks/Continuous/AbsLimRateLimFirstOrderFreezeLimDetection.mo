@@ -53,18 +53,18 @@ equation
     Line(points = {{-38, 0}, {-20, 0}, {-20, 72}, {18, 72}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gain.y, greater.u1) annotation(
     Line(points = {{-98, 0}, {-80, 0}, {-80, 80}, {18, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(limiter1.y, greater2.u2) annotation(
+  connect(variableLimiter.y, greater2.u2) annotation(
     Line(points = {{122, 0}, {124, 0}, {124, 32}, {128, 32}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(integrator.y, greater2.u1) annotation(
-    Line(points = {{82, 0}, {90, 0}, {90, 40}, {128, 40}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{82, 0}, {86, 0}, {86, 40}, {128, 40}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gain.y, greater1.u2) annotation(
     Line(points = {{-98, 0}, {-80, 0}, {-80, -88}, {18, -88}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(limiter.y, greater1.u1) annotation(
     Line(points = {{-38, 0}, {-20, 0}, {-20, -80}, {18, -80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(limiter1.y, greater3.u1) annotation(
+  connect(variableLimiter.y, greater3.u1) annotation(
     Line(points = {{122, 0}, {124, 0}, {124, -40}, {128, -40}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(integrator.y, greater3.u2) annotation(
-    Line(points = {{82, 0}, {90, 0}, {90, -48}, {128, -48}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{82, 0}, {86, 0}, {86, -48}, {128, -48}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
 
   annotation(
   preferredView = "diagram");

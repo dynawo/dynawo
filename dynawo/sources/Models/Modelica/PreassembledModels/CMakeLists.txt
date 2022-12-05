@@ -15,6 +15,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   Bus.xml
   CombiTimeTable.xml
   CurrentLimitAutomaton.xml
+  DiscretePI.xml
   DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
@@ -95,6 +96,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingP.xml
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
+  IECWT4ACurrentSource.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml

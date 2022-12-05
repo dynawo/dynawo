@@ -41,6 +41,17 @@ class VoltageLevelInterface;
 class GeneratorInterface : public ComponentInterface, public ReactiveCurvePointsInterface {
  public:
   /**
+   * @brief energy source type definition
+   */
+  typedef enum {
+    SOURCE_HYDRO,
+    SOURCE_NUCLEAR,
+    SOURCE_WIND,
+    SOURCE_THERMAL,
+    SOURCE_SOLAR,
+    SOURCE_OTHER
+  } EnergySource_t;
+  /**
    * @brief Setter for the generator's bus interface
    * @param busInterface of the bus where the generator is connected
    */
@@ -187,6 +198,12 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
    * @returns true if the generator is participate, false if not, or nullopt if the parameter is not found
    */
   virtual boost::optional<bool> isParticipate() const = 0;
+
+  /**
+   * @brief Getter for energy source type
+   * @returns energy source type
+   */
+  virtual EnergySource_t getEnergySource() const = 0;
 };  ///< Class for Generator data interface
 
 #ifdef __clang__

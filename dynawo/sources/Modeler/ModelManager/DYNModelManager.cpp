@@ -655,7 +655,7 @@ void ModelManager::writeParametersFinalValues() {
   }
 }
 
-void ModelManager::getSubModelParameterValue(const string& nameParameter, double& value, bool& found) {
+void ModelManager::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
   found = hasParameterDynamic(nameParameter);
   if (found) {
     const ParameterModeler& parameter = findParameterDynamic(nameParameter);
@@ -664,7 +664,10 @@ void ModelManager::getSubModelParameterValue(const string& nameParameter, double
       writeParametersFinalValues();
     }
 
-    value = parameter.getDoubleValue();
+    if (parameter.getValueType() == VAR_TYPE_STRING)
+      value = parameter.getValue<std::string>();
+    else
+      value = DYN::double2String(parameter.getDoubleValue());
   }
 }
 

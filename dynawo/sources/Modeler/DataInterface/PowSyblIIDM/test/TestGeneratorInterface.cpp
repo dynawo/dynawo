@@ -113,6 +113,7 @@ TEST(DataInterfaceTest, Generator_1) {
   ASSERT_EQ(genItf.getTargetP(), -45.0);
   ASSERT_EQ(genItf.getTargetQ(), -5.0);
   ASSERT_EQ(genItf.getTargetV(), 24.0);
+  ASSERT_EQ(genItf.getEnergySource(), GeneratorInterface::SOURCE_WIND);
 
   ASSERT_TRUE(genItf.isVoltageRegulationOn());
 
@@ -251,6 +252,7 @@ TEST(DataInterfaceTest, Generator_2) {
   const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
   genItf.setVoltageLevelInterface(vlItf);
   ASSERT_EQ(genItf.getID(), "GEN1");
+  ASSERT_EQ(genItf.getEnergySource(), GeneratorInterface::SOURCE_OTHER);
 
   ASSERT_FALSE(genItf.getInitialConnected());
   ASSERT_FALSE(genItf.isVoltageRegulationOn());

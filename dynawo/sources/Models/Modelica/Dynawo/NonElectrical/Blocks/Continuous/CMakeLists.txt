@@ -12,10 +12,13 @@ set(MODEL_FILES
   package.mo
   package.order
   AbsLimRateLimFeedthroughFreeze.mo
+  AbsLimRateLimFirstOrderAntiWindup.mo
   AbsLimRateLimFirstOrderFreeze.mo
   AbsLimRateLimFirstOrderFreezeLimDetection.mo
   AntiWindupIntegrator.mo
   DecreaseDetection.mo
+  DiscretePI.mo
+  DiscretePI.extvar
   IncreaseDetection.mo
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo
