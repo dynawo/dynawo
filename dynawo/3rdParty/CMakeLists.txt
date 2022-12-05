@@ -161,6 +161,7 @@ set(sundials_url         ${sundials_prefix_url}/v${sundials_version}/${sundials_
 set(sundials_md5         4546D887F63E8A5F7B3BA7933D877C83)
 
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
+set(omdev_tag            origin/OM113maintenance)
 
 set(openmodelica_version 1.13.2)
 if(DEFINED ENV{DYNAWO_OPENMODELICA_GIT_URL})
@@ -661,6 +662,7 @@ if(NOT OMCompiler)
         TMP_DIR             ${TMP_DIR}
         STAMP_DIR           ${DOWNLOAD_DIR}/omdev-stamp
         GIT_REPOSITORY      ${omdev_git}
+        GIT_TAG             ${omdev_tag}
         GIT_SHALLOW         1
         UPDATE_DISCONNECTED 1
         BUILD_IN_SOURCE     1
