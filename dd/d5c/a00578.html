@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNModelUtil.h File Reference</title>
+<title>Dynawo: DYNModelMulti.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,67 +95,37 @@ $(document).ready(function(){initNavTree('dd/d5c/a00578.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNModelUtil.h File Reference</div>  </div>
+<div class="title">DYNModelMulti.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Model util to print the matrix structure associated to a model into a file.  
+<p>class of model multi (contains all subModels and connectors between them)  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../dc/dae/a00563_source.html">DYNModel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/db6/a00509_source.html">DYNSparseMatrix.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
+<code>#include &lt;boost/unordered_map.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d3e/a00566_source.html">DYNModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d1c/a00605_source.html">DYNVariable.h</a>&quot;</code><br />
+<code>#include &quot;DYNBitMask.h&quot;</code><br />
 </div>
 <p><a href="../../dd/d5c/a00578_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ab1ab144d10afa36f3c0d98865a79f5c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5c/a00578.html#ab1ab144d10afa36f3c0d98865a79f5c8">DYN::printStructureToFile</a> (const boost::shared_ptr&lt; Model &gt; &amp;model, const SparseMatrix &amp;matrix)</td></tr>
-<tr class="memdesc:ab1ab144d10afa36f3c0d98865a79f5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the structure of the matrix in a file.  <a href="../../dd/d5c/a00578.html#ab1ab144d10afa36f3c0d98865a79f5c8">More...</a><br /></td></tr>
-<tr class="separator:ab1ab144d10afa36f3c0d98865a79f5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d28/a02705.html">DYN::ModelMulti</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/da8/a02693.html" title="Generic model Generic class for Model. ">Model</a> carrying multiple models Class for Multiple-Model.  <a href="../../da/d28/a02705.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">struct used identify properties from a subModel found with a variable name  <a href="../../d6/d8f/a02709.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Model util to print the matrix structure associated to a model into a file. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="file_ab1ab144d10afa36f3c0d98865a79f5c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_ab1ab144d10afa36f3c0d98865a79f5c8">&#9670;&nbsp;</a></span>printStructureToFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::printStructureToFile </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/dad/a02682.html">Model</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>model</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../db/d8b/a02594.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>matrix</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print the structure of the matrix in a file. </p>
-<p>This function is for debug purposes but can be used release mode</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">model</td><td>model to get the informations on equations and variables </td></tr>
-    <tr><td class="paramname">matrix</td><td>matrix which structure will be printed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>class of model multi (contains all subModels and connectors between them) </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -171,8 +141,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../dd/d5c/a00578.html">DYNModelUtil.h</a></li>
-    <li class="footer">Generated on Tue Dec 6 2022 09:14:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../dd/d5c/a00578.html">DYNModelMulti.h</a></li>
+    <li class="footer">Generated on Tue Dec 6 2022 16:02:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

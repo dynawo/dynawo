@@ -1,9 +1,11 @@
 var a00527 =
 [
-    [ "ASSERT_DOUBLE_EQUALS_DYNAWO", "d9/d44/a00527.html#a15b612c792c0dc04c4ca70831cad5ff0", null ],
-    [ "ASSERT_THROW_DYNAWO", "d9/d44/a00527.html#a3c873a7b0f333a727460be5bc1c13b3a", null ],
-    [ "EXPECT_ASSERT_DYNAWO", "d9/d44/a00527.html#af4a31bd964069d134944e9c83e43a782", null ],
-    [ "INIT_XML_DYNAWO", "d9/d44/a00527.html#a961c5eff88f35eb3eee6484c5e9182d0", null ],
-    [ "key2Str", "d9/d44/a00527.html#a543b39db82612484e7242b9bfe754628", null ],
-    [ "type2Str", "d9/d44/a00527.html#a98ebff40c1bc80287831c01bbe12e650", null ]
+    [ "TraceStream", "d2/d80/a02645.html", "d2/d80/a02645" ],
+    [ "SeverityLevel", "d9/d44/a00527.html#a7f30ec83caa9180e23f0f9079c7f4794", [
+      [ "DEBUG", "d9/d44/a00527.html#a7f30ec83caa9180e23f0f9079c7f4794aba17c0778dd43b6f34851dc72bb01bc0", null ],
+      [ "INFO", "d9/d44/a00527.html#a7f30ec83caa9180e23f0f9079c7f4794a91c78882ba9f10f232f4d92f90bf5bb0", null ],
+      [ "WARN", "d9/d44/a00527.html#a7f30ec83caa9180e23f0f9079c7f4794a65e4a0f0a3074f0188f25c7bc20deeeb", null ],
+      [ "ERROR", "d9/d44/a00527.html#a7f30ec83caa9180e23f0f9079c7f4794a9b4e3f574f324f82af263be3111118dc", null ]
+    ] ],
+    [ "eol", "d9/d44/a00527.html#a0b992bada48a2eb748585beda635bd92", null ]
 ];

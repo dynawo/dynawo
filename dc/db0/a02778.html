@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Criteria Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('dc/db0/a02778.html','../../');});
+$(document).ready(function(){initNavTree('d9/d95/a02781.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,289 +94,56 @@ $(document).ready(function(){initNavTree('dc/db0/a02778.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-types">Protected Types</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="../../d4/d72/a02775.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Criteria Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::ComponentInterface Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dc/db0/a02778.html" title="Criteria class: handle the check of criteria. ">Criteria</a> class: handle the check of criteria.  
- <a href="../../dc/db0/a02778.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d9/d0f/a00644_source.html">DYNCriteria.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::Criteria:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../dc/db0/a02778.png" usemap="#DYN::Criteria_map" alt=""/>
-  <map id="DYN::Criteria_map" name="DYN::Criteria_map">
-<area href="../../de/d69/a02786.html" title="BusCriteria class: handle the check of bus criteria. " alt="DYN::BusCriteria" shape="rect" coords="0,56,144,80"/>
-<area href="../../d5/dd8/a02802.html" title="GeneratorCriteria class: handle the check of generator criteria. " alt="DYN::GeneratorCriteria" shape="rect" coords="154,56,298,80"/>
-<area href="../../d0/dc9/a02794.html" title="LoadCriteria class: handle the check of load criteria. " alt="DYN::LoadCriteria" shape="rect" coords="308,56,452,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/a02782.html">FailingCriteria</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure containing information about a failing criteria and related methods  <a href="../../da/de9/a02782.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab0211f97b4a4105abfe70989068d7034"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#ab0211f97b4a4105abfe70989068d7034">Criteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d3a/a01622.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
-<tr class="memdesc:ab0211f97b4a4105abfe70989068d7034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ab0211f97b4a4105abfe70989068d7034">More...</a><br /></td></tr>
-<tr class="separator:ab0211f97b4a4105abfe70989068d7034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91b12e7731dfd62f0989c6ae50557ed"><td class="memItemLeft" align="right" valign="top"><a id="ab91b12e7731dfd62f0989c6ae50557ed"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a> ()</td></tr>
-<tr class="memdesc:ab91b12e7731dfd62f0989c6ae50557ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ab91b12e7731dfd62f0989c6ae50557ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23993a47f79a29d933bebdda2502686e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#a23993a47f79a29d933bebdda2502686e">checkCriteria</a> (double t, bool finalStep, const boost::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">timeline::Timeline</a> &gt; &amp;timeline=nullptr)=0</td></tr>
-<tr class="memdesc:a23993a47f79a29d933bebdda2502686e"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true if the criteria is respected, false otherwise  <a href="#a23993a47f79a29d933bebdda2502686e">More...</a><br /></td></tr>
-<tr class="separator:a23993a47f79a29d933bebdda2502686e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae37e82fe5de5482d924a4f3781287bc5"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a> () const</td></tr>
-<tr class="memdesc:ae37e82fe5de5482d924a4f3781287bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the list of failing criteria  <a href="#ae37e82fe5de5482d924a4f3781287bc5">More...</a><br /></td></tr>
-<tr class="separator:ae37e82fe5de5482d924a4f3781287bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
-Protected Types</h2></td></tr>
-<tr class="memitem:a2a006412a6c16ae87e540f83e99f7ec3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> { <a class="el" href="../../dc/db0/a02778.html#a2a006412a6c16ae87e540f83e99f7ec3a26a4b44a837bf97b972628509912b4a5">Bound::MAX</a> = 0, 
-<a class="el" href="../../dc/db0/a02778.html#a2a006412a6c16ae87e540f83e99f7ec3ace31e2a082d17e038fcc6e3006166653">Bound::MIN</a>
- }</td></tr>
-<tr class="memdesc:a2a006412a6c16ae87e540f83e99f7ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crossed bound for a failing criteria.  <a href="../../dc/db0/a02778.html#a2a006412a6c16ae87e540f83e99f7ec3">More...</a><br /></td></tr>
-<tr class="separator:a2a006412a6c16ae87e540f83e99f7ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab89edf71b50f08614bbbb3c182c04590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#ab89edf71b50f08614bbbb3c182c04590">printAllFailingCriteriaIntoLog</a> (std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../da/de9/a02782.html">FailingCriteria</a> &gt; &gt; &amp;distanceToFailingCriteriaMap, const boost::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">timeline::Timeline</a> &gt; &amp;timeline, double currentTime) const</td></tr>
-<tr class="memdesc:ab89edf71b50f08614bbbb3c182c04590"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all the failing criteria in the log file and the timeline file  <a href="#ab89edf71b50f08614bbbb3c182c04590">More...</a><br /></td></tr>
-<tr class="separator:ab89edf71b50f08614bbbb3c182c04590"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a0bb1b98b66257511889a334efd7d2a81"><td class="memItemLeft" align="right" valign="top"><a id="a0bb1b98b66257511889a334efd7d2a81"></a>
-const boost::shared_ptr&lt; <a class="el" href="../../d1/d3a/a01622.html">criteria::CriteriaParams</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#a0bb1b98b66257511889a334efd7d2a81">params_</a></td></tr>
-<tr class="memdesc:a0bb1b98b66257511889a334efd7d2a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameters of this criteria <br /></td></tr>
-<tr class="separator:a0bb1b98b66257511889a334efd7d2a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cfd58d7a5fc57e2d2438cf3c3603954"><td class="memItemLeft" align="right" valign="top"><a id="a2cfd58d7a5fc57e2d2438cf3c3603954"></a>
-std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/db0/a02778.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td></tr>
-<tr class="memdesc:a2cfd58d7a5fc57e2d2438cf3c3603954"><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps the ids of the failing criteria <br /></td></tr>
-<tr class="separator:a2cfd58d7a5fc57e2d2438cf3c3603954"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dc/db0/a02778.html" title="Criteria class: handle the check of criteria. ">Criteria</a> class: handle the check of criteria. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a2a006412a6c16ae87e540f83e99f7ec3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a006412a6c16ae87e540f83e99f7ec3">&#9670;&nbsp;</a></span>Bound</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../dc/db0/a02778.html#a2a006412a6c16ae87e540f83e99f7ec3">DYN::Criteria::Bound</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Crossed bound for a failing criteria. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2a006412a6c16ae87e540f83e99f7ec3a26a4b44a837bf97b972628509912b4a5"></a>MAX&#160;</td><td class="fielddoc"><p>Upper bound. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a2a006412a6c16ae87e540f83e99f7ec3ace31e2a082d17e038fcc6e3006166653"></a>MIN&#160;</td><td class="fielddoc"><p>Lower bound. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab0211f97b4a4105abfe70989068d7034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0211f97b4a4105abfe70989068d7034">&#9670;&nbsp;</a></span>Criteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::Criteria::Criteria </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d1/d3a/a01622.html">criteria::CriteriaParams</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>params</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">params</td><td>parameters of the criteria </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a23993a47f79a29d933bebdda2502686e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23993a47f79a29d933bebdda2502686e">&#9670;&nbsp;</a></span>checkCriteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::Criteria::checkCriteria </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>finalStep</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timeline</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>returns true if the criteria is respected, false otherwise </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">t</td><td>current time of the simulation </td></tr>
-    <tr><td class="paramname">finalStep</td><td>true if this is the final step of the simulation </td></tr>
-    <tr><td class="paramname">timeline</td><td>timeline</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the criteria is respected, false otherwise </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d5/dd8/a02802.html#a1c2fcd1f61a42c0a4c851c083ebe260e">DYN::GeneratorCriteria</a>, <a class="el" href="../../d0/dc9/a02794.html#a4f67541ad6281f235547105a4f384aff">DYN::LoadCriteria</a>, and <a class="el" href="../../de/d69/a02786.html#a205fc902aceedd88ee637cb827cd135e">DYN::BusCriteria</a>.</p>
-
-</div>
-</div>
-<a id="ae37e82fe5de5482d924a4f3781287bc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae37e82fe5de5482d924a4f3781287bc5">&#9670;&nbsp;</a></span>getFailingCriteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;std::pair&lt;double, std::string&gt; &gt;&amp; DYN::Criteria::getFailingCriteria </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>returns the list of failing criteria </p>
-<dl class="section return"><dt>Returns</dt><dd>list of failing criteria </dd></dl>
-
-</div>
-</div>
-<a id="ab89edf71b50f08614bbbb3c182c04590"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab89edf71b50f08614bbbb3c182c04590">&#9670;&nbsp;</a></span>printAllFailingCriteriaIntoLog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Criteria::printAllFailingCriteriaIntoLog </td>
-          <td>(</td>
-          <td class="paramtype">std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../da/de9/a02782.html">FailingCriteria</a> &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>distanceToFailingCriteriaMap</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timeline</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>currentTime</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>print all the failing criteria in the log file and the timeline file </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">distanceToFailingCriteriaMap</td><td>map which contains the distance between a specific value and the crossed criteria bound and the related <a class="el" href="../../da/de9/a02782.html" title="structure containing information about a failing criteria and related methods ">FailingCriteria</a> object </td></tr>
-    <tr><td class="paramname">timeline</td><td>timeline </td></tr>
-    <tr><td class="paramname">currentTime</td><td>current simulation time </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d0f/a00644_source.html">DYNCriteria.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a522118e0cb34e292127a1e18094a498a">ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> enum name</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a24a19ea150b9d118f6b365cdbabcacff">exportStateVariablesUnitComponent</a>()=0</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a>(const std::string &amp;varName) const =0</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a756e16926e294a2a77cfa29991544595">getID</a>() const =0</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a157a82e17608a36a7965614cde1c6234">getType</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a>(const int index) const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a>(bool hasDynamicModel)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#aac19b67c9d03fb1c38a8f559fb6b51ca">hasDynamicModel_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac24fd6f4706d72ca980eb5c338f1b642">importStaticParameters</a>()=0</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22639f8b88b1d70984852928d87676ec">isConnected</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a2cf6e6846e15cd5962d4f480d93d17a4">modelDyn_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a>(const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a>(const ComponentType_t &amp;type)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#abd662edc1d318a148a180a48c7120cb6">staticParameters_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22e1616c1c12383fca3a74d35272f89b">~ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -392,8 +159,7 @@ std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class=
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/db0/a02778.html">Criteria</a></li>
-    <li class="footer">Generated on Tue Dec 6 2022 09:14:17 for Dynawo by
+    <li class="footer">Generated on Tue Dec 6 2022 16:02:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

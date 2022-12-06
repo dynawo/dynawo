@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNParameterModeler.h File Reference</title>
+<title>Dynawo: DYNModelUtil.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,33 +95,67 @@ $(document).ready(function(){initNavTree('d8/dc8/a00581.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNParameterModeler.h File Reference</div>  </div>
+<div class="title">DYNModelUtil.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo Modeler Parameter: header file.  
+<p>Model util to print the matrix structure associated to a model into a file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;boost/optional.hpp&gt;</code><br />
-<code>#include &lt;boost/any.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d63/a00455_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/de5/a00503_source.html">DYNParameter.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d21/a00584_source.html">DYNParameterModeler.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d0/d3e/a00566_source.html">DYNModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/dfb/a00512_source.html">DYNSparseMatrix.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d8/dc8/a00581_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d94/a02702.html">DYN::ParameterModeler</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab1ab144d10afa36f3c0d98865a79f5c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc8/a00581.html#ab1ab144d10afa36f3c0d98865a79f5c8">DYN::printStructureToFile</a> (const boost::shared_ptr&lt; Model &gt; &amp;model, const SparseMatrix &amp;matrix)</td></tr>
+<tr class="memdesc:ab1ab144d10afa36f3c0d98865a79f5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the structure of the matrix in a file.  <a href="../../d8/dc8/a00581.html#ab1ab144d10afa36f3c0d98865a79f5c8">More...</a><br /></td></tr>
+<tr class="separator:ab1ab144d10afa36f3c0d98865a79f5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo Modeler Parameter: header file. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Model util to print the matrix structure associated to a model into a file. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="file_ab1ab144d10afa36f3c0d98865a79f5c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_ab1ab144d10afa36f3c0d98865a79f5c8">&#9670;&nbsp;</a></span>printStructureToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::printStructureToFile </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/da8/a02693.html">Model</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../dd/d20/a02605.html">SparseMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>print the structure of the matrix in a file. </p>
+<p>This function is for debug purposes but can be used release mode</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>model to get the informations on equations and variables </td></tr>
+    <tr><td class="paramname">matrix</td><td>matrix which structure will be printed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -137,8 +171,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d8/dc8/a00581.html">DYNParameterModeler.h</a></li>
-    <li class="footer">Generated on Tue Dec 6 2022 09:14:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d8/dc8/a00581.html">DYNModelUtil.h</a></li>
+    <li class="footer">Generated on Tue Dec 6 2022 16:02:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

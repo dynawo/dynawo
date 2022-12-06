@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolver.h File Reference</title>
+<title>Dynawo: DYNParameterSolver.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,61 +94,18 @@ $(document).ready(function(){initNavTree('df/d59/a01001.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolver.h File Reference</div>  </div>
+<div class="title">DYNParameterSolver.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo solvers : interface file.  
+<p>Implementation of template methods.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;DYNBitMask.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d63/a00455_source.html">DYNEnumUtils.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;DYNMacrosMessage.h&quot;</code><br />
 </div>
 <p><a href="../../df/d59/a01001_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d90/a03298.html">DYN::Solver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d90/a03298.html" title="Solver interface class. ">Solver</a> interface class.  <a href="../../d6/d90/a03298.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="memItemLeft" align="right" valign="top"><a id="ae48eb449c5ebb36d96867a60dbda3a1d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d59/a01001.html#ae48eb449c5ebb36d96867a60dbda3a1d">DYN::StateFlags</a> { <br />
-&#160;&#160;<b>NoChange</b> = 0x00, 
-<b>ModeChange</b> = 0x01, 
-<b>NotSilentZChange</b> = 0x02, 
-<b>SilentZNotUsedInDiscreteEqChange</b> = 0x04, 
-<br />
-&#160;&#160;<b>SilentZNotUsedInContinuousEqChange</b> = 0x08
-<br />
- }</td></tr>
-<tr class="memdesc:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags of the current numerical resolution. <br /></td></tr>
-<tr class="separator:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="memItemLeft" align="right" valign="top"><a id="a3af48b28f1cebf4b6d5f61a6c0104165"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d59/a01001.html#a3af48b28f1cebf4b6d5f61a6c0104165">DYN::SolverType</a> { <b>SolverSimplifie</b> = 0, 
-<b>SolverSundials1</b> = 1, 
-<b>SolverSundials2</b> = 2
- }</td></tr>
-<tr class="memdesc:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the current solver used. <br /></td></tr>
-<tr class="separator:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aa10b15d13b58ee98676c58319df21ff5"><td class="memItemLeft" align="right" valign="top"><a id="aa10b15d13b58ee98676c58319df21ff5"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d59/a01001.html#aa10b15d13b58ee98676c58319df21ff5">DYN::maxNumberUnstableRoots</a> = 10</td></tr>
-<tr class="memdesc:aa10b15d13b58ee98676c58319df21ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of unstable roots for one time step. <br /></td></tr>
-<tr class="separator:aa10b15d13b58ee98676c58319df21ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo solvers : interface file. </p>
+<div class="textblock"><p>Implementation of template methods. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -165,8 +122,8 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../df/d59/a01001.html">DYNSolver.h</a></li>
-    <li class="footer">Generated on Tue Dec 6 2022 09:14:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../df/d59/a01001.html">DYNParameterSolver.hpp</a></li>
+    <li class="footer">Generated on Tue Dec 6 2022 16:02:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
