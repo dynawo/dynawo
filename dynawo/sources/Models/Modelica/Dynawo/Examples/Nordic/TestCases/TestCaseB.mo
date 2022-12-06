@@ -83,12 +83,10 @@ equation
               g13.generatorSynchronous.omegaPu.value * g13.generatorSynchronous.H * g13.generatorSynchronous.SNom +
               g14.generatorSynchronous.omegaPu.value * g14.generatorSynchronous.H * g14.generatorSynchronous.SNom +
               g15.generatorSynchronous.omegaPu.value * g15.generatorSynchronous.H * g15.generatorSynchronous.SNom +
-              g15b.generatorSynchronous.omegaPu.value * g15b.generatorSynchronous.H * g15b.generatorSynchronous.SNom +
               g16.generatorSynchronous.omegaPu.value * g16.generatorSynchronous.H * g16.generatorSynchronous.SNom +
               g16b.generatorSynchronous.omegaPu.value * g16b.generatorSynchronous.H * g16b.generatorSynchronous.SNom +
               g17.generatorSynchronous.omegaPu.value * g17.generatorSynchronous.H * g17.generatorSynchronous.SNom +
               g18.generatorSynchronous.omegaPu.value * g18.generatorSynchronous.H * g18.generatorSynchronous.SNom +
-              g18b.generatorSynchronous.omegaPu.value * g18b.generatorSynchronous.H * g18b.generatorSynchronous.SNom +
               g19.generatorSynchronous.omegaPu.value * g19.generatorSynchronous.H * g19.generatorSynchronous.SNom +
               g20.generatorSynchronous.omegaPu.value * g20.generatorSynchronous.H * g20.generatorSynchronous.SNom
               ) / (
@@ -107,12 +105,10 @@ equation
               g13.generatorSynchronous.SNom * g13.generatorSynchronous.H +
               g14.generatorSynchronous.SNom * g14.generatorSynchronous.H +
               g15.generatorSynchronous.SNom * g15.generatorSynchronous.H +
-              g15b.generatorSynchronous.SNom * g15b.generatorSynchronous.H +
               g16.generatorSynchronous.SNom * g16.generatorSynchronous.H +
               g16b.generatorSynchronous.SNom * g16b.generatorSynchronous.H +
               g17.generatorSynchronous.SNom * g17.generatorSynchronous.H +
               g18.generatorSynchronous.SNom * g18.generatorSynchronous.H +
-              g18b.generatorSynchronous.SNom * g18b.generatorSynchronous.H +
               g19.generatorSynchronous.SNom * g19.generatorSynchronous.H +
               g20.generatorSynchronous.SNom * g20.generatorSynchronous.H);
 
@@ -131,12 +127,10 @@ equation
   g13.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g14.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g15.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g15b.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g16.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g16b.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g17.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g18.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g18b.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g19.generatorSynchronous.omegaRefPu.value = omegaCOI;
   g20.generatorSynchronous.omegaRefPu.value = omegaCOI;
 
