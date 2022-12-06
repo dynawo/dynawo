@@ -1141,7 +1141,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
-  if (exportCurvesMode_ == EXPORT_CURVES_NONE)
+  if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 
   if (updateCalculateVariable)
