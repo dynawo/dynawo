@@ -377,6 +377,16 @@ def replace_pow(line):
     return line_to_return
 
 ##
+# Replace sqrt by sqrt_dynawo in line
+# @param line line to analize
+# @returns : the line with the new expression
+def replace_sqrt(line):
+    line_to_return = line
+    if 'sqrt(' in line:
+        line_to_return = line_to_return.replace("sqrt(", "sqrt(")
+    return line_to_return
+
+##
 # Replace a DIVISION expression in a line by a/b
 # @param line line to analize
 # @returns : the line with the new expression
@@ -885,6 +895,7 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
+    line_tmp = replace_sqrt(line_tmp)
     line_tmp = replace_event_floor(line_tmp)
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")

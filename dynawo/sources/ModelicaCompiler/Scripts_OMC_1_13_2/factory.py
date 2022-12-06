@@ -1732,6 +1732,8 @@ class Factory:
                 line = transform_atan3_operator(line)
             if "pow(" in line:
                 line = replace_pow(line)
+            if "sqrt(" in line:
+                line = replace_sqrt(line)
             line = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
             self.list_for_setf [index] = line
 

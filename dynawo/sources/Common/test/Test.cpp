@@ -29,6 +29,7 @@
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNEnumUtils.h"
+#include "DYNNumericalUtils.h"
 #include "DYNTimer.h"
 
 namespace DYN {
@@ -543,5 +544,17 @@ TEST(CommonTest, testLevensteinDistance) {
 TEST(CommonTest, testdouble2String) {
   ASSERT_EQ(double2String(123456789.123456789), "1.2345679e+08");
   ASSERT_EQ(double2String(1234.1234), "1234.1234000");
+}
+
+TEST(CommonTest, testPowDynawo) {
+  ASSERT_DOUBLE_EQUALS_DYNAWO(pow_dynawo<double>(2., 3.), 8.);
+  ASSERT_THROW_DYNAWO(pow_dynawo<double>(-2., 0.5), DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction);
+  ASSERT_THROW_DYNAWO(pow_dynawo<double>(std::numeric_limits<double>::infinity(), 3.), DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction);
+}
+
+TEST(CommonTest, testSqrtDynawo) {
+  ASSERT_DOUBLE_EQUALS_DYNAWO(sqrt_dynawo<double>(9.), 3.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(sqrt_dynawo<double>(0.), 1e-4);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(sqrt_dynawo<double>(-9.), 1e-4);
 }
 }  // namespace DYN

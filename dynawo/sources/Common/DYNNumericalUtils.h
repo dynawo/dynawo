@@ -34,6 +34,19 @@ T pow_dynawo(T a, T b) {
   return value;
 }
 
+/**
+ * specific definition of square root function to avoid an error when the expression is negative
+ * @param a base number
+ * @return sqrt(a)
+ */
+template<typename T>
+T sqrt_dynawo(T a) {
+  if (a <= 0) {
+    return 1e-4;
+  }
+  return sqrt(a);
+}
+
 } /* namespace DYN */
 
 #endif  // COMMON_DYNNUMERICALUTILS_H_
