@@ -89,7 +89,9 @@ class Simulation {
    */
   typedef enum {
     EXPORT_FINAL_STATE_VALUES_NONE,  ///< Export zero final states values
-    EXPORT_FINAL_STATE_VALUES_XML    ///< Export final states values selected in input file in XML mode in output file
+    EXPORT_FINAL_STATE_VALUES_XML,   ///< Export final states values selected in input file in XML mode in output file
+    EXPORT_FINAL_STATE_VALUES_CSV,   ///< Export final states values selected in input file in CSV mode in output file
+    EXPORT_FINAL_STATE_VALUES_TXT    ///< Export final states values selected in input file in TXT mode in output file
   } exportFinalStateValuesMode_t;
 
   /**
