@@ -31,7 +31,7 @@
 2022-09-26 17:03:33 | INFO | starting simulation with solver IDASolver
 2022-09-26 17:03:33 | INFO | -----------------------------------------------------------------------
 2022-09-26 17:03:33 | INFO | -----------------------------------------------------------------------
-2022-09-26 17:03:33 | INFO | number of continuous variables : 426
+2022-09-26 17:03:33 | INFO | number of continuous variables : 441
 2022-09-26 17:03:33 | INFO | number of discrete variables : 258
 2022-09-26 17:03:33 | INFO | number of root functions : 249
 2022-09-26 17:03:33 | INFO | -----------------------------------------------------------------------
@@ -1011,12 +1011,12 @@
 2022-09-26 17:03:33 | INFO | execution statistics :
 2022-09-26 17:03:33 | INFO | 
 2022-09-26 17:03:33 | INFO | number of time iterations                  = 781
-2022-09-26 17:03:33 | INFO | number of residual evaluations             = 1073
-2022-09-26 17:03:33 | INFO | number of Jacobian evaluations             = 673
-2022-09-26 17:03:33 | INFO | number of nonlinear iterations             = 997
+2022-09-26 17:03:33 | INFO | number of residual evaluations             = 1074
+2022-09-26 17:03:33 | INFO | number of Jacobian evaluations             = 676
+2022-09-26 17:03:33 | INFO | number of nonlinear iterations             = 996
 2022-09-26 17:03:33 | INFO | number of error test failures              = 5
 2022-09-26 17:03:33 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 17:03:33 | INFO | number of root functions evaluations       = 4559
-2022-09-26 17:03:33 | INFO | number of discrete variables evaluations   = 219
-2022-09-26 17:03:33 | INFO | number of mode evaluations                 = 152
+2022-09-26 17:03:33 | INFO | number of root functions evaluations       = 4574
+2022-09-26 17:03:33 | INFO | number of discrete variables evaluations   = 220
+2022-09-26 17:03:33 | INFO | number of mode evaluations                 = 153
 2022-09-26 17:03:33 | INFO | end of job 'IEEE14 - PhaseShifterP'
