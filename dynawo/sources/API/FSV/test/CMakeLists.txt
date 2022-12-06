@@ -12,7 +12,7 @@ set(MODULE_NAME FSV_unittest)
 
 set(MODULE_SOURCES
   TestXmlImporter.cpp
-  TestXmlExporter.cpp
+  TestExporters.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

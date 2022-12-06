@@ -511,6 +511,7 @@ FinalStateValuesHandler::~FinalStateValuesHandler() {}
 void FinalStateValuesHandler::create(attributes_type const& attributes) {
   finalStateValues_ = shared_ptr<FinalStateValuesEntry>(new FinalStateValuesEntry());
   finalStateValues_->setInputFile(attributes["inputFile"]);
+  finalStateValues_->setExportMode(attributes["exportMode"]);
 }
 
 shared_ptr<FinalStateValuesEntry> FinalStateValuesHandler::get() const { return finalStateValues_; }
