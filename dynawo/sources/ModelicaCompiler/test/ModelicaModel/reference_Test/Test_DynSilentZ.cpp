@@ -68,7 +68,7 @@ void ModelTestSilentZ_Dyn::setupDataStruc()
 
   data->nbVars =1;
   data->nbF = 1;
-  data->nbModes = 0;
+  data->nbModes = 2;
   data->nbZ = 1;
   data->nbCalculatedVars = 1;
   data->nbDelays = 0;
@@ -203,6 +203,16 @@ modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double t) const
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
+
+  // z2 != pre(z2)
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
+
+  // z3 != pre(z3)
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
 
   return modeChangeType;
 }
