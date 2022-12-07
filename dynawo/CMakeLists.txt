@@ -372,6 +372,10 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${S
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPUCount.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 
 if(MSVC)
+  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../util/curvesToHtml DESTINATION ${SBINDIR_NAME})
+endif()
+
+if(MSVC)
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)" FORCE)
   endif()
