@@ -52,6 +52,7 @@ target_include_directories(${MODEL_NAME} SYSTEM
 target_link_libraries(${MODEL_NAME}
   PRIVATE
     dynawo_DataInterface
+    dynawo_API_PAR
   PUBLIC
     dynawo_SolverKINSubModel
   )
