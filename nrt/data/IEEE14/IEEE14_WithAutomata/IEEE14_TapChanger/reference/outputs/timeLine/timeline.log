@@ -1,11 +1,19 @@
-0.0365654 | GEN____3_SM | PMIN : activation
-0.994048 | GEN____3_SM | PMIN : deactivation
+0 | GEN____8_SM | PMIN : activation
+0.030694 | GEN____3_SM | PMIN : activation
+0.348362 | GEN____8_SM | PMIN : deactivation
+0.828483 | GEN____3_SM | PMIN : deactivation
+0.834876 | GEN____8_SM | PMIN : activation
+1.90322 | GEN____8_SM | PMIN : deactivation
+2.18403 | GEN____3_SM | PMIN : activation
+2.34509 | GEN____8_SM | PMIN : activation
+2.75691 | GEN____3_SM | PMIN : deactivation
+5.29663 | GEN____8_SM | PMIN : deactivation
 20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+20.0008 | GEN____8_SM | PMIN : activation
 20.0008 | GEN____3_SM | PMIN : activation
-20.081 | GEN____8_SM | PMIN : activation
-20.2534 | GEN____6_SM | PMIN : activation
+20.2395 | GEN____6_SM | PMIN : activation
 80 | TAP_CHANGER_LOAD_3 | Tap +1
 90 | TAP_CHANGER_LOAD_3 | Tap +1
-98.4453 | GEN____6_SM | PMIN : deactivation
-99.6143 | GEN____8_SM | PMIN : deactivation
-99.8941 | GEN____3_SM | PMIN : deactivation
+98.75 | GEN____6_SM | PMIN : deactivation
+100.317 | GEN____3_SM | PMIN : deactivation
+100.359 | GEN____8_SM | PMIN : deactivation
