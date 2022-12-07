@@ -2032,6 +2032,8 @@ class Warn:
                 tmp_body.append(replace_modelica_strings(line))
             elif "FILE_INFO info" in line:
                 continue;
+            elif line.startswith("  data->localData[0]"):
+                continue;
             elif "omc_assert_warning" in line:
                 if not with_throw:
                     tmp_body.append(line)

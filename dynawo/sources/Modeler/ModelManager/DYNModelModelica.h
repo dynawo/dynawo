@@ -264,6 +264,18 @@ class ModelModelica {
 
 #ifdef _ADEPT_
   /**
+   * specific definition of square root function to avoid an error when the expression is negative
+   * @param a base number
+   * @return sqrt(a)
+   */
+  adept::adouble sqrt_dynawo_adept(adept::adouble a) const {
+    if (a <= 0) {
+      return 1e-4;
+    }
+    return sqrt(a);
+  }
+
+  /**
    * @brief evaluate the value of a calculated variable with ADEPT library
    *
    * @param iCalculatedVar index of the calculated variable

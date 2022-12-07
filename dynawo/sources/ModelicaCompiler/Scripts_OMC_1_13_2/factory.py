@@ -1362,6 +1362,9 @@ class Factory:
                 if "SHOULD NOT BE USED" in line:
                     do_it = False
                     break
+                if ("throwStreamPrint" in line and "Model error: Argument of sqrt" in line):
+                    do_it = False
+                    break
             if do_it:
                 self.list_warnings.append(warning)
         map_tags_num_eq = self.reader.get_map_tag_num_eq()
@@ -1373,6 +1376,9 @@ class Factory:
                 do_it = True
                 for line in warning.get_body_for_setf():
                     if "SHOULD NOT BE USED" in line:
+                        do_it = False
+                        break
+                    if ("throwStreamPrint" in line and "Model error: Argument of sqrt" in line):
                         do_it = False
                         break
                 if do_it:
@@ -1733,7 +1739,7 @@ class Factory:
             if "pow(" in line:
                 line = replace_pow(line)
             if "sqrt(" in line:
-                line = replace_sqrt(line)
+                line = replace_sqrt(line, False)
             line = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
             self.list_for_setf [index] = line
 

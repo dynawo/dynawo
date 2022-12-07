@@ -379,11 +379,18 @@ def replace_pow(line):
 ##
 # Replace sqrt by sqrt_dynawo in line
 # @param line line to analize
+# @param adept true if we want to use the adept version
 # @returns : the line with the new expression
-def replace_sqrt(line):
+def replace_sqrt(line, adept):
     line_to_return = line
     if 'sqrt(' in line:
-        line_to_return = line_to_return.replace("sqrt(", "sqrt(")
+        if ("throwStreamPrintWithEquationIndexes" in line and "Model error: Argument of sqrt" in line):
+            line_to_return ="\n"
+        else:
+            if adept:
+                line_to_return = line_to_return.replace("sqrt(", "sqrt_dynawo_adept(")
+            else:
+                line_to_return = line_to_return.replace("sqrt(", "sqrt_dynawo(")
     return line_to_return
 
 ##
@@ -895,7 +902,7 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
-    line_tmp = replace_sqrt(line_tmp)
+    line_tmp = replace_sqrt(line_tmp, False)
     line_tmp = replace_event_floor(line_tmp)
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
@@ -919,6 +926,7 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
     line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
+    line_tmp = replace_sqrt(line_tmp, True)
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp

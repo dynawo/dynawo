@@ -207,7 +207,7 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   modelica_real tmp2;
   tmp0 = data->localData[0]->realVars[2] /* generator.terminal.V.re STATE(1) */;
   tmp1 = data->localData[0]->realVars[1] /* generator.terminal.V.im STATE(1) */;
-  f[0] = data->localData[0]->realVars[8] /*  generator.UPu variable  */ - ( sqrt((tmp0 * tmp0) + (tmp1 * tmp1)) );
+  f[0] = data->localData[0]->realVars[8] /*  generator.UPu variable  */ - ( sqrt_dynawo((tmp0 * tmp0) + (tmp1 * tmp1)) );
 
   }
 
@@ -837,7 +837,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   adept::adouble tmp2;
   tmp0 = x[2];
   tmp1 = x[1];
-  res[0] = x[8] - ( sqrt((tmp0 * tmp0) + (tmp1 * tmp1)) );
+  res[0] = x[8] - ( sqrt_dynawo_adept((tmp0 * tmp0) + (tmp1 * tmp1)) );
 
   }
 
