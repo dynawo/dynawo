@@ -30,6 +30,7 @@ JobEntry::JobEntry(const JobEntry& other) :
     solverEntry_(DYN::clone(other.solverEntry_)),
     simulationEntry_(DYN::clone(other.simulationEntry_)),
     outputsEntry_(DYN::clone(other.outputsEntry_)),
+    localInitEntry_(DYN::clone(other.localInitEntry_)),
     name_(other.name_)
 {}
 
@@ -39,6 +40,7 @@ JobEntry::operator=(const JobEntry& other) {
   solverEntry_ = DYN::clone(other.solverEntry_);
   simulationEntry_ = DYN::clone(other.simulationEntry_);
   outputsEntry_ = DYN::clone(other.outputsEntry_);
+  localInitEntry_ = DYN::clone(other.localInitEntry_);
   name_ = other.name_;
   return *this;
 }
@@ -81,6 +83,16 @@ JobEntry::setOutputsEntry(const boost::shared_ptr<OutputsEntry> & outputsEntry) 
 boost::shared_ptr<OutputsEntry>
 JobEntry::getOutputsEntry() const {
   return outputsEntry_;
+}
+
+void
+JobEntry::setLocalInitEntry(const boost::shared_ptr<LocalInitEntry> & localInitEntry) {
+  localInitEntry_ = localInitEntry;
+}
+
+boost::shared_ptr<LocalInitEntry>
+JobEntry::getLocalInitEntry() const {
+  return localInitEntry_;
 }
 
 void

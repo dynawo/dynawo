@@ -41,6 +41,7 @@
 #include "JOBSolverEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
+#include "JOBLocalInitEntry.h"
 
 #include <boost/shared_ptr.hpp>
 #include <string>
@@ -833,6 +834,40 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class LocalInitHandler
+ * @brief Handler used to parse local init element
+ */
+class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LocalInitHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~LocalInitHandler();
+
+  /**
+   * @brief return the local init entry read in xml file
+   * @return local init entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<LocalInitEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<LocalInitEntry> localInit_;  ///< current local init object
+};
+
+/**
  * @class JobHandler
  * @brief Handler used to parse job element
  */
@@ -875,6 +910,11 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addOutputs();
 
+  /**
+   * @brief add a local init object to the current job
+   */
+  void addLocalInit();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -888,6 +928,7 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   ModelerHandler modelerHandler_;        ///< handler used to read modeler element
   SimulationHandler simulationHandler_;  ///< handler used to read simulation element
   OutputsHandler outputsHandler_;        ///< handler used to read outputs element
+  LocalInitHandler localInitHandler_;    ///< handler used to read local init element
 };
 
 /**

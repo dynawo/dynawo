@@ -20,6 +20,7 @@ set(MODULE_SOURCES
   TestInitValuesEntry.cpp
   TestJobCollection.cpp
   TestJobEntry.cpp
+  TestLocalInitEntry.cpp
   TestLogsEntry.cpp
   TestLostEquipmentsEntry.cpp
   TestModelerEntry.cpp
