@@ -31,7 +31,7 @@
 2022-09-26 08:56:09 | INFO | starting simulation with solver IDASolver
 2022-09-26 08:56:09 | INFO | -----------------------------------------------------------------------
 2022-09-26 08:56:09 | INFO | -----------------------------------------------------------------------
-2022-09-26 08:56:09 | INFO | number of continuous variables : 428
+2022-09-26 08:56:09 | INFO | number of continuous variables : 443
 2022-09-26 08:56:09 | INFO | number of discrete variables : 243
 2022-09-26 08:56:09 | INFO | number of root functions : 228
 2022-09-26 08:56:09 | INFO | -----------------------------------------------------------------------
@@ -925,13 +925,13 @@
 2022-09-26 08:56:09 | INFO | 
 2022-09-26 08:56:09 | INFO | execution statistics :
 2022-09-26 08:56:09 | INFO | 
-2022-09-26 08:56:09 | INFO | number of time iterations                  = 712
-2022-09-26 08:56:09 | INFO | number of residual evaluations             = 1013
-2022-09-26 08:56:09 | INFO | number of Jacobian evaluations             = 559
-2022-09-26 08:56:09 | INFO | number of nonlinear iterations             = 935
+2022-09-26 08:56:09 | INFO | number of time iterations                  = 714
+2022-09-26 08:56:09 | INFO | number of residual evaluations             = 1016
+2022-09-26 08:56:09 | INFO | number of Jacobian evaluations             = 561
+2022-09-26 08:56:09 | INFO | number of nonlinear iterations             = 934
 2022-09-26 08:56:09 | INFO | number of error test failures              = 0
 2022-09-26 08:56:09 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 08:56:09 | INFO | number of root functions evaluations       = 3901
-2022-09-26 08:56:09 | INFO | number of discrete variables evaluations   = 171
-2022-09-26 08:56:09 | INFO | number of mode evaluations                 = 135
+2022-09-26 08:56:09 | INFO | number of root functions evaluations       = 3931
+2022-09-26 08:56:09 | INFO | number of discrete variables evaluations   = 173
+2022-09-26 08:56:09 | INFO | number of mode evaluations                 = 137
 2022-09-26 08:56:09 | INFO | end of job 'IEEE14 - Fault'

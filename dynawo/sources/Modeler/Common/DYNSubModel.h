@@ -395,9 +395,11 @@ class SubModel {
 
   /**
    * @brief initialize the subModel
+   *
    * @param t0 time to use when calling initialization
+   * @param localInitParameters local initialization solver parameters
    */
-  void initSub(const double t0);
+  void initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters);
 
   /**
    * @brief initialize size and offset to use during the simulation
@@ -1532,6 +1534,8 @@ class SubModel {
 
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
+
+  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
  private:
   int sizeFSave_;  ///< save of the size of F

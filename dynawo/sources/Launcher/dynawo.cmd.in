@@ -84,8 +84,8 @@ set DYNAWO_SUNDIALS_INSTALL_DIR=%thirdPartyInstallPath%\sundials
 set DYNAWO_BOOST_HOME=%thirdPartyInstallPath%\boost
 set DYNAWO_LIBXML_HOME=%thirdPartyInstallPath%\libxml
 
-for %%i in ("%2.") do set "pathCurves=%%~pi"
-set tmpVar=%pathCurves%\outputs\curves\curvesOutput\curves.html
+set "pathCurves=%~dp2"
+set tmpVar=%pathCurves%outputs\curves\curvesOutput\curves.html
 for %%i in ("%tmpVar%") do set "curvesHtml=%%~fi"
 
 if /I "%~1"=="jobs" (
