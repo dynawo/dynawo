@@ -36,9 +36,7 @@ protected
   // Generator g16b init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-//  final parameter Types.ActivePowerPu P0Pu_g16b = 600.0 / Electrical.SystemBase.SnRef;
   final parameter Types.ReactivePowerPu Q0Pu_g16b = 59.9 / Electrical.SystemBase.SnRef;
-//  final parameter Types.VoltageModulePu U0Pu_g16b = 1.0531;
   final parameter Types.Angle UPhase0_g16b = SIunits.Conversions.from_deg(-18.51);
   final parameter Types.ComplexApparentPowerPu s0Pu_g16b = Complex(P0Pu_g16, Q0Pu_g16b);
   final parameter Types.ComplexVoltagePu u0Pu_g16b = ComplexMath.fromPolar(U0Pu_g16, UPhase0_g16b);

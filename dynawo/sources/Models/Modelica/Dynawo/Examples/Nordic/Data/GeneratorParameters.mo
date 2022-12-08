@@ -16,8 +16,6 @@ within Dynawo.Examples.Nordic.Data;
 record GeneratorParameters "Parameter sets for the generators of the Nordic 32 test system"
   import Dynawo;
 
-  extends Dynawo.Examples.Nordic.Data.BaseClasses.OperatingPoints;
-
   //Generator parameters
   type genFramePreset = enumeration(g01, g02, g03, g04, g05, g06, g07, g08, g09, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20) "Generator names";
   type genInitParams = enumeration(P0Pu, Q0Pu, U0Pu, UPhase0) "Generator initial parameters";
@@ -51,51 +49,6 @@ record GeneratorParameters "Parameter sets for the generators of the Nordic 32 t
   { 500.0,  475.0,  0.002, 0.15, 1.10, 0.70, 0.25, 1.0, 0.20, 0.20, 5.0, 1.0, 0.05, 0.10, 3.0, 6.0257, 6.0257, 0.1, 0.1}, // g19, Hydro
   {4500.0, 4275.0,  0.002, 0.15, 1.10, 0.70, 0.25, 1.0, 0.20, 0.20, 5.0, 1.0, 0.05, 0.10, 3.0, 6.0257, 6.0257, 0.1, 0.1}  // g20, Hydro
   } "Matrix of generator parameters";
-
-  //P0Pu, Q0Pu, U0Pu, UPhase0
-  final constant Real[operatingPoints, genFramePreset, genInitParams] genInitValues = {{
-  { -6.000, -0.583, 1.0684,  0.0451198}, // g01, Hydro
-  { -3.000, -0.172, 1.0565,  0.0892985}, // g02, Hydro
-  { -5.500, -0.209, 1.0595,  0.1793230}, // g03, Hydro
-  { -4.000, -0.304, 1.0339,  0.1401024}, // g04, Hydro
-  { -2.000, -0.601, 1.0294, -0.2157000}, // g05, Hydro
-  { -3.600, -1.386, 1.0084, -1.0370640}, // g06, Thermal
-  { -1.800, -0.604, 1.0141, -1.2034620}, // g07, Thermal
-  { -7.500, -2.326, 1.0498, -0.2934664}, // g08, Hydro
-  { -6.685, -2.013, 0.9988, -0.0284203}, // g09, Hydro
-  { -6.000, -2.557, 1.0157,  0.0172395}, // g10, Hydro
-  { -2.500, -0.607, 1.0211, -0.5068575}, // g11, Hydro
-  { -3.100, -0.983, 1.0200, -0.5564212}, // g12, Hydro
-  {  0.000, -0.501, 1.0170, -0.9476349}, // g13, Synch. Cond.
-  { -6.300, -2.959, 1.0454, -0.8709245}, // g14, Thermal
-  {-10.800, -3.779, 1.0455, -0.9109196}, // g15, Thermal
-  { -6.000, -2.226, 1.0531, -1.1187980}, // g16, Thermal
-  { -5.300, -0.487, 1.0092, -0.8177645}, // g17, Thermal
-  {-10.600, -2.934, 1.0307, -0.7561356}, // g18, Thermal
-  { -3.000, -1.212, 1.0300,  0.0004821}, // g19, Hydro
-  {-21.374, -3.774, 1.0185,  0.0000000}  // g20, Hydro
-  },{
-  { -6.000, -0.583, 1.0684,  0.3357625}, // g01, Hydro
-  { -3.000, -0.172, 1.0565,  0.3834501}, // g02, Hydro
-  { -5.500, -0.209, 1.0595,  0.4717598}, // g03, Hydro
-  { -4.000, -0.304, 1.0339,  0.5156572}, // g04, Hydro
-  { -2.000, -0.601, 1.0294,  0.1717575}, // g05, Hydro
-  { -3.600, -1.386, 1.0084, -0.3736484}, // g06, Thermal
-  { -1.800, -0.604, 1.0141, -0.5398200}, // g07, Thermal
-  { -7.500, -2.326, 1.0498,  0.2040711}, // g08, Hydro
-  { -6.685, -2.013, 0.9988,  0.2687417}, // g09, Hydro
-  { -6.000, -2.557, 1.0157,  0.3079371}, // g10, Hydro
-  { -2.500, -0.607, 1.0211, -0.0237067}, // g11, Hydro
-  { -3.100, -0.983, 1.0200, -0.0490099}, // g12, Hydro
-  {  0.000, -0.501, 1.0170, -0.3598998}, // g13, Synch. Cond.
-  { -6.300, -2.959, 1.0454, -0.2658439}, // g14, Thermal
-  {-10.800, -3.779, 1.0455, -0.2806538}, // g15, Thermal
-  { -6.000, -0.599, 1.0531, -0.3231256}, // g16, Thermal
-  { -5.300, -0.487, 1.0092, -0.1855093}, // g17, Thermal
-  {-10.600, -2.934, 1.0307, -0.1235155}, // g18, Thermal
-  { -3.000, -1.212, 1.0300,  0.1293930}, // g19, Hydro
-  {-15.374, -3.774, 1.0185,  0.0000000}  // g20, Hydro
-  }} "Matrix of generator initial parameters";
 
   //KSigma, Kp, Ki
   final constant Real[genFramePreset, govParams] govParamValues = {

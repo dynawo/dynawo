@@ -40,6 +40,8 @@ model GeneratorSynchronousThreeWindingsWithControl "Model of synchronous generat
   Modelica.Blocks.Math.Gain Reciprocal2NonReciprocalPUSystem(k = generatorSynchronous.MdPPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Real angle;
+
 protected
   parameter Types.ActivePower PNom_BaseChange = if not GeneratorParameters.genParamValues[gen, GeneratorParameters.genParams.PNom] == 0 then GeneratorParameters.genParamValues[gen, GeneratorParameters.genParams.PNom] else 1;
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
@@ -63,6 +65,8 @@ equation
   generatorSynchronous.efdPu.value = vrNordic.efdPu;
   generatorSynchronous.omegaPu.value = goverNordic.omegaPu;
   generatorSynchronous.PGenPu = BaseChangeSnRef2PNom.u;
+
+  angle = Modelica.Math.atan(terminal.V.im / terminal.V.re) * 180 / Modelica.Constants.pi;
 
   connect(generatorSynchronous.terminal, terminal);
   connect(generatorSynchronous.PmPu, goverNordic.PmPuPin);
