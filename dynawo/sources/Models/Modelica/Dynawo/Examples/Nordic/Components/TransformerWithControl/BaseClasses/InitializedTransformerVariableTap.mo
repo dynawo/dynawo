@@ -16,7 +16,7 @@ within Dynawo.Examples.Nordic.Components.TransformerWithControl.BaseClasses;
 model InitializedTransformerVariableTap "Model of transformer with variable tap and built-in initialization, for the Nordic 32 test system"
   import Dynawo;
   import Dynawo.Electrical;
-  import Dynawo.Examples.Nordic.Components.TransformerWithControl.TransformerParameters;
+  import Dynawo.Examples.Nordic.Data.TransformerParameters;
   import Dynawo.Types;
 
   extends Dynawo.Electrical.Transformers.TransformerVariableTapXtdPu(

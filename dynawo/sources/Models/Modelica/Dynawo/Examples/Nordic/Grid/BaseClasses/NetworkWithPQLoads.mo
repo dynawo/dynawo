@@ -433,28 +433,6 @@ equation
   load_71.switchOffSignal2.value = false;
   load_72.switchOffSignal1.value = false;
   load_72.switchOffSignal2.value = false;
-  shunt_1022.switchOffSignal1.value = false;
-  shunt_1022.switchOffSignal2.value = false;
-  shunt_1041.switchOffSignal1.value = false;
-  shunt_1041.switchOffSignal2.value = false;
-  shunt_1043.switchOffSignal1.value = false;
-  shunt_1043.switchOffSignal2.value = false;
-  shunt_1044.switchOffSignal1.value = false;
-  shunt_1044.switchOffSignal2.value = false;
-  shunt_1045.switchOffSignal1.value = false;
-  shunt_1045.switchOffSignal2.value = false;
-  shunt_4012.switchOffSignal1.value = false;
-  shunt_4012.switchOffSignal2.value = false;
-  shunt_4041.switchOffSignal1.value = false;
-  shunt_4041.switchOffSignal2.value = false;
-  shunt_4043.switchOffSignal1.value = false;
-  shunt_4043.switchOffSignal2.value = false;
-  shunt_4046.switchOffSignal1.value = false;
-  shunt_4046.switchOffSignal2.value = false;
-  shunt_4051.switchOffSignal1.value = false;
-  shunt_4051.switchOffSignal2.value = false;
-  shunt_4071.switchOffSignal1.value = false;
-  shunt_4071.switchOffSignal2.value = false;
   PrefPu_load_01.setPoint.value = load_01.PRefPu;
   QrefPu_load_01.setPoint.value = load_01.QRefPu;
   PrefPu_load_02.setPoint.value = load_02.PRefPu;
@@ -500,28 +478,6 @@ equation
   PrefPu_load_72.setPoint.value = load_72.PRefPu;
   QrefPu_load_72.setPoint.value = load_72.QRefPu;
 
-  connect(shunt_4012.terminal, bus_4012.terminal) annotation(
-    Line(points = {{-22.5, 106.5}, {-22.5, 100}, {-30, 100}}, color = {0, 0, 255}));
-  connect(shunt_4071.terminal, bus_4071.terminal) annotation(
-    Line(points = {{-85.5, 136.5}, {-85.5, 130}, {-80, 130}}, color = {0, 0, 255}));
-  connect(shunt_1022.terminal, bus_1022.terminal) annotation(
-    Line(points = {{-33.5, 56.5}, {-33.5, 50}, {-40, 50}}, color = {0, 0, 255}));
-  connect(shunt_4043.terminal, bus_4043.terminal) annotation(
-    Line(points = {{24.5, -23.5}, {24.5, -29}, {30, -29}, {30, -30}}, color = {0, 0, 255}));
-  connect(shunt_4046.terminal, bus_4046.terminal) annotation(
-    Line(points = {{76.5, -22.5}, {76, -22.5}, {76, -30}, {70, -30}}, color = {0, 0, 255}));
-  connect(shunt_4051.terminal, bus_4051.terminal) annotation(
-    Line(points = {{21.5, -134.5}, {21.5, -130}, {14, -130}}, color = {0, 0, 255}));
-  connect(shunt_1044.terminal, bus_1044.terminal) annotation(
-    Line(points = {{-15.5, -67.5}, {-15.5, -60}, {-20, -60}}, color = {0, 0, 255}));
-  connect(shunt_1043.terminal, bus_1043.terminal) annotation(
-    Line(points = {{-55.5, -67.5}, {-55.5, -60}, {-60, -60}}, color = {0, 0, 255}));
-  connect(shunt_1041.terminal, bus_1041.terminal) annotation(
-    Line(points = {{-66.5, -94.5}, {-66.5, -90}, {-60, -90}}, color = {0, 0, 255}));
-  connect(shunt_1045.terminal, bus_1045.terminal) annotation(
-    Line(points = {{-12.5, -83.5}, {-12.5, -90}, {-17, -90}}, color = {0, 0, 255}));
-  connect(shunt_4041.terminal, bus_4041.terminal) annotation(
-    Line(points = {{-94.5, -14.5}, {-94.5, -10}, {-78, -10}}, color = {0, 0, 255}));
   connect(load_01.terminal, bus_B01.terminal) annotation(
     Line(points = {{-55, -107}, {-55, -107}, {-55, -105}, {-55, -105}}, color = {0, 0, 255}));
   connect(load_02.terminal, bus_B02.terminal) annotation(
@@ -573,5 +529,5 @@ equation
     version = "",
     uses(Dynawo(version = "1.0.1")),
     __OpenModelica_commandLineOptions = "",
-    Documentation(info = "<html><head></head><body>This network model extends the base network. It adds PQLoads as well as shunts, as described in&nbsp;the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>. The initial values &nbsp;have been taken from the report.</body></html>"));
+    Documentation(info = "<html><head></head><body>This network model extends the base network. It adds PQLoads, as described in&nbsp;the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>. The initial values &nbsp;have been taken from the report.</body></html>"));
 end NetworkWithPQLoads;

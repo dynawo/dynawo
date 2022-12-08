@@ -19,11 +19,13 @@ model FullDynamicModelA "Nordic test grid with buses, lines, shunts, voltage-dep
   import Dynawo.Electrical;
   import Dynawo.Examples.Nordic.Components.GeneratorWithControl;
   import Dynawo.Examples.Nordic.Components.TransformerWithControl;
+  import Dynawo.Examples.Nordic.Data;
   import Dynawo.Types;
 
   extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
 //  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;
 
+<<<<<<< HEAD
   TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_load_01, Q10Pu = -Q0Pu_load_01, U10Pu = U0Pu_load_01, U1Phase0 = UPhase0_load_01, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
     Placement(visible = true, transformation(origin = {-55, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_load_02, Q10Pu = -Q0Pu_load_02, U10Pu = U0Pu_load_02, U1Phase0 = UPhase0_load_02, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
@@ -67,6 +69,51 @@ model FullDynamicModelA "Nordic test grid with buses, lines, shunts, voltage-dep
   TransformerWithControl.TransformerWithControl trafo_71_4071(P10Pu = -P0Pu_load_71, Q10Pu = -Q0Pu_load_71, U10Pu = U0Pu_load_71, U1Phase0 = UPhase0_load_71, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_71_4071) annotation(
     Placement(visible = true, transformation(origin = {-95, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_72_4072(P10Pu = -P0Pu_load_72, Q10Pu = -Q0Pu_load_72,U10Pu = U0Pu_load_72, U1Phase0 = UPhase0_load_72, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_72_4072) annotation(
+=======
+  TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_load_01, Q10Pu = -Q0Pu_load_01, U10Pu = U0Pu_load_01, U1Phase0 = UPhase0_load_01, tfo = Data.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
+    Placement(visible = true, transformation(origin = {-55, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_load_02, Q10Pu = -Q0Pu_load_02, U10Pu = U0Pu_load_02, U1Phase0 = UPhase0_load_02, tfo = Data.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
+    Placement(visible = true, transformation(origin = {35, -87}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_3_1043(P10Pu = -P0Pu_load_03, Q10Pu = -Q0Pu_load_03, U10Pu = U0Pu_load_03, U1Phase0 = UPhase0_load_03, tfo = Data.TransformerParameters.tfoPreset.trafo_3_1043) annotation(
+    Placement(visible = true, transformation(origin = {-65, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  TransformerWithControl.TransformerWithControl trafo_4_1044(P10Pu = -P0Pu_load_04, Q10Pu = -Q0Pu_load_04, U10Pu = U0Pu_load_04, U1Phase0 = UPhase0_load_04, tfo = Data.TransformerParameters.tfoPreset.trafo_4_1044) annotation(
+    Placement(visible = true, transformation(origin = {-25, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  TransformerWithControl.TransformerWithControl trafo_5_1045(P10Pu = -P0Pu_load_05, Q10Pu = -Q0Pu_load_05, U10Pu = U0Pu_load_05, U1Phase0 = UPhase0_load_05, tfo = Data.TransformerParameters.tfoPreset.trafo_5_1045) annotation(
+    Placement(visible = true, transformation(origin = {-25, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_11_1011(P10Pu = -P0Pu_load_11, Q10Pu = -Q0Pu_load_11, U10Pu = U0Pu_load_11, U1Phase0 = UPhase0_load_11, tfo = Data.TransformerParameters.tfoPreset.trafo_11_1011) annotation(
+    Placement(visible = true, transformation(origin = {21, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_12_1012(P10Pu = -P0Pu_load_12, Q10Pu = -Q0Pu_load_12, U10Pu = U0Pu_load_12, U1Phase0 = UPhase0_load_12, tfo = Data.TransformerParameters.tfoPreset.trafo_12_1012) annotation(
+    Placement(visible = true, transformation(origin = {39, 108}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  TransformerWithControl.TransformerWithControl trafo_13_1013(P10Pu = -P0Pu_load_13, Q10Pu = -Q0Pu_load_13, U10Pu = U0Pu_load_13, U1Phase0 = UPhase0_load_13, tfo = Data.TransformerParameters.tfoPreset.trafo_13_1013) annotation(
+    Placement(visible = true, transformation(origin = {85, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_22_1022(P10Pu = -P0Pu_load_22, Q10Pu = -Q0Pu_load_22, U10Pu = U0Pu_load_22, U1Phase0 = UPhase0_load_22, tfo = Data.TransformerParameters.tfoPreset.trafo_22_1022) annotation(
+    Placement(visible = true, transformation(origin = {-40, 43}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_31_2031(P10Pu = -P0Pu_load_31, Q10Pu = -Q0Pu_load_31, U10Pu = U0Pu_load_31, U1Phase0 = UPhase0_load_31, tfo = Data.TransformerParameters.tfoPreset.trafo_31_2031) annotation(
+    Placement(visible = true, transformation(origin = {-35, 12}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_32_2032(P10Pu = -P0Pu_load_32, Q10Pu = -Q0Pu_load_32, U10Pu = U0Pu_load_32, U1Phase0 = UPhase0_load_32, tfo = Data.TransformerParameters.tfoPreset.trafo_32_2032) annotation(
+    Placement(visible = true, transformation(origin = {-89, 13}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_41_4041(P10Pu = -P0Pu_load_41, Q10Pu = -Q0Pu_load_41, U10Pu = U0Pu_load_41, U1Phase0 = UPhase0_load_41, tfo = Data.TransformerParameters.tfoPreset.trafo_41_4041) annotation(
+    Placement(visible = true, transformation(origin = {-81, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_42_4042(P10Pu = -P0Pu_load_42, Q10Pu = -Q0Pu_load_42, U10Pu = U0Pu_load_42, U1Phase0 = UPhase0_load_42, tfo = Data.TransformerParameters.tfoPreset.trafo_42_4042) annotation(
+    Placement(visible = true, transformation(origin = {55, -2}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  TransformerWithControl.TransformerWithControl trafo_43_4043(P10Pu = -P0Pu_load_43, Q10Pu = -Q0Pu_load_43, U10Pu = U0Pu_load_43, U1Phase0 = UPhase0_load_43, tfo = Data.TransformerParameters.tfoPreset.trafo_43_4043) annotation(
+    Placement(visible = true, transformation(origin = {25, -37}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_46_4046(P10Pu = -P0Pu_load_46, Q10Pu = -Q0Pu_load_46, U10Pu = U0Pu_load_46, U1Phase0 = UPhase0_load_46, tfo = Data.TransformerParameters.tfoPreset.trafo_46_4046) annotation(
+    Placement(visible = true, transformation(origin = {71, -38}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_47_4047(P10Pu = -P0Pu_load_47, Q10Pu = -Q0Pu_load_47, U10Pu = U0Pu_load_47, U1Phase0 = UPhase0_load_47, tfo = Data.TransformerParameters.tfoPreset.trafo_47_4047) annotation(
+    Placement(visible = true, transformation(origin = {61, -103}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  TransformerWithControl.TransformerWithControl trafo_51_4051(P10Pu = -P0Pu_load_51, Q10Pu = -Q0Pu_load_51, U10Pu = U0Pu_load_51, U1Phase0 = UPhase0_load_51, tfo = Data.TransformerParameters.tfoPreset.trafo_51_4051) annotation(
+    Placement(visible = true, transformation(origin = {35, -123}, extent = {{-5, -5}, {5, 5}}, rotation = 270)));
+  TransformerWithControl.TransformerWithControl trafo_61_4061(P10Pu = -P0Pu_load_61, Q10Pu = -Q0Pu_load_61, U10Pu = U0Pu_load_61, U1Phase0 = UPhase0_load_61, tfo = Data.TransformerParameters.tfoPreset.trafo_61_4061) annotation(
+    Placement(visible = true, transformation(origin = {-95, -58}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_62_4062(P10Pu = -P0Pu_load_62, Q10Pu = -Q0Pu_load_62, U10Pu = U0Pu_load_62, U1Phase0 = UPhase0_load_62, tfo = Data.TransformerParameters.tfoPreset.trafo_62_4062) annotation(
+    Placement(visible = true, transformation(origin = {-100, -102}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  TransformerWithControl.TransformerWithControl trafo_63_4063(P10Pu = -P0Pu_load_63, Q10Pu = -Q0Pu_load_63, U10Pu = U0Pu_load_63, U1Phase0 = UPhase0_load_63, tfo = Data.TransformerParameters.tfoPreset.trafo_63_4063) annotation(
+    Placement(visible = true, transformation(origin = {-80, -137}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_71_4071(P10Pu = -P0Pu_load_71, Q10Pu = -Q0Pu_load_71, U10Pu = U0Pu_load_71, U1Phase0 = UPhase0_load_71, tfo = Data.TransformerParameters.tfoPreset.trafo_71_4071) annotation(
+    Placement(visible = true, transformation(origin = {-95, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  TransformerWithControl.TransformerWithControl trafo_72_4072(P10Pu = -P0Pu_load_72, Q10Pu = -Q0Pu_load_72,U10Pu = U0Pu_load_72, U1Phase0 = UPhase0_load_72, tfo = Data.TransformerParameters.tfoPreset.trafo_72_4072) annotation(
+>>>>>>> #2616 Structure improvements, documentation corrected
     Placement(visible = true, transformation(origin = {-88, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Electrical.Transformers.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {0, 125}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
@@ -125,50 +172,51 @@ model FullDynamicModelA "Nordic test grid with buses, lines, shunts, voltage-dep
   Electrical.Transformers.TransformerFixedRatio trafo_g20_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 4500.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-75, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
 
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g01(P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, U0Pu = 1.0684, UPhase0 = SIunits.Conversions.from_deg(2.59), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g01) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g01(P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, gen = Data.GeneratorParameters.genFramePreset.g01) annotation(
     Placement(visible = true, transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = 1.0565, UPhase0 = SIunits.Conversions.from_deg(5.12), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g02) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, gen = Data.GeneratorParameters.genFramePreset.g02) annotation(
     Placement(visible = true, transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = 1.0595, UPhase0 = SIunits.Conversions.from_deg(10.27), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g03) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, gen = Data.GeneratorParameters.genFramePreset.g03) annotation(
     Placement(visible = true, transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g04(P0Pu = P0Pu_g04, Q0Pu = Q0Pu_g04, U0Pu = 1.0339, UPhase0 = SIunits.Conversions.from_deg(8.03), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g04) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g04(P0Pu = P0Pu_g04, Q0Pu = Q0Pu_g04, U0Pu = U0Pu_g04, UPhase0 = UPhase0_g04, gen = Data.GeneratorParameters.genFramePreset.g04) annotation(
     Placement(visible = true, transformation(origin = {-85, 30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g05(P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, U0Pu = 1.0294, UPhase0 = SIunits.Conversions.from_deg(-12.36), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g05) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g05(P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, gen = Data.GeneratorParameters.genFramePreset.g05) annotation(
     Placement(visible = true, transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = 1.0084, UPhase0 = SIunits.Conversions.from_deg(-59.42), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g06) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, gen = Data.GeneratorParameters.genFramePreset.g06) annotation(
     Placement(visible = true, transformation(origin = {35, -60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = 1.0141, UPhase0 = SIunits.Conversions.from_deg(-68.95), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g07) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, gen = Data.GeneratorParameters.genFramePreset.g07) annotation(
     Placement(visible = true, transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = 1.0498, UPhase0 = SIunits.Conversions.from_deg(-16.81), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = Data.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = 0.9988, UPhase0 = SIunits.Conversions.from_deg(-1.63), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g09) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, gen = Data.GeneratorParameters.genFramePreset.g09) annotation(
     Placement(visible = true, transformation(origin = {-25, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g10(P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = 1.0157, UPhase0 = SIunits.Conversions.from_deg(0.99), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g10) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g10(P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, gen = Data.GeneratorParameters.genFramePreset.g10) annotation(
     Placement(visible = true, transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = 1.0211, UPhase0 = SIunits.Conversions.from_deg(-29.04), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g11) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, gen = Data.GeneratorParameters.genFramePreset.g11) annotation(
     Placement(visible = true, transformation(origin = {35, 72}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g12(P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, U0Pu = 1.02, UPhase0 = SIunits.Conversions.from_deg(-31.88), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g12) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g12(P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, gen = Data.GeneratorParameters.genFramePreset.g12) annotation(
     Placement(visible = true, transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g13(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = 1.017, UPhase0 = SIunits.Conversions.from_deg(-54.3), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g13(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = U0Pu_g13, UPhase0 = UPhase0_g13, gen = Data.GeneratorParameters.genFramePreset.g13) annotation(
     Placement(visible = true, transformation(origin = {-70, -29}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g14(P0Pu = P0Pu_g14, Q0Pu = Q0Pu_g14, U0Pu = 1.0454, UPhase0 = SIunits.Conversions.from_deg(-49.9), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g14) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g14(P0Pu = P0Pu_g14, Q0Pu = Q0Pu_g14, U0Pu = U0Pu_g14, UPhase0 = UPhase0_g14, gen = Data.GeneratorParameters.genFramePreset.g14) annotation(
     Placement(visible = true, transformation(origin = {50, -30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g15(P0Pu = P0Pu_g15, Q0Pu = Q0Pu_g15, U0Pu = 1.0455, UPhase0 = SIunits.Conversions.from_deg(-52.19), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g15) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g15(P0Pu = P0Pu_g15, Q0Pu = Q0Pu_g15, U0Pu = U0Pu_g15, UPhase0 = UPhase0_g15, gen = Data.GeneratorParameters.genFramePreset.g15) annotation(
     Placement(visible = true, transformation(origin = {80, -89}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g16(P0Pu = P0Pu_g16, Q0Pu = Q0Pu_g16, U0Pu = 1.0531, UPhase0 = SIunits.Conversions.from_deg(-64.1), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g16) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g16(P0Pu = P0Pu_g16, Q0Pu = Q0Pu_g16, U0Pu = U0Pu_g16, UPhase0 = UPhase0_g16, gen = Data.GeneratorParameters.genFramePreset.g16) annotation(
     Placement(visible = true, transformation(origin = {20, -109}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g17(P0Pu = P0Pu_g17, Q0Pu = Q0Pu_g17, U0Pu = 1.0092, UPhase0 = SIunits.Conversions.from_deg(-46.85), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g17) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g17(P0Pu = P0Pu_g17, Q0Pu = Q0Pu_g17, U0Pu = U0Pu_g17, UPhase0 = UPhase0_g17, gen = Data.GeneratorParameters.genFramePreset.g17) annotation(
     Placement(visible = true, transformation(origin = {-78, -88}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g18(P0Pu = P0Pu_g18, Q0Pu = Q0Pu_g18, U0Pu = 1.0307, UPhase0 = SIunits.Conversions.from_deg(-43.32), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g18) annotation(
+  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g18(P0Pu = P0Pu_g18, Q0Pu = Q0Pu_g18, U0Pu = U0Pu_g18, UPhase0 = UPhase0_g18, gen = Data.GeneratorParameters.genFramePreset.g18) annotation(
     Placement(visible = true, transformation(origin = {-95, -151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g19(P0Pu = P0Pu_g19, Q0Pu = Q0Pu_g19, U0Pu = 1.03, UPhase0 = SIunits.Conversions.from_deg(0.03), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g19) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g19(P0Pu = P0Pu_g19, Q0Pu = Q0Pu_g19, U0Pu = U0Pu_g19, UPhase0 = UPhase0_g19, gen = Data.GeneratorParameters.genFramePreset.g19) annotation(
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = 1.0185, UPhase0 = SIunits.Conversions.from_deg(0), gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
+  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = Data.GeneratorParameters.genFramePreset.g20) annotation(
     Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
 
 protected
   // Generator g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
+<<<<<<< HEAD
   final parameter Types.ActivePowerPu P0Pu_g01 = -6;
   final parameter Types.ReactivePowerPu Q0Pu_g01 = -0.583;
 
@@ -266,6 +314,126 @@ protected
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g20 = -21.374;
   final parameter Types.ReactivePowerPu Q0Pu_g20 = -3.774;
+=======
+  final parameter Types.ActivePowerPu P0Pu_g01 = -600.00 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g01 = -58.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g01 = 1.0684;
+  final parameter Types.Angle UPhase0_g01 = SIunits.Conversions.from_deg(2.59);
+  // Generator g02 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g02 = -300.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g02 = -17.2 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g02 = 1.0565;
+  final parameter Types.Angle UPhase0_g02 = SIunits.Conversions.from_deg(5.12);
+  // Generator g03 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g03 = -550.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g03 = -20.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g03 = 1.0595;
+  final parameter Types.Angle UPhase0_g03 = SIunits.Conversions.from_deg(10.27);
+  // Generator g04 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g04 = -400.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g04 = -30.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g04 = 1.0339;
+  final parameter Types.Angle UPhase0_g04 = SIunits.Conversions.from_deg(8.03);
+  // Generator g05 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g05 = -200.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g05 = -60.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g05 = 1.0294;
+  final parameter Types.Angle UPhase0_g05 = SIunits.Conversions.from_deg(-12.36);
+  // Generator g06 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g06 = -360.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g06 = -138.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g06 = 1.0084;
+  final parameter Types.Angle UPhase0_g06 = SIunits.Conversions.from_deg(-59.42);
+  // Generator g07 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g07 = -180.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g07 = -60.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g07 = 1.0141;
+  final parameter Types.Angle UPhase0_g07 = SIunits.Conversions.from_deg(-68.95);
+  // Generator g08 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g08 = -750.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g08 = -232.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g08 = 1.0498;
+  final parameter Types.Angle UPhase0_g08 = SIunits.Conversions.from_deg(-16.81);
+  // Generator g09 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g09 = -668.5 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g09 = -201.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g09 = 0.9988;
+  final parameter Types.Angle UPhase0_g09 = SIunits.Conversions.from_deg(-1.63);
+  // Generator g10 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g10 = -600.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g10 = -255.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g10 = 1.0157;
+  final parameter Types.Angle UPhase0_g10 = SIunits.Conversions.from_deg(0.99);
+  // Generator g11 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g11 = -250.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g11 = -60.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g11 = 1.0211;
+  final parameter Types.Angle UPhase0_g11 = SIunits.Conversions.from_deg(-29.04);
+  // Generator g12 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g12 = -310.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g12 = -98.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g12 = 1.02;
+  final parameter Types.Angle UPhase0_g12 = SIunits.Conversions.from_deg(-31.88);
+  // Generator g13 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g13 = 0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g13 = -50.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g13 = 1.017;
+  final parameter Types.Angle UPhase0_g13 = SIunits.Conversions.from_deg(-54.3);
+  // Generator g14 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g14 = -630.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g14 = -295.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g14 = 1.0454;
+  final parameter Types.Angle UPhase0_g14 = SIunits.Conversions.from_deg(-49.9);
+  // Generator g15 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g15 = -1080.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g15 = -377.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g15 = 1.0455;
+  final parameter Types.Angle UPhase0_g15 = SIunits.Conversions.from_deg(-52.19);
+  // Generator g16 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g16 = -600.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g16 = -222.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g16 = 1.0531;
+  final parameter Types.Angle UPhase0_g16 = SIunits.Conversions.from_deg(-64.1);
+  // Generator g17 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g17 = -530.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g17 = -48.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g17 = 1.0092;
+  final parameter Types.Angle UPhase0_g17 = SIunits.Conversions.from_deg(-46.85);
+  // Generator g18 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g18 = -1060.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g18 = -293.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g18 = 1.0307;
+  final parameter Types.Angle UPhase0_g18 = SIunits.Conversions.from_deg(-43.32);
+  // Generator g19 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g19 = -300.0 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g19 = -121.2 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g19 = 1.03;
+  final parameter Types.Angle UPhase0_g19 = SIunits.Conversions.from_deg(0.03);
+  // Generator g20 init values:
+  // P0Pu, Q0Pu in SnRef, receptor convention
+  final parameter Types.ActivePowerPu P0Pu_g20 = -2137.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ReactivePowerPu Q0Pu_g20 = -377.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.VoltageModulePu U0Pu_g20 = 1.0185;
+  final parameter Types.Angle UPhase0_g20 = SIunits.Conversions.from_deg(0);
+>>>>>>> #2616 Structure improvements, documentation corrected
 
 equation
   trafo_g1_1012.switchOffSignal1.value = false;
@@ -567,7 +735,6 @@ equation
     Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
 
   annotation(preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.001), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));

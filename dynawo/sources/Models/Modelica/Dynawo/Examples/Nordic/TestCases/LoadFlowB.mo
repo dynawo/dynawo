@@ -42,7 +42,7 @@ protected
   final parameter Types.Angle UPhase0_g16b = SIunits.Conversions.from_deg(-18.51);
   final parameter Types.ComplexApparentPowerPu s0Pu_g16b = Complex(P0Pu_g16, Q0Pu_g16b);
   final parameter Types.ComplexVoltagePu u0Pu_g16b = ComplexMath.fromPolar(U0Pu_g16, UPhase0_g16b);
-  final parameter Types.ComplexCurrentPu i0Pu_g16b = -1 * ComplexMath.conj(s0Pu_g16b / u0Pu_g16b);
+  final parameter Types.ComplexCurrentPu i0Pu_g16b = -ComplexMath.conj(s0Pu_g16b / u0Pu_g16b);
 
 equation
   trafo_g16b_4051.switchOffSignal1.value = false;
@@ -63,6 +63,6 @@ equation
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Documentation(info = "<html><head></head><body>The LoadFlow model for operating point B extends the LoadFlow model for operating point A. The initial power values have been taken from the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. The initial voltage values are taken from the report, operating point B.</span><div>The initial power and voltage values should produce steady state.</div></body></html>"),
+    Documentation(info = "<html><head></head><body>The LoadFlow model for operating point B extends the LoadFlow model for operating point A.<div><br></div><div>The initial power values have been taken from the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015.&nbsp;</span><span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The initial voltage values are taken from the report, operating point B.</span></div><div><br></div><div>The initial power and voltage values should produce steady state.</div></body></html>"),
   Icon);
 end LoadFlowB;

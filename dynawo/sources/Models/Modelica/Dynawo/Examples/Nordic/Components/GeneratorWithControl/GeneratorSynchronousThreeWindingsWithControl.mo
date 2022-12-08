@@ -21,7 +21,7 @@ model GeneratorSynchronousThreeWindingsWithControl "Model of synchronous generat
 
   extends Dynawo.AdditionalIcons.Machine;
 
-  parameter GeneratorWithControl.GeneratorParameters.genFramePreset gen "Generator preset for choosing parameters and values";
+  parameter Dynawo.Examples.Nordic.Data.GeneratorParameters.genFramePreset gen "Generator preset for choosing parameters and values";
 
   //Terminal
   Dynawo.Connectors.ACPower terminal "Connector used to connect the generator to the grid" annotation(

@@ -14,7 +14,10 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
     package.mo
     package.order
-    FullDynamicModelA.mo
+    GeneratorParameters.mo
+    LoadParameters.mo
+    ShuntParameters.mo
+    TransformerParameters.mo
     )
 
 #
