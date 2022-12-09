@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GeneratorFictitious">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorFictitious" initName="Dynawo.Electrical.Machines.GeneratorFictitious_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.Simplified.GeneratorFictitious" initName="Dynawo.Electrical.Machines.Simplified.GeneratorFictitious_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
