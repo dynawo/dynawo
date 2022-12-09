@@ -49,6 +49,7 @@
         <dyn:appender tag="MODELER" file="dynawoModeler.log" lvlFilter="ERROR"/>
       </dyn:logs>
     </dyn:outputs>
+    <dyn:localInit parFile="init.par" parId="42"/>
   </dyn:job>
   <dyn:job name="Job 2">
     <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>

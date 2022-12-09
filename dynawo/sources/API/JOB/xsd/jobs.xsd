@@ -35,6 +35,7 @@
       </xs:element>
       <xs:element name="simulation" type="dyn:SimulationEntry"/>
       <xs:element name="outputs" type="dyn:OutputsEntry" minOccurs="0"/>
+      <xs:element name="localInit" type="dyn:LocalInitEntry" minOccurs="0"/>
     </xs:all>
     <xs:attribute name="name" use="required" type="xs:string"/>
   </xs:complexType>
@@ -204,5 +205,10 @@
       <xs:enumeration value="ERROR"/>
     </xs:restriction>
   </xs:simpleType>
+
+  <xs:complexType name="LocalInitEntry">
+    <xs:attribute name="parFile" use="required" type="xs:string"/>
+    <xs:attribute name="parId" use="required" type="xs:string"/>
+  </xs:complexType>
 
 </xs:schema>

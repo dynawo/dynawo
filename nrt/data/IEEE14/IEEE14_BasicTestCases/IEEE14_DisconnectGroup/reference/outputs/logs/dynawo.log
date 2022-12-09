@@ -31,7 +31,7 @@
 2022-09-26 14:28:34 | INFO | starting simulation with solver IDASolver
 2022-09-26 14:28:34 | INFO | -----------------------------------------------------------------------
 2022-09-26 14:28:34 | INFO | -----------------------------------------------------------------------
-2022-09-26 14:28:34 | INFO | number of continuous variables : 424
+2022-09-26 14:28:34 | INFO | number of continuous variables : 439
 2022-09-26 14:28:34 | INFO | number of discrete variables : 243
 2022-09-26 14:28:34 | INFO | number of root functions : 227
 2022-09-26 14:28:34 | INFO | -----------------------------------------------------------------------
@@ -245,7 +245,7 @@
 2022-09-26 14:28:34 | INFO | number of nonlinear iterations             = 204
 2022-09-26 14:28:34 | INFO | number of error test failures              = 1
 2022-09-26 14:28:34 | INFO | number of nonlinear convergence failures   = 0
-2022-09-26 14:28:34 | INFO | number of root functions evaluations       = 798
+2022-09-26 14:28:34 | INFO | number of root functions evaluations       = 800
 2022-09-26 14:28:34 | INFO | number of discrete variables evaluations   = 36
 2022-09-26 14:28:34 | INFO | number of mode evaluations                 = 26
 2022-09-26 14:28:34 | INFO | end of job 'IEEE14 - Disconnect Group 2'

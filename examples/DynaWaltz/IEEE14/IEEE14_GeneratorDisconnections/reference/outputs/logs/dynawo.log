@@ -31,7 +31,7 @@
 2022-09-26 09:17:03 | INFO | starting simulation with solver SimplifiedSolver
 2022-09-26 09:17:03 | INFO | -----------------------------------------------------------------------
 2022-09-26 09:17:03 | INFO | -----------------------------------------------------------------------
-2022-09-26 09:17:03 | INFO | number of continuous variables : 501
+2022-09-26 09:17:03 | INFO | number of continuous variables : 516
 2022-09-26 09:17:03 | INFO | number of discrete variables : 500
 2022-09-26 09:17:03 | INFO | number of root functions : 605
 2022-09-26 09:17:03 | INFO | -----------------------------------------------------------------------

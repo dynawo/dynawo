@@ -36,6 +36,7 @@ set(API_JOB_SOURCES
     JOBJobEntry.cpp
     JOBJobsCollectionFactory.cpp
     JOBJobsCollection.cpp
+    JOBLocalInitEntry.cpp
     JOBLogsEntry.cpp
     JOBLostEquipmentsEntry.cpp
     JOBModelerEntry.cpp
@@ -77,6 +78,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBJobsCollectionFactory.h
     JOBJobsCollection.h
     JOBJobsCollection.h
+    JOBLocalInitEntry.h
     JOBLogsEntry.h
     JOBLostEquipmentsEntry.h
     JOBModelerEntry.h
