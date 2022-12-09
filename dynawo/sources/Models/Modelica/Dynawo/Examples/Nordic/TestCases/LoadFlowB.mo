@@ -21,7 +21,8 @@ model LoadFlowB "Model of load flow calculation for the Nordic 32 test system us
   import Dynawo.Types;
 
   extends Dynawo.Examples.Nordic.TestCases.LoadFlowA(
-    g16(QGen0Pu = Q0Pu_g16b));
+    g16(u0Pu = u0Pu_g16b, i0Pu = i0Pu_g16b, QGen0Pu = Q0Pu_g16b),
+    g20(u0Pu = u0Pu_g20b, i0Pu = i0Pu_g20b, PGen0Pu = P0Pu_g20, QGen0Pu = Q0Pu_g20b, U0Pu = U0Pu_g20));
 
   Dynawo.Electrical.Buses.Bus bus_BG16b annotation(
     Placement(visible = true, transformation(origin = {5, -145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -29,7 +30,7 @@ model LoadFlowB "Model of load flow calculation for the Nordic 32 test system us
   Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g16b_4051(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {5, -137}, extent = {{5, -5}, {-5, 5}}, rotation = -90)));
 
-  Dynawo.Electrical.Machines.OmegaRef.GeneratorPQ g16b(PMin = 0, PMax = 9999, PNom = 630.0, u0Pu = u0Pu_g16, i0Pu = i0Pu_g16, PGen0Pu = P0Pu_g16, QGen0Pu = Q0Pu_g16, U0Pu = U0Pu_g16, AlphaPuPNom = 0) annotation(
+  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed g16b(u0Pu = u0Pu_g16b, i0Pu = i0Pu_g16b, PGen0Pu = P0Pu_g16, QGen0Pu = Q0Pu_g16b, U0Pu = U0Pu_g16) annotation(
     Placement(visible = true, transformation(origin = {5, -150}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
 
 protected
