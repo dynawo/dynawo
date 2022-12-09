@@ -269,10 +269,7 @@ class ModelModelica {
    * @return sqrt(a)
    */
   adept::adouble sqrt_dynawo_adept(adept::adouble a) const {
-    if (a <= 0) {
-      return 1e-4;
-    }
-    return sqrt(a);
+    return sqrt(adept::max(a, 1e-4));
   }
 
   /**

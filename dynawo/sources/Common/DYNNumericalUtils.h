@@ -15,6 +15,7 @@
 #define COMMON_DYNNUMERICALUTILS_H_
 
 #include "DYNMacrosMessage.h"
+#include <algorithm>
 
 namespace DYN {
 
@@ -41,10 +42,7 @@ T pow_dynawo(T a, T b) {
  */
 template<typename T>
 T sqrt_dynawo(T a) {
-  if (a <= 0) {
-    return 1e-4;
-  }
-  return sqrt(a);
+  return sqrt(std::max(a, 1e-4));
 }
 
 } /* namespace DYN */
