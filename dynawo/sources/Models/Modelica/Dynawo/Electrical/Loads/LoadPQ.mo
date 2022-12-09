@@ -16,9 +16,9 @@ model LoadPQ "Load with constant reactive/active power"
 
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
-
+  Types.Angle UPhase;
 equation
-
+  UPhase = ComplexMath.arg(terminal.V);
   if (running.value) then
     PPu = PRefPu * (1 + deltaP);
     QPu = QRefPu * (1 + deltaQ);

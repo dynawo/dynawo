@@ -27,7 +27,7 @@ model ShuntB "Shunt element with constant susceptance, reactive power depends on
   Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at shunt terminal in pu (base SnRef, receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in pu (base SnRef, receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at shunt terminal in pu (base SnRef, receptor convention)";
-
+  Types.Angle UPhase;
   parameter Types.PerUnit BPu "Susceptance in pu (base SnRef), negative values for capacitive consumption (over-excited), positive values for inductive consumption (under-excited)";
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at shunt terminal in pu (base UNom)";
@@ -38,7 +38,7 @@ equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
   UPu = ComplexMath.'abs'(terminal.V);
-
+  UPhase = ComplexMath.arg(terminal.V);
   if (running.value) then
     QPu = BPu * UPu^2;
     PPu = 0;

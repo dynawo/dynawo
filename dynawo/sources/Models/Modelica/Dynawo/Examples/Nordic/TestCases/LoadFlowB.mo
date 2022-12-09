@@ -21,8 +21,7 @@ model LoadFlowB "Model of load flow calculation for the Nordic 32 test system us
   import Dynawo.Types;
 
   extends Dynawo.Examples.Nordic.TestCases.LoadFlowA(
-    g16(u0Pu = u0Pu_g16b, i0Pu = i0Pu_g16b, QGen0Pu = Q0Pu_g16b),
-    g20(u0Pu = u0Pu_g20b, i0Pu = i0Pu_g20b, PGen0Pu = P0Pu_g20, QGen0Pu = Q0Pu_g20b, U0Pu = U0Pu_g20));
+    g16(u0Pu = u0Pu_g16b, i0Pu = i0Pu_g16b, QGen0Pu = Q0Pu_g16b));
 
   Dynawo.Electrical.Buses.Bus bus_BG16b annotation(
     Placement(visible = true, transformation(origin = {5, -145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -49,7 +48,6 @@ equation
   g16b.switchOffSignal1.value = false;
   g16b.switchOffSignal2.value = false;
   g16b.switchOffSignal3.value = false;
-  g16b.omegaRefPu.value = 1;
 
   connect(trafo_g16b_4051.terminal1, bus_BG16b.terminal) annotation(
     Line(points = {{5, -142}, {5, -145}}, color = {0, 0, 255}));
