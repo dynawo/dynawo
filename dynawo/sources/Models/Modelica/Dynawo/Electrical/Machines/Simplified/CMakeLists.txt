@@ -9,18 +9,21 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(BaseClasses B)
+# Simplified generator models
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    FullDynamicModel.mo
-    FullStaticModel.mo
-    )
+  package.mo
+  package.order
+  GeneratorFictitious.mo
+  GeneratorFictitious.extvar
+  GeneratorPVFixed.mo
+  GeneratorPVFixed.extvar
+  GeneratorSimplified_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)
