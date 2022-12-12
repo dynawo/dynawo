@@ -90,7 +90,7 @@
     <par type="STRING" name="infiniteBus_UPuTableName" value="TableUPu"/>
     <par type="STRING" name="infiniteBus_UPhaseTableName" value="TableUPhase"/>
     <par type="STRING" name="infiniteBus_OmegaRefPuTableName" value="TableOmegaRefPu"/>
-    <par type="STRING" name="infiniteBus_TableFile" value="nrt/data/DynaSwing/EntsoeTestCase3PlayBack/TableInfiniteBus.txt"/>
+    <par type="STRING" name="infiniteBus_TableFile" value="TableInfiniteBus.txt"/>
   </set>
   <set id="IDA">
     <par type="INT" name="order" value="1"/>
