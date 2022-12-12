@@ -14,12 +14,13 @@ within Dynawo.Electrical.Machines.Simplified;
 */
 
 model GeneratorPVFixed "Generator with fixed active power and voltage"
-  extends BaseClasses.BaseGeneratorSimplified;
+  extends BaseClasses.BaseGeneratorSimplified(
+    QGen0Pu = 0,
+    u0Pu = Complex(U0Pu, 0),
+    i0Pu = Complex(-PGen0Pu / U0Pu, 0));
   extends AdditionalIcons.Machine;
 
-  Types.Angle UPhase(start = UPhase0) "Voltage angle at terminal in rad";
-
-  final parameter Types.Angle UPhase0 = ComplexMath.arg(u0Pu) "Initial voltage angle at terminal in rad";
+  Types.Angle UPhase "Voltage angle at terminal in rad";
 
 equation
   UPhase = ComplexMath.arg(terminal.V);
