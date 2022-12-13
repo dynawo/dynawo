@@ -17,6 +17,7 @@
  * @brief Dynawo final state values collection XML exporter : implementation file
  *
  */
+
 #include "FSVXmlExporter.h"
 
 #include "DYNCommon.h"

@@ -42,8 +42,21 @@ class FinalStateValuesEntry {
    */
   void setInputFile(const std::string& inputFile);
 
+  /**
+   * @brief Export mode attribute getter
+   * @return Export mode for curves
+   */
+  const std::string& getExportMode() const;
+
+  /**
+   * @brief Export Mode attribute setter
+   * @param exportMode Export mode for curves
+   */
+  void setExportMode(const std::string& exportMode);
+
  private:
-  std::string inputFile_;   ///< Input file for final state values
+  std::string inputFile_;           ///< Input file for final state values
+  std::string exportMode_ = "CSV";  ///< Export mode XML, TXT, CSV for curves output file
 };
 
 }  // namespace job
