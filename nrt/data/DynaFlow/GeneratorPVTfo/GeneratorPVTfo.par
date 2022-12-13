@@ -38,7 +38,6 @@
   <macroParameterSet id="macro_generator_diagram">
     <par type="DOUBLE" name="generator_QMin0" value="-185"/>
     <par type="DOUBLE" name="generator_QMax0" value="200"/>
-    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
     <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
     <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>

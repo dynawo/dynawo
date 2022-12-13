@@ -1,23 +1,23 @@
  ====== INIT VARIABLES VALUES ======
 generator_N                                       : y =       0.000000 yp =       0.000000
 generator_PRefPu                                  : y =      -0.000000 yp =       0.000000
-generator_QMaxPu                                  : y =       0.410000 yp =       0.000000
-generator_QMinPu                                  : y =      -0.010000 yp =       0.000000
 generator_URefPu                                  : y =       1.010000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.222561 yp =       0.000000
 generator_terminal_V_re                           : y =       0.985173 yp =       0.000000
 generator_PGenPu                                  : y =       0.000000 yp =       0.000000
 generator_PGenRawPu                               : y =       0.000000 yp =       0.000000
 generator_QGenPu                                  : y =       0.250700 yp =       0.000000
+generator_QMaxPu                                  : y =       0.410000 yp =       0.000000
+generator_QMinPu                                  : y =      -0.010000 yp =       0.000000
 generator_UPu                                     : y =       1.010000 yp =       0.000000
-generator_tableQMax_y_1_                          : y =       0.400000 yp =       0.000000
-generator_tableQMin_y_1_                          : y =       0.000000 yp =       0.000000
 generator_terminal_i_im                           : y =       0.242116 yp =       0.000000
 generator_terminal_i_re                           : y =       0.054697 yp =       0.000000
 generator_SGenPu_im                               : alias of generator_QGenPu
 generator_SGenPu_re                               : alias of generator_PGenPu
 generator_tableQMax_u_1_                          : alias of generator_PGenPu
+generator_tableQMax_y_1_                          : alias of generator_QMaxPu
 generator_tableQMin_u_1_                          : alias of generator_PGenPu
+generator_tableQMin_y_1_                          : alias of generator_QMinPu
  ====== INIT CALCULATED VARIABLES VALUES ======
 generator_QStatorPu                               : y =       0.611463
  ====== INIT DISCRETE VARIABLES VALUES ======
@@ -45,7 +45,6 @@ generator_U0Pu                                     =       1.010000
 generator_URef0Pu                                  =       1.010000
 generator_i0Pu_im                                  =       0.242116
 generator_i0Pu_re                                  =       0.054697
-generator_tFilter                                  =       0.001000
 generator_tableQMax_u_max                          =       0.000000
 generator_tableQMax_u_min                          =       0.000000
 generator_tableQMin_u_max                          =       0.000000

@@ -41,6 +41,7 @@ target_link_libraries(dynawo_SolverKINSubModel
     dynawo_SolverKINCommon
   PRIVATE
     dynawo_SolverCommon
+    dynawo_API_PAR
   )
 
 set(SOLVER_KINSOL_SOURCES

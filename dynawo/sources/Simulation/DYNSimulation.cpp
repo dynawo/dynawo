@@ -745,6 +745,16 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
   model_->setWorkingDirectory(context_->getWorkingDirectory());
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
+
+  if (jobEntry_->getLocalInitEntry() != nullptr) {
+    const std::string initParFile = createAbsolutePath(jobEntry_->getLocalInitEntry()->getParFile(), context_->getInputDirectory());
+    const std::string parId = jobEntry_->getLocalInitEntry()->getParId();
+    parameters::XmlImporter parametersImporter;
+    boost::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
+    boost::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
+
+    model_->setLocalInitParameters(localInitParameters);
+  }
 }
 
 void
@@ -1131,7 +1141,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
-  if (exportCurvesMode_ == EXPORT_CURVES_NONE)
+  if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 
   if (updateCalculateVariable)

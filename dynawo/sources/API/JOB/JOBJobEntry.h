@@ -25,6 +25,7 @@
 #include "JOBOutputsEntry.h"
 #include "JOBSimulationEntry.h"
 #include "JOBSolverEntry.h"
+#include "JOBLocalInitEntry.h"
 
 #include <boost/shared_ptr.hpp>
 #include <string>
@@ -86,6 +87,18 @@ class JobEntry {
   boost::shared_ptr<OutputsEntry> getOutputsEntry() const;
 
   /**
+   * @brief Local init entries container setter
+   * @param localInitEntry : Local init entries container for the job
+   */
+  void setLocalInitEntry(const boost::shared_ptr<LocalInitEntry> & localInitEntry);
+
+  /**
+   * @brief Local init entries container getter
+   * @return Local init entries container for the job
+   */
+  boost::shared_ptr<LocalInitEntry> getLocalInitEntry() const;
+
+  /**
    * @brief Name setter
    * @param name : Name of the job
    */
@@ -123,6 +136,7 @@ class JobEntry {
   boost::shared_ptr<SolverEntry> solverEntry_;          ///< Solver entries container
   boost::shared_ptr<SimulationEntry> simulationEntry_;  ///< Simulation entries container
   boost::shared_ptr<OutputsEntry> outputsEntry_;        ///< Outputs entries container
+  boost::shared_ptr<LocalInitEntry> localInitEntry_;    ///< Local init entries container
   std::string name_;                                    ///< Name of the job used for description and logs purpose
 };
 

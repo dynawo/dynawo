@@ -177,8 +177,10 @@ SubModel::restoreData() {
 }
 
 void
-SubModel::initSub(const double t0) {
+SubModel::initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
   setCurrentTime(t0);
+
+  localInitParameters_ = localInitParameters;
 
   if (!withLoadedParameters_) {
     saveData();

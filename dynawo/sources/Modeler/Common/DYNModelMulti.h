@@ -462,6 +462,13 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void setCurrentZ(const std::vector<double>& z);
 
+  /**
+   * @brief set local initialization solver parameters
+   *
+   * @param localInitParameters local initialization solver parameters
+   */
+  void setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters);
+
  private:
   /**
    * @brief create a submodel for a calculated variable when connecting a state and a calculated variables
@@ -599,6 +606,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
+
+  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 };  ///< Class for Multiple-Model
 
 

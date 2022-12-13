@@ -417,3 +417,4 @@ warning: return type of member DYN::SolverCommonFixedTimeStep::computePrediction
 warning: return type of member DYN::Criteria::FailingCriteria::printOneFailingCriteriaIntoLog is not documented
 warning: return type of member DYN::Criteria::FailingCriteria::printOneFailingCriteriaIntoTimeline is not documented
 warning: return type of member DYN::DataInterface::setTimeline is not documented
+warning: return type of member DYN::Model::setLocalInitParameters is not documented
