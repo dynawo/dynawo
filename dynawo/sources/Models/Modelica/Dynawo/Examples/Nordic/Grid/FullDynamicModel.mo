@@ -24,49 +24,49 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, voltage-depe
   extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
 //  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;
 
-  TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_Load_01, Q10Pu = -Q0Pu_Load_01, U10Pu = U0Pu_Load_01, U1Phase0 = UPhase0_Load_01, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
+  TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_load_01, Q10Pu = -Q0Pu_load_01, U10Pu = U0Pu_load_01, U1Phase0 = UPhase0_load_01, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
     Placement(visible = true, transformation(origin = {-55, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_Load_02, Q10Pu = -Q0Pu_Load_02, U10Pu = U0Pu_Load_02, U1Phase0 = UPhase0_Load_02, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
+  TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_load_02, Q10Pu = -Q0Pu_load_02, U10Pu = U0Pu_load_02, U1Phase0 = UPhase0_load_02, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
     Placement(visible = true, transformation(origin = {35, -87}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_3_1043(P10Pu = -P0Pu_Load_03, Q10Pu = -Q0Pu_Load_03, U10Pu = U0Pu_Load_03, U1Phase0 = UPhase0_Load_03, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_3_1043) annotation(
+  TransformerWithControl.TransformerWithControl trafo_3_1043(P10Pu = -P0Pu_load_03, Q10Pu = -Q0Pu_load_03, U10Pu = U0Pu_load_03, U1Phase0 = UPhase0_load_03, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_3_1043) annotation(
     Placement(visible = true, transformation(origin = {-65, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  TransformerWithControl.TransformerWithControl trafo_4_1044(P10Pu = -P0Pu_Load_04, Q10Pu = -Q0Pu_Load_04, U10Pu = U0Pu_Load_04, U1Phase0 = UPhase0_Load_04, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_4_1044) annotation(
+  TransformerWithControl.TransformerWithControl trafo_4_1044(P10Pu = -P0Pu_load_04, Q10Pu = -Q0Pu_load_04, U10Pu = U0Pu_load_04, U1Phase0 = UPhase0_load_04, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_4_1044) annotation(
     Placement(visible = true, transformation(origin = {-25, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  TransformerWithControl.TransformerWithControl trafo_5_1045(P10Pu = -P0Pu_Load_05, Q10Pu = -Q0Pu_Load_05, U10Pu = U0Pu_Load_05, U1Phase0 = UPhase0_Load_05, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_5_1045) annotation(
+  TransformerWithControl.TransformerWithControl trafo_5_1045(P10Pu = -P0Pu_load_05, Q10Pu = -Q0Pu_load_05, U10Pu = U0Pu_load_05, U1Phase0 = UPhase0_load_05, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_5_1045) annotation(
     Placement(visible = true, transformation(origin = {-25, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_11_1011(P10Pu = -P0Pu_Load_11, Q10Pu = -Q0Pu_Load_11, U10Pu = U0Pu_Load_11, U1Phase0 = UPhase0_Load_11, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_11_1011) annotation(
+  TransformerWithControl.TransformerWithControl trafo_11_1011(P10Pu = -P0Pu_load_11, Q10Pu = -Q0Pu_load_11, U10Pu = U0Pu_load_11, U1Phase0 = UPhase0_load_11, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_11_1011) annotation(
     Placement(visible = true, transformation(origin = {21, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_12_1012(P10Pu = -P0Pu_Load_12, Q10Pu = -Q0Pu_Load_12, U10Pu = U0Pu_Load_12, U1Phase0 = UPhase0_Load_12, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_12_1012) annotation(
+  TransformerWithControl.TransformerWithControl trafo_12_1012(P10Pu = -P0Pu_load_12, Q10Pu = -Q0Pu_load_12, U10Pu = U0Pu_load_12, U1Phase0 = UPhase0_load_12, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_12_1012) annotation(
     Placement(visible = true, transformation(origin = {39, 108}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  TransformerWithControl.TransformerWithControl trafo_13_1013(P10Pu = -P0Pu_Load_13, Q10Pu = -Q0Pu_Load_13, U10Pu = U0Pu_Load_13, U1Phase0 = UPhase0_Load_13, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_13_1013) annotation(
+  TransformerWithControl.TransformerWithControl trafo_13_1013(P10Pu = -P0Pu_load_13, Q10Pu = -Q0Pu_load_13, U10Pu = U0Pu_load_13, U1Phase0 = UPhase0_load_13, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_13_1013) annotation(
     Placement(visible = true, transformation(origin = {85, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_22_1022(P10Pu = -P0Pu_Load_22, Q10Pu = -Q0Pu_Load_22, U10Pu = U0Pu_Load_22, U1Phase0 = UPhase0_Load_22, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_22_1022) annotation(
+  TransformerWithControl.TransformerWithControl trafo_22_1022(P10Pu = -P0Pu_load_22, Q10Pu = -Q0Pu_load_22, U10Pu = U0Pu_load_22, U1Phase0 = UPhase0_load_22, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_22_1022) annotation(
     Placement(visible = true, transformation(origin = {-40, 43}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_31_2031(P10Pu = -P0Pu_Load_31, Q10Pu = -Q0Pu_Load_31, U10Pu = U0Pu_Load_31, U1Phase0 = UPhase0_Load_31, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_31_2031) annotation(
+  TransformerWithControl.TransformerWithControl trafo_31_2031(P10Pu = -P0Pu_load_31, Q10Pu = -Q0Pu_load_31, U10Pu = U0Pu_load_31, U1Phase0 = UPhase0_load_31, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_31_2031) annotation(
     Placement(visible = true, transformation(origin = {-35, 12}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_32_2032(P10Pu = -P0Pu_Load_32, Q10Pu = -Q0Pu_Load_32, U10Pu = U0Pu_Load_32, U1Phase0 = UPhase0_Load_32, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_32_2032) annotation(
+  TransformerWithControl.TransformerWithControl trafo_32_2032(P10Pu = -P0Pu_load_32, Q10Pu = -Q0Pu_load_32, U10Pu = U0Pu_load_32, U1Phase0 = UPhase0_load_32, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_32_2032) annotation(
     Placement(visible = true, transformation(origin = {-89, 13}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_41_4041(P10Pu = -P0Pu_Load_41, Q10Pu = -Q0Pu_Load_41, U10Pu = U0Pu_Load_41, U1Phase0 = UPhase0_Load_41, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_41_4041) annotation(
+  TransformerWithControl.TransformerWithControl trafo_41_4041(P10Pu = -P0Pu_load_41, Q10Pu = -Q0Pu_load_41, U10Pu = U0Pu_load_41, U1Phase0 = UPhase0_load_41, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_41_4041) annotation(
     Placement(visible = true, transformation(origin = {-81, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_42_4042(P10Pu = -P0Pu_Load_42, Q10Pu = -Q0Pu_Load_42, U10Pu = U0Pu_Load_42, U1Phase0 = UPhase0_Load_42, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_42_4042) annotation(
+  TransformerWithControl.TransformerWithControl trafo_42_4042(P10Pu = -P0Pu_load_42, Q10Pu = -Q0Pu_load_42, U10Pu = U0Pu_load_42, U1Phase0 = UPhase0_load_42, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_42_4042) annotation(
     Placement(visible = true, transformation(origin = {55, -2}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  TransformerWithControl.TransformerWithControl trafo_43_4043(P10Pu = -P0Pu_Load_43, Q10Pu = -Q0Pu_Load_43, U10Pu = U0Pu_Load_43, U1Phase0 = UPhase0_Load_43, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_43_4043) annotation(
+  TransformerWithControl.TransformerWithControl trafo_43_4043(P10Pu = -P0Pu_load_43, Q10Pu = -Q0Pu_load_43, U10Pu = U0Pu_load_43, U1Phase0 = UPhase0_load_43, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_43_4043) annotation(
     Placement(visible = true, transformation(origin = {25, -37}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_46_4046(P10Pu = -P0Pu_Load_46, Q10Pu = -Q0Pu_Load_46, U10Pu = U0Pu_Load_46, U1Phase0 = UPhase0_Load_46, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_46_4046) annotation(
+  TransformerWithControl.TransformerWithControl trafo_46_4046(P10Pu = -P0Pu_load_46, Q10Pu = -Q0Pu_load_46, U10Pu = U0Pu_load_46, U1Phase0 = UPhase0_load_46, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_46_4046) annotation(
     Placement(visible = true, transformation(origin = {71, -38}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_47_4047(P10Pu = -P0Pu_Load_47, Q10Pu = -Q0Pu_Load_47, U10Pu = U0Pu_Load_47, U1Phase0 = UPhase0_Load_47, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_47_4047) annotation(
+  TransformerWithControl.TransformerWithControl trafo_47_4047(P10Pu = -P0Pu_load_47, Q10Pu = -Q0Pu_load_47, U10Pu = U0Pu_load_47, U1Phase0 = UPhase0_load_47, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_47_4047) annotation(
     Placement(visible = true, transformation(origin = {61, -103}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  TransformerWithControl.TransformerWithControl trafo_51_4051(P10Pu = -P0Pu_Load_51, Q10Pu = -Q0Pu_Load_51, U10Pu = U0Pu_Load_51, U1Phase0 = UPhase0_Load_51, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_51_4051) annotation(
+  TransformerWithControl.TransformerWithControl trafo_51_4051(P10Pu = -P0Pu_load_51, Q10Pu = -Q0Pu_load_51, U10Pu = U0Pu_load_51, U1Phase0 = UPhase0_load_51, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_51_4051) annotation(
     Placement(visible = true, transformation(origin = {35, -123}, extent = {{-5, -5}, {5, 5}}, rotation = 270)));
-  TransformerWithControl.TransformerWithControl trafo_61_4061(P10Pu = -P0Pu_Load_61, Q10Pu = -Q0Pu_Load_61, U10Pu = U0Pu_Load_61, U1Phase0 = UPhase0_Load_61, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_61_4061) annotation(
+  TransformerWithControl.TransformerWithControl trafo_61_4061(P10Pu = -P0Pu_load_61, Q10Pu = -Q0Pu_load_61, U10Pu = U0Pu_load_61, U1Phase0 = UPhase0_load_61, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_61_4061) annotation(
     Placement(visible = true, transformation(origin = {-95, -58}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_62_4062(P10Pu = -P0Pu_Load_62, Q10Pu = -Q0Pu_Load_62, U10Pu = U0Pu_Load_62, U1Phase0 = UPhase0_Load_62, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_62_4062) annotation(
+  TransformerWithControl.TransformerWithControl trafo_62_4062(P10Pu = -P0Pu_load_62, Q10Pu = -Q0Pu_load_62, U10Pu = U0Pu_load_62, U1Phase0 = UPhase0_load_62, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_62_4062) annotation(
     Placement(visible = true, transformation(origin = {-100, -102}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  TransformerWithControl.TransformerWithControl trafo_63_4063(P10Pu = -P0Pu_Load_63, Q10Pu = -Q0Pu_Load_63, U10Pu = U0Pu_Load_63, U1Phase0 = UPhase0_Load_63, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_63_4063) annotation(
+  TransformerWithControl.TransformerWithControl trafo_63_4063(P10Pu = -P0Pu_load_63, Q10Pu = -Q0Pu_load_63, U10Pu = U0Pu_load_63, U1Phase0 = UPhase0_load_63, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_63_4063) annotation(
     Placement(visible = true, transformation(origin = {-80, -137}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_71_4071(P10Pu = -P0Pu_Load_71, Q10Pu = -Q0Pu_Load_71, U10Pu = U0Pu_Load_71, U1Phase0 = UPhase0_Load_71, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_71_4071) annotation(
+  TransformerWithControl.TransformerWithControl trafo_71_4071(P10Pu = -P0Pu_load_71, Q10Pu = -Q0Pu_load_71, U10Pu = U0Pu_load_71, U1Phase0 = UPhase0_load_71, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_71_4071) annotation(
     Placement(visible = true, transformation(origin = {-95, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  TransformerWithControl.TransformerWithControl trafo_72_4072(P10Pu = -P0Pu_Load_72, Q10Pu = -Q0Pu_Load_72,U10Pu = U0Pu_Load_72, U1Phase0 = UPhase0_Load_72, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_72_4072) annotation(
+  TransformerWithControl.TransformerWithControl trafo_72_4072(P10Pu = -P0Pu_load_72, Q10Pu = -Q0Pu_load_72,U10Pu = U0Pu_load_72, U1Phase0 = UPhase0_load_72, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_72_4072) annotation(
     Placement(visible = true, transformation(origin = {-88, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Electrical.Transformers.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {0, 125}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
@@ -169,84 +169,84 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, voltage-depe
 protected
   // Generator g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g01 = -600.00 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g01 = -58.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g01 = -6;
+  final parameter Types.ReactivePowerPu Q0Pu_g01 = -0.583;
   // Generator g02 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g02 = -300.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g02 = -17.2 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g02 = -3;
+  final parameter Types.ReactivePowerPu Q0Pu_g02 = -0.172;
   // Generator g03 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g03 = -550.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g03 = -20.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g03 = -5.5;
+  final parameter Types.ReactivePowerPu Q0Pu_g03 = -0.209;
   // Generator g04 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g04 = -400.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g04 = -30.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g04 = -4;
+  final parameter Types.ReactivePowerPu Q0Pu_g04 = -0.304;
   // Generator g05 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g05 = -200.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g05 = -60.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g05 = -2;
+  final parameter Types.ReactivePowerPu Q0Pu_g05 = -0.601;
   // Generator g06 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g06 = -360.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g06 = -138.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g06 = -3.6;
+  final parameter Types.ReactivePowerPu Q0Pu_g06 = -1.386;
   // Generator g07 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g07 = -180.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g07 = -60.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g07 = -1.8;
+  final parameter Types.ReactivePowerPu Q0Pu_g07 = -0.604;
   // Generator g08 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g08 = -750.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g08 = -232.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g08 = -7.5;
+  final parameter Types.ReactivePowerPu Q0Pu_g08 = -2.326;
   // Generator g09 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g09 = -668.5 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g09 = -201.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g09 = -6.685;
+  final parameter Types.ReactivePowerPu Q0Pu_g09 = -2.013;
   // Generator g10 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g10 = -600.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g10 = -255.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g10 = -6;
+  final parameter Types.ReactivePowerPu Q0Pu_g10 = -2.557;
   // Generator g11 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g11 = -250.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g11 = -60.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g11 = -2.5;
+  final parameter Types.ReactivePowerPu Q0Pu_g11 = -0.607;
   // Generator g12 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g12 = -310.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g12 = -98.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g12 = -3.1;
+  final parameter Types.ReactivePowerPu Q0Pu_g12 = -0.983;
   // Generator g13 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g13 = 0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g13 = -50.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g13 = 0;
+  final parameter Types.ReactivePowerPu Q0Pu_g13 = -0.501;
   // Generator g14 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g14 = -630.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g14 = -295.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g14 = -6.3;
+  final parameter Types.ReactivePowerPu Q0Pu_g14 = -2.959;
   // Generator g15 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g15 = -1080.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g15 = -377.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g15 = -10.8;
+  final parameter Types.ReactivePowerPu Q0Pu_g15 = -3.779;
   // Generator g16 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g16 = -600.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g16 = -222.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g16 = -6;
+  final parameter Types.ReactivePowerPu Q0Pu_g16 = -2.226;
   // Generator g17 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g17 = -530.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g17 = -48.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g17 = -5.3;
+  final parameter Types.ReactivePowerPu Q0Pu_g17 = -0.487;
   // Generator g18 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g18 = -1060.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g18 = -293.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g18 = -10.6;
+  final parameter Types.ReactivePowerPu Q0Pu_g18 = -2.934;
   // Generator g19 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g19 = -300.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g19 = -121.2 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g19 = -3;
+  final parameter Types.ReactivePowerPu Q0Pu_g19 = -1.212;
   // Generator g20 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
-  final parameter Types.PerUnit P0Pu_g20 = -2137.4/ Electrical.SystemBase.SnRef;
-  final parameter Types.PerUnit Q0Pu_g20 = -377.4/ Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g20 = -21.374;
+  final parameter Types.ReactivePowerPu Q0Pu_g20 = -3.774;
 
 equation
   trafo_g1_1012.switchOffSignal1.value = false;
@@ -551,5 +551,5 @@ equation
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.001), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.<div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.<div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></body></html>"));
+    Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
 end FullDynamicModel;

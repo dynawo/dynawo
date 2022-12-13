@@ -130,254 +130,159 @@ model LoadFlow "Model of load flow calculation for the Nordic 32 test system use
     Placement(visible = true, transformation(origin = {-75, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Electrical.Transformers.TransformerFixedRatio trafo_72_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.05 ^ 2 * (100 / 4000.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-88, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g01(u0Pu = u0Pu_g01, i0Pu = i0Pu_g01, PGen0Pu = P0Pu_g01, QGen0Pu = Q0Pu_g01, U0Pu = U0Pu_g01) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g01(PGen0Pu = P0Pu_g01, U0Pu = U0Pu_g01) annotation(
     Placement(visible = true, transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g02(u0Pu = u0Pu_g02, i0Pu = i0Pu_g02, PGen0Pu = P0Pu_g02, QGen0Pu = Q0Pu_g02, U0Pu = U0Pu_g02) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g02(PGen0Pu = P0Pu_g02, U0Pu = U0Pu_g02) annotation(
     Placement(visible = true, transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g03(u0Pu = u0Pu_g03, i0Pu = i0Pu_g03, PGen0Pu = P0Pu_g03, QGen0Pu = Q0Pu_g03, U0Pu = U0Pu_g03) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g03(PGen0Pu = P0Pu_g03, U0Pu = U0Pu_g03) annotation(
     Placement(visible = true, transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g04(u0Pu = u0Pu_g04, i0Pu = i0Pu_g04, PGen0Pu = P0Pu_g04, QGen0Pu = Q0Pu_g04, U0Pu = U0Pu_g04) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g04(PGen0Pu = P0Pu_g04, U0Pu = U0Pu_g04) annotation(
     Placement(visible = true, transformation(origin = {-85, 30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g05(u0Pu = u0Pu_g05, i0Pu = i0Pu_g05, PGen0Pu = P0Pu_g05, QGen0Pu = Q0Pu_g05, U0Pu = U0Pu_g05) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g05(PGen0Pu = P0Pu_g05, U0Pu = U0Pu_g05) annotation(
     Placement(visible = true, transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g06(u0Pu = u0Pu_g06, i0Pu = i0Pu_g06, PGen0Pu = P0Pu_g06, QGen0Pu = Q0Pu_g06, U0Pu = U0Pu_g06) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g06(PGen0Pu = P0Pu_g06, U0Pu = U0Pu_g06) annotation(
     Placement(visible = true, transformation(origin = {35, -60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g07(u0Pu = u0Pu_g07, i0Pu = i0Pu_g07, PGen0Pu = P0Pu_g07, QGen0Pu = Q0Pu_g07, U0Pu = U0Pu_g07) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g07(PGen0Pu = P0Pu_g07, U0Pu = U0Pu_g07) annotation(
     Placement(visible = true, transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g08(u0Pu = u0Pu_g08, i0Pu = i0Pu_g08, PGen0Pu = P0Pu_g08, QGen0Pu = Q0Pu_g08, U0Pu = U0Pu_g08) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g08(PGen0Pu = P0Pu_g08, U0Pu = U0Pu_g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g09(u0Pu = u0Pu_g09, i0Pu = i0Pu_g09, PGen0Pu = P0Pu_g09, QGen0Pu = Q0Pu_g09, U0Pu = U0Pu_g09) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g09(PGen0Pu = P0Pu_g09, U0Pu = U0Pu_g09) annotation(
     Placement(visible = true, transformation(origin = {-25, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g10(u0Pu = u0Pu_g10, i0Pu = i0Pu_g10, PGen0Pu = P0Pu_g10, QGen0Pu = Q0Pu_g10, U0Pu = U0Pu_g10) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g10(PGen0Pu = P0Pu_g10, U0Pu = U0Pu_g10) annotation(
     Placement(visible = true, transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g11(u0Pu = u0Pu_g11, i0Pu = i0Pu_g11, PGen0Pu = P0Pu_g11, QGen0Pu = Q0Pu_g11, U0Pu = U0Pu_g11) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g11(PGen0Pu = P0Pu_g11, U0Pu = U0Pu_g11) annotation(
     Placement(visible = true, transformation(origin = {35, 72}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g12(u0Pu = u0Pu_g12, i0Pu = i0Pu_g12, PGen0Pu = P0Pu_g12, QGen0Pu = Q0Pu_g12, U0Pu = U0Pu_g12) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g12(PGen0Pu = P0Pu_g12, U0Pu = U0Pu_g12) annotation(
     Placement(visible = true, transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g13(u0Pu = u0Pu_g13, i0Pu = i0Pu_g13, PGen0Pu = P0Pu_g13, QGen0Pu = Q0Pu_g13, U0Pu = U0Pu_g13) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g13(PGen0Pu = P0Pu_g13, U0Pu = U0Pu_g13) annotation(
     Placement(visible = true, transformation(origin = {-70, -29}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g14(u0Pu = u0Pu_g14, i0Pu = i0Pu_g14, PGen0Pu = P0Pu_g14, QGen0Pu = Q0Pu_g14, U0Pu = U0Pu_g14) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g14(PGen0Pu = P0Pu_g14, U0Pu = U0Pu_g14) annotation(
     Placement(visible = true, transformation(origin = {50, -30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g15(u0Pu = u0Pu_g15, i0Pu = i0Pu_g15, PGen0Pu = P0Pu_g15, QGen0Pu = Q0Pu_g15, U0Pu = U0Pu_g15) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g15(PGen0Pu = P0Pu_g15, U0Pu = U0Pu_g15) annotation(
     Placement(visible = true, transformation(origin = {80, -89}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g16(u0Pu = u0Pu_g16, i0Pu = i0Pu_g16, PGen0Pu = P0Pu_g16, QGen0Pu = Q0Pu_g16, U0Pu = U0Pu_g16) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g16(PGen0Pu = P0Pu_g16, U0Pu = U0Pu_g16) annotation(
     Placement(visible = true, transformation(origin = {20, -109}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g17(u0Pu = u0Pu_g17, i0Pu = i0Pu_g17, PGen0Pu = P0Pu_g17, QGen0Pu = Q0Pu_g17, U0Pu = U0Pu_g17) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g17(PGen0Pu = P0Pu_g17, U0Pu = U0Pu_g17) annotation(
     Placement(visible = true, transformation(origin = {-78, -88}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g18(u0Pu = u0Pu_g18, i0Pu = i0Pu_g18, PGen0Pu = P0Pu_g18, QGen0Pu = Q0Pu_g18, U0Pu = U0Pu_g18) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g18(PGen0Pu = P0Pu_g18, U0Pu = U0Pu_g18) annotation(
     Placement(visible = true, transformation(origin = {-95, -151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Electrical.Machines.Simplified.GeneratorPVFixed g19(u0Pu = u0Pu_g19, i0Pu = i0Pu_g19, PGen0Pu = P0Pu_g19, QGen0Pu = Q0Pu_g19, U0Pu = U0Pu_g19) annotation(
+  Electrical.Machines.Simplified.GeneratorPVFixed g19(PGen0Pu = P0Pu_g19, U0Pu = U0Pu_g19) annotation(
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
 
 protected
   // Generator g01 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g01 = 600.00 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g01 = 58.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g01 = 6;
   final parameter Types.VoltageModulePu U0Pu_g01 = 1.0684;
-  final parameter Types.Angle UPhase0_g01 = SIunits.Conversions.from_deg(2.59);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g01 = Complex(P0Pu_g01, Q0Pu_g01);
-  final parameter Types.ComplexVoltagePu u0Pu_g01 = ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01);
-  final parameter Types.ComplexCurrentPu i0Pu_g01 = -ComplexMath.conj(s0Pu_g01 / u0Pu_g01);
 
   // Generator g02 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g02 = 300.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g02 = 17.2 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g02 = 3;
   final parameter Types.VoltageModulePu U0Pu_g02 = 1.0565;
-  final parameter Types.Angle UPhase0_g02 = SIunits.Conversions.from_deg(5.12);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g02 = Complex(P0Pu_g02, Q0Pu_g02);
-  final parameter Types.ComplexVoltagePu u0Pu_g02 = ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02);
-  final parameter Types.ComplexCurrentPu i0Pu_g02 = -ComplexMath.conj(s0Pu_g02 / u0Pu_g02);
 
   // Generator g03 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g03 = 550.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g03 = 20.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g03 = 5.5;
   final parameter Types.VoltageModulePu U0Pu_g03 = 1.0595;
-  final parameter Types.Angle UPhase0_g03 = SIunits.Conversions.from_deg(10.27);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g03 = Complex(P0Pu_g03, Q0Pu_g03);
-  final parameter Types.ComplexVoltagePu u0Pu_g03 = ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03);
-  final parameter Types.ComplexCurrentPu i0Pu_g03 = -ComplexMath.conj(s0Pu_g03 / u0Pu_g03);
 
   // Generator g04 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g04 = 400.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g04 = 30.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g04 = 4;
   final parameter Types.VoltageModulePu U0Pu_g04 = 1.0339;
-  final parameter Types.Angle UPhase0_g04 = SIunits.Conversions.from_deg(8.03);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g04 = Complex(P0Pu_g04, Q0Pu_g04);
-  final parameter Types.ComplexVoltagePu u0Pu_g04 = ComplexMath.fromPolar(U0Pu_g04, UPhase0_g04);
-  final parameter Types.ComplexCurrentPu i0Pu_g04 = -ComplexMath.conj(s0Pu_g04 / u0Pu_g04);
 
   // Generator g05 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g05 = 200.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g05 = 60.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g05 = 2;
   final parameter Types.VoltageModulePu U0Pu_g05 = 1.0294;
-  final parameter Types.Angle UPhase0_g05 = SIunits.Conversions.from_deg(-12.36);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g05 = Complex(P0Pu_g05, Q0Pu_g05);
-  final parameter Types.ComplexVoltagePu u0Pu_g05 = ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05);
-  final parameter Types.ComplexCurrentPu i0Pu_g05 = -ComplexMath.conj(s0Pu_g05 / u0Pu_g05);
 
   // Generator g06 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g06 = 360.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g06 = 138.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g06 = 3.6;
   final parameter Types.VoltageModulePu U0Pu_g06 = 1.0084;
-  final parameter Types.Angle UPhase0_g06 = SIunits.Conversions.from_deg(-59.42);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g06 = Complex(P0Pu_g06, Q0Pu_g06);
-  final parameter Types.ComplexVoltagePu u0Pu_g06 = ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06);
-  final parameter Types.ComplexCurrentPu i0Pu_g06 = -ComplexMath.conj(s0Pu_g06 / u0Pu_g06);
 
   // Generator g07 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g07 = 180.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g07 = 60.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g07 = 1.8;
   final parameter Types.VoltageModulePu U0Pu_g07 = 1.0141;
-  final parameter Types.Angle UPhase0_g07 = SIunits.Conversions.from_deg(-68.95);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g07 = Complex(P0Pu_g07, Q0Pu_g07);
-  final parameter Types.ComplexVoltagePu u0Pu_g07 = ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07);
-  final parameter Types.ComplexCurrentPu i0Pu_g07 = -ComplexMath.conj(s0Pu_g07 / u0Pu_g07);
 
   // Generator g08 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g08 = 750.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g08 = 232.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g08 = 7.5;
   final parameter Types.VoltageModulePu U0Pu_g08 = 1.0498;
-  final parameter Types.Angle UPhase0_g08 = SIunits.Conversions.from_deg(-16.81);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g08 = Complex(P0Pu_g08, Q0Pu_g08);
-  final parameter Types.ComplexVoltagePu u0Pu_g08 = ComplexMath.fromPolar(U0Pu_g08, UPhase0_g08);
-  final parameter Types.ComplexCurrentPu i0Pu_g08 = -ComplexMath.conj(s0Pu_g08 / u0Pu_g08);
 
   // Generator g09 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g09 = 668.5 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g09 = 201.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g09 = 6.685;
   final parameter Types.VoltageModulePu U0Pu_g09 = 0.9988;
-  final parameter Types.Angle UPhase0_g09 = SIunits.Conversions.from_deg(-1.63);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g09 = Complex(P0Pu_g09, Q0Pu_g09);
-  final parameter Types.ComplexVoltagePu u0Pu_g09 = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09);
-  final parameter Types.ComplexCurrentPu i0Pu_g09 = -ComplexMath.conj(s0Pu_g09 / u0Pu_g09);
 
   // Generator g10 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g10 = 600.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g10 = 255.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g10 = 6;
   final parameter Types.VoltageModulePu U0Pu_g10 = 1.0157;
-  final parameter Types.Angle UPhase0_g10 = SIunits.Conversions.from_deg(0.99);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g10 = Complex(P0Pu_g10, Q0Pu_g10);
-  final parameter Types.ComplexVoltagePu u0Pu_g10 = ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10);
-  final parameter Types.ComplexCurrentPu i0Pu_g10 = -ComplexMath.conj(s0Pu_g10 / u0Pu_g10);
 
   // Generator g11 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g11 = 250.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g11 = 60.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g11 = 2.5;
   final parameter Types.VoltageModulePu U0Pu_g11 = 1.0211;
-  final parameter Types.Angle UPhase0_g11 = SIunits.Conversions.from_deg(-29.04);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g11 = Complex(P0Pu_g11, Q0Pu_g11);
-  final parameter Types.ComplexVoltagePu u0Pu_g11 = ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11);
-  final parameter Types.ComplexCurrentPu i0Pu_g11 = -ComplexMath.conj(s0Pu_g11 / u0Pu_g11);
 
   // Generator g12 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g12 = 310.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g12 = 98.3 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g12 = 3.1;
   final parameter Types.VoltageModulePu U0Pu_g12 = 1.02;
-  final parameter Types.Angle UPhase0_g12 = SIunits.Conversions.from_deg(-31.88);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g12 = Complex(P0Pu_g12, Q0Pu_g12);
-  final parameter Types.ComplexVoltagePu u0Pu_g12 = ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12);
-  final parameter Types.ComplexCurrentPu i0Pu_g12 = -ComplexMath.conj(s0Pu_g12 / u0Pu_g12);
 
   // Generator g13 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g13 = 0.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g13 = 50.1 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g13 = 0;
   final parameter Types.VoltageModulePu U0Pu_g13 = 1.017;
-  final parameter Types.Angle UPhase0_g13 = SIunits.Conversions.from_deg(-54.3);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g13 = Complex(P0Pu_g13, Q0Pu_g13);
-  final parameter Types.ComplexVoltagePu u0Pu_g13 = ComplexMath.fromPolar(U0Pu_g13, UPhase0_g13);
-  final parameter Types.ComplexCurrentPu i0Pu_g13 = -ComplexMath.conj(s0Pu_g13 / u0Pu_g13);
 
   // Generator g14 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g14 = 630.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g14 = 295.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g14 = 6.3;
   final parameter Types.VoltageModulePu U0Pu_g14 = 1.0454;
-  final parameter Types.Angle UPhase0_g14 = SIunits.Conversions.from_deg(-49.9);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g14 = Complex(P0Pu_g14, Q0Pu_g14);
-  final parameter Types.ComplexVoltagePu u0Pu_g14 = ComplexMath.fromPolar(U0Pu_g14, UPhase0_g14);
-  final parameter Types.ComplexCurrentPu i0Pu_g14 = -ComplexMath.conj(s0Pu_g14 / u0Pu_g14);
 
   // Generator g15 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g15 = 1080.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g15 = 377.9 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g15 = 10.8;
   final parameter Types.VoltageModulePu U0Pu_g15 = 1.0455;
-  final parameter Types.Angle UPhase0_g15 = SIunits.Conversions.from_deg(-52.19);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g15 = Complex(P0Pu_g15, Q0Pu_g15);
-  final parameter Types.ComplexVoltagePu u0Pu_g15 = ComplexMath.fromPolar(U0Pu_g15, UPhase0_g15);
-  final parameter Types.ComplexCurrentPu i0Pu_g15 = -ComplexMath.conj(s0Pu_g15 / u0Pu_g15);
 
   // Generator g16 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g16 = 600.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g16 = 222.6 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g16 = 6;
   final parameter Types.VoltageModulePu U0Pu_g16 = 1.0531;
-  final parameter Types.Angle UPhase0_g16 = SIunits.Conversions.from_deg(-64.1);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g16 = Complex(P0Pu_g16, Q0Pu_g16);
-  final parameter Types.ComplexVoltagePu u0Pu_g16 = ComplexMath.fromPolar(U0Pu_g16, UPhase0_g16);
-  final parameter Types.ComplexCurrentPu i0Pu_g16 = -ComplexMath.conj(s0Pu_g16 / u0Pu_g16);
 
   // Generator g17 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g17 = 530.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g17 = 48.7 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g17 = 5.3;
   final parameter Types.VoltageModulePu U0Pu_g17 = 1.0092;
-  final parameter Types.Angle UPhase0_g17 = SIunits.Conversions.from_deg(-46.85);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g17 = Complex(P0Pu_g17, Q0Pu_g17);
-  final parameter Types.ComplexVoltagePu u0Pu_g17 = ComplexMath.fromPolar(U0Pu_g17, UPhase0_g17);
-  final parameter Types.ComplexCurrentPu i0Pu_g17 = -ComplexMath.conj(s0Pu_g17 / u0Pu_g17);
 
   // Generator g18 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g18 = 1060.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g18 = 293.4 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g18 = 10.6;
   final parameter Types.VoltageModulePu U0Pu_g18 = 1.0307;
-  final parameter Types.Angle UPhase0_g18 = SIunits.Conversions.from_deg(-43.32);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g18 = Complex(P0Pu_g18, Q0Pu_g18);
-  final parameter Types.ComplexVoltagePu u0Pu_g18 = ComplexMath.fromPolar(U0Pu_g18, UPhase0_g18);
-  final parameter Types.ComplexCurrentPu i0Pu_g18 = -ComplexMath.conj(s0Pu_g18 / u0Pu_g18);
 
   // Generator g19 init values:
   // P0Pu, Q0Pu in SnRef, generator convention
   // i0Pu in receptor convention
-  final parameter Types.ActivePowerPu P0Pu_g19 = 300.0 / Electrical.SystemBase.SnRef;
-  final parameter Types.ReactivePowerPu Q0Pu_g19 = 121.2 / Electrical.SystemBase.SnRef;
+  final parameter Types.ActivePowerPu P0Pu_g19 = 3;
   final parameter Types.VoltageModulePu U0Pu_g19 = 1.03;
-  final parameter Types.Angle UPhase0_g19 = SIunits.Conversions.from_deg(0.03);
-  final parameter Types.ComplexApparentPowerPu s0Pu_g19 = Complex(P0Pu_g19, Q0Pu_g19);
-  final parameter Types.ComplexVoltagePu u0Pu_g19 = ComplexMath.fromPolar(U0Pu_g19, UPhase0_g19);
-  final parameter Types.ComplexCurrentPu i0Pu_g19 = -ComplexMath.conj(s0Pu_g19 / u0Pu_g19);
 
 equation
   trafo_1011_4011.switchOffSignal1.value = false;
@@ -788,6 +693,6 @@ equation
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Documentation(info = "<html><head></head><body>The LoadFlow model extends the network with PQ loads model and adds nonregulated transformers and PQ generators. It could also extend the network with alpha-beta loads model. The initial power values have been taken from the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. The initial voltage values are taken from the report, operating point A.</span><div>The initial power and voltage values should produce steady state.</div></body></html>"),
+    Documentation(info = "<html><head></head><body>The LoadFlow model extends the network with PQ loads model and adds nonregulated transformers and PQ generators. It could also extend the network with alpha-beta loads model.<div><br></div><div>The initial power values have been taken from the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. The initial voltage values are taken from the report, operating point A.</span><div><font face=\"MS Shell Dlg 2\"><br></font><div>The initial power and voltage values should produce steady state.</div></div></div></body></html>"),
   Icon);
 end LoadFlow;

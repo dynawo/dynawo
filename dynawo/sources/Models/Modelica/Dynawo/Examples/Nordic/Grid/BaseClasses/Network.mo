@@ -13,7 +13,7 @@ within Dynawo.Examples.Nordic.Grid.BaseClasses;
 * of simulation tools for power systems.
 */
 
-model Network "Nordic test grid with buses and lines only"
+model Network "Nordic test grid with buses, lines and shunts"
   import Modelica.SIunits;
   import Dynawo.Electrical;
 
@@ -271,10 +271,133 @@ model Network "Nordic test grid with buses and lines only"
   Electrical.Lines.Line line_4071_4072b(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-79, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
+  Electrical.Shunts.ShuntB shunt_1022(BPu = BPu_shunt_1022, u0Pu = u0Pu_shunt_1022, s0Pu = s0Pu_shunt_1022, i0Pu = i0Pu_shunt_1022) annotation(
+    Placement(visible = true, transformation(origin = {-33.5, 56.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_1041(BPu = BPu_shunt_1041, u0Pu = u0Pu_shunt_1041, s0Pu = s0Pu_shunt_1041, i0Pu = i0Pu_shunt_1041) annotation(
+    Placement(visible = true, transformation(origin = {-66.5, -94.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_1043(BPu = BPu_shunt_1043, u0Pu = u0Pu_shunt_1043, s0Pu = s0Pu_shunt_1043, i0Pu = i0Pu_shunt_1043) annotation(
+    Placement(visible = true, transformation(origin = {-55.5, -67.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_1044(BPu = BPu_shunt_1044, u0Pu = u0Pu_shunt_1044, s0Pu = s0Pu_shunt_1044, i0Pu = i0Pu_shunt_1044) annotation(
+    Placement(visible = true, transformation(origin = {-15.5, -67.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_1045(BPu = BPu_shunt_1045, u0Pu = u0Pu_shunt_1045, s0Pu = s0Pu_shunt_1045, i0Pu = i0Pu_shunt_1045) annotation(
+    Placement(visible = true, transformation(origin = {-12.5, -83.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_4012(BPu = BPu_shunt_4012, u0Pu = u0Pu_shunt_4012, s0Pu = s0Pu_shunt_4012, i0Pu = i0Pu_shunt_4012) annotation(
+    Placement(visible = true, transformation(origin = {-22.5, 106.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_4041(BPu = BPu_shunt_4041, u0Pu = u0Pu_shunt_4041, s0Pu = s0Pu_shunt_4041, i0Pu = i0Pu_shunt_4041) annotation(
+    Placement(visible = true, transformation(origin = {-94.5, -14.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_4043(BPu = BPu_shunt_4043, u0Pu = u0Pu_shunt_4043, s0Pu = s0Pu_shunt_4043, i0Pu = i0Pu_shunt_4043) annotation(
+    Placement(visible = true, transformation(origin = {24.5, -23.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_4046(BPu = BPu_shunt_4046, u0Pu = u0Pu_shunt_4046, s0Pu = s0Pu_shunt_4046, i0Pu = i0Pu_shunt_4046) annotation(
+    Placement(visible = true, transformation(origin = {76.5, -22.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_4051(BPu = BPu_shunt_4051, u0Pu = u0Pu_shunt_4051, s0Pu = s0Pu_shunt_4051, i0Pu = i0Pu_shunt_4051) annotation(
+    Placement(visible = true, transformation(origin = {21.5, -134.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
+  Electrical.Shunts.ShuntB shunt_4071(BPu = BPu_shunt_4071, u0Pu = u0Pu_shunt_4071, s0Pu = s0Pu_shunt_4071, i0Pu = i0Pu_shunt_4071) annotation(
+    Placement(visible = true, transformation(origin = {-85.5, 136.5}, extent = {{2.5, 2.5}, {-2.5, -2.5}}, rotation = 0)));
+
 protected
   final parameter SIunits.Impedance XBase_130 = 130 ^ 2 / Electrical.SystemBase.SnRef;
   final parameter SIunits.Impedance XBase_220 = 220 ^ 2 / Electrical.SystemBase.SnRef;
   final parameter SIunits.Impedance XBase_400 = 400 ^ 2 / Electrical.SystemBase.SnRef;
+
+  // shunt_1022 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_1022 = -0.5;
+  final parameter Types.VoltageModulePu U0Pu_shunt_1022 = 1.0512;
+  final parameter Types.Angle UPhase0_shunt_1022 = SIunits.Conversions.from_deg(-19.05);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_1022 = BPu_shunt_1022 * U0Pu_shunt_1022 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1022 = Complex(0, Q0Pu_shunt_1022);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_1022 = ComplexMath.fromPolar(U0Pu_shunt_1022, UPhase0_shunt_1022);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_1022 = ComplexMath.conj(s0Pu_shunt_1022 / u0Pu_shunt_1022);
+  // shunt_1041 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_1041 = -2.5;
+  final parameter Types.VoltageModulePu U0Pu_shunt_1041 = 1.0124;
+  final parameter Types.Angle UPhase0_shunt_1041 = SIunits.Conversions.from_deg(-81.87);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_1041 = BPu_shunt_1041 * U0Pu_shunt_1041 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1041 = Complex(0, Q0Pu_shunt_1041);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_1041 = ComplexMath.fromPolar(U0Pu_shunt_1041, UPhase0_shunt_1041);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_1041 = ComplexMath.conj(s0Pu_shunt_1041 / u0Pu_shunt_1041);
+  // shunt_1043 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_1043 = -2;
+  final parameter Types.VoltageModulePu U0Pu_shunt_1043 = 1.0274;
+  final parameter Types.Angle UPhase0_shunt_1043 = SIunits.Conversions.from_deg(-76.77);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_1043 = BPu_shunt_1043 * U0Pu_shunt_1043 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1043 = Complex(0, Q0Pu_shunt_1043);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_1043 = ComplexMath.fromPolar(U0Pu_shunt_1043, UPhase0_shunt_1043);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_1043 = ComplexMath.conj(s0Pu_shunt_1043 / u0Pu_shunt_1043);
+  // shunt_1044 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_1044 = -2;
+  final parameter Types.VoltageModulePu U0Pu_shunt_1044 = 1.0066;
+  final parameter Types.Angle UPhase0_shunt_1044 = SIunits.Conversions.from_deg(-67.71);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_1044 = BPu_shunt_1044 * U0Pu_shunt_1044 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1044 = Complex(0, Q0Pu_shunt_1044);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_1044 = ComplexMath.fromPolar(U0Pu_shunt_1044, UPhase0_shunt_1044);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_1044 = ComplexMath.conj(s0Pu_shunt_1044 / u0Pu_shunt_1044);
+  // shunt_1045 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_1045 = -2;
+  final parameter Types.VoltageModulePu U0Pu_shunt_1045 = 1.0111;
+  final parameter Types.Angle UPhase0_shunt_1045 = SIunits.Conversions.from_deg(-71.66);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_1045 = BPu_shunt_1045 * U0Pu_shunt_1045 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1045 = Complex(0, Q0Pu_shunt_1045);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_1045 = ComplexMath.fromPolar(U0Pu_shunt_1045, UPhase0_shunt_1045);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_1045 = ComplexMath.conj(s0Pu_shunt_1045 / u0Pu_shunt_1045);
+  // shunt_4012 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_4012 = 1;
+  final parameter Types.VoltageModulePu U0Pu_shunt_4012 = 1.0235;
+  final parameter Types.Angle UPhase0_shunt_4012 = SIunits.Conversions.from_deg(-5.54);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_4012 = BPu_shunt_4012 * U0Pu_shunt_4012 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4012 = Complex(0, Q0Pu_shunt_4012);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_4012 = ComplexMath.fromPolar(U0Pu_shunt_4012, UPhase0_shunt_4012);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_4012 = ComplexMath.conj(s0Pu_shunt_4012 / u0Pu_shunt_4012);
+  // shunt_4041 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_4041 = -2;
+  final parameter Types.VoltageModulePu U0Pu_shunt_4041 = 1.0506;
+  final parameter Types.Angle UPhase0_shunt_4041 = SIunits.Conversions.from_deg(-54.30);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_4041 = BPu_shunt_4041 * U0Pu_shunt_4041 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4041 = Complex(0, Q0Pu_shunt_4041);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_4041 = ComplexMath.fromPolar(U0Pu_shunt_4041, UPhase0_shunt_4041);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_4041 = ComplexMath.conj(s0Pu_shunt_4041 / u0Pu_shunt_4041);
+  // shunt_4043 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_4043 = -2;
+  final parameter Types.VoltageModulePu U0Pu_shunt_4043 = 1.037;
+  final parameter Types.Angle UPhase0_shunt_4043 = SIunits.Conversions.from_deg(-63.51);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_4043 = BPu_shunt_4043 * U0Pu_shunt_4043 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4043 = Complex(0, Q0Pu_shunt_4043);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_4043 = ComplexMath.fromPolar(U0Pu_shunt_4043, UPhase0_shunt_4043);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_4043 = ComplexMath.conj(s0Pu_shunt_4043 / u0Pu_shunt_4043);
+  // shunt_4046 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_4046 = -1;
+  final parameter Types.VoltageModulePu U0Pu_shunt_4046 = 1.0357;
+  final parameter Types.Angle UPhase0_shunt_4046 = SIunits.Conversions.from_deg(-64.11);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_4046 = BPu_shunt_4046 * U0Pu_shunt_4046 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4046 = Complex(0, Q0Pu_shunt_4046);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_4046 = ComplexMath.fromPolar(U0Pu_shunt_4046, UPhase0_shunt_4046);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_4046 = ComplexMath.conj(s0Pu_shunt_4046 / u0Pu_shunt_4046);
+  // shunt_4051 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_4051 = -1;
+  final parameter Types.VoltageModulePu U0Pu_shunt_4051 = 1.0659;
+  final parameter Types.Angle UPhase0_shunt_4051 = SIunits.Conversions.from_deg(-71.01);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_4051 = BPu_shunt_4051 * U0Pu_shunt_4051 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4051 = Complex(0, Q0Pu_shunt_4051);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_4051 = ComplexMath.fromPolar(U0Pu_shunt_4051, UPhase0_shunt_4051);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_4051 = ComplexMath.conj(s0Pu_shunt_4051 / u0Pu_shunt_4051);
+  // shunt_4071 init values:
+  // negative values for capacitors, positive values for inductors (reversed in PESTR)
+  final parameter Types.PerUnit BPu_shunt_4071 = 4;
+  final parameter Types.VoltageModulePu U0Pu_shunt_4071 = 1.0484;
+  final parameter Types.Angle UPhase0_shunt_4071 = SIunits.Conversions.from_deg(-4.99);
+  final parameter Types.ReactivePowerPu Q0Pu_shunt_4071 = BPu_shunt_4071 * U0Pu_shunt_4071 ^ 2;
+  final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4071 = Complex(0, Q0Pu_shunt_4071);
+  final parameter Types.ComplexVoltagePu u0Pu_shunt_4071 = ComplexMath.fromPolar(U0Pu_shunt_4071, UPhase0_shunt_4071);
+  final parameter Types.ComplexCurrentPu i0Pu_shunt_4071 = ComplexMath.conj(s0Pu_shunt_4071 / u0Pu_shunt_4071);
 
 equation
   line_1011_1013a.switchOffSignal1.value = false;
@@ -597,5 +720,5 @@ equation
     version = "",
     uses(Dynawo(version = "1.0.1")),
     __OpenModelica_commandLineOptions = "",
-    Documentation(info = "<html><head></head><body>This model represents the static network of the Nordic 32 test system. It consists of 74 buses and 52 lines. Data for the lines have been taken from the&nbsp;<span style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>.<div>The model forms the basis for the Nordic 32 test system. It can be extended to add specific transformers, loads or generators.</div></body></html>"));
+    Documentation(info = "<html><head></head><body>This model represents the static network of the Nordic 32 test system. It consists of 74 buses, 52 lines and 11 shunts. Data for the lines have been taken from the&nbsp;<span style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>.<div>The model forms the basis for the Nordic 32 test system. It can be extended to add specific transformers, loads or generators.</div></body></html>"));
 end Network;
