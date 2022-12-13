@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: parameters::Reference Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d4/d73/a02465.html','../../');});
+$(document).ready(function(){initNavTree('df/d89/a02462.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,19 +94,413 @@ $(document).ready(function(){initNavTree('d4/d73/a02465.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../dc/d5c/a02459.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">parameters::ParHandler Member List</div>  </div>
+<div class="title">parameters::Reference Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d4/d73/a02465.html">parameters::ParHandler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d73/a02465.html#a43e18a98c00f22134af51f15d51fecac">create</a>(attributes_type const &amp;attributes)</td><td class="entry"><a class="el" href="../../d4/d73/a02465.html">parameters::ParHandler</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d73/a02465.html#abc15c8b4e2bcae9df161d26d09e2655a">get</a>() const</td><td class="entry"><a class="el" href="../../d4/d73/a02465.html">parameters::ParHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d73/a02465.html#a61dddd0a94af0328bf51cb9f112cbf62">parameter_</a></td><td class="entry"><a class="el" href="../../d4/d73/a02465.html">parameters::ParHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d73/a02465.html#a01f22133780a8fc801e5a44de407f165">ParHandler</a>(elementName_type const &amp;root_element)</td><td class="entry"><a class="el" href="../../d4/d73/a02465.html">parameters::ParHandler</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d73/a02465.html#a745222908e5f2fa9309711ad7ed39c97">~ParHandler</a>()</td><td class="entry"><a class="el" href="../../d4/d73/a02465.html">parameters::ParHandler</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a> interface class.  
+ <a href="../../df/d89/a02462.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../df/d15/a00416_source.html">PARReference.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a04c7e516a69ff452dc4676e7b62fe44f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">OriginData</a> { <a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44fae2d61fe5e021f68c98020665bc1b01d0">IIDM</a>, 
+<a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44fae70c8d18d9a315bc7b904b303ed0765e">SIZE_OF_ENUM</a>
+ }</td></tr>
+<tr class="memdesc:a04c7e516a69ff452dc4676e7b62fe44f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available reference origin data sets.  <a href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">More...</a><br /></td></tr>
+<tr class="separator:a04c7e516a69ff452dc4676e7b62fe44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:acdd9c1f2ada6ad0627ec273e636f873b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#acdd9c1f2ada6ad0627ec273e636f873b">Reference</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:acdd9c1f2ada6ad0627ec273e636f873b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of reference.  <a href="#acdd9c1f2ada6ad0627ec273e636f873b">More...</a><br /></td></tr>
+<tr class="separator:acdd9c1f2ada6ad0627ec273e636f873b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bef52c1031b788f2b3784e8296cc5e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a3bef52c1031b788f2b3784e8296cc5e1">setType</a> (const std::string &amp;type)</td></tr>
+<tr class="memdesc:a3bef52c1031b788f2b3784e8296cc5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for reference type.  <a href="#a3bef52c1031b788f2b3784e8296cc5e1">More...</a><br /></td></tr>
+<tr class="separator:a3bef52c1031b788f2b3784e8296cc5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a18e94c6c214fb5f87846267c8ba32a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a3a18e94c6c214fb5f87846267c8ba32a">setOrigData</a> (const std::string &amp;origData)</td></tr>
+<tr class="memdesc:a3a18e94c6c214fb5f87846267c8ba32a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for reference origin data.  <a href="#a3a18e94c6c214fb5f87846267c8ba32a">More...</a><br /></td></tr>
+<tr class="separator:a3a18e94c6c214fb5f87846267c8ba32a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eb8c4f57e07095d62378719f70ce3fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a0eb8c4f57e07095d62378719f70ce3fb">setOrigData</a> (const <a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">OriginData</a> &amp;origData)</td></tr>
+<tr class="memdesc:a0eb8c4f57e07095d62378719f70ce3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for reference origin data.  <a href="#a0eb8c4f57e07095d62378719f70ce3fb">More...</a><br /></td></tr>
+<tr class="separator:a0eb8c4f57e07095d62378719f70ce3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f5d1a0a8662afb695a3ebc0970aa213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a7f5d1a0a8662afb695a3ebc0970aa213">setOrigName</a> (const std::string &amp;origName)</td></tr>
+<tr class="memdesc:a7f5d1a0a8662afb695a3ebc0970aa213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for reference origin name.  <a href="#a7f5d1a0a8662afb695a3ebc0970aa213">More...</a><br /></td></tr>
+<tr class="separator:a7f5d1a0a8662afb695a3ebc0970aa213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598ad9036eecbdcdef9a0339285fbd6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a598ad9036eecbdcdef9a0339285fbd6e">setComponentId</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:a598ad9036eecbdcdef9a0339285fbd6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component id where the reference should be found.  <a href="#a598ad9036eecbdcdef9a0339285fbd6e">More...</a><br /></td></tr>
+<tr class="separator:a598ad9036eecbdcdef9a0339285fbd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555334710cbcf56da561c344fe60ca5a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a555334710cbcf56da561c344fe60ca5a">getType</a> () const</td></tr>
+<tr class="memdesc:a555334710cbcf56da561c344fe60ca5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for reference type.  <a href="#a555334710cbcf56da561c344fe60ca5a">More...</a><br /></td></tr>
+<tr class="separator:a555334710cbcf56da561c344fe60ca5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87a34b3518f4b85391dabbc3dfc08d1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#ad87a34b3518f4b85391dabbc3dfc08d1">getName</a> () const</td></tr>
+<tr class="memdesc:ad87a34b3518f4b85391dabbc3dfc08d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for reference name.  <a href="#ad87a34b3518f4b85391dabbc3dfc08d1">More...</a><br /></td></tr>
+<tr class="separator:ad87a34b3518f4b85391dabbc3dfc08d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9127a59065df962fdda3dec87eb0ee45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">OriginData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a9127a59065df962fdda3dec87eb0ee45">getOrigData</a> () const</td></tr>
+<tr class="memdesc:a9127a59065df962fdda3dec87eb0ee45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for reference origin data.  <a href="#a9127a59065df962fdda3dec87eb0ee45">More...</a><br /></td></tr>
+<tr class="separator:a9127a59065df962fdda3dec87eb0ee45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e9b52f18af00058e281ee022bc10ca6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a8e9b52f18af00058e281ee022bc10ca6">getOrigDataStr</a> () const</td></tr>
+<tr class="memdesc:a8e9b52f18af00058e281ee022bc10ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for reference origin data as a string.  <a href="#a8e9b52f18af00058e281ee022bc10ca6">More...</a><br /></td></tr>
+<tr class="separator:a8e9b52f18af00058e281ee022bc10ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1f9807ffd8b8febe14673ab4cf2aa5b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#aa1f9807ffd8b8febe14673ab4cf2aa5b">getOrigName</a> () const</td></tr>
+<tr class="memdesc:aa1f9807ffd8b8febe14673ab4cf2aa5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for reference origin name.  <a href="#aa1f9807ffd8b8febe14673ab4cf2aa5b">More...</a><br /></td></tr>
+<tr class="separator:aa1f9807ffd8b8febe14673ab4cf2aa5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae02404d9041026842f4d99cc538328d8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#ae02404d9041026842f4d99cc538328d8">getComponentId</a> () const</td></tr>
+<tr class="memdesc:ae02404d9041026842f4d99cc538328d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component id where the reference should be found.  <a href="#ae02404d9041026842f4d99cc538328d8">More...</a><br /></td></tr>
+<tr class="separator:ae02404d9041026842f4d99cc538328d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9d30a9d901cda2078bda4047105778f3"><td class="memItemLeft" align="right" valign="top"><a id="a9d30a9d901cda2078bda4047105778f3"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a9d30a9d901cda2078bda4047105778f3">type_</a></td></tr>
+<tr class="memdesc:a9d30a9d901cda2078bda4047105778f3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s type. <br /></td></tr>
+<tr class="separator:a9d30a9d901cda2078bda4047105778f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d869ed52d147f44868ad68c1e07e8eb"><td class="memItemLeft" align="right" valign="top"><a id="a1d869ed52d147f44868ad68c1e07e8eb"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#a1d869ed52d147f44868ad68c1e07e8eb">name_</a></td></tr>
+<tr class="memdesc:a1d869ed52d147f44868ad68c1e07e8eb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s name. <br /></td></tr>
+<tr class="separator:a1d869ed52d147f44868ad68c1e07e8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff6dcf955c1d82a1844299d53b140f25"><td class="memItemLeft" align="right" valign="top"><a id="aff6dcf955c1d82a1844299d53b140f25"></a>
+<a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">OriginData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#aff6dcf955c1d82a1844299d53b140f25">origData_</a></td></tr>
+<tr class="memdesc:aff6dcf955c1d82a1844299d53b140f25"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin data. <br /></td></tr>
+<tr class="separator:aff6dcf955c1d82a1844299d53b140f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea4e416348b63f742232f55c4de6725"><td class="memItemLeft" align="right" valign="top"><a id="acea4e416348b63f742232f55c4de6725"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#acea4e416348b63f742232f55c4de6725">origName_</a></td></tr>
+<tr class="memdesc:acea4e416348b63f742232f55c4de6725"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin name. <br /></td></tr>
+<tr class="separator:acea4e416348b63f742232f55c4de6725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea1ce34b8029ab735e59c15280a7a515"><td class="memItemLeft" align="right" valign="top"><a id="aea1ce34b8029ab735e59c15280a7a515"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html#aea1ce34b8029ab735e59c15280a7a515">componentId_</a></td></tr>
+<tr class="memdesc:aea1ce34b8029ab735e59c15280a7a515"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s component id. <br /></td></tr>
+<tr class="separator:aea1ce34b8029ab735e59c15280a7a515"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a> interface class. </p>
+<p>Interface class for reference objects. These are containers for references </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a04c7e516a69ff452dc4676e7b62fe44f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04c7e516a69ff452dc4676e7b62fe44f">&#9670;&nbsp;</a></span>OriginData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">parameters::Reference::OriginData</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Available reference origin data sets. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a04c7e516a69ff452dc4676e7b62fe44fae2d61fe5e021f68c98020665bc1b01d0"></a>IIDM&#160;</td><td class="fielddoc"><p>the parameter is written in the IIDM file </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a04c7e516a69ff452dc4676e7b62fe44fae70c8d18d9a315bc7b904b303ed0765e"></a>SIZE_OF_ENUM&#160;</td><td class="fielddoc"><p>value to use ONLY to assess the enumeration size </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acdd9c1f2ada6ad0627ec273e636f873b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd9c1f2ada6ad0627ec273e636f873b">&#9670;&nbsp;</a></span>Reference()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">parameters::Reference::Reference </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor of reference. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>reference name </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae02404d9041026842f4d99cc538328d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae02404d9041026842f4d99cc538328d8">&#9670;&nbsp;</a></span>getComponentId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string parameters::Reference::getComponentId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for the component id where the reference should be found. </p>
+<dl class="section return"><dt>Returns</dt><dd>Component's id </dd></dl>
+
+</div>
+</div>
+<a id="ad87a34b3518f4b85391dabbc3dfc08d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87a34b3518f4b85391dabbc3dfc08d1">&#9670;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string parameters::Reference::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for reference name. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s name </dd></dl>
+
+</div>
+</div>
+<a id="a9127a59065df962fdda3dec87eb0ee45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9127a59065df962fdda3dec87eb0ee45">&#9670;&nbsp;</a></span>getOrigData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">OriginData</a> parameters::Reference::getOrigData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for reference origin data. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin data </dd></dl>
+
+</div>
+</div>
+<a id="a8e9b52f18af00058e281ee022bc10ca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e9b52f18af00058e281ee022bc10ca6">&#9670;&nbsp;</a></span>getOrigDataStr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string parameters::Reference::getOrigDataStr </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for reference origin data as a string. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin data </dd></dl>
+
+</div>
+</div>
+<a id="aa1f9807ffd8b8febe14673ab4cf2aa5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1f9807ffd8b8febe14673ab4cf2aa5b">&#9670;&nbsp;</a></span>getOrigName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string parameters::Reference::getOrigName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for reference origin name. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin name </dd></dl>
+
+</div>
+</div>
+<a id="a555334710cbcf56da561c344fe60ca5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a555334710cbcf56da561c344fe60ca5a">&#9670;&nbsp;</a></span>getType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string parameters::Reference::getType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for reference type. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s type </dd></dl>
+
+</div>
+</div>
+<a id="a598ad9036eecbdcdef9a0339285fbd6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a598ad9036eecbdcdef9a0339285fbd6e">&#9670;&nbsp;</a></span>setComponentId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parameters::Reference::setComponentId </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for the component id where the reference should be found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Component's id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3a18e94c6c214fb5f87846267c8ba32a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a18e94c6c214fb5f87846267c8ba32a">&#9670;&nbsp;</a></span>setOrigData() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parameters::Reference::setOrigData </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>origData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for reference origin data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">origData</td><td><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">API</td><td>exception if the origin data is unkown </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0eb8c4f57e07095d62378719f70ce3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eb8c4f57e07095d62378719f70ce3fb">&#9670;&nbsp;</a></span>setOrigData() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parameters::Reference::setOrigData </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/d89/a02462.html#a04c7e516a69ff452dc4676e7b62fe44f">OriginData</a> &amp;&#160;</td>
+          <td class="paramname"><em>origData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for reference origin data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">origData</td><td><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f5d1a0a8662afb695a3ebc0970aa213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f5d1a0a8662afb695a3ebc0970aa213">&#9670;&nbsp;</a></span>setOrigName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parameters::Reference::setOrigName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>origName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for reference origin name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">origName</td><td><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s origin name </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3bef52c1031b788f2b3784e8296cc5e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bef52c1031b788f2b3784e8296cc5e1">&#9670;&nbsp;</a></span>setType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parameters::Reference::setType </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for reference type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td><a class="el" href="../../df/d89/a02462.html" title="Reference interface class. ">Reference</a>'s type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../df/d15/a00416_source.html">PARReference.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -122,7 +516,8 @@ $(document).ready(function(){initNavTree('d4/d73/a02465.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:18 for Dynawo by
+    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../df/d89/a02462.html">Reference</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:31 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

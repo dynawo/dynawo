@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverSIM.h File Reference</title>
+<title>Dynawo: DYNSolverImpl.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,33 +97,36 @@ $(document).ready(function(){initNavTree('d1/dd8/a01022.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverSIM.h File Reference</div>  </div>
+<div class="title">DYNSolverImpl.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Solver based on backward Euler integration method using KINSOL to solve each step.  
+<p>Dynawo solvers : header file.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
 <code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d2b/a01010_source.html">DYNSolverFactory.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d59/a01013_source.html">DYNSolverImpl.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d65/a00458_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/daf/a01019_source.html">DYNSolverCommonFixedTimeStep.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d59/a01013_source.html">DYNSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d5e/a00467_source.html">DYNEnumUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d8d/a01007_source.html">DYNParameterSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d23/a01025_source.html">DYNSolverImpl.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../d1/dd8/a01022_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html">DYN::SolverSIMFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d55/a03345.html" title="class Solver SIM : simplified solver ">SolverSIM</a> factory class.  <a href="../../d3/d55/a03341.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d18/a03350.html">DYN::stat_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for storing solver statistics.  <a href="../../d6/d18/a03350.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d55/a03345.html">DYN::SolverSIM</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class <a class="el" href="../../d8/d1e/a03309.html" title="Solver interface class. ">Solver</a> SIM : simplified solver  <a href="../../d6/d55/a03345.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d67/a03354.html">DYN::Solver::Impl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d93/a03330.html" title="Solver interface class. ">Solver</a> implemented class.  <a href="../../d3/d67/a03354.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Solver based on backward Euler integration method using KINSOL to solve each step. </p>
+<div class="textblock"><p>Dynawo solvers : header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -140,8 +143,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_1024be19efd68fd87579d4f87baf6c4c.html">FixedTimeStep</a></li><li class="navelem"><a class="el" href="../../dir_926c04994da8059811a921b07bc12145.html">SolverSIM</a></li><li class="navelem"><a class="el" href="../../d1/dd8/a01022.html">DYNSolverSIM.h</a></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../d1/dd8/a01022.html">DYNSolverImpl.h</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:28 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

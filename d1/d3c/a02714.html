@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::Model Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d0/df8/a02717.html','../../');});
+$(document).ready(function(){initNavTree('d1/d3c/a02714.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,27 +94,2060 @@ $(document).ready(function(){initNavTree('d0/df8/a02717.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../d8/dd0/a02711.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::RingBuffer Member List</div>  </div>
+<div class="title">DYN::Model Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a07a4add1e5799c6d73e6bc408341dfa1">add</a>(double time, double value)</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a45b55406c41acc3342e6e180ae5876b1">addNoCheck</a>(double time, double value)</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a96dee574ce1d6d2de1a7a5ebae4bb8de">comparePairTime</a>(const std::pair&lt; double, double &gt; &amp;pair, const double &amp;time_value) const</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a26007cf32fd0b9a5a456e59a040dcf0a">get</a>(double time, double delay) const</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#afd1155173455e5cd1b7cc7535866c524">interpol</a>(const std::pair&lt; double, double &gt; &amp;p1, const std::pair&lt; double, double &gt; &amp;p2, double time)</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a96df715cc4d327a537c92ca61d8c917d">maxDelay</a>(double delayMax)</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a609a67545ddf6ec2740b06634961511c">maxDelay</a>() const</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a5532385a381f135c208a5047969798fa">maxDelay_</a></td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a69ad1b5bc88d242d00a6697973c5880d">points</a>(std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;vec) const</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a110e553c846e4ca76e3d33084987ff93">queue_</a></td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#a9a79374ea00ec0cb0e4d4899b14dd4a1">removeUseless</a>()</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/df8/a02717.html#af87a5ad958ec87bf59eafb5760d8f862">RingBuffer</a>(double maxDelay)</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/df8/a02717.html#ae433c039455069df5c059b02050f7e59">size</a>() const</td><td class="entry"><a class="el" href="../../d0/df8/a02717.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Generic model Generic class for <a class="el" href="../../d1/d3c/a02714.html" title="Generic model Generic class for Model. ">Model</a>.  
+ <a href="../../d1/d3c/a02714.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d9/d42/a00575_source.html">DYNModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::Model:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d1/d3c/a02714.png" usemap="#DYN::Model_map" alt=""/>
+  <map id="DYN::Model_map" name="DYN::Model_map">
+<area href="../../d6/d95/a02726.html" title="Model carrying multiple models Class for Multiple-Model. " alt="DYN::ModelMulti" shape="rect" coords="0,56,107,80"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5eedf7977caa58090130a208053b749f"><td class="memItemLeft" align="right" valign="top"><a id="a5eedf7977caa58090130a208053b749f"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a5eedf7977caa58090130a208053b749f">~Model</a> ()</td></tr>
+<tr class="memdesc:a5eedf7977caa58090130a208053b749f"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
+<tr class="separator:a5eedf7977caa58090130a208053b749f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e6b8764d16ca9ab3933bb50c76b7bae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a7e6b8764d16ca9ab3933bb50c76b7bae">evalF</a> (const double t, const double *y, const double *yp, double *f)=0</td></tr>
+<tr class="memdesc:a7e6b8764d16ca9ab3933bb50c76b7bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the residual functions of the model  <a href="#a7e6b8764d16ca9ab3933bb50c76b7bae">More...</a><br /></td></tr>
+<tr class="separator:a7e6b8764d16ca9ab3933bb50c76b7bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95092a549b05baf9818c1ff8510ba535"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a95092a549b05baf9818c1ff8510ba535">evalFDiff</a> (const double t, const double *y, const double *yp, double *f)=0</td></tr>
+<tr class="memdesc:a95092a549b05baf9818c1ff8510ba535"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the differential residual functions of the model  <a href="#a95092a549b05baf9818c1ff8510ba535">More...</a><br /></td></tr>
+<tr class="separator:a95092a549b05baf9818c1ff8510ba535"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0142563a3f49ba613536748aa841d696"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a0142563a3f49ba613536748aa841d696">evalFMode</a> (const double t, const double *y, const double *yp, double *f)=0</td></tr>
+<tr class="memdesc:a0142563a3f49ba613536748aa841d696"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the differential residual functions of the models for which there was a mode change  <a href="#a0142563a3f49ba613536748aa841d696">More...</a><br /></td></tr>
+<tr class="separator:a0142563a3f49ba613536748aa841d696"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac89a3f03de74dccd4e38d9f1adaa083"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aac89a3f03de74dccd4e38d9f1adaa083">copyContinuousVariables</a> (const double *y, const double *yp)=0</td></tr>
+<tr class="memdesc:aac89a3f03de74dccd4e38d9f1adaa083"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current value of the continuous variables  <a href="#aac89a3f03de74dccd4e38d9f1adaa083">More...</a><br /></td></tr>
+<tr class="separator:aac89a3f03de74dccd4e38d9f1adaa083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab78e5565bd6c90b251c21764a0b6a9dc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ab78e5565bd6c90b251c21764a0b6a9dc">copyDiscreteVariables</a> (const double *z)=0</td></tr>
+<tr class="memdesc:ab78e5565bd6c90b251c21764a0b6a9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current value of the discrete variables  <a href="#ab78e5565bd6c90b251c21764a0b6a9dc">More...</a><br /></td></tr>
+<tr class="separator:ab78e5565bd6c90b251c21764a0b6a9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e8d20a9578a5966e83d2b8c7c2f285"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a12e8d20a9578a5966e83d2b8c7c2f285">evalG</a> (double t, std::vector&lt; <a class="el" href="../../d7/d5e/a00467.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> &gt; &amp;g)=0</td></tr>
+<tr class="memdesc:a12e8d20a9578a5966e83d2b8c7c2f285"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the root functions of the model based on the variable values contained in the model  <a href="#a12e8d20a9578a5966e83d2b8c7c2f285">More...</a><br /></td></tr>
+<tr class="separator:a12e8d20a9578a5966e83d2b8c7c2f285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefcb09ee773979cd359f98cbc7dec39a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aefcb09ee773979cd359f98cbc7dec39a">evalZ</a> (double t)=0</td></tr>
+<tr class="memdesc:aefcb09ee773979cd359f98cbc7dec39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the discrete variables of the model based on the variable values contained in the model  <a href="#aefcb09ee773979cd359f98cbc7dec39a">More...</a><br /></td></tr>
+<tr class="separator:aefcb09ee773979cd359f98cbc7dec39a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a696d9b022039b1ff3176a14e15df5954"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a696d9b022039b1ff3176a14e15df5954">evalMode</a> (double t)=0</td></tr>
+<tr class="memdesc:a696d9b022039b1ff3176a14e15df5954"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the mode of the model based on the variable values contained in the model  <a href="#a696d9b022039b1ff3176a14e15df5954">More...</a><br /></td></tr>
+<tr class="separator:a696d9b022039b1ff3176a14e15df5954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad97ad5c20f63e41c83e7ae09591cb8d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ad97ad5c20f63e41c83e7ae09591cb8d6">evalJt</a> (const double t, const double cj, <a class="el" href="../../db/d99/a02626.html">SparseMatrix</a> &amp;Jt)=0</td></tr>
+<tr class="memdesc:ad97ad5c20f63e41c83e7ae09591cb8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the transpose jacobian of the sub model <img class="formulaInl" alt="$ J = @F/@x + cj * @F/@x' $" src="../../form_1.png"/> based on the variable values contained in the model  <a href="#ad97ad5c20f63e41c83e7ae09591cb8d6">More...</a><br /></td></tr>
+<tr class="separator:ad97ad5c20f63e41c83e7ae09591cb8d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e618cbb38dfc5e0a18efdf273211ff5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a1e618cbb38dfc5e0a18efdf273211ff5">evalJtPrim</a> (const double t, const double cj, <a class="el" href="../../db/d99/a02626.html">SparseMatrix</a> &amp;JtPrim)=0</td></tr>
+<tr class="memdesc:a1e618cbb38dfc5e0a18efdf273211ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the transpose prim jacobian of the sub model <img class="formulaInl" alt="$ J'= @F/@x' $" src="../../form_2.png"/> based on the variable values contained in the model  <a href="#a1e618cbb38dfc5e0a18efdf273211ff5">More...</a><br /></td></tr>
+<tr class="separator:a1e618cbb38dfc5e0a18efdf273211ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af180a775b608296d6e4ee611b452cbc5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#af180a775b608296d6e4ee611b452cbc5">checkDataCoherence</a> (const double t)=0</td></tr>
+<tr class="memdesc:af180a775b608296d6e4ee611b452cbc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ensure data coherence (asserts, min/max, sanity checks ....)  <a href="#af180a775b608296d6e4ee611b452cbc5">More...</a><br /></td></tr>
+<tr class="separator:af180a775b608296d6e4ee611b452cbc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04cb20fac8b331862d56bd3cd80427f6"><td class="memItemLeft" align="right" valign="top"><a id="a04cb20fac8b331862d56bd3cd80427f6"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a04cb20fac8b331862d56bd3cd80427f6">checkParametersCoherence</a> () const =0</td></tr>
+<tr class="memdesc:a04cb20fac8b331862d56bd3cd80427f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coherence check on parameters (min/max values, sanity checks) <br /></td></tr>
+<tr class="separator:a04cb20fac8b331862d56bd3cd80427f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a470112efd59bc13554a67f144911ee50"><td class="memItemLeft" align="right" valign="top"><a id="a470112efd59bc13554a67f144911ee50"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a470112efd59bc13554a67f144911ee50">setFequationsModel</a> ()=0</td></tr>
+<tr class="memdesc:a470112efd59bc13554a67f144911ee50"><td class="mdescLeft">&#160;</td><td class="mdescRight">set equation's formula in <a class="el" href="../../d1/d3c/a02714.html" title="Generic model Generic class for Model. ">Model</a> <br /></td></tr>
+<tr class="separator:a470112efd59bc13554a67f144911ee50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06c50638c3534aae26a0c69e6ad31c4a"><td class="memItemLeft" align="right" valign="top"><a id="a06c50638c3534aae26a0c69e6ad31c4a"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a06c50638c3534aae26a0c69e6ad31c4a">setGequationsModel</a> ()=0</td></tr>
+<tr class="memdesc:a06c50638c3534aae26a0c69e6ad31c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">set root equation's formula in <a class="el" href="../../d1/d3c/a02714.html" title="Generic model Generic class for Model. ">Model</a> <br /></td></tr>
+<tr class="separator:a06c50638c3534aae26a0c69e6ad31c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0343367ebc85d191d70cbaa208097ccd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a0343367ebc85d191d70cbaa208097ccd">getY0</a> (const double t0, std::vector&lt; double &gt; &amp;y0, std::vector&lt; double &gt; &amp;yp0)=0</td></tr>
+<tr class="memdesc:a0343367ebc85d191d70cbaa208097ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the initial values of the model  <a href="#a0343367ebc85d191d70cbaa208097ccd">More...</a><br /></td></tr>
+<tr class="separator:a0343367ebc85d191d70cbaa208097ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9618b4f171d32c668516fe30f9393238"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a9618b4f171d32c668516fe30f9393238">modeChange</a> () const =0</td></tr>
+<tr class="memdesc:a9618b4f171d32c668516fe30f9393238"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve mode change information  <a href="#a9618b4f171d32c668516fe30f9393238">More...</a><br /></td></tr>
+<tr class="separator:a9618b4f171d32c668516fe30f9393238"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d1d8ca9527b3609c04bd67261b891b4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d7/d5e/a00467.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a6d1d8ca9527b3609c04bd67261b891b4">getModeChangeType</a> () const =0</td></tr>
+<tr class="memdesc:a6d1d8ca9527b3609c04bd67261b891b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the overall system mode change type  <a href="#a6d1d8ca9527b3609c04bd67261b891b4">More...</a><br /></td></tr>
+<tr class="separator:a6d1d8ca9527b3609c04bd67261b891b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd37617988143c664acd0fb9911a57ad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#acd37617988143c664acd0fb9911a57ad">setModeChangeType</a> (const <a class="el" href="../../d7/d5e/a00467.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> &amp;modeChangeType)=0</td></tr>
+<tr class="memdesc:acd37617988143c664acd0fb9911a57ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the overall system mode change type  <a href="#acd37617988143c664acd0fb9911a57ad">More...</a><br /></td></tr>
+<tr class="separator:acd37617988143c664acd0fb9911a57ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2147ec631a84da2dc59f80149d82c219"><td class="memItemLeft" align="right" valign="top"><a id="a2147ec631a84da2dc59f80149d82c219"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a2147ec631a84da2dc59f80149d82c219">reinitMode</a> ()=0</td></tr>
+<tr class="memdesc:a2147ec631a84da2dc59f80149d82c219"><td class="mdescLeft">&#160;</td><td class="mdescRight">reinitialize the mode change and mode change type values to default values (for <a class="el" href="../../d6/d95/a02726.html" title="Model carrying multiple models Class for Multiple-Model. ">ModelMulti</a> and each <a class="el" href="../../d4/da5/a02746.html" title="SubModel Class. ">SubModel</a>) <br /></td></tr>
+<tr class="separator:a2147ec631a84da2dc59f80149d82c219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fc1e5c259a5fda12fbf0b1a0738ebbf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d7/d5e/a00467.html#a1a4f84e6efed086709bbef8cd4ff945a">zChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a0fc1e5c259a5fda12fbf0b1a0738ebbf">getSilentZChangeType</a> () const =0</td></tr>
+<tr class="memdesc:a0fc1e5c259a5fda12fbf0b1a0738ebbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the type of z that were modified  <a href="#a0fc1e5c259a5fda12fbf0b1a0738ebbf">More...</a><br /></td></tr>
+<tr class="separator:a0fc1e5c259a5fda12fbf0b1a0738ebbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17eada5dafd122d98067d4e55f199726"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a17eada5dafd122d98067d4e55f199726">initSilentZ</a> (bool enableSilentZ)=0</td></tr>
+<tr class="memdesc:a17eada5dafd122d98067d4e55f199726"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the type of discrete variables (notSilent, used only in discrete equations, used only in continuous equations)  <a href="#a17eada5dafd122d98067d4e55f199726">More...</a><br /></td></tr>
+<tr class="separator:a17eada5dafd122d98067d4e55f199726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a92b30d439cf642fc19b006537ae320"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; <a class="el" href="../../d7/d5e/a00467.html#a8b1ac858a7be39680e8c19dc9e860dd2">propertyF_t</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a6a92b30d439cf642fc19b006537ae320">getFType</a> () const =0</td></tr>
+<tr class="memdesc:a6a92b30d439cf642fc19b006537ae320"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the properties of each residual function (algebraic or differential equation)  <a href="#a6a92b30d439cf642fc19b006537ae320">More...</a><br /></td></tr>
+<tr class="separator:a6a92b30d439cf642fc19b006537ae320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a507a3d8fc58f954da1882e8c9c0ae736"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; <a class="el" href="../../d7/d5e/a00467.html#a732348349c2b2231cfb2b9d0417349a6">propertyContinuousVar_t</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a507a3d8fc58f954da1882e8c9c0ae736">getYType</a> () const =0</td></tr>
+<tr class="memdesc:a507a3d8fc58f954da1882e8c9c0ae736"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the properties of the variables (algebraic, external or differential variable)  <a href="#a507a3d8fc58f954da1882e8c9c0ae736">More...</a><br /></td></tr>
+<tr class="separator:a507a3d8fc58f954da1882e8c9c0ae736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad79d8a7c239ef9869203625256a532cd"><td class="memItemLeft" align="right" valign="top"><a id="ad79d8a7c239ef9869203625256a532cd"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ad79d8a7c239ef9869203625256a532cd">evalStaticYType</a> ()=0</td></tr>
+<tr class="memdesc:ad79d8a7c239ef9869203625256a532cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the properties of the variables that won't change during simulation (algebraic, differential, external or external optional variables) <br /></td></tr>
+<tr class="separator:ad79d8a7c239ef9869203625256a532cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5961a7c0e043a4dfeff9edb6c3731baf"><td class="memItemLeft" align="right" valign="top"><a id="a5961a7c0e043a4dfeff9edb6c3731baf"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a5961a7c0e043a4dfeff9edb6c3731baf">evalDynamicYType</a> ()=0</td></tr>
+<tr class="memdesc:a5961a7c0e043a4dfeff9edb6c3731baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">update during the simulation the properties of the variables that depends on others variables values <br /></td></tr>
+<tr class="separator:a5961a7c0e043a4dfeff9edb6c3731baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08d6ff9e4c4d0b780f3bb0ca2722ad89"><td class="memItemLeft" align="right" valign="top"><a id="a08d6ff9e4c4d0b780f3bb0ca2722ad89"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a08d6ff9e4c4d0b780f3bb0ca2722ad89">evalStaticFType</a> ()=0</td></tr>
+<tr class="memdesc:a08d6ff9e4c4d0b780f3bb0ca2722ad89"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the properties of the residual function that won't change during simulation (algebraic or differential equation) <br /></td></tr>
+<tr class="separator:a08d6ff9e4c4d0b780f3bb0ca2722ad89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef58e0c3eef10cdcc456447c3b89f23"><td class="memItemLeft" align="right" valign="top"><a id="a4ef58e0c3eef10cdcc456447c3b89f23"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a4ef58e0c3eef10cdcc456447c3b89f23">evalDynamicFType</a> ()=0</td></tr>
+<tr class="memdesc:a4ef58e0c3eef10cdcc456447c3b89f23"><td class="mdescLeft">&#160;</td><td class="mdescRight">update during the simulation the properties of the residual functions that depends on others variables values <br /></td></tr>
+<tr class="separator:a4ef58e0c3eef10cdcc456447c3b89f23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c44883bcc4f965b5d7c46d5daafa62"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#af9c44883bcc4f965b5d7c46d5daafa62">setIsInitProcess</a> (bool isInitProcess)=0</td></tr>
+<tr class="memdesc:af9c44883bcc4f965b5d7c46d5daafa62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the initialisation status of the simulation.  <a href="#af9c44883bcc4f965b5d7c46d5daafa62">More...</a><br /></td></tr>
+<tr class="separator:af9c44883bcc4f965b5d7c46d5daafa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2318a1f1dc42735ef7454867864c525"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ac2318a1f1dc42735ef7454867864c525">setInitialTime</a> (const double t0)=0</td></tr>
+<tr class="memdesc:ac2318a1f1dc42735ef7454867864c525"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the initial time to use for models  <a href="#ac2318a1f1dc42735ef7454867864c525">More...</a><br /></td></tr>
+<tr class="separator:ac2318a1f1dc42735ef7454867864c525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0962186cd3da4f7527725a04137da90f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a0962186cd3da4f7527725a04137da90f">sizeG</a> () const =0</td></tr>
+<tr class="memdesc:a0962186cd3da4f7527725a04137da90f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of root functions  <a href="#a0962186cd3da4f7527725a04137da90f">More...</a><br /></td></tr>
+<tr class="separator:a0962186cd3da4f7527725a04137da90f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689edb3187a01491bf3868fb85096cf2"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a689edb3187a01491bf3868fb85096cf2">sizeF</a> () const =0</td></tr>
+<tr class="memdesc:a689edb3187a01491bf3868fb85096cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of residual functions of the model  <a href="#a689edb3187a01491bf3868fb85096cf2">More...</a><br /></td></tr>
+<tr class="separator:a689edb3187a01491bf3868fb85096cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540f8eb9641ee41da1ee58dc2030cf84"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a540f8eb9641ee41da1ee58dc2030cf84">sizeMode</a> () const =0</td></tr>
+<tr class="memdesc:a540f8eb9641ee41da1ee58dc2030cf84"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of mode  <a href="#a540f8eb9641ee41da1ee58dc2030cf84">More...</a><br /></td></tr>
+<tr class="separator:a540f8eb9641ee41da1ee58dc2030cf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f20f5440d93fbeec1467e64901ed061"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a3f20f5440d93fbeec1467e64901ed061">sizeZ</a> () const =0</td></tr>
+<tr class="memdesc:a3f20f5440d93fbeec1467e64901ed061"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of discretes variables  <a href="#a3f20f5440d93fbeec1467e64901ed061">More...</a><br /></td></tr>
+<tr class="separator:a3f20f5440d93fbeec1467e64901ed061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea2c45f22061b2ce5c608f159ebdf810"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aea2c45f22061b2ce5c608f159ebdf810">sizeY</a> () const =0</td></tr>
+<tr class="memdesc:aea2c45f22061b2ce5c608f159ebdf810"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of continuous variable  <a href="#aea2c45f22061b2ce5c608f159ebdf810">More...</a><br /></td></tr>
+<tr class="separator:aea2c45f22061b2ce5c608f159ebdf810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4054c01e4579f63ebfa9339aafe83a4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ae4054c01e4579f63ebfa9339aafe83a4">getFInfos</a> (const int globalFIndex, std::string &amp;subModelName, int &amp;localFIndex, std::string &amp;fEquation) const =0</td></tr>
+<tr class="memdesc:ae4054c01e4579f63ebfa9339aafe83a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">get informations about residual functions  <a href="#ae4054c01e4579f63ebfa9339aafe83a4">More...</a><br /></td></tr>
+<tr class="separator:ae4054c01e4579f63ebfa9339aafe83a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2893797f8ca53d0b64b7dc2bf356c4db"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a2893797f8ca53d0b64b7dc2bf356c4db">getGInfos</a> (const int globalGIndex, std::string &amp;subModelName, int &amp;localGIndex, std::string &amp;gEquation) const =0</td></tr>
+<tr class="memdesc:a2893797f8ca53d0b64b7dc2bf356c4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">get informations about root functions  <a href="#a2893797f8ca53d0b64b7dc2bf356c4db">More...</a><br /></td></tr>
+<tr class="separator:a2893797f8ca53d0b64b7dc2bf356c4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747f0a73f729d63880de5e2f5cb004a9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a747f0a73f729d63880de5e2f5cb004a9">init</a> (const double t0)=0</td></tr>
+<tr class="memdesc:a747f0a73f729d63880de5e2f5cb004a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the model  <a href="#a747f0a73f729d63880de5e2f5cb004a9">More...</a><br /></td></tr>
+<tr class="separator:a747f0a73f729d63880de5e2f5cb004a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa47f8be146be575733337a6e1c18377e"><td class="memItemLeft" align="right" valign="top"><a id="aa47f8be146be575733337a6e1c18377e"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aa47f8be146be575733337a6e1c18377e">initBuffers</a> ()=0</td></tr>
+<tr class="memdesc:aa47f8be146be575733337a6e1c18377e"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial all the buffers of the model <br /></td></tr>
+<tr class="separator:aa47f8be146be575733337a6e1c18377e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04af1ba8d56dd8d8c1b569c19d940788"><td class="memItemLeft" align="right" valign="top"><a id="a04af1ba8d56dd8d8c1b569c19d940788"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a04af1ba8d56dd8d8c1b569c19d940788">printModel</a> () const =0</td></tr>
+<tr class="memdesc:a04af1ba8d56dd8d8c1b569c19d940788"><td class="mdescLeft">&#160;</td><td class="mdescRight">print informations about the model <br /></td></tr>
+<tr class="separator:a04af1ba8d56dd8d8c1b569c19d940788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a39b406e7b6e7c6525a4d077309a10"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ae3a39b406e7b6e7c6525a4d077309a10">printInitValues</a> (const std::string &amp;directory)=0</td></tr>
+<tr class="memdesc:ae3a39b406e7b6e7c6525a4d077309a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">print initial values of the model  <a href="#ae3a39b406e7b6e7c6525a4d077309a10">More...</a><br /></td></tr>
+<tr class="separator:ae3a39b406e7b6e7c6525a4d077309a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa37cebc85840e8a089bfd44d319bfa1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aaa37cebc85840e8a089bfd44d319bfa1">evalCalculatedVariables</a> (const double t, const std::vector&lt; double &gt; &amp;y, const std::vector&lt; double &gt; &amp;yp, const std::vector&lt; double &gt; &amp;z)=0</td></tr>
+<tr class="memdesc:aaa37cebc85840e8a089bfd44d319bfa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the calculated variables of the model  <a href="#aaa37cebc85840e8a089bfd44d319bfa1">More...</a><br /></td></tr>
+<tr class="separator:aaa37cebc85840e8a089bfd44d319bfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8349c70513d17b196ee93af12719321e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a8349c70513d17b196ee93af12719321e">updateCalculatedVarForCurves</a> (boost::shared_ptr&lt; <a class="el" href="../../d4/d8e/a01694.html">curves::CurvesCollection</a> &gt; &amp;curvesCollection) const =0</td></tr>
+<tr class="memdesc:a8349c70513d17b196ee93af12719321e"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the subset of calculated variables needed for curves  <a href="#a8349c70513d17b196ee93af12719321e">More...</a><br /></td></tr>
+<tr class="separator:a8349c70513d17b196ee93af12719321e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa19fac46b8c72f38680fc3d437abab8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aaa19fac46b8c72f38680fc3d437abab8">dumpParameters</a> (std::map&lt; std::string, std::string &gt; &amp;mapParameters)=0</td></tr>
+<tr class="memdesc:aaa19fac46b8c72f38680fc3d437abab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the parameters of the model for dump  <a href="#aaa19fac46b8c72f38680fc3d437abab8">More...</a><br /></td></tr>
+<tr class="separator:aaa19fac46b8c72f38680fc3d437abab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e242169d83b8160d8da7efa8d482ee5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a9e242169d83b8160d8da7efa8d482ee5">getModelParameterValue</a> (const std::string &amp;curveModelName, const std::string &amp;curveVariable, double &amp;value, bool &amp;found)=0</td></tr>
+<tr class="memdesc:a9e242169d83b8160d8da7efa8d482ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the value of a parameter  <a href="#a9e242169d83b8160d8da7efa8d482ee5">More...</a><br /></td></tr>
+<tr class="separator:a9e242169d83b8160d8da7efa8d482ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaba860f65318fc13f731f7d73a469fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#afaba860f65318fc13f731f7d73a469fe">loadParameters</a> (const std::map&lt; std::string, std::string &gt; &amp;mapParameters)=0</td></tr>
+<tr class="memdesc:afaba860f65318fc13f731f7d73a469fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the parameters values from a previous dump  <a href="#afaba860f65318fc13f731f7d73a469fe">More...</a><br /></td></tr>
+<tr class="separator:afaba860f65318fc13f731f7d73a469fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf0fff9ed60282e0be27be3ffaf459c2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#acf0fff9ed60282e0be27be3ffaf459c2">dumpVariables</a> (std::map&lt; std::string, std::string &gt; &amp;mapVariables)=0</td></tr>
+<tr class="memdesc:acf0fff9ed60282e0be27be3ffaf459c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables of the model for dump  <a href="#acf0fff9ed60282e0be27be3ffaf459c2">More...</a><br /></td></tr>
+<tr class="separator:acf0fff9ed60282e0be27be3ffaf459c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfa7d1fe2d25a4f54dc276f7e46522cf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#adfa7d1fe2d25a4f54dc276f7e46522cf">loadVariables</a> (const std::map&lt; std::string, std::string &gt; &amp;mapVariables)=0</td></tr>
+<tr class="memdesc:adfa7d1fe2d25a4f54dc276f7e46522cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the variables values from a previous dump  <a href="#adfa7d1fe2d25a4f54dc276f7e46522cf">More...</a><br /></td></tr>
+<tr class="separator:adfa7d1fe2d25a4f54dc276f7e46522cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382d2a3295296e5c7efde1308a86b011"><td class="memItemLeft" align="right" valign="top"><a id="a382d2a3295296e5c7efde1308a86b011"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a382d2a3295296e5c7efde1308a86b011">rotateBuffers</a> ()=0</td></tr>
+<tr class="memdesc:a382d2a3295296e5c7efde1308a86b011"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy current values in "pre" buffers (need for modelica sub models) <br /></td></tr>
+<tr class="separator:a382d2a3295296e5c7efde1308a86b011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a692e6a776209e81e43ea894db4ff4a29"><td class="memItemLeft" align="right" valign="top"><a id="a692e6a776209e81e43ea894db4ff4a29"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a692e6a776209e81e43ea894db4ff4a29">printMessages</a> ()=0</td></tr>
+<tr class="memdesc:a692e6a776209e81e43ea894db4ff4a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all messages which appear during the simulation (debug stream) <br /></td></tr>
+<tr class="separator:a692e6a776209e81e43ea894db4ff4a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d77c2de8bea8ed5695c0f696aff0381"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a3d77c2de8bea8ed5695c0f696aff0381">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline)=0</td></tr>
+<tr class="memdesc:a3d77c2de8bea8ed5695c0f696aff0381"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the timeline to use during the simulation (where events should be added)  <a href="#a3d77c2de8bea8ed5695c0f696aff0381">More...</a><br /></td></tr>
+<tr class="separator:a3d77c2de8bea8ed5695c0f696aff0381"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f664b925ce90e55b5602588bfd25034"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a6f664b925ce90e55b5602588bfd25034">setConstraints</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d37/a01754.html">constraints::ConstraintsCollection</a> &gt; &amp;constraints)=0</td></tr>
+<tr class="memdesc:a6f664b925ce90e55b5602588bfd25034"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the constraints collection to use during the simulation (where constraints should be added)  <a href="#a6f664b925ce90e55b5602588bfd25034">More...</a><br /></td></tr>
+<tr class="separator:a6f664b925ce90e55b5602588bfd25034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7b29f9715f971cb913256217f3b1802"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ab7b29f9715f971cb913256217f3b1802">initCurves</a> (boost::shared_ptr&lt; <a class="el" href="../../dd/d08/a01682.html">curves::Curve</a> &gt; &amp;curve)=0</td></tr>
+<tr class="memdesc:ab7b29f9715f971cb913256217f3b1802"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize curve (reference with the variable, variable exists ...)  <a href="#ab7b29f9715f971cb913256217f3b1802">More...</a><br /></td></tr>
+<tr class="separator:ab7b29f9715f971cb913256217f3b1802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66da779d9d6e70005eb12167ac145dc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a66da779d9d6e70005eb12167ac145dc9">setWorkingDirectory</a> (const std::string &amp;workingDirectory)=0</td></tr>
+<tr class="memdesc:a66da779d9d6e70005eb12167ac145dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the simulation working directory to use  <a href="#a66da779d9d6e70005eb12167ac145dc9">More...</a><br /></td></tr>
+<tr class="separator:a66da779d9d6e70005eb12167ac145dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b2823a741ff3c06e6a5f05d20a810d"><td class="memItemLeft" align="right" valign="top"><a id="ad5b2823a741ff3c06e6a5f05d20a810d"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ad5b2823a741ff3c06e6a5f05d20a810d">printVariableNames</a> ()=0</td></tr>
+<tr class="memdesc:ad5b2823a741ff3c06e6a5f05d20a810d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print all variables names. <br /></td></tr>
+<tr class="separator:ad5b2823a741ff3c06e6a5f05d20a810d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed65177471aac73acdf84036fd7ecf2"><td class="memItemLeft" align="right" valign="top"><a id="aaed65177471aac73acdf84036fd7ecf2"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#aaed65177471aac73acdf84036fd7ecf2">printEquations</a> ()=0</td></tr>
+<tr class="memdesc:aaed65177471aac73acdf84036fd7ecf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print all equations. <br /></td></tr>
+<tr class="separator:aaed65177471aac73acdf84036fd7ecf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672fd543183dbacac16fa477b3a1f631"><td class="memItemLeft" align="right" valign="top"><a id="a672fd543183dbacac16fa477b3a1f631"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a672fd543183dbacac16fa477b3a1f631">printParameterValues</a> () const =0</td></tr>
+<tr class="memdesc:a672fd543183dbacac16fa477b3a1f631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print all parameters values. <br /></td></tr>
+<tr class="separator:a672fd543183dbacac16fa477b3a1f631"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a6f34ffa16018449cee8f337bc5c139"><td class="memItemLeft" align="right" valign="top"><a id="a1a6f34ffa16018449cee8f337bc5c139"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a1a6f34ffa16018449cee8f337bc5c139">printLocalInitParametersValues</a> () const =0</td></tr>
+<tr class="memdesc:a1a6f34ffa16018449cee8f337bc5c139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print values of parameters set by local initialization. <br /></td></tr>
+<tr class="separator:a1a6f34ffa16018449cee8f337bc5c139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac983db333fda119683738edb871d8be5"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ac983db333fda119683738edb871d8be5">getVariableName</a> (int index)=0</td></tr>
+<tr class="memdesc:ac983db333fda119683738edb871d8be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a variable name from its index.  <a href="#ac983db333fda119683738edb871d8be5">More...</a><br /></td></tr>
+<tr class="separator:ac983db333fda119683738edb871d8be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ab8282f17f5a7ac8249ce8c5a52d77"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a73ab8282f17f5a7ac8249ce8c5a52d77">getCurrentZ</a> (std::vector&lt; double &gt; &amp;z) const =0</td></tr>
+<tr class="memdesc:a73ab8282f17f5a7ac8249ce8c5a52d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the discrete variable values from the model data structure to the solver data structure.  <a href="#a73ab8282f17f5a7ac8249ce8c5a52d77">More...</a><br /></td></tr>
+<tr class="separator:a73ab8282f17f5a7ac8249ce8c5a52d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9734886771f0deeb19fa8a9cd45e421"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ad9734886771f0deeb19fa8a9cd45e421">setCurrentZ</a> (const std::vector&lt; double &gt; &amp;z)=0</td></tr>
+<tr class="memdesc:ad9734886771f0deeb19fa8a9cd45e421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the discrete variable values from the solver data structure to the model data structure.  <a href="#ad9734886771f0deeb19fa8a9cd45e421">More...</a><br /></td></tr>
+<tr class="separator:ad9734886771f0deeb19fa8a9cd45e421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3310c932765a55929f15c68d3185340"><td class="memItemLeft" align="right" valign="top"><a id="ab3310c932765a55929f15c68d3185340"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#ab3310c932765a55929f15c68d3185340">notifyTimeStep</a> ()=0</td></tr>
+<tr class="memdesc:ab3310c932765a55929f15c68d3185340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify that time step is performed in the simulation. <br /></td></tr>
+<tr class="separator:ab3310c932765a55929f15c68d3185340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c7d17a760f9cc86c259c2fe086137cd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html#a4c7d17a760f9cc86c259c2fe086137cd">setLocalInitParameters</a> (boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; localInitParameters)=0</td></tr>
+<tr class="memdesc:a4c7d17a760f9cc86c259c2fe086137cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the local initialization solver parameters of the model  <a href="#a4c7d17a760f9cc86c259c2fe086137cd">More...</a><br /></td></tr>
+<tr class="separator:a4c7d17a760f9cc86c259c2fe086137cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Generic model Generic class for <a class="el" href="../../d1/d3c/a02714.html" title="Generic model Generic class for Model. ">Model</a>. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af180a775b608296d6e4ee611b452cbc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af180a775b608296d6e4ee611b452cbc5">&#9670;&nbsp;</a></span>checkDataCoherence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::checkDataCoherence </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ensure data coherence (asserts, min/max, sanity checks ....) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>time to use for the evaluation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#aba2dedc8560ba3812a6205986537246a">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="aac89a3f03de74dccd4e38d9f1adaa083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac89a3f03de74dccd4e38d9f1adaa083">&#9670;&nbsp;</a></span>copyContinuousVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::copyContinuousVariables </td>
+          <td>(</td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>yp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the current value of the continuous variables </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>current values of continuous variables </td></tr>
+    <tr><td class="paramname">yp</td><td>current values of the derivative of the continuous variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a6d3aeaeb406fc33142a23a42f0449b67">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ab78e5565bd6c90b251c21764a0b6a9dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab78e5565bd6c90b251c21764a0b6a9dc">&#9670;&nbsp;</a></span>copyDiscreteVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::copyDiscreteVariables </td>
+          <td>(</td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>z</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the current value of the discrete variables </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>current values of discrete variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a7ac1cc475a2fc48993f1f074cc46c04d">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="aaa19fac46b8c72f38680fc3d437abab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa19fac46b8c72f38680fc3d437abab8">&#9670;&nbsp;</a></span>dumpParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::dumpParameters </td>
+          <td>(</td>
+          <td class="paramtype">std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mapParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>export the parameters of the model for dump </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapParameters</td><td>map associating the file where parameters should be dumped with the stream of parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a2ce94522845e8587a80a51757e462f86">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="acf0fff9ed60282e0be27be3ffaf459c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf0fff9ed60282e0be27be3ffaf459c2">&#9670;&nbsp;</a></span>dumpVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::dumpVariables </td>
+          <td>(</td>
+          <td class="paramtype">std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mapVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>export the variables of the model for dump </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapVariables</td><td>map associating the file where variables should be dumped with the stream of variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a7d9f05572be0c57134ee40f6c497efae">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="aaa37cebc85840e8a089bfd44d319bfa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa37cebc85840e8a089bfd44d319bfa1">&#9670;&nbsp;</a></span>evalCalculatedVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalCalculatedVariables </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>yp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>z</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the calculated variables of the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+    <tr><td class="paramname">y</td><td>current values of continuous variables </td></tr>
+    <tr><td class="paramname">yp</td><td>current values of the derivative of the continuous variables </td></tr>
+    <tr><td class="paramname">z</td><td>values of the discrete variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a5abab6e82f33fa015e98232d9516fd8e">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a7e6b8764d16ca9ab3933bb50c76b7bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e6b8764d16ca9ab3933bb50c76b7bae">&#9670;&nbsp;</a></span>evalF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalF </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>yp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>f</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the residual functions of the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+    <tr><td class="paramname">y</td><td>current values of continuous variables </td></tr>
+    <tr><td class="paramname">yp</td><td>current values of the derivative of the continuous variables </td></tr>
+    <tr><td class="paramname">f</td><td>values of the residual functions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a5fcb0370be8eebefae41dade0f64b36a">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a95092a549b05baf9818c1ff8510ba535"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95092a549b05baf9818c1ff8510ba535">&#9670;&nbsp;</a></span>evalFDiff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalFDiff </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>yp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>f</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the differential residual functions of the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+    <tr><td class="paramname">y</td><td>current values of continuous variables </td></tr>
+    <tr><td class="paramname">yp</td><td>current values of the derivative of the continuous variables </td></tr>
+    <tr><td class="paramname">f</td><td>values of the residual functions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ab83f4b222dff4abdc789b8c821cf2f31">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a0142563a3f49ba613536748aa841d696"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0142563a3f49ba613536748aa841d696">&#9670;&nbsp;</a></span>evalFMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalFMode </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>yp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>f</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the differential residual functions of the models for which there was a mode change </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+    <tr><td class="paramname">y</td><td>current values of continuous variables </td></tr>
+    <tr><td class="paramname">yp</td><td>current values of the derivative of the continuous variables </td></tr>
+    <tr><td class="paramname">f</td><td>values of the residual functions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#abf2bcbb2e802d9911b8d799dd42107b8">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a12e8d20a9578a5966e83d2b8c7c2f285"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e8d20a9578a5966e83d2b8c7c2f285">&#9670;&nbsp;</a></span>evalG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalG </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d7/d5e/a00467.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the root functions of the model based on the variable values contained in the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+    <tr><td class="paramname">g</td><td>values of the root functions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a6ae8f50158c5c845e1b711f5fec23ecc">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ad97ad5c20f63e41c83e7ae09591cb8d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad97ad5c20f63e41c83e7ae09591cb8d6">&#9670;&nbsp;</a></span>evalJt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalJt </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>cj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../db/d99/a02626.html">SparseMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>Jt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>compute the transpose jacobian of the sub model <img class="formulaInl" alt="$ J = @F/@x + cj * @F/@x' $" src="../../form_1.png"/> based on the variable values contained in the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>time to use for the evaluation </td></tr>
+    <tr><td class="paramname">cj</td><td>Jacobian prime coefficient </td></tr>
+    <tr><td class="paramname">Jt</td><td>jacobian matrix to fullfill </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ad61d464f5fdaf8cc1b506ecd5d596440">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a1e618cbb38dfc5e0a18efdf273211ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e618cbb38dfc5e0a18efdf273211ff5">&#9670;&nbsp;</a></span>evalJtPrim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalJtPrim </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>cj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../db/d99/a02626.html">SparseMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>JtPrim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>compute the transpose prim jacobian of the sub model <img class="formulaInl" alt="$ J'= @F/@x' $" src="../../form_2.png"/> based on the variable values contained in the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>time to use for the evaluation </td></tr>
+    <tr><td class="paramname">cj</td><td>Jacobian prime coefficient </td></tr>
+    <tr><td class="paramname">JtPrim</td><td>jacobian matrix to fullfill </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ae1b2fa4e8b797b25c165075d2d599363">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a696d9b022039b1ff3176a14e15df5954"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a696d9b022039b1ff3176a14e15df5954">&#9670;&nbsp;</a></span>evalMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalMode </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the mode of the model based on the variable values contained in the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ac8493ea79a4d26d51b8e198f4ed624a3">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="aefcb09ee773979cd359f98cbc7dec39a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefcb09ee773979cd359f98cbc7dec39a">&#9670;&nbsp;</a></span>evalZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::evalZ </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the discrete variables of the model based on the variable values contained in the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ad37a06559ebd893fb7468f0ec545532f">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a73ab8282f17f5a7ac8249ce8c5a52d77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73ab8282f17f5a7ac8249ce8c5a52d77">&#9670;&nbsp;</a></span>getCurrentZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::getCurrentZ </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>z</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy the discrete variable values from the model data structure to the solver data structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>vector of discrete values from the solver data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ac80b26e59c65d22065099930dfe17762">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ae4054c01e4579f63ebfa9339aafe83a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4054c01e4579f63ebfa9339aafe83a4">&#9670;&nbsp;</a></span>getFInfos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::getFInfos </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>globalFIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>subModelName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>localFIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>fEquation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get informations about residual functions </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">globalFIndex</td><td>global index of the residual functions to find </td></tr>
+    <tr><td class="paramname">subModelName</td><td>name of the subModel who contains the residual functions </td></tr>
+    <tr><td class="paramname">localFIndex</td><td>local index of the residual functions inside the subModel </td></tr>
+    <tr><td class="paramname">fEquation</td><td>equation formula related to local index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a8d7f6e8c9e73275aabfa16abf77b786c">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a6a92b30d439cf642fc19b006537ae320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a92b30d439cf642fc19b006537ae320">&#9670;&nbsp;</a></span>getFType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const std::vector&lt;<a class="el" href="../../d7/d5e/a00467.html#a8b1ac858a7be39680e8c19dc9e860dd2">propertyF_t</a>&gt;&amp; DYN::Model::getFType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the properties of each residual function (algebraic or differential equation) </p>
+<dl class="section return"><dt>Returns</dt><dd>properties of each equation </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a7da62efa2f91a3712118b7ea92a1e82f">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a2893797f8ca53d0b64b7dc2bf356c4db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2893797f8ca53d0b64b7dc2bf356c4db">&#9670;&nbsp;</a></span>getGInfos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::getGInfos </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>globalGIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>subModelName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>localGIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>gEquation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get informations about root functions </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">globalGIndex</td><td>global index of the root functions to find </td></tr>
+    <tr><td class="paramname">subModelName</td><td>name of the subModel who contains the root functions </td></tr>
+    <tr><td class="paramname">localGIndex</td><td>local index of the root functions inside the subModel </td></tr>
+    <tr><td class="paramname">gEquation</td><td>equation formula related to local index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a4f7b94f1aacc2af20d008c8b96b6f804">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a6d1d8ca9527b3609c04bd67261b891b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d1d8ca9527b3609c04bd67261b891b4">&#9670;&nbsp;</a></span>getModeChangeType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d7/d5e/a00467.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> DYN::Model::getModeChangeType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the overall system mode change type </p>
+<dl class="section return"><dt>Returns</dt><dd>mode change type for the overall system </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#afc0f616a895239d7d0d2cc722589c770">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a9e242169d83b8160d8da7efa8d482ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e242169d83b8160d8da7efa8d482ee5">&#9670;&nbsp;</a></span>getModelParameterValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::getModelParameterValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>curveModelName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>curveVariable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>found</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>retrieve the value of a parameter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">curveModelName</td><td>name of the model where the parameter should be </td></tr>
+    <tr><td class="paramname">curveVariable</td><td>name of the parameter </td></tr>
+    <tr><td class="paramname">value</td><td>value of the parameter </td></tr>
+    <tr><td class="paramname">found</td><td><b>true</b> if the parameter exist, <b>false</b> else </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a4607754ce19cabb2a799c34028d46b56">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a0fc1e5c259a5fda12fbf0b1a0738ebbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fc1e5c259a5fda12fbf0b1a0738ebbf">&#9670;&nbsp;</a></span>getSilentZChangeType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d7/d5e/a00467.html#a1a4f84e6efed086709bbef8cd4ff945a">zChangeType_t</a> DYN::Model::getSilentZChangeType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the type of z that were modified </p>
+<dl class="section return"><dt>Returns</dt><dd>type of z that were modified </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#aad3cf249896e166913a93ed796727b9c">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ac983db333fda119683738edb871d8be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac983db333fda119683738edb871d8be5">&#9670;&nbsp;</a></span>getVariableName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string DYN::Model::getVariableName </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a variable name from its index. </p>
+<p>This function is intended to be used in debug mode as it allocates a lot of memory but can be called in release mode.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Index of the variable.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>name of the variable </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a4e2ef5e43238d075bf271bef5bb51b3b">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a0343367ebc85d191d70cbaa208097ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0343367ebc85d191d70cbaa208097ccd">&#9670;&nbsp;</a></span>getY0()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::getY0 </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>yp0</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>retrieve the initial values of the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t0</td><td>initial time of the simulation </td></tr>
+    <tr><td class="paramname">y0</td><td>initial values of the variables </td></tr>
+    <tr><td class="paramname">yp0</td><td>initial values of the derivatives of the variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a3223551dbee83d904cd8d9c45554c373">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a507a3d8fc58f954da1882e8c9c0ae736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a507a3d8fc58f954da1882e8c9c0ae736">&#9670;&nbsp;</a></span>getYType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const std::vector&lt;<a class="el" href="../../d7/d5e/a00467.html#a732348349c2b2231cfb2b9d0417349a6">propertyContinuousVar_t</a>&gt;&amp; DYN::Model::getYType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the properties of the variables (algebraic, external or differential variable) </p>
+<dl class="section return"><dt>Returns</dt><dd>properties of each variable </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a01e2277abefd7237e467cb406589c42b">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a747f0a73f729d63880de5e2f5cb004a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a747f0a73f729d63880de5e2f5cb004a9">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::init </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t0</td><td>time to use to initialize the model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a6f19310c1289c869a0d2a2cc62a99018">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ab7b29f9715f971cb913256217f3b1802"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7b29f9715f971cb913256217f3b1802">&#9670;&nbsp;</a></span>initCurves()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::Model::initCurves </td>
+          <td>(</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../dd/d08/a01682.html">curves::Curve</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>curve</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize curve (reference with the variable, variable exists ...) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">curve</td><td>curve to find </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the curve was added </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a7dad471817fa25d1a4880b4ef45923ba">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a17eada5dafd122d98067d4e55f199726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17eada5dafd122d98067d4e55f199726">&#9670;&nbsp;</a></span>initSilentZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::initSilentZ </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enableSilentZ</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize the type of discrete variables (notSilent, used only in discrete equations, used only in continuous equations) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enableSilentZ</td><td>whether silent z is enabled or disabled </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a3a776663a2e6728f2c7b293b1c77c301">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="afaba860f65318fc13f731f7d73a469fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaba860f65318fc13f731f7d73a469fe">&#9670;&nbsp;</a></span>loadParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::loadParameters </td>
+          <td>(</td>
+          <td class="paramtype">const std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mapParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>load the parameters values from a previous dump </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapParameters</td><td>map associating the file where parameters should be dumped with the stream of parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#aa04e4819687cebe644fd10bc3b9513be">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="adfa7d1fe2d25a4f54dc276f7e46522cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfa7d1fe2d25a4f54dc276f7e46522cf">&#9670;&nbsp;</a></span>loadVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::loadVariables </td>
+          <td>(</td>
+          <td class="paramtype">const std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mapVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>load the variables values from a previous dump </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapVariables</td><td>map associating the file where variables should be dumped with the stream of variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a78a91aa5d870fff9d1bff737014447f7">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a9618b4f171d32c668516fe30f9393238"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9618b4f171d32c668516fe30f9393238">&#9670;&nbsp;</a></span>modeChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::Model::modeChange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>retrieve mode change information </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if one mode of the model has change </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#adaeb3cf7f3454cfc6c3b732e0d21e41c">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ae3a39b406e7b6e7c6525a4d077309a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3a39b406e7b6e7c6525a4d077309a10">&#9670;&nbsp;</a></span>printInitValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::printInitValues </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>directory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>print initial values of the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">directory</td><td>directory where the file of initial values should be printed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a23613aa7d34c66c67e6223bad61694b3">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a6f664b925ce90e55b5602588bfd25034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f664b925ce90e55b5602588bfd25034">&#9670;&nbsp;</a></span>setConstraints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setConstraints </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d37/a01754.html">constraints::ConstraintsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>constraints</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the constraints collection to use during the simulation (where constraints should be added) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">constraints</td><td>constraints collections to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a2b2bbccda95ec6a6b7dac78ce56a911f">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ad9734886771f0deeb19fa8a9cd45e421"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9734886771f0deeb19fa8a9cd45e421">&#9670;&nbsp;</a></span>setCurrentZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setCurrentZ </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>z</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy the discrete variable values from the solver data structure to the model data structure. </p>
+<p>This function is necessary when a solver has to go back in time for non convergence reasons to begin the new resolution with the correct discrete variable value (for example for simplified solver)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>vector of discrete values from the solver data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a411ecb95997d0b5e41ce804782216fa9">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="ac2318a1f1dc42735ef7454867864c525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2318a1f1dc42735ef7454867864c525">&#9670;&nbsp;</a></span>setInitialTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setInitialTime </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the initial time to use for models </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t0</td><td>initial time to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a49604161e7f93cb8134bf3b273a3979f">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="af9c44883bcc4f965b5d7c46d5daafa62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9c44883bcc4f965b5d7c46d5daafa62">&#9670;&nbsp;</a></span>setIsInitProcess()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setIsInitProcess </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isInitProcess</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the initialisation status of the simulation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isInitProcess</td><td>: true for initialisation, false for standard dynamic simulation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a3c9489aae4598db4b16fd7fdfd627f7a">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a4c7d17a760f9cc86c259c2fe086137cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c7d17a760f9cc86c259c2fe086137cd">&#9670;&nbsp;</a></span>setLocalInitParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setLocalInitParameters </td>
+          <td>(</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt;&#160;</td>
+          <td class="paramname"><em>localInitParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the local initialization solver parameters of the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">localInitParameters</td><td>local initialization solver parameters set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a8f1b4d8744404b94fbb1f23012487b10">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="acd37617988143c664acd0fb9911a57ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd37617988143c664acd0fb9911a57ad">&#9670;&nbsp;</a></span>setModeChangeType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setModeChangeType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d5e/a00467.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>modeChangeType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the overall system mode change type </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modeChangeType</td><td>overall system mode change type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#ad3456fe8b7c08c7c3fca13a0da55f2e2">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a3d77c2de8bea8ed5695c0f696aff0381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d77c2de8bea8ed5695c0f696aff0381">&#9670;&nbsp;</a></span>setTimeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setTimeline </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the timeline to use during the simulation (where events should be added) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td>timeline to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#afbb450e2d5337896e29fd7a5b5039961">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a66da779d9d6e70005eb12167ac145dc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66da779d9d6e70005eb12167ac145dc9">&#9670;&nbsp;</a></span>setWorkingDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::setWorkingDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>workingDirectory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the simulation working directory to use </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">workingDirectory</td><td><a class="el" href="../../d6/d90/a03298.html" title="Simulation class. ">Simulation</a> working directory to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a29720550c54825201e28dacf774ce824">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a689edb3187a01491bf3868fb85096cf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689edb3187a01491bf3868fb85096cf2">&#9670;&nbsp;</a></span>sizeF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DYN::Model::sizeF </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the number of residual functions of the model </p>
+<dl class="section return"><dt>Returns</dt><dd>number of residual functions </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a0fc65dc51b9dad3b9ec629be52c7de36">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a0962186cd3da4f7527725a04137da90f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0962186cd3da4f7527725a04137da90f">&#9670;&nbsp;</a></span>sizeG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DYN::Model::sizeG </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the number of root functions </p>
+<dl class="section return"><dt>Returns</dt><dd>number of root functions </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a954e6ad9557a76a69e9f64e56aad78e4">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a540f8eb9641ee41da1ee58dc2030cf84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540f8eb9641ee41da1ee58dc2030cf84">&#9670;&nbsp;</a></span>sizeMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DYN::Model::sizeMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the number of mode </p>
+<dl class="section return"><dt>Returns</dt><dd>number of mode </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a0faae8f8ad45e9688c83fae7c48217ec">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="aea2c45f22061b2ce5c608f159ebdf810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2c45f22061b2ce5c608f159ebdf810">&#9670;&nbsp;</a></span>sizeY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DYN::Model::sizeY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the number of continuous variable </p>
+<dl class="section return"><dt>Returns</dt><dd>number of continuous variable </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a8d5e3f0481fda5cf3c652c5cce837994">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a3f20f5440d93fbeec1467e64901ed061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f20f5440d93fbeec1467e64901ed061">&#9670;&nbsp;</a></span>sizeZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DYN::Model::sizeZ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the number of discretes variables </p>
+<dl class="section return"><dt>Returns</dt><dd>number of discretes variables </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a79b9e13f2ff487967c2fb104f396c969">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a8349c70513d17b196ee93af12719321e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8349c70513d17b196ee93af12719321e">&#9670;&nbsp;</a></span>updateCalculatedVarForCurves()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::updateCalculatedVarForCurves </td>
+          <td>(</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d4/d8e/a01694.html">curves::CurvesCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>curvesCollection</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>update the subset of calculated variables needed for curves </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">curvesCollection</td><td>set of curves </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d95/a02726.html#a04b879aa2e0053cafc771856f6f97266">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d9/d42/a00575_source.html">DYNModel.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -130,7 +2163,8 @@ $(document).ready(function(){initNavTree('d0/df8/a02717.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/d3c/a02714.html">Model</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

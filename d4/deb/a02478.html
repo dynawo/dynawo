@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: parameters::ParInTableHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d9/dd8/a02481.html','../../');});
+$(document).ready(function(){initNavTree('d4/deb/a02478.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,23 +94,151 @@ $(document).ready(function(){initNavTree('d9/dd8/a02481.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../d2/d70/a02475.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">parameters::MacroParameterSetHandler Member List</div>  </div>
+<div class="title">parameters::ParInTableHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#a7a70829895bc2c5ffe71b8b7544b65df">addParameter</a>()</td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#a37c6067e12e056cfd122ba126654f26a">addReference</a>()</td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#a9f4776cff55f0792bb9ce68e2140a28c">create</a>(attributes_type const &amp;attributes)</td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#add8eec9b9c01b9c71b57a4d5c277eb3e">get</a>() const</td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#ad5fb0a59b78c9fcc41f9a8d4dcb57f49">macroParameterSet_</a></td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#af5bb46fa9e3052e0191b9bc2976b6b7e">MacroParameterSetHandler</a>(elementName_type const &amp;root_element)</td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#a4ececd3060963c85a2c3440f1d6f1fc5">parHandler_</a></td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#aa4247502570d98783e80e0bd528170e3">refHandler_</a></td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dd8/a02481.html#a589b32ab5da21ff0507d6c8bcb1a0032">~MacroParameterSetHandler</a>()</td><td class="entry"><a class="el" href="../../d9/dd8/a02481.html">parameters::MacroParameterSetHandler</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Handler used to parse a par element inside a table element.  
+ <a href="../../d4/deb/a02478.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../dc/d2f/a00425_source.html">PARXmlHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for parameters::ParInTableHandler:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d4/deb/a02478.png" usemap="#parameters::ParInTableHandler_map" alt=""/>
+  <map id="parameters::ParInTableHandler_map" name="parameters::ParInTableHandler_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2d2294a6bc01a45a9135ddcd220a58a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/a02478.html#a2d2294a6bc01a45a9135ddcd220a58a6">ParInTableHandler</a> (elementName_type const &amp;root_element)</td></tr>
+<tr class="memdesc:a2d2294a6bc01a45a9135ddcd220a58a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a2d2294a6bc01a45a9135ddcd220a58a6">More...</a><br /></td></tr>
+<tr class="separator:a2d2294a6bc01a45a9135ddcd220a58a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a435b13d85f3d0622c7305622319d386c"><td class="memItemLeft" align="right" valign="top"><a id="a435b13d85f3d0622c7305622319d386c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/a02478.html#a435b13d85f3d0622c7305622319d386c">~ParInTableHandler</a> ()</td></tr>
+<tr class="memdesc:a435b13d85f3d0622c7305622319d386c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a435b13d85f3d0622c7305622319d386c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ca9e6b6a8d423c26192f5b3019946d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d61/a02474.html">TableParameter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/a02478.html#a7ca9e6b6a8d423c26192f5b3019946d8">get</a> () const</td></tr>
+<tr class="memdesc:a7ca9e6b6a8d423c26192f5b3019946d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the parameter in xml file  <a href="#a7ca9e6b6a8d423c26192f5b3019946d8">More...</a><br /></td></tr>
+<tr class="separator:a7ca9e6b6a8d423c26192f5b3019946d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3f350c371edd4737ede27d4bbf122f13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/a02478.html#a3f350c371edd4737ede27d4bbf122f13">create</a> (attributes_type const &amp;attributes)</td></tr>
+<tr class="memdesc:a3f350c371edd4737ede27d4bbf122f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#a3f350c371edd4737ede27d4bbf122f13">More...</a><br /></td></tr>
+<tr class="separator:a3f350c371edd4737ede27d4bbf122f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a5a4586d21d965b2ee6363d88f8126361"><td class="memItemLeft" align="right" valign="top"><a id="a5a4586d21d965b2ee6363d88f8126361"></a>
+<a class="el" href="../../d5/d61/a02474.html">TableParameter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/a02478.html#a5a4586d21d965b2ee6363d88f8126361">par_</a></td></tr>
+<tr class="memdesc:a5a4586d21d965b2ee6363d88f8126361"><td class="mdescLeft">&#160;</td><td class="mdescRight">current parameter read <br /></td></tr>
+<tr class="separator:a5a4586d21d965b2ee6363d88f8126361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Handler used to parse a par element inside a table element. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2d2294a6bc01a45a9135ddcd220a58a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d2294a6bc01a45a9135ddcd220a58a6">&#9670;&nbsp;</a></span>ParInTableHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">parameters::ParInTableHandler::ParInTableHandler </td>
+          <td>(</td>
+          <td class="paramtype">elementName_type const &amp;&#160;</td>
+          <td class="paramname"><em>root_element</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3f350c371edd4737ede27d4bbf122f13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f350c371edd4737ede27d4bbf122f13">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parameters::ParInTableHandler::create </td>
+          <td>(</td>
+          <td class="paramtype">attributes_type const &amp;&#160;</td>
+          <td class="paramname"><em>attributes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the XML element opening tag is read. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7ca9e6b6a8d423c26192f5b3019946d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ca9e6b6a8d423c26192f5b3019946d8">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d5/d61/a02474.html">TableParameter</a> parameters::ParInTableHandler::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return the parameter in xml file </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter object build thanks to infos read in xml file </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../dc/d2f/a00425_source.html">PARXmlHandler.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -126,7 +254,8 @@ $(document).ready(function(){initNavTree('d9/dd8/a02481.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:18 for Dynawo by
+    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../d4/deb/a02478.html">ParInTableHandler</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:31 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

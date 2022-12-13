@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: dynamicdata::macroConnector_const_iterator Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d2/d5b/a01841.html','../../');});
+$(document).ready(function(){initNavTree('db/d09/a01838.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,25 +94,280 @@ $(document).ready(function(){initNavTree('d2/d5b/a01841.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../da/dcd/a01835.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">dynamicdata::staticRef_iterator Member List</div>  </div>
+<div class="title">dynamicdata::macroConnector_const_iterator Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#ac41b8e4fff3f2a55e15f7bdb9245cab9">current_</a></td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a63168d3ee82681dedd0396443609ceb7">operator!=</a>(const staticRef_iterator &amp;other) const</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a7e50384c4c49770e516b1302a65e8794">operator*</a>() const</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a3c95e22db6849ef543653583d83b9bbb">operator++</a>()</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a969b8ef6d8dccf41fc44f8ee3a8992c2">operator++</a>(int)</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a121fd1e98ae9d9f70f09704286cdbc12">operator--</a>()</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a9c403e7844a56839ceeda12e0339ee2e">operator--</a>(int)</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a07bb9a9abc82ef9762e929059a2cb8ca">operator-&gt;</a>() const</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a84597f9adbd0cc636a6407da55e1ae23">operator==</a>(const staticRef_iterator &amp;other) const</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#a074648fd7bdecfdd782fdcca90d74968">staticRef_iterator</a>(Model *iterated, bool begin)</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d5b/a01841.html#ad8fb004d1645157a045aa217f275b560">staticRef_iterator</a>(MacroStaticReference *iterated, bool begin)</td><td class="entry"><a class="el" href="../../d2/d5b/a01841.html">dynamicdata::staticRef_iterator</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>const iterator over macroConnectors  
+ <a href="../../db/d09/a01838.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../df/dc8/a00122_source.html">DYDIterators.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a40d0b28e0e58bf3555296f72b70ba083"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#a40d0b28e0e58bf3555296f72b70ba083">macroConnector_const_iterator</a> (const <a class="el" href="../../d5/dec/a01794.html">DynamicModelsCollection</a> *iterated, bool begin)</td></tr>
+<tr class="memdesc:a40d0b28e0e58bf3555296f72b70ba083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a40d0b28e0e58bf3555296f72b70ba083">More...</a><br /></td></tr>
+<tr class="separator:a40d0b28e0e58bf3555296f72b70ba083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e62c91f2c5b52dfcdbb6c4f42732587"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#a2e62c91f2c5b52dfcdbb6c4f42732587">operator++</a> ()</td></tr>
+<tr class="memdesc:a2e62c91f2c5b52dfcdbb6c4f42732587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prefix-increment operator.  <a href="#a2e62c91f2c5b52dfcdbb6c4f42732587">More...</a><br /></td></tr>
+<tr class="separator:a2e62c91f2c5b52dfcdbb6c4f42732587"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bfe36f4b3a4dec551962f1fe5d3215a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#a9bfe36f4b3a4dec551962f1fe5d3215a">operator++</a> (int)</td></tr>
+<tr class="memdesc:a9bfe36f4b3a4dec551962f1fe5d3215a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Postfix-increment operator.  <a href="#a9bfe36f4b3a4dec551962f1fe5d3215a">More...</a><br /></td></tr>
+<tr class="separator:a9bfe36f4b3a4dec551962f1fe5d3215a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa254afc8c046e00ff9e0bd3a902bf120"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#aa254afc8c046e00ff9e0bd3a902bf120">operator--</a> ()</td></tr>
+<tr class="memdesc:aa254afc8c046e00ff9e0bd3a902bf120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prefix-decrement operator.  <a href="#aa254afc8c046e00ff9e0bd3a902bf120">More...</a><br /></td></tr>
+<tr class="separator:aa254afc8c046e00ff9e0bd3a902bf120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7517c2a2b0c53d4abde9bfae71d7e45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#ad7517c2a2b0c53d4abde9bfae71d7e45">operator--</a> (int)</td></tr>
+<tr class="memdesc:ad7517c2a2b0c53d4abde9bfae71d7e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Postfix-decrement operator.  <a href="#ad7517c2a2b0c53d4abde9bfae71d7e45">More...</a><br /></td></tr>
+<tr class="separator:ad7517c2a2b0c53d4abde9bfae71d7e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e856fc39b73a82c6c403887eafc8f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#a91e856fc39b73a82c6c403887eafc8f4">operator==</a> (const <a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> &amp;other) const</td></tr>
+<tr class="memdesc:a91e856fc39b73a82c6c403887eafc8f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equal to operator.  <a href="#a91e856fc39b73a82c6c403887eafc8f4">More...</a><br /></td></tr>
+<tr class="separator:a91e856fc39b73a82c6c403887eafc8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d006d3d09a91979394e497f53faabf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#a09d006d3d09a91979394e497f53faabf">operator!=</a> (const <a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> &amp;other) const</td></tr>
+<tr class="memdesc:a09d006d3d09a91979394e497f53faabf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not equal to operator.  <a href="#a09d006d3d09a91979394e497f53faabf">More...</a><br /></td></tr>
+<tr class="separator:a09d006d3d09a91979394e497f53faabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8222d6a3854a3bc72106b87a860a7b2"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../d0/d45/a01890.html">MacroConnector</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#ac8222d6a3854a3bc72106b87a860a7b2">operator*</a> () const</td></tr>
+<tr class="memdesc:ac8222d6a3854a3bc72106b87a860a7b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indirection operator.  <a href="#ac8222d6a3854a3bc72106b87a860a7b2">More...</a><br /></td></tr>
+<tr class="separator:ac8222d6a3854a3bc72106b87a860a7b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ad509775a2a9eceb7d3c7b2f9765cb"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../d0/d45/a01890.html">MacroConnector</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#ab6ad509775a2a9eceb7d3c7b2f9765cb">operator-&gt;</a> () const</td></tr>
+<tr class="memdesc:ab6ad509775a2a9eceb7d3c7b2f9765cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure dereference operator.  <a href="#ab6ad509775a2a9eceb7d3c7b2f9765cb">More...</a><br /></td></tr>
+<tr class="separator:ab6ad509775a2a9eceb7d3c7b2f9765cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a933f220e852fc12b944a514aa07611cb"><td class="memItemLeft" align="right" valign="top"><a id="a933f220e852fc12b944a514aa07611cb"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/d45/a01890.html">MacroConnector</a> &gt; &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/a01838.html#a933f220e852fc12b944a514aa07611cb">current_</a></td></tr>
+<tr class="memdesc:a933f220e852fc12b944a514aa07611cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">current map const iterator <br /></td></tr>
+<tr class="separator:a933f220e852fc12b944a514aa07611cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>const iterator over macroConnectors </p>
+<p>const iterator over macroConnectors stored in dynamic models collection </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a40d0b28e0e58bf3555296f72b70ba083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40d0b28e0e58bf3555296f72b70ba083">&#9670;&nbsp;</a></span>macroConnector_const_iterator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dynamicdata::macroConnector_const_iterator::macroConnector_const_iterator </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/dec/a01794.html">DynamicModelsCollection</a> *&#160;</td>
+          <td class="paramname"><em>iterated</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>begin</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<p>Constructor based on macroConnectors. Can create a const iterator to the beginning of the macroConnectors' container or to the end. MacroConnectors cannot be modified.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iterated</td><td>Pointer to the dynamic models collection iterated </td></tr>
+    <tr><td class="paramname">begin</td><td>Flag indicating if the iterator point to the beginning (true) or the end of the macroConnectors' container. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a09d006d3d09a91979394e497f53faabf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09d006d3d09a91979394e497f53faabf">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool dynamicdata::macroConnector_const_iterator::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Not equal to operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Iterator to be compared with this </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if macroConnector_const_iterators are different, else false </dd></dl>
+
+</div>
+</div>
+<a id="ac8222d6a3854a3bc72106b87a860a7b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8222d6a3854a3bc72106b87a860a7b2">&#9670;&nbsp;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../d0/d45/a01890.html">MacroConnector</a>&gt;&amp; dynamicdata::macroConnector_const_iterator::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indirection operator. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d0/d45/a01890.html" title="Macro connector interface class. ">MacroConnector</a> pointed to by this </dd></dl>
+
+</div>
+</div>
+<a id="a2e62c91f2c5b52dfcdbb6c4f42732587"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e62c91f2c5b52dfcdbb6c4f42732587">&#9670;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a>&amp; dynamicdata::macroConnector_const_iterator::operator++ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prefix-increment operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference to this <a class="el" href="../../db/d09/a01838.html" title="const iterator over macroConnectors ">macroConnector_const_iterator</a> </dd></dl>
+
+</div>
+</div>
+<a id="a9bfe36f4b3a4dec551962f1fe5d3215a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bfe36f4b3a4dec551962f1fe5d3215a">&#9670;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> dynamicdata::macroConnector_const_iterator::operator++ </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Postfix-increment operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Copy of this <a class="el" href="../../db/d09/a01838.html" title="const iterator over macroConnectors ">macroConnector_const_iterator</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa254afc8c046e00ff9e0bd3a902bf120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa254afc8c046e00ff9e0bd3a902bf120">&#9670;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a>&amp; dynamicdata::macroConnector_const_iterator::operator-- </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prefix-decrement operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference to this <a class="el" href="../../db/d09/a01838.html" title="const iterator over macroConnectors ">macroConnector_const_iterator</a> </dd></dl>
+
+</div>
+</div>
+<a id="ad7517c2a2b0c53d4abde9bfae71d7e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7517c2a2b0c53d4abde9bfae71d7e45">&#9670;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> dynamicdata::macroConnector_const_iterator::operator-- </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Postfix-decrement operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Copy of this <a class="el" href="../../db/d09/a01838.html" title="const iterator over macroConnectors ">macroConnector_const_iterator</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab6ad509775a2a9eceb7d3c7b2f9765cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6ad509775a2a9eceb7d3c7b2f9765cb">&#9670;&nbsp;</a></span>operator-&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../d0/d45/a01890.html">MacroConnector</a>&gt;* dynamicdata::macroConnector_const_iterator::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Structure dereference operator. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d0/d45/a01890.html" title="Macro connector interface class. ">MacroConnector</a> pointed to by this </dd></dl>
+
+</div>
+</div>
+<a id="a91e856fc39b73a82c6c403887eafc8f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e856fc39b73a82c6c403887eafc8f4">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool dynamicdata::macroConnector_const_iterator::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Equal to operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Iterator to be compared with this </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if macroConnector_const_iterators are equals, else false </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../df/dc8/a00122_source.html">DYDIterators.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -128,7 +383,8 @@ $(document).ready(function(){initNavTree('d2/d5b/a01841.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:17 for Dynawo by
+    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../db/d09/a01838.html">macroConnector_const_iterator</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

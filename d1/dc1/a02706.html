@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::DynamicData Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d6/d8f/a02709.html','../../');});
+$(document).ready(function(){initNavTree('d1/dc1/a02706.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,20 +94,849 @@ $(document).ready(function(){initNavTree('d6/d8f/a02709.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../d8/d4a/a02703.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::ModelMulti::findSubModelFromVarName_t Member List</div>  </div>
+<div class="title">DYN::DynamicData Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d8f/a02709.html#ae223cc94a2a5f030b7be85cb58c849b5">findSubModelFromVarName_t</a>()</td><td class="entry"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d8f/a02709.html#aeda1f638a255e0e90613a0affebcbc31">findSubModelFromVarName_t</a>(boost::shared_ptr&lt; SubModel &gt; &amp;subModel, bool isNetwork, bool isDynParam, std::string variableNameInSubModel)</td><td class="entry"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d8f/a02709.html#a062395da4dada3eaa3c0f65d6dda894c">isDynParam_</a></td><td class="entry"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d8f/a02709.html#ace4233074fd3686bba5069ef6ccb737d">isNetwork_</a></td><td class="entry"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d8f/a02709.html#aef7938f6b78a2e12d3f12966f4912000">subModel_</a></td><td class="entry"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d8f/a02709.html#a1c08d4da41db8b729d4f1d1354d18acd">variableNameInSubModel_</a></td><td class="entry"><a class="el" href="../../d6/d8f/a02709.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Dynamic data class.  
+ <a href="../../d1/dc1/a02706.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d4/d9e/a00569_source.html">DYNDynamicData.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::DynamicData:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d1/dc1/a02706.png" usemap="#DYN::DynamicData_map" alt=""/>
+  <map id="DYN::DynamicData_map" name="DYN::DynamicData_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aaacce165b5cdf98c476d787f2445c649"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aaacce165b5cdf98c476d787f2445c649">initFromDydFiles</a> (const std::vector&lt; std::string &gt; &amp;fileNames)</td></tr>
+<tr class="memdesc:aaacce165b5cdf98c476d787f2445c649"><td class="mdescLeft">&#160;</td><td class="mdescRight">initiation dynamic data from dyd files  <a href="#aaacce165b5cdf98c476d787f2445c649">More...</a><br /></td></tr>
+<tr class="separator:aaacce165b5cdf98c476d787f2445c649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13cfd6e95a442866f99e8f17e9c7457b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a13cfd6e95a442866f99e8f17e9c7457b">getNetworkParameters</a> (const std::string &amp;parFile, const std::string &amp;parSet)</td></tr>
+<tr class="memdesc:a13cfd6e95a442866f99e8f17e9c7457b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get network parameters from a directory  <a href="#a13cfd6e95a442866f99e8f17e9c7457b">More...</a><br /></td></tr>
+<tr class="separator:a13cfd6e95a442866f99e8f17e9c7457b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3713fc54b4ab220b4d7f4d956d270fa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a3713fc54b4ab220b4d7f4d956d270fa9">setNetworkParameters</a> (const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;parameters)</td></tr>
+<tr class="memdesc:a3713fc54b4ab220b4d7f4d956d270fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set network parameters  <a href="#a3713fc54b4ab220b4d7f4d956d270fa9">More...</a><br /></td></tr>
+<tr class="separator:a3713fc54b4ab220b4d7f4d956d270fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65082830b679f9cbc9346d7c22db8d5"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aa65082830b679f9cbc9346d7c22db8d5">getNetworkParameters</a> () const</td></tr>
+<tr class="memdesc:aa65082830b679f9cbc9346d7c22db8d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">get network parameters  <a href="#aa65082830b679f9cbc9346d7c22db8d5">More...</a><br /></td></tr>
+<tr class="separator:aa65082830b679f9cbc9346d7c22db8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2cbc6bd3c6850d1da20aa94339fdcf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ad2cbc6bd3c6850d1da20aa94339fdcf7">setParametersReference</a> (const boost::unordered_map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d3/d6c/a02446.html">parameters::ParametersSetCollection</a> &gt; &gt; &amp;parametersRef)</td></tr>
+<tr class="memdesc:ad2cbc6bd3c6850d1da20aa94339fdcf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the parameter sets that were already read  <a href="#ad2cbc6bd3c6850d1da20aa94339fdcf7">More...</a><br /></td></tr>
+<tr class="separator:ad2cbc6bd3c6850d1da20aa94339fdcf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a563dafdf73c78b1ded0848dbaf1de4c0"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a563dafdf73c78b1ded0848dbaf1de4c0">getModelDescriptions</a> () const</td></tr>
+<tr class="memdesc:a563dafdf73c78b1ded0848dbaf1de4c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">get all dynamic model descriptions  <a href="#a563dafdf73c78b1ded0848dbaf1de4c0">More...</a><br /></td></tr>
+<tr class="separator:a563dafdf73c78b1ded0848dbaf1de4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8255b51f9ca33d906814e2100b579eb"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d4b/a01786.html">dynamicdata::Connector</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aa8255b51f9ca33d906814e2100b579eb">getSystemConnects</a> () const</td></tr>
+<tr class="memdesc:aa8255b51f9ca33d906814e2100b579eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">get all system-wide (i.e. not within Modelica model) connects  <a href="#aa8255b51f9ca33d906814e2100b579eb">More...</a><br /></td></tr>
+<tr class="separator:aa8255b51f9ca33d906814e2100b579eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34e3a4c55be0e7682c6d6dd1befec845"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a34e3a4c55be0e7682c6d6dd1befec845">addConnectInterface</a> (const boost::shared_ptr&lt; <a class="el" href="../../d5/dc3/a02674.html">ConnectInterface</a> &gt; &amp;connect)</td></tr>
+<tr class="memdesc:a34e3a4c55be0e7682c6d6dd1befec845"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a connect interface to the list of all connectors  <a href="#a34e3a4c55be0e7682c6d6dd1befec845">More...</a><br /></td></tr>
+<tr class="separator:a34e3a4c55be0e7682c6d6dd1befec845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad59c5c10424c258ad1e9cd2a749f6ee"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d5/dc3/a02674.html">ConnectInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aad59c5c10424c258ad1e9cd2a749f6ee">getConnectInterfaces</a> () const</td></tr>
+<tr class="memdesc:aad59c5c10424c258ad1e9cd2a749f6ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the list of all connectors  <a href="#aad59c5c10424c258ad1e9cd2a749f6ee">More...</a><br /></td></tr>
+<tr class="separator:aad59c5c10424c258ad1e9cd2a749f6ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dc00c15791ba7f1046007f01c6952a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a8dc00c15791ba7f1046007f01c6952a8">setDataInterface</a> (const boost::shared_ptr&lt; <a class="el" href="../../d7/de8/a02858.html">DataInterface</a> &gt; &amp;data)</td></tr>
+<tr class="memdesc:a8dc00c15791ba7f1046007f01c6952a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set static data  <a href="#a8dc00c15791ba7f1046007f01c6952a8">More...</a><br /></td></tr>
+<tr class="separator:a8dc00c15791ba7f1046007f01c6952a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab51d5a8b0c84fcd5f56df13d5889a55b"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ab51d5a8b0c84fcd5f56df13d5889a55b">getParametersSet</a> (const std::string &amp;modelId, const std::string &amp;file, const std::string &amp;id)</td></tr>
+<tr class="memdesc:ab51d5a8b0c84fcd5f56df13d5889a55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">find a set of parameters thanks to its file and its id read the file if it's not already read  <a href="#ab51d5a8b0c84fcd5f56df13d5889a55b">More...</a><br /></td></tr>
+<tr class="separator:ab51d5a8b0c84fcd5f56df13d5889a55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3bdafd4d8ac0234becf71aa1eefc5c"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a7b3bdafd4d8ac0234becf71aa1eefc5c">getBlackBoxModelDescriptions</a> () const</td></tr>
+<tr class="memdesc:a7b3bdafd4d8ac0234becf71aa1eefc5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get black box model descriptions  <a href="#a7b3bdafd4d8ac0234becf71aa1eefc5c">More...</a><br /></td></tr>
+<tr class="separator:a7b3bdafd4d8ac0234becf71aa1eefc5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db4f0aad0bcc048ab8c52c614a0997a"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a7db4f0aad0bcc048ab8c52c614a0997a">getModelTemplateExpansionDescriptions</a> () const</td></tr>
+<tr class="memdesc:a7db4f0aad0bcc048ab8c52c614a0997a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model template expansion descriptions  <a href="#a7db4f0aad0bcc048ab8c52c614a0997a">More...</a><br /></td></tr>
+<tr class="separator:a7db4f0aad0bcc048ab8c52c614a0997a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc9d680b59a9ff1d2e17e10e69899082"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#acc9d680b59a9ff1d2e17e10e69899082">getModelTemplateDescriptionsToBeCompiled</a> () const</td></tr>
+<tr class="memdesc:acc9d680b59a9ff1d2e17e10e69899082"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model template descriptions to be compiled  <a href="#acc9d680b59a9ff1d2e17e10e69899082">More...</a><br /></td></tr>
+<tr class="separator:acc9d680b59a9ff1d2e17e10e69899082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c96df64c74ad9113f92cee4820cedd"><td class="memItemLeft" align="right" valign="top">const std::map&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/d28/a01950.html">dynamicdata::UnitDynamicModel</a> &gt;, boost::shared_ptr&lt; <a class="el" href="../../d5/d28/a01950.html">dynamicdata::UnitDynamicModel</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a24c96df64c74ad9113f92cee4820cedd">getUnitDynamicModelsMap</a> () const</td></tr>
+<tr class="memdesc:a24c96df64c74ad9113f92cee4820cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">get unit dynamic models map  <a href="#a24c96df64c74ad9113f92cee4820cedd">More...</a><br /></td></tr>
+<tr class="separator:a24c96df64c74ad9113f92cee4820cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab261007e1e0511d9a70e24b521436d10"><td class="memItemLeft" align="right" valign="top">const std::map&lt; boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt;, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ab261007e1e0511d9a70e24b521436d10">getModelicaModelReferenceMap</a> () const</td></tr>
+<tr class="memdesc:ab261007e1e0511d9a70e24b521436d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">get modelica model reference map  <a href="#ab261007e1e0511d9a70e24b521436d10">More...</a><br /></td></tr>
+<tr class="separator:ab261007e1e0511d9a70e24b521436d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae495fe8517836118a07cfa25bafe9746"><td class="memItemLeft" align="right" valign="top">std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ae495fe8517836118a07cfa25bafe9746">getReferenceModelicaModels</a> () const</td></tr>
+<tr class="memdesc:ae495fe8517836118a07cfa25bafe9746"><td class="mdescLeft">&#160;</td><td class="mdescRight">get reference modelica models  <a href="#ae495fe8517836118a07cfa25bafe9746">More...</a><br /></td></tr>
+<tr class="separator:ae495fe8517836118a07cfa25bafe9746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0734d0a39de282ea17d8d85d2e1caeec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a0734d0a39de282ea17d8d85d2e1caeec">setRootDirectory</a> (const std::string &amp;rootDirectory)</td></tr>
+<tr class="memdesc:a0734d0a39de282ea17d8d85d2e1caeec"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the directory to use as root when reading dyd file  <a href="#a0734d0a39de282ea17d8d85d2e1caeec">More...</a><br /></td></tr>
+<tr class="separator:a0734d0a39de282ea17d8d85d2e1caeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf3e54930c887db26c9bef3a96e766b"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../d5/dec/a01794.html">dynamicdata::DynamicModelsCollection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a3cf3e54930c887db26c9bef3a96e766b">getDynamicModelsCollection</a> ()</td></tr>
+<tr class="memdesc:a3cf3e54930c887db26c9bef3a96e766b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current dynamicModelsCollection used  <a href="#a3cf3e54930c887db26c9bef3a96e766b">More...</a><br /></td></tr>
+<tr class="separator:a3cf3e54930c887db26c9bef3a96e766b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a2244c656b3a191ed2c544b907f5438a3"><td class="memItemLeft" align="right" valign="top"><a id="a2244c656b3a191ed2c544b907f5438a3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a2244c656b3a191ed2c544b907f5438a3">createModelDescriptions</a> ()</td></tr>
+<tr class="memdesc:a2244c656b3a191ed2c544b907f5438a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">create model descriptions <br /></td></tr>
+<tr class="separator:a2244c656b3a191ed2c544b907f5438a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf7140d6667b095bc6b1299302e4495"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a9cf7140d6667b095bc6b1299302e4495">mergeParameters</a> (boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;concatParams, const std::string &amp;udmName, const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;udmSet)</td></tr>
+<tr class="memdesc:a9cf7140d6667b095bc6b1299302e4495"><td class="mdescLeft">&#160;</td><td class="mdescRight">merge unit dynamic models parameters in one set of parameters  <a href="#a9cf7140d6667b095bc6b1299302e4495">More...</a><br /></td></tr>
+<tr class="separator:a9cf7140d6667b095bc6b1299302e4495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ba5f1743a89b18c3c858c65d6ed599"><td class="memItemLeft" align="right" valign="top"><a id="a55ba5f1743a89b18c3c858c65d6ed599"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a55ba5f1743a89b18c3c858c65d6ed599">associateParameters</a> ()</td></tr>
+<tr class="memdesc:a55ba5f1743a89b18c3c858c65d6ed599"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate set of parameters with models descriptions <br /></td></tr>
+<tr class="separator:a55ba5f1743a89b18c3c858c65d6ed599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79e5051475845730f83890d5f7e36839"><td class="memItemLeft" align="right" valign="top"><a id="a79e5051475845730f83890d5f7e36839"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a79e5051475845730f83890d5f7e36839">analyzeDynamicData</a> ()</td></tr>
+<tr class="memdesc:a79e5051475845730f83890d5f7e36839"><td class="mdescLeft">&#160;</td><td class="mdescRight">analyse dynamic data <br /></td></tr>
+<tr class="separator:a79e5051475845730f83890d5f7e36839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9474720446b6eaa6ad32feeb2a9806c5"><td class="memItemLeft" align="right" valign="top"><a id="a9474720446b6eaa6ad32feeb2a9806c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a9474720446b6eaa6ad32feeb2a9806c5">markModelTemplatesCalledByExpansions</a> ()</td></tr>
+<tr class="memdesc:a9474720446b6eaa6ad32feeb2a9806c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a reference modelica models map. mark modelica models with the same structure. <br /></td></tr>
+<tr class="separator:a9474720446b6eaa6ad32feeb2a9806c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44ff83244f93994a9f4ab4ca563dc719"><td class="memItemLeft" align="right" valign="top"><a id="a44ff83244f93994a9f4ab4ca563dc719"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a44ff83244f93994a9f4ab4ca563dc719">mappingModelicaModels</a> ()</td></tr>
+<tr class="memdesc:a44ff83244f93994a9f4ab4ca563dc719"><td class="mdescLeft">&#160;</td><td class="mdescRight">mark model Templates called by model template expansions, saved them in a map. <br /></td></tr>
+<tr class="separator:a44ff83244f93994a9f4ab4ca563dc719"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9a3152c631edab383227919b36174578"><td class="memItemLeft" align="right" valign="top"><a id="a9a3152c631edab383227919b36174578"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a9a3152c631edab383227919b36174578">rootDirectory_</a></td></tr>
+<tr class="memdesc:a9a3152c631edab383227919b36174578"><td class="mdescLeft">&#160;</td><td class="mdescRight">directory to use as root when reading file <br /></td></tr>
+<tr class="separator:a9a3152c631edab383227919b36174578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d969e8d3092f88312de2c59c05dba5c"><td class="memItemLeft" align="right" valign="top"><a id="a7d969e8d3092f88312de2c59c05dba5c"></a>
+boost::unordered_map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d3/d6c/a02446.html">parameters::ParametersSetCollection</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a7d969e8d3092f88312de2c59c05dba5c">referenceParameters_</a></td></tr>
+<tr class="memdesc:a7d969e8d3092f88312de2c59c05dba5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">association between file name and parameters collection <br /></td></tr>
+<tr class="separator:a7d969e8d3092f88312de2c59c05dba5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4725d353bb85c8fc776045700c7896f"><td class="memItemLeft" align="right" valign="top"><a id="ad4725d353bb85c8fc776045700c7896f"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d5/dec/a01794.html">dynamicdata::DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ad4725d353bb85c8fc776045700c7896f">dynamicModelsCollection_</a></td></tr>
+<tr class="memdesc:ad4725d353bb85c8fc776045700c7896f"><td class="mdescLeft">&#160;</td><td class="mdescRight">dynamic models collection, input from API DYD <br /></td></tr>
+<tr class="separator:ad4725d353bb85c8fc776045700c7896f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade237caf4effcf62000ffbd4bff10c4a"><td class="memItemLeft" align="right" valign="top"><a id="ade237caf4effcf62000ffbd4bff10c4a"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d7/de8/a02858.html">DataInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ade237caf4effcf62000ffbd4bff10c4a">dataInterface_</a></td></tr>
+<tr class="memdesc:ade237caf4effcf62000ffbd4bff10c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">static data interface <br /></td></tr>
+<tr class="separator:ade237caf4effcf62000ffbd4bff10c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97dcffacf1e08148de1ea8361c61d0b4"><td class="memItemLeft" align="right" valign="top"><a id="a97dcffacf1e08148de1ea8361c61d0b4"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a97dcffacf1e08148de1ea8361c61d0b4">networkParameters_</a></td></tr>
+<tr class="memdesc:a97dcffacf1e08148de1ea8361c61d0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">network parameters <br /></td></tr>
+<tr class="separator:a97dcffacf1e08148de1ea8361c61d0b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa145b8dfe294db23ec6f1a39b9e3e208"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aa145b8dfe294db23ec6f1a39b9e3e208">modelDescriptions_</a></td></tr>
+<tr class="memdesc:aa145b8dfe294db23ec6f1a39b9e3e208"><td class="mdescLeft">&#160;</td><td class="mdescRight">warning : keep map container to be sure that models are always sorted with the same order whatever is the order in input file to avoid mathematical issues  <a href="#aa145b8dfe294db23ec6f1a39b9e3e208">More...</a><br /></td></tr>
+<tr class="separator:aa145b8dfe294db23ec6f1a39b9e3e208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349969cc770218bb1392e4e6f2a03f1a"><td class="memItemLeft" align="right" valign="top"><a id="a349969cc770218bb1392e4e6f2a03f1a"></a>
+std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d4b/a01786.html">dynamicdata::Connector</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a349969cc770218bb1392e4e6f2a03f1a">systemConnects_</a></td></tr>
+<tr class="memdesc:a349969cc770218bb1392e4e6f2a03f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">connects which are not fully inside a model <br /></td></tr>
+<tr class="separator:a349969cc770218bb1392e4e6f2a03f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae53b927b0749741aa09b275201171cac"><td class="memItemLeft" align="right" valign="top"><a id="ae53b927b0749741aa09b275201171cac"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d5/dc3/a02674.html">ConnectInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ae53b927b0749741aa09b275201171cac">connects_</a></td></tr>
+<tr class="memdesc:ae53b927b0749741aa09b275201171cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">connects interfaces <br /></td></tr>
+<tr class="separator:ae53b927b0749741aa09b275201171cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9fe304b5ec76be9260473b756a3a373"><td class="memItemLeft" align="right" valign="top"><a id="ad9fe304b5ec76be9260473b756a3a373"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ad9fe304b5ec76be9260473b756a3a373">modelicaModels_</a></td></tr>
+<tr class="memdesc:ad9fe304b5ec76be9260473b756a3a373"><td class="mdescLeft">&#160;</td><td class="mdescRight">modelica models presented in dynamic data <br /></td></tr>
+<tr class="separator:ad9fe304b5ec76be9260473b756a3a373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86fd87eeb81efdf2dae25431f95ac007"><td class="memItemLeft" align="right" valign="top"><a id="a86fd87eeb81efdf2dae25431f95ac007"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a86fd87eeb81efdf2dae25431f95ac007">blackBoxModels_</a></td></tr>
+<tr class="memdesc:a86fd87eeb81efdf2dae25431f95ac007"><td class="mdescLeft">&#160;</td><td class="mdescRight">black box models presented in dynamic data <br /></td></tr>
+<tr class="separator:a86fd87eeb81efdf2dae25431f95ac007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a76ec550bd28a2539ffb0665f94e37e"><td class="memItemLeft" align="right" valign="top"><a id="a1a76ec550bd28a2539ffb0665f94e37e"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a1a76ec550bd28a2539ffb0665f94e37e">modelTemplateExpansions_</a></td></tr>
+<tr class="memdesc:a1a76ec550bd28a2539ffb0665f94e37e"><td class="mdescLeft">&#160;</td><td class="mdescRight">model templates expansions presented in dynamic data <br /></td></tr>
+<tr class="separator:a1a76ec550bd28a2539ffb0665f94e37e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a473b677e0c1ec9b063e8cb0c3aae9fbf"><td class="memItemLeft" align="right" valign="top"><a id="a473b677e0c1ec9b063e8cb0c3aae9fbf"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a473b677e0c1ec9b063e8cb0c3aae9fbf">modelTemplates_</a></td></tr>
+<tr class="memdesc:a473b677e0c1ec9b063e8cb0c3aae9fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">model templates presented in dynamic data <br /></td></tr>
+<tr class="separator:a473b677e0c1ec9b063e8cb0c3aae9fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7741039e43ad75a1dca4e857f25486b"><td class="memItemLeft" align="right" valign="top"><a id="af7741039e43ad75a1dca4e857f25486b"></a>
+std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#af7741039e43ad75a1dca4e857f25486b">usefulModelTemplates_</a></td></tr>
+<tr class="memdesc:af7741039e43ad75a1dca4e857f25486b"><td class="mdescLeft">&#160;</td><td class="mdescRight">useful model template called by at least one expansion <br /></td></tr>
+<tr class="separator:af7741039e43ad75a1dca4e857f25486b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bdc2b2694640f3b5033cc4202107752"><td class="memItemLeft" align="right" valign="top"><a id="a1bdc2b2694640f3b5033cc4202107752"></a>
+std::map&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/d28/a01950.html">dynamicdata::UnitDynamicModel</a> &gt;, boost::shared_ptr&lt; <a class="el" href="../../d5/d28/a01950.html">dynamicdata::UnitDynamicModel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a1bdc2b2694640f3b5033cc4202107752">unitDynamicModelsMap_</a></td></tr>
+<tr class="memdesc:a1bdc2b2694640f3b5033cc4202107752"><td class="mdescLeft">&#160;</td><td class="mdescRight">map of unit dynamic model between two composed modelica models <br /></td></tr>
+<tr class="separator:a1bdc2b2694640f3b5033cc4202107752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac12b096591cb3fdb9cc8d3da328e72"><td class="memItemLeft" align="right" valign="top"><a id="aaac12b096591cb3fdb9cc8d3da328e72"></a>
+std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aaac12b096591cb3fdb9cc8d3da328e72">mappedModelDescriptions_</a></td></tr>
+<tr class="memdesc:aaac12b096591cb3fdb9cc8d3da328e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">model descriptions already mapped <br /></td></tr>
+<tr class="separator:aaac12b096591cb3fdb9cc8d3da328e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1909d809b9a66365edb72130d6e766"><td class="memItemLeft" align="right" valign="top"><a id="a8e1909d809b9a66365edb72130d6e766"></a>
+std::map&lt; boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt;, boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a8e1909d809b9a66365edb72130d6e766">modelicaModelReferenceMap_</a></td></tr>
+<tr class="memdesc:a8e1909d809b9a66365edb72130d6e766"><td class="mdescLeft">&#160;</td><td class="mdescRight">map between a modelica model and its reference modelica model descriptions <br /></td></tr>
+<tr class="separator:a8e1909d809b9a66365edb72130d6e766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfea2bb99b36e0106cb58a3e31302778"><td class="memItemLeft" align="right" valign="top"><a id="abfea2bb99b36e0106cb58a3e31302778"></a>
+std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d9/db1/a02718.html">ModelDescription</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#abfea2bb99b36e0106cb58a3e31302778">referenceModelicaModels_</a></td></tr>
+<tr class="memdesc:abfea2bb99b36e0106cb58a3e31302778"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference modelica models descriptions list <br /></td></tr>
+<tr class="separator:abfea2bb99b36e0106cb58a3e31302778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Dynamic data class. </p>
+<p>Dynamic Data container class. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a34e3a4c55be0e7682c6d6dd1befec845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34e3a4c55be0e7682c6d6dd1befec845">&#9670;&nbsp;</a></span>addConnectInterface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::addConnectInterface </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d5/dc3/a02674.html">ConnectInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>connect</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a connect interface to the list of all connectors </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">connect</td><td>connect interface to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7b3bdafd4d8ac0234becf71aa1eefc5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b3bdafd4d8ac0234becf71aa1eefc5c">&#9670;&nbsp;</a></span>getBlackBoxModelDescriptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt;&amp; DYN::DynamicData::getBlackBoxModelDescriptions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get black box model descriptions </p>
+<dl class="section return"><dt>Returns</dt><dd>list of black box model descriptions </dd></dl>
+
+</div>
+</div>
+<a id="aad59c5c10424c258ad1e9cd2a749f6ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad59c5c10424c258ad1e9cd2a749f6ee">&#9670;&nbsp;</a></span>getConnectInterfaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, boost::shared_ptr&lt;<a class="el" href="../../d5/dc3/a02674.html">ConnectInterface</a>&gt; &gt;&amp; DYN::DynamicData::getConnectInterfaces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>return the list of all connectors </p>
+<dl class="section return"><dt>Returns</dt><dd>list of all connectors </dd></dl>
+
+</div>
+</div>
+<a id="a3cf3e54930c887db26c9bef3a96e766b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cf3e54930c887db26c9bef3a96e766b">&#9670;&nbsp;</a></span>getDynamicModelsCollection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../d5/dec/a01794.html">dynamicdata::DynamicModelsCollection</a>&gt;&amp; DYN::DynamicData::getDynamicModelsCollection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the current dynamicModelsCollection used </p>
+<dl class="section return"><dt>Returns</dt><dd>the current dynamicModelsCollection used </dd></dl>
+
+</div>
+</div>
+<a id="a563dafdf73c78b1ded0848dbaf1de4c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a563dafdf73c78b1ded0848dbaf1de4c0">&#9670;&nbsp;</a></span>getModelDescriptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt;&amp; DYN::DynamicData::getModelDescriptions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get all dynamic model descriptions </p>
+<dl class="section return"><dt>Returns</dt><dd>list of model descriptions </dd></dl>
+
+</div>
+</div>
+<a id="ab261007e1e0511d9a70e24b521436d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab261007e1e0511d9a70e24b521436d10">&#9670;&nbsp;</a></span>getModelicaModelReferenceMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt; boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt;, boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt;&amp; DYN::DynamicData::getModelicaModelReferenceMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get modelica model reference map </p>
+<dl class="section return"><dt>Returns</dt><dd>map of modelica model reference </dd></dl>
+
+</div>
+</div>
+<a id="acc9d680b59a9ff1d2e17e10e69899082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc9d680b59a9ff1d2e17e10e69899082">&#9670;&nbsp;</a></span>getModelTemplateDescriptionsToBeCompiled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt;&amp; DYN::DynamicData::getModelTemplateDescriptionsToBeCompiled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get model template descriptions to be compiled </p>
+<dl class="section return"><dt>Returns</dt><dd>list of model template descriptions to be compiled </dd></dl>
+
+</div>
+</div>
+<a id="a7db4f0aad0bcc048ab8c52c614a0997a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db4f0aad0bcc048ab8c52c614a0997a">&#9670;&nbsp;</a></span>getModelTemplateExpansionDescriptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt;&amp; DYN::DynamicData::getModelTemplateExpansionDescriptions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get model template expansion descriptions </p>
+<dl class="section return"><dt>Returns</dt><dd>list of model template expansion descriptions </dd></dl>
+
+</div>
+</div>
+<a id="a13cfd6e95a442866f99e8f17e9c7457b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13cfd6e95a442866f99e8f17e9c7457b">&#9670;&nbsp;</a></span>getNetworkParameters() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::getNetworkParameters </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>parFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>parSet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get network parameters from a directory </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parFile</td><td>parameter file </td></tr>
+    <tr><td class="paramname">parSet</td><td>parameter set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa65082830b679f9cbc9346d7c22db8d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65082830b679f9cbc9346d7c22db8d5">&#9670;&nbsp;</a></span>getNetworkParameters() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a>&gt; DYN::DynamicData::getNetworkParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get network parameters </p>
+<dl class="section return"><dt>Returns</dt><dd>parameters set </dd></dl>
+
+</div>
+</div>
+<a id="ab51d5a8b0c84fcd5f56df13d5889a55b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab51d5a8b0c84fcd5f56df13d5889a55b">&#9670;&nbsp;</a></span>getParametersSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a>&gt; DYN::DynamicData::getParametersSet </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>find a set of parameters thanks to its file and its id read the file if it's not already read </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelId</td><td>: parent model id </td></tr>
+    <tr><td class="paramname">file</td><td>: file of the set of parameters </td></tr>
+    <tr><td class="paramname">id</td><td>: id of the set of parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>set of the parameters associate to the file and the id </dd></dl>
+
+</div>
+</div>
+<a id="ae495fe8517836118a07cfa25bafe9746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae495fe8517836118a07cfa25bafe9746">&#9670;&nbsp;</a></span>getReferenceModelicaModels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt; DYN::DynamicData::getReferenceModelicaModels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get reference modelica models </p>
+<dl class="section return"><dt>Returns</dt><dd>list of reference modelica models </dd></dl>
+
+</div>
+</div>
+<a id="aa8255b51f9ca33d906814e2100b579eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8255b51f9ca33d906814e2100b579eb">&#9670;&nbsp;</a></span>getSystemConnects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;boost::shared_ptr&lt;<a class="el" href="../../db/d4b/a01786.html">dynamicdata::Connector</a>&gt; &gt;&amp; DYN::DynamicData::getSystemConnects </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get all system-wide (i.e. not within Modelica model) connects </p>
+<dl class="section return"><dt>Returns</dt><dd>list of connects </dd></dl>
+
+</div>
+</div>
+<a id="a24c96df64c74ad9113f92cee4820cedd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c96df64c74ad9113f92cee4820cedd">&#9670;&nbsp;</a></span>getUnitDynamicModelsMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt; boost::shared_ptr&lt;<a class="el" href="../../d5/d28/a01950.html">dynamicdata::UnitDynamicModel</a>&gt;, boost::shared_ptr&lt;<a class="el" href="../../d5/d28/a01950.html">dynamicdata::UnitDynamicModel</a>&gt; &gt;&amp; DYN::DynamicData::getUnitDynamicModelsMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get unit dynamic models map </p>
+<dl class="section return"><dt>Returns</dt><dd>map of unit dynamic models </dd></dl>
+
+</div>
+</div>
+<a id="aaacce165b5cdf98c476d787f2445c649"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaacce165b5cdf98c476d787f2445c649">&#9670;&nbsp;</a></span>initFromDydFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::initFromDydFiles </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fileNames</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>initiation dynamic data from dyd files </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileNames</td><td>the path to the file from which to build the dynamic data model fills the dynamic data object or may throw exceptions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9cf7140d6667b095bc6b1299302e4495"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cf7140d6667b095bc6b1299302e4495">&#9670;&nbsp;</a></span>mergeParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::mergeParameters </td>
+          <td>(</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>concatParams</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>udmName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>udmSet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>merge unit dynamic models parameters in one set of parameters </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">concatParams</td><td>: set of parameters where udm parameters should be merged </td></tr>
+    <tr><td class="paramname">udmName</td><td>: name of the unit dynamic model </td></tr>
+    <tr><td class="paramname">udmSet</td><td>: set of parameters associated to the unit dynamic model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8dc00c15791ba7f1046007f01c6952a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dc00c15791ba7f1046007f01c6952a8">&#9670;&nbsp;</a></span>setDataInterface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::setDataInterface </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d7/de8/a02858.html">DataInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set static data </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>static data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3713fc54b4ab220b4d7f4d956d270fa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3713fc54b4ab220b4d7f4d956d270fa9">&#9670;&nbsp;</a></span>setNetworkParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::setNetworkParameters </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set network parameters </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td>parameters set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad2cbc6bd3c6850d1da20aa94339fdcf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2cbc6bd3c6850d1da20aa94339fdcf7">&#9670;&nbsp;</a></span>setParametersReference()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::setParametersReference </td>
+          <td>(</td>
+          <td class="paramtype">const boost::unordered_map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d3/d6c/a02446.html">parameters::ParametersSetCollection</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>parametersRef</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize the parameter sets that were already read </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parametersRef</td><td>filepath-&gt;parameter sets collection </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0734d0a39de282ea17d8d85d2e1caeec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0734d0a39de282ea17d8d85d2e1caeec">&#9670;&nbsp;</a></span>setRootDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::setRootDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>rootDirectory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the directory to use as root when reading dyd file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rootDirectory</td><td>directory to use as root </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa145b8dfe294db23ec6f1a39b9e3e208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa145b8dfe294db23ec6f1a39b9e3e208">&#9670;&nbsp;</a></span>modelDescriptions_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, boost::shared_ptr&lt;<a class="el" href="../../d9/db1/a02718.html">ModelDescription</a>&gt; &gt; DYN::DynamicData::modelDescriptions_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>warning : keep map container to be sure that models are always sorted with the same order whatever is the order in input file to avoid mathematical issues </p>
+<p>map of model descriptions </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d4/d9e/a00569_source.html">DYNDynamicData.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -123,7 +952,8 @@ $(document).ready(function(){initNavTree('d6/d8f/a02709.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/dc1/a02706.html">DynamicData</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

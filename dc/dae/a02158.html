@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: job::FinalStateEntryFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('df/dbf/a02161.html','../../');});
+$(document).ready(function(){initNavTree('dc/dae/a02158.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,24 +94,60 @@ $(document).ready(function(){initNavTree('df/dbf/a02161.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="../../d0/d89/a02155.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::job_const_iterator Member List</div>  </div>
+<div class="title">job::FinalStateEntryFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../df/dbf/a02161.html#acf7f91e7d706cf8ce0dfca2da6a4e3d8">current_</a></td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../df/dbf/a02161.html#a3725ca6a4c850013e1686dd8003a8abe">job_const_iterator</a>(const JobsCollection *iterated, bool begin)</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../df/dbf/a02161.html#ac3792c9fb49c17daa769c8e1dc858942">operator!=</a>(const job_const_iterator &amp;other) const</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../df/dbf/a02161.html#ac16a2b4bb7da17930c797eaf63400a7d">operator*</a>() const</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../df/dbf/a02161.html#ad29362d3262e83a643f0099acc4eaca9">operator++</a>()</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../df/dbf/a02161.html#a19e1d222776c632478e7a2fbb81f8b47">operator++</a>(int)</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../df/dbf/a02161.html#a6db0f662490c2f2ea0e839db44ff68ab">operator--</a>()</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../df/dbf/a02161.html#af368dcb43b99f026140245bd847605ab">operator--</a>(int)</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../df/dbf/a02161.html#af70b06e6d2dada3d370cc4a16985b053">operator-&gt;</a>() const</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../df/dbf/a02161.html#afa6a0093a66e6a55aef85d443845f758">operator==</a>(const job_const_iterator &amp;other) const</td><td class="entry"><a class="el" href="../../df/dbf/a02161.html">job::job_const_iterator</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>dynamic model entry factory  
+ <a href="../../dc/dae/a02158.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d2/d04/a00281_source.html">JOBFinalStateEntryFactory.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aada1669e5a2247d9b87ad79aa9d8555b"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d9/d8d/a02154.html">FinalStateEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dae/a02158.html#aada1669e5a2247d9b87ad79aa9d8555b">newInstance</a> ()</td></tr>
+<tr class="memdesc:aada1669e5a2247d9b87ad79aa9d8555b"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of dynamic model entry  <a href="#aada1669e5a2247d9b87ad79aa9d8555b">More...</a><br /></td></tr>
+<tr class="separator:aada1669e5a2247d9b87ad79aa9d8555b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>dynamic model entry factory </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aada1669e5a2247d9b87ad79aa9d8555b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aada1669e5a2247d9b87ad79aa9d8555b">&#9670;&nbsp;</a></span>newInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d9/d8d/a02154.html">FinalStateEntry</a>&gt; job::FinalStateEntryFactory::newInstance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>create a new instance of dynamic model entry </p>
+<dl class="section return"><dt>Returns</dt><dd>dynamic model entry </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d2/d04/a00281_source.html">JOBFinalStateEntryFactory.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -127,7 +163,8 @@ $(document).ready(function(){initNavTree('df/dbf/a02161.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:18 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../dc/dae/a02158.html">FinalStateEntryFactory</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:31 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

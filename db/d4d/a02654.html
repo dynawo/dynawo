@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::Trace::TraceSinks Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('da/de8/a02657.html','../../');});
+$(document).ready(function(){initNavTree('db/d4d/a02654.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,22 +94,36 @@ $(document).ready(function(){initNavTree('da/de8/a02657.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="../../df/de4/a02651.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::connectedSubModel Member List</div>  </div>
+<div class="title">DYN::Trace::TraceSinks Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../da/de8/a02657.html#aee7002ef5d5ffe8a57c1128dbb326b48">connectedSubModel</a>()</td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/de8/a02657.html#a4f953411f4b4393654dc0e6fb3e52eb8">connectedSubModel</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;subModel, const boost::shared_ptr&lt; Variable &gt; variable, bool negated)</td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/de8/a02657.html#a77d517882e192a516c0be1c78ca1cf2f">negated</a>() const</td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/de8/a02657.html#a14f1c09d2671b8af2e99140d6f8ab761">negated_</a></td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/de8/a02657.html#af213dca085f01293cb0920adc32164c5">subModel</a>() const</td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/de8/a02657.html#a8b033481b736e7efe6f22cd921e59799">subModel_</a></td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/de8/a02657.html#ab74eee97c014990d464679b1992b9790">variable</a>() const</td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/de8/a02657.html#a2307bea09f9ac09b9edfd3a569b47f8c">variable_</a></td><td class="entry"><a class="el" href="../../da/de8/a02657.html">DYN::connectedSubModel</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Stucture defining traces for a specific thread.  
+ <a href="../../db/d4d/a02654.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../db/d44/a00533_source.html">DYNTrace.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aff3103ffee87eba1626261f350bf043a"><td class="memItemLeft" align="right" valign="top"><a id="aff3103ffee87eba1626261f350bf043a"></a>
+std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/d9a/a02650.html#ac6cbc4466135a8df56745e551c5fa942">FileSink</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4d/a02654.html#aff3103ffee87eba1626261f350bf043a">sinks</a></td></tr>
+<tr class="memdesc:aff3103ffee87eba1626261f350bf043a"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of file sink <br /></td></tr>
+<tr class="separator:aff3103ffee87eba1626261f350bf043a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f91ccb99733d3f19ea38f42307ca60"><td class="memItemLeft" align="right" valign="top"><a id="a44f91ccb99733d3f19ea38f42307ca60"></a>
+std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/d9a/a02650.html#ac6cbc4466135a8df56745e551c5fa942">FileSink</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4d/a02654.html#a44f91ccb99733d3f19ea38f42307ca60">persistantSinks</a></td></tr>
+<tr class="memdesc:a44f91ccb99733d3f19ea38f42307ca60"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of persistant file sink <br /></td></tr>
+<tr class="separator:a44f91ccb99733d3f19ea38f42307ca60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Stucture defining traces for a specific thread. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="../../db/d44/a00533_source.html">DYNTrace.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -125,7 +139,8 @@ $(document).ready(function(){initNavTree('da/de8/a02657.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:16 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d9a/a02650.html">Trace</a></li><li class="navelem"><a class="el" href="../../db/d4d/a02654.html">TraceSinks</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

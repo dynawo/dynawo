@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::DataInterface Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('de/d09/a02861.html','../../');});
+$(document).ready(function(){initNavTree('d7/de8/a02858.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,84 +94,980 @@ $(document).ready(function(){initNavTree('de/d09/a02861.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../dc/d05/a02855.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::LineInterface Member List</div>  </div>
+<div class="title">DYN::DataInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a6c6d377f25022f4759ad7eed4b4d5513">addCurrentLimitInterface1</a>(const boost::shared_ptr&lt; CurrentLimitInterface &gt; &amp;currentLimitInterface)=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a47c6a461a300a8ec1a84f08fd8a8a8e4">addCurrentLimitInterface2</a>(const boost::shared_ptr&lt; CurrentLimitInterface &gt; &amp;currentLimitInterface)=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a522118e0cb34e292127a1e18094a498a">ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> enum name</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#ac1fb2a087d2668bfd1fc569924ba29f1">exportStateVariablesUnitComponent</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a6709b5de94e674447523d3516da7c2ba">getActiveSeason</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a4fb8b2d2d1baf9c88ece9c04f5bdfb70">getB1</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a160477afffdfedd696d8069c5e8d8ad6">getB2</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a83212d7cea11281f0524f9b90d61af92">getBusInterface1</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#afcc4ed430ff71c7ac6fcca5788cf6d74">getBusInterface2</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a>(const std::string &amp;varName) const =0</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#ae87fd40b38701fa6d7c818073937330c">getCurrentLimitInterfaces1</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a4629b2dba18d970b3fe9315a58c54055">getCurrentLimitInterfaces2</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#ace69af302afb8e25af870591e46494ad">getCurrentLimitNbTemporary</a>(const std::string &amp;season, CurrentLimitSide side) const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a51689c7258746d317aca165e652834ee">getCurrentLimitPermanent</a>(const std::string &amp;season, CurrentLimitSide side) const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a67b03e35ac59e8bbbf6fc6c934f0c2f8">getCurrentLimitTemporaryAcceptableDuration</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#ad2f6c914139e4a1e0a987499989ced14">getCurrentLimitTemporaryFictitious</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a4f244e9a5ff13860c8ccff8e2d2524fa">getCurrentLimitTemporaryName</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a8e4667b162cbf0e2b79796226fb41822">getCurrentLimitTemporaryValue</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#af00be172cef58512bfb6ae9ae6215bfd">getG1</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a529d91828fd6e0bbdccb55e78f239d7b">getG2</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a4ba4bef42373a79a43f2acff3eb800b2">getID</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#ac4b66a913296bc88ec9f9018a162536b">getInitialConnected1</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a64f42b8bf5e86fcc8955c4cca71e2206">getInitialConnected2</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a47803af48bad13fc85fa13672df061cf">getP1</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a27dfbe7e8913ab1e0c23647026e2d15b">getP2</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a2f8b1b3adaef73ee14ec2ab9c32dec83">getQ1</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a3c3d1da28cf30fb8fcc23ca01f426d33">getQ2</a>()=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a86791d9a29eba67bf80628772edc40c3">getR</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a157a82e17608a36a7965614cde1c6234">getType</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a>(const int index) const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a227ad2b86e59abb4e3824b04d896af5d">getVNom1</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a190e51c129849fab68e3f7a14d0eb776">getVNom2</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#a649e8263493dcd56c78d9e890493c613">getX</a>() const =0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a>(bool hasDynamicModel)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac24fd6f4706d72ca980eb5c338f1b642">importStaticParameters</a>()=0</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22639f8b88b1d70984852928d87676ec">isConnected</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d09/a02861.html#ae77aa456bfac0e0b2862a7a71adf3bec">setBusInterface1</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a87a73dbd355e802a7c36867dd83aac75">setBusInterface2</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)=0</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a>(const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a>(const ComponentType_t &amp;type)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#abd662edc1d318a148a180a48c7120cb6">staticParameters_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a22e1616c1c12383fca3a74d35272f89b">~ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d09/a02861.html#a72c642f3b156e2ed2887eb52803c6d1d">~LineInterface</a>()</td><td class="entry"><a class="el" href="../../de/d09/a02861.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Data interface Class for data interface.  
+ <a href="../../d7/de8/a02858.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d0/d5c/a00668_source.html">DYNDataInterface.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::DataInterface:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d7/de8/a02858.png" usemap="#DYN::DataInterface_map" alt=""/>
+  <map id="DYN::DataInterface_map" name="DYN::DataInterface_map">
+<area href="../../db/de7/a02866.html" alt="DYN::DataInterfaceImpl" shape="rect" coords="78,56,225,80"/>
+<area href="../../d0/dde/a02978.html" title="Data interface implementation Generic data interface for IIDM format files. " alt="DYN::DataInterfaceIIDM" shape="rect" coords="0,112,147,136"/>
+<area href="../../d0/dde/a02978.html" title="Data interface implementation Generic data interface for IIDM format files. " alt="DYN::DataInterfaceIIDM" shape="rect" coords="157,112,304,136"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a49d7b7626958df5a2d0911ddd2d03b6a"><td class="memItemLeft" align="right" valign="top"><a id="a49d7b7626958df5a2d0911ddd2d03b6a"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a49d7b7626958df5a2d0911ddd2d03b6a">~DataInterface</a> ()</td></tr>
+<tr class="memdesc:a49d7b7626958df5a2d0911ddd2d03b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a49d7b7626958df5a2d0911ddd2d03b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a309971065dd1d2a60dd8e4f86b1cbd2d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a309971065dd1d2a60dd8e4f86b1cbd2d">canUseVariant</a> () const =0</td></tr>
+<tr class="memdesc:a309971065dd1d2a60dd8e4f86b1cbd2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if variant management is supported.  <a href="#a309971065dd1d2a60dd8e4f86b1cbd2d">More...</a><br /></td></tr>
+<tr class="separator:a309971065dd1d2a60dd8e4f86b1cbd2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b1de608cf26541a8625f95bb850cd8b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a5b1de608cf26541a8625f95bb850cd8b">selectVariant</a> (const std::string &amp;variantName)=0</td></tr>
+<tr class="memdesc:a5b1de608cf26541a8625f95bb850cd8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose which network variant to use.  <a href="#a5b1de608cf26541a8625f95bb850cd8b">More...</a><br /></td></tr>
+<tr class="separator:a5b1de608cf26541a8625f95bb850cd8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb99731cce9499275f295f3fd39b35eb"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d6/d92/a02890.html">NetworkInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#adb99731cce9499275f295f3fd39b35eb">getNetwork</a> () const =0</td></tr>
+<tr class="memdesc:adb99731cce9499275f295f3fd39b35eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the network interface instance.  <a href="#adb99731cce9499275f295f3fd39b35eb">More...</a><br /></td></tr>
+<tr class="separator:adb99731cce9499275f295f3fd39b35eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ab2ac0087f4a108732c9021593594b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a61ab2ac0087f4a108732c9021593594b">hasDynamicModel</a> (const std::string &amp;id)=0</td></tr>
+<tr class="memdesc:a61ab2ac0087f4a108732c9021593594b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate that component has a dynamic model.  <a href="#a61ab2ac0087f4a108732c9021593594b">More...</a><br /></td></tr>
+<tr class="separator:a61ab2ac0087f4a108732c9021593594b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0b4d080ed74d6a018c89000d3dac60"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a9f0b4d080ed74d6a018c89000d3dac60">setDynamicModel</a> (const std::string &amp;componentId, const boost::shared_ptr&lt; <a class="el" href="../../d4/da5/a02746.html">SubModel</a> &gt; &amp;model)=0</td></tr>
+<tr class="memdesc:a9f0b4d080ed74d6a018c89000d3dac60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a dynamic model to a component.  <a href="#a9f0b4d080ed74d6a018c89000d3dac60">More...</a><br /></td></tr>
+<tr class="separator:a9f0b4d080ed74d6a018c89000d3dac60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f16859a4c2e1ae667a7a86c34f57d91"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a2f16859a4c2e1ae667a7a86c34f57d91">setModelNetwork</a> (const boost::shared_ptr&lt; <a class="el" href="../../d4/da5/a02746.html">SubModel</a> &gt; &amp;model)=0</td></tr>
+<tr class="memdesc:a2f16859a4c2e1ae667a7a86c34f57d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate the model of network to data.  <a href="#a2f16859a4c2e1ae667a7a86c34f57d91">More...</a><br /></td></tr>
+<tr class="separator:a2f16859a4c2e1ae667a7a86c34f57d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b843fda45e9bbd64849f35c94ed8434"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a7b843fda45e9bbd64849f35c94ed8434">setReference</a> (const std::string &amp;componentVar, const std::string &amp;staticId, const std::string &amp;modelId, const std::string &amp;modelVar)=0</td></tr>
+<tr class="memdesc:a7b843fda45e9bbd64849f35c94ed8434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a component variable to a model variable.  <a href="#a7b843fda45e9bbd64849f35c94ed8434">More...</a><br /></td></tr>
+<tr class="separator:a7b843fda45e9bbd64849f35c94ed8434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9d813fbc8e629cd936ffe135cb4c651"><td class="memItemLeft" align="right" valign="top"><a id="ab9d813fbc8e629cd936ffe135cb4c651"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ab9d813fbc8e629cd936ffe135cb4c651">mapConnections</a> ()=0</td></tr>
+<tr class="memdesc:ab9d813fbc8e629cd936ffe135cb4c651"><td class="mdescLeft">&#160;</td><td class="mdescRight">for each components, if there is a dynamic model, indicate for nodes where component is connected that there is an outside connection <br /></td></tr>
+<tr class="separator:ab9d813fbc8e629cd936ffe135cb4c651"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1297af56124573be3c453bd69e69fc0d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a1297af56124573be3c453bd69e69fc0d">updateFromModel</a> (bool filterForCriteriaCheck)=0</td></tr>
+<tr class="memdesc:a1297af56124573be3c453bd69e69fc0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">update from model state variables  <a href="#a1297af56124573be3c453bd69e69fc0d">More...</a><br /></td></tr>
+<tr class="separator:a1297af56124573be3c453bd69e69fc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3617b374079355f94f5a20021a1611d9"><td class="memItemLeft" align="right" valign="top"><a id="a3617b374079355f94f5a20021a1611d9"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a3617b374079355f94f5a20021a1611d9">getStateVariableReference</a> ()=0</td></tr>
+<tr class="memdesc:a3617b374079355f94f5a20021a1611d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model <br /></td></tr>
+<tr class="separator:a3617b374079355f94f5a20021a1611d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad32280961eccbf724e85f4212f5a7f7e"><td class="memItemLeft" align="right" valign="top"><a id="ad32280961eccbf724e85f4212f5a7f7e"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ad32280961eccbf724e85f4212f5a7f7e">exportStateVariables</a> ()=0</td></tr>
+<tr class="memdesc:ad32280961eccbf724e85f4212f5a7f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">export state variables <br /></td></tr>
+<tr class="separator:ad32280961eccbf724e85f4212f5a7f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a203d3376b7c0bec0f5ae1a9233bac5a9"><td class="memItemLeft" align="right" valign="top">virtual const boost::shared_ptr&lt; std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/dd8/a02802.html">ComponentInterface</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a203d3376b7c0bec0f5ae1a9233bac5a9">findConnectedComponents</a> ()=0</td></tr>
+<tr class="memdesc:a203d3376b7c0bec0f5ae1a9233bac5a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">find connected components  <a href="#a203d3376b7c0bec0f5ae1a9233bac5a9">More...</a><br /></td></tr>
+<tr class="separator:a203d3376b7c0bec0f5ae1a9233bac5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0b110419b38ea8a8ace47670c73f740"><td class="memItemLeft" align="right" valign="top">virtual const boost::shared_ptr&lt; <a class="el" href="../../dc/d4b/a02382.html">lostEquipments::LostEquipmentsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ac0b110419b38ea8a8ace47670c73f740">findLostEquipments</a> (const boost::shared_ptr&lt; std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/dd8/a02802.html">ComponentInterface</a> &gt; &gt; &gt; &amp;connectedComponents)=0</td></tr>
+<tr class="memdesc:ac0b110419b38ea8a8ace47670c73f740"><td class="mdescLeft">&#160;</td><td class="mdescRight">find lost equipments (equipments which have lost connection)  <a href="#ac0b110419b38ea8a8ace47670c73f740">More...</a><br /></td></tr>
+<tr class="separator:ac0b110419b38ea8a8ace47670c73f740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab83835e5ce431fbd30e2fc0288855b89"><td class="memItemLeft" align="right" valign="top"><a id="ab83835e5ce431fbd30e2fc0288855b89"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ab83835e5ce431fbd30e2fc0288855b89">importStaticParameters</a> ()=0</td></tr>
+<tr class="memdesc:ab83835e5ce431fbd30e2fc0288855b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters <br /></td></tr>
+<tr class="separator:ab83835e5ce431fbd30e2fc0288855b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab70045c218610a14d7ea244b77f5c4fd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ab70045c218610a14d7ea244b77f5c4fd">configureCriteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d6a/a01618.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)=0</td></tr>
+<tr class="memdesc:ab70045c218610a14d7ea244b77f5c4fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the criteria for this model  <a href="#ab70045c218610a14d7ea244b77f5c4fd">More...</a><br /></td></tr>
+<tr class="separator:ab70045c218610a14d7ea244b77f5c4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae080140fa11498e1ccc1c60634d1cd9f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ae080140fa11498e1ccc1c60634d1cd9f">checkCriteria</a> (double t, bool finalStep)=0</td></tr>
+<tr class="memdesc:ae080140fa11498e1ccc1c60634d1cd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if criteria for static model is respected  <a href="#ae080140fa11498e1ccc1c60634d1cd9f">More...</a><br /></td></tr>
+<tr class="separator:ae080140fa11498e1ccc1c60634d1cd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfd29130a1dbaf8aaee502cb69b09cc4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#acfd29130a1dbaf8aaee502cb69b09cc4">getFailingCriteria</a> (std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria) const =0</td></tr>
+<tr class="memdesc:acfd29130a1dbaf8aaee502cb69b09cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">fill a vector with the ids of the failing criteria  <a href="#acfd29130a1dbaf8aaee502cb69b09cc4">More...</a><br /></td></tr>
+<tr class="separator:acfd29130a1dbaf8aaee502cb69b09cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a9e5977fd429c705a2d88307d52e75"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#ab7a9e5977fd429c705a2d88307d52e75">getStaticParameterDoubleValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName)=0</td></tr>
+<tr class="memdesc:ab7a9e5977fd429c705a2d88307d52e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#ab7a9e5977fd429c705a2d88307d52e75">More...</a><br /></td></tr>
+<tr class="separator:ab7a9e5977fd429c705a2d88307d52e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeec47a5e21d12bd0fed9f7415e7022de"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#aeec47a5e21d12bd0fed9f7415e7022de">getStaticParameterIntValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName)=0</td></tr>
+<tr class="memdesc:aeec47a5e21d12bd0fed9f7415e7022de"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#aeec47a5e21d12bd0fed9f7415e7022de">More...</a><br /></td></tr>
+<tr class="separator:aeec47a5e21d12bd0fed9f7415e7022de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d63da2d2ae541a31cf0f5f2b6628523"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a0d63da2d2ae541a31cf0f5f2b6628523">getStaticParameterBoolValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName)=0</td></tr>
+<tr class="memdesc:a0d63da2d2ae541a31cf0f5f2b6628523"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#a0d63da2d2ae541a31cf0f5f2b6628523">More...</a><br /></td></tr>
+<tr class="separator:a0d63da2d2ae541a31cf0f5f2b6628523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21474236ac4bddbe79e961f4f122c9b8"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a21474236ac4bddbe79e961f4f122c9b8">getBusName</a> (const std::string &amp;staticID, const std::string &amp;labelNode)=0</td></tr>
+<tr class="memdesc:a21474236ac4bddbe79e961f4f122c9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the bus where a component is connected  <a href="#a21474236ac4bddbe79e961f4f122c9b8">More...</a><br /></td></tr>
+<tr class="separator:a21474236ac4bddbe79e961f4f122c9b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa303994128dd1a2aa273eef4fd4023f9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#aa303994128dd1a2aa273eef4fd4023f9">dumpToFile</a> (const std::string &amp;filepath) const =0</td></tr>
+<tr class="memdesc:aa303994128dd1a2aa273eef4fd4023f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the network to a file with the proper format  <a href="#aa303994128dd1a2aa273eef4fd4023f9">More...</a><br /></td></tr>
+<tr class="separator:aa303994128dd1a2aa273eef4fd4023f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fe64f91c9735ca519b6860e880e3e58"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d3/d3b/a02910.html">ServiceManagerInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a9fe64f91c9735ca519b6860e880e3e58">getServiceManager</a> () const =0</td></tr>
+<tr class="memdesc:a9fe64f91c9735ca519b6860e880e3e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve service manager associated with this data interface.  <a href="#a9fe64f91c9735ca519b6860e880e3e58">More...</a><br /></td></tr>
+<tr class="separator:a9fe64f91c9735ca519b6860e880e3e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a486f40ff74deb16fc05a1010049994f2"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d7/de8/a02858.html">DataInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a486f40ff74deb16fc05a1010049994f2">clone</a> () const =0</td></tr>
+<tr class="memdesc:a486f40ff74deb16fc05a1010049994f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone the current data interface.  <a href="#a486f40ff74deb16fc05a1010049994f2">More...</a><br /></td></tr>
+<tr class="separator:a486f40ff74deb16fc05a1010049994f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8166fe6ebeb950f2fc2c00797cda8ff5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a8166fe6ebeb950f2fc2c00797cda8ff5">instantiateNetwork</a> () const =0</td></tr>
+<tr class="memdesc:a8166fe6ebeb950f2fc2c00797cda8ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">test if some network components does not have a dynamic model  <a href="#a8166fe6ebeb950f2fc2c00797cda8ff5">More...</a><br /></td></tr>
+<tr class="separator:a8166fe6ebeb950f2fc2c00797cda8ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2260e675488e3dba17cd0af3085b44b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de8/a02858.html#a2260e675488e3dba17cd0af3085b44b3">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline)=0</td></tr>
+<tr class="memdesc:a2260e675488e3dba17cd0af3085b44b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for timeline.  <a href="#a2260e675488e3dba17cd0af3085b44b3">More...</a><br /></td></tr>
+<tr class="separator:a2260e675488e3dba17cd0af3085b44b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Data interface Class for data interface. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a309971065dd1d2a60dd8e4f86b1cbd2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a309971065dd1d2a60dd8e4f86b1cbd2d">&#9670;&nbsp;</a></span>canUseVariant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::DataInterface::canUseVariant </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if variant management is supported. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if network variant is supported, <b>false</b> if not </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#abed20de3d818bdd51a1b1a322e36f250">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#abed20de3d818bdd51a1b1a322e36f250">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ae080140fa11498e1ccc1c60634d1cd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae080140fa11498e1ccc1c60634d1cd9f">&#9670;&nbsp;</a></span>checkCriteria()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::DataInterface::checkCriteria </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>finalStep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check if criteria for static model is respected </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time of the simulation </td></tr>
+    <tr><td class="paramname">finalStep</td><td><b>true</b> check criteria at each iteration, <b>false</b> check only at the end of simulation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if criteria is not respected </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a964c9328799eb13cf8f6afc60fb7f488">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a964c9328799eb13cf8f6afc60fb7f488">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a486f40ff74deb16fc05a1010049994f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486f40ff74deb16fc05a1010049994f2">&#9670;&nbsp;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d7/de8/a02858.html">DataInterface</a>&gt; DYN::DataInterface::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clone the current data interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>cloned data interface </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a26c3759895620606003d611d010e0bc9">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a75c402495eb3fb92d7ad438c47048314">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ab70045c218610a14d7ea244b77f5c4fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab70045c218610a14d7ea244b77f5c4fd">&#9670;&nbsp;</a></span>configureCriteria()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::configureCriteria </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d6a/a01618.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>criteria</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the criteria for this model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">criteria</td><td>criteria to be used </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a727de8ced9e5cb1b82adc780da8471cc">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a727de8ced9e5cb1b82adc780da8471cc">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aa303994128dd1a2aa273eef4fd4023f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa303994128dd1a2aa273eef4fd4023f9">&#9670;&nbsp;</a></span>dumpToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::dumpToFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>dump the network to a file with the proper format </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filepath</td><td>file to create </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a7d9ac642c08aebdb17cf0ab9b7462032">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a7d9ac642c08aebdb17cf0ab9b7462032">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a203d3376b7c0bec0f5ae1a9233bac5a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a203d3376b7c0bec0f5ae1a9233bac5a9">&#9670;&nbsp;</a></span>findConnectedComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const boost::shared_ptr&lt;std::vector&lt;boost::shared_ptr&lt;<a class="el" href="../../d5/dd8/a02802.html">ComponentInterface</a>&gt; &gt; &gt; DYN::DataInterface::findConnectedComponents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>find connected components </p>
+<dl class="section return"><dt>Returns</dt><dd>vector of connected components found </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a78d0b5898fd9185ff456d2cd24dce572">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a78d0b5898fd9185ff456d2cd24dce572">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ac0b110419b38ea8a8ace47670c73f740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0b110419b38ea8a8ace47670c73f740">&#9670;&nbsp;</a></span>findLostEquipments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const boost::shared_ptr&lt;<a class="el" href="../../dc/d4b/a02382.html">lostEquipments::LostEquipmentsCollection</a>&gt; DYN::DataInterface::findLostEquipments </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/dd8/a02802.html">ComponentInterface</a> &gt; &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>connectedComponents</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>find lost equipments (equipments which have lost connection) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">connectedComponents</td><td>vector of components previously connected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>vector of lost equipments found </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#ab99e0f324cc065189c043b4cf6754417">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#ab99e0f324cc065189c043b4cf6754417">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a21474236ac4bddbe79e961f4f122c9b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21474236ac4bddbe79e961f4f122c9b8">&#9670;&nbsp;</a></span>getBusName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string DYN::DataInterface::getBusName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>staticID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>labelNode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the name of the bus where a component is connected </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticID</td><td>id of the component </td></tr>
+    <tr><td class="paramname">labelNode</td><td>@NODE@ or @NODE1@ or @NODE2@ or @NODE3@ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>name of the bus where the component is connected </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a1a0a9d2f0777b33d5ca62a00794ece0a">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a1a0a9d2f0777b33d5ca62a00794ece0a">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="acfd29130a1dbaf8aaee502cb69b09cc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd29130a1dbaf8aaee502cb69b09cc4">&#9670;&nbsp;</a></span>getFailingCriteria()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::getFailingCriteria </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>failingCriteria</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>fill a vector with the ids of the failing criteria </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failingCriteria</td><td>vector to fill </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a0fcde9ac35c6448ae0dce079cc72f012">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a0fcde9ac35c6448ae0dce079cc72f012">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="adb99731cce9499275f295f3fd39b35eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb99731cce9499275f295f3fd39b35eb">&#9670;&nbsp;</a></span>getNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d6/d92/a02890.html">NetworkInterface</a>&gt; DYN::DataInterface::getNetwork </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the network interface instance. </p>
+<dl class="section return"><dt>Returns</dt><dd>the network interface instance </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a067777f3b20a2c6869a77bc1e6910a9f">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a067777f3b20a2c6869a77bc1e6910a9f">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a9fe64f91c9735ca519b6860e880e3e58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fe64f91c9735ca519b6860e880e3e58">&#9670;&nbsp;</a></span>getServiceManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d3/d3b/a02910.html">ServiceManagerInterface</a>&gt; DYN::DataInterface::getServiceManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve service manager associated with this data interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>the service manager </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a7c0d23fbda82df989541662ab2ccdd76">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a7c0d23fbda82df989541662ab2ccdd76">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a0d63da2d2ae541a31cf0f5f2b6628523"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d63da2d2ae541a31cf0f5f2b6628523">&#9670;&nbsp;</a></span>getStaticParameterBoolValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::DataInterface::getStaticParameterBoolValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>staticID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>refOrigName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get static parameter value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticID</td><td>id of static model </td></tr>
+    <tr><td class="paramname">refOrigName</td><td>parameter of static model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a5d00e8f83cb814fc743212cb0309a59d">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a5d00e8f83cb814fc743212cb0309a59d">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ab7a9e5977fd429c705a2d88307d52e75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a9e5977fd429c705a2d88307d52e75">&#9670;&nbsp;</a></span>getStaticParameterDoubleValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::DataInterface::getStaticParameterDoubleValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>staticID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>refOrigName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get static parameter value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticID</td><td>id of static model </td></tr>
+    <tr><td class="paramname">refOrigName</td><td>parameter of static model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a569f1b2969c49a02f3f200d0732d0a19">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a569f1b2969c49a02f3f200d0732d0a19">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aeec47a5e21d12bd0fed9f7415e7022de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeec47a5e21d12bd0fed9f7415e7022de">&#9670;&nbsp;</a></span>getStaticParameterIntValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DYN::DataInterface::getStaticParameterIntValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>staticID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>refOrigName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get static parameter value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticID</td><td>id of static model </td></tr>
+    <tr><td class="paramname">refOrigName</td><td>parameter of static model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#ad74a379e7a2d97c9e03af1d807883da6">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#ad74a379e7a2d97c9e03af1d807883da6">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a61ab2ac0087f4a108732c9021593594b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61ab2ac0087f4a108732c9021593594b">&#9670;&nbsp;</a></span>hasDynamicModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::hasDynamicModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indicate that component has a dynamic model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Component's id associated to the dynamic model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#aadc40d7ce6f3afab7ee4748348a353da">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#aadc40d7ce6f3afab7ee4748348a353da">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a8166fe6ebeb950f2fc2c00797cda8ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8166fe6ebeb950f2fc2c00797cda8ff5">&#9670;&nbsp;</a></span>instantiateNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::DataInterface::instantiateNetwork </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>test if some network components does not have a dynamic model </p>
+<p>A network model will be instantiated if at least one of the static components does not have a dynamic model</p>
+<dl class="section return"><dt>Returns</dt><dd>do we need to instantiate the network </dd></dl>
+
+<p>Implemented in <a class="el" href="../../db/de7/a02866.html#a691c6b733bdd031516598bc978e77e9f">DYN::DataInterfaceImpl</a>.</p>
+
+</div>
+</div>
+<a id="a5b1de608cf26541a8625f95bb850cd8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b1de608cf26541a8625f95bb850cd8b">&#9670;&nbsp;</a></span>selectVariant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::selectVariant </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>variantName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Choose which network variant to use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">variantName</td><td>the name of the variant to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a82546f1cfb10b2321a06e0f6d54b6a88">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a82546f1cfb10b2321a06e0f6d54b6a88">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a9f0b4d080ed74d6a018c89000d3dac60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f0b4d080ed74d6a018c89000d3dac60">&#9670;&nbsp;</a></span>setDynamicModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::setDynamicModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>componentId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d4/da5/a02746.html">SubModel</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>model</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associate a dynamic model to a component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">componentId</td><td>Component's id associated to the dynamic model </td></tr>
+    <tr><td class="paramname">model</td><td>Dynamic model associated to the component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a7b9091af6e1b768c1aa6e0811ea05728">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a7b9091af6e1b768c1aa6e0811ea05728">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a2f16859a4c2e1ae667a7a86c34f57d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f16859a4c2e1ae667a7a86c34f57d91">&#9670;&nbsp;</a></span>setModelNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::setModelNetwork </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d4/da5/a02746.html">SubModel</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>model</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associate the model of network to data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>instance of network's model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a1bc31e4cd9bad970c0099fa014ca9d95">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a1bc31e4cd9bad970c0099fa014ca9d95">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a7b843fda45e9bbd64849f35c94ed8434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b843fda45e9bbd64849f35c94ed8434">&#9670;&nbsp;</a></span>setReference()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::setReference </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>componentVar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>staticId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelVar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associate a component variable to a model variable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">componentVar</td><td>component's var </td></tr>
+    <tr><td class="paramname">staticId</td><td>static id of the model </td></tr>
+    <tr><td class="paramname">modelId</td><td>model's id </td></tr>
+    <tr><td class="paramname">modelVar</td><td>model's var associated to the component's var </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a3ffbc47cca34524330e6860754a30a88">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a3ffbc47cca34524330e6860754a30a88">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a2260e675488e3dba17cd0af3085b44b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2260e675488e3dba17cd0af3085b44b3">&#9670;&nbsp;</a></span>setTimeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::setTimeline </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for timeline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td>timeline output </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#a20508d855e5c985068d29f917ae4fa46">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#a20508d855e5c985068d29f917ae4fa46">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a1297af56124573be3c453bd69e69fc0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1297af56124573be3c453bd69e69fc0d">&#9670;&nbsp;</a></span>updateFromModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::DataInterface::updateFromModel </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>filterForCriteriaCheck</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>update from model state variables </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filterForCriteriaCheck</td><td>true if we only want to update the parameters used in criteria check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dde/a02978.html#aabce84a9e43ef54157219355d8a7fc45">DYN::DataInterfaceIIDM</a>, and <a class="el" href="../../d0/dde/a02978.html#aabce84a9e43ef54157219355d8a7fc45">DYN::DataInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d0/d5c/a00668_source.html">DYNDataInterface.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -187,7 +1083,8 @@ $(document).ready(function(){initNavTree('de/d09/a02861.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:16 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/de8/a02858.html">DataInterface</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

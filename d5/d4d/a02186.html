@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: job::JobEntry Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d8/d85/a02189.html','../../');});
+$(document).ready(function(){initNavTree('d5/d4d/a02186.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,15 +94,437 @@ $(document).ready(function(){initNavTree('d8/d85/a02189.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../df/d14/a02183.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::LogsEntryFactory Member List</div>  </div>
+<div class="title">job::JobEntry Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d8/d85/a02189.html">job::LogsEntryFactory</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d85/a02189.html#a9a87b48c44230d1769f7fd1e88e84b42">newInstance</a>()</td><td class="entry"><a class="el" href="../../d8/d85/a02189.html">job::LogsEntryFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-</table></div><!-- contents -->
+<p>Job entries container class.  
+ <a href="../../d5/d4d/a02186.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../df/d95/a00299_source.html">JOBJobEntry.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6966ff32edd1a307fdefeceb43399e51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a6966ff32edd1a307fdefeceb43399e51">setModelerEntry</a> (const boost::shared_ptr&lt; <a class="el" href="../../d4/d54/a02218.html">ModelerEntry</a> &gt; &amp;modelerEntry)</td></tr>
+<tr class="memdesc:a6966ff32edd1a307fdefeceb43399e51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modeler entries container setter.  <a href="#a6966ff32edd1a307fdefeceb43399e51">More...</a><br /></td></tr>
+<tr class="separator:a6966ff32edd1a307fdefeceb43399e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93af7abe63c5bcb13fd872ab36e2877d"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d4/d54/a02218.html">ModelerEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a93af7abe63c5bcb13fd872ab36e2877d">getModelerEntry</a> () const</td></tr>
+<tr class="memdesc:a93af7abe63c5bcb13fd872ab36e2877d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modeler entries container getter.  <a href="#a93af7abe63c5bcb13fd872ab36e2877d">More...</a><br /></td></tr>
+<tr class="separator:a93af7abe63c5bcb13fd872ab36e2877d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece434ec267a8048c82380f515af3cfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#aece434ec267a8048c82380f515af3cfa">setSolverEntry</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/db6/a02258.html">SolverEntry</a> &gt; &amp;solverEntry)</td></tr>
+<tr class="memdesc:aece434ec267a8048c82380f515af3cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solver entries container setter.  <a href="#aece434ec267a8048c82380f515af3cfa">More...</a><br /></td></tr>
+<tr class="separator:aece434ec267a8048c82380f515af3cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bec83f62a901cf10796b67cc09c1bbb"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../dc/db6/a02258.html">SolverEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a1bec83f62a901cf10796b67cc09c1bbb">getSolverEntry</a> () const</td></tr>
+<tr class="memdesc:a1bec83f62a901cf10796b67cc09c1bbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solver entries container getter.  <a href="#a1bec83f62a901cf10796b67cc09c1bbb">More...</a><br /></td></tr>
+<tr class="separator:a1bec83f62a901cf10796b67cc09c1bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa521c25f0c6d686a07bea763dff8a60b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#aa521c25f0c6d686a07bea763dff8a60b">setSimulationEntry</a> (const boost::shared_ptr&lt; <a class="el" href="../../d4/d48/a02250.html">SimulationEntry</a> &gt; &amp;simulationEntry)</td></tr>
+<tr class="memdesc:aa521c25f0c6d686a07bea763dff8a60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulation entries container setter.  <a href="#aa521c25f0c6d686a07bea763dff8a60b">More...</a><br /></td></tr>
+<tr class="separator:aa521c25f0c6d686a07bea763dff8a60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9317175692d471595bd9890bd11a990f"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d4/d48/a02250.html">SimulationEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a9317175692d471595bd9890bd11a990f">getSimulationEntry</a> () const</td></tr>
+<tr class="memdesc:a9317175692d471595bd9890bd11a990f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulation entries container getter.  <a href="#a9317175692d471595bd9890bd11a990f">More...</a><br /></td></tr>
+<tr class="separator:a9317175692d471595bd9890bd11a990f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0506191489b049bf3185580705a7d6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#ad0506191489b049bf3185580705a7d6c">setOutputsEntry</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d44/a02242.html">OutputsEntry</a> &gt; &amp;outputsEntry)</td></tr>
+<tr class="memdesc:ad0506191489b049bf3185580705a7d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outputs entries container setter.  <a href="#ad0506191489b049bf3185580705a7d6c">More...</a><br /></td></tr>
+<tr class="separator:ad0506191489b049bf3185580705a7d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c952b111522c6e8f5bb1487d9ca3da1"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d1/d44/a02242.html">OutputsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a8c952b111522c6e8f5bb1487d9ca3da1">getOutputsEntry</a> () const</td></tr>
+<tr class="memdesc:a8c952b111522c6e8f5bb1487d9ca3da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outputs entries container getter.  <a href="#a8c952b111522c6e8f5bb1487d9ca3da1">More...</a><br /></td></tr>
+<tr class="separator:a8c952b111522c6e8f5bb1487d9ca3da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab67df24af970779adfa550545bf8b8f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#ab67df24af970779adfa550545bf8b8f3">setLocalInitEntry</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/d9d/a02202.html">LocalInitEntry</a> &gt; &amp;localInitEntry)</td></tr>
+<tr class="memdesc:ab67df24af970779adfa550545bf8b8f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local init entries container setter.  <a href="#ab67df24af970779adfa550545bf8b8f3">More...</a><br /></td></tr>
+<tr class="separator:ab67df24af970779adfa550545bf8b8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1241d4068b8d8f659849a65b92b0ca3f"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d0/d9d/a02202.html">LocalInitEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a1241d4068b8d8f659849a65b92b0ca3f">getLocalInitEntry</a> () const</td></tr>
+<tr class="memdesc:a1241d4068b8d8f659849a65b92b0ca3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local init entries container getter.  <a href="#a1241d4068b8d8f659849a65b92b0ca3f">More...</a><br /></td></tr>
+<tr class="separator:a1241d4068b8d8f659849a65b92b0ca3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab338464e59b620966b72dd474661f44b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#ab338464e59b620966b72dd474661f44b">setName</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:ab338464e59b620966b72dd474661f44b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name setter.  <a href="#ab338464e59b620966b72dd474661f44b">More...</a><br /></td></tr>
+<tr class="separator:ab338464e59b620966b72dd474661f44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7184bc8143df6e035d6402d4fff8721a"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a7184bc8143df6e035d6402d4fff8721a">getName</a> () const</td></tr>
+<tr class="memdesc:a7184bc8143df6e035d6402d4fff8721a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name getter.  <a href="#a7184bc8143df6e035d6402d4fff8721a">More...</a><br /></td></tr>
+<tr class="separator:a7184bc8143df6e035d6402d4fff8721a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abed7c5df13d336ed71ed8871d00869d7"><td class="memItemLeft" align="right" valign="top"><a id="abed7c5df13d336ed71ed8871d00869d7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#abed7c5df13d336ed71ed8871d00869d7">JobEntry</a> ()</td></tr>
+<tr class="memdesc:abed7c5df13d336ed71ed8871d00869d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:abed7c5df13d336ed71ed8871d00869d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7871ba04013d6798f2d9a1af8e04464f"><td class="memItemLeft" align="right" valign="top"><a id="a7871ba04013d6798f2d9a1af8e04464f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a7871ba04013d6798f2d9a1af8e04464f">~JobEntry</a> ()</td></tr>
+<tr class="memdesc:a7871ba04013d6798f2d9a1af8e04464f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a7871ba04013d6798f2d9a1af8e04464f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60762d486a6b059162ab3b0531115077"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d4d/a02186.html">JobEntry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a60762d486a6b059162ab3b0531115077">operator=</a> (const <a class="el" href="../../d5/d4d/a02186.html">JobEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:a60762d486a6b059162ab3b0531115077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a60762d486a6b059162ab3b0531115077">More...</a><br /></td></tr>
+<tr class="separator:a60762d486a6b059162ab3b0531115077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0209d018043dc3c392d41ca87a8f29ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a0209d018043dc3c392d41ca87a8f29ca">JobEntry</a> (const <a class="el" href="../../d5/d4d/a02186.html">JobEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:a0209d018043dc3c392d41ca87a8f29ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a0209d018043dc3c392d41ca87a8f29ca">More...</a><br /></td></tr>
+<tr class="separator:a0209d018043dc3c392d41ca87a8f29ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a007908e0d9062235d029e160fc4a0664"><td class="memItemLeft" align="right" valign="top"><a id="a007908e0d9062235d029e160fc4a0664"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d4/d54/a02218.html">ModelerEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a007908e0d9062235d029e160fc4a0664">modelerEntry_</a></td></tr>
+<tr class="memdesc:a007908e0d9062235d029e160fc4a0664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modeler entries container. <br /></td></tr>
+<tr class="separator:a007908e0d9062235d029e160fc4a0664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2783c303a9338abb4d296460220eca17"><td class="memItemLeft" align="right" valign="top"><a id="a2783c303a9338abb4d296460220eca17"></a>
+boost::shared_ptr&lt; <a class="el" href="../../dc/db6/a02258.html">SolverEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a2783c303a9338abb4d296460220eca17">solverEntry_</a></td></tr>
+<tr class="memdesc:a2783c303a9338abb4d296460220eca17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solver entries container. <br /></td></tr>
+<tr class="separator:a2783c303a9338abb4d296460220eca17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c513b8cd6fa388b48c7a56b5cf99f8d"><td class="memItemLeft" align="right" valign="top"><a id="a4c513b8cd6fa388b48c7a56b5cf99f8d"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d4/d48/a02250.html">SimulationEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a4c513b8cd6fa388b48c7a56b5cf99f8d">simulationEntry_</a></td></tr>
+<tr class="memdesc:a4c513b8cd6fa388b48c7a56b5cf99f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulation entries container. <br /></td></tr>
+<tr class="separator:a4c513b8cd6fa388b48c7a56b5cf99f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5798823473cab58ba3363f3c19ccb532"><td class="memItemLeft" align="right" valign="top"><a id="a5798823473cab58ba3363f3c19ccb532"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d1/d44/a02242.html">OutputsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a5798823473cab58ba3363f3c19ccb532">outputsEntry_</a></td></tr>
+<tr class="memdesc:a5798823473cab58ba3363f3c19ccb532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outputs entries container. <br /></td></tr>
+<tr class="separator:a5798823473cab58ba3363f3c19ccb532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5764b5fbb34cda7b2a556f334e93d7c9"><td class="memItemLeft" align="right" valign="top"><a id="a5764b5fbb34cda7b2a556f334e93d7c9"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d0/d9d/a02202.html">LocalInitEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#a5764b5fbb34cda7b2a556f334e93d7c9">localInitEntry_</a></td></tr>
+<tr class="memdesc:a5764b5fbb34cda7b2a556f334e93d7c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local init entries container. <br /></td></tr>
+<tr class="separator:a5764b5fbb34cda7b2a556f334e93d7c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0a6d680b8566153a6afd160bb2dd8dd"><td class="memItemLeft" align="right" valign="top"><a id="ad0a6d680b8566153a6afd160bb2dd8dd"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02186.html#ad0a6d680b8566153a6afd160bb2dd8dd">name_</a></td></tr>
+<tr class="memdesc:ad0a6d680b8566153a6afd160bb2dd8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the job used for description and logs purpose. <br /></td></tr>
+<tr class="separator:ad0a6d680b8566153a6afd160bb2dd8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Job entries container class. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0209d018043dc3c392d41ca87a8f29ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0209d018043dc3c392d41ca87a8f29ca">&#9670;&nbsp;</a></span>JobEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">job::JobEntry::JobEntry </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/d4d/a02186.html">JobEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the job entry to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1241d4068b8d8f659849a65b92b0ca3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1241d4068b8d8f659849a65b92b0ca3f">&#9670;&nbsp;</a></span>getLocalInitEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d0/d9d/a02202.html">LocalInitEntry</a>&gt; job::JobEntry::getLocalInitEntry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Local init entries container getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Local init entries container for the job </dd></dl>
+
+</div>
+</div>
+<a id="a93af7abe63c5bcb13fd872ab36e2877d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93af7abe63c5bcb13fd872ab36e2877d">&#9670;&nbsp;</a></span>getModelerEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d4/d54/a02218.html">ModelerEntry</a>&gt; job::JobEntry::getModelerEntry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modeler entries container getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Modeler entries container for the job </dd></dl>
+
+</div>
+</div>
+<a id="a7184bc8143df6e035d6402d4fff8721a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7184bc8143df6e035d6402d4fff8721a">&#9670;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; job::JobEntry::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Name getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Name of the job </dd></dl>
+
+</div>
+</div>
+<a id="a8c952b111522c6e8f5bb1487d9ca3da1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c952b111522c6e8f5bb1487d9ca3da1">&#9670;&nbsp;</a></span>getOutputsEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d1/d44/a02242.html">OutputsEntry</a>&gt; job::JobEntry::getOutputsEntry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Outputs entries container getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>the outputs entry container </dd></dl>
+
+</div>
+</div>
+<a id="a9317175692d471595bd9890bd11a990f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9317175692d471595bd9890bd11a990f">&#9670;&nbsp;</a></span>getSimulationEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d4/d48/a02250.html">SimulationEntry</a>&gt; job::JobEntry::getSimulationEntry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Simulation entries container getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>the simulation entry container </dd></dl>
+
+</div>
+</div>
+<a id="a1bec83f62a901cf10796b67cc09c1bbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bec83f62a901cf10796b67cc09c1bbb">&#9670;&nbsp;</a></span>getSolverEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../dc/db6/a02258.html">SolverEntry</a>&gt; job::JobEntry::getSolverEntry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solver entries container getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Solver entries container for the job </dd></dl>
+
+</div>
+</div>
+<a id="a60762d486a6b059162ab3b0531115077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60762d486a6b059162ab3b0531115077">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d5/d4d/a02186.html">JobEntry</a>&amp; job::JobEntry::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/d4d/a02186.html">JobEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy assignment operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the job entry to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference to this </dd></dl>
+
+</div>
+</div>
+<a id="ab67df24af970779adfa550545bf8b8f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab67df24af970779adfa550545bf8b8f3">&#9670;&nbsp;</a></span>setLocalInitEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobEntry::setLocalInitEntry </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d0/d9d/a02202.html">LocalInitEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>localInitEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Local init entries container setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">localInitEntry</td><td>: Local init entries container for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6966ff32edd1a307fdefeceb43399e51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6966ff32edd1a307fdefeceb43399e51">&#9670;&nbsp;</a></span>setModelerEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobEntry::setModelerEntry </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d4/d54/a02218.html">ModelerEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>modelerEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modeler entries container setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelerEntry</td><td>: Modeler entries container for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab338464e59b620966b72dd474661f44b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab338464e59b620966b72dd474661f44b">&#9670;&nbsp;</a></span>setName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobEntry::setName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Name setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>: Name of the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad0506191489b049bf3185580705a7d6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0506191489b049bf3185580705a7d6c">&#9670;&nbsp;</a></span>setOutputsEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobEntry::setOutputsEntry </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d1/d44/a02242.html">OutputsEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>outputsEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Outputs entries container setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputsEntry</td><td>: outputs entries container for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa521c25f0c6d686a07bea763dff8a60b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa521c25f0c6d686a07bea763dff8a60b">&#9670;&nbsp;</a></span>setSimulationEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobEntry::setSimulationEntry </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d4/d48/a02250.html">SimulationEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>simulationEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Simulation entries container setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">simulationEntry</td><td>: Simulation entries container for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aece434ec267a8048c82380f515af3cfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece434ec267a8048c82380f515af3cfa">&#9670;&nbsp;</a></span>setSolverEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobEntry::setSolverEntry </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/db6/a02258.html">SolverEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>solverEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solver entries container setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">solverEntry</td><td>: Solver entries container for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../df/d95/a00299_source.html">JOBJobEntry.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -118,7 +540,8 @@ $(document).ready(function(){initNavTree('d8/d85/a02189.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:18 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d5/d4d/a02186.html">JobEntry</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:31 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::SignalHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('da/d0a/a03297.html','../../');});
+$(document).ready(function(){initNavTree('df/d2e/a03294.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,50 +94,147 @@ $(document).ready(function(){initNavTree('da/d0a/a03297.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
+<a href="../../da/dbb/a03291.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SolverKINEuler Member List</div>  </div>
+<div class="title">DYN::SignalHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a2c1f354dfc49b5eb8e35d716cb74db65">analyseFlag</a>(const int flag)</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a7f17551e466f66189dff3d1c0b4423f7">clean</a>()</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#aeef1c4d201ecdd5de5fc81b23cce69ef">errHandlerFn</a>(int error_code, const char *module, const char *function, char *msg, void *eh_data)</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#a5052cc6d52ea56613cb674fee484ee32">evalF_KIN</a>(N_Vector yy, N_Vector rr, void *data)</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d0a/a03297.html#a4c6596a4d1a16d72a80e71cd970b860b">evalJ_KIN</a>(N_Vector yy, N_Vector rr, SUNMatrix JJ, void *data, N_Vector tmp1, N_Vector tmp2)</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#ac548a6b810869daad00b184697ce7813">firstIteration_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a1dbf9a7d0821516c5662fb4136705715">getFirstIteration</a>() const</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a5a3677f1c457fe2a850c12c90f672128">getLinearSolverName</a>() const</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d0a/a03297.html#af5f875eb60bb94c07f02a024f7f41151">getModel</a>() const</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#aa4b62f2d396afd53f4c4ac4ff38a3750">getTimeSchemeSolver</a>() const</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a12fa49f9c2f5c5010ae5386a73abb01b">infoHandlerFn</a>(const char *module, const char *function, char *msg, void *eh_data)</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#a0e9fac5448b8bf755692adeedf76a1c4">init</a>(const boost::shared_ptr&lt; Model &gt; &amp;model, Solver *timeSchemeSolver, const std::string &amp;linearSolverName, double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY)</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#accf7960ae97c03ca498ef87ce62b470f">initCommon</a>(const std::string &amp;linearSolverName, double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY)</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#aa318a5852764ed1df2e2278432b93fc0">KINMem_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a131c8860d99558910296d67910b9a592">lastRowVals_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a79eaace11a61ba37833ffab5da890aa7">linearSolver_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#af7020779ebc890bbaed4204dd0b373e1">linearSolverName_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#afae5b047450434aaf3a34546f42c710e">model_</a></td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a0f1875bb55c87343f8516e26771c66a0">numF_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#adab2221c3759a1a6c739971230b9d65b">setFirstIteration</a>(bool firstIteration)</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d0a/a03297.html#aa4bb589bca5104faab2cfa376cf7740d">solve</a>(bool noInitSetup, bool skipAlgebraicResidualsEvaluation)</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#ab96eef96a7054054e2148a7f611e704b">solveCommon</a>()</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a12faa39683e5bc908d83e6bfa544e397">SolverKINCommon</a>()</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#a500b5f63e4ca60af757e2c992a96317f">SolverKINEuler</a>()</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a1ef069260d80cc3eb0673c1748fdb96d">sundialsMatrix_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a6fce26953e282b4aef483085c5a4b070">sundialsVectorFScale_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#af30a59baa26b26bff8104fb35ce35a07">sundialsVectorY_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a5a2d9cef0ac71100dcf44065fbe2c36d">sundialsVectorYScale_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#aa9b18144cce27fbf68ae7b69b2217213">t0_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#a17e8119c0eb4ae405043bbcbc1c392be">timeSchemeSolver_</a></td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#af27110502728ff0b7137d3a0c084d9d4">updateStatistics</a>(long int &amp;nni, long int &amp;nre, long int &amp;nje)</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#a4630d40c9f6044637a3f19d857b49d71">vectorF_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#aaacb76fece5184cd848c9728466d5554">vectorFScale_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d74/a03293.html#abdf271771680044faf35f1a719a4c346">vectorYScale_</a></td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/d74/a03293.html#aabb8265fbf947b1964d5927e2d927559">~SolverKINCommon</a>()</td><td class="entry"><a class="el" href="../../d2/d74/a03293.html">DYN::SolverKINCommon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d0a/a03297.html#aaf92c1823a997d86285754ea4d640945">~SolverKINEuler</a>()</td><td class="entry"><a class="el" href="../../da/d0a/a03297.html">DYN::SolverKINEuler</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Signal handler class.  
+ <a href="../../df/d2e/a03294.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d7/d98/a00983_source.html">DYNSignalHandler.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aea2ba054914832f2b2c2af7551709099"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2e/a03294.html#aea2ba054914832f2b2c2af7551709099">gotExitSignal</a> ()</td></tr>
+<tr class="memdesc:aea2ba054914832f2b2c2af7551709099"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter to check if one signal was intercepted  <a href="#aea2ba054914832f2b2c2af7551709099">More...</a><br /></td></tr>
+<tr class="separator:aea2ba054914832f2b2c2af7551709099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f480bb0cbc26a149d3662edc455aab"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2e/a03294.html#ab1f480bb0cbc26a149d3662edc455aab">setExitSignal</a> (bool exitSignal)</td></tr>
+<tr class="memdesc:ab1f480bb0cbc26a149d3662edc455aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">setter to indicate if one signal was intercepted  <a href="#ab1f480bb0cbc26a149d3662edc455aab">More...</a><br /></td></tr>
+<tr class="separator:ab1f480bb0cbc26a149d3662edc455aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d783c044febeb6a334b65cd574b8bd"><td class="memItemLeft" align="right" valign="top"><a id="a02d783c044febeb6a334b65cd574b8bd"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2e/a03294.html#a02d783c044febeb6a334b65cd574b8bd">setSignalHandlers</a> ()</td></tr>
+<tr class="memdesc:a02d783c044febeb6a334b65cd574b8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">declare the signal to intercept <br /></td></tr>
+<tr class="separator:a02d783c044febeb6a334b65cd574b8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803e8baf904bb93ddd0c8a110bd987a3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2e/a03294.html#a803e8baf904bb93ddd0c8a110bd987a3">exitSignalHandler</a> (int signal)</td></tr>
+<tr class="memdesc:a803e8baf904bb93ddd0c8a110bd987a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler to intercept signal  <a href="#a803e8baf904bb93ddd0c8a110bd987a3">More...</a><br /></td></tr>
+<tr class="separator:a803e8baf904bb93ddd0c8a110bd987a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:abfe79732bd8c65d979b162dbcfa79f8a"><td class="memItemLeft" align="right" valign="top"><a id="abfe79732bd8c65d979b162dbcfa79f8a"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2e/a03294.html#abfe79732bd8c65d979b162dbcfa79f8a">gotExitSignal_</a></td></tr>
+<tr class="memdesc:abfe79732bd8c65d979b162dbcfa79f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">one signal was intercepted <br /></td></tr>
+<tr class="separator:abfe79732bd8c65d979b162dbcfa79f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Signal handler class. </p>
+<p>Signal handler object intercepts signal from the outside </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a803e8baf904bb93ddd0c8a110bd987a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803e8baf904bb93ddd0c8a110bd987a3">&#9670;&nbsp;</a></span>exitSignalHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void DYN::SignalHandler::exitSignalHandler </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>signal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>handler to intercept signal </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signal</td><td>num of the signal intercepted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aea2ba054914832f2b2c2af7551709099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2ba054914832f2b2c2af7551709099">&#9670;&nbsp;</a></span>gotExitSignal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool DYN::SignalHandler::gotExitSignal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>getter to check if one signal was intercepted </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if one signal was intercepted </dd></dl>
+
+</div>
+</div>
+<a id="ab1f480bb0cbc26a149d3662edc455aab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f480bb0cbc26a149d3662edc455aab">&#9670;&nbsp;</a></span>setExitSignal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void DYN::SignalHandler::setExitSignal </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>exitSignal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>setter to indicate if one signal was intercepted </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exitSignal</td><td><b>true</b> if one signal is intercepted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d7/d98/a00983_source.html">DYNSignalHandler.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -153,7 +250,8 @@ $(document).ready(function(){initNavTree('da/d0a/a03297.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d2e/a03294.html">SignalHandler</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

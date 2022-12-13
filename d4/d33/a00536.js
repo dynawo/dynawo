@@ -1,6 +1,11 @@
 var a00536 =
 [
-    [ "addElement", "d4/d33/a00536.html#a1cf23a0b4d2b7cdcd0e6d5b75b304de3", null ],
-    [ "addSubElement", "d4/d33/a00536.html#af79540637f3b08b1085aaaf0c6114421", null ],
-    [ "replaceMacroInVariableId", "d4/d33/a00536.html#aa91d8c788d4426901ab173149051a531", null ]
+    [ "TraceStream", "d1/d0c/a02666.html", "d1/d0c/a02666" ],
+    [ "SeverityLevel", "d4/d33/a00536.html#a7f30ec83caa9180e23f0f9079c7f4794", [
+      [ "DEBUG", "d4/d33/a00536.html#a7f30ec83caa9180e23f0f9079c7f4794aba17c0778dd43b6f34851dc72bb01bc0", null ],
+      [ "INFO", "d4/d33/a00536.html#a7f30ec83caa9180e23f0f9079c7f4794a91c78882ba9f10f232f4d92f90bf5bb0", null ],
+      [ "WARN", "d4/d33/a00536.html#a7f30ec83caa9180e23f0f9079c7f4794a65e4a0f0a3074f0188f25c7bc20deeeb", null ],
+      [ "ERROR", "d4/d33/a00536.html#a7f30ec83caa9180e23f0f9079c7f4794a9b4e3f574f324f82af263be3111118dc", null ]
+    ] ],
+    [ "eol", "d4/d33/a00536.html#a0b992bada48a2eb748585beda635bd92", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::Solver Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d7/d2c/a03333.html','../../');});
+$(document).ready(function(){initNavTree('de/d93/a03330.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,99 +94,921 @@ $(document).ready(function(){initNavTree('d7/d2c/a03333.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../d5/d7a/a03327.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Solver::Impl Member List</div>  </div>
+<div class="title">DYN::Solver Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad6d947a7ed3a56942d03b8067b696083">calculateIC</a>()=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a988b7d450c6a1914b1ceda113804cc85">checkUnusedParameters</a>(const boost::shared_ptr&lt; parameters::ParametersSet &gt; &amp;params) const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a06d34c6022a7faae9b3eef6fb64af600">clean</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a1b8a68f778f9256a9c633230811f23f2">computeYP</a>(const double *)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#af53cadaec1c78a55dde072fe3999a29f">defineCommonParameters</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#adecc7d98210d8947b1db1e52611233e0">defineParameters</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a37c243fc170d29b7a05d6b726087101d">defineSpecificParameters</a>()=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a79f19a44aae08a216199585ddae51b4e">enableSilentZ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#aa82bc49801c9134ef3ddfb5138f5e291">evalZMode</a>(std::vector&lt; state_g &gt; &amp;G0, std::vector&lt; state_g &gt; &amp;G1, double time)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a680f338a052438a909b14503c7bbeaee">findParameter</a>(const std::string &amp;name)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a4d4081717fb2ab0f290e9f23781e66f3">fnormtolAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a1ed56c61217deb4dc31133a0e6bd4aa2">fnormtolAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a85f64273dacae70c1a9e074390bb293e">fnormtolAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a442177c05b1261ccee1f720833ac8fbc">g0_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a6fb16276c5faf9f4937f5671f209b093">g1_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a977cfbe32dfd269ae97ea4eb807164db">getCurrentY</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a30fdb70dfe8136ce0fe505f99cfb6b84">getCurrentYP</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a8d344f8cb895e308705a6158cf05ef5d">getG1</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a50e0d604ede3184f2cea282c01a5668a">getModel</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a4ca9fa8a2d0d64b1f93b40932f0aa93f">getParametersMap</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#abef7acf8eab5c6571a6a834142c75458">getState</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d1e/a03309.html#a51ac18e625abf5cccd2d6be7802029ff">getTimeStep</a>() const =0</td><td class="entry"><a class="el" href="../../d8/d1e/a03309.html">DYN::Solver</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a2f00ee1db244ce842c682fc3c314150d">getTSolve</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad614d39f4f35b24002ca46607d21ee16">hasParameter</a>(const std::string &amp;nameParameter)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a8392e81fc51e2ee580b1a892913af4ec">Impl</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#aca29a5592e487db33306b0cb72587eed">init</a>(const boost::shared_ptr&lt; Model &gt; &amp;model, double t0, double tEnd)=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ab3cf52807797dc8d9b777ba10b5fa404">init</a>(double t0, const boost::shared_ptr&lt; Model &gt; &amp;model)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a55d8fd68c9de7a453853b637ff58ee09">initialaddtolAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#aac070195a314a12ace00d07ca5417018">initialaddtolAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ae0687c3b3a98a1ca2a0ee1bfaf3443db">initialaddtolAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a278260c07277f9c8a902f26216e80402">maximumNumberSlowStepIncrease_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad3580b7cdab73616d0dce3b47a9647ec">minimalAcceptableStep_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#acbd758bc6eae7e0f07d84178c37b29c9">minimumModeChangeTypeForAlgebraicRestoration_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ae6f8d07b747982d59dcae24cd0a4d840">minimumModeChangeTypeForAlgebraicRestorationInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad70c6aed4a31c4f07545c71572c4f13e">model_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad274d68a984151ac5184187248b1e738">msbsetAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a3ea4fe65dd991019ac528556bfc21759">msbsetAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a46b2c7314386c3d5adcb0f5976071b6c">msbsetAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#aaed95a51fed4790521a1a0a754847c53">mxiterAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a9c0461da60a73ec9d5260fe3e2f22627">mxiterAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ab7753a8c3737dea5e5f8a91580c30bf9">mxiterAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#aea4389dadaffeef2c7acb139f9343d1c">mxnewtstepAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ac66502084e1912429833a4ba6f746e13">mxnewtstepAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a6679f9f6ea1e075dfc30d0b705417786">mxnewtstepAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a0bb4db819d7ff93b8e8cc80db4fcf06f">optimizeReinitAlgebraicResidualsEvaluations_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ab2fecc702e13a276787da9856ef314b8">parameters_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ab1c4cdbc05b85b9ed488d9a3f3e7d79c">printEnd</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ae2980f740a63ac36a8e7524d4b2fc958">printflAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ae58c2fcb0583d02e73d7ea8289e4104e">printflAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#abc481a01fdf84c6626fa0c613c6aa075">printflAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a76f07b68db76f7dbeff52924f1951eb6">printHeader</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d1e/a03309.html#aad24731f8150e91e951456149a2385dd">printHeaderSpecific</a>(std::stringstream &amp;ss) const =0</td><td class="entry"><a class="el" href="../../d8/d1e/a03309.html">DYN::Solver</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a966d5fc364ac696dfd724cc399806e3b">printParameterValues</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#af00d861c6a656c1d4dd67cd00e387f7d">printSolve</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a03309.html#a6b6cf436c116b3abb61b4088076a2ea5">printSolveSpecific</a>(std::stringstream &amp;msg) const =0</td><td class="entry"><a class="el" href="../../d8/d1e/a03309.html">DYN::Solver</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a63e3bf8da474d09d11c1a04c566d961f">printUnstableRoot</a>(double t, const std::vector&lt; state_g &gt; &amp;G0, const std::vector&lt; state_g &gt; &amp;G1) const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ae4378d52b330a047aa7deca1c4d3bdb9">reinit</a>()=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ab11dd63b82e3252c35a012a2690348a7">resetStats</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a2ba7edbc8ed56ee3e216d4e31ba22267">scsteptolAlg_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a3e8e9cb7ffd5f8b6bc0cf4bef662c34d">scsteptolAlgInit_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a4ac96ec007c2e0d243e93343e5705698">scsteptolAlgJ_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a4b07adfeaa658bcf727961738f88ad34">setParameterFromSet</a>(const std::string &amp;parName, const boost::shared_ptr&lt; parameters::ParametersSet &gt; &amp;parametersSet)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a43b8368387a0841f578f98eb26befd30">setParameters</a>(const boost::shared_ptr&lt; parameters::ParametersSet &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a6aa4afcd5f2cdb82ef049d35283cef92">setParametersFromPARFile</a>(const boost::shared_ptr&lt; parameters::ParametersSet &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a7bd1d21df1c1a8eff9ca72684bd01d0e">setParameterValue</a>(ParameterSolver &amp;parameter, const T &amp;value)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a8e53620c17c340c8207b646abaa66a3c">setSolverCommonParameters</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#aef56188e98f7bc4d7b2316605d6737ee">setSolverParameters</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a2134547dec6f204b4a12d4ff5e32da06">setSolverSpecificParameters</a>()=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a3ccfb1271f81ec18f4521346984e4ae3">setTimeline</a>(const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ae117fdd078a64b0e406f0ce9e3221c3e">setupNewAlgRestoration</a>(modeChangeType_t modeChangeType)=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a727589170a680e43ddad706e39e9d3fc">silentZEnabled</a>() const</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#adece554b2ab0a0eb6541783e261b6326">solve</a>(double tAim, double &amp;tNxt)</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a24391f463df4c1a2453bc9fae736e247">solverType</a>() const =0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a7b2d8800910c7207c555c264a60d64b2">solveStep</a>(double tAim, double &amp;tNxt)=0</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a11bdedd89a69dda2178eea47b038ef90">state_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a2b073538b58876b70d377bb7e8958225">stats_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad9ec42ba07b6e6d00f058783411b25d5">sundialsVectorY_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a9b2f6724cd0362421d2316c5403bba46">sundialsVectorYp_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ad1b3476c6147838aedbd2e483591c7bb">timeline_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#a955edf8074975bc8e7fed9d81f797474">tSolve_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a03309.html#a864706e94efc164564647935b79bd0fd">updateStatistics</a>()=0</td><td class="entry"><a class="el" href="../../d8/d1e/a03309.html">DYN::Solver</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#afd71049e2a796686d095e2d3cf2da588">vectorY_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#ac47e671281f85d6ba625196a789e574c">vectorYp_</a></td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d2c/a03333.html#af1b64d392cea278c4bf2dd6f73a8788a">~Impl</a>()</td><td class="entry"><a class="el" href="../../d7/d2c/a03333.html">DYN::Solver::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a03309.html#a0a1a9b0b147d07d0d551e2089145030d">~Solver</a>()</td><td class="entry"><a class="el" href="../../d8/d1e/a03309.html">DYN::Solver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="../../de/d93/a03330.html" title="Solver interface class. ">Solver</a> interface class.  
+ <a href="../../de/d93/a03330.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d7/d59/a01013_source.html">DYNSolver.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::Solver:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../de/d93/a03330.png" usemap="#DYN::Solver_map" alt=""/>
+  <map id="DYN::Solver_map" name="DYN::Solver_map">
+<area href="../../d3/d67/a03354.html" title="Solver implemented class. " alt="DYN::Solver::Impl" shape="rect" coords="222,56,434,80"/>
+<area href="../../df/d24/a03358.html" title="class SolverCommonFixedTimeStep : Common class between SIM and TRAP. " alt="DYN::SolverCommonFixedTimeStep" shape="rect" coords="111,112,323,136"/>
+<area href="../../de/d83/a03382.html" title="class Solver IDA " alt="DYN::SolverIDA" shape="rect" coords="333,112,545,136"/>
+<area href="../../df/d7f/a03366.html" title="class Solver SIM : simplified solver " alt="DYN::SolverSIM" shape="rect" coords="0,168,212,192"/>
+<area href="../../d4/d6f/a03374.html" title="class Solver TRAP : trapezoidal solver " alt="DYN::SolverTRAP" shape="rect" coords="222,168,434,192"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d67/a03354.html">Impl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d93/a03330.html" title="Solver interface class. ">Solver</a> implemented class.  <a href="../../d3/d67/a03354.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0a1a9b0b147d07d0d551e2089145030d"><td class="memItemLeft" align="right" valign="top"><a id="a0a1a9b0b147d07d0d551e2089145030d"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a0a1a9b0b147d07d0d551e2089145030d">~Solver</a> ()</td></tr>
+<tr class="memdesc:a0a1a9b0b147d07d0d551e2089145030d"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
+<tr class="separator:a0a1a9b0b147d07d0d551e2089145030d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25aa3683c71c4f7c2dbe7f8e2880dfc5"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="../../d8/d4a/a02550.html">BitMask</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a25aa3683c71c4f7c2dbe7f8e2880dfc5">getState</a> () const =0</td></tr>
+<tr class="memdesc:a25aa3683c71c4f7c2dbe7f8e2880dfc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current solver's state  <a href="#a25aa3683c71c4f7c2dbe7f8e2880dfc5">More...</a><br /></td></tr>
+<tr class="separator:a25aa3683c71c4f7c2dbe7f8e2880dfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac83ee48c30f8fa25a13633c5f80b710c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#ac83ee48c30f8fa25a13633c5f80b710c">setParameters</a> (const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;params)=0</td></tr>
+<tr class="memdesc:ac83ee48c30f8fa25a13633c5f80b710c"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the solver's parameters  <a href="#ac83ee48c30f8fa25a13633c5f80b710c">More...</a><br /></td></tr>
+<tr class="separator:ac83ee48c30f8fa25a13633c5f80b710c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75db4f1383c85ca497bc365a4891d91f"><td class="memItemLeft" align="right" valign="top"><a id="a75db4f1383c85ca497bc365a4891d91f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a75db4f1383c85ca497bc365a4891d91f">defineParameters</a> ()=0</td></tr>
+<tr class="memdesc:a75db4f1383c85ca497bc365a4891d91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each parameters of the solver <br /></td></tr>
+<tr class="separator:a75db4f1383c85ca497bc365a4891d91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dc14107b7bc69e6ca7b69a68bd6b8e3"><td class="memItemLeft" align="right" valign="top"><a id="a7dc14107b7bc69e6ca7b69a68bd6b8e3"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a7dc14107b7bc69e6ca7b69a68bd6b8e3">defineCommonParameters</a> ()=0</td></tr>
+<tr class="memdesc:a7dc14107b7bc69e6ca7b69a68bd6b8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">define common parameters for all solvers <br /></td></tr>
+<tr class="separator:a7dc14107b7bc69e6ca7b69a68bd6b8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d670d6c39504fc434858fd30f7e54c8"><td class="memItemLeft" align="right" valign="top"><a id="a7d670d6c39504fc434858fd30f7e54c8"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a7d670d6c39504fc434858fd30f7e54c8">defineSpecificParameters</a> ()=0</td></tr>
+<tr class="memdesc:a7d670d6c39504fc434858fd30f7e54c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">define parameters specific to each solver <br /></td></tr>
+<tr class="separator:a7d670d6c39504fc434858fd30f7e54c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a411f1953d95438a89263c6f959044f4c"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a411f1953d95438a89263c6f959044f4c">solverType</a> () const =0</td></tr>
+<tr class="memdesc:a411f1953d95438a89263c6f959044f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the type of the solver  <a href="#a411f1953d95438a89263c6f959044f4c">More...</a><br /></td></tr>
+<tr class="separator:a411f1953d95438a89263c6f959044f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe19be2ccae0abe6ffb7adef9b81cfd6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#afe19be2ccae0abe6ffb7adef9b81cfd6">hasParameter</a> (const std::string &amp;nameParameter)=0</td></tr>
+<tr class="memdesc:afe19be2ccae0abe6ffb7adef9b81cfd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">check whether the parameter is available within the solver  <a href="#afe19be2ccae0abe6ffb7adef9b81cfd6">More...</a><br /></td></tr>
+<tr class="separator:afe19be2ccae0abe6ffb7adef9b81cfd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384be36ebe76bd76eb9445cb9a6a7516"><td class="memItemLeft" align="right" valign="top">virtual const std::map&lt; std::string, <a class="el" href="../../dc/de3/a03326.html">ParameterSolver</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a384be36ebe76bd76eb9445cb9a6a7516">getParametersMap</a> () const =0</td></tr>
+<tr class="memdesc:a384be36ebe76bd76eb9445cb9a6a7516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for attribute parameters_.  <a href="#a384be36ebe76bd76eb9445cb9a6a7516">More...</a><br /></td></tr>
+<tr class="separator:a384be36ebe76bd76eb9445cb9a6a7516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7d8afe55ffac1468bff120f8d7d36b1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#ac7d8afe55ffac1468bff120f8d7d36b1">checkUnusedParameters</a> (const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;params) const =0</td></tr>
+<tr class="memdesc:ac7d8afe55ffac1468bff120f8d7d36b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">check whether parameters are used  <a href="#ac7d8afe55ffac1468bff120f8d7d36b1">More...</a><br /></td></tr>
+<tr class="separator:ac7d8afe55ffac1468bff120f8d7d36b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2ff7e8e1547f22062b56c738ade18df"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/de3/a03326.html">ParameterSolver</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#ac2ff7e8e1547f22062b56c738ade18df">findParameter</a> (const std::string &amp;name)=0</td></tr>
+<tr class="memdesc:ac2ff7e8e1547f22062b56c738ade18df"><td class="mdescLeft">&#160;</td><td class="mdescRight">search for a parameter with a given name  <a href="#ac2ff7e8e1547f22062b56c738ade18df">More...</a><br /></td></tr>
+<tr class="separator:ac2ff7e8e1547f22062b56c738ade18df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dca206a013b9de8b8b626660467fe6a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a7dca206a013b9de8b8b626660467fe6a">setParameterFromSet</a> (const std::string &amp;parName, const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;parametersSet)=0</td></tr>
+<tr class="memdesc:a7dca206a013b9de8b8b626660467fe6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a parameter value from a parameters set  <a href="#a7dca206a013b9de8b8b626660467fe6a">More...</a><br /></td></tr>
+<tr class="separator:a7dca206a013b9de8b8b626660467fe6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432c1c116ec8387cf573bc0954ee070c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a432c1c116ec8387cf573bc0954ee070c">setParametersFromPARFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;params)=0</td></tr>
+<tr class="memdesc:a432c1c116ec8387cf573bc0954ee070c"><td class="mdescLeft">&#160;</td><td class="mdescRight">set all parameters values from a parameters set (API PAR)  <a href="#a432c1c116ec8387cf573bc0954ee070c">More...</a><br /></td></tr>
+<tr class="separator:a432c1c116ec8387cf573bc0954ee070c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a124d6cfc35ae95fbc5b5b2068676d8e8"><td class="memItemLeft" align="right" valign="top"><a id="a124d6cfc35ae95fbc5b5b2068676d8e8"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a124d6cfc35ae95fbc5b5b2068676d8e8">setSolverParameters</a> ()=0</td></tr>
+<tr class="memdesc:a124d6cfc35ae95fbc5b5b2068676d8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the solver parameters value <br /></td></tr>
+<tr class="separator:a124d6cfc35ae95fbc5b5b2068676d8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1303dcfca8d825d45ab6204641bf68f"><td class="memItemLeft" align="right" valign="top"><a id="aa1303dcfca8d825d45ab6204641bf68f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#aa1303dcfca8d825d45ab6204641bf68f">setSolverCommonParameters</a> ()=0</td></tr>
+<tr class="memdesc:aa1303dcfca8d825d45ab6204641bf68f"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the solver common parameters value <br /></td></tr>
+<tr class="separator:aa1303dcfca8d825d45ab6204641bf68f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbc872a1db8139299066e6e7877aa39b"><td class="memItemLeft" align="right" valign="top"><a id="afbc872a1db8139299066e6e7877aa39b"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#afbc872a1db8139299066e6e7877aa39b">setSolverSpecificParameters</a> ()=0</td></tr>
+<tr class="memdesc:afbc872a1db8139299066e6e7877aa39b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the solver specific parameters value <br /></td></tr>
+<tr class="separator:afbc872a1db8139299066e6e7877aa39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840270377fa5d2f3064423fec4ede3f7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a840270377fa5d2f3064423fec4ede3f7">init</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d3c/a02714.html">Model</a> &gt; &amp;model, double t0, double tEnd)=0</td></tr>
+<tr class="memdesc:a840270377fa5d2f3064423fec4ede3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the solver  <a href="#a840270377fa5d2f3064423fec4ede3f7">More...</a><br /></td></tr>
+<tr class="separator:a840270377fa5d2f3064423fec4ede3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab275a99205d5b2ead3094fb84af34500"><td class="memItemLeft" align="right" valign="top"><a id="ab275a99205d5b2ead3094fb84af34500"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#ab275a99205d5b2ead3094fb84af34500">calculateIC</a> ()=0</td></tr>
+<tr class="memdesc:ab275a99205d5b2ead3094fb84af34500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the intial condition of the DAE. <br /></td></tr>
+<tr class="separator:ab275a99205d5b2ead3094fb84af34500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1a8295de5aa0ceb7f1368b1c7a83122"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#aa1a8295de5aa0ceb7f1368b1c7a83122">solve</a> (double tAim, double &amp;tNxt)=0</td></tr>
+<tr class="memdesc:aa1a8295de5aa0ceb7f1368b1c7a83122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate the DAE over an interval in t.  <a href="#aa1a8295de5aa0ceb7f1368b1c7a83122">More...</a><br /></td></tr>
+<tr class="separator:aa1a8295de5aa0ceb7f1368b1c7a83122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0e428d476ae0661679354edc340712f"><td class="memItemLeft" align="right" valign="top"><a id="ad0e428d476ae0661679354edc340712f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#ad0e428d476ae0661679354edc340712f">reinit</a> ()=0</td></tr>
+<tr class="memdesc:ad0e428d476ae0661679354edc340712f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point) <br /></td></tr>
+<tr class="separator:ad0e428d476ae0661679354edc340712f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ee23093fe149c6bef1d059a8394729a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a3ee23093fe149c6bef1d059a8394729a">computeYP</a> (const double *yy)=0</td></tr>
+<tr class="memdesc:a3ee23093fe149c6bef1d059a8394729a"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute time scheme related derivatives  <a href="#a3ee23093fe149c6bef1d059a8394729a">More...</a><br /></td></tr>
+<tr class="separator:a3ee23093fe149c6bef1d059a8394729a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a591680b273288a361b19a4af33b63637"><td class="memItemLeft" align="right" valign="top"><a id="a591680b273288a361b19a4af33b63637"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a591680b273288a361b19a4af33b63637">printSolve</a> () const =0</td></tr>
+<tr class="memdesc:a591680b273288a361b19a4af33b63637"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the latest step made by the solver (i.e. solution) <br /></td></tr>
+<tr class="separator:a591680b273288a361b19a4af33b63637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b6cf436c116b3abb61b4088076a2ea5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a6b6cf436c116b3abb61b4088076a2ea5">printSolveSpecific</a> (std::stringstream &amp;msg) const =0</td></tr>
+<tr class="memdesc:a6b6cf436c116b3abb61b4088076a2ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">print specific info regarding the latest step made by the solver (i.e. solution)  <a href="#a6b6cf436c116b3abb61b4088076a2ea5">More...</a><br /></td></tr>
+<tr class="separator:a6b6cf436c116b3abb61b4088076a2ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af32f334cf66aa7319e317d88a9797afc"><td class="memItemLeft" align="right" valign="top"><a id="af32f334cf66aa7319e317d88a9797afc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#af32f334cf66aa7319e317d88a9797afc">printHeader</a> () const =0</td></tr>
+<tr class="memdesc:af32f334cf66aa7319e317d88a9797afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">print introduction information about the solver <br /></td></tr>
+<tr class="separator:af32f334cf66aa7319e317d88a9797afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad24731f8150e91e951456149a2385dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#aad24731f8150e91e951456149a2385dd">printHeaderSpecific</a> (std::stringstream &amp;ss) const =0</td></tr>
+<tr class="memdesc:aad24731f8150e91e951456149a2385dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">print solver specific introduction information  <a href="#aad24731f8150e91e951456149a2385dd">More...</a><br /></td></tr>
+<tr class="separator:aad24731f8150e91e951456149a2385dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1761800c064e29a25808a8204729411"><td class="memItemLeft" align="right" valign="top"><a id="ab1761800c064e29a25808a8204729411"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#ab1761800c064e29a25808a8204729411">printEnd</a> () const =0</td></tr>
+<tr class="memdesc:ab1761800c064e29a25808a8204729411"><td class="mdescLeft">&#160;</td><td class="mdescRight">print a summary of the execution statistics of the solver <br /></td></tr>
+<tr class="separator:ab1761800c064e29a25808a8204729411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6140b779814d5ce5983bb7a8e43237"><td class="memItemLeft" align="right" valign="top"><a id="a6a6140b779814d5ce5983bb7a8e43237"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a6a6140b779814d5ce5983bb7a8e43237">printParameterValues</a> () const =0</td></tr>
+<tr class="memdesc:a6a6140b779814d5ce5983bb7a8e43237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print all parameters values. <br /></td></tr>
+<tr class="separator:a6a6140b779814d5ce5983bb7a8e43237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b6918da97f4e5f245cf1c29a50c195"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a43b6918da97f4e5f245cf1c29a50c195">getCurrentYP</a> () const =0</td></tr>
+<tr class="memdesc:a43b6918da97f4e5f245cf1c29a50c195"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the current value of variables' derivatives  <a href="#a43b6918da97f4e5f245cf1c29a50c195">More...</a><br /></td></tr>
+<tr class="separator:a43b6918da97f4e5f245cf1c29a50c195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75fe12235e1499de73081d258c003e36"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a75fe12235e1499de73081d258c003e36">getCurrentY</a> () const =0</td></tr>
+<tr class="memdesc:a75fe12235e1499de73081d258c003e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the current value of continuous variables  <a href="#a75fe12235e1499de73081d258c003e36">More...</a><br /></td></tr>
+<tr class="separator:a75fe12235e1499de73081d258c003e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9821b800717d6bd1206b73d9e882492c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a9821b800717d6bd1206b73d9e882492c">getTSolve</a> () const =0</td></tr>
+<tr class="memdesc:a9821b800717d6bd1206b73d9e882492c"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the current internal time of the solver  <a href="#a9821b800717d6bd1206b73d9e882492c">More...</a><br /></td></tr>
+<tr class="separator:a9821b800717d6bd1206b73d9e882492c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b0a6dab3c2525a496d6e49fa8b9ce7f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a5b0a6dab3c2525a496d6e49fa8b9ce7f">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline)=0</td></tr>
+<tr class="memdesc:a5b0a6dab3c2525a496d6e49fa8b9ce7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the timeline to use during the simulation (where events should be added/removed)  <a href="#a5b0a6dab3c2525a496d6e49fa8b9ce7f">More...</a><br /></td></tr>
+<tr class="separator:a5b0a6dab3c2525a496d6e49fa8b9ce7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cd4bf2eb567d25ba4573b5560919da7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a8cd4bf2eb567d25ba4573b5560919da7">setupNewAlgRestoration</a> (<a class="el" href="../../d7/d5e/a00467.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> modeChangeType)=0</td></tr>
+<tr class="memdesc:a8cd4bf2eb567d25ba4573b5560919da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the algebraic restoration solver with the good settings  <a href="#a8cd4bf2eb567d25ba4573b5560919da7">More...</a><br /></td></tr>
+<tr class="separator:a8cd4bf2eb567d25ba4573b5560919da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864706e94efc164564647935b79bd0fd"><td class="memItemLeft" align="right" valign="top"><a id="a864706e94efc164564647935b79bd0fd"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a864706e94efc164564647935b79bd0fd">updateStatistics</a> ()=0</td></tr>
+<tr class="memdesc:a864706e94efc164564647935b79bd0fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the statistics <br /></td></tr>
+<tr class="separator:a864706e94efc164564647935b79bd0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e3c97fb0e56570647a7b980b577b9d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a23e3c97fb0e56570647a7b980b577b9d">silentZEnabled</a> () const =0</td></tr>
+<tr class="memdesc:a23e3c97fb0e56570647a7b980b577b9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the silentZ optimization is activated  <a href="#a23e3c97fb0e56570647a7b980b577b9d">More...</a><br /></td></tr>
+<tr class="separator:a23e3c97fb0e56570647a7b980b577b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ac18e625abf5cccd2d6be7802029ff"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/a03330.html#a51ac18e625abf5cccd2d6be7802029ff">getTimeStep</a> () const =0</td></tr>
+<tr class="memdesc:a51ac18e625abf5cccd2d6be7802029ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">get time step  <a href="#a51ac18e625abf5cccd2d6be7802029ff">More...</a><br /></td></tr>
+<tr class="separator:a51ac18e625abf5cccd2d6be7802029ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="../../de/d93/a03330.html" title="Solver interface class. ">Solver</a> interface class. </p>
+<p>Interface class for solver using ind Dynawo </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac7d8afe55ffac1468bff120f8d7d36b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7d8afe55ffac1468bff120f8d7d36b1">&#9670;&nbsp;</a></span>checkUnusedParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::checkUnusedParameters </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check whether parameters are used </p>
+<p>If a parameter is not used, add a debug trace</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>parameter set to check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a988b7d450c6a1914b1ceda113804cc85">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a3ee23093fe149c6bef1d059a8394729a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ee23093fe149c6bef1d059a8394729a">&#9670;&nbsp;</a></span>computeYP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::computeYP </td>
+          <td>(</td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>yy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>compute time scheme related derivatives </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yy</td><td>current values of continuous variables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a1b8a68f778f9256a9c633230811f23f2">DYN::Solver::Impl</a>, <a class="el" href="../../df/d7f/a03366.html#a7dda1516a1832983070e964fa74b677b">DYN::SolverSIM</a>, and <a class="el" href="../../d4/d6f/a03374.html#a6ab0c050eb6232953154a5959bbbde1c">DYN::SolverTRAP</a>.</p>
+
+</div>
+</div>
+<a id="ac2ff7e8e1547f22062b56c738ade18df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2ff7e8e1547f22062b56c738ade18df">&#9670;&nbsp;</a></span>findParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../dc/de3/a03326.html">ParameterSolver</a>&amp; DYN::Solver::findParameter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>search for a parameter with a given name </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>name of the desired parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>desired parameter </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a680f338a052438a909b14503c7bbeaee">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a75fe12235e1499de73081d258c003e36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75fe12235e1499de73081d258c003e36">&#9670;&nbsp;</a></span>getCurrentY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const std::vector&lt;double&gt;&amp; DYN::Solver::getCurrentY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>getter for the current value of continuous variables </p>
+<dl class="section return"><dt>Returns</dt><dd>the current value of continuous derivatives </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a977cfbe32dfd269ae97ea4eb807164db">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a43b6918da97f4e5f245cf1c29a50c195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b6918da97f4e5f245cf1c29a50c195">&#9670;&nbsp;</a></span>getCurrentYP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const std::vector&lt;double&gt;&amp; DYN::Solver::getCurrentYP </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>getter for the current value of variables' derivatives </p>
+<dl class="section return"><dt>Returns</dt><dd>the current value of variables' derivatives </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a30fdb70dfe8136ce0fe505f99cfb6b84">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a384be36ebe76bd76eb9445cb9a6a7516"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384be36ebe76bd76eb9445cb9a6a7516">&#9670;&nbsp;</a></span>getParametersMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const std::map&lt;std::string, <a class="el" href="../../dc/de3/a03326.html">ParameterSolver</a>&gt;&amp; DYN::Solver::getParametersMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for attribute parameters_. </p>
+<dl class="section return"><dt>Returns</dt><dd>solver attribute parameters_ </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a4ca9fa8a2d0d64b1f93b40932f0aa93f">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a25aa3683c71c4f7c2dbe7f8e2880dfc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25aa3683c71c4f7c2dbe7f8e2880dfc5">&#9670;&nbsp;</a></span>getState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="../../d8/d4a/a02550.html">BitMask</a>&amp; DYN::Solver::getState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the current solver's state </p>
+<dl class="section return"><dt>Returns</dt><dd>solver state </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#abef7acf8eab5c6571a6a834142c75458">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a51ac18e625abf5cccd2d6be7802029ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ac18e625abf5cccd2d6be7802029ff">&#9670;&nbsp;</a></span>getTimeStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::Solver::getTimeStep </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get time step </p>
+<dl class="section return"><dt>Returns</dt><dd>the current time step </dd></dl>
+
+<p>Implemented in <a class="el" href="../../de/d83/a03382.html#a23cef8384f92ad26c8a4fd1aa660551a">DYN::SolverIDA</a>, <a class="el" href="../../d4/d6f/a03374.html#ad656868f5c4529483ca4ad8c9b357dcf">DYN::SolverTRAP</a>, and <a class="el" href="../../df/d7f/a03366.html#a89b181c907dbe77668618914e649ddc8">DYN::SolverSIM</a>.</p>
+
+</div>
+</div>
+<a id="a9821b800717d6bd1206b73d9e882492c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9821b800717d6bd1206b73d9e882492c">&#9670;&nbsp;</a></span>getTSolve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::Solver::getTSolve </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>getter for the current internal time of the solver </p>
+<dl class="section return"><dt>Returns</dt><dd>current internal time of the solver </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a2f00ee1db244ce842c682fc3c314150d">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="afe19be2ccae0abe6ffb7adef9b81cfd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe19be2ccae0abe6ffb7adef9b81cfd6">&#9670;&nbsp;</a></span>hasParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::Solver::hasParameter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>nameParameter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check whether the parameter is available within the solver </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nameParameter</td><td>name of the parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the parameter exists inside the solver </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#ad614d39f4f35b24002ca46607d21ee16">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a840270377fa5d2f3064423fec4ede3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840270377fa5d2f3064423fec4ede3f7">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::init </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d1/d3c/a02714.html">Model</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tEnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize the solver </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>the model to simulate </td></tr>
+    <tr><td class="paramname">t0</td><td>start time of the simulation </td></tr>
+    <tr><td class="paramname">tEnd</td><td>end time of the simulation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#aca29a5592e487db33306b0cb72587eed">DYN::Solver::Impl</a>, <a class="el" href="../../de/d83/a03382.html#aecd605e6632bf5e16750bd93c9f84f19">DYN::SolverIDA</a>, <a class="el" href="../../df/d7f/a03366.html#afc4e29cc7d320c7a59c277b822f8bb17">DYN::SolverSIM</a>, and <a class="el" href="../../d4/d6f/a03374.html#abeab6a0979630d69f11917a51877fbbc">DYN::SolverTRAP</a>.</p>
+
+</div>
+</div>
+<a id="aad24731f8150e91e951456149a2385dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad24731f8150e91e951456149a2385dd">&#9670;&nbsp;</a></span>printHeaderSpecific()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::printHeaderSpecific </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>ss</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>print solver specific introduction information </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ss</td><td>stringstream to modify </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../de/d83/a03382.html#a6bad93f3277b40e2d4d94d40443a8b66">DYN::SolverIDA</a>, and <a class="el" href="../../df/d24/a03358.html#abf14f3e7981cb15a4d9aab6649820aa9">DYN::SolverCommonFixedTimeStep</a>.</p>
+
+</div>
+</div>
+<a id="a6b6cf436c116b3abb61b4088076a2ea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b6cf436c116b3abb61b4088076a2ea5">&#9670;&nbsp;</a></span>printSolveSpecific()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::printSolveSpecific </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>print specific info regarding the latest step made by the solver (i.e. solution) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>stringstream to modify </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../de/d83/a03382.html#acdaa7adb87d576645e04155c2217b139">DYN::SolverIDA</a>, and <a class="el" href="../../df/d24/a03358.html#a8e909fd1d5d61c7a51896244b4f6154a">DYN::SolverCommonFixedTimeStep</a>.</p>
+
+</div>
+</div>
+<a id="a7dca206a013b9de8b8b626660467fe6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dca206a013b9de8b8b626660467fe6a">&#9670;&nbsp;</a></span>setParameterFromSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::setParameterFromSet </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>parName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>parametersSet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set a parameter value from a parameters set </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parName</td><td>the name of the parameter to be set </td></tr>
+    <tr><td class="paramname">parametersSet</td><td>the set to scan for a value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a4b07adfeaa658bcf727961738f88ad34">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="ac83ee48c30f8fa25a13633c5f80b710c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac83ee48c30f8fa25a13633c5f80b710c">&#9670;&nbsp;</a></span>setParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::setParameters </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the solver's parameters </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>parameter set used to set the solver's parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a43b8368387a0841f578f98eb26befd30">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a432c1c116ec8387cf573bc0954ee070c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432c1c116ec8387cf573bc0954ee070c">&#9670;&nbsp;</a></span>setParametersFromPARFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::setParametersFromPARFile </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d6/d07/a02430.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set all parameters values from a parameters set (API PAR) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>parameter set to check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a6aa4afcd5f2cdb82ef049d35283cef92">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a5b0a6dab3c2525a496d6e49fa8b9ce7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b0a6dab3c2525a496d6e49fa8b9ce7f">&#9670;&nbsp;</a></span>setTimeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::setTimeline </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the timeline to use during the simulation (where events should be added/removed) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td>timeline to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a3ccfb1271f81ec18f4521346984e4ae3">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a8cd4bf2eb567d25ba4573b5560919da7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd4bf2eb567d25ba4573b5560919da7">&#9670;&nbsp;</a></span>setupNewAlgRestoration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::Solver::setupNewAlgRestoration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d5e/a00467.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td>
+          <td class="paramname"><em>modeChangeType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize the algebraic restoration solver with the good settings </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modeChangeType</td><td>type of mode change </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if a Jacobian evaluation is needed at the next algebraic restoration </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#ae117fdd078a64b0e406f0ce9e3221c3e">DYN::Solver::Impl</a>, <a class="el" href="../../de/d83/a03382.html#a06496c4cbb19e85c0143847b3d191a56">DYN::SolverIDA</a>, and <a class="el" href="../../df/d24/a03358.html#a89247a983b959224e53ac312a1cdd278">DYN::SolverCommonFixedTimeStep</a>.</p>
+
+</div>
+</div>
+<a id="a23e3c97fb0e56570647a7b980b577b9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e3c97fb0e56570647a7b980b577b9d">&#9670;&nbsp;</a></span>silentZEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::Solver::silentZEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>whether the silentZ optimization is activated </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the silentZ optimization is activated, false otherwise </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a727589170a680e43ddad706e39e9d3fc">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="aa1a8295de5aa0ceb7f1368b1c7a83122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1a8295de5aa0ceb7f1368b1c7a83122">&#9670;&nbsp;</a></span>solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Solver::solve </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tAim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>tNxt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Integrate the DAE over an interval in t. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tAim</td><td>the next time at which a computed solution is desired </td></tr>
+    <tr><td class="paramname">tNxt</td><td>the time reached by the solver </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#adece554b2ab0a0eb6541783e261b6326">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a411f1953d95438a89263c6f959044f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a411f1953d95438a89263c6f959044f4c">&#9670;&nbsp;</a></span>solverType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string DYN::Solver::solverType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the type of the solver </p>
+<dl class="section return"><dt>Returns</dt><dd>the type of the solver </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d3/d67/a03354.html#a24391f463df4c1a2453bc9fae736e247">DYN::Solver::Impl</a>, <a class="el" href="../../de/d83/a03382.html#ac7ae0f27753bba13099918d3388087e9">DYN::SolverIDA</a>, <a class="el" href="../../df/d7f/a03366.html#a36e085caf83892e2edbe499351a677af">DYN::SolverSIM</a>, and <a class="el" href="../../d4/d6f/a03374.html#a89e3d841dc23525f12995bb75a52a6eb">DYN::SolverTRAP</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d7/d59/a01013_source.html">DYNSolver.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -202,7 +1024,8 @@ $(document).ready(function(){initNavTree('d7/d2c/a03333.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:17 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d93/a03330.html">Solver</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

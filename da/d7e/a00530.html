@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: gtest_dynawo.h File Reference</title>
+<title>Dynawo: DYNTimer.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,250 +95,34 @@ $(document).ready(function(){initNavTree('da/d7e/a00530.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">gtest_dynawo.h File Reference</div>  </div>
+<div class="title">DYNTimer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>defined some useful macros used in unit test based on gtest library this file is only useful for unit test and should not be added to dynawo distribution  
+<p>Class timer header : timers are used to monitored the code execution.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;cxxabi.h&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &quot;gmock/gmock.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/d5f/a00461_source.html">DYNError.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
 </div>
 <p><a href="../../da/d7e/a00530_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a3c873a7b0f333a727460be5bc1c13b3a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7e/a00530.html#a3c873a7b0f333a727460be5bc1c13b3a">ASSERT_THROW_DYNAWO</a>(F,  ERROR_TYPE,  ERROR_KEY)</td></tr>
-<tr class="memdesc:a3c873a7b0f333a727460be5bc1c13b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">macro to test if the error returns by a function is the right one  <a href="#a3c873a7b0f333a727460be5bc1c13b3a">More...</a><br /></td></tr>
-<tr class="separator:a3c873a7b0f333a727460be5bc1c13b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4a31bd964069d134944e9c83e43a782"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7e/a00530.html#af4a31bd964069d134944e9c83e43a782">EXPECT_ASSERT_DYNAWO</a>(F)</td></tr>
-<tr class="memdesc:af4a31bd964069d134944e9c83e43a782"><td class="mdescLeft">&#160;</td><td class="mdescRight">macro to test if the function returns an assert  <a href="#af4a31bd964069d134944e9c83e43a782">More...</a><br /></td></tr>
-<tr class="separator:af4a31bd964069d134944e9c83e43a782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15b612c792c0dc04c4ca70831cad5ff0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7e/a00530.html#a15b612c792c0dc04c4ca70831cad5ff0">ASSERT_DOUBLE_EQUALS_DYNAWO</a>(A,  B)</td></tr>
-<tr class="memdesc:a15b612c792c0dc04c4ca70831cad5ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">macro to test if two double are equals  <a href="#a15b612c792c0dc04c4ca70831cad5ff0">More...</a><br /></td></tr>
-<tr class="separator:a15b612c792c0dc04c4ca70831cad5ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a961c5eff88f35eb3eee6484c5e9182d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7e/a00530.html#a961c5eff88f35eb3eee6484c5e9182d0">INIT_XML_DYNAWO</a></td></tr>
-<tr class="memdesc:a961c5eff88f35eb3eee6484c5e9182d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro replacement for GTest TEST macro for CLang only.  <a href="#a961c5eff88f35eb3eee6484c5e9182d0">More...</a><br /></td></tr>
-<tr class="separator:a961c5eff88f35eb3eee6484c5e9182d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a98ebff40c1bc80287831c01bbe12e650"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7e/a00530.html#a98ebff40c1bc80287831c01bbe12e650">type2Str</a> (const <a class="el" href="../../de/dd4/a02541.html#ab65468b98196803043b63655fcfd1d58">DYN::Error::TypeError_t</a> &amp;type)</td></tr>
-<tr class="memdesc:a98ebff40c1bc80287831c01bbe12e650"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the string name associated to the type of the error  <a href="#a98ebff40c1bc80287831c01bbe12e650">More...</a><br /></td></tr>
-<tr class="separator:a98ebff40c1bc80287831c01bbe12e650"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a543b39db82612484e7242b9bfe754628"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7e/a00530.html#a543b39db82612484e7242b9bfe754628">key2Str</a> (const int key)</td></tr>
-<tr class="memdesc:a543b39db82612484e7242b9bfe754628"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the string name associated to the key of the error  <a href="#a543b39db82612484e7242b9bfe754628">More...</a><br /></td></tr>
-<tr class="separator:a543b39db82612484e7242b9bfe754628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html">DYN::Timers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/d96/a02642.html" title="Timers clas description : stored all timer created during execution. ">Timers</a> clas description : stored all timer created during execution.  <a href="../../d5/d96/a02642.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d23/a02646.html">DYN::Timer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d23/a02646.html" title="Timer clas description :compute time elapsed between its creation and its destruction. ">Timer</a> clas description :compute time elapsed between its creation and its destruction.  <a href="../../d3/d23/a02646.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>defined some useful macros used in unit test based on gtest library this file is only useful for unit test and should not be added to dynawo distribution </p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a15b612c792c0dc04c4ca70831cad5ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15b612c792c0dc04c4ca70831cad5ff0">&#9670;&nbsp;</a></span>ASSERT_DOUBLE_EQUALS_DYNAWO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ASSERT_DOUBLE_EQUALS_DYNAWO</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">A, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">B&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">GTEST_AMBIGUOUS_ELSE_BLOCKER_                                    \</div><div class="line">  if (!doubleEquals(A, B)) {                                       \</div><div class="line">    std::ostringstream oss;                                        \</div><div class="line">    oss &lt;&lt; <span class="stringliteral">&quot;Expected: &quot;</span> &lt;&lt; A &lt;&lt; <span class="stringliteral">&quot; equals to &quot;</span> &lt;&lt; B &lt;&lt; std::endl;   \</div><div class="line">    GTEST_FATAL_FAILURE_(oss.str().c_str());                       \</div><div class="line">  } <span class="keywordflow">else</span>  <span class="comment">/* NOLINT */</span>                                             \</div><div class="line">    ASSERT_EQ(doubleEquals(A, B), <span class="keyword">true</span>)</div></div><!-- fragment -->
-<p>macro to test if two double are equals </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">A</td><td>first double </td></tr>
-    <tr><td class="paramname">B</td><td>second double </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3c873a7b0f333a727460be5bc1c13b3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c873a7b0f333a727460be5bc1c13b3a">&#9670;&nbsp;</a></span>ASSERT_THROW_DYNAWO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ASSERT_THROW_DYNAWO</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">F, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ERROR_TYPE, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ERROR_KEY&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">GTEST_AMBIGUOUS_ELSE_BLOCKER_                                                                  \</div><div class="line">  if (::testing::internal::AlwaysTrue()) {                                                       \</div><div class="line">    try                                                                                          \</div><div class="line">    {                                                                                            \</div><div class="line">      F;                                                                                         \</div><div class="line">      FAIL();                                                                                    \</div><div class="line">    }                                                                                            \</div><div class="line">    catch(<span class="keyword">const</span> <a class="code" href="../../de/dd4/a02541.html">DYN::Error</a>&amp; e)                                                                   \</div><div class="line">    {                                                                                            \</div><div class="line">      EXPECT_EQ(<a class="code" href="../../da/d7e/a00530.html#a98ebff40c1bc80287831c01bbe12e650">type2Str</a>(ERROR_TYPE), <a class="code" href="../../da/d7e/a00530.html#a98ebff40c1bc80287831c01bbe12e650">type2Str</a>(e.type()));                                       \</div><div class="line">      EXPECT_EQ(<a class="code" href="../../da/d7e/a00530.html#a543b39db82612484e7242b9bfe754628">key2Str</a>(ERROR_KEY), <a class="code" href="../../da/d7e/a00530.html#a543b39db82612484e7242b9bfe754628">key2Str</a>(e.key()));                                           \</div><div class="line">    }                                                                                            \</div><div class="line">    catch (<span class="keyword">const</span> std::exception&amp; e) {                                                            \</div><div class="line">      int status = -1;                                                                           \</div><div class="line">      std::ostringstream oss;                                                                    \</div><div class="line">      oss &lt;&lt; <span class="stringliteral">&quot;Expected: &quot;</span> &lt;&lt; #F &lt;&lt; <span class="stringliteral">&quot; throws an exception of type DYN::Error&quot;</span> &lt;&lt; std::endl;       \</div><div class="line">      oss &lt;&lt; <span class="stringliteral">&quot;  Actual: it throws an exception of type &quot;</span>;                                        \</div><div class="line">      char* realname = abi::__cxa_demangle(<span class="keyword">typeid</span>(e).name(), NULL, NULL, &amp;status);               \</div><div class="line">      oss &lt;&lt; ((status == 0) ? realname : <span class="keyword">typeid</span>(e).name());                                      \</div><div class="line">      std::free(realname);                                                                       \</div><div class="line">      GTEST_FATAL_FAILURE_(oss.str().c_str());                                                   \</div><div class="line">    }                                                                                            \</div><div class="line">    catch (...) {                                                                                \</div><div class="line">      std::ostringstream oss;                                                                    \</div><div class="line">      oss &lt;&lt; <span class="stringliteral">&quot;Expected: &quot;</span> &lt;&lt; #F &lt;&lt; <span class="stringliteral">&quot; throws an exception of type DYN::Error&quot;</span> &lt;&lt; std::endl;       \</div><div class="line">      oss &lt;&lt; <span class="stringliteral">&quot;  Actual: it throws an exception of unknown type&quot;</span>;                                 \</div><div class="line">      GTEST_FATAL_FAILURE_(oss.str().c_str());                                                   \</div><div class="line">    }                                                                                            \</div><div class="line">  } <span class="keywordflow">else</span>  <span class="comment">/* NOLINT */</span>                                                                           \</div><div class="line">    EXPECT_FALSE(<span class="keyword">false</span>)</div><div class="ttc" id="a00530_html_a98ebff40c1bc80287831c01bbe12e650"><div class="ttname"><a href="../../da/d7e/a00530.html#a98ebff40c1bc80287831c01bbe12e650">type2Str</a></div><div class="ttdeci">std::string type2Str(const DYN::Error::TypeError_t &amp;type)</div><div class="ttdoc">return the string name associated to the type of the error </div><div class="ttdef"><b>Definition:</b> gtest_dynawo.h:39</div></div>
-<div class="ttc" id="a02541_html"><div class="ttname"><a href="../../de/dd4/a02541.html">DYN::Error</a></div><div class="ttdoc">Generic error handler for Dynawo. </div><div class="ttdef"><b>Definition:</b> DYNError.h:35</div></div>
-<div class="ttc" id="a00530_html_a543b39db82612484e7242b9bfe754628"><div class="ttname"><a href="../../da/d7e/a00530.html#a543b39db82612484e7242b9bfe754628">key2Str</a></div><div class="ttdeci">std::string key2Str(const int key)</div><div class="ttdoc">return the string name associated to the key of the error </div><div class="ttdef"><b>Definition:</b> gtest_dynawo.h:80</div></div>
-</div><!-- fragment -->
-<p>macro to test if the error returns by a function is the right one </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">F</td><td>function/method to launch </td></tr>
-    <tr><td class="paramname">ERROR_TYPE</td><td>type of the error expected </td></tr>
-    <tr><td class="paramname">ERROR_KEY</td><td>key of the error expected </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af4a31bd964069d134944e9c83e43a782"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4a31bd964069d134944e9c83e43a782">&#9670;&nbsp;</a></span>EXPECT_ASSERT_DYNAWO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EXPECT_ASSERT_DYNAWO</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">F</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">GTEST_AMBIGUOUS_ELSE_BLOCKER_                                      \</div><div class="line">  if (::testing::FLAGS_gtest_death_test_style = <span class="stringliteral">&quot;threadsafe&quot;</span>, <span class="keyword">false</span>) \</div><div class="line">    ;                                                                \</div><div class="line">  else  <span class="comment">/* NOLINT */</span>                                                 \</div><div class="line">    EXPECT_EXIT(F, ::testing::KilledBySignal(SIGABRT), <span class="stringliteral">&quot;.*&quot;</span>)</div></div><!-- fragment -->
-<p>macro to test if the function returns an assert </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">F</td><td>function/method to launch </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a961c5eff88f35eb3eee6484c5e9182d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a961c5eff88f35eb3eee6484c5e9182d0">&#9670;&nbsp;</a></span>INIT_XML_DYNAWO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define INIT_XML_DYNAWO</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">testing::Environment* initXmlEnvironment();                      \</div><div class="line">  static testing::Environment* <span class="keyword">const</span> env = initXmlEnvironment()</div></div><!-- fragment -->
-<p>Macro replacement for GTest TEST macro for CLang only. </p>
-<p>Macro to initialize Xml environment </p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a543b39db82612484e7242b9bfe754628"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a543b39db82612484e7242b9bfe754628">&#9670;&nbsp;</a></span>key2Str()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string key2Str </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>return the string name associated to the key of the error </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>key of the error</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>key of the error as a string </dd></dl>
-
-</div>
-</div>
-<a id="a98ebff40c1bc80287831c01bbe12e650"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98ebff40c1bc80287831c01bbe12e650">&#9670;&nbsp;</a></span>type2Str()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string type2Str </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../de/dd4/a02541.html#ab65468b98196803043b63655fcfd1d58">DYN::Error::TypeError_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>return the string name associated to the type of the error </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>type of the error</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>type of the error as a string </dd></dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Class timer header : timers are used to monitored the code execution. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -354,8 +138,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../da/d7e/a00530.html">gtest_dynawo.h</a></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../da/d7e/a00530.html">DYNTimer.h</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:28 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

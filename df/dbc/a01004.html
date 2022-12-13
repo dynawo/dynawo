@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolver.h File Reference</title>
+<title>Dynawo: DYNSolverKINSubModel.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,60 +95,32 @@ $(document).ready(function(){initNavTree('df/dbc/a01004.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolver.h File Reference</div>  </div>
+<div class="title">DYNSolverKINSubModel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo solvers : interface file.  
+<p>Class of the solver used to calculate the initial values of the model This solver is based on sundials/KINSOL solver : solve f(u) = 0.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
 <code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;DYNBitMask.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d65/a00458_source.html">DYNEnumUtils.h</a>&quot;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
+<code>#include &lt;sundials/sundials_matrix.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d9a/a00998_source.html">DYNSolverKINCommon.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/d98/a00407_source.html">PARParametersSet.h</a>&quot;</code><br />
 </div>
 <p><a href="../../df/dbc/a01004_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a03309.html">DYN::Solver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d8/d1e/a03309.html" title="Solver interface class. ">Solver</a> interface class.  <a href="../../d8/d1e/a03309.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d5b/a03322.html">DYN::SolverKINSubModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sub model for solver KIN class <a class="el" href="../../de/d93/a03330.html" title="Solver interface class. ">Solver</a> related to a <a class="el" href="../../d4/da5/a02746.html" title="SubModel Class. ">SubModel</a>.  <a href="../../da/d5b/a03322.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="memItemLeft" align="right" valign="top"><a id="ae48eb449c5ebb36d96867a60dbda3a1d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbc/a01004.html#ae48eb449c5ebb36d96867a60dbda3a1d">DYN::StateFlags</a> { <br />
-&#160;&#160;<b>NoChange</b> = 0x00, 
-<b>ModeChange</b> = 0x01, 
-<b>NotSilentZChange</b> = 0x02, 
-<b>SilentZNotUsedInDiscreteEqChange</b> = 0x04, 
-<br />
-&#160;&#160;<b>SilentZNotUsedInContinuousEqChange</b> = 0x08
-<br />
- }</td></tr>
-<tr class="memdesc:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags of the current numerical resolution. <br /></td></tr>
-<tr class="separator:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="memItemLeft" align="right" valign="top"><a id="a3af48b28f1cebf4b6d5f61a6c0104165"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbc/a01004.html#a3af48b28f1cebf4b6d5f61a6c0104165">DYN::SolverType</a> { <b>SolverSimplifie</b> = 0, 
-<b>SolverSundials1</b> = 1, 
-<b>SolverSundials2</b> = 2
- }</td></tr>
-<tr class="memdesc:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the current solver used. <br /></td></tr>
-<tr class="separator:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aa10b15d13b58ee98676c58319df21ff5"><td class="memItemLeft" align="right" valign="top"><a id="aa10b15d13b58ee98676c58319df21ff5"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbc/a01004.html#aa10b15d13b58ee98676c58319df21ff5">DYN::maxNumberUnstableRoots</a> = 10</td></tr>
-<tr class="memdesc:aa10b15d13b58ee98676c58319df21ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of unstable roots for one time step. <br /></td></tr>
-<tr class="separator:aa10b15d13b58ee98676c58319df21ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo solvers : interface file. </p>
+<div class="textblock"><p>Class of the solver used to calculate the initial values of the model This solver is based on sundials/KINSOL solver : solve f(u) = 0. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -165,8 +137,8 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../df/dbc/a01004.html">DYNSolver.h</a></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:44:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_d00bb33c142b7149cd0b208ba1e7d1c9.html">AlgebraicSolvers</a></li><li class="navelem"><a class="el" href="../../df/dbc/a01004.html">DYNSolverKINSubModel.h</a></li>
+    <li class="footer">Generated on Tue Dec 13 2022 17:03:28 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
