@@ -731,7 +731,7 @@ build_3rd_party() {
     done
     make -j $DYNAWO_NB_PROCESSORS_USED $@
   else
-    if [ -n "$@" ]; then
+    if [ ! -z "$@" ]; then
       target="$@"
     else
       target="all"

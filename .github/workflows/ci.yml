@@ -32,6 +32,7 @@ jobs:
       - name: Build 3rd party
         run: |
           export DYNAWO_HOME=$(pwd)
+          cmake --version
           util/envDynawo.sh build-3rd-party
 
       - name: Build core
