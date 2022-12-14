@@ -171,78 +171,97 @@ protected
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g01 = -6;
   final parameter Types.ReactivePowerPu Q0Pu_g01 = -0.583;
+
   // Generator g02 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g02 = -3;
   final parameter Types.ReactivePowerPu Q0Pu_g02 = -0.172;
+
   // Generator g03 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g03 = -5.5;
   final parameter Types.ReactivePowerPu Q0Pu_g03 = -0.209;
+
   // Generator g04 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g04 = -4;
   final parameter Types.ReactivePowerPu Q0Pu_g04 = -0.304;
+
   // Generator g05 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g05 = -2;
   final parameter Types.ReactivePowerPu Q0Pu_g05 = -0.601;
+
   // Generator g06 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g06 = -3.6;
   final parameter Types.ReactivePowerPu Q0Pu_g06 = -1.386;
+
   // Generator g07 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g07 = -1.8;
   final parameter Types.ReactivePowerPu Q0Pu_g07 = -0.604;
+
   // Generator g08 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g08 = -7.5;
   final parameter Types.ReactivePowerPu Q0Pu_g08 = -2.326;
+
   // Generator g09 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g09 = -6.685;
   final parameter Types.ReactivePowerPu Q0Pu_g09 = -2.013;
+
   // Generator g10 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g10 = -6;
   final parameter Types.ReactivePowerPu Q0Pu_g10 = -2.557;
+
   // Generator g11 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g11 = -2.5;
   final parameter Types.ReactivePowerPu Q0Pu_g11 = -0.607;
+
   // Generator g12 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g12 = -3.1;
   final parameter Types.ReactivePowerPu Q0Pu_g12 = -0.983;
+
   // Generator g13 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g13 = 0;
   final parameter Types.ReactivePowerPu Q0Pu_g13 = -0.501;
+
   // Generator g14 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g14 = -6.3;
   final parameter Types.ReactivePowerPu Q0Pu_g14 = -2.959;
+
   // Generator g15 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g15 = -10.8;
   final parameter Types.ReactivePowerPu Q0Pu_g15 = -3.779;
+
   // Generator g16 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g16 = -6;
   final parameter Types.ReactivePowerPu Q0Pu_g16 = -2.226;
+
   // Generator g17 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g17 = -5.3;
   final parameter Types.ReactivePowerPu Q0Pu_g17 = -0.487;
+
   // Generator g18 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g18 = -10.6;
   final parameter Types.ReactivePowerPu Q0Pu_g18 = -2.934;
+
   // Generator g19 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g19 = -3;
   final parameter Types.ReactivePowerPu Q0Pu_g19 = -1.212;
+
   // Generator g20 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   final parameter Types.ActivePowerPu P0Pu_g20 = -21.374;

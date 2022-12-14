@@ -28,7 +28,7 @@ model LoadFlow "Model of load flow calculation for the Nordic 32 test system use
   Types.ActivePower check_g20_P;
   Types.ReactivePower check_g20_Q;
 
-  Electrical.Buses.InfiniteBus slackbus_g20(UPu = 1.0185, UPhase = SIunits.Conversions.from_deg(0)) annotation(
+  Electrical.Buses.InfiniteBus slackbus_g20(UPu = 1.0185, UPhase = 0) annotation(
     Placement(visible = true, transformation(origin = {-75, 58}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Electrical.Transformers.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {0, 125}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
