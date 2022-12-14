@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Voltage;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,37 +12,44 @@ within Dynawo.Electrical.Controls.Voltage;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model VRRemote "Model for centralized remote voltage regulation"
+model VRRemote "Model for coordinated primary voltage regulation. This model is used when several generators regulate the same bus with a control law U = URef."
+  import Dynawo.Types;
+  import Modelica;
 
-import Dynawo.Connectors;
-import Dynawo.Types;
-import Modelica;
-
-  parameter Types.VoltageModule URef0 "Start value of the regulated voltage reference in kV";
-  parameter Types.VoltageModule U0 "Start value of the regulated voltage in kV";
+  parameter Boolean FreezingActivated = false "Whether the freezing functionnality is activated or not";
   parameter Real Gain "Control gain";
+  parameter Integer NbGenMax = 15 "Maximum number of generators that can participate in the coordinated primary voltage regulation of the considered bus";
   parameter Types.Time tIntegral "Time integration constant";
 
+  Modelica.Blocks.Interfaces.BooleanInput[NbGenMax] limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)" annotation(
+    Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput[NbGenMax] limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)" annotation(
+    Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Regulated voltage reference in kV" annotation(
+    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URegulated(start = U0) "Regulated voltage in kV" annotation(
-    Placement(visible = true, transformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant URef(k = URef0) "Voltage regulation set point in kV" annotation(
-    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput NQ "Signal to change the reactive power generation of the generators participating in the centralized distant voltage regulation (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.RealOutput NQ "Signal to change the reactive power generation of the generators participating in the coordinated primary voltage regulation of the considered bus (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.PI pi(T = tIntegral, k = Gain, x_start = 0)  annotation(
-    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Boolean[NbGenMax] limUQDown0 = fill(true, NbGenMax) "Whether the minimum reactive power limits are initially reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)";
+  parameter Boolean[NbGenMax] limUQUp0 = fill(true, NbGenMax) "Whether the maximum reactive power limits are initially reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)";
+  parameter Types.VoltageModule U0 "Start value of the regulated voltage in kV";
+  parameter Types.VoltageModule URef0 "Start value of the regulated voltage reference in kV";
+
+protected
+  Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "Whether all the generators have reached their minimum reactive power limits";
+  Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "Whether all the generators have reached their maximum reactive power limits";
+  Types.VoltageModule deltaUInt(start = 0) "State of the integrator in kV";
+  Boolean frozen(start = false) "True if the integration is frozen";
 
 equation
-  connect(URef.y, feedback.u1) annotation(
-    Line(points = {{-99, 0}, {-49, 0}, {-49, 0}, {-48, 0}}, color = {0, 0, 127}));
-  connect(URegulated, feedback.u2) annotation(
-    Line(points = {{-120, -50}, {-40, -50}, {-40, -8}, {-40, -8}}, color = {0, 0, 127}));
-  connect(feedback.y, pi.u) annotation(
-    Line(points = {{-31, 0}, {-13, 0}, {-13, 0}, {-12, 0}}, color = {0, 0, 127}));
-  connect(pi.y, NQ) annotation(
-    Line(points = {{11, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
+  blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
+  blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
+  frozen = FreezingActivated and ((blockedUp and (URef - URegulated) > 0) or (blockedDown and (URef - URegulated) < 0));
+  der(deltaUInt) = if frozen then 0 else (URef - URegulated) / tIntegral;
+  NQ = Gain * (deltaUInt + URef - URegulated);
 
-annotation(preferredView = "diagram");
+  annotation(preferredView = "text");
 end VRRemote;

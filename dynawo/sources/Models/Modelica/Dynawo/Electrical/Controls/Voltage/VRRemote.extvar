@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,4 +13,7 @@
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="URegulated" type="continuous"/>
+  <variable id="URef" type="continuous" optional="true"/>
+  <variable type="discreteArray" id="limUQDown" size="15" optional="true" defaultValue="true"/><!--The size is the number of generators connected to the coordinated primary voltage regulator.-->
+  <variable type="discreteArray" id="limUQUp" size="15" optional="true" defaultValue="true"/><!--The size is the number of generators connected to the coordinated primary voltage regulator.-->
 </external_variables>

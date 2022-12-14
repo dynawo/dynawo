@@ -19,5 +19,28 @@ model GeneratorPQPropDiagramPQSFR_INIT "Initialisation model for generator PQ wi
   extends BaseClasses_INIT.BaseGeneratorSignalNPQDiagram_INIT;
   extends AdditionalIcons.Init;
 
+  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                              AbsorptionMax "Reactive power is fixed to its absorption limit",
+                              GenerationMax "Reactive power is fixed to its generation limit");
+
+  QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
+  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
+
+equation
+  if QGen0Pu <= QMin0Pu then
+    qStatus0 = QStatus.AbsorptionMax;
+    limUQUp0 = false;
+    limUQDown0 = true;
+  elseif QGen0Pu >= QMax0Pu then
+    qStatus0 = QStatus.GenerationMax;
+    limUQUp0 = true;
+    limUQDown0 = false;
+  else
+    qStatus0 = QStatus.Standard;
+    limUQUp0 = false;
+    limUQDown0 = false;
+  end if;
+
   annotation(preferredView = "text");
 end GeneratorPQPropDiagramPQSFR_INIT;
