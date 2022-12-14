@@ -17,15 +17,15 @@ block PIFreeze "Proportional-integrator controller with freezing of the state"
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit Y0 = 0 "Initial value of output" annotation(
-  Dialog(group="Initialization"));
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 
   Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation (Placement(
         visible = true, transformation(extent = {{-200, -20}, {-160, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation (Placement(
+
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0 * tIntegral / Gain) "Output signal connector" annotation (Placement(
         visible = true, transformation(extent = {{160, -10}, {180, 10}}, rotation = 0), iconTransformation(extent = {{100, -10}, {120, 10}}, rotation = 0)));
+
   Modelica.Blocks.Math.Add add(k1 = Gain, k2 = Gain / tIntegral) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(k = 1, y_start = Y0) annotation(
@@ -36,6 +36,10 @@ block PIFreeze "Proportional-integrator controller with freezing of the state"
     Placement(visible = true, transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput freeze annotation(
     Placement(visible = true, transformation(origin = {-100, -122}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-68, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+
+  parameter Types.PerUnit Y0 = 0 "Initial value of output" annotation(
+  Dialog(group="Initialization"));
+
 equation
   connect(integrator.y, add.u2) annotation(
     Line(points = {{22, -20}, {40, -20}, {40, -6}, {59, -6}}, color = {0, 0, 127}));
@@ -51,6 +55,7 @@ equation
     Line(points = {{82, 0}, {170, 0}}, color = {0, 0, 127}));
   connect(switch1.u2, freeze) annotation(
     Line(points = {{-42, -20}, {-100, -20}, {-100, -122}}, color = {255, 0, 255}));
+
   annotation(
   preferredView = "diagram",
   Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
