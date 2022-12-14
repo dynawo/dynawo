@@ -75,9 +75,9 @@ class FinalStateValue {
 
  private:
   // attributes read in input file
-  std::string modelName_;                                    ///< Model's name for which we want to have a final state value
-  std::string variable_;                                     ///< Variable name
-  double value_;  ///< Value
+  std::string modelName_;  ///< Model's name for which we want to have a final state value
+  std::string variable_;   ///< Variable name
+  double value_;           ///< Value
 };
 
 }  // namespace finalStateValues

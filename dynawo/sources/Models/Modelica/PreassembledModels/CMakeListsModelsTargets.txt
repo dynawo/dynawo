@@ -15,7 +15,7 @@
 ## Generics
 
 file(GLOB Automatons *Automaton*.xml)
-file(GLOB Basics SetPoint.xml Step.xml)
+file(GLOB Basics SetPoint.xml Step.xml DoubleStep.xml)
 file(GLOB Bus Bus.xml)
 file(GLOB Events Event*.xml)
 file(GLOB Generators Generator*.xml)
@@ -31,6 +31,7 @@ file(GLOB Shunts Shunt*.xml)
 file(GLOB SVarc StaticVarCompensator*.xml)
 file(GLOB TapChangers TapChanger*.xml)
 file(GLOB Transformer TransformerFixedRatio.xml)
+file(GLOB SecondaryControl Secondary*.xml)
 
 ## Generators
 add_custom_target(GENERATOR_MODELS)
@@ -62,7 +63,7 @@ file(GLOB DynaFlowHvdc HvdcP*.xml PowerTransferHVDCEmulation.xml)
 file(GLOB DynaFlowSVarc StaticVarCompensatorPV*.xml)
 
 add_custom_target(DYNAFLOW_MODELS)
-foreach(item IN LISTS Basics DynaFlowAutomatons DynaFlowGenerators DynaFlowHvdc DynaFlowLoads DynaFlowSVarc Events InfiniteBus Line PhaseShifters Shunts)
+foreach(item IN LISTS Basics DynaFlowAutomatons DynaFlowGenerators DynaFlowHvdc DynaFlowLoads DynaFlowSVarc Events InfiniteBus Line PhaseShifters Shunts SecondaryControl)
   get_filename_component(name ${item} NAME_WE)
   add_dependencies(DYNAFLOW_MODELS ${name})
 endforeach()
