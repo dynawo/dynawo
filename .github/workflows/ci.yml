@@ -14,6 +14,7 @@ jobs:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: ${{ github.workspace }}/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: ${{ github.workspace }}/OpenModelica/Source
+      DYNAWO_CMAKE_GENERATOR: Ninja
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout sources
@@ -21,6 +22,7 @@ jobs:
 
       - name: Build omc
         run: |
+          dnf install -y ninja-build
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-omcDynawo
 
