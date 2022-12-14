@@ -21,10 +21,31 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v1
 
-      - name: Build
+      - name: Build 3rd party
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-user
+          util/envDynawo.sh build-3rd-party
+
+      - name: Build core
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh config-dynawo
+          util/envDynawo.sh build-dynawo-core
+
+      - name: Build models cpp
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-dynawo-models-cpp
+
+      - name: Build models
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-dynawo-models
+
+      - name: Build solvers
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-dynawo-solvers
 
       - name: Update Docker Hub
         env:
