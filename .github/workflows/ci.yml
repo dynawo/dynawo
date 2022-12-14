@@ -7,8 +7,8 @@ defaults:
     shell: bash
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-20.04
     env:
       DYNAWO_BUILD_TYPE: Debug
       DYNAWO_RESULTS_SHOW: "false"
@@ -20,9 +20,12 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v1
 
+      - name: Install packages
+        run: |
+          apt install -y ninja-build git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt5-default lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
+
       - name: Build omc
         run: |
-          dnf install -y ninja-build
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-omcDynawo
 
