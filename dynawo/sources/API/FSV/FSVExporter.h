@@ -37,6 +37,11 @@ namespace finalStateValues {
 class Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() = default;
+
+  /**
    * @brief Export method for this exporter
    *
    * @param finalStateValues finalStateValues to export
