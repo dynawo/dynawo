@@ -78,8 +78,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -vvv -s https://api.github.com/repos/dynawo/dynawo/releases/tags/nightly | jq -r '.upload_url' | grep -o ".*assets"
-          url=$(curl -s https://api.github.com/repos/dynawo/dynawo/releases/tags/nightly | jq -r '.upload_url' | grep -o ".*assets")
+          url=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/dynawo/dynawo/releases/tags/nightly | jq -r '.upload_url' | grep -o ".*assets")
+          echo $url
           cd /d
           ls
           ls OpenModelica/dynawo/OpenModelica.zip
