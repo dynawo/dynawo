@@ -731,7 +731,12 @@ build_3rd_party() {
     done
     make -j $DYNAWO_NB_PROCESSORS_USED $@
   else
-    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR/build $DYNAWO_CMAKE_BUILD_OPTION --target $@
+    if [ -n "$@" ]; then
+      target="$@"
+    else
+      target="all"
+    fi
+    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR/build $DYNAWO_CMAKE_BUILD_OPTION --target $target
   fi
   RETURN_CODE=$?
   set_environment
