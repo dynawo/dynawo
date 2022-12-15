@@ -1197,6 +1197,7 @@ class Factory:
                     eq_type = ALGEBRAIC
                 assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
+
         # bulding relations objects
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
         relations_found = re.findall(r'  data->simulationInfo->relations.*?= tmp[0-9]+;', content_to_analyze)
@@ -1338,6 +1339,12 @@ class Factory:
                     else:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
+
+        for eq in self.list_int_equations:
+            relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
+            for relation in relations_found:
+                index_relation = relation.split(", ")[3]
+                self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
         for var in self.reader.list_calculated_vars :
             if var.get_alias_name() != "":
@@ -1967,6 +1974,14 @@ class Factory:
         filtered_func = list(self.zc_filter.get_function_zero_crossings_raw_func())
         filtered_func = filtered_func[1:-1] # remove last and first elements which are "}" and "{"
 
+        # sort by taking init function number read in *06inz.c
+        index = 0
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        calc_var_2_index = {}
+        for var in self.reader.list_calculated_vars:
+            calc_var_2_index[var.get_name()] = index
+            index += 1
+
         for line in filtered_func :
             if "gout" not in line:
                 if "tmp" in line:
@@ -2006,6 +2021,10 @@ class Factory:
         index = 0
         for line in self.list_for_setg:
             self.list_for_setg[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+            match = ptrn_calc_var.findall(self.list_for_setg[index])
+            for name in match:
+                 self.list_for_setg[index] = self.list_for_setg[index].replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
             index+=1
 
     ##
@@ -3607,6 +3626,9 @@ class Factory:
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
 
+  // buffer for mathematical events
+  data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
+
   data->simulationInfo->discreteCall = 0;
  """
         lines = body.split('\n')
@@ -3667,6 +3689,7 @@ class Factory:
   // buffer for all relation values
   free(data->simulationInfo->relations);
   free(data->simulationInfo->relationsPre);
+  free(data->simulationInfo->mathEventsValuePre);
   free(data->simulationInfo);
   free(data->modelData);
 """
