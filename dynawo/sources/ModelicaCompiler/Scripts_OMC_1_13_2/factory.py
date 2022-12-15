@@ -1197,6 +1197,7 @@ class Factory:
                     eq_type = ALGEBRAIC
                 assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
+
         # bulding relations objects
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
         relations_found = re.findall(r'  data->simulationInfo->relations.*?= tmp[0-9]+;', content_to_analyze)
@@ -1338,6 +1339,12 @@ class Factory:
                     else:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
+
+        for eq in self.list_int_equations:
+            relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
+            for relation in relations_found:
+                index_relation = relation.split(", ")[3]
+                self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
         for var in self.reader.list_calculated_vars :
             if var.get_alias_name() != "":

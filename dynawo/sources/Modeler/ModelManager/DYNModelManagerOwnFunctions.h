@@ -429,12 +429,6 @@ inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
   va_end(ap);
 }
 
-/**
- * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
- * It is needed for Dynawo models dynamic libraries compilation
- */
-size_t calc_base_index_dims_subs(int ndims, ...);
-
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif  // MODELER_MODELMANAGER_DYNMODELMANAGEROWNFUNCTIONS_H_

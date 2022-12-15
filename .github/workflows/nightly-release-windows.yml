@@ -25,13 +25,17 @@ jobs:
 
       - name: Install OpenModelica
         shell: cmd
+        env:
+          VERSION: v1.3.2
         run: |
           cd \
-          wget -nv https://github.com/dynawo/dynawo/releases/download/v1.3.1/Dynawo_Windows_v1.3.1.zip
-          7z x Dynawo_Windows_v1.3.1.zip dynawo\OpenModelica\ -r -oOpenModelica
+          set url=https://github.com/dynawo/dynawo/releases/download/%VERSION%/Dynawo_Windows_%VERSION%.zip
+          wget -nv %url%
+          7z x Dynawo_Windows_%VERSION%.zip dynawo\OpenModelica\ -r -oOpenModelica
           cd OpenModelica\dynawo
           7z a OpenModelica.zip -r OpenModelica\*
 
+      # We are forced to change the path to avoid too long commands when compiling
       - name: Build Dynawo Third Parties
         shell: cmd
         run: |
@@ -79,10 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           url=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/dynawo/dynawo/releases/tags/nightly | jq -r '.upload_url' | grep -o ".*assets")
-          echo $url
           cd /d
-          ls
-          ls OpenModelica/dynawo/OpenModelica.zip
           curl --retry 20 --retry-delay 0 --retry-max-time 40 --limit-rate 5M -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=OpenModelica-windows.zip --data-binary @OpenModelica/dynawo/OpenModelica.zip
           curl --retry 20 --retry-delay 0 --retry-max-time 40 --limit-rate 5M -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=dynawo-3rd-parties-windows.zip --data-binary @dynawo-3rd-parties-windows.zip
           cd dynawo
