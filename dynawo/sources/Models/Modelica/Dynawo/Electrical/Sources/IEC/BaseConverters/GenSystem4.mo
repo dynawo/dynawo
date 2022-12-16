@@ -17,8 +17,8 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
   /*
     Equivalent circuit and conventions:
 
-      __           iGs
-     /__\----------->-- (terminal)
+      __   fOCB     iGs
+     /__\---/-------->-- (terminal)
      \__/--------------
 
   */
@@ -115,7 +115,7 @@ equation
   if fOCB then
     Complex(iECFrameRotation.iGsRePu, iECFrameRotation.iGsImPu) = -terminal.i * (SystemBase.SnRef / SNom);
   else
-    terminal.i = Complex(0, 0);
+    terminal.i = Complex(Modelica.Constants.eps, Modelica.Constants.eps);
   end if;
 
   connect(iECFrameRotation.iGsImPu, iGs.im) annotation(

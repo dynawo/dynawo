@@ -68,7 +68,7 @@ void ModelTestSilentZ_Dyn::setupDataStruc()
 
   data->nbVars =1;
   data->nbF = 1;
-  data->nbModes = 0;
+  data->nbModes = 2;
   data->nbZ = 1;
   data->nbCalculatedVars = 1;
   data->nbDelays = 0;
@@ -134,6 +134,9 @@ void ModelTestSilentZ_Dyn::initializeDataStruc()
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
 
+  // buffer for mathematical events
+  data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
+
   data->simulationInfo->discreteCall = 0;
  
 }
@@ -167,6 +170,7 @@ void ModelTestSilentZ_Dyn::deInitializeDataStruc()
   // buffer for all relation values
   free(data->simulationInfo->relations);
   free(data->simulationInfo->relationsPre);
+  free(data->simulationInfo->mathEventsValuePre);
   free(data->simulationInfo);
   free(data->modelData);
 
@@ -199,6 +203,16 @@ modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double t) const
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
+
+  // z2 != pre(z2)
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
+
+  // z3 != pre(z3)
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
 
   return modeChangeType;
 }

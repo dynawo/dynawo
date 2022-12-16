@@ -25,7 +25,7 @@
       <dyn:finalStateValues inputFile="IEEE14.fsv"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
-        </dyn:logs>
+      </dyn:logs>
     </dyn:outputs>
   </dyn:job>
 </dyn:jobs>
