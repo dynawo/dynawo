@@ -874,7 +874,16 @@ class ReaderOMC:
                         self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
 
-
+        for f in self.list_func_16dae_c:
+            (body, depend) = replace_dynamic_indexing(f.body)
+            f.body = body
+            name_var_eval = None
+            if f.get_num_omc() in self.map_num_eq_vars_defined.keys():
+                if len(self.map_num_eq_vars_defined[f.get_num_omc()]) > 1:
+                    error_exit("   Error: Found an equation (id: " + f.get_num_omc()+") defining multiple variables. This is not supported in Dynawo.")
+                name_var_eval = self.map_num_eq_vars_defined[f.get_num_omc()] [0]
+            if name_var_eval is not None and len(depend) > 0:
+                self.map_vars_depend_vars[name_var_eval].extend(depend)
         # Reading the function ..._setupDataStruc(...)
         file_to_read = self._16dae_c_file
         function_name = self.mod_name + "_initializeDAEmodeData"
@@ -926,6 +935,7 @@ class ReaderOMC:
 
                 # "takewhile" only stops when the whole body of the function is read
                 list_body = list(itertools.takewhile(stop_reading_function, it))
+                (list_body, depend) = replace_dynamic_indexing(list_body)
 
                 for line in list_body:
                     if ptrn_assign_var.search(line) is not None:
@@ -1097,6 +1107,7 @@ class ReaderOMC:
 
                 # "takewhile" only stops when the whole body of the function is read
                 list_body = list(itertools.takewhile(stop_reading_function, it))
+                (list_body, depend) = replace_dynamic_indexing(list_body)
 
                 for line in list_body:
                     if ptrn_assign_var.search(line) is not None:
@@ -1675,9 +1686,6 @@ class ReaderOMC:
         variable_to_equation_dependencies = {}
         function_to_eval_variable = {}
 
-        # used to detect cases v1 = table[v2]. In this case OMCompiler generates &table[firstIndex][calc_base_index_dims_subs(v2)]=> not compatible with calculated vars
-        ptrn_var_dynamic_index = re.compile(r'data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs')
-        variable_with_dynamic_indexing = []
         for f in self.list_func_16dae_c:
             f_num_omc = f.get_num_omc()
             name_var_eval = None
@@ -1701,12 +1709,6 @@ class ReaderOMC:
                 if "RELATIONHYSTERESIS" in line:
                     # equations with potential mode change should be kept in F
                     is_eligible = False
-                if "calc_base_index_dims_subs" in line:
-                    # equations with dynamic index in tables should be kept in F
-                    match = ptrn_var_dynamic_index.findall(line)
-                    for var, varName in match:
-                        variable_with_dynamic_indexing.append(varName)
-                        variable_with_dynamic_indexing.append(name_var_eval)
                 for func_name in name_func_to_search:
                     if func_name +"("  in line or func_name +" (" in line:
                         is_eligible = False
@@ -1740,8 +1742,7 @@ class ReaderOMC:
         function_to_remove = []
         for f in function_to_eval_variable:
             var_name = function_to_eval_variable[f]
-            if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1 \
-            and var_name not in variable_with_dynamic_indexing:
+            if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
                 var = self.find_variable_from_name(var_name)
                 assert(var != None)
                 self.list_complex_calculated_vars[var] = f
@@ -1761,8 +1762,7 @@ class ReaderOMC:
             function_to_remove = []
             for f in function_to_eval_variable:
                 var_name = function_to_eval_variable[f]
-                if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1\
-                and var_name not in variable_with_dynamic_indexing:
+                if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
                     var = self.find_variable_from_name(var_name)
                     assert(var != None)
                     self.list_complex_calculated_vars[var] = f

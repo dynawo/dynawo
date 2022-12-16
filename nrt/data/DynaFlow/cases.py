@@ -124,6 +124,16 @@ job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfo", "GeneratorP
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#################################################################
+#      Small System with generators regulating the same bus      #
+#################################################################
+
+case_name = "DynaFlow - Generators with VRRemote"
+case_description = "DynaFlow - Generators with VRRemote"
+job_file = os.path.join(os.path.dirname(__file__), "VRRemote", "VRRemote.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ####################################################################################
 #  Small System with two HVDC links with AC Emulation and a power transfer control #
 ####################################################################################

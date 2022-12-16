@@ -418,3 +418,5 @@ warning: return type of member DYN::Criteria::FailingCriteria::printOneFailingCr
 warning: return type of member DYN::Criteria::FailingCriteria::printOneFailingCriteriaIntoTimeline is not documented
 warning: return type of member DYN::DataInterface::setTimeline is not documented
 warning: return type of member DYN::Model::setLocalInitParameters is not documented
+warning: return type of member finalStateValues::Exporter::exportToFile is not documented
+warning: return type of member finalStateValues::Exporter::exportToStream is not documented

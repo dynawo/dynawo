@@ -298,8 +298,8 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
 }
 
 modelica_real
-computeDelay(ModelManager* manager, DYNDATA* data, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
-  return manager->computeDelay(data, exprNumber, exprValue, time, delayTime, delayMax);
+computeDelay(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+  return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
 }
 
 void
