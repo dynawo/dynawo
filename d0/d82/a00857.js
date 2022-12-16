@@ -28,7 +28,7 @@ var a00857 =
     [ "cat_modelica_string", "d0/d82/a00857.html#a219db5166906abbd464c67b1c8339ef2", null ],
     [ "cat_modelica_string", "d0/d82/a00857.html#a69a5d727cd443464ddab111a1af0e664", null ],
     [ "compareString_", "d0/d82/a00857.html#a9973684cda270462d915f5c33a98cafd", null ],
-    [ "computeDelay", "d0/d82/a00857.html#adfe3ba21aa8a2887a44f0ba120321f76", null ],
+    [ "computeDelay", "d0/d82/a00857.html#acfe6fa070629f7bcd7b615855f41ffcf", null ],
     [ "enumToModelicaString_", "d0/d82/a00857.html#aa0f9bbc68184fbabc1c1b18556273da7", null ],
     [ "FMAX", "d0/d82/a00857.html#a962d956822294744e2661e6ecd0fc8a6", null ],
     [ "FMIN", "d0/d82/a00857.html#a0037b9c8cfd8f5435ae63713bd6a1b3a", null ],

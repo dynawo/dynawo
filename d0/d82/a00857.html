@@ -226,9 +226,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a20eabe30a0455e350779a46e459f669e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d82/a00857.html#a20eabe30a0455e350779a46e459f669e">DYN::stringAppend</a> (const std::string s1, const modelica_string s2)</td></tr>
 <tr class="memdesc:a20eabe30a0455e350779a46e459f669e"><td class="mdescLeft">&#160;</td><td class="mdescRight">concatenation of two modelica strings  <a href="../../d0/d82/a00857.html#a20eabe30a0455e350779a46e459f669e">More...</a><br /></td></tr>
 <tr class="separator:a20eabe30a0455e350779a46e459f669e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfe3ba21aa8a2887a44f0ba120321f76"><td class="memItemLeft" align="right" valign="top">modelica_real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d82/a00857.html#adfe3ba21aa8a2887a44f0ba120321f76">DYN::computeDelay</a> (ModelManager *manager, <a class="el" href="../../d9/d44/a03126.html">DYNDATA</a> *data, int exprNumber, double exprValue, double time, double delayTime, double delayMax)</td></tr>
-<tr class="memdesc:adfe3ba21aa8a2887a44f0ba120321f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the delayed value.  <a href="../../d0/d82/a00857.html#adfe3ba21aa8a2887a44f0ba120321f76">More...</a><br /></td></tr>
-<tr class="separator:adfe3ba21aa8a2887a44f0ba120321f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfe6fa070629f7bcd7b615855f41ffcf"><td class="memItemLeft" align="right" valign="top">modelica_real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d82/a00857.html#acfe6fa070629f7bcd7b615855f41ffcf">DYN::computeDelay</a> (ModelManager *manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax)</td></tr>
+<tr class="memdesc:acfe6fa070629f7bcd7b615855f41ffcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the delayed value.  <a href="../../d0/d82/a00857.html#acfe6fa070629f7bcd7b615855f41ffcf">More...</a><br /></td></tr>
+<tr class="separator:acfe6fa070629f7bcd7b615855f41ffcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab358502e7bd2fe3bb99701e0a2a5bbba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d82/a00857.html#ab358502e7bd2fe3bb99701e0a2a5bbba">DYN::addDelay</a> (ModelManager *manager, int exprNumber, const double *time, const double *exprValue, double delayMax)</td></tr>
 <tr class="memdesc:ab358502e7bd2fe3bb99701e0a2a5bbba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new delay to manage.  <a href="../../d0/d82/a00857.html#ab358502e7bd2fe3bb99701e0a2a5bbba">More...</a><br /></td></tr>
 <tr class="separator:ab358502e7bd2fe3bb99701e0a2a5bbba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1291,8 +1291,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="file_adfe3ba21aa8a2887a44f0ba120321f76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_adfe3ba21aa8a2887a44f0ba120321f76">&#9670;&nbsp;</a></span>computeDelay()</h2>
+<a id="file_acfe6fa070629f7bcd7b615855f41ffcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_acfe6fa070629f7bcd7b615855f41ffcf">&#9670;&nbsp;</a></span>computeDelay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1302,12 +1302,6 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d8/dfb/a03122.html">ModelManager</a> *&#160;</td>
           <td class="paramname"><em>manager</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/d44/a03126.html">DYNDATA</a> *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1352,7 +1346,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">manager</td><td>the model manager to use </td></tr>
-    <tr><td class="paramname">data</td><td>the data of the current simulation </td></tr>
     <tr><td class="paramname">exprNumber</td><td>the id of the delay, in practice the index in the arrays of delayed variables </td></tr>
     <tr><td class="paramname">exprValue</td><td>the value corresponding to <code>time</code> </td></tr>
     <tr><td class="paramname">time</td><td>the current time point </td></tr>
@@ -2467,7 +2460,7 @@ template&lt;&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_84b3b545df3ad1d5fabe78c2f6f49c5a.html">ModelManager</a></li><li class="navelem"><a class="el" href="../../d0/d82/a00857.html">DYNModelManagerCommon.h</a></li>
-    <li class="footer">Generated on Fri Dec 16 2022 08:55:31 for Dynawo by
+    <li class="footer">Generated on Fri Dec 16 2022 14:47:12 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

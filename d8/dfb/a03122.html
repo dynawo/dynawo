@@ -272,9 +272,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad6777357c83cca0b9eef599285ca1e83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfb/a03122.html#ad6777357c83cca0b9eef599285ca1e83">initSubBuffers</a> ()</td></tr>
 <tr class="memdesc:ad6777357c83cca0b9eef599285ca1e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">init sub buffers  <a href="#ad6777357c83cca0b9eef599285ca1e83">More...</a><br /></td></tr>
 <tr class="separator:ad6777357c83cca0b9eef599285ca1e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a965784f5b67c188b354af79411c02672"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfb/a03122.html#a965784f5b67c188b354af79411c02672">computeDelay</a> (<a class="el" href="../../d9/d44/a03126.html">DYNDATA</a> *<a class="el" href="../../d8/dfb/a03122.html#a6260e34e67b221ff567a3b73ccd5b3bd">data</a>, int exprNumber, double exprValue, double time, double delayTime, double delayMax)</td></tr>
-<tr class="memdesc:a965784f5b67c188b354af79411c02672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the delayed value.  <a href="#a965784f5b67c188b354af79411c02672">More...</a><br /></td></tr>
-<tr class="separator:a965784f5b67c188b354af79411c02672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa933bf531b5ede6627902db33d4ba16c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfb/a03122.html#aa933bf531b5ede6627902db33d4ba16c">computeDelay</a> (int exprNumber, double exprValue, double time, double delayTime, double delayMax)</td></tr>
+<tr class="memdesc:aa933bf531b5ede6627902db33d4ba16c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the delayed value.  <a href="#aa933bf531b5ede6627902db33d4ba16c">More...</a><br /></td></tr>
+<tr class="separator:aa933bf531b5ede6627902db33d4ba16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20f57262d934e0f9b2f69035a0c86ca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfb/a03122.html#a20f57262d934e0f9b2f69035a0c86ca1">addDelay</a> (int exprNumber, const double *time, const double *exprValue, double delayMax)</td></tr>
 <tr class="memdesc:a20f57262d934e0f9b2f69035a0c86ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add new delay struture.  <a href="#a20f57262d934e0f9b2f69035a0c86ca1">More...</a><br /></td></tr>
 <tr class="separator:a20f57262d934e0f9b2f69035a0c86ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1123,8 +1123,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
-<a id="a965784f5b67c188b354af79411c02672"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a965784f5b67c188b354af79411c02672">&#9670;&nbsp;</a></span>computeDelay()</h2>
+<a id="aa933bf531b5ede6627902db33d4ba16c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa933bf531b5ede6627902db33d4ba16c">&#9670;&nbsp;</a></span>computeDelay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1132,12 +1132,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
         <tr>
           <td class="memname">double DYN::ModelManager::computeDelay </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/d44/a03126.html">DYNDATA</a> *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>exprNumber</em>, </td>
         </tr>
@@ -1183,7 +1177,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>the data of the current simulation </td></tr>
     <tr><td class="paramname">exprValue</td><td>the value corresponding to <code>time</code> </td></tr>
     <tr><td class="paramname">exprNumber</td><td>the id of the delay, in practice the index in the arrays of delayed variables </td></tr>
     <tr><td class="paramname">time</td><td>the current time point </td></tr>
@@ -3831,7 +3824,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d8/dfb/a03122.html">ModelManager</a></li>
-    <li class="footer">Generated on Fri Dec 16 2022 08:55:32 for Dynawo by
+    <li class="footer">Generated on Fri Dec 16 2022 14:47:13 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

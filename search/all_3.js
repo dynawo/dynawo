@@ -138,7 +138,7 @@ var searchData=
   ['compstringdist',['compStringDist',['../d7/d14/a02750.html',1,'DYN::SubModel']]],
   ['computeaverage',['computeAverage',['../d8/d29/a03162.html#ac6b4358de56938a36bd50fe668373a07',1,'DYN::ModelVoltageMeasurementsUtilities']]],
   ['computecomponents',['computeComponents',['../d8/deb/a03246.html#a5be2432c0ea55630b44ca6e5715ef582',1,'DYN::ModelNetwork']]],
-  ['computedelay',['computeDelay',['../d8/dfb/a03122.html#a965784f5b67c188b354af79411c02672',1,'DYN::ModelManager::computeDelay()'],['../d0/d82/a00857.html#adfe3ba21aa8a2887a44f0ba120321f76',1,'DYN::computeDelay()']]],
+  ['computedelay',['computeDelay',['../d8/dfb/a03122.html#aa933bf531b5ede6627902db33d4ba16c',1,'DYN::ModelManager::computeDelay()'],['../d0/d82/a00857.html#acfe6fa070629f7bcd7b615855f41ffcf',1,'DYN::computeDelay()']]],
   ['computeloops',['computeLoops',['../da/d1b/a03286.html#a82128427a83c94a642835781d9fe1480',1,'DYN::ModelVoltageLevel']]],
   ['computemax',['computeMax',['../d8/d29/a03162.html#a7f65d8ec6e0645f9765fc76d9a5ab066',1,'DYN::ModelVoltageMeasurementsUtilities']]],
   ['computemin',['computeMin',['../d8/d29/a03162.html#ab5cc435b3037316b9a1389e5ec613498',1,'DYN::ModelVoltageMeasurementsUtilities']]],
