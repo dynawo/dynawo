@@ -46,6 +46,9 @@
 
 namespace DYN {
 
+/**
+ * class DataInterfaceIIDM
+ */
 class DataInterfaceIIDM : public DataInterfaceImpl {
  public:
   /**

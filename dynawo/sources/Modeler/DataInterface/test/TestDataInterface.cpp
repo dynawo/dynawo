@@ -35,7 +35,6 @@
 
 #include "DYNDataInterfaceIIDM.h"
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/LineAdder.hpp>
 #include <powsybl/iidm/LoadAdder.hpp>
 #include <powsybl/iidm/Substation.hpp>
@@ -49,25 +48,6 @@
 #include <powsybl/iidm/HvdcLineAdder.hpp>
 #include <powsybl/iidm/VscConverterStationAdder.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
-
-#else
-#include <IIDM/builders/BusBarSectionBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/builders/LineBuilder.h>
-#include <IIDM/builders/LoadBuilder.h>
-#include <IIDM/builders/NetworkBuilder.h>
-#include <IIDM/builders/SubstationBuilder.h>
-#include <IIDM/builders/SwitchBuilder.h>
-#include <IIDM/builders/Transformer2WindingsBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/GeneratorBuilder.h>
-#include <IIDM/builders/ShuntCompensatorBuilder.h>
-#include <IIDM/builders/StaticVarCompensatorBuilder.h>
-#include <IIDM/extensions/standbyAutomaton/StandbyAutomatonBuilder.h>
-#include <IIDM/builders/DanglingLineBuilder.h>
-#include <IIDM/builders/HvdcLineBuilder.h>
-#include <IIDM/builders/LccConverterStationBuilder.h>
-#endif
 
 using boost::shared_ptr;
 
@@ -110,13 +90,9 @@ exportStateVariables(shared_ptr<DataInterface> data) {
   data->importStaticParameters();
 }
 
-#ifdef USE_POWSYBL
 static shared_ptr<powsybl::iidm::Network>
-#else
-static shared_ptr<IIDM::Network>
-#endif
+
 initIIDMNetwork() {
-#ifdef USE_POWSYBL
   auto network = boost::make_shared<powsybl::iidm::Network>("test", "test");
 
   auto& substation = network->newSubstation()
@@ -285,141 +261,6 @@ initIIDMNetwork() {
     .add();
 
   return network;
-#else
-  IIDM::builders::NetworkBuilder nb;
-  shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("test"));
-
-  IIDM::builders::SubstationBuilder ssb;
-  IIDM::Substation ss1 = ssb.build("SUB");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  IIDM::VoltageLevel vl1 = vlb.nominalV(380.).build("VL1");
-
-  IIDM::builders::BusBuilder bb;
-  bb.v(150).angle(1.5);
-  vl1.add(bb.build("VL1_BUS1"));
-  vl1.add(bb.build("VL1_BUS2"));
-
-  IIDM::builders::SwitchBuilder sb;
-  vl1.add(sb.opened(false).build("VL1_SW12"), "VL1_BUS1", "VL1_BUS2");
-
-  IIDM::connection_status_t cs = {true /*connected*/};
-  IIDM::Port p1("VL1_BUS1", cs);
-  IIDM::Connection c1("VL1", p1, IIDM::side_1);
-
-  IIDM::builders::LoadBuilder ldb;
-  vl1.add(ldb.p0(5000.).q0(4000.).build("VL1_LOAD1"), c1);
-
-  IIDM::builders::LccConverterStationBuilder lcsb;
-  lcsb.p(105.);
-  lcsb.q(90.);
-  lcsb.powerFactor(2.);
-  IIDM::LccConverterStation lcc = lcsb.build("LCC1");
-  lcc.connectTo("VL1", p1);
-  vl1.add(lcc);
-  IIDM::LccConverterStation lcc2 = lcsb.build("LCC2");
-  lcc2.connectTo("VL1", p1);
-  vl1.add(lcc2);
-
-  IIDM::builders::HvdcLineBuilder hvdcb;
-  hvdcb.converterStation1("LCC1");
-  hvdcb.converterStation2("LCC2");
-  hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
-  IIDM::HvdcLine hvdc = hvdcb.build("HVDC1");
-  network->add(hvdc);
-
-  ss1.add(vl1);
-
-  IIDM::VoltageLevel vl2 = vlb.nominalV(225.).build("VL2");
-
-  vl2.add(bb.build("VL2_BUS1"));
-
-  IIDM::Port p2("VL2_BUS1", cs);
-  IIDM::Connection vl2_c1("VL2", p2, IIDM::side_1);
-  IIDM::Connection vl2_c2("VL2", p2, IIDM::side_2);
-
-  IIDM::builders::GeneratorBuilder gb;
-  gb.p(1.);
-  gb.q(1.);
-  IIDM::MinMaxReactiveLimits limits(1., 10.);
-  gb.minMaxReactiveLimits(limits);
-  gb.targetP(-105.);
-  gb.pmin(-150.);
-  gb.pmax(200.);
-  IIDM::Generator g = gb.build("VL2_GENERATOR");
-  g.p(-105.);
-  g.q(-90.);
-  g.targetQ(-90.);
-  g.targetV(150.);
-  g.connectTo("VL2", p2);
-  vl2.add(g, vl2_c1);
-
-  IIDM::builders::ShuntCompensatorBuilder scb;
-  scb.q(90.);
-  scb.section_max(20);
-  scb.b_per_section(2.);
-  scb.p(105.);
-  scb.q(90.);
-  IIDM::ShuntCompensator sc = scb.build("VL2_SHUNT1");
-  sc.currentSection(8);
-  vl2.add(sc, vl2_c1);
-
-  IIDM::builders::StaticVarCompensatorBuilder svcb;
-  svcb.regulationMode(IIDM::StaticVarCompensator::regulation_reactive_power);
-  svcb.bmin(1.0);
-  svcb.bmax(10.0);
-  svcb.p(5.);
-  svcb.q(90.);
-  IIDM::StaticVarCompensator svc = svcb.build("VL2_SVC1");
-  IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbab;
-  sbab.standBy(true);
-  svc.setExtension(sbab.build());
-  vl2.add(svc, vl2_c1);
-
-  IIDM::builders::DanglingLineBuilder dlb;
-  IIDM::CurrentLimits limits2(200.);
-  limits2.add("MyLimit", 10., 5.);
-  dlb.currentLimits(limits2);
-  dlb.r(3.);
-  dlb.x(3.);
-  dlb.g(3.);
-  dlb.b(3.);
-  dlb.p0(105.);
-  dlb.p(105.);
-  dlb.q0(90.);
-  dlb.q(90.);
-  IIDM::DanglingLine dl = dlb.build("DANGLING_LINE1");
-  dl.connectTo("VL2", p2);
-  vl2.add(dl);
-
-  ss1.add(vl2);
-
-  IIDM::builders::Transformer2WindingsBuilder t2Wb;
-  ss1.add(t2Wb.build("2WT_VL1_VL2"), c1, vl2_c2);
-
-  vlb.mode(IIDM::VoltageLevel::node_breaker);
-  IIDM::VoltageLevel vl3 = vlb.nominalV(360.).node_count(2).build("VL3");
-
-  IIDM::builders::BusBarSectionBuilder bbsb;
-  vl3.add(bbsb.node(0).build("VL3_BBS"));
-
-  vl3.add(sb.opened(false).retained(true).build("VL3_SW01"), 0, 1);
-
-  IIDM::Port p3(1);
-  IIDM::Connection c3("VL3", p3, IIDM::side_1);
-
-  vl3.add(ldb.build("VL3_LOAD"), c3);
-
-  ss1.add(vl3);
-
-  network->add(ss1);
-
-  IIDM::builders::LineBuilder lnb;
-  network->add(lnb.build("LINE_VL1_VL2"), c1, vl2_c2);
-
-  return network;
-#endif
 }
 
 TEST(DataInterfaceTest, testLostEquipments) {

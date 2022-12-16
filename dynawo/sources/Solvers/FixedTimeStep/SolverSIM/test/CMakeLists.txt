@@ -24,18 +24,9 @@ target_link_libraries(${MODULE_NAME}
   dynawo_SolverCommon
   dynawo_API_DYD
   dynawo_CPPModelsCommon
+  IIDM::iidm
   dynawo_Test
   )
-
-if(NOT USE_LEGACY_IIDM)
-  target_link_libraries(${MODULE_NAME}
-    IIDM::iidm
-    )
-else()
-  target_link_libraries(${MODULE_NAME}
-    iidm-xml
-    )
-endif()
 
 target_link_libraries(${MODULE_NAME}
   dynawo_DataInterfaceIIDM

@@ -27,7 +27,7 @@ target_link_libraries(compileModelicaModel
     Boost::log
     Boost::program_options
     XMLSAXParser${LibXML_LINK_SUFFIX}
-    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
+    LibXml2::LibXml2
   )
 
 install(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})

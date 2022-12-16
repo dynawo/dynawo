@@ -14,25 +14,11 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/ThreeWindingsTransformerAdder.hpp>
-#else
-#include <IIDM/builders/NetworkBuilder.h>
-#include <IIDM/builders/Transformer3WindingsBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/SubstationBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/components/Transformer3Windings.h>
-#include <IIDM/components/CurrentLimit.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/components/Substation.h>
-#include <IIDM/Network.h>
-#endif
 
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -53,7 +39,6 @@ using boost::shared_ptr;
 namespace DYN {
 static std::pair<shared_ptr<ModelThreeWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelThreeWindingsTransformer(bool open, bool initModel) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -135,47 +120,6 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
   tw3ItfIIDM->setBusInterface1(bus1ItfIIDM);
   tw3ItfIIDM->setBusInterface2(bus2ItfIIDM);
   tw3ItfIIDM->setBusInterface2(bus3ItfIIDM);
-#else
-  IIDM::builders::NetworkBuilder nb;
-  IIDM::Network networkIIDM = nb.build("MyNetwork");
-
-  IIDM::builders::SubstationBuilder ssb;
-  IIDM::Substation ss = ssb.build("MySubStation");
-  IIDM::connection_status_t cs = {!open};
-  IIDM::Port p1("MyBus1", cs), p2("MyBus2", cs), p3("MyBus3", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2), c3("MyVoltageLevel", p3, IIDM::side_1);
-
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-  IIDM::Bus bus2IIDM = bb.build("MyBus2");
-  IIDM::Bus bus3IIDM = bb.build("MyBus3");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vlIIDM = vlb.build("MyVoltageLevel");
-  vlIIDM.add(bus1IIDM);
-  vlIIDM.add(bus2IIDM);
-  vlIIDM.add(bus3IIDM);
-  vlIIDM.lowVoltageLimit(0.5);
-  vlIIDM.highVoltageLimit(2.);
-  ss.add(vlIIDM);
-  networkIIDM.add(ss);
-
-  IIDM::builders::Transformer3WindingsBuilder t3wb;
-  IIDM::Transformer3Windings t3wIIDM = t3wb.build("MyThreeWindingsTransformer");
-  ss.add(t3wIIDM, c1, c2, c3);
-  IIDM::Transformer3Windings t3wIIDM2 = ss.get_threeWindingsTransformer("MyThreeWindingsTransformer");  // was copied...
-  shared_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = shared_ptr<ThreeWTransformerInterfaceIIDM>(new ThreeWTransformerInterfaceIIDM(t3wIIDM2));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus2")));
-  shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus3")));
-  tw3ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
-  tw3ItfIIDM->setBusInterface1(bus1ItfIIDM);
-  tw3ItfIIDM->setBusInterface2(bus2ItfIIDM);
-  tw3ItfIIDM->setBusInterface2(bus3ItfIIDM);
-#endif
 
   shared_ptr<ModelThreeWindingsTransformer> t3w = shared_ptr<ModelThreeWindingsTransformer>(new ModelThreeWindingsTransformer(tw3ItfIIDM));
   ModelNetwork* network = new ModelNetwork();

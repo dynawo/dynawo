@@ -29,17 +29,11 @@ set(MODULE_SOURCES
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
-if(NOT USE_LEGACY_IIDM)
+
 target_include_directories(${MODULE_NAME}
   PRIVATE
     $<TARGET_PROPERTY:IIDM::iidm,INTERFACE_INCLUDE_DIRECTORIES>
   )
-else()
-target_include_directories(${MODULE_NAME}
-  PRIVATE
-    $<TARGET_PROPERTY:iidm,INTERFACE_INCLUDE_DIRECTORIES>
-  )
-endif()
 
 target_link_libraries(${MODULE_NAME}
   dynawo_DataInterfaceIIDM
@@ -48,8 +42,7 @@ target_link_libraries(${MODULE_NAME}
   DYNModelNetwork
   dynawo_API_CSTR
   dynawo_API_TL
-  $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:IIDM::iidm>
-  $<$<BOOL:${USE_LEGACY_IIDM}>:iidm>
+  IIDM::iidm
   dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests

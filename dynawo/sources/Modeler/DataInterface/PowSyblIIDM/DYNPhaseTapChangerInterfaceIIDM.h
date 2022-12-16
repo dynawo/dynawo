@@ -30,6 +30,9 @@
 
 namespace DYN {
 
+/**
+ * class PhaseTapChangerInterfaceIIDM
+ */
 class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
  public:
   /**

@@ -14,22 +14,11 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
-#else
-#include <IIDM/builders/StaticVarCompensatorBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/components/StaticVarCompensator.h>
-#include <IIDM/components/CurrentLimit.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/extensions/StandbyAutomaton.h>
-#endif
 
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -48,7 +37,6 @@
 using boost::shared_ptr;
 
 namespace DYN {
-#ifdef USE_POWSYBL
 static std::tuple<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel>,
 shared_ptr<VoltageLevelInterfaceIIDM> >  // need to return the voltage level so that it is not destroyed
 createModelStaticVarCompensator(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) {
@@ -124,74 +112,6 @@ createModelStaticVarCompensator(bool open, bool initModel, powsybl::iidm::Networ
   bus1->init(offset);
   return std::make_tuple(sc, vl, vlItfIIDM);
 }
-#else
-static std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelStaticVarCompensator(bool open, bool initModel) {
-  IIDM::connection_status_t cs = {!open};
-  IIDM::Port p1("MyBus1", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
-
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vlIIDM = vlb.build("MyVoltageLevel");
-  vlIIDM.add(bus1IIDM);
-  vlIIDM.lowVoltageLimit(0.5);
-  vlIIDM.highVoltageLimit(2.);
-
-
-
-  IIDM::builders::StaticVarCompensatorBuilder svcb;
-  svcb.p(3);
-  svcb.q(5);
-  svcb.regulationMode(IIDM::StaticVarCompensator::regulation_reactive_power);
-  svcb.voltageSetPoint(0.5);
-  svcb.reactivePowerSetPoint(0.8);
-  svcb.bmin(0.);
-  svcb.bmax(5.);
-  IIDM::StaticVarCompensator scIIDM = svcb.build("MyStaticVarCompensator");
-  IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbb;
-  scIIDM.setExtension(sbb.build().standBy(false).highVoltageSetPoint(5.0).lowVoltageSetPoint(0.0).highVoltageThreshold(10).lowVoltageThreshold(30).b0(0.));
-  vlIIDM.add(scIIDM, c1);
-  IIDM::StaticVarCompensator scIIDM2 = vlIIDM.get_staticVarCompensator("MyStaticVarCompensator");  // was copied...
-  shared_ptr<StaticVarCompensatorInterfaceIIDM> scItfIIDM = shared_ptr<StaticVarCompensatorInterfaceIIDM>(new StaticVarCompensatorInterfaceIIDM(scIIDM2));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
-  scItfIIDM->setBusInterface(bus1ItfIIDM);
-
-  shared_ptr<ModelStaticVarCompensator> sc = shared_ptr<ModelStaticVarCompensator>(new ModelStaticVarCompensator(scItfIIDM));
-  ModelNetwork* network = new ModelNetwork();
-  network->setIsInitModel(initModel);
-  network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  sc->setNetwork(network);
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
-  bus1->setNetwork(network);
-  bus1->setVoltageLevel(vl);
-  sc->setModelBus(bus1);
-  bus1->initSize();
-  // There is a memory leak here, but whatever ...
-  double* y1 = new double[bus1->sizeY()];
-  double* yp1 = new double[bus1->sizeY()];
-  double* f1 = new double[bus1->sizeF()];
-  double* z1 = new double[bus1->sizeZ()];
-  bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (int i = 0; i < bus1->sizeZ(); ++i)
-    zConnected1[i] = true;
-  bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 3.5;
-  y1[ModelBus::uiNum_] = 2;
-  z1[ModelBus::switchOffNum_] = -1;
-  int offset = 0;
-  bus1->init(offset);
-  return std::make_pair(sc, vl);
-}
-#endif
 
 static void
 fillParameters(shared_ptr<ModelStaticVarCompensator> svc, std::string& startingPoint) {
@@ -205,13 +125,9 @@ fillParameters(shared_ptr<ModelStaticVarCompensator> svc, std::string& startingP
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorInitialization) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  shared_ptr<ModelStaticVarCompensator> svc = createModelStaticVarCompensator(false, false).first;
-  #endif
   int offSet = 0;
   svc->init(offSet);
   ASSERT_EQ(svc->id(), "MyStaticVarCompensator");
@@ -220,13 +136,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorInitialization) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  shared_ptr<ModelStaticVarCompensator> svc = createModelStaticVarCompensator(false, false).first;
-  #endif
   int offSet = 0;
   svc->init(offSet);
   svc->initSize();
@@ -280,13 +192,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariablesFlat) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  shared_ptr<ModelStaticVarCompensator> svc = createModelStaticVarCompensator(false, false).first;
-  #endif
   int offSet = 0;
   std::string startingPoint = "flat";
   fillParameters(svc, startingPoint);
@@ -342,14 +250,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariablesFlat
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelStaticVarCompensator(false, false);
-  shared_ptr<ModelStaticVarCompensator> svc = p.first;
-  #endif
   int offSet = 0;
   svc->init(offSet);
   svc->initSize();
@@ -391,14 +294,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelStaticVarCompensator(false, false);
-  shared_ptr<ModelStaticVarCompensator> svc = p.first;
-  #endif
   int offSet = 0;
   svc->init(offSet);
   svc->initSize();
@@ -443,14 +341,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDefineInstantiate) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelStaticVarCompensator(false, false);
-  shared_ptr<ModelStaticVarCompensator> svc = p.first;
-  #endif
   int offSet = 0;
   svc->init(offSet);
   svc->initSize();
@@ -477,14 +370,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
-  #else
-  std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelStaticVarCompensator(false, false);
-  shared_ptr<ModelStaticVarCompensator> svc = p.first;
-  #endif
   int offSet = 0;
   svc->init(offSet);
   svc->initSize();
