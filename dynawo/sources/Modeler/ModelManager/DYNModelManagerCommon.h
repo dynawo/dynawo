@@ -103,9 +103,9 @@
 /**
  * @brief definition of _event_ceil function
  *
- *  @param [in]  [x]
- *  @param [in]  [index]
- *  @param [data] [data]
+ *  @param x input value
+ *  @param index index of the discrete mathematical event
+ *  @param data current data
  *
  * @return Returns the smallest integer not less than x.
  * Result and argument shall have type Real.
@@ -121,9 +121,9 @@ inline modelica_real  _event_ceil(modelica_real x, modelica_integer index, DATA 
 
 /** @brief  definition of _event_floor function
  *
- *  @param [in]  [x]
- *  @param [in]  [index]
- *  @param [data] [data]
+ *  @param x input value
+ *  @param index index of the discrete mathematical event
+ *  @param data current data
  *
  *  @return Returns the largest integer not greater than x.
  * Result and argument shall have type Real.
@@ -140,9 +140,9 @@ inline modelica_real _event_floor(modelica_real x, modelica_integer index, DATA 
 /**
  *  @brief definition of _event_floor function
  *
- *  @param [in]  [x]
- *  @param [in]  [index]
- *  @param [data] [data]
+ *  @param x input value
+ *  @param index index of the discrete mathematical event
+ *  @param data current data
  *
  *  @return Returns the largest integer not greater than x.
  */
@@ -158,10 +158,10 @@ inline modelica_integer _event_integer(modelica_real x, modelica_integer index, 
 /**
  * @brief Returns the algebraic quotient x/y with any fractional part discarded
  *
- * @param [in]  [x1]
- * @param [in]  [x2]
- * @param [in]  [index]
- * @param [data] [data]
+ * @param x1 first input value
+ * @param x2 second input value
+ * @param index index of the discrete mathematical event
+ * @param data current data
  *
  * @return Returns the algebraic quotient x/y with any fractional part discarded
  */
