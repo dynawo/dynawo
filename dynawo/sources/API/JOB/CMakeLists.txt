@@ -32,6 +32,7 @@ set(API_JOB_SOURCES
     JOBFinalStateValuesEntry.cpp
     JOBInitValuesEntry.cpp
     JOBInitialStateEntry.cpp
+    JOBInitialStateEntryFactory.cpp
     JOBIterators.cpp
     JOBJobEntry.cpp
     JOBJobsCollectionFactory.cpp
@@ -71,6 +72,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBFinalStateValuesEntry.h
     JOBInitValuesEntry.h
     JOBInitialStateEntry.h
+    JOBInitialStateEntryFactory.h
     JOBIterators.h
     JOBImporter.h
     JOBJobEntry.h

@@ -26,6 +26,7 @@ examples/*/description/*gz
 examples/*/description/*toc
 examples/*/description/*out
 examples/*/description/*log
+examples/*/description/*/*pdf
 !nrt/data/*/*/reference/outputs*/
 !nrt/data/*/*/*/reference/outputs*/
 nrt/data/*/*/execution/
