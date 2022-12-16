@@ -14,22 +14,12 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/DanglingLine.hpp>
 #include <powsybl/iidm/DanglingLineAdder.hpp>
-#else
-#include <IIDM/builders/DanglingLineBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/components/DanglingLine.h>
-#include <IIDM/components/CurrentLimit.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#endif
 
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -50,7 +40,6 @@ using boost::shared_ptr;
 namespace DYN {
 static std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelDanglingLine(bool open, bool initModel) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -112,51 +101,6 @@ createModelDanglingLine(bool open, bool initModel) {
       dlItfIIDM->addCurrentLimitInterface(cLimit);
     }
   }
-#else
-  IIDM::connection_status_t cs = {!open};
-  IIDM::Port p1("MyBus1", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
-
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vlIIDM = vlb.build("MyVoltageLevel");
-  vlIIDM.add(bus1IIDM);
-  vlIIDM.lowVoltageLimit(0.5);
-  vlIIDM.highVoltageLimit(2.);
-
-
-  IIDM::builders::DanglingLineBuilder dlb;
-  dlb.r(3.);
-  dlb.x(3.);
-  dlb.g(3.);
-  dlb.b(3.);
-  dlb.p0(105.);
-  dlb.p(105.);
-  dlb.q0(90.);
-  dlb.q(90.);
-  IIDM::CurrentLimits limits(200.);
-  limits.add("MyLimit", 10., 5.);
-  limits.add("MyLimit2", 15., 10.);
-  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN());
-  dlb.currentLimits(limits);
-  IIDM::DanglingLine dlIIDM = dlb.build("MyDanglingLine");
-  vlIIDM.add(dlIIDM, c1);
-  IIDM::DanglingLine dlIIDM2 = vlIIDM.get_danglingLine("MyDanglingLine");  // was copied...
-  shared_ptr<DanglingLineInterfaceIIDM> dlItfIIDM = shared_ptr<DanglingLineInterfaceIIDM>(new DanglingLineInterfaceIIDM(dlIIDM2));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  dlItfIIDM->setVoltageLevelInterface(vlItfIIDM);
-  dlItfIIDM->setBusInterface(bus1ItfIIDM);
-  IIDM::CurrentLimits currentLimits = dlIIDM2.currentLimits();
-  for (IIDM::CurrentLimits::const_iterator it = currentLimits.begin(); it != currentLimits.end(); ++it) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-    dlItfIIDM->addCurrentLimitInterface(cLimit);
-  }
-#endif
 
   shared_ptr<ModelDanglingLine> dl = shared_ptr<ModelDanglingLine>(new ModelDanglingLine(dlItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -358,11 +302,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   }
   ASSERT_NO_THROW(dl->evalG(0.));
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[0], ROOT_DOWN);
-#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[1], NO_ROOT);
-#else
-  ASSERT_DOUBLE_EQUALS_DYNAWO(g[1], ROOT_DOWN);
-#endif
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[2], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[3], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[4], ROOT_DOWN);

@@ -14,7 +14,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -25,20 +24,6 @@
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/VscConverterStation.hpp>
 #include <powsybl/iidm/VscConverterStationAdder.hpp>
-#else
-#include <IIDM/builders/NetworkBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/builders/HvdcLineBuilder.h>
-#include <IIDM/builders/VscConverterStationBuilder.h>
-#include <IIDM/builders/LccConverterStationBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/Network.h>
-#include <IIDM/components/VscConverterStation.h>
-#include <IIDM/components/LccConverterStation.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/components/HvdcLine.h>
-#endif
 
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
@@ -66,7 +51,6 @@ using boost::shared_ptr;
 #define VSC true
 #define LCC false
 namespace DYN {
-#ifdef USE_POWSYBL
 static std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>,
 shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networkIIDM, bool withP = true, bool withQ = true) {
@@ -261,155 +245,6 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
   hvdc->setModelBus2(bus2);
   return std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> >(hvdc, networkItfIIDM, vl);
 }
-#else
-static std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelHvdcLink(bool initModel, bool withVsc, bool withP = true, bool withQ = true) {
-  IIDM::builders::NetworkBuilder nb;
-  IIDM::Network networkIIDM = nb.build("MyNetwork");
-
-  IIDM::connection_status_t cs = {true /*connected*/};
-  IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vlIIDM = vlb.build("MyVoltageLevel");
-  vlIIDM.lowVoltageLimit(0.5);
-  vlIIDM.highVoltageLimit(2.);
-
-  IIDM::builders::BusBuilder bb;
-  bb.angle(90);
-  bb.v(100);
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-  vlIIDM.add(bus1IIDM);
-  IIDM::Bus bus2IIDM = bb.build("MyBus2");
-  vlIIDM.add(bus2IIDM);
-
-  if (withVsc) {
-    IIDM::builders::VscConverterStationBuilder vsccb;
-    if (withP)
-      vsccb.p(2.);
-    if (withQ)
-      vsccb.q(3.);
-    IIDM::MinMaxReactiveLimits limits(1., 2.);
-    vsccb.minMaxReactiveLimits(limits);
-    IIDM::VscConverterStation vsc = vsccb.build("MyVscConverterStation");
-    vsc.connectTo("MyVoltageLevel", p1);
-    vlIIDM.add(vsc);
-    IIDM::VscConverterStation vsc2 = vsccb.build("MyVscConverterStation2");
-    vsc2.connectTo("MyVoltageLevel", p1);
-    vlIIDM.add(vsc2);
-
-    IIDM::builders::HvdcLineBuilder hlb;
-    hlb.converterStation1("MyVscConverterStation");
-    hlb.converterStation2("MyVscConverterStation2");
-    hlb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
-    IIDM::HvdcLine hvdcIIDM = hlb.build("MyHvdcLine");
-    networkIIDM.add(hvdcIIDM);
-  } else {
-    IIDM::builders::LccConverterStationBuilder lcsb;
-    if (withP)
-      lcsb.p(2.);
-    if (withQ)
-      lcsb.q(3.);
-    IIDM::LccConverterStation lcc = lcsb.build("MyLccConverter");
-    lcc.connectTo("MyVoltageLevel", p1);
-    vlIIDM.add(lcc);
-    IIDM::LccConverterStation lcc2 = lcsb.build("MyLccConverter2");
-    lcc2.connectTo("MyVoltageLevel", p1);
-    vlIIDM.add(lcc2);
-
-    IIDM::builders::HvdcLineBuilder hvdcb;
-    hvdcb.converterStation1("MyLccConverter");
-    hvdcb.converterStation2("MyLccConverter2");
-    hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
-    IIDM::HvdcLine hvdc = hvdcb.build("MyHvdcLine");
-    networkIIDM.add(hvdc);
-  }
-
-
-  shared_ptr<NetworkInterfaceIIDM> networkItfIIDM = shared_ptr<NetworkInterfaceIIDM>(new NetworkInterfaceIIDM(networkIIDM));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus2")));
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-
-  ModelNetwork* network = new ModelNetwork();
-  network->setIsInitModel(initModel);
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
-      constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
-  network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(constraints);
-  shared_ptr<ModelHvdcLink> hvdc;
-  if (withVsc) {
-    for (IIDM::Contains<IIDM::VscConverterStation>::iterator itVSC = vlIIDM.vscConverterStations().begin();
-        itVSC != vlIIDM.vscConverterStations().end(); ++itVSC) {
-      shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(*itVSC));
-      vlItfIIDM->addVscConverter(vsc);
-      vsc->setVoltageLevelInterface(vlItfIIDM);
-      vsc->setBusInterface(bus1ItfIIDM);
-    }
-    const std::vector<shared_ptr<VscConverterInterface> >& vscConverters = vlItfIIDM->getVscConverters();
-    shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine"),
-                                                                                      vscConverters[0], vscConverters[1]));
-    hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
-  } else {
-    for (IIDM::Contains<IIDM::LccConverterStation>::iterator itLCC = vlIIDM.lccConverterStations().begin();
-        itLCC != vlIIDM.lccConverterStations().end(); ++itLCC) {
-      shared_ptr<LccConverterInterface> lcc(new LccConverterInterfaceIIDM(*itLCC));
-      vlItfIIDM->addLccConverter(lcc);
-      lcc->setVoltageLevelInterface(vlItfIIDM);
-      lcc->setBusInterface(bus1ItfIIDM);
-    }
-    const std::vector<shared_ptr<LccConverterInterface> >& lccConverters = vlItfIIDM->getLccConverters();
-    shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine"),
-                                                                                      lccConverters[0], lccConverters[1]));
-    hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
-  }
-  hvdc->setNetwork(network);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
-  bus1->setNetwork(network);
-  bus1->initSize();
-  // There is a memory leak here, but whatever ...
-  double* y1 = new double[bus1->sizeY()];
-  double* yp1 = new double[bus1->sizeY()];
-  double* f1 = new double[bus1->sizeF()];
-  double* z1 = new double[bus1->sizeZ()];
-  bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (int i = 0; i < bus1->sizeZ(); ++i)
-    zConnected1[i] = true;
-  bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 3.5;
-  y1[ModelBus::uiNum_] = 2;
-  if (!initModel)
-    z1[ModelBus::switchOffNum_] = -1;
-  int offset = 0;
-  bus1->init(offset);
-  bus1->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
-  bus2->setNetwork(network);
-  bus2->initSize();
-  // There is a memory leak here, but whatever ...
-  double* y2 = new double[bus2->sizeY()];
-  double* yp2 = new double[bus2->sizeY()];
-  double* f2 = new double[bus2->sizeF()];
-  double* z2 = new double[bus2->sizeZ()];
-  bool* zConnected2 = new bool[bus2->sizeZ()];
-  for (int i = 0; i < bus2->sizeZ(); ++i)
-    zConnected2[i] = true;
-  bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(y2, yp2, f2, 0, 0);
-  y2[ModelBus::urNum_] = 5.;
-  y2[ModelBus::uiNum_] = 2.5;
-  if (!initModel)
-    z2[ModelBus::switchOffNum_] = -1;
-  bus2->init(offset);
-  bus2->setVoltageLevel(vl);
-  hvdc->setModelBus1(bus1);
-  hvdc->setModelBus2(bus2);
-  return std::make_pair(hvdc, vl);
-}
-#endif
 
 static void
 fillParameters(shared_ptr<ModelHvdcLink> hvdc, std::string& startingPoint) {
@@ -423,14 +258,9 @@ fillParameters(shared_ptr<ModelHvdcLink> hvdc, std::string& startingPoint) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationVCS) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   ASSERT_EQ(hvdc->id(), "MyHvdcLine");
@@ -441,15 +271,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationVCS) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationVCSNoPNoQ) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p
       = createModelHvdcLink(false, VSC, networkIIDM, false, false);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, false, false);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   ASSERT_EQ(hvdc->id(), "MyHvdcLine");
@@ -460,14 +285,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationVCSNoPNoQ) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationLCC) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, LCC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, LCC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   ASSERT_EQ(hvdc->id(), "MyHvdcLine");
@@ -478,15 +298,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationLCC) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationLCCNoPNoQ) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> >
       p = createModelHvdcLink(false, LCC, networkIIDM, false, false);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, LCC, false, false);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   ASSERT_EQ(hvdc->id(), "MyHvdcLine");
@@ -497,14 +312,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkInitializationLCCNoPNoQ) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariablesFlat) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   std::string startingPoint = "flat";
   fillParameters(hvdc, startingPoint);
@@ -532,14 +342,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariablesFlat) {
 
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   hvdc->initSize();
@@ -687,15 +492,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   }
   numVars.clear();
 
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> >
       p2 = createModelHvdcLink(true, VSC, networkIIDM2);
   shared_ptr<ModelHvdcLink> hvdcInit = std::get<0>(p2);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p2 = createModelHvdcLink(true, VSC);
-  shared_ptr<ModelHvdcLink> hvdcInit = p2.first;
-#endif
   hvdcInit->init(offSet);
   hvdcInit->initSize();
   ASSERT_EQ(hvdcInit->sizeCalculatedVar(), 0);
@@ -703,14 +503,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   hvdc->initSize();
@@ -762,15 +557,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   hvdc->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
 
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> >
       p2 = createModelHvdcLink(true, VSC, networkIIDM2);
   shared_ptr<ModelHvdcLink> hvdcInit = std::get<0>(p2);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p2 = createModelHvdcLink(true, VSC);
-  shared_ptr<ModelHvdcLink> hvdcInit = p2.first;
-#endif
   hvdcInit->init(offSet);
   hvdcInit->initSize();
   ASSERT_EQ(hvdcInit->sizeZ(), 0);
@@ -779,14 +569,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkContinuousVariables) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
   unsigned nbY = 0;
@@ -807,15 +592,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkContinuousVariables) {
   ASSERT_NO_THROW(hvdc->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), nbF);
 
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> >
       p2 = createModelHvdcLink(true, VSC, networkIIDM2);
   shared_ptr<ModelHvdcLink> hvdcInit = std::get<0>(p2);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p2 = createModelHvdcLink(true, VSC);
-  shared_ptr<ModelHvdcLink> hvdcInit = p2.first;
-#endif
   hvdcInit->init(offSet);
   hvdcInit->initSize();
   ASSERT_EQ(hvdcInit->sizeY(), 0);
@@ -823,14 +603,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDefineInstantiate) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
 
@@ -872,14 +647,9 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkJt) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelHvdcLink>, shared_ptr<NetworkInterfaceIIDM>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC, networkIIDM);
   shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
-#else
-  std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> > p = createModelHvdcLink(false, VSC);
-  shared_ptr<ModelHvdcLink> hvdc = p.first;
-#endif
   int offSet = 0;
   hvdc->init(offSet);
 

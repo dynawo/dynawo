@@ -27,28 +27,6 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 
-#ifdef USE_POWSYBL
-#else
-#include <IIDM/xml/import.h>
-#include <IIDM/xml/export.h>
-#include <IIDM/Network.h>
-#include <IIDM/components/Connection.h>
-#include <IIDM/components/ConnectionPoint.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Substation.h>
-#include <IIDM/components/Line.h>
-#include <IIDM/components/Load.h>
-#include <IIDM/components/Switch.h>
-#include <IIDM/builders/NetworkBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/builders/SubstationBuilder.h>
-#include <IIDM/builders/LineBuilder.h>
-#include <IIDM/builders/LoadBuilder.h>
-#include <IIDM/builders/SwitchBuilder.h>
-#endif
-
 #include "gtest_dynawo.h"
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNFileSystemUtils.h"
@@ -146,14 +124,9 @@ static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolve
 
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
-#ifdef USE_POWSYBL
   auto networkIIDM = boost::make_shared<powsybl::iidm::Network>(powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFileName)));
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
-#else
-  IIDM::xml::xml_parser parser;
-  boost::shared_ptr<IIDM::Network> networkIIDM = boost::make_shared<IIDM::Network>(parser.from_xml(iidmFileName, false));
-  boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
-#endif
+
   boost::dynamic_pointer_cast<DataInterfaceIIDM>(data)->initFromIIDM();
   dyd->setDataInterface(data);
   if (!hasEnvVar("PWD"))

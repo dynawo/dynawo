@@ -29,6 +29,9 @@
 
 namespace DYN {
 
+/**
+ * class StepInterfaceIIDM
+ */
 class StepInterfaceIIDM : public StepInterface {
  public:
   /**

@@ -27,7 +27,7 @@ target_link_libraries(dynawo
     dynawo_Common
     dynawo_Simulation
     XMLSAXParser${LibXML_LINK_SUFFIX}
-    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
+    LibXml2::LibXml2
     Boost::filesystem
     Boost::program_options
     )

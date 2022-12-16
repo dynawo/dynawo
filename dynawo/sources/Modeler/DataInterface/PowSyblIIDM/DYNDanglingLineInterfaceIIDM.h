@@ -30,6 +30,9 @@
 
 namespace DYN {
 
+/**
+ * class DanglingLineInterfaceIIDM
+ */
 class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorInterfaceIIDM {
  public:
   /**

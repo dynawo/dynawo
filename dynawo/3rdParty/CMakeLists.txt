@@ -9,10 +9,9 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # Minimum required (for ExternalProject_Add)
-cmake_minimum_required(VERSION 3.9.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
-option(USE_LEGACY_IIDM "Force use of legacy IIDM library" FALSE)
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
 
@@ -911,45 +910,5 @@ else()
   set(LIBXML_HOME ${install_dir})
 endif()
 
-if(NOT USE_LEGACY_IIDM)
- cmake_minimum_required(VERSION 3.12)
-
- include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
- include("${CMAKE_CURRENT_SOURCE_DIR}/libiidm/libiidm.cmake")
-
-else()
-set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
-find_package(libIIDM 0.2.8 QUIET)
-unset(LIBIIDM_HOME)
-
-if(libIIDM_FOUND)
-  add_custom_target(libiidm0 DEPENDS libxml boost)
-  set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm0)
-else()
-  ExternalProject_Add(libiidm0
-          DEPENDS             libxml boost
-          INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm0
-          DOWNLOAD_DIR        ${DOWNLOAD_DIR}
-          TMP_DIR             ${TMP_DIR}
-          STAMP_DIR           ${DOWNLOAD_DIR}/libiidm0-stamp
-          BINARY_DIR          ${DOWNLOAD_DIR}/libiidm0-build
-          DOWNLOAD_COMMAND    ""
-          SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
-
-          CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-                              -DCXX11_ENABLED:BOOL=TRUE
-
-          CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-                              -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                              $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
-                              -DBUILD_XML:BOOL=ON
-                              -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}>
-                              -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME}
-                              -DXERCESC_HOME:PATH=${XERCESC_HOME}
-                              -DBOOST_ROOT:PATH=${BOOST_ROOT}
-                              $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
-  )
-  ExternalProject_Get_Property(libiidm0 install_dir)
-  set(LIBIIDM_HOME ${install_dir})
-endif()
-endif(NOT USE_LEGACY_IIDM)
+include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/libiidm/libiidm.cmake")

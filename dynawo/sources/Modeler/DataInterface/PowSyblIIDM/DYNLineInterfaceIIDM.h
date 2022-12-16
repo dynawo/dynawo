@@ -32,6 +32,9 @@
 
 namespace DYN {
 
+/**
+ * class LineInterfaceIIDM
+ */
 class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
  public:
   /**

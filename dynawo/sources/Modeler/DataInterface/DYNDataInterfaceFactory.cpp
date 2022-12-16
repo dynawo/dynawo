@@ -30,12 +30,7 @@ shared_ptr<DataInterface>
 DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath, unsigned int nbVariants) {
   switch (type) {
   case DATAINTERFACE_IIDM:
-#ifdef USE_POWSYBL
     return DataInterfaceIIDM::build(filepath, nbVariants);
-#else
-    (void)nbVariants;  // parameter unused with legacy iidm library
-    return DataInterfaceIIDM::build(filepath);
-#endif
   }
   return boost::shared_ptr<DataInterface>();
 }

@@ -27,6 +27,9 @@
 
 namespace DYN {
 
+/**
+ * class SwitchInterfaceIIDM
+ */
 class SwitchInterfaceIIDM : public SwitchInterface {
  public:
   /**

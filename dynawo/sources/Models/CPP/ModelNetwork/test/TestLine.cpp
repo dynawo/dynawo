@@ -14,26 +14,12 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/Line.hpp>
 #include <powsybl/iidm/LineAdder.hpp>
-#else
-#include <IIDM/builders/NetworkBuilder.h>
-#include <IIDM/builders/LineBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/SubstationBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/components/Line.h>
-#include <IIDM/components/CurrentLimit.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/components/Substation.h>
-#include <IIDM/Network.h>
-#endif
 
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -55,7 +41,6 @@ using boost::shared_ptr;
 namespace DYN {
 static std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = true) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -154,82 +139,6 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
       dlItfIIDM->addCurrentLimitInterface1(cLimit);
     }
   }
-#else
-  IIDM::builders::NetworkBuilder nb;
-  IIDM::Network networkIIDM = nb.build("MyNetwork");
-
-  IIDM::builders::SubstationBuilder ssb;
-  IIDM::Substation ss = ssb.build("MySubStation");
-  IIDM::connection_status_t cs = {!open};
-  IIDM::Port p1("MyBus1", cs), p2("MyBus2", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2);
-
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-  IIDM::Bus bus2IIDM = bb.build("MyBus2");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vlIIDM = vlb.build("MyVoltageLevel");
-  if (closed1)
-    vlIIDM.add(bus1IIDM);
-  if (closed2)
-    vlIIDM.add(bus2IIDM);
-  vlIIDM.lowVoltageLimit(0.5);
-  vlIIDM.highVoltageLimit(2.);
-  ss.add(vlIIDM);
-  networkIIDM.add(ss);
-
-  IIDM::builders::LineBuilder dlb;
-  dlb.r(3.);
-  dlb.x(3.);
-  dlb.g1(3.);
-  dlb.b1(3.);
-  dlb.p1(105.);
-  dlb.q1(90.);
-  dlb.g2(6.);
-  dlb.b2(1.5);
-  dlb.p2(50.);
-  dlb.q2(45.);
-  IIDM::CurrentLimits limits(200.);
-  limits.add("MyLimit", 10., 5.);
-  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN());
-  dlb.currentLimits1(limits);
-  IIDM::CurrentLimits limits2(200.);
-  limits2.add("MyLimit2", 15., 10.);
-  dlb.currentLimits2(limits2);
-  IIDM::Line dlIIDM = dlb.build("MyLine");
-  if (closed1 && closed2)
-    networkIIDM.add(dlIIDM, c1, c2);
-  else if (closed1 && !closed2)
-    networkIIDM.add(dlIIDM, c1, c1);
-  else
-    networkIIDM.add(dlIIDM, c2, c2);
-  IIDM::Line dlIIDM2 = networkIIDM.get_line("MyLine");  // was copied...
-  shared_ptr<LineInterfaceIIDM> dlItfIIDM = shared_ptr<LineInterfaceIIDM>(new LineInterfaceIIDM(dlIIDM2));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM;
-  if (closed1)
-    bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM;
-  if (closed2)
-    bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus2")));
-  if (closed1)
-    dlItfIIDM->setBusInterface1(bus1ItfIIDM);
-  if (closed2)
-    dlItfIIDM->setBusInterface2(bus2ItfIIDM);
-  IIDM::CurrentLimits currentLimits = dlIIDM2.currentLimits1();
-  for (IIDM::CurrentLimits::const_iterator it = currentLimits.begin(); it != currentLimits.end(); ++it) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-    dlItfIIDM->addCurrentLimitInterface1(cLimit);
-  }
-  currentLimits = dlIIDM2.currentLimits2();
-  for (IIDM::CurrentLimits::const_iterator it = currentLimits.begin(); it != currentLimits.end(); ++it) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-    dlItfIIDM->addCurrentLimitInterface2(cLimit);
-  }
-#endif
 
   shared_ptr<ModelLine> dl = shared_ptr<ModelLine>(new ModelLine(dlItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -1157,11 +1066,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   }
   ASSERT_NO_THROW(dl->evalG(0.));
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[0], ROOT_DOWN);
-#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[1], NO_ROOT);
-#else
-  ASSERT_DOUBLE_EQUALS_DYNAWO(g[1], ROOT_DOWN);
-#endif
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[2], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[3], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[4], ROOT_DOWN);
