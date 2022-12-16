@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="SignalNQ" variable="vrremote_limUQUp_1_"/>
+  <curve model="SignalNQ" variable="vrremote_limUQUp_2_"/>
+  <curve model="SignalNQ" variable="vrremote_limUQUp_4_"/>
+  <curve model="SignalNQ" variable="vrremote_limUQDown_1_"/>
+  <curve model="SignalNQ" variable="vrremote_limUQDown_2_"/>
+  <curve model="SignalNQ" variable="vrremote_limUQDown_4_"/>
+  <curve model="SignalNQ" variable="vrremote_blockedUp"/>
+  <curve model="SignalNQ" variable="vrremote_blockedDown"/>
+  <curve model="SignalNQ" variable="vrremote_frozen"/>
+  <curve model="SignalNQ" variable="vrremote_NQ"/>
+  <curve model="SignalNQ" variable="vrremote_URegulated"/>
+  <curve model="SignalNQ" variable="vrremote_URef"/>
+  <curve model="Generator1" variable="generator_limUQUp"/>
+  <curve model="Generator1" variable="generator_limUQDown"/>
+  <curve model="Generator1" variable="generator_UPu"/>
+  <curve model="Generator1" variable="generator_PGenPu"/>
+  <curve model="Generator1" variable="generator_QGenPu"/>
+  <curve model="Generator1" variable="generator_QMaxPu"/>
+  <curve model="Generator1" variable="generator_QMinPu"/>
+  <curve model="Generator2" variable="generator_limUQUp"/>
+  <curve model="Generator2" variable="generator_limUQDown"/>
+  <curve model="Generator2" variable="generator_UPu"/>
+  <curve model="Generator2" variable="generator_PGenPu"/>
+  <curve model="Generator2" variable="generator_QGenPu"/>
+  <curve model="Generator2" variable="generator_QMaxPu"/>
+  <curve model="Generator2" variable="generator_QMinPu"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_limUQUp_1_"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_limUQUp_2_"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_limUQUp_4_"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_limUQDown_1_"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_limUQDown_2_"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_limUQDown_4_"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_blockedUp"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_blockedDown"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_frozen"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_NQ"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_URegulated"/>
+  <curve model="SignalNQNoFreezing" variable="vrremote_URef"/>
+  <curve model="Generator1NoFreezing" variable="generator_limUQUp"/>
+  <curve model="Generator1NoFreezing" variable="generator_limUQDown"/>
+  <curve model="Generator1NoFreezing" variable="generator_UPu"/>
+  <curve model="Generator1NoFreezing" variable="generator_PGenPu"/>
+  <curve model="Generator1NoFreezing" variable="generator_QGenPu"/>
+  <curve model="Generator1NoFreezing" variable="generator_QMaxPu"/>
+  <curve model="Generator1NoFreezing" variable="generator_QMinPu"/>
+  <curve model="Generator2NoFreezing" variable="generator_limUQUp"/>
+  <curve model="Generator2NoFreezing" variable="generator_limUQDown"/>
+  <curve model="Generator2NoFreezing" variable="generator_UPu"/>
+  <curve model="Generator2NoFreezing" variable="generator_PGenPu"/>
+  <curve model="Generator2NoFreezing" variable="generator_QGenPu"/>
+  <curve model="Generator2NoFreezing" variable="generator_QMaxPu"/>
+  <curve model="Generator2NoFreezing" variable="generator_QMinPu"/>
+</curvesInput>

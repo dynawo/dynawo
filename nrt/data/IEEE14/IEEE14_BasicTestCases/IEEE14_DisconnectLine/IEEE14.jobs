@@ -23,7 +23,7 @@
     <dyn:outputs directory="outputs">
       <dyn:timeline exportMode="TXT"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
-      <dyn:finalStateValues inputFile="IEEE14.fsv"/>
+      <dyn:finalStateValues inputFile="IEEE14.fsv" exportMode="XML"/>
       <dyn:lostEquipments/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>

@@ -28,6 +28,7 @@ set(MODEL_FILES
   LimPIDFreeze.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
+  PIFreeze.mo
   Power.mo
   RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo

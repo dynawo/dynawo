@@ -171,6 +171,7 @@
 
   <xs:complexType name="FinalStateValuesEntry">
     <xs:attribute name="inputFile" use="required" type="xs:string"/>
+    <xs:attribute name="exportMode" use="optional" type="dyn:FinalStateValuesExportMode" default="CSV"/>
   </xs:complexType>
 
   <xs:complexType name="LostEquipmentsEntry"/>
@@ -179,6 +180,14 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="XML"/>
       <xs:enumeration value="CSV"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FinalStateValuesExportMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XML"/>
+      <xs:enumeration value="CSV"/>
+      <xs:enumeration value="TXT"/>
     </xs:restriction>
   </xs:simpleType>
 

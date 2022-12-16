@@ -101,6 +101,85 @@
 }
 
 /**
+ * @brief definition of _event_ceil function
+ *
+ *  @param x input value
+ *  @param index index of the discrete mathematical event
+ *  @param data current data
+ *
+ * @return Returns the smallest integer not less than x.
+ * Result and argument shall have type Real.
+ */
+inline modelica_real  _event_ceil(modelica_real x, modelica_integer index, DATA *data) {
+  modelica_real value;\
+  if (data->simulationInfo->discreteCall == 1) {
+    data->simulationInfo->mathEventsValuePre[index] = x;
+  } \
+  value = data->simulationInfo->mathEventsValuePre[index];
+  return (modelica_real)std::ceil(value);
+}
+
+/** @brief  definition of _event_floor function
+ *
+ *  @param x input value
+ *  @param index index of the discrete mathematical event
+ *  @param data current data
+ *
+ *  @return Returns the largest integer not greater than x.
+ * Result and argument shall have type Real.
+ */
+inline modelica_real _event_floor(modelica_real x, modelica_integer index, DATA *data) {
+  modelica_real value;
+  if (data->simulationInfo->discreteCall == 1) {
+    data->simulationInfo->mathEventsValuePre[index] = x;
+  } \
+  value = data->simulationInfo->mathEventsValuePre[index];
+  return (modelica_real)std::floor(value);
+}
+
+/**
+ *  @brief definition of _event_floor function
+ *
+ *  @param x input value
+ *  @param index index of the discrete mathematical event
+ *  @param data current data
+ *
+ *  @return Returns the largest integer not greater than x.
+ */
+inline modelica_integer _event_integer(modelica_real x, modelica_integer index, DATA *data) {
+  modelica_real value;
+  if (data->simulationInfo->discreteCall == 1) {
+    data->simulationInfo->mathEventsValuePre[index] = x;
+  } \
+  value = data->simulationInfo->mathEventsValuePre[index];
+  return (modelica_integer)std::floor(value);
+}
+
+/**
+ * @brief Returns the algebraic quotient x/y with any fractional part discarded
+ *
+ * @param x1 first input value
+ * @param x2 second input value
+ * @param index index of the discrete mathematical event
+ * @param data current data
+ *
+ * @return Returns the algebraic quotient x/y with any fractional part discarded
+ */
+inline modelica_real _event_div_real(modelica_real x1, modelica_real x2, modelica_integer index, DATA *data) {
+  modelica_real value1, value2;
+  if (data->simulationInfo->discreteCall && !data->simulationInfo->solveContinuous) {
+    data->simulationInfo->mathEventsValuePre[index] = x1;
+    data->simulationInfo->mathEventsValuePre[index+1] = x2;
+  }
+
+  value1 = data->simulationInfo->mathEventsValuePre[index];
+  value2 = data->simulationInfo->mathEventsValuePre[index+1];
+
+  return trunc(value1/value2);
+}
+
+
+/**
  * less operator definition
  * @param exp1 first operand
  * @param exp2 second operand

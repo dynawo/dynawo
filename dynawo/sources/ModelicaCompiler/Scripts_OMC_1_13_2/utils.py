@@ -327,7 +327,7 @@ def find_key_in_map(a_map, the_value):
 
 ##
 # Find a division expression in a line
-# @param line line  to analize
+# @param line line  to analyze
 # @param start_pos : pointer in the line where the division begins
 # @returns : the division expression
 def get_div_block_sim(line, start_pos):
@@ -348,7 +348,7 @@ def get_div_block_sim(line, start_pos):
 
 ##
 # Find an expression between brackets in a line
-# @param line line to analize
+# @param line line to analyze
 # @param start_pos : pointer in the line where the expression begins
 # @returns : the expression
 def get_argument(line, start_pos):
@@ -368,7 +368,7 @@ def get_argument(line, start_pos):
 
 ##
 # Replace pow by pow_dynawo in line
-# @param line line to analize
+# @param line line to analyze
 # @returns : the line with the new expression
 def replace_pow(line):
     line_to_return = line
@@ -377,8 +377,41 @@ def replace_pow(line):
     return line_to_return
 
 ##
+# Replace equations with v1 = table[v2]
+# OpenModelica generates f = v1- &table[firstIndex + v2], we replace it with a if to be complicant with adept
+# @param body body to analyze
+# @returns : the line with the new expression
+def replace_dynamic_indexing(body):
+    body_to_return = []
+    depend_vars = []
+    for line in body:
+        if ("calc_base_index_dims_subs" not in line):
+            body_to_return.append(line)
+            continue
+        ptrn_var_dynamic_index = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\([0-9]+, (?P<size>[0-9]+), (?P<expr>.*)\)\]')
+        match = ptrn_var_dynamic_index.findall(line)
+        index_tmp = 0
+        body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
+        for var, var_name, size, expr in match:
+            for i in range(1, int(size)+1):
+                body_to_return.append("  if (" + expr + " == " + str(i) +") {\n")
+                index = -1
+                while var_name[index] != '[':
+                    index -= 1
+                index2 = -1
+                while var[index2] != '[':
+                    index2 -= 1
+                body_to_return.append("    tmp_calc_var_" + str(index_tmp) + " = data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name[:index]+"[" + str(i) + "]"+" DISCRETE */;\n")
+                body_to_return.append("  }\n")
+                depend_vars.append(var_name[:index]+"[" + str(i) + "]")
+            body_to_return.append(re.sub(ptrn_var_dynamic_index,"tmp_calc_var_" + str(index_tmp), line))
+            index_tmp+=1
+
+    return (body_to_return, depend_vars)
+
+##
 # Replace a DIVISION expression in a line by a/b
-# @param line line to analize
+# @param line line to analyze
 # @returns : the line with the new expression
 def sub_division_sim(line):
     line_to_return = line
@@ -861,21 +894,6 @@ def transform_atan3_operator_evalf(line):
     return line_tmp_bis
 
 ##
-# Transform _event_floor(x, index, data) to (modelica_integer)floor(x)
-# and event_integer(x, index, data) to (modelica_integer)floor(x)
-# @param line : line to analyse
-# @return line transformed
-def replace_event_floor(line):
-    if "_event_floor" not in line and "_event_integer" not in line:
-        return line
-    event_floor_ptrn = re.compile(r'_event_floor\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
-    line = event_floor_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
-    event_int_ptrn = re.compile(r'_event_integer\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
-    line = event_int_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
-
-    return line
-
-##
 # Transform a line so that it can be compiled
 # @param line : line to analyse
 # @return line transformed
@@ -885,7 +903,8 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
-    line_tmp = replace_event_floor(line_tmp)
+    line_tmp = line_tmp.replace("threadData,", "")
+    line_tmp = line_tmp.replace(", threadData)", ")")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp
@@ -908,6 +927,8 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
     line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
+    line_tmp = line_tmp.replace("threadData,", "")
+    line_tmp = line_tmp.replace(", threadData)", ")")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp

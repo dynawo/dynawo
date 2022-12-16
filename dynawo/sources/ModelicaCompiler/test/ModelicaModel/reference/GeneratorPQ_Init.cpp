@@ -134,6 +134,9 @@ void ModelGeneratorPQ_Init::initializeDataStruc()
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
 
+  // buffer for mathematical events
+  data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
+
   data->simulationInfo->discreteCall = 0;
  
 }
@@ -167,6 +170,7 @@ void ModelGeneratorPQ_Init::deInitializeDataStruc()
   // buffer for all relation values
   free(data->simulationInfo->relations);
   free(data->simulationInfo->relationsPre);
+  free(data->simulationInfo->mathEventsValuePre);
   free(data->simulationInfo);
   free(data->modelData);
 

@@ -250,6 +250,7 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getFinalStateValuesEntry(), boost::shared_ptr<FinalStateValuesEntry>());
   boost::shared_ptr<FinalStateValuesEntry> finalStateValues = outputs->getFinalStateValuesEntry();
   ASSERT_EQ(finalStateValues->getInputFile(), "finalStateValues.fsv");
+  ASSERT_EQ(finalStateValues->getExportMode(), "CSV");
 
   // ===== LostEquipmentsEntry =====
   ASSERT_NE(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());

@@ -22,7 +22,6 @@
     <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
     <par name="generator_KGover" type="DOUBLE" value="1"/>
-    <par name="generator_tFilter" type="DOUBLE" value="0.001"/>
   </macroParameterSet>
   <macroParameterSet id="macro_signalNGeneratorFixedP">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -35,7 +34,6 @@
     <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
     <par name="generator_KGover" type="DOUBLE" value="0"/>
-    <par name="generator_tFilter" type="DOUBLE" value="0.001"/>
   </macroParameterSet>
   <set id="12293692827806051710">
     <par name="generator_QMax0" type="DOUBLE" value="41"/>

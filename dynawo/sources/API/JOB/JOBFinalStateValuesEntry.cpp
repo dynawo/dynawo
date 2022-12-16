@@ -21,10 +21,23 @@
 
 namespace job {
 
-const std::string& FinalStateValuesEntry::getInputFile() const { return inputFile_; }
+const std::string&
+FinalStateValuesEntry::getInputFile() const {
+  return inputFile_;
+}
 
 void FinalStateValuesEntry::setInputFile(const std::string& inputFile) {
   inputFile_ = inputFile;
+}
+
+const std::string&
+FinalStateValuesEntry::getExportMode() const {
+  return exportMode_;
+}
+
+void
+FinalStateValuesEntry::setExportMode(const std::string& exportMode) {
+  exportMode_ = exportMode;
 }
 
 }  // namespace job
