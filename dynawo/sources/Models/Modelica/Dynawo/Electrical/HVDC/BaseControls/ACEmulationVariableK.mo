@@ -35,7 +35,7 @@ model ACEmulationVariableK "AC Emulation for HVDC with a variable KACEmulation"
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PRef0Pu) "Reference active power in pu (base SnRef or SNom) (receptor or generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tFilter, y_start = DeltaThetaFiltered0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tFilter, y_start = DeltaThetaFiltered0) annotation(
     Placement(visible = true, transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

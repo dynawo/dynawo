@@ -57,7 +57,7 @@ equation
     connect(dyMaxLocal,dyMax);
   else
     dyMinLocal = -9999;
-    dyMaxLocal =  9999;
+    dyMaxLocal = 9999;
   end if;
 
   if local_freeze then

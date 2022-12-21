@@ -26,21 +26,21 @@ block SecondOrder
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Gain gain(k = k)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = k) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = w)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = w) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(y_start = Yd0)  annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(y_start = Yd0) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator1(y_start = Y0)  annotation(
+  Modelica.Blocks.Continuous.Integrator integrator1(y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain2(k = w)  annotation(
+  Modelica.Blocks.Math.Gain gain2(k = w) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain3(k = 2 * D)  annotation(
+  Modelica.Blocks.Math.Gain gain3(k = 2 * D) annotation(
     Placement(visible = true, transformation(origin = {40, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   parameter Real Yd0 = 0 "Initial value of derivative of output signal";

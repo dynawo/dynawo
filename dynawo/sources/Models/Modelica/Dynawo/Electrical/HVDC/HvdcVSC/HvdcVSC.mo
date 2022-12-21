@@ -169,8 +169,8 @@ equation
     Line(points = {{-61, -4}, {-70, -4}, {-70, -32}, {70, -32}, {70, -10}, {62, -10}, {62, -10}}, color = {0, 0, 127}));
   connect(UdcPu_Side.iqRefPu, PPu_Side.iqRef1Pu) annotation(
     Line(points = {{62, -4}, {72, -4}, {72, -34}, {-72, -34}, {-72, -10}, {-61, -10}, {-61, -11}}, color = {0, 0, 127}));
-  Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
-  Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
+  Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
+  Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),

@@ -65,19 +65,19 @@ model DroopControl "Droop control for grid forming converters"
     Placement(visible = true, transformation(origin = {70, 95}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom, y_start = Theta0) annotation(
     Placement(visible = true, transformation(origin = {100, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k=1, y_start = QFilter0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k=1, y_start = QFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = Kff)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = Kff) annotation(
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain2(k = -Kff)  annotation(
+  Modelica.Blocks.Math.Gain gain2(k = -Kff) annotation(
     Placement(visible = true, transformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = 1 / Wff, k = 1, y_start = Kff * IdPcc0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = 1 / Wff, k = 1, y_start = Kff * IdPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-20, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1 / Wff, k = 1, y_start = -Kff * IqPcc0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1 / Wff, k = 1, y_start = -Kff * IqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback3 annotation(
     Placement(visible = true, transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain3(k = Mq)  annotation(
+  Modelica.Blocks.Math.Gain gain3(k = Mq) annotation(
     Placement(visible = true, transformation(origin = {-50, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {20, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -87,7 +87,7 @@ model DroopControl "Droop control for grid forming converters"
     Placement(visible = true, transformation(origin = {80, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback7 annotation(
     Placement(visible = true, transformation(origin = {80, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant omegaSetPu(k = SystemBase.omegaRef0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant omegaSetPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ActivePowerPu PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";

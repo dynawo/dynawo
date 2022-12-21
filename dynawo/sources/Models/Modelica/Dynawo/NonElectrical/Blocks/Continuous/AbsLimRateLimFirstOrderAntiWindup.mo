@@ -51,7 +51,7 @@ block AbsLimRateLimFirstOrderAntiWindup "First order filter with absolute and ra
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Math.Add add(k2 = Kaw)  annotation(
+  Modelica.Blocks.Math.Add add(k2 = Kaw) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Y0 "Initial value of output";

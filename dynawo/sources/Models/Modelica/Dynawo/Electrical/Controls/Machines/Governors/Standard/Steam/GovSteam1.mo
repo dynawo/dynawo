@@ -72,7 +72,7 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
     Placement(visible = true, transformation(origin = {390, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {450, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add3 add3(k2 = -1, k3 = -1)  annotation(
+  Modelica.Blocks.Math.Add3 add3(k2 = -1, k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add4 annotation(
     Placement(visible = true, transformation(origin = {330, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,49 +80,49 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
     Placement(visible = true, transformation(origin = {390, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add6 annotation(
     Placement(visible = true, transformation(origin = {450, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.BacklashHysteresis backlashHysteresis(H0 = H0, U0 = PmRef0Pu, UHigh = Db2)   annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.BacklashHysteresis backlashHysteresis(H0 = H0, U0 = PmRef0Pu, UHigh = Db2) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sdb2)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sdb2) annotation(
     Placement(visible = true, transformation(origin = {30, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = Sdb1) annotation(
     Placement(visible = true, transformation(origin = {-390, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k = ValveOn) annotation(
     Placement(visible = true, transformation(origin = {90, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant const(k = SystemBase.omega0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-510, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.DeadBand deadBand(EpsMax = Eps, UMax = Db1)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadBand deadBand(EpsMax = Eps, UMax = Db1) annotation(
     Placement(visible = true, transformation(origin = {-390, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-450, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t4, y_start = Pm0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t4, y_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t5, y_start = Pm0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t5, y_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = t6, y_start = Pm0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = t6, y_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {330, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, y_start = Pm0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, y_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {390, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = 1 / t3)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = 1 / t3) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = K1)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = K1) annotation(
     Placement(visible = true, transformation(origin = {240, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain gain2(k = K2)  annotation(
+  Modelica.Blocks.Math.Gain gain2(k = K2) annotation(
     Placement(visible = true, transformation(origin = {240, -50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain gain3(k = K3)  annotation(
+  Modelica.Blocks.Math.Gain gain3(k = K3) annotation(
     Placement(visible = true, transformation(origin = {300, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain gain4(k = K5)  annotation(
+  Modelica.Blocks.Math.Gain gain4(k = K5) annotation(
     Placement(visible = true, transformation(origin = {360, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain gain5(k = K7)  annotation(
+  Modelica.Blocks.Math.Gain gain5(k = K7) annotation(
     Placement(visible = true, transformation(origin = {420, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain gain6(k = K4)  annotation(
+  Modelica.Blocks.Math.Gain gain6(k = K4) annotation(
     Placement(visible = true, transformation(origin = {300, -50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain gain7(k = K6)  annotation(
+  Modelica.Blocks.Math.Gain gain7(k = K6) annotation(
     Placement(visible = true, transformation(origin = {360, -50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain gain8(k = K8)  annotation(
+  Modelica.Blocks.Math.Gain gain8(k = K8) annotation(
     Placement(visible = true, transformation(origin = {420, -50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.LimIntegrator limitedIntegrator(outMax = PMaxPu, outMin = PMinPu, y_start = PmRef0Pu)  annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limitedIntegrator(outMax = PMaxPu, outMin = PMinPu, y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = Uo, uMin = Uc)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = Uo, uMin = Uc) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds pgv(fileName = TablesFile, tableName = PgvTableName, tableOnFile = true) annotation(
 Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -132,7 +132,7 @@ Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10},
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {150, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t1, 1}, b = K * {t2, 1})  annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t1, 1}, b = K * {t2, 1}) annotation(
     Placement(visible = true, transformation(origin = {-270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

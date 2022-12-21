@@ -20,10 +20,10 @@ block PIFreeze "Proportional-integrator controller with freezing of the state"
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 
-  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(Placement(
         visible = true, transformation(extent = {{-200, -20}, {-160, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(Placement(
         visible = true, transformation(extent = {{160, -10}, {180, 10}}, rotation = 0), iconTransformation(extent = {{100, -10}, {120, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Add add(k1 = Gain, k2 = Gain / tIntegral) annotation(
