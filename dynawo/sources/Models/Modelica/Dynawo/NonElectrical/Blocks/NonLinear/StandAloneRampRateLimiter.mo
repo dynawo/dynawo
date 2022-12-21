@@ -31,7 +31,7 @@ block StandAloneRampRateLimiter "Slew rate limiter as in IEC N°61400-27-1"
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS)  annotation(
+  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS) annotation(
     Placement(visible = true, transformation(origin = {50, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

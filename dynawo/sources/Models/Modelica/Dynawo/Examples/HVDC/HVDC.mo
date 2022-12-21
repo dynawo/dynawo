@@ -95,5 +95,5 @@ equation
 "),
     Diagram(coordinateSystem(preserveAspectRatio = false, grid = {1, 1})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
-    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", s = "ida", nls="kinsol", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10"));
+    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", s = "ida", nls="kinsol", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10"));
 end HVDC;

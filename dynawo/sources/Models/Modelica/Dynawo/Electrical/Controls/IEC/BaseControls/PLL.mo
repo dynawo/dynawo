@@ -37,13 +37,13 @@ model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
 
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, UseLimits = false, Y0 = UPhase0, YMax = 999, tI = tPll)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, UseLimits = false, Y0 = UPhase0, YMax = 999, tI = tPll) annotation(
     Placement(visible = true, transformation(origin = {10, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = -1)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Hysteresis hysteresis(uHigh = (-UPll1Pu) + 1e-3, uLow = -UPll1Pu, y(start = U0Pu < UPll1Pu)) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Hysteresis hysteresis1(uHigh = (-UPll2Pu) + 1e-3, uLow = -UPll2Pu, y(start = U0Pu < UPll2Pu))  annotation(
+  Modelica.Blocks.Logical.Hysteresis hysteresis1(uHigh = (-UPll2Pu) + 1e-3, uLow = -UPll2Pu, y(start = U0Pu < UPll2Pu)) annotation(
     Placement(visible = true, transformation(origin = {-30, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

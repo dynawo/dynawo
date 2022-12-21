@@ -39,7 +39,7 @@ equation
    *     During this time, the injection depends on the value of HoldIq.
    *  3. Finally, when the current time passes the end timing vDipInjEndTime, the injection returns to 0.
    */
-  when (vDip == false and pre(vDip) == true) or (time < pre(vDipInjEndTime) and pre(vDipInjEndTime) >= 0)  then
+  when (vDip == false and pre(vDip) == true) or (time < pre(vDipInjEndTime) and pre(vDipInjEndTime) >= 0) then
     vDipInjEndTime = time + abs(HoldIq);
   elsewhen (vDip == true or pre(vDip) == false) and (time >= pre(vDipInjEndTime) or pre(vDipInjEndTime) < 0) then
     vDipInjEndTime = -1;

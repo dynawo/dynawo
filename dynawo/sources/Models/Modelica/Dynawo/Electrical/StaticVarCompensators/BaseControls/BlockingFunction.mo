@@ -36,6 +36,6 @@ equation
   annotation(
     preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 8}, extent = {{-57, 10}, {123, -22}}, textString = "BlockingFunction")}, coordinateSystem(initialScale = 0.1)),
-    Icon(graphics = {Rectangle(origin = {0, -1}, extent = {{-100, 101}, {100, -99}}), Text(origin = {-61, 18}, extent = {{-30, 20}, {156, -54}}, textString = "BlockingFunction"), Text(origin = {138, 28}, extent = {{-26, 12}, {64, -24}}, textString = "blocked"),    Text(origin = {-170, 30}, extent = {{-26, 10}, {32, -14}}, textString = "UPu")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(origin = {0, -1}, extent = {{-100, 101}, {100, -99}}), Text(origin = {-61, 18}, extent = {{-30, 20}, {156, -54}}, textString = "BlockingFunction"), Text(origin = {138, 28}, extent = {{-26, 12}, {64, -24}}, textString = "blocked"), Text(origin = {-170, 30}, extent = {{-26, 10}, {32, -14}}, textString = "UPu")}, coordinateSystem(initialScale = 0.1)));
 
 end BlockingFunction;

@@ -60,8 +60,8 @@ protected
   QStatus q2Status(start = QStatus.Standard) "Voltage regulation status of terminal 2: standard, absorptionMax or generationMax";
 
 equation
-  Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
-  Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
+  Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
+  Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
 
   when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu then
     q1Status = QStatus.AbsorptionMax;

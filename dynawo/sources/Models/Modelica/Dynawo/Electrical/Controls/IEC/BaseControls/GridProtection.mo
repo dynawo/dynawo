@@ -66,13 +66,13 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessEqual lessEqual3 annotation(
     Placement(visible = true, transformation(origin = {-50, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = UOverPu)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = UOverPu) annotation(
     Placement(visible = true, transformation(origin = {-130, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const1(k = UUnderPu)  annotation(
+  Modelica.Blocks.Sources.Constant const1(k = UUnderPu) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const2(k =  fOverPu)  annotation(
+  Modelica.Blocks.Sources.Constant const2(k = fOverPu) annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const3(k =  fUnderPu)  annotation(
+  Modelica.Blocks.Sources.Constant const3(k = fUnderPu) annotation(
     Placement(visible = true, transformation(origin = {-130, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer1 annotation(
     Placement(visible = true, transformation(origin = {10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,7 +80,7 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Placement(visible = true, transformation(origin = {10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer3 annotation(
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.MathBoolean.And and1(nu = 4)  annotation(
+  Modelica.Blocks.MathBoolean.And and1(nu = 4) annotation(
     Placement(visible = true, transformation(origin = {130, 3.55271e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter

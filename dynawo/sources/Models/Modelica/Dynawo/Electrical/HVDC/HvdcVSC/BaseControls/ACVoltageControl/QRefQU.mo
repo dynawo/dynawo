@@ -38,17 +38,17 @@ model QRefQU "Function that calculates QRef for the Q mode and the U mode depend
 
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-61, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(deadZoneAtInit = true, uMax = DeadBandU, uMin = -DeadBandU)  annotation(
+  Modelica.Blocks.Nonlinear.DeadZone deadZone(deadZoneAtInit = true, uMax = DeadBandU, uMin = -DeadBandU) annotation(
     Placement(visible = true, transformation(origin = {-32, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = Lambda)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = Lambda) annotation(
     Placement(visible = true, transformation(origin = {-66, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-5, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = SlopeURefPu, y(start = U0Pu + Lambda * Q0Pu))  annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = SlopeURefPu, y(start = U0Pu + Lambda * Q0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-85, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter1(Rising = SlopeQRefPu)  annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter1(Rising = SlopeQRefPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.PIAntiWindup PI(Ki = KiACVoltageControl, Kp = KpACVoltageControl, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu)  annotation(
+  Blocks.Continuous.PIAntiWindup PI(Ki = KiACVoltageControl, Kp = KpACVoltageControl, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu) annotation(
     Placement(visible = true, transformation(origin = {25, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";

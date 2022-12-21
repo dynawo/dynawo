@@ -142,7 +142,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch5 annotation(
     Placement(visible = true, transformation(origin = {-10, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.DelayFlag delayFlag(FI0 = false, FO0 = 0,tD = tPost, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DelayFlag delayFlag(FI0 = false, FO0 = 0, tD = tPost, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.BooleanToInteger booleanToInteger annotation(
     Placement(visible = true, transformation(origin = {-70, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -168,7 +168,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Placement(visible = true, transformation(origin = {-70, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DUdb2Pu, uMin = DUdb1Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold = 0.99)  annotation(
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold = 0.99) annotation(
     Placement(visible = true, transformation(origin = {120, 10}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.IntegerToReal integerToReal annotation(
     Placement(visible = true, transformation(origin = {120, -30}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
@@ -210,7 +210,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Placement(visible = true, transformation(origin = {-210, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold = UqRisePu) annotation(
     Placement(visible = true, transformation(origin = {-250, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.IncreaseDetection increaseDetection(U0 = U0Pu, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.IncreaseDetection increaseDetection(U0 = U0Pu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-250, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.And and1 annotation(
     Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

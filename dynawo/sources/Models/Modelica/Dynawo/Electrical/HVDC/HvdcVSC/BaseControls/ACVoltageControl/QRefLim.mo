@@ -29,7 +29,7 @@ model QRefLim "Function that applies the limitations to QRef"
   Modelica.Blocks.Interfaces.RealOutput QRefLimPu(start = Q0Pu) "Limited reference reactive power in pu (base SNom) after applying the diagrams" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOPPu)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOPPu) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -43,13 +43,13 @@ model QRefLim "Function that applies the limitations to QRef"
     Placement(visible = true, transformation(origin = {-70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D QMaxUPu(table = tableQMaxUPu) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrderQMaxPPu(T = tFilterLim, y_start = tableQMaxPPu12 + DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMaxPPu(T = tFilterLim, y_start = tableQMaxPPu12 + DeadBand0) annotation(
     Placement(visible = true, transformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrderQMinPPu(T = tFilterLim, y_start = tableQMinPPu12 - DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMinPPu(T = tFilterLim, y_start = tableQMinPPu12 - DeadBand0) annotation(
     Placement(visible = true, transformation(origin = {-40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrderQMaxUPu(T = tFilterLim, y_start = tableQMaxUPu12 + DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMaxUPu(T = tFilterLim, y_start = tableQMaxUPu12 + DeadBand0) annotation(
     Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrderQMinUPu(T = tFilterLim, y_start = tableQMinUPu32 - DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMinUPu(T = tFilterLim, y_start = tableQMinUPu32 - DeadBand0) annotation(
     Placement(visible = true, transformation(origin = {-40, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";

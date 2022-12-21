@@ -36,9 +36,9 @@ block AbsLimRateLimFeedthroughFreeze "First order feed-through with absolute and
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS)  annotation(
+  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = DyMax, DuMin = DyMin, Y0 = Y0, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = DyMax, DuMin = DyMin, Y0 = Y0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Y0 "Initial value of output";

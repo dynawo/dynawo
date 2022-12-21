@@ -21,9 +21,9 @@ block MaxThresholdSwitch "Switch between two real values, depending on the input
   parameter Real ySatMax "y2 value when u >= UMax";
   parameter Real yNotSatMax "y2 value when u < UMax";
 
-  Modelica.Blocks.Interfaces.RealInput u(start = u0) "Input signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput u(start = u0) "Input signal connector" annotation(Placement(
         transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y(start = y0) "Output signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput y(start = y0) "Output signal connector" annotation(Placement(
         transformation(extent={{100,-10},{120,10}})));
 
   parameter Real u0 = 0 "Initial input";

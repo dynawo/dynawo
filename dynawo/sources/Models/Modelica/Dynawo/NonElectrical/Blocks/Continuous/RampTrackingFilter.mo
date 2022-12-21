@@ -24,12 +24,12 @@ model RampTrackingFilter "Ramp tracking filter"
   parameter Integer N = 1 "N Order";
   parameter Types.Time t1 "Lead time constant";
   parameter Types.Time t2 "Lag time constant";
-  parameter Real Y0 = 0 "Initial or guess value of output" annotation (
+  parameter Real Y0 = 0 "Initial or guess value of output" annotation(
   Dialog(group="Initialization"));
 
-  Modelica.Blocks.Math.Gain gain(k = K)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = K) annotation(
     Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadMOrderLag leadMOrderLagCascade[N](each M = M, each t1 = t1, each t2 = t2, each K = 1, each Y0 = Y0)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LeadMOrderLag leadMOrderLagCascade[N](each M = M, each t1 = t1, each t2 = t2, each K = 1, each Y0 = Y0) annotation(
     Placement(visible = true, transformation(origin = {-3.55271e-15, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation
