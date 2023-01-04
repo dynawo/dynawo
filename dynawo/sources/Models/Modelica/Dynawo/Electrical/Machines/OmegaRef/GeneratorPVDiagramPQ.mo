@@ -33,19 +33,19 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
-  parameter Real tableQMaxPPu11;
-  parameter Real tableQMaxPPu12;
-  parameter Real tableQMaxPPu21;
-  parameter Real tableQMaxPPu22;
+  parameter Real tableQMaxPPu11 "Minimum active power for the P/QMax diagram in pu (base SnRef)";
+  parameter Real tableQMaxPPu12 "Maximum reactive power at PMin in pu (base SnRef)";
+  parameter Real tableQMaxPPu21 "Maximum active power for the P/QMax diagram in pu (base SnRef)";
+  parameter Real tableQMaxPPu22 "Maximum reactive power at PMax in pu (base SnRef)";
   parameter Real tableQMaxPPu[:,:] = [tableQMaxPPu11,tableQMaxPPu12;tableQMaxPPu21,tableQMaxPPu22] "PQ diagram for Q>0";
-  parameter Real tableQMinPPu11;
-  parameter Real tableQMinPPu12;
-  parameter Real tableQMinPPu21;
-  parameter Real tableQMinPPu22;
-  parameter Real tableQMinPPu[:,:] = [tableQMinPPu11,tableQMinPPu12;tableQMinPPu21,tableQMinPPu22] "PQ diagram for Q<0.";
+  parameter Real tableQMinPPu11 "Minimum active power for the P/QMin diagram in pu (base SnRef)";
+  parameter Real tableQMinPPu12 "Minimum reactive power at PMin in pu (base SnRef)";
+  parameter Real tableQMinPPu21 "Maximum active power for the P/QMin diagram in pu (base SnRef)";
+  parameter Real tableQMinPPu22 "Minimum reactive power at PMax in pu (base SnRef)";
+  parameter Real tableQMinPPu[:,:] = [tableQMinPPu11,tableQMinPPu12;tableQMinPPu21,tableQMinPPu22] "PQ diagram for Q<0";
 
   final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SystemBase.SnRef / SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
-  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference";
+  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference, in s";
 
   Types.ReactivePowerPu QGenRefPu(start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
