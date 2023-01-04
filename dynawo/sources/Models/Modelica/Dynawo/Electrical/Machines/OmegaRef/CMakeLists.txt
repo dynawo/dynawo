@@ -20,6 +20,8 @@ set(MODEL_FILES
   GeneratorPQ_INIT.mo
   GeneratorPV.mo
   GeneratorPV.extvar
+  GeneratorPVDiagramPQ.mo
+  GeneratorPVDiagramPQ.extvar
   GeneratorPV_INIT.mo
   GeneratorSynchronous.mo
   GeneratorSynchronous.extvar
