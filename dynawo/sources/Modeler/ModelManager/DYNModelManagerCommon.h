@@ -116,7 +116,7 @@ inline modelica_real  _event_ceil(modelica_real x, modelica_integer index, DATA 
     data->simulationInfo->mathEventsValuePre[index] = x;
   } \
   value = data->simulationInfo->mathEventsValuePre[index];
-  return (modelica_real)std::ceil(value);
+  return static_cast<modelica_real>(std::ceil(value));
 }
 
 /** @brief  definition of _event_floor function
@@ -134,7 +134,7 @@ inline modelica_real _event_floor(modelica_real x, modelica_integer index, DATA 
     data->simulationInfo->mathEventsValuePre[index] = x;
   } \
   value = data->simulationInfo->mathEventsValuePre[index];
-  return (modelica_real)std::floor(value);
+  return static_cast<modelica_real>(std::floor(value));
 }
 
 /**
@@ -152,7 +152,7 @@ inline modelica_integer _event_integer(modelica_real x, modelica_integer index, 
     data->simulationInfo->mathEventsValuePre[index] = x;
   } \
   value = data->simulationInfo->mathEventsValuePre[index];
-  return (modelica_integer)std::floor(value);
+  return static_cast<modelica_integer>(std::floor(value));
 }
 
 /**
