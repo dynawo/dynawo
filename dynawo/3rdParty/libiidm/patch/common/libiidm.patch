@@ -1,5 +1,5 @@
 diff --git a/extensions/entsoe/resources/entsoeArea.xml b/extensions/entsoe/resources/entsoeArea.xml
-index 01db8bf6..2416c517 100644
+index 01db8bf..2416c51 100644
 --- a/extensions/entsoe/resources/entsoeArea.xml
 +++ b/extensions/entsoe/resources/entsoeArea.xml
 @@ -1,5 +1,5 @@
@@ -10,7 +10,7 @@ index 01db8bf6..2416c517 100644
      <iidm:extension id="S">
          <ea:entsoeArea>FR</ea:entsoeArea>
 diff --git a/extensions/entsoe/resources/mergedXnode.xml b/extensions/entsoe/resources/mergedXnode.xml
-index 293f3566..bdba9fcd 100644
+index 293f356..bdba9fc 100644
 --- a/extensions/entsoe/resources/mergedXnode.xml
 +++ b/extensions/entsoe/resources/mergedXnode.xml
 @@ -1,5 +1,5 @@
@@ -21,7 +21,7 @@ index 293f3566..bdba9fcd 100644
          <iidm:voltageLevel id="VL1" nominalV="400" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/entsoe/resources/xnode.xml b/extensions/entsoe/resources/xnode.xml
-index 28b466dd..44288523 100644
+index 28b466d..4428852 100644
 --- a/extensions/entsoe/resources/xnode.xml
 +++ b/extensions/entsoe/resources/xnode.xml
 @@ -1,5 +1,5 @@
@@ -32,7 +32,7 @@ index 28b466dd..44288523 100644
          <iidm:voltageLevel id="VL" nominalV="400" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/entsoe/src/EntsoeAreaXmlSerializer.cpp b/extensions/entsoe/src/EntsoeAreaXmlSerializer.cpp
-index 91460c87..cb1cb154 100644
+index 91460c8..cb1cb15 100644
 --- a/extensions/entsoe/src/EntsoeAreaXmlSerializer.cpp
 +++ b/extensions/entsoe/src/EntsoeAreaXmlSerializer.cpp
 @@ -43,7 +43,7 @@ Extension& EntsoeAreaXmlSerializer::read(Extendable& extendable, converter::xml:
@@ -45,7 +45,7 @@ index 91460c87..cb1cb154 100644
  
  }  // namespace entsoe
 diff --git a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
-index dedf52aa..064a6cb0 100644
+index dedf52a..064a6cb 100644
 --- a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
 +++ b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
 @@ -45,13 +45,13 @@ Extension& MergedXnodeXmlSerializer::read(Extendable& extendable, converter::xml
@@ -70,7 +70,7 @@ index dedf52aa..064a6cb0 100644
  
  }  // namespace entsoe
 diff --git a/extensions/entsoe/src/XnodeXmlSerializer.cpp b/extensions/entsoe/src/XnodeXmlSerializer.cpp
-index d99ee9ed..9917530e 100644
+index d99ee9e..9917530 100644
 --- a/extensions/entsoe/src/XnodeXmlSerializer.cpp
 +++ b/extensions/entsoe/src/XnodeXmlSerializer.cpp
 @@ -38,7 +38,7 @@ Extension& XnodeXmlSerializer::read(Extendable& extendable, converter::xml::Netw
@@ -83,7 +83,7 @@ index d99ee9ed..9917530e 100644
  
  }  // namespace entsoe
 diff --git a/extensions/iidm/resources/activePowerControl.xml b/extensions/iidm/resources/activePowerControl.xml
-index e4c8047a..83cbbb59 100644
+index e4c8047..83cbbb5 100644
 --- a/extensions/iidm/resources/activePowerControl.xml
 +++ b/extensions/iidm/resources/activePowerControl.xml
 @@ -1,5 +1,5 @@
@@ -94,7 +94,7 @@ index e4c8047a..83cbbb59 100644
          <iidm:voltageLevel id="VLGEN" nominalV="400" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/iidm/resources/coordinatedReactiveControl.xml b/extensions/iidm/resources/coordinatedReactiveControl.xml
-index 15c34d50..3e6ccb49 100644
+index 15c34d5..3e6ccb4 100644
 --- a/extensions/iidm/resources/coordinatedReactiveControl.xml
 +++ b/extensions/iidm/resources/coordinatedReactiveControl.xml
 @@ -1,5 +1,5 @@
@@ -105,7 +105,7 @@ index 15c34d50..3e6ccb49 100644
          <iidm:voltageLevel id="VLGEN" nominalV="24" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/iidm/resources/threeWindingsTransformerPhaseAngleClock.xml b/extensions/iidm/resources/threeWindingsTransformerPhaseAngleClock.xml
-index db6fd3c4..0fc9c87a 100644
+index db6fd3c..0fc9c87 100644
 --- a/extensions/iidm/resources/threeWindingsTransformerPhaseAngleClock.xml
 +++ b/extensions/iidm/resources/threeWindingsTransformerPhaseAngleClock.xml
 @@ -1,5 +1,5 @@
@@ -116,7 +116,7 @@ index db6fd3c4..0fc9c87a 100644
          <iidm:voltageLevel id="VL_132" nominalV="132" lowVoltageLimit="118.8" highVoltageLimit="145.19999999999999" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/iidm/resources/twoWindingsTransformerPhaseAngleClock.xml b/extensions/iidm/resources/twoWindingsTransformerPhaseAngleClock.xml
-index 946ad557..8a8dd3bc 100644
+index 946ad55..8a8dd3b 100644
 --- a/extensions/iidm/resources/twoWindingsTransformerPhaseAngleClock.xml
 +++ b/extensions/iidm/resources/twoWindingsTransformerPhaseAngleClock.xml
 @@ -1,5 +1,5 @@
@@ -127,7 +127,7 @@ index 946ad557..8a8dd3bc 100644
          <iidm:voltageLevel id="VLGEN" nominalV="24" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/iidm/resources/voltagePerReactivePowerControl.xml b/extensions/iidm/resources/voltagePerReactivePowerControl.xml
-index 86548f69..643956dd 100644
+index 86548f6..643956d 100644
 --- a/extensions/iidm/resources/voltagePerReactivePowerControl.xml
 +++ b/extensions/iidm/resources/voltagePerReactivePowerControl.xml
 @@ -1,5 +1,5 @@
@@ -138,7 +138,7 @@ index 86548f69..643956dd 100644
          <iidm:voltageLevel id="VL1" nominalV="380" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/iidm/src/ActivePowerControlXmlSerializer.cpp b/extensions/iidm/src/ActivePowerControlXmlSerializer.cpp
-index 6a2305f7..5d03fb56 100644
+index 6a2305f..5d03fb5 100644
 --- a/extensions/iidm/src/ActivePowerControlXmlSerializer.cpp
 +++ b/extensions/iidm/src/ActivePowerControlXmlSerializer.cpp
 @@ -45,8 +45,8 @@ Extension& ActivePowerControlXmlSerializer::read(Extendable& extendable, convert
@@ -153,7 +153,7 @@ index 6a2305f7..5d03fb56 100644
  
  }  // namespace iidm
 diff --git a/extensions/iidm/src/CoordinatedReactiveControlXmlSerializer.cpp b/extensions/iidm/src/CoordinatedReactiveControlXmlSerializer.cpp
-index ed902dee..335951d2 100644
+index ed902de..335951d 100644
 --- a/extensions/iidm/src/CoordinatedReactiveControlXmlSerializer.cpp
 +++ b/extensions/iidm/src/CoordinatedReactiveControlXmlSerializer.cpp
 @@ -43,7 +43,7 @@ Extension& CoordinatedReactiveControlXmlSerializer::read(Extendable& extendable,
@@ -166,7 +166,7 @@ index ed902dee..335951d2 100644
  
  }  // namespace iidm
 diff --git a/extensions/iidm/src/ThreeWindingsTransformerPhaseAngleClockXmlSerializer.cpp b/extensions/iidm/src/ThreeWindingsTransformerPhaseAngleClockXmlSerializer.cpp
-index 9a248a1b..807083fd 100644
+index 9a248a1..807083f 100644
 --- a/extensions/iidm/src/ThreeWindingsTransformerPhaseAngleClockXmlSerializer.cpp
 +++ b/extensions/iidm/src/ThreeWindingsTransformerPhaseAngleClockXmlSerializer.cpp
 @@ -45,8 +45,8 @@ Extension& ThreeWindingsTransformerPhaseAngleClockXmlSerializer::read(Extendable
@@ -181,7 +181,7 @@ index 9a248a1b..807083fd 100644
  
  }  // namespace iidm
 diff --git a/extensions/iidm/src/TwoWindingsTransformerPhaseAngleClockXmlSerializer.cpp b/extensions/iidm/src/TwoWindingsTransformerPhaseAngleClockXmlSerializer.cpp
-index 37d95c48..f6140c0e 100644
+index 37d95c4..f6140c0 100644
 --- a/extensions/iidm/src/TwoWindingsTransformerPhaseAngleClockXmlSerializer.cpp
 +++ b/extensions/iidm/src/TwoWindingsTransformerPhaseAngleClockXmlSerializer.cpp
 @@ -42,7 +42,7 @@ Extension& TwoWindingsTransformerPhaseAngleClockXmlSerializer::read(Extendable&
@@ -194,7 +194,7 @@ index 37d95c48..f6140c0e 100644
  
  }  // namespace iidm
 diff --git a/extensions/iidm/src/VoltagePerReactivePowerControlXmlSerializer.cpp b/extensions/iidm/src/VoltagePerReactivePowerControlXmlSerializer.cpp
-index f98efb33..c6094d96 100644
+index f98efb3..c6094d9 100644
 --- a/extensions/iidm/src/VoltagePerReactivePowerControlXmlSerializer.cpp
 +++ b/extensions/iidm/src/VoltagePerReactivePowerControlXmlSerializer.cpp
 @@ -40,7 +40,7 @@ Extension& VoltagePerReactivePowerControlXmlSerializer::read(Extendable& extenda
@@ -207,7 +207,7 @@ index f98efb33..c6094d96 100644
  
  }  // namespace iidm
 diff --git a/extensions/sld/resources/busbarSectionPosition.xml b/extensions/sld/resources/busbarSectionPosition.xml
-index 07dcfe35..f1cdfadd 100644
+index 07dcfe3..f1cdfad 100644
 --- a/extensions/sld/resources/busbarSectionPosition.xml
 +++ b/extensions/sld/resources/busbarSectionPosition.xml
 @@ -1,5 +1,5 @@
@@ -218,7 +218,7 @@ index 07dcfe35..f1cdfadd 100644
          <iidm:voltageLevel id="VL" nominalV="400" lowVoltageLimit="380" highVoltageLimit="420" topologyKind="NODE_BREAKER">
              <iidm:nodeBreakerTopology>
 diff --git a/extensions/sld/resources/connectablePositionFeeder0.xml b/extensions/sld/resources/connectablePositionFeeder0.xml
-index f36c1a53..071e2ceb 100644
+index f36c1a5..071e2ce 100644
 --- a/extensions/sld/resources/connectablePositionFeeder0.xml
 +++ b/extensions/sld/resources/connectablePositionFeeder0.xml
 @@ -1,5 +1,5 @@
@@ -229,7 +229,7 @@ index f36c1a53..071e2ceb 100644
          <iidm:voltageLevel id="VLGEN" nominalV="24" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/sld/resources/connectablePositionFeeders123.xml b/extensions/sld/resources/connectablePositionFeeders123.xml
-index b9b5dd84..d75d6e3f 100644
+index b9b5dd8..d75d6e3 100644
 --- a/extensions/sld/resources/connectablePositionFeeders123.xml
 +++ b/extensions/sld/resources/connectablePositionFeeders123.xml
 @@ -1,5 +1,5 @@
@@ -240,7 +240,7 @@ index b9b5dd84..d75d6e3f 100644
          <iidm:voltageLevel id="VLGEN" nominalV="24" topologyKind="BUS_BREAKER">
              <iidm:busBreakerTopology>
 diff --git a/extensions/sld/src/BusbarSectionPositionXmlSerializer.cpp b/extensions/sld/src/BusbarSectionPositionXmlSerializer.cpp
-index e6f4c81b..4239174a 100644
+index e6f4c81..4239174 100644
 --- a/extensions/sld/src/BusbarSectionPositionXmlSerializer.cpp
 +++ b/extensions/sld/src/BusbarSectionPositionXmlSerializer.cpp
 @@ -39,8 +39,8 @@ Extension& BusbarSectionPositionXmlSerializer::read(Extendable& extendable, conv
@@ -255,7 +255,7 @@ index e6f4c81b..4239174a 100644
  
  }  // namespace sld
 diff --git a/extensions/sld/src/ConnectablePositionXmlSerializer.cpp b/extensions/sld/src/ConnectablePositionXmlSerializer.cpp
-index d25a40fd..f0d36191 100644
+index d25a40f..f0d3619 100644
 --- a/extensions/sld/src/ConnectablePositionXmlSerializer.cpp
 +++ b/extensions/sld/src/ConnectablePositionXmlSerializer.cpp
 @@ -82,11 +82,11 @@ void ConnectablePositionXmlSerializer::writePosition(const ConnectablePosition::
@@ -276,7 +276,7 @@ index d25a40fd..f0d36191 100644
  
  }  // namespace sld
 diff --git a/include/powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp b/include/powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp
-index 183dd806..3d31f73e 100644
+index 183dd80..3d31f73 100644
 --- a/include/powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp
 +++ b/include/powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp
 @@ -95,6 +95,13 @@ public:
@@ -294,7 +294,7 @@ index 183dd806..3d31f73e 100644
       * Create an extension from its XML serialization
       *
 diff --git a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
-index 9e7205cd..202cad97 100644
+index 9e7205c..202cad9 100644
 --- a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
 +++ b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
 @@ -52,6 +52,11 @@ public:
@@ -310,7 +310,7 @@ index 9e7205cd..202cad97 100644
      /**
       * Return the list of all supported XIIDM versions
 diff --git a/include/powsybl/iidm/converter/xml/NetworkXmlWriterContext.hpp b/include/powsybl/iidm/converter/xml/NetworkXmlWriterContext.hpp
-index 2dfde347..116efd38 100644
+index 2dfde34..116efd3 100644
 --- a/include/powsybl/iidm/converter/xml/NetworkXmlWriterContext.hpp
 +++ b/include/powsybl/iidm/converter/xml/NetworkXmlWriterContext.hpp
 @@ -51,8 +51,6 @@ public:
@@ -337,7 +337,7 @@ index 2dfde347..116efd38 100644
  
      ExportOptions m_options;
 diff --git a/include/powsybl/iidm/converter/xml/TerminalRefXml.hpp b/include/powsybl/iidm/converter/xml/TerminalRefXml.hpp
-index d267f88f..fe45a8b4 100644
+index d267f88..fe45a8b 100644
 --- a/include/powsybl/iidm/converter/xml/TerminalRefXml.hpp
 +++ b/include/powsybl/iidm/converter/xml/TerminalRefXml.hpp
 @@ -40,6 +40,8 @@ public:
@@ -350,7 +350,7 @@ index d267f88f..fe45a8b4 100644
      TerminalRefXml() = default;
  
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 9cd4a766..2f9e5f95 100644
+index 9cd4a76..2f9e5f9 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -181,6 +181,7 @@ set(IIDM_SOURCES
@@ -362,7 +362,7 @@ index 9cd4a766..2f9e5f95 100644
      iidm/util/ConnectedComponents.cpp
      iidm/util/DistinctPredicate.cpp
 diff --git a/src/iidm/ExtensionProviders.cpp b/src/iidm/ExtensionProviders.cpp
-index cf0d07c3..c3b10066 100644
+index cf0d07c..c3b1006 100644
 --- a/src/iidm/ExtensionProviders.cpp
 +++ b/src/iidm/ExtensionProviders.cpp
 @@ -19,6 +19,7 @@
@@ -391,7 +391,7 @@ index cf0d07c3..c3b10066 100644
      return *it->second;
  }
 diff --git a/src/iidm/NodeBreakerVoltageLevel.cpp b/src/iidm/NodeBreakerVoltageLevel.cpp
-index 4dd8b852..85521c91 100644
+index 4dd8b85..85521c9 100644
 --- a/src/iidm/NodeBreakerVoltageLevel.cpp
 +++ b/src/iidm/NodeBreakerVoltageLevel.cpp
 @@ -68,6 +68,10 @@ void NodeBreakerVoltageLevel::attach(Terminal& terminal, bool test) {
@@ -417,7 +417,7 @@ index 4dd8b852..85521c91 100644
      // remove the link terminal <-> graph vertex
      m_graph.setVertexObject(node, stdcxx::ref<NodeTerminal>());
 diff --git a/src/iidm/converter/xml/ExtensionXmlSerializer.cpp b/src/iidm/converter/xml/ExtensionXmlSerializer.cpp
-index 4ee9130c..f0ad0720 100644
+index 4ee9130..f0ad072 100644
 --- a/src/iidm/converter/xml/ExtensionXmlSerializer.cpp
 +++ b/src/iidm/converter/xml/ExtensionXmlSerializer.cpp
 @@ -46,6 +46,10 @@ const std::string& ExtensionXmlSerializer::getVersion() const {
@@ -432,7 +432,7 @@ index 4ee9130c..f0ad0720 100644
  
  }  // namespace converter
 diff --git a/src/iidm/converter/xml/IidmXmlVersion.cpp b/src/iidm/converter/xml/IidmXmlVersion.cpp
-index 4a2d646a..660dc1dc 100644
+index 4a2d646..660dc1d 100644
 --- a/src/iidm/converter/xml/IidmXmlVersion.cpp
 +++ b/src/iidm/converter/xml/IidmXmlVersion.cpp
 @@ -65,14 +65,15 @@ const IidmXmlVersions& IidmXmlVersion::all() {
@@ -466,7 +466,7 @@ index 4a2d646a..660dc1dc 100644
  
  }  // namespace converter
 diff --git a/src/iidm/converter/xml/NetworkXml.cpp b/src/iidm/converter/xml/NetworkXml.cpp
-index e810a60b..3deb0fc6 100644
+index e810a60..3deb0fc 100644
 --- a/src/iidm/converter/xml/NetworkXml.cpp
 +++ b/src/iidm/converter/xml/NetworkXml.cpp
 @@ -68,17 +68,21 @@ std::set<std::string> getExtensionNames(const Network& network) {
@@ -526,7 +526,7 @@ index e810a60b..3deb0fc6 100644
  }
  
 diff --git a/src/iidm/converter/xml/NetworkXmlWriterContext.cpp b/src/iidm/converter/xml/NetworkXmlWriterContext.cpp
-index 6567929f..c78b1062 100644
+index 6567929..c78b106 100644
 --- a/src/iidm/converter/xml/NetworkXmlWriterContext.cpp
 +++ b/src/iidm/converter/xml/NetworkXmlWriterContext.cpp
 @@ -20,7 +20,6 @@ namespace xml {
@@ -560,7 +560,7 @@ index 6567929f..c78b1062 100644
  
  }  // namespace converter
 diff --git a/src/iidm/converter/xml/TerminalRefXml.cpp b/src/iidm/converter/xml/TerminalRefXml.cpp
-index c8777a17..59bf0141 100644
+index c8777a1..59bf014 100644
 --- a/src/iidm/converter/xml/TerminalRefXml.cpp
 +++ b/src/iidm/converter/xml/TerminalRefXml.cpp
 @@ -9,6 +9,7 @@
@@ -625,7 +625,7 @@ index c8777a17..59bf0141 100644
  
  }  // namespace xml
 diff --git a/src/iidm/extensions/LoadDetailXmlSerializer.cpp b/src/iidm/extensions/LoadDetailXmlSerializer.cpp
-index 80338e8d..72cac177 100644
+index 80338e8..72cac17 100644
 --- a/src/iidm/extensions/LoadDetailXmlSerializer.cpp
 +++ b/src/iidm/extensions/LoadDetailXmlSerializer.cpp
 @@ -59,10 +59,10 @@ Extension& LoadDetailXmlSerializer::read(Extendable& extendable, converter::xml:
@@ -645,7 +645,7 @@ index 80338e8d..72cac177 100644
  }  // namespace extensions
 diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
 new file mode 100644
-index 00000000..80727748
+index 0000000..8072774
 --- /dev/null
 +++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
 @@ -0,0 +1,76 @@
@@ -727,7 +727,7 @@ index 00000000..80727748
 +}  // namespace powsybl
 diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.hpp b/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
 new file mode 100644
-index 00000000..33507821
+index 0000000..3350782
 --- /dev/null
 +++ b/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
 @@ -0,0 +1,39 @@
@@ -771,7 +771,7 @@ index 00000000..33507821
 +
 +#endif  // POWSYBL_IIDM_EXTENSIONS_SLACKTERMINALXMLSERIALIZER_HPP
 diff --git a/src/xml/XmlStreamWriter.cpp b/src/xml/XmlStreamWriter.cpp
-index 17e2b549..546f013c 100644
+index 17e2b54..9f80944 100644
 --- a/src/xml/XmlStreamWriter.cpp
 +++ b/src/xml/XmlStreamWriter.cpp
 @@ -82,10 +82,9 @@ void XmlStreamWriter::writeEmptyElement(const std::string& uri, const std::strin
@@ -788,8 +788,21 @@ index 17e2b549..546f013c 100644
  }
  
  void XmlStreamWriter::writeEndElement() {
+@@ -150,11 +149,9 @@ void XmlStreamWriter::writeStartDocument(const std::string& encoding, const std:
+     auto writeCallback = [](void* context, const char* buffer, int len) {
+         XmlStreamWriter& writer = *static_cast<XmlStreamWriter*>(context);
+ 
+-        size_t beforeWrite = writer.m_stream.tellp();
+         writer.m_stream.write(buffer, len);
+-        size_t afterWrite = writer.m_stream.tellp();
+ 
+-        return static_cast<int>(afterWrite - beforeWrite);
++        return len;
+     };
+ 
+     auto closeCallback = [](void* /*context*/) {
 diff --git a/test/iidm/NodeBreakerVoltageLevelTest.cpp b/test/iidm/NodeBreakerVoltageLevelTest.cpp
-index 5b57adcf..1f848dfe 100644
+index 5b57adc..1f848df 100644
 --- a/test/iidm/NodeBreakerVoltageLevelTest.cpp
 +++ b/test/iidm/NodeBreakerVoltageLevelTest.cpp
 @@ -19,8 +19,10 @@
@@ -867,7 +880,7 @@ index 5b57adcf..1f848dfe 100644
  
  }  // namespace iidm
 diff --git a/test/iidm/converter/xml/CMakeLists.txt b/test/iidm/converter/xml/CMakeLists.txt
-index 9e7d3289..603ab31d 100644
+index 9e7d328..603ab31 100644
 --- a/test/iidm/converter/xml/CMakeLists.txt
 +++ b/test/iidm/converter/xml/CMakeLists.txt
 @@ -22,6 +22,7 @@ set(EXT_SOURCES
@@ -880,7 +893,7 @@ index 9e7d3289..603ab31d 100644
      HvdcRoundTripTest.cpp
 diff --git a/test/iidm/converter/xml/ExtensionProvidersTest.cpp b/test/iidm/converter/xml/ExtensionProvidersTest.cpp
 new file mode 100644
-index 00000000..26b059e2
+index 0000000..26b059e
 --- /dev/null
 +++ b/test/iidm/converter/xml/ExtensionProvidersTest.cpp
 @@ -0,0 +1,43 @@
@@ -928,7 +941,7 @@ index 00000000..26b059e2
 +
 +}  // namespace powsybl
 diff --git a/test/iidm/converter/xml/IdentifiableExtensionXmlSerializerTest.cpp b/test/iidm/converter/xml/IdentifiableExtensionXmlSerializerTest.cpp
-index cd9c625e..569fadbe 100644
+index cd9c625..569fadb 100644
 --- a/test/iidm/converter/xml/IdentifiableExtensionXmlSerializerTest.cpp
 +++ b/test/iidm/converter/xml/IdentifiableExtensionXmlSerializerTest.cpp
 @@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(IdentifiableExtensionXml)
@@ -941,7 +954,7 @@ index cd9c625e..569fadbe 100644
      auto& providers = ExtensionProviders<ExtensionXmlSerializer>::getInstance();
      const auto& cProviders = providers;
 diff --git a/test/iidm/converter/xml/extensions/TerminalMockXmlSerializer.cpp b/test/iidm/converter/xml/extensions/TerminalMockXmlSerializer.cpp
-index b855ea12..b2e65a0c 100644
+index b855ea1..b2e65a0 100644
 --- a/test/iidm/converter/xml/extensions/TerminalMockXmlSerializer.cpp
 +++ b/test/iidm/converter/xml/extensions/TerminalMockXmlSerializer.cpp
 @@ -38,6 +38,7 @@ TerminalMockXmlSerializer::TerminalMockXmlSerializer() :
@@ -970,7 +983,7 @@ index b855ea12..b2e65a0c 100644
  
  }  // namespace extensions
 diff --git a/test/iidm/extensions/SlackTerminalTest.cpp b/test/iidm/extensions/SlackTerminalTest.cpp
-index c8372eb9..565bc5b6 100644
+index c8372eb..565bc5b 100644
 --- a/test/iidm/extensions/SlackTerminalTest.cpp
 +++ b/test/iidm/extensions/SlackTerminalTest.cpp
 @@ -20,8 +20,9 @@
@@ -1007,7 +1020,7 @@ index c8372eb9..565bc5b6 100644
  }  // namespace extensions
 diff --git a/test/resources/V1_5/LccRoundTripRef.xml b/test/resources/V1_5/LccRoundTripRef.xml
 new file mode 100644
-index 00000000..8242bcd5
+index 0000000..8242bcd
 --- /dev/null
 +++ b/test/resources/V1_5/LccRoundTripRef.xml
 @@ -0,0 +1,38 @@
@@ -1051,7 +1064,7 @@ index 00000000..8242bcd5
 +</iidm:network>
 diff --git a/test/resources/V1_5/VscRoundTripRef.xml b/test/resources/V1_5/VscRoundTripRef.xml
 new file mode 100644
-index 00000000..d2fca89d
+index 0000000..d2fca89
 --- /dev/null
 +++ b/test/resources/V1_5/VscRoundTripRef.xml
 @@ -0,0 +1,29 @@
@@ -1086,7 +1099,7 @@ index 00000000..d2fca89d
 +</iidm:network>
 diff --git a/test/resources/V1_5/batteryRoundTripRef.xml b/test/resources/V1_5/batteryRoundTripRef.xml
 new file mode 100644
-index 00000000..6abe91fe
+index 0000000..6abe91f
 --- /dev/null
 +++ b/test/resources/V1_5/batteryRoundTripRef.xml
 @@ -0,0 +1,32 @@
@@ -1124,7 +1137,7 @@ index 00000000..6abe91fe
 +</iidm:network>
 diff --git a/test/resources/V1_5/completeThreeWindingsTransformerRoundTripRef.xml b/test/resources/V1_5/completeThreeWindingsTransformerRoundTripRef.xml
 new file mode 100644
-index 00000000..3ee8c07e
+index 0000000..3ee8c07
 --- /dev/null
 +++ b/test/resources/V1_5/completeThreeWindingsTransformerRoundTripRef.xml
 @@ -0,0 +1,66 @@
@@ -1196,7 +1209,7 @@ index 00000000..3ee8c07e
 +</iidm:network>
 diff --git a/test/resources/V1_5/danglingLine.xml b/test/resources/V1_5/danglingLine.xml
 new file mode 100644
-index 00000000..89490b29
+index 0000000..89490b2
 --- /dev/null
 +++ b/test/resources/V1_5/danglingLine.xml
 @@ -0,0 +1,26 @@
@@ -1228,7 +1241,7 @@ index 00000000..89490b29
 +</iidm:network>
 diff --git a/test/resources/V1_5/danglingLineWithGeneration.xml b/test/resources/V1_5/danglingLineWithGeneration.xml
 new file mode 100644
-index 00000000..6bc43ccd
+index 0000000..6bc43cc
 --- /dev/null
 +++ b/test/resources/V1_5/danglingLineWithGeneration.xml
 @@ -0,0 +1,24 @@
@@ -1258,7 +1271,7 @@ index 00000000..6bc43ccd
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-properties.xml b/test/resources/V1_5/eurostag-tutorial-example1-properties.xml
 new file mode 100644
-index 00000000..addb5a41
+index 0000000..addb5a4
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-properties.xml
 @@ -0,0 +1,47 @@
@@ -1311,7 +1324,7 @@ index 00000000..addb5a41
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-terminalMock.xml b/test/resources/V1_5/eurostag-tutorial-example1-terminalMock.xml
 new file mode 100644
-index 00000000..051a2a55
+index 0000000..051a2a5
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-terminalMock.xml
 @@ -0,0 +1,8 @@
@@ -1325,7 +1338,7 @@ index 00000000..051a2a55
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-with-bad-loadMockExt.xml b/test/resources/V1_5/eurostag-tutorial-example1-with-bad-loadMockExt.xml
 new file mode 100644
-index 00000000..1f829d92
+index 0000000..1f829d9
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-with-bad-loadMockExt.xml
 @@ -0,0 +1,45 @@
@@ -1376,7 +1389,7 @@ index 00000000..1f829d92
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-with-bad-loadQuxExt.xml b/test/resources/V1_5/eurostag-tutorial-example1-with-bad-loadQuxExt.xml
 new file mode 100644
-index 00000000..9523d74c
+index 0000000..9523d74
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-with-bad-loadQuxExt.xml
 @@ -0,0 +1,45 @@
@@ -1427,7 +1440,7 @@ index 00000000..9523d74c
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_1.xml b/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_1.xml
 new file mode 100644
-index 00000000..b95b529c
+index 0000000..b95b529
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_1.xml
 @@ -0,0 +1,45 @@
@@ -1478,7 +1491,7 @@ index 00000000..b95b529c
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_2.xml b/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_2.xml
 new file mode 100644
-index 00000000..099a2a0c
+index 0000000..099a2a0
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_2.xml
 @@ -0,0 +1,45 @@
@@ -1529,7 +1542,7 @@ index 00000000..099a2a0c
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_3.xml b/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_3.xml
 new file mode 100644
-index 00000000..5b41ab22
+index 0000000..5b41ab2
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-with-loadMockExt-1_3.xml
 @@ -0,0 +1,45 @@
@@ -1580,7 +1593,7 @@ index 00000000..5b41ab22
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1-with-terminalMock-ext.xml b/test/resources/V1_5/eurostag-tutorial-example1-with-terminalMock-ext.xml
 new file mode 100644
-index 00000000..11f73ba3
+index 0000000..11f73ba
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1-with-terminalMock-ext.xml
 @@ -0,0 +1,47 @@
@@ -1633,7 +1646,7 @@ index 00000000..11f73ba3
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial-example1.xml b/test/resources/V1_5/eurostag-tutorial-example1.xml
 new file mode 100644
-index 00000000..7acc8b72
+index 0000000..7acc8b7
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial-example1.xml
 @@ -0,0 +1,42 @@
@@ -1681,7 +1694,7 @@ index 00000000..7acc8b72
 +</iidm:network>
 diff --git a/test/resources/V1_5/eurostag-tutorial1-lf.xml b/test/resources/V1_5/eurostag-tutorial1-lf.xml
 new file mode 100644
-index 00000000..6291f6f8
+index 0000000..6291f6f
 --- /dev/null
 +++ b/test/resources/V1_5/eurostag-tutorial1-lf.xml
 @@ -0,0 +1,42 @@
@@ -1729,7 +1742,7 @@ index 00000000..6291f6f8
 +</iidm:network>
 diff --git a/test/resources/V1_5/fictitiousSwitchRef-bbk.xml b/test/resources/V1_5/fictitiousSwitchRef-bbk.xml
 new file mode 100644
-index 00000000..e520bf58
+index 0000000..e520bf5
 --- /dev/null
 +++ b/test/resources/V1_5/fictitiousSwitchRef-bbk.xml
 @@ -0,0 +1,92 @@
@@ -1827,7 +1840,7 @@ index 00000000..e520bf58
 +</iidm:network>
 diff --git a/test/resources/V1_5/fictitiousSwitchRef-bbr.xml b/test/resources/V1_5/fictitiousSwitchRef-bbr.xml
 new file mode 100644
-index 00000000..58486e8a
+index 0000000..58486e8
 --- /dev/null
 +++ b/test/resources/V1_5/fictitiousSwitchRef-bbr.xml
 @@ -0,0 +1,85 @@
@@ -1918,7 +1931,7 @@ index 00000000..58486e8a
 +</iidm:network>
 diff --git a/test/resources/V1_5/fictitiousSwitchRef.xml b/test/resources/V1_5/fictitiousSwitchRef.xml
 new file mode 100644
-index 00000000..77738e69
+index 0000000..77738e6
 --- /dev/null
 +++ b/test/resources/V1_5/fictitiousSwitchRef.xml
 @@ -0,0 +1,122 @@
@@ -2046,7 +2059,7 @@ index 00000000..77738e69
 +</iidm:network>
 diff --git a/test/resources/V1_5/fourSubstationsNbk.xml b/test/resources/V1_5/fourSubstationsNbk.xml
 new file mode 100644
-index 00000000..80f56069
+index 0000000..80f5606
 --- /dev/null
 +++ b/test/resources/V1_5/fourSubstationsNbk.xml
 @@ -0,0 +1,202 @@
@@ -2254,7 +2267,7 @@ index 00000000..80f56069
 +</iidm:network>
 diff --git a/test/resources/V1_5/internalConnections.xml b/test/resources/V1_5/internalConnections.xml
 new file mode 100644
-index 00000000..cc3b3329
+index 0000000..cc3b332
 --- /dev/null
 +++ b/test/resources/V1_5/internalConnections.xml
 @@ -0,0 +1,28 @@
@@ -2288,7 +2301,7 @@ index 00000000..cc3b3329
 +</iidm:network>
 diff --git a/test/resources/V1_5/loadDetailRef.xml b/test/resources/V1_5/loadDetailRef.xml
 new file mode 100644
-index 00000000..0af74498
+index 0000000..0af7449
 --- /dev/null
 +++ b/test/resources/V1_5/loadDetailRef.xml
 @@ -0,0 +1,14 @@
@@ -2308,7 +2321,7 @@ index 00000000..0af74498
 +</iidm:network>
 diff --git a/test/resources/V1_5/multiple-extensions.xml b/test/resources/V1_5/multiple-extensions.xml
 new file mode 100644
-index 00000000..6b304a53
+index 0000000..6b304a5
 --- /dev/null
 +++ b/test/resources/V1_5/multiple-extensions.xml
 @@ -0,0 +1,19 @@
@@ -2333,7 +2346,7 @@ index 00000000..6b304a53
 +</iidm:network>
 diff --git a/test/resources/V1_5/nonLinearShuntRoundTripRef.xml b/test/resources/V1_5/nonLinearShuntRoundTripRef.xml
 new file mode 100644
-index 00000000..e8338788
+index 0000000..e833878
 --- /dev/null
 +++ b/test/resources/V1_5/nonLinearShuntRoundTripRef.xml
 @@ -0,0 +1,26 @@
@@ -2365,7 +2378,7 @@ index 00000000..e8338788
 +</iidm:network>
 diff --git a/test/resources/V1_5/optionalLoadTypeBug.xml b/test/resources/V1_5/optionalLoadTypeBug.xml
 new file mode 100644
-index 00000000..fe70027d
+index 0000000..fe70027
 --- /dev/null
 +++ b/test/resources/V1_5/optionalLoadTypeBug.xml
 @@ -0,0 +1,11 @@
@@ -2382,7 +2395,7 @@ index 00000000..fe70027d
 +</iidm:network>
 diff --git a/test/resources/V1_5/phaseShifterRoundTripRef.xml b/test/resources/V1_5/phaseShifterRoundTripRef.xml
 new file mode 100644
-index 00000000..71e1e4f0
+index 0000000..71e1e4f
 --- /dev/null
 +++ b/test/resources/V1_5/phaseShifterRoundTripRef.xml
 @@ -0,0 +1,36 @@
@@ -2424,7 +2437,7 @@ index 00000000..71e1e4f0
 +</iidm:network>
 diff --git a/test/resources/V1_5/reactiveLimitsRoundTripRef.xml b/test/resources/V1_5/reactiveLimitsRoundTripRef.xml
 new file mode 100644
-index 00000000..7d8e535e
+index 0000000..7d8e535
 --- /dev/null
 +++ b/test/resources/V1_5/reactiveLimitsRoundTripRef.xml
 @@ -0,0 +1,19 @@
@@ -2449,7 +2462,7 @@ index 00000000..7d8e535e
 +</iidm:network>
 diff --git a/test/resources/V1_5/regulatingStaticVarCompensatorRoundTripRef.xml b/test/resources/V1_5/regulatingStaticVarCompensatorRoundTripRef.xml
 new file mode 100644
-index 00000000..2f14899b
+index 0000000..2f14899
 --- /dev/null
 +++ b/test/resources/V1_5/regulatingStaticVarCompensatorRoundTripRef.xml
 @@ -0,0 +1,26 @@
@@ -2481,7 +2494,7 @@ index 00000000..2f14899b
 +</iidm:network>
 diff --git a/test/resources/V1_5/regulatingTerminal.xml b/test/resources/V1_5/regulatingTerminal.xml
 new file mode 100644
-index 00000000..b45ff6dc
+index 0000000..b45ff6d
 --- /dev/null
 +++ b/test/resources/V1_5/regulatingTerminal.xml
 @@ -0,0 +1,27 @@
@@ -2514,7 +2527,7 @@ index 00000000..b45ff6dc
 +</iidm:network>
 diff --git a/test/resources/V1_5/shuntRoundTripRef.xml b/test/resources/V1_5/shuntRoundTripRef.xml
 new file mode 100644
-index 00000000..5fe3d083
+index 0000000..5fe3d08
 --- /dev/null
 +++ b/test/resources/V1_5/shuntRoundTripRef.xml
 @@ -0,0 +1,24 @@
@@ -2544,7 +2557,7 @@ index 00000000..5fe3d083
 +</iidm:network>
 diff --git a/test/resources/V1_5/slackTerminal.xml b/test/resources/V1_5/slackTerminal.xml
 new file mode 100644
-index 00000000..c572c66c
+index 0000000..c572c66
 --- /dev/null
 +++ b/test/resources/V1_5/slackTerminal.xml
 @@ -0,0 +1,45 @@
@@ -2595,7 +2608,7 @@ index 00000000..c572c66c
 +</iidm:network>
 diff --git a/test/resources/V1_5/staticVarCompensatorRoundTripRef.xml b/test/resources/V1_5/staticVarCompensatorRoundTripRef.xml
 new file mode 100644
-index 00000000..7210b122
+index 0000000..7210b12
 --- /dev/null
 +++ b/test/resources/V1_5/staticVarCompensatorRoundTripRef.xml
 @@ -0,0 +1,25 @@
@@ -2626,7 +2639,7 @@ index 00000000..7210b122
 +</iidm:network>
 diff --git a/test/resources/V1_5/terminalRef.xml b/test/resources/V1_5/terminalRef.xml
 new file mode 100644
-index 00000000..d3e067e9
+index 0000000..d3e067e
 --- /dev/null
 +++ b/test/resources/V1_5/terminalRef.xml
 @@ -0,0 +1,56 @@
@@ -2688,7 +2701,7 @@ index 00000000..d3e067e9
 +</iidm:network>
 diff --git a/test/resources/V1_5/threeWindingsTransformerRoundTripRef.xml b/test/resources/V1_5/threeWindingsTransformerRoundTripRef.xml
 new file mode 100644
-index 00000000..1cd3dd77
+index 0000000..1cd3dd7
 --- /dev/null
 +++ b/test/resources/V1_5/threeWindingsTransformerRoundTripRef.xml
 @@ -0,0 +1,49 @@
@@ -2743,7 +2756,7 @@ index 00000000..1cd3dd77
 +</iidm:network>
 diff --git a/test/resources/V1_5/tieline.xml b/test/resources/V1_5/tieline.xml
 new file mode 100644
-index 00000000..62a9df5d
+index 0000000..62a9df5
 --- /dev/null
 +++ b/test/resources/V1_5/tieline.xml
 @@ -0,0 +1,42 @@
@@ -2791,7 +2804,7 @@ index 00000000..62a9df5d
 +</iidm:network>
 diff --git a/test/resources/V1_5/tielineFictitious.xml b/test/resources/V1_5/tielineFictitious.xml
 new file mode 100644
-index 00000000..f2ff45e5
+index 0000000..f2ff45e
 --- /dev/null
 +++ b/test/resources/V1_5/tielineFictitious.xml
 @@ -0,0 +1,42 @@
@@ -2839,7 +2852,7 @@ index 00000000..f2ff45e5
 +</iidm:network>
 diff --git a/test/resources/V1_5/tielineWithAliases.xml b/test/resources/V1_5/tielineWithAliases.xml
 new file mode 100644
-index 00000000..838bcf72
+index 0000000..838bcf7
 --- /dev/null
 +++ b/test/resources/V1_5/tielineWithAliases.xml
 @@ -0,0 +1,45 @@
