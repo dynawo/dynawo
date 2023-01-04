@@ -38,7 +38,7 @@ model GeneratorPV "Generator with active power / frequency regulation and voltag
   final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SystemBase.SnRef / SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
   final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in pu (base SnRef)";
   final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";
-  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference";
+  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference, in s";
 
   Types.ReactivePowerPu QGenRefPu(start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
 
