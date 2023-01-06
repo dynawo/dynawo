@@ -38,7 +38,7 @@ model QRefQU "Function that calculates QRef for the Q mode and the U mode depend
 
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-61, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(deadZoneAtInit = true, uMax = DeadBandU, uMin = -DeadBandU) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DeadBandU, uMin = -DeadBandU) annotation(
     Placement(visible = true, transformation(origin = {-32, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Lambda) annotation(
     Placement(visible = true, transformation(origin = {-66, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

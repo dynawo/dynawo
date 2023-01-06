@@ -39,7 +39,7 @@ model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
   Modelica.Blocks.Interfaces.RealOutput ipRefUdcPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {170, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = UdcRefMaxPu, uMin = UdcRefMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = UdcRefMaxPu, uMin = UdcRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {40, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {70, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -53,7 +53,7 @@ model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
     Placement(visible = true, transformation(origin = {-140, 6}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {10, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(limitsAtInit = true, uMax = 0, uMin = -0.15) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = 0, uMin = -0.15) annotation(
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain convention(k = -1) annotation(
     Placement(visible = true, transformation(origin = {-110, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

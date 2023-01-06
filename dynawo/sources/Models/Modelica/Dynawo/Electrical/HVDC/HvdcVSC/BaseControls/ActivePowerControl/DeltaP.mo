@@ -31,7 +31,7 @@ model DeltaP "Function that calculates a DeltaP for the active power control sid
 
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = UdcMaxPu, uMin = UdcMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = UdcMaxPu, uMin = UdcMinPu) annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Continuous.PIAntiWindup PI(Ki = KiDeltaP, Kp = KpDeltaP, uMax = IpMaxCstPu, uMin = -IpMaxCstPu) annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
