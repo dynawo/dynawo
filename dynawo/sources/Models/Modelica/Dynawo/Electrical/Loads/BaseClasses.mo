@@ -38,6 +38,7 @@ package BaseClasses
       Placement(visible = true, transformation(origin = {75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
     Connectors.ImPin UPu(value(start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in pu (base UNom)";
+    Types.Angle UPhase(start = ComplexMath.arg(u0Pu)) "Voltage angle at load terminal in rad";
     Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
     Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
     Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
@@ -49,11 +50,14 @@ package BaseClasses
   equation
     SPu = Complex(PPu, QPu);
     SPu = terminal.V * ComplexMath.conj(terminal.i);
+
     if running.value then
       UPu.value = ComplexMath.'abs'(terminal.V);
     else
       UPu.value = 0;
     end if;
+
+    UPhase = ComplexMath.arg(terminal.V);
 
     annotation(
       preferredView = "text");

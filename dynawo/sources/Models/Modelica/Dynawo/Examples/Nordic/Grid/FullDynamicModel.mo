@@ -163,143 +163,148 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g19(P0Pu = P0Pu_g19, Q0Pu = Q0Pu_g19, U0Pu = U0Pu_g19, UPhase0 = UPhase0_g19, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g19) annotation(
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
-    Placement(visible = true, transformation(origin = {30, -110}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+
+  Types.AngularVelocityPu check_f_g06 "Angular frequency of g06 in pu (base omegaNom)";
+  Types.AngularVelocityPu check_f_g07 "Angular frequency of g07 in pu (base omegaNom)";
+  Types.AngularVelocityPu check_f_g17 "Angular frequency of g17 in pu (base omegaNom)";
+  Types.CurrentModulePu check_ifPu_g06 "Field current of g06 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g07 "Field current of g07 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g08 "Field current of g08 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g09 "Field current of g09 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g11 "Field current of g11 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g12 "Field current of g12 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g14 "Field current of g14 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g15 "Field current of g15 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g16 "Field current of g16 in pu (base SNom, UNom) (receptor convention)";
+  Types.CurrentModulePu check_ifPu_g18 "Field current of g18 in pu (base SNom, UNom) (receptor convention)";
+  Types.VoltageModulePu check_UPu_bus_1041 "Voltage amplitude at bus 1041 terminal in pu (base UNom)";
+  Types.VoltageModulePu check_UPu_bus_1042 "Voltage amplitude at bus 1042 terminal in pu (base UNom)";
+  Types.VoltageModulePu check_UPu_bus_4012 "Voltage amplitude at bus 4012 terminal in pu (base UNom)";
+  Types.VoltageModulePu check_UPu_bus_4062 "Voltage amplitude at bus 4062 terminal in pu (base UNom)";
+  Types.VoltageModulePu check_UtPu_g06 "Voltage amplitude at g06 terminal in pu (base UNom)";
+  Types.VoltageModulePu check_UtPu_g07 "Voltage amplitude at g07 terminal in pu (base UNom)";
+
+  // Generator initial values:
+  // P0Pu, Q0Pu in pu (base SnRef) (receptor convention)
+  // U0Pu in pu (base UNom)
+  // UPhase0 in rad
 
   // g01 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g01;
   parameter Types.ReactivePowerPu Q0Pu_g01;
   parameter Types.VoltageModulePu U0Pu_g01;
   parameter Types.Angle UPhase0_g01;
 
   // g02 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g02;
   parameter Types.ReactivePowerPu Q0Pu_g02;
   parameter Types.VoltageModulePu U0Pu_g02;
   parameter Types.Angle UPhase0_g02;
 
   // g03 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g03;
   parameter Types.ReactivePowerPu Q0Pu_g03;
   parameter Types.VoltageModulePu U0Pu_g03;
   parameter Types.Angle UPhase0_g03;
 
   // g04 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g04;
   parameter Types.ReactivePowerPu Q0Pu_g04;
   parameter Types.VoltageModulePu U0Pu_g04;
   parameter Types.Angle UPhase0_g04;
 
   // g05 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g05;
   parameter Types.ReactivePowerPu Q0Pu_g05;
   parameter Types.VoltageModulePu U0Pu_g05;
   parameter Types.Angle UPhase0_g05;
 
   // g06 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g06;
   parameter Types.ReactivePowerPu Q0Pu_g06;
   parameter Types.VoltageModulePu U0Pu_g06;
   parameter Types.Angle UPhase0_g06;
 
   // g07 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g07;
   parameter Types.ReactivePowerPu Q0Pu_g07;
   parameter Types.VoltageModulePu U0Pu_g07;
   parameter Types.Angle UPhase0_g07;
 
   // g08 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g08;
   parameter Types.ReactivePowerPu Q0Pu_g08;
   parameter Types.VoltageModulePu U0Pu_g08;
   parameter Types.Angle UPhase0_g08;
 
   // g09 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g09;
   parameter Types.ReactivePowerPu Q0Pu_g09;
   parameter Types.VoltageModulePu U0Pu_g09;
   parameter Types.Angle UPhase0_g09;
 
   // g10 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g10;
   parameter Types.ReactivePowerPu Q0Pu_g10;
   parameter Types.VoltageModulePu U0Pu_g10;
   parameter Types.Angle UPhase0_g10;
 
   // g11 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g11;
   parameter Types.ReactivePowerPu Q0Pu_g11;
   parameter Types.VoltageModulePu U0Pu_g11;
   parameter Types.Angle UPhase0_g11;
 
   // g12 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g12;
   parameter Types.ReactivePowerPu Q0Pu_g12;
   parameter Types.VoltageModulePu U0Pu_g12;
   parameter Types.Angle UPhase0_g12;
 
   // g13 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g13;
   parameter Types.ReactivePowerPu Q0Pu_g13;
   parameter Types.VoltageModulePu U0Pu_g13;
   parameter Types.Angle UPhase0_g13;
 
   // g14 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g14;
   parameter Types.ReactivePowerPu Q0Pu_g14;
   parameter Types.VoltageModulePu U0Pu_g14;
   parameter Types.Angle UPhase0_g14;
 
   // g15 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g15;
   parameter Types.ReactivePowerPu Q0Pu_g15;
   parameter Types.VoltageModulePu U0Pu_g15;
   parameter Types.Angle UPhase0_g15;
 
   // g16 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g16;
   parameter Types.ReactivePowerPu Q0Pu_g16;
   parameter Types.VoltageModulePu U0Pu_g16;
   parameter Types.Angle UPhase0_g16;
 
   // g17 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g17;
   parameter Types.ReactivePowerPu Q0Pu_g17;
   parameter Types.VoltageModulePu U0Pu_g17;
   parameter Types.Angle UPhase0_g17;
 
   // g18 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g18;
   parameter Types.ReactivePowerPu Q0Pu_g18;
   parameter Types.VoltageModulePu U0Pu_g18;
   parameter Types.Angle UPhase0_g18;
 
   // g19 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g19;
   parameter Types.ReactivePowerPu Q0Pu_g19;
   parameter Types.VoltageModulePu U0Pu_g19;
   parameter Types.Angle UPhase0_g19;
 
   // g20 init values:
-  // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g20;
   parameter Types.ReactivePowerPu Q0Pu_g20;
   parameter Types.VoltageModulePu U0Pu_g20;
@@ -363,8 +368,28 @@ equation
   trafo_2031_4031.switchOffSignal1.value = false;
   trafo_2031_4031.switchOffSignal2.value = false;
 
+  check_f_g06 = g06.generatorSynchronous.omegaPu.value;
+  check_f_g07 = g07.generatorSynchronous.omegaPu.value;
+  check_f_g17 = g17.generatorSynchronous.omegaPu.value;
+  check_ifPu_g06 = g06.vrNordic.ifPu;
+  check_ifPu_g07 = g07.vrNordic.ifPu;
+  check_ifPu_g08 = g08.vrNordic.ifPu;
+  check_ifPu_g09 = g09.vrNordic.ifPu;
+  check_ifPu_g11 = g11.vrNordic.ifPu;
+  check_ifPu_g12 = g12.vrNordic.ifPu;
+  check_ifPu_g14 = g14.vrNordic.ifPu;
+  check_ifPu_g15 = g15.vrNordic.ifPu;
+  check_ifPu_g16 = g16.vrNordic.ifPu;
+  check_ifPu_g18 = g18.vrNordic.ifPu;
+  check_UPu_bus_1041 = ComplexMath.'abs'(bus_1041.terminal.V);
+  check_UPu_bus_1042 = ComplexMath.'abs'(bus_1042.terminal.V);
+  check_UPu_bus_4012 = ComplexMath.'abs'(bus_4012.terminal.V);
+  check_UPu_bus_4062 = ComplexMath.'abs'(bus_4062.terminal.V);
+  check_UtPu_g06 = g06.generatorSynchronous.UPu;
+  check_UtPu_g07 = g07.generatorSynchronous.UPu;
+
   connect(g20.terminal, bus_BG20.terminal) annotation(
-    Line(points = {{-75, 58}, {-75, 65}}, color = {0, 0, 255}));
+    Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal2, bus_1041.terminal) annotation(
     Line(points = {{-55, -92}, {-55, -90}, {-60, -90}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal1, bus_B01.terminal) annotation(
@@ -606,7 +631,6 @@ equation
 
   annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.001), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
-    Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
 end FullDynamicModel;

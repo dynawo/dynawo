@@ -132,191 +132,165 @@ model NetworkWithPQLoads "Nordic test grid with buses, lines, shunts and constan
   Electrical.Shunts.ShuntB shunt_4071(BPu = BPu_shunt_4071, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4071, i0Pu = s0Pu_shunt_4071) annotation(
     Placement(visible = true, transformation(origin = {-85.5, 136.5}, extent = {{2.5, 2.5}, {-2.5, -2.5}}, rotation = 0)));
 
+  // Load initial values:
+  // P0Pu, Q0Pu, s0Pu in pu (base SnRef) (receptor convention)
+
   // load_01 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_01;
-  parameter Types.ReactivePowerPu Q0Pu_load_01;
+  parameter Types.ActivePowerPu P0Pu_load_01 = 6;
+  parameter Types.ReactivePowerPu Q0Pu_load_01 = 1.482;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_01 = Complex(P0Pu_load_01, Q0Pu_load_01);
 
   // load_02 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_02;
-  parameter Types.ReactivePowerPu Q0Pu_load_02;
+  parameter Types.ActivePowerPu P0Pu_load_02 = 3.3;
+  parameter Types.ReactivePowerPu Q0Pu_load_02 = 0.71;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_02 = Complex(P0Pu_load_02, Q0Pu_load_02);
 
   // load_03 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_03;
-  parameter Types.ReactivePowerPu Q0Pu_load_03;
+  parameter Types.ActivePowerPu P0Pu_load_03 = 2.6;
+  parameter Types.ReactivePowerPu Q0Pu_load_03 = 0.838;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_03 = Complex(P0Pu_load_03, Q0Pu_load_03);
 
   // load_04 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_04;
-  parameter Types.ReactivePowerPu Q0Pu_load_04;
+  parameter Types.ActivePowerPu P0Pu_load_04 = 8.4;
+  parameter Types.ReactivePowerPu Q0Pu_load_04 = 2.52;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_04 = Complex(P0Pu_load_04, Q0Pu_load_04);
 
   // load_05 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_05;
-  parameter Types.ReactivePowerPu Q0Pu_load_05;
+  parameter Types.ActivePowerPu P0Pu_load_05 = 7.2;
+  parameter Types.ReactivePowerPu Q0Pu_load_05 = 1.904;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_05 = Complex(P0Pu_load_05, Q0Pu_load_05);
 
   // load_11 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_11;
-  parameter Types.ReactivePowerPu Q0Pu_load_11;
+  parameter Types.ActivePowerPu P0Pu_load_11 = 2;
+  parameter Types.ReactivePowerPu Q0Pu_load_11 = 0.688;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_11 = Complex(P0Pu_load_11, Q0Pu_load_11);
 
   // load_12 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_12;
-  parameter Types.ReactivePowerPu Q0Pu_load_12;
+  parameter Types.ActivePowerPu P0Pu_load_12 = 3;
+  parameter Types.ReactivePowerPu Q0Pu_load_12 = 0.838;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_12 = Complex(P0Pu_load_12, Q0Pu_load_12);
 
   // load_13 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_13;
-  parameter Types.ReactivePowerPu Q0Pu_load_13;
+  parameter Types.ActivePowerPu P0Pu_load_13 = 1;
+  parameter Types.ReactivePowerPu Q0Pu_load_13 = 0.344;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_13 = Complex(P0Pu_load_13, Q0Pu_load_13);
 
   // load_22 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_22;
-  parameter Types.ReactivePowerPu Q0Pu_load_22;
+  parameter Types.ActivePowerPu P0Pu_load_22 = 2.8;
+  parameter Types.ReactivePowerPu Q0Pu_load_22 = 0.799;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_22 = Complex(P0Pu_load_22, Q0Pu_load_22);
 
   // load_31 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_31;
-  parameter Types.ReactivePowerPu Q0Pu_load_31;
+  parameter Types.ActivePowerPu P0Pu_load_31 = 1;
+  parameter Types.ReactivePowerPu Q0Pu_load_31 = 0.247;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_31 = Complex(P0Pu_load_31, Q0Pu_load_31);
 
   // load_32 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_32;
-  parameter Types.ReactivePowerPu Q0Pu_load_32;
+  parameter Types.ActivePowerPu P0Pu_load_32 = 2;
+  parameter Types.ReactivePowerPu Q0Pu_load_32 = 0.396;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_32 = Complex(P0Pu_load_32, Q0Pu_load_32);
 
   // load_41 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_41;
-  parameter Types.ReactivePowerPu Q0Pu_load_41;
+  parameter Types.ActivePowerPu P0Pu_load_41 = 5.4;
+  parameter Types.ReactivePowerPu Q0Pu_load_41 = 1.314;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_41 = Complex(P0Pu_load_41, Q0Pu_load_41);
 
   // load_42 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_42;
-  parameter Types.ReactivePowerPu Q0Pu_load_42;
+  parameter Types.ActivePowerPu P0Pu_load_42 = 4;
+  parameter Types.ReactivePowerPu Q0Pu_load_42 = 1.274;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_42 = Complex(P0Pu_load_42, Q0Pu_load_42);
 
   // load_43 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_43;
-  parameter Types.ReactivePowerPu Q0Pu_load_43;
+  parameter Types.ActivePowerPu P0Pu_load_43 = 9;
+  parameter Types.ReactivePowerPu Q0Pu_load_43 = 2.546;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_43 = Complex(P0Pu_load_43, Q0Pu_load_43);
 
   // load_46 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_46;
-  parameter Types.ReactivePowerPu Q0Pu_load_46;
+  parameter Types.ActivePowerPu P0Pu_load_46 = 7;
+  parameter Types.ReactivePowerPu Q0Pu_load_46 = 2.118;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_46 = Complex(P0Pu_load_46, Q0Pu_load_46);
 
   // load_47 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_47;
-  parameter Types.ReactivePowerPu Q0Pu_load_47;
+  parameter Types.ActivePowerPu P0Pu_load_47 = 1;
+  parameter Types.ReactivePowerPu Q0Pu_load_47 = 0.44;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_47 = Complex(P0Pu_load_47, Q0Pu_load_47);
 
   // load_51 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_51;
-  parameter Types.ReactivePowerPu Q0Pu_load_51;
+  parameter Types.ActivePowerPu P0Pu_load_51 = 8;
+  parameter Types.ReactivePowerPu Q0Pu_load_51 = 2.582;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_51 = Complex(P0Pu_load_51, Q0Pu_load_51);
 
   // load_61 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_61;
-  parameter Types.ReactivePowerPu Q0Pu_load_61;
+  parameter Types.ActivePowerPu P0Pu_load_61 = 5;
+  parameter Types.ReactivePowerPu Q0Pu_load_61 = 1.225;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_61 = Complex(P0Pu_load_61, Q0Pu_load_61);
 
   // load_62 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_62;
-  parameter Types.ReactivePowerPu Q0Pu_load_62;
+  parameter Types.ActivePowerPu P0Pu_load_62 = 3;
+  parameter Types.ReactivePowerPu Q0Pu_load_62 = 0.838;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_62 = Complex(P0Pu_load_62, Q0Pu_load_62);
 
   // load_63 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_63;
-  parameter Types.ReactivePowerPu Q0Pu_load_63;
+  parameter Types.ActivePowerPu P0Pu_load_63 = 5.9;
+  parameter Types.ReactivePowerPu Q0Pu_load_63 = 2.646;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_63 = Complex(P0Pu_load_63, Q0Pu_load_63);
 
   // load_71 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_71;
-  parameter Types.ReactivePowerPu Q0Pu_load_71;
+  parameter Types.ActivePowerPu P0Pu_load_71 = 3;
+  parameter Types.ReactivePowerPu Q0Pu_load_71 = 0.838;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_71 = Complex(P0Pu_load_71, Q0Pu_load_71);
 
   // load_72 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
-  parameter Types.ActivePowerPu P0Pu_load_72;
-  parameter Types.ReactivePowerPu Q0Pu_load_72;
+  parameter Types.ActivePowerPu P0Pu_load_72 = 20;
+  parameter Types.ReactivePowerPu Q0Pu_load_72 = 3.961;
   final parameter Types.ComplexApparentPowerPu s0Pu_load_72 = Complex(P0Pu_load_72, Q0Pu_load_72);
 
+  // Shunt initial values:
+  // BPu in pu (base SnRef, UNom), negative values for capacitors, positive values for inductors (reversed in PESTR)
+  // s0Pu in pu (base SnRef) (receptor convention)
+
   // shunt_1022 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_1022;
+  parameter Types.PerUnit BPu_shunt_1022 = -0.5;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1022 = Complex(0, BPu_shunt_1022);
 
   // shunt_1041 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_1041;
+  parameter Types.PerUnit BPu_shunt_1041 = -2.5;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1041 = Complex(0, BPu_shunt_1041);
 
   // shunt_1043 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_1043;
+  parameter Types.PerUnit BPu_shunt_1043 = -2;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1043 = Complex(0, BPu_shunt_1043);
 
   // shunt_1044 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_1044;
+  parameter Types.PerUnit BPu_shunt_1044 = -2;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1044 = Complex(0, BPu_shunt_1044);
 
   // shunt_1045 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_1045;
+  parameter Types.PerUnit BPu_shunt_1045 = -2;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_1045 = Complex(0, BPu_shunt_1045);
 
   // shunt_4012 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_4012;
+  parameter Types.PerUnit BPu_shunt_4012 = 1;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4012 = Complex(0, BPu_shunt_4012);
 
   // shunt_4041 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_4041;
+  parameter Types.PerUnit BPu_shunt_4041 = -2;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4041 = Complex(0, BPu_shunt_4041);
 
   // shunt_4043 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_4043;
+  parameter Types.PerUnit BPu_shunt_4043 = -2;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4043 = Complex(0, BPu_shunt_4043);
 
   // shunt_4046 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_4046;
+  parameter Types.PerUnit BPu_shunt_4046 = -1;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4046 = Complex(0, BPu_shunt_4046);
 
   // shunt_4051 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_4051;
+  parameter Types.PerUnit BPu_shunt_4051 = -1;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4051 = Complex(0, BPu_shunt_4051);
 
   // shunt_4071 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
-  parameter Types.PerUnit BPu_shunt_4071;
+  parameter Types.PerUnit BPu_shunt_4071 = 4;
   final parameter Types.ComplexApparentPowerPu s0Pu_shunt_4071 = Complex(0, BPu_shunt_4071);
 
 equation

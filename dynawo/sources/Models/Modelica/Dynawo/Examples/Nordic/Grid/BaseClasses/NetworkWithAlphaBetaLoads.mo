@@ -136,8 +136,13 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   Electrical.Shunts.ShuntB shunt_4071(BPu = BPu_shunt_4071, u0Pu = u0Pu_shunt_4071, s0Pu = s0Pu_shunt_4071, i0Pu = i0Pu_shunt_4071) annotation(
     Placement(visible = true, transformation(origin = {-85.5, 136.5}, extent = {{2.5, 2.5}, {-2.5, -2.5}}, rotation = 0)));
 
+  // Load initial values:
+  // P0Pu, Q0Pu, s0Pu in pu (base SnRef) (receptor convention)
+  // U0Pu, u0Pu in pu (base UNom)
+  // UPhase0 in rad
+  // i0Pu in pu (base SnRef, UNom) (receptor convention)
+
   // load_01 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_01;
   parameter Types.ReactivePowerPu Q0Pu_load_01;
   parameter Types.VoltageModulePu U0Pu_load_01;
@@ -147,7 +152,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_01 = ComplexMath.conj(s0Pu_load_01 / u0Pu_load_01);
 
   // load_02 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_02;
   parameter Types.ReactivePowerPu Q0Pu_load_02;
   parameter Types.VoltageModulePu U0Pu_load_02;
@@ -157,7 +161,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_02 = ComplexMath.conj(s0Pu_load_02 / u0Pu_load_02);
 
   // load_03 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_03;
   parameter Types.ReactivePowerPu Q0Pu_load_03;
   parameter Types.VoltageModulePu U0Pu_load_03;
@@ -167,7 +170,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_03 = ComplexMath.conj(s0Pu_load_03 / u0Pu_load_03);
 
   // load_04 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_04;
   parameter Types.ReactivePowerPu Q0Pu_load_04;
   parameter Types.VoltageModulePu U0Pu_load_04;
@@ -177,7 +179,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_04 = ComplexMath.conj(s0Pu_load_04 / u0Pu_load_04);
 
   // load_05 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_05;
   parameter Types.ReactivePowerPu Q0Pu_load_05;
   parameter Types.VoltageModulePu U0Pu_load_05;
@@ -187,7 +188,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_05 = ComplexMath.conj(s0Pu_load_05 / u0Pu_load_05);
 
   // load_11 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_11;
   parameter Types.ReactivePowerPu Q0Pu_load_11;
   parameter Types.VoltageModulePu U0Pu_load_11;
@@ -197,7 +197,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_11 = ComplexMath.conj(s0Pu_load_11 / u0Pu_load_11);
 
   // load_12 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_12;
   parameter Types.ReactivePowerPu Q0Pu_load_12;
   parameter Types.VoltageModulePu U0Pu_load_12;
@@ -207,7 +206,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_12 = ComplexMath.conj(s0Pu_load_12 / u0Pu_load_12);
 
   // load_13 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_13;
   parameter Types.ReactivePowerPu Q0Pu_load_13;
   parameter Types.VoltageModulePu U0Pu_load_13;
@@ -217,7 +215,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_13 = ComplexMath.conj(s0Pu_load_13 / u0Pu_load_13);
 
   // load_22 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_22;
   parameter Types.ReactivePowerPu Q0Pu_load_22;
   parameter Types.VoltageModulePu U0Pu_load_22;
@@ -227,7 +224,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_22 = ComplexMath.conj(s0Pu_load_22 / u0Pu_load_22);
 
   // load_31 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_31;
   parameter Types.ReactivePowerPu Q0Pu_load_31;
   parameter Types.VoltageModulePu U0Pu_load_31;
@@ -237,7 +233,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_31 = ComplexMath.conj(s0Pu_load_31 / u0Pu_load_31);
 
   // load_32 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_32;
   parameter Types.ReactivePowerPu Q0Pu_load_32;
   parameter Types.VoltageModulePu U0Pu_load_32;
@@ -247,7 +242,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_32 = ComplexMath.conj(s0Pu_load_32 / u0Pu_load_32);
 
   // load_41 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_41;
   parameter Types.ReactivePowerPu Q0Pu_load_41;
   parameter Types.VoltageModulePu U0Pu_load_41;
@@ -257,7 +251,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_41 = ComplexMath.conj(s0Pu_load_41 / u0Pu_load_41);
 
   // load_42 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_42;
   parameter Types.ReactivePowerPu Q0Pu_load_42;
   parameter Types.VoltageModulePu U0Pu_load_42;
@@ -267,7 +260,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_42 = ComplexMath.conj(s0Pu_load_42 / u0Pu_load_42);
 
   // load_43 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_43;
   parameter Types.ReactivePowerPu Q0Pu_load_43;
   parameter Types.VoltageModulePu U0Pu_load_43;
@@ -277,7 +269,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_43 = ComplexMath.conj(s0Pu_load_43 / u0Pu_load_43);
 
   // load_46 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_46;
   parameter Types.ReactivePowerPu Q0Pu_load_46;
   parameter Types.VoltageModulePu U0Pu_load_46;
@@ -287,7 +278,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_46 = ComplexMath.conj(s0Pu_load_46 / u0Pu_load_46);
 
   // load_47 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_47;
   parameter Types.ReactivePowerPu Q0Pu_load_47;
   parameter Types.VoltageModulePu U0Pu_load_47;
@@ -297,7 +287,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_47 = ComplexMath.conj(s0Pu_load_47 / u0Pu_load_47);
 
   // load_51 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_51;
   parameter Types.ReactivePowerPu Q0Pu_load_51;
   parameter Types.VoltageModulePu U0Pu_load_51;
@@ -307,7 +296,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_51 = ComplexMath.conj(s0Pu_load_51 / u0Pu_load_51);
 
   // load_61 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_61;
   parameter Types.ReactivePowerPu Q0Pu_load_61;
   parameter Types.VoltageModulePu U0Pu_load_61;
@@ -317,7 +305,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_61 = ComplexMath.conj(s0Pu_load_61 / u0Pu_load_61);
 
   // load_62 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_62;
   parameter Types.ReactivePowerPu Q0Pu_load_62;
   parameter Types.VoltageModulePu U0Pu_load_62;
@@ -327,7 +314,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_62 = ComplexMath.conj(s0Pu_load_62 / u0Pu_load_62);
 
   // load_63 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_63;
   parameter Types.ReactivePowerPu Q0Pu_load_63;
   parameter Types.VoltageModulePu U0Pu_load_63;
@@ -337,7 +323,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_63 = ComplexMath.conj(s0Pu_load_63 / u0Pu_load_63);
 
   // load_71 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_71;
   parameter Types.ReactivePowerPu Q0Pu_load_71;
   parameter Types.VoltageModulePu U0Pu_load_71;
@@ -347,7 +332,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_load_71 = ComplexMath.conj(s0Pu_load_71 / u0Pu_load_71);
 
   // load_72 init values:
-  // s0Pu, i0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_load_72;
   parameter Types.ReactivePowerPu Q0Pu_load_72;
   parameter Types.VoltageModulePu U0Pu_load_72;
@@ -356,8 +340,14 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexVoltagePu u0Pu_load_72 = ComplexMath.fromPolar(U0Pu_load_72, UPhase0_load_72);
   final parameter Types.ComplexCurrentPu i0Pu_load_72 = ComplexMath.conj(s0Pu_load_72 / u0Pu_load_72);
 
+  // Shunt initial values:
+  // BPu in pu (base SnRef, UNom), negative values for capacitors, positive values for inductors (reversed in PESTR)
+  // U0Pu, u0Pu in pu (base UNom)
+  // UPhase0 in rad
+  // Q0Pu, s0Pu in pu (base SnRef) (receptor convention)
+  // i0Pu in pu (base SnRef, UNom) (receptor convention)
+
   // shunt_1022 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_1022;
   parameter Types.VoltageModulePu U0Pu_shunt_1022;
   parameter Types.Angle UPhase0_shunt_1022;
@@ -367,7 +357,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_1022 = ComplexMath.conj(s0Pu_shunt_1022 / u0Pu_shunt_1022);
 
   // shunt_1041 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_1041;
   parameter Types.VoltageModulePu U0Pu_shunt_1041;
   parameter Types.Angle UPhase0_shunt_1041;
@@ -377,7 +366,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_1041 = ComplexMath.conj(s0Pu_shunt_1041 / u0Pu_shunt_1041);
 
   // shunt_1043 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_1043;
   parameter Types.VoltageModulePu U0Pu_shunt_1043;
   parameter Types.Angle UPhase0_shunt_1043;
@@ -387,7 +375,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_1043 = ComplexMath.conj(s0Pu_shunt_1043 / u0Pu_shunt_1043);
 
   // shunt_1044 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_1044;
   parameter Types.VoltageModulePu U0Pu_shunt_1044;
   parameter Types.Angle UPhase0_shunt_1044;
@@ -397,7 +384,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_1044 = ComplexMath.conj(s0Pu_shunt_1044 / u0Pu_shunt_1044);
 
   // shunt_1045 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_1045;
   parameter Types.VoltageModulePu U0Pu_shunt_1045;
   parameter Types.Angle UPhase0_shunt_1045;
@@ -407,7 +393,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_1045 = ComplexMath.conj(s0Pu_shunt_1045 / u0Pu_shunt_1045);
 
   // shunt_4012 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_4012;
   parameter Types.VoltageModulePu U0Pu_shunt_4012;
   parameter Types.Angle UPhase0_shunt_4012;
@@ -417,7 +402,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_4012 = ComplexMath.conj(s0Pu_shunt_4012 / u0Pu_shunt_4012);
 
   // shunt_4041 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_4041;
   parameter Types.VoltageModulePu U0Pu_shunt_4041;
   parameter Types.Angle UPhase0_shunt_4041;
@@ -427,7 +411,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_4041 = ComplexMath.conj(s0Pu_shunt_4041 / u0Pu_shunt_4041);
 
   // shunt_4043 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_4043;
   parameter Types.VoltageModulePu U0Pu_shunt_4043;
   parameter Types.Angle UPhase0_shunt_4043;
@@ -437,7 +420,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_4043 = ComplexMath.conj(s0Pu_shunt_4043 / u0Pu_shunt_4043);
 
   // shunt_4046 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_4046;
   parameter Types.VoltageModulePu U0Pu_shunt_4046;
   parameter Types.Angle UPhase0_shunt_4046;
@@ -447,7 +429,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_4046 = ComplexMath.conj(s0Pu_shunt_4046 / u0Pu_shunt_4046);
 
   // shunt_4051 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_4051;
   parameter Types.VoltageModulePu U0Pu_shunt_4051;
   parameter Types.Angle UPhase0_shunt_4051;
@@ -457,7 +438,6 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
   final parameter Types.ComplexCurrentPu i0Pu_shunt_4051 = ComplexMath.conj(s0Pu_shunt_4051 / u0Pu_shunt_4051);
 
   // shunt_4071 init values:
-  // negative values for capacitors, positive values for inductors (reversed in PESTR)
   parameter Types.PerUnit BPu_shunt_4071;
   parameter Types.VoltageModulePu U0Pu_shunt_4071;
   parameter Types.Angle UPhase0_shunt_4071;
