@@ -29,7 +29,7 @@ model QRefLim "Function that applies the limitations to QRef"
   Modelica.Blocks.Interfaces.RealOutput QRefLimPu(start = Q0Pu) "Limited reference reactive power in pu (base SNom) after applying the diagrams" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOPPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = QMaxOPPu, uMin = QMinOPPu) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

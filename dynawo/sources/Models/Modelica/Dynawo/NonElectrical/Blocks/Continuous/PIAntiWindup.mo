@@ -33,7 +33,7 @@ block PIAntiWindup "Anti windup proportional integral controller"
   Interfaces.RealOutput y "Output signal connector" annotation(Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter1(limitsAtInit = true, uMax = uMax, uMin = uMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = uMax, uMin = uMin) annotation(
     Placement(visible = true, transformation(origin = {71, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {43, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

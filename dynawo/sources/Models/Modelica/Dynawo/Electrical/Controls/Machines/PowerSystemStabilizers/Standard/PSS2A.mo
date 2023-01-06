@@ -50,7 +50,7 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   Modelica.Blocks.Interfaces.RealOutput UpssPu(start = Upss0Pu) "Voltage output in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = VstMax, uMin = VstMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VstMax, uMin = VstMin) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder transducerOmega(T = T6, k = 1) annotation(
     Placement(visible = true, transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
