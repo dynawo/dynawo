@@ -34,7 +34,7 @@ equation
   when time >= pre(t0) + SamplingTime or pre(initialize) then
     t0 = time;
     initialize = false;
-    outputs = Functions.Automaton(Command, t0, inputs, InputsName, NbInputs, GenericAutomatonConstants.inputsMaxSize, OutputsName, NbOutputs,GenericAutomatonConstants.outputsMaxSize);
+    outputs = Functions.Automaton(Command, t0, inputs, InputsName, NbInputs, GenericAutomatonConstants.inputsMaxSize, OutputsName, NbOutputs, GenericAutomatonConstants.outputsMaxSize);
   end when;
 
   annotation(preferredView = "text",

@@ -31,7 +31,7 @@ model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. Th
 equation
 
   u0 = y0LF;
-  y0 = if (u0 < UMin)  then UMin
+  y0 = if (u0 < UMin) then UMin
          else if (u0 > UMax) then UMax
          else u0;
 

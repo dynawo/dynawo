@@ -53,7 +53,7 @@ model MatchingControl "Matching control for grid forming converters"
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback5 annotation(
     Placement(visible = true, transformation(origin = {40, -50}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant omegaSetPu(k = SystemBase.omegaRef0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant omegaSetPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

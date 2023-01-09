@@ -40,17 +40,17 @@ partial model BaseDriveTrain
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division TorqueM annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression omegaRefPu1(y = omegaRefPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression omegaRefPu1(y = omegaRefPu) annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression omegaRefPu2(y = omegaRefPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression omegaRefPu2(y = omegaRefPu) annotation(
     Placement(visible = true, transformation(origin = {10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression dTorqueY1(y = dTorqueY)  annotation(
+  Modelica.Blocks.Sources.RealExpression dTorqueY1(y = dTorqueY) annotation(
     Placement(visible = true, transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression dTorqueY2(y = dTorqueY)  annotation(
+  Modelica.Blocks.Sources.RealExpression dTorqueY2(y = dTorqueY) annotation(
     Placement(visible = true, transformation(origin = {-130, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression dampingY1(y = dampingY)  annotation(
+  Modelica.Blocks.Sources.RealExpression dampingY1(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY)  annotation(
+  Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator dPhi(k = 1, y(start = PInj0Pu / Kshaft), y_start = PInj0Pu / Kshaft) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

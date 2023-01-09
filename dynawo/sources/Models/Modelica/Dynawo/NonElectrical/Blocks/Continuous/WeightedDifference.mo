@@ -22,16 +22,16 @@ block WeightedDifference "Block which calculates the weighted difference between
   parameter Real Weight "Multiplicative weight for the associated entry";
   parameter Real Target "Reference (target) parameter";
 
-  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(Placement(
         visible = true, transformation(extent = {{-140, -60}, {-100, -20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
-  Interfaces.RealOutput y "Output signal connector" annotation (Placement(
+  Interfaces.RealOutput y "Output signal connector" annotation(Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Sources.Constant const(k = Target)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = Target) annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = Weight)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = Weight) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

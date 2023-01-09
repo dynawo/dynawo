@@ -33,23 +33,23 @@ model Regulation "Variable susceptance calculation"
   Modelica.Blocks.Interfaces.RealOutput BVarPu "Variable susceptance of the static var compensator in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {220, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Add add1(k1 = 1, k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add1(k1 = 1, k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-52, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add2(k1 = 1, k2 = 1)  annotation(
+  Modelica.Blocks.Math.Add add2(k1 = 1, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {-96, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain lambda(k = Lambda)  annotation(
+  Modelica.Blocks.Math.Gain lambda(k = Lambda) annotation(
     Placement(visible = true, transformation(origin = {-134, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {112, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Limitations limitations(BMaxPu = BMaxPu, BMinPu = BMinPu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter)  annotation(
+  Limitations limitations(BMaxPu = BMaxPu, BMinPu = BMinPu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter) annotation(
     Placement(visible = true, transformation(origin = {-31, 45}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {182, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant zero(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {140, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add3(k1 = Kp, k2 = 1)  annotation(
+  Modelica.Blocks.Math.Add add3(k1 = Kp, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {68, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / Ti, y_start = BVar0Pu)  annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / Ti, y_start = BVar0Pu) annotation(
     Placement(visible = true, transformation(origin = {24, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add4 annotation(
     Placement(visible = true, transformation(origin = {-14, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

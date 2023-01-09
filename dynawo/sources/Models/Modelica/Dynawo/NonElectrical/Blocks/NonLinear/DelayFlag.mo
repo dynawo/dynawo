@@ -37,7 +37,7 @@ block DelayFlag "Provides an extended fault flag fO which adds a post-fault valu
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch1 annotation(
     Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = 2)  annotation(
+  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = 2) annotation(
     Placement(visible = true, transformation(origin = {-30, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch2 annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));

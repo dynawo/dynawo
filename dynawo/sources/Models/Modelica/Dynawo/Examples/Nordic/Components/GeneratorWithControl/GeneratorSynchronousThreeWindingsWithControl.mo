@@ -34,13 +34,12 @@ model GeneratorSynchronousThreeWindingsWithControl "Model of synchronous generat
   Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverNordic goverNordic(KSigma = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.KSigma], Ki = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Ki], Kp = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Kp]) annotation(
     Placement(visible = true, transformation(origin = {-20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  // Different bases for PGenPu, ifPu and efdPu
+  //Different bases for PGenPu, ifPu and efdPu
   Modelica.Blocks.Math.Gain BaseChangeSnRef2PNom(k = SystemBase.SnRef / PNom_BaseChange) annotation(
     Placement(visible = true, transformation(origin = {-70, -52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain Reciprocal2NonReciprocalPUSystem(k = generatorSynchronous.MdPPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ActivePower PNom_BaseChange = if not GeneratorParameters.genParamValues[gen, GeneratorParameters.genParams.PNom] == 0 then GeneratorParameters.genParamValues[gen, GeneratorParameters.genParams.PNom] else 1;
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";

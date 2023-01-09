@@ -1,7 +1,7 @@
-within Dynawo.Electrical.Machines;
+within Dynawo.Electrical.Machines.Simplified;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,13 +9,13 @@ within Dynawo.Electrical.Machines;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
-model GeneratorFictitious_INIT "Initialisation model for fictitious generator"
-
+model GeneratorSimplified_INIT "Initialization model for simplified generators"
   extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
-annotation(preferredView = "text");
-end GeneratorFictitious_INIT;
+  annotation(preferredView = "text");
+end GeneratorSimplified_INIT;

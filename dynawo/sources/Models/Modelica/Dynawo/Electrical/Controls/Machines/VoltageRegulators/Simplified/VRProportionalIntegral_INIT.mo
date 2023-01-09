@@ -32,7 +32,7 @@ model VRProportionalIntegral_INIT "Proportional integral voltage regulator initi
 equation
   limiterWithLag.y0LF = Efd0PuLF;
   Efd0Pu = limiterWithLag.y0;
-  yIntegrator0 =  limiterWithLag.u0 - Gain * (UsRef0Pu - Us0Pu);
+  yIntegrator0 = limiterWithLag.u0 - Gain * (UsRef0Pu - Us0Pu);
   UsRef0Pu - Us0Pu = limiterWithLag.u0 - limiterWithLag.y0; // Because init in steadystate
 
   annotation(preferredView = "text",

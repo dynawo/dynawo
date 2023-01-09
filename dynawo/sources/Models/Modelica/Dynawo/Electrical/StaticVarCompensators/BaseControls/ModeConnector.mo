@@ -14,7 +14,7 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 
 connector ModeConnector "Mode as connector"
   Mode value;
-annotation (
+annotation(
   defaultComponentName="u",
   Icon(graphics={
     Polygon(

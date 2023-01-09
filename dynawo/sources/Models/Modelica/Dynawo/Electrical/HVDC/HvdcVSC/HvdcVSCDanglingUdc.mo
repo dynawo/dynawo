@@ -55,7 +55,7 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
     Placement(visible = true, transformation(origin = {-30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction Blocking(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, U0Pu = U10Pu, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu) annotation(
     Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant ConstantPdcDanglingTerminal(k = -P20Pu * (SystemBase.SnRef / SNom))  annotation(
+  Modelica.Blocks.Sources.Constant ConstantPdcDanglingTerminal(k = -P20Pu * (SystemBase.SnRef / SNom)) annotation(
     Placement(visible = true, transformation(origin = {43, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput Conv2_PInjPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

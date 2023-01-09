@@ -52,7 +52,7 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.RealToBoolean realToBoolean annotation(
     Placement(visible = true, transformation(origin = {-30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant PQDanglingTerminal(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant PQDanglingTerminal(k = 0) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput Conv2_PInjPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

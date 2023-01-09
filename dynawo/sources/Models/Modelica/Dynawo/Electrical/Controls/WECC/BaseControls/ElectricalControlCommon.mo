@@ -81,21 +81,21 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {457, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = Tiq, k = 1, UseFreeze = true, UseRateLim = false, Y0 = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn(y = frtOn)  annotation(
+  Modelica.Blocks.Sources.BooleanExpression FRTOn(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {124, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn1(y = frtOn)  annotation(
+  Modelica.Blocks.Sources.BooleanExpression FRTOn1(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {163, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn3(y = frtOn)  annotation(
+  Modelica.Blocks.Sources.BooleanExpression FRTOn3(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {-80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression UFilteredPu1(y = UFilteredPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression UFilteredPu1(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {50, 68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression UFilteredPu2(y = UFilteredPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression UFilteredPu2(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {-20, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {190, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Max max annotation(
     Placement(visible = true, transformation(origin = {130, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = 0.0001)  annotation(
+  Modelica.Blocks.Sources.Constant constant1(k = 0.0001) annotation(
     Placement(visible = true, transformation(origin = {10, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
