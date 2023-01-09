@@ -1875,6 +1875,24 @@ class ReaderOMC:
             func.add_params(OmcFunctionParameter("%dth" % (i), "modelica_real", 2, True))
         self.list_omc_functions.append(func)
 
+        func = RawOmcFunctions()
+        func.set_name("_event_floor")
+        func.set_signature("modelica_real _event_floor(modelica_real x, modelica_integer index, DATA *data)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("x", "modelica_real", 0, True))
+        func.add_params(OmcFunctionParameter("index", "modelica_integer", 1, True))
+        func.add_params(OmcFunctionParameter("data", "DATA *", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("_event_ceil")
+        func.set_signature("modelica_real _event_ceil(modelica_real x, modelica_integer index, DATA *data)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("x", "modelica_real", 0, True))
+        func.add_params(OmcFunctionParameter("index", "modelica_integer", 1, True))
+        func.add_params(OmcFunctionParameter("data", "DATA *", 2, True))
+        self.list_omc_functions.append(func)
+
 
     ##
     # Read *_functions.c file and store all functions' body declared

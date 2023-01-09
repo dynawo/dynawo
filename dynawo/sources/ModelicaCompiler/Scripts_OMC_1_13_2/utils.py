@@ -81,6 +81,8 @@ def is_adept_func(func, list_adept_structs):
     if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in func.get_name(): return False
     if "array_alloc_scalar_real_array" in func.get_name(): return False
     if "delay" in func.get_name(): return False # Delay shall not use adept
+    if "_event_floor" in func.get_name(): return False
+    if "_event_ceil" in func.get_name(): return False
     if func.get_return_type() == "modelica_real" : return True
     if func.get_return_type() in list_adept_structs: return True
     for param in func.get_params():
