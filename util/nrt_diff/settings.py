@@ -16,7 +16,7 @@ import os
 # files and directories filters
 directories_included = [("*", "*")]
 directories_excluded = [(".svn", "*"), ("*", ".svn"), ("*", "BDD"), ("compilation", "*")]
-files_included = ["*.csv", "*.log", "*.xml", "*.h", "*.c", "*.cpp", "*.txt"]
+files_included = ["*.csv", "*.log", "*.xml", "*.h", "*.c", "*.cpp", "*.txt", "*.json"]
 files_excluded = []
 
 # comparison
