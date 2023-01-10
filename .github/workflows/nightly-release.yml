@@ -20,7 +20,8 @@ jobs:
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_NB_PROCESSORS_USED: 2
       GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
-      CURL_JSON: 'curl --silent --header "Content-Type": "application/json"'
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CURL_JSON: 'curl --silent -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" --header "Content-Type: application/json"'
 
     steps:
       - name: Checkout
@@ -53,9 +54,9 @@ jobs:
             curl \
               --request DELETE \
               --url "$GH_API/releases/$RELEASE_ID" \
-              --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+              --header "Authorization: token $GITHUB_TOKEN"
             echo "Wait for release to be deleted ..."
-            wait_for_http_code "$GH_API/releases/$RELEASE_ID" 404
+            wait_for_http_code "$GH_API/releases/$RELEASE_ID" 404 $GITHUB_TOKEN
           else
             echo "Previous nightly release not found"
           fi
@@ -71,11 +72,11 @@ jobs:
           curl \
             --request DELETE \
             --url "$GH_API/git/refs/tags/nightly" \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "Authorization: token $GITHUB_TOKEN" \
             --header "Content-Type: application/json"
 
           echo "Wait for tag to be deleted ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 404
+          wait_for_http_code "$GH_API/git/refs/tags/nightly" 404 $GITHUB_TOKEN
 
       - name: INFO. Nightly tag should not be found
         run: $CURL_JSON "$GH_API/git/refs/tags/nightly"
@@ -100,14 +101,14 @@ jobs:
           curl \
             --request POST \
             --url "$GH_API/git/refs" \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "Authorization: token $GITHUB_TOKEN" \
             --header "Content-Type: application/json" \
             --data '{
                 "ref": "refs/tags/nightly",
                 "sha": "'$MASTER_COMMIT_ID'"
                 }'
           echo "Wait for tag to be created ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 200
+          wait_for_http_code "$GH_API/git/refs/tags/nightly" 200 $GITHUB_TOKEN
 
       - name: INFO. Tag nightly created"
         run: $CURL_JSON "$GH_API/git/refs/tags/nightly"
@@ -130,7 +131,7 @@ jobs:
                 "prerelease" : true
                 }'
           echo "Wait for the release to be published ..."
-          wait_for_http_code "$GH_API/releases/tags/nightly" 200
+          wait_for_http_code "$GH_API/releases/tags/nightly" 200 $GITHUB_TOKEN
 
       - name: INFO. Release object created for tag nightly"
         run: $CURL_JSON "$GH_API/releases/tags/nightly"
