@@ -25,7 +25,7 @@ block IncreaseDetection "Output y is true, if the input u has risen to a higher 
   Modelica.Blocks.Interfaces.BooleanOutput y(start = false) "Output boolean detection connector" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS)  annotation(
+  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS) annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Greater greater annotation(
     Placement(visible = true, transformation(origin = {2, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

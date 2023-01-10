@@ -59,7 +59,7 @@ equation
 
   if (running.value) then
     terminal.i = terminal.V * Complex(0, BPu);
-    BPu =  BVarPu + BShuntPu;
+    BPu = BVarPu + BShuntPu;
     if bStatus == BStatus.Standard then
       URegulatedPu = URefPu;
     elseif bStatus == BStatus.SusceptanceMax then

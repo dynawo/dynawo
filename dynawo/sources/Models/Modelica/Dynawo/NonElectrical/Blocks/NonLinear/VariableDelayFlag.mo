@@ -36,7 +36,7 @@ block VariableDelayFlag "Provides an extended fault flag fO which adds a post-fa
     Placement(visible = true, transformation(origin = {10, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch1 annotation(
     Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = 2)  annotation(
+  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = 2) annotation(
     Placement(visible = true, transformation(origin = {-30, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch2 annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -44,9 +44,9 @@ block VariableDelayFlag "Provides an extended fault flag fO which adds a post-fa
     Placement(visible = true, transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Not not1 annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.DecreaseDetection decreaseDetection(U0 = tD0, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.DecreaseDetection decreaseDetection(U0 = tD0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-10, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.IncreaseDetection increaseDetection(U0 = tD0, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.IncreaseDetection increaseDetection(U0 = tD0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.IntegerToReal integerToReal annotation(
     Placement(visible = true, transformation(origin = {70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));

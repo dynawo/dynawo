@@ -60,7 +60,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
   i0Pu = ComplexMath.conj(s0Pu / u0Pu);
   iSource0Pu = - i0Pu * SystemBase.SnRef / SNom;
-  uSource0Pu = u0Pu -  Complex(RPu + RSourcePu, XPu + XSourcePu) * i0Pu;
+  uSource0Pu = u0Pu - Complex(RPu + RSourcePu, XPu + XSourcePu) * i0Pu;
   uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
   UInjPhase0 = ComplexMath.arg(uInj0Pu);
@@ -68,7 +68,7 @@ equation
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   PF0 = PInj0Pu / ComplexMath.'abs'(sInj0Pu);
-  UdInj0Pu =  cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
+  UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
   UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
   Id0Pu = cos(UInjPhase0) * iSource0Pu.re + sin(UInjPhase0) * iSource0Pu.im;
   Iq0Pu = sin(UInjPhase0) * iSource0Pu.re - cos(UInjPhase0) * iSource0Pu.im;

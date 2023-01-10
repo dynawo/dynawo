@@ -54,8 +54,8 @@ protected
   Types.ReactivePowerPu QInj2RawPu(start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
-  Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
-  Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
+  Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
+  Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
 
   QInj1RawModeUPu = - Q1RefPu + QPercent1 * NQ1;
   QInj2RawModeUPu = - Q2RefPu + QPercent2 * NQ2;

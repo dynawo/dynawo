@@ -28,7 +28,7 @@ model SVarCLoadVarQLarge
     Placement(visible = true, transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step URef(height = 0, offset = 225, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-90, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadPQ loadPQ()     annotation(
+  Dynawo.Electrical.Loads.LoadPQ loadPQ annotation(
     Placement(visible = true, transformation(origin = {0, -22}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRefPu(height = 3, offset = 0, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

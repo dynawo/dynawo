@@ -46,11 +46,11 @@ model VSourceRef
     Placement(visible = true, transformation(origin = {-40, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.FirstOrder firstOrder(T = tE, k = 1, y_start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu)  annotation(
+  Blocks.Continuous.FirstOrder firstOrder(T = tE, k = 1, y_start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {40, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.FirstOrder firstOrder1(T = tE, k = 1, y_start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu)  annotation(
+  Blocks.Continuous.FirstOrder firstOrder1(T = tE, k = 1, y_start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {40, 3}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 30, Kp = 10, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = uInj0Pu)  annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 30, Kp = 10, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-90, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

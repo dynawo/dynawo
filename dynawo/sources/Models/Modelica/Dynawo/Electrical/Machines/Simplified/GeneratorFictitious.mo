@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Machines;
+within Dynawo.Electrical.Machines.Simplified;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)

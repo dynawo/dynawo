@@ -59,13 +59,13 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
     Placement(transformation(origin = {80, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
   Blocks.Math.Gain gainTrack(k = 1 / (K * Ni)) annotation(
     Placement(transformation(extent = {{0, -80}, {-20, -60}})));
-  Blocks.Nonlinear.Limiter limiter(strict = true, uMax = YMax, uMin = YMin)  annotation(
+  Blocks.Nonlinear.Limiter limiter(strict = true, uMax = YMax, uMin = YMin) annotation(
     Placement(transformation(extent = {{70, -10}, {90, 10}})));
   Blocks.Sources.Constant FFzero(k = 0) if not WithFeedForward annotation(
     Placement(transformation(extent = {{30, -35}, {40, -25}})));
   Blocks.Math.Add addFF(k1 = 1, k2 = Kff) annotation(
     Placement(transformation(extent = {{48, -6}, {60, 6}})));
-  IntegratorSetFreeze I(K = unitTime / Ti, UseFreeze = true, Y0 = Xi0)  annotation(
+  IntegratorSetFreeze I(K = unitTime / Ti, UseFreeze = true, Y0 = Xi0) annotation(
     Placement(visible = true, transformation(origin = {-38, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

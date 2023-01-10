@@ -46,7 +46,7 @@ equation
     y = pre(aux);
   end if;
 
-  annotation (
+  annotation(
     preferredView = "text",
     Icon(coordinateSystem(
     preserveAspectRatio=true,

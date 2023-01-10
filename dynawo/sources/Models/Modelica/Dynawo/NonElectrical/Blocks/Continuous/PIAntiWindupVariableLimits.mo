@@ -25,10 +25,10 @@ block PIAntiWindupVariableLimits "Anti windup proportional integral controller w
   parameter Types.PerUnit Ki;
   parameter Types.PerUnit Kp;
 
-  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(Placement(
         visible = true, transformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
 
-  Interfaces.RealOutput y "Output signal connector" annotation (Placement(
+  Interfaces.RealOutput y "Output signal connector" annotation(Placement(
         transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {29, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
