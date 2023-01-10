@@ -2,6 +2,7 @@ wait_for_http_code()
 {
     local WAIT_URL=$1
     local WAIT_CODE=$2
+    local TOKEN=$3
     echo "wait_for_http_code($WAIT_URL, $WAIT_CODE)"
 
     local CODE=""
@@ -10,7 +11,7 @@ wait_for_http_code()
     while [[ (-z "$CODE" || "$CODE" -ne "$WAIT_CODE") && ("$RETRIES" -lt "$MAX_RETRIES") ]]
     do
       sleep 1
-      CODE=$(curl --silent --head "$WAIT_URL" | grep ^HTTP | tr -s ' ' | cut -f 2 -d' ')
+      CODE=$(curl --silent --header "Authorization: token $TOKEN" --head "$WAIT_URL" | grep ^HTTP | tr -s ' ' | cut -f 2 -d' ')
       RETRIES=`expr $RETRIES + 1`
       echo "DEBUG. Waiting for $WAIT_URL = $WAIT_CODE. Retries $RETRIES, code $CODE"
     done
