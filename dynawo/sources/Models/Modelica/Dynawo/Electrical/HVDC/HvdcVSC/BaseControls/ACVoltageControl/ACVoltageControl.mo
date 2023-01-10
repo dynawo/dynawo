@@ -48,7 +48,7 @@ model ACVoltageControl "AC voltage control for HVDC"
 
   HVDC.HvdcVSC.BaseControls.ACVoltageControl.QRefQU qRefQU(DeadBandU = DeadBandU, KiACVoltageControl = KiACVoltageControl, KpACVoltageControl = KpACVoltageControl, Lambda = Lambda, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMinCombPu = QMinCombPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, U0Pu = U0Pu) "Function that calculates QRef for the Q mode and the U mode depending on the setpoints for URef and QRef" annotation(
     Placement(visible = true, transformation(origin = {-84, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.ACVoltageControl.QRefLim qRefLim(P0Pu = P0Pu,Q0Pu = Q0Pu, QMaxOPPu = QMaxOPPu, QMinOPPu = QMinOPPu, U0Pu = U0Pu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu) "Function that applies the limitations to QRef" annotation(
+  HVDC.HvdcVSC.BaseControls.ACVoltageControl.QRefLim qRefLim(P0Pu = P0Pu, Q0Pu = Q0Pu, QMaxOPPu = QMaxOPPu, QMinOPPu = QMinOPPu, U0Pu = U0Pu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu) "Function that applies the limitations to QRef" annotation(
     Placement(visible = true, transformation(origin = {-29, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {49, -7}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -62,7 +62,7 @@ model ACVoltageControl "AC voltage control for HVDC"
     Placement(visible = true, transformation(origin = {40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = -1) annotation(
     Placement(visible = true, transformation(origin = {186, 7}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1D iqMod(table = tableiqMod)  annotation(
+  Modelica.Blocks.Tables.CombiTable1D iqMod(table = tableiqMod) annotation(
     Placement(visible = true, transformation(origin = {54, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-55, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,7 +70,7 @@ model ACVoltageControl "AC voltage control for HVDC"
     Placement(visible = true, transformation(origin = {131, -1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max annotation(
     Placement(visible = true, transformation(origin = {7, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 0.1)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-29, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";

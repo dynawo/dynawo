@@ -56,7 +56,7 @@ equation
    *  2. When the end timing is reached, ipmaxFrzPu is reset and the ipMaxPu uses then
    *     usual calculation formula.
    */
-  when (vDip == false and pre(vDip) == true) or (time < pre(vDipFrzEndTime) and pre(vDipFrzEndTime) >= 0)  then
+  when (vDip == false and pre(vDip) == true) or (time < pre(vDipFrzEndTime) and pre(vDipFrzEndTime) >= 0) then
     vDipFrzEndTime = time + abs(HoldIpMax);
   elsewhen (vDip == true or pre(vDip) == false) and (time >= pre(vDipFrzEndTime) or pre(vDipFrzEndTime) < 0) then
     vDipFrzEndTime = -1;

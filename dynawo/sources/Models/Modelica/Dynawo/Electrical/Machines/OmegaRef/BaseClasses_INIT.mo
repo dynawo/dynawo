@@ -99,7 +99,7 @@ package BaseClasses_INIT
       Iq0PuNom := cos(Theta0) * i0PuNom.re + sin(Theta0) * i0PuNom.im;
 
       // Common flux calculations
-      LambdaAD0PuNom := Uq0PuNom - (RaPPu + RTfoPu) * Iq0PuNom - (LdPPu  + XTfoPu) * Id0PuNom;
+      LambdaAD0PuNom := Uq0PuNom - (RaPPu + RTfoPu) * Iq0PuNom - (LdPPu + XTfoPu) * Id0PuNom;
       LambdaAQ0PuNom := - Ud0PuNom + (RaPPu + RTfoPu) * Id0PuNom - (LqPPu + XTfoPu) * Iq0PuNom;
       LambdaAirGap0PuNom := sqrt(LambdaAD0PuNom^2 + LambdaAQ0PuNom^2);
 
@@ -207,7 +207,7 @@ package BaseClasses_INIT
       Iq0Pu := cos(Theta0) * i0Pu.re * SystemBase.SnRef/SNom + sin(Theta0) * i0Pu.im * SystemBase.SnRef/SNom;
 
       // Common flux calculations
-      LambdaAD0Pu := Uq0Pu - (RaPPu + RTfoPu) * Iq0Pu - (LdPPu  + XTfoPu) * Id0Pu;
+      LambdaAD0Pu := Uq0Pu - (RaPPu + RTfoPu) * Iq0Pu - (LdPPu + XTfoPu) * Id0Pu;
       LambdaAQ0Pu := - Ud0Pu + (RaPPu + RTfoPu) * Id0Pu - (LqPPu + XTfoPu) * Iq0Pu;
       LambdaAirGap0Pu := sqrt(LambdaAD0Pu^2 + LambdaAQ0Pu^2);
 
@@ -346,7 +346,7 @@ package BaseClasses_INIT
 
     // Output variables for external controlers
     UStator0Pu = ComplexMath.'abs' (uStator0Pu);
-    IStator0Pu = rTfoPu * I0Pu *SNom/SystemBase.SnRef;
+    IStator0Pu = rTfoPu * I0Pu * SNom/SystemBase.SnRef;
     QStator0Pu = - ComplexMath.imag(sStator0Pu);
     QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
     IRotor0Pu = RfPPu / (Kuf * rTfoPu) * If0Pu;
@@ -502,7 +502,7 @@ package BaseClasses_INIT
     T4dPu = Tpd   * SystemBase.omegaNom;
     T6dPu = Tppd  * SystemBase.omegaNom;
 
-    LfPu * (MdPu + LdPu) * (T1dPu - T4dPu) = MdPu * ( (MdPu + LdPu) * T4dPu -  LdPu * T1dPu);
+    LfPu * (MdPu + LdPu) * (T1dPu - T4dPu) = MdPu * ( (MdPu + LdPu) * T4dPu - LdPu * T1dPu);
     RfPu * T1dPu = MdPu + LfPu;
 
     LDPu * (MdPu + LfPu) * (T3dPu - T6dPu) = MdPu * LfPu * (T6dPu - T3dPu * (MdPu + LfPu) * LdPu / (MdPu * LdPu + MdPu * LfPu + LdPu * LfPu));

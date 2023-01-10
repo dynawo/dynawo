@@ -54,10 +54,10 @@ equation
   terminal1.i = iPu;
   terminal1.V = uPu;
   UPu = Modelica.ComplexMath.'abs'(uPu);
-  PPu =  (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
-  QPu =  (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
-  PPuSnRef =  (SNom / SystemBase.SnRef) * PPu;
-  QPuSnRef =  (SNom / SystemBase.SnRef) * QPu;
+  PPu = (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
+  QPu = (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
+  PPuSnRef = (SNom / SystemBase.SnRef) * PPu;
+  QPuSnRef = (SNom / SystemBase.SnRef) * QPu;
 
   annotation(preferredView = "text");
 end Measurements;

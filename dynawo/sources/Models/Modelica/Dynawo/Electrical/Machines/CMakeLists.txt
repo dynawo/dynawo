@@ -12,15 +12,13 @@
 
 add_subdirectory(OmegaRef O)
 add_subdirectory(SignalN N)
+add_subdirectory(Simplified S)
 
 set(MODEL_FILES
   package.mo
   package.order
   BaseClasses.mo
   BaseClasses_INIT.mo
-  GeneratorFictitious.mo
-  GeneratorFictitious.extvar
-  GeneratorFictitious_INIT.mo
   SwitchOffGenerator.extvar
   )
 

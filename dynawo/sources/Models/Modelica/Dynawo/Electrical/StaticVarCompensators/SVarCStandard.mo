@@ -26,8 +26,8 @@ model SVarCStandard "Standard static var compensator model"
   extends BaseControls.Parameters.Params_ModeHandling;
   extends BaseControls.Parameters.Params_BlockingFunction;
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
-  final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;
-  final parameter Types.VoltageModule UThresholdDownPu =  UThresholdDown / UNom;
+  final parameter Types.VoltageModule UThresholdUpPu = UThresholdUp / UNom;
+  final parameter Types.VoltageModule UThresholdDownPu = UThresholdDown / UNom;
   final parameter Types.VoltageModule UBlockPu  = UBlock / UNom;
   final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
   final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
@@ -44,19 +44,19 @@ model SVarCStandard "Standard static var compensator model"
 
   InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG"  annotation(
     Placement(visible = true, transformation(origin = {136, -18}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  BaseControls.Regulation regulation(BMaxPu = BMaxPu, BMinPu = BMinPu, BVar0Pu = BVar0Pu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter, Kp = Kp, Lambda = Lambda, SNom = SNom, Ti = Ti)  annotation(
+  BaseControls.Regulation regulation(BMaxPu = BMaxPu, BMinPu = BMinPu, BVar0Pu = BVar0Pu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter, Kp = Kp, Lambda = Lambda, SNom = SNom, Ti = Ti) annotation(
     Placement(visible = true, transformation(origin = {-2, -4}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain PuConversion(k = SystemBase.SnRef / SNom)  annotation(
+  Modelica.Blocks.Math.Gain PuConversion(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-160, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0)  annotation(
+  BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0) annotation(
     Placement(visible = true, transformation(origin = {-91, 77}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-  BaseControls.CalculBG calculBG(BShuntPu = BShuntPu)  annotation(
+  BaseControls.CalculBG calculBG(BShuntPu = BShuntPu) annotation(
     Placement(visible = true, transformation(origin = {66, -16}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
-  BaseControls.BlockingFunction blockingFunction(UBlock = UBlock, UNom = UNom, UUnblockDown = UUnblockDown, UUnblockUp = UUnblockUp)  annotation(
+  BaseControls.BlockingFunction blockingFunction(UBlock = UBlock, UNom = UNom, UUnblockDown = UUnblockDown, UUnblockUp = UUnblockUp) annotation(
     Placement(visible = true, transformation(origin = {-91, 27}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
 
   parameter Types.PerUnit G0Pu "Start value of the conductance in pu (base SNom)";

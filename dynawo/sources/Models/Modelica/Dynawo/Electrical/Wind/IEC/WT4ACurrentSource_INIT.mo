@@ -127,9 +127,9 @@ model WT4ACurrentSource_INIT "Wind Turbine Type 4A model from IEC 61400-27-1 sta
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr(y = Complex(UGsRe0Pu, UGsIm0Pu))  annotation(
+  Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr(y = Complex(UGsRe0Pu, UGsIm0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr1(y = Complex(IGsRe0Pu, IGsIm0Pu))  annotation(
+  Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr1(y = Complex(IGsRe0Pu, IGsIm0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Load flow parameters

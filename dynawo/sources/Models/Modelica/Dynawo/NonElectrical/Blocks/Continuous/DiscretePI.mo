@@ -37,7 +37,7 @@ equation
   connect(pi.y, y) annotation(
     Line(points = {{11, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
 
-  annotation (defaultComponentName="DiscretePI",
+  annotation(defaultComponentName="DiscretePI",
     Documentation(info="<html>
 <p>
 This block is a dynawo-compatible wrapper around Modelica's PI block constrained to discrete inputs. It defines the transfer function between the input u and

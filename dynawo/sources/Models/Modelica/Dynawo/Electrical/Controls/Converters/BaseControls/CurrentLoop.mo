@@ -44,7 +44,7 @@ model CurrentLoop "Current loop control for grid forming and grid following conv
 
   Modelica.Blocks.Math.Gain gaind(k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratord(k = Kic, y_start = RFilter * IdConv0Pu)  annotation(
+  Modelica.Blocks.Continuous.Integrator integratord(k = Kic, y_start = RFilter * IdConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackd annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -68,7 +68,7 @@ model CurrentLoop "Current loop control for grid forming and grid following conv
     Placement(visible = true, transformation(origin = {-20, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add feedbackLwd annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add feedbackLwq(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add feedbackLwq(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addd2 annotation(
     Placement(visible = true, transformation(origin = {90, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

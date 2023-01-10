@@ -42,7 +42,6 @@ model TransformerWithControl "Model of transformer with variable tap, for the No
     P10Pu = P10Pu, Q10Pu = Q10Pu, U10Pu = U10Pu, U1Phase0 = U1Phase0) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
 
-protected
   parameter Types.ActivePowerPu P10Pu;
   parameter Types.ReactivePowerPu Q10Pu;
   parameter Types.VoltageModulePu U10Pu;

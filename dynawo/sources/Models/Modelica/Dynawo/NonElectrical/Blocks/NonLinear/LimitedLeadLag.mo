@@ -29,13 +29,13 @@ block LimitedLeadLag "Simple lead-lag filter, with output limitation"
 
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = K * t1 / t2)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = K * t1 / t2) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     T = t1,
     k = (t1 - t2) / (K * t1), y_start = Y0 * (t1 - t2) / (K * t1)) annotation(
     Placement(visible = true, transformation(origin = {-10, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = YMax, uMin = YMin)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

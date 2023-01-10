@@ -26,9 +26,9 @@ block LimiterWithLag "Limiter that enforces saturations only after they were vio
   parameter Types.Time LagMin "Time lag before taking action when going below uMin";
   parameter Types.Time LagMax "Time lag before taking action when going above uMax";
 
-  Interfaces.RealInput u(start = u0) "Input signal connector" annotation (Placement(
+  Interfaces.RealInput u(start = u0) "Input signal connector" annotation(Placement(
         transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y(start = y0) "Output signal connector" annotation (Placement(
+  Interfaces.RealOutput y(start = y0) "Output signal connector" annotation(Placement(
         transformation(extent={{100,-10},{120,10}})));
 
   discrete Types.Time tUMinReached(start = tUMinReached0) "Last time when u went below EfdMin";
@@ -43,7 +43,7 @@ block LimiterWithLag "Limiter that enforces saturations only after they were vio
   Boolean initSaturatedMax(start = (tUMaxReached0 == - Constants.inf) ) "Whether we start in max saturated mode. Boolean used to prevent the model from resetting tUMaxReached when in saturated mode at the beginning of the simulation";
 
 equation
-  y = if (time - tUMinReached >= LagMin)  then UMin else if (time - tUMaxReached >= LagMax) then UMax else u;
+  y = if (time - tUMinReached >= LagMin) then UMin else if (time - tUMaxReached >= LagMax) then UMax else u;
 
   // Assessing that u is within limits
   when (u < UMin) then

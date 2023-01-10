@@ -58,8 +58,8 @@ protected
   Types.ReactivePowerPu Q2RawPu(start = s20Pu.im) "Reactive power of converter 2 without taking limits into account in pu (base SnRef) (receptor convention)";
 
 equation
-  Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
-  Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
+  Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
+  Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
 
   Q1RawModeUPu = Q1RefPu - QPercent1 * NQ1;
   Q2RawModeUPu = Q2RefPu - QPercent2 * NQ2;

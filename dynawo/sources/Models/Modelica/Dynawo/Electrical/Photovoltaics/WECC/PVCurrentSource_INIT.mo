@@ -48,7 +48,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
   i0Pu = ComplexMath.conj(s0Pu / u0Pu);
   iInj0Pu = - i0Pu * SystemBase.SnRef / SNom;
-  uInj0Pu = u0Pu -  Complex(RPu, XPu) * i0Pu;
+  uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);

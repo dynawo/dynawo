@@ -22,7 +22,7 @@ model LeadMOrderLag "Lead-lag filter with M poles"
   parameter Integer M = 1 "Lag Order";
   parameter Types.Time t1 "Lead time constant";
   parameter Types.Time t2 "Lag time constant";
-  parameter Real Y0 = 0 "Initial or guess value of output" annotation (
+  parameter Real Y0 = 0 "Initial or guess value of output" annotation(
   Dialog(group="Initialization"));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrderCascade[max(0, M-1)](each T = t2, each k = 1, each y_start = Y0) if M > 1 annotation(
