@@ -36,7 +36,7 @@ model SVarCModeChange
     Placement(visible = true, transformation(origin = {-90, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.IntegerStep integerStep1(height = 2, offset = 0, startTime = 4) annotation(
     Placement(visible = true, transformation(origin = {-124, -66}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadPQ loadPQ()     annotation(
+  Dynawo.Electrical.Loads.LoadPQ loadPQ annotation(
     Placement(visible = true, transformation(origin = {0, -22}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRefPu(height = 0, offset = 0, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -84,6 +84,6 @@ equation
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=BFSBExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
   Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
- Documentation(info = "<html><head></head><body>This test case simulates variations of modes.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230kV is realised at t=1s.&nbsp;</div><div>The SVarC is then turned in manual mode from  t=0.5s to t=5s,  switched off from t=3s to t=4s and switched back on from t=4s.&nbsp;
+ Documentation(info = "<html><head></head><body>This test case simulates variations of modes.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230kV is realised at t=1s.&nbsp;</div><div>The SVarC is then turned in manual mode from  t=0.5s to t=5s, switched off from t=3s to t=4s and switched back on from t=4s.&nbsp;
 </div><div>The user variables enabling to simulate this scenario are selectModeAuto and setMode.</div></body></html>"));
 end SVarCModeChange;

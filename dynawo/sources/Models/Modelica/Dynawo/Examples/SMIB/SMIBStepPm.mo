@@ -15,13 +15,13 @@ within Dynawo.Examples.SMIB;
 model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
   import Dynawo;
   extends Icons.Example;
-  Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 0.90081)  annotation(
+  Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 0.90081) annotation(
     Placement(visible = true, transformation(origin = {-92, 0}, extent = {{-16, -16}, {16, 16}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.022522)  annotation(
+  Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.022522) annotation(
     Placement(visible = true, transformation(origin = {-32, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Lines.Line line2(BPu = 0, GPu = 0, RPu = 0, XPu = 0.04189)  annotation(
+  Dynawo.Electrical.Lines.Line line2(BPu = 0, GPu = 0, RPu = 0, XPu = 0.04189) annotation(
     Placement(visible = true, transformation(origin = {-32, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0, XPu = 0.00675, rTfoPu = 1)  annotation(
+  Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0, XPu = 0.00675, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {36, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous generatorSynchronous(
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
@@ -59,7 +59,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
     Ud0Pu = 0.65654, Uf0Pu = 0.00109, Uq0Pu = 0.75434,
     MdSat0PPu = 1.5792, MqSat0PPu = 1.5292, LambdaAQ0Pu = -0.60044, LambdaAD0Pu = 0.89347, Mi0Pu = 1.5637, LambdaAirGap0Pu = 1.0764,
     Sin2Eta0 = 0.31111, Cos2Eta0 = 0.68888, Mds0Pu = 1.5785, Mqs0Pu = 1.5309,
-    md = 0.031, mq = 0.031, nd = 6.93, nq = 6.93, MsalPu = 0.05)  annotation(
+    md = 0.031, mq = 0.031, nd = 6.93, nq = 6.93, MsalPu = 0.05) annotation(
     Placement(visible = true, transformation(origin = {82, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
@@ -97,7 +97,7 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     //__OpenModelica_commandLineOptions = "--daeMode",
-    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol",  s = "ida", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
+    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
     This test case represents a 2220 MWA synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a 0.02 pu step variation on the generator mechanical power Pm occurring at t=1s.
     </div><div><br></div><div>The two following figures show the expected evolution of the generator's voltage and active power during the simulation.

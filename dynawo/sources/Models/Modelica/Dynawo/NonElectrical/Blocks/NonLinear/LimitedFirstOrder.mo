@@ -23,7 +23,7 @@ block LimitedFirstOrder "First-order filter with non-windup limiter"
   parameter Real YMax "Upper limits of output signal";
   parameter Real YMin = -YMax "Lower limits of output signal";
 
-  Modelica.Blocks.Nonlinear.Limiter lim(limitsAtInit = true, uMax = YMax, uMin = YMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter lim(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {52, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-56, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

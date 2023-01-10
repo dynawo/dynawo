@@ -26,6 +26,10 @@ block MultiSwitch "Switch between N Real signals"
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+  assert(f + 1 <= nu, "MultiSwitch: Inputs must be consistent. However, there are not enough inputs connected :
+    f + 1 (= " + String(f + 1) + ") > nu (= " + String(nu) + ")");
+  assert(f >= 0, "MultiSwitch: f must be positive. However, f = " + String(f));
+
   y = u[f+1];
 
   annotation(

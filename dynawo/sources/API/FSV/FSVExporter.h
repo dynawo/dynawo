@@ -28,6 +28,11 @@
 
 namespace finalStateValues {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class Exporter
  * @brief Exporter interface class
@@ -36,6 +41,11 @@ namespace finalStateValues {
  */
 class Exporter {
  public:
+  /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() = default;
+
   /**
    * @brief Export method for this exporter
    *

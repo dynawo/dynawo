@@ -19,7 +19,7 @@ model ActivePowerControlDangling "Active power control for the HVDC VSC model wi
 
   extends HVDC.HvdcVSC.BaseControls.ActivePowerControl.BaseActivePowerControl;
 
-  Modelica.Blocks.Sources.Constant zero1(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant zero1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

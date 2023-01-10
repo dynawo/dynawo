@@ -56,23 +56,23 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
 
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tw1, k = tw1, x_start = SystemBase.omega0Pu)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(T = tw1, k = tw1, x_start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative1(T = tw2, k = tw2)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivative1(T = tw2, k = tw2) annotation(
     Placement(visible = true, transformation(origin = {-90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative2(T = tw3, k = tw3, x_start = PGen0Pu * SystemBase.SnRef / SNom)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivative2(T = tw3, k = tw3, x_start = PGen0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative3(T = tw4, k = tw4)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivative3(T = tw4, k = tw4) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t6)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t6) annotation(
     Placement(visible = true, transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t7, k = Ks2)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t7, k = Ks2) annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = Ks3)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = Ks3) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain gain1(k = Ks1)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = Ks1) annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VstMaxPu, uMin = VstMinPu) annotation(
     Placement(visible = true, transformation(origin = {210, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,13 +80,13 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
     Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = Vsi2MaxPu, uMin = Vsi2MinPu) annotation(
     Placement(visible = true, transformation(origin = {-170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RampTrackingFilter rampTrackingFilter(M = 5, t1 = t8, t2 = t9)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RampTrackingFilter rampTrackingFilter(M = 5, t1 = t8, t2 = t9) annotation(
     Placement(visible = true, transformation(origin = {30, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {t11, 1}, b = {t10, 1})  annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {t11, 1}, b = {t10, 1}) annotation(
     Placement(visible = true, transformation(origin = {170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction2(a = {t4, 1}, b = {t3, 1})  annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction2(a = {t4, 1}, b = {t3, 1}) annotation(
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction3(a = {t2, 1}, b = {t1, 1})  annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction3(a = {t2, 1}, b = {t1, 1}) annotation(
     Placement(visible = true, transformation(origin = {150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-210, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

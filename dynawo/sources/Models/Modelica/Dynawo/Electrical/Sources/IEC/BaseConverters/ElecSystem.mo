@@ -17,8 +17,8 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
 /*
   Equivalent circuit and conventions:
 
-            iGsPu   fOCB                          iWtPu
-   (terminal1) -->---/ ---------ResPu+jXesPu------->-- (terminal2)
+            iGsPu                                 iWtPu
+   (terminal1) -->--------------ResPu+jXesPu------->-- (terminal2)
                             |
                       GesPu+jBesPu
                             |
@@ -47,10 +47,6 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
         Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
         Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  //Input variable
-  Modelica.Blocks.Interfaces.BooleanInput fOCB(start = true) "Breaker position, true if closed, false if open" annotation(
-        Placement(visible = true, transformation(origin = {0, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput uWtRePu(start = u0Pu.re) "Real component of the voltage at grid terminal in pu (base UNom)" annotation(
@@ -90,19 +86,12 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
 equation
   Complex(uGsRePu, uGsImPu) = terminal1.V;
   Complex(uWtRePu, uWtImPu) = terminal2.V;
+  Complex(iGsRePu, iGsImPu) = terminal1.i * (SystemBase.SnRef / SNom);
   Complex(iWtRePu, iWtImPu) = -terminal2.i * (SystemBase.SnRef / SNom);
   Complex(uWtRePu, uWtImPu) = Complex(uGsRePu, uGsImPu) - Complex(ResPu, XesPu) * Complex(iWtRePu, iWtImPu);
   Complex(iGsRePu, iGsImPu) = Complex(iWtRePu, iWtImPu) + Complex(GesPu, BesPu) * Complex(uGsRePu, uGsImPu);
   UGsPu = Modelica.ComplexMath.'abs'(terminal1.V);
-
-  if fOCB then
-    Complex(iGsRePu, iGsImPu) = terminal1.i * (SystemBase.SnRef / SNom);
-    IGsPu = Modelica.ComplexMath.'abs'(terminal1.i) * (SystemBase.SnRef / SNom);
-  else
-    iGsRePu = 0;
-    iGsImPu = 0;
-    IGsPu = 0;
-  end if;
+  IGsPu = Modelica.ComplexMath.'abs'(terminal1.i) * (SystemBase.SnRef / SNom);
 
   annotation(
     preferredView = "text",

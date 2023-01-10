@@ -73,7 +73,7 @@ model WT4Ainjector "Converter model and grid interface according to IEC N°61400
 
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 1e-10)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 1e-10) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -147,8 +147,6 @@ equation
     Line(points = {{22, -80}, {40, -80}, {40, -86}, {58, -86}}, color = {0, 0, 127}));
   connect(elecSystem.uWtImPu, realToComplex1.im) annotation(
     Line(points = {{26, -22}, {26, -74}, {58, -74}}, color = {0, 0, 127}));
-  connect(fOCB, elecSystem.fOCB) annotation(
-    Line(points = {{40, 110}, {40, 22}}, color = {255, 0, 255}));
   connect(fOCB, genSystem.fOCB) annotation(
     Line(points = {{40, 110}, {40, 60}, {-32, 60}, {-32, 22}}, color = {255, 0, 255}));
 
