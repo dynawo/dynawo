@@ -106,7 +106,6 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
     stdcxx::Properties properties;
-    properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ImportOptions options(properties);
 
     std::string extensionsPaths = getMandatoryEnvVar("DYNAWO_LIBIIDM_EXTENSIONS");
