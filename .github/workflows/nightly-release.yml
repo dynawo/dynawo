@@ -35,7 +35,7 @@ jobs:
 
       - name: Prepare files for distribution
         run: |
-          export DYNAWO_HOME=$(pwd)
+          export DYNAWO_HOME=$(pwd)y-release based on last commit in v${DYNAW
           util/envDynawo.sh distrib
           util/envDynawo.sh distrib-omc
           util/envDynawo.sh distrib-headers
@@ -126,7 +126,7 @@ jobs:
             --data '{
                 "tag_name" : "nightly-release",
                 "target_commitish" : "'$MASTER_COMMIT_ID'",
-                "name" : "Nightly v${DYNAWO_VERSION}",
+                "name" : "Nightly "'v${DYNAWO_VERSION}'",
                 "body" : "Dynawo'"'"'s nightly release. Compiled on *release* settings.\n\n**Don'"'"'t use it for production**",
                 "draft" : false,
                 "prerelease" : true
