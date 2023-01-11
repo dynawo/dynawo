@@ -34,7 +34,7 @@ import psutil
 def get_last_child_pid(pid):
     p = psutil.Process(pid)
     child_pid = pid
-    for process in p.get_children (recursive=True):
+    for process in p.children (recursive=True):
         print(" process :" + str(process) + " pid =" + str(process.pid))
         child_pid = process.pid
     return child_pid
@@ -44,7 +44,7 @@ def get_last_child_pid(pid):
 # @param proc_pid : the id of the parent process
 def kill_subprocess(proc_pid):
     process = psutil.Process(proc_pid)
-    for proc in process.get_children(recursive=True):
+    for proc in process.children(recursive=True):
         proc.kill()
     process.kill()
 
