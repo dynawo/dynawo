@@ -1857,4 +1857,45 @@ TEST(DataInterfaceIIDMTest, testMultiThreading) {
   ASSERT_EQ(load.getP0(), 2.0);
   ASSERT_EQ(load.getQ0(), 4.0);
 }
+
+TEST(DataInterfaceIIDMTest, testFindLostEquipments) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      true /*instantiateGenerator*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      true /*instantiateLoad*/,
+      true /*instantiateSwitch*/,
+      false /*instantiateVscConverter*/,
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
+  };
+
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
+
+  boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > > connectedComponents = data->findConnectedComponents();
+  ASSERT_EQ(connectedComponents->size(), 3);
+  boost::shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = data->findLostEquipments(connectedComponents);
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
+
+  boost::shared_ptr<GeneratorInterfaceIIDM> gen = boost::dynamic_pointer_cast<GeneratorInterfaceIIDM>(data->findComponent("MyGenerator"));
+  powsybl::iidm::Generator& genIIDM = network.getGenerator("MyGenerator");
+  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_FALSE(genIIDM.getTerminal().isConnected());
+
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  ASSERT_TRUE(lostEquipments->cbegin() != lostEquipments->cend());
+  lostEquipments::LostEquipmentsCollection::LostEquipmentsCollectionConstIterator itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+  connectedComponents = data->findConnectedComponents();
+  ASSERT_EQ(connectedComponents->size(), 2);
+}
 }  // namespace DYN
