@@ -61,6 +61,7 @@
 #include <powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp>
 
 #include <regex>
+#include <unordered_set>
 
 #include <boost/dll/shared_library.hpp>
 #include <boost/algorithm/string.hpp>
@@ -679,6 +680,7 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
     }
     network_->addTwoWTransformer(fictTwoWTransf);
     components_[fictTwoWTransf->getID()] = fictTwoWTransf;
+    fict2wtIDto3wtID_.insert({fictTwoWTransf->getID(), ThreeWindingTransformer.getId()});
     legCount++;
   }
   return;
@@ -967,10 +969,20 @@ const shared_ptr<lostEquipments::LostEquipmentsCollection>
 DataInterfaceIIDM::findLostEquipments(const shared_ptr<vector<shared_ptr<ComponentInterface> > >& connectedComponents) {
   auto lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   if (connectedComponents) {
+    std::unordered_set<std::string> alreadyLost3wt;
     for (const auto& component : *connectedComponents) {
       auto lost = !component->isPartiallyConnected();  // from connected to not connected (not even partially)
       if (lost) {
-        lostEquipments->addLostEquipment(component->getID(), component->getTypeAsString());
+        std::string componentID = component->getID();
+        if (component->getType() == ComponentInterface::ComponentType_t::TWO_WTFO &&
+            fict2wtIDto3wtID_.find(componentID) != fict2wtIDto3wtID_.end()) {
+          if (alreadyLost3wt.find(fict2wtIDto3wtID_[componentID]) == alreadyLost3wt.end()) {
+            lostEquipments->addLostEquipment(fict2wtIDto3wtID_[componentID], "THREE_WINDINGS_TRANSFORMER");
+            alreadyLost3wt.insert(fict2wtIDto3wtID_[componentID]);
+          }
+        } else {
+          lostEquipments->addLostEquipment(componentID, component->getTypeAsString());
+        }
       }
     }
   }
