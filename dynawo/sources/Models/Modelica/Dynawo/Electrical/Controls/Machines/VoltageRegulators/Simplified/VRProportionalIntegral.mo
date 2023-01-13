@@ -61,7 +61,7 @@ model VRProportionalIntegral "Proportional integral voltage regulator, keeps mac
   Modelica.Blocks.Math.Add UsRefTotal annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.VoltageModulePu Efd0Pu "Initial exciter field voltage in pu (user-selected voltage)";
+  parameter Types.VoltageModulePu Efd0Pu "Initial exciter field voltage in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
   parameter Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
   parameter Types.VoltageModulePu yIntegrator0 "Initial integrator output in pu (user-selected base voltage)";

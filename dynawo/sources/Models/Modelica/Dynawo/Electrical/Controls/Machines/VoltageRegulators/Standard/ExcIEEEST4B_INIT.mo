@@ -21,11 +21,11 @@ model ExcIEEEST4B_INIT "IEEE exciter type ST4B initialization model"
   extends AdditionalIcons.Init;
 
   //Regulation parameters
-  parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance (>= 0). Typical value = 0,113";
+  parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance (>= 0). Typical value = 0.113";
   parameter Types.PerUnit Ki "Potential circuit gain coefficient applied to Real part of complex stator current (>= 0). Typical value = 0";
-  parameter Types.PerUnit Kp "Potential circuit gain coefficient. Typical value = 9,3";
+  parameter Types.PerUnit Kp "Potential circuit gain coefficient. Typical value = 9.3";
   parameter Types.Angle Thetap "Potential circuit phase angle. Typical value = 0";
-  parameter Types.PerUnit XlPu "Reactance associated with potential source (>= 0) in pu (base SNom, UNom). Typical value = 0,124";
+  parameter Types.PerUnit XlPu "Reactance associated with potential source (>= 0) in pu (base SNom, UNom). Typical value = 0.124";
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput Ifd0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)" annotation(

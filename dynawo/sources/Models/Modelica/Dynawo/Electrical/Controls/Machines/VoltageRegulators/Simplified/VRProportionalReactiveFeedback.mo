@@ -71,7 +71,7 @@ model VRProportionalReactiveFeedback
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Here, UsMin and UsMax do not play a symmetric role, to be checked
 
-  parameter Types.VoltageModulePu Efd0Pu "Initial exciter field voltage in pu (user-selected voltage)";
+  parameter Types.VoltageModulePu Efd0Pu "Initial exciter field voltage in pu (user-selected base voltage)";
   parameter Types.ReactivePowerPu Qs0Pu "Initial stator reactive power in pu (base QNom)";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
   parameter Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";

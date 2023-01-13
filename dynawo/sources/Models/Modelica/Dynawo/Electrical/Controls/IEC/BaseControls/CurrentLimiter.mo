@@ -24,7 +24,7 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //Current limiter parameters
-  parameter Types.CurrentModulePu IMaxPu "Maximum current module at converter terminal in pu (base UNom, SNom)"  annotation(
+  parameter Types.CurrentModulePu IMaxPu "Maximum current module at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
   parameter Types.CurrentModulePu IMaxDipPu "Maximum current module during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));

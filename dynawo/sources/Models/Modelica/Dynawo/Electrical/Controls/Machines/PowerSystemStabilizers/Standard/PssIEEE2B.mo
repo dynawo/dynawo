@@ -20,17 +20,17 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
 
   //Regulation parameters
   parameter Types.PerUnit Ks1 "Stabilizer gain. Typical value = 12";
-  parameter Types.PerUnit Ks2 "Gain on signal #2. Typical value = 0,2";
+  parameter Types.PerUnit Ks2 "Gain on signal #2. Typical value = 0.2";
   parameter Types.PerUnit Ks3 "Gain on signal #2 input before ramp-tracking filter. Typical value = 1";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  parameter Types.Time t1 "Lead time constant of first lead/lag in s (>= 0). Typical value = 0,12";
-  parameter Types.Time t2 "Lag time constant of first lead/lag in s (>= 0). Typical value = 0,02";
-  parameter Types.Time t3 "Lead time constant of second lead/lag in s (>= 0). Typical value = 0,3";
-  parameter Types.Time t4 "Lag time constant of second lead/lag in s (>= 0). Typical value = 0,02";
+  parameter Types.Time t1 "Lead time constant of first lead/lag in s (>= 0). Typical value = 0.12";
+  parameter Types.Time t2 "Lag time constant of first lead/lag in s (>= 0). Typical value = 0.02";
+  parameter Types.Time t3 "Lead time constant of second lead/lag in s (>= 0). Typical value = 0.3";
+  parameter Types.Time t4 "Lag time constant of second lead/lag in s (>= 0). Typical value = 0.02";
   parameter Types.Time t6 "Time constant on signal #1 in s (>= 0). Typical value = 0";
   parameter Types.Time t7 "Time constant on signal #2 in s (>= 0). Typical value = 2";
-  parameter Types.Time t8 "Lead time constant of ramp tracking filter in s (>= 0). Typical value = 0,2";
-  parameter Types.Time t9 "Lag time constant of ramp tracking filter in s (>= 0). Typical value = 0,1";
+  parameter Types.Time t8 "Lead time constant of ramp tracking filter in s (>= 0). Typical value = 0.2";
+  parameter Types.Time t9 "Lag time constant of ramp tracking filter in s (>= 0). Typical value = 0.1";
   parameter Types.Time t10 "Lead time constant of third lead/lag in s (>= 0). Typical value = 0";
   parameter Types.Time t11 "Lag time constant of third lead/lag in s (>= 0). Typical value = 0";
   parameter Types.Time tw1 "First washout on signal #1 in s (>= 0). Typical value = 2";
@@ -41,8 +41,8 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
   parameter Types.VoltageModulePu Vsi1MinPu "Input signal #1 minimum limit in pu (base UNom) (< vsi1max). Typical value = -2";
   parameter Types.VoltageModulePu Vsi2MaxPu "Input signal #2 maximum limit in pu (base UNom) (> vsi2min). Typical value = 2";
   parameter Types.VoltageModulePu Vsi2MinPu "Input signal #2 minimum limit in pu (base UNom) (< vsi2max). Typical value = -2";
-  parameter Types.VoltageModulePu VstMaxPu "Stabilizer output maximum limit in pu (base UNom) (> vstmin). Typical value = 0,1";
-  parameter Types.VoltageModulePu VstMinPu "Stabilizer output minimum limit in pu (base UNom) (< vstmax). Typical value = -0,1";
+  parameter Types.VoltageModulePu VstMaxPu "Stabilizer output maximum limit in pu (base UNom) (> vstmin). Typical value = 0.1";
+  parameter Types.VoltageModulePu VstMinPu "Stabilizer output minimum limit in pu (base UNom) (< vstmax). Typical value = -0.1";
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) (generator convention)" annotation(

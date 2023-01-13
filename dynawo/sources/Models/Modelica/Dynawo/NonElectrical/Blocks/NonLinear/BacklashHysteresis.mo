@@ -33,7 +33,7 @@ equation
   when der(u) < -Tolerance and u >= UHigh then
     h = true;
     aux = u - UHigh;
-  elsewhen der(u) > Tolerance  and u <= ULow then
+  elsewhen der(u) > Tolerance and u <= ULow then
     h = false;
     aux = u - ULow;
   end when;
