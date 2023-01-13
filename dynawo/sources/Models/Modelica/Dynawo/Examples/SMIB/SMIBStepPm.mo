@@ -14,7 +14,9 @@ within Dynawo.Examples.SMIB;
 
 model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
   import Dynawo;
+
   extends Icons.Example;
+
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 0.90081) annotation(
     Placement(visible = true, transformation(origin = {-92, 0}, extent = {{-16, -16}, {16, 16}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.022522) annotation(
@@ -64,6 +66,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.4659);
+
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;
   der(generatorSynchronous.lambdaDPu) = 0;
@@ -71,6 +74,7 @@ initial equation
   der(generatorSynchronous.lambdaQ2Pu) = 0;
   der(generatorSynchronous.theta) = 0;
   der(generatorSynchronous.omegaPu.value) = 0;
+
 equation
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{56, 0}, {82, 0}}, color = {0, 0, 255}));
@@ -85,6 +89,7 @@ equation
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
   connect(generatorSynchronous.PmPu, PmPu.step);
   connect(generatorSynchronous.efdPu, EfdPu.setPoint);
+
   line1.switchOffSignal1.value = false;
   line1.switchOffSignal2.value = false;
   line2.switchOffSignal1.value = false;
@@ -94,12 +99,13 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
+
   annotation(
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     //__OpenModelica_commandLineOptions = "--daeMode",
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-    This test case represents a 2220 MWA synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a 0.02 pu step variation on the generator mechanical power Pm occurring at t=1s.
+    This test case represents a 2220 MWA synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a 0.02 pu step variation on the generator mechanical power Pm occurring at t = 1 s.
     </div><div><br></div><div>The two following figures show the expected evolution of the generator's voltage and active power during the simulation.
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/PGen.png\">

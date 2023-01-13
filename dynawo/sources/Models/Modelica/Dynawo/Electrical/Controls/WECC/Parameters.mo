@@ -112,8 +112,8 @@ record Parameters "Parameters of the PV WECC model"
   end Params_VSourceRef;
 
   record Params_DriveTrain
-    parameter Types.Time Ht "Turbine Inertia in s (typical: 5s)";
-    parameter Types.Time Hg "Generator Inertia in s (typical: 1s)";
+    parameter Types.Time Ht "Turbine Inertia in s (typical: 5 s)";
+    parameter Types.Time Hg "Generator Inertia in s (typical: 1 s)";
     parameter Types.PerUnit Dshaft "Damping coefficient in pu (typical: 1.5 pu, base SNom, omegaNom)";
     parameter Types.PerUnit Kshaft "Spring constant in pu (typical: 200 pu, base SNom, omegaNom)";
   end Params_DriveTrain;
