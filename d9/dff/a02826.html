@@ -98,6 +98,7 @@ $(document).ready(function(){initNavTree('d9/dff/a02826.html','../../');});
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../df/d37/a02823.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -160,6 +161,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5d130cd4fc40090e0f65f790e4741def"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a5d130cd4fc40090e0f65f790e4741def">criteriaEligibleForLoad</a> (const boost::shared_ptr&lt; <a class="el" href="../../d4/d99/a01634.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
 <tr class="memdesc:a5d130cd4fc40090e0f65f790e4741def"><td class="mdescLeft">&#160;</td><td class="mdescRight">check that this criteria can be applied to loads  <a href="#a5d130cd4fc40090e0f65f790e4741def">More...</a><br /></td></tr>
 <tr class="separator:a5d130cd4fc40090e0f65f790e4741def"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a7fbbc35aa6dada4c47daf029bd7fda18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a7fbbc35aa6dada4c47daf029bd7fda18">checkCriteriaInLocalValueOrSumType</a> (double t, boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">DYN::LoadInterface</a> &gt; load, double loadActivePower, std::multimap&lt; double, boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">LoadInterface</a> &gt; &gt; &amp;loadToSourcesAddedIntoSumMap, std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../df/d11/a02814.html">FailingCriteria</a> &gt; &gt; &amp;distanceToLoadFailingCriteriaMap, std::unordered_set&lt; std::string &gt; &amp;alreadyChecked, bool &amp;isCriteriaOk, double &amp;sum, bool &amp;atLeastOneEligibleLoadWasFound)</td></tr>
+<tr class="memdesc:a7fbbc35aa6dada4c47daf029bd7fda18"><td class="mdescLeft">&#160;</td><td class="mdescRight">check criteria in type LOCAL_VALUE or SUM  <a href="#a7fbbc35aa6dada4c47daf029bd7fda18">More...</a><br /></td></tr>
+<tr class="separator:a7fbbc35aa6dada4c47daf029bd7fda18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -309,6 +316,100 @@ std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class=
 
 </div>
 </div>
+<a id="a7fbbc35aa6dada4c47daf029bd7fda18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fbbc35aa6dada4c47daf029bd7fda18">&#9670;&nbsp;</a></span>checkCriteriaInLocalValueOrSumType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::LoadCriteria::checkCriteriaInLocalValueOrSumType </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">DYN::LoadInterface</a> &gt;&#160;</td>
+          <td class="paramname"><em>load</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>loadActivePower</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; double, boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">LoadInterface</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>loadToSourcesAddedIntoSumMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../df/d11/a02814.html">FailingCriteria</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>distanceToLoadFailingCriteriaMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_set&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>alreadyChecked</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isCriteriaOk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>sum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>atLeastOneEligibleLoadWasFound</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check criteria in type LOCAL_VALUE or SUM </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time of the simulation </td></tr>
+    <tr><td class="paramname">load</td><td>load to check </td></tr>
+    <tr><td class="paramname">loadActivePower</td><td>active power of the load to check </td></tr>
+    <tr><td class="paramname">loadToSourcesAddedIntoSumMap</td><td>map associating active power to the related load </td></tr>
+    <tr><td class="paramname">distanceToLoadFailingCriteriaMap</td><td>map associating the distance between active power and the crossed bound, and the related load </td></tr>
+    <tr><td class="paramname">alreadyChecked</td><td>set containing the loads already checked to not check them several times </td></tr>
+    <tr><td class="paramname">isCriteriaOk</td><td>true if criteria is ok, false otherwise </td></tr>
+    <tr><td class="paramname">sum</td><td>sum of network loads active powers </td></tr>
+    <tr><td class="paramname">atLeastOneEligibleLoadWasFound</td><td>true if there is at least one load to calculate the sum of network loads active powers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a5d130cd4fc40090e0f65f790e4741def"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d130cd4fc40090e0f65f790e4741def">&#9670;&nbsp;</a></span>criteriaEligibleForLoad()</h2>
 
@@ -392,7 +493,7 @@ std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class=
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dff/a02826.html">LoadCriteria</a></li>
-    <li class="footer">Generated on Wed Jan 11 2023 12:46:13 for Dynawo by
+    <li class="footer">Generated on Fri Jan 13 2023 09:16:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

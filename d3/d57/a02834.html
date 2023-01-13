@@ -97,6 +97,7 @@ $(document).ready(function(){initNavTree('d3/d57/a02834.html','../../');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d0/d82/a02831.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -153,6 +154,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c72a09196491c85c08ee93658976b46"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d57/a02834.html#a5c72a09196491c85c08ee93658976b46">criteriaEligibleForGenerator</a> (const boost::shared_ptr&lt; <a class="el" href="../../d4/d99/a01634.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
 <tr class="memdesc:a5c72a09196491c85c08ee93658976b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">check that this criteria can be applied to generators  <a href="#a5c72a09196491c85c08ee93658976b46">More...</a><br /></td></tr>
 <tr class="separator:a5c72a09196491c85c08ee93658976b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a3d829c73176822e6a3db635dcc769ede"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d57/a02834.html#a3d829c73176822e6a3db635dcc769ede">checkCriteriaInLocalValueOrSumType</a> (double t, boost::shared_ptr&lt; <a class="el" href="../../d0/dee/a02870.html">DYN::GeneratorInterface</a> &gt; generator, double generatorActivePower, std::multimap&lt; double, boost::shared_ptr&lt; <a class="el" href="../../d0/dee/a02870.html">GeneratorInterface</a> &gt; &gt; &amp;generatorToSourcesAddedIntoSumMap, std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../df/d11/a02814.html">FailingCriteria</a> &gt; &gt; &amp;distanceToGeneratorFailingCriteriaMap, std::unordered_set&lt; std::string &gt; &amp;alreadyChecked, bool &amp;isCriteriaOk, double &amp;sum, bool &amp;atLeastOneEligibleGeneratorWasFound)</td></tr>
+<tr class="memdesc:a3d829c73176822e6a3db635dcc769ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">check criteria in type LOCAL_VALUE or SUM  <a href="#a3d829c73176822e6a3db635dcc769ede">More...</a><br /></td></tr>
+<tr class="separator:a3d829c73176822e6a3db635dcc769ede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -302,6 +309,100 @@ std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class=
 
 </div>
 </div>
+<a id="a3d829c73176822e6a3db635dcc769ede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d829c73176822e6a3db635dcc769ede">&#9670;&nbsp;</a></span>checkCriteriaInLocalValueOrSumType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::GeneratorCriteria::checkCriteriaInLocalValueOrSumType </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d0/dee/a02870.html">DYN::GeneratorInterface</a> &gt;&#160;</td>
+          <td class="paramname"><em>generator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>generatorActivePower</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; double, boost::shared_ptr&lt; <a class="el" href="../../d0/dee/a02870.html">GeneratorInterface</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>generatorToSourcesAddedIntoSumMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../df/d11/a02814.html">FailingCriteria</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>distanceToGeneratorFailingCriteriaMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_set&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>alreadyChecked</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isCriteriaOk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>sum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>atLeastOneEligibleGeneratorWasFound</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check criteria in type LOCAL_VALUE or SUM </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>current time of the simulation </td></tr>
+    <tr><td class="paramname">generator</td><td>generator to check </td></tr>
+    <tr><td class="paramname">generatorActivePower</td><td>active power of the generator to check </td></tr>
+    <tr><td class="paramname">generatorToSourcesAddedIntoSumMap</td><td>map associating active power to the related generator </td></tr>
+    <tr><td class="paramname">distanceToGeneratorFailingCriteriaMap</td><td>map associating the distance between active power and the crossed bound, and the related generator </td></tr>
+    <tr><td class="paramname">alreadyChecked</td><td>set containing the generators already checked to not check them several times </td></tr>
+    <tr><td class="paramname">isCriteriaOk</td><td>true if criteria is ok, false otherwise </td></tr>
+    <tr><td class="paramname">sum</td><td>sum of network generators active powers </td></tr>
+    <tr><td class="paramname">atLeastOneEligibleGeneratorWasFound</td><td>true if there is at least one generator to calculate the sum of network generators active powers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a5c72a09196491c85c08ee93658976b46"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c72a09196491c85c08ee93658976b46">&#9670;&nbsp;</a></span>criteriaEligibleForGenerator()</h2>
 
@@ -385,7 +486,7 @@ std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class=
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d57/a02834.html">GeneratorCriteria</a></li>
-    <li class="footer">Generated on Wed Jan 11 2023 12:46:12 for Dynawo by
+    <li class="footer">Generated on Fri Jan 13 2023 09:16:20 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
