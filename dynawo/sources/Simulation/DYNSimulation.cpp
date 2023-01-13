@@ -1029,7 +1029,13 @@ Simulation::simulate() {
     bool staticModelWellInitialized = true;
     if (e.key() == DYN::KeyError_t::StateVariableNoReference)
       staticModelWellInitialized = false;
-    endSimulationWithError(criteriaChecked && staticModelWellInitialized);
+    if (e.type() == DYN::Error::SOLVER_ALGO ||
+        e.type() == DYN::Error::SUNDIALS_ERROR ||
+        e.type() == DYN::Error::NUMERICAL_ERROR) {
+      endSimulationWithError(criteriaChecked && staticModelWellInitialized, true);
+    } else {
+      endSimulationWithError(criteriaChecked && staticModelWellInitialized);
+    }
     throw;
   } catch (...) {
     endSimulationWithError(criteriaChecked);
@@ -1045,7 +1051,7 @@ Simulation::hasIntermediateStateToDump() const {
 }
 
 void
-Simulation::endSimulationWithError(bool criteria) {
+Simulation::endSimulationWithError(bool criteria, bool isSimulationDiverging) {
   if (timetableOutputFile_ != "")
     remove(timetableOutputFile_);
   if (criteria && data_ && activateCriteria_) {
@@ -1054,7 +1060,9 @@ Simulation::endSimulationWithError(bool criteria) {
       if (timeline_) {
         addEvent(DYNTimeline(CriteriaNotChecked));
       }
-      throw DYNError(Error::SIMULATION, CriteriaNotChecked);
+      if (!isSimulationDiverging) {
+        throw DYNError(Error::SIMULATION, CriteriaNotChecked);
+      }
     }
   }
 }
