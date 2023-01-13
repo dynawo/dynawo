@@ -103,9 +103,11 @@ class Criteria {
     /**
      * @brief print the failing criteria log in the timeline file
      * @param timeline timeline
+     * @param failingCriteria list of failing criteria
      * @param currentTime current simulation time
      */
     virtual void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                                      std::vector<std::pair<double, std::string> >& failingCriteria,
                                                       double currentTime) const = 0;
 
    protected:
@@ -123,7 +125,7 @@ class Criteria {
    */
   void printAllFailingCriteriaIntoLog(std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToFailingCriteriaMap,
                                       const boost::shared_ptr<timeline::Timeline>& timeline,
-                                      double currentTime) const;
+                                      double currentTime);
 
   const boost::shared_ptr<criteria::CriteriaParams>& params_;  ///< parameters of this criteria
   std::vector<std::pair<double, std::string> > failingCriteria_;  ///< keeps the ids of the failing criteria
@@ -211,9 +213,11 @@ class BusCriteria : public Criteria {
     /**
      * @brief print the failing criteria log in the timeline file
      * @param timeline timeline
+     * @param failingCriteria array containing the failing criteria messages
      * @param currentTime current simulation time
      */
     void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                              std::vector<std::pair<double, std::string> >& failingCriteria,
                                               double currentTime) const override;
 
    private:
@@ -306,9 +310,11 @@ class LoadCriteria : public Criteria {
     /**
      * @brief print the failing criteria log in the timeline file
      * @param timeline timeline
+     * @param failingCriteria array containing the failing criteria messages
      * @param currentTime current simulation time
      */
     void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                              std::vector<std::pair<double, std::string> >& failingCriteria,
                                               double currentTime) const override;
 
    private:
@@ -320,7 +326,6 @@ class LoadCriteria : public Criteria {
   /**
    * @brief check criteria in type LOCAL_VALUE or SUM
    *
-   * @param t current time of the simulation
    * @param load load to check
    * @param loadActivePower active power of the load to check
    * @param loadToSourcesAddedIntoSumMap map associating active power to the related load
@@ -330,8 +335,7 @@ class LoadCriteria : public Criteria {
    * @param sum sum of network loads active powers
    * @param atLeastOneEligibleLoadWasFound true if there is at least one load to calculate the sum of network loads active powers
    */
-  void checkCriteriaInLocalValueOrSumType(double t,
-                                          boost::shared_ptr<DYN::LoadInterface> load,
+  void checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::LoadInterface> load,
                                           double loadActivePower,
                                           std::multimap<double, boost::shared_ptr<LoadInterface> >& loadToSourcesAddedIntoSumMap,
                                           std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToLoadFailingCriteriaMap,
@@ -393,7 +397,6 @@ class GeneratorCriteria : public Criteria {
   /**
    * @brief check criteria in type LOCAL_VALUE or SUM
    *
-   * @param t current time of the simulation
    * @param generator generator to check
    * @param generatorActivePower active power of the generator to check
    * @param generatorToSourcesAddedIntoSumMap map associating active power to the related generator
@@ -403,8 +406,7 @@ class GeneratorCriteria : public Criteria {
    * @param sum sum of network generators active powers
    * @param atLeastOneEligibleGeneratorWasFound true if there is at least one generator to calculate the sum of network generators active powers
    */
-  void checkCriteriaInLocalValueOrSumType(double t,
-                                          boost::shared_ptr<DYN::GeneratorInterface> generator,
+  void checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::GeneratorInterface> generator,
                                           double generatorActivePower,
                                           std::multimap<double, boost::shared_ptr<GeneratorInterface> >& generatorToSourcesAddedIntoSumMap,
                                           std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToGeneratorFailingCriteriaMap,
