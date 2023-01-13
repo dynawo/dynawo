@@ -714,23 +714,39 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         GTEST_FAIL();
         break;
     }
-    double previousVoltageDistancePu = std::numeric_limits<double>::max();
     constexpr int maxNumberOfEvents = 5;
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents);  // timeline can't contain more than 5 events for each FailingCriteria
+    double busPreviousVoltageDistancePu = std::numeric_limits<double>::max();
     for (timeline::Timeline::event_const_iterator timelineIt = timeline->cbeginEvent();
           timelineIt != timeline->cendEvent();
           ++timelineIt) {
       const std::string timelineLog = (*timelineIt)->getMessage();
       std::vector<std::string> splitTimelineLog;
       boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
-      const std::string loadErrorLogName = splitTimelineLog[0];
-      ASSERT_TRUE(loadErrorLogName == "BusAboveVoltage" || loadErrorLogName == "BusUnderVoltage");
+      const std::string busErrorLogName = splitTimelineLog[0];
+      ASSERT_TRUE(busErrorLogName == "BusAboveVoltage" || busErrorLogName == "BusUnderVoltage");
       const double currentVoltagePu = std::stod(splitTimelineLog[3]);
       const double voltageBoundPu = std::stod(splitTimelineLog[5]);
-      const double currentVoltageDistancePu = std::abs(currentVoltagePu - voltageBoundPu);
+      const double busCurrentVoltageDistancePu = std::abs(currentVoltagePu - voltageBoundPu);
       // the timeline should display logs with the biggest gap between the voltage and the nominal voltage first
-      ASSERT_TRUE(previousVoltageDistancePu >= currentVoltageDistancePu);
-      previousVoltageDistancePu = currentVoltageDistancePu;
+      ASSERT_TRUE(busPreviousVoltageDistancePu >= busCurrentVoltageDistancePu);
+      busPreviousVoltageDistancePu = busCurrentVoltageDistancePu;
+    }
+
+    double failCritPreviousVoltageDistancePu = std::numeric_limits<double>::max();
+    std::vector<std::pair<double, std::string> > busFailingCriteria = busCriteria.getFailingCriteria();
+    for (size_t busFailCritIdx = 0; busFailCritIdx < busFailingCriteria.size(); ++busFailCritIdx) {
+      const std::string busFailCritLog = busFailingCriteria[busFailCritIdx].second;
+      std::vector<std::string> splitBusFailCritLog;
+      boost::algorithm::split(splitBusFailCritLog, busFailCritLog, boost::is_any_of(" "));
+      const std::string busErrorLogName = splitBusFailCritLog[0];
+      ASSERT_TRUE(busErrorLogName == "BusAboveVoltage" || busErrorLogName == "BusUnderVoltage");
+      const double currentVoltagePu = std::stod(splitBusFailCritLog[3]);
+      const double voltageBoundPu = std::stod(splitBusFailCritLog[5]);
+      const double failCritCurrentVoltageDistancePu = std::abs(currentVoltagePu - voltageBoundPu);
+      // the failingCriteria_ array should display logs with the biggest gap between the voltage and the nominal voltage first
+      ASSERT_TRUE(failCritPreviousVoltageDistancePu >= failCritCurrentVoltageDistancePu);
+      failCritPreviousVoltageDistancePu = failCritCurrentVoltageDistancePu;
     }
 
     std::vector<double> loadPowers = {250, 240, 230, 220, 210, 145, 135, 125, 115, 105};
@@ -755,7 +771,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         GTEST_FAIL();
         break;
     }
-    double previousLoadPowerDistance = std::numeric_limits<double>::max();
+    double loadPreviousLoadPowerDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 2);  // timeline can't contain more than 5 events for each FailingCriteria
     timeline::Timeline::event_const_iterator firstTimelineLoadEvent = timeline->cbeginEvent();
     // increment the iterator to place it on the first load timeline event
@@ -772,10 +788,26 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       ASSERT_TRUE(loadErrorLogName == "SourceAbovePower" || loadErrorLogName == "SourceUnderPower");
       const double loadPower = std::stod(splitTimelineLog[2]);
       const double loadPowerBound = std::stod(splitTimelineLog[3]);
-      const double currentLoadPowerDistance = std::abs(loadPower - loadPowerBound);
-      // the timeline should display logs with the biggest gap between the load power and the nominal load power first
-      ASSERT_TRUE(previousLoadPowerDistance >= currentLoadPowerDistance);
-      previousLoadPowerDistance = currentLoadPowerDistance;
+      const double loadCurrentLoadPowerDistance = std::abs(loadPower - loadPowerBound);
+      // the failingCriteria_ array should display logs with the biggest gap between the load power and the nominal load power first
+      ASSERT_TRUE(loadPreviousLoadPowerDistance >= loadCurrentLoadPowerDistance);
+      loadPreviousLoadPowerDistance = loadCurrentLoadPowerDistance;
+    }
+
+    double failCritPreviousLoadPowerDistance = std::numeric_limits<double>::max();
+    std::vector<std::pair<double, std::string> > loadFailingCriteria = loadCriteria.getFailingCriteria();
+    for (size_t loadFailCritIdx = 0; loadFailCritIdx < loadFailingCriteria.size(); ++loadFailCritIdx) {
+      const std::string loadFailCritLog = loadFailingCriteria[loadFailCritIdx].second;
+      std::vector<std::string> splitLoadFailCritLog;
+      boost::algorithm::split(splitLoadFailCritLog, loadFailCritLog, boost::is_any_of(" "));
+      const std::string loadErrorLogName = splitLoadFailCritLog[0];
+      ASSERT_TRUE(loadErrorLogName == "SourceAbovePower" || loadErrorLogName == "SourceUnderPower");
+      const double loadPower = std::stod(splitLoadFailCritLog[2]);
+      const double loadPowerBound = std::stod(splitLoadFailCritLog[3]);
+      const double failCritCurrentLoadPowerDistance = std::abs(loadPower - loadPowerBound);
+      // the failingCriteria_ array should display logs with the biggest gap between the load power and the nominal load power first
+      ASSERT_TRUE(failCritPreviousLoadPowerDistance >= failCritCurrentLoadPowerDistance);
+      failCritPreviousLoadPowerDistance = failCritCurrentLoadPowerDistance;
     }
 
     GeneratorCriteria generatorCriteria(criteriaParams);
@@ -795,7 +827,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
         GTEST_FAIL();
         break;
     }
-    double previousGeneratorPowerDistance = std::numeric_limits<double>::max();
+    double generatorPreviousGeneratorPowerDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 3);  // timeline can't contain more than 5 events for each FailingCriteria
     timeline::Timeline::event_const_iterator firstTimelineGeneratorEvent = timeline->cbeginEvent();
     // increment the iterator to place it on the first generator timeline event
@@ -814,8 +846,24 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       const double generatorPowerBound = std::stod(splitTimelineLog[3]);
       double currentGeneratorPowerDistance = std::abs(generatorPower - generatorPowerBound);
       // the timeline should display logs with the biggest gap between the load power and the nominal load power first
-      ASSERT_TRUE(previousGeneratorPowerDistance >= currentGeneratorPowerDistance);
-      previousGeneratorPowerDistance = currentGeneratorPowerDistance;
+      ASSERT_TRUE(generatorPreviousGeneratorPowerDistance >= currentGeneratorPowerDistance);
+      generatorPreviousGeneratorPowerDistance = currentGeneratorPowerDistance;
+    }
+
+    double failCritPreviousGeneratorPowerDistance = std::numeric_limits<double>::max();
+    std::vector<std::pair<double, std::string> > generatorFailingCriteria = generatorCriteria.getFailingCriteria();
+    for (size_t generatorFailCritIdx = 0; generatorFailCritIdx < generatorFailingCriteria.size(); ++generatorFailCritIdx) {
+      const std::string generatorFailCritLog = generatorFailingCriteria[generatorFailCritIdx].second;
+      std::vector<std::string> splitGeneratorFailCritLog;
+      boost::algorithm::split(splitGeneratorFailCritLog, generatorFailCritLog, boost::is_any_of(" "));
+      const std::string generatorErrorLogName = splitGeneratorFailCritLog[0];
+      ASSERT_TRUE(generatorErrorLogName == "SourceAbovePower" || generatorErrorLogName == "SourceUnderPower");
+      const double generatorPower = std::stod(splitGeneratorFailCritLog[2]);
+      const double generatorPowerBound = std::stod(splitGeneratorFailCritLog[3]);
+      const double failCritCurrentGeneratorPowerDistance = std::abs(generatorPower - generatorPowerBound);
+      // the failingCriteria_ array should display logs with the biggest gap between the load power and the nominal load power first
+      ASSERT_TRUE(failCritPreviousGeneratorPowerDistance >= failCritCurrentGeneratorPowerDistance);
+      failCritPreviousGeneratorPowerDistance = failCritCurrentGeneratorPowerDistance;
     }
   }
 
