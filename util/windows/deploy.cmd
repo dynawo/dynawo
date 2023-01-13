@@ -71,7 +71,8 @@ xcopy %thirdPartyInstallPath%\adept\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\adept\bin %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\boost\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\boost\bin %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\boost\bin\*.dll %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\boost\bin\*.lib %deploy_dir%\lib /E /i
 
 xcopy %thirdPartyInstallPath%\libarchive\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\libarchive\lib %deploy_dir%\lib /E /i
@@ -99,7 +100,8 @@ xcopy %thirdPartyInstallPath%\suitesparse\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\suitesparse\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\sundials\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\sundials\bin %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\sundials\bin\*.dll %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\sundials\bin\*.lib %deploy_dir%\lib /E /i
 
 xcopy %thirdPartyInstallPath%\xerces-c\bin\*.dll %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\bin\*.lib %deploy_dir%\bin /E /i
