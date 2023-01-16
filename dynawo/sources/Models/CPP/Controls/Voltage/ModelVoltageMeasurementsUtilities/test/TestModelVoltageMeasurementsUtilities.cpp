@@ -97,7 +97,9 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesDefineMe
     // Let's work out the variables and elements.
     std::vector<boost::shared_ptr<Variable> > variables;
     voltmu->defineVariables(variables);
-    unsigned int nbVar = ModelVoltageMeasurementsUtilities::nbCalculatedVars_ + ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + 2*nbVoltages;
+    unsigned int nbVar = static_cast<int>(ModelVoltageMeasurementsUtilities::nbCalculatedVars_) +
+                            static_cast<int>(ModelVoltageMeasurementsUtilities::nbDiscreteVars_) +
+                            2*nbVoltages;
     ASSERT_EQ(variables.size(), nbVar);
     std::vector<Element> elements;
     std::map<std::string, int> mapElements;
