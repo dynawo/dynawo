@@ -36,6 +36,7 @@ model SVarCFaultImp
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.02, XPu = 0, tBegin = 1, tEnd = 1.1) annotation(
     Placement(visible = true, transformation(origin = {0, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -46,6 +47,7 @@ equation
   loadPQ.switchOffSignal2.value = false;
   loadPQ.deltaP = 0;
   loadPQ.deltaQ = 0;
+
   connect(nodeFault.terminal, sVarCStandard.terminal) annotation(
     Line(points = {{0, 42}, {-3.55271e-15, 42}, {-3.55271e-15, 20}}, color = {0, 0, 255}));
   connect(loadPQ.terminal, sVarCStandard.terminal) annotation(
@@ -64,14 +66,15 @@ equation
     Line(points = {{0, 20}, {20, 20}}, color = {0, 0, 255}));
   connect(URef.y, sVarCStandard.URef) annotation(
     Line(points = {{-78, 56}, {-60, 56}, {-60, 40}, {-56, 40}}, color = {0, 0, 127}));
+
   annotation(
-  preferredView = "diagram",
+    preferredView = "diagram",
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.0.1")),
     experiment(StartTime = 0, StopTime = 3, Tolerance = 1e-06, Interval = 0.006),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
-  Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
- Documentation(info = "<html><head></head><body>This test cases simulates a three phase fault.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>An impedent 100ms three-phase short circuit is simulated from t=1s to t=1,1s.
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
+    Documentation(info = "<html><head></head><body>This test case simulates a three phase fault.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>An impedent 100ms three-phase short circuit is simulated from t = 1 s to t = 1.1 s.
 </div><div><br></div><div><div>The SVarC provides the maximum available reactive power in order to support the voltage.</div></div><div><br></div><div><br></div></body></html>"));
 end SVarCFaultImp;

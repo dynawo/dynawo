@@ -281,7 +281,7 @@ void create_directory(const string & inputPath) {
   string path = inputPath;
 #if BOOST_VERSION < 106000
   // Needed to avoid a bug in boost (v < 1.6)
-  if (path.at(path.size() - 1) == '/') {
+  if (path.at(path.size() - 1) == fs::path::preferred_separator) {
     path = path.substr(0, path.size() - 1);
   }
 #endif

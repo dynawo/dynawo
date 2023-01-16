@@ -87,7 +87,7 @@ model WT4ACurrentSource "Wind Turbine Type 4A model from IEC 61400-27-1 standard
     Dialog(tab = "PControl"));
 
   //Current limiter parameters
-  parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)"  annotation(
+  parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
   parameter Types.PerUnit IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
@@ -278,6 +278,5 @@ equation
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
-    Icon(coordinateSystem(initialScale = 0.1, grid = {1, 1}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT4A")}),
-  Diagram);
+    Icon(coordinateSystem(initialScale = 0.1, grid = {1, 1}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT4A")}));
 end WT4ACurrentSource;

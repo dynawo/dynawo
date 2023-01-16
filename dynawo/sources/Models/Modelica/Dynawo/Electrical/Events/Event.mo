@@ -24,10 +24,10 @@ package Event
 
 partial model EventEquations
   parameter typeParameter stateEvent1 "Post event state";
-  parameter typeParameter stateEvent2  if (nbEventVariables >= 2);
-  parameter typeParameter stateEvent3  if (nbEventVariables >= 3);
-  parameter typeParameter stateEvent4  if (nbEventVariables >= 4);
-  parameter typeParameter stateEvent5  if (nbEventVariables >= 5);
+  parameter typeParameter stateEvent2 if (nbEventVariables >= 2);
+  parameter typeParameter stateEvent3 if (nbEventVariables >= 3);
+  parameter typeParameter stateEvent4 if (nbEventVariables >= 4);
+  parameter typeParameter stateEvent5 if (nbEventVariables >= 5);
 
   typeConnector state1 "Current state";
   typeConnector state2 if (nbEventVariables >= 2);
