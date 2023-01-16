@@ -4,7 +4,7 @@
         - creates a PNom parameter
         - replaces PMinPu and PMaxPu parameters by references to IIDM values
     * for PV generators only:
-        - replaces the LambdaPu by a LambdaPuSNom (= LambdaPu * SnRef / SNom)
+        - replaces the LambdaPu by a LambdaPuSNom (= LambdaPu * SNom / SnRef)
         - creates a SNom parameter
         - replaces QMinPu and QMaxPu by QMin and QMax (= QMin * SnRef)
 -->
