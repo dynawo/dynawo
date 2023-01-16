@@ -32,7 +32,7 @@ model TapChangerBlocking4 "Tap Changer Blocking 4 (TCB4)"
 
 equation
   // Check when the monitored voltage goes below UMin
-  when UMonitored1.value < UMin1 or UMonitored2.value < UMin2  or UMonitored3.value < UMin3 or UMonitored4.value < UMin4 then
+  when UMonitored1.value < UMin1 or UMonitored2.value < UMin2 or UMonitored3.value < UMin3 or UMonitored4.value < UMin4 then
     UUnderMin = true;
     tUnderUmin = time;
   elsewhen UMonitored1.value >= UMin1 and UMonitored2.value >= UMin2 and UMonitored3.value >= UMin3 and UMonitored4.value >= UMin4 and pre(UUnderMin) then

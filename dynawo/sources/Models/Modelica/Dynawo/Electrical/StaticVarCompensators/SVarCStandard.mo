@@ -28,8 +28,8 @@ model SVarCStandard "Standard static var compensator model"
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   final parameter Types.VoltageModule UThresholdUpPu = UThresholdUp / UNom;
   final parameter Types.VoltageModule UThresholdDownPu = UThresholdDown / UNom;
-  final parameter Types.VoltageModule UBlockPu  = UBlock / UNom;
-  final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
+  final parameter Types.VoltageModule UBlockPu = UBlock / UNom;
+  final parameter Types.VoltageModule UUnblockUpPu = UUnblockUp / UNom;
   final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid" annotation(
@@ -42,7 +42,7 @@ model SVarCStandard "Standard static var compensator model"
   Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = setModeManual0) "Mode selected when in manual configuration" annotation(
     Placement(visible = true, transformation(origin = {-200, 110}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
-  InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG"  annotation(
+  InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG" annotation(
     Placement(visible = true, transformation(origin = {136, -18}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

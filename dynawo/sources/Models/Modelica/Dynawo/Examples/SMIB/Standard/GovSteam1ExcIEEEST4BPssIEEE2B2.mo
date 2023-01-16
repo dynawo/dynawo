@@ -122,8 +122,7 @@ equation
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
-  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
-    Line);
+  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(

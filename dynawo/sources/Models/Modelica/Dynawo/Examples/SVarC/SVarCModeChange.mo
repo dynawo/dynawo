@@ -42,6 +42,7 @@ model SVarCModeChange
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = 0, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -52,6 +53,7 @@ equation
   loadPQ.switchOffSignal2.value = false;
   loadPQ.deltaP = 0;
   loadPQ.deltaQ = 0;
+
   connect(integerStep1.y, manualMode.u[2]) annotation(
     Line(points = {{-115.2, -66}, {-100, -66}, {-100, -12}}, color = {255, 127, 0}));
   connect(integerStep.y, manualMode.u[1]) annotation(
@@ -76,14 +78,15 @@ equation
     Line(points = {{-19, -50}, {-12.9, -50}, {-12.9, -39}}, color = {0, 0, 127}));
   connect(URef.y, sVarCStandard.URef) annotation(
     Line(points = {{-78, 56}, {-60, 56}, {-60, 40}, {-56, 40}}, color = {0, 0, 127}));
+
   annotation(
-  preferredView = "diagram",
+    preferredView = "diagram",
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.0.1")),
     experiment(StartTime = 0, StopTime = 7, Tolerance = 1e-06, Interval = 0.018),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=BFSBExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
-  Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
- Documentation(info = "<html><head></head><body>This test case simulates variations of modes.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230kV is realised at t=1s.&nbsp;</div><div>The SVarC is then turned in manual mode from  t=0.5s to t=5s, switched off from t=3s to t=4s and switched back on from t=4s.&nbsp;
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
+    Documentation(info = "<html><head></head><body>This test case simulates variations of modes.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230kV is realised at t = 1 s.&nbsp;</div><div>The SVarC is then turned in manual mode from t = 0.5 s to t = 5 s, switched off from t = 3 s to t = 4 s and switched back on from t = 4 s.&nbsp;
 </div><div>The user variables enabling to simulate this scenario are selectModeAuto and setMode.</div></body></html>"));
 end SVarCModeChange;
