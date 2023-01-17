@@ -32,7 +32,7 @@ model GridFormingControlMatchingControl "Grid forming control with matching cont
   parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
 
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current at the PCC in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = { 60, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current at the PCC in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-60, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "grid frequency in pu (base omegaNom)" annotation(
@@ -42,7 +42,7 @@ model GridFormingControlMatchingControl "Grid forming control with matching cont
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-93, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current created by the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = { 30, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {30, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqConvPu(start = IqConv0Pu) "q-axis current created by the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = { -33, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = UFilterRef0Pu) "Reference voltage at the converter's capacitor in pu (base UNom)" annotation(
@@ -52,7 +52,7 @@ model GridFormingControlMatchingControl "Grid forming control with matching cont
   Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu(start = UdcSourceRef0Pu) "Reference DC voltage on the DC side in pu (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = { -105, -100}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UdcSourcePu(start = UdcSource0Pu) "DC voltage on the DC side in pu (base UdcNom)" annotation(
-    Placement(visible = true, transformation(origin = {-129, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = { 0, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-129, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
     Placement(visible = true, transformation(origin = {130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, 90}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
