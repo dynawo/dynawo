@@ -18,7 +18,7 @@ model VRRemote "Model for coordinated primary voltage regulation. This model is 
 
   parameter Boolean FreezingActivated = false "Whether the freezing functionnality is activated or not";
   parameter Real Gain "Control gain";
-  parameter Integer NbGenMax = 15 "Maximum number of generators that can participate in the coordinated primary voltage regulation of the considered bus";
+  parameter Integer NbGenMax = 30 "Maximum number of generators that can participate in the coordinated primary voltage regulation of the considered bus";
   parameter Types.Time tIntegral "Time integration constant";
 
   Modelica.Blocks.Interfaces.BooleanInput[NbGenMax] limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)" annotation(
