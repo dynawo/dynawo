@@ -57,24 +57,25 @@ ir02_(0.),
 ii02_(0.),
 startingPointMode_(WARM) {
   // retrieve data from VscConverterInterface and HvdcLineInterface (IIDM)
-  setAttributes(dcLine_);
+  setAttributes(dcLine);
 }
 
 void
 ModelHvdcLink::init(int& /*yNum*/) {
+  shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
   // no state variable for simple hvdc model: no indexes to set
   // calculate active power at the two points of common coupling
-  setConvertersActivePower(dcLine_);
+  setConvertersActivePower(dcLine);
 
   // calculate reactive power at the two points of common coupling
-  setConvertersReactivePower(dcLine_);
+  setConvertersReactivePower(dcLine);
 
   switch (startingPointMode_) {
   case FLAT:
-    if (dcLine_->getConverter1()->getBusInterface()) {
-      double uNode1 = dcLine_->getConverter1()->getBusInterface()->getVNom();
-      double thetaNode1 = dcLine_->getConverter1()->getBusInterface()->getAngle0();
-      double unomNode1 = dcLine_->getConverter1()->getBusInterface()->getVNom();
+    if (dcLine->getConverter1()->getBusInterface()) {
+      double uNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+      double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+      double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
       double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
       double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
       double U201 = ur01 * ur01 + ui01 * ui01;
@@ -83,10 +84,10 @@ ModelHvdcLink::init(int& /*yNum*/) {
         ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
       }
     }
-    if (dcLine_->getConverter2()->getBusInterface()) {
-      double uNode2 = dcLine_->getConverter2()->getBusInterface()->getVNom();
-      double thetaNode2 = dcLine_->getConverter2()->getBusInterface()->getAngle0();
-      double unomNode2 = dcLine_->getConverter2()->getBusInterface()->getVNom();
+    if (dcLine->getConverter2()->getBusInterface()) {
+      double uNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+      double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+      double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
       double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
       double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
       double U202 = ur02 * ur02 + ui02 * ui02;
@@ -97,10 +98,10 @@ ModelHvdcLink::init(int& /*yNum*/) {
     }
     break;
   case WARM:
-    if (dcLine_->getConverter1()->getBusInterface()) {
-      double uNode1 = dcLine_->getConverter1()->getBusInterface()->getV0();
-      double thetaNode1 = dcLine_->getConverter1()->getBusInterface()->getAngle0();
-      double unomNode1 = dcLine_->getConverter1()->getBusInterface()->getVNom();
+    if (dcLine->getConverter1()->getBusInterface()) {
+      double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
+      double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+      double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
       double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
       double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
       double U201 = ur01 * ur01 + ui01 * ui01;
@@ -109,10 +110,10 @@ ModelHvdcLink::init(int& /*yNum*/) {
         ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
       }
     }
-    if (dcLine_->getConverter2()->getBusInterface()) {
-      double uNode2 = dcLine_->getConverter2()->getBusInterface()->getV0();
-      double thetaNode2 = dcLine_->getConverter2()->getBusInterface()->getAngle0();
-      double unomNode2 = dcLine_->getConverter2()->getBusInterface()->getVNom();
+    if (dcLine->getConverter2()->getBusInterface()) {
+      double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
+      double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+      double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
       double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
       double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
       double U202 = ur02 * ur02 + ui02 * ui02;

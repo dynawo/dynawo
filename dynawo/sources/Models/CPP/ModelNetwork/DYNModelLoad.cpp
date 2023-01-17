@@ -80,7 +80,7 @@ DeltaQcYNum_(0),
 zPYNum_(0),
 zQYNum_(0),
 startingPointMode_(WARM) {
-  connectionState_ = load_->getInitialConnected() ? CLOSED : OPEN;
+  connectionState_ = load->getInitialConnected() ? CLOSED : OPEN;
 }
 
 void
@@ -201,18 +201,19 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
-  double thetaNode = load_->getBusInterface()->getAngle0();
-  double unomNode = load_->getBusInterface()->getVNom();
+  shared_ptr<LoadInterface> load = load_.lock();
+  double thetaNode = load->getBusInterface()->getAngle0();
+  double unomNode = load->getBusInterface()->getVNom();
   switch (startingPointMode_) {
   case FLAT:
-    P0_ = load_->getP0() / SNREF;
-    Q0_ = load_->getQ0() / SNREF;
-    u0_ = load_->getBusInterface()->getVNom() / unomNode;
+    P0_ = load->getP0() / SNREF;
+    Q0_ = load->getQ0() / SNREF;
+    u0_ = load->getBusInterface()->getVNom() / unomNode;
     break;
   case WARM:
-    P0_ = load_->getP() / SNREF;
-    Q0_ = load_->getQ() / SNREF;
-    u0_ = load_->getBusInterface()->getV0() / unomNode;
+    P0_ = load->getP() / SNREF;
+    Q0_ = load->getQ() / SNREF;
+    u0_ = load->getBusInterface()->getV0() / unomNode;
     break;
   }
   double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
