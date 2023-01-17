@@ -18,6 +18,7 @@ var searchData=
   ['fequationindex',['fEquationIndex',['../d4/da5/a02746.html#afdd7ea305b4f170bd98eb2654bfbad5a',1,'DYN::SubModel']]],
   ['fequationindex_5f',['fEquationIndex_',['../d4/da5/a02746.html#a4144950a2e215502c1471465f934dc3c',1,'DYN::SubModel']]],
   ['fequationinitindex_5f',['fEquationInitIndex_',['../d4/da5/a02746.html#ad0073396aa22dc1df9c4cda71d3bcfb5',1,'DYN::SubModel']]],
+  ['fict2wtidto3wtid_5f',['fict2wtIDto3wtID_',['../d0/dde/a02978.html#a53dc20b9a659d5b041556390a4740557',1,'DYN::DataInterfaceIIDM']]],
   ['fictbusinterfaceiidm',['FictBusInterfaceIIDM',['../d6/d2a/a03062.html',1,'DYN::FictBusInterfaceIIDM'],['../d6/d2a/a03062.html#a3ba00cc3e47788b0a73969bc31fc85d9',1,'DYN::FictBusInterfaceIIDM::FictBusInterfaceIIDM()']]],
   ['fictitious',['fictitious',['../dd/dd1/a02842.html#ac012d8bf67db7df2d18cf81e60c68f69',1,'DYN::TemporaryLimit']]],
   ['ficttwowtransformerinterfaceiidm',['FictTwoWTransformerInterfaceIIDM',['../d4/df3/a03066.html',1,'DYN::FictTwoWTransformerInterfaceIIDM'],['../d4/df3/a03066.html#a13cb498ac43902fe4e23367c880ccbe6',1,'DYN::FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM()']]],
