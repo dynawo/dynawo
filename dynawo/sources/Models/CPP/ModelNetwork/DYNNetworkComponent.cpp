@@ -36,7 +36,9 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
-NetworkComponent::~NetworkComponent() {}
+NetworkComponent::~NetworkComponent() {
+  network_ = NULL;
+}
 
 NetworkComponent::NetworkComponent():
 y_(NULL),

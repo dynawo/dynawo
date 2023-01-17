@@ -153,7 +153,6 @@ void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
     stdcxx::Properties properties;
-    properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ExportOptions options(properties);
 
     powsybl::iidm::Network::writeXml(boost::filesystem::path(iidmFilePath), *networkIIDM_, options);

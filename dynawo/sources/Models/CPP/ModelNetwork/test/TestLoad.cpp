@@ -89,6 +89,8 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   loadItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   loadItfIIDM->setBusInterface(bus1ItfIIDM);
+  vlItfIIDM->addBus(bus1ItfIIDM);
+  vlItfIIDM->addLoad(loadItfIIDM);
 
   shared_ptr<ModelLoad> load = shared_ptr<ModelLoad>(new ModelLoad(loadItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -97,6 +99,8 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
   load->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  vl->addComponent(load);
+  vl->addBus(bus1);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   load->setModelBus(bus1);
@@ -251,7 +255,8 @@ fillParameters(shared_ptr<ModelLoad> load, std::string& startingPoint) {
 TEST(ModelsModelNetwork, ModelNetworkLoadInitializationClosed) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(false, false, networkIIDM));
+  auto tuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(tuple);
   #else
   shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(false, false));
   #endif
@@ -264,7 +269,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadInitializationClosed) {
 TEST(ModelsModelNetwork, ModelNetworkLoadStartingPointFlat) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(false, false, networkIIDM));
+  auto tuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(tuple);
   #else
   shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(false, false));
   #endif
@@ -318,7 +324,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadInitializationOpened) {
 TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(false, false, networkIIDM));
+  auto tuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(tuple);
   #else
   shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(false, false));
   #endif

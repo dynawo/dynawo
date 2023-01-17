@@ -23,6 +23,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELSTATICVARCOMPENSATOR_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include "DYNNetworkComponent.h"
 #include "DYNStaticVarCompensatorInterface.h"
 
@@ -327,7 +328,8 @@ class ModelStaticVarCompensator : public NetworkComponent {
    */
   double ii_dUi() const;
 
-  const boost::shared_ptr<StaticVarCompensatorInterface> svc_;  ///< reference to the svc interface object
+ private:
+  boost::weak_ptr<StaticVarCompensatorInterface> svc_;  ///< reference to the svc interface object
   double gSvc0_;  ///< initial conductance of the svc in pu (base SNREF)
   double bSvc0_;  ///< initial susceptance of the svc in pu (base SNREF)
   double ir0_;  ///< initial current (real part)

@@ -47,7 +47,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 #ifdef USE_POWSYBL
-static std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> >  // need to return the voltage level so that it is not destroyed
 createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& networkIIDM, bool hasConnection = true) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
       .setId("S")
@@ -70,6 +70,7 @@ createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& netwo
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   bus1ItfIIDM->hasConnection(hasConnection);
+  vlItfIIDM->addBus(bus1ItfIIDM);
 
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
@@ -81,7 +82,7 @@ createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& netwo
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, isNodeBreaker));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  return std::make_pair(bus1, vl);
+  return std::make_pair(bus1, vlItfIIDM);
 }
 #else
 static std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
@@ -145,7 +146,7 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -173,7 +174,7 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -199,7 +200,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
 TEST(ModelsModelNetwork, ModelNetworkBusInitializationFlat) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -230,7 +231,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitializationFlat) {
 TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -342,7 +343,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   numVars.clear();
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p2 = createModelBus(true, false, networkIIDM2);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p2 = createModelBus(true, false);
 #endif
@@ -356,7 +357,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -455,7 +456,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p2 = createModelBus(true, false, networkIIDM2);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p2 = createModelBus(true, false);
 #endif
@@ -470,7 +471,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, true, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, true);
 #endif
@@ -519,7 +520,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -631,7 +632,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(true, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(true, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(true, false);
 #endif
@@ -684,7 +685,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -741,7 +742,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   // The tests on the parameter hasShortCircuitCapabilities are done using the model size.
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p2 = createModelBus(false, false, networkIIDM2, false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(false, false, networkIIDM2, false);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p2 = createModelBus(false, false);
 #endif
@@ -780,7 +781,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 TEST(ModelsModelNetwork, ModelNetworkBusJt) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
@@ -1065,7 +1066,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false, networkIIDM);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
 #else
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
 #endif
