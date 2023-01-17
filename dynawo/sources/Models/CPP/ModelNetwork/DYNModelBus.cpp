@@ -171,16 +171,16 @@ isNodeBreaker_(isNodeBreaker),
 startingPointMode_(WARM) {
   neighbors_.clear();
   busBarSectionIdentifiers_.clear();
-  busBarSectionIdentifiers_ = bus_->getBusBarSectionIdentifiers();
+  busBarSectionIdentifiers_ = bus->getBusBarSectionIdentifiers();
 
   derivatives_.reset(new BusDerivatives());
   derivativesPrim_.reset(new BusDerivatives());
-  unom_ = bus_->getVNom();
-  uMax_ = bus_->getVMax() / unom_;
-  uMin_ = bus_->getVMin() / unom_;
-  angle0_ = bus_->getAngle0() * DEG_TO_RAD;
-  constraintId_ = bus_->getID();
-  const vector<string>& busBarSections = bus_->getBusBarSectionIdentifiers();
+  unom_ = bus->getVNom();
+  uMax_ = bus->getVMax() / unom_;
+  uMin_ = bus->getVMin() / unom_;
+  angle0_ = bus->getAngle0() * DEG_TO_RAD;
+  constraintId_ = bus->getID();
+  const vector<string>& busBarSections = bus->getBusBarSectionIdentifiers();
   if (isNodeBreaker && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
@@ -508,10 +508,10 @@ void
 ModelBus::init(int& yNum) {
   switch (startingPointMode_) {
   case FLAT:
-    u0_ = bus_->getVNom() / unom_;
+    u0_ = bus_.lock()->getVNom() / unom_;
     break;
   case WARM:
-    u0_ = bus_->getV0() / unom_;
+    u0_ = bus_.lock()->getV0() / unom_;
     break;
   }
   ur0_ = u0_ * cos(angle0_);

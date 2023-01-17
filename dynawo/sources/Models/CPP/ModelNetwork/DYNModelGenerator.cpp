@@ -362,18 +362,19 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 void
 ModelGenerator::init(int & /*yNum*/) {
   double uNode = 0.;
-  double thetaNode = generator_->getBusInterface()->getAngle0();
-  double unomNode = generator_->getBusInterface()->getVNom();
+  shared_ptr<GeneratorInterface> generator = generator_.lock();
+  double thetaNode = generator->getBusInterface()->getAngle0();
+  double unomNode = generator->getBusInterface()->getVNom();
   switch (startingPointMode_) {
   case FLAT:
-    Pc_ = isConnected() ? -1. * generator_->getTargetP() : 0.;
-    Qc_ = isConnected() ? -1. * generator_->getTargetQ() : 0.;
-    uNode = generator_->getBusInterface()->getVNom();
+    Pc_ = isConnected() ? -1. * generator->getTargetP() : 0.;
+    Qc_ = isConnected() ? -1. * generator->getTargetQ() : 0.;
+    uNode = generator->getBusInterface()->getVNom();
     break;
   case WARM:
-    Pc_ = isConnected() ? -1. * generator_->getP() : 0.;
-    Qc_ = isConnected() ? -1. * generator_->getQ() : 0.;
-    uNode = generator_->getBusInterface()->getV0();
+    Pc_ = isConnected() ? -1. * generator->getP() : 0.;
+    Qc_ = isConnected() ? -1. * generator->getQ() : 0.;
+    uNode = generator->getBusInterface()->getV0();
     break;
   }
   double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);

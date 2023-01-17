@@ -49,8 +49,8 @@ svc_(svc),
 stateModified_(false),
 startingPointMode_(WARM) {
   // init data
-  connectionState_ = svc_->getInitialConnected() ? CLOSED : OPEN;
-  mode_ = svc_->getRegulationMode();
+  connectionState_ = svc->getInitialConnected() ? CLOSED : OPEN;
+  mode_ = svc->getRegulationMode();
 
   // calculate initial conditions
   gSvc0_ = 0.;
@@ -106,22 +106,23 @@ ModelStaticVarCompensator::init(int& /*yNum*/) {
   double ur0 = 0.;
   double ui0 = 0.;
   double U0 = 0.;
-  double P0 = svc_->getP() / SNREF;
+  shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
+  double P0 = svc->getP() / SNREF;
   double Q0;
-  double unomBus = svc_->getBusInterface()->getVNom();
-  double thetaBus0 = svc_->getBusInterface()->getAngle0();
+  double unomBus = svc->getBusInterface()->getVNom();
+  double thetaBus0 = svc->getBusInterface()->getAngle0();
   double uBus0 = 0.;
   switch (startingPointMode_) {
   case FLAT:
-    Q0 = svc_->getReactivePowerSetPoint() / SNREF;
-    if (svc_->getBusInterface()) {
-      uBus0 = svc_->getBusInterface()->getVNom();
+    Q0 = svc->getReactivePowerSetPoint() / SNREF;
+    if (svc->getBusInterface()) {
+      uBus0 = svc->getBusInterface()->getVNom();
     }
     break;
   case WARM:
-    Q0 = svc_->getQ() / SNREF;
-    if (svc_->getBusInterface()) {
-      uBus0 = svc_->getBusInterface()->getV0();
+    Q0 = svc->getQ() / SNREF;
+    if (svc->getBusInterface()) {
+      uBus0 = svc->getBusInterface()->getV0();
     }
     break;
   default:
