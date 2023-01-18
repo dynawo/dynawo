@@ -82,6 +82,7 @@
   <dyn:connect id1="DISCONNECT_LINE" var1="event_state1_value" id2="NETWORK" var2="_BUS____9-BUS___10-1_AC_state_value"/>
   <dyn:blackBoxModel id="PhaseShifter" lib="PhaseShifterI" parFile="PhaseShifterBlocking.par" parId="PhaseShifter"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_step"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_P" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_P1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_iMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger"/>
   <dyn:blackBoxModel id="PhaseShifterLock" lib="PhaseShifterBlockingI" parFile="PhaseShifterBlocking.par" parId="PhaseShifterLock"/>
