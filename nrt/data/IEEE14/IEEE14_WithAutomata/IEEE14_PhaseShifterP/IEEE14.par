@@ -297,7 +297,7 @@
     <par type="DOUBLE" name="phaseShifter_tNext" value="5"/>
     <par type="DOUBLE" name="phaseShifter_PTarget" value="0.44"/>
     <par type="DOUBLE" name="phaseShifter_PDeadBand" value="0.005"/>
-    <reference type="DOUBLE" name="phaseShifter_P0" origData="IIDM" origName="i1" componentId="_BUS____5-BUS____6-1_PS"/>
+    <reference type="DOUBLE" name="phaseShifter_P0" origData="IIDM" origName="p1" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_tap0" origData="IIDM" origName="tapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_tapMin" origData="IIDM" origName="lowTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>

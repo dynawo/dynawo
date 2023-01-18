@@ -33,8 +33,10 @@
   <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="PhaseShifter_5_6" var1="phaseShifter_tap" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_step"/>
   <dyn:connect id1="PhaseShifter_5_6" var1="phaseShifter_iMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1"/>
+  <dyn:connect id1="PhaseShifter_5_6" var1="phaseShifter_P" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_P1"/>
   <dyn:connect id1="PhaseShifter_5_6" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger"/>
   <dyn:connect id1="PhaseShifter_5_7" var1="phaseShifter_tap" id2="NETWORK" var2="_BUS____5-BUS____7-2_PS_step"/>
+  <dyn:connect id1="PhaseShifter_5_7" var1="phaseShifter_P" id2="NETWORK" var2="_BUS____5-BUS____7-2_PS_P1"/>
   <dyn:connect id1="PhaseShifter_5_7" var1="phaseShifter_iMonitored" id2="NETWORK" var2="_BUS____5-BUS____7-2_PS_i1"/>
   <dyn:connect id1="PhaseShifter_5_7" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____7-2_PS_disable_internal_tapChanger"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
