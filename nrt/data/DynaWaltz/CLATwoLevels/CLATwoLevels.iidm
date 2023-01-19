@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<network xmlns="http://www.itesla_project.eu/schema/iidm/1_0" xmlns:as="http://www.itesla_project.eu/schema/iidm/ext/active-season/1_0" xmlns:bbsp="http://www.itesla_project.eu/schema/iidm/ext/busbarsectionposition/1_0" xmlns:clps="http://www.itesla_project.eu/schema/iidm/ext/current-limits-per-season/1_0" xmlns:cp="http://www.itesla_project.eu/schema/iidm/ext/connectable_position/1_0" xmlns:gapc="http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0" xmlns:gec="http://www.itesla_project.eu/schema/iidm/ext/generator_entsoe_category/1_0" xmlns:gs="http://www.itesla_project.eu/schema/iidm/ext/generator_startup/1_0" xmlns:hapc="http://www.itesla_project.eu/schema/iidm/ext/hvdc_angle_droop_active_power_control/1_0" xmlns:hopr="http://www.itesla_project.eu/schema/iidm/ext/hvdc_operator_active_power_range/1_0" xmlns:ld="http://www.itesla_project.eu/schema/iidm/ext/load_detail/1_0" xmlns:sa="http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0" id="ieee14bus" caseDate="2017-06-09T10:14:24.146+02:00" forecastDistance="0" sourceFormat="CIM1">
+  <substation id="_BUS___10_SS" name="BUS   10_SS" country="AF">
+    <voltageLevel id="_BUS___10_VL" name="BUS   10_VL" nominalV="400" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS___10_TN" v="400" angle="-8.6580687147871132"/>
+      </busBreakerTopology>
+      <load id="_Load__10" name="LOAD  10" loadType="UNDEFINED" p0="3000" q0="0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="2945.0357804410501" q="0"/>
+    </voltageLevel>
+  </substation>
+  <substation id="_BUS____1_SS" name="BUS    1_SS" country="AF">
+    <voltageLevel id="_BUS____1_VL" name="BUS    1_VL" nominalV="69" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS____1_TN" v="68" angle="0"/>
+      </busBreakerTopology>
+      <generator id="_Generator___1" name="GEN    1" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="100" targetQ="0" targetV="73.140000000000001" bus="_BUS____1_TN" connectableBus="_BUS____1_TN" p="-2966.4926945230118" q="-214.89468558199684">
+        <minMaxReactiveLimits minQ="-999" maxQ="999"/>
+      </generator>
+    </voltageLevel>
+  </substation>
+  <substation id="_BUS____5_SS" name="BUS    5_SS" country="AF">
+    <voltageLevel id="_BUS____6_VL" name="BUS    6_VL" nominalV="400" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS____7_TN" v="399.78925067351992" angle="-6.9499042456127604"/>
+        <bus id="_BUS____8_TN" v="400" angle="-7.2818691633844708"/>
+      </busBreakerTopology>
+      <load id="_Load__11" name="LOAD  11" loadType="UNDEFINED" p0="0" q0="0" bus="_BUS____8_TN" connectableBus="_BUS____8_TN" p="0" q="0"/>
+    </voltageLevel>
+    <voltageLevel id="_BUS____5_VL" name="BUS    5_VL" nominalV="69" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS____5_TN" v="67.438241698841011" angle="-1.8263549461649538"/>
+      </busBreakerTopology>
+    </voltageLevel>
+    <twoWindingsTransformer id="_BUS____5-BUS____7-2_PT" name="BUS    5-BUS    7-2" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" voltageLevelId1="_BUS____5_VL" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId2="_BUS____6_VL" bus2="_BUS____7_TN" connectableBus2="_BUS____7_TN" p1="1427.1798032107479" q1="61.908528239976526" p2="-1427.1798032107479" q2="65.799241117326687">
+      <ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false" regulating="false">
+        <step r="0" x="0" g="0" b="0" rho="1.1111112000000001"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0875475999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0649626999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0432965999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948"/>
+        <step r="0" x="0" g="0" b="0" rho="1"/>
+        <step r="0" x="0" g="0" b="0" rho="0.98039215999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.96153849999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.94339629999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.92592589999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.90909090000000004"/>
+      </ratioTapChanger>
+      <currentLimits1 permanentLimit="836.74000000000001"/>
+      <currentLimits2 permanentLimit="4183.6999999999998"/>
+    </twoWindingsTransformer>
+    <twoWindingsTransformer id="_BUS____5-BUS____8-1_PT" name="BUS    5-BUS    8-1" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" voltageLevelId1="_BUS____5_VL" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId2="_BUS____6_VL" bus2="_BUS____8_TN" connectableBus2="_BUS____8_TN" p1="1520.1794760816606" q1="62.058210415330151" p2="-1520.1794760816606" q2="82.804427883227817">
+      <ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false" regulating="false">
+        <step r="0" x="0" g="0" b="0" rho="1.1111112000000001"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0875475999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0649626999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0432965999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948"/>
+        <step r="0" x="0" g="0" b="0" rho="1"/>
+        <step r="0" x="0" g="0" b="0" rho="0.98039215999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.96153849999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.94339629999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.92592589999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.90909090000000004"/>
+      </ratioTapChanger>
+      <currentLimits1 permanentLimit="836.74000000000001"/>
+      <currentLimits2 permanentLimit="4183.6999999999998"/>
+    </twoWindingsTransformer>
+  </substation>
+  <line id="_BUS____1-BUS____5-1_AC" name="BUS    1-BUS    5-1" r="0.01" x="0.050000000000000003" g1="0" b1="0.00051670000000000004" g2="0" b2="0.00051670000000000004" voltageLevelId1="_BUS____1_VL" bus1="_BUS____1_TN" connectableBus1="_BUS____1_TN" voltageLevelId2="_BUS____5_VL" bus2="_BUS____5_TN" connectableBus2="_BUS____5_TN" p1="2966.49269452301" q1="214.89468558199235" p2="-2947.3592792924069" q2="-123.96673865529951">
+    <currentLimits1 permanentLimit="836.74000000000001"/>
+  </line>
+  <line id="_BUS____8-BUS___10-2_AC" name="BUS    8-BUS   10-2" r="0.75" x="12" g1="0" b1="0" g2="0" b2="0" voltageLevelId1="_BUS____6_VL" bus1="_BUS____8_TN" connectableBus1="_BUS____8_TN" voltageLevelId2="_BUS___10_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" p1="319.21880925940758" q1="-16.105209757419981" p2="-318.73993413769051" q2="23.767211704894322">
+    <currentLimits1 permanentLimit="4183.6999999999998"/>
+  </line>
+  <line id="_BUS____7-BUS___10-2_AC" name="BUS    7-BUS   10-2" r="0.20000000000000001" x="5" g1="0" b1="3e-4" g2="0" b2="5e-4" voltageLevelId1="_BUS____6_VL" bus1="_BUS____7_TN" connectableBus1="_BUS____7_TN" voltageLevelId2="_BUS___10_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" p1="951.74678714485981" q1="-40.708350704625083" p2="-950.61124198737411" q2="69.09697964176236">
+    <currentLimits1 permanentLimit="4183.6999999999998"/>
+  </line>
+  <line id="_BUS____7-BUS___10-1_AC" name="BUS    7-BUS   10-1" r="0.5" x="10" g1="0" b1="0" g2="0" b2="0" voltageLevelId1="_BUS____6_VL" bus1="_BUS____7_TN" connectableBus1="_BUS____7_TN" voltageLevelId2="_BUS___10_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" p1="475.43301606588722" q1="-25.090890412709637" p2="-474.72393749373163" q2="39.272461855820225">
+    <currentLimits1 permanentLimit="4183.6999999999998"/>
+  </line>
+</network>
