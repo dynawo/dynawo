@@ -47,7 +47,7 @@ else()
   if(DEFINED ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
   else()
-    set(package_prefix_url http://www.github.com/GNOME/libxml2/archive)
+    set(package_prefix_url https://github.com/GNOME/libxml2/archive/refs/tags)
   endif()
   set(package_url  "${package_prefix_url}/v${package_VersionToInstall}.tar.gz")
 
