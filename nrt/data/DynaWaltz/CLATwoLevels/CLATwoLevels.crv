@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_state"/>
+  <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_i1"/>
+  <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_i2"/>
+  <curve model="CLA" variable="currentLimitAutomaton_IMonitored1_value"/>
+  <curve model="CLA" variable="currentLimitAutomaton_IMonitored2_value"/>
+  <curve model="CLA" variable="currentLimitAutomaton_IMax1"/>
+  <curve model="CLA" variable="currentLimitAutomaton_IMax2"/>
+  <curve model="CLA" variable="currentLimitAutomaton_order"/>
+  <curve model="CLA" variable="currentLimitAutomaton_currentLimitAutomaton1_order_value"/>
+  <curve model="CLA" variable="currentLimitAutomaton_currentLimitAutomaton2_order_value"/>
+  </curvesInput>

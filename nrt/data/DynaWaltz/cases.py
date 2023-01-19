@@ -46,3 +46,13 @@ case_description = "IEEE57 - Generator disconnection"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "IEEE57", "IEEE57_GeneratorDisconnection", "IEEE57.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################
+#     CLA with two levels     #
+###############################
+
+case_name = "DynaWaltz - CLA with two levels"
+case_description = "Simple case to test the CLA with two levels"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "DynaWaltz", "CLATwoLevels", "CLATwoLevels.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
