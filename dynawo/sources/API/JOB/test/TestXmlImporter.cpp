@@ -250,6 +250,7 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getFinalStateValuesEntry(), boost::shared_ptr<FinalStateValuesEntry>());
   boost::shared_ptr<FinalStateValuesEntry> finalStateValues = outputs->getFinalStateValuesEntry();
   ASSERT_EQ(finalStateValues->getInputFile(), "finalStateValues.fsv");
+  ASSERT_EQ(finalStateValues->getExportMode(), "CSV");
 
   // ===== LostEquipmentsEntry =====
   ASSERT_NE(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());
@@ -289,6 +290,12 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(appenders[3]->getTag(), "MODELER");
   ASSERT_EQ(appenders[3]->getLvlFilter(), "ERROR");
   ASSERT_EQ(appenders[3]->getFilePath(), "dynawoModeler.log");
+
+  // ===== LocalInitEntry =====
+  ASSERT_NE(job1->getLocalInitEntry(), boost::shared_ptr<LocalInitEntry>());
+  boost::shared_ptr<LocalInitEntry> localInit =  job1->getLocalInitEntry();
+  ASSERT_EQ(localInit->getParFile(), "init.par");
+  ASSERT_EQ(localInit->getParId(), "42");
 }
 
 }  // namespace job

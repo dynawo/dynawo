@@ -28,7 +28,7 @@ model SVarCLoadVarQLarge
     Placement(visible = true, transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step URef(height = 0, offset = 225, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-90, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadPQ loadPQ()     annotation(
+  Dynawo.Electrical.Loads.LoadPQ loadPQ annotation(
     Placement(visible = true, transformation(origin = {0, -22}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRefPu(height = 3, offset = 0, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -45,6 +45,7 @@ equation
   loadPQ.switchOffSignal2.value = false;
   loadPQ.deltaP = 0;
   loadPQ.deltaQ = 0;
+
   connect(loadPQ.terminal, sVarCStandard.terminal) annotation(
     Line(points = {{0, -20}, {-2.66454e-15, -20}, {-2.66454e-15, 20}}, color = {0, 0, 255}));
   connect(selectMode.y, sVarCStandard.selectModeAuto) annotation(
@@ -61,6 +62,7 @@ equation
     Line(points = {{0, 20}, {20, 20}}, color = {0, 0, 255}));
   connect(URef.y, sVarCStandard.URef) annotation(
     Line(points = {{-78, 56}, {-60, 56}, {-60, 40}, {-56, 40}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     uses(Dynawo(version = "1.0.1"), Modelica(version = "3.2.3")),
@@ -69,5 +71,5 @@ equation
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
     Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
-  Documentation(info = "<html><head></head><body>This test case simulate a load variation.&nbsp;<div><br></div><div>The SVarC is initially in the standby mode.&nbsp;</div><div>A large reactive load variation of  Q=300 Mvar is realised at t=1s.&nbsp;</div><div><br></div><div>The SVarC switches to running mode after the load variation and regulates with the reference URefDown.&nbsp;</div><div>The provided current reaches its limitation and the current limitor is activated in order to bring the current back to an acceptable value.<div><br></div></div></body></html>"));
+    Documentation(info = "<html><head></head><body>This test case simulates a load variation.&nbsp;<div><br></div><div>The SVarC is initially in the standby mode.&nbsp;</div><div>A large reactive load variation of Q=300 Mvar is realised at t = 1 s.&nbsp;</div><div><br></div><div>The SVarC switches to running mode after the load variation and regulates with the reference URefDown.&nbsp;</div><div>The provided current reaches its limitation and the current limitor is activated in order to bring the current back to an acceptable value.<div><br></div></div></body></html>"));
 end SVarCLoadVarQLarge;

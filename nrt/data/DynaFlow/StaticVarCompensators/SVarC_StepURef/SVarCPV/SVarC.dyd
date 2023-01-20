@@ -16,10 +16,8 @@
   <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SVarC.par" parId="1"/>
   <dyn:blackBoxModel id="line" lib="Line" parFile="SVarC.par" parId="2"/>
   <dyn:blackBoxModel id="svarc" lib="StaticVarCompensatorPV" parFile="SVarC.par" parId="3"/>
-  <dyn:blackBoxModel id="URef1" lib="EventSetPointReal" parFile="SVarC.par" parId="4"/>
-  <dyn:blackBoxModel id="URef2" lib="EventSetPointReal" parFile="SVarC.par" parId="5"/>
+  <dyn:blackBoxModel id="URef" lib="DoubleStep" parFile="SVarC.par" parId="4"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>
   <dyn:connect id1="line" var1="line_terminal2" id2="svarc" var2="SVarC_terminal"/>
-  <dyn:connect id1="URef1" var1="event_state1_value" id2="svarc" var2="SVarC_URefPu"/>
-  <dyn:connect id1="URef2" var1="event_state1_value" id2="svarc" var2="SVarC_URefPu"/>
+  <dyn:connect id1="URef" var1="doubleStep_step_value" id2="svarc" var2="SVarC_URefPu"/>
 </dyn:dynamicModelsArchitecture>

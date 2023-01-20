@@ -28,7 +28,7 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  udPu =  ComplexMath.real(uPu) * cosPhi + ComplexMath.imag(uPu) * sinPhi;
+  udPu = ComplexMath.real(uPu) * cosPhi + ComplexMath.imag(uPu) * sinPhi;
   uqPu = - ComplexMath.real(uPu) * sinPhi + ComplexMath.imag(uPu) * cosPhi;
 
 annotation(

@@ -233,7 +233,7 @@ SolverFixedTimeStepInitGuessOK =            initial guess of the algebraic solve
 SolverKINUnknownError         =             unknown error during KINSOL Solve
 SolverKINResidualNorm         =             newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3%
 SolverKINResidualNormAlg      =             algebraic restoration (%1%): newton iteration %2% : ||F(y_%2%)*Weight||_Infinity = %3% and ||F(y_%2%)*Weight||_2 = %4%
-MatrixStructureChange         =             call of SolverReInit ie a new symbolic and numerical factorization will be performed
+MatrixStructureChange         =             call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
 KinsolSucceeded               =             KINSOL succeeded
 KinInitialGuessOk             =             the initial user-supplied guess already satisfies the stopping criterion
 KinStepLtStpTol               =             the stopping tolerance on scaled step length was satisfied

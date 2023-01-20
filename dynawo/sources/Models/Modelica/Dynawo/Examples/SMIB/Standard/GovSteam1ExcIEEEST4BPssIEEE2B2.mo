@@ -101,7 +101,7 @@ model GovSteam1ExcIEEEST4BPssIEEE2B2 "Active power variation on the load"
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UsRefPu(k = generatorSynchronous.U0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = 0.43125)  annotation(
+  Modelica.Blocks.Sources.Constant PmRefPu(k = 0.43125) annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {21, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -122,8 +122,7 @@ equation
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
-  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
-    Line);
+  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(

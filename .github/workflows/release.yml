@@ -15,6 +15,7 @@ jobs:
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout sources
@@ -24,7 +25,6 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
@@ -32,10 +32,10 @@ jobs:
           util/envDynawo.sh distrib-headers
           util/envDynawo.sh distrib-omc
           version=$(util/envDynawo.sh version | cut -f1 -d' ')
-          curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
-          curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_minimal_v${version}.zip --data-binary @distributions/Dynawo_V${version}.zip
-          curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_headers_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
-          curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Modelica_Library_v${version}.zip --data-binary @distributions/Dynawo_Modelica_Library_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_minimal_v${version}.zip --data-binary @distributions/Dynawo_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_headers_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Modelica_Library_v${version}.zip --data-binary @distributions/Dynawo_Modelica_library_V${version}.zip
 
   distribution-centos7:
     name: Distribution Linux centos7
@@ -46,6 +46,7 @@ jobs:
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout sources
@@ -55,10 +56,9 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
           util/envDynawo.sh distrib-omc
           version=$(util/envDynawo.sh version | cut -f1 -d' ')
-          curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_centos7_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_centos7_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip

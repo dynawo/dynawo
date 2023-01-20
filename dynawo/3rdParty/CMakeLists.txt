@@ -130,7 +130,7 @@ else()
 endif()
 set(libarchive_url       ${libarchive_prefix_url}/v${libarchive_version}.tar.gz)
 
-set(adept_version        2.0.8)
+set(adept_version        2.1.1)
 set(adept_name           adept-${adept_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_ADEPT_DOWNLOAD_URL})
   set(adept_prefix_url $ENV{DYNAWO_ADEPT_DOWNLOAD_URL})
@@ -138,7 +138,7 @@ else()
   set(adept_prefix_url http://www.met.reading.ac.uk/clouds/adept)
 endif()
 set(adept_url            ${adept_prefix_url}/${adept_name})
-set(adept_md5            213245A0B93D57E17819F448E873C66B)
+set(adept_md5            327306b9cc14a82df15c54c498cb0480)
 
 set(suitesparse_version  5.4.0)
 set(suitesparse_name     SuiteSparse-${suitesparse_version}.tar.gz)
@@ -161,6 +161,7 @@ set(sundials_url         ${sundials_prefix_url}/v${sundials_version}/${sundials_
 set(sundials_md5         4546D887F63E8A5F7B3BA7933D877C83)
 
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
+set(omdev_tag            origin/OM113maintenance)
 
 set(openmodelica_version 1.13.2)
 if(DEFINED ENV{DYNAWO_OPENMODELICA_GIT_URL})
@@ -661,6 +662,7 @@ if(NOT OMCompiler)
         TMP_DIR             ${TMP_DIR}
         STAMP_DIR           ${DOWNLOAD_DIR}/omdev-stamp
         GIT_REPOSITORY      ${omdev_git}
+        GIT_TAG             ${omdev_tag}
         GIT_SHALLOW         1
         UPDATE_DISCONNECTED 1
         BUILD_IN_SOURCE     1

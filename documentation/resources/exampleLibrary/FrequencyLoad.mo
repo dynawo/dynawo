@@ -12,7 +12,7 @@ within Dynawo.Electrical.Loads;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model FrequencyLoad "Load with frequency dependant active and reactive power"
+model FrequencyLoad "Load with frequency-dependent active and reactive power"
   extends BaseClasses.BaseLoad;
 
   public

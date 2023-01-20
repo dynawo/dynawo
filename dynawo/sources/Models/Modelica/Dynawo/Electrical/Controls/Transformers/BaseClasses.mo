@@ -250,14 +250,14 @@ equation
     tTapDown = pre(tTapDown);
     Timeline.logEvent1(TimelineKeys.TapUp);
   //Transition to "MoveDownN" (only possible from "MoveDown1" or "MoveDownN")
-  elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN)  and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
+  elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
     state = State.MoveDownN;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
   //Transition to "MoveUpN" (only possible from "MoveUp1" or "MoveUpN")
-  elsewhen (pre(state) == State.MoveUp1 or  pre(state) == State.MoveUpN)  and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
+  elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
     state = State.MoveUpN;
     tap.value = pre(tap.value) + 1;
     tTapUp = time;

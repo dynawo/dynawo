@@ -126,6 +126,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getQMax();
 
   /**
+   * @copydoc GeneratorInterface::getQNom()
+   */
+  double getQNom();
+
+  /**
    * @copydoc GeneratorInterface::getQMin()
    */
   double getQMin();
@@ -216,6 +221,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   inline void setCountry(const std::string& country) {
     country_ = country;
   }
+
+  /**
+   * @copydoc GeneratorInterface::getEnergySource() const
+   */
+  EnergySource_t getEnergySource() const;
 
  private:
   IIDM::Generator& generatorIIDM_;  ///< reference to the iidm generator instance

@@ -27,11 +27,11 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
   parameter Types.VoltageComponent VDLIq12;
   parameter Types.VoltageComponent VDLIq21;
   parameter Types.VoltageComponent VDLIq22;
-  parameter Types.VoltageComponent VDLIpPoints[:, :] = [VDLIp11, VDLIp12 ; VDLIp21, VDLIp22] "Pair of points for voltage dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]";
-  parameter Types.VoltageComponent VDLIqPoints[:, :] =  [VDLIq11, VDLIq12 ; VDLIq21, VDLIq22]"Pair of points for voltage dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]";
+  parameter Types.VoltageComponent VDLIpPoints[:, :] = [VDLIp11, VDLIp12 ; VDLIp21, VDLIp22] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]";
+  parameter Types.VoltageComponent VDLIqPoints[:, :] = [VDLIq11, VDLIq12 ; VDLIq21, VDLIq22]"Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]";
   parameter Types.PerUnit VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)";
   parameter Types.Time HoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s";
-  parameter Types.Time HoldIq "Absolute value of HoldIq defines seconds to hold current injection after voltage dip ended. HoldIq < 0 for constant, 0 for no injection after voltage dip, HoldIq > 0 for voltage dependent injection (typical: -1 .. 1 s)";
+  parameter Types.Time HoldIq "Absolute value of HoldIq defines seconds to hold current injection after voltage dip ended. HoldIq < 0 for constant, 0 for no injection after voltage dip, HoldIq > 0 for voltage-dependent injection (typical: -1 .. 1 s)";
   parameter Types.PerUnit IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)";
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)";
 
@@ -40,11 +40,11 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {340, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn)  annotation(
+  Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {44, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn4(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {395, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -52,15 +52,15 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
     Placement(visible = true, transformation(origin = {292, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant VRefConst1(k = VRef1Pu) annotation(
     Placement(visible = true, transformation(origin = {-80, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant PFlagConst(k = PFlag)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant PFlagConst(k = PFlag) annotation(
     Placement(visible = true, transformation(origin = {-190, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant DPMax0(k = 999) annotation(
     Placement(visible = true, transformation(origin = {-40, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant DPMin0(k = -999) annotation(
     Placement(visible = true, transformation(origin = {-40, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter3(limitsAtInit = true, uMax = PMaxPu, uMin = PMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter3(uMax = PMaxPu, uMin = PMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 175}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DPMin, Rising = DPMax, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PInj0Pu)  annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DPMin, Rising = DPMax, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch pflagswitch annotation(
     Placement(visible = true, transformation(origin = {-90, 175}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -68,12 +68,12 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-39, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product2 annotation(
     Placement(visible = true, transformation(origin = {-190, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds IpmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIpPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false)  annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds IpmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIpPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {370, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds IqmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIqPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false)  annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds IqmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIqPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {370, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.WECC.BaseControls.IqInjectionLogic iqInjectionLogic(IqFrzPu = IqFrzPu, HoldIq = HoldIq)  annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.IqInjectionLogic iqInjectionLogic(IqFrzPu = IqFrzPu, HoldIq = HoldIq) annotation(
     Placement(visible = true, transformation(origin = {311, 12}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationWind currentLimitsCalculation1(IMaxPu = IMaxPu, PPriority = PPriority, HoldIpMax = HoldIpMax) annotation(
     Placement(visible = true, transformation(origin = {432, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -92,7 +92,7 @@ equation
   connect(limiter1.y, iqInjectionLogic.iqVPu) annotation(
     Line(points = {{291, 30}, {311, 30}, {311, 22}}, color = {0, 0, 127}));
   connect(iqInjectionLogic.iqInjPu, add1.u1) annotation(
-    Line(points = {{311, 2},  {311, -15}, {318, -15}}, color = {0, 0, 127}));
+    Line(points = {{311, 2}, {311, -15}, {318, -15}}, color = {0, 0, 127}));
   connect(VRefConst1.y, add2.u1) annotation(
     Line(points = {{-69, -30}, {-60, -30}, {-60, -44}, {-51, -44}}, color = {0, 0, 127}));
   connect(switch1.y, add2.u2) annotation(

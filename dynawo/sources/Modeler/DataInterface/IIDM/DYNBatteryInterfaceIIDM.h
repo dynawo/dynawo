@@ -121,6 +121,11 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   double getQMax();
 
   /**
+   * @copydoc GeneratorInterface::getQNom()
+   */
+  double getQNom();
+
+  /**
    * @copydoc GeneratorInterface::getQMin()
    */
   double getQMin();
@@ -205,6 +210,11 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   inline void setCountry(const std::string& country) {
     country_ = country;
   }
+
+  /**
+   * @copydoc GeneratorInterface::getEnergySource() const
+   */
+  EnergySource_t getEnergySource() const;
 
  private:
   IIDM::Battery& batteryIIDM_;  ///< reference to the iidm generator instance

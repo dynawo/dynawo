@@ -33,7 +33,7 @@ class CurrentLimitInterface;
 #endif  // __clang__
 
 /**
- * @brief 3W transformator interface
+ * @brief 3W transformer interface
  */
 class ThreeWTransformerInterface : public ComponentInterface {
  public:

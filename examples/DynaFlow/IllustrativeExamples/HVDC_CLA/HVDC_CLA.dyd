@@ -29,8 +29,6 @@
     <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="HVDC" lib="HvdcPVEmulation" parFile="HVDC_CLA.par" parId="5"/>
-  <dyn:blackBoxModel id="U1RefPu" lib="EventSetPointReal" parFile="HVDC_CLA.par" parId="6"/>
-  <dyn:blackBoxModel id="U2RefPu" lib="EventSetPointReal" parFile="HVDC_CLA.par" parId="7"/>
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="HVDC_CLA.par" parId="9"/>
   <dyn:blackBoxModel id="CLA" lib="CurrentLimitAutomaton" parFile="HVDC_CLA.par" parId="11"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
@@ -41,8 +39,6 @@
   <dyn:connect id1="Load__11" var1="load_terminal" id2="NETWORK" var2="_BUS____8_TN_ACPIN"/>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDC" var2="hvdc_terminal2"/>
   <dyn:connect id1="NETWORK" var1="_BUS____8_TN_ACPIN" id2="HVDC" var2="hvdc_terminal1"/>
-  <dyn:connect id1="HVDC" var1="hvdc_U1RefPu" id2="U1RefPu" var2="event_state1_value"/>
-  <dyn:connect id1="HVDC" var1="hvdc_U2RefPu" id2="U2RefPu" var2="event_state1_value"/>
   <dyn:connect id1="CLA" var1="currentLimitAutomaton_IMonitored" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_iSide2"/>
   <dyn:connect id1="CLA" var1="currentLimitAutomaton_order" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_state"/>
   <dyn:connect id1="CLA" var1="currentLimitAutomaton_AutomatonExists" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_desactivate_currentLimits"/>

@@ -14,12 +14,13 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block AbsLimRateLimFeedthroughFreeze "First order feed-through with absolute and rate limits, and a freezing flag, used when first order filter is bypassed"
   import Modelica;
+  import Dynawo;
   import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
-  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
+  parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximum falling slew rate of output";
   parameter Types.Time tS "Integration time step in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
@@ -35,9 +36,9 @@ block AbsLimRateLimFeedthroughFreeze "First order feed-through with absolute and
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS)  annotation(
+  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DyMin, Rising = DyMax)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = DyMax, DuMin = DyMin, Y0 = Y0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Y0 "Initial value of output";
@@ -53,9 +54,9 @@ equation
     Line(points = {{40, 60}, {30, 60}, {30, 8}, {38, 8}}, color = {0, 0, 127}));
   connect(u, limiter.u) annotation(
     Line(points = {{-120, 0}, {-62, 0}}, color = {0, 0, 127}));
-  connect(limiter.y, slewRateLimiter.u) annotation(
+  connect(limiter.y, standAloneRampRateLimiter.u) annotation(
     Line(points = {{-38, 0}, {-22, 0}}, color = {0, 0, 127}));
-  connect(slewRateLimiter.y, switch1.u3) annotation(
+  connect(standAloneRampRateLimiter.y, switch1.u3) annotation(
     Line(points = {{2, 0}, {10, 0}, {10, -8}, {38, -8}}, color = {0, 0, 127}));
 
   annotation(

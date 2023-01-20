@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <macroParameterSet id="macro1">
-    <par name="generator_tFilter" type="DOUBLE" value="0.001"/>
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
     <reference type="DOUBLE" name="generator_PMax" origData="IIDM" origName="pMax"/>
     <reference type="DOUBLE" name="generator_PMin" origData="IIDM" origName="pMin"/>

@@ -13,19 +13,12 @@ set(MODEL_FILES
   package.mo
   package.order
   CurrentLoop.mo
-  CurrentLoop.extvar
   VoltageLoop.mo
-  VoltageLoop.extvar
   DCVoltageControl.mo
-  DCVoltageControl.extvar
   VirtualImpedance.mo
-  VirtualImpedance.extvar
   DroopControl.mo
-  DroopControl.extvar
   MatchingControl.mo
-  MatchingControl.extvar
   DispatchableVirtualOscillatorControl.mo
-  DispatchableVirtualOscillatorControl.extvar
   )
 
 #

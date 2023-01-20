@@ -12,67 +12,58 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model VRProportional "Simple Proportional Voltage Regulator"
+model VRProportional "Simple proportional voltage regulator"
   import Modelica;
-  import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag;
+  import Dynawo;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  parameter Real Gain "Control gain";
-  parameter Types.VoltageModulePu UsRefMaxPu "Maximum stator reference voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu UsRefMinPu "Minimum stator reference voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu EfdMinPu "Minimum allowed EfdPu";
-  parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed EfdPu";
-  parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
-  parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
+  parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed exciter field voltage in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu EfdMinPu "Minimum allowed exciter field voltage in pu (user-selected base voltage)";
+  parameter Types.PerUnit Gain "Control gain";
+  parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax in s";
+  parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin in s";
+  parameter Types.VoltageModulePu UsRefMaxPu "Maximum reference stator voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UsRefMinPu "Minimum reference stator voltage in pu (base UNom)";
 
-  // Inputs
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "General control voltage" annotation(
-    Placement(visible = true, transformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage" annotation(
-    Placement(visible = true, transformation(origin = {-22, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput deltaUsRefPu(start = 0) "Additional reference stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-160, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-160, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "Reference stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-160, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  // Outputs
-  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage" annotation(
-    Placement(visible = true, transformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.BPin  limitationUp(value(start = false)) "Limitation up reached ?";
-  Connectors.BPin  limitationDown(value(start = false)) "Limitation down reached ?";
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage in pu (user-selected base voltage)" annotation(
+    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.BPin limitationDown(value(start = false)) "If true, lower limit is reached";
+  Dynawo.Connectors.BPin limitationUp(value(start = false)) "If true, upper limit is reached";
 
   //Blocks
-  LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
-    Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag limiterWithLag(LagMax = LagEfdMax, LagMin = LagEfdMin, tUMaxReached0 = Modelica.Constants.inf, tUMinReached0 = Modelica.Constants.inf, UMax = EfdMaxPu, UMin = EfdMinPu) "Limiter activated only after a given period outside the bounds" annotation(
+    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Gain) annotation(
-    Placement(visible = true, transformation(origin = {14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-22, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limUsRef(limitsAtInit = true, uMax = UsRefMaxPu, uMin = UsRefMinPu)  annotation(
-    Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.Limiter limUsRef(uMax = UsRefMaxPu, uMin = UsRefMinPu) annotation(
+    Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add UsRefTotal annotation(
+    Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage";
-  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage";
-  parameter Types.VoltageModulePu Efd0Pu "Initial Efd, i.e Efd0PuLF if compliant with saturations";
-  parameter Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
+  parameter Types.VoltageModulePu Efd0Pu "Initial exciter field voltage, i.e. Efd0PuLF if compliant with saturations, in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu Efd0PuLF "Initial exciter field voltage from LoadFlow in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
 
 protected
-  Boolean limitationUsRefMax(start = false) "UsRefMax reached ?";
-  Boolean limitationUsRefMin(start = false) "UsRefMin reached ?";
-  Boolean limitationEfdMax(start = false) "EfdMax limitation?";
-  Boolean limitationEfdMin(start = false) "EfdMin limitation?";
+  Boolean limitationEfdMax(start = false) "If true, EfdMax is reached";
+  Boolean limitationEfdMin(start = false) "If true, EfdMin is reached";
+  Boolean limitationUsRefMax(start = false) "If true, UsRefMax is reached";
+  Boolean limitationUsRefMin(start = false) "If true, UsRefMin is reached";
 
 equation
-  connect(limUsRef.y, feedback.u1) annotation(
-    Line(points = {{-50, 0}, {-30, 0}, {-30, 0}, {-30, 0}}, color = {0, 0, 127}));
-  connect(UsRefPu, limUsRef.u) annotation(
-    Line(points = {{-108, 0}, {-76, 0}, {-76, 0}, {-74, 0}}, color = {0, 0, 127}));
-  connect(limiterWithLag.y, EfdPu) annotation(
-    Line(points = {{75, 0}, {108, 0}}, color = {0, 0, 127}));
-  connect(gain.y, limiterWithLag.u) annotation(
-    Line(points = {{25, 0}, {49, 0}, {49, 0}, {51, 0}}, color = {0, 0, 127}));
-  connect(gain.u, feedback.y) annotation(
-    Line(points = {{2, 0}, {-12, 0}}, color = {0, 0, 127}));
-  connect(UsPu, feedback.u2) annotation(
-    Line(points = {{-22, -48}, {-22, -48}, {-22, -8}, {-22, -8}}, color = {0, 0, 127}));
-
   //Low limit (EfdMin)
   when time - limiterWithLag.tUMinReached >= LagEfdMin then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMin);
@@ -92,15 +83,15 @@ equation
   end when;
 
   //UsRef limits
-  when UsRefPu <= UsRefMinPu then
+  when UsRefTotal.y <= UsRefMinPu then
     Timeline.logEvent1(TimelineKeys.VRLimitationUsRefMin);
     limitationUsRefMin = true;
     limitationUsRefMax = false;
-  elsewhen UsRefPu >= UsRefMaxPu then
+  elsewhen UsRefTotal.y >= UsRefMaxPu then
     Timeline.logEvent1(TimelineKeys.VRLimitationUsRefMax);
     limitationUsRefMin = false;
     limitationUsRefMax = true;
-  elsewhen UsRefPu < UsRefMaxPu and UsRefPu > UsRefMinPu and (pre(limitationUsRefMin) or pre(limitationUsRefMax)) then
+  elsewhen UsRefTotal.y < UsRefMaxPu and UsRefTotal.y > UsRefMinPu and (pre(limitationUsRefMin) or pre(limitationUsRefMax)) then
     Timeline.logEvent1(TimelineKeys.VRBackToRegulation);
     limitationUsRefMin = false;
     limitationUsRefMax = false;
@@ -109,5 +100,23 @@ equation
   limitationUp.value = limitationUsRefMax or limitationEfdMax;
   limitationDown.value = limitationUsRefMin or limitationEfdMin;
 
-  annotation(preferredView = "diagram");
+  connect(limUsRef.y, feedback.u1) annotation(
+    Line(points = {{-39, 0}, {-8, 0}}, color = {0, 0, 127}));
+  connect(limiterWithLag.y, EfdPu) annotation(
+    Line(points = {{101, 0}, {150, 0}}, color = {0, 0, 127}));
+  connect(gain.y, limiterWithLag.u) annotation(
+    Line(points = {{61, 0}, {78, 0}}, color = {0, 0, 127}));
+  connect(gain.u, feedback.y) annotation(
+    Line(points = {{38, 0}, {9, 0}}, color = {0, 0, 127}));
+  connect(UsPu, feedback.u2) annotation(
+    Line(points = {{-160, -60}, {0, -60}, {0, -8}}, color = {0, 0, 127}));
+  connect(deltaUsRefPu, UsRefTotal.u1) annotation(
+    Line(points = {{-160, 20}, {-120, 20}, {-120, 6}, {-102, 6}}, color = {0, 0, 127}));
+  connect(UsRefPu, UsRefTotal.u2) annotation(
+    Line(points = {{-160, -20}, {-120, -20}, {-120, -6}, {-102, -6}}, color = {0, 0, 127}));
+  connect(UsRefTotal.y, limUsRef.u) annotation(
+    Line(points = {{-79, 0}, {-62, 0}}, color = {0, 0, 127}));
+
+  annotation(preferredView = "diagram",
+    Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
 end VRProportional;

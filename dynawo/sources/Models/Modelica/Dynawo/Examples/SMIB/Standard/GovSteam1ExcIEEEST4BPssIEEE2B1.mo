@@ -102,7 +102,7 @@ model GovSteam1ExcIEEEST4BPssIEEE2B1 "Voltage reference step on the synchronous 
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UsRefPu(height = 0.05, offset = 1, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {21, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -115,8 +115,7 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint) annotation(
-    Line);
+  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(pss.UPssPu, avr.UPssPu) annotation(

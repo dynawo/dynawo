@@ -53,7 +53,7 @@ equation
   if (running.value) then
     UPu = Modelica.ComplexMath.'abs'(terminal.V);
     terminal.i = terminal.V * Complex(0, BPu);
-    BPu =  BVarPu + BShuntPu;
+    BPu = BVarPu + BShuntPu;
   else
     UPu = 0.;
     terminal.i = Complex(0);

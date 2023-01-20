@@ -3,31 +3,31 @@
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
-    This Source Code Form is subject to the terSM of the Mozilla Public
+    This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systeSM.
+    simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="SM" variable="gen_cePu"/>
-  <curve model="SM" variable="gen_PePu"/>
-  <curve model="SM" variable="gen_cmPu"/>
-  <curve model="SM" variable="gen_PmPu"/>
-  <curve model="SM" variable="gen_ufPu"/>
-  <curve model="SM" variable="gen_efdPu"/>
-  <curve model="SM" variable="gen_omegaPu"/>
-  <curve model="SM" variable="gen_theta"/>
-  <curve model="SM" variable="gen_PGenPu"/>
-  <curve model="SM" variable="gen_QGenPu"/>
-  <curve model="SM" variable="gen_PGen"/>
-  <curve model="SM" variable="gen_QGen"/>
-  <curve model="SM" variable="gen_UPu"/>
-  <curve model="SM" variable="gen_IStatorPu"/>
-  <curve model="SM" variable="gen_IRotorPu"/>
-  <curve model="SM" variable="gen_UStatorPu"/>
-  <curve model="SM" variable="gen_QStatorPu"/>
-  <curve model="SM" variable="gen_thetaInternal"/>
+  <curve model="SM" variable="generator_cePu"/>
+  <curve model="SM" variable="generator_PePu"/>
+  <curve model="SM" variable="generator_cmPu"/>
+  <curve model="SM" variable="generator_PmPu"/>
+  <curve model="SM" variable="generator_ufPu"/>
+  <curve model="SM" variable="generator_efdPu"/>
+  <curve model="SM" variable="generator_omegaPu"/>
+  <curve model="SM" variable="generator_theta"/>
+  <curve model="SM" variable="generator_PGenPu"/>
+  <curve model="SM" variable="generator_QGenPu"/>
+  <curve model="SM" variable="generator_PGen"/>
+  <curve model="SM" variable="generator_QGen"/>
+  <curve model="SM" variable="generator_UPu"/>
+  <curve model="SM" variable="generator_IStatorPu"/>
+  <curve model="SM" variable="generator_IRotorPu"/>
+  <curve model="SM" variable="generator_UStatorPu"/>
+  <curve model="SM" variable="generator_QStatorPu"/>
+  <curve model="SM" variable="generator_thetaInternal"/>
 </curvesInput>

@@ -20,8 +20,8 @@ model ModeHandling "Static Var Compensator mode calculation"
 
   extends Parameters.Params_ModeHandling;
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
-  final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;
-  final parameter Types.VoltageModule UThresholdDownPu =  UThresholdDown / UNom;
+  final parameter Types.VoltageModule UThresholdUpPu = UThresholdUp / UNom;
+  final parameter Types.VoltageModule UThresholdDownPu = UThresholdDown / UNom;
 
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

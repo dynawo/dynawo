@@ -15,16 +15,8 @@
   <dyn:modelicaModel id="GridFormingConverterDispatchableVirtualOscillatorControl">
     <dyn:unitDynamicModel id="converter" name="Dynawo.Electrical.Sources.Converter" initName="Dynawo.Electrical.Sources.Converter_INIT"/>
     <dyn:unitDynamicModel id="control" name="Dynawo.Electrical.Controls.Converters.GridFormingControlDispatchableVirtualOscillatorControl" initName="Dynawo.Electrical.Controls.Converters.GridFormingControl_INIT"/>
-    <dyn:unitDynamicModel id="PRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="QRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="UFilterRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="IdcSourceRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:unitDynamicModel id="UdcSourceRefPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="control" var1="PRef0Pu" id2="PRefPu" var2="Value0"/>
-    <dyn:initConnect id1="control" var1="QRef0Pu" id2="QRefPu" var2="Value0"/>
-    <dyn:initConnect id1="control" var1="UdFilter0Pu" id2="UFilterRefPu" var2="Value0"/>
-    <dyn:initConnect id1="control" var1="IdcSourceRef0Pu" id2="IdcSourceRefPu" var2="Value0"/>
-    <dyn:initConnect id1="converter" var1="UdFilter0Pu" id2="UdcSourceRefPu" var2="Value0"/>
+    <dyn:initConnect id1="converter" var1="PFilter0Pu" id2="control" var2="PFilter0Pu"/>
+    <dyn:initConnect id1="converter" var1="QFilter0Pu" id2="control" var2="QFilter0Pu"/>
     <dyn:initConnect id1="converter" var1="UdConv0Pu" id2="control" var2="UdConv0Pu"/>
     <dyn:initConnect id1="converter" var1="UqConv0Pu" id2="control" var2="UqConv0Pu"/>
     <dyn:initConnect id1="converter" var1="IdcSource0Pu" id2="control" var2="IdcSource0Pu"/>
@@ -33,17 +25,12 @@
     <dyn:initConnect id1="control" var1="IdPcc0Pu" id2="converter" var2="IdPcc0Pu"/>
     <dyn:initConnect id1="control" var1="IqPcc0Pu" id2="converter" var2="IqPcc0Pu"/>
     <dyn:initConnect id1="control" var1="UdFilter0Pu" id2="converter" var2="UdFilter0Pu"/>
+    <dyn:initConnect id1="control" var1="UqFilter0Pu" id2="converter" var2="UqFilter0Pu"/>
     <dyn:initConnect id1="control" var1="IdConv0Pu" id2="converter" var2="IdConv0Pu"/>
     <dyn:initConnect id1="control" var1="IqConv0Pu" id2="converter" var2="IqConv0Pu"/>
-    <dyn:connect id1="control" var1="PRefPu" id2="PRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="control" var1="QRefPu" id2="QRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="control" var1="UFilterRefPu" id2="UFilterRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="control" var1="IdcSourceRefPu" id2="IdcSourceRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="converter" var1="UdcSourceRefPu" id2="UdcSourceRefPu" var2="setPoint.value"/>
     <dyn:connect id1="converter" var1="udConvRefPu" id2="control" var2="udConvRefPu"/>
     <dyn:connect id1="converter" var1="uqConvRefPu" id2="control" var2="uqConvRefPu"/>
     <dyn:connect id1="converter" var1="IdcSourcePu" id2="control" var2="IdcSourcePu"/>
-    <dyn:connect id1="UdcSourceRefPu" var1="setPoint.value" id2="control" var2="UdcSourceRefPu"/>
     <dyn:connect id1="converter" var1="UdcSourcePu" id2="control" var2="UdcSourcePu"/>
     <dyn:connect id1="converter" var1="omegaPu" id2="control" var2="omegaPu"/>
     <dyn:connect id1="converter" var1="theta" id2="control" var2="theta"/>

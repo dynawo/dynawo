@@ -437,9 +437,9 @@ class Factory:
         # ... We group some vars into categories.
         # For filters, see dataContainer.py
         self.list_vars_der = list(filter (is_der_real_var, list_vars_read)) # Derived from state vars
-        self.list_vars_discr =  list(filter(is_discrete_real_var, list_vars_read)) # Vars discretes reelles
-        self.list_vars_int =  list(filter(is_integer_var, list_vars_read)) # vars entieres
-        self.list_vars_bool =  list(filter(is_bool_var, list_vars_read)) # Vars booleennes
+        self.list_vars_discr =  list(filter(is_discrete_real_var, list_vars_read)) # Vars discrete real
+        self.list_vars_int =  list(filter(is_integer_var, list_vars_read)) # Vars integer
+        self.list_vars_bool =  list(filter(is_bool_var, list_vars_read)) # Vars boolean
         self.list_vars_when =  list(filter(is_when_var, list_vars_read)) # Vars when (bool & "$whenCondition")
         self.list_vars_dummy =  list(filter(is_dummy_var, list_vars_read))
 
@@ -1197,6 +1197,7 @@ class Factory:
                     eq_type = ALGEBRAIC
                 assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
+
         # bulding relations objects
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
         relations_found = re.findall(r'  data->simulationInfo->relations.*?= tmp[0-9]+;', content_to_analyze)
@@ -1338,6 +1339,12 @@ class Factory:
                     else:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
+
+        for eq in self.list_int_equations:
+            relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
+            for relation in relations_found:
+                index_relation = relation.split(", ")[3]
+                self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
         for var in self.reader.list_calculated_vars :
             if var.get_alias_name() != "":
@@ -1967,6 +1974,14 @@ class Factory:
         filtered_func = list(self.zc_filter.get_function_zero_crossings_raw_func())
         filtered_func = filtered_func[1:-1] # remove last and first elements which are "}" and "{"
 
+        # sort by taking init function number read in *06inz.c
+        index = 0
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        calc_var_2_index = {}
+        for var in self.reader.list_calculated_vars:
+            calc_var_2_index[var.get_name()] = index
+            index += 1
+
         for line in filtered_func :
             if "gout" not in line:
                 if "tmp" in line:
@@ -2006,6 +2021,10 @@ class Factory:
         index = 0
         for line in self.list_for_setg:
             self.list_for_setg[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+            match = ptrn_calc_var.findall(self.list_for_setg[index])
+            for name in match:
+                 self.list_for_setg[index] = self.list_for_setg[index].replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
             index+=1
 
     ##
@@ -2336,9 +2355,13 @@ class Factory:
                 func_call_line = line_split_by_equal[0]
             # Split this line at each function call ('(') and parameter (',')
             line_split_by_parenthesis = re.split('(\()', func_call_line)
-            line_split = []
+            line_split_by_comma = []
             for l in line_split_by_parenthesis:
-                line_split.extend(l.split(','))
+                line_split_by_comma.extend(l.split(','))
+            line_split = []
+            for l in line_split_by_comma:
+                line_split.extend(re.split('(\))', l))
+            line_split = [i for i in line_split if i and i != " "]
 
             # stack (FILO) containing the function called sorted by call stack
             stack_func_called = []
@@ -2351,32 +2374,39 @@ class Factory:
             main_func_is_adept = False
 
             while idx < len(line_split):
-                l = line_split[idx].strip()
+                l = line_split[idx]
 
                 #hack to handle the case data->localData[0]->derivativesVars[...] /* der(a) STATE_DER /
                 if l.endswith("/* der"):
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                 #hack to handle cast
 
                 if l.endswith("STATE"):
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
                     if l[-1].isdigit():
                         # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
                         idx+=1
-                        l+=", " +line_split[idx].strip()
+                        l+=", " +line_split[idx]
+                    # final )
+                    idx+=1
+                    l+=line_split[idx]
+                    if l[-1] == ')':
+                        # final */
+                        idx+=1
+                        l+=line_split[idx]
 
-                while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
+                if l.endswith("modelica_integer") or l.endswith("modelica_real") or l.endswith("modelica_boolean"):
                     idx+=1
-                    l+=line_split[idx].strip()
+                    l+=line_split[idx]
+                    call_line+= l
                     idx+=1
-                    while l.endswith("("):
-                        l+=line_split[idx].strip()
+                    continue
                 #Filter empty indexes
                 if len(l) == 0:
                     idx+=1
@@ -2384,6 +2414,14 @@ class Factory:
 
                 #Put back any opening parenthesis into the final line
                 if l =='(':
+                    call_line+= l
+                    idx+=1
+                    continue
+                if l ==')':
+                    call_line+= l
+                    idx+=1
+                    continue
+                if l ==';':
                     call_line+= l
                     idx+=1
                     continue
@@ -2411,10 +2449,17 @@ class Factory:
                             main_func_is_adept = True
                     else:
                         call_line += l
+                    l = line_split[idx]
+                    assert(l == '(')
+                    call_line += l
+                    idx+=1
+
                 elif len(stack_func_called) == 0:
                     #Second case: no function being currently called, lets go to the next index
                     # e.g. a + f(...)
                     call_line+= l
+                    if call_line[-1] == ';':
+                        call_line += "\n"
                     idx+=1
                 else :
                     #Third case: parameter of the latest function in the stack
@@ -2443,23 +2488,38 @@ class Factory:
                             if match is not None:
                                 l = l.replace(name, "x[" + match.group('varId')+"].value()")
                     call_line += l
-                    if call_line[-1] != ';':
-                        call_line += ', '
-                    else:
-                        call_line += "\n"
-
-                    if curr_param_idx == len(func.get_params()) - 1:
+                    add_comma = True
+                    if curr_param_idx == len(func.get_params()) - 1 \
+                        or (curr_param_idx > 1 and func.get_name() == "array_alloc_scalar_real_array" \
+                            and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array\(&tmp[0-9]+, (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
                         # This is the last parameter, we need to pop the function
                         stack_func_called.pop()
                         stack_param_idx_func_called.pop()
-                        if len(stack_param_idx_func_called) > 1:
-                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 2]+=1
+                        if len(stack_param_idx_func_called) > 0:
+                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
+                            func = called_func[stack_func_called[len(stack_func_called) - 1]]
+                            while len(stack_param_idx_func_called) > 0 and \
+                              stack_param_idx_func_called[len(stack_param_idx_func_called) - 1] >= len(func.get_params()):
+                                stack_func_called.pop()
+                                stack_param_idx_func_called.pop()
+                                if (len(stack_param_idx_func_called) > 0):
+                                    func = called_func[stack_func_called[len(stack_func_called) - 1]]
+
                         if len(stack_param_idx_func_called) == 0:
                             # end of main function
                             main_func_is_adept = False
-
+                        if len(stack_func_called) == 0:
+                            add_comma = False
+                        if len(stack_func_called) == 1 and \
+                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 1] > len(called_func[stack_func_called[len(stack_func_called) - 1]].get_params()) - 1:
+                            add_comma = False
+                    if add_comma:
+                        while idx + 1 < len(line_split) and line_split[idx + 1] == ')':
+                            call_line+= ')'
+                            idx+=1
+                        call_line += ','
                     idx+=1
-            line_tmp = call_line
+            line_tmp = call_line + "\n"
         return line_tmp
 
     ##
@@ -2492,7 +2552,7 @@ class Factory:
         # thanks to the translator (the discreet vars are not replaced)
 
         # ... Transpose to translate
-        #     vars [ var or der(var) ] --> [ x[i]  xd[i] ou rpar[i] ]
+        #     vars [ var or der(var) ] --> [ x[i]  xd[i] or rpar[i] ]
         trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars_to_address_map)
 
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
@@ -2563,7 +2623,7 @@ class Factory:
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
 
-                # L'equation transformee est incorporee dans la fonction a imprimer
+                # Transformed equation is incorporated in the function to be printed
                 self.list_for_evalfadept.extend(body_translated)
 
                 self.list_for_evalfadept.append("\n\n")
@@ -3118,15 +3178,32 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_defineparameters(self):
-        line_ptrn = "  parameters.push_back(ParameterModeler(\"%s\", %s, %s));\n"
+
+        all_parameters = self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string
+
+        push_back_threshold = 8
+        if len(all_parameters) >= push_back_threshold:
+            self.list_for_defineparameters.append("  using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;\n")
+            self.list_for_defineparameters.append("  std::array<ParameterModelerTuple, " + str(len(all_parameters)) + "> parameterModelerArray = {\n")
+            line_ptrn = "    std::make_tuple(\"%s\", %s, %s),\n"
+        else:
+            line_ptrn = "  parameters.push_back(ParameterModeler(\"%s\", %s, %s));\n"
 
         # Les parametres
-        for par in self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string:
+        for par in all_parameters:
             par_type = param_scope_str (param_scope (par))
             name = to_compile_name(par.get_name())
             value_type = par.get_value_type_c().upper()
             line = line_ptrn %( name, "VAR_TYPE_"+value_type, par_type)
             self.list_for_defineparameters.append(line)
+
+        if len(all_parameters) >= push_back_threshold:
+            self.list_for_defineparameters.append("  };\n")
+
+            self.list_for_defineparameters.append("  for (size_t parameterModelerIndex = 0; parameterModelerIndex < parameterModelerArray.size(); ++parameterModelerIndex)\n")
+            self.list_for_defineparameters.append("  {\n")
+            self.list_for_defineparameters.append("    parameters.push_back(ParameterModeler(std::get<0>(parameterModelerArray[parameterModelerIndex]), std::get<1>(parameterModelerArray[parameterModelerIndex]), std::get<2>(parameterModelerArray[parameterModelerIndex])));\n")
+            self.list_for_defineparameters.append("  }\n")
 
     ##
     # returns the lines that constitues the body of defineParameters
@@ -3141,9 +3218,13 @@ class Factory:
     # @return
     def prepare_for_defelem(self):
 
-        motif1 = "  elements.push_back(Element(\"%s\",\"%s\",Element::%s));\n"
-        motif2 = "  mapElement[\"%s\"] = %d;\n"
-
+        push_back_threshold = 8
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  using ElementTuple = std::tuple<std::string, std::string, DYN::Element::typeElement>;\n")
+            self.list_for_defelem.append("  std::array<ElementTuple, " + str(len(self.list_elements)) + "> elementArray1 = {\n")
+            motif1 = "    std::make_tuple(\"%s\", \"%s\", Element::%s),\n"
+        else:
+            motif1 = "  elements.push_back(Element(\"%s\",\"%s\",Element::%s));\n"
 
         # # First part of defineElements (...)
         for elt in self.list_elements :
@@ -3156,6 +3237,13 @@ class Factory:
                 line = motif1 % ( to_compile_name(elt_short_name), to_compile_name(elt_name), "STRUCTURE" )
             self.list_for_defelem.append(line)
 
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  };\n")
+
+            self.list_for_defelem.append("  for (size_t elementsIndex1 = 0; elementsIndex1 < elementArray1.size(); ++elementsIndex1)\n")
+            self.list_for_defelem.append("  {\n")
+            self.list_for_defelem.append("    elements.push_back(Element(std::get<0>(elementArray1[elementsIndex1]), std::get<1>(elementArray1[elementsIndex1]), std::get<2>(elementArray1[elementsIndex1])));\n")
+            self.list_for_defelem.append("  }\n")
 
         self.list_for_defelem.append("\n") # Empty line
 
@@ -3165,6 +3253,12 @@ class Factory:
 
         self.list_for_defelem.append("\n") # Empty line
 
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  std::array<std::pair<std::string, int>, " + str(len(self.list_elements)) + "> mapElementArray = {\n")
+            motif2 = "    std::make_pair(\"%s\", %s),\n"
+        else:
+            motif2 = "  mapElement[\"%s\"] = %d;\n"
+
         # Third part of defineElements (...)
         for elt in self.list_elements :
             elt_name = elt.get_element_name()
@@ -3172,6 +3266,14 @@ class Factory:
             # The structure itself
             line = motif2 % (to_compile_name(elt_name), elt_index)
             self.list_for_defelem.append(line)
+
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  };\n")
+
+            self.list_for_defelem.append("  for (size_t mapElementIndex = 0; mapElementIndex < mapElementArray.size(); ++mapElementIndex)\n")
+            self.list_for_defelem.append("  {\n")
+            self.list_for_defelem.append("    mapElement[mapElementArray[mapElementIndex].first] = mapElementArray[mapElementIndex].second;\n")
+            self.list_for_defelem.append("  }\n")
 
 
     ##
@@ -3524,6 +3626,9 @@ class Factory:
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
 
+  // buffer for mathematical events
+  data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
+
   data->simulationInfo->discreteCall = 0;
  """
         lines = body.split('\n')
@@ -3584,6 +3689,7 @@ class Factory:
   // buffer for all relation values
   free(data->simulationInfo->relations);
   free(data->simulationInfo->relationsPre);
+  free(data->simulationInfo->mathEventsValuePre);
   free(data->simulationInfo);
   free(data->modelData);
 """

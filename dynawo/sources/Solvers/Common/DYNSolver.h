@@ -206,12 +206,12 @@ class Solver {
   virtual void computeYP(const double* yy) = 0;
 
   /**
-   * @brief print the latest step made by the solver (i.e solution)
+   * @brief print the latest step made by the solver (i.e. solution)
    */
   virtual void printSolve() const = 0;
 
   /**
-   * @brief print specific info regarding the latest step made by the solver (i.e solution)
+   * @brief print specific info regarding the latest step made by the solver (i.e. solution)
    *
    * @param msg stringstream to modify
    */

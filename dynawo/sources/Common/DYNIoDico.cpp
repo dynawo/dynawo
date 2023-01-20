@@ -28,6 +28,7 @@
 
 #include "DYNIoDico.h"
 #include "DYNExecUtils.h"
+#include "DYNFileSystemUtils.h"
 #include "DYNMacrosMessage.h"
 using std::string;
 using std::ifstream;
@@ -78,23 +79,24 @@ vector<std::string> IoDicos::findFiles(const string& fileName) {
   if (fileName.empty())
     return res;
 
-
   // Research file in paths
+  string splitCharacter;
+#ifdef _WIN32
+  splitCharacter = ";";
+#else
+  splitCharacter = ":";
+#endif
   vector<string> allPaths;
   for (unsigned int i = 0; i < instance().paths_.size(); ++i) {
     vector<string> paths;
-    boost::algorithm::split(paths, instance().paths_[i], boost::is_any_of(":"));
+    boost::algorithm::split(paths, instance().paths_[i], boost::is_any_of(splitCharacter));
     allPaths.insert(allPaths.begin(), paths.begin(), paths.end());
   }
 
   for (vector<string>::const_iterator it = allPaths.begin();
           it != allPaths.end();
           ++it) {
-    string fic = *it;
-
-    if (fic.size() > 0 && fic[fic.size() - 1] != '/')
-      fic += '/';
-    fic += fileName;
+    string fic = createAbsolutePath(fileName, *it);
 
     ifstream in;
     // Test if file exists

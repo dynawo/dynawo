@@ -63,6 +63,8 @@
 #include "FSVFinalStateValueFactory.h"
 #include "FSVXmlExporter.h"
 #include "FSVXmlImporter.h"
+#include "FSVCsvExporter.h"
+#include "FSVTxtExporter.h"
 
 #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintsCollectionFactory.h"
@@ -164,7 +166,7 @@ initialStateFile_(""),
 exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
-exportFinalStateValuesMode_(EXPORT_FINAL_STATE_VALUES_XML),
+exportFinalStateValuesMode_(EXPORT_FINAL_STATE_VALUES_NONE),
 finalStateValuesInputFile_(""),
 finalStateValuesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
@@ -424,8 +426,22 @@ Simulation::configureFinalStateValueOutputs() {
     importFinalStateValuesRequest();
 
     //---- exportMode ----
-    setFinalStateValuesExportMode(Simulation::EXPORT_FINAL_STATE_VALUES_XML);
-    string outputFile = createAbsolutePath("finalStateValues.xml", finalStateValuesDir);
+    std::string exportMode = jobEntry_->getOutputsEntry()->getFinalStateValuesEntry()->getExportMode();
+    exportFinalStateValuesMode_t exportModeFlag = EXPORT_FINAL_STATE_VALUES_NONE;
+    std::string outputFile = "";
+    if (exportMode == "XML") {
+      exportModeFlag = EXPORT_FINAL_STATE_VALUES_XML;
+      outputFile = createAbsolutePath("finalStateValues.xml", finalStateValuesDir);
+    } else if (exportMode == "CSV") {
+      exportModeFlag = EXPORT_FINAL_STATE_VALUES_CSV;
+      outputFile = createAbsolutePath("finalStateValues.csv", finalStateValuesDir);
+    } else if (exportMode == "TXT") {
+      exportModeFlag = EXPORT_FINAL_STATE_VALUES_TXT;
+      outputFile = createAbsolutePath("finalStateValues.txt", finalStateValuesDir);
+    } else {
+      throw DYNError(Error::MODELER, UnknownFinalStateValuesExport, exportMode);
+    }
+    setFinalStateValuesExportMode(exportModeFlag);
     setFinalStateValuesOutputFile(outputFile);
   } else {
     setFinalStateValuesExportMode(Simulation::EXPORT_FINAL_STATE_VALUES_NONE);
@@ -596,6 +612,8 @@ Simulation::loadDynamicData() {
 
   data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
 
+  data_->setTimeline(timeline_);
+
   dyd_->setDataInterface(data_);
 
   dyd_->initFromDydFiles(dydFiles_);
@@ -743,6 +761,16 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
   model_->setWorkingDirectory(context_->getWorkingDirectory());
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
+
+  if (jobEntry_->getLocalInitEntry() != nullptr) {
+    const std::string initParFile = createAbsolutePath(jobEntry_->getLocalInitEntry()->getParFile(), context_->getInputDirectory());
+    const std::string parId = jobEntry_->getLocalInitEntry()->getParId();
+    parameters::XmlImporter parametersImporter;
+    boost::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
+    boost::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
+
+    model_->setLocalInitParameters(localInitParameters);
+  }
 }
 
 void
@@ -1129,7 +1157,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
-  if (exportCurvesMode_ == EXPORT_CURVES_NONE)
+  if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 
   if (updateCalculateVariable)
@@ -1273,33 +1301,45 @@ Simulation::printCurves(std::ostream& stream) const {
 }
 
 void Simulation::printFinalStateValues(std::ostream& stream) const {
-  switch (exportFinalStateValuesMode_) {
-    case EXPORT_FINAL_STATE_VALUES_NONE:
-      break;
-    case EXPORT_FINAL_STATE_VALUES_XML: {
-      stringstream pid_string;
-      pid_string << pid_;
+  if (exportFinalStateValuesMode_ != EXPORT_FINAL_STATE_VALUES_NONE) {
+    stringstream pid_string;
+    pid_string << pid_;
 
-      boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection =
-        FinalStateValuesCollectionFactory::newInstance("Simulation_" + pid_string.str());
+    boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection =
+      FinalStateValuesCollectionFactory::newInstance("Simulation_" + pid_string.str());
 
-      for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
-        bool isFinalStateValue =
-          (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_FINAL_STATE_VALUE ||
-          (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_BOTH;
-        if ((*itCurve)->getAvailable() && isFinalStateValue) {
-          curves::Curve::const_iterator lastPoint = --(*itCurve)->cend();
-          boost::shared_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
-          finalStateValue->setModelName((*itCurve)->getModelName());
-          finalStateValue->setVariable((*itCurve)->getVariable());
-          finalStateValue->setValue((*lastPoint)->getValue());
-          finalStateValuesCollection->add(finalStateValue);
-        }
+    for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
+      bool isFinalStateValue =
+        (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_FINAL_STATE_VALUE ||
+        (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_BOTH;
+      if ((*itCurve)->getAvailable() && isFinalStateValue) {
+        curves::Curve::const_iterator lastPoint = --(*itCurve)->cend();
+        boost::shared_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
+        finalStateValue->setModelName((*itCurve)->getModelName());
+        finalStateValue->setVariable((*itCurve)->getVariable());
+        finalStateValue->setValue((*lastPoint)->getValue());
+        finalStateValuesCollection->add(finalStateValue);
       }
+    }
 
-      finalStateValues::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(finalStateValuesCollection, stream);
-      break;
+    switch (exportFinalStateValuesMode_) {
+      case EXPORT_FINAL_STATE_VALUES_XML: {
+          finalStateValues::XmlExporter xmlExporter;
+          xmlExporter.exportToStream(finalStateValuesCollection, stream);
+          break;
+        }
+      case EXPORT_FINAL_STATE_VALUES_CSV: {
+          finalStateValues::CsvExporter csvExporter;
+          csvExporter.exportToStream(finalStateValuesCollection, stream);
+          break;
+        }
+      case EXPORT_FINAL_STATE_VALUES_TXT: {
+          finalStateValues::TxtExporter txtExporter;
+          txtExporter.exportToStream(finalStateValuesCollection, stream);
+          break;
+        }
+      case EXPORT_FINAL_STATE_VALUES_NONE:
+        break;
     }
   }
 }

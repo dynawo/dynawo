@@ -25,16 +25,17 @@ package BaseClasses
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
     parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
     parameter Types.ActivePower PNom "Nominal power in MW";
-    final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the frequency regulation";
+    final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the primary frequency regulation";
 
-    input Types.PerUnit N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
+    input Types.PerUnit N "Signal to change the active power reference setpoint of the generators participating in the primary frequency regulation in pu (base SnRef)";
+    input Types.ActivePowerPu PRefPu(start = PRef0Pu) "Active power set point in pu (base Snref) (receptor convention)";
 
   protected
     Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
   equation
     if running.value then
-      PGenRawPu = - PRef0Pu + Alpha * N;
+      PGenRawPu = - PRefPu + Alpha * N;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;
@@ -43,6 +44,39 @@ package BaseClasses
 
     annotation(preferredView = "text");
   end BaseGeneratorSignalN;
+
+  partial model BaseGeneratorSignalNSFR "Base dynamic model for generators based on SignalN for the frequency handling and that participate in the Secondary Frequency Regulation (SFR)"
+    import Dynawo.Electrical.Machines;
+
+    extends Machines.BaseClasses.BaseGeneratorSimplified;
+
+    parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in pu (base SnRef) (receptor convention)";
+    parameter Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
+    parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
+    parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
+    parameter Types.ActivePower PNom "Nominal power in MW";
+    final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the primary frequency regulation";
+    parameter Types.PerUnit KSFR "Coefficient of participation in the secondary frequency regulation";
+    final parameter Real AlphaSFR = PNom * KSFR "Participation of the considered generator in the secondary frequency regulation";
+
+    input Types.PerUnit N "Signal to change the active power reference setpoint of the generators participating in the primary frequency regulation in pu (base SnRef)";
+    input Types.PerUnit NSFR "Signal to change the active power reference setpoint of the generators participating in the secondary frequency regulation in pu (base SnRef)";
+    input Types.ActivePowerPu PRefPu(start = PRef0Pu) "Active power set point in pu (base Snref) (receptor convention)";
+
+  protected
+    Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
+
+  equation
+    if running.value then
+      PGenRawPu = - PRefPu + Alpha * N + AlphaSFR * NSFR;
+      PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
+    else
+      PGenRawPu = 0;
+      terminal.i.re = 0;
+    end if;
+
+    annotation(preferredView = "text");
+  end BaseGeneratorSignalNSFR;
 
   annotation(preferredView = "text");
 end BaseClasses;

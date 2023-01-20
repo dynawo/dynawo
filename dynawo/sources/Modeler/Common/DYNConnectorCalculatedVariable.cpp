@@ -207,7 +207,7 @@ ConnectorCalculatedVariable::dumpParameters(map<string, string >& /*mapParameter
 }
 
 void
-ConnectorCalculatedVariable::getSubModelParameterValue(const string& /*nameParameter*/, double& /*value*/, bool& /*found*/) {
+ConnectorCalculatedVariable::getSubModelParameterValue(const string& /*nameParameter*/, std::string& /*value*/, bool& /*found*/) {
   // no parameter
 }
 

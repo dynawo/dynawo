@@ -16,10 +16,12 @@ set(MODULE_SOURCES
   TestCurvesEntry.cpp
   TestDynModelsEntry.cpp
   TestFinalStateEntry.cpp
+  TestFinalStateValuesEntry.cpp
   TestInitialStateEntry.cpp
   TestInitValuesEntry.cpp
   TestJobCollection.cpp
   TestJobEntry.cpp
+  TestLocalInitEntry.cpp
   TestLogsEntry.cpp
   TestLostEquipmentsEntry.cpp
   TestModelerEntry.cpp

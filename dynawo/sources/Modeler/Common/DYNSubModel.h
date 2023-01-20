@@ -395,9 +395,11 @@ class SubModel {
 
   /**
    * @brief initialize the subModel
+   *
    * @param t0 time to use when calling initialization
+   * @param localInitParameters local initialization solver parameters
    */
-  void initSub(const double t0);
+  void initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters);
 
   /**
    * @brief initialize size and offset to use during the simulation
@@ -1107,7 +1109,7 @@ class SubModel {
   }
 
   /**
-   * @brief get the staticId of the subModel (i.e the name of the model in the IIDM structure)
+   * @brief get the staticId of the subModel (i.e. the name of the model in the IIDM structure)
    *
    * @return staticId of the subModel
    */
@@ -1356,7 +1358,7 @@ class SubModel {
    * @param value value of the parameter
    * @param found @b true if the parameter exist, @b false else
    */
-  virtual void getSubModelParameterValue(const std::string & nameParameter, double& value, bool& found);
+  virtual void getSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found);
 
   /**
    * @brief get index of this submodel in the global continuous variable table
@@ -1418,7 +1420,7 @@ class SubModel {
   virtual void printInitValuesParameters(std::ofstream& fstream);
 
   /**
-   * @brief Determines if the sub model has a data check coherence operation (non empty function)
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
    * @returns true if the sub model has a data check coherence operation, false if not
    */
   virtual bool hasDataCheckCoherence() const {
@@ -1525,13 +1527,15 @@ class SubModel {
   int gDeb_;  ///< offset to use to find root functions values inside the global buffer
 
   bool withLoadedParameters_;  ///< whether to load parameters values (from a dump)
-  bool withLoadedVariables_;  ///< whether to laod variable values (from a dump)
+  bool withLoadedVariables_;  ///< whether to load variable values (from a dump)
 
   std::map<int, std::string> fEquationIndex_;  ///< for DEBUG log, map of index of equation and equation in string
   std::map<int, std::string> gEquationIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string
 
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
+
+  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
  private:
   int sizeFSave_;  ///< save of the size of F

@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Basics;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model SetPoint_INIT "Initialisation for the set-point model"
+model SetPoint_INIT "Initialization for the set-point model"
   extends AdditionalIcons.Init;
 
   parameter Real ValueIn "Start value of the set-point model given as a parameter";

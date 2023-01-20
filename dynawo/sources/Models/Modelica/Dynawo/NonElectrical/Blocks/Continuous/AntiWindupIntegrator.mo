@@ -18,8 +18,8 @@ block AntiWindupIntegrator "Integrator with absolute and rate limits, anti windu
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
-  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
+  parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximum falling slew rate of output";
   parameter Types.Time tI "Integrator time constant in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
@@ -41,7 +41,7 @@ block AntiWindupIntegrator "Integrator with absolute and rate limits, anti windu
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max annotation(
     Placement(visible = true, transformation(origin = {-70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

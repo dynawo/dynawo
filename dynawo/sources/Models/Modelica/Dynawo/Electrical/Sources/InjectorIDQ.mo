@@ -23,7 +23,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   extends SwitchOff.SwitchOffInjector;
 
   // Terminal connection
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
+  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -43,7 +43,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 43}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput QInjPu(start = -Q0Pu) "Injected reactive power in pu (base SnRef)";
   Modelica.Blocks.Interfaces.RealOutput PInjPu(start = -P0Pu) "Injected active power in pu (base SnRef)";
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start=u0Pu.im)) "Complex inverter terminal voltage, used as complex conector instead of terminal connector, terminal only used for physical connection, in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start=u0Pu.im)) "Complex inverter terminal voltage, used as complex connector instead of terminal connector, terminal only used for physical connection, in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -33}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   // Internal variables:
@@ -78,7 +78,6 @@ equation
   end if;
 
   annotation(preferredView = "text",
-Documentation(info="<html> <p> This block calculates the current references for terminal connection based on d-q-frame setpoints from generator control  </p> </html>"),
-    Diagram,
+    Documentation(info="<html> <p> This block calculates the current references for terminal connection based on d-q-frame setpoints from generator control  </p> </html>"),
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-148, 82}, extent = {{-32, 12}, {4, -4}}, textString = "idPu"), Text(origin = {-148, -18}, extent = {{-32, 12}, {4, -4}}, textString = "iqPu"), Text(origin = {170, -70}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower"), Text(origin = {158, 92}, extent = {{-32, 12}, {4, -4}}, textString = "UPu"), Text(origin = {158, 54}, extent = {{-32, 12}, {24, -8}}, textString = "PInjPuSn"), Text(origin = {158, 24}, extent = {{-32, 12}, {24, -20}}, textString = "QInjPuSn"), Text(origin = {164, -20}, extent = {{-32, 12}, {4, -4}}, textString = "uPu")}));
 end InjectorIDQ;

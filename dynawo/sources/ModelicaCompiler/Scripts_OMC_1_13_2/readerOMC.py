@@ -874,7 +874,16 @@ class ReaderOMC:
                         self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
 
-
+        for f in self.list_func_16dae_c:
+            (body, depend) = replace_dynamic_indexing(f.body)
+            f.body = body
+            name_var_eval = None
+            if f.get_num_omc() in self.map_num_eq_vars_defined.keys():
+                if len(self.map_num_eq_vars_defined[f.get_num_omc()]) > 1:
+                    error_exit("   Error: Found an equation (id: " + f.get_num_omc()+") defining multiple variables. This is not supported in Dynawo.")
+                name_var_eval = self.map_num_eq_vars_defined[f.get_num_omc()] [0]
+            if name_var_eval is not None and len(depend) > 0:
+                self.map_vars_depend_vars[name_var_eval].extend(depend)
         # Reading the function ..._setupDataStruc(...)
         file_to_read = self._16dae_c_file
         function_name = self.mod_name + "_initializeDAEmodeData"
@@ -926,6 +935,7 @@ class ReaderOMC:
 
                 # "takewhile" only stops when the whole body of the function is read
                 list_body = list(itertools.takewhile(stop_reading_function, it))
+                (list_body, depend) = replace_dynamic_indexing(list_body)
 
                 for line in list_body:
                     if ptrn_assign_var.search(line) is not None:
@@ -1097,6 +1107,7 @@ class ReaderOMC:
 
                 # "takewhile" only stops when the whole body of the function is read
                 list_body = list(itertools.takewhile(stop_reading_function, it))
+                (list_body, depend) = replace_dynamic_indexing(list_body)
 
                 for line in list_body:
                     if ptrn_assign_var.search(line) is not None:
@@ -1674,6 +1685,7 @@ class ReaderOMC:
         # dictionary that stores the number of equations that depends on a specific variable
         variable_to_equation_dependencies = {}
         function_to_eval_variable = {}
+
         for f in self.list_func_16dae_c:
             f_num_omc = f.get_num_omc()
             name_var_eval = None
@@ -1859,11 +1871,8 @@ class ReaderOMC:
         func.set_return_type("void")
         func.add_params(OmcFunctionParameter("dest", "real_array_t*", 0, True))
         func.add_params(OmcFunctionParameter("n", "int", 1, True))
-        func.add_params(OmcFunctionParameter("first", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("second", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("third", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("fourth", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("fifth", "modelica_real", 2, True))
+        for i in range(100):
+            func.add_params(OmcFunctionParameter("%dth" % (i), "modelica_real", 2, True))
         self.list_omc_functions.append(func)
 
 

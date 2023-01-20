@@ -655,7 +655,7 @@ void ModelManager::writeParametersFinalValues() {
   }
 }
 
-void ModelManager::getSubModelParameterValue(const string& nameParameter, double& value, bool& found) {
+void ModelManager::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
   found = hasParameterDynamic(nameParameter);
   if (found) {
     const ParameterModeler& parameter = findParameterDynamic(nameParameter);
@@ -664,7 +664,10 @@ void ModelManager::getSubModelParameterValue(const string& nameParameter, double
       writeParametersFinalValues();
     }
 
-    value = parameter.getDoubleValue();
+    if (parameter.getValueType() == VAR_TYPE_STRING)
+      value = parameter.getValue<std::string>();
+    else
+      value = DYN::double2String(parameter.getDoubleValue());
   }
 }
 
@@ -936,7 +939,7 @@ ModelManager::solveParameters() {
     throw DYNError(Error::MODELER, SolverSubModelYvsF, name(), sizeY(), sizeF());
 
   SolverKINSubModel solver;
-  solver.init(this, t0, y, f);
+  solver.init(this, t0, y, f, localInitParameters_);
   int flag = KIN_SUCCESS;
   do {
     zSave = zLocalInit_;
@@ -1418,7 +1421,7 @@ ModelManager::addDelay(int exprNumber, const double* time, const double* exprVal
 }
 
 double
-ModelManager::computeDelay(DYNDATA* data, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+ModelManager::computeDelay(int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
   if (delayTime > delayMax || delayTime < 0.0) {
     throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delayTime, time, delayMax);
   }
@@ -1428,12 +1431,11 @@ ModelManager::computeDelay(DYNDATA* data, int exprNumber, double exprValue, doub
   assert(delayManager_.isIdAcceptable(exprNumber));
 #endif
 
-  if (time < data->simulationInfo->tStart || doubleEquals(time, data->simulationInfo->tStart)) {
-    // time <= data->simulationInfo->tStart
+  if (doubleIsZero(time)) {
     return exprValue;
   }
 
-  if (time < data->simulationInfo->tStart + delayTime || doubleEquals(time, data->simulationInfo->tStart + delayTime)) {
+  if (time < delayTime || doubleEquals(time, delayTime)) {
     // requested time is allowed but the simulation has not run for enought time to compute the delayed value:
     // use the initial value to avoid artefacts
     const boost::optional<double>& initialValue = delayManager_.getInitialValue(exprNumber);

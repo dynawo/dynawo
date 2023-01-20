@@ -12,6 +12,7 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable id="deltaPmRefPu" type="continuous" optional="true"/>
   <variable id="omegaPu" type="continuous"/>
-  <variable id="PmRefPu" type="continuous"/>
+  <variable id="PmRefPu" type="continuous" optional="true"/>
 </external_variables>

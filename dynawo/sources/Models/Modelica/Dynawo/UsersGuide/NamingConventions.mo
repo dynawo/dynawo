@@ -58,7 +58,7 @@ annotation(preferredView = "info",
 <ul dir=\"auto\">
 <li><strong>Min/Max</strong>&nbsp;parameters/variables: end with&nbsp;<code>Min/Max</code></li>
 <li><strong>Start</strong> parameters/variables: end with <code>0</code></li>
-<li><strong>Per-unit</strong> parameters/variables: end with <code>Pu (always indicate \"in pu\" in the comment along with the pu base)</code></li>
+<li><strong>Per unit</strong> parameters/variables: end with <code>Pu (always indicate \"in pu\" in the comment along with the pu base)</code></li>
 </ul><div><font face=\"monospace\">Example: UMax0Pu.</font></div>
 
 <h3>

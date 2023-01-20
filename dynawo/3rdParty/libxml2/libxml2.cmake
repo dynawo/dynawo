@@ -69,7 +69,7 @@ else()
       BUILD_IN_SOURCE     1
 
       CONFIGURE_COMMAND   cd win32
-                COMMAND   cscript configure.js compiler=msvc iconv=no prefix=<INSTALL_DIR>
+                COMMAND   cscript configure.js compiler=msvc iconv=no prefix=${package_install_dir_windows}
                           debug=$<IF:$<CONFIG:Debug>,yes,no> static=no
                           cruntime=/MD$<$<CONFIG:Debug>:d>
 

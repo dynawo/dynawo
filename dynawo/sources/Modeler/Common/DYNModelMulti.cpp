@@ -258,7 +258,7 @@ ModelMulti::init(const double t0) {
   // (1) initialising each sub-model
   //----------------------------------------
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->initSub(t0);
+    (*it)->initSub(t0, localInitParameters_);
 
   // Detect if some discrete variable were modified during the initialization (e.g. subnetwork detection)
   vector<int> indicesDiff;
@@ -714,8 +714,10 @@ void
 ModelMulti::getModelParameterValue(const string& curveModelName, const string& curveVariable, double& value, bool& found) {
   shared_ptr<SubModel> subModel = findSubModelByName(curveModelName);
   if (subModel) {
-    subModel->getSubModelParameterValue(curveVariable, value, found);
+    std::string strValue;
+    subModel->getSubModelParameterValue(curveVariable, strValue, found);
     if (found) {
+      value = stod(strValue);
       return;
     }
   }
@@ -1270,4 +1272,9 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
   assert(z.size() == static_cast<size_t>(sizeZ()));
   std::copy(z.begin(), z.end(), zLocal_);
 }
+
+void ModelMulti::setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
+  localInitParameters_ = localInitParameters;
+}
+
 }  // namespace DYN

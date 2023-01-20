@@ -89,11 +89,11 @@ equation
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001, emit_protected = "()"),
     //__OpenModelica_commandLineOptions = "--daeMode",
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-     This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5s and cleared at t = 1.5s.    </div><div><br></div><div>
+     This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5 s and cleared at t = 1.5 s.    </div><div><br></div><div>
     </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
 "),
     Diagram(coordinateSystem(preserveAspectRatio = false, grid = {1, 1})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
-    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", s = "ida", nls="kinsol", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10"));
+    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", s = "ida", nls="kinsol", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10"));
 end HVDC;

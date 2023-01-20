@@ -25,6 +25,7 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
+#include "PARParametersSet.h"
 
 namespace timeline {
 class Timeline;
@@ -493,7 +494,7 @@ class Model {
   /**
    * @brief Copy the discrete variable values from the solver data structure to the model data structure
    *
-   * This fonction is necessary when a solver has to go back in time for non convergence reasons to begin the new resolution with
+   * This function is necessary when a solver has to go back in time for non convergence reasons to begin the new resolution with
    * the correct discrete variable value (for example for simplified solver)
    *
    * @param z vector of discrete values from the solver data structure
@@ -504,6 +505,12 @@ class Model {
    * @brief Notify that time step is performed in the simulation
    */
   virtual void notifyTimeStep() = 0;
+
+  /**
+   * @brief set the local initialization solver parameters of the model
+   * @param localInitParameters local initialization solver parameters set
+   */
+  virtual void setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

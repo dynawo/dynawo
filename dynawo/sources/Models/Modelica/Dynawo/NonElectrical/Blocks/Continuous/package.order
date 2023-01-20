@@ -1,8 +1,10 @@
 AbsLimRateLimFeedthroughFreeze
+AbsLimRateLimFirstOrderAntiWindup
 AbsLimRateLimFirstOrderFreeze
 AbsLimRateLimFirstOrderFreezeLimDetection
 AntiWindupIntegrator
 DecreaseDetection
+DiscretePI
 IncreaseDetection
 IntegratorWithReset
 IntegratorSetFreeze
@@ -11,8 +13,10 @@ LeadLag
 LeadMOrderLag
 LimitedPI
 LimPIDFreeze
+PI
 PIAntiWindup
 PIAntiWindupVariableLimits
+PIFreeze
 Power
 RampTrackingFilter
 RateLimFirstOrderFreeze

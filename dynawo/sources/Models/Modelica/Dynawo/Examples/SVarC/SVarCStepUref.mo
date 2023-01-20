@@ -28,29 +28,32 @@ model SVarCStepUref
     Placement(visible = true, transformation(origin = {-90, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant selectMode(k = false) annotation(
     Placement(visible = true, transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   sVarCStandard.injector.switchOffSignal1.value = false;
   sVarCStandard.injector.switchOffSignal2.value = false;
   sVarCStandard.injector.switchOffSignal3.value = false;
- connect(selectMode.y, sVarCStandard.selectModeAuto) annotation(
+
+  connect(selectMode.y, sVarCStandard.selectModeAuto) annotation(
     Line(points = {{-79, 20}, {-54, 20}}, color = {255, 0, 255}));
- connect(manualMode.y, sVarCStandard.setModeManual) annotation(
+  connect(manualMode.y, sVarCStandard.setModeManual) annotation(
     Line(points = {{-79, -14}, {-76, -14}, {-76, 1}, {-54, 1}}, color = {255, 127, 0}));
- connect(URef.y, sVarCStandard.URef) annotation(
+  connect(URef.y, sVarCStandard.URef) annotation(
     Line(points = {{-78, 56}, {-60, 56}, {-60, 40}, {-54, 40}}, color = {0, 0, 127}));
   connect(line.terminal2, infiniteBus.terminal) annotation(
     Line(points = {{72, 20}, {102, 20}}, color = {0, 0, 255}));
- connect(sVarCStandard.terminal, line.terminal1) annotation(
+  connect(sVarCStandard.terminal, line.terminal1) annotation(
     Line(points = {{2, 20}, {20, 20}}, color = {0, 0, 255}));
+
   annotation(
-  preferredView = "diagram",
+    preferredView = "diagram",
     uses(Dynawo(version = "1.0.1"), Modelica(version = "3.2.3")),
     experiment(StartTime = 0, StopTime = 3, Tolerance = 1e-06, Interval = 0.006),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
-  Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
- Documentation(info = "<html><head></head><body>This test case simulate a step voltage variation.&nbsp;<div><br></div><div>The SVarC is initally running.&nbsp;</div><div>A step on URef from 225 kv to 230 kv is realised at t = 1s.&nbsp;</div><div><br></div><div><div>The SVarC starts providing reactive power to follow the voltage reference change.</div><div><br></div><div><br></div><div><br></div><div><br><div><br></div><div><br></div><div><br></div></div></div></body></html>"));
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
+    Documentation(info = "<html><head></head><body>This test case simulates a step voltage variation.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230 kV is realised at t = 1 s.&nbsp;</div><div><br></div><div><div>The SVarC starts providing reactive power to follow the voltage reference change.</div><div><br></div><div><br></div><div><br></div><div><br><div><br></div><div><br></div><div><br></div></div></div></body></html>"));
 end SVarCStepUref;

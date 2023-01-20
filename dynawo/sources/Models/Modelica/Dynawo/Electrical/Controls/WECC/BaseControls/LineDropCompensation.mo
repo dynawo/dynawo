@@ -34,5 +34,5 @@ equation
   U2Pu = ComplexMath.'abs'(u2Pu);
 
   annotation(preferredView = "text",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-4, 2}, extent = {{-76, 78}, {84, -82}}, textString = "|V-Z*I|"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "iPu"), Text(origin = {-141, -31}, extent = {{3, -3}, {37, -19}}, textString = "u2Pu"),  Text(origin = {89, -33}, extent = {{9, -7}, {37, -19}}, textString = "U2Pu"), Text(origin = {89, 87}, extent = {{9, -7}, {37, -19}}, textString = "U1Pu")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-4, 2}, extent = {{-76, 78}, {84, -82}}, textString = "|V-Z*I|"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "iPu"), Text(origin = {-141, -31}, extent = {{3, -3}, {37, -19}}, textString = "u2Pu"), Text(origin = {89, -33}, extent = {{9, -7}, {37, -19}}, textString = "U2Pu"), Text(origin = {89, 87}, extent = {{9, -7}, {37, -19}}, textString = "U1Pu")}, coordinateSystem(initialScale = 0.1)));
 end LineDropCompensation;

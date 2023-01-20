@@ -20,20 +20,25 @@ set(API_FSV_SHARED
 install(FILES ${API_FSV_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_FSV_SOURCES
+  FSVCsvExporter.cpp
   FSVFinalStateValue.cpp
   FSVFinalStateValueFactory.cpp
   FSVFinalStateValuesCollection.cpp
   FSVFinalStateValuesCollectionFactory.cpp
+  FSVTxtExporter.cpp
   FSVXmlHandler.cpp
   FSVXmlExporter.cpp
   FSVXmlImporter.cpp
   )
 
 set(API_FSV_INCLUDE_HEADERS
+  FSVCsvExporter.h
+  FSVExporter.h
   FSVFinalStateValue.h
   FSVFinalStateValueFactory.h
   FSVFinalStateValuesCollection.h
   FSVFinalStateValuesCollectionFactory.h
+  FSVTxtExporter.h
   FSVXmlHandler.h
   FSVXmlExporter.h
   FSVXmlImporter.h

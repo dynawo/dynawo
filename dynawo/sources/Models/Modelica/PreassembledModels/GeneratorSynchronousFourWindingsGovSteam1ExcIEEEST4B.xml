@@ -17,7 +17,6 @@
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B_INIT"/>
     <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1" initName="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1_INIT"/>
-    <dyn:unitDynamicModel id="upss" name="Dynawo.Electrical.Controls.Basics.SetPoint"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="ut0Pu" id2="generator" var2="u0Pu"/>
@@ -29,7 +28,6 @@
     <dyn:connect id1="generator" var1="PmPu.value" id2="governor" var2="Pm1Pu"/>
     <dyn:connect id1="generator" var1="UStatorPu.value" id2="voltageRegulator" var2="UsPu"/>
     <dyn:connect id1="generator" var1="efdPu.value" id2="voltageRegulator" var2="EfdPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="upss" var2="setPoint.value"/>
     <dyn:connect id1="voltageRegulator" var1="utPu" id2="generator" var2="uPu"/>
     <dyn:connect id1="voltageRegulator" var1="itPuRe" id2="generator" var2="iStatorPu.re"/>
     <dyn:connect id1="voltageRegulator" var1="itPuIm" id2="generator" var2="iStatorPu.im"/>

@@ -12,10 +12,13 @@ set(MODEL_FILES
   package.mo
   package.order
   AbsLimRateLimFeedthroughFreeze.mo
+  AbsLimRateLimFirstOrderAntiWindup.mo
   AbsLimRateLimFirstOrderFreeze.mo
   AbsLimRateLimFirstOrderFreezeLimDetection.mo
   AntiWindupIntegrator.mo
   DecreaseDetection.mo
+  DiscretePI.mo
+  DiscretePI.extvar
   IncreaseDetection.mo
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo
@@ -24,8 +27,10 @@ set(MODEL_FILES
   LeadMOrderLag.mo
   LimitedPI.mo
   LimPIDFreeze.mo
+  PI.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
+  PIFreeze.mo
   Power.mo
   RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo

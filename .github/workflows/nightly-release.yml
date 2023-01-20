@@ -20,7 +20,8 @@ jobs:
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_NB_PROCESSORS_USED: 2
       GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
-      CURL_JSON: 'curl --silent --header "Content-Type": "application/json"'
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CURL_JSON: 'curl --silent -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --header "Content-Type: application/json"'
 
     steps:
       - name: Checkout
@@ -46,22 +47,22 @@ jobs:
           source .github/workflows/tools.sh
 
           echo "Obtain previous release id and delete it"
-          RELEASE_ID=$($CURL_JSON "$GH_API/releases" | python3 -c 'import sys, json; releases=[release["id"] for release in json.load(sys.stdin) if release["tag_name"]=="nightly"]; print(releases[0] if releases else "")')
+          RELEASE_ID=$(eval $CURL_JSON "$GH_API/releases" | python3 -c 'import sys, json; releases=[release["id"] for release in json.load(sys.stdin) if release["tag_name"]=="nightly"]; print(releases[0] if releases else "")')
           if [ ! -z "$RELEASE_ID" ]; then
             echo "Release id with tag 'nightly' found: $RELEASE_ID"
             echo "Delete release $RELEASE_ID ..."
             curl \
               --request DELETE \
               --url "$GH_API/releases/$RELEASE_ID" \
-              --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+              --header "authorization: Bearer $GITHUB_TOKEN"
             echo "Wait for release to be deleted ..."
-            wait_for_http_code "$GH_API/releases/$RELEASE_ID" 404
+            wait_for_http_code "$GH_API/releases/$RELEASE_ID" 404 $GITHUB_TOKEN
           else
             echo "Previous nightly release not found"
           fi
 
       - name: INFO. List of all releases after deleting nightly
-        run: $CURL_JSON "$GH_API/releases"
+        run: eval $CURL_JSON "$GH_API/releases"
 
       - name: Delete previous nightly tag
         run: |
@@ -71,19 +72,19 @@ jobs:
           curl \
             --request DELETE \
             --url "$GH_API/git/refs/tags/nightly" \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "authorization: Bearer $GITHUB_TOKEN" \
             --header "Content-Type: application/json"
 
           echo "Wait for tag to be deleted ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 404
+          wait_for_http_code "$GH_API/git/refs/tags/nightly" 404 $GITHUB_TOKEN
 
       - name: INFO. Nightly tag should not be found
-        run: $CURL_JSON "$GH_API/git/refs/tags/nightly"
+        run: eval $CURL_JSON "$GH_API/git/refs/tags/nightly"
 
       - name: Get last commit in master
         run: |
           echo "Obtaining refs/heads/master ..."
-          HEAD_MASTER=$($CURL_JSON "$GH_API/git/refs/heads/master")
+          HEAD_MASTER=$(eval $CURL_JSON "$GH_API/git/refs/heads/master")
           echo "Head master:"
           echo $HEAD_MASTER
           SHA_HEAD_MASTER=$(echo $HEAD_MASTER | python3 -c 'import sys, json; print(json.load(sys.stdin)["object"]["sha"])')
@@ -100,17 +101,17 @@ jobs:
           curl \
             --request POST \
             --url "$GH_API/git/refs" \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "authorization: Bearer $GITHUB_TOKEN" \
             --header "Content-Type: application/json" \
             --data '{
                 "ref": "refs/tags/nightly",
                 "sha": "'$MASTER_COMMIT_ID'"
                 }'
           echo "Wait for tag to be created ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 200
+          wait_for_http_code "$GH_API/git/refs/tags/nightly" 200 $GITHUB_TOKEN
 
       - name: INFO. Tag nightly created"
-        run: $CURL_JSON "$GH_API/git/refs/tags/nightly"
+        run: eval $CURL_JSON "$GH_API/git/refs/tags/nightly"
 
       - name: Create release nightly
         run: |
@@ -119,7 +120,7 @@ jobs:
           curl \
             --request POST \
             --url "$GH_API/releases" \
-            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             --header "Content-Type: application/json" \
             --data '{
                 "tag_name" : "nightly",
@@ -130,16 +131,16 @@ jobs:
                 "prerelease" : true
                 }'
           echo "Wait for the release to be published ..."
-          wait_for_http_code "$GH_API/releases/tags/nightly" 200
+          wait_for_http_code "$GH_API/releases/tags/nightly" 200 $GITHUB_TOKEN
 
       - name: INFO. Release object created for tag nightly"
-        run: $CURL_JSON "$GH_API/releases/tags/nightly"
+        run: eval $CURL_JSON "$GH_API/releases/tags/nightly"
 
       - name: Upload assets for release
         run: |
           source .github/workflows/tools.sh
           echo "Obtain upload and assets urls from created release:"
-          RELEASE=$($CURL_JSON "$GH_API/releases/tags/nightly")
+          RELEASE=$(eval $CURL_JSON "$GH_API/releases/tags/nightly")
           UPLOAD_URL=$(echo ${RELEASE} | python3 -c 'import sys, json; release = json.load(sys.stdin); print(str(release["upload_url"]))' | grep -o ".*assets")
           echo "Release upload URL = $UPLOAD_URL"
           ASSETS_URL=$(echo ${RELEASE} | python3 -c 'import sys, json; release = json.load(sys.stdin); print(str(release["assets_url"]))')
@@ -155,4 +156,4 @@ jobs:
           done
 
       - name: INFO. Release assets
-        run: $CURL_JSON $ASSETS_URL
+        run: eval $CURL_JSON $ASSETS_URL

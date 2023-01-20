@@ -10,9 +10,12 @@
 
 # Simplified voltage regulators models
 
+add_subdirectory(BaseClasses B)
+
 set(MODEL_FILES
   package.mo
   package.order
+  VRNordic.mo
   VRProportional.extvar
   VRProportional.mo
   VRProportional_INIT.mo

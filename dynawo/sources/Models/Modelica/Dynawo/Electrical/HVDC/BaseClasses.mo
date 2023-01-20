@@ -29,9 +29,9 @@ package BaseClasses
 
   */
 
-    Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
+    Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
       Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
+    Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
       Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
     parameter Real KLosses "Losses coefficient between 0 and 1 : 1 if no loss in the HVDC link, < 1 otherwise";
@@ -100,7 +100,7 @@ package BaseClasses
 
   */
 
-    Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
+    Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
         Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Connectors.ACPower terminal2 annotation(
         Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -159,7 +159,6 @@ package BaseClasses
 
     parameter Types.ReactivePowerPu QInj1Min0Pu "Start value of the minimum reactive power in pu (base SnRef) (generator convention) at terminal 1";
     parameter Types.ReactivePowerPu QInj1Max0Pu "Start value of the maximum reactive power in pu (base SnRef) (generator convention) at terminal 1";
-    parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
     parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu (generator convention)";
     parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";
     parameter String QInj1MinTableFile "Text file that contains the table to get QInj1MinPu from PInj1Pu (generator convention)";
@@ -173,9 +172,9 @@ package BaseClasses
 
   equation
     PInj1Pu = tableQInj1Min.u[1];
-    tFilter * der(QInj1MinPu) + QInj1MinPu = tableQInj1Min.y[1];
+    QInj1MinPu = tableQInj1Min.y[1];
     PInj1Pu = tableQInj1Max.u[1];
-    tFilter * der(QInj1MaxPu) + QInj1MaxPu = tableQInj1Max.y[1];
+    QInj1MaxPu = tableQInj1Max.y[1];
 
     annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. The terminal2 is connected to a switched-off bus. This partial model also implements the PQ diagram at terminal1.</div></body></html>"));
@@ -190,7 +189,6 @@ package BaseClasses
     parameter Types.ReactivePowerPu QInj1Max0Pu "Start value of the maximum reactive power in pu (base SnRef) (generator convention) at terminal 1";
     parameter Types.ReactivePowerPu QInj2Min0Pu "Start value of the minimum reactive power in pu (base SnRef) (generator convention) at terminal 2";
     parameter Types.ReactivePowerPu QInj2Max0Pu "Start value of the maximum reactive power in pu (base SnRef) (generator convention) at terminal 2";
-    parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
     parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu (generator convention)";
     parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";
     parameter String QInj1MinTableFile "Text file that contains the table to get QInj1MinPu from PInj1Pu (generator convention)";
@@ -212,14 +210,14 @@ package BaseClasses
 
   equation
     PInj1Pu = tableQInj1Min.u[1];
-    tFilter * der(QInj1MinPu) + QInj1MinPu = tableQInj1Min.y[1];
+    QInj1MinPu = tableQInj1Min.y[1];
     PInj1Pu = tableQInj1Max.u[1];
-    tFilter * der(QInj1MaxPu) + QInj1MaxPu = tableQInj1Max.y[1];
+    QInj1MaxPu = tableQInj1Max.y[1];
 
     PInj2Pu = tableQInj2Min.u[1];
-    tFilter * der(QInj2MinPu) + QInj2MinPu = tableQInj2Min.y[1];
+    QInj2MinPu = tableQInj2Min.y[1];
     PInj2Pu = tableQInj2Max.u[1];
-    tFilter * der(QInj2MaxPu) + QInj2MaxPu = tableQInj2Max.y[1];
+    QInj2MaxPu = tableQInj2Max.y[1];
 
     annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. This partial model also implements PQ diagrams at each terminal of the HVDC link.</div></body></html>"));

@@ -134,6 +134,9 @@ void ModelGeneratorPQ_Dyn::initializeDataStruc()
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
 
+  // buffer for mathematical events
+  data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
+
   data->simulationInfo->discreteCall = 0;
  
 }
@@ -167,6 +170,7 @@ void ModelGeneratorPQ_Dyn::deInitializeDataStruc()
   // buffer for all relation values
   free(data->simulationInfo->relations);
   free(data->simulationInfo->relationsPre);
+  free(data->simulationInfo->mathEventsValuePre);
   free(data->simulationInfo);
   free(data->modelData);
 
@@ -679,54 +683,68 @@ void ModelGeneratorPQ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variabl
 
 void ModelGeneratorPQ_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 {
-  parameters.push_back(ParameterModeler("generator_AlphaPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_PGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_PMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_PMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_QGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_QMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_QMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_UMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_UMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_i0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_i0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_u0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_u0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_NbSwitchOffSignals", VAR_TYPE_INT, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_State0", VAR_TYPE_INT, SHARED_PARAMETER));
+  using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;
+  std::array<ParameterModelerTuple, 16> parameterModelerArray = {
+    std::make_tuple("generator_AlphaPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_QGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_QMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_QMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_UMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_UMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_i0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_i0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_u0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_u0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_NbSwitchOffSignals", VAR_TYPE_INT, SHARED_PARAMETER),
+    std::make_tuple("generator_State0", VAR_TYPE_INT, SHARED_PARAMETER),
+  };
+  for (size_t parameterModelerIndex = 0; parameterModelerIndex < parameterModelerArray.size(); ++parameterModelerIndex)
+  {
+    parameters.push_back(ParameterModeler(std::get<0>(parameterModelerArray[parameterModelerIndex]), std::get<1>(parameterModelerArray[parameterModelerIndex]), std::get<2>(parameterModelerArray[parameterModelerIndex])));
+  }
 }
 
 void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
 {
-  elements.push_back(Element("generator","generator",Element::STRUCTURE));
-  elements.push_back(Element("switchOffSignal3","generator_switchOffSignal3",Element::STRUCTURE));
-  elements.push_back(Element("value","generator_switchOffSignal3_value",Element::TERMINAL));
-  elements.push_back(Element("switchOffSignal2","generator_switchOffSignal2",Element::STRUCTURE));
-  elements.push_back(Element("value","generator_switchOffSignal2_value",Element::TERMINAL));
-  elements.push_back(Element("omegaRefPu","generator_omegaRefPu",Element::STRUCTURE));
-  elements.push_back(Element("value","generator_omegaRefPu_value",Element::TERMINAL));
-  elements.push_back(Element("terminal","generator_terminal",Element::STRUCTURE));
-  elements.push_back(Element("i","generator_terminal_i",Element::STRUCTURE));
-  elements.push_back(Element("im","generator_terminal_i_im",Element::TERMINAL));
-  elements.push_back(Element("re","generator_terminal_i_re",Element::TERMINAL));
-  elements.push_back(Element("running","generator_running",Element::STRUCTURE));
-  elements.push_back(Element("value","generator_running_value",Element::TERMINAL));
-  elements.push_back(Element("switchOffSignal1","generator_switchOffSignal1",Element::STRUCTURE));
-  elements.push_back(Element("value","generator_switchOffSignal1_value",Element::TERMINAL));
-  elements.push_back(Element("qStatus","generator_qStatus",Element::TERMINAL));
-  elements.push_back(Element("pStatus","generator_pStatus",Element::TERMINAL));
-  elements.push_back(Element("PGenRawPu","generator_PGenRawPu",Element::TERMINAL));
-  elements.push_back(Element("UPu","generator_UPu",Element::TERMINAL));
-  elements.push_back(Element("QGenPu","generator_QGenPu",Element::TERMINAL));
-  elements.push_back(Element("PGenPu","generator_PGenPu",Element::TERMINAL));
-  elements.push_back(Element("SGenPu","generator_SGenPu",Element::STRUCTURE));
-  elements.push_back(Element("im","generator_SGenPu_im",Element::TERMINAL));
-  elements.push_back(Element("re","generator_SGenPu_re",Element::TERMINAL));
-  elements.push_back(Element("V","generator_terminal_V",Element::STRUCTURE));
-  elements.push_back(Element("im","generator_terminal_V_im",Element::TERMINAL));
-  elements.push_back(Element("re","generator_terminal_V_re",Element::TERMINAL));
-  elements.push_back(Element("state","generator_state",Element::TERMINAL));
+  using ElementTuple = std::tuple<std::string, std::string, DYN::Element::typeElement>;
+  std::array<ElementTuple, 28> elementArray1 = {
+    std::make_tuple("generator", "generator", Element::STRUCTURE),
+    std::make_tuple("switchOffSignal3", "generator_switchOffSignal3", Element::STRUCTURE),
+    std::make_tuple("value", "generator_switchOffSignal3_value", Element::TERMINAL),
+    std::make_tuple("switchOffSignal2", "generator_switchOffSignal2", Element::STRUCTURE),
+    std::make_tuple("value", "generator_switchOffSignal2_value", Element::TERMINAL),
+    std::make_tuple("omegaRefPu", "generator_omegaRefPu", Element::STRUCTURE),
+    std::make_tuple("value", "generator_omegaRefPu_value", Element::TERMINAL),
+    std::make_tuple("terminal", "generator_terminal", Element::STRUCTURE),
+    std::make_tuple("i", "generator_terminal_i", Element::STRUCTURE),
+    std::make_tuple("im", "generator_terminal_i_im", Element::TERMINAL),
+    std::make_tuple("re", "generator_terminal_i_re", Element::TERMINAL),
+    std::make_tuple("running", "generator_running", Element::STRUCTURE),
+    std::make_tuple("value", "generator_running_value", Element::TERMINAL),
+    std::make_tuple("switchOffSignal1", "generator_switchOffSignal1", Element::STRUCTURE),
+    std::make_tuple("value", "generator_switchOffSignal1_value", Element::TERMINAL),
+    std::make_tuple("qStatus", "generator_qStatus", Element::TERMINAL),
+    std::make_tuple("pStatus", "generator_pStatus", Element::TERMINAL),
+    std::make_tuple("PGenRawPu", "generator_PGenRawPu", Element::TERMINAL),
+    std::make_tuple("UPu", "generator_UPu", Element::TERMINAL),
+    std::make_tuple("QGenPu", "generator_QGenPu", Element::TERMINAL),
+    std::make_tuple("PGenPu", "generator_PGenPu", Element::TERMINAL),
+    std::make_tuple("SGenPu", "generator_SGenPu", Element::STRUCTURE),
+    std::make_tuple("im", "generator_SGenPu_im", Element::TERMINAL),
+    std::make_tuple("re", "generator_SGenPu_re", Element::TERMINAL),
+    std::make_tuple("V", "generator_terminal_V", Element::STRUCTURE),
+    std::make_tuple("im", "generator_terminal_V_im", Element::TERMINAL),
+    std::make_tuple("re", "generator_terminal_V_re", Element::TERMINAL),
+    std::make_tuple("state", "generator_state", Element::TERMINAL),
+  };
+  for (size_t elementsIndex1 = 0; elementsIndex1 < elementArray1.size(); ++elementsIndex1)
+  {
+    elements.push_back(Element(std::get<0>(elementArray1[elementsIndex1]), std::get<1>(elementArray1[elementsIndex1]), std::get<2>(elementArray1[elementsIndex1])));
+  }
 
   elements[0].subElementsNum().push_back(1);
   elements[0].subElementsNum().push_back(3);
@@ -756,34 +774,40 @@ void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::m
   elements[24].subElementsNum().push_back(25);
   elements[24].subElementsNum().push_back(26);
 
-  mapElement["generator"] = 0;
-  mapElement["generator_switchOffSignal3"] = 1;
-  mapElement["generator_switchOffSignal3_value"] = 2;
-  mapElement["generator_switchOffSignal2"] = 3;
-  mapElement["generator_switchOffSignal2_value"] = 4;
-  mapElement["generator_omegaRefPu"] = 5;
-  mapElement["generator_omegaRefPu_value"] = 6;
-  mapElement["generator_terminal"] = 7;
-  mapElement["generator_terminal_i"] = 8;
-  mapElement["generator_terminal_i_im"] = 9;
-  mapElement["generator_terminal_i_re"] = 10;
-  mapElement["generator_running"] = 11;
-  mapElement["generator_running_value"] = 12;
-  mapElement["generator_switchOffSignal1"] = 13;
-  mapElement["generator_switchOffSignal1_value"] = 14;
-  mapElement["generator_qStatus"] = 15;
-  mapElement["generator_pStatus"] = 16;
-  mapElement["generator_PGenRawPu"] = 17;
-  mapElement["generator_UPu"] = 18;
-  mapElement["generator_QGenPu"] = 19;
-  mapElement["generator_PGenPu"] = 20;
-  mapElement["generator_SGenPu"] = 21;
-  mapElement["generator_SGenPu_im"] = 22;
-  mapElement["generator_SGenPu_re"] = 23;
-  mapElement["generator_terminal_V"] = 24;
-  mapElement["generator_terminal_V_im"] = 25;
-  mapElement["generator_terminal_V_re"] = 26;
-  mapElement["generator_state"] = 27;
+  std::array<std::pair<std::string, int>, 28> mapElementArray = {
+    std::make_pair("generator", 0),
+    std::make_pair("generator_switchOffSignal3", 1),
+    std::make_pair("generator_switchOffSignal3_value", 2),
+    std::make_pair("generator_switchOffSignal2", 3),
+    std::make_pair("generator_switchOffSignal2_value", 4),
+    std::make_pair("generator_omegaRefPu", 5),
+    std::make_pair("generator_omegaRefPu_value", 6),
+    std::make_pair("generator_terminal", 7),
+    std::make_pair("generator_terminal_i", 8),
+    std::make_pair("generator_terminal_i_im", 9),
+    std::make_pair("generator_terminal_i_re", 10),
+    std::make_pair("generator_running", 11),
+    std::make_pair("generator_running_value", 12),
+    std::make_pair("generator_switchOffSignal1", 13),
+    std::make_pair("generator_switchOffSignal1_value", 14),
+    std::make_pair("generator_qStatus", 15),
+    std::make_pair("generator_pStatus", 16),
+    std::make_pair("generator_PGenRawPu", 17),
+    std::make_pair("generator_UPu", 18),
+    std::make_pair("generator_QGenPu", 19),
+    std::make_pair("generator_PGenPu", 20),
+    std::make_pair("generator_SGenPu", 21),
+    std::make_pair("generator_SGenPu_im", 22),
+    std::make_pair("generator_SGenPu_re", 23),
+    std::make_pair("generator_terminal_V", 24),
+    std::make_pair("generator_terminal_V_im", 25),
+    std::make_pair("generator_terminal_V_re", 26),
+    std::make_pair("generator_state", 27),
+  };
+  for (size_t mapElementIndex = 0; mapElementIndex < mapElementArray.size(); ++mapElementIndex)
+  {
+    mapElement[mapElementArray[mapElementIndex].first] = mapElementArray[mapElementIndex].second;
+  }
 }
 
 #ifdef _ADEPT_

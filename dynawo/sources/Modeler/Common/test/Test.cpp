@@ -74,7 +74,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void getSubModelParameterValue(const std::string&, double&, bool&) {
+  void getSubModelParameterValue(const std::string&, std::string&, bool&) {
     // Dummy class used for testing
   }
 

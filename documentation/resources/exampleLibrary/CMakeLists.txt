@@ -11,6 +11,7 @@
 set(MODEL_FILES
   # Electrical Loads models
   package.mo
+  package.order
   BaseClasses.mo
   BaseClasses_INIT.mo
   FrequencyLoad.mo

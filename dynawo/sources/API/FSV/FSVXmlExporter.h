@@ -17,10 +17,11 @@
  * @brief Dynawo final state values collection XML exporter as final state values: header file
  *
  */
+
 #ifndef API_FSV_FSVXMLEXPORTER_H_
 #define API_FSV_FSVXMLEXPORTER_H_
 
-#include "FSVFinalStateValuesCollection.h"
+#include "FSVExporter.h"
 
 namespace finalStateValues {
 
@@ -30,13 +31,12 @@ namespace finalStateValues {
  *
  * XML export class for final state values collection
  */
-class XmlExporter {
+class XmlExporter : public Exporter {
  public:
   /**
-   * @brief Export method in XML format. Note: Only those marked as final state
-   * values will be exported.
+   * @brief Export method in XML format
    *
-   * @param finalStateValues final state values to export as final state values.
+   * @param finalStateValues final state values
    * @param filePath file where the final state values must be exported
    */
   void exportToFile(const boost::shared_ptr<FinalStateValuesCollection>& finalStateValues, const std::string& filePath) const;

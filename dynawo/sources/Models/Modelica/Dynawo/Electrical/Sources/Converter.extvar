@@ -12,12 +12,12 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="udConvRefPu" type="continuous" />
-  <variable id="uqConvRefPu" type="continuous" />
-  <variable id="UdcSourceRefPu" type="continuous" />
-  <variable id="IdcSourcePu" type="continuous" />
-  <variable id="omegaPu" type="continuous" />
-  <variable id="theta" type="continuous" />
+  <variable id="UdcSourceRefPu" type="continuous" optional="true"/>
+  <variable id="udConvRefPu" type="continuous"/>
+  <variable id="uqConvRefPu" type="continuous"/>
+  <variable id="IdcSourcePu" type="continuous"/>
+  <variable id="omegaPu" type="continuous"/>
+  <variable id="theta" type="continuous"/>
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>

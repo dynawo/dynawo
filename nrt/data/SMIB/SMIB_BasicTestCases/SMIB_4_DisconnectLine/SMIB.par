@@ -87,8 +87,6 @@
     <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_LagEfdMax" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
   </set>
   <!-- OmegaRef -->
   <set id="6">

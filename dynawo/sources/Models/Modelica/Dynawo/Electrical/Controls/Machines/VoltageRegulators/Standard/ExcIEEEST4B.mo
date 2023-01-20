@@ -18,23 +18,23 @@ model ExcIEEEST4B "IEEE exciter type ST4B"
   import Dynawo.Types;
 
   //Regulation parameters
-  parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance (>= 0). Typical value = 0,113";
+  parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance (>= 0). Typical value = 0.113";
   parameter Types.PerUnit Kg "Feedback gain constant of the inner loop field regulator (>= 0). Typical value = 0";
   parameter Types.PerUnit Ki "Potential circuit gain coefficient applied to Real part of complex stator current (>= 0). Typical value = 0";
   parameter Types.PerUnit Kim "Voltage regulator integral gain output. Typical value = 0";
-  parameter Types.PerUnit Kir "Voltage regulator integral gain. Typical value = 10,75";
-  parameter Types.PerUnit Kp "Potential circuit gain coefficient. Typical value = 9,3";
+  parameter Types.PerUnit Kir "Voltage regulator integral gain. Typical value = 10.75";
+  parameter Types.PerUnit Kp "Potential circuit gain coefficient. Typical value = 9.3";
   parameter Types.PerUnit Kpm "Voltage regulator proportional gain output. Typical value = 1";
-  parameter Types.PerUnit Kpr "Voltage regulator proportional gain. Typical value = 10,75";
-  parameter Types.Time tA "Voltage regulator time constant in s (> 0). Typical value = 0,02";
+  parameter Types.PerUnit Kpr "Voltage regulator proportional gain. Typical value = 10.75";
+  parameter Types.Time tA "Voltage regulator time constant in s (> 0). Typical value = 0.02";
   parameter Types.Angle Thetap "Potential circuit phase angle. Typical value = 0";
   parameter Types.Time tR "Filter time constant in s";
-  parameter Types.VoltageModulePu VbMaxPu "Maximum excitation voltage (> 0). Typical value = 11,63";
+  parameter Types.VoltageModulePu VbMaxPu "Maximum excitation voltage (> 0). Typical value = 11.63";
   parameter Types.VoltageModulePu VmMaxPu "Maximum inner loop output (> VmMinPu). Typical value = 99";
   parameter Types.VoltageModulePu VmMinPu "Minimum inner loop output (< VmMaxPu). Typical value = -99";
   parameter Types.VoltageModulePu VrMaxPu "Maximum voltage regulator output (> 0). Typical value = 1";
-  parameter Types.VoltageModulePu VrMinPu "Minimum voltage regulator output (< 0). Typical value = -0,87";
-  parameter Types.PerUnit XlPu "Reactance associated with potential source (>= 0) in pu (base SNom, UNom). Typical value = 0,124";
+  parameter Types.VoltageModulePu VrMinPu "Minimum voltage regulator output (< 0). Typical value = -0.87";
+  parameter Types.PerUnit XlPu "Reactance associated with potential source (>= 0) in pu (base SNom, UNom). Typical value = 0.124";
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput IfdPu(start = Ifd0Pu) "Rotor current in pu (base SNom, user-selected base voltage)" annotation(
@@ -72,7 +72,7 @@ model ExcIEEEST4B "IEEE exciter type ST4B"
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {-230, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limPI1(Ki = Kir, Kp = Kpr, Y0 =  Kg * Efd0Pu, YMax = VrMaxPu, YMin = VrMinPu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limPI1(Ki = Kir, Kp = Kpr, Y0 = Kg * Efd0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,7 +80,7 @@ model ExcIEEEST4B "IEEE exciter type ST4B"
     Placement(visible = true, transformation(origin = {150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {92, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tA, y_start =  Kg *Efd0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tA, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

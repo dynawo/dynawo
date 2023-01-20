@@ -57,6 +57,56 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
 
+#############################
+#     GFM / GFL - Steps     #
+#############################
+
+case_name = "DynaSwing - All converter-interfaced 5-machine system - 3 GFM + 2 GFL - Steps"
+case_description = "All converter-interfaced 5-machine system - 3 GFM + 2 GFL - Steps"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "GridForming_GridFollowing", "Steps", "fic.JOB")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#############################
+#     GFM / GFL - Fault     #
+#############################
+
+case_name = "DynaSwing - All converter-interfaced 5-machine system - 3 GFM + 2 GFL - Fault"
+case_description = "All converter-interfaced 5-machine system - 3 GFM + 2 GFL - Fault"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "GridForming_GridFollowing", "Fault", "fic.JOB")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#############################
+#     GFM / GFL - DisconnectLine     #
+#############################
+
+case_name = "DynaSwing - All converter-interfaced 5-machine system - 3 GFM + 2 GFL - DisconnectLine"
+case_description = "All converter-interfaced 5-machine system - 3 GFM + 2 GFL - DisconnectLine"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "GridForming_GridFollowing", "DisconnectLine", "fic.JOB")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+###################################################
+#     IEC Wind Turbine Type 4A Current Source     #
+###################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4A - Current source"
+case_description = "IEC - Wind Turbine Type 4A - Current source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4ACurrentSource", "WT4ACurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+###################################################
+#     IEC Wind Turbine Type 4B Current Source     #
+###################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4B - Current source"
+case_description = "IEC - Wind Turbine Type 4B - Current source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4BCurrentSource", "WT4BCurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ##################################
 #     WECC PV Current Source     #
 ##################################

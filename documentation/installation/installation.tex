@@ -27,9 +27,9 @@ If you are on \textbf{MacOS} you can use a \hyperref[sec:docker]{Docker} solutio
 To start testing \Dynawo you can use binary releases on Github:
 \begin{itemize}
 \item
-  \href{https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Linux_v1.4.0.zip}{Linux}
+  \href{https://github.com/dynawo/dynawo/releases/download/v1.3.2/Dynawo_Linux_v1.3.2.zip}{Linux}
 \item
-  \href{https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Windows_v1.4.0.zip}{Windows}
+  \href{https://github.com/dynawo/dynawo/releases/download/v1.3.2/Dynawo_Windows_v1.3.2.zip}{Windows}
 \end{itemize}
 
 To use those distributions you need some requirements if you want to be able to fully use \Dynawo and add new models to the already available library of models.
@@ -352,7 +352,7 @@ To run a simulation, \Dynawo uses several external libraries that are downloaded
 
 \item \href{http://faculty.cse.tamu.edu/davis/suitesparse.html} {\underline{SuiteSparse}}, a suite of sparse matrix algorithms and in particular KLU \cite{DavisKLU}, a LU decomposition library that is  developed and maintained by T. A. Davis et al. at the University of Florida. \Dynawo currently uses the V 5.4.0 version of the suite sparse library that is distributed under a LGPL-2.1+ license. KLU is used inside KINSOL and IDA to make the LU decomposition required during Newton-Raphson resolutions.
 
-\item \href{http://www.met.reading.ac.uk/clouds/adept/}{\underline{Adept}} \cite{hogan_robin_j_2017_1004730} \cite{Hogan:2014:FRA:2639949.2560359}, an automatic differentiation library that is developed and maintained at the University of Reading by R.J. Hogan. The 2.0.8 version is currently employed into \Dynawo to evaluate the Jacobian matrices for Modelica models during the simulation and distributed under both Apache-2.0, GPL-2.0 and MIT licenses.
+\item \href{http://www.met.reading.ac.uk/clouds/adept/}{\underline{Adept}} \cite{hogan_robin_j_2017_1004730} \cite{Hogan:2014:FRA:2639949.2560359}, an automatic differentiation library that is developed and maintained at the University of Reading by R.J. Hogan. The 2.1.1 version is currently employed into \Dynawo to evaluate the Jacobian matrices for Modelica models during the simulation and distributed under both Apache-2.0, GPL-2.0 and MIT licenses.
 
 \item \href{http://xerces.apache.org/xerces-c/}{\underline{Xerces-C++}} a validating XML parser written in a portable subset of C++ and distributed under the Apache Software License, Version 2.0. The current version used is 3.2.2.
 

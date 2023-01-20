@@ -1,16 +1,16 @@
 within Dynawo.Examples.ENTSOE;
 
 /*
-  * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
+* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
 
 model TestCase2 "Active power variation on the load"
   import Modelica;
@@ -105,7 +105,7 @@ model TestCase2 "Active power variation on the load"
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint QRefPu(Value0 = 0);
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0);
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1);
 
 equation
@@ -113,13 +113,12 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
   load.PRefPu = PRefPu.y;
-  load.QRefPu = QRefPu.setPoint.value;
+  load.QRefPu = QRefPu.y;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
-  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
-    Line);
+  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu);
   connect(governor.PmRefPu, PmRefPu.y);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
@@ -141,7 +140,7 @@ equation
     experiment(StartTime = 0, StopTime = 15, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-  Documentation(info = "<html><head></head><body><span style=\"left: 118.2px; top: 922.29px; font-family: sans-serif;\">The purpose of the second test case is to compare the dynamic behaviou</span><span style=\"left: 730px; top: 922.29px; font-family: sans-serif;\">r of the model for </span><span style=\"left: 118.2px; top: 946.688px; font-family: sans-serif;\">the  synchronous  generator  and  its  governor</span><span style=\"left: 489.199px; top: 946.688px; font-family: sans-serif;\">  by </span><span style=\"left: 524.803px; top: 946.688px; font-family: sans-serif;\">analy</span><span style=\"left: 568.411px; top: 946.688px; font-family: sans-serif;\">sing</span><span style=\"left: 602.212px; top: 946.688px; font-family: sans-serif;\">  the  terminal  voltage</span><span style=\"left: 835.4px; top: 946.69px; font-family: sans-serif;\">,  the  </span><span style=\"left: 118.205px; top: 975.688px; font-family: sans-serif;\">active and mechanical power of the </span><span style=\"left: 414.206px; top: 975.688px; font-family: sans-serif;\">synchronous machine</span><span style=\"left: 712.4px; top: 975.69px; font-family: sans-serif;\">, the reactive power </span><span style=\"left: 118.209px; top: 1004.69px; font-family: sans-serif;\">of the synchronous machine</span><span style=\"left: 383.4px; top: 1004.69px; font-family: sans-serif;\">&nbsp;and </span><span style=\"left: 426.806px; top: 1004.69px; font-family: sans-serif;\">the </span><span style=\"left: 458.803px; top: 1004.69px; font-family: sans-serif;\">speed</span><span style=\"left: 540.4px; top: 1004.69px; font-family: sans-serif;\">.</span><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"font-family: sans-serif; left: 118.2px; top: 187.49px;\">At the event</span><span style=\"font-family: sans-serif; left: 216.198px; top: 187.49px;\">-time the active power demand of the additional constant impedance </span><span style=\"font-family: sans-serif; left: 776.202px; top: 187.49px;\">is increased </span><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\">by </font><font face=\"serif\">0.05 p.u</font><font face=\"sans-serif\">.</font></span></span></div><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\"><br></font></span></span></div><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\">The results obtained perfectly match the ones presented in the ENTSO-E report.</font></span></span></div>
+    Documentation(info = "<html><head></head><body><span style=\"left: 118.2px; top: 922.29px; font-family: sans-serif;\">The purpose of the second test case is to compare the dynamic behaviour</span><span style=\"left: 730px; top: 922.29px; font-family: sans-serif;\">r of the model for </span><span style=\"left: 118.2px; top: 946.688px; font-family: sans-serif;\">the synchronous generator and its governor</span><span style=\"left: 489.199px; top: 946.688px; font-family: sans-serif;\"> by </span><span style=\"left: 524.803px; top: 946.688px; font-family: sans-serif;\">analy</span><span style=\"left: 568.411px; top: 946.688px; font-family: sans-serif;\">sing</span><span style=\"left: 602.212px; top: 946.688px; font-family: sans-serif;\"> the terminal voltage</span><span style=\"left: 835.4px; top: 946.69px; font-family: sans-serif;\">, the </span><span style=\"left: 118.205px; top: 975.688px; font-family: sans-serif;\">active and mechanical power of the </span><span style=\"left: 414.206px; top: 975.688px; font-family: sans-serif;\">synchronous machine</span><span style=\"left: 712.4px; top: 975.69px; font-family: sans-serif;\">, the reactive power </span><span style=\"left: 118.209px; top: 1004.69px; font-family: sans-serif;\">of the synchronous machine</span><span style=\"left: 383.4px; top: 1004.69px; font-family: sans-serif;\">&nbsp;and </span><span style=\"left: 426.806px; top: 1004.69px; font-family: sans-serif;\">the </span><span style=\"left: 458.803px; top: 1004.69px; font-family: sans-serif;\">speed</span><span style=\"left: 540.4px; top: 1004.69px; font-family: sans-serif;\">.</span><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"font-family: sans-serif; left: 118.2px; top: 187.49px;\">At the event</span><span style=\"font-family: sans-serif; left: 216.198px; top: 187.49px;\">-time the active power demand of the additional constant impedance </span><span style=\"font-family: sans-serif; left: 776.202px; top: 187.49px;\">is increased </span><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\">by </font><font face=\"serif\">0.05 pu</font><font face=\"sans-serif\">.</font></span></span></div><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\"><br></font></span></span></div><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\">The results obtained perfectly match the ones presented in the ENTSO-E report.</font></span></span></div>
 
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/UPuTestCase2.png\">

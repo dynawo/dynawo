@@ -1,25 +1,29 @@
 within Dynawo.Examples.GridForming;
 
+/*
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+*/
+
 model GridForming "Grid Forming converters test case"
-  /*
-  * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
   import Dynawo;
   import Modelica;
+
   extends Icons.Example;
+
   parameter Types.ActivePowerPu PRefLoadPu = 11.25 "Active power request for the load in pu (base SnRef)";
   parameter Types.ReactivePowerPu QRefLoadPu = 0 "Reactive power request for the load in pu (base SnRef)";
-  Dynawo.Electrical.Controls.Converters.GridFormingControlDroopControl Droop(Cfilter = 0.066, Kff = 0.01, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, Lfilter = 0.15, Mp = 0.02, Mq = 0, Rfilter = 0.005, UdcSourcePu(fixed = true, start = 1.01369), Wf = 60, Wff = 16.66, XRratio = 5, currentLoop(integratord(y_start = 0.00323126), integratorq(y_start = -0.000164394)), droopControl(firstOrder(y_start = -7.3445e-5), firstOrder1(y_start = 0.102988), firstOrder2(y_start = 0.00622874), firstOrder3(y_start = -0.0010158), integrator(y_start = -0.0502873)), idConvPu(fixed = true, start = 0.622806), idPccPu(fixed = true, start = 0.622873), iqConvPu(fixed = true, start = -0.035099), iqPccPu(fixed = true, start = -0.101592), udFilterPu(fixed = true, start = 1.00755), uqFilterPu(fixed = true, start = 0.00101415)) "Droop controlled grid-forming converter" annotation(
+
+  Dynawo.Electrical.Controls.Converters.GridFormingControlDroopControl Droop(CFilter = 0.066, IMaxVI = 1, Kff = 0.01, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, LFilter = 0.15, Mp = 0.02, Mq = 0, RFilter = 0.005, UFilterRef0Pu = 1, UdcSourcePu(fixed = true, start = 1.01369), Wf = 60, Wff = 16.66, XRratio = 5, currentLoop(integratord(y_start = 0.00323126), integratorq(y_start = -0.000164394)), droopControl(firstOrder(y_start = -7.3445e-5), firstOrder1(y_start = 0.102988), firstOrder2(y_start = 0.00622874), firstOrder3(y_start = -0.0010158), integrator(y_start = -0.0502873)), idConvPu(fixed = true, start = 0.622806), idPccPu(fixed = true, start = 0.622873), iqConvPu(fixed = true, start = -0.035099), iqPccPu(fixed = true, start = -0.101592), udFilterPu(fixed = true, start = 1.00755), uqFilterPu(fixed = true, start = 0.00101415)) "Droop controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {-107, 135}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Dynawo.Electrical.Sources.Converter Conv250(Cdc = 0.01, Cfilter = 0.066, Lfilter = 0.15, Ltransformer = 0.2, Rfilter = 0.005, Rtransformer = 0.01, SNom = 250) annotation(
+  Dynawo.Electrical.Sources.Converter Conv250(Cdc = 0.01, CFilter = 0.066, LFilter = 0.15, LTransformer = 0.2, RFilter = 0.005, RTransformer = 0.01, SNom = 250) annotation(
     Placement(visible = true, transformation(origin = {-62, 135}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRef250Pu(height = 0, offset = 0.6238, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, 169}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -31,9 +35,10 @@ model GridForming "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {-145, 118}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UdcSourceRef250Pu(height = 0, offset = 1.0138, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, 101}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GridFormingControlDispatchableVirtualOscillatorControl dVOC(dispatchableVirtualOscillatorControl.integrator.y_start = -0.00153422, currentLoop.integratord.y_start = 0.00360768, currentLoop.integratorq.y_start = -0.0001349, Alpha = 5000, Cfilter = 0.066, Eta = 1, KDvoc = 1.570796325, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, Lfilter = 0.15, Rfilter = 0.005, UdFilter0Pu = 1.0131, UdcSourcePu(fixed = true, start = 1.01259), XRratio = 5, idConvPu(fixed = true, start = 0.619091), idPccPu(fixed = true, start = 0.618988), iqConvPu(fixed = true, start = -0.036119), iqPccPu(fixed = true, start = -0.102981), udFilterPu(fixed = true, start = 1.01312), uqFilterPu(fixed = true, start = -0.00155433)) "dVOC controlled grid-forming converter" annotation(
+
+  Dynawo.Electrical.Controls.Converters.GridFormingControlDispatchableVirtualOscillatorControl dVOC( Alpha = 5000, CFilter = 0.066, Eta = 1, IMaxVI = 1, KDvoc = 1.570796325, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, LFilter = 0.15, RFilter = 0.005, UFilterRef0Pu = 1.0131, UdFilter0Pu = 1.0131, UdcSourcePu(fixed = true, start = 1.01259), XRratio = 5, currentLoop(integratord(y_start = 0.00360768), integratorq(y_start = -0.0001349)), dispatchableVirtualOscillatorControl(integrator(y_start = -0.00153422)), idConvPu(fixed = true, start = 0.619091), idPccPu(fixed = true, start = 0.618988), iqConvPu(fixed = true, start = -0.036119), iqPccPu(fixed = true, start = -0.102981), udFilterPu(fixed = true, start = 1.01312), uqFilterPu(fixed = true, start = -0.00155433)) "dVOC controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {107, 135}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
-  Dynawo.Electrical.Sources.Converter Conv500(Cdc = 0.01, Cfilter = 0.066, Lfilter = 0.15, Ltransformer = 0.2, Rfilter = 0.005, Rtransformer = 0.01, SNom = 500) annotation(
+  Dynawo.Electrical.Sources.Converter Conv500(Cdc = 0.01, CFilter = 0.066, LFilter = 0.15, LTransformer = 0.2, RFilter = 0.005, RTransformer = 0.01, SNom = 500) annotation(
     Placement(visible = true, transformation(origin = {63, 135}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRef500Pu(height = 0, offset = 0.6036, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {145, 169}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
@@ -45,9 +50,10 @@ model GridForming "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {145, 118}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UdcSourceRef500Pu(height = 0, offset = 1.0131, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {145, 101}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GridFormingControlMatchingControl Matching(Cfilter = 0.066, KMatching = 1, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, Lfilter = 0.15, Rfilter = 0.005, UdcSourcePu(fixed = true, start = 1.0143), XRratio = 5, currentLoop(integratord(y_start = 0.00323221), integratorq(y_start = -0.000197609)), idConvPu(fixed = true, start = 0.63165), idPccPu(fixed = false, start = 0.631649), iqConvPu(fixed = true, start = -0.0410358), iqPccPu(fixed = true, start = -0.1079), udFilterPu(fixed = true, start = 1.0143), uqFilterPu(fixed = true, start = 0)) "Matching control controlled grid-forming converter" annotation(
+
+  Dynawo.Electrical.Controls.Converters.GridFormingControlMatchingControl Matching(CFilter = 0.066, IMaxVI = 1, KMatching = 1, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, LFilter = 0.15, RFilter = 0.005, UFilterRef0Pu = 1, UdcSourcePu(fixed = true, start = 1.0143), XRratio = 5, currentLoop(integratord(y_start = 0.00323221), integratorq(y_start = -0.000197609)), idConvPu(fixed = true, start = 0.63165), idPccPu(fixed = false, start = 0.631649), iqConvPu(fixed = true, start = -0.0410358), iqPccPu(fixed = true, start = -0.1079), udFilterPu(fixed = true, start = 1.0143), uqFilterPu(fixed = true, start = 0)) "Matching control controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {-107, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Dynawo.Electrical.Sources.Converter Conv1000(Cdc = 0.01, Cfilter = 0.066, Lfilter = 0.15, Ltransformer = 0.2, Rfilter = 0.005, Rtransformer = 0.01, SNom = 1000) annotation(
+  Dynawo.Electrical.Sources.Converter Conv1000(Cdc = 0.01, CFilter = 0.066, LFilter = 0.15, LTransformer = 0.2, RFilter = 0.005, RTransformer = 0.01, SNom = 1000) annotation(
     Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-15, 15}, {15, -15}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UFilterRef1000Pu(height = 0, offset = 1.0143, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -55,6 +61,7 @@ model GridForming "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {-145, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UdcSourceRef1000Pu(height = 0, offset = 1.0143, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, 17}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+
   Dynawo.Electrical.Lines.Line Line12(BPu = 0.0000075, GPu = 0, RPu = 0.00075, XPu = 0.0075) annotation(
     Placement(visible = true, transformation(origin = {-62, 45}, extent = {{-15, -15}, {15, 15}}, rotation = 90)));
   Dynawo.Electrical.Lines.Line Line13(BPu = 0.0000375, GPu = 0, RPu = 0.00375, XPu = 0.0375) annotation(
@@ -67,9 +74,11 @@ model GridForming "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {35, 74}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Loads.LoadAlphaBeta Load(PPu(fixed = true, start = 10.9955), QPu(fixed = false, start = 0), alpha = 2, beta = 0, u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-15, 100}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+
   Dynawo.Electrical.Events.NodeFault Fault(RPu = 0.0001, XPu = 0.001, tBegin = 1.5, tEnd = 1.65) annotation(
     Placement(visible = true, transformation(origin = {0, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanStep Disconnection(startValue = false, startTime = 0.5);
+
 equation
   Line12.switchOffSignal2.value = Disconnection.y;
   Line12.switchOffSignal1.value = false;
@@ -117,15 +126,15 @@ equation
   connect(dVOC.omegaPu, Conv500.omegaPu) annotation(
     Line(points = {{91, 121.5}, {79, 121.5}}, color = {0, 0, 127}));
   connect(Matching.omegaPu, Conv1000.omegaPu) annotation(
-    Line(points = {{-91, 13.5}, {-78, 13.5}}, color = {0, 0, 127}));
+    Line(points = {{-87.5, 10.5}, {-84.5, 10.5}, {-84.5, 13.5}, {-78, 13.5}}, color = {0, 0, 127}));
   connect(Matching.uqConvRefPu, Conv1000.uqConvRefPu) annotation(
-    Line(points = {{-91, 6}, {-78, 6}}, color = {0, 0, 127}));
+    Line(points = {{-91, -6}, {-84.5, -6}, {-84.5, 6}, {-78, 6}}, color = {0, 0, 127}));
   connect(Matching.IdcSourcePu, Conv1000.IdcSourcePu) annotation(
     Line(points = {{-91, 0}, {-78, 0}}, color = {0, 0, 127}));
   connect(Matching.udConvRefPu, Conv1000.udConvRefPu) annotation(
-    Line(points = {{-91, -6}, {-78, -6}}, color = {0, 0, 127}));
+    Line(points = {{-91, 6}, {-84.5, 6}, {-84.5, -6}, {-78, -6}}, color = {0, 0, 127}));
   connect(Matching.theta, Conv1000.theta) annotation(
-    Line(points = {{-91, -13.5}, {-78, -13.5}}, color = {0, 0, 127}));
+    Line(points = {{-91, 13.5}, {-84.5, 13.5}, {-84.5, -13.5}, {-78, -13.5}}, color = {0, 0, 127}));
   connect(Conv250.terminal, Line12.terminal2) annotation(
     Line(points = {{-62, 119}, {-62, 60}}, color = {0, 0, 255}));
   connect(Line12.terminal1, Conv1000.terminal) annotation(
@@ -145,19 +154,19 @@ equation
   connect(Line23Bis1.terminal2, Line23Bis2.terminal1) annotation(
     Line(points = {{-20, 74}, {20, 74}}, color = {0, 0, 255}));
   connect(Matching.omegaPu, dVOC.omegaRefPu) annotation(
-    Line(points = {{-91, 13.5}, {-91, 116}, {93.5, 116}, {93.5, 119}}, color = {0, 0, 127}));
+    Line(points = {{-87.5, 10.5}, {-87.5, 116}, {93.5, 116}, {93.5, 119}}, color = {0, 0, 127}));
   connect(Load.terminal, Line23.terminal1) annotation(
     Line(points = {{-15, 100}, {-15, 107}}, color = {0, 0, 255}));
   connect(Matching.omegaPu, Matching.omegaRefPu) annotation(
-    Line(points = {{-91, 13.5}, {-91, 16}, {-93.5, 16}}, color = {0, 0, 127}));
+    Line(points = {{-87.5, 10.5}, {-87.5, 13}, {-90, 13}}, color = {0, 0, 127}));
   connect(Droop.UdcSourceRefOutPu, Conv250.UdcSourceRefPu) annotation(
     Line(points = {{-91, 124.5}, {-78, 124.5}}, color = {0, 0, 127}));
   connect(dVOC.UdcSourceRefOutPu, Conv500.UdcSourceRefPu) annotation(
     Line(points = {{91, 124.5}, {79, 124.5}}, color = {0, 0, 127}));
   connect(Matching.UdcSourceRefOutPu, Conv1000.UdcSourceRefPu) annotation(
-    Line(points = {{-91, 10.5}, {-78, 10.5}}, color = {0, 0, 127}));
+    Line(points = {{-91, -10.5}, {-84.5, -10.5}, {-84.5, 10.5}, {-78, 10.5}}, color = {0, 0, 127}));
   connect(Matching.omegaPu, Droop.omegaRefPu) annotation(
-    Line(points = {{-91, 13.5}, {-91, 116}, {-93.5, 116}, {-93.5, 119}}, color = {0, 0, 127}));
+    Line(points = {{-87.5, 10.5}, {-87.5, 116}, {-93.5, 116}, {-93.5, 119}}, color = {0, 0, 127}));
   connect(UFilterRef250Pu.y, Droop.UFilterRefPu) annotation(
     Line(points = {{-139, 135}, {-123, 135}}, color = {0, 0, 127}));
   connect(IdcSourceRef250Pu.y, Droop.IdcSourceRefPu) annotation(
@@ -165,11 +174,11 @@ equation
   connect(QRef250Pu.y, Droop.QRefPu) annotation(
     Line(points = {{-139.5, 152}, {-130, 152}, {-130, 144}, {-123, 144}}, color = {0, 0, 127}));
   connect(IdcSourceRef1000Pu.y, Matching.IdcSourceRefPu) annotation(
-    Line(points = {{-139.5, 0}, {-123, 0}}, color = {0, 0, 127}));
+    Line(points = {{-139.5, 0}, {-131.25, 0}, {-131.25, -9}, {-123, -9}}, color = {0, 0, 127}));
   connect(UdcSourceRef1000Pu.y, Matching.UdcSourceRefPu) annotation(
-    Line(points = {{-139.5, 17}, {-128.75, 17}, {-128.75, 14}, {-123, 14}}, color = {0, 0, 127}));
+    Line(points = {{-139.5, 17}, {-128.75, 17}, {-128.75, -15}, {-123, -15}}, color = {0, 0, 127}));
   connect(UFilterRef1000Pu.y, Matching.UFilterRefPu) annotation(
-    Line(points = {{-139.5, -17}, {-128.75, -17}, {-128.75, -14}, {-123, -14}}, color = {0, 0, 127}));
+    Line(points = {{-139.5, -17}, {-128.75, -17}, {-128.75, 0}, {-123, 0}}, color = {0, 0, 127}));
   connect(UFilterRef500Pu.y, dVOC.UFilterRefPu) annotation(
     Line(points = {{140, 135}, {123, 135}}, color = {0, 0, 127}));
   connect(QRef500Pu.y, dVOC.QRefPu) annotation(
@@ -187,7 +196,7 @@ equation
   connect(PRef500Pu.y, dVOC.PRefPu) annotation(
     Line(points = {{140, 169}, {129, 169}, {129, 150}, {123, 150}}, color = {0, 0, 127}));
   connect(Conv250.udFilterPu, Droop.udFilterPu) annotation(
-    Line(points = {{-46, 148.5}, {-35, 148.5}, {-35, 152}, {-94, 152}, {-94, 151}}, color = {0, 0, 127}));
+    Line(points = {{-46, 148.5}, {-35, 148.5}, {-35, 151}, {-94, 151}}, color = {0, 0, 127}));
   connect(Conv250.idPccPu, Droop.idPccPu) annotation(
     Line(points = {{-46, 144}, {-34, 144}, {-34, 153}, {-98, 153}, {-98, 151}}, color = {0, 0, 127}));
   connect(Conv250.idConvPu, Droop.idConvPu) annotation(
@@ -215,24 +224,29 @@ equation
   connect(Conv500.uqFilterPu, dVOC.uqFilterPu) annotation(
     Line(points = {{47, 121.5}, {29, 121.5}, {29, 158}, {121, 158}, {121, 151}}, color = {0, 0, 127}));
   connect(Conv1000.udFilterPu, Matching.udFilterPu) annotation(
-    Line(points = {{-46, -13.5}, {-35, -13.5}, {-35, -17}, {-94, -17}, {-94, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, -13.5}, {-35, -13.5}, {-35, -17}, {-94, -17}, {-94, 16}}, color = {0, 0, 127}));
   connect(Conv1000.idPccPu, Matching.idPccPu) annotation(
-    Line(points = {{-46, -9}, {-34, -9}, {-34, -18}, {-98, -18}, {-98, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, -9}, {-34, -9}, {-34, -18}, {-98, -18}, {-98, 16}}, color = {0, 0, 127}));
   connect(Conv1000.idConvPu, Matching.idConvPu) annotation(
-    Line(points = {{-46, -4.5}, {-33, -4.5}, {-33, -19}, {-102.5, -19}, {-102.5, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, -4.5}, {-33, -4.5}, {-33, -19}, {-102.5, -19}, {-102.5, 16}}, color = {0, 0, 127}));
   connect(Conv1000.UdcSourcePu, Matching.UdcSourcePu) annotation(
-    Line(points = {{-46, 0}, {-32, 0}, {-32, -20}, {-107, -20}, {-107, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, 0}, {-32, 0}, {-32, -20}, {-107, -20}, {-107, 16}}, color = {0, 0, 127}));
   connect(Conv1000.iqConvPu, Matching.iqConvPu) annotation(
-    Line(points = {{-46, 4.5}, {-31, 4.5}, {-31, -21}, {-112, -21}, {-112, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, 4.5}, {-31, 4.5}, {-31, -21}, {-112, -21}, {-112, 16}}, color = {0, 0, 127}));
   connect(Conv1000.iqPccPu, Matching.iqPccPu) annotation(
-    Line(points = {{-46, 9}, {-30, 9}, {-30, -22}, {-116, -22}, {-116, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, 9}, {-30, 9}, {-30, -22}, {-116, -22}, {-116, 16}}, color = {0, 0, 127}));
   connect(Conv1000.uqFilterPu, Matching.uqFilterPu) annotation(
-    Line(points = {{-46, 13.5}, {-29, 13.5}, {-29, -23}, {-120.5, -23}, {-120.5, -16}}, color = {0, 0, 127}));
+    Line(points = {{-46, 13.5}, {-29, 13.5}, {-29, -23}, {-121, -23}, {-121, 16}}, color = {0, 0, 127}));
+  connect(Conv250.PFilterPu, Droop.PFilterPu) annotation(
+    Line(points = {{-72, 119}, {-72, 114}, {-96, 114}, {-96, 119}}, color = {0, 0, 127}));
+  connect(Conv250.QFilterPu, Droop.QFilterPu) annotation(
+    Line(points = {{-51, 119}, {-51, 110}, {-118, 110}, {-118, 119}}, color = {0, 0, 127}));
+
   annotation(
     experiment(StartTime = 0, StopTime = 3, Tolerance = 0.000001),
-    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol",  s = "ida", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
+    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-    This test case consists in three different grid-forming converters (one with a droop control, one with a dispatchable virtual oscillator control and one with a matching control) connected to a load. At t = 0.5s the line connecting the 250 MVA (droop) and the 1000 MVA (matching) converters is opened. At t = 1.5s, a short-circuit occurs in the middle of one of the lines connecting the 250 MVA (droop) and the 500 MVA (dVOC) converters. It is cleared after 150ms. This test case and the grid-forming converters controls come from the Horizon 2020 European project MIGRATE, and more precisely from its Deliverables 3.2 and 3.3 that can be found on the project website : https://www.h2020-migrate.eu/downloads.html.
+    This test case consists in three different grid-forming converters (one with a droop control, one with a dispatchable virtual oscillator control and one with a matching control) connected to a load. At t = 0.5 s the line connecting the 250 MVA (droop) and the 1000 MVA (matching) converters is opened. At t = 1.5 s, a short-circuit occurs in the middle of one of the lines connecting the 250 MVA (droop) and the 500 MVA (dVOC) converters. It is cleared after 150ms. This test case and the grid-forming converters controls come from the Horizon 2020 European project MIGRATE, and more precisely from its Deliverables 3.2 and 3.3 that can be found on the project website : https://www.h2020-migrate.eu/downloads.html.
     </div><div><br></div><div>The two following figures show the expected evolution of the frequency and the current for each converter during the simulation.
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/frequency.png\">

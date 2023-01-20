@@ -243,8 +243,8 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
 
 protected
   // Transformer's impedance and susceptance
-  parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in pu (base U2Nom, SnRef)";
-  parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
+  parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef / SNom, im = X / 100 * SystemBase.SnRef / SNom) "Transformer impedance in pu (base U2Nom, SnRef)";
+  parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
 
   annotation(preferredView = "text");
 end BaseTransformerVariableTap_INIT;
