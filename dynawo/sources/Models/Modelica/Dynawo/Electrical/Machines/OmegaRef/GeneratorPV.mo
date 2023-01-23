@@ -12,9 +12,9 @@ within Dynawo.Electrical.Machines.OmegaRef;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorPV "Generator with power / frequency modulation and voltage / reactive regulation"
+model GeneratorPV "Generator with active power / frequency regulation and voltage / reactive power regulation"
   /*
-  The P output is modulated according to frequency (in order to model frequency containment reserves)
+  The P output is modulated according to the frequency (in order to model the frequency containment reserve)
   The Q output is modulated in order to keep U + lambda * Q as close as possible to the target value
   When a reactive power limit is reached, the PV generator acts as a PQ generator
   */
@@ -30,19 +30,19 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
 
   Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
 
-  parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
-  parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
-  parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
+  parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
+  parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
+  parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
 
-  parameter Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
-
-  final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";
+  final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SystemBase.SnRef / SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
   final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in pu (base SnRef)";
-  final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SNom / SystemBase.SnRef "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
-  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference";
+  final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";
+  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference, in s";
 
   Types.ReactivePowerPu QGenRefPu(start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
+
+  parameter Types.VoltageModulePu URef0Pu "Initial voltage regulation set point in pu (base UNom)";
 
 protected
   QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";

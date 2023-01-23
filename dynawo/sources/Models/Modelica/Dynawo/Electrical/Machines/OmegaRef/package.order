@@ -3,6 +3,7 @@ BaseClasses_INIT
 GeneratorPQ
 GeneratorPQ_INIT
 GeneratorPV
+GeneratorPVDiagramPQ
 GeneratorPV_INIT
 GeneratorSynchronous
 GeneratorSynchronousInt_INIT

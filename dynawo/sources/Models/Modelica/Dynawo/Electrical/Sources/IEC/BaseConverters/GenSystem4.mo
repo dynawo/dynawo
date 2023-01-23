@@ -18,7 +18,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Equivalent circuit and conventions:
 
       __   fOCB     iGs
-     /__\---/-------->-- (terminal)
+     /__\---/------->-- (terminal)
      \__/--------------
 
   */
@@ -37,9 +37,9 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Dialog(tab = "Control"));
   parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Control"));
-  parameter Types.PerUnit Kipaw "Antiwindup gain for active current" annotation(
+  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
     Dialog(tab = "Control"));
-  parameter Types.PerUnit Kiqaw "Antiwindup gain for reactive current" annotation(
+  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
     Dialog(tab = "Control"));
   parameter Types.Time tG "Current generation time constant in s" annotation(
     Dialog(tab = "Control"));
@@ -49,7 +49,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Input variables
-  Modelica.Blocks.Interfaces.BooleanInput fOCB(start = true) "Breaker position, true if closed, false if open" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput fOCB(start = true) "Open Circuit Breaker Flag" annotation(
     Placement(visible = true, transformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
@@ -65,7 +65,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput PaGPu(start = PaG0Pu) "Active power at converter terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PAgPu(start = PAg0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
@@ -100,7 +100,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit PaG0Pu "Initial active power at converter terminal in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
@@ -134,7 +134,7 @@ equation
     Line(points = {{82, 0}, {100, 0}, {100, -40}, {40, -40}, {40, -54}, {58, -54}}, color = {85, 170, 255}));
   connect(product.y, complexToReal.u) annotation(
     Line(points = {{82, -60}, {98, -60}}, color = {85, 170, 255}));
-  connect(complexToReal.re, PaGPu) annotation(
+  connect(complexToReal.re, PAgPu) annotation(
     Line(points = {{122, -54}, {130, -54}, {130, -60}, {150, -60}}, color = {0, 0, 127}));
   connect(iqCmdPu, absLimRateLimFirstOrderAntiWindup1.u) annotation(
     Line(points = {{-150, 0}, {-102, 0}}, color = {0, 0, 127}));

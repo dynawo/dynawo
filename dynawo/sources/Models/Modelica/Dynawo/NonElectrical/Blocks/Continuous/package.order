@@ -12,6 +12,7 @@ IntegratorVariableLimits
 LeadMOrderLag
 LimitedPI
 LimPIDFreeze
+PI
 PIAntiWindup
 PIAntiWindupVariableLimits
 PIFreeze

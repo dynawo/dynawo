@@ -32,6 +32,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPQPropDiagramPQSignalNSFR.xml
   GeneratorPV.xml
   GeneratorPVFixed.xml
+  GeneratorPVDiagramPQ.xml
   GeneratorPVSignalN.xml
   GeneratorPVRpclSignalN.xml
   GeneratorPVRpcl2SignalN.xml
@@ -98,6 +99,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   IECWT4ACurrentSource.xml
+  IECWT4BCurrentSource.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml

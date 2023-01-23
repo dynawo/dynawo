@@ -672,6 +672,24 @@ exportStates(shared_ptr<DataInterface> data) {
   data->importStaticParameters();
 }
 
+static void
+checkNoLoadIsTestedSeveralTimes(const std::vector<std::pair<double, std::string> >& loadFailingCriteria) {
+  std::vector<std::string> checkedLoadList;
+  for (std::pair<double, std::string> failingCriterion : loadFailingCriteria) {
+    const std::string failingCriterionLog = failingCriterion.second;
+    std::vector<std::string> splitFailingCriterionLog;
+    boost::algorithm::split(splitFailingCriterionLog, failingCriterionLog, boost::is_any_of(" "));
+    const std::string checkedLoadName = splitFailingCriterionLog[1];
+    checkedLoadList.push_back(checkedLoadName);
+  }
+  size_t checkedLoadListSize = checkedLoadList.size();
+  for (size_t i = 0; i < checkedLoadListSize; ++i) {
+    for (size_t j = i + 1; j < checkedLoadListSize; ++j) {
+      ASSERT_NE(checkedLoadList[i], checkedLoadList[j]);
+    }
+  }
+}
+
 TEST(DataInterfaceIIDMTest, Timeline) {
   std::array<criteria::CriteriaParams::CriteriaScope_t, 2> criteriaScopeArray = {CriteriaParams::DYNAMIC,
                                                                                 CriteriaParams::FINAL};
@@ -2724,23 +2742,6 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
-}
-
-void checkNoLoadIsTestedSeveralTimes(const std::vector<std::pair<double, std::string> >& loadFailingCriteria) {
-  std::vector<std::string> checkedLoadList;
-  for (std::pair<double, std::string> failingCriterion : loadFailingCriteria) {
-    const std::string failingCriterionLog = failingCriterion.second;
-    std::vector<std::string> splitFailingCriterionLog;
-    boost::algorithm::split(splitFailingCriterionLog, failingCriterionLog, boost::is_any_of(" "));
-    const std::string checkedLoadName = splitFailingCriterionLog[1];
-    checkedLoadList.push_back(checkedLoadName);
-  }
-  size_t checkedLoadListSize = checkedLoadList.size();
-  for (size_t i = 0; i < checkedLoadListSize; ++i) {
-    for (size_t j = i + 1; j < checkedLoadListSize; ++j) {
-      ASSERT_NE(checkedLoadList[i], checkedLoadList[j]);
-    }
-  }
 }
 
 TEST(DataInterfaceIIDMTest, NoVoltageLevelInCriteria) {

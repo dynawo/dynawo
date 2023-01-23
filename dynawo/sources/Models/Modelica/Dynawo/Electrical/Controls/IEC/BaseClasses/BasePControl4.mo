@@ -22,7 +22,7 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //PControl parameters
-  parameter Types.PerUnit Kpaw "Antiwindup gain for the integrator of the ramp-limited first order" annotation(
+  parameter Types.PerUnit Kpaw "Anti-windup gain for the integrator of the ramp-limited first order in pu/s (base SNom)" annotation(
     Dialog(tab = "PControl"));
   parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
     Dialog(tab = "PControl"));
