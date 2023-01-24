@@ -74,6 +74,7 @@
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
   <dyn:connect id1="DISCONNECT_LINE" var1="event_state1_value" id2="NETWORK" var2="_BUS____9-BUS___10-1_AC_state_value"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_step"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_P" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_P1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_iMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger"/>
 </dyn:dynamicModelsArchitecture>
