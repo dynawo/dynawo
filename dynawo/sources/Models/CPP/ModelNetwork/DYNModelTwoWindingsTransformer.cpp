@@ -1176,6 +1176,33 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 
+  switch (knownBus_) {
+  case BUS1_BUS2:
+  {
+    if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = OPEN;
+    } else if (modelBus1_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_2;
+
+    } else if (modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_1;
+    }
+    break;
+  }
+  case BUS1:
+  {
+    if (modelBus1_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
+  case BUS2:
+  {
+    if (modelBus2_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
+  }
+
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
