@@ -872,6 +872,33 @@ ModelLine::evalZ(const double& t) {
       z_[0] = OPEN;
   }
 
+  switch (knownBus_) {
+  case BUS1_BUS2:
+  {
+    if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = OPEN;
+    } else if (modelBus1_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_2;
+
+    } else if (modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_1;
+    }
+    break;
+  }
+  case BUS1:
+  {
+    if (modelBus1_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
+  case BUS2:
+  {
+    if (modelBus2_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
+  }
+
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {

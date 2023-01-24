@@ -211,6 +211,9 @@ ModelShuntCompensator::evalZ(const double& t) {
   z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
 
+  if (modelBus_->getConnectionState() == OPEN)
+    z_[connectionStateNum_] = OPEN;
+
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     stateModified_ = true;

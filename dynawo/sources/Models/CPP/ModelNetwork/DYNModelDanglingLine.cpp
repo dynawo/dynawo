@@ -684,6 +684,9 @@ ModelDanglingLine::evalZ(const double& t) {
       z_[0] = OPEN;
   }
 
+  if (modelBus_->getConnectionState() == OPEN)
+    z_[0] = OPEN;
+
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != connectionState_) {
     Trace::info() << DYNLog(DanglingLineStateChange, id_, connectionState_, currState) << Trace::endline;
