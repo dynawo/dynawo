@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('d7/d8a/a02830.html','../../');});
   <tr class="even"><td class="entry"><a class="el" href="../../d7/d8a/a02830.html#affc8c26736c47ecd0428a98b9297b431">p_</a></td><td class="entry"><a class="el" href="../../d7/d8a/a02830.html">DYN::LoadCriteria::LoadFailingCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d7/d8a/a02830.html#a687ae6618fc9ad3792dd884a985adfd5">pBound_</a></td><td class="entry"><a class="el" href="../../d7/d8a/a02830.html">DYN::LoadCriteria::LoadFailingCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d7/d8a/a02830.html#afda3b37b5952ac8cbeef2bd7e13c03d9">printOneFailingCriteriaIntoLog</a>() const override</td><td class="entry"><a class="el" href="../../d7/d8a/a02830.html">DYN::LoadCriteria::LoadFailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/d8a/a02830.html#ab051e74662d8e61c4c4c2b308095222f">printOneFailingCriteriaIntoTimeline</a>(const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline, double currentTime) const override</td><td class="entry"><a class="el" href="../../d7/d8a/a02830.html">DYN::LoadCriteria::LoadFailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d8a/a02830.html#a19e9cdc585d404689bc939214fec0d4e">printOneFailingCriteriaIntoTimeline</a>(const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline, std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria, double currentTime) const override</td><td class="entry"><a class="el" href="../../d7/d8a/a02830.html">DYN::LoadCriteria::LoadFailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../df/d11/a02814.html#a963f267d42e411fc03637c2ca8a6dff3">~FailingCriteria</a>()=default</td><td class="entry"><a class="el" href="../../df/d11/a02814.html">DYN::Criteria::FailingCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('d7/d8a/a02830.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jan 24 2023 15:14:11 for Dynawo by
+    <li class="footer">Generated on Tue Jan 24 2023 17:15:27 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

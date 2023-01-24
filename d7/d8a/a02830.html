@@ -129,9 +129,9 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8a/a02830.html#afda3b37b5952ac8cbeef2bd7e13c03d9">printOneFailingCriteriaIntoLog</a> () const override</td></tr>
 <tr class="memdesc:afda3b37b5952ac8cbeef2bd7e13c03d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the log file <br /></td></tr>
 <tr class="separator:afda3b37b5952ac8cbeef2bd7e13c03d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab051e74662d8e61c4c4c2b308095222f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8a/a02830.html#ab051e74662d8e61c4c4c2b308095222f">printOneFailingCriteriaIntoTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline, double currentTime) const override</td></tr>
-<tr class="memdesc:ab051e74662d8e61c4c4c2b308095222f"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the timeline file  <a href="#ab051e74662d8e61c4c4c2b308095222f">More...</a><br /></td></tr>
-<tr class="separator:ab051e74662d8e61c4c4c2b308095222f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19e9cdc585d404689bc939214fec0d4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8a/a02830.html#a19e9cdc585d404689bc939214fec0d4e">printOneFailingCriteriaIntoTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline, std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria, double currentTime) const override</td></tr>
+<tr class="memdesc:a19e9cdc585d404689bc939214fec0d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the timeline file  <a href="#a19e9cdc585d404689bc939214fec0d4e">More...</a><br /></td></tr>
+<tr class="separator:a19e9cdc585d404689bc939214fec0d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a02814"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02814')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../df/d11/a02814.html">DYN::Criteria::FailingCriteria</a></td></tr>
 <tr class="memitem:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02814"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d11/a02814.html#afda670074d93f6adb4bb677a2be79d55">FailingCriteria</a> (<a class="el" href="../../d6/d59/a02810.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> bound, std::string nodeId, const std::string &amp;criteriaId)</td></tr>
 <tr class="memdesc:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02814"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="../../df/d11/a02814.html#afda670074d93f6adb4bb677a2be79d55">More...</a><br /></td></tr>
@@ -260,8 +260,8 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="ab051e74662d8e61c4c4c2b308095222f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab051e74662d8e61c4c4c2b308095222f">&#9670;&nbsp;</a></span>printOneFailingCriteriaIntoTimeline()</h2>
+<a id="a19e9cdc585d404689bc939214fec0d4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19e9cdc585d404689bc939214fec0d4e">&#9670;&nbsp;</a></span>printOneFailingCriteriaIntoTimeline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,6 +274,12 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
           <td>(</td>
           <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>failingCriteria</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -298,12 +304,13 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">timeline</td><td>timeline </td></tr>
+    <tr><td class="paramname">failingCriteria</td><td>array containing the failing criteria messages </td></tr>
     <tr><td class="paramname">currentTime</td><td>current simulation time </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a5843b1a622e0eb3ef50004b40765ac8f">DYN::Criteria::FailingCriteria</a>.</p>
+<p>Implements <a class="el" href="../../df/d11/a02814.html#a9c727c23d9a180d3b268a91d91aeabc3">DYN::Criteria::FailingCriteria</a>.</p>
 
 </div>
 </div>
@@ -327,7 +334,7 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dff/a02826.html">LoadCriteria</a></li><li class="navelem"><a class="el" href="../../d7/d8a/a02830.html">LoadFailingCriteria</a></li>
-    <li class="footer">Generated on Tue Jan 24 2023 15:14:11 for Dynawo by
+    <li class="footer">Generated on Tue Jan 24 2023 17:15:27 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -134,9 +134,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d11/a02814.html#a910d30c2975e1ce6e944cb153da95bdd">printOneFailingCriteriaIntoLog</a> () const =0</td></tr>
 <tr class="memdesc:a910d30c2975e1ce6e944cb153da95bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the log file <br /></td></tr>
 <tr class="separator:a910d30c2975e1ce6e944cb153da95bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5843b1a622e0eb3ef50004b40765ac8f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d11/a02814.html#a5843b1a622e0eb3ef50004b40765ac8f">printOneFailingCriteriaIntoTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline, double currentTime) const =0</td></tr>
-<tr class="memdesc:a5843b1a622e0eb3ef50004b40765ac8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the timeline file  <a href="#a5843b1a622e0eb3ef50004b40765ac8f">More...</a><br /></td></tr>
-<tr class="separator:a5843b1a622e0eb3ef50004b40765ac8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c727c23d9a180d3b268a91d91aeabc3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d11/a02814.html#a9c727c23d9a180d3b268a91d91aeabc3">printOneFailingCriteriaIntoTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;timeline, std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria, double currentTime) const =0</td></tr>
+<tr class="memdesc:a9c727c23d9a180d3b268a91d91aeabc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the timeline file  <a href="#a9c727c23d9a180d3b268a91d91aeabc3">More...</a><br /></td></tr>
+<tr class="separator:a9c727c23d9a180d3b268a91d91aeabc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -231,8 +231,8 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a5843b1a622e0eb3ef50004b40765ac8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5843b1a622e0eb3ef50004b40765ac8f">&#9670;&nbsp;</a></span>printOneFailingCriteriaIntoTimeline()</h2>
+<a id="a9c727c23d9a180d3b268a91d91aeabc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c727c23d9a180d3b268a91d91aeabc3">&#9670;&nbsp;</a></span>printOneFailingCriteriaIntoTimeline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,6 +245,12 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
           <td>(</td>
           <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d41/a02530.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>failingCriteria</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -269,12 +275,13 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">timeline</td><td>timeline </td></tr>
+    <tr><td class="paramname">failingCriteria</td><td>list of failing criteria </td></tr>
     <tr><td class="paramname">currentTime</td><td>current simulation time </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d7/d8a/a02830.html#ab051e74662d8e61c4c4c2b308095222f">DYN::LoadCriteria::LoadFailingCriteria</a>, and <a class="el" href="../../d1/de5/a02822.html#a0a19dded3ed7306cfc510f572413ec63">DYN::BusCriteria::BusFailingCriteria</a>.</p>
+<p>Implemented in <a class="el" href="../../d7/d8a/a02830.html#a19e9cdc585d404689bc939214fec0d4e">DYN::LoadCriteria::LoadFailingCriteria</a>, and <a class="el" href="../../d1/de5/a02822.html#a1e47e72926a31d455f91a52c80dbc9e5">DYN::BusCriteria::BusFailingCriteria</a>.</p>
 
 </div>
 </div>
@@ -298,7 +305,7 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d59/a02810.html">Criteria</a></li><li class="navelem"><a class="el" href="../../df/d11/a02814.html">FailingCriteria</a></li>
-    <li class="footer">Generated on Tue Jan 24 2023 15:14:11 for Dynawo by
+    <li class="footer">Generated on Tue Jan 24 2023 17:15:27 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -13,7 +13,7 @@ var searchData=
   ['endmacrostaticref',['endMacroStaticRef',['../dc/d18/a01914.html#a3e1e5cc67f89d07ca0aa9f5594b18b15',1,'dynamicdata::Model']]],
   ['endmacrostaticreference',['endMacroStaticReference',['../d5/dec/a01794.html#a4c22e3a24f0db8d437c509f77e4d9942',1,'dynamicdata::DynamicModelsCollection']]],
   ['endmodel',['endModel',['../d5/dec/a01794.html#a2b134bbbc52952b27269b8c0632893af',1,'dynamicdata::DynamicModelsCollection']]],
-  ['endsimulationwitherror',['endSimulationWithError',['../d6/d90/a03298.html#af4247d4a63999f1b90f4976848843c01',1,'DYN::Simulation']]],
+  ['endsimulationwitherror',['endSimulationWithError',['../d6/d90/a03298.html#ad9933d4e539dcb1086b83afe61723da3',1,'DYN::Simulation']]],
   ['endstaticref',['endStaticRef',['../d2/dd7/a01902.html#a7a2e57263bef8364d08c6da656cecbc3',1,'dynamicdata::MacroStaticReference::endStaticRef()'],['../dc/d18/a01914.html#a5ca980395e046c4d70d3b521c18c2c66',1,'dynamicdata::Model::endStaticRef()']]],
   ['endvariable',['endVariable',['../d7/d38/a02054.html#a1ffaf209f750049a746edca5002a3d4f',1,'externalVariables::VariablesCollection']]],
   ['enumtomodelicastring_5f',['enumToModelicaString_',['../d0/d82/a00857.html#aa0f9bbc68184fbabc1c1b18556273da7',1,'DYN']]],

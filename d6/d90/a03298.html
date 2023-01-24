@@ -183,9 +183,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d90/a03298.html#a690a3dfc38c3468b5aecce993cc4f1d2">clean</a> ()</td></tr>
 <tr class="memdesc:a690a3dfc38c3468b5aecce993cc4f1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy all allocated objected during the simulation <br /></td></tr>
 <tr class="separator:a690a3dfc38c3468b5aecce993cc4f1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4247d4a63999f1b90f4976848843c01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d90/a03298.html#af4247d4a63999f1b90f4976848843c01">endSimulationWithError</a> (bool criteria)</td></tr>
-<tr class="memdesc:af4247d4a63999f1b90f4976848843c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">routine to run when the simulation ends with an error  <a href="#af4247d4a63999f1b90f4976848843c01">More...</a><br /></td></tr>
-<tr class="separator:af4247d4a63999f1b90f4976848843c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9933d4e539dcb1086b83afe61723da3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d90/a03298.html#ad9933d4e539dcb1086b83afe61723da3">endSimulationWithError</a> (bool criteria, bool isSimulationDiverging=false)</td></tr>
+<tr class="memdesc:ad9933d4e539dcb1086b83afe61723da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">routine to run when the simulation ends with an error  <a href="#ad9933d4e539dcb1086b83afe61723da3">More...</a><br /></td></tr>
+<tr class="separator:ad9933d4e539dcb1086b83afe61723da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f9e00244cf4aa8ab0e09e13b791ff5c"><td class="memItemLeft" align="right" valign="top"><a id="a5f9e00244cf4aa8ab0e09e13b791ff5c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d90/a03298.html#a5f9e00244cf4aa8ab0e09e13b791ff5c">printSolverHeader</a> ()</td></tr>
 <tr class="memdesc:a5f9e00244cf4aa8ab0e09e13b791ff5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the header information of the solver used <br /></td></tr>
@@ -943,8 +943,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
-<a id="af4247d4a63999f1b90f4976848843c01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4247d4a63999f1b90f4976848843c01">&#9670;&nbsp;</a></span>endSimulationWithError()</h2>
+<a id="ad9933d4e539dcb1086b83afe61723da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9933d4e539dcb1086b83afe61723da3">&#9670;&nbsp;</a></span>endSimulationWithError()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -953,8 +953,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
           <td class="memname">void DYN::Simulation::endSimulationWithError </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>criteria</em></td><td>)</td>
+          <td class="paramname"><em>criteria</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isSimulationDiverging</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -963,6 +973,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">criteria</td><td>true if we want to check one last time the criteria </td></tr>
+    <tr><td class="paramname">isSimulationDiverging</td><td>true if the simulation diverges, false otherwise </td></tr>
   </table>
   </dd>
 </dl>
@@ -2296,7 +2307,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d90/a03298.html">Simulation</a></li>
-    <li class="footer">Generated on Tue Jan 24 2023 15:14:12 for Dynawo by
+    <li class="footer">Generated on Tue Jan 24 2023 17:15:28 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
