@@ -19,28 +19,18 @@
 #include <fstream>
 #include <sstream>
 
-#include <xml/sax/formatter/AttributeList.h>
-#include <xml/sax/formatter/Formatter.h>
-
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
+#include "DYNXmlStreamWriter.h"
 #include "TLXmlExporter.h"
 #include "TLTimeline.h"
-
-using std::fstream;
-using std::ostream;
-using std::string;
-
-using xml::sax::formatter::AttributeList;
-using xml::sax::formatter::Formatter;
-using xml::sax::formatter::FormatterPtr;
 
 namespace timeline {
 
 void
-XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const string& filePath) const {
-  fstream file;
-  file.open(filePath.c_str(), fstream::out);
+XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const {
+  std::fstream file;
+  file.open(filePath.c_str(), std::fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
@@ -50,32 +40,32 @@ XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const str
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
-  FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
+XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const {
+  DYN::XmlStreamWriter writer(stream, true);
 
-  formatter->startDocument();
-  AttributeList attrs;
-  formatter->startElement("timeline", attrs);
+  writer.writeStartDocument("ISO-8859-1", "1.0");
+  writer.writeStartElement("timeline");
+  writer.writeAttribute("xmlns", "http://www.rte-france.com/dynawo");
+
   for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
           itEvent != timeline->cendEvent();
           ++itEvent) {
     if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
       continue;
-    attrs.clear();
-    if (exportWithTime_)
-      attrs.add("time", DYN::double2String((*itEvent)->getTime()));
-    attrs.add("modelName", (*itEvent)->getModelName());
-    attrs.add("message", (*itEvent)->getMessage());
-    if ((*itEvent)->hasPriority()) {
-      attrs.add("priority", (*itEvent)->getPriority());
+    writer.writeStartElement("event");
+    if (exportWithTime_) {
+      writer.writeAttribute("time", DYN::double2String((*itEvent)->getTime()));
     }
-    formatter->startElement("event", attrs);
-    formatter->endElement();  // event
+    writer.writeAttribute("modelName", (*itEvent)->getModelName());
+    writer.writeAttribute("message", (*itEvent)->getMessage());
+    if ((*itEvent)->hasPriority()) {
+      writer.writeAttribute("priority", (*itEvent)->getPriority());
+    }
+    writer.writeEndElement();
   }
-  formatter->endElement();  // timeline
-  formatter->endDocument();
+
+  writer.writeEndElement();  // timeline
+  writer.writeEndDocument();
 }
-
-
 
 }  // namespace timeline

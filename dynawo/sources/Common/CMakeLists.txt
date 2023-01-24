@@ -75,6 +75,8 @@ set(COMMON_SOURCES
   DYNTimer.cpp
   DYNTrace.cpp
   DYNTraceStream.cpp
+  DYNXmlCharConversion.cpp
+  DYNXmlStreamWriter.cpp
   )
 
 set(COMMON_INCLUDE_HEADERS
@@ -104,6 +106,9 @@ set(COMMON_INCLUDE_HEADERS
   DYNTrace.h
   DYNTraceStream.h
   DYNClone.hpp
+  DYNXmlCharConversion.h
+  DYNXmlStreamWriter.h
+  DYNXmlString.h
   )
 
 add_library(dynawo_Interface INTERFACE)
@@ -130,9 +135,13 @@ target_include_directories(dynawo_Common
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/sources> # for config.h & gitversion.h
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
+
+find_package(LibXml2 REQUIRED)
+
 target_include_directories(dynawo_Common SYSTEM
   PUBLIC
     $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    ${LIBXML2_INCLUDE_DIR}
   )
 
 target_link_libraries(dynawo_Common
@@ -142,6 +151,7 @@ target_link_libraries(dynawo_Common
     Boost::filesystem
     Boost::log
     ${CMAKE_DL_LIBS}
+    LibXml2::LibXml2
   )
 
 set_target_properties(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}

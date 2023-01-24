@@ -17,60 +17,37 @@
  *
  */
 
-#include <fstream>
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
 
-#include <xml/sax/parser/ParserException.h>
-
-#include "DYNMacrosMessage.h"
-
-#include "DYDDynamicModelsCollectionFactory.h"
-#include "DYDXmlHandler.h"
 #include "DYDXmlImporter.h"
 #include "DYNExecUtils.h"
+#include "DYDXmlParser.h"
 
-using std::string;
-using std::vector;
 using boost::shared_ptr;
-
-namespace parser = xml::sax::parser;
 
 using parameters::ParametersSetCollection;
 
 namespace dynamicdata {
 
 shared_ptr<DynamicModelsCollection>
-XmlImporter::importFromDydFiles(const vector<string>& fileNames) const {
-  XmlHandler dydHandler;
-  xml::sax::parser::ParserFactory parser_factory;
-  xml::sax::parser::ParserPtr parser = parser_factory.createParser();
-  bool xsdValidation = false;
-  if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
-    string dydXsdPath = getMandatoryEnvVar("DYNAWO_XSD_DIR") + string("dyd.xsd");
-    parser->addXmlSchema(dydXsdPath);
-    xsdValidation = true;
-  }
-
-  for (vector<string>::const_iterator it = fileNames.begin(); it != fileNames.end(); ++it) {
-    std::ifstream stream((*it).c_str());
-    if (!stream)
-      throw DYNError(DYN::Error::API, FileSystemItemDoesNotExist, (*it).c_str());
-
-    try {
-      importFromStream(stream, dydHandler, parser, xsdValidation);
-    } catch (const DYN::Error& exp) {
-      throw DYNError(DYN::Error::API, XmlFileParsingError, (*it).c_str(), exp.what());
+XmlImporter::importFromDydFiles(const std::vector<std::string>& fileNames) const {
+  boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection =
+                                              boost::shared_ptr<DynamicModelsCollection>(new DynamicModelsCollection());
+  for (const std::string& fileName : fileNames) {
+    XmlParser xmlParser(dynamicModelsCollection, fileName);
+    if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
+      std::string dydXsdPath = getMandatoryEnvVar("DYNAWO_XSD_DIR") + std::string("dyd.xsd");
+      xmlParser.activateXSDValidation(dydXsdPath);
     }
+    xmlParser.parseXML();
   }
 
-  return dydHandler.getDynamicModelsCollection();
+  return dynamicModelsCollection;
 }
 
 void XmlImporter::importFromStream(std::istream& stream, XmlHandler& dydHandler, xml::sax::parser::ParserPtr& parser, bool xsdValidation) const {
-  try {
-    parser->parse(stream, dydHandler, xsdValidation);
-  } catch (const xml::sax::parser::ParserException& exp) {
-    throw DYNError(DYN::Error::API, XmlParsingError, exp.what());
-  }
+  // inutile ?
 }
 
 }  // namespace dynamicdata

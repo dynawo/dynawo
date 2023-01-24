@@ -14,6 +14,11 @@ XmlUtilsLoadSchema          =             unable to load XML schema %1%
 XmlUtilsXercesInit          =             error during Xerces initialization
 XmlFileParsingError         =             error while parsing file %1% : %2%
 XmlParsingError             =             error while parsing stream %1%
+
+//-------------  LIBXML2/XML ------------------------------------------
+XmlUnknownNodeName          =             unknown node name %1% in file %2%
+XsdValidationError          =             XSD validation error : %1%
+
 //---------------- SIMULATION ---------------------------------------
 SlowStepIncrease            =             time step <= %2% s for more than %1% iterations
 ArchFileError               =             error during the close of the archives file

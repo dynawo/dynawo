@@ -52,6 +52,7 @@ set(API_DYD_SOURCES
     DYDUnitDynamicModel.cpp
     DYDWhiteBoxModelCommon.cpp
     DYDXmlExporter.cpp
+    DYDXmlParser.cpp
     )
 
 set(API_DYD_INCLUDE_HEADERS
@@ -90,6 +91,7 @@ set(API_DYD_INCLUDE_HEADERS
     DYDUnitDynamicModel.h
     DYDUnitDynamicModelFactory.h
     DYDWhiteBoxModelCommon.h
+    DYDXmlParser.h
     )
 
 add_library(dynawo_API_DYD SHARED ${API_DYD_SOURCES})
