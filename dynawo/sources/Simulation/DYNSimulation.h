@@ -196,8 +196,9 @@ class Simulation {
   /**
    * @brief routine to run when the simulation ends with an error
    * @param criteria true if we want to check one last time the criteria
+   * @param isSimulationDiverging true if the simulation diverges, false otherwise
    */
-  void endSimulationWithError(bool criteria);
+  void endSimulationWithError(bool criteria, bool isSimulationDiverging = false);
 
   /**
    * @brief print the header information of the solver used
