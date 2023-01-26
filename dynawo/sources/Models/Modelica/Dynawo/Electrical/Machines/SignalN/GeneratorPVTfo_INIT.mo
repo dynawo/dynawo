@@ -16,6 +16,7 @@ model GeneratorPVTfo_INIT "Initialisation model for generator PV based on Signal
   import Dynawo;
   import Dynawo.Electrical.Machines;
   import Modelica.ComplexMath;
+  import Modelica;
 
   extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;
@@ -38,7 +39,7 @@ model GeneratorPVTfo_INIT "Initialisation model for generator PV based on Signal
   Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
   Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
 
 protected
   Types.ComplexVoltagePu uRef0Pu "Start value of complex voltage reference at terminal in pu (base UNom)";

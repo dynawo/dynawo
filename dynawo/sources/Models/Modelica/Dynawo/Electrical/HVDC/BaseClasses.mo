@@ -38,7 +38,7 @@ package BaseClasses
     parameter Real KLosses "Losses coefficient between 0 and 1 : 1 if no loss in the HVDC link, < 1 otherwise";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef) flowing through the HVDC link";
 
-    input Types.ActivePowerPu P1RefPu(start = P1Ref0Pu) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
+    Modelica.Blocks.Interfaces.RealOutput P1RefPu(start = P1Ref0Pu) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
 
     parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
     parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";

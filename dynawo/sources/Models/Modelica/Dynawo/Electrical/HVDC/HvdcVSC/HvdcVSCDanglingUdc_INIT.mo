@@ -33,7 +33,7 @@ model HvdcVSCDanglingUdc_INIT "Initialisation model for the HVDC VSC model with 
   Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
   Modelica.Blocks.Interfaces.RealOutput Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
   Types.PerUnit Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
-  Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
+  Modelica.Blocks.Interfaces.RealInput UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
   Modelica.Blocks.Interfaces.RealOutput URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
   Modelica.Blocks.Interfaces.RealOutput QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
   Modelica.Blocks.Interfaces.RealOutput modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";

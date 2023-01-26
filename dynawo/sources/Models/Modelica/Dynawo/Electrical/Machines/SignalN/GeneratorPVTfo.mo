@@ -14,6 +14,7 @@ within Dynawo.Electrical.Machines.SignalN;
 
 model GeneratorPVTfo "Model for generator PV based on SignalN for the frequency handling, with a simplified transformer and a voltage regulation at stator"
   import Dynawo;
+  import Modelica;
 
   extends Dynawo.Electrical.Machines.SignalN.BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;

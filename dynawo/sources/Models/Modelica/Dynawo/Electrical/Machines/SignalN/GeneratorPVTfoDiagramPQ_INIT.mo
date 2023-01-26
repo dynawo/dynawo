@@ -15,6 +15,8 @@ within Dynawo.Electrical.Machines.SignalN;
 model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based on SignalN for the frequency handling, with a transformer, a voltage regulation at stator and with an N points PQ diagram. The voltage module reference at stator is calculated using the voltage module reference at terminal."
   import Dynawo;
   import Dynawo.Electrical.Machines;
+  import Modelica;
+
   import Modelica.ComplexMath;
 
   extends BaseClasses_INIT.BaseGeneratorSignalNPQDiagram_INIT;
@@ -38,7 +40,7 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
   Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
   Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
 
 protected
   Types.ComplexVoltagePu uRef0Pu "Start value of complex voltage reference at terminal in pu (base UNom)";

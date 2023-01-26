@@ -37,7 +37,7 @@ model GeneratorPVTfoDiagramPQ "Model for generator PV based on SignalN for the f
   Types.ComplexVoltagePu uStatorPu(re(start = uStator0Pu.re), im(start = uStator0Pu.im)) "Complex voltage at stator in pu (base UNom)";
   Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
-  Types.ReactivePowerPu QStatorPu(start = QStator0Pu) "Stator reactive power in pu (base QNomAlt) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput QStatorPu(start = QStator0Pu) "Stator reactive power in pu (base QNomAlt) (generator convention)";
   Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef) (generator convention)";
   Boolean limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
