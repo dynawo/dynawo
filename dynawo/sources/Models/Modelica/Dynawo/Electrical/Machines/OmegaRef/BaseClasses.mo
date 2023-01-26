@@ -24,7 +24,7 @@ package BaseClasses
 
     type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
 
-    Connectors.ImPin deltaPmRefPu(value(start = 0)) "Active power reference step in pu (base PNom)";
+    Connectors.ImPin deltaPmRefPu(value(start = 0)) "Additional active power reference in pu (base PNom)";
     Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
 
     parameter Types.ActivePower PMin "Minimum active power in MW";
