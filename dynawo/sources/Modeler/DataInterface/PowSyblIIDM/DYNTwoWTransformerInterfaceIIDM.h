@@ -21,6 +21,8 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTWOWTRANSFORMERINTERFACEIIDM_H_
 
 #include "DYNTwoWTransformerInterface.h"
+#include "DYNActiveSeasonIIDMExtension.h"
+#include "DYNIIDMExtensions.hpp"
 
 #include <boost/shared_ptr.hpp>
 
@@ -77,6 +79,11 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces2() const
    */
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
+
+  /**
+   * @copydoc TwoWTransformerInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const final;
 
   /**
    * @copydoc TwoWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
@@ -251,6 +258,9 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
 
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
+
+  ActiveSeasonIIDMExtension* activeSeasonExtension_;                                         ///< Active season extension
+  IIDMExtensions::DestroyFunction<ActiveSeasonIIDMExtension> destroyActiveSeasonExtension_;  ///< active season destroy function
 
   boost::optional<bool> initialConnected1_;  ///< whether the tfo is initially connected at side 1
   boost::optional<bool> initialConnected2_;  ///< whether the tfo is initially connected at side 2

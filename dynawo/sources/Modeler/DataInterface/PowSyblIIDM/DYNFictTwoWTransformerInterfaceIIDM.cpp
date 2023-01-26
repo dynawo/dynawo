@@ -41,10 +41,14 @@ namespace DYN {
 
   FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM(const std::string& Id,
                       stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg,
-                      bool initialConnected1, double VNom1, double ratedU1) :
-                      leg_(leg), Id_(Id), initialConnected1_(initialConnected1),
+                      bool initialConnected1, double VNom1, double ratedU1, const std::string& activeSeason) :
+                      leg_(leg),
+                      Id_(Id),
+                      initialConnected1_(initialConnected1),
                       initialConnected2_(boost::none),
-                      VNom1_(VNom1), RatedU1_(ratedU1) {
+                      VNom1_(VNom1),
+                      RatedU1_(ratedU1),
+                      activeSeason_(activeSeason) {
     setType(ComponentInterface::TWO_WTFO);
     stateVariables_.resize(6);
     stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1

@@ -58,10 +58,11 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    * @param initialConnected1 @b true if the fictitous transformer's side 1 is connected, @b false else
    * @param VNom1 nominal voltage of the fictitious transformer's side 1 in kV
    * @param ratedU1 rated voltage of the fictitious transformer's side 1 in kV
+   * @param activeSeason active season of the fictitious transformer
    */
   explicit FictTwoWTransformerInterfaceIIDM(const std::string& Id,
                                             stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg,
-                                            bool initialConnected1, double VNom1, double ratedU1);
+                                            bool initialConnected1, double VNom1, double ratedU1, const std::string& activeSeason);
 
 
   /**
@@ -213,6 +214,13 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   double getQ2();
 
   /**
+   * @copydoc TwoWTransformerInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const final {
+    return activeSeason_;
+  }
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
@@ -249,6 +257,7 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   boost::optional<bool> initialConnected2_;  ///< whether the tfo is initially connected at side 2
   double VNom1_;            ///< nominal voltage of the fictitious transformer's side 1 in kV
   double RatedU1_;          ///< rated voltage of the fictitious transformer's side 1 in kV
+  const std::string activeSeason_;  ///< active season of the fictitious transformer
 };
 }  // namespace DYN
 

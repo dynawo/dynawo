@@ -635,11 +635,19 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
   const bool initialConnected1 = true;
   const double VNom1 = ThreeWindingTransformer.getRatedU0();
   const double ratedU1 = ThreeWindingTransformer.getRatedU0();
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+  auto activeSeasonExtension = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(ThreeWindingTransformer);
+  auto destroyActiveSeasonExtension = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
+  const string activeSeason = activeSeasonExtension ? activeSeasonExtension->getValue() : std::string("UNDEFINED");
+  destroyActiveSeasonExtension(activeSeasonExtension);
+
   for (auto& leg : legs) {
     string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
     // We consider the fictitious transformer always connected on the fictitious bus
     shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, leg, initialConnected1, VNom1,
-                                                        ratedU1));
+                                                        ratedU1, activeSeason));
     fictTwoWTransf.get()->setBusInterface1(fictBus);
     fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
     fictTwoWTransf.get()->setVoltageLevelInterface1(vl);

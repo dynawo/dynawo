@@ -77,6 +77,13 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces3() const;
 
   /**
+   * @copydoc ThreeWTransformerInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const final {
+    return "UNDEFINED";
+  }
+
+  /**
    * @copydoc ThreeWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);
