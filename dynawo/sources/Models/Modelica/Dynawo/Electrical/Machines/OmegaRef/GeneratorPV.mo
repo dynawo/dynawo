@@ -28,7 +28,7 @@ model GeneratorPV "Generator with active power / frequency regulation and voltag
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  Connectors.ImPin deltaURefPu(value(start = 0)) "Voltage regulation step in pu (base UNom)";
+  Connectors.ImPin deltaURefPu(value(start = 0)) "Additional voltage reference in pu (base UNom)";
   Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
