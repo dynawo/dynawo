@@ -1189,7 +1189,7 @@ class ReaderOMC:
         ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/\)\.attribute[ ]*.start[ ]*=[^;]*;$')
         ptrn_param = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[^;]*;')
         ptrn_param_boolean_test = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*==[^;]*;')
-        ptrn_param_bool_assignment = re.compile(r'(data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
+        ptrn_param_bool_assignment = re.compile(r'\(data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[^;]*;')
         ptrn_assign_extobjs = re.compile(r'^[ ]*\(data->simulationInfo->extObjs\[(?P<var>[0-9]+)\]\)[ ]*=[^;]*;$')
 
@@ -1455,7 +1455,7 @@ class ReaderOMC:
         ptrn_var1 = re.compile(r'static const MMC_DEFSTRINGLIT*')
         ptrn_var2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
         ptrn_table_size= re.compile(r'static _index_t _OMC_LIT[0-9]+_dims*')
-        ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*')
+        ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*|static integer_array const _OMC_LIT*')
         ptrn_real_array= re.compile(r'static const modelica_real _OMC_LIT[0-9]+_data*')
 
         with open(file_to_read,'r') as f:
@@ -1622,11 +1622,17 @@ class ReaderOMC:
                             break
                 if var is not None and var.get_variability() == "continuous" and not var.is_fixed():
                     do_it = True
+                    print ("BUBU? " + var.get_name())
                     for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        if dep_var_name == "time":
+                            do_it = False
+                            break
                         dep_var = self.find_variable_from_name(dep_var_name)
+                        print ("BUBU? " + var.get_name() + " " + dep_var_name +" " + str(dep_var.is_fixed()))
                         if dep_var is not None and (not dep_var.is_fixed() \
                         or dep_var.get_name() in self.fictive_continuous_vars\
-                        or dep_var.get_name() in self.fictive_optional_continuous_vars):
+                        or dep_var.get_name() in self.fictive_optional_continuous_vars\
+                        or dep_var.get_name() in self.fictive_discrete_vars):
                             do_it = False
                             break
                     if do_it:

@@ -34,12 +34,18 @@ extern void *mmc_emptystring;
 extern void *mmc_strings_len1[256];
 
 #define real_array_copy_data(src, dst)               simple_array_copy_data(src, &dst, sizeof(modelica_real));
+#define real_array_get(src, ndims, ...)               (*reinterpret_cast<modelica_real*>(generic_array_get(&src, sizeof(modelica_real), __VA_ARGS__)))
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void simple_array_copy_data(const base_array_t src, base_array_t* dst, size_t sze);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void* generic_array_get(const base_array_t* source, size_t sze, ...);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation

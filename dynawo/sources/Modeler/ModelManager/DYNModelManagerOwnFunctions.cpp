@@ -867,6 +867,18 @@ void simple_array_copy_data(const base_array_t src_cp, base_array_t* dst, size_t
     memcpy(dst->data, src->data, sze*nr_of_elements);
 }
 
+static inline void* generic_ptrget(const base_array_t *a, size_t sze, size_t i) {
+  return (reinterpret_cast<char*>(a->data)) + (i*sze);
+}
+
+void* generic_array_get(const base_array_t* src, size_t sze, ...) {
+  va_list ap;
+  va_start(ap, sze);
+  void* trgt = generic_ptrget(src, calc_base_index_va(src, src->ndims, ap), sze);
+  va_end(ap);
+  return trgt;
+}
+
 /** function: real_array_create
  **
  ** sets all fields in a real_array, i.e. data, ndims and dim_size.
@@ -876,11 +888,6 @@ void real_array_create(real_array_t *dest, modelica_real *data, int ndims, ...) 
     va_start(ap, ndims);
     base_array_create(dest, data, ndims, ap);
     va_end(ap);
-}
-
-
-static inline void* generic_ptrget(const base_array_t *a, size_t sze, size_t i) {
-  return (reinterpret_cast<char*>(a->data)) + (i*sze);
 }
 
 size_t calc_base_index_va(const base_array_t *source, int ndims, va_list ap) {

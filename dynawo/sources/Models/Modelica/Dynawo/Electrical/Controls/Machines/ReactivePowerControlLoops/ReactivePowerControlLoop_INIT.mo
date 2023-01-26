@@ -13,6 +13,8 @@ within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 */
 
 model ReactivePowerControlLoop_INIT "Initialisation model for the Reactive Power Control Loop (RPCL)"
+  import Modelica;
+  import Dynawo.Types;
   extends AdditionalIcons.Init;
 
   Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";

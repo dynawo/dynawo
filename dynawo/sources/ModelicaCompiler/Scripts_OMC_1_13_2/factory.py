@@ -3405,9 +3405,12 @@ class Factory:
                 self.list_for_literalconstants.append(define)
 
             elif 'static const modelica_integer' in var:
-                var = var.replace("_data", "")
+                #var = var.replace("_data", "")
                 var = var.replace ("static const", "const")
 
+                self.list_for_literalconstants.append(var)
+
+            elif 'static _index_t' in var and 'dims' in var:
                 self.list_for_literalconstants.append(var)
 
             elif 'static _index_t' in var and 'dims' in var:
@@ -3417,7 +3420,8 @@ class Factory:
                 var = var.replace ("static ", "")
                 self.list_for_literalconstants.append(var)
 
-            elif 'static const modelica_real' in var:
+            elif 'static integer_array' in var:
+                var = var.replace ("static ", "")
                 self.list_for_literalconstants.append(var)
 
     ##

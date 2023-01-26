@@ -95,7 +95,6 @@ check_tags() {
 }
 
 checkout_openmodelica_repository() {
-echo "BUBU?? "
   rmdir $SRC_OPENMODELICA || echo "$SRC_OPENMODELICA folder was not empty it was already checkout."
   if [ ! -d "$SRC_OPENMODELICA" ]; then
     git clone $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA --recursive || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
