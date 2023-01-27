@@ -22,7 +22,7 @@
   </set>
   <macroParameterSet id="macro_generator">
     <par type="DOUBLE" name="generator_QMin" value="-200"/>
-    <par type="DOUBLE" name="generator_QMax" value="200"/>
+    <par type="DOUBLE" name="generator_QMax" value="62"/>
     <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
     <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
@@ -171,6 +171,7 @@
   <set id="SVC">
     <macroParSet id="macro_svc"/>
     <macroParSet id="macro_svc_tfo"/>
+    <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
   </set>
   <set id="SVC1">
     <macroParSet id="macro_svc"/>
