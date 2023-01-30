@@ -108,3 +108,33 @@ case_description = "Bolted three-phase short circuit at the high-level side of t
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "SMIB", "Standard", "TestCase3ST4B", "TestCase3ST4B.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#             SMIB with GoverNordic and VRNordic              #
+###############################################################
+
+case_name = "SMIB - Fault - GoverNordic - VRNordic"
+case_description = "SMIB test case with a fault using GoverNordic and VRNordic regulations"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_Nordic", "SMIB_GoverNordicVRNordic", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#      SMIB with constant mechanical power and VRNordic       #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - VRNordic"
+case_description = "SMIB test case with a fault using VRNordic regulation"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_Nordic", "SMIB_PmConstVRNordic", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#         SMIB with no mechanical power and VRNordic          #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - VRNordic - SynchronousCondenser"
+case_description = "SMIB test case with a fault using VRNordic regulation, for a synchronous condenser"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_Nordic", "SMIB_SynchronousCondenser", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

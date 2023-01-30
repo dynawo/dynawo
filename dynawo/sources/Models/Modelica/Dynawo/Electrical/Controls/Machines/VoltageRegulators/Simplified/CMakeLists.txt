@@ -16,6 +16,8 @@ set(MODEL_FILES
   package.mo
   package.order
   VRNordic.mo
+  VRNordic.extvar
+  VRNordic_INIT.mo
   VRProportional.extvar
   VRProportional.mo
   VRProportional_INIT.mo
