@@ -20,12 +20,12 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   parameter Types.PerUnit Alpha "PI integral gain";
   parameter Types.PerUnit Beta "PI proportional gain";
   parameter Types.PerUnit DerLevelMaxPu "Level slope limitation in pu/min (base QNomAlt)";
-  parameter Boolean FreezingActivated = false "Whether the freezing functionnality is activated or not";
+  parameter Boolean FreezingActivated = false "If true, the freezing functionality is activated";
   parameter Integer NbMaxGen = 50 "Maximum number of generators that can participate in the secondary voltage control";
 
   //Input variables
-  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (for each generator participating in the secondary voltage control)";
-  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (for each generator participating in the secondary voltage control)";
+  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQDown(start = limUQDown0) "If true, the reactive power lower limits are reached (for each generator participating in the secondary voltage control)";
+  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQUp(start = limUQUp0) "If true, the reactive power upper limits are reached (for each generator participating in the secondary voltage control)";
   Modelica.Blocks.Interfaces.RealInput UpPu(start = Up0Pu) "Voltage of pilot point in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UpRefPu(start = UpRef0Pu) "Reference voltage of pilot point in pu (base UNom)" annotation(
@@ -62,16 +62,16 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   //Initial parameters
   parameter Types.PerUnit Level0 "Initial level demand (between -1 and 1)" annotation(
     Dialog(group = "Initialization"));
-  parameter Boolean[NbMaxGen] limUQDown0 = fill(true, NbMaxGen) "Whether the minimum reactive power limits are initially reached or not (for each generator participating in the secondary voltage control)";
-  parameter Boolean[NbMaxGen] limUQUp0 = fill(true, NbMaxGen) "Whether the maximum reactive power limits are initially reached or not (for each generator participating in the secondary voltage control)";
+  parameter Boolean[NbMaxGen] limUQDown0 = fill(true, NbMaxGen) "If true, the reactive power lower limits are initially reached (for each generator participating in the secondary voltage control)";
+  parameter Boolean[NbMaxGen] limUQUp0 = fill(true, NbMaxGen) "If true, the reactive power upper limits are initially reached (for each generator participating in the secondary voltage control)";
   parameter Types.VoltageModulePu Up0Pu "Initial pilot point voltage in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.VoltageModulePu UpRef0Pu "Initial reference voltage of pilot point in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
 
 protected
-  Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "Whether all the generators have reached their minimum reactive power limits";
-  Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "Whether all the generators have reached their maximum reactive power limits";
+  Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "If true, all generators have reached their reactive power lower limits";
+  Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "If true, all generators have reached their reactive power upper limits";
   Boolean frozen(start = false) "True if the integration is frozen";
 
 equation
