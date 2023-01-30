@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.IEC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WT4ACurrentSource_INIT "Wind Turbine Type 4A model from IEC 61400-27-1 standard : initialization model"
+model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 standard : initialization model"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
@@ -36,9 +36,9 @@ model WT4ACurrentSource_INIT "Wind Turbine Type 4A model from IEC 61400-27-1 sta
     Dialog(tab = "Electrical"));
 
   //Current limiter parameters
-  parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)" annotation(
+  parameter Types.CurrentModulePu IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
-  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
   parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
@@ -62,7 +62,7 @@ model WT4ACurrentSource_INIT "Wind Turbine Type 4A model from IEC 61400-27-1 sta
   Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)";
   Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit PaG0Pu "Initial active power at converter terminal in pu (base SNom) (generator convention)";
+  Types.ActivePowerPu PAg0Pu "Initial active power at converter terminal in pu (base SNom) (generator convention)";
   Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom)";
   Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom)";
   Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)";
@@ -154,7 +154,7 @@ equation
   u0Pu = Complex(UGsRe0Pu, UGsIm0Pu) - Complex(ResPu, XesPu) * (-i0Pu * SystemBase.SnRef / SNom);
   Complex(IGsRe0Pu, IGsIm0Pu) = (-i0Pu * SystemBase.SnRef / SNom) + Complex(GesPu, BesPu) * Complex(UGsRe0Pu, UGsIm0Pu);
   u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0);
-  PaG0Pu = complexToReal.re;
+  PAg0Pu = complexToReal.re;
 
   connect(const1.y, combiTable1Ds.u) annotation(
     Line(points = {{62, -40}, {80, -40}, {80, -20}, {98, -20}}, color = {0, 0, 127}));
@@ -224,4 +224,4 @@ equation
   annotation(
     preferredView = "text",
     Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}})));
-end WT4ACurrentSource_INIT;
+end WT4CurrentSource_INIT;

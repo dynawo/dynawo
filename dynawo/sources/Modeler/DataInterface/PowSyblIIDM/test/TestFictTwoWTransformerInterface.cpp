@@ -131,7 +131,7 @@ TEST(DataInterfaceTest, FictTwoWTransformer_1) {
   stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg1 =
       stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(transformer.getLeg1());
   FictTwoWTransformerInterfaceIIDM tfoInterface("3WT_VL1_VL2_VL3_1",
-      leg1, true, transformer.getRatedU0(), transformer.getRatedU0());
+      leg1, true, transformer.getRatedU0(), transformer.getRatedU0(), "UNDEFINED");
   ASSERT_EQ(tfoInterface.getID(), "3WT_VL1_VL2_VL3_1");
 
   ASSERT_EQ(tfoInterface.getComponentVarIndex(std::string("p1")), FictTwoWTransformerInterfaceIIDM::VAR_P1);
@@ -190,6 +190,8 @@ TEST(DataInterfaceTest, FictTwoWTransformer_1) {
   ASSERT_EQ(tfoInterface.getQ1(), 0.);
   ASSERT_EQ(tfoInterface.getP2(), 0.);
   ASSERT_EQ(tfoInterface.getQ2(), 0.);
+
+  ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }
 
 TEST(DataInterfaceTest, FictTwoWTransformer_NoInitialConnections) {
@@ -276,7 +278,7 @@ TEST(DataInterfaceTest, FictTwoWTransformer_NoInitialConnections) {
   stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg1 =
       stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(transformer.getLeg1());
   FictTwoWTransformerInterfaceIIDM tfoInterface("3WT_VL1_VL2_VL3_1",
-      leg1, false, transformer.getRatedU0(), transformer.getRatedU0());
+      leg1, false, transformer.getRatedU0(), transformer.getRatedU0(), "UNDEFINED");
   ASSERT_EQ(tfoInterface.getID(), "3WT_VL1_VL2_VL3_1");
   const boost::shared_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
   const boost::shared_ptr<VoltageLevelInterface> vl2Itf(new VoltageLevelInterfaceIIDM(vl2));
@@ -295,5 +297,7 @@ TEST(DataInterfaceTest, FictTwoWTransformer_NoInitialConnections) {
   ASSERT_EQ(tfoInterface.getQ1(), 0.0);
   ASSERT_EQ(tfoInterface.getP2(), 0.0);
   ASSERT_EQ(tfoInterface.getQ2(), 0.0);
+
+  ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }
 }  // namespace DYN

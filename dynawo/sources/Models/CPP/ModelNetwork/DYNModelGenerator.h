@@ -21,6 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELGENERATOR_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include "DYNNetworkComponent.h"
 
 namespace DYN {
@@ -353,7 +354,8 @@ class ModelGenerator : public NetworkComponent {
     return (-Pc - 2 * ui * (-Pc * ui + Qc * ur) / U2) / U2;
   }
 
-  const boost::shared_ptr<GeneratorInterface> generator_;  ///< reference to the generator interface object
+ private:
+  boost::weak_ptr<GeneratorInterface> generator_;  ///< reference to the generator interface object
   double Pc_;  ///< active power target in MW
   double Qc_;  ///< reactive power target in Mvar
   double ir0_;  ///< initial current real part

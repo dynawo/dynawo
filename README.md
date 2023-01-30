@@ -84,13 +84,13 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 ## Getting started!
 
 To get started with Dyna&omega;o you have different possibilities, depending on your background and what you want to do:
-- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.3.2/Dynawo_Modelica_library_v1.3.2.zip) in OpenModelica for example.
+- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Modelica_library_v1.4.0.zip) in OpenModelica for example.
 - If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution) and the examples directory.
 - If you want to checkout the repository and build it yourself to be able to modify the tool, please follow the build instructions available [here](#build)
 
-**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.3.2/Dynawo_Modelica_library_v1.3.2.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
+**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Modelica_library_v1.4.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
 
-**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.3.2/DynawoDocumentation.zip).**
+**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.4.0/DynawoDocumentation.zip).**
 
 <a name="installation"></a>
 ## Installation
@@ -98,8 +98,8 @@ To get started with Dyna&omega;o you have different possibilities, depending on 
 ### Dyna&omega;o Distribution
 
 You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **Windows**:
-- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.3.2/Dynawo_Linux_v1.3.2.zip)
-- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.3.2/Dynawo_Windows_v1.3.2.zip)
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Linux_v1.4.0.zip)
+- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Windows_v1.4.0.zip)
 
 If you are on **MacOS** you can use [Docker](#docker).
 
@@ -349,7 +349,7 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.3.2/DynawoDocumentation.zip).
+You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.4.0/DynawoDocumentation.zip).
 
 <a name="doxygen"></a>
 ### Doxygen
@@ -385,7 +385,6 @@ Dyna&omega;o is using some external libraries to run simulations:
 
 Dyna&omega;o is currently maintained by the following people in RTE:
 
-* Mathilde Bongrain, [mathilde.bongrain@rte-france.com](mailto:mathilde.bongrain@rte-france.com)
 * Gautier Bureau, [gautier.bureau@rte-france.com](mailto:gautier.bureau@rte-france.com)
 * Marco Chiaramello, [marco.chiaramello@rte-france.com](mailto:marco.chiaramello@rte-france.com)
 * Quentin Cossart, [quentin.cossart@rte-france.com](mailto:quentin.cossart@rte-france.com)

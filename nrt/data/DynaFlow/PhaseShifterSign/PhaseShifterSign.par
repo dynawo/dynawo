@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="DOUBLE" name="hMin" value="1"/>
+    <par type="DOUBLE" name="hMax" value="10"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+  </set>
+  <set id="Generator">
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_QMax" value="100000"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+  </set>
+  <set id="Load">
+    <par type="DOUBLE" name="load_Alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_Beta" value="2.5"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="PhaseShifter">
+    <par type="DOUBLE" name="phaseShifter_t1st" value="40"/>
+    <par type="DOUBLE" name="phaseShifter_tNext" value="20"/>
+    <par type="BOOL" name="running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_iMax" value="0.273"/>
+    <par type="DOUBLE" name="phaseShifter_iStop" value="0.273"/>
+    <reference type="DOUBLE" name="phaseShifter_I0" origData="IIDM" origName="i1" componentId="PhaseShifter"/>
+    <reference type="DOUBLE" name="phaseShifter_P0" origData="IIDM" origName="p1" componentId="PhaseShifter"/>
+    <reference type="INT" name="phaseShifter_tap0" origData="IIDM" origName="tapPosition" componentId="PhaseShifter"/>
+    <reference type="INT" name="phaseShifter_tapMin" origData="IIDM" origName="lowTapPosition" componentId="PhaseShifter"/>
+    <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="PhaseShifter"/>
+    <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="PhaseShifter"/>
+    <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="PhaseShifter"/>
+  </set>
+  <set id="Network">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="StepLoad">
+    <par type="DOUBLE" name="doubleStep_tStep1" value="1"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="400"/>
+    <par type="DOUBLE" name="doubleStep_Value0" value="0."/>
+    <par type="DOUBLE" name="doubleStep_Height1" value="1.5"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="-1.5"/>
+  </set>
+</parametersSet>

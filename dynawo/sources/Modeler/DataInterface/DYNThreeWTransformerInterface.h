@@ -79,6 +79,12 @@ class ThreeWTransformerInterface : public ComponentInterface {
   virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces3() const = 0;
 
   /**
+   * @brief Retrieve active season for the transformer
+   * @returns active season
+   */
+  virtual std::string getActiveSeason() const = 0;
+
+  /**
    * @brief Setter for the tfo's bus interface side 1
    * @param busInterface of the bus where the side 1 of the tfo is connected
    */

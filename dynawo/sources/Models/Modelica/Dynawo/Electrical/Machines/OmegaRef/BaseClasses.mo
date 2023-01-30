@@ -24,6 +24,7 @@ package BaseClasses
 
     type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
 
+    Connectors.ImPin deltaPmRefPu(value(start = 0)) "Additional active power reference in pu (base PNom)";
     Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
 
     parameter Types.ActivePower PMin "Minimum active power in MW";
@@ -54,7 +55,7 @@ package BaseClasses
       Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
     end when;
     if running.value then
-      PGenRawPu = PGen0Pu + AlphaPu * (1 - omegaRefPu.value);
+      PGenRawPu = PGen0Pu + deltaPmRefPu.value * PNom / SystemBase.SnRef + AlphaPu * (1 - omegaRefPu.value);
       PGenPu = if pStatus == PStatus.LimitPMax then PMaxPu else if pStatus == PStatus.LimitPMin then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;

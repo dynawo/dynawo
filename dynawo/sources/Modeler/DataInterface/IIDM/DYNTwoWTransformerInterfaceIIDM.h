@@ -81,6 +81,13 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
 
   /**
+   * @copydoc TwoWTransformerInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const final {
+    return "UNDEFINED";
+  }
+
+  /**
    * @copydoc TwoWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);

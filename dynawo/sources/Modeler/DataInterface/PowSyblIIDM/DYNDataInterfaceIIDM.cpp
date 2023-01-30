@@ -153,7 +153,6 @@ void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
     stdcxx::Properties properties;
-    properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ExportOptions options(properties);
 
     powsybl::iidm::Network::writeXml(boost::filesystem::path(iidmFilePath), *networkIIDM_, options);
@@ -636,11 +635,19 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
   const bool initialConnected1 = true;
   const double VNom1 = ThreeWindingTransformer.getRatedU0();
   const double ratedU1 = ThreeWindingTransformer.getRatedU0();
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+  auto activeSeasonExtension = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(ThreeWindingTransformer);
+  auto destroyActiveSeasonExtension = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
+  const string activeSeason = activeSeasonExtension ? activeSeasonExtension->getValue() : std::string("UNDEFINED");
+  destroyActiveSeasonExtension(activeSeasonExtension);
+
   for (auto& leg : legs) {
     string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
     // We consider the fictitious transformer always connected on the fictitious bus
     shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, leg, initialConnected1, VNom1,
-                                                        ratedU1));
+                                                        ratedU1, activeSeason));
     fictTwoWTransf.get()->setBusInterface1(fictBus);
     fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
     fictTwoWTransf.get()->setVoltageLevelInterface1(vl);

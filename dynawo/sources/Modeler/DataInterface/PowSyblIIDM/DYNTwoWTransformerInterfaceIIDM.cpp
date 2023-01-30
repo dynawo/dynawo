@@ -51,9 +51,15 @@ TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWin
   stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);  // Q2
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_TAPINDEX] = StateVariable("tapIndex", StateVariable::INT);
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+  activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(tfo);
+  destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
 }
 
 TwoWTransformerInterfaceIIDM::~TwoWTransformerInterfaceIIDM() {
+  destroyActiveSeasonExtension_(activeSeasonExtension_);
 }
 
 void
@@ -399,4 +405,8 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   // attention to sign (+/-) convention
 }
 
+std::string
+TwoWTransformerInterfaceIIDM::getActiveSeason() const {
+  return activeSeasonExtension_ ? activeSeasonExtension_->getValue() : std::string("UNDEFINED");
+}
 }  // namespace DYN

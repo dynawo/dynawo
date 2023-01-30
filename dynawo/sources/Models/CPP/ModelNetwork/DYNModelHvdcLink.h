@@ -23,6 +23,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELHVDCLINK_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include "DYNNetworkComponent.h"
 #include "DYNHvdcLineInterface.h"
 
@@ -481,7 +482,8 @@ class ModelHvdcLink : public NetworkComponent {
    */
   double ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const;
 
-  const boost::shared_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object
+ private:
+  boost::weak_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object
 
   boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus at point of common coupling 1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus at point of common coupling 2

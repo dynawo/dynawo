@@ -20,12 +20,15 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTHREEWTRANSFORMERINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTHREEWTRANSFORMERINTERFACEIIDM_H_
 
-#include <boost/shared_ptr.hpp>
 
 #include "DYNThreeWTransformerInterface.h"
 #include "DYNVoltageLevelInterface.h"
+#include "DYNActiveSeasonIIDMExtension.h"
+#include "DYNIIDMExtensions.hpp"
 
 #include <powsybl/iidm/ThreeWindingsTransformer.hpp>
+
+#include <boost/shared_ptr.hpp>
 
 namespace DYN {
 
@@ -74,6 +77,11 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces3() const
    */
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces3() const;
+
+  /**
+   * @copydoc ThreeWTransformerInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const final;
 
   /**
    * @copydoc ThreeWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
@@ -197,6 +205,8 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   boost::optional<bool> initialConnected1_;  ///< whether the tfo is initially connected at side 1
   boost::optional<bool> initialConnected2_;  ///< whether the tfo is initially connected at side 2
   boost::optional<bool> initialConnected3_;  ///< whether the tfo is initially connected at side 3
+  ActiveSeasonIIDMExtension* activeSeasonExtension_;                                         ///< Active season extension
+  IIDMExtensions::DestroyFunction<ActiveSeasonIIDMExtension> destroyActiveSeasonExtension_;  ///< active season destroy function
 };
 }  // namespace DYN
 

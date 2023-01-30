@@ -33,9 +33,15 @@ namespace DYN {
 ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(powsybl::iidm::ThreeWindingsTransformer& tfo) :
 tfoIIDM_(tfo) {
   setType(ComponentInterface::THREE_WTFO);
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+  activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(tfo);
+  destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
 }
 
 ThreeWTransformerInterfaceIIDM::~ThreeWTransformerInterfaceIIDM() {
+  destroyActiveSeasonExtension_(activeSeasonExtension_);
 }
 
 void
@@ -186,6 +192,11 @@ ThreeWTransformerInterfaceIIDM::isConnected() const {
 bool
 ThreeWTransformerInterfaceIIDM::isPartiallyConnected() const {
   return isConnected1() || isConnected2() || isConnected3();
+}
+
+std::string
+ThreeWTransformerInterfaceIIDM::getActiveSeason() const {
+  return activeSeasonExtension_ ? activeSeasonExtension_->getValue() : std::string("UNDEFINED");
 }
 
 }  // namespace DYN

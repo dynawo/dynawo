@@ -50,7 +50,8 @@ using boost::shared_ptr;
 
 namespace DYN {
 #ifdef USE_POWSYBL
-static std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::tuple<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel>,
+shared_ptr<VoltageLevelInterfaceIIDM> >  // need to return the voltage level so that it is not destroyed
 createModelShuntCompensator(bool open, bool capacitor, bool initModel, powsybl::iidm::Network& networkIIDM) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
       .setId("S")
@@ -92,6 +93,8 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel, powsybl::
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   scItfIIDM->setBusInterface(bus1ItfIIDM);
+  vlItfIIDM->addBus(bus1ItfIIDM);
+  vlItfIIDM->addShuntCompensator(scItfIIDM);
 
   shared_ptr<ModelShuntCompensator> sc = shared_ptr<ModelShuntCompensator>(new ModelShuntCompensator(scItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -100,6 +103,8 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel, powsybl::
   sc->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  vl->addComponent(sc);
+  vl->addBus(bus1);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   sc->setModelBus(bus1);
@@ -120,7 +125,7 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel, powsybl::
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
-  return std::make_pair(sc, vl);
+  return std::make_tuple(sc, vl, vlItfIIDM);
 }
 #else
 static std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
@@ -196,7 +201,8 @@ static const bool reactance = false;
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorInitialization) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  shared_ptr<ModelShuntCompensator> capa = createModelShuntCompensator(false, capacitance, false, networkIIDM).first;
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   #else
   shared_ptr<ModelShuntCompensator> capa = createModelShuntCompensator(false, capacitance, false).first;
   #endif
@@ -208,7 +214,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorInitialization) {
 
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  shared_ptr<ModelShuntCompensator> rea = createModelShuntCompensator(true, reactance, false, networkIIDM2).first;
+  auto tuple2 = createModelShuntCompensator(true, reactance, false, networkIIDM2);
+  shared_ptr<ModelShuntCompensator> rea = std::get<0>(tuple2);
   #else
   shared_ptr<ModelShuntCompensator> rea = createModelShuntCompensator(true, reactance, false).first;
   #endif
@@ -244,7 +251,8 @@ fillParameters(shared_ptr<ModelShuntCompensator> shunt, std::string& startingPoi
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  shared_ptr<ModelShuntCompensator> capa = createModelShuntCompensator(false, capacitance, false, networkIIDM).first;
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   #else
   shared_ptr<ModelShuntCompensator> capa = createModelShuntCompensator(false, capacitance, false).first;
   #endif
@@ -294,7 +302,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
 
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true, networkIIDM2).first;
+  auto tuple2 = createModelShuntCompensator(false, capacitance, true, networkIIDM2);
+  shared_ptr<ModelShuntCompensator> capaInit = std::get<0>(tuple2);
   #else
   shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true).first;
   #endif
@@ -307,7 +316,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariablesFlat) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  shared_ptr<ModelShuntCompensator> capa = createModelShuntCompensator(false, capacitance, false, networkIIDM).first;
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   #else
   shared_ptr<ModelShuntCompensator> capa = createModelShuntCompensator(false, capacitance, false).first;
   #endif
@@ -349,11 +359,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariablesFlat) {
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   #else
   std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false);
-  #endif
   shared_ptr<ModelShuntCompensator> capa = p.first;
+  #endif
   int yOffSet = 0;
   capa->init(yOffSet);
   capa->initSize();
@@ -443,7 +454,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
 
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true, networkIIDM2).first;
+  auto tuple2 = createModelShuntCompensator(false, capacitance, true, networkIIDM2);
+  shared_ptr<ModelShuntCompensator> capaInit = std::get<0>(tuple2);
   #else
   shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true).first;
   #endif
@@ -457,11 +469,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   #else
   std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false);
-  #endif
   shared_ptr<ModelShuntCompensator> capa = p.first;
+  #endif
   int yOffSet = 0;
   capa->init(yOffSet);
   capa->initSize();
@@ -486,7 +499,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
 
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true, networkIIDM2).first;
+  auto tuple2 = createModelShuntCompensator(false, capacitance, true, networkIIDM2);
+  shared_ptr<ModelShuntCompensator> capaInit = std::get<0>(tuple2);
   #else
   shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true).first;
   #endif
@@ -507,14 +521,16 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false, networkIIDM);
-  std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p2 = createModelShuntCompensator(false, reactance, false, networkIIDM2);
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
+  auto tuple2 = createModelShuntCompensator(false, reactance, false, networkIIDM2);
+  shared_ptr<ModelShuntCompensator> rea = std::get<0>(tuple2);
   #else
   std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false);
   std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p2 = createModelShuntCompensator(false, reactance, false);
-  #endif
   shared_ptr<ModelShuntCompensator> capa = p.first;
   shared_ptr<ModelShuntCompensator> rea = p2.first;
+  #endif
   int yOffSet = 0;
   capa->init(yOffSet);
   capa->initSize();
@@ -564,11 +580,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
+  shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   #else
   std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelShuntCompensator(false, capacitance, false);
-  #endif
   shared_ptr<ModelShuntCompensator> capa = p.first;
+  #endif
   int yOffSet = 0;
   capa->init(yOffSet);
   capa->initSize();
@@ -586,7 +603,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {
 
   #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true, networkIIDM2).first;
+  auto tuple2 = createModelShuntCompensator(false, capacitance, true, networkIIDM2);
+  shared_ptr<ModelShuntCompensator> capaInit = std::get<0>(tuple2);
   #else
   shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true).first;
   #endif

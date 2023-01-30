@@ -97,6 +97,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+###################################################
+#     IEC Wind Turbine Type 4B Current Source     #
+###################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4B - Current source"
+case_description = "IEC - Wind Turbine Type 4B - Current source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4BCurrentSource", "WT4BCurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ##################################
 #     WECC PV Current Source     #
 ##################################

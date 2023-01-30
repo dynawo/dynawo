@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Generator">
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_QMax" value="100000"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+  </set>
+  <set id="Network">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="CLA">
+    <par type="INT" name="currentLimitAutomaton_OrderToEmit1" value="3"/>
+    <par type="INT" name="currentLimitAutomaton_OrderToEmit2" value="4"/>
+    <par type="BOOL" name="currentLimitAutomaton_Running1" value="true"/>
+    <par type="BOOL" name="currentLimitAutomaton_Running2" value="true"/>
+    <par type="DOUBLE" name="currentLimitAutomaton_IMax1" value="8"/>
+    <par type="DOUBLE" name="currentLimitAutomaton_IMax2" value="4"/>
+    <par type="DOUBLE" name="currentLimitAutomaton_tLagBeforeActing1" value="5"/>
+    <par type="DOUBLE" name="currentLimitAutomaton_tLagBeforeActing2" value="30"/>
+  </set>
+  <set id="IMonitored1">
+    <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/DynaWaltz/CLATwoLevels/IMonitored.txt"/>
+    <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="IMonitored1"/>
+  </set>
+  <set id="IMonitored2">
+    <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/DynaWaltz/CLATwoLevels/IMonitored.txt"/>
+    <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="IMonitored2"/>
+  </set>
+  <set id="Solver">
+    <par type="DOUBLE" name="hMin" value="1"/>
+    <par type="DOUBLE" name="hMax" value="1"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+  </set>
+</parametersSet>
