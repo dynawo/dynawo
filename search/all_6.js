@@ -21,7 +21,7 @@ var searchData=
   ['fict2wtidto3wtid_5f',['fict2wtIDto3wtID_',['../d0/dde/a02978.html#a53dc20b9a659d5b041556390a4740557',1,'DYN::DataInterfaceIIDM']]],
   ['fictbusinterfaceiidm',['FictBusInterfaceIIDM',['../d6/d2a/a03062.html',1,'DYN::FictBusInterfaceIIDM'],['../d6/d2a/a03062.html#a3ba00cc3e47788b0a73969bc31fc85d9',1,'DYN::FictBusInterfaceIIDM::FictBusInterfaceIIDM()']]],
   ['fictitious',['fictitious',['../dd/dd1/a02842.html#ac012d8bf67db7df2d18cf81e60c68f69',1,'DYN::TemporaryLimit']]],
-  ['ficttwowtransformerinterfaceiidm',['FictTwoWTransformerInterfaceIIDM',['../d4/df3/a03066.html',1,'DYN::FictTwoWTransformerInterfaceIIDM'],['../d4/df3/a03066.html#a13cb498ac43902fe4e23367c880ccbe6',1,'DYN::FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM()']]],
+  ['ficttwowtransformerinterfaceiidm',['FictTwoWTransformerInterfaceIIDM',['../d4/df3/a03066.html',1,'DYN::FictTwoWTransformerInterfaceIIDM'],['../d4/df3/a03066.html#a5bc86de651d3d410a7bffeaff6b355fb',1,'DYN::FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM()']]],
   ['fictvoltagelevelinterfaceiidm',['FictVoltageLevelInterfaceIIDM',['../d9/df4/a03070.html',1,'DYN::FictVoltageLevelInterfaceIIDM'],['../d9/df4/a03070.html#a3c17dcf9bc7f75c8f5c032196fd623e4',1,'DYN::FictVoltageLevelInterfaceIIDM::FictVoltageLevelInterfaceIIDM()']]],
   ['file_5fname',['file_name',['../db/d8e/a00482.html#af12c2d11f97514a64122ca5613a08a63',1,'DYNFileSystemUtils.h']]],
   ['filegenerationfailed',['FileGenerationFailed',['../d1/d0c/a02570.html#acfce33066451c48351076e31bd5b4ecea8030b918629456f846e2253822408e3d',1,'DYN::KeyError_t']]],

@@ -205,6 +205,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a18c77d3578b6464bed47a8f7898a5f43"><td class="memItemLeft" align="right" valign="top">std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/dde/a02838.html">CurrentLimitInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a18c77d3578b6464bed47a8f7898a5f43">getCurrentLimitInterfaces2</a> () const</td></tr>
 <tr class="memdesc:a18c77d3578b6464bed47a8f7898a5f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current limit interfaces for side 2.  <a href="#a18c77d3578b6464bed47a8f7898a5f43">More...</a><br /></td></tr>
 <tr class="separator:a18c77d3578b6464bed47a8f7898a5f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5031b95c8d6d6329e9ca3e359e469fd4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a5031b95c8d6d6329e9ca3e359e469fd4">getActiveSeason</a> () const final</td></tr>
+<tr class="memdesc:a5031b95c8d6d6329e9ca3e359e469fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve active season for the transformer.  <a href="#a5031b95c8d6d6329e9ca3e359e469fd4">More...</a><br /></td></tr>
+<tr class="separator:a5031b95c8d6d6329e9ca3e359e469fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0aa37794224f09aecbb3a94b22077e22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a0aa37794224f09aecbb3a94b22077e22">setBusInterface1</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/da4/a02798.html">BusInterface</a> &gt; &amp;busInterface)</td></tr>
 <tr class="memdesc:a0aa37794224f09aecbb3a94b22077e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the tfo's bus interface side 1.  <a href="#a0aa37794224f09aecbb3a94b22077e22">More...</a><br /></td></tr>
 <tr class="separator:a0aa37794224f09aecbb3a94b22077e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -320,6 +323,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a18c77d3578b6464bed47a8f7898a5f43"><td class="memItemLeft" align="right" valign="top">std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/dde/a02838.html">CurrentLimitInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a18c77d3578b6464bed47a8f7898a5f43">getCurrentLimitInterfaces2</a> () const</td></tr>
 <tr class="memdesc:a18c77d3578b6464bed47a8f7898a5f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current limit interfaces for side 2.  <a href="#a18c77d3578b6464bed47a8f7898a5f43">More...</a><br /></td></tr>
 <tr class="separator:a18c77d3578b6464bed47a8f7898a5f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5031b95c8d6d6329e9ca3e359e469fd4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a5031b95c8d6d6329e9ca3e359e469fd4">getActiveSeason</a> () const final</td></tr>
+<tr class="memdesc:a5031b95c8d6d6329e9ca3e359e469fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve active season for the transformer.  <a href="#a5031b95c8d6d6329e9ca3e359e469fd4">More...</a><br /></td></tr>
+<tr class="separator:a5031b95c8d6d6329e9ca3e359e469fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0aa37794224f09aecbb3a94b22077e22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a0aa37794224f09aecbb3a94b22077e22">setBusInterface1</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/da4/a02798.html">BusInterface</a> &gt; &amp;busInterface)</td></tr>
 <tr class="memdesc:a0aa37794224f09aecbb3a94b22077e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the tfo's bus interface side 1.  <a href="#a0aa37794224f09aecbb3a94b22077e22">More...</a><br /></td></tr>
 <tr class="separator:a0aa37794224f09aecbb3a94b22077e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -517,6 +523,14 @@ boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"
 powsybl::iidm::TwoWindingsTransformer &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a5b6646c68ce5f8ea752bb5cf6bd8ecfd">tfoIIDM_</a></td></tr>
 <tr class="memdesc:a5b6646c68ce5f8ea752bb5cf6bd8ecfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the tfo's iidm instance <br /></td></tr>
 <tr class="separator:a5b6646c68ce5f8ea752bb5cf6bd8ecfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653db3a4384034b0d4362f060569fd77"><td class="memItemLeft" align="right" valign="top"><a id="a653db3a4384034b0d4362f060569fd77"></a>
+<a class="el" href="../../de/d96/a03054.html">ActiveSeasonIIDMExtension</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#a653db3a4384034b0d4362f060569fd77">activeSeasonExtension_</a></td></tr>
+<tr class="memdesc:a653db3a4384034b0d4362f060569fd77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active season extension. <br /></td></tr>
+<tr class="separator:a653db3a4384034b0d4362f060569fd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abda311904f09fb32be16e45ef5dc7fdc"><td class="memItemLeft" align="right" valign="top"><a id="abda311904f09fb32be16e45ef5dc7fdc"></a>
+<a class="el" href="../../d9/d5e/a03086.html#a059d3ba2c94d27925287040ea881c017">IIDMExtensions::DestroyFunction</a>&lt; <a class="el" href="../../de/d96/a03054.html">ActiveSeasonIIDMExtension</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbf/a03042.html#abda311904f09fb32be16e45ef5dc7fdc">destroyActiveSeasonExtension_</a></td></tr>
+<tr class="memdesc:abda311904f09fb32be16e45ef5dc7fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">active season destroy function <br /></td></tr>
+<tr class="separator:abda311904f09fb32be16e45ef5dc7fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -810,6 +824,66 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <p>update iidm structure from state variables for each unit component </p>
 
 <p>Implements <a class="el" href="../../d3/d99/a02942.html#a8128a3bdb1f69e5b8a0c5909ab96f441">DYN::TwoWTransformerInterface</a>.</p>
+
+</div>
+</div>
+<a id="a5031b95c8d6d6329e9ca3e359e469fd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5031b95c8d6d6329e9ca3e359e469fd4">&#9670;&nbsp;</a></span>getActiveSeason() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::TwoWTransformerInterfaceIIDM::getActiveSeason </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve active season for the transformer. </p>
+<dl class="section return"><dt>Returns</dt><dd>active season </dd></dl>
+
+<p>Implements <a class="el" href="../../d3/d99/a02942.html#aed8b439ae02bb437ce91258bbf7f8e8f">DYN::TwoWTransformerInterface</a>.</p>
+
+</div>
+</div>
+<a id="a5031b95c8d6d6329e9ca3e359e469fd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5031b95c8d6d6329e9ca3e359e469fd4">&#9670;&nbsp;</a></span>getActiveSeason() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::TwoWTransformerInterfaceIIDM::getActiveSeason </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve active season for the transformer. </p>
+<dl class="section return"><dt>Returns</dt><dd>active season </dd></dl>
+
+<p>Implements <a class="el" href="../../d3/d99/a02942.html#aed8b439ae02bb437ce91258bbf7f8e8f">DYN::TwoWTransformerInterface</a>.</p>
 
 </div>
 </div>
@@ -2857,7 +2931,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dbf/a03042.html">TwoWTransformerInterfaceIIDM</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 13:20:40 for Dynawo by
+    <li class="footer">Generated on Mon Jan 30 2023 14:50:09 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

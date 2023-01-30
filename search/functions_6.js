@@ -4,7 +4,7 @@ var searchData=
   ['fdeb',['fDeb',['../d4/da5/a02746.html#a49b2f75e82e82e317315b08d5c697c46',1,'DYN::SubModel']]],
   ['fequationindex',['fEquationIndex',['../d4/da5/a02746.html#afdd7ea305b4f170bd98eb2654bfbad5a',1,'DYN::SubModel']]],
   ['fictbusinterfaceiidm',['FictBusInterfaceIIDM',['../d6/d2a/a03062.html#a3ba00cc3e47788b0a73969bc31fc85d9',1,'DYN::FictBusInterfaceIIDM']]],
-  ['ficttwowtransformerinterfaceiidm',['FictTwoWTransformerInterfaceIIDM',['../d4/df3/a03066.html#a13cb498ac43902fe4e23367c880ccbe6',1,'DYN::FictTwoWTransformerInterfaceIIDM']]],
+  ['ficttwowtransformerinterfaceiidm',['FictTwoWTransformerInterfaceIIDM',['../d4/df3/a03066.html#a5bc86de651d3d410a7bffeaff6b355fb',1,'DYN::FictTwoWTransformerInterfaceIIDM']]],
   ['fictvoltagelevelinterfaceiidm',['FictVoltageLevelInterfaceIIDM',['../d9/df4/a03070.html#a3c17dcf9bc7f75c8f5c032196fd623e4',1,'DYN::FictVoltageLevelInterfaceIIDM']]],
   ['file_5fname',['file_name',['../db/d8e/a00482.html#af12c2d11f97514a64122ca5613a08a63',1,'DYNFileSystemUtils.h']]],
   ['fillcalculatedvarscomponentandindex',['fillCalculatedVarsComponentAndIndex',['../d8/deb/a03246.html#a07a34ce17ec575c50098c40d269d8c7a',1,'DYN::ModelNetwork']]],

@@ -152,6 +152,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:ab1128ef596bb88308bb644da057bec50"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/dde/a02838.html">CurrentLimitInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d99/a02942.html#ab1128ef596bb88308bb644da057bec50">getCurrentLimitInterfaces2</a> () const =0</td></tr>
 <tr class="memdesc:ab1128ef596bb88308bb644da057bec50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current limit interfaces for side 2.  <a href="#ab1128ef596bb88308bb644da057bec50">More...</a><br /></td></tr>
 <tr class="separator:ab1128ef596bb88308bb644da057bec50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed8b439ae02bb437ce91258bbf7f8e8f"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d99/a02942.html#aed8b439ae02bb437ce91258bbf7f8e8f">getActiveSeason</a> () const =0</td></tr>
+<tr class="memdesc:aed8b439ae02bb437ce91258bbf7f8e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve active season for the transformer.  <a href="#aed8b439ae02bb437ce91258bbf7f8e8f">More...</a><br /></td></tr>
+<tr class="separator:aed8b439ae02bb437ce91258bbf7f8e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a912b1c13fd91bd975a61a2b0249e8a60"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d99/a02942.html#a912b1c13fd91bd975a61a2b0249e8a60">getID</a> () const =0</td></tr>
 <tr class="memdesc:a912b1c13fd91bd975a61a2b0249e8a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's id.  <a href="#a912b1c13fd91bd975a61a2b0249e8a60">More...</a><br /></td></tr>
 <tr class="separator:a912b1c13fd91bd975a61a2b0249e8a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -420,6 +423,36 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <p>Implements <a class="el" href="../../d5/dd8/a02802.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
 <p>Implemented in <a class="el" href="../../d9/dbf/a03042.html#a746660ba227d74ee089d670f90771ee1">DYN::TwoWTransformerInterfaceIIDM</a>, <a class="el" href="../../d9/dbf/a03042.html#a746660ba227d74ee089d670f90771ee1">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d4/df3/a03066.html#a8c43aab7d3616d8850b39bd5cb15026f">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aed8b439ae02bb437ce91258bbf7f8e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8b439ae02bb437ce91258bbf7f8e8f">&#9670;&nbsp;</a></span>getActiveSeason()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string DYN::TwoWTransformerInterface::getActiveSeason </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve active season for the transformer. </p>
+<dl class="section return"><dt>Returns</dt><dd>active season </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d4/df3/a03066.html#a178c1ae2e527bb140008abf984e20d93">DYN::FictTwoWTransformerInterfaceIIDM</a>, <a class="el" href="../../d9/dbf/a03042.html#a5031b95c8d6d6329e9ca3e359e469fd4">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d9/dbf/a03042.html#a5031b95c8d6d6329e9ca3e359e469fd4">DYN::TwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1291,7 +1324,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d99/a02942.html">TwoWTransformerInterface</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 13:20:40 for Dynawo by
+    <li class="footer">Generated on Mon Jan 30 2023 14:50:09 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -26,7 +26,7 @@ var searchData=
   ['derivativesprim_5f',['derivativesPrim_',['../d9/d4f/a03206.html#ae27a54f135bc6af605a2d2dfbf22d658',1,'DYN::ModelBus']]],
   ['description_5f',['description_',['../d5/dfa/a01746.html#a313c56b1f9223cf3811c15f87cde962c',1,'constraints::Constraint']]],
   ['destroy_5fextension_5f',['destroy_extension_',['../dd/da3/a03026.html#a364e4498aef3c1dd96214c831599cb8b',1,'DYN::StaticVarCompensatorInterfaceIIDM']]],
-  ['destroyactiveseasonextension_5f',['destroyActiveSeasonExtension_',['../d5/db8/a02998.html#a27e2730ea904633aac4efb9fe828fd18',1,'DYN::LineInterfaceIIDM']]],
+  ['destroyactiveseasonextension_5f',['destroyActiveSeasonExtension_',['../d5/db8/a02998.html#a27e2730ea904633aac4efb9fe828fd18',1,'DYN::LineInterfaceIIDM::destroyActiveSeasonExtension_()'],['../d8/d23/a03038.html#a031531983a7ef3dbdd080ddfd32f7929',1,'DYN::ThreeWTransformerInterfaceIIDM::destroyActiveSeasonExtension_()'],['../d9/dbf/a03042.html#abda311904f09fb32be16e45ef5dc7fdc',1,'DYN::TwoWTransformerInterfaceIIDM::destroyActiveSeasonExtension_()']]],
   ['destroycurrentlimitsperseasonextension_5f',['destroyCurrentLimitsPerSeasonExtension_',['../d5/db8/a02998.html#a07616fa62f9030e060c0cc065b5e9429',1,'DYN::LineInterfaceIIDM']]],
   ['destroygeneratoractivepowercontrol_5f',['destroyGeneratorActivePowerControl_',['../d2/d34/a02982.html#a31ef3d27fa263467646e57e12c31fad9',1,'DYN::GeneratorInterfaceIIDM']]],
   ['destroyhvdcactivepowercontrol_5f',['destroyHvdcActivePowerControl_',['../d9/d65/a02986.html#ad4b7870f75ada756584ae51aa550616e',1,'DYN::HvdcLineInterfaceIIDM']]],

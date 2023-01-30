@@ -5,6 +5,7 @@ var a02938 =
     [ "addCurrentLimitInterface2", "de/d06/a02938.html#a7063d4632508c8751fb166cd41624d5f", null ],
     [ "addCurrentLimitInterface3", "de/d06/a02938.html#a23adde4e05f4f25ea1e82020d093ec03", null ],
     [ "exportStateVariablesUnitComponent", "de/d06/a02938.html#a9a5f175dcf05b628ae4695609ec8c9a3", null ],
+    [ "getActiveSeason", "de/d06/a02938.html#a06b9de3c435cb647621d41bc4a53eab8", null ],
     [ "getBusInterface1", "de/d06/a02938.html#a1e565e5f5932089a1d8aaec36e40a8a8", null ],
     [ "getBusInterface2", "de/d06/a02938.html#a3c29552498f6e44269b37b4cc480832d", null ],
     [ "getBusInterface3", "de/d06/a02938.html#a096720779f84d985856994f331b207ed", null ],

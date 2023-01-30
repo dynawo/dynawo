@@ -162,9 +162,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#a64e4c64f9248848a4ce15c1f349f007f">~FictTwoWTransformerInterfaceIIDM</a> ()</td></tr>
 <tr class="memdesc:a64e4c64f9248848a4ce15c1f349f007f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a64e4c64f9248848a4ce15c1f349f007f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13cb498ac43902fe4e23367c880ccbe6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#a13cb498ac43902fe4e23367c880ccbe6">FictTwoWTransformerInterfaceIIDM</a> (const std::string &amp;Id, stdcxx::Reference&lt; powsybl::iidm::ThreeWindingsTransformer::Leg &gt; &amp;leg, bool initialConnected1, double VNom1, double ratedU1)</td></tr>
-<tr class="memdesc:a13cb498ac43902fe4e23367c880ccbe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a13cb498ac43902fe4e23367c880ccbe6">More...</a><br /></td></tr>
-<tr class="separator:a13cb498ac43902fe4e23367c880ccbe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bc86de651d3d410a7bffeaff6b355fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#a5bc86de651d3d410a7bffeaff6b355fb">FictTwoWTransformerInterfaceIIDM</a> (const std::string &amp;Id, stdcxx::Reference&lt; powsybl::iidm::ThreeWindingsTransformer::Leg &gt; &amp;leg, bool initialConnected1, double VNom1, double ratedU1, const std::string &amp;activeSeason)</td></tr>
+<tr class="memdesc:a5bc86de651d3d410a7bffeaff6b355fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5bc86de651d3d410a7bffeaff6b355fb">More...</a><br /></td></tr>
+<tr class="separator:a5bc86de651d3d410a7bffeaff6b355fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7aa8e8f1a89e90869e4e4bb50aa2242"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#ac7aa8e8f1a89e90869e4e4bb50aa2242">addCurrentLimitInterface1</a> (const boost::shared_ptr&lt; <a class="el" href="../../d5/dde/a02838.html">CurrentLimitInterface</a> &gt; &amp;currentLimitInterface)</td></tr>
 <tr class="memdesc:ac7aa8e8f1a89e90869e4e4bb50aa2242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a curent limit interface for side 1.  <a href="#ac7aa8e8f1a89e90869e4e4bb50aa2242">More...</a><br /></td></tr>
 <tr class="separator:ac7aa8e8f1a89e90869e4e4bb50aa2242"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -252,6 +252,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a229d507e43a5f978bf78e20023637a0f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#a229d507e43a5f978bf78e20023637a0f">getQ2</a> ()</td></tr>
 <tr class="memdesc:a229d507e43a5f978bf78e20023637a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power of the transformer at side 2.  <a href="#a229d507e43a5f978bf78e20023637a0f">More...</a><br /></td></tr>
 <tr class="separator:a229d507e43a5f978bf78e20023637a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a178c1ae2e527bb140008abf984e20d93"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#a178c1ae2e527bb140008abf984e20d93">getActiveSeason</a> () const final</td></tr>
+<tr class="memdesc:a178c1ae2e527bb140008abf984e20d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve active season for the transformer.  <a href="#a178c1ae2e527bb140008abf984e20d93">More...</a><br /></td></tr>
+<tr class="separator:a178c1ae2e527bb140008abf984e20d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab979d46a23ac0740d6874dee234099c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#ab979d46a23ac0740d6874dee234099c8">importStaticParameters</a> ()</td></tr>
 <tr class="memdesc:ab979d46a23ac0740d6874dee234099c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters  <a href="#ab979d46a23ac0740d6874dee234099c8">More...</a><br /></td></tr>
 <tr class="separator:ab979d46a23ac0740d6874dee234099c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -372,6 +375,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#aaf07c88f32bdeac70895cab6006cfbdd">RatedU1_</a></td></tr>
 <tr class="memdesc:aaf07c88f32bdeac70895cab6006cfbdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">rated voltage of the fictitious transformer's side 1 in kV <br /></td></tr>
 <tr class="separator:aaf07c88f32bdeac70895cab6006cfbdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9a929b5a1630055abd434bb5243b2b"><td class="memItemLeft" align="right" valign="top"><a id="a1c9a929b5a1630055abd434bb5243b2b"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df3/a03066.html#a1c9a929b5a1630055abd434bb5243b2b">activeSeason_</a></td></tr>
+<tr class="memdesc:a1c9a929b5a1630055abd434bb5243b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">active season of the fictitious transformer <br /></td></tr>
+<tr class="separator:a1c9a929b5a1630055abd434bb5243b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -397,8 +404,8 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class <a class="el" href="../../d9/dbf/a03042.html">TwoWTransformerInterfaceIIDM</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a13cb498ac43902fe4e23367c880ccbe6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13cb498ac43902fe4e23367c880ccbe6">&#9670;&nbsp;</a></span>FictTwoWTransformerInterfaceIIDM()</h2>
+<a id="a5bc86de651d3d410a7bffeaff6b355fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bc86de651d3d410a7bffeaff6b355fb">&#9670;&nbsp;</a></span>FictTwoWTransformerInterfaceIIDM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,7 +441,13 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>ratedU1</em>&#160;</td>
+          <td class="paramname"><em>ratedU1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>activeSeason</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -457,6 +470,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
     <tr><td class="paramname">initialConnected1</td><td><b>true</b> if the fictitous transformer's side 1 is connected, <b>false</b> else </td></tr>
     <tr><td class="paramname">VNom1</td><td>nominal voltage of the fictitious transformer's side 1 in kV </td></tr>
     <tr><td class="paramname">ratedU1</td><td>rated voltage of the fictitious transformer's side 1 in kV </td></tr>
+    <tr><td class="paramname">activeSeason</td><td>active season of the fictitious transformer </td></tr>
   </table>
   </dd>
 </dl>
@@ -562,6 +576,36 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <p>update iidm structure from state variables for each unit component </p>
 
 <p>Implements <a class="el" href="../../d3/d99/a02942.html#a8128a3bdb1f69e5b8a0c5909ab96f441">DYN::TwoWTransformerInterface</a>.</p>
+
+</div>
+</div>
+<a id="a178c1ae2e527bb140008abf984e20d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a178c1ae2e527bb140008abf984e20d93">&#9670;&nbsp;</a></span>getActiveSeason()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::FictTwoWTransformerInterfaceIIDM::getActiveSeason </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve active season for the transformer. </p>
+<dl class="section return"><dt>Returns</dt><dd>active season </dd></dl>
+
+<p>Implements <a class="el" href="../../d3/d99/a02942.html#aed8b439ae02bb437ce91258bbf7f8e8f">DYN::TwoWTransformerInterface</a>.</p>
 
 </div>
 </div>
@@ -1527,7 +1571,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d7/dfc/a02922.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/df3/a03066.html">FictTwoWTransformerInterfaceIIDM</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 13:20:39 for Dynawo by
+    <li class="footer">Generated on Mon Jan 30 2023 14:50:08 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
