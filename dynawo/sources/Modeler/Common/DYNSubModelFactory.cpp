@@ -38,8 +38,7 @@ SubModelFactories::SubModelFactories() {
 }
 
 SubModelFactories::~SubModelFactories() {
-  SubmodelFactoryIterator iter = factoryMap_.begin();
-  for (; iter != factoryMap_.end(); ++iter) {
+  for (SubmodelFactoryIterator iter = factoryMap_.begin(); iter != factoryMap_.end(); ++iter) {
     boost::function<deleteSubModelFactory_t>& deleteFactory = factoryMapDelete_.find(iter->first)->second;
 
     deleteFactory(iter->second);

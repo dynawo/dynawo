@@ -491,7 +491,8 @@ class ModelLoad : public NetworkComponent {
     return yOffset_ + localIndex;
   }
 
-  const boost::shared_ptr<LoadInterface> load_;  ///< reference to the load interface object
+ private:
+  boost::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified

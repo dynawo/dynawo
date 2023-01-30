@@ -21,6 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELSHUNTCOMPENSATOR_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include "DYNNetworkComponent.h"
 
 namespace DYN {
@@ -333,7 +334,8 @@ class ModelShuntCompensator : public NetworkComponent {
    */
   bool isAvailable() const;
 
-  const boost::shared_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object
+ private:
+  boost::weak_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object
 
   int currentSection_;  ///< The current number of connected section of the shunt compensator
   int maximumSection_;  ///< The maximum number of sections of the shunt compensator
