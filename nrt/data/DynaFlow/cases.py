@@ -164,6 +164,17 @@ job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterBlocking", "Phas
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#############################################################
+#  Small System with PST and a change of active power sign  #
+#############################################################
+
+case_name = "DynaFlow - Phase Shifter Sign"
+case_description = "Small System with PST and a change of active power sign"
+job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterSign", "PhaseShifterSign.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+
 ######################################################################################################
 #  Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams #
 ######################################################################################################
