@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNInitXml.h File Reference</title>
+<title>Dynawo: DYNGraph.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,28 +95,83 @@ $(document).ready(function(){initNavTree('d4/ddf/a00488.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">DYNInitXml.h File Reference</div>  </div>
+<div class="title">DYNGraph.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Init xml parsers.  
+<p>Graph interface : encapsulation of boost::graph.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;config.h&quot;</code><br />
-<code>#include &lt;xercesc/util/PlatformUtils.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;boost/graph/adjacency_list.hpp&gt;</code><br />
+<code>#include &lt;boost/graph/adjacency_iterator.hpp&gt;</code><br />
+<code>#include &lt;boost/graph/filtered_graph.hpp&gt;</code><br />
+<code>#include &lt;boost/graph/graph_traits.hpp&gt;</code><br />
+<code>#include &lt;boost/graph/connected_components.hpp&gt;</code><br />
+<code>#include &lt;boost/property_map/property_map.hpp&gt;</code><br />
+<code>#include &lt;boost/graph/iteration_macros.hpp&gt;</code><br />
+<code>#include &lt;boost/graph/properties.hpp&gt;</code><br />
+<code>#include &lt;boost/unordered_map.hpp&gt;</code><br />
+<code>#include &lt;boost/unordered_set.hpp&gt;</code><br />
 </div>
 <p><a href="../../d4/ddf/a00488_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d57/a02590.html">DYN::InitXerces</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d48/a02589.html">positive_edge_weight&lt; EdgeWeightMap &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">edge predicate to filter edge contained in a boost graph  <a href="../../de/d48/a02589.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8b/a02594.html">DYN::InitLibXml2</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dfc/a02593.html">DYN::Graph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/dfc/a02593.html" title="Graph class to manipulate topology graph. ">Graph</a> class to manipulate topology graph.  <a href="../../d6/dfc/a02593.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aebe53ad155bce2c97bd20d6e64c88068"><td class="memItemLeft" align="right" valign="top"><a id="aebe53ad155bce2c97bd20d6e64c88068"></a>
+typedef boost::property&lt; boost::edge_weight_t, float, boost::property&lt; boost::edge_name_t, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#aebe53ad155bce2c97bd20d6e64c88068">EdgeProperty</a></td></tr>
+<tr class="memdesc:aebe53ad155bce2c97bd20d6e64c88068"><td class="mdescLeft">&#160;</td><td class="mdescRight">properties associated to an edge <br /></td></tr>
+<tr class="separator:aebe53ad155bce2c97bd20d6e64c88068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f357cd082eb3003a73e7cad07cdd077"><td class="memItemLeft" align="right" valign="top"><a id="a4f357cd082eb3003a73e7cad07cdd077"></a>
+typedef boost::property&lt; boost::vertex_name_t, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a4f357cd082eb3003a73e7cad07cdd077">VertexProperty</a></td></tr>
+<tr class="memdesc:a4f357cd082eb3003a73e7cad07cdd077"><td class="mdescLeft">&#160;</td><td class="mdescRight">property associated to a vertex <br /></td></tr>
+<tr class="separator:a4f357cd082eb3003a73e7cad07cdd077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b45114031aeed966d2b92a12cc720e3"><td class="memItemLeft" align="right" valign="top"><a id="a8b45114031aeed966d2b92a12cc720e3"></a>
+typedef boost::adjacency_list&lt; boost::vecS, boost::vecS, boost::undirectedS, <a class="el" href="../../d4/ddf/a00488.html#a4f357cd082eb3003a73e7cad07cdd077">VertexProperty</a>, <a class="el" href="../../d4/ddf/a00488.html#aebe53ad155bce2c97bd20d6e64c88068">EdgeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a></td></tr>
+<tr class="memdesc:a8b45114031aeed966d2b92a12cc720e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">graph description <br /></td></tr>
+<tr class="separator:a8b45114031aeed966d2b92a12cc720e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647fa4b703900efea039dfd0f045be9f"><td class="memItemLeft" align="right" valign="top"><a id="a647fa4b703900efea039dfd0f045be9f"></a>
+typedef boost::graph_traits&lt; <a class="el" href="../../d4/ddf/a00488.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a> &gt;::vertex_descriptor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a647fa4b703900efea039dfd0f045be9f">Vertex</a></td></tr>
+<tr class="memdesc:a647fa4b703900efea039dfd0f045be9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vertex description <br /></td></tr>
+<tr class="separator:a647fa4b703900efea039dfd0f045be9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15934c7040701cca444651ffea895632"><td class="memItemLeft" align="right" valign="top"><a id="a15934c7040701cca444651ffea895632"></a>
+typedef BoostGraph::edge_descriptor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a15934c7040701cca444651ffea895632">Edge</a></td></tr>
+<tr class="memdesc:a15934c7040701cca444651ffea895632"><td class="mdescLeft">&#160;</td><td class="mdescRight">edge description <br /></td></tr>
+<tr class="separator:a15934c7040701cca444651ffea895632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2756067ac4299feb1969fdeb75e33393"><td class="memItemLeft" align="right" valign="top"><a id="a2756067ac4299feb1969fdeb75e33393"></a>
+typedef std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a2756067ac4299feb1969fdeb75e33393">PathDescription</a></td></tr>
+<tr class="memdesc:a2756067ac4299feb1969fdeb75e33393"><td class="mdescLeft">&#160;</td><td class="mdescRight">path description <br /></td></tr>
+<tr class="separator:a2756067ac4299feb1969fdeb75e33393"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2482b682f3dbd3065b4009fe7caffe41"><td class="memItemLeft" align="right" valign="top"><a id="a2482b682f3dbd3065b4009fe7caffe41"></a>
+typedef boost::property_map&lt; <a class="el" href="../../d4/ddf/a00488.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a>, boost::edge_weight_t &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a></td></tr>
+<tr class="memdesc:a2482b682f3dbd3065b4009fe7caffe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">property map associated to the weight of each edge <br /></td></tr>
+<tr class="separator:a2482b682f3dbd3065b4009fe7caffe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e22c033e5d0f185db348167415d2602"><td class="memItemLeft" align="right" valign="top"><a id="a8e22c033e5d0f185db348167415d2602"></a>
+typedef boost::graph_traits&lt; <a class="el" href="../../d4/ddf/a00488.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a> &gt;::<a class="el" href="../../d4/ddf/a00488.html#a8e22c033e5d0f185db348167415d2602">adjacency_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a8e22c033e5d0f185db348167415d2602">adjacency_iterator</a></td></tr>
+<tr class="memdesc:a8e22c033e5d0f185db348167415d2602"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator on adjacency_list <br /></td></tr>
+<tr class="separator:a8e22c033e5d0f185db348167415d2602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03bdeaa9cdeb2887906b98c7e93c5ae7"><td class="memItemLeft" align="right" valign="top"><a id="a03bdeaa9cdeb2887906b98c7e93c5ae7"></a>
+typedef boost::filtered_graph&lt; <a class="el" href="../../d4/ddf/a00488.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a>, <a class="el" href="../../de/d48/a02589.html">positive_edge_weight</a>&lt; <a class="el" href="../../d4/ddf/a00488.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a03bdeaa9cdeb2887906b98c7e93c5ae7">FilteredBoostGraph</a></td></tr>
+<tr class="memdesc:a03bdeaa9cdeb2887906b98c7e93c5ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">filtered graph description <br /></td></tr>
+<tr class="separator:a03bdeaa9cdeb2887906b98c7e93c5ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cbd2cacebaf6e38c75bce0ab353db5f"><td class="memItemLeft" align="right" valign="top"><a id="a2cbd2cacebaf6e38c75bce0ab353db5f"></a>
+typedef boost::graph_traits&lt; <a class="el" href="../../d4/ddf/a00488.html#a03bdeaa9cdeb2887906b98c7e93c5ae7">FilteredBoostGraph</a> &gt;::<a class="el" href="../../d4/ddf/a00488.html#a8e22c033e5d0f185db348167415d2602">adjacency_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ddf/a00488.html#a2cbd2cacebaf6e38c75bce0ab353db5f">adjacency_iterator_filtered</a></td></tr>
+<tr class="memdesc:a2cbd2cacebaf6e38c75bce0ab353db5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator on adjacency_list for filtered graph <br /></td></tr>
+<tr class="separator:a2cbd2cacebaf6e38c75bce0ab353db5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Init xml parsers. </p>
+<div class="textblock"><p>Graph interface : encapsulation of boost::graph. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -133,8 +188,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d4/ddf/a00488.html">DYNInitXml.h</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 14:50:08 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d4/ddf/a00488.html">DYNGraph.h</a></li>
+    <li class="footer">Generated on Mon Jan 30 2023 16:56:07 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

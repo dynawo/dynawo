@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverImpl.hpp File Reference</title>
+<title>Dynawo: DYNSolverImpl.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,20 +94,39 @@ $(document).ready(function(){initNavTree('db/d23/a01025.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverImpl.hpp File Reference</div>  </div>
+<div class="title">DYNSolverImpl.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of template methods.  
+<p>Dynawo solvers : header file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../db/d44/a00533_source.html">DYNTrace.h</a>&quot;</code><br />
-<code>#include &quot;DYNMacrosMessage.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d1/dd8/a01022_source.html">DYNSolverImpl.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
+<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../de/def/a01016_source.html">DYNSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d29/a00470_source.html">DYNEnumUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d2b/a01010_source.html">DYNParameterSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d08/a01028_source.html">DYNSolverImpl.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../db/d23/a01025_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dfd/a03357.html">DYN::stat_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for storing solver statistics.  <a href="../../d3/dfd/a03357.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html">DYN::Solver::Impl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/d83/a03337.html" title="Solver interface class. ">Solver</a> implemented class.  <a href="../../df/d67/a03361.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of template methods. </p>
+<div class="textblock"><p>Dynawo solvers : header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -124,8 +143,8 @@ $(document).ready(function(){initNavTree('db/d23/a01025.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../db/d23/a01025.html">DYNSolverImpl.hpp</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 14:50:08 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../db/d23/a01025.html">DYNSolverImpl.h</a></li>
+    <li class="footer">Generated on Mon Jan 30 2023 16:56:07 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

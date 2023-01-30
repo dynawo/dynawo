@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::StateVariable Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d4/db9/a02918.html','../../');});
+$(document).ready(function(){initNavTree('df/d27/a02921.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,499 +94,67 @@ $(document).ready(function(){initNavTree('d4/db9/a02918.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../d6/deb/a02915.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::StateVariable Class Reference</div>  </div>
+<div class="title">DYN::ShuntCompensatorInterface Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class for state variable  
- <a href="../../d4/db9/a02918.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d4/deb/a00710_source.html">DYNStateVariable.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:af404bdea1223607a505379fcd45c93c1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> { <a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1a98ecdfbd4c80eb467693593e5844d63f">BOOL</a>, 
-<a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1a5fd7acc7542b4be327bc9ac49ab28b15">INT</a>, 
-<a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1addca62de32b5709b67c9c206c08c9373">DOUBLE</a>
- }</td></tr>
-<tr class="memdesc:af404bdea1223607a505379fcd45c93c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the type of the state variable.  <a href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">More...</a><br /></td></tr>
-<tr class="separator:af404bdea1223607a505379fcd45c93c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a57494ae608c75a1019b4e61d57f48743"><td class="memItemLeft" align="right" valign="top"><a id="a57494ae608c75a1019b4e61d57f48743"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a57494ae608c75a1019b4e61d57f48743">StateVariable</a> ()</td></tr>
-<tr class="memdesc:a57494ae608c75a1019b4e61d57f48743"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:a57494ae608c75a1019b4e61d57f48743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c51b4976b2e5d6c9b07fae252608a58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a1c51b4976b2e5d6c9b07fae252608a58">StateVariable</a> (const std::string &amp;name, const <a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> &amp;type, bool neededForCriteriaCheck=false)</td></tr>
-<tr class="memdesc:a1c51b4976b2e5d6c9b07fae252608a58"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#a1c51b4976b2e5d6c9b07fae252608a58">More...</a><br /></td></tr>
-<tr class="separator:a1c51b4976b2e5d6c9b07fae252608a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62c5af3d2220a5dcb664b47dbcc7e8db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a62c5af3d2220a5dcb664b47dbcc7e8db">setValue</a> (const double &amp;value)</td></tr>
-<tr class="memdesc:a62c5af3d2220a5dcb664b47dbcc7e8db"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the value of a state variable  <a href="#a62c5af3d2220a5dcb664b47dbcc7e8db">More...</a><br /></td></tr>
-<tr class="separator:a62c5af3d2220a5dcb664b47dbcc7e8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05d3e88355bc852d44f63c733f852cdd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a05d3e88355bc852d44f63c733f852cdd">getName</a> () const</td></tr>
-<tr class="memdesc:a05d3e88355bc852d44f63c733f852cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the state variable's name  <a href="#a05d3e88355bc852d44f63c733f852cdd">More...</a><br /></td></tr>
-<tr class="separator:a05d3e88355bc852d44f63c733f852cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a931008751291d5db825b8fdcd43d1a91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a931008751291d5db825b8fdcd43d1a91">setModelId</a> (const std::string &amp;modelId)</td></tr>
-<tr class="memdesc:a931008751291d5db825b8fdcd43d1a91"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the model id used to compute the stateVariable value  <a href="#a931008751291d5db825b8fdcd43d1a91">More...</a><br /></td></tr>
-<tr class="separator:a931008751291d5db825b8fdcd43d1a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a893fab7199939daba8780f0e1139b0d9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a893fab7199939daba8780f0e1139b0d9">getModelId</a> () const</td></tr>
-<tr class="memdesc:a893fab7199939daba8780f0e1139b0d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the model id used to compute the stateVariable value  <a href="#a893fab7199939daba8780f0e1139b0d9">More...</a><br /></td></tr>
-<tr class="separator:a893fab7199939daba8780f0e1139b0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae408bf5206af11c80901d8959101375"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#aae408bf5206af11c80901d8959101375">setVariableId</a> (const std::string &amp;variableId)</td></tr>
-<tr class="memdesc:aae408bf5206af11c80901d8959101375"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the variable id inside the model to compute the stateVariable value  <a href="#aae408bf5206af11c80901d8959101375">More...</a><br /></td></tr>
-<tr class="separator:aae408bf5206af11c80901d8959101375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e47787f467773e4773b7faa747aee61"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a8e47787f467773e4773b7faa747aee61">getVariableId</a> () const</td></tr>
-<tr class="memdesc:a8e47787f467773e4773b7faa747aee61"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the variable id inside the model to compute the stateVariable value  <a href="#a8e47787f467773e4773b7faa747aee61">More...</a><br /></td></tr>
-<tr class="separator:a8e47787f467773e4773b7faa747aee61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ac6b7ccf101fcd2ea9911885694c7c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a7ac6b7ccf101fcd2ea9911885694c7c2">setVariable</a> (const boost::shared_ptr&lt; <a class="el" href="../../dd/deb/a02766.html">Variable</a> &gt; &amp;variable)</td></tr>
-<tr class="memdesc:a7ac6b7ccf101fcd2ea9911885694c7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the variable that store the value of the stateVariable  <a href="#a7ac6b7ccf101fcd2ea9911885694c7c2">More...</a><br /></td></tr>
-<tr class="separator:a7ac6b7ccf101fcd2ea9911885694c7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9c8c66dcc8fd973350c2d8e12e9c2c1"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../dd/deb/a02766.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#ac9c8c66dcc8fd973350c2d8e12e9c2c1">getVariable</a> () const</td></tr>
-<tr class="memdesc:ac9c8c66dcc8fd973350c2d8e12e9c2c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the variable that store the value of the stateVariable  <a href="#ac9c8c66dcc8fd973350c2d8e12e9c2c1">More...</a><br /></td></tr>
-<tr class="separator:ac9c8c66dcc8fd973350c2d8e12e9c2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66044687e8ab9128f182d3a58f744b60"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a66044687e8ab9128f182d3a58f744b60"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a66044687e8ab9128f182d3a58f744b60">getValue</a> () const</td></tr>
-<tr class="memdesc:a66044687e8ab9128f182d3a58f744b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of a variable  <a href="#a66044687e8ab9128f182d3a58f744b60">More...</a><br /></td></tr>
-<tr class="separator:a66044687e8ab9128f182d3a58f744b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf77afc86f11654a200ad66cb7a87485"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#acf77afc86f11654a200ad66cb7a87485">getType</a> () const</td></tr>
-<tr class="memdesc:acf77afc86f11654a200ad66cb7a87485"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the type of a state variable  <a href="#acf77afc86f11654a200ad66cb7a87485">More...</a><br /></td></tr>
-<tr class="separator:acf77afc86f11654a200ad66cb7a87485"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeedb0347823df646ac4064414c4e3194"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#aeedb0347823df646ac4064414c4e3194">valueAffected</a> () const</td></tr>
-<tr class="memdesc:aeedb0347823df646ac4064414c4e3194"><td class="mdescLeft">&#160;</td><td class="mdescRight">check is the state variable has a value  <a href="#aeedb0347823df646ac4064414c4e3194">More...</a><br /></td></tr>
-<tr class="separator:aeedb0347823df646ac4064414c4e3194"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae976a749dd878c91073e5094b30268e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#aae976a749dd878c91073e5094b30268e">isNeededForCriteriaCheck</a> () const</td></tr>
-<tr class="memdesc:aae976a749dd878c91073e5094b30268e"><td class="mdescLeft">&#160;</td><td class="mdescRight">check is the state variable is needed for criteria check  <a href="#aae976a749dd878c91073e5094b30268e">More...</a><br /></td></tr>
-<tr class="separator:aae976a749dd878c91073e5094b30268e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af8f562ad1637dc955516a24393799a15"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#af8f562ad1637dc955516a24393799a15">typeAsString</a> (const <a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> &amp;type)</td></tr>
-<tr class="memdesc:af8f562ad1637dc955516a24393799a15"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the type of the state variable as a string  <a href="#af8f562ad1637dc955516a24393799a15">More...</a><br /></td></tr>
-<tr class="separator:af8f562ad1637dc955516a24393799a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:adc6eb0a519a45157802c3f8f900311e6"><td class="memItemLeft" align="right" valign="top"><a id="adc6eb0a519a45157802c3f8f900311e6"></a>
-<a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#adc6eb0a519a45157802c3f8f900311e6">type_</a></td></tr>
-<tr class="memdesc:adc6eb0a519a45157802c3f8f900311e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the state variable <br /></td></tr>
-<tr class="separator:adc6eb0a519a45157802c3f8f900311e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41ed2a23cd003e19e253c654372afd6e"><td class="memItemLeft" align="right" valign="top"><a id="a41ed2a23cd003e19e253c654372afd6e"></a>
-boost::optional&lt; boost::any &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a41ed2a23cd003e19e253c654372afd6e">value_</a></td></tr>
-<tr class="memdesc:a41ed2a23cd003e19e253c654372afd6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">value of the state variable <br /></td></tr>
-<tr class="separator:a41ed2a23cd003e19e253c654372afd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ee351933194a3d0fa8e27085dd860f8"><td class="memItemLeft" align="right" valign="top"><a id="a6ee351933194a3d0fa8e27085dd860f8"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a6ee351933194a3d0fa8e27085dd860f8">name_</a></td></tr>
-<tr class="memdesc:a6ee351933194a3d0fa8e27085dd860f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the state variable <br /></td></tr>
-<tr class="separator:a6ee351933194a3d0fa8e27085dd860f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4dffa81ec00bcf963416ed37b1096f2d"><td class="memItemLeft" align="right" valign="top"><a id="a4dffa81ec00bcf963416ed37b1096f2d"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a4dffa81ec00bcf963416ed37b1096f2d">modelId_</a></td></tr>
-<tr class="memdesc:a4dffa81ec00bcf963416ed37b1096f2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the model associated to the state variable <br /></td></tr>
-<tr class="separator:a4dffa81ec00bcf963416ed37b1096f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ce1051b613f57afbe153ec8f6b72574"><td class="memItemLeft" align="right" valign="top"><a id="a6ce1051b613f57afbe153ec8f6b72574"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a6ce1051b613f57afbe153ec8f6b72574">variableId_</a></td></tr>
-<tr class="memdesc:a6ce1051b613f57afbe153ec8f6b72574"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the variable associated to the state variable <br /></td></tr>
-<tr class="separator:a6ce1051b613f57afbe153ec8f6b72574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40a192daf1f459002428110ae62c74d6"><td class="memItemLeft" align="right" valign="top"><a id="a40a192daf1f459002428110ae62c74d6"></a>
-boost::shared_ptr&lt; <a class="el" href="../../dd/deb/a02766.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a40a192daf1f459002428110ae62c74d6">variable_</a></td></tr>
-<tr class="memdesc:a40a192daf1f459002428110ae62c74d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">variable of the model associated to the state variable <br /></td></tr>
-<tr class="separator:a40a192daf1f459002428110ae62c74d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47fc6acb52cd20f5b7826d113bb469d0"><td class="memItemLeft" align="right" valign="top"><a id="a47fc6acb52cd20f5b7826d113bb469d0"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a47fc6acb52cd20f5b7826d113bb469d0">valueAffected_</a></td></tr>
-<tr class="memdesc:a47fc6acb52cd20f5b7826d113bb469d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if value_ was set at least once <br /></td></tr>
-<tr class="separator:a47fc6acb52cd20f5b7826d113bb469d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a278b619b594985f8b56f25590a5aa7c2"><td class="memItemLeft" align="right" valign="top"><a id="a278b619b594985f8b56f25590a5aa7c2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a278b619b594985f8b56f25590a5aa7c2">neededForCriteriaCheck_</a></td></tr>
-<tr class="memdesc:a278b619b594985f8b56f25590a5aa7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if the state variable's value is needed for criteria check <br /></td></tr>
-<tr class="separator:a278b619b594985f8b56f25590a5aa7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class for state variable </p>
-<p>State variable description class. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="af404bdea1223607a505379fcd45c93c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af404bdea1223607a505379fcd45c93c1">&#9670;&nbsp;</a></span>StateVariableType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">DYN::StateVariable::StateVariableType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of the type of the state variable. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af404bdea1223607a505379fcd45c93c1a98ecdfbd4c80eb467693593e5844d63f"></a>BOOL&#160;</td><td class="fielddoc"><p>the state variable is a boolean one </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af404bdea1223607a505379fcd45c93c1a5fd7acc7542b4be327bc9ac49ab28b15"></a>INT&#160;</td><td class="fielddoc"><p>the state variable is an integer one </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af404bdea1223607a505379fcd45c93c1addca62de32b5709b67c9c206c08c9373"></a>DOUBLE&#160;</td><td class="fielddoc"><p>the state variable is a double one </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1c51b4976b2e5d6c9b07fae252608a58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c51b4976b2e5d6c9b07fae252608a58">&#9670;&nbsp;</a></span>StateVariable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::StateVariable::StateVariable </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>neededForCriteriaCheck</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>constructor </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>name of the state variable </td></tr>
-    <tr><td class="paramname">type</td><td>type of the state variable </td></tr>
-    <tr><td class="paramname">neededForCriteriaCheck</td><td>true if the state variable's value is needed for criteria check </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a893fab7199939daba8780f0e1139b0d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a893fab7199939daba8780f0e1139b0d9">&#9670;&nbsp;</a></span>getModelId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::StateVariable::getModelId </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the model id used to compute the stateVariable value </p>
-<dl class="section return"><dt>Returns</dt><dd>model id </dd></dl>
-
-</div>
-</div>
-<a id="a05d3e88355bc852d44f63c733f852cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05d3e88355bc852d44f63c733f852cdd">&#9670;&nbsp;</a></span>getName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::StateVariable::getName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>getter of the state variable's name </p>
-<dl class="section return"><dt>Returns</dt><dd>name of the state variable </dd></dl>
-
-</div>
-</div>
-<a id="acf77afc86f11654a200ad66cb7a87485"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf77afc86f11654a200ad66cb7a87485">&#9670;&nbsp;</a></span>getType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> DYN::StateVariable::getType </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the type of a state variable </p>
-<dl class="section return"><dt>Returns</dt><dd>the type of a state variable </dd></dl>
-
-</div>
-</div>
-<a id="a66044687e8ab9128f182d3a58f744b60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66044687e8ab9128f182d3a58f744b60">&#9670;&nbsp;</a></span>getValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T DYN::StateVariable::getValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the value of a variable </p>
-<dl class="section return"><dt>Returns</dt><dd>the value of the state variable </dd></dl>
-
-</div>
-</div>
-<a id="ac9c8c66dcc8fd973350c2d8e12e9c2c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9c8c66dcc8fd973350c2d8e12e9c2c1">&#9670;&nbsp;</a></span>getVariable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../dd/deb/a02766.html">Variable</a>&gt; DYN::StateVariable::getVariable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the variable that store the value of the stateVariable </p>
-<dl class="section return"><dt>Returns</dt><dd>variable storing the value of the stateVariable </dd></dl>
-
-</div>
-</div>
-<a id="a8e47787f467773e4773b7faa747aee61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e47787f467773e4773b7faa747aee61">&#9670;&nbsp;</a></span>getVariableId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::StateVariable::getVariableId </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the variable id inside the model to compute the stateVariable value </p>
-<dl class="section return"><dt>Returns</dt><dd>variable id </dd></dl>
-
-</div>
-</div>
-<a id="aae976a749dd878c91073e5094b30268e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae976a749dd878c91073e5094b30268e">&#9670;&nbsp;</a></span>isNeededForCriteriaCheck()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::StateVariable::isNeededForCriteriaCheck </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>check is the state variable is needed for criteria check </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the state variable's value is needed for criteria check </dd></dl>
-
-</div>
-</div>
-<a id="a931008751291d5db825b8fdcd43d1a91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a931008751291d5db825b8fdcd43d1a91">&#9670;&nbsp;</a></span>setModelId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::StateVariable::setModelId </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>modelId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set the model id used to compute the stateVariable value </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">modelId</td><td>model id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a62c5af3d2220a5dcb664b47dbcc7e8db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62c5af3d2220a5dcb664b47dbcc7e8db">&#9670;&nbsp;</a></span>setValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::StateVariable::setValue </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set the value of a state variable </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>new value of the state variable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a7ac6b7ccf101fcd2ea9911885694c7c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ac6b7ccf101fcd2ea9911885694c7c2">&#9670;&nbsp;</a></span>setVariable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::StateVariable::setVariable </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/deb/a02766.html">Variable</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>variable</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set the variable that store the value of the stateVariable </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">variable</td><td>variable storing the value of the stateVariable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aae408bf5206af11c80901d8959101375"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae408bf5206af11c80901d8959101375">&#9670;&nbsp;</a></span>setVariableId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::StateVariable::setVariableId </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>variableId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set the variable id inside the model to compute the stateVariable value </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">variableId</td><td>variable id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af8f562ad1637dc955516a24393799a15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8f562ad1637dc955516a24393799a15">&#9670;&nbsp;</a></span>typeAsString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::StateVariable::typeAsString </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/db9/a02918.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>return the type of the state variable as a string </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>type of the state variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>type of the state variable as a string </dd></dl>
-
-</div>
-</div>
-<a id="aeedb0347823df646ac4064414c4e3194"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeedb0347823df646ac4064414c4e3194">&#9670;&nbsp;</a></span>valueAffected()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::StateVariable::valueAffected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>check is the state variable has a value </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> is the state variable's value is already affected </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="../../d4/deb/a00710_source.html">DYNStateVariable.h</a></li>
-<li><a class="el" href="../../d1/d04/a00713_source.html">DYNStateVariable.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a522118e0cb34e292127a1e18094a498a">ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> enum name</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a>()</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#ab2fac2e2c45a60b661d35143da7d2110">exportStateVariablesUnitComponent</a>()=0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#a965f98fcf1a03eed3d1648eb6cc05738">getB</a>(const int section) const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d27/a02921.html#abada2eae3d11c22975ac701f671136fe">getBusInterface</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a>(const std::string &amp;varName) const =0</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d27/a02921.html#aa6ba6a30fec441fb737d8f09c991e3e7">getCurrentSection</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#acfffe618a9e103c1247458eaa4f789f2">getID</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d27/a02921.html#a4a71cf1d1f8dd11adb685d5e41744cfb">getInitialConnected</a>()=0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#a027a4485b86ebc1da0d711c294e39183">getMaximumSection</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d27/a02921.html#a96c4afbdf48bb50a3cca3785cffcca16">getQ</a>()=0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a>()</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#a9a1c0127b22052e2fd4e23d17219637c">getTargetV</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a157a82e17608a36a7965614cde1c6234">getType</a>() const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a>() const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a>(const int index) const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#aa0ced5b79061ff7746b57ee18664dd6c">getVNom</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a>(bool hasDynamicModel)</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a>() const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#aa9b0faab0a41ca85d0ae5d0e1d4dda3f">importStaticParameters</a>()=0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a22639f8b88b1d70984852928d87676ec">isConnected</a>() const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#ab196b770246ac7e8450bdb68846d3cb5">isLinear</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a>() const</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#a0591ef504ce311bb55651d2dc152d461">isVoltageRegulationOn</a>() const =0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#adc773977188c99e62c8c7f001a10b2ee">setBusInterface</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)=0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model)</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a>(const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a>(const ComponentType_t &amp;type)</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d27/a02921.html#ab4fc88395cfc742e93bf22e52e485c98">setVoltageLevelInterface</a>(const boost::shared_ptr&lt; VoltageLevelInterface &gt; &amp;voltageLevelInterface)=0</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#abd662edc1d318a148a180a48c7120cb6">staticParameters_</a></td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/d34/a02809.html#a22e1616c1c12383fca3a74d35272f89b">~ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../d5/d34/a02809.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d27/a02921.html#a1b4901c7c86b06fe4f094b525e1e4b12">~ShuntCompensatorInterface</a>()</td><td class="entry"><a class="el" href="../../df/d27/a02921.html">DYN::ShuntCompensatorInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -602,8 +170,7 @@ template&lt;typename T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/db9/a02918.html">StateVariable</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 14:50:09 for Dynawo by
+    <li class="footer">Generated on Mon Jan 30 2023 16:56:09 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
