@@ -103,7 +103,7 @@ var a03206 =
     [ "urp", "d9/d4f/a03206.html#acdea3f1e1f3a1cb25f4ca3b52128ab43", null ],
     [ "urYNum", "d9/d4f/a03206.html#ab53422c36aa96fc3e1821661a8acb886", null ],
     [ "angle0_", "d9/d4f/a03206.html#a7328231104a1d275d1f2f4ef038e82ae", null ],
-    [ "bus_", "d9/d4f/a03206.html#a1ece8054b75ef30f24e09c36e4840dbe", null ],
+    [ "bus_", "d9/d4f/a03206.html#aeacccd6ca010ffe1331ddc07cb281409", null ],
     [ "busBarSectionIdentifiers_", "d9/d4f/a03206.html#a12c662e5fccb1b81ead255da6a31ff8c", null ],
     [ "busIndex_", "d9/d4f/a03206.html#a4a7087c45dccd8f161855f62bd3cd1dc", null ],
     [ "connectableSwitches_", "d9/d4f/a03206.html#aa95e3366c8fc894ca4d327efd335c157", null ],

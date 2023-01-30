@@ -84,7 +84,7 @@ var a03238 =
     [ "isRestorative_", "df/ddd/a03238.html#ac05896f73af0c88d15d4ffc57d2a9212", null ],
     [ "kp_", "df/ddd/a03238.html#a68de877356309b94db9b14fb4e4c0b14", null ],
     [ "kq_", "df/ddd/a03238.html#a9eb5463381cf12aea870adccd0560cc6", null ],
-    [ "load_", "df/ddd/a03238.html#a1751e2f540383d8e4a505a48d7e0c84f", null ],
+    [ "load_", "df/ddd/a03238.html#a36a8f481f5130c7ceafe005e0ecbed35", null ],
     [ "modelBus_", "df/ddd/a03238.html#a4073b0d642af8be0c859d3d4d2d570d5", null ],
     [ "P0_", "df/ddd/a03238.html#a560bb88f259fd1b632e679bb8388d78a", null ],
     [ "Q0_", "df/ddd/a03238.html#ad737f594a09914eca88b40a3904c0757", null ],

@@ -52,7 +52,7 @@ var a03226 =
     [ "setModelBus", "dd/d6e/a03226.html#acfee2255676bd9f324a5817daec991a9", null ],
     [ "setSubModelParameters", "dd/d6e/a03226.html#afbe562fd3915ba4e4a256b91c6923f89", null ],
     [ "connectionState_", "dd/d6e/a03226.html#a3c4d5ea30a09fc68f4399af1a3d3a28a", null ],
-    [ "generator_", "dd/d6e/a03226.html#ad73c466ab6c40696b89682e0fe513c51", null ],
+    [ "generator_", "dd/d6e/a03226.html#af454c3ad67195d729eb918bebebe15be", null ],
     [ "ii0_", "dd/d6e/a03226.html#a3594d64b815109a6d0bca8663b4ef078", null ],
     [ "ir0_", "dd/d6e/a03226.html#a1104f5563a7e4f9acf0d081faadaa6b6", null ],
     [ "modelBus_", "dd/d6e/a03226.html#a7a7617c31c6c89d922cabb1cd62829cf", null ],

@@ -40,7 +40,7 @@ var searchData=
   ['builddefaultextensiondefinition',['buildDefaultExtensionDefinition',['../d9/d5e/a03086.html#aa69dc65d44dbc4738659f3cd0f0d5b86',1,'DYN::IIDMExtensions']]],
   ['buildgraph',['buildGraph',['../de/df2/a03018.html#a004c7058956976e90ad87f48bdc93aba',1,'DYN::ServiceManagerInterfaceIIDM']]],
   ['bus',['BUS',['../d5/dd8/a02802.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4',1,'DYN::ComponentInterface::BUS()'],['../d7/dbe/a03210.html#a669834f45699089c9f61b09970e9f39b',1,'DYN::SubNetwork::bus()']]],
-  ['bus_5f',['bus_',['../d9/d4f/a03206.html#a1ece8054b75ef30f24e09c36e4840dbe',1,'DYN::ModelBus::bus_()'],['../d7/dbe/a03210.html#a3987793f3efc8dc10dabeb00d25d3c02',1,'DYN::SubNetwork::bus_()']]],
+  ['bus_5f',['bus_',['../d9/d4f/a03206.html#aeacccd6ca010ffe1331ddc07cb281409',1,'DYN::ModelBus::bus_()'],['../d7/dbe/a03210.html#a3987793f3efc8dc10dabeb00d25d3c02',1,'DYN::SubNetwork::bus_()']]],
   ['busabovevoltage',['BusAboveVoltage',['../de/d3b/a02610.html#a963225344a251150ba0ad6d5264f567fac7f0aff95bbb9f11c135b42abdbe870b',1,'DYN::KeyLog_t::BusAboveVoltage()'],['../d8/dab/a02638.html#a9294fd85b78754e1a11fec544395ad51ab461400856b8780d7edcd8d74a6ef813',1,'DYN::KeyTimeline_t::BusAboveVoltage()']]],
   ['busbarsectionidentifiers_5f',['busBarSectionIdentifiers_',['../d9/d4f/a03206.html#a12c662e5fccb1b81ead255da6a31ff8c',1,'DYN::ModelBus']]],
   ['busbarsectioninterface',['BusBarSectionInterface',['../d0/dc9/a02794.html',1,'DYN']]],

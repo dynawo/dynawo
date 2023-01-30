@@ -13,7 +13,7 @@ var searchData=
   ['bound_5f',['bound_',['../df/d11/a02814.html#ac44454bf196561f60aee0ccc895cded8',1,'DYN::Criteria::FailingCriteria']]],
   ['bsvc0_5f',['bSvc0_',['../dc/dbb/a03262.html#abc0953104200c407688f9fd8841ce051',1,'DYN::ModelStaticVarCompensator']]],
   ['buffer_5f',['buffer_',['../dd/d08/a01682.html#a944675efd2f60a0d7c32a5793e89e790',1,'curves::Curve::buffer_()'],['../d1/d0c/a02666.html#acba6bdb734370596554a408e0b6bcc31',1,'DYN::TraceStream::buffer_()'],['../da/d22/a02698.html#a8189823da13bd42b2aa2ff6e3fddc04e',1,'DYN::Delay::buffer_()']]],
-  ['bus_5f',['bus_',['../d9/d4f/a03206.html#a1ece8054b75ef30f24e09c36e4840dbe',1,'DYN::ModelBus::bus_()'],['../d7/dbe/a03210.html#a3987793f3efc8dc10dabeb00d25d3c02',1,'DYN::SubNetwork::bus_()']]],
+  ['bus_5f',['bus_',['../d9/d4f/a03206.html#aeacccd6ca010ffe1331ddc07cb281409',1,'DYN::ModelBus::bus_()'],['../d7/dbe/a03210.html#a3987793f3efc8dc10dabeb00d25d3c02',1,'DYN::SubNetwork::bus_()']]],
   ['busbarsectionidentifiers_5f',['busBarSectionIdentifiers_',['../d9/d4f/a03206.html#a12c662e5fccb1b81ead255da6a31ff8c',1,'DYN::ModelBus']]],
   ['busbarsections_5f',['busBarSections_',['../df/d81/a02966.html#a46051f5c8a3217be8f3f35353a9c9371',1,'DYN::CalculatedBusInterfaceIIDM']]],
   ['buscomponents_5f',['busComponents_',['../d0/dde/a02978.html#a0b4259f8fa9598f9f9bee663994df34e',1,'DYN::DataInterfaceIIDM::busComponents_()'],['../d0/dde/a02978.html#a94e923bce3396b0922e41a59fd0e20e9',1,'DYN::DataInterfaceIIDM::busComponents_()']]],
