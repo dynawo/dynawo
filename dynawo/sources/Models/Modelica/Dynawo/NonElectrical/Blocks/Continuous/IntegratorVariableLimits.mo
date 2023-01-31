@@ -21,32 +21,50 @@ model IntegratorVariableLimits "Integrator with limited value of output (variabl
 
   parameter Boolean DefaultLimitMax = true "If limitMin > limitMax : if true, y = limitMax, if false, y = limitMin";
   parameter Types.PerUnit K = 1 "Integrator gain";
-  parameter Types.PerUnit Kf = 0 "Feedback gain";
-  parameter Types.PerUnit Tol = 0 "Tolerance on limit crossing, aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen states";
+  parameter Types.Time tDer = 0.01 "Time constant of derivative filters for limits, in s";
+  parameter Types.PerUnit Tol "Tolerance on limit crossing as a fraction of the difference between initial limits";
 
-  Modelica.Blocks.Interfaces.RealInput limitMax "Connector of Real input signal used as maximum of input u" annotation(
+  Modelica.Blocks.Interfaces.RealInput limitMax(start = LimitMax0) "Connector of Real input signal used as maximum of input u" annotation(
     Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput limitMin "Connector of Real input signal used as minimum of input u" annotation(
+  Modelica.Blocks.Interfaces.RealInput limitMin(start = LimitMin0) "Connector of Real input signal used as minimum of input u" annotation(
     Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  parameter Boolean Frozen0 = false "If true, integration is frozen at initial time";
-  parameter Types.PerUnit Y0 = 0 "Initial or guess value of output (must be in the limits limitMin .. limitMax)";
+  Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0);
+  Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0);
+
+  parameter Types.PerUnit LimitMax0 "Initial value of upper limit";
+  parameter Types.PerUnit LimitMin0 "Initial value of lower limit";
+  parameter Types.PerUnit Y0 = 0 "Initial or guess value of output";
+
+  final parameter Boolean FrozenMax0 = Y0 > LimitMax0 - Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at upper limit";
+  final parameter Boolean FrozenMin0 = Y0 < LimitMin0 + Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at lower limit";
 
 protected
-  Boolean isFrozen(start = Frozen0) "If true, integration is frozen";
-  Boolean keepFreezing(start = Frozen0) "If true, integration stays frozen";
-  Boolean startFreezing(start = Frozen0) "If true, integration becomes frozen";
-  Types.PerUnit v "Integrator input accounting for the feedback signal but not for the freeze";
+  Real derLimitMax(start = 0) "Derivative of upper limit";
+  Real derLimitMin(start = 0) "Derivative of lower limit";
+  Boolean isFrozenMax(start = FrozenMax0) "If true, integration is frozen at upper limit";
+  Boolean isFrozenMin(start = FrozenMin0) "If true, integration is frozen at lower limit";
+  Boolean keepFreezingMax(start = FrozenMax0) "If true, integration stays frozen at upper limit";
+  Boolean keepFreezingMin(start = FrozenMin0) "If true, integration stays frozen at lower limit";
+  Boolean startFreezingMax(start = FrozenMax0) "If true, integration becomes frozen at upper limit";
+  Boolean startFreezingMin(start = FrozenMin0) "If true, integration becomes frozen at lower limit";
   Types.PerUnit w(start = Y0) "Non-limited integrator output";
 
 equation
-  v = K * u + Kf * (y - w);
+  limitMax = derivativeLimitMax.u;
+  limitMin = derivativeLimitMin.u;
+  derLimitMax = derivativeLimitMax.y;
+  derLimitMin = derivativeLimitMin.y;
 
-  startFreezing = (w < limitMin and v < 0) or (w > limitMax and v > 0) "Integration is frozen if the integrator output crosses a limit and the integrator input pushes the output outside the [limitMin, limitMax] range";
-  keepFreezing = ((w < limitMin + Tol and v < 0) or (w > limitMax - Tol and v > 0)) and pre(isFrozen) "Integration is unfrozen if the integrator output is within the limits and far enough from them or if the integrator input tends to bring the output back within the limits";
-  isFrozen = startFreezing or keepFreezing;
+  startFreezingMax = w > limitMax and K * u > derLimitMax;
+  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and K * u > derLimitMax and pre(isFrozenMax);
+  isFrozenMax = startFreezingMax or keepFreezingMax;
 
-  der(w) = if isFrozen then 0 else v;
+  startFreezingMin = w < limitMin and K * u < derLimitMin;
+  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and K * u < derLimitMin and pre(isFrozenMin);
+  isFrozenMin = startFreezingMin or keepFreezingMin;
+
+  der(w) = if isFrozenMax then derLimitMax elseif isFrozenMin then derLimitMin else K * u;
 
   if limitMin > limitMax and DefaultLimitMax then
     y = limitMax;
@@ -61,21 +79,23 @@ equation
   end if;
 
   annotation(preferredView = "text",
-  Documentation(info= "<html><head></head><body><p>
+    Documentation(info= "<html><head></head><body><p>
 This blocks computes <strong>w</strong> as <em>integral</em>
 of the input <strong>u</strong> multiplied by the gain <em>K</em>.</p>
 
 <p>If the integral reaches a given upper or lower <b>limit</b>, the
 integration is halted and only restarted if the input drives
-the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p>
+the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p><p>This margin is aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen sates.</p>
 
-<p>The output <strong>y</strong> is the result of the limitation of <b>w</b> by both variable limits.</p><p>The difference between <b>y</b> and <b>w</b>, multiplied by the gain <i>Kf</i>, is fed back to the integrator input.</p>
+<p>If the integration is halted, the integrator output follows the variable limit it has reached.</p>
+
+<p>The output <strong>y</strong> is the result of the limitation of <b>w</b> by both variable limits.</p>
 
 <p>If the \"upper\" limit is smaller than the \"lower\" one, the output <i>y</i> is ruled by the parameter <i>DefaultLimitMax</i>: <i>y</i> is equal to either&nbsp;<b>limitMax&nbsp;</b>or&nbsp;<b>limitMin</b>.</p>
 
-<p>The integrator is initialized with the value <em>Y0</em>.</p>
+<p>The integrator output is initialized with the parameter <em>Y0</em>.</p>
 </body></html>"),
-  Icon(coordinateSystem(
+    Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
