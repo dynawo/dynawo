@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <timeline xmlns="http://www.rte-france.com/dynawo">
-  <event time="10" modelName="model1" message="event1 at 10s"/>
-  <event time="10" modelName="model1" message="event2 at 10s" priority="5"/>
-  <event time="10" modelName="model2" message="event1 at 10s"/>
-  <event time="30" modelName="model2" message="event3 at 30s"/>
+  <event time="10.000000" modelName="model1" message="event1 at 10s"/>
+  <event time="10.000000" modelName="model1" message="event2 at 10s" priority="5"/>
+  <event time="10.000000" modelName="model2" message="event1 at 10s"/>
+  <event time="30.000000" modelName="model2" message="event3 at 30s"/>
 </timeline>

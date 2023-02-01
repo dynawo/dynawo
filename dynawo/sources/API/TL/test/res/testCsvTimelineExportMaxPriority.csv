@@ -1,4 +1,4 @@
-10;model1;event1 at 10s
-10;model1;event2 at 10s;5
-10;model2;event1 at 10s
-30;model2;event3 at 30s
+10.000000;model1;event1 at 10s
+10.000000;model1;event2 at 10s;5
+10.000000;model2;event1 at 10s
+30.000000;model2;event3 at 30s
