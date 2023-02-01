@@ -66,6 +66,10 @@
   <dyn:connect id1="Generator5" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="Generator6" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="SVC" var1="secondaryVoltageControl_UpPu" id2="Generator5" var2="generator_UPu"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_1_" id2="Generator5" var2="generator_limUQUp"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_1_" id2="Generator5" var2="generator_limUQDown"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_2_" id2="Generator6" var2="generator_limUQUp"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_2_" id2="Generator6" var2="generator_limUQDown"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line3Bis" var2="line_switchOffSignal2"/>
   <!-- System 4 without transformers and with a secondary voltage control -->
   <dyn:blackBoxModel id="Generator7" lib="GeneratorPVRpclSignalN" parFile="GeneratorPVTfo.par" parId="Generator7"/>
