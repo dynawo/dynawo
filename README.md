@@ -23,7 +23,7 @@
 This repository contains Dyna&omega;o's project code.
 
 <p align="center">
-  <img src="documentation/resources/dynawoLogo.png" />
+  <img src="documentation/resources/Dynawo-Logo-Color.png" width="400"/>
 </p>
 
 ## Table of Contents
