@@ -9,7 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(IECWT4ANeplan WT4A)
+add_subdirectory(Neplan N)
 
 set(MODEL_FILES
   package.mo

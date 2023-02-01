@@ -25,11 +25,11 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
   parameter Types.AngularVelocityPu Eps "Intentional db hysteresis in pu (base omegaNom). Typical value = 0";
   parameter Boolean H0 = false "Start value of backlash hysteresis output. Typical value = false";
   parameter Types.PerUnit K "Governor gain (reciprocal of droop) (> 0). Typical value = 25";
-  parameter Types.PerUnit K1 "Fraction of HP shaft power after first boiler pass. Typical value = 0,2";
+  parameter Types.PerUnit K1 "Fraction of HP shaft power after first boiler pass. Typical value = 0.2";
   parameter Types.PerUnit K2 "Fraction of LP shaft power after first boiler pass. Typical value = 0";
-  parameter Types.PerUnit K3 "Fraction of HP shaft power after second boiler pass. Typical value = 0,3";
+  parameter Types.PerUnit K3 "Fraction of HP shaft power after second boiler pass. Typical value = 0.3";
   parameter Types.PerUnit K4 "Fraction of LP shaft power after second boiler pass. Typical value = 0";
-  parameter Types.PerUnit K5 "Fraction of HP shaft power after third boiler pass. Typical value = 0,5";
+  parameter Types.PerUnit K5 "Fraction of HP shaft power after third boiler pass. Typical value = 0.5";
   parameter Types.PerUnit K6 "Fraction of LP shaft power after third boiler pass. Typical value = 0";
   parameter Types.PerUnit K7 "Fraction of HP shaft power after fourth boiler pass. Typical value = 0";
   parameter Types.PerUnit K8 "Fraction of LP shaft power after fourth boiler pass. Typical value = 0";
@@ -39,10 +39,10 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
   parameter Boolean Sdb2 "Unintentional deadband location. true = intentional deadband is applied before add3. false = intentional deadband is applied after add3. Typical value = true.";
   parameter Types.Time t1 "Governor lag time constant in s (>= 0). Typical value = 0";
   parameter Types.Time t2 "Governor lead time constant in s (>= 0). Typical value = 0";
-  parameter Types.Time t3 "Valve positioner time constant in s (> 0). Typical value = 0,1";
-  parameter Types.Time t4 "Inlet piping/steam bowl time constant in s (>= 0). Typical value = 0,3";
+  parameter Types.Time t3 "Valve positioner time constant in s (> 0). Typical value = 0.1";
+  parameter Types.Time t4 "Inlet piping/steam bowl time constant in s (>= 0). Typical value = 0.3";
   parameter Types.Time t5 "Time constant of second boiler pass in s (>= 0). Typical value = 5";
-  parameter Types.Time t6 "Time constant of third boiler pass in s (>= 0). Typical value = 0,5.";
+  parameter Types.Time t6 "Time constant of third boiler pass in s (>= 0). Typical value = 0.5.";
   parameter Types.Time t7 "Time constant of fourth boiler pass in s (>= 0). Typical value = 0";
   parameter Types.PerUnit Uc "Minimum valve closing velocity in pu / s (< 0). Typical value = -10.";
   parameter Types.PerUnit Uo "Maximum valve opening velocity in pu / s (> 0). Typical value = 1";

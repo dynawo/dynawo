@@ -105,6 +105,12 @@ class TwoWTransformerInterface : public ComponentInterface {
   virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const = 0;
 
   /**
+   * @brief Retrieve active season for the transformer
+   * @returns active season
+   */
+  virtual std::string getActiveSeason() const = 0;
+
+  /**
    * @brief Getter for the tfo's id
    * @return The id of the tfo
    */

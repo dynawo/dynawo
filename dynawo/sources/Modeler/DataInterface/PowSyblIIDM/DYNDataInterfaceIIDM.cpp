@@ -61,6 +61,7 @@
 #include <powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp>
 
 #include <regex>
+#include <unordered_set>
 
 #include <boost/dll/shared_library.hpp>
 #include <boost/algorithm/string.hpp>
@@ -106,7 +107,6 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
     stdcxx::Properties properties;
-    properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ImportOptions options(properties);
 
     std::string extensionsPaths = getMandatoryEnvVar("DYNAWO_LIBIIDM_EXTENSIONS");
@@ -153,7 +153,6 @@ void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
     stdcxx::Properties properties;
-    properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ExportOptions options(properties);
 
     powsybl::iidm::Network::writeXml(boost::filesystem::path(iidmFilePath), *networkIIDM_, options);
@@ -636,11 +635,19 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
   const bool initialConnected1 = true;
   const double VNom1 = ThreeWindingTransformer.getRatedU0();
   const double ratedU1 = ThreeWindingTransformer.getRatedU0();
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+  auto activeSeasonExtension = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(ThreeWindingTransformer);
+  auto destroyActiveSeasonExtension = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
+  const string activeSeason = activeSeasonExtension ? activeSeasonExtension->getValue() : std::string("UNDEFINED");
+  destroyActiveSeasonExtension(activeSeasonExtension);
+
   for (auto& leg : legs) {
     string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
     // We consider the fictitious transformer always connected on the fictitious bus
     shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, leg, initialConnected1, VNom1,
-                                                        ratedU1));
+                                                        ratedU1, activeSeason));
     fictTwoWTransf.get()->setBusInterface1(fictBus);
     fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
     fictTwoWTransf.get()->setVoltageLevelInterface1(vl);
@@ -680,6 +687,7 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
     }
     network_->addTwoWTransformer(fictTwoWTransf);
     components_[fictTwoWTransf->getID()] = fictTwoWTransf;
+    fict2wtIDto3wtID_.insert({fictTwoWTransf->getID(), ThreeWindingTransformer.getId()});
     legCount++;
   }
   return;
@@ -968,10 +976,20 @@ const shared_ptr<lostEquipments::LostEquipmentsCollection>
 DataInterfaceIIDM::findLostEquipments(const shared_ptr<vector<shared_ptr<ComponentInterface> > >& connectedComponents) {
   auto lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   if (connectedComponents) {
+    std::unordered_set<std::string> alreadyLost3wt;
     for (const auto& component : *connectedComponents) {
       auto lost = !component->isPartiallyConnected();  // from connected to not connected (not even partially)
       if (lost) {
-        lostEquipments->addLostEquipment(component->getID(), component->getTypeAsString());
+        std::string componentID = component->getID();
+        if (component->getType() == ComponentInterface::ComponentType_t::TWO_WTFO &&
+            fict2wtIDto3wtID_.find(componentID) != fict2wtIDto3wtID_.end()) {
+          if (alreadyLost3wt.find(fict2wtIDto3wtID_[componentID]) == alreadyLost3wt.end()) {
+            lostEquipments->addLostEquipment(fict2wtIDto3wtID_[componentID], "THREE_WINDINGS_TRANSFORMER");
+            alreadyLost3wt.insert(fict2wtIDto3wtID_[componentID]);
+          }
+        } else {
+          lostEquipments->addLostEquipment(componentID, component->getTypeAsString());
+        }
       }
     }
   }

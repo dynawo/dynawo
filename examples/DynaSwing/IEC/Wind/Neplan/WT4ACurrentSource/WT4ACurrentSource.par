@@ -100,11 +100,6 @@
     <par type="DOUBLE" name="step_tStep" value="2"/>
     <par type="DOUBLE" name="step_Value0" value="1"/>
   </set>
-  <set id="QRefPu">
-    <par type="DOUBLE" name="step_Height" value="0.41"/>
-    <par type="DOUBLE" name="step_tStep" value="4"/>
-    <par type="DOUBLE" name="step_Value0" value="-0.21"/>
-  </set>
   <set id="InfiniteBus">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0678"/>
     <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0"/>

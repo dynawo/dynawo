@@ -292,11 +292,11 @@
     <par type="BOOL" name="event_disconnectExtremity" value="true"/>
   </set>
   <set id="10">
-    <par type="DOUBLE" name="phaseShifter_sign" value="-1"/>
     <par type="DOUBLE" name="phaseShifter_t1st" value="10"/>
     <par type="DOUBLE" name="phaseShifter_tNext" value="5"/>
     <par type="DOUBLE" name="phaseShifter_iMax" value="0.475"/>
     <par type="DOUBLE" name="phaseShifter_iStop" value="0.45"/>
+    <reference type="DOUBLE" name="phaseShifter_P0" origData="IIDM" origName="p1" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="DOUBLE" name="phaseShifter_I0" origData="IIDM" origName="i1" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_tap0" origData="IIDM" origName="tapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_tapMin" origData="IIDM" origName="lowTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>

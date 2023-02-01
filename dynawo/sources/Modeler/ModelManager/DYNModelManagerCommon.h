@@ -166,7 +166,8 @@ inline modelica_integer _event_integer(modelica_real x, modelica_integer index, 
  * @return Returns the algebraic quotient x/y with any fractional part discarded
  */
 inline modelica_real _event_div_real(modelica_real x1, modelica_real x2, modelica_integer index, DATA *data) {
-  modelica_real value1, value2;
+  modelica_real value1;
+  modelica_real value2;
   if (data->simulationInfo->discreteCall && !data->simulationInfo->solveContinuous) {
     data->simulationInfo->mathEventsValuePre[index] = x1;
     data->simulationInfo->mathEventsValuePre[index+1] = x2;

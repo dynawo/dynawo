@@ -46,6 +46,9 @@
 
 namespace DYN {
 
+/**
+ * class DataInterfaceIIDM
+ */
 class DataInterfaceIIDM : public DataInterfaceImpl {
  public:
   /**
@@ -470,6 +473,8 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
+
+  std::unordered_map<std::string, std::string> fict2wtIDto3wtID_;                                  ///< map of fictitious 2WTs and their associated 3WT
 
   static std::mutex loadExtensionMutex_;  ///< Mutex to protect access to singleton for extension during build
 };  ///< Generic data interface for IIDM format files

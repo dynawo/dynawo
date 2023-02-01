@@ -14,6 +14,8 @@ set(MODEL_FILES
   package.order
   CurrentLimitAutomaton.mo
   CurrentLimitAutomaton.extvar
+  CurrentLimitAutomatonTwoLevels.mo
+  CurrentLimitAutomatonTwoLevels.extvar
   PhaseShifterBlockingI.mo
   PhaseShifterBlockingI.extvar
   )

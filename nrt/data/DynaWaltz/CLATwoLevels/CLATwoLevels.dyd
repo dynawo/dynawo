@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="Generator" lib="GeneratorPVSignalN" parFile="CLATwoLevels.par" parId="Generator" staticId="_Generator___1"/>
+  <dyn:blackBoxModel id="Signal_N" lib="SignalN"/>
+  <dyn:blackBoxModel id="CLA" lib="CurrentLimitAutomatonTwoLevels" parFile="CLATwoLevels.par" parId="CLA"/>
+  <dyn:blackBoxModel id="IMonitored1" lib="CombiTimeTable" parFile="CLATwoLevels.par" parId="IMonitored1"/>
+  <dyn:blackBoxModel id="IMonitored2" lib="CombiTimeTable" parFile="CLATwoLevels.par" parId="IMonitored2"/>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
+  <dyn:connect id1="Generator" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
+  <dyn:connect id1="Generator" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
+  <dyn:connect id1="Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
+  <dyn:connect id1="CLA" var1="currentLimitAutomaton_IMonitored1" id2="IMonitored1" var2="combiTimeTable_source"/>
+  <dyn:connect id1="CLA" var1="currentLimitAutomaton_IMonitored2" id2="IMonitored2" var2="combiTimeTable_source"/>
+  <dyn:connect id1="CLA" var1="currentLimitAutomaton_order" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_state"/>
+  <dyn:connect id1="CLA" var1="currentLimitAutomaton_AutomatonExists" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_desactivate_currentLimits"/>
+</dyn:dynamicModelsArchitecture>

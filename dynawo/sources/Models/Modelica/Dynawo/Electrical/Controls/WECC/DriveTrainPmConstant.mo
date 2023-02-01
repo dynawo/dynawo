@@ -29,6 +29,5 @@ equation
     <p> This model is a simplified model for the purpose of emulating the behavior of torsional mode oscillations. The shaft damping coefficient (Dshaft) in the drive-train model is fitted to capture the net damping of the torsional mode seen in the post fault electrical power response. In the actual equipment, the drive train oscillations are damped through filtered signals and active damping controllers, which obviously are significantly different from the simple generic two mass drive train model used here. Therefore, the
     parameters (and variables) of this simple drive-train model cannot necessarily be compared with
     actual physical quantities directly. </p>
-    <p>In this version A of the drive train, the mechanical power is set to be constant as per the initial electrical power. </p></html>"),
-    Icon);
+    <p>In this version A of the drive train, the mechanical power is set to be constant as per the initial electrical power. </p></html>"));
 end DriveTrainPmConstant;

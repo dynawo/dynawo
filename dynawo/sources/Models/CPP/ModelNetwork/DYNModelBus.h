@@ -575,7 +575,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
 
  private:
   boost::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus
-  const boost::shared_ptr<BusInterface> bus_;  ///< reference to the bus interface object
+  boost::weak_ptr<BusInterface> bus_;  ///< reference to the bus interface object
 
   double uMin_;  ///< minimum allowed voltage
   double uMax_;  ///< maximum allowed voltage

@@ -34,7 +34,7 @@ model TapChangerBlocking5 "Tap Changer Blocking 5 (TCB5)"
 
 equation
   // Check when the monitored voltage goes below UMin
-  when UMonitored1.value < UMin1 or UMonitored2.value < UMin2  or UMonitored3.value < UMin3 or UMonitored4.value < UMin4 or UMonitored5.value < UMin5 then
+  when UMonitored1.value < UMin1 or UMonitored2.value < UMin2 or UMonitored3.value < UMin3 or UMonitored4.value < UMin4 or UMonitored5.value < UMin5 then
     UUnderMin = true;
     tUnderUmin = time;
   elsewhen UMonitored1.value >= UMin1 and UMonitored2.value >= UMin2 and UMonitored3.value >= UMin3 and UMonitored4.value >= UMin4 and UMonitored5.value >= UMin5 and pre(UUnderMin) then

@@ -25,6 +25,9 @@
 
 namespace DYN {
 
+/**
+ * class CurrentLimitInterfaceIIDM
+ */
 class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
  public:
   /**

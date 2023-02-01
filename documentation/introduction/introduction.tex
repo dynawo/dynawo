@@ -70,6 +70,38 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 
 \section{Changes from previous versions}
 
+\subsection{Changes from v1.4.0}
+
+\underline{New features:}
+\begin{itemize}
+\item Added the possibility to declare optional external continuous variables in extvar files
+\item Added the option of flat (P, Q, V values not available in iidm) or warm (P,Q, V values available in iidm file) start for initialization
+\item Added the possibility to select the result file format for final state values (xml, csv, txt)
+\item Added the possibility to connect a calculated discrete variable to a state discrete variable
+\end{itemize}
+
+\underline{New models:}
+\begin{itemize}
+\item cleanup of the Dynawo Modelica library (removed useless parameters/variables, coding style improvements, init models improvements)
+\item Increased the number of supported blocks from the Modelica standard library (Modelica.Blocks.MathBoolean.Or, Modelica.Blocks.Sources.CombiTimeTable, min/max on tables, ceil/floor) and improved the support of if with mixed type equations
+\item Added new InfiniteBusWithImpedance, DoubleStep, IntegerDoubleStep, LoadAlphaBetaMotor models
+\item Added a model of infinite bus whose voltage module, phase and frequency are given by a table as functions of time
+\item Improved HVDC modeling to avoid unstabilities
+\item Added generator models with tfo and/or rpcl and voltage regulation at stator for DynaFlow
+\end{itemize}
+
+\underline{New Testcases:}\begin{itemize}
+\item Added Modelica Nordic 32 model
+\end{itemize}
+
+\underline{Solvers:}\begin{itemize}
+\item Fixed Jacobian computation in some models
+\end{itemize}
+
+\underline{3rd parties:}\begin{itemize}
+\item Now using adept v2.1.1
+\end{itemize}
+
 \subsection{Changes from v1.3.2}
 
 \underline{Main changes:}

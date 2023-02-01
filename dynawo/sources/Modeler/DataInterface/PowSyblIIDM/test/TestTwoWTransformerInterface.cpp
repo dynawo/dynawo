@@ -367,5 +367,7 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
   ASSERT_EQ(tfoInterface.getQ2(), 0.0);
   transformer.getTerminal2().setQ(8.0);
   ASSERT_EQ(tfoInterface.getQ2(), 0.0);
+
+  ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }  // TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections)
 }  // namespace DYN

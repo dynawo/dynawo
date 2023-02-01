@@ -115,8 +115,7 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint) annotation(
-    Line);
+  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(pss.UPssPu, avr.UPssPu) annotation(

@@ -180,5 +180,7 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   ASSERT_TRUE(tfoInterface.getInitialConnected3());
   ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_FALSE(tfoInterface.isPartiallyConnected());
+
+  ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }  // TEST(DataInterfaceTest, ThreeWTransformer_1)
 }  // namespace DYN

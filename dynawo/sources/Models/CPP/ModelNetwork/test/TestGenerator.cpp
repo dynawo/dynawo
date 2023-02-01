@@ -15,20 +15,11 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
-#else
-#include <IIDM/builders/GeneratorBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/components/Generator.h>
-#endif
 
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
@@ -47,8 +38,8 @@
 using boost::shared_ptr;
 
 namespace DYN {
-#ifdef USE_POWSYBL
-static std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM>,
+shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
       .setId("S")
@@ -90,6 +81,8 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
   shared_ptr<GeneratorInterfaceIIDM> genItfIIDM = shared_ptr<GeneratorInterfaceIIDM>(new GeneratorInterfaceIIDM(genIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  vlItfIIDM->addBus(bus1ItfIIDM);
+  vlItfIIDM->addGenerator(genItfIIDM);
   genItfIIDM->setBusInterface(bus1ItfIIDM);
   genItfIIDM->setVoltageLevelInterface(vlItfIIDM);
 
@@ -100,6 +93,8 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
   gen->setNetwork(network);
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+  vl->addComponent(gen);
+  vl->addBus(bus1);
   gen->setModelBus(bus1);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
@@ -120,68 +115,9 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
-  return std::make_pair(gen, vl);
+  return std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> ,
+          shared_ptr<ModelVoltageLevel> >(gen, vlItfIIDM, vl);
 }
-#else
-static std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelGenerator(bool open, bool initModel) {
-  IIDM::connection_status_t cs = {!open};
-  IIDM::Port p1("MyBus1", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
-
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vlIIDM = vlb.build("MyVoltageLevel");
-  vlIIDM.add(bus1IIDM);
-  vlIIDM.lowVoltageLimit(0.5);
-  vlIIDM.highVoltageLimit(2.);
-
-  IIDM::builders::GeneratorBuilder gb;
-  gb.p(800.);
-  gb.q(400.);
-  IIDM::MinMaxReactiveLimits limits(1., 10.);
-  gb.minMaxReactiveLimits(limits);
-  IIDM::Generator genIIDM = gb.build("MyGenerator");
-  vlIIDM.add(genIIDM, c1);
-  shared_ptr<GeneratorInterfaceIIDM> genItfIIDM = shared_ptr<GeneratorInterfaceIIDM>(new GeneratorInterfaceIIDM(vlIIDM.get_generator("MyGenerator")));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  genItfIIDM->setBusInterface(bus1ItfIIDM);
-
-  shared_ptr<ModelGenerator> gen = shared_ptr<ModelGenerator>(new ModelGenerator(genItfIIDM));
-  ModelNetwork* network = new ModelNetwork();
-  network->setIsInitModel(initModel);
-  network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  gen->setNetwork(network);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  gen->setModelBus(bus1);
-  bus1->setNetwork(network);
-  bus1->setVoltageLevel(vl);
-  bus1->initSize();
-  // There is a memory leak here, but whatever ...
-  double* y1 = new double[bus1->sizeY()];
-  double* yp1 = new double[bus1->sizeY()];
-  double* f1 = new double[bus1->sizeF()];
-  double* z1 = new double[bus1->sizeZ()];
-  bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (int i = 0; i < bus1->sizeZ(); ++i)
-    zConnected1[i] = true;
-  bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 0.35;
-  y1[ModelBus::uiNum_] = 0.02;
-  if (!initModel)
-    z1[ModelBus::switchOffNum_] = -1;
-  int offset = 0;
-  bus1->init(offset);
-  return std::make_pair(gen, vl);
-}
-#endif
 
 static void
 fillParameters(shared_ptr<ModelGenerator> gen, std::string& startingPoint) {
@@ -195,13 +131,10 @@ fillParameters(shared_ptr<ModelGenerator> gen, std::string& startingPoint) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorInitialization) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   std::string startingPoint = "warm";
   fillParameters(gen, startingPoint);
   int yOffset = 0;
@@ -212,13 +145,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitialization) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(gen->QcPu(), -4.);
   ASSERT_TRUE(gen->isConnected());
 
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(true, false, networkIIDM2);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(true, false);
-  #endif
-  shared_ptr<ModelGenerator> genOpened = p2.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p2
+      = createModelGenerator(true, false, networkIIDM2);
+  shared_ptr<ModelGenerator> genOpened = std::get<0>(p2);
   ASSERT_EQ(genOpened->id(), "MyGenerator");
   ASSERT_EQ(genOpened->getConnected(), OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(genOpened->PcPu(), -0.);
@@ -227,13 +157,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitialization) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationWrongStartingPoint) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   std::string startingPoint = "notexisting";
   fillParameters(gen, startingPoint);
   int yOffset = 0;
@@ -246,13 +173,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationWrongStartingPoint) 
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationFlat) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   std::string startingPoint = "flat";
   fillParameters(gen, startingPoint);
   int yOffset = 0;
@@ -263,13 +187,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationFlat) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(gen->QcPu(), 0.05);
   ASSERT_TRUE(gen->isConnected());
 
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(true, false, networkIIDM2);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(true, false);
-  #endif
-  shared_ptr<ModelGenerator> genOpened = p2.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p2
+      = createModelGenerator(true, false, networkIIDM2);
+  shared_ptr<ModelGenerator> genOpened = std::get<0>(p2);
   ASSERT_EQ(genOpened->id(), "MyGenerator");
   ASSERT_EQ(genOpened->getConnected(), OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(genOpened->PcPu(), -0.);
@@ -279,13 +200,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationFlat) {
 
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   int yOffset = 0;
   gen->init(yOffset);
   gen->initSize();
@@ -362,13 +280,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::genStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
 
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(false, true, networkIIDM2);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(false, true);
-  #endif
-  shared_ptr<ModelGenerator> genInit = p2.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p2
+      = createModelGenerator(false, true, networkIIDM2);
+  shared_ptr<ModelGenerator> genInit = std::get<0>(p2);
   genInit->initSize();
   genInit->init(yOffset);
   ASSERT_EQ(genInit->sizeCalculatedVar(), 0);
@@ -376,13 +291,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   int yOffset = 0;
   gen->init(yOffset);
   gen->initSize();
@@ -438,13 +350,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   ASSERT_EQ(gEquationIndex.size(), nbG);
   ASSERT_NO_THROW(gen->evalG(0.));
 
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(false, true, networkIIDM2);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(false, true);
-  #endif
-  shared_ptr<ModelGenerator> genInit = p2.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p2
+      = createModelGenerator(false, true, networkIIDM2);
+  shared_ptr<ModelGenerator> genInit = std::get<0>(p2);
   genInit->initSize();
   genInit->init(yOffset);
   ASSERT_EQ(genInit->sizeZ(), 0);
@@ -453,13 +362,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   int yOffset = 0;
   gen->init(yOffset);
   gen->initSize();
@@ -482,13 +388,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
   ASSERT_NO_THROW(gen->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), 0);
 
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(false, true, networkIIDM2);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p2 = createModelGenerator(false, true);
-  #endif
-  shared_ptr<ModelGenerator> genInit = p2.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p2
+      = createModelGenerator(false, true, networkIIDM2);
+  shared_ptr<ModelGenerator> genInit = std::get<0>(p2);
   genInit->initSize();
   genInit->init(yOffset);
   ASSERT_EQ(genInit->sizeY(), 0);
@@ -500,13 +403,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorDefineInstantiate) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   int yOffset = 0;
   gen->init(yOffset);
   gen->initSize();
@@ -550,13 +450,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorJt) {
-  #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false, networkIIDM);
-  #else
-  std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> > p = createModelGenerator(false, false);
-  #endif
-  shared_ptr<ModelGenerator> gen = p.first;
+  std::tuple<shared_ptr<ModelGenerator>, shared_ptr<VoltageLevelInterfaceIIDM> , shared_ptr<ModelVoltageLevel> > p
+      = createModelGenerator(false, false, networkIIDM);
+  shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   int yOffset = 0;
   gen->init(yOffset);
   gen->initSize();

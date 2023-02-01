@@ -29,9 +29,9 @@ model GeneralBlockingFunction "Undervoltage blocking function for the two sides 
   Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction blockingFunction1(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U0Pu = U10Pu) "Undervoltage blocking function for one side of an HVDC Link"  annotation(
+  HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction blockingFunction1(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U0Pu = U10Pu) "Undervoltage blocking function for one side of an HVDC Link" annotation(
     Placement(visible = true, transformation(origin = {-40, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction blockingFunction2(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U0Pu = U20Pu) "Undervoltage blocking function for one side of an HVDC Link"  annotation(
+  HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction blockingFunction2(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U0Pu = U20Pu) "Undervoltage blocking function for one side of an HVDC Link" annotation(
     Placement(visible = true, transformation(origin = {-40, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Or or1 annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
