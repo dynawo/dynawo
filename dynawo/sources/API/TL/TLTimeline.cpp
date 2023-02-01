@@ -45,9 +45,7 @@ Timeline::Timeline(const string& id) : id_(id) {}
 void
 Timeline::addEvent(const double& time, const string& modelName, const std::string& message, const boost::optional<int>& priority, const std::string& key) {
   shared_ptr<Event> event = EventFactory::newEvent();
-  double currentPrecision = DYN::getCurrentPrecision();
-  double roundedTime = std::round(time / currentPrecision) * currentPrecision;
-  event->setTime(roundedTime);
+  event->setTime(time);
   event->setModelName(modelName);
   event->setMessage(message);
   event->setPriority(priority);
