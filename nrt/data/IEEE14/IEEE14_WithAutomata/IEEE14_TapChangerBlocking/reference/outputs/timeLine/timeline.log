@@ -1,58 +1,48 @@
-0 | GEN____8_SM | PMIN : activation
-0.0306918 | GEN____3_SM | PMIN : activation
-0.34838 | GEN____8_SM | PMIN : deactivation
-0.828637 | GEN____3_SM | PMIN : deactivation
-0.834737 | GEN____8_SM | PMIN : activation
-1.90528 | GEN____8_SM | PMIN : deactivation
-2.18388 | GEN____3_SM | PMIN : activation
-2.33948 | GEN____8_SM | PMIN : activation
-2.75791 | GEN____3_SM | PMIN : deactivation
-5.34609 | GEN____8_SM | PMIN : deactivation
-20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
-20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
-20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
-20 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
-20.0002 | GEN____3_SM | PMIN : activation
-20.0688 | GEN____8_SM | PMIN : activation
-20.2042 | GEN____6_SM | PMIN : activation
-21.9782 | TAP_CHANGER_LOCK | TCB : tap changers blocking disarming (U > UMin)
-80 | TAP_CHANGER_LOAD_2 | Tap +1
-80 | TAP_CHANGER_LOAD_3 | Tap +1
-80 | TAP_CHANGER_LOAD_2 | Tap +1
-80 | TAP_CHANGER_LOAD_3 | Tap +1
-80.0047 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
-80.3744 | TAP_CHANGER_LOCK | TCB : tap changers blocking disarming (U > UMin)
-90 | TAP_CHANGER_LOAD_2 | Tap +1
-90 | TAP_CHANGER_LOAD_3 | Tap +1
-90 | TAP_CHANGER_LOAD_2 | Tap +1
-90 | TAP_CHANGER_LOAD_3 | Tap +1
-90 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
-100 | TAP_CHANGER_LOAD_2 | Tap +1
-100 | TAP_CHANGER_LOAD_3 | Tap +1
-100 | TAP_CHANGER_LOAD_2 | Tap +1
-100 | TAP_CHANGER_LOAD_3 | Tap +1
-110 | TAP_CHANGER_LOAD_2 | Tap +1
-110 | TAP_CHANGER_LOAD_3 | Tap +1
-110 | TAP_CHANGER_LOCK | TCB : tap changers blocking order activated on area
-110 | TAP_CHANGER_LOAD_2 | Tap +1
-110 | TAP_CHANGER_LOAD_3 | Tap +1
-110 | TAP_CHANGER_LOCK | TCB : tap changers blocking order activated on area
-120 | TAP_CHANGER_LOAD_2 | Tap +1
-120 | TAP_CHANGER_LOAD_3 | Tap +1
-120 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
-120 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
-120 | TAP_CHANGER_LOAD_2 | Tap +1
-120 | TAP_CHANGER_LOAD_3 | Tap +1
-120 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
-120 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
-120 | TAP_CHANGER_LOAD_2 | Tap +1
-120 | TAP_CHANGER_LOAD_3 | Tap +1
-120 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
-120 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
+0.000000 | GEN____8_SM | PMIN : activation
+0.040619 | GEN____3_SM | PMIN : activation
+19.999996 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
+19.999996 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
+19.999996 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+19.999996 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
+20.201422 | GEN____6_SM | PMIN : activation
+21.976261 | TAP_CHANGER_LOCK | TCB : tap changers blocking disarming (U > UMin)
+79.999984 | TAP_CHANGER_LOAD_2 | Tap +1
+79.999984 | TAP_CHANGER_LOAD_3 | Tap +1
+79.999984 | TAP_CHANGER_LOAD_2 | Tap +1
+79.999984 | TAP_CHANGER_LOAD_3 | Tap +1
+80.004728 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
+80.374357 | TAP_CHANGER_LOCK | TCB : tap changers blocking disarming (U > UMin)
+89.999982 | TAP_CHANGER_LOAD_2 | Tap +1
+89.999982 | TAP_CHANGER_LOAD_3 | Tap +1
+89.999982 | TAP_CHANGER_LOAD_2 | Tap +1
+89.999982 | TAP_CHANGER_LOAD_3 | Tap +1
+89.999982 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
+99.999980 | TAP_CHANGER_LOAD_2 | Tap +1
+99.999980 | TAP_CHANGER_LOAD_3 | Tap +1
+99.999980 | TAP_CHANGER_LOAD_2 | Tap +1
+99.999980 | TAP_CHANGER_LOAD_3 | Tap +1
+109.999978 | TAP_CHANGER_LOAD_2 | Tap +1
+109.999978 | TAP_CHANGER_LOAD_3 | Tap +1
+109.999978 | TAP_CHANGER_LOCK | TCB : tap changers blocking order activated on area
+109.999978 | TAP_CHANGER_LOAD_2 | Tap +1
+109.999978 | TAP_CHANGER_LOAD_3 | Tap +1
+109.999978 | TAP_CHANGER_LOCK | TCB : tap changers blocking order activated on area
+119.999976 | TAP_CHANGER_LOAD_2 | Tap +1
+119.999976 | TAP_CHANGER_LOAD_3 | Tap +1
+119.999976 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
+119.999976 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
+119.999976 | TAP_CHANGER_LOAD_2 | Tap +1
+119.999976 | TAP_CHANGER_LOAD_3 | Tap +1
+119.999976 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
+119.999976 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
+119.999976 | TAP_CHANGER_LOAD_2 | Tap +1
+119.999976 | TAP_CHANGER_LOAD_3 | Tap +1
+119.999976 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
+119.999976 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
