@@ -16,19 +16,10 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
-#else
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/SwitchBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/components/Switch.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Bus.h>
-#endif
 
 #include "gtest_dynawo.h"
 #include "DYNVariable.h"
@@ -45,7 +36,6 @@ namespace DYN {
 
 static shared_ptr<ModelSwitch>
 createModelSwitch(bool open, bool initModel) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -84,29 +74,6 @@ createModelSwitch(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
-#else
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-  IIDM::Bus bus2IIDM = bb.build("MyBus2");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
-  vl.add(bus1IIDM);
-  vl.add(bus2IIDM);
-  vl.lowVoltageLimit(0.5);
-  vl.highVoltageLimit(2.);
-
-  IIDM::builders::SwitchBuilder sb;
-  sb.opened(open);
-  IIDM::Switch swIIDM = sb.build("MySwitch");
-  vl.add(swIIDM, "MyBus1", "MyBus2");
-
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus1")));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus2")));
-  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
-#endif
 
   shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
@@ -123,7 +90,6 @@ createModelSwitch(bool open, bool initModel) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -162,28 +128,6 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
-#else
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-  IIDM::Bus bus2IIDM = bb.build("MyBus2");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
-  vl.add(bus1IIDM);
-  vl.add(bus2IIDM);
-  vl.lowVoltageLimit(0.5);
-  vl.highVoltageLimit(2.);
-
-  IIDM::builders::SwitchBuilder sb;
-  sb.opened(true);
-  IIDM::Switch swIIDM = sb.build("MySwitch");
-  vl.add(swIIDM, "MyBus1", "MyBus2");
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus1")));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus2")));
-  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
-#endif
 
   shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
@@ -202,7 +146,6 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
-#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -241,28 +184,6 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
-#else
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1IIDM = bb.build("MyBus1");
-  IIDM::Bus bus2IIDM = bb.build("MyBus2");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
-  vl.add(bus1IIDM);
-  vl.add(bus2IIDM);
-  vl.lowVoltageLimit(0.5);
-  vl.highVoltageLimit(2.);
-
-  IIDM::builders::SwitchBuilder sb;
-  sb.opened(false);
-  IIDM::Switch swIIDM = sb.build("MySwitch");
-  vl.add(swIIDM, "MyBus1", "MyBus2");
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus1")));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus2")));
-  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
-#endif
 
   shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);

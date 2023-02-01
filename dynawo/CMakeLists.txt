@@ -23,7 +23,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
-set(USE_LEGACY_IIDM OFF CACHE BOOL "Force use of legacy IIDM library")
 
 # Project Dynawo
 project(dynawo)
@@ -75,10 +74,6 @@ else()
   endif()
 endif()
 
-if(NOT USE_LEGACY_IIDM)
-  add_definitions(-DUSE_POWSYBL)
-endif()
-
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${DYNAWO_DEBUG_COMPILER_OPTION}")
 
 set(CMAKE_DYN_DICTIONARY_PATHS "$ENV{DYN_DICTIONARY_PATHS}")
@@ -125,11 +120,7 @@ if(DEFINED DYNAWO_THIRD_PARTY_DIR)
   set(SUNDIALS_HOME ${DYNAWO_THIRD_PARTY_DIR}/sundials CACHE PATH "Path where an Sundials installation already exists")
   set(LIBZIP_HOME ${DYNAWO_THIRD_PARTY_DIR}/libzip CACHE PATH "Path where an libzip installation already exists")
   set(LIBXML_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml CACHE PATH "Path where an libxml installation already exists")
-  if(USE_LEGACY_IIDM)
-    set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm0 CACHE PATH "Path where an libiidm installation already exists")
-  else()
-    set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm CACHE PATH "Path where an libiidm installation already exists")
-  endif()
+  set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm CACHE PATH "Path where an libiidm installation already exists")
   set(BOOST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/boost CACHE PATH "Path where a Boost installation already exists")
   if(MSVC)
     set(BOOST_LIBRARYDIR ${DYNAWO_THIRD_PARTY_DIR}/boost/bin CACHE PATH "Path where a Boost lib installation already exists")
@@ -277,42 +268,9 @@ find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 
 # libIIDM
 
-if(NOT USE_LEGACY_IIDM)
-  set(DYNAWO_USE_LIBXML2 "Y")
-  find_package(LibXml2 "2.9" REQUIRED)
-  find_package(LibIIDM "1.4.0" REQUIRED PATHS ${LIBIIDM_HOME})
-else()
-  set(DYNAWO_USE_LIBXML2 "N")
-  find_package(libIIDM "0.2.8" REQUIRED PATHS ${LIBIIDM_HOME}
-    COMPONENTS
-      core
-      xml
-      ext-activeseason
-      ext-activeseason-xml
-      ext-activepowercontrol
-      ext-activepowercontrol-xml
-      ext-busbarsectionposition
-      ext-busbarsectionposition-xml
-      ext-connectableposition
-      ext-connectableposition-xml
-      ext-currentlimitsperseason
-      ext-currentlimitsperseason-xml
-      ext-generatoractivepowercontrol
-      ext-generatoractivepowercontrol-xml
-      ext-hvdcangledroopactivepowercontrol
-      ext-hvdcangledroopactivepowercontrol-xml
-      ext-hvdcoperatoractivepowerrange
-      ext-hvdcoperatoractivepowerrange-xml
-      ext-generatorentsoecategory
-      ext-generatorentsoecategory-xml
-      ext-generatorstartup
-      ext-generatorstartup-xml
-      ext-loaddetail
-      ext-loaddetail-xml
-      ext-standbyautomaton
-      ext-standbyautomaton-xml
-  )
-endif()
+set(DYNAWO_USE_LIBXML2 "Y")
+find_package(LibXml2 "2.9" REQUIRED)
+find_package(LibIIDM "1.4.0" REQUIRED PATHS ${LIBIIDM_HOME})
 
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")

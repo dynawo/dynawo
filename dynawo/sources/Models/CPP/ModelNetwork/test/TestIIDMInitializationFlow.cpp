@@ -24,7 +24,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/pointer_cast.hpp>
 
-#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -34,31 +33,6 @@
 #include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 #include <powsybl/iidm/RatioTapChangerAdder.hpp>
 #include <powsybl/iidm/LineAdder.hpp>
-#else
-#include <IIDM/Network.h>
-#include <IIDM/components/Connection.h>
-#include <IIDM/components/ConnectionPoint.h>
-#include <IIDM/components/TapChanger.h>
-#include <IIDM/components/Bus.h>
-#include <IIDM/components/VoltageLevel.h>
-#include <IIDM/components/Transformer2Windings.h>
-#include <IIDM/components/Substation.h>
-#include <IIDM/components/Line.h>
-#include <IIDM/components/DanglingLine.h>
-#include <IIDM/components/Load.h>
-#include <IIDM/components/ShuntCompensator.h>
-#include <IIDM/components/Switch.h>
-#include <IIDM/builders/NetworkBuilder.h>
-#include <IIDM/builders/Transformer2WindingsBuilder.h>
-#include <IIDM/builders/VoltageLevelBuilder.h>
-#include <IIDM/builders/BusBuilder.h>
-#include <IIDM/builders/SubstationBuilder.h>
-#include <IIDM/builders/LineBuilder.h>
-#include <IIDM/builders/DanglingLineBuilder.h>
-#include <IIDM/builders/LoadBuilder.h>
-#include <IIDM/builders/ShuntCompensatorBuilder.h>
-#include <IIDM/builders/SwitchBuilder.h>
-#endif
 
 
 #include "gtest_dynawo.h"
@@ -97,7 +71,6 @@ struct NetworkProperty {
   bool instantiateSwitch;
 };
 
-#ifdef USE_POWSYBL
 static shared_ptr<DataInterface>
 createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterfaceIIDM> data;
@@ -106,16 +79,10 @@ createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& networ
   data.reset(ptr);
   return data;
 }
-#endif
 
 static
-#ifdef USE_POWSYBL
 shared_ptr<powsybl::iidm::Network>
-#else
-shared_ptr<DataInterface>
-#endif
 createNetwork(const NetworkProperty& properties) {
-#ifdef USE_POWSYBL
   auto network = boost::make_shared<powsybl::iidm::Network>("test", "test");
 
   powsybl::iidm::Substation& s = network->newSubstation()
@@ -269,96 +236,8 @@ createNetwork(const NetworkProperty& properties) {
                                       .setB2(0.4)
                                       .add();
   }
-#else
-  IIDM::builders::NetworkBuilder nb;
-  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
-  IIDM::connection_status_t cs = {true /*connected*/};
-  IIDM::Port p1("MyBus1", cs), p2("MyBus2", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
 
-  IIDM::builders::SubstationBuilder ssb;
-  IIDM::Substation ss = ssb.build("MySubStation");
-
-  IIDM::builders::BusBuilder bb;
-  IIDM::Bus bus1 = bb.build("MyBus1");
-  IIDM::Bus bus2 = bb.build("MyBus2");
-
-  IIDM::builders::VoltageLevelBuilder vlb;
-  vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
-  vl.add(bus1);
-  vl.add(bus2);
-  vl.lowVoltageLimit(0.5);
-  vl.highVoltageLimit(2.);
-
-  if (properties.instantiateDanglingLine) {
-    IIDM::builders::DanglingLineBuilder dlb;
-    IIDM::DanglingLine dl = dlb.build("MyDanglingLine");
-    vl.add(dl);
-  }
-
-  if (properties.instantiateLoad) {
-    IIDM::builders::LoadBuilder lb;
-    IIDM::Load load = lb.build("MyLoad");
-    vl.add(load, c1);
-  }
-
-  if (properties.instantiateCapacitorShuntCompensator) {
-    IIDM::builders::ShuntCompensatorBuilder scb;
-    scb.b_per_section(8.);
-    scb.section_max(1);
-    IIDM::ShuntCompensator sc = scb.build("MyCapacitorShuntCompensator");
-    vl.add(sc, c1);
-  }
-
-  if (properties.instantiateReactanceShuntCompensator) {
-    IIDM::builders::ShuntCompensatorBuilder scb;
-    scb.b_per_section(-8.);
-    scb.section_max(1);
-    IIDM::ShuntCompensator sc = scb.build("MyReactanceShuntCompensator");
-    vl.add(sc, c1);
-  }
-
-  if (properties.instantiateSwitch) {
-    IIDM::builders::SwitchBuilder sb;
-    sb.opened(false);
-    IIDM::Switch sw = sb.build("MySwitch");
-    vl.add(sw, "MyBus1", "MyBus2");
-  }
-
-  ss.add(vl);
-
-  if (properties.instantiateTwoWindingTransformer) {
-    IIDM::builders::Transformer2WindingsBuilder t2Wb;
-    IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
-    if (properties.instantiateRatioTap) {
-      IIDM::RatioTapChanger rtp(0, 0, true);
-      IIDM::TerminalReference tr("", IIDM::side_1);
-      rtp.terminalReference(tr);
-      t2W.ratioTapChanger(rtp);
-    }
-    ss.add(t2W, c1, c2);
-  }
-
-  network->add(ss);
-
-  if (properties.instantiateLine) {
-    IIDM::builders::LineBuilder lb;
-    IIDM::Line dl = lb.build("MyLine");
-    network->add(dl, c1, c2);
-  }
-#endif
-
-#ifdef USE_POWSYBL
   return network;
-#else
-  shared_ptr<DataInterface> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
-  ptr->initFromIIDM();
-  data.reset(ptr);
-  return data;
-#endif
 }
 
 TEST(ModelsModelNetwork, TestNetworkCreation) {
@@ -372,11 +251,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
       true /*instantiateReactanceShuntCompensator*/,
       true /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   assert(data.get() != NULL);
   assert(data->getNetwork().get() != NULL);
 
@@ -395,11 +270,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -429,11 +300,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -471,11 +338,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -505,11 +368,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -533,11 +392,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -561,11 +416,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -629,11 +480,7 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -661,11 +508,7 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
       true /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -693,11 +536,7 @@ TEST(ModeslModelNetwork, ModelNetworkSwitchVariablesCheck) {
       false /*instantiateReactanceShuntCompensator*/,
       true /*instantiateSwitch*/
   };
-#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
-#else
-  shared_ptr<DataInterface> data = createNetwork(properties);
-#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineVariables();

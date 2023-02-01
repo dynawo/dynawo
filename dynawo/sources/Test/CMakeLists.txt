@@ -24,7 +24,7 @@ target_link_libraries(dynawo_Test_utils
     GTest::gtest_main
   PUBLIC
     XMLSAXParser${LibXML_LINK_SUFFIX}
-    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
+    LibXml2::LibXml2
 )
 
 set_target_properties(dynawo_Test_utils PROPERTIES VERSION ${TEST_UTILS_VERSION_STRING}

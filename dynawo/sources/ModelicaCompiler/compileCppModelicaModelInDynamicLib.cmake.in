@@ -64,11 +64,6 @@ if(MSVC)
   add_compile_options(-bigobj)
 endif()
 
-set(USE_LEGACY_IIDM "@USE_LEGACY_IIDM@")
-if(NOT USE_LEGACY_IIDM)
-  add_definitions(-DUSE_POWSYBL)
-endif()
-
 set(BOOST_ROOT_DEFAULT "@BOOST_ROOT_DEFAULT@")
 
 # Boost

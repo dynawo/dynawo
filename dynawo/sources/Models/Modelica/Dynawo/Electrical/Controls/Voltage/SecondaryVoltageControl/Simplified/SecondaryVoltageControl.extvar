@@ -14,4 +14,6 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="UpPu" type="continuous"/>
   <variable id="UpRefPu" type="continuous" optional="true"/>
+  <variable type="discreteArray" id="limUQDown" size="50" optional="true" defaultValue="true"/><!--The size is the number of generators connected to the secondary voltage control.-->
+  <variable type="discreteArray" id="limUQUp" size="50" optional="true" defaultValue="true"/><!--The size is the number of generators connected to the secondary voltage control.-->
 </external_variables>
