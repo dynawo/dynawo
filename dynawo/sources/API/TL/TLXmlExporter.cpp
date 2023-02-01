@@ -65,9 +65,8 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
     attrs.clear();
     if (exportWithTime_) {
       std::ostringstream ss;
-      int precision = DYN::getPrecisionAsNbDecimal();
       double time = (*itEvent)->getTime();
-      ss << std::fixed << std::setprecision(precision) << time;
+      ss << std::fixed << std::setprecision(DYN::getPrecisionAsNbDecimal()) << time;
       attrs.add("time", ss.str());
     }
     attrs.add("modelName", (*itEvent)->getModelName());
