@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNCurrentLimitsPerSeasonIIDMExtension.h File Reference</title>
+<title>Dynawo: DYNStaticVarCompensatorInterfaceIIDM.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,29 +97,29 @@ $(document).ready(function(){initNavTree('dc/d1b/a00827.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNCurrentLimitsPerSeasonIIDMExtension.h File Reference</div>  </div>
+<div class="title">DYNStaticVarCompensatorInterfaceIIDM.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>IIDM extension for current limit per season interface file.  
+<p>Static var compensator interface : header file for IIDM implementation.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;array&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d46/a00665_source.html">DYNCurrentLimits.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;powsybl/iidm/StaticVarCompensator.hpp&gt;</code><br />
+<code>#include &lt;powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/db9/a00725_source.html">DYNStaticVarCompensatorInterface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d0e/a00800_source.html">DYNInjectorInterfaceIIDM.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/daf/a00830_source.html">DYNStaticVarCompensatorInterfaceIIDMExtension.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d12/a00794_source.html">DYNIIDMExtensions.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../dc/d1b/a00827_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d44/a03065.html">DYN::CurrentLimitsPerSeasonIIDMExtension</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current limit per season IIDM extension interface.  <a href="../../d4/d44/a03065.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de6/a03084.html">DYN::StaticVarCompensatorInterfaceIIDM</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>IIDM extension for current limit per season interface file. </p>
+<div class="textblock"><p>Static var compensator interface : header file for IIDM implementation. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -136,8 +136,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_f405ae7c53e4c759cd7436faf72efd90.html">DataInterface</a></li><li class="navelem"><a class="el" href="../../dir_b83efd09d1a32c7e6689e8ffddfcb0cb.html">PowSyblIIDM</a></li><li class="navelem"><a class="el" href="../../dc/d1b/a00827.html">DYNCurrentLimitsPerSeasonIIDMExtension.h</a></li>
-    <li class="footer">Generated on Tue Jan 31 2023 17:29:39 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_f405ae7c53e4c759cd7436faf72efd90.html">DataInterface</a></li><li class="navelem"><a class="el" href="../../dir_b83efd09d1a32c7e6689e8ffddfcb0cb.html">PowSyblIIDM</a></li><li class="navelem"><a class="el" href="../../dc/d1b/a00827.html">DYNStaticVarCompensatorInterfaceIIDM.h</a></li>
+    <li class="footer">Generated on Wed Feb 1 2023 10:40:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

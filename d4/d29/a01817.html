@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: dynamicdata::Importer Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d4/d29/a01817.html','../../');});
+$(document).ready(function(){initNavTree('d5/dd6/a01820.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,147 +94,24 @@ $(document).ready(function(){initNavTree('d4/d29/a01817.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="../../d6/dfc/a01814.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">dynamicdata::Importer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">dynamicdata::connector_iterator Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/d29/a01817.html" title="Importer interface class. ">Importer</a> interface class.  
- <a href="../../d4/d29/a01817.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../df/d6a/a00119_source.html">DYDImporter.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for dynamicdata::Importer:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d4/d29/a01817.png" usemap="#dynamicdata::Importer_map" alt=""/>
-  <map id="dynamicdata::Importer_map" name="dynamicdata::Importer_map">
-<area href="../../d6/d19/a02029.html" title="XML importer interface class. " alt="dynamicdata::XmlImporter" shape="rect" coords="0,56,156,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a4e52bf9e35a703d22569152ac883e5b9"><td class="memItemLeft" align="right" valign="top"><a id="a4e52bf9e35a703d22569152ac883e5b9"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d29/a01817.html#a4e52bf9e35a703d22569152ac883e5b9">~Importer</a> ()</td></tr>
-<tr class="memdesc:a4e52bf9e35a703d22569152ac883e5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a4e52bf9e35a703d22569152ac883e5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4af3873a831ba133905593f7d4ffe982"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d4/dd1/a01797.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d29/a01817.html#a4af3873a831ba133905593f7d4ffe982">importFromDydFiles</a> (const std::vector&lt; std::string &gt; &amp;fileNames) const =0</td></tr>
-<tr class="memdesc:a4af3873a831ba133905593f7d4ffe982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from files.  <a href="#a4af3873a831ba133905593f7d4ffe982">More...</a><br /></td></tr>
-<tr class="separator:a4af3873a831ba133905593f7d4ffe982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42cc5e7750340a7dcf935472aeffda8e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d29/a01817.html#a42cc5e7750340a7dcf935472aeffda8e">importFromStream</a> (std::istream &amp;stream, <a class="el" href="../../da/d3e/a02025.html">XmlHandler</a> &amp;dydHandler, xml::sax::parser::ParserPtr &amp;parser, bool xsdValidation) const =0</td></tr>
-<tr class="memdesc:a42cc5e7750340a7dcf935472aeffda8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from stream.  <a href="#a42cc5e7750340a7dcf935472aeffda8e">More...</a><br /></td></tr>
-<tr class="separator:a42cc5e7750340a7dcf935472aeffda8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/d29/a01817.html" title="Importer interface class. ">Importer</a> interface class. </p>
-<p>Import class for dynamic models collections. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4af3873a831ba133905593f7d4ffe982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4af3873a831ba133905593f7d4ffe982">&#9670;&nbsp;</a></span>importFromDydFiles()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d4/dd1/a01797.html">DynamicModelsCollection</a>&gt; dynamicdata::Importer::importFromDydFiles </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fileNames</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Import dynamic models collection from files. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fileNames</td><td>list of files to read </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d19/a02029.html#adea09f281612d595da8f520f8367940d">dynamicdata::XmlImporter</a>.</p>
-
-</div>
-</div>
-<a id="a42cc5e7750340a7dcf935472aeffda8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42cc5e7750340a7dcf935472aeffda8e">&#9670;&nbsp;</a></span>importFromStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void dynamicdata::Importer::importFromStream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../da/d3e/a02025.html">XmlHandler</a> &amp;&#160;</td>
-          <td class="paramname"><em>dydHandler</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">xml::sax::parser::ParserPtr &amp;&#160;</td>
-          <td class="paramname"><em>parser</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>xsdValidation</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Import dynamic models collection from stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>stream to import </td></tr>
-    <tr><td class="paramname">dydHandler</td><td>dynamic models file handler </td></tr>
-    <tr><td class="paramname">parser</td><td>Smart pointer to SAX parser interface class </td></tr>
-    <tr><td class="paramname">xsdValidation</td><td>To use or not XSD validation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d6/d19/a02029.html#aa034c1cbacb40ff279c3873a928bbafb">dynamicdata::XmlImporter</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../df/d6a/a00119_source.html">DYDImporter.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#ae6bfdfbf240e289bf529114a68953256">connector_iterator</a>(DynamicModelsCollection *iterated, bool begin)</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#a89662c721f68cf254a34949a74ccb56b">current_</a></td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#aa7219e2e93c0de726ae3b18c09438e43">operator!=</a>(const connector_iterator &amp;other) const</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#a47a7ab9d7d9f1a24fecddc5925371844">operator*</a>() const</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#a4c599cde338d38f034e72d75f49ce2c2">operator++</a>()</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#aceb3702064d69afacbe4a830ecd464b6">operator++</a>(int)</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#a4ae343d2ce7eadea920971c99bfce541">operator--</a>()</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#a2e190a6010e956c73903a5eac91cd4e7">operator--</a>(int)</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#a6a039e4b63182b860b103fae7c9e7895">operator-&gt;</a>() const</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dd6/a01820.html#aeca00c0a2b86b20473b55b8853a86b68">operator==</a>(const connector_iterator &amp;other) const</td><td class="entry"><a class="el" href="../../d5/dd6/a01820.html">dynamicdata::connector_iterator</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -250,8 +127,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d4/d29/a01817.html">Importer</a></li>
-    <li class="footer">Generated on Tue Jan 31 2023 17:29:41 for Dynawo by
+    <li class="footer">Generated on Wed Feb 1 2023 10:40:53 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

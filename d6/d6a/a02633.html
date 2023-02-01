@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SparseMatrix Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d6/d6a/a02633.html','../../');});
+$(document).ready(function(){initNavTree('dd/d32/a02636.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,716 +94,121 @@ $(document).ready(function(){initNavTree('d6/d6a/a02633.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../d0/d3f/a02630.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SparseMatrix Class Reference</div>  </div>
+<div class="title">DYN::KeyTimeline_t Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class Sparse Matrix : store Jacobian value in sparse structure before copying value in KINSOL structure  
- <a href="../../d6/d6a/a02633.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d9/d24/a00524_source.html">DYNSparseMatrix.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/a02637.html">CheckError</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check error representation.  <a href="../../d2/de3/a02637.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a63a0e4bdff6627843b528e5867483f9a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a63a0e4bdff6627843b528e5867483f9a">SparseMatrixType</a> { <a class="el" href="../../d6/d6a/a02633.html#a63a0e4bdff6627843b528e5867483f9aa7be1a6bad7a4fd3537c375ba34e027dd">J</a> = 1, 
-<a class="el" href="../../d6/d6a/a02633.html#a63a0e4bdff6627843b528e5867483f9aa514a76cbe5be61d39a21acbd046cbbe7">Jt</a> = -1
- }</td></tr>
-<tr class="memdesc:a63a0e4bdff6627843b528e5867483f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the matrix  <a href="../../d6/d6a/a02633.html#a63a0e4bdff6627843b528e5867483f9a">More...</a><br /></td></tr>
-<tr class="separator:a63a0e4bdff6627843b528e5867483f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a434d1ff94e58e761d69b8f3cb9e301b6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a434d1ff94e58e761d69b8f3cb9e301b6">CheckErrorCode</a> { <a class="el" href="../../d6/d6a/a02633.html#a434d1ff94e58e761d69b8f3cb9e301b6ab34e46179d73d0705a7e546610c16131">CHECK_OK</a> = 0, 
-<a class="el" href="../../d6/d6a/a02633.html#a434d1ff94e58e761d69b8f3cb9e301b6a3ef36419ab9880e6b86c28cbf64bf019">CHECK_ZERO_ROW</a>, 
-<a class="el" href="../../d6/d6a/a02633.html#a434d1ff94e58e761d69b8f3cb9e301b6a0e92812464cd4061dc05ae543296ebaf">CHECK_ZERO_COLUMN</a>
- }</td></tr>
-<tr class="memdesc:a434d1ff94e58e761d69b8f3cb9e301b6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/dd3/a02569.html" title="Generic error handler for Dynawo. ">Error</a> code for checking matrix.  <a href="../../d6/d6a/a02633.html#a434d1ff94e58e761d69b8f3cb9e301b6">More...</a><br /></td></tr>
-<tr class="separator:a434d1ff94e58e761d69b8f3cb9e301b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab8516cf0a97d5bf2a716e87e792eaf4b"><td class="memItemLeft" align="right" valign="top"><a id="ab8516cf0a97d5bf2a716e87e792eaf4b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#ab8516cf0a97d5bf2a716e87e792eaf4b">SparseMatrix</a> ()</td></tr>
-<tr class="memdesc:ab8516cf0a97d5bf2a716e87e792eaf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:ab8516cf0a97d5bf2a716e87e792eaf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28461e50ef2b679fd7c19f278cb0e582"><td class="memItemLeft" align="right" valign="top"><a id="a28461e50ef2b679fd7c19f278cb0e582"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a28461e50ef2b679fd7c19f278cb0e582">~SparseMatrix</a> ()</td></tr>
-<tr class="memdesc:a28461e50ef2b679fd7c19f278cb0e582"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a28461e50ef2b679fd7c19f278cb0e582"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b7c17f2a0d427f211996b7f1b7d300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a19b7c17f2a0d427f211996b7f1b7d300">init</a> (const int nbRow, const int <a class="el" href="../../d6/d6a/a02633.html#abadbecc4102f031b19ae5bb63d6583c6">nbCol</a>)</td></tr>
-<tr class="memdesc:a19b7c17f2a0d427f211996b7f1b7d300"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the sparse matrix object  <a href="#a19b7c17f2a0d427f211996b7f1b7d300">More...</a><br /></td></tr>
-<tr class="separator:a19b7c17f2a0d427f211996b7f1b7d300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f4f73881b825ae94895bbdc18565f17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a4f4f73881b825ae94895bbdc18565f17">reserve</a> (const int <a class="el" href="../../d6/d6a/a02633.html#abadbecc4102f031b19ae5bb63d6583c6">nbCol</a>)</td></tr>
-<tr class="memdesc:a4f4f73881b825ae94895bbdc18565f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">reserve structure memory  <a href="#a4f4f73881b825ae94895bbdc18565f17">More...</a><br /></td></tr>
-<tr class="separator:a4f4f73881b825ae94895bbdc18565f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34889f3bdf10fcabc4fbea82999b0ad8"><td class="memItemLeft" align="right" valign="top"><a id="a34889f3bdf10fcabc4fbea82999b0ad8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a34889f3bdf10fcabc4fbea82999b0ad8">changeCol</a> ()</td></tr>
-<tr class="memdesc:a34889f3bdf10fcabc4fbea82999b0ad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the column currently used when filling the matrix <br /></td></tr>
-<tr class="separator:a34889f3bdf10fcabc4fbea82999b0ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55d15440140f1bd9d16443c33114d204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a55d15440140f1bd9d16443c33114d204">addTerm</a> (const int row, const double val)</td></tr>
-<tr class="memdesc:a55d15440140f1bd9d16443c33114d204"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new term in the matrix  <a href="#a55d15440140f1bd9d16443c33114d204">More...</a><br /></td></tr>
-<tr class="separator:a55d15440140f1bd9d16443c33114d204"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a903917532d69c6c5c4af916f5b25adaf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a903917532d69c6c5c4af916f5b25adaf">frobeniusNorm</a> () const</td></tr>
-<tr class="memdesc:a903917532d69c6c5c4af916f5b25adaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the Frobenius norm of the matrix  <a href="#a903917532d69c6c5c4af916f5b25adaf">More...</a><br /></td></tr>
-<tr class="separator:a903917532d69c6c5c4af916f5b25adaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23bb9c24e7b376e98bca8f9340775c49"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a23bb9c24e7b376e98bca8f9340775c49">norm1</a> () const</td></tr>
-<tr class="memdesc:a23bb9c24e7b376e98bca8f9340775c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the 1-norm of the matrix  <a href="#a23bb9c24e7b376e98bca8f9340775c49">More...</a><br /></td></tr>
-<tr class="separator:a23bb9c24e7b376e98bca8f9340775c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa82eec86cbcc51772c7503031a554ca7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#aa82eec86cbcc51772c7503031a554ca7">infinityNorm</a> () const</td></tr>
-<tr class="memdesc:aa82eec86cbcc51772c7503031a554ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the infinity-norm of the matrix  <a href="#aa82eec86cbcc51772c7503031a554ca7">More...</a><br /></td></tr>
-<tr class="separator:aa82eec86cbcc51772c7503031a554ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad494668661e00def8d9e94ebeb1a56bb"><td class="memItemLeft" align="right" valign="top"><a id="ad494668661e00def8d9e94ebeb1a56bb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#ad494668661e00def8d9e94ebeb1a56bb">print</a> () const</td></tr>
-<tr class="memdesc:ad494668661e00def8d9e94ebeb1a56bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all the values stored in the matrix <br /></td></tr>
-<tr class="separator:ad494668661e00def8d9e94ebeb1a56bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85239791a06a3d7d46444588a95aaa66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a85239791a06a3d7d46444588a95aaa66">printToFile</a> (bool sparse=false) const</td></tr>
-<tr class="memdesc:a85239791a06a3d7d46444588a95aaa66"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all the values stored in the matrix in a file  <a href="#a85239791a06a3d7d46444588a95aaa66">More...</a><br /></td></tr>
-<tr class="separator:a85239791a06a3d7d46444588a95aaa66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2606c2553efbde442ae1fc9b4226a24c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a2606c2553efbde442ae1fc9b4226a24c">erase</a> (const boost::unordered_set&lt; int &gt; &amp;rows, const boost::unordered_set&lt; int &gt; &amp;columns, <a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;M)</td></tr>
-<tr class="memdesc:a2606c2553efbde442ae1fc9b4226a24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">erase some rows and columns in the matrix and returns a new matrix  <a href="#a2606c2553efbde442ae1fc9b4226a24c">More...</a><br /></td></tr>
-<tr class="separator:a2606c2553efbde442ae1fc9b4226a24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d62be0efcfecbd822c562e991aafbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#af1d62be0efcfecbd822c562e991aafbb">getRowColIndicesFromPosition</a> (unsigned int position, int &amp;iRow, int &amp;jCol) const</td></tr>
-<tr class="memdesc:af1d62be0efcfecbd822c562e991aafbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the row and colum indices from a position in the data array.  <a href="#af1d62be0efcfecbd822c562e991aafbb">More...</a><br /></td></tr>
-<tr class="separator:af1d62be0efcfecbd822c562e991aafbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97e6e0d3295595931185dfc28d296781"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a97e6e0d3295595931185dfc28d296781">withoutNan</a> () const</td></tr>
-<tr class="memdesc:a97e6e0d3295595931185dfc28d296781"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter to see if the matrix is without NAN value  <a href="#a97e6e0d3295595931185dfc28d296781">More...</a><br /></td></tr>
-<tr class="separator:a97e6e0d3295595931185dfc28d296781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a622e645a49f43a5dc5590652b83f6d4b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a622e645a49f43a5dc5590652b83f6d4b">withoutInf</a> () const</td></tr>
-<tr class="memdesc:a622e645a49f43a5dc5590652b83f6d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter to see if the matrix is without infinite value  <a href="#a622e645a49f43a5dc5590652b83f6d4b">More...</a><br /></td></tr>
-<tr class="separator:a622e645a49f43a5dc5590652b83f6d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa34280a5702717c6a457ce6b1067a2cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#aa34280a5702717c6a457ce6b1067a2cd">nbElem</a> () const</td></tr>
-<tr class="memdesc:aa34280a5702717c6a457ce6b1067a2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the number of elements stored in the matrix  <a href="#aa34280a5702717c6a457ce6b1067a2cd">More...</a><br /></td></tr>
-<tr class="separator:aa34280a5702717c6a457ce6b1067a2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abadbecc4102f031b19ae5bb63d6583c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#abadbecc4102f031b19ae5bb63d6583c6">nbCol</a> () const</td></tr>
-<tr class="memdesc:abadbecc4102f031b19ae5bb63d6583c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the number of columns of the matrix  <a href="#abadbecc4102f031b19ae5bb63d6583c6">More...</a><br /></td></tr>
-<tr class="separator:abadbecc4102f031b19ae5bb63d6583c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4710a0284449c3c1eb53d82d58bfb52b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/de3/a02637.html">CheckError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a4710a0284449c3c1eb53d82d58bfb52b">check</a> () const</td></tr>
-<tr class="memdesc:a4710a0284449c3c1eb53d82d58bfb52b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check matrix validity.  <a href="#a4710a0284449c3c1eb53d82d58bfb52b">More...</a><br /></td></tr>
-<tr class="separator:a4710a0284449c3c1eb53d82d58bfb52b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a3e00b02bb03e31e720a1470b26dd2c65"><td class="memItemLeft" align="right" valign="top"><a id="a3e00b02bb03e31e720a1470b26dd2c65"></a>
-std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a3e00b02bb03e31e720a1470b26dd2c65">Ap_</a></td></tr>
-<tr class="memdesc:a3e00b02bb03e31e720a1470b26dd2c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">for each column, first non-null element index in Ai and Ax <br /></td></tr>
-<tr class="separator:a3e00b02bb03e31e720a1470b26dd2c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec4c33217ff226b8ed4f91961ffab434"><td class="memItemLeft" align="right" valign="top"><a id="aec4c33217ff226b8ed4f91961ffab434"></a>
-std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#aec4c33217ff226b8ed4f91961ffab434">Ai_</a></td></tr>
-<tr class="memdesc:aec4c33217ff226b8ed4f91961ffab434"><td class="mdescLeft">&#160;</td><td class="mdescRight">row index for each non-null element <br /></td></tr>
-<tr class="separator:aec4c33217ff226b8ed4f91961ffab434"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2554dc2336da5de5e272c0ca8ad97930"><td class="memItemLeft" align="right" valign="top"><a id="a2554dc2336da5de5e272c0ca8ad97930"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a2554dc2336da5de5e272c0ca8ad97930">Ax_</a></td></tr>
-<tr class="memdesc:a2554dc2336da5de5e272c0ca8ad97930"><td class="mdescLeft">&#160;</td><td class="mdescRight">non-null element value; <br /></td></tr>
-<tr class="separator:a2554dc2336da5de5e272c0ca8ad97930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a3743c28dac32641159fbc9cf7a164509"><td class="memItemLeft" align="right" valign="top"><a id="a3743c28dac32641159fbc9cf7a164509"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a3743c28dac32641159fbc9cf7a164509">free</a> ()</td></tr>
-<tr class="memdesc:a3743c28dac32641159fbc9cf7a164509"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete all allocated memory of the matrix <br /></td></tr>
-<tr class="separator:a3743c28dac32641159fbc9cf7a164509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0a83b69e6fed08e99f84f052014133b"><td class="memItemLeft" align="right" valign="top"><a id="ae0a83b69e6fed08e99f84f052014133b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#ae0a83b69e6fed08e99f84f052014133b">increaseReserve</a> ()</td></tr>
-<tr class="memdesc:ae0a83b69e6fed08e99f84f052014133b"><td class="mdescLeft">&#160;</td><td class="mdescRight">increase the memory allocated to store values <br /></td></tr>
-<tr class="separator:ae0a83b69e6fed08e99f84f052014133b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1d3626392dc7c846a0304f9913a12da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#ae1d3626392dc7c846a0304f9913a12da">operator=</a> (const <a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;M)</td></tr>
-<tr class="memdesc:ae1d3626392dc7c846a0304f9913a12da"><td class="mdescLeft">&#160;</td><td class="mdescRight">equality operator  <a href="#ae1d3626392dc7c846a0304f9913a12da">More...</a><br /></td></tr>
-<tr class="separator:ae1d3626392dc7c846a0304f9913a12da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbecd75ab440100b1d9a0f7ab9001b23"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#afbecd75ab440100b1d9a0f7ab9001b23">SparseMatrix</a> (const <a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;M)</td></tr>
-<tr class="memdesc:afbecd75ab440100b1d9a0f7ab9001b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor by copy  <a href="#afbecd75ab440100b1d9a0f7ab9001b23">More...</a><br /></td></tr>
-<tr class="separator:afbecd75ab440100b1d9a0f7ab9001b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a37d41e2f42908ab8f616e51f5d8469cc"><td class="memItemLeft" align="right" valign="top"><a id="a37d41e2f42908ab8f616e51f5d8469cc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a37d41e2f42908ab8f616e51f5d8469cc">withoutNan_</a></td></tr>
-<tr class="memdesc:a37d41e2f42908ab8f616e51f5d8469cc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if there isn't any NaN value in the Sparse Matrix <br /></td></tr>
-<tr class="separator:a37d41e2f42908ab8f616e51f5d8469cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaade310870b5c76fb7b9005405a20a57"><td class="memItemLeft" align="right" valign="top"><a id="aaade310870b5c76fb7b9005405a20a57"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#aaade310870b5c76fb7b9005405a20a57">withoutInf_</a></td></tr>
-<tr class="memdesc:aaade310870b5c76fb7b9005405a20a57"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if there isn't any infinite value in the Sparse Matrix <br /></td></tr>
-<tr class="separator:aaade310870b5c76fb7b9005405a20a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac988051a1101959e2bd1b07fbb054086"><td class="memItemLeft" align="right" valign="top"><a id="ac988051a1101959e2bd1b07fbb054086"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#ac988051a1101959e2bd1b07fbb054086">nbRow_</a></td></tr>
-<tr class="memdesc:ac988051a1101959e2bd1b07fbb054086"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of row in the sparse Matrix structure <br /></td></tr>
-<tr class="separator:ac988051a1101959e2bd1b07fbb054086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a371ac100b76f998510d3ba301acfeee9"><td class="memItemLeft" align="right" valign="top"><a id="a371ac100b76f998510d3ba301acfeee9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a371ac100b76f998510d3ba301acfeee9">nbCol_</a></td></tr>
-<tr class="memdesc:a371ac100b76f998510d3ba301acfeee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of column in the sparse Matrix structure <br /></td></tr>
-<tr class="separator:a371ac100b76f998510d3ba301acfeee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52bb091287ac6aec6f8403fd007831f4"><td class="memItemLeft" align="right" valign="top"><a id="a52bb091287ac6aec6f8403fd007831f4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a52bb091287ac6aec6f8403fd007831f4">iAp_</a></td></tr>
-<tr class="memdesc:a52bb091287ac6aec6f8403fd007831f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">current index in the Ap_ array <br /></td></tr>
-<tr class="separator:a52bb091287ac6aec6f8403fd007831f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8d90d8c5b9a44279d1b44c3dc73bd18"><td class="memItemLeft" align="right" valign="top"><a id="aa8d90d8c5b9a44279d1b44c3dc73bd18"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#aa8d90d8c5b9a44279d1b44c3dc73bd18">iAi_</a></td></tr>
-<tr class="memdesc:aa8d90d8c5b9a44279d1b44c3dc73bd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">current index in the Ai_ array <br /></td></tr>
-<tr class="separator:aa8d90d8c5b9a44279d1b44c3dc73bd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac79f9341ecbe9562044bc0d43260ed47"><td class="memItemLeft" align="right" valign="top"><a id="ac79f9341ecbe9562044bc0d43260ed47"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#ac79f9341ecbe9562044bc0d43260ed47">iAx_</a></td></tr>
-<tr class="memdesc:ac79f9341ecbe9562044bc0d43260ed47"><td class="mdescLeft">&#160;</td><td class="mdescRight">current index in the Ax_ array <br /></td></tr>
-<tr class="separator:ac79f9341ecbe9562044bc0d43260ed47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51364e85cce68fcc5832c345a3d68db2"><td class="memItemLeft" align="right" valign="top"><a id="a51364e85cce68fcc5832c345a3d68db2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#a51364e85cce68fcc5832c345a3d68db2">nbTerm_</a></td></tr>
-<tr class="memdesc:a51364e85cce68fcc5832c345a3d68db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">current number of values stored in the matrix <br /></td></tr>
-<tr class="separator:a51364e85cce68fcc5832c345a3d68db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdfa147264a2d9a4b964f77d7c1ae5c6"><td class="memItemLeft" align="right" valign="top"><a id="abdfa147264a2d9a4b964f77d7c1ae5c6"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6a/a02633.html#abdfa147264a2d9a4b964f77d7c1ae5c6">currentMaxTerm_</a></td></tr>
-<tr class="memdesc:abdfa147264a2d9a4b964f77d7c1ae5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">current maximum number of term that could be stored in the matrix without increasing the size of arrays <br /></td></tr>
-<tr class="separator:abdfa147264a2d9a4b964f77d7c1ae5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class Sparse Matrix : store Jacobian value in sparse structure before copying value in KINSOL structure </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a434d1ff94e58e761d69b8f3cb9e301b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a434d1ff94e58e761d69b8f3cb9e301b6">&#9670;&nbsp;</a></span>CheckErrorCode</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d6/d6a/a02633.html#a434d1ff94e58e761d69b8f3cb9e301b6">DYN::SparseMatrix::CheckErrorCode</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../df/dd3/a02569.html" title="Generic error handler for Dynawo. ">Error</a> code for checking matrix. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a434d1ff94e58e761d69b8f3cb9e301b6ab34e46179d73d0705a7e546610c16131"></a>CHECK_OK&#160;</td><td class="fielddoc"><p>no error </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a434d1ff94e58e761d69b8f3cb9e301b6a3ef36419ab9880e6b86c28cbf64bf019"></a>CHECK_ZERO_ROW&#160;</td><td class="fielddoc"><p>at least one row is full of 0 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a434d1ff94e58e761d69b8f3cb9e301b6a0e92812464cd4061dc05ae543296ebaf"></a>CHECK_ZERO_COLUMN&#160;</td><td class="fielddoc"><p>at least one column is full of 0 </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="a63a0e4bdff6627843b528e5867483f9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63a0e4bdff6627843b528e5867483f9a">&#9670;&nbsp;</a></span>SparseMatrixType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d6/d6a/a02633.html#a63a0e4bdff6627843b528e5867483f9a">DYN::SparseMatrix::SparseMatrixType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>type of the matrix </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a63a0e4bdff6627843b528e5867483f9aa7be1a6bad7a4fd3537c375ba34e027dd"></a>J&#160;</td><td class="fielddoc"><p>"normal" matrix is stored </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a63a0e4bdff6627843b528e5867483f9aa514a76cbe5be61d39a21acbd046cbbe7"></a>Jt&#160;</td><td class="fielddoc"><p>transpose matrix is stored </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afbecd75ab440100b1d9a0f7ab9001b23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbecd75ab440100b1d9a0f7ab9001b23">&#9670;&nbsp;</a></span>SparseMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::SparseMatrix::SparseMatrix </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>M</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>constructor by copy </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">M</td><td>matrix to copy </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section warning"><dt>Warning</dt><dd>should not be used </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a55d15440140f1bd9d16443c33114d204"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55d15440140f1bd9d16443c33114d204">&#9670;&nbsp;</a></span>addTerm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::addTerm </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>row</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add a new term in the matrix </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">row</td><td>row of the term in the matrix </td></tr>
-    <tr><td class="paramname">val</td><td>new value to add in the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4710a0284449c3c1eb53d82d58bfb52b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4710a0284449c3c1eb53d82d58bfb52b">&#9670;&nbsp;</a></span>check()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/de3/a02637.html">CheckError</a> DYN::SparseMatrix::check </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check matrix validity. </p>
-<p>This checks that:</p><ul>
-<li>no null row is present</li>
-<li>no null column is present</li>
-<li>2 lines are not equal</li>
-<li>2 columns are not equal The test to fail will trigger an error</li>
-</ul>
-<dl class="section return"><dt>Returns</dt><dd>check error status </dd></dl>
-
-</div>
-</div>
-<a id="a2606c2553efbde442ae1fc9b4226a24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2606c2553efbde442ae1fc9b4226a24c">&#9670;&nbsp;</a></span>erase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::erase </td>
-          <td>(</td>
-          <td class="paramtype">const boost::unordered_set&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rows</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::unordered_set&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>columns</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>M</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>erase some rows and columns in the matrix and returns a new matrix </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rows</td><td>rows to erase </td></tr>
-    <tr><td class="paramname">columns</td><td>columns to erase </td></tr>
-    <tr><td class="paramname">M</td><td>new matrix allocated </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a903917532d69c6c5c4af916f5b25adaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a903917532d69c6c5c4af916f5b25adaf">&#9670;&nbsp;</a></span>frobeniusNorm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::SparseMatrix::frobeniusNorm </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print the Frobenius norm of the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>value of the Frobenius norm of the matrix </dd></dl>
-
-</div>
-</div>
-<a id="af1d62be0efcfecbd822c562e991aafbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1d62be0efcfecbd822c562e991aafbb">&#9670;&nbsp;</a></span>getRowColIndicesFromPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::getRowColIndicesFromPosition </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>iRow</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>jCol</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the row and colum indices from a position in the data array. </p>
-<p>This function is intended to be used in debug mode but can be called in release mode but will allocate a lot of memory and will slow down the computation as it is not optimized at all</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>index in data array (0 to nnz) </td></tr>
-    <tr><td class="paramname">iRow</td><td>row index of the data in the matrix </td></tr>
-    <tr><td class="paramname">jCol</td><td>column index of the data in the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa82eec86cbcc51772c7503031a554ca7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa82eec86cbcc51772c7503031a554ca7">&#9670;&nbsp;</a></span>infinityNorm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::SparseMatrix::infinityNorm </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print the infinity-norm of the matrix </p>
-<p>This norm is much more costly than the two others so choose the other ones for big matrices.</p>
-<dl class="section return"><dt>Returns</dt><dd>value of the infinity-norm of the matrix </dd></dl>
-
-</div>
-</div>
-<a id="a19b7c17f2a0d427f211996b7f1b7d300"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b7c17f2a0d427f211996b7f1b7d300">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::init </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>nbRow</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>nbCol</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>initialize the sparse matrix object </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nbRow</td><td>number row of the matrix </td></tr>
-    <tr><td class="paramname">nbCol</td><td>number columns of the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="abadbecc4102f031b19ae5bb63d6583c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abadbecc4102f031b19ae5bb63d6583c6">&#9670;&nbsp;</a></span>nbCol()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::SparseMatrix::nbCol </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter of the number of columns of the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>number of columns of the matrix </dd></dl>
-
-</div>
-</div>
-<a id="aa34280a5702717c6a457ce6b1067a2cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa34280a5702717c6a457ce6b1067a2cd">&#9670;&nbsp;</a></span>nbElem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::SparseMatrix::nbElem </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter of the number of elements stored in the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>number of elements stored in the matrix </dd></dl>
-
-</div>
-</div>
-<a id="a23bb9c24e7b376e98bca8f9340775c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23bb9c24e7b376e98bca8f9340775c49">&#9670;&nbsp;</a></span>norm1()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::SparseMatrix::norm1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print the 1-norm of the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>value of the 1-norm of the matrix </dd></dl>
-
-</div>
-</div>
-<a id="ae1d3626392dc7c846a0304f9913a12da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1d3626392dc7c846a0304f9913a12da">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a>&amp; DYN::SparseMatrix::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>M</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>equality operator </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">M</td><td>matrix to copy</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a new matrix </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>should not be used </dd></dl>
-
-</div>
-</div>
-<a id="a85239791a06a3d7d46444588a95aaa66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85239791a06a3d7d46444588a95aaa66">&#9670;&nbsp;</a></span>printToFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::printToFile </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>sparse</em> = <code>false</code></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print all the values stored in the matrix in a file </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sparse</td><td><b>true</b> if the matrix should be printed with a sparse pattern </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4f4f73881b825ae94895bbdc18565f17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f4f73881b825ae94895bbdc18565f17">&#9670;&nbsp;</a></span>reserve()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::reserve </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>nbCol</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>reserve structure memory </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nbCol</td><td>number columns that will be use in the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a622e645a49f43a5dc5590652b83f6d4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a622e645a49f43a5dc5590652b83f6d4b">&#9670;&nbsp;</a></span>withoutInf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::SparseMatrix::withoutInf </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter to see if the matrix is without infinite value </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if there isn't any infinite value in the matrix </dd></dl>
-
-</div>
-</div>
-<a id="a97e6e0d3295595931185dfc28d296781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97e6e0d3295595931185dfc28d296781">&#9670;&nbsp;</a></span>withoutNan()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::SparseMatrix::withoutNan </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter to see if the matrix is without NAN value </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if there isn't any NAN value in the matrix </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d24/a00524_source.html">DYNSparseMatrix.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab3f1c6eb37197699d3b9f547a30effd2">ActivatePMAX</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a1579797f7625ad0a60b4cf886cc6d876">ActivatePMIN</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab461400856b8780d7edcd8d74a6ef813">BusAboveVoltage</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a2e6f22970e928f3abb63222a4190c477">BusUnderVoltage</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51aa13d5bc6933e1049adc7b1d62d80ced7">ComponentConnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a67470943016a43b5589cdf9f160aaf5b">ComponentDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a765b55227c72c0eb62100df936ef4d57">Converter1Connected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a7a995a5c89b5962a22ba5fd91098c2ab">Converter1SwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ae1c84fe523d7091983fd078d253b99a8">Converter2Connected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ac9f4f1d6256816e3433eba763ea67cf4">Converter2SwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a8d8a274668d885aca5ebf5afe43cef06">CriteriaNotChecked</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ae3d08d13f854cf9161c86b85a95cf6f5">CurrentLimitAutomatonActing</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ace09a47a4b4f6525a14fd74dd50b08a4">CurrentLimitAutomatonArming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a0844976df2e04d8cea9f4f51faa85f60">CurrentLimitAutomatonDisarming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a1dc6640ee39174c2a10cd83712f155e8">DanglingLineConnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ad4114d120487b348737a61e0cdb05877">DanglingLineDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9a79483159374b886fe734df53b0920e">DCLineClosed</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a821c9d4e4ebd75bbe860f2b55f3bcc60">DCLineOpen</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9d013be961b3e64fcee133aa2ef569e5">DeactivatePMAX</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a65ceb795544a09aadbff2e8e4e78ad29">DeactivatePMIN</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a5d6cad41dbea493b5aca85d605475ec6">GeneratorConnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a3a0e6991039d651d8521c13a5fc4b8d1">GeneratorDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a7c8de55d0af0b3a08c8df2c6a6ecd017">GeneratorPVBackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a8f271b026e16a35459bcff204ca74704">GeneratorPVMaxQ</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51acb415dec0c0a64de8a5de9c02b7c4789">GeneratorPVMinQ</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a411f13efdbb55d9b1b10bab7a03bbb8b">GeneratorTargetP</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a453a5ec05bc1232489288788acd46892">GeneratorTargetQ</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a0214c3ffef8d14ee1bb207628f598b4e">IdealSwitchSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a24c3a2fc17faaf353968b9f5b48d54ed">IdealSwitchSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a666dc0cc868df38796914b69e5db5d6a">LineClosed</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ae0d0530ea85e655fbfa7ef26ad8cefa3">LineCloseSide1</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab2271db3f882e2d88abf1907e00613bc">LineCloseSide2</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51af7cf49c4424f243d19b37f8701b07129">LineOpen</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a62e352e003b47bde603f47a67c90cb05">LineOpenSide1</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab7397233af0d0c9c087c966476f888ae">LineOpenSide2</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a78d43eb97bfa40865cf8b078474402cc">LoadConnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51aba04cce06792478f58b5df0198d61665">LoadDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a42b407251eb7bc6ec169d7d9ab8de263">LoadModificationEnded</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ad7dc5766568463c4481ee0c717416700">LoadModificationStarted</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51af2902c07598ca7b236751c7e772011fe">LoadSheddingStarted</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#ade477154931168ba7597483389ec6f46">names</a>(const value &amp;)</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ad1d263de7b652318c13c1e7007ad3e1e">NodeFaultBegin</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab6473944acee9fdf27b7cd42027f1148">NodeFaultEnd</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51aee4da1fedf4d5bc8d4aab248a9b90eee">NodeOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51afa5978f40c543f97b4a18c66432b09a3">NodeOn</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9e0880a15a9d514527d4ca4d6aca54d3">OverloadDown</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9203de8257815209867fec64107958e2">OverloadOpen</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a4510b3c286998a642043079addf09816">OverloadUp</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab3c092523d4e89267232ca79d313f0c2">PhaseShifterAboveMax</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ac2ee7d1fcae1501fcc627a4689d0fe5d">PhaseShifterBelowMax</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a23a5a4f5abdce71ab7942d44547bf676">PhaseShifterBelowMin</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9473dbe04920f629517f61f5191ddfb9">PhaseShifterBelowStop</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51afa20dc128e4eb2e076df572b93df67dc">PhaseShifterBlockingIActing</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a6c96c62777454c82411b9916d52fa9e9">PhaseShifterBlockingIArming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ac598f1b593ad408d10fb3a1c4fe5d20d">PhaseShifterBlockingIDisarming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a911606f782cf22760ed2539aee3507f9">PhaseShifterSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ada5228a03ef90778c3e8e530e75aaf76">PhaseShifterSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a2de466369f4a0e9b3fa7130b2cc8a709">PhaseShifterWithinInterval</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a5ee60227c27ff835a3362e015294ee2b">ShuntConnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a218a42b06329e134a89d858c771c5ad8">ShuntDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ad41d8284e306f6b20857de712a647423">SignalReceived</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a434a775b0d6219c646603fb6ac934a74">SourceAbovePower</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a8a1802e407de4253dc717e611b3e7210">SourcePowerAboveMax</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a4d98b4aa28cda15d413012c789713a3e">SourcePowerBelowMin</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ae71739723693f6f72565746fabeb9213">SourcePowerTakenIntoAccount</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a61db229b547c8da5c12d11d68dbe6734">SourceUnderPower</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a6e2866986983dee4f8f78d39905d641c">SVarCConnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a716a8444398751f87d4ce2d562a227f0">SVarCDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab95912325f7a0a84353d49b50ed4c50a">SVarCOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a226d86c2b436122224400a1c58ea96fa">SVarCRunning</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab0b01b86477c3c833f359c8b2fc9a3ad">SVarCStandby</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a8ea81dd8b3514edbbae1e39f2e9644d9">SVarCUmaxreached</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ab3273b1327c15e8022806beb4b05c547">SVarCUminreached</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51af591dbcce7eb81438765366f91faca7c">SwitchClosed</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a11b545f3864cca5247e88a71161b8f04">SwitchOpened</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ac51ad316011a60d924659b3b4b68cbc9">TapChangerAboveMax</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a7c5e0f90e26b5db51929a1f51fc98e02">TapChangerBelowMin</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9a8e8eca3b37afc439b8d8aa2784f75a">TapChangersArming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a47fbdb5bae550bff1b8ed408327ac4c7">TapChangersBlocked</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a8896c67a0d7d21eb3177fe90257efa3f">TapChangersBlockedD</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a257e80db73e5a1f115f4a07e778d5c25">TapChangersBlockedT</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51aad4fc870b1b67f7585144d76df5e0bde">TapChangersUnarming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a182c52ba50a39f87013560c04daca685">TapChangersUnblocked</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a69c95848af10d9f69f5978f300992ff0">TapChangerSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51af7851db03e1d9e3d512af5dfa8696201">TapChangerSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a720a6fa673931b7a15c0c04a09106762">TapDown</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a3fc197dcf30c013c460ac5881b8de3c0">TapUp</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9dba49c1d7b74e168fdd604b4753c357">TerminateInModel</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a65c2318ff69cfa7cff469683d5eca20a">TransformerSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a49d476259be13f8de0f29d8d72f76239">TransformerSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a77699926041e24687a0314974f61b858">TwoWTFOClosed</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a4cd614d072b8b6d46552b152f69cf686">TwoWTFOCloseSide1</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51af03af18e8d51130effe90db941afa9b9">TwoWTFOCloseSide2</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9ebe599ec7cfa88ee5de4ffba4459dd0">TwoWTFOOpen</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a93e51741b05cc2a263b2a16ea3def8ed">TwoWTFOOpenSide1</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51acbe34bc3dcd89a9c673c593914f70283">TwoWTFOOpenSide2</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a9401f91672680684e8f1e2370e60f9b0">UVAArming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51aae9a0fefc5fd00a6aa789240f22dfa02">UVADisarming</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a1b754d3bee29b18f7afcbec4e52e434e">UVATripped</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51">value</a> enum name</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a51485bfaa5530cd69c9290071f4e37e7">VoltageSetPointChangeEnded</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51aa63ff20251481f8cd905247476512623">VoltageSetPointChangeStarted</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a811fa3e99506a649eaa56e9d2be38be4">VRBackToRegulation</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a23bd5163d6a188a791b5c6ed9be85412">VRLimitationEfdMax</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a6ab37af7a9750a2083331b2f49b67ee8">VRLimitationEfdMin</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a55dc85ad183eabad10ff6ee37a296b4d">VRLimitationUsRefMax</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51ac7dcf68071cff5135b157baec476593e">VRLimitationUsRefMin</a> enum value</td><td class="entry"><a class="el" href="../../dd/d32/a02636.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -819,8 +224,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d6a/a02633.html">SparseMatrix</a></li>
-    <li class="footer">Generated on Tue Jan 31 2023 17:29:41 for Dynawo by
+    <li class="footer">Generated on Wed Feb 1 2023 10:40:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

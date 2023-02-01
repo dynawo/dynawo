@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Modeler Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('dd/d01/a02729.html','../../');});
+$(document).ready(function(){initNavTree('d7/d1c/a02732.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,496 +94,67 @@ $(document).ready(function(){initNavTree('dd/d01/a02729.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../d6/d95/a02726.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Modeler Class Reference</div>  </div>
+<div class="title">DYN::ParameterModeler Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class <a class="el" href="../../dd/d01/a02729.html" title="class Modeler ">Modeler</a>  
- <a href="../../dd/d01/a02729.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../de/dde/a00587_source.html">DYNModeler.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a61da828d12270b7b38fcbdce5c1eba2c"><td class="memItemLeft" align="right" valign="top"><a id="a61da828d12270b7b38fcbdce5c1eba2c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a61da828d12270b7b38fcbdce5c1eba2c">Modeler</a> ()</td></tr>
-<tr class="memdesc:a61da828d12270b7b38fcbdce5c1eba2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:a61da828d12270b7b38fcbdce5c1eba2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c630077ebe6304689f312972272642c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a9c630077ebe6304689f312972272642c">setDataInterface</a> (const boost::shared_ptr&lt; <a class="el" href="../../de/d4b/a02865.html">DataInterface</a> &gt; &amp;data)</td></tr>
-<tr class="memdesc:a9c630077ebe6304689f312972272642c"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the data interface to use do define the model multi  <a href="#a9c630077ebe6304689f312972272642c">More...</a><br /></td></tr>
-<tr class="separator:a9c630077ebe6304689f312972272642c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b48e9c86c4f360e62387c8edef1594f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a9b48e9c86c4f360e62387c8edef1594f">setDynamicData</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/d1d/a02713.html">DynamicData</a> &gt; &amp;dyd)</td></tr>
-<tr class="memdesc:a9b48e9c86c4f360e62387c8edef1594f"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the dynamic data to use do define the model multi  <a href="#a9b48e9c86c4f360e62387c8edef1594f">More...</a><br /></td></tr>
-<tr class="separator:a9b48e9c86c4f360e62387c8edef1594f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea737188053815983b260f9e34eb49f7"><td class="memItemLeft" align="right" valign="top"><a id="aea737188053815983b260f9e34eb49f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#aea737188053815983b260f9e34eb49f7">initSystem</a> ()</td></tr>
-<tr class="memdesc:aea737188053815983b260f9e34eb49f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">build the model thanks to the data interface and the dynamic data <br /></td></tr>
-<tr class="separator:aea737188053815983b260f9e34eb49f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa29e206b6754cbfb0da5d13cec18c6b3"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../df/d6f/a02733.html">ModelMulti</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#aa29e206b6754cbfb0da5d13cec18c6b3">getModel</a> () const</td></tr>
-<tr class="memdesc:aa29e206b6754cbfb0da5d13cec18c6b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the model created thanks to data  <a href="#aa29e206b6754cbfb0da5d13cec18c6b3">More...</a><br /></td></tr>
-<tr class="separator:aa29e206b6754cbfb0da5d13cec18c6b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a4eae71d880b921df98bcc4506006ecd2"><td class="memItemLeft" align="right" valign="top"><a id="a4eae71d880b921df98bcc4506006ecd2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a4eae71d880b921df98bcc4506006ecd2">initNetwork</a> ()</td></tr>
-<tr class="memdesc:a4eae71d880b921df98bcc4506006ecd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">network initialization <br /></td></tr>
-<tr class="separator:a4eae71d880b921df98bcc4506006ecd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca3bea60a3528ce4e1850fc2dcef6dab"><td class="memItemLeft" align="right" valign="top"><a id="aca3bea60a3528ce4e1850fc2dcef6dab"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#aca3bea60a3528ce4e1850fc2dcef6dab">initModelDescription</a> ()</td></tr>
-<tr class="memdesc:aca3bea60a3528ce4e1850fc2dcef6dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization of all dynamic models. <br /></td></tr>
-<tr class="separator:aca3bea60a3528ce4e1850fc2dcef6dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c232ef21a0987a55548b431bb9e9c06"><td class="memItemLeft" align="right" valign="top"><a id="a9c232ef21a0987a55548b431bb9e9c06"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a9c232ef21a0987a55548b431bb9e9c06">initConnects</a> ()</td></tr>
-<tr class="memdesc:a9c232ef21a0987a55548b431bb9e9c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates all connects between models <br /></td></tr>
-<tr class="separator:a9c232ef21a0987a55548b431bb9e9c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05cd2f0c6a3e223fc8efe56897fbc91e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a05cd2f0c6a3e223fc8efe56897fbc91e">initStaticRefs</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;model, const boost::shared_ptr&lt; <a class="el" href="../../df/d50/a02725.html">ModelDescription</a> &gt; &amp;modelDescription)</td></tr>
-<tr class="memdesc:a05cd2f0c6a3e223fc8efe56897fbc91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add reference between static model and subModel.  <a href="#a05cd2f0c6a3e223fc8efe56897fbc91e">More...</a><br /></td></tr>
-<tr class="separator:a05cd2f0c6a3e223fc8efe56897fbc91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d3b9ce1e08ef84a4e5ab732a7a8b441"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a0d3b9ce1e08ef84a4e5ab732a7a8b441">findNodeConnectorName</a> (const std::string &amp;id, const std::string &amp;labelNode) const</td></tr>
-<tr class="memdesc:a0d3b9ce1e08ef84a4e5ab732a7a8b441"><td class="mdescLeft">&#160;</td><td class="mdescRight">find a node connector name  <a href="#a0d3b9ce1e08ef84a4e5ab732a7a8b441">More...</a><br /></td></tr>
-<tr class="separator:a0d3b9ce1e08ef84a4e5ab732a7a8b441"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abed7cd5301d4d5a2ea4d86204473ec77"><td class="memItemLeft" align="right" valign="top"><a id="abed7cd5301d4d5a2ea4d86204473ec77"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#abed7cd5301d4d5a2ea4d86204473ec77">SanityCheckFlowConnection</a> () const</td></tr>
-<tr class="memdesc:abed7cd5301d4d5a2ea4d86204473ec77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for each flow connections that there is no mix of internal and system connections. <br /></td></tr>
-<tr class="separator:abed7cd5301d4d5a2ea4d86204473ec77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fa5d60fd953ec43e2be5c5b7daa0aab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a3fa5d60fd953ec43e2be5c5b7daa0aab">collectAllInternalConnections</a> (boost::shared_ptr&lt; <a class="el" href="../../da/d6c/a01921.html">dynamicdata::ModelicaModel</a> &gt; model, std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;variablesConnectedInternally) const</td></tr>
-<tr class="memdesc:a3fa5d60fd953ec43e2be5c5b7daa0aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">collect internal connections for a modelica model  <a href="#a3fa5d60fd953ec43e2be5c5b7daa0aab">More...</a><br /></td></tr>
-<tr class="separator:a3fa5d60fd953ec43e2be5c5b7daa0aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e793fd2f9b6a20e563bd3c22ea46dc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a9e793fd2f9b6a20e563bd3c22ea46dc6">replaceStaticAndNodeMacroInVariableName</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;subModel1, std::string &amp;var1, const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;subModel2, std::string &amp;var2) const</td></tr>
-<tr class="memdesc:a9e793fd2f9b6a20e563bd3c22ea46dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">replace STATIC and NODE macros in a macro connection  <a href="#a9e793fd2f9b6a20e563bd3c22ea46dc6">More...</a><br /></td></tr>
-<tr class="separator:a9e793fd2f9b6a20e563bd3c22ea46dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af69e08261fa87e696a829cf3950a22f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#af69e08261fa87e696a829cf3950a22f6">initParamDescription</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/d50/a02725.html">ModelDescription</a> &gt; &amp;modelDescription)</td></tr>
-<tr class="memdesc:af69e08261fa87e696a829cf3950a22f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization of parameters of a dynamic model.  <a href="#af69e08261fa87e696a829cf3950a22f6">More...</a><br /></td></tr>
-<tr class="separator:af69e08261fa87e696a829cf3950a22f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3749645649c295d1579b448ddf29f624"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a3749645649c295d1579b448ddf29f624">replaceNodeWithBus</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;subModel1, std::string &amp;var1, const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;subModel2, std::string &amp;var2, const std::string &amp;labelNode) const</td></tr>
-<tr class="memdesc:a3749645649c295d1579b448ddf29f624"><td class="mdescLeft">&#160;</td><td class="mdescRight">replace @NODE@, @NODE1@, @NODE2@ with the id of the bus the component is connected to  <a href="#a3749645649c295d1579b448ddf29f624">More...</a><br /></td></tr>
-<tr class="separator:a3749645649c295d1579b448ddf29f624"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a7d080148dcc34ea6017364256d247c27"><td class="memItemLeft" align="right" valign="top"><a id="a7d080148dcc34ea6017364256d247c27"></a>
-boost::shared_ptr&lt; <a class="el" href="../../de/d4b/a02865.html">DataInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a7d080148dcc34ea6017364256d247c27">data_</a></td></tr>
-<tr class="memdesc:a7d080148dcc34ea6017364256d247c27"><td class="mdescLeft">&#160;</td><td class="mdescRight">data used to build the model multi <br /></td></tr>
-<tr class="separator:a7d080148dcc34ea6017364256d247c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e7a5aa14fa0c43d1043699aabfad67b"><td class="memItemLeft" align="right" valign="top"><a id="a9e7a5aa14fa0c43d1043699aabfad67b"></a>
-boost::shared_ptr&lt; <a class="el" href="../../dc/d1d/a02713.html">DynamicData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a9e7a5aa14fa0c43d1043699aabfad67b">dyd_</a></td></tr>
-<tr class="memdesc:a9e7a5aa14fa0c43d1043699aabfad67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">dynamic data used to build the model multi <br /></td></tr>
-<tr class="separator:a9e7a5aa14fa0c43d1043699aabfad67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af36631d6a45237d6053db2d9cac49c39"><td class="memItemLeft" align="right" valign="top"><a id="af36631d6a45237d6053db2d9cac49c39"></a>
-boost::shared_ptr&lt; <a class="el" href="../../df/d6f/a02733.html">ModelMulti</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#af36631d6a45237d6053db2d9cac49c39">model_</a></td></tr>
-<tr class="memdesc:af36631d6a45237d6053db2d9cac49c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">model created thanks to previous data <br /></td></tr>
-<tr class="separator:af36631d6a45237d6053db2d9cac49c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad48427aeaad9632b13da7a1524bc80de"><td class="memItemLeft" align="right" valign="top"><a id="ad48427aeaad9632b13da7a1524bc80de"></a>
-std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#ad48427aeaad9632b13da7a1524bc80de">subModels_</a></td></tr>
-<tr class="memdesc:ad48427aeaad9632b13da7a1524bc80de"><td class="mdescLeft">&#160;</td><td class="mdescRight">association between name and subModel : usefull when the connectors should be created <br /></td></tr>
-<tr class="separator:ad48427aeaad9632b13da7a1524bc80de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class <a class="el" href="../../dd/d01/a02729.html" title="class Modeler ">Modeler</a> </p>
-<p>A modeler instantiate and connect all submodels thanks to data contained in data interface (static data) and dynamic data </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3fa5d60fd953ec43e2be5c5b7daa0aab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fa5d60fd953ec43e2be5c5b7daa0aab">&#9670;&nbsp;</a></span>collectAllInternalConnections()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::collectAllInternalConnections </td>
-          <td>(</td>
-          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../da/d6c/a01921.html">dynamicdata::ModelicaModel</a> &gt;&#160;</td>
-          <td class="paramname"><em>model</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>variablesConnectedInternally</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>collect internal connections for a modelica model </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">model</td><td>: model to analyze </td></tr>
-    <tr><td class="paramname">variablesConnectedInternally</td><td>: output, at the end of the called will contain the connected variables of the model </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0d3b9ce1e08ef84a4e5ab732a7a8b441"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d3b9ce1e08ef84a4e5ab732a7a8b441">&#9670;&nbsp;</a></span>findNodeConnectorName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::Modeler::findNodeConnectorName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>labelNode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>find a node connector name </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>: id of the node connector </td></tr>
-    <tr><td class="paramname">labelNode</td><td>: @NODE@ or @NODE1@ or @NODE2@ if the id contains @static_id@@NODE@, find the connection point of static id, and replace @NODE@ by the name of the connection point </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the id of the connector where @static_id@@NODE@ is replaced by the name of the connection point </dd></dl>
-
-</div>
-</div>
-<a id="aa29e206b6754cbfb0da5d13cec18c6b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa29e206b6754cbfb0da5d13cec18c6b3">&#9670;&nbsp;</a></span>getModel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../df/d6f/a02733.html">ModelMulti</a>&gt; DYN::Modeler::getModel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the model created thanks to data </p>
-<dl class="section return"><dt>Returns</dt><dd>model created thanks to data </dd></dl>
-
-</div>
-</div>
-<a id="af69e08261fa87e696a829cf3950a22f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af69e08261fa87e696a829cf3950a22f6">&#9670;&nbsp;</a></span>initParamDescription()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::initParamDescription </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/d50/a02725.html">ModelDescription</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>modelDescription</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initialization of parameters of a dynamic model. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">modelDescription</td><td>dynamic model </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a05cd2f0c6a3e223fc8efe56897fbc91e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05cd2f0c6a3e223fc8efe56897fbc91e">&#9670;&nbsp;</a></span>initStaticRefs()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::initStaticRefs </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>model</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/d50/a02725.html">ModelDescription</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>modelDescription</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add reference between static model and subModel. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">model</td><td>submodel </td></tr>
-    <tr><td class="paramname">modelDescription</td><td>dynamic model </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3749645649c295d1579b448ddf29f624"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3749645649c295d1579b448ddf29f624">&#9670;&nbsp;</a></span>replaceNodeWithBus()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::replaceNodeWithBus </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>subModel1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>var1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>subModel2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>var2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>labelNode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>replace @NODE@, @NODE1@, @NODE2@ with the id of the bus the component is connected to </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">subModel1</td><td>first connected model </td></tr>
-    <tr><td class="paramname">var1</td><td>first connected variable </td></tr>
-    <tr><td class="paramname">subModel2</td><td>second connected model </td></tr>
-    <tr><td class="paramname">var2</td><td>second connected variable </td></tr>
-    <tr><td class="paramname">labelNode</td><td>@NODE@ or @NODE1@ or @NODE2@ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9e793fd2f9b6a20e563bd3c22ea46dc6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e793fd2f9b6a20e563bd3c22ea46dc6">&#9670;&nbsp;</a></span>replaceStaticAndNodeMacroInVariableName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::replaceStaticAndNodeMacroInVariableName </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>subModel1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>var1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d93/a02753.html">SubModel</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>subModel2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>var2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>replace STATIC and NODE macros in a macro connection </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">subModel1</td><td>first connected model </td></tr>
-    <tr><td class="paramname">var1</td><td>first connected variable </td></tr>
-    <tr><td class="paramname">subModel2</td><td>second connected model </td></tr>
-    <tr><td class="paramname">var2</td><td>second connected variable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9c630077ebe6304689f312972272642c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c630077ebe6304689f312972272642c">&#9670;&nbsp;</a></span>setDataInterface()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::setDataInterface </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../de/d4b/a02865.html">DataInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>set the data interface to use do define the model multi </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>: data interface to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9b48e9c86c4f360e62387c8edef1594f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b48e9c86c4f360e62387c8edef1594f">&#9670;&nbsp;</a></span>setDynamicData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Modeler::setDynamicData </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/d1d/a02713.html">DynamicData</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>dyd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>set the dynamic data to use do define the model multi </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dyd</td><td>: dynamic data to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../de/dde/a00587_source.html">DYNModeler.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a2aedff540a5d05ccb90dbe4617c1a11b">cardinality_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a31af93b4842d03e0ef670e33242ee713">cardinalityInformator_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a4555aa9963c3c80cca355fd35beeb93d">getAnyValue</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a571e42b5fb0b85503919a90128d803d8">getCardinality</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a269fc77c0bdec2bd6485debfa03b4ed8">getCardinalityInformator</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a075b7e0158a98628c6eb7ae29bdf4843">getDoubleValue</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a6fbfee80d636863f3f09267a27868d80">getIndex</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ae4b49d0eed930d01301b8c1cc7068343">getIsNonUnitaryParameterInstance</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a1f885581f82b06197dfb0b1c64445a84">getName</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ad5b60d477916e40261466934a5157bee">getOrigin</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a89975a77753fefea90c32b50f6c1330a">getScope</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a4c9b3cb1a02bee71df9a5598d707f68f">getTypeError</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a81e4f5cd724ca447feacc1d709c0f0bf">getValue</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a009b266fa0c1653d5b749d3a66b9590d">getValue</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#aace9386f90e367bb97e15b16805431f7">getValue</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dc/d64/a02620.html#ab34fd2204c69afff9c169c682b5df3f1">getValue</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a5f2b0ec1bc1d9c3498d14b226afd80fa">getValue</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a5660ab45635c8ff992985f4ea06d8759">getValueType</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ae365208dc879368293a9b3e8251589f9">hasAtLeastOrigin</a>(const parameterOrigin_t &amp;origin) const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a9c5c22e36027312a5ffde091c6c93dcb">hasOrigin</a>(const parameterOrigin_t &amp;origin) const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ab033a209037223fb22a4e1645d067f8c">hasValue</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a00f74f4ab3afe180eb2daf0b3154a1bb">indexSet</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a81ee57adfc62b8cd21a2e9cedc359c8e">isFullyExternal</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a0039e7bfc022b4761c8fc80dd2b1eb85">isFullyInternal</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf">isMandatory</a>() const</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a14e417793e82ab70609a68131de222e2">isUnitary</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a2db2c9d23f918dd3e208da934224c5be">nonUnitaryParameterInstance_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#af3154aa78d6af82d3eff17513ed1bb6f">operator=</a>(const ParameterModeler &amp;)=delete</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#aa2750220883c429118fd112fb3b9fa27">DYN::ParameterCommon::operator=</a>(const ParameterCommon &amp;)=delete</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ae28c7038fb84cbcce0372c50059a2768">origin_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a309b70ec876fa8f92aa937fbb2bfed83">originSet</a>() const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a73f69878e113624d297acf42802081f3">originWriteAllowed</a>(const parameterOrigin_t &amp;origin) const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#ad3798cab8e53e13b449de4886c242b57">ParameterCommon</a>(const std::string &amp;name, const typeVarC_t &amp;valueType, bool mandatory)</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a8a7a5444ae72eccfdaf4c2d01268bab4">ParameterCommon</a>(const ParameterCommon &amp;)=default</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a2edbbef536e0e07bfd320cd421d5f39a">ParameterModeler</a>(const std::string &amp;name, const typeVarC_t &amp;valueType, const parameterScope_t &amp;scope, const std::string &amp;cardinality=&quot;1&quot;, const std::string &amp;cardinalityInformator=&quot;&quot;)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#af32d182c36dda21a817594149c431fe5">ParameterModeler</a>(const ParameterModeler &amp;)=default</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a5e75e9dd330ec8e8cc3862d9ac1fcf24">ParameterModeler</a>()=delete</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#addc14ec2e4cb15145a6d2b712eed07f4">scope_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a8cf795184ca6d3df6611deb00e311e44">setCardinality</a>(const std::string &amp;cardinality)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a0f8cb767b82eac5233c8096559437364">setCardinalityInformator</a>(const std::string &amp;cardinalityInformator)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#ac1e040081dc66027f5dc71519d2b5fae">setIndex</a>(const unsigned int &amp;index)</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#af0c937be28cafcf81e1c4f1487fb3e8c">setIsNonUnitaryParameterInstance</a>(const bool nonUnitaryParameterInstance)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a79d687a1950a009501f7d305a6d0ada0">setOrigin</a>(const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a5d854d477bcad2aca783f4be0bc5c0cf">setValue</a>(const T &amp;value, const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ad0deaa662839cd0101e32eb39e0cf14b">setValue</a>(const bool &amp;value, const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a7452e8851018f334b29cae72e4c83941">setValue</a>(const int &amp;value, const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a41224f12910c0aff0d8c61708fd446d3">setValue</a>(const double &amp;value, const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a0f05b70afdf5d1464753e65df9c38bb9">setValue</a>(const std::string &amp;value, const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ab208f5312ca700af4edb74cf7628d03b">updateOrigin</a>(const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ace388e008587e57c0b1c4aedf466e3e8">values_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#a61e777e76b96ad72be651f849918c8f8">writeChecks</a>(const parameterOrigin_t &amp;origin) const</td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/d1c/a02732.html#ade2f7523f115acf1548c883487a9314e">writeRights_</a></td><td class="entry"><a class="el" href="../../d7/d1c/a02732.html">DYN::ParameterModeler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dc/d64/a02620.html#a68ab2d2c6b92cf78fe50a0a4e6f13301">~ParameterCommon</a>()</td><td class="entry"><a class="el" href="../../dc/d64/a02620.html">DYN::ParameterCommon</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -599,8 +170,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d9/d93
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d01/a02729.html">Modeler</a></li>
-    <li class="footer">Generated on Tue Jan 31 2023 17:29:40 for Dynawo by
+    <li class="footer">Generated on Wed Feb 1 2023 10:40:53 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

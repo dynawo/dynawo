@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverTRAP.h File Reference</title>
+<title>Dynawo: Todo List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,36 +94,18 @@ $(document).ready(function(){initNavTree('d2/d41/a01037.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverTRAP.h File Reference</div>  </div>
+<div class="title">Todo List </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Solver based on trapezoidal method integration method using KINSOL to solve each step.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d1/dd8/a01022_source.html">DYNSolverFactory.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d23/a01025_source.html">DYNSolverImpl.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d29/a00470_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/dcf/a01031_source.html">DYNSolverCommonFixedTimeStep.h</a>&quot;</code><br />
-</div>
-<p><a href="../../d2/d41/a01037_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8e/a03377.html">DYN::SolverTRAPFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d0c/a03381.html" title="class Solver TRAP : trapezoidal solver ">SolverTRAP</a> factory class.  <a href="../../dd/d8e/a03377.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d0c/a03381.html">DYN::SolverTRAP</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class <a class="el" href="../../d5/d83/a03337.html" title="Solver interface class. ">Solver</a> TRAP : trapezoidal solver  <a href="../../d3/d0c/a03381.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Solver based on trapezoidal method integration method using KINSOL to solve each step. </p>
+<div class="textblock"><dl class="reflist">
+<dt><a class="anchor" id="_todo000002"></a>Member <a class="el" href="../../d5/dc7/a02744.html#a8504c3ee781b6c5a7916d161fa479d47">DYN::SubModel::getY0Values</a>  (std::vector&lt; double &gt; &amp;y0, std::vector&lt; double &gt; &amp;yp0, std::vector&lt; double &gt; &amp;z0)</dt>
+<dd>: merge getY0Sub and getY0Values  </dd>
+<dt><a class="anchor" id="_todo000001"></a>File <a class="el" href="../../d4/d33/a00536.html">DYNTrace.h</a>  </dt>
+<dd>Add a way to create sinks/appender dynamically by loading a configuration file.  </dd>
+<dt><a class="anchor" id="_todo000003"></a>File <a class="el" href="../../da/dd1/a00629.html">DYNVariableMultiple.h</a>  </dt>
+<dd>use this class for multiple variables once parameters reading has been updated</dd>
+</dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -140,8 +122,7 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_1024be19efd68fd87579d4f87baf6c4c.html">FixedTimeStep</a></li><li class="navelem"><a class="el" href="../../dir_50c1e04ecf59fd59d9cffc60fd5a5fc5.html">SolverTRAP</a></li><li class="navelem"><a class="el" href="../../d2/d41/a01037.html">DYNSolverTRAP.h</a></li>
-    <li class="footer">Generated on Tue Jan 31 2023 17:29:39 for Dynawo by
+    <li class="footer">Generated on Wed Feb 1 2023 10:40:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
