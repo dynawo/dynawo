@@ -17,7 +17,6 @@
  */
 #include <fstream>
 #include <iostream>
-#include <iomanip>
 
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
@@ -50,9 +49,7 @@ TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
     if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
       continue;
     if (exportWithTime_)
-      stream << std::fixed
-              << std::setprecision(DYN::getPrecisionAsNbDecimal())
-              << DYN::double2String((*itEvent)->getTime())
+      stream << DYN::double2String((*itEvent)->getTime())
               << TXTEXPORTER_SEPARATOR;
     stream << (*itEvent)->getModelName()
             << TXTEXPORTER_SEPARATOR

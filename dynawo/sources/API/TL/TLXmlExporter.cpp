@@ -18,7 +18,6 @@
  */
 #include <fstream>
 #include <sstream>
-#include <iomanip>
 
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
@@ -63,12 +62,8 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
     if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
       continue;
     attrs.clear();
-    if (exportWithTime_) {
-      std::ostringstream ss;
-      double time = (*itEvent)->getTime();
-      ss << std::fixed << std::setprecision(DYN::getPrecisionAsNbDecimal()) << time;
-      attrs.add("time", ss.str());
-    }
+    if (exportWithTime_)
+      attrs.add("time", DYN::double2String((*itEvent)->getTime()));
     attrs.add("modelName", (*itEvent)->getModelName());
     attrs.add("message", (*itEvent)->getMessage());
     if ((*itEvent)->hasPriority()) {
