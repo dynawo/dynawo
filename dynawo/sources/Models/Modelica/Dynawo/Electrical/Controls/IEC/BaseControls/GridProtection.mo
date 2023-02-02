@@ -37,7 +37,7 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Placement(visible = true, transformation(origin = {-180, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = true) "Breaker position, true if closed, false if open" annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(table = TabletUoverUwtfilt) annotation(
@@ -48,13 +48,13 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Placement(visible = true, transformation(origin = {10, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D3(table = Tabletfunderfwtfilt) annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.LessEqual lessEqual4 annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.LessEqual lessEqual5 annotation(
+  Modelica.Blocks.Logical.Greater greater annotation(
     Placement(visible = true, transformation(origin = {70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
+  Modelica.Blocks.Logical.Greater greater1 annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Less less annotation(
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual1 annotation(
+  Modelica.Blocks.Logical.Less less1 annotation(
     Placement(visible = true, transformation(origin = {70, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,7 +80,7 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Placement(visible = true, transformation(origin = {10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer3 annotation(
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.MathBoolean.And and1(nu = 4) annotation(
+  Modelica.Blocks.MathBoolean.Or or1(nu = 4) annotation(
     Placement(visible = true, transformation(origin = {130, 3.55271e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
@@ -112,21 +112,21 @@ equation
     Line(points = {{-180, -80}, {-20, -80}, {-20, -60}, {-2, -60}}, color = {0, 0, 127}));
   connect(omegaFiltPu, combiTable1D3.u) annotation(
     Line(points = {{-180, -80}, {-20, -80}, {-20, -100}, {-2, -100}}, color = {0, 0, 127}));
-  connect(timer.y, lessEqual5.u1) annotation(
+  connect(timer.y, greater.u1) annotation(
     Line(points = {{22, 140}, {40, 140}, {40, 120}, {58, 120}}, color = {0, 0, 127}));
-  connect(combiTable1D.y[1], lessEqual5.u2) annotation(
+  connect(combiTable1D.y[1], greater.u2) annotation(
     Line(points = {{22, 100}, {40, 100}, {40, 112}, {58, 112}}, color = {0, 0, 127}));
-  connect(combiTable1D1.y[1], greaterEqual.u1) annotation(
+  connect(combiTable1D1.y[1], less.u1) annotation(
     Line(points = {{22, 60}, {40, 60}, {40, 40}, {58, 40}}, color = {0, 0, 127}));
-  connect(timer1.y, greaterEqual.u2) annotation(
+  connect(timer1.y, less.u2) annotation(
     Line(points = {{22, 20}, {40, 20}, {40, 32}, {58, 32}}, color = {0, 0, 127}));
-  connect(timer2.y, lessEqual4.u1) annotation(
+  connect(timer2.y, greater1.u1) annotation(
     Line(points = {{22, -20}, {40, -20}, {40, -40}, {58, -40}}, color = {0, 0, 127}));
-  connect(combiTable1D2.y[1], lessEqual4.u2) annotation(
+  connect(combiTable1D2.y[1], greater1.u2) annotation(
     Line(points = {{22, -60}, {40, -60}, {40, -48}, {58, -48}}, color = {0, 0, 127}));
-  connect(combiTable1D3.y[1], greaterEqual1.u1) annotation(
+  connect(combiTable1D3.y[1], less1.u1) annotation(
     Line(points = {{22, -100}, {40, -100}, {40, -120}, {58, -120}}, color = {0, 0, 127}));
-  connect(timer3.y, greaterEqual1.u2) annotation(
+  connect(timer3.y, less1.u2) annotation(
     Line(points = {{22, -140}, {40, -140}, {40, -128}, {58, -128}}, color = {0, 0, 127}));
   connect(UWTPFiltPu, lessEqual1.u1) annotation(
     Line(points = {{-180, 80}, {-80, 80}, {-80, 20}, {-62, 20}}, color = {0, 0, 127}));
@@ -136,15 +136,15 @@ equation
     Line(points = {{-180, -80}, {-80, -80}, {-80, -140}, {-62, -140}}, color = {0, 0, 127}));
   connect(const3.y, lessEqual3.u2) annotation(
     Line(points = {{-118, -140}, {-100, -140}, {-100, -148}, {-62, -148}}, color = {0, 0, 127}));
-  connect(and1.y, fOCB) annotation(
+  connect(or1.y, fOCB) annotation(
     Line(points = {{142, 0}, {170, 0}}, color = {255, 0, 255}));
-  connect(lessEqual5.y, and1.u[1]) annotation(
+  connect(greater.y, or1.u[1]) annotation(
     Line(points = {{82, 120}, {100, 120}, {100, 0}, {120, 0}}, color = {255, 0, 255}));
-  connect(greaterEqual.y, and1.u[2]) annotation(
+  connect(less.y, or1.u[2]) annotation(
     Line(points = {{82, 40}, {100, 40}, {100, 0}, {120, 0}}, color = {255, 0, 255}));
-  connect(lessEqual4.y, and1.u[3]) annotation(
+  connect(greater1.y, or1.u[3]) annotation(
     Line(points = {{82, -40}, {100, -40}, {100, 0}, {120, 0}}, color = {255, 0, 255}));
-  connect(greaterEqual1.y, and1.u[4]) annotation(
+  connect(less1.y, or1.u[4]) annotation(
     Line(points = {{82, -120}, {100, -120}, {100, 0}, {120, 0}}, color = {255, 0, 255}));
 
   annotation(
