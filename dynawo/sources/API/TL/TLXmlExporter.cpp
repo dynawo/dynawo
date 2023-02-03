@@ -23,7 +23,7 @@
 #include <xml/sax/formatter/Formatter.h>
 
 #include "DYNMacrosMessage.h"
-
+#include "DYNCommon.h"
 #include "TLXmlExporter.h"
 #include "TLTimeline.h"
 
@@ -63,7 +63,7 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
       continue;
     attrs.clear();
     if (exportWithTime_)
-      attrs.add("time", (*itEvent)->getTime());
+      attrs.add("time", DYN::double2String((*itEvent)->getTime()));
     attrs.add("modelName", (*itEvent)->getModelName());
     attrs.add("message", (*itEvent)->getMessage());
     if ((*itEvent)->hasPriority()) {

@@ -1,43 +1,47 @@
-0 | GEN____8_SM | PMIN : activation
-0.0306911 | GEN____3_SM | PMIN : activation
+0.000000 | GEN____8_SM | PMIN : activation
+0.030691 | GEN____3_SM | PMIN : activation
 0.348405 | GEN____8_SM | PMIN : deactivation
 0.828675 | GEN____3_SM | PMIN : deactivation
 0.834701 | GEN____8_SM | PMIN : activation
-1.90571 | GEN____8_SM | PMIN : deactivation
-2.18387 | GEN____3_SM | PMIN : activation
-2.33844 | GEN____8_SM | PMIN : activation
-2.75809 | GEN____3_SM | PMIN : deactivation
-5.35466 | GEN____8_SM | PMIN : deactivation
-20 | _BUS____9-BUS___10-1_AC | LINE : opening on side 2
-20 | PhaseShifter | Phase-shifter : above maximum allowed value
-20 | GEN____8_SM | PMIN : activation
-20.0088 | GEN____3_SM | PMIN : activation
-20.4079 | GEN____6_SM | PMIN : activation
-20.4605 | GEN____8_SM | PMIN : deactivation
-20.714 | GEN____3_SM | PMIN : deactivation
-20.7475 | GEN____6_SM | PMIN : deactivation
-21.0028 | GEN____8_SM | PMIN : activation
-21.2613 | GEN____6_SM | PMIN : activation
-21.5044 | GEN____8_SM | PMIN : deactivation
-21.5651 | GEN____6_SM | PMIN : deactivation
-30 | PhaseShifter | Tap +1
-30.4857 | GEN____6_SM | PMIN : activation
-30.7663 | GEN____6_SM | PMIN : deactivation
-30.7777 | GEN____8_SM | PMIN : activation
-31.0272 | GEN____8_SM | PMIN : deactivation
-35 | PhaseShifter | Tap +1
-35.0293 | PhaseShifter | Phase-shifter : above maximum allowed value
-35.4898 | GEN____6_SM | PMIN : activation
-35.7615 | GEN____6_SM | PMIN : deactivation
-35.8045 | GEN____8_SM | PMIN : activation
-35.9944 | GEN____8_SM | PMIN : deactivation
-45.0293 | PhaseShifter | Tap +1
-45.0293 | PhaseShifter | Phase-shifter : below minimum allowed value
-45.1717 | PhaseShifter | Phase-shifter : above maximum allowed value
-45.5424 | GEN____6_SM | PMIN : activation
-45.7753 | GEN____6_SM | PMIN : deactivation
-55.1717 | PhaseShifter | Tap +1
-55.1717 | PhaseShifter | Phase-shifter : below minimum allowed value
-55.4916 | PhaseShifter | Phase-shifter : above maximum allowed value
-55.6909 | GEN____6_SM | PMIN : activation
-55.9113 | GEN____6_SM | PMIN : deactivation
+1.905712 | GEN____8_SM | PMIN : deactivation
+2.183867 | GEN____3_SM | PMIN : activation
+2.338445 | GEN____8_SM | PMIN : activation
+2.758086 | GEN____3_SM | PMIN : deactivation
+5.354659 | GEN____8_SM | PMIN : deactivation
+19.999996 | _BUS____9-BUS___10-1_AC | LINE : opening on side 2
+19.999996 | PhaseShifter | Phase-shifter : above maximum allowed value
+20.000036 | GEN____8_SM | PMIN : activation
+20.008817 | GEN____3_SM | PMIN : activation
+20.419864 | GEN____6_SM | PMIN : activation
+20.468247 | GEN____8_SM | PMIN : deactivation
+20.735071 | GEN____3_SM | PMIN : deactivation
+20.743413 | GEN____6_SM | PMIN : deactivation
+20.975622 | GEN____8_SM | PMIN : activation
+21.221213 | GEN____6_SM | PMIN : activation
+21.478168 | GEN____8_SM | PMIN : deactivation
+21.547124 | GEN____6_SM | PMIN : deactivation
+29.999994 | PhaseShifter | Tap +1
+30.506693 | GEN____6_SM | PMIN : activation
+30.765839 | GEN____8_SM | PMIN : activation
+30.785608 | GEN____6_SM | PMIN : deactivation
+31.053807 | GEN____8_SM | PMIN : deactivation
+31.417839 | GEN____6_SM | PMIN : activation
+31.555752 | GEN____6_SM | PMIN : deactivation
+31.778913 | GEN____8_SM | PMIN : activation
+31.955895 | GEN____8_SM | PMIN : deactivation
+34.999993 | PhaseShifter | Tap +1
+35.029389 | PhaseShifter | Phase-shifter : above maximum allowed value
+35.513102 | GEN____6_SM | PMIN : activation
+35.752624 | GEN____6_SM | PMIN : deactivation
+35.867768 | GEN____8_SM | PMIN : activation
+35.943994 | GEN____8_SM | PMIN : deactivation
+45.029387 | PhaseShifter | Tap +1
+45.029387 | PhaseShifter | Phase-shifter : below minimum allowed value
+45.171725 | PhaseShifter | Phase-shifter : above maximum allowed value
+45.549574 | GEN____6_SM | PMIN : activation
+45.775109 | GEN____6_SM | PMIN : deactivation
+55.171723 | PhaseShifter | Tap +1
+55.171723 | PhaseShifter | Phase-shifter : below minimum allowed value
+55.496924 | PhaseShifter | Phase-shifter : above maximum allowed value
+55.698973 | GEN____6_SM | PMIN : activation
+55.911086 | GEN____6_SM | PMIN : deactivation
