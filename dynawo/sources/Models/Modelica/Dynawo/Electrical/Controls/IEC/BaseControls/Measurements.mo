@@ -87,9 +87,9 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Placement(visible = true, transformation(origin = {-70, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {-10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar annotation(
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar1 annotation(
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(T = tfFilt / 20, k = 1 / SystemBase.omegaNom, x_start = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

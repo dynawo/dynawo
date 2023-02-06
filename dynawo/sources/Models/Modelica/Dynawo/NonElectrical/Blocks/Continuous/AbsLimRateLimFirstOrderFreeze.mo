@@ -14,6 +14,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate limits, and a freezing flag"
   import Modelica;
+  import Dynawo;
   import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
@@ -46,7 +47,7 @@ block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate l
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput freeze annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
