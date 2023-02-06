@@ -16,8 +16,8 @@ model LoadAlphaBetaMotor_INIT
   extends Load_INIT;
   import Modelica;
 
-  parameter Types.ApparentPowerModule SNom "Nominal apparent power of a single motor in MVA";
   parameter Real ActiveMotorShare "Share of active power consumed by motors (between 0 and 1)";
+  parameter Types.ApparentPowerModule SNom = ActiveMotorShare * P0Pu * SystemBase.SnRef "Nominal apparent power of a single motor in MVA";
   parameter Types.PerUnit RsPu "Stator resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit RrPu "Rotor resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XsPu "Stator leakage reactance in pu (base UNom, SNom)";
@@ -33,7 +33,7 @@ model LoadAlphaBetaMotor_INIT
   Real s0 "Start value of the slip of the motor";
   Types.AngularVelocity omegaR0Pu "Start value of the angular velocity of the motor (base omegaNom)";
 
-  Types.ReactivePowerPu QMotor0Pu "Start value of the reactive power consumed by the motor in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu QMotor0Pu "Start value of the reactive power consumed by the motor in pu (base SNom) (receptor convention)";
 
   Types.ActivePowerPu PLoad0Pu "Start value of the active power consumed by the load in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QLoad0Pu "Start value of the reactive power consumed by the load in pu (base SnRef) (receptor convention)";
