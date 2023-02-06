@@ -87,7 +87,7 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom) (typically equal to UpquMaxPu)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));

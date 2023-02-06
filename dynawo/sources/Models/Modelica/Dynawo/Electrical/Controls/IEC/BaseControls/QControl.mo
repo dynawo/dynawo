@@ -110,7 +110,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Placement(visible = true, transformation(origin = {270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5) annotation(
     Placement(visible = true, transformation(origin = {-10, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-210, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-180, 240}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -130,7 +130,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
     Placement(visible = true, transformation(origin = {230, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kpu) annotation(
     Placement(visible = true, transformation(origin = {110, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter1 annotation(
     Placement(visible = true, transformation(origin = {150, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {50, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -143,9 +143,9 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch5 annotation(
     Placement(visible = true, transformation(origin = {-10, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.DelayFlag delayFlag(FI0 = false, FO0 = 0, tD = tPost, tS = tS) annotation(
-    Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-150, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.BooleanToInteger booleanToInteger annotation(
-    Placement(visible = true, transformation(origin = {-70, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-70, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch7(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {250, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = IqH1Pu, uMin = IqMinPu) annotation(
@@ -167,7 +167,7 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
   Modelica.Blocks.Math.Gain gain7(k = Kqv) annotation(
     Placement(visible = true, transformation(origin = {-70, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DUdb2Pu, uMin = DUdb1Pu) annotation(
-    Placement(visible = true, transformation(origin = {-130, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-150, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold = 0.99) annotation(
     Placement(visible = true, transformation(origin = {120, 10}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.IntegerToReal integerToReal annotation(
@@ -207,17 +207,9 @@ model QControl "Reactive power control module for wind turbines (IEC N°61400-27
   Modelica.Blocks.Math.Abs abs annotation(
     Placement(visible = true, transformation(origin = {-286, 14}, extent = {{-6, 6}, {6, -6}}, rotation = 90)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UqDipPu) annotation(
-    Placement(visible = true, transformation(origin = {-210, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold = UqRisePu) annotation(
-    Placement(visible = true, transformation(origin = {-250, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.IncreaseDetection increaseDetection(U0 = U0Pu, tS = tS) annotation(
-    Placement(visible = true, transformation(origin = {-250, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.And and1 annotation(
-    Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Timer timer annotation(
-    Placement(visible = true, transformation(origin = {-210, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold = 0.1) annotation(
-    Placement(visible = true, transformation(origin = {-170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-210, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
@@ -267,17 +259,15 @@ equation
   connect(gain7.y, add3.u1) annotation(
     Line(points = {{-59, -180}, {30, -180}, {30, -194}, {38, -194}}, color = {0, 0, 127}));
   connect(deadZone.y, gain7.u) annotation(
-    Line(points = {{-119, -180}, {-82, -180}}, color = {0, 0, 127}));
+    Line(points = {{-139, -180}, {-82, -180}}, color = {0, 0, 127}));
   connect(UWTCFiltPu, derivative.u) annotation(
     Line(points = {{-320, -60}, {-280, -60}, {-280, -180}, {-222, -180}}, color = {0, 0, 127}));
   connect(derivative.y, deadZone.u) annotation(
-    Line(points = {{-199, -180}, {-142, -180}}, color = {0, 0, 127}));
+    Line(points = {{-199, -180}, {-162, -180}}, color = {0, 0, 127}));
   connect(gain7.y, iqvHookPu) annotation(
     Line(points = {{-59, -180}, {70, -180}, {70, -140}, {310, -140}}, color = {0, 0, 127}));
   connect(switch5.y, fFrt) annotation(
     Line(points = {{1, -100}, {310, -100}}, color = {255, 127, 0}));
-  connect(delayFlag.fO, switch5.u3) annotation(
-    Line(points = {{-119, -80}, {-40, -80}, {-40, -92}, {-22, -92}}, color = {255, 127, 0}));
   connect(UWTCFiltPu, max.u1) annotation(
     Line(points = {{-320, -60}, {-100, -60}, {-100, -34}, {-22, -34}}, color = {0, 0, 127}));
   connect(const5.y, max.u2) annotation(
@@ -437,27 +427,19 @@ equation
   connect(greaterEqualThreshold.y, antiWindupIntegrator.fMin) annotation(
     Line(points = {{120, 22}, {120, 60}, {-110, 60}, {-110, 240}, {-126, 240}, {-126, 248}}, color = {255, 0, 255}));
   connect(lessThreshold.y, delayFlag.fI) annotation(
-    Line(points = {{-199, -80}, {-142, -80}}, color = {255, 0, 255}));
+    Line(points = {{-199, -100}, {-162, -100}}, color = {255, 0, 255}));
   connect(UWTCFiltPu, lessThreshold.u) annotation(
-    Line(points = {{-320, -60}, {-280, -60}, {-280, -80}, {-222, -80}}, color = {0, 0, 127}));
+    Line(points = {{-320, -60}, {-280, -60}, {-280, -100}, {-222, -100}}, color = {0, 0, 127}));
   connect(UWTCFiltPu, greaterThreshold.u) annotation(
-    Line(points = {{-320, -60}, {-280, -60}, {-280, -160}, {-262, -160}}, color = {0, 0, 127}));
+    Line(points = {{-320, -60}, {-280, -60}, {-280, -140}, {-222, -140}}, color = {0, 0, 127}));
   connect(booleanToInteger.y, switch5.u1) annotation(
-    Line(points = {{-59, -120}, {-40, -120}, {-40, -108}, {-22, -108}}, color = {255, 127, 0}));
-  connect(and1.y, booleanToInteger.u) annotation(
-    Line(points = {{-119, -120}, {-82, -120}}, color = {255, 0, 255}));
-  connect(UWTCFiltPu, increaseDetection.u) annotation(
-    Line(points = {{-320, -60}, {-280, -60}, {-280, -120}, {-262, -120}}, color = {0, 0, 127}));
-  connect(increaseDetection.y, timer.u) annotation(
-    Line(points = {{-239, -120}, {-222, -120}}, color = {255, 0, 255}));
-  connect(greaterThreshold1.y, and1.u1) annotation(
-    Line(points = {{-159, -120}, {-142, -120}}, color = {255, 0, 255}));
-  connect(greaterThreshold.y, and1.u2) annotation(
-    Line(points = {{-238, -160}, {-150, -160}, {-150, -128}, {-142, -128}}, color = {255, 0, 255}));
-  connect(and1.y, switch5.u2) annotation(
-    Line(points = {{-118, -120}, {-100, -120}, {-100, -100}, {-22, -100}}, color = {255, 0, 255}));
-  connect(timer.y, greaterThreshold1.u) annotation(
-    Line(points = {{-199, -120}, {-182, -120}}, color = {0, 0, 127}));
+    Line(points = {{-59, -140}, {-40, -140}, {-40, -108}, {-22, -108}}, color = {255, 127, 0}));
+  connect(greaterThreshold.y, booleanToInteger.u) annotation(
+    Line(points = {{-198, -140}, {-82, -140}}, color = {255, 0, 255}));
+  connect(greaterThreshold.y, switch5.u2) annotation(
+    Line(points = {{-198, -140}, {-100, -140}, {-100, -100}, {-22, -100}}, color = {255, 0, 255}));
+  connect(delayFlag.fO, switch5.u3) annotation(
+    Line(points = {{-138, -100}, {-120, -100}, {-120, -92}, {-22, -92}}, color = {255, 127, 0}));
 
   annotation(
     preferredView = "diagram",
