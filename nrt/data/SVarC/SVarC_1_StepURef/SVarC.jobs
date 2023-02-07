@@ -11,7 +11,7 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 --><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:job name="SVarC - Step Uref">
+  <dyn:job name="SVarC - Step URef">
       <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
       <dyn:modeler compileDir="outputs/compilation">
         <dyn:dynModels dydFile="SVarC.dyd"/>

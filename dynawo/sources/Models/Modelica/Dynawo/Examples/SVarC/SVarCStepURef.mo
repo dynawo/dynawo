@@ -12,7 +12,7 @@ within Dynawo.Examples.SVarC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model SVarCStepUref
+model SVarCStepURef
   import Modelica;
   import Dynawo;
 
@@ -56,4 +56,4 @@ equation
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
     Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, endAngle = 360), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
     Documentation(info = "<html><head></head><body>This test case simulates a step voltage variation.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230 kV is realised at t = 1 s.&nbsp;</div><div><br></div><div><div>The SVarC starts providing reactive power to follow the voltage reference change.</div><div><br></div><div><br></div><div><br></div><div><br><div><br></div><div><br></div><div><br></div></div></div></body></html>"));
-end SVarCStepUref;
+end SVarCStepURef;

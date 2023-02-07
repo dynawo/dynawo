@@ -155,8 +155,8 @@ The SVarC is initially running. A step on URef from 225 kV to 230kV is realised 
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_injector_UPu}*225]
-       {../SVarC_1_StepUref/reference/outputs/curves/curves.csv};
+       table[x=time,y expr=\thisrow{SVarC_SVarC_injector_UPu}*225]
+       {../SVarC_1_StepURef/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -165,8 +165,8 @@ The SVarC is initially running. A step on URef from 225 kV to 230kV is realised 
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_injector_QInjPu}*100]
-       {../SVarC_1_StepUref/reference/outputs/curves/curves.csv};
+       table[x=time,y expr=\thisrow{SVarC_SVarC_injector_QInjPu}*100]
+       {../SVarC_1_StepURef/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -175,8 +175,8 @@ The SVarC is initially running. A step on URef from 225 kV to 230kV is realised 
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_injector_BPu}]
-       {../SVarC_1_StepUref/reference/outputs/curves/curves.csv};
+       table[x=time,y expr=\thisrow{SVarC_SVarC_injector_BPu}]
+       {../SVarC_1_StepURef/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -286,7 +286,7 @@ The user variables enabling to simulate this scenario are $selectModeAuto$ and $
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_modeHandling_selectModeAuto}]
+       table[x=time,y expr=\thisrow{SVarC_SVarC_modeHandling_selectModeAuto}]
        {../SVarC_4_ModeChange/reference/outputs/curves/curves.csv};
         \legend{$selectModeAuto$}
     \end{axis}
@@ -297,7 +297,7 @@ The user variables enabling to simulate this scenario are $selectModeAuto$ and $
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_modeHandling_setModeManual}]
+       table[x=time,y expr=\thisrow{SVarC_SVarC_modeHandling_setModeManual}]
        {../SVarC_4_ModeChange/reference/outputs/curves/curves.csv};
         \legend{$setMode$}
     \end{axis}
@@ -327,7 +327,7 @@ The correlation table between the values of $setMode$ and $mode$ is:
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_modeHandling_mode}]
+       table[x=time,y expr=\thisrow{SVarC_SVarC_modeHandling_mode}]
        {../SVarC_4_ModeChange/reference/outputs/curves/curves.csv};
         \legend{$Mode$}
     \end{axis}
@@ -338,7 +338,7 @@ The correlation table between the values of $setMode$ and $mode$ is:
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_injector_UPu}*225]
+       table[x=time,y expr=\thisrow{SVarC_SVarC_injector_UPu}*225]
        {../SVarC_4_ModeChange/reference/outputs/curves/curves.csv};
         \legend{$Voltage$}
     \end{axis}
@@ -349,7 +349,7 @@ The correlation table between the values of $setMode$ and $mode$ is:
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
        \addplot[color=blue!50]
-       table[x=time,y expr=\thisrow{Test_svarc_injector_BPu}]
+       table[x=time,y expr=\thisrow{SVarC_SVarC_injector_BPu}]
        {../SVarC_4_ModeChange/reference/outputs/curves/curves.csv};
         \legend{$Susceptance$}
     \end{axis}

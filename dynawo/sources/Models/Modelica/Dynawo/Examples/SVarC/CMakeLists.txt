@@ -12,7 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  SVarCStepUref.mo
+  SVarCStepURef.mo
   SVarCLoadVarQ.mo
   SVarCLoadVarQLarge.mo
   SVarCModeChange.mo
