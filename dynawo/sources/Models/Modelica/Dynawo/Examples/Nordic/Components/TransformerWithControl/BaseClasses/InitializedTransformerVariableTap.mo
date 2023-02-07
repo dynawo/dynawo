@@ -20,7 +20,7 @@ model InitializedTransformerVariableTap "Model of transformer with variable tap 
   import Dynawo.Types;
 
   extends Dynawo.Electrical.Transformers.TransformerVariableTapXtdPu(
-  Tap0(fixed=false), rTfo0Pu(fixed=false), rTfoPu(fixed=true), rTfoMinPu = TransformerParameters.rTfoMinPu, rTfoMaxPu = TransformerParameters.rTfoMaxPu, NbTap = TransformerParameters.NbTap, U20Pu(fixed=false), u10Pu.re(fixed=false), u10Pu.im(fixed=false), i10Pu.re(fixed=false), i10Pu.im(fixed=false), u20Pu.re(fixed=false), u20Pu.im(fixed=false), i20Pu.re(fixed=false), i20Pu.im(fixed=false));
+  Tap0(fixed = false), rTfo0Pu(fixed = false), rTfoPu(fixed = true), rTfoMinPu = TransformerParameters.rTfoMinPu, rTfoMaxPu = TransformerParameters.rTfoMaxPu, NbTap = TransformerParameters.NbTap, U20Pu(fixed = false), u10Pu.re(fixed = false), u10Pu.im(fixed = false), i10Pu.re(fixed = false), i10Pu.im(fixed = false), u20Pu.re(fixed = false), u20Pu.im(fixed = false), i20Pu.re(fixed = false), i20Pu.im(fixed = false));
 
   Electrical.Transformers.TransformerVariableTapPQ_INIT init(
     rTfoMinPu = TransformerParameters.rTfoMinPu,

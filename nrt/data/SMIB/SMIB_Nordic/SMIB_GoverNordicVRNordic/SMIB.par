@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.06353"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="-0.0681087"/>
+  </set>
+  <!-- line 1 -->
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.022522"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+  </set>
+  <!-- line 2 -->
+  <set id="3">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.04189"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+  </set>
+  <!-- tfo -->
+  <set id="4">
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.00675"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+  </set>
+  <!-- Generator parameters (g01) -->
+  <set id="5">
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_SNom" type="DOUBLE" value="800"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="760"/>
+    <par name="generator_PNomAlt" type="DOUBLE" value="780"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par name="generator_MdPuEfd" type="DOUBLE" value="1"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="800"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0.002"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.1"/>
+    <par name="generator_md" type="DOUBLE" value="0.1"/>
+    <par name="generator_mq" type="DOUBLE" value="0.1"/>
+    <par name="generator_nd" type="DOUBLE" value="6.0257"/>
+    <par name="generator_nq" type="DOUBLE" value="6.0257"/>
+    <par name="generator_P0Pu" type="DOUBLE" value="-6"/>
+    <par name="generator_Q0Pu" type="DOUBLE" value="-0.583425"/>
+    <par name="generator_U0Pu" type="DOUBLE" value="1.0684"/>
+    <par name="generator_UPhase0" type="DOUBLE" value="0.0451188"/>
+    <!-- Governor parameters -->
+    <par type="DOUBLE" name="governor_Ki" value="0.4"/>
+    <par type="DOUBLE" name="governor_Kp" value="2"/>
+    <par type="DOUBLE" name="governor_KSigma" value="0.04"/>
+    <!-- Voltage regulator parameters -->
+    <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="4"/>
+    <par type="DOUBLE" name="voltageRegulator_IrLimPu" value="1.8991"/>
+    <par type="DOUBLE" name="voltageRegulator_KPss" value="75"/>
+    <par type="DOUBLE" name="voltageRegulator_KTgr" value="70"/>
+    <par type="DOUBLE" name="voltageRegulator_OelMode" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_tDerOmega" value="15"/>
+    <par type="DOUBLE" name="voltageRegulator_tLagPss" value="0.01"/>
+    <par type="DOUBLE" name="voltageRegulator_tLagTgr" value="20"/>
+    <par type="DOUBLE" name="voltageRegulator_tLeadPss" value="0.2"/>
+    <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
+    <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
+    <!-- Machine regulations (generator parameters) -->
+    <par type="DOUBLE" name="governor_PNom" value="760"/>
+  </set>
+  <!-- OmegaRef -->
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <!-- Fault -->
+  <set id="7">
+    <par type="DOUBLE" name="fault_tBegin" value="1"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.07"/>
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0"/>
+  </set>
+  <!-- Solver -->
+  <set id="8">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+</parametersSet>

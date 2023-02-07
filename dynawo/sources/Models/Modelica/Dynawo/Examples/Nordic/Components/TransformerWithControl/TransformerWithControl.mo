@@ -31,7 +31,7 @@ model TransformerWithControl "Model of transformer with variable tap, for the No
     U0 = U10Pu, UDeadBand = 0.01, UTarget = 1, increaseTapToIncreaseValue = false, locked0 = false, regulating0 = true,
     state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard,
     t1st = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.t1st],
-    tNext = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.tNext], tap0(fixed=false),
+    tNext = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.tNext], tap0(fixed = false),
     tapMax = TransformerParameters.NbTap - 1, tapMin = 0) annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Examples.Nordic.Components.TransformerWithControl.BaseClasses.InitializedTransformerVariableTap tfoVariableTap(

@@ -21,7 +21,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
 
   parameter Types.VoltageModulePu EfdMaxPu "Upper limit of excitation voltage in pu (user-selected base voltage)";
   parameter Real OelMode "For positive field current error signal : if 1, OEL output constant, if 0, OEL output equal to error signal";
-  parameter Types.CurrentModulePu IfLimPu "Field current limit in pu (base SNom, UNom)";
+  parameter Types.CurrentModulePu IrLimPu "Rotor current limit in pu (base SNom, UNom)";
   parameter Types.PerUnit KPss "Gain of PSS";
   parameter Types.PerUnit KTgr "Gain of transient gain reduction";
   parameter Types.Time tDerOmega "Derivative time constant of first PSS filter for angular frequency, in s";
@@ -32,11 +32,11 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
   parameter Types.Time tOelMin "Lower limit of OEL timer in s";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput ifPu(start = If0Pu) "Field current in pu (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput IrPu(start = Ir0Pu) "Rotor current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-300, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-300, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UStatorPu(start = UStator0Pu) "Stator voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-300, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
@@ -65,7 +65,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
     Placement(visible = true, transformation(origin = {-240, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const2(k = IfLimPu) annotation(
+  Modelica.Blocks.Sources.Constant const2(k = IrLimPu) annotation(
     Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain kMulDU(k = KTgr) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -90,11 +90,11 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.VoltageModulePu Efd0Pu(fixed=false) "Initial excitation voltage in pu (user-selected base voltage)";
-  parameter Types.CurrentModulePu If0Pu(fixed=false) "Initial field current in pu (base SNom, UNom)";
-  parameter Types.VoltageModulePu UStator0Pu(fixed=false) "Initial stator voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
+  parameter Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
-  final parameter Types.VoltageModule UsRef0Pu = Efd0Pu / KTgr + UStator0Pu "Reference stator voltage in pu (base UNom)";
+  final parameter Types.VoltageModule UsRef0Pu = Efd0Pu / KTgr + Us0Pu "Reference stator voltage in pu (base UNom)";
 
 equation
   efdPu = efdPuPin.value;
@@ -135,7 +135,7 @@ equation
     Line(points = {{102, 0}, {132, 0}}, color = {0, 0, 127}));
   connect(limIntegrator.y, feedback1.u2) annotation(
     Line(points = {{242, 0}, {260, 0}, {260, -40}, {140, -40}, {140, -8}}, color = {0, 0, 127}));
-  connect(ifPu, dIf.u1) annotation(
+  connect(IrPu, dIf.u1) annotation(
     Line(points = {{-300, 80}, {-248, 80}}, color = {0, 0, 127}));
   connect(const2.y, dIf.u2) annotation(
     Line(points = {{-258, 120}, {-240, 120}, {-240, 88}}, color = {0, 0, 127}));
@@ -143,7 +143,7 @@ equation
     Line(points = {{-300, -120}, {-248, -120}}, color = {0, 0, 127}));
   connect(const.y, dOmega.u2) annotation(
     Line(points = {{-259, -80}, {-240, -80}, {-240, -112}}, color = {0, 0, 127}));
-  connect(UStatorPu, dU.u2) annotation(
+  connect(UsPu, dU.u2) annotation(
     Line(points = {{-300, -40}, {-220, -40}, {-220, -8}, {-220, -8}}, color = {0, 0, 127}));
   connect(const1.y, dU.u1) annotation(
     Line(points = {{-259, 0}, {-229, 0}}, color = {0, 0, 127}));

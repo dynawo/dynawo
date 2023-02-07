@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.mo
   package.order
   GoverNordic.mo
+  GoverNordic.extvar
   GoverProportional.mo
   GoverProportional.extvar
   )
