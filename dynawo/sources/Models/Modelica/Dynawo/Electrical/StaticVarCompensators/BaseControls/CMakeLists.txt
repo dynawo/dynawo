@@ -16,7 +16,7 @@ set(MODEL_FILES
   package.order
   Parameters.mo
   BlockingFunction.mo
-  CalculBG.mo
+  CalculationBG.mo
   Regulation.mo
   Limitations.mo
   ModeHandling.mo

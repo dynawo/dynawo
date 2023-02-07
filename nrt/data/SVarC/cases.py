@@ -19,12 +19,12 @@ standardReturnCodeType = "ALLOWED"
 forbiddenReturnCodeType = "FORBIDDEN"
 
 ###########################################
-#           SVarC_1_StepUref              #
+#           SVarC_1_StepURef              #
 ###########################################
 
-case_name = "SVarC - Step Uref"
+case_name = "SVarC - Step URef"
 case_description = "SVarC test case with a step on the reference voltage"
-job_file = os.path.join(os.path.dirname(__file__),  "SVarC_1_StepUref", "SVarC.jobs")
+job_file = os.path.join(os.path.dirname(__file__),  "SVarC_1_StepURef", "SVarC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
