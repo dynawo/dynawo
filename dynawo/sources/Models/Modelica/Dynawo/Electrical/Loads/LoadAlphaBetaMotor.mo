@@ -68,7 +68,7 @@ public
   parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (SNom base)";
   parameter Types.PerUnit cl0Pu "Start value of the load torque in pu (SNom base)";
   parameter Real s0 "Start value of the slip of the motor";
-  parameter Types.AngularVelocity omegaR0Pu "Start value of the angular velocity of the motor (base omegaNom)";
+  parameter Types.AngularVelocity omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
 
   parameter Types.ReactivePowerPu QMotor0Pu "Start value of the reactive power consumed by the motor in pu (base SNom)";
 
