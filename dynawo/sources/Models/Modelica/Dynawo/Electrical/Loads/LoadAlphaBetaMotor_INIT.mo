@@ -31,7 +31,7 @@ model LoadAlphaBetaMotor_INIT
   Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
   Types.PerUnit cl0Pu "Start value of the load torque in pu (base SNom, omegaNom)";
   Real s0 "Start value of the slip of the motor";
-  Types.AngularVelocity omegaR0Pu "Start value of the angular velocity of the motor (base omegaNom)";
+  Types.AngularVelocity omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
 
   Types.ReactivePowerPu QMotor0Pu "Start value of the reactive power consumed by the motor in pu (base SNom) (receptor convention)";
 
