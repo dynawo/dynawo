@@ -1296,6 +1296,15 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
         del  tree_deps_tmp[tmp]
 
     equations = type_tree.get_equations()
+    # We need to fix the equations as sometime an embedded if is still dumped with a modelica_real tmp; if ... tmp = ...; else tmp = ...; in the final cpp
+    idx = 0
+    for main_tmp in tree_deps_tmp:
+        if "if" in equations[idx] and len(tree_deps_tmp[main_tmp]) > 1:
+            equations.insert(idx + 1, equations[idx][equations[idx].index("if"):equations[idx].index("else")])
+            equations.insert(idx + 2, equations[idx][equations[idx].index("else"):])
+            equations[idx] = equations[idx][:equations[idx].index("if")]
+        idx+=1
+
 
     idx = 0
     replacement_done = False
@@ -1332,7 +1341,6 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
             elif main_tmp not in to_remove:
                 res_body.append(leading_spaces_gen + line)
         elif residual_var_name in line and  "data->localData" in line:
-            res_body.append(leading_spaces_gen + line)
             assert(idx < len(equations))
             nb_leading_spaces = len(line) - len(line.lstrip())
             leading_spaces= ""
