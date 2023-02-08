@@ -15,43 +15,51 @@
   <!-- InfiniteBus -->
   <set id="1">
     <par type="DOUBLE" name="infiniteBus_UPu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
   <!-- Line -->
   <set id="2">
     <par type="DOUBLE" name="line_RPu" value="0"/>
     <par type="DOUBLE" name="line_XPu" value="0.027654"/>
-    <par type="DOUBLE" name="line_BPu" value="0.0"/>
-    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
   </set>
   <!-- SVarC -->
   <set id="3">
-    <par type="DOUBLE" name="SVarC_U0Pu" value="1"/>
-    <par type="DOUBLE" name="SVarC_UPhase0" value="0"/>
+    <!-- Initial operating point -->
     <par type="DOUBLE" name="SVarC_P0Pu" value="0"/>
     <par type="DOUBLE" name="SVarC_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="SVarC_U0Pu" value="1"/>
+    <par type="DOUBLE" name="SVarC_UPhase0" value="0"/>
+    <!-- Initial SVarC mode -->
+    <par type="INT" name="SVarC_Mode0" value="3"/>
+    <par type="BOOL" name="SVarC_SelectModeAuto0" value="false"/>
+    <!-- Nominal parameters -->
     <par type="DOUBLE" name="SVarC_SNom" value="250"/>
     <par type="DOUBLE" name="SVarC_UNom" value="225"/>
+    <!-- BG calculation -->
     <par type="DOUBLE" name="SVarC_BShuntPu" value="0"/>
-    <par type="DOUBLE" name="SVarC_Lambda" value="0.01"/>
+    <!-- Regulation -->
     <par type="DOUBLE" name="SVarC_Kp" value="1.75"/>
+    <par type="DOUBLE" name="SVarC_Lambda" value="0.01"/>
     <par type="DOUBLE" name="SVarC_Ti" value="0.003428"/>
+    <!-- Limitations -->
     <par type="DOUBLE" name="SVarC_BMaxPu" value="1.0678"/>
     <par type="DOUBLE" name="SVarC_BMinPu" value="-1.0466"/>
     <par type="DOUBLE" name="SVarC_IMaxPu" value="1"/>
     <par type="DOUBLE" name="SVarC_IMinPu" value="-1"/>
     <par type="DOUBLE" name="SVarC_KCurrentLimiter" value="8"/>
+    <!-- Blocking function -->
     <par type="DOUBLE" name="SVarC_UBlock" value="5"/>
-    <par type="DOUBLE" name="SVarC_UUnblockUp" value="270"/>
     <par type="DOUBLE" name="SVarC_UUnblockDown" value="180"/>
-    <par type="DOUBLE" name="SVarC_URefUp" value="230"/>
-    <par type="DOUBLE" name="SVarC_URefDown" value="220"/>
-    <par type="DOUBLE" name="SVarC_UThresholdUp" value="240"/>
-    <par type="DOUBLE" name="SVarC_UThresholdDown" value="218"/>
-    <par type="DOUBLE" name="SVarC_tThresholdUp" value="60"/>
+    <par type="DOUBLE" name="SVarC_UUnblockUp" value="270"/>
+    <!-- Mode handling -->
     <par type="DOUBLE" name="SVarC_tThresholdDown" value="0"/>
-    <par type="BOOL" name="SVarC_selectModeAuto0" value="false"/>
-    <par type="INT" name="SVarC_Mode0" value="3"/>
+    <par type="DOUBLE" name="SVarC_tThresholdUp" value="60"/>
+    <par type="DOUBLE" name="SVarC_URefDown" value="220"/>
+    <par type="DOUBLE" name="SVarC_URefUp" value="230"/>
+    <par type="DOUBLE" name="SVarC_UThresholdDown" value="218"/>
+    <par type="DOUBLE" name="SVarC_UThresholdUp" value="240"/>
   </set>
   <!-- URef step -->
   <set id="4">
