@@ -95,18 +95,22 @@ CalculatedBusInterfaceIIDM::getVMin() const {
 
 double
 CalculatedBusInterfaceIIDM::getV0() const {
-  if (U0_)
+  if (U0_) {
     return U0_.value();
-  else
-    return defaultV0;  // default value
+  } else {
+    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "CalculatedBus", getID(), "v") << Trace::endline;
+    return getVNom();  // default value
+  }
 }
 
 double
 CalculatedBusInterfaceIIDM::getAngle0() const {
-  if (angle0_)
+  if (angle0_) {
     return angle0_.value();
-  else
+  } else {
+    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "CalculatedBus", getID(), "angle") << Trace::endline;
     return defaultAngle0;  // default value
+  }
 }
 
 double

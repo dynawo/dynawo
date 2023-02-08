@@ -128,7 +128,7 @@ BusCriteria::addBus(const boost::shared_ptr<BusInterface>& bus) {
       bus->getVNom() < vl.getUNomMin()) return;
   if (vl.hasUNomMax() &&
       bus->getVNom() > vl.getUNomMax()) return;
-  if (doubleEquals(bus->getV0(), defaultV0) || bus->getV0() <  defaultV0) return;
+  if (doubleIsZero(bus->getV0())) return;
   buses_.push_back(bus);
 }
 
@@ -333,7 +333,7 @@ LoadCriteria::criteriaEligibleForLoad(const boost::shared_ptr<criteria::Criteria
 void
 LoadCriteria::addLoad(const boost::shared_ptr<LoadInterface>& load) {
   if (load->getBusInterface() &&
-        (doubleEquals(load->getBusInterface()->getV0(), defaultV0) || load->getBusInterface()->getV0() <  defaultV0)) return;
+        (doubleIsZero(load->getBusInterface()->getV0()))) return;
   if (params_->getVoltageLevels().empty()) {
     loads_.push_back(load);
   } else {
@@ -551,7 +551,7 @@ GeneratorCriteria::criteriaEligibleForGenerator(const boost::shared_ptr<criteria
 void
 GeneratorCriteria::addGenerator(const boost::shared_ptr<GeneratorInterface>& generator) {
   if (generator->getBusInterface() &&
-        (doubleEquals(generator->getBusInterface()->getV0(), defaultV0) || generator->getBusInterface()->getV0() <  defaultV0)) return;
+        (doubleIsZero(generator->getBusInterface()->getV0()))) return;
   if (params_->getVoltageLevels().empty()) {
     generators_.push_back(generator);
   } else {
