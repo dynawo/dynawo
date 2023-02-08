@@ -10,7 +10,6 @@ var searchData=
   ['deadbandsupu_5f',['deadBandsUPu_',['../d0/dcc/a03148.html#a975818c5bccf4e82fc783583db4fc25b',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['defaultangle0',['defaultAngle0',['../d3/d8e/a00647.html#a92e9a06ef39b4a36dd624a260c60c572',1,'DYN']]],
   ['defaultlevel_5f',['defaultLevel_',['../dc/dcb/a02648.html#a375085fe7a8227699b8adf965404e365',1,'DYN::Trace']]],
-  ['defaultv0',['defaultV0',['../d3/d8e/a00647.html#ad0ecb687ed975aa68dba7b658be8268f',1,'DYN']]],
   ['defaultvalue_5f',['defaultValue_',['../d4/ddd/a02040.html#ad432e87107e6fb408f566c2d507fd621',1,'externalVariables::Variable']]],
   ['deg_5fto_5frad',['DEG_TO_RAD',['../d8/dc8/a00581.html#ac587e9acbea7014a53f080ebd663e09f',1,'DYN']]],
   ['delaymanager_5f',['delayManager_',['../d8/d96/a03116.html#af718e119eca1ee2c3090b3cfd6885905',1,'DYN::ModelManager']]],
