@@ -23,7 +23,6 @@
 namespace DYN {
 static const double uMinPu = 0.8;  ///< factor used to calculate the value of Umin = k * UNom
 static const double uMaxPu = 1.2;  ///< factor used to calculate the value of Umax = k * uNom
-static const double defaultV0 = 1.;  ///< default value of the voltage magnitude, when not defined
 static const double defaultAngle0 = 0.;  ///< default value of the voltage angle, when not defined
 }  // namespace DYN
 
