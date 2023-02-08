@@ -1262,7 +1262,7 @@ Simulation::terminate() {
     data_->exportStateVariables();
   }
 
-  if (data_ && isLostEquipmentsExported()) {
+  if (data_ && isLostEquipmentsExported() && lostEquipmentsOutputFile_ != "") {
     ofstream fileLostEquipments;
     openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
     printLostEquipments(fileLostEquipments);
