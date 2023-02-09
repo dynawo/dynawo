@@ -76,7 +76,7 @@ double
 BusInterfaceIIDM::getV0() const {
   if (!U0_) {
     Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Bus", busIIDM_.getId(), "v") << Trace::endline;
-    return defaultV0;
+    return getVNom();
   }
   return U0_.value();
 }

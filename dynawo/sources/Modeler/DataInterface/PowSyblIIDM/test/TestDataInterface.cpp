@@ -688,13 +688,13 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "U"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "U"), 190.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Theta"), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_2", "U"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_2", "U"), 190.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_2", "Theta"), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_5", "U"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_5", "U"), 190.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_5", "Theta"), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_6", "U"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_6", "U"), 190.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_6", "Theta"), 0.);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_3", "U"), 110.);
@@ -1189,10 +1189,10 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   ASSERT_EQ(data->getBusName("VL1_VL2", "@NODE2@"), "VL2_BUS1");
 
   powsybl::iidm::Line& lineIIDM = network.getLine("VL1_VL2");
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 22560.083951694862);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getQ(), -3833.3398616136255);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getP(), 0.54438004263684103);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), -3.1327061160422587);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 22517.549846707054);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getQ(), -4501.348315393675);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getP(), 44982.491461969461);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), -8998.1927452102718);
   ASSERT_TRUE(lineIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
   boost::shared_ptr<LineInterfaceIIDM> line = boost::dynamic_pointer_cast<LineInterfaceIIDM>(data->findComponent("VL1_VL2"));
@@ -1437,16 +1437,16 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu"), 9.2043642724743098);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu"), -0.0011838723553420131);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1_pu"), -1.5798045729283614);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2_pu"), -0.0084962943718131304);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1"), 920.43642724743098);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2"), -0.11838723553420131);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1"), -157.98045729283614);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2"), -0.84962943718131304);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i1"), 9.338956266577485);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i2"), 1.9301350853479737);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu"), 9.1056576660651096);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu"), 1.1227046302116885);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1_pu"), -3.5651020975900325);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2_pu"), 12.931602063519245);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1"), 910.56576660651096);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2"), 112.27046302116885);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1"), -356.51020975900325);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2"), 1293.1602063519245);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i1"), 9.778699018673759);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i2"), 12.980246438951532);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "iMax"), 259.80502305912023);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "iStop"), 259.80502305912023);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "regulating"), 0);
@@ -1458,10 +1458,10 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_EQ(data->getBusName("MyTransformer2Winding", "@NODE2@"), "VL2_BUS1");
 
   powsybl::iidm::TwoWindingsTransformer& twoWTIIDM = network.getTwoWindingsTransformer("MyTransformer2Winding");
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 920.43642724743098);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -157.98045729283614);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.11838723553420131);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.84962943718131304);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 910.56576660651096);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -356.51020975900325);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 112.27046302116885);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 1293.1602063519245);
   ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 2);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
@@ -1516,16 +1516,16 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu"), 9.1139982127973873);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu"), -0.0010255087406258725);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1_pu"), -1.5591740692665068);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2_pu"), -0.0086036345858491441);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1"), 911.39982127973873);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2"), -0.10255087406258725);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1"), -155.91740692665068);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2"), -0.86036345858491441);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i1"), 9.2464040145965409);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i2"), 1.9495207579969318);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu"), 8.982839358453246);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu"), 1.1459501635987903);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1_pu"), -3.5626432005015611);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2_pu"), 13.059301622068336);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1"), 898.2839358453246);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2"), 114.59501635987903);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1"), -356.26432005015611);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2"), 1305.9301622068336);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i1"), 9.6635309030321181);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "i2"), 13.109483614300327);
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "iMax"), Error::MODELER, KeyError_t::UnknownStaticParameter);
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "iStop"), Error::MODELER, KeyError_t::UnknownStaticParameter);
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "regulating"), Error::MODELER, KeyError_t::UnknownStaticParameter);
@@ -1537,10 +1537,10 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_EQ(data->getBusName("MyTransformer2Winding", "@NODE2@"), "VL2_BUS1");
 
   powsybl::iidm::TwoWindingsTransformer& twoWTIIDM = network.getTwoWindingsTransformer("MyTransformer2Winding");
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 911.39982127973873);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -155.91740692665068);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.10255087406258725);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.86036345858491441);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 898.2839358453246);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -356.26432005015611);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 114.59501635987903);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 1305.9301622068336);
   ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 1);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());

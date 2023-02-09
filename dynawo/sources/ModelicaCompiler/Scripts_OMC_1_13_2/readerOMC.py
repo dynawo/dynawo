@@ -90,12 +90,28 @@ class ReaderOMC:
         exist_file(self.main_c_file)
 
         ## Full name of the _08bnd.c file
-        self._08bnd_c_file = os.path.join (input_dir, self.mod_name + "_08bnd.c")
-        exist_file(self._08bnd_c_file)
+        self._08bnd_c_file = []
+        file_name = os.path.join (input_dir, self.mod_name + "_08bnd.c")
+        exist_file(file_name)
+        self._08bnd_c_file.append(file_name)
+        idx = 0
+        file_name = os.path.join (input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
+        while os.path.isfile(file_name):
+            self._08bnd_c_file.append(file_name)
+            idx +=1
+            file_name = os.path.join (input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
 
         ## Full name of the _06inz.c file
-        self._06inz_c_file = os.path.join (input_dir, self.mod_name + "_06inz.c")
-        exist_file(self._06inz_c_file)
+        self._06inz_c_file = []
+        file_name = os.path.join (input_dir, self.mod_name + "_06inz.c")
+        exist_file(file_name)
+        self._06inz_c_file.append(file_name)
+        idx = 0
+        file_name = os.path.join (input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
+        while os.path.isfile(file_name):
+            self._06inz_c_file.append(file_name)
+            idx +=1
+            file_name = os.path.join (input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
 
         ## Full name of the _05evt.c file
         self._05evt_c_file = os.path.join (input_dir, self.mod_name + "_05evt.c")
@@ -921,138 +937,142 @@ class ReaderOMC:
         # Regular expression to recognize a line of type var = rhs
         ptrn_assign_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
         ptrn_param = re.compile(r'^[ ]*data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
-        with open(self._06inz_c_file, 'r') as f:
-            while True:
-                nb_braces_opened = 0
-                crossed_opening_braces = False
-                stop_at_next_call = False
+        for init_file in self._06inz_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    nb_braces_opened = 0
+                    crossed_opening_braces = False
+                    stop_at_next_call = False
 
-                it = itertools.dropwhile(lambda line: self.ptrn_func_decl_main_c.search(line) is None, f)
-                next_iter = next(it, None) # Line on which "dropwhile" stopped
-                if next_iter is None: break # If we reach the end of the file, exit loop
-                match = re.search(self.ptrn_func_decl_main_c, next_iter)
-                num_function = match.group('num')
+                    it = itertools.dropwhile(lambda line: self.ptrn_func_decl_main_c.search(line) is None, f)
+                    next_iter = next(it, None) # Line on which "dropwhile" stopped
+                    if next_iter is None: break # If we reach the end of the file, exit loop
+                    match = re.search(self.ptrn_func_decl_main_c, next_iter)
+                    num_function = match.group('num')
 
-                # "takewhile" only stops when the whole body of the function is read
-                list_body = list(itertools.takewhile(stop_reading_function, it))
-                (list_body, depend) = replace_dynamic_indexing(list_body)
+                    # "takewhile" only stops when the whole body of the function is read
+                    list_body = list(itertools.takewhile(stop_reading_function, it))
+                    (list_body, depend) = replace_dynamic_indexing(list_body)
 
-                for line in list_body:
-                    if ptrn_assign_var.search(line) is not None:
-                        match = re.search(ptrn_assign_var, line)
-                        var = str(match.group('varName'))
-                        rhs = match.group('rhs')
-                        # rejection of inits of type var = ..atribute and integerVarsPre vars
-                        if 'attribute' not in rhs and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
-                            self.var_init_val_06inz[ var ] = list_body
-                            self.var_num_init_val_06inz[var] = num_function
-                            break
-                    if ptrn_param.search(line) is not None:
-                        match = re.search(ptrn_param, line)
-                        var = str(match.group('varName'))
-                        rhs = match.group('rhs')
-                        # rejection of inits of type var = ..atribute and integerVarsPre vars
-                        if 'attribute' not in rhs and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
-                            self.var_init_val_06inz[ var ] = list_body
-                            self.var_num_init_val_06inz[var] = num_function
+                    for line in list_body:
+                        if ptrn_assign_var.search(line) is not None:
+                            match = re.search(ptrn_assign_var, line)
+                            var = str(match.group('varName'))
+                            rhs = match.group('rhs')
+                            # rejection of inits of type var = ..atribute and integerVarsPre vars
+                            if 'attribute' not in rhs and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                                self.var_init_val_06inz[ var ] = list_body
+                                self.var_num_init_val_06inz[var] = num_function
+                                break
+                        if ptrn_param.search(line) is not None:
+                            match = re.search(ptrn_param, line)
+                            var = str(match.group('varName'))
+                            rhs = match.group('rhs')
+                            # rejection of inits of type var = ..atribute and integerVarsPre vars
+                            if 'attribute' not in rhs and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                                self.var_init_val_06inz[ var ] = list_body
+                                self.var_num_init_val_06inz[var] = num_function
 
-                for line in list_body:
-                    if 'omc_assert_warning' in line:
-                        self.warnings.append(list_body)
+                    for line in list_body:
+                        if 'omc_assert_warning' in line:
+                            self.warnings.append(list_body)
 
         ptrn_comments = re.compile(self.regular_expr_equation_index)
         comments_opening = "/*"
         comments_end = "*/"
-        with open(self._06inz_c_file, 'r') as f:
-            while True:
-                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
-                next_iter = next(it, None)
-                if next_iter is None: break
-                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
-                for line in list_body:
-                    if ptrn_comments.search(line) is not None:
-                        match = re.search(ptrn_comments, line)
-                        index = match.group('index')
-                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
-                        break
+        for init_file in self._06inz_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                    next_iter = next(it, None)
+                    if next_iter is None: break
+                    list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                    for line in list_body:
+                        if ptrn_comments.search(line) is not None:
+                            match = re.search(ptrn_comments, line)
+                            index = match.group('index')
+                            self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                            break
 
 
         # Look for MODEL_initial_residual type functions due to extend commands
         extend_function_name = "_initial_residual(DATA *data, double *initialResiduals)"
         extend_assign_var = "initialResiduals[i++]"
-        with open(self._06inz_c_file, 'r') as f:
-            while True:
-                nb_braces_opened = 0
-                crossed_opening_braces = False
-                stop_at_next_call = False
+        for init_file in self._06inz_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    nb_braces_opened = 0
+                    crossed_opening_braces = False
+                    stop_at_next_call = False
 
-                it = itertools.dropwhile(lambda line: extend_function_name not in line, f)
-                next_iter = next(it, None) # Line on which "dropwhile" stopped
-                if next_iter is None: break # If we reach the end of the file, exit loop
+                    it = itertools.dropwhile(lambda line: extend_function_name not in line, f)
+                    next_iter = next(it, None) # Line on which "dropwhile" stopped
+                    if next_iter is None: break # If we reach the end of the file, exit loop
 
-                # "takewhile" only stops when the whole body of the function is read
-                list_body = list(itertools.takewhile(stop_reading_function, it))
+                    # "takewhile" only stops when the whole body of the function is read
+                    list_body = list(itertools.takewhile(stop_reading_function, it))
 
-                for line in list_body:
-                    if extend_assign_var in line:
-                        # extract the part of the line related to the assignment
-                        sub_line = line[line.index(extend_assign_var) + len(extend_assign_var) + 3:]
-                        index_plus = 99999
-                        index_minus = 99999
-                        if ("+" in sub_line and "-" in sub_line):
-                            index_plus = sub_line.index("+")
-                            index_minus = sub_line.index("-")
-                        elif ("+" in sub_line and "-" not in sub_line):
-                            index_plus = sub_line.index("+")
-                        elif ("+" not in sub_line and "-" in sub_line):
-                            index_minus = sub_line.index("-")
+                    for line in list_body:
+                        if extend_assign_var in line:
+                            # extract the part of the line related to the assignment
+                            sub_line = line[line.index(extend_assign_var) + len(extend_assign_var) + 3:]
+                            index_plus = 99999
+                            index_minus = 99999
+                            if ("+" in sub_line and "-" in sub_line):
+                                index_plus = sub_line.index("+")
+                                index_minus = sub_line.index("-")
+                            elif ("+" in sub_line and "-" not in sub_line):
+                                index_plus = sub_line.index("+")
+                            elif ("+" not in sub_line and "-" in sub_line):
+                                index_minus = sub_line.index("-")
 
-                        var = "" # variable to assign
-                        assignment = "" # assignment
-                        if "(" in sub_line:
-                            var = sub_line [sub_line.index("(") + 1 : min(index_plus, index_minus)]
+                            var = "" # variable to assign
+                            assignment = "" # assignment
+                            if "(" in sub_line:
+                                var = sub_line [sub_line.index("(") + 1 : min(index_plus, index_minus)]
 
-                            if (index_plus < index_minus):
-                                assignment += "(-1) * ("
+                                if (index_plus < index_minus):
+                                    assignment += "(-1) * ("
 
-                            assignment += sub_line [min(index_plus, index_minus) + 1 : sub_line.index(";") - 1]
+                                assignment += sub_line [min(index_plus, index_minus) + 1 : sub_line.index(";") - 1]
 
-                            if (index_plus < index_minus):
-                                assignment += ")"
+                                if (index_plus < index_minus):
+                                    assignment += ")"
 
-                        elif ("+" not in sub_line and "-" not in sub_line):
-                            if ("*" in sub_line or "/" in sub_line):
-                                print("error during equations export due to extends")
-                                sys.exit(1)
+                            elif ("+" not in sub_line and "-" not in sub_line):
+                                if ("*" in sub_line or "/" in sub_line):
+                                    print("error during equations export due to extends")
+                                    sys.exit(1)
 
-                            # where we use extends (x = 0)
-                            var = sub_line [:sub_line.index(";")]
-                            assignment = "0"
+                                # where we use extends (x = 0)
+                                var = sub_line [:sub_line.index(";")]
+                                assignment = "0"
 
-                        # the assignment line is composed of:
-                        # spaces for indentation
-                        # the name of the variable to assign
-                        # the assignment formula
-                        # the end of line
-                        new_line = line [:line.index(extend_assign_var)] + var + " = " + assignment + ";"
-                        self.var_init_val_06_extend [var] = new_line
+                            # the assignment line is composed of:
+                            # spaces for indentation
+                            # the name of the variable to assign
+                            # the assignment formula
+                            # the end of line
+                            new_line = line [:line.index(extend_assign_var)] + var + " = " + assignment + ";"
+                            self.var_init_val_06_extend [var] = new_line
 
         ptrn_comments = re.compile(self.regular_expr_equation_index)
-        with open(self._06inz_c_file, 'r') as f:
-            while True:
-                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
-                next_iter = next(it, None)
-                if next_iter is None: break
-                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
-                for line in list_body:
-                    if ptrn_comments.search(line) is not None:
-                        if "matrix" in list_body[-1]:
-                            match = re.search(ptrn_comments, line)
-                            index = match.group('index')
-                            it_var = itertools.dropwhile(lambda line: "var" not in line, list_body)
-                            xmlstring = '<equations>' + ''.join(list(it_var)) + '</equations>'
-                            self.map_equation_formula[index] = ' '.join(xmlstring.split()).replace('"', "'")
-                        break
+        for init_file in self._06inz_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                    next_iter = next(it, None)
+                    if next_iter is None: break
+                    list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                    for line in list_body:
+                        if ptrn_comments.search(line) is not None:
+                            if "matrix" in list_body[-1]:
+                                match = re.search(ptrn_comments, line)
+                                index = match.group('index')
+                                it_var = itertools.dropwhile(lambda line: "var" not in line, list_body)
+                                xmlstring = '<equations>' + ''.join(list(it_var)) + '</equations>'
+                                self.map_equation_formula[index] = ' '.join(xmlstring.split()).replace('"', "'")
+                            break
 
     ##
     # Initialise variables in list_vars by values found in 06inz file
@@ -1095,64 +1115,66 @@ class ReaderOMC:
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
         ptrn_assign_extobjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
 
-        with open(self._08bnd_c_file, 'r') as f:
-            while True:
-                nb_braces_opened = 0
-                crossed_opening_braces = False
-                stop_at_next_call = False
+        for init_file in self._08bnd_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    nb_braces_opened = 0
+                    crossed_opening_braces = False
+                    stop_at_next_call = False
 
-                it = itertools.dropwhile(lambda line: self.ptrn_func_decl_main_c.search(line) is None, f)
-                next_iter = next(it, None) # Line on which "dropwhile" stopped
-                if next_iter is None: break # If we reach the end of the file, exit loop
+                    it = itertools.dropwhile(lambda line: self.ptrn_func_decl_main_c.search(line) is None, f)
+                    next_iter = next(it, None) # Line on which "dropwhile" stopped
+                    if next_iter is None: break # If we reach the end of the file, exit loop
 
-                # "takewhile" only stops when the whole body of the function is read
-                list_body = list(itertools.takewhile(stop_reading_function, it))
-                (list_body, depend) = replace_dynamic_indexing(list_body)
+                    # "takewhile" only stops when the whole body of the function is read
+                    list_body = list(itertools.takewhile(stop_reading_function, it))
+                    (list_body, depend) = replace_dynamic_indexing(list_body)
 
-                for line in list_body:
-                    if ptrn_assign_var.search(line) is not None:
-                        match = re.search(ptrn_assign_var, line)
-                        var = match.group('varName')
-                        self.var_init_val[ var ] = list_body
-                    if ptrn_param_bool_assignment.search(line) is not None:
-                        match = re.search(ptrn_param, line)
-                        var = match.group('varName')
-                        self.var_init_val[ var ] = list_body
-                    if ptrn_param.search(line) is not None and ptrn_param_boolean_test.search(line) is None:
-                        match = re.search(ptrn_param, line)
-                        var = match.group('varName')
-                        self.var_init_val[ var ] = list_body
-                    if ptrn_assign_auxiliary_var.search(line) is not None:
-                        match = re.search(ptrn_assign_auxiliary_var, line)
-                        var = match.group('varName')
-                        self.var_init_val[ var ] = list_body
-                    if ptrn_assign_extobjs.search(line) is not None:
-                        match = re.search(ptrn_assign_extobjs, line)
-                        var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
-                        for var_name, address in get_map_var_name_2_addresses().items():
-                            if address == var_add:
-                                self.var_init_val[ var_name ] = list_body
-                                break
+                    for line in list_body:
+                        if ptrn_assign_var.search(line) is not None:
+                            match = re.search(ptrn_assign_var, line)
+                            var = match.group('varName')
+                            self.var_init_val[ var ] = list_body
+                        if ptrn_param_bool_assignment.search(line) is not None:
+                            match = re.search(ptrn_param, line)
+                            var = match.group('varName')
+                            self.var_init_val[ var ] = list_body
+                        if ptrn_param.search(line) is not None and ptrn_param_boolean_test.search(line) is None:
+                            match = re.search(ptrn_param, line)
+                            var = match.group('varName')
+                            self.var_init_val[ var ] = list_body
+                        if ptrn_assign_auxiliary_var.search(line) is not None:
+                            match = re.search(ptrn_assign_auxiliary_var, line)
+                            var = match.group('varName')
+                            self.var_init_val[ var ] = list_body
+                        if ptrn_assign_extobjs.search(line) is not None:
+                            match = re.search(ptrn_assign_extobjs, line)
+                            var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
+                            for var_name, address in get_map_var_name_2_addresses().items():
+                                if address == var_add:
+                                    self.var_init_val[ var_name ] = list_body
+                                    break
 
-                for line in list_body:
-                    if 'omc_assert_warning_withEquationIndexes(' in line:
-                        self.warnings.append(list_body)
+                    for line in list_body:
+                        if 'omc_assert_warning_withEquationIndexes(' in line:
+                            self.warnings.append(list_body)
 
         ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
         comments_opening = "/*"
         comments_end = "*/"
-        with open(self._08bnd_c_file, 'r') as f:
-            while True:
-                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
-                next_iter = next(it, None)
-                if next_iter is None: break
-                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
-                for line in list_body:
-                    if ptrn_comments.search(line) is not None:
-                        match = re.search(ptrn_comments, line)
-                        index = match.group('index')
-                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
-                        break
+        for init_file in self._08bnd_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                    next_iter = next(it, None)
+                    if next_iter is None: break
+                    list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                    for line in list_body:
+                        if ptrn_comments.search(line) is not None:
+                            match = re.search(ptrn_comments, line)
+                            index = match.group('index')
+                            self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                            break
 
     def read_07dly_c_file(self):
         if os.path.isfile(self._07dly_c_file):
