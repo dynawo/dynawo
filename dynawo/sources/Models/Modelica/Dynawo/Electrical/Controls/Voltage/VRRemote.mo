@@ -37,12 +37,13 @@ model VRRemote "Model for coordinated primary voltage regulation. This model is 
   parameter Boolean[NbGenMax] limUQUp0 = fill(true, NbGenMax) "Whether the maximum reactive power limits are initially reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)";
   parameter Types.VoltageModule U0 "Start value of the regulated voltage in kV";
   parameter Types.VoltageModule URef0 "Start value of the regulated voltage reference in kV";
+  parameter Boolean frozen0 = false "Start value of the frozen status";
 
 protected
   Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "Whether all the generators have reached their minimum reactive power limits";
   Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "Whether all the generators have reached their maximum reactive power limits";
   Types.VoltageModule deltaUInt(start = 0) "State of the integrator in kV";
-  Boolean frozen(start = false) "True if the integration is frozen";
+  Boolean frozen(start = frozen0) "True if the integration is frozen";
 
 equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
