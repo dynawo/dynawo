@@ -447,12 +447,14 @@ class ReaderOMC:
             self.diff_var = []
             self.children = []
             self.eq = ""
+            self.no_event = False
 
         def print_node(self, prefix):
             print (prefix + "NODE : ")
             print (prefix + "NODE TYPE: " + str(self.type))
             print (prefix + "NODE DIFF VAR: " + str(self.diff_var))
             print (prefix + "NODE EQ: " + self.eq)
+            print (prefix + "NODE noEvent: " + str(self.no_event))
             for child in self.children:
                 child.print_node(prefix + " " )
 
@@ -476,6 +478,14 @@ class ReaderOMC:
             if self.type != None:
                 equations.append(self.eq)
             return equations
+
+        def get_no_event(self):
+            no_event = []
+            for child in self.children:
+                no_event.extend(child.get_no_event())
+            if self.type != None:
+                no_event.append(self.no_event)
+            return no_event
 
         def propagate_differential(self):
             for child in self.children:
@@ -511,7 +521,7 @@ class ReaderOMC:
             for child in root.children:
                 self.create_nodes_for_min_and_max(child)
 
-    def analyse_eq_expr(self, eq, root):
+    def analyse_eq_expr(self, eq, root, no_event_found_parent):
         der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+?)\)')
         splitted_eq = eq.replace('[u\'', '').split(" ")
         idx = 0
@@ -531,24 +541,27 @@ class ReaderOMC:
                         nb_parenthesis-=splitted_eq[idx].count(")")
                     sub_eq+= " " + splitted_eq[idx]
                     idx+=1
-                self.analyse_eq_expr(sub_eq[:-1], root)
+                self.analyse_eq_expr(sub_eq[:-1], root, no_event_found_parent)
             elif expr.startswith("if") or expr.startswith("-if") or expr.startswith("- if"):
-                idx = self.remove_condition(idx, splitted_eq)
+                (idx, no_event_found) = self.remove_condition(idx, splitted_eq)
                 node = self.Node()
                 node.eq = "IF"
+                node.no_event = no_event_found
                 root.children.append(node)
-                (final_expr, idx) = self.find_value(idx, splitted_eq)
-                self.analyse_eq_expr(final_expr, node)
+                (final_expr, idx, no_event_found_value) = self.find_value(idx, splitted_eq)
+                self.analyse_eq_expr(final_expr, node, no_event_found or no_event_found_value)
             elif expr.startswith("else"):
                 node = self.Node()
                 root.children.append(node)
                 node.eq = "ELSE"
+                node.no_event = no_event_found_parent
                 idx += 1
-                (final_expr, idx) = self.find_value(idx, splitted_eq)
-                self.analyse_eq_expr(final_expr, node)
+                (final_expr, idx, no_event_found) = self.find_value(idx, splitted_eq)
+                self.analyse_eq_expr(final_expr, node, no_event_found)
             else:
-                (final_expr, idx) = self.find_value(idx, splitted_eq)
+                (final_expr, idx, no_event_found) = self.find_value(idx, splitted_eq)
                 root.eq = final_expr
+                root.no_event = no_event_found_parent
                 if "der(" in final_expr or "der (" in final_expr:
                     root.type = DIFFERENTIAL
                     match2 = re.findall(der_var_ptrn, final_expr)
@@ -559,14 +572,18 @@ class ReaderOMC:
 
     def remove_condition(self, initial_idx, splitted_eq):
         idx = initial_idx
+        no_event_found = False
         while idx < len(splitted_eq) and splitted_eq[idx] != "then":
+            if "noEvent(" in splitted_eq[idx]:
+                no_event_found = True
             idx+=1
-        return idx+1
+        return (idx+1, no_event_found)
 
     def find_value(self, initial_idx, splitted_eq):
         idx = initial_idx
+        no_event_found = False
         if splitted_eq[idx].startswith("if") or splitted_eq[idx].startswith("-if"):
-            idx = self.remove_condition(idx, splitted_eq)
+            (idx, no_event_found) = self.remove_condition(idx, splitted_eq)
         final_expr = ""
 
         if splitted_eq[idx].startswith("(if") or splitted_eq[idx].startswith("-(if") or splitted_eq[idx].startswith("- (if"):
@@ -580,7 +597,7 @@ class ReaderOMC:
                     nb_parenthesis-=splitted_eq[idx].count(")")
                 sub_eq+= " " + splitted_eq[idx]
                 idx+=1
-            return (sub_eq[:-1], idx)
+            return (sub_eq[:-1], idx, no_event_found)
         else:
             keywords = ["else", "if", "-if"]
             operation_ptrn = re.compile(r'[+-]')
@@ -588,12 +605,14 @@ class ReaderOMC:
             while idx < len(splitted_eq) and splitted_eq[idx] not in keywords \
             and (re.search(operation_ptrn,splitted_eq[idx]) != None or re.search(variable_ptrn,splitted_eq[idx]) != None):
                 if splitted_eq[idx].startswith("(if"):
-                    (tmp, idx) = self.find_value(idx, splitted_eq)
+                    (tmp, idx, no_event_found2) = self.find_value(idx, splitted_eq)
+                    if no_event_found2:
+                        no_event_found = True
                     final_expr += tmp
                 else:
                     final_expr += " " + splitted_eq[idx]
                     idx+=1
-            return (final_expr, idx)
+            return (final_expr, idx, no_event_found)
     ##
     # Analyse the equation to retrieve the type (ALGEBRAIC, DIFFERENTIAL or MIXED) and the differential variables in a branch
     # @param self : object pointer
@@ -621,7 +640,7 @@ class ReaderOMC:
             self.var_name_to_differential_dependency_variables[defined_var_eq] = diff_var
         else:
             root = self.Node()
-            self.analyse_eq_expr(eq, root)
+            self.analyse_eq_expr(eq, root, False)
             root.propagate_differential()
             self.create_nodes_for_min_and_max(root)
             types = root.get_types()
