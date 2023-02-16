@@ -12,7 +12,7 @@ within Dynawo.Examples.Wind.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WTG4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
+model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) - WTG4B - on infinite bus"
   import Modelica;
   import Dynawo;
 
