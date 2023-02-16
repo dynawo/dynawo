@@ -162,8 +162,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   UnderVoltageAutomaton.xml
   VRRemote.xml
   WeightedDifference.xml
-  WindTurbine4AWeccCurrentSource.xml
-  WindTurbine4BWeccCurrentSource.xml
+  WT4AWeccCurrentSource.xml
+  WT4BWeccCurrentSource.xml
+  WTG4AWeccCurrentSource.xml
+  WTG4BWeccCurrentSource.xml
   )
 
 # PYTHON scripts preassembled models
