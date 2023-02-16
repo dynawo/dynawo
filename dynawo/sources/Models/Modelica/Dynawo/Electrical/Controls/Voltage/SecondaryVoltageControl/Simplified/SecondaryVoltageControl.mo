@@ -68,11 +68,12 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
     Dialog(group = "Initialization"));
   parameter Types.VoltageModulePu UpRef0Pu "Initial reference voltage of pilot point in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
+  parameter Boolean Frozen0 = false "Start value of the frozen status";
 
 protected
   Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "If true, all generators have reached their reactive power lower limits";
   Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "If true, all generators have reached their reactive power upper limits";
-  Boolean frozen(start = false) "True if the integration is frozen";
+  Boolean frozen(start = Frozen0) "True if the integration is frozen";
 
 equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
