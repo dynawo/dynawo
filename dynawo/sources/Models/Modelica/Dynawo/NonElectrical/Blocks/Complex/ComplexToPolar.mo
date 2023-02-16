@@ -12,7 +12,7 @@ within Dynawo.NonElectrical.Blocks.Complex;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block ComplexToPolar "Converts complex to polar representation"
+block ComplexToPolar "Converts complex to polar representation. An eps is added to cope with the cases where the input is equal to 0."
   import Modelica;
 
   extends Modelica.Blocks.Icons.Block;
@@ -26,16 +26,6 @@ block ComplexToPolar "Converts complex to polar representation"
     Placement(transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent={{100,-80}, {140,-40}})));
 
 equation
-  /* Works in OM */
-//  if (u.re^2 + u.im^2) > srqt(Modelica.Constants.eps) then
-//    len = sqrt(u.re^2 + u.im^2 + Modelica.Constants.eps);
-//    phi = Modelica.Math.atan2(u.im, u.re);
-//  else
-//    len = Modelica.Constants.eps;
-//    phi = u.im;
-//  end if;
-
-  /* Works in Dynawo */
   len = sqrt(u.re^2 + u.im^2 + Modelica.Constants.eps);
   phi = Modelica.Math.atan2(u.im, u.re + Modelica.Constants.eps);
 
