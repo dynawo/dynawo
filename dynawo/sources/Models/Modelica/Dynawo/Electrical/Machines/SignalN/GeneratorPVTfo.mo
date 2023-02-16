@@ -29,15 +29,15 @@ model GeneratorPVTfo "Model for generator PV based on SignalN for the frequency 
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  input Types.VoltageModulePu UStatorRefPu(start = UStatorRef0Pu) "Voltage regulation set point at stator in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput UStatorRefPu(start = UStatorRef0Pu) "Voltage regulation set point at stator in pu (base UNom)";
 
   Types.VoltageModulePu UStatorPu(start = UStator0Pu) "Voltage module at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStatorPu(re(start = uStator0Pu.re), im(start = uStator0Pu.im)) "Complex voltage at stator in pu (base UNom)";
   Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
-  Types.ReactivePowerPu QStatorPu(start = QStator0Pu) "Stator reactive power in pu (base QNomAlt) (generator convention)";
-  Boolean limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
-  Boolean limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
+  Modelica.Blocks.Interfaces.RealOutput QStatorPu(start = QStator0Pu) "Stator reactive power in pu (base QNomAlt) (generator convention)";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
 
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
   parameter Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";

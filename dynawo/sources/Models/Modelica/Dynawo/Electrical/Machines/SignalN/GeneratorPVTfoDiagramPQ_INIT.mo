@@ -32,9 +32,9 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
                               GenerationMax "Reactive power is fixed to its generation limit");
 
   QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
-  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
-  Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.RealOutput UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStatorRef0Pu "Start value of complex voltage regulation set point at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";

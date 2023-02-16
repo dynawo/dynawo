@@ -13,6 +13,7 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVQNomAltParDiagram_INIT "Initialisation model for generator PV based on SignalN for the frequency handling and with a diagram for handling the reactive power limits. In this model, QNomAlt is a parameter."
+  import Modelica;
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
@@ -26,11 +27,11 @@ model GeneratorPVQNomAltParDiagram_INIT "Initialisation model for generator PV b
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  Types.VoltageModulePu URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
+  Modelica.Blocks.Interfaces.RealInput URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
   QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
-  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
 
 equation
   if QGen0Pu <= QMin0Pu and U0Pu >= URef0Pu then

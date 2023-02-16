@@ -14,10 +14,11 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model VRKundur_INIT "Initialization model for VRKundur"
+  import Modelica;
   extends AdditionalIcons.Init;
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealInput Us0Pu "Initial stator voltage in pu (base UNom)";
 
   annotation(preferredView = "text",
     uses(Modelica(version = "3.2.3")));

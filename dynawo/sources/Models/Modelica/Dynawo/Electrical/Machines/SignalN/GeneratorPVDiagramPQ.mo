@@ -28,11 +28,11 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
-  Types.ReactivePowerPu QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt) "Stator reactive power in pu (base QNomAlt) (generator convention)";
-  Boolean limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
-  Boolean limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
+  Modelica.Blocks.Interfaces.RealInput QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt) "Stator reactive power in pu (base QNomAlt) (generator convention)";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
 
   Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
   Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";

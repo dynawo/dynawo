@@ -13,6 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportional_INIT "Simple proportional voltage regulator initialization model"
+  import Modelica;
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT;
 
   extends AdditionalIcons.Init;
@@ -22,8 +23,8 @@ model VRProportional_INIT "Simple proportional voltage regulator initialization 
   parameter Types.PerUnit Gain "Control gain";
 
   Types.VoltageModulePu Efd0Pu "Initial exciter field voltage, i.e. Efd0PuLF if compliant with saturations, in pu (user-selected base voltage)";
-  Types.VoltageModulePu Efd0PuLF "Initial exciter field voltage from LoadFlow in pu (user-selected base voltage)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput Efd0PuLF "Initial exciter field voltage from LoadFlow in pu (user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealInput Us0Pu "Initial stator voltage in pu (base UNom)";
   Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
 
   LimiterWithLag_INIT limiterWithLag(UMax = EfdMaxPu, UMin = EfdMinPu);

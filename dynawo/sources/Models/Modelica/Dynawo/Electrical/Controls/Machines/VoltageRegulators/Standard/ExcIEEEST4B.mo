@@ -66,8 +66,6 @@ model ExcIEEEST4B "IEEE exciter type ST4B"
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {90, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseBlocks.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
-    Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {-230, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limPI1(Ki = Kir, Kp = Kpr, Y0 = Kg * Efd0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
