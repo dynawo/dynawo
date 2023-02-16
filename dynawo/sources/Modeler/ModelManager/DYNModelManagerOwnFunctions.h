@@ -35,7 +35,7 @@ extern void *mmc_strings_len1[256];
 
 #define real_array_copy_data(src, dst)               simple_array_copy_data(src, &dst, sizeof(modelica_real));
 #define real_array_get(src, ndims, ...)               (*reinterpret_cast<modelica_real*>(generic_array_get(&src, sizeof(modelica_real), __VA_ARGS__)))
-
+#define boolean_array_get(src, ndims, ...)            (*reinterpret_cast<modelica_boolean*>(generic_array_get(&src, sizeof(modelica_boolean), __VA_ARGS__)))
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
  * It is needed for Dynawo models dynamic libraries compilation
@@ -387,6 +387,11 @@ void put_boolean_element(m_boolean value, int i1, boolean_array_t* dest);
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void array_alloc_scalar_boolean_array(boolean_array_t* dest, int n, ...);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void boolean_array_create(boolean_array_t *dest, modelica_boolean *data, int ndims, ...);
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h

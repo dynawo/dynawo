@@ -397,7 +397,11 @@ def replace_dynamic_indexing(body):
     depend_vars = []
     integer_array_create_tmp = {}
     for line in body:
-        if ("calc_base_index_dims_subs" not in line):
+
+        ptrn_var_dynamic_index = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[(?P<expr>.*)\]')
+        ptrn_var_table = re.compile(r'\[(?P<index>[0-9]+)\]')
+        match = ptrn_var_dynamic_index.findall(line)
+        if len(match) == 0 or "_array_create" in line:
             body_to_return.append(line)
             for tmp in integer_array_create_tmp:
                 if "&"+tmp in line:
@@ -405,8 +409,6 @@ def replace_dynamic_indexing(body):
                     for i in range(0, int(size)):
                         body_to_return.append("    data->localData[0]->" + table + "[" + str(int(index) + i) + "] /* " + var_name + "[" + str(i + 1) +"] DISCRETE */" + " = integer_get(" + tmp + ", " + str(i) + ");\n")
             continue
-        ptrn_var_dynamic_index = re.compile(r'\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\([0-9]+, (?P<size>[0-9]+), (?P<expr>.*)\)\]')
-        match = ptrn_var_dynamic_index.findall(line)
         index_tmp = 0
         if "real_array_create" in line:
             for var, var_name, size, expr in match:
@@ -430,7 +432,10 @@ def replace_dynamic_indexing(body):
                 #body_to_return.append(re.sub(ptrn_var_dynamic_index, "data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name+" DISCRETE */", line))
         else:
             body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
-            for var, var_name, size, expr in match:
+            for var, var_name, expr in match:
+                size = 0
+                while (re.sub(ptrn_var_table, "["+str(size+1)+"]", var_name) in map_var_name_2_addresses):
+                    size+=1
                 for i in range(1, int(size)+1):
                     body_to_return.append("  if (" + expr + " == " + str(i) +") {\n")
                     index = -1

@@ -22,6 +22,7 @@
     <dyn:simulation startTime="0" stopTime="3000"/>
     <dyn:outputs directory="outputs">
       <dyn:timeline exportMode="XML" filter="true"/>
+      <dyn:dumpInitValues global="true" local ="true"/>
       <dyn:curves inputFile="GeneratorPVTfo.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>

@@ -297,6 +297,87 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
   return DYN::doubleEquals(a, b) || a > b;
 }
 
+
+/**
+ * generic less operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+inline modelica_boolean Less(modelica_real a, modelica_integer b) {
+  return Less(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic greater operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b b otherwise
+ */
+inline modelica_boolean Greater(modelica_real a, modelica_integer b) {
+  return Greater(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic less-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+inline modelica_boolean LessEq(modelica_real a, modelica_integer b) {
+  return LessEq(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic greater-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+inline modelica_boolean GreaterEq(modelica_real a, modelica_integer b) {
+  return GreaterEq(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic less operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+inline modelica_boolean Less(modelica_integer a, modelica_real b) {
+  return Less(static_cast<modelica_real>(a), b);
+}
+
+/**
+ * generic greater operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b b otherwise
+ */
+inline modelica_boolean Greater(modelica_integer a, modelica_real b) {
+  return Greater(static_cast<modelica_real>(a), b);
+}
+
+/**
+ * generic less-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+inline modelica_boolean LessEq(modelica_integer a, modelica_real b) {
+  return LessEq(static_cast<modelica_real>(a), b);
+}
+
+/**
+ * generic greater-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+inline modelica_boolean GreaterEq(modelica_integer a, modelica_real b) {
+  return GreaterEq(static_cast<modelica_real>(a), b);
+}
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define  LessZC(a, b, direction) Less(a, b)
 #define  LessEqZC(a, b, direction) LessEq(a, b)
@@ -381,6 +462,9 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 
 #define createDelay(exprNumber, time, exprValue, delayMax) \
   addDelay((this)->getModelManager(), exprNumber, time, exprValue, delayMax)
+
+#define delayZeroCrossing(data, exprNumber, relationIndex, delayValue, delayTime, delayMax) \
+  ROOT_UP
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 

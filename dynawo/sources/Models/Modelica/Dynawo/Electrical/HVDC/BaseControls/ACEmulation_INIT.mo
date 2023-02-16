@@ -19,9 +19,9 @@ model ACEmulation_INIT "Initialisation for AC Emulation for HVDC"
   parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance in pu (base SnRef or SNom) (receptor or generator convention). If in generator convention, KACEmulation should be < 0.";
 
   Types.ActivePowerPu PRefSet0Pu "Raw reference active power in pu (base SnRef or SNom) (receptor or generator convention)";
-  Types.Angle Theta10 "Start value of angle of the voltage at terminal 1 in rad";
-  Types.Angle Theta20 "Start value of angle of the voltage at terminal 2 in rad";
-  Types.ActivePowerPu PRef0Pu "Start value of active power reference in pu (base SnRef or SNom) (receptor or generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput Theta10 "Start value of angle of the voltage at terminal 1 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta20 "Start value of angle of the voltage at terminal 2 in rad";
+  Modelica.Blocks.Interfaces.RealOutput PRef0Pu "Start value of active power reference in pu (base SnRef or SNom) (receptor or generator convention)";
   Types.Angle DeltaThetaFiltered0 "Start value of filtered angle difference in rad";
 
 equation

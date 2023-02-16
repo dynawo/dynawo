@@ -1011,6 +1011,30 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
 
+
+        # Look for functions used in initialization, not lambda0
+        initial_equations_function_name = "_functionInitialEquations_0(DATA *data, threadData_t *threadData)"
+        initial_equations_function_index = "_eqFunction_(?P<index>[0-9]+)\(data"
+        index_of_initial_equations = []
+        for init_file in self._06inz_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    nb_braces_opened = 0
+                    crossed_opening_braces = False
+                    stop_at_next_call = False
+
+                    it = itertools.dropwhile(lambda line: initial_equations_function_name not in line, f)
+                    next_iter = next(it, None) # Line on which "dropwhile" stopped
+                    if next_iter is None: break # If we reach the end of the file, exit loop
+
+                    # "takewhile" only stops when the whole body of the function is read
+                    list_body = list(itertools.takewhile(stop_reading_function, it))
+
+                    for line in list_body:
+                        match_func = re.search(initial_equations_function_index,line)
+                        if (match_func is not None):
+                            index_of_initial_equations.append(match_func.group('index'))
+
         # Find functions of type MODEL_NAME_eqFunction_N and variable assignment expressions
         # Regular expression to recognize a line of type var = rhs
         ptrn_assign_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[ ]*(?P<rhs>[^;]+);')
@@ -1024,9 +1048,12 @@ class ReaderOMC:
 
                     it = itertools.dropwhile(lambda line: self.ptrn_func_decl_main_c.search(line) is None, f)
                     next_iter = next(it, None) # Line on which "dropwhile" stopped
+                    print ("BUBU??? " + str(next_iter))
                     if next_iter is None: break # If we reach the end of the file, exit loop
                     match = re.search(self.ptrn_func_decl_main_c, next_iter)
                     num_function = match.group('num')
+
+                    if (num_function not in index_of_initial_equations) : continue
 
                     # "takewhile" only stops when the whole body of the function is read
                     list_body = list(itertools.takewhile(stop_reading_function, it))
@@ -1163,6 +1190,7 @@ class ReaderOMC:
                 if "_dummy_der" in name:
                     name = "der("+name.replace("_dummy_der","")+")"
                 if name == key:
+                    print ("BUBU START ?" + name + " " +str(value))
                     var.set_start_text_06inz(value)
                     var.set_init_by_param_in_06inz(True)
                     var.set_num_func_06inz(self.var_num_init_val_06inz[name])
@@ -1622,13 +1650,11 @@ class ReaderOMC:
                             break
                 if var is not None and var.get_variability() == "continuous" and not var.is_fixed():
                     do_it = True
-                    print ("BUBU? " + var.get_name())
                     for dep_var_name in self.map_vars_depend_vars[var_name]:
                         if dep_var_name == "time":
                             do_it = False
                             break
                         dep_var = self.find_variable_from_name(dep_var_name)
-                        print ("BUBU? " + var.get_name() + " " + dep_var_name +" " + str(dep_var.is_fixed()))
                         if dep_var is not None and (not dep_var.is_fixed() \
                         or dep_var.get_name() in self.fictive_continuous_vars\
                         or dep_var.get_name() in self.fictive_optional_continuous_vars\
