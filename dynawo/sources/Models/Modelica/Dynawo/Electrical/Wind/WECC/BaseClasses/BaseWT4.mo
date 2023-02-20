@@ -12,8 +12,7 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model BaseWT4 "WECC Wind Turbine model with a simplified drive train model (dual-mass model), without the plant controller and with a current source as interface with the grid"
-  import Modelica;
+partial model BaseWT4 "Partial base model for the WECC Wind Turbine models including the electrical control, the generator control, the injector, the measurements and the equivalent branch connection to the grid"
   import Dynawo;
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
@@ -38,7 +37,7 @@ partial model BaseWT4 "WECC Wind Turbine model with a simplified drive train mod
   parameter Types.PerUnit IqFrzPu "Constant reactive current injection value (typical: -0.1 .. 0.1 pu)";
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)";
 
-    Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {168, 4}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
@@ -85,18 +84,8 @@ equation
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{143, 4}, {137, 4}}, color = {0, 0, 255}));
   annotation(
-    Documentation(preferredView = "diagram",
-    info = "<html>
-<p> This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser): <br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p>
-<p> The overall model is structured as follows:
-<ul>
-<li> Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I. </li>
-<li> Plant level control. </li>
-<li> Electrical inverter control.</li>
-<li> Simplified drive train model, dual-mass model. </li>
-<li> Generator control. </li>
-<li> Injector (id,iq). </li>
-</ul> </p></html>"),
+    Documentation(info = "<html><head></head><body><p><br></p><ul>
+</ul> <p></p></body></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(initialScale = 0.1)),
   Diagram(coordinateSystem(grid = {1, 1}, extent = {{-100, -60}, {170, 50}})));
 end BaseWT4;

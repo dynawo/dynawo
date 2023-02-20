@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model BaseWT4A "Base model for WECC Wind Turbine 4A"
+partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
   import Modelica;
   import Dynawo;
 
@@ -31,6 +31,7 @@ equation
     Line(points = {{22, -26}, {22, -24}, {-26, -24}, {-26, -15}}, color = {0, 0, 127}));
   connect(driveTrainPmConstrant.PePu, injector.PInjPuSn) annotation(
     Line(points = {{27, -32}, {81.5, -32}, {81.5, -8}, {75, -8}}, color = {0, 0, 127}));
+
   annotation(
     Icon);
 end BaseWT4A;

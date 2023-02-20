@@ -42,6 +42,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     Placement(visible = true, transformation(origin = {-125, 30}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-125, 30}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
+
 equation
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-85, 41}, {-80, 41}, {-80, 4}, {-72, 4}}, color = {0, 0, 127}));
@@ -67,6 +68,7 @@ equation
     Line(points = {{135, 15}, {135, 56}, {-115, 56}, {-115, 42}, {-107, 42}}, color = {85, 170, 255}));
   connect(constant1.y, pll.omegaRefPu) annotation(
     Line(points = {{-121, 30}, {-107, 30}}, color = {0, 0, 127}));
+
   annotation(
     Documentation(preferredView = "diagram",
     info = "<html>

@@ -17,17 +17,17 @@ model WT4BCurrentSource "WECC Wind Turbine model without plant controller and wi
   import Dynawo;
 
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
-
-  Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = PInj0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-96.5, 1.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}}, rotation = 0), iconTransformation(origin = {-90, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-95.5, -10.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}}, rotation = 0), iconTransformation(origin = {-90, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = PInj0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = QInj0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+  connect(QInjRefPu, wecc_reec.QInjRefPu) annotation(
+    Line(points = {{-110, -20}, {-76, -20}, {-76, -10}, {-33, -10}}, color = {0, 0, 127}));
   connect(wecc_reec.PInjRefPu, PInjRefPu) annotation(
-    Line(points = {{-33, 2}, {-96, 2}}, color = {0, 0, 127}));
-  connect(wecc_reec.QInjRefPu, QInjRefPu) annotation(
-    Line(points = {{-33, -10}, {-95, -10}}, color = {0, 0, 127}));
+    Line(points = {{-33, 2}, {-76, 2}, {-76, 10}, {-110, 10}}, color = {0, 0, 127}));
+
   annotation(
     Documentation(info = "<html><head></head><body><p> This block contains the generic WECC WT model according to (in case page cannot be found, copy link in browser): <br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p>
 <p> The overall model is structured as follows:

@@ -19,15 +19,16 @@ model WT4ACurrentSource "WECC Wind Turbine model with a simplified drive train m
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A;
 
   Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = PInj0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-94.5, 1.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}}, rotation = 0), iconTransformation(origin = {-90, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-94.5, -10.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}}, rotation = 0), iconTransformation(origin = {-90, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(wecc_reec.PInjRefPu, PInjRefPu) annotation(
-    Line(points = {{-33, 2}, {-94, 2}}, color = {0, 0, 127}));
+  connect(PInjRefPu, wecc_reec.PInjRefPu) annotation(
+    Line(points = {{-110, 10}, {-71.5, 10}, {-71.5, 2}, {-33, 2}}, color = {0, 0, 127}));
   connect(wecc_reec.QInjRefPu, QInjRefPu) annotation(
-    Line(points = {{-33, -10}, {-94, -10}}, color = {0, 0, 127}));
+    Line(points = {{-33, -10}, {-72, -10}, {-72, -20}, {-110, -20}}, color = {0, 0, 127}));
+
   annotation(
     Documentation(info = "<html><head></head><body><p> This block contains the generic WECC WT model according to (in case page cannot be found, copy link in browser): <br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p>
 <p> The overall model is structured as follows:
