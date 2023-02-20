@@ -109,6 +109,9 @@
   <curve model="SVC2" variable="secondaryVoltageControl_feedback1_y"/>
   <curve model="SVC2" variable="secondaryVoltageControl_limIntegrator_u"/>
   <curve model="SVC2" variable="secondaryVoltageControl_limIntegrator_y"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_blockedDown"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_blockedUp"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_switch1_u2"/>
   <curve model="Generator11" variable="generator_UPu"/>
   <curve model="Generator11" variable="generator_URefPu"/>
   <curve model="Generator11" variable="generator_PGenPu"/>

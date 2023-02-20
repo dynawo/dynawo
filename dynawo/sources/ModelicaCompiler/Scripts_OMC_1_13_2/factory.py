@@ -1453,7 +1453,6 @@ class Factory:
                 else : found_init_by_param_and_at_least2lines = False
 
                 self.list_for_sety0.append("  {\n")
-                print ("BUBU? INIT06 " + var.get_name() + " " + str(var.get_start_text_06inz()))
                 for L in var.get_start_text_06inz() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         L = replace_var_names(L)
@@ -2418,10 +2417,8 @@ class Factory:
             # True if the first function of the stack requires adept inputs, False otherwise
             main_func_is_adept = False
 
-            print ("BUBU INIT LINE " + line)
             while idx < len(line_split):
                 l = line_split[idx]
-                print ("BUBU ANALYZE0 " + l)
 
                 # handle (data->... /* .. */)
                 if l =='(' and idx < len(line_split) - 1 and line_split[idx + 1].startswith("data"):
@@ -2489,7 +2486,6 @@ class Factory:
                     call_line+= l
                     idx+=1
                     continue
-                print ("BUBU ANALYZE " + l)
 
                 #Is there a function call in this index?
                 function_found = None
@@ -2499,7 +2495,6 @@ class Factory:
                         break
 
                 if function_found is not None:
-                    print ("BUBU PUSH FUNCTION " + function_found)
                     #First case: there is a function call here.
                     # Push it on the stack
                     stack_func_called.append(function_found)
@@ -2521,7 +2516,6 @@ class Factory:
                     idx+=1
 
                 elif len(stack_func_called) == 0:
-                    print ("BUBU NO FUNCTION ")
                     #Second case: no function being currently called, lets go to the next index
                     # e.g. a + f(...)
                     call_line+= l
@@ -2529,7 +2523,6 @@ class Factory:
                         call_line += "\n"
                     idx+=1
                 else :
-                    print ("BUBU PARAM ")
                     #Third case: parameter of the latest function in the stack
 
                     # Get the name of the function currently called (latest index of the stack)
@@ -2557,14 +2550,12 @@ class Factory:
                                 l = l.replace(name, "x[" + match.group('varId')+"].value()")
                     call_line += l
                     add_comma = True
-                    print ("BUBU PARAM " + str(curr_param_idx) + " " + str(len(func.get_params()) - 1))
                     if curr_param_idx == len(func.get_params()) - 1 \
                         or (curr_param_idx > 1 and func.get_name() == "array_alloc_scalar_real_array" \
                             and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array\(&tmp[0-9]+, (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
                         # This is the last parameter, we need to pop the function
                         stack_func_called.pop()
                         stack_param_idx_func_called.pop()
-                        print ("BUBU POP FUNC ")
                         if len(stack_param_idx_func_called) > 0:
                             stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
                             func = called_func[stack_func_called[len(stack_func_called) - 1]]
@@ -2572,7 +2563,6 @@ class Factory:
                               stack_param_idx_func_called[len(stack_param_idx_func_called) - 1] >= len(func.get_params()):
                                 stack_func_called.pop()
                                 stack_param_idx_func_called.pop()
-                                print ("BUBU POP FUNC ")
                                 if (len(stack_param_idx_func_called) > 0):
                                     func = called_func[stack_func_called[len(stack_func_called) - 1]]
 
