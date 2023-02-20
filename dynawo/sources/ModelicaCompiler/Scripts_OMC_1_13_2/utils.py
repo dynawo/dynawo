@@ -390,6 +390,8 @@ def replace_pow(line):
 ##
 # Replace equations with v1 = table[v2]
 # OpenModelica generates f = v1- &table[firstIndex + v2], we replace it with a if to be complicant with adept
+# Also replace boolean_array_create(&tmp, ((modelica_boolean*)&((&data->localData[0]->discreteVars[...])[...] )), 1, (_index_t)...)
+# by array_alloc_scalar_boolean_array to be able to call to toNativeBool (otherwise the cast to modelica_bool puts everything to false)
 # @param body body to analyze
 # @returns : the line with the new expression
 def replace_dynamic_indexing(body):
@@ -397,9 +399,20 @@ def replace_dynamic_indexing(body):
     depend_vars = []
     integer_array_create_tmp = {}
     for line in body:
-
+        ptrn_boolean_array_create = re.compile(r'boolean_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_boolean\*\)&\(\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_var_dynamic_index = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[(?P<expr>.*)\]')
         ptrn_var_table = re.compile(r'\[(?P<index>[0-9]+)\]')
+        match_bool_array = ptrn_boolean_array_create.findall(line)
+        if len(match_bool_array) != 0:
+            for tmp_index, var, var_name, size in match_bool_array:
+                new_line = "    array_alloc_scalar_boolean_array(&"+tmp_index+", " + size
+                initial_index = var[(var.find("[")+1):].replace("]","")
+                initial_var_index = var_name[(var_name.find("[")+1):].replace("]","")
+                for i in range(0, int(size)):
+                    new_line+=", (modelica_boolean)(data->localData[0]->"+ var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)) +"/* " + var_name.replace("["+initial_var_index+']', "["+str(int(initial_var_index)+i)+"]") +" */)"
+                new_line+=");\n"
+                body_to_return.append(new_line)
+            continue
         match = ptrn_var_dynamic_index.findall(line)
         if len(match) == 0 or "_array_create" in line:
             body_to_return.append(line)

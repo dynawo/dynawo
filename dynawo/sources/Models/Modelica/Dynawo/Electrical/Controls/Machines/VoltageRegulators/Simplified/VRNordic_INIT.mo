@@ -14,11 +14,12 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRNordic_INIT "Voltage regulator initialization model for the Nordic 32 test system used for voltage stability studies"
+  import Modelica;
   extends AdditionalIcons.Init;
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, UNom)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealInput Ir0Pu "Initial rotor current in pu (base SNom, UNom)";
+  Modelica.Blocks.Interfaces.RealInput Us0Pu "Initial stator voltage in pu (base UNom)";
 
   annotation(preferredView = "text");
 end VRNordic_INIT;

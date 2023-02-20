@@ -403,7 +403,7 @@ void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap);
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
-void boolean_array_create(boolean_array_t *dest, modelica_boolean *data, int ndims, ...);
+void boolean_array_create(boolean_array_t *dest, modelica_real *data, int ndims, ...);
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h

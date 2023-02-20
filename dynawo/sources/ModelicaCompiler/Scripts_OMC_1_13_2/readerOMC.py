@@ -1048,7 +1048,6 @@ class ReaderOMC:
 
                     it = itertools.dropwhile(lambda line: self.ptrn_func_decl_main_c.search(line) is None, f)
                     next_iter = next(it, None) # Line on which "dropwhile" stopped
-                    print ("BUBU??? " + str(next_iter))
                     if next_iter is None: break # If we reach the end of the file, exit loop
                     match = re.search(self.ptrn_func_decl_main_c, next_iter)
                     num_function = match.group('num')
@@ -1190,7 +1189,6 @@ class ReaderOMC:
                 if "_dummy_der" in name:
                     name = "der("+name.replace("_dummy_der","")+")"
                 if name == key:
-                    print ("BUBU START ?" + name + " " +str(value))
                     var.set_start_text_06inz(value)
                     var.set_init_by_param_in_06inz(True)
                     var.set_num_func_06inz(self.var_num_init_val_06inz[name])
@@ -1631,6 +1629,13 @@ class ReaderOMC:
             modified = False
             for var_name in self.map_vars_depend_vars:
                 var = self.find_variable_from_name(var_name)
+                if var is not None and var.get_variability() == "discrete" and var.is_fixed():
+                        for var2 in self.list_vars:
+                            if var2.get_alias_name() == var_name and not var2.is_fixed():
+                                print_info("Removing fixed flag from variable " + var.get_name() +" (alias of non fixed variable " + var2.get_name()+")")
+                                var.set_fixed(False)
+                                modified = True
+                                break
                 if var is not None and var.get_variability() == "continuous" and var.is_fixed():
                     for dep_var_name in self.map_vars_depend_vars[var_name]:
                         dep_var = self.find_variable_from_name(dep_var_name)
