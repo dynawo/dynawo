@@ -38,11 +38,11 @@ equation
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, WT4B.omegaRefPu) annotation(
-    Line(points = {{69, 40}, {54, 40}, {54, 12}, {42, 12}}, color = {0, 0, 127}));
+    Line(points = {{69, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(QRefPu.y, WT4B.QRefPu) annotation(
     Line(points = {{70, 0}, {44, 0}, {44, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PRefPu.y, WT4B.PRefPu) annotation(
-    Line(points = {{69, -40}, {54, -40}, {54, -12}, {42, -12}}, color = {0, 0, 127}));
+    Line(points = {{69, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   WT4B.line.switchOffSignal2.value = false;

@@ -83,6 +83,7 @@ equation
     Line(points = {{113, 4}, {123, 4}}, color = {0, 0, 255}));
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{143, 4}, {137, 4}}, color = {0, 0, 255}));
+
   annotation(
     Documentation(info = "<html><head></head><body><p><br></p><ul>
 </ul> <p></p></body></html>"),

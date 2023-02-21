@@ -26,25 +26,26 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   Modelica.Blocks.Sources.Constant PInjRefPu(k = 0.7) annotation(
-    Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QInjRefPu(k = 0.2) annotation(
-    Placement(visible = true, transformation(origin = {90, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
   connect(line.terminal2, WT4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
+  connect(PInjRefPu.y, WT4A.PInjRefPu) annotation(
+    Line(points = {{70, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
+  connect(QInjRefPu.y, WT4A.QInjRefPu) annotation(
+    Line(points = {{70, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   WT4A.line.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal1.value = false;
   WT4A.injector.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal3.value = false;
-  connect(QInjRefPu.y, WT4A.QInjRefPu) annotation(
-    Line(points = {{79, 28}, {64, 28}, {64, 12}, {42, 12}}, color = {0, 0, 127}));
-  connect(PInjRefPu.y, WT4A.PInjRefPu) annotation(
-    Line(points = {{79, -30}, {66, -30}, {66, -12}, {42, -12}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
