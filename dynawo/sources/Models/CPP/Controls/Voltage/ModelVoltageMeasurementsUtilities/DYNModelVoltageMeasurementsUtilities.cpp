@@ -187,6 +187,9 @@ ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned iCalculatedVar, 
       }
       break;
     }
+    case minIValIdx_:
+    case maxIValIdx_:
+      break;
     default: {
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
     }
@@ -199,6 +202,8 @@ ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(un
     case minValIdx_:
     case maxValIdx_:
     case avgValIdx_:
+    case minIValIdx_:
+    case maxIValIdx_:
       for (unsigned i = 0; i < nbConnectedInputs_; i++) {
         indexes.push_back(static_cast<int>(i));
       }
@@ -221,7 +226,12 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
   case avgValIdx_:
     out = lastAverage_;
     break;
-
+  case minIValIdx_:
+    out = achievedMin_;
+    break;
+  case maxIValIdx_:
+    out = achievedMax_;
+    break;
   default:
     throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
   }
@@ -234,6 +244,8 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
   calculatedVars_[minValIdx_] = lastMin_;
   calculatedVars_[maxValIdx_] = lastMax_;
   calculatedVars_[avgValIdx_] = lastAverage_;
+  calculatedVars_[minIValIdx_] = achievedMin_;
+  calculatedVars_[maxIValIdx_] = achievedMax_;
 }
 
 void
@@ -269,6 +281,8 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
   variables.push_back(VariableNativeFactory::createCalculated("min_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createCalculated("max_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createCalculated("average_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("min_i_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("max_i_value", DISCRETE));
 
   // Add the voltages
   stringstream name;
@@ -314,6 +328,10 @@ ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements
   addSubElement("value", "max", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("average", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "average", Element::TERMINAL, name(), modelType(), elements, mapElement);
+  addElement("min_i", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", "min_i", Element::TERMINAL, name(), modelType(), elements, mapElement);
+  addElement("max_i", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", "max_i", Element::TERMINAL, name(), modelType(), elements, mapElement);
 
   stringstream names;
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
