@@ -23,6 +23,7 @@
 #include <boost/shared_ptr.hpp>
 #include <libxml/xmlreader.h>
 
+#include "DYNXmlReader.h"
 #include "DYDDynamicModelsCollection.h"
 
 namespace dynamicdata {
@@ -30,7 +31,6 @@ namespace dynamicdata {
 class XmlParser {
  public:
   XmlParser(boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection, const std::string& filename);
-  ~XmlParser();
   void parseXML();
   void activateXSDValidation(const std::string& xsdSchemaFile);
 
@@ -42,7 +42,7 @@ class XmlParser {
   void addConnectsAndInitConnectsToMacroConnector(boost::shared_ptr<MacroConnector> macroConnector);
 
   boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;
-  const xmlTextReaderPtr reader_;
+  const DYN::XmlReader reader_;
   const std::string filename_;
 };
 

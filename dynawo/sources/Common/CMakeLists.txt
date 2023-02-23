@@ -107,6 +107,7 @@ set(COMMON_INCLUDE_HEADERS
   DYNTraceStream.h
   DYNClone.hpp
   DYNXmlCharConversion.h
+  DYNXmlReader.h
   DYNXmlStreamWriter.h
   DYNXmlString.h
   )
