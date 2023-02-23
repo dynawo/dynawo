@@ -27,15 +27,11 @@
 
 namespace DYN {
 
-class XmlString : public std::unique_ptr<xmlChar, std::function<void(void*)>> {
+class XmlString : public std::unique_ptr<xmlChar, std::function<void(void*)> > {
 public:
     explicit XmlString(xmlChar* ptr) noexcept :
         unique_ptr(ptr, xmlFree) {
     }
-
-    XmlString(XmlString&&) noexcept = default;
-
-    virtual ~XmlString() = default;
 };
 
 }  // end of namespace DYN

@@ -60,43 +60,6 @@ TEST(APIDYDTest, ImporterWrongFiles) {
   ASSERT_THROW_DYNAWO(importer.importFromDydFiles(files2), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
-TEST(APIDYDTest, ImporterWrongStream) {
-  XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
-
-  XmlHandler dydHandler;
-  xml::sax::parser::ParserFactory parser_factory;
-  xml::sax::parser::ParserPtr parser = parser_factory.createParser();
-  std::istringstream badInputStream("hello");
-  std::istream badStream(badInputStream.rdbuf());
-  ASSERT_THROW_DYNAWO(importer.importFromStream(badStream, dydHandler, parser, true), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
-}
-
-TEST(APIDYDTest, ImporterStream) {
-  XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
-
-  XmlHandler dydHandler;
-  xml::sax::parser::ParserFactory parser_factory;
-  xml::sax::parser::ParserPtr parser = parser_factory.createParser();
-  bool xsdValidation = false;
-  if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
-    std::string dydXsdPath = getMandatoryEnvVar("DYNAWO_XSD_DIR") + std::string("dyd.xsd");
-    parser->addXmlSchema(dydXsdPath);
-    xsdValidation = true;
-  }
-  std::istringstream goodInputStream(
-    "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>"
-    "<dyn:dynamicModelsArchitecture xmlns:dyn=\"http://www.rte-france.com/dynawo\">"
-    "<dyn:blackBoxModel id=\"BlackBoxModel\" staticId=\"bbmId\" lib=\"model\" parFile=\"parFile.par\" parId=\"1\">"
-    "<dyn:staticRef var=\"M2S_P_value\" staticVar=\"p\"/>"
-    "</dyn:blackBoxModel>"
-    "<dyn:connect id1=\"BlackBoxModel\" var1=\"variable\" id2=\"externalModel\" var2=\"externalModel_variable\"/>"
-    "</dyn:dynamicModelsArchitecture>");
-  std::istream goodStream(goodInputStream.rdbuf());
-  ASSERT_NO_THROW(importer.importFromStream(goodStream, dydHandler, parser, xsdValidation));
-}
-
 TEST(APIDYDTest, ImportMacroConnect) {
   XmlImporter importer;
   boost::shared_ptr<DynamicModelsCollection> collection;

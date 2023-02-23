@@ -39,6 +39,7 @@ class XmlParser {
   void parseParentNode(const std::string& parentNodeName);
   void parseChildNode(const std::string& childNodeName);
   void addStaticRefsToModel(boost::shared_ptr<Model> model);
+  void addConnectsAndInitConnectsToMacroConnector(boost::shared_ptr<MacroConnector> macroConnector);
 
   boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;
   const xmlTextReaderPtr reader_;
