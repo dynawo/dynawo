@@ -14,28 +14,39 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block DiscretePI "Proportional integrator with discrete input"
   import Dynawo.Types;
-  import Modelica.Blocks.Interfaces;
   import Modelica;
 
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 
-  discrete Interfaces.RealInput u "Input connector" annotation(
-    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  discrete Modelica.Blocks.Interfaces.RealInput u "Input connector" annotation(
+    Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-120, -50}, {-100, -30}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput frozen(start = false) "True if the integration is blocked" annotation(
+    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Interfaces.RealOutput y(start = Y0) "Output of the PI controller." annotation(
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output of the PI controller." annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.PI pi(T = tIntegral, k = Gain, x_start = Y0/Gain, y_start=Y0) annotation(
-    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.PI pi(T = tIntegral, k = Gain, x_start = Y0/Gain, y_start = Y0) annotation(
+    Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = 0) "Constant 0 value in case of frozen PI" annotation(
+    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Real Y0 "Start value of the PI output ";
+  parameter Real Y0 "Start value of the PI output";
 
 equation
-  connect(u, pi.u) annotation(
-    Line(points = {{-100, 0}, {-13, 0}, {-13, 0}, {-12, 0}}, color = {0, 0, 127}));
   connect(pi.y, y) annotation(
-    Line(points = {{11, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
+    Line(points = {{61, 0}, {110, 0}}, color = {0, 0, 127}));
+  connect(switch1.y, pi.u) annotation(
+    Line(points = {{-19, 0}, {38, 0}}, color = {0, 0, 127}));
+  connect(switch1.u3, u) annotation(
+    Line(points = {{-42, -8}, {-80, -8}, {-80, -40}, {-110, -40}}, color = {0, 0, 127}));
+  connect(const.y, switch1.u1) annotation(
+    Line(points = {{-98, 40}, {-80, 40}, {-80, 8}, {-42, 8}}, color = {0, 0, 127}));
+  connect(frozen, switch1.u2) annotation(
+    Line(points = {{-110, 0}, {-42, 0}}));
 
   annotation(defaultComponentName="DiscretePI",
     Documentation(info="<html>
@@ -57,22 +68,11 @@ the output y as <em>PI</em> system:
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
-        Polygon(
-          points={{-80,90},{-88,68},{-72,68},{-80,90}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid),
+        Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}),
         Line(points={{-90,-80},{82,-80}}, color={192,192,192}),
-        Polygon(
-          points={{90,-80},{68,-72},{68,-88},{90,-80}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid),
-        Line(points = {{-80.0,-80.0},{-80.0,-20.0},{60.0,80.0}}, color = {0,0,127}),
-        Text(
-          extent={{0,6},{60,-56}},
-          lineColor={192,192,192},
-          textString="PI"),
+        Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}),
+        Line(points = {{-80, -80}, {-80, -20}, {60, 80}}, color = {0, 0, 127}),
+        Text(lineColor = {192, 192, 192}, extent = {{0, 6}, {60, -56}}, textString = "PI"),
         Text(
           extent={{-150,-150},{150,-110}},
           textString="T=%T")}));

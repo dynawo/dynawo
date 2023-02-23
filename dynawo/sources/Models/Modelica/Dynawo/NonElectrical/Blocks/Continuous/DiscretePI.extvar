@@ -13,4 +13,5 @@
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="discrete" id="u"/>
+  <variable type="boolean" id="frozen" defaultValue="false"/>
 </external_variables>
