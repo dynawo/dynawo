@@ -22,9 +22,7 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
   parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
-  parameter Types.PerUnit RTfoPu "Resistance of the generator transformer in pu (base UNomHV, SNom)";
-  parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNomHV, SNom)";
-  parameter Types.PerUnit rTfoPu "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
+  parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNom, SNom)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point at terminal in pu (base UNom)";
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
@@ -64,11 +62,11 @@ equation
   uRef0Pu = ComplexMath.fromPolar(URef0Pu, UPhase0);
   Complex(P0Pu, Q0Pu) = uRef0Pu * ComplexMath.conj(iRef0Pu);
 
-  uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
-  uStatorRef0Pu = 1 / rTfoPu * (uRef0Pu - iRef0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
+  uStator0Pu = u0Pu + iStator0Pu * Complex(0, XTfoPu);
+  uStatorRef0Pu = uRef0Pu - iRef0Pu * Complex(0, XTfoPu) * SystemBase.SnRef / SNom;
   UStator0Pu = ComplexMath.'abs'(uStator0Pu);
   UStatorRef0Pu = ComplexMath.'abs'(uStatorRef0Pu);
-  iStator0Pu = - rTfoPu * i0Pu * SystemBase.SnRef / SNom;
+  iStator0Pu = - i0Pu * SystemBase.SnRef / SNom;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
   QStator0Pu = sStator0Pu.im * SNom / QNomAlt;
 
