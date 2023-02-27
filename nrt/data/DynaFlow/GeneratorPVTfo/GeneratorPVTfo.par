@@ -58,10 +58,8 @@
     <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
   </macroParameterSet>
   <macroParameterSet id="macro_tfo">
-    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
     <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
     <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
   </macroParameterSet>
   <macroParameterSet id="macro_rpcl">
     <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
