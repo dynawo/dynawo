@@ -12,7 +12,7 @@ within Dynawo.Electrical.Machines.SignalN;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GeneratorPVTfoDiagramPQ "Model for generator PV based on SignalN for the frequency handling, with a transformer, a voltage regulation at stator and with an N points PQ diagram."
+model GeneratorPVTfoDiagramPQ "Model for generator PV based on SignalN for the frequency handling, with a simplified transformer, a voltage regulation at stator and with an N points PQ diagram."
   import Modelica;
   import Dynawo;
 
@@ -25,9 +25,7 @@ model GeneratorPVTfoDiagramPQ "Model for generator PV based on SignalN for the f
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
   parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
-  parameter Types.PerUnit RTfoPu "Resistance of the generator transformer in pu (base UNomHV, SNom)";
-  parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNomHV, SNom)";
-  parameter Types.PerUnit rTfoPu "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
+  parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNom, SNom)";
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
@@ -97,8 +95,8 @@ equation
     UStatorPu = 0;
   end if;
 
-  uStatorPu = 1 / rTfoPu * (terminal.V - terminal.i * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
-  iStatorPu = - rTfoPu * terminal.i * SystemBase.SnRef / SNom;
+  uStatorPu = terminal.V + iStatorPu * Complex(0, XTfoPu);
+  iStatorPu = - terminal.i * SystemBase.SnRef / SNom;
   sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
   QStatorPu = sStatorPu.im * SNom / QNomAlt;
 
