@@ -36,10 +36,19 @@ class XmlParser {
 
  private:
   void parseDynamicModelsArchitecture();
-  void parseParentNode(const std::string& parentNodeName);
-  void parseChildNode(const std::string& childNodeName);
-  void addStaticRefsToModel(boost::shared_ptr<Model> model);
-  void addConnectsAndInitConnectsToMacroConnector(boost::shared_ptr<MacroConnector> macroConnector);
+  void parseModelicaModel();
+  void parseModelTemplate();
+  void parseBlackBoxModel();
+  void parseModelTemplateExpansion();
+  void parseConnect();
+  void parseMacroConnection();
+  void parseMacroConnect();
+  void parseMacroConnector();
+  void parseMacroStaticReference();
+  void parseUnitDynamicModel();
+  void parseStaticRef(boost::shared_ptr<Model> model);
+  void parseMacroStaticRef(boost::shared_ptr<Model> model);
+  void parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model);
 
   boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;
   const DYN::XmlReader reader_;
