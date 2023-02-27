@@ -25,6 +25,7 @@
 
 #include "DYNXmlReader.h"
 #include "DYDDynamicModelsCollection.h"
+#include "DYDUnitDynamicModel.h"
 
 namespace dynamicdata {
 
@@ -40,12 +41,14 @@ class XmlParser {
   void parseModelTemplate();
   void parseBlackBoxModel();
   void parseModelTemplateExpansion();
-  void parseConnect();
-  void parseMacroConnection();
+  void parseConnectConnect();
+  void parseConnectInitConnect();
+  void parseMacroConnectionConnect();
+  void parseMacroConnectionInitConnect();
   void parseMacroConnect();
   void parseMacroConnector();
   void parseMacroStaticReference();
-  void parseUnitDynamicModel();
+  boost::shared_ptr<UnitDynamicModel> parseUnitDynamicModel();
   void parseStaticRef(boost::shared_ptr<Model> model);
   void parseMacroStaticRef(boost::shared_ptr<Model> model);
   void parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model);

@@ -17,6 +17,7 @@ XmlParsingError             =             error while parsing stream %1%
 
 //-------------  LIBXML2/XML ------------------------------------------
 XmlUnknownNodeName          =             unknown node name %1% in file %2%
+XmlMissingAttributeError    =             missing attribue in node %1%
 XsdValidationError          =             XSD validation error : %1%
 
 //---------------- SIMULATION ---------------------------------------
@@ -210,6 +211,7 @@ MultipleErrors              =             %1% errors were found and displayed ab
 MultipleAndHiddenErrors     =             first %1% errors displayed above
 MissingEnvironmentVariable  =             mandatory environment variable %1% is not defined
 ModelicaError               =             unexpected error while using Modelica library: %1%
+FailedBooleanConversion     =             failed conversion of %1% to boolean type
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
 UnknownCalculatedBus        =             calculated bus associated to '%1%' node '%2%' does not exist in the iidm import

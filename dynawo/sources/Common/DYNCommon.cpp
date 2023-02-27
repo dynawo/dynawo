@@ -167,4 +167,15 @@ LevensteinDistance(const std::string& s1, const std::string& s2,
   return levDist[minSize];
 }
 
+bool
+str2Bool(std::string str) {
+  if (str == "true") {
+    return true;
+  } else if (str == "false") {
+    return false;
+  } else {
+    throw DYNError(DYN::Error::API, FailedBooleanConversion, str);
+  }
+}
+
 }  // namespace DYN

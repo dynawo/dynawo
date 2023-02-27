@@ -194,6 +194,16 @@ namespace DYN {
       size_t replaceCost = 1);
 
   /**
+   * @brief convert a string to a boolean
+   *
+   * @param str string to convert
+   *
+   * @return the value with boolean type
+   */
+  bool
+  str2Bool(std::string str);
+
+  /**
    * @brief structure use for sorting pairs in a vector
    */
 struct mapcompabs {
