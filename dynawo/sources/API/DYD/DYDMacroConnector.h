@@ -62,6 +62,8 @@ class MacroConnector {
    */
   const std::map<std::string, boost::shared_ptr<MacroConnection> >& getInitConnectors() const;
 
+  MacroConnector& addConnect(boost::shared_ptr<dynamicdata::MacroConnection> macroConnection);
+
   /**
    * @brief Macro connection adder
    *
@@ -70,6 +72,8 @@ class MacroConnector {
    * @returns Reference to the current MacroConnector instance
    */
   MacroConnector& addConnect(const std::string& var1, const std::string& var2);
+
+  MacroConnector& addInitConnect(boost::shared_ptr<dynamicdata::MacroConnection> macroConnection);
 
   /**
    * @brief Initialization Macro connection adder

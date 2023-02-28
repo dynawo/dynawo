@@ -47,6 +47,11 @@ MacroConnector::getConnectors() const {
 }
 
 MacroConnector&
+MacroConnector::addConnect(boost::shared_ptr<dynamicdata::MacroConnection> macroConnection) {
+  return addConnect(macroConnection->getFirstVariableId(), macroConnection->getSecondVariableId());
+}
+
+MacroConnector&
 MacroConnector::addConnect(const string& var1, const string& var2) {
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
   string connectionId;
@@ -61,6 +66,11 @@ MacroConnector::addConnect(const string& var1, const string& var2) {
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, connectionId);
   return *this;
+}
+
+MacroConnector&
+MacroConnector::addInitConnect(boost::shared_ptr<dynamicdata::MacroConnection> macroConnection) {
+  return addInitConnect(macroConnection->getFirstVariableId(), macroConnection->getSecondVariableId());
 }
 
 MacroConnector&

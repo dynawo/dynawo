@@ -296,8 +296,34 @@ XmlParser::parseModelTemplateExpansion() {
 
 void
 XmlParser::parseMacroConnector() {
-    // à remplir
-    throw std::logic_error("À remplir");
+    try {
+        boost::shared_ptr<MacroConnector> macroConnector = nullptr;
+        const DYN::XmlString macroConnectorId(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")));
+        if (macroConnectorId != nullptr) {
+            macroConnector = boost::shared_ptr<MacroConnector>(new MacroConnector(DYN::XML2S(macroConnectorId.get())));
+        }
+
+        while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
+            if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
+                try {
+                    const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
+                    if (xmlStrEqual(nodeName.get(), DYN::S2XML("connect"))) {
+                        boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
+                        macroConnector->addConnect(macroConnection);
+                    } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("initConnect"))) {
+                        boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
+                        macroConnector->addInitConnect(macroConnection);
+                    } else {
+                        throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                    }
+                } catch (const std::exception& err) {
+                    throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+                }
+            }
+        }
+    } catch (const std::exception& err) {
+        throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+    }
 }
 
 void
@@ -328,10 +354,22 @@ XmlParser::parseConnect() const {
     }
 }
 
-void
+boost::shared_ptr<MacroConnection>
 XmlParser::parseMacroConnection() const {
-    // à remplir
-    throw std::logic_error("À remplir");
+    try {
+        boost::shared_ptr<MacroConnection> macroConnection = nullptr;
+        const DYN::XmlString macroConnectionVar1(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var1")));
+        const DYN::XmlString macroConnectionVar2(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var2")));
+        if (macroConnectionVar1 != nullptr && macroConnectionVar2 != nullptr) {
+            macroConnection = boost::shared_ptr<MacroConnection>(new MacroConnection(DYN::XML2S(macroConnectionVar1.get()),
+                                                                                    DYN::XML2S(macroConnectionVar2.get())));
+        } else {
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:connect/dyn:initConnect");
+        }
+        return macroConnection;
+    } catch (const std::exception& err) {
+        throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+    }
 }
 
 boost::shared_ptr<MacroConnect>
