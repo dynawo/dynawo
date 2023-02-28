@@ -103,6 +103,16 @@ ModelTemplate::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& model) {
 }
 
 ModelTemplate&
+ModelTemplate::addConnect(boost::shared_ptr<Connector> connector) {
+  std::string firstModelId = connector->getFirstModelId();
+  std::string firstVariableId = connector->getFirstVariableId();
+  std::string secondModelId = connector->getSecondModelId();
+  std::string secondVariableId = connector->getSecondVariableId();
+
+  return addConnect(firstModelId, firstVariableId, secondModelId, secondVariableId);
+}
+
+ModelTemplate&
 ModelTemplate::addConnect(const string& model1, const string& var1, const string& model2, const string& var2) {
   string connectionId = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
@@ -112,6 +122,16 @@ ModelTemplate::addConnect(const string& model1, const string& var1, const string
   if (!ret.second)
     throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
   return *this;
+}
+
+ModelTemplate&
+ModelTemplate::addInitConnect(boost::shared_ptr<Connector> connector) {
+  std::string firstModelId = connector->getFirstModelId();
+  std::string firstVariableId = connector->getFirstVariableId();
+  std::string secondModelId = connector->getSecondModelId();
+  std::string secondVariableId = connector->getSecondVariableId();
+
+  return addInitConnect(firstModelId, firstVariableId, secondModelId, secondVariableId);
 }
 
 ModelTemplate&

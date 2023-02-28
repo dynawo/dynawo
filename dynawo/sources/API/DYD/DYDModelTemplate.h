@@ -107,6 +107,8 @@ class ModelTemplate : public Model {
    */
   ModelTemplate& addUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& unitDynamicModel);
 
+  ModelTemplate& addConnect(boost::shared_ptr<Connector> connector);
+
   /**
    * @brief Dynamic connector adder
    *
@@ -117,6 +119,8 @@ class ModelTemplate : public Model {
    * @returns Reference to the current ModelTemplate instance
    */
   ModelTemplate& addConnect(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
+
+  ModelTemplate& addInitConnect(boost::shared_ptr<Connector> connector);
 
   /**
    * @brief Initialization connector adder
