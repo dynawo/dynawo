@@ -96,7 +96,8 @@ XmlParser::parseDynamicModelsArchitecture() {
                 boost::shared_ptr<Connector> connector = parseConnect();
                 dynamicModelsCollection_->addConnect(connector);
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroConnect"))) {
-                parseMacroConnect();
+                boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
+                dynamicModelsCollection_->addMacroConnect(macroConnect);
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroConnector"))) {
                 parseMacroConnector();
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroStaticReference"))) {
@@ -147,7 +148,8 @@ XmlParser::parseModelicaModel() {
                         boost::shared_ptr<Connector> initConnector = parseConnect();
                         modelicaModel->addInitConnect(initConnector);
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn::macroConnect"))) {
-                        parseMacroConnect();  // pb
+                        boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
+                        modelicaModel->addMacroConnect(macroConnect);
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:staticRef"))) {
                         parseStaticRef(modelicaModel);
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
@@ -237,12 +239,6 @@ XmlParser::parseModelTemplateExpansion() {
 }
 
 void
-XmlParser::parseMacroConnect() {
-    // à remplir
-    throw std::logic_error("À remplir");
-}
-
-void
 XmlParser::parseMacroConnector() {
     // à remplir
     throw std::logic_error("À remplir");
@@ -280,6 +276,43 @@ void
 XmlParser::parseMacroConnection() const {
     // à remplir
     throw std::logic_error("À remplir");
+}
+
+boost::shared_ptr<MacroConnect>
+XmlParser::parseMacroConnect() const {
+    try {
+        boost::shared_ptr<MacroConnect> macroConnect = nullptr;
+        const DYN::XmlString macroConnectConnector(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("connector")));
+        const DYN::XmlString macroConnectId1(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id1")));
+        const DYN::XmlString macroConnectId2(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id2")));
+        const DYN::XmlString macroConnectIndex1(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("index1")));
+        const DYN::XmlString macroConnectIndex2(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("index2")));
+        const DYN::XmlString macroConnectName1(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("name1")));
+        const DYN::XmlString macroConnectName2(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("name2")));
+
+        if (macroConnectConnector != nullptr && macroConnectId1 != nullptr && macroConnectId2 != nullptr) {
+            macroConnect = boost::shared_ptr<MacroConnect>(new MacroConnect(DYN::XML2S(macroConnectConnector.get()),
+                                                                            DYN::XML2S(macroConnectId1.get()),
+                                                                            DYN::XML2S(macroConnectId2.get())));
+            if (macroConnectIndex1 != nullptr) {
+                macroConnect->setIndex1(DYN::XML2S(macroConnectIndex1.get()));
+            }
+            if (macroConnectIndex2 != nullptr) {
+                macroConnect->setIndex2(DYN::XML2S(macroConnectIndex2.get()));
+            }
+            if (macroConnectName1 != nullptr) {
+                macroConnect->setName1(DYN::XML2S(macroConnectName1.get()));
+            }
+            if (macroConnectName2 != nullptr) {
+                macroConnect->setName2(DYN::XML2S(macroConnectName2.get()));
+            }
+        } else {
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:connect/dyn:initConnect");
+        }
+        return macroConnect;
+    } catch (const std::exception& err) {
+        throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+    }
 }
 
 boost::shared_ptr<UnitDynamicModel>
