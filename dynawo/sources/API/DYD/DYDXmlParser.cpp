@@ -63,8 +63,8 @@ XmlParser::parseXML() {
     try {
         while (xmlTextReaderRead(reader_.get()) == 1) {
             if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
-                const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:dynamicModelsArchitecture"))) {
+                const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+                if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:dynamicModelsArchitecture"))) {
                     parseDynamicModelsArchitecture();
                 }
             }
@@ -83,31 +83,31 @@ void
 XmlParser::parseDynamicModelsArchitecture() {
     while (xmlTextReaderRead(reader_.get()) == 1) {
         if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
-            const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-            if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:modelicaModel"))) {
+            const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+            if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:modelicaModel"))) {
                 parseModelicaModel();
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:modelTemplate"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:modelTemplate"))) {
                 parseModelTemplate();
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:blackBoxModel"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:blackBoxModel"))) {
                 parseBlackBoxModel();
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:modelTemplateExpansion"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:modelTemplateExpansion"))) {
                 parseModelTemplateExpansion();
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:connect"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:connect"))) {
                 boost::shared_ptr<Connector> connector = parseConnect();
                 dynamicModelsCollection_->addConnect(connector);
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroConnect"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroConnect"))) {
                 boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
                 dynamicModelsCollection_->addMacroConnect(macroConnect);
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroConnector"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroConnector"))) {
                 parseMacroConnector();
-            } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroStaticReference"))) {
+            } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroStaticReference"))) {
                 parseMacroStaticReference();
             } else {
-                throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                throw DYNError(DYN::Error::API, XmlUnknownElementName, elementName.get(), filename_);
             }
         } else if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_END_ELEMENT) {
-            const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-            if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:dynamicModelsArchitecture"))) {
+            const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+            if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:dynamicModelsArchitecture"))) {
                 break;
             }
         }
@@ -136,27 +136,27 @@ XmlParser::parseModelicaModel() {
             while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
                 if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
                     try {
-                        const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                        if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:unitDynamicModel"))) {
+                        const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+                        if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:unitDynamicModel"))) {
                             boost::shared_ptr<UnitDynamicModel> unitDynamicModel = parseUnitDynamicModel();
                             modelicaModel->addUnitDynamicModel(unitDynamicModel);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:connect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:connect"))) {
                             boost::shared_ptr<Connector> connector = parseConnect();
                             modelicaModel->addConnect(connector);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:initConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:initConnect"))) {
                             boost::shared_ptr<Connector> initConnector = parseConnect();
                             modelicaModel->addInitConnect(initConnector);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn::macroConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn::macroConnect"))) {
                             boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
                             modelicaModel->addMacroConnect(macroConnect);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:staticRef"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
                             boost::shared_ptr<StaticRef> staticRef = parseStaticRef();
                             modelicaModel->addStaticRef(staticRef);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
                             boost::shared_ptr<MacroStaticRef> macroStaticRef = parseMacroStaticRef();
                             modelicaModel->addMacroStaticRef(macroStaticRef);
                         } else {
-                            throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                            throw DYNError(DYN::Error::API, XmlUnknownElementName, elementName.get(), filename_);
                         }
                     } catch (const std::exception& err) {
                         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
@@ -191,27 +191,27 @@ XmlParser::parseModelTemplate() {
             while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
                 if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
                     try {
-                        const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                        if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:unitDynamicModel"))) {
+                        const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+                        if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:unitDynamicModel"))) {
                             boost::shared_ptr<UnitDynamicModel> unitDynamicModel = parseUnitDynamicModel();
                             modelTemplate->addUnitDynamicModel(unitDynamicModel);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:connect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:connect"))) {
                             boost::shared_ptr<Connector> connector = parseConnect();
                             modelTemplate->addConnect(connector);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:initConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:initConnect"))) {
                             boost::shared_ptr<Connector> initConnector = parseConnect();
                             modelTemplate->addInitConnect(initConnector);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn::macroConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn::macroConnect"))) {
                             boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
                             modelTemplate->addMacroConnect(macroConnect);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:staticRef"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
                             boost::shared_ptr<StaticRef> staticRef = parseStaticRef();
                             modelTemplate->addStaticRef(staticRef);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
                             boost::shared_ptr<MacroStaticRef> macroStaticRef = parseMacroStaticRef();
                             modelTemplate->addMacroStaticRef(macroStaticRef);
                         } else {
-                            throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                            throw DYNError(DYN::Error::API, XmlUnknownElementName, elementName.get(), filename_);
                         }
                     } catch (const std::exception& err) {
                         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
@@ -309,15 +309,15 @@ XmlParser::parseMacroConnector() {
             while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
                 if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
                     try {
-                        const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                        if (xmlStrEqual(nodeName.get(), DYN::S2XML("connect"))) {
+                        const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+                        if (xmlStrEqual(elementName.get(), DYN::S2XML("connect"))) {
                             boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
                             macroConnector->addConnect(macroConnection);
-                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("initConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("initConnect"))) {
                             boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
                             macroConnector->addInitConnect(macroConnection);
                         } else {
-                            throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                            throw DYNError(DYN::Error::API, XmlUnknownElementName, elementName.get(), filename_);
                         }
                     } catch (const std::exception& err) {
                         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
@@ -343,12 +343,12 @@ XmlParser::parseMacroStaticReference() {
             while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
                 if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
                     try {
-                        const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                        if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:staticRef"))) {
+                        const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+                        if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
                             boost::shared_ptr<StaticRef> staticRef = parseStaticRef();
                             macroStaticReference->addStaticRef(staticRef);
                         } else {
-                            throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                            throw DYNError(DYN::Error::API, XmlUnknownElementName, elementName.get(), filename_);
                         }
                     } catch (const std::exception& err) {
                         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
@@ -530,15 +530,15 @@ XmlParser::parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> m
     while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
         if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
             try {
-                const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:staticRef"))) {
+                const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
+                if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
                     boost::shared_ptr<StaticRef> staticRef = parseStaticRef();
                     model->addStaticRef(staticRef);
-                } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
+                } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroStaticRef"))) {
                     boost::shared_ptr<MacroStaticRef> macroStaticRef = parseMacroStaticRef();
                     model->addMacroStaticRef(macroStaticRef);
                 } else {
-                    throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                    throw DYNError(DYN::Error::API, XmlUnknownElementName, elementName.get(), filename_);
                 }
             } catch (const std::exception& err) {
                 throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());

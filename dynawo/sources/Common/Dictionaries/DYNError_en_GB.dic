@@ -16,7 +16,7 @@ XmlFileParsingError         =             error while parsing file %1% : %2%
 XmlParsingError             =             error while parsing stream %1%
 
 //-------------  LIBXML2/XML ------------------------------------------
-XmlUnknownNodeName          =             unknown node name %1% in file %2%
+XmlUnknownElementName       =             unknown element name %1% in file %2%
 XmlMissingAttributeError    =             missing attribue in node %1%
 XsdValidationError          =             XSD validation error : %1%
 
