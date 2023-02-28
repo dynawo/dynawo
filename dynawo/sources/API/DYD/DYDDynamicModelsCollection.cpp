@@ -56,6 +56,17 @@ DynamicModelsCollection::addModel(const shared_ptr<Model>& model) {
 }
 
 void
+DynamicModelsCollection::addConnect(boost::shared_ptr<Connector> connector) {
+  std::string firstModelId = connector->getFirstModelId();
+  std::string firstVariableId = connector->getFirstVariableId();
+  std::string secondModelId = connector->getSecondModelId();
+  std::string secondVariableId = connector->getSecondVariableId();
+
+  addConnect(firstModelId, firstVariableId, secondModelId, secondVariableId);
+}
+
+// à supprimer
+void
 DynamicModelsCollection::addConnect(const string& model1, const string& var1, const string& model2, const string& var2) {
   if (model1 == model2)
     throw DYNError(DYN::Error::API, InternalConnectDoneInSystem, model1, var1, model2, var2);

@@ -26,6 +26,7 @@
 #include "DYDBlackBoxModel.h"
 #include "DYDModelTemplateExpansion.h"
 #include "DYNMacrosMessage.h"
+#include "DYDConnector.h"
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
@@ -92,7 +93,8 @@ XmlParser::parseDynamicModelsArchitecture() {
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:modelTemplateExpansion"))) {
                 parseModelTemplateExpansion();
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:connect"))) {
-                parseConnectConnect();
+                boost::shared_ptr<Connector> connector = parseConnect();
+                dynamicModelsCollection_->addConnect(connector);
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroConnect"))) {
                 parseMacroConnect();
             } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:macroConnector"))) {
@@ -139,9 +141,11 @@ XmlParser::parseModelicaModel() {
                         boost::shared_ptr<UnitDynamicModel> unitDynamicModel = parseUnitDynamicModel();
                         modelicaModel->addUnitDynamicModel(unitDynamicModel);
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:connect"))) {
-                        parseConnectConnect();  // pb
+                        boost::shared_ptr<Connector> connector = parseConnect();
+                        modelicaModel->addConnect(connector);
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:initConnect"))) {
-                        parseConnectInitConnect();  // pb
+                        boost::shared_ptr<Connector> initConnector = parseConnect();
+                        modelicaModel->addInitConnect(initConnector);
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn::macroConnect"))) {
                         parseMacroConnect();  // pb
                     } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("dyn:staticRef"))) {
@@ -233,30 +237,6 @@ XmlParser::parseModelTemplateExpansion() {
 }
 
 void
-XmlParser::parseConnectConnect() {
-    // à remplir
-    throw std::logic_error("À remplir");
-}
-
-void
-XmlParser::parseConnectInitConnect() {
-    // à remplir
-    throw std::logic_error("À remplir");
-}
-
-void
-XmlParser::parseMacroConnectionConnect() {
-    // à remplir
-    throw std::logic_error("À remplir");
-}
-
-void
-XmlParser::parseMacroConnectionInitConnect() {
-    // à remplir
-    throw std::logic_error("À remplir");
-}
-
-void
 XmlParser::parseMacroConnect() {
     // à remplir
     throw std::logic_error("À remplir");
@@ -274,58 +254,67 @@ XmlParser::parseMacroStaticReference() {
     throw std::logic_error("À remplir");
 }
 
-boost::shared_ptr<UnitDynamicModel>
-XmlParser::parseUnitDynamicModel() {
+boost::shared_ptr<Connector>
+XmlParser::parseConnect() const {
     try {
-        const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-
-        boost::optional<std::string> unitDynamicModelId = boost::none;
-        boost::optional<std::string> unitDynamicModelParFile = boost::none;
-        boost::optional<std::string> unitDynamicModelParId = boost::none;
-        boost::optional<std::string> unitDynamicModelDynamicModelName = boost::none;
-        boost::optional<std::string> unitDynamicModelDynamicFileName = boost::none;
-        boost::optional<std::string> unitDynamicModelInitModelName = boost::none;
-        boost::optional<std::string> unitDynamicModelInitFileName = boost::none;
-
-        if (xmlStrEqual(nodeName.get(), DYN::S2XML("id"))) {
-            unitDynamicModelId = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")));
-        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("name"))) {
-            unitDynamicModelDynamicModelName = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("name")));
-        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("moFile"))) {
-            unitDynamicModelDynamicFileName = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("moFile")));
-        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("initName"))) {
-            unitDynamicModelInitModelName = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("initName")));
-        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("initFile"))) {
-            unitDynamicModelInitFileName = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("initFile")));
-        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("parFile"))) {
-            unitDynamicModelParFile = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("parFile")));
-        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("parId"))) {
-            unitDynamicModelParId = DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("parId")));
+        boost::shared_ptr<Connector> connector = nullptr;
+        const DYN::XmlString connectorId1(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id1")));
+        const DYN::XmlString connectorVar1(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var1")));
+        const DYN::XmlString connectorId2(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id2")));
+        const DYN::XmlString connectorVar2(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var2")));
+        if (connectorId1 != nullptr && connectorVar1 != nullptr && connectorId2 != nullptr && connectorVar2 != nullptr) {
+            connector = boost::shared_ptr<Connector>(new Connector(DYN::XML2S(connectorId1.get()),
+                                                                    DYN::XML2S(connectorVar1.get()),
+                                                                    DYN::XML2S(connectorId2.get()),
+                                                                    DYN::XML2S(connectorVar2.get())));
         } else {
-            throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:connect/dyn:initConnect");
         }
+        return connector;
+    } catch (const std::exception& err) {
+        throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+    }
+}
 
+void
+XmlParser::parseMacroConnection() const {
+    // à remplir
+    throw std::logic_error("À remplir");
+}
+
+boost::shared_ptr<UnitDynamicModel>
+XmlParser::parseUnitDynamicModel() const {
+    try {
         boost::shared_ptr<UnitDynamicModel> unitDynamicModel = nullptr;
-        if (unitDynamicModelId.is_initialized() && unitDynamicModelDynamicModelName.is_initialized()) {
-            unitDynamicModel = boost::shared_ptr<UnitDynamicModel>(new UnitDynamicModel(unitDynamicModelId.get(),
-                                                                            unitDynamicModelDynamicModelName.get()));
-            if (unitDynamicModelDynamicFileName.is_initialized()) {
-                unitDynamicModel->setDynamicFileName(unitDynamicModelDynamicFileName.get());
+
+        const DYN::XmlString unitDynamicModelId(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")));
+        const DYN::XmlString unitDynamicModelDynamicModelName(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("name")));
+        const DYN::XmlString unitDynamicModelDynamicFileName(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("moFile")));
+        const DYN::XmlString unitDynamicModelInitModelName(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("initName")));
+        const DYN::XmlString unitDynamicModelInitFileName(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("initFile")));
+        const DYN::XmlString unitDynamicModelParFile(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("parFile")));
+        const DYN::XmlString unitDynamicModelParId(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("parId")));
+
+        if (unitDynamicModelId != nullptr && unitDynamicModelDynamicModelName != nullptr) {
+            unitDynamicModel = boost::shared_ptr<UnitDynamicModel>(new UnitDynamicModel(DYN::XML2S(unitDynamicModelId.get()),
+                                                                            DYN::XML2S(unitDynamicModelDynamicModelName.get())));
+            if (unitDynamicModelDynamicFileName != nullptr) {
+                unitDynamicModel->setDynamicFileName(DYN::XML2S(unitDynamicModelDynamicFileName.get()));
             }
-            if (unitDynamicModelInitModelName.is_initialized()) {
-                unitDynamicModel->setInitModelName(unitDynamicModelInitModelName.get());
+            if (unitDynamicModelInitModelName != nullptr) {
+                unitDynamicModel->setInitModelName(DYN::XML2S(unitDynamicModelInitModelName.get()));
             }
-            if (unitDynamicModelInitFileName.is_initialized()) {
-                unitDynamicModel->setInitFileName(unitDynamicModelInitFileName.get());
+            if (unitDynamicModelInitFileName != nullptr) {
+                unitDynamicModel->setInitFileName(DYN::XML2S(unitDynamicModelInitFileName.get()));
             }
-            if (unitDynamicModelParFile.is_initialized()) {
-                unitDynamicModel->setParFile(unitDynamicModelParFile.get());
+            if (unitDynamicModelParFile != nullptr) {
+                unitDynamicModel->setParFile(DYN::XML2S(unitDynamicModelParFile.get()));
             }
-            if (unitDynamicModelParId.is_initialized()) {
-                unitDynamicModel->setParId(unitDynamicModelParId.get());
+            if (unitDynamicModelParId != nullptr) {
+                unitDynamicModel->setParId(DYN::XML2S(unitDynamicModelParId.get()));
             }
         } else {
-            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "UnitDynamicModel");
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:unitDynamicModel");
         }
 
         return unitDynamicModel;
@@ -335,7 +324,7 @@ XmlParser::parseUnitDynamicModel() {
 }
 
 void
-XmlParser::parseStaticRef(boost::shared_ptr<Model> model) {
+XmlParser::parseStaticRef(boost::shared_ptr<Model> model) const {
     try {
         model->addStaticRef(DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var"))),
                             DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("staticVar"))));
@@ -345,7 +334,7 @@ XmlParser::parseStaticRef(boost::shared_ptr<Model> model) {
 }
 
 void
-XmlParser::parseMacroStaticRef(boost::shared_ptr<Model> model) {
+XmlParser::parseMacroStaticRef(boost::shared_ptr<Model> model) const {
     try {
         boost::shared_ptr<MacroStaticRef> macroStaticRef = boost::shared_ptr<MacroStaticRef>(
                             new MacroStaticRef(DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")))));
@@ -356,7 +345,7 @@ XmlParser::parseMacroStaticRef(boost::shared_ptr<Model> model) {
 }
 
 void
-XmlParser::parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model) {
+XmlParser::parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model) const {
     while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
         if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
             try {

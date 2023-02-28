@@ -125,6 +125,8 @@ class ModelicaModel : public Model {
    */
   ModelicaModel& addUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& unitDynamicModel);
 
+  ModelicaModel& addConnect(boost::shared_ptr<Connector> connector);
+
   /**
    * @brief Dynamic connector adder
    *
@@ -135,6 +137,8 @@ class ModelicaModel : public Model {
    * @returns Reference to the current ModelicaModel instance
    */
   ModelicaModel& addConnect(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
+
+  ModelicaModel& addInitConnect(boost::shared_ptr<Connector> connector);
 
   /**
    * @brief Initialization connector adder

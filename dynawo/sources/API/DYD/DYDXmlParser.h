@@ -41,17 +41,15 @@ class XmlParser {
   void parseModelTemplate();
   void parseBlackBoxModel();
   void parseModelTemplateExpansion();
-  void parseConnectConnect();
-  void parseConnectInitConnect();
-  void parseMacroConnectionConnect();
-  void parseMacroConnectionInitConnect();
   void parseMacroConnect();
   void parseMacroConnector();
   void parseMacroStaticReference();
-  boost::shared_ptr<UnitDynamicModel> parseUnitDynamicModel();
-  void parseStaticRef(boost::shared_ptr<Model> model);
-  void parseMacroStaticRef(boost::shared_ptr<Model> model);
-  void parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model);
+  boost::shared_ptr<Connector> parseConnect() const;
+  void parseMacroConnection() const;
+  boost::shared_ptr<UnitDynamicModel> parseUnitDynamicModel() const;
+  void parseStaticRef(boost::shared_ptr<Model> model) const;
+  void parseMacroStaticRef(boost::shared_ptr<Model> model) const;
+  void parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model) const;
 
   boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;
   const DYN::XmlReader reader_;

@@ -50,6 +50,8 @@ class DynamicModelsCollection {
    */
   void addModel(const boost::shared_ptr<Model>& model);
 
+  void addConnect(boost::shared_ptr<Connector> connector);
+
   /**
    * @brief Add a new connector in the collection
    *
