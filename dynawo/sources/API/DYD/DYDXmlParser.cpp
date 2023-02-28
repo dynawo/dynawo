@@ -301,25 +301,27 @@ XmlParser::parseMacroConnector() {
         const DYN::XmlString macroConnectorId(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")));
         if (macroConnectorId != nullptr) {
             macroConnector = boost::shared_ptr<MacroConnector>(new MacroConnector(DYN::XML2S(macroConnectorId.get())));
-        }
 
-        while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
-            if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
-                try {
-                    const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
-                    if (xmlStrEqual(nodeName.get(), DYN::S2XML("connect"))) {
-                        boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
-                        macroConnector->addConnect(macroConnection);
-                    } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("initConnect"))) {
-                        boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
-                        macroConnector->addInitConnect(macroConnection);
-                    } else {
-                        throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+            while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
+                if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
+                    try {
+                        const DYN::XmlString nodeName(xmlTextReaderName(reader_.get()));
+                        if (xmlStrEqual(nodeName.get(), DYN::S2XML("connect"))) {
+                            boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
+                            macroConnector->addConnect(macroConnection);
+                        } else if (xmlStrEqual(nodeName.get(), DYN::S2XML("initConnect"))) {
+                            boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
+                            macroConnector->addInitConnect(macroConnection);
+                        } else {
+                            throw DYNError(DYN::Error::API, XmlUnknownNodeName, nodeName.get(), filename_);
+                        }
+                    } catch (const std::exception& err) {
+                        throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
                     }
-                } catch (const std::exception& err) {
-                    throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
                 }
             }
+        } else {
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:macroConnector");
         }
     } catch (const std::exception& err) {
         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
@@ -457,8 +459,14 @@ XmlParser::parseUnitDynamicModel() const {
 void
 XmlParser::parseStaticRef(boost::shared_ptr<Model> model) const {
     try {
-        model->addStaticRef(DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var"))),
-                            DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("staticVar"))));
+        const DYN::XmlString staticRefVar(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("var")));
+        const DYN::XmlString staticRefStaticVar(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("staticVar")));
+
+        if (staticRefVar != nullptr && staticRefStaticVar != nullptr) {
+            model->addStaticRef(DYN::XML2S(staticRefVar.get()), DYN::XML2S(staticRefStaticVar.get()));
+        } else {
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:staticRef");
+        }
     } catch (const std::exception& err) {
         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
     }
@@ -467,9 +475,15 @@ XmlParser::parseStaticRef(boost::shared_ptr<Model> model) const {
 void
 XmlParser::parseMacroStaticRef(boost::shared_ptr<Model> model) const {
     try {
-        boost::shared_ptr<MacroStaticRef> macroStaticRef = boost::shared_ptr<MacroStaticRef>(
-                            new MacroStaticRef(DYN::XML2S(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")))));
-        model->addMacroStaticRef(macroStaticRef);
+        boost::shared_ptr<MacroStaticRef> macroStaticRef = nullptr;
+        const DYN::XmlString macroStaticRefId(xmlTextReaderGetAttribute(reader_.get(), DYN::S2XML("id")));
+
+        if (macroStaticRefId != nullptr) {
+            macroStaticRef = boost::shared_ptr<MacroStaticRef>(new MacroStaticRef(DYN::XML2S(macroStaticRefId.get())));
+            model->addMacroStaticRef(macroStaticRef);
+        } else {
+            throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:macroStaticRef");
+        }
     } catch (const std::exception& err) {
         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
     }
