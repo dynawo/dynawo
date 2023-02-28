@@ -39,6 +39,13 @@ MacroStaticReference::getId() const {
 }
 
 void
+MacroStaticReference::addStaticRef(boost::shared_ptr<StaticRef> staticRef) {
+  const std::string var = staticRef->getModelVar();
+  const std::string staticVar = staticRef->getStaticVar();
+  addStaticRef(var, staticVar);
+}
+
+void
 MacroStaticReference::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;

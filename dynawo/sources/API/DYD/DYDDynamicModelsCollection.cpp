@@ -57,10 +57,10 @@ DynamicModelsCollection::addModel(const shared_ptr<Model>& model) {
 
 void
 DynamicModelsCollection::addConnect(boost::shared_ptr<Connector> connector) {
-  std::string firstModelId = connector->getFirstModelId();
-  std::string firstVariableId = connector->getFirstVariableId();
-  std::string secondModelId = connector->getSecondModelId();
-  std::string secondVariableId = connector->getSecondVariableId();
+  const std::string firstModelId = connector->getFirstModelId();
+  const std::string firstVariableId = connector->getFirstVariableId();
+  const std::string secondModelId = connector->getSecondModelId();
+  const std::string secondVariableId = connector->getSecondVariableId();
 
   addConnect(firstModelId, firstVariableId, secondModelId, secondVariableId);
 }

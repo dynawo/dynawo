@@ -104,10 +104,10 @@ ModelTemplate::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& model) {
 
 ModelTemplate&
 ModelTemplate::addConnect(boost::shared_ptr<Connector> connector) {
-  std::string firstModelId = connector->getFirstModelId();
-  std::string firstVariableId = connector->getFirstVariableId();
-  std::string secondModelId = connector->getSecondModelId();
-  std::string secondVariableId = connector->getSecondVariableId();
+  const std::string firstModelId = connector->getFirstModelId();
+  const std::string firstVariableId = connector->getFirstVariableId();
+  const std::string secondModelId = connector->getSecondModelId();
+  const std::string secondVariableId = connector->getSecondVariableId();
 
   return addConnect(firstModelId, firstVariableId, secondModelId, secondVariableId);
 }
@@ -126,10 +126,10 @@ ModelTemplate::addConnect(const string& model1, const string& var1, const string
 
 ModelTemplate&
 ModelTemplate::addInitConnect(boost::shared_ptr<Connector> connector) {
-  std::string firstModelId = connector->getFirstModelId();
-  std::string firstVariableId = connector->getFirstVariableId();
-  std::string secondModelId = connector->getSecondModelId();
-  std::string secondVariableId = connector->getSecondVariableId();
+  const std::string firstModelId = connector->getFirstModelId();
+  const std::string firstVariableId = connector->getFirstVariableId();
+  const std::string secondModelId = connector->getSecondModelId();
+  const std::string secondVariableId = connector->getSecondVariableId();
 
   return addInitConnect(firstModelId, firstVariableId, secondModelId, secondVariableId);
 }

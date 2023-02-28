@@ -50,6 +50,8 @@ class MacroStaticReference {
    */
   const std::string& getId() const;
 
+  void addStaticRef(boost::shared_ptr<StaticRef> staticRef);
+
   /**
    * @brief staticRef adder
    *

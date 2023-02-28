@@ -70,6 +70,8 @@ class Model {
    */
   ModelType getType() const;
 
+  Model& addStaticRef(boost::shared_ptr<StaticRef> staticRef);
+
   /**
    * @brief Static Ref adder
    * no id is set (the id is assumed to be the parent model dynamic id in this case)

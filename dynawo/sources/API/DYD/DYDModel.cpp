@@ -50,6 +50,13 @@ Model::getType() const {
 }
 
 Model&
+Model::addStaticRef(boost::shared_ptr<StaticRef> staticRef) {
+  const std::string var = staticRef->getModelVar();
+  const std::string staticVar = staticRef->getStaticVar();
+  return addStaticRef(var, staticVar);
+}
+
+Model&
 Model::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
