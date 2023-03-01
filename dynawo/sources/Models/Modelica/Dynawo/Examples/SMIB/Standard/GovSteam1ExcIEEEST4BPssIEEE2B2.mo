@@ -26,7 +26,7 @@ model GovSteam1ExcIEEEST4BPssIEEE2B2 "Active power variation on the load"
    Cos2Eta0 = 0.459383,
    DPu = 0,
    Efd0Pu = 1.81724,
-   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
+   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
    H = 4,
    IRotor0Pu = 1.81724,
    IStator0Pu = 3.8,
