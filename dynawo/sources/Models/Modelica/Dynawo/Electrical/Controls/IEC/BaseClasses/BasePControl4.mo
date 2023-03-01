@@ -13,6 +13,11 @@ within Dynawo.Electrical.Controls.IEC.BaseClasses;
 */
 
 partial model BasePControl4 "Base active power control module for type 4 wind turbines (IEC N°61400-27-1)"
+
+  /*
+    An anti-windup has been added to the first order filter
+    because the standard does not specify any change of behavior when the limits are reached.
+  */
   import Modelica;
   import Dynawo;
   import Dynawo.Types;

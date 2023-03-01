@@ -163,7 +163,7 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g19(P0Pu = P0Pu_g19, Q0Pu = Q0Pu_g19, U0Pu = U0Pu_g19, UPhase0 = UPhase0_g19, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g19) annotation(
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
-    Placement(visible = true, transformation(origin = {30, -110}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
 
   // g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
@@ -364,7 +364,7 @@ equation
   trafo_2031_4031.switchOffSignal2.value = false;
 
   connect(g20.terminal, bus_BG20.terminal) annotation(
-    Line(points = {{-75, 58}, {-75, 65}}, color = {0, 0, 255}));
+    Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal2, bus_1041.terminal) annotation(
     Line(points = {{-55, -92}, {-55, -90}, {-60, -90}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal1, bus_B01.terminal) annotation(

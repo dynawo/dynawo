@@ -21,6 +21,8 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
      /__\---/------->-- (terminal)
      \__/--------------
 
+    Anti-windup features have been added to the first order filters
+    because the standard does not specify any change of behavior when the limits are reached.
   */
   import Modelica;
   import Dynawo;
@@ -76,7 +78,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = -999) annotation(
     Placement(visible = true, transformation(origin = {-145, 40}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.ComplexBlocks.ComplexMath.RealToComplex iGs annotation(
+  Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression uGs(y = terminal.V) annotation(
     Placement(visible = true, transformation(origin = {10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -84,6 +86,8 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {70, -60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
@@ -113,14 +117,13 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
 
 equation
   if fOCB then
-    terminal.i = Complex(Modelica.Constants.eps, Modelica.Constants.eps);
+    terminal.i = Complex(0, 0);
   else
     Complex(iECFrameRotation.iGsRePu, iECFrameRotation.iGsImPu) = -terminal.i * (SystemBase.SnRef / SNom);
   end if;
-
-  connect(iECFrameRotation.iGsImPu, iGs.im) annotation(
+  connect(iECFrameRotation.iGsImPu, realToComplex.im) annotation(
     Line(points = {{26, -30}, {40, -30}, {40, -6}, {58, -6}}, color = {0, 0, 127}));
-  connect(iECFrameRotation.iGsRePu, iGs.re) annotation(
+  connect(iECFrameRotation.iGsRePu, realToComplex.re) annotation(
     Line(points = {{26, 30}, {40, 30}, {40, 6}, {58, 6}}, color = {0, 0, 127}));
   connect(theta, iECFrameRotation.theta) annotation(
     Line(points = {{-150, -80}, {-60, -80}, {-60, -54}, {-26, -54}}, color = {0, 0, 127}));
@@ -130,8 +133,6 @@ equation
     Line(points = {{-139.5, 40}, {-120, 40}, {-120, 54}, {-102, 54}}, color = {0, 0, 127}));
   connect(uGs.y, product.u1) annotation(
     Line(points = {{22, -80}, {40, -80}, {40, -66}, {58, -66}}, color = {85, 170, 255}));
-  connect(iGs.y, product.u2) annotation(
-    Line(points = {{82, 0}, {100, 0}, {100, -40}, {40, -40}, {40, -54}, {58, -54}}, color = {85, 170, 255}));
   connect(product.y, complexToReal.u) annotation(
     Line(points = {{82, -60}, {98, -60}}, color = {85, 170, 255}));
   connect(complexToReal.re, PAgPu) annotation(
@@ -143,11 +144,13 @@ equation
   connect(absLimRateLimFirstOrderAntiWindup1.y, iECFrameRotation.iqCmdPu) annotation(
     Line(points = {{-78, 0}, {-26, 0}}, color = {0, 0, 127}));
   connect(absLimRateLimFirstOrderAntiWindup.y, iECFrameRotation.ipCmdPu) annotation(
-    Line(points = {{-79, 60}, {-40, 60}, {-40, 54}, {-26, 54}}, color = {0, 0, 127}));
+    Line(points = {{-79, 60}, {-60, 60}, {-60, 54}, {-26, 54}}, color = {0, 0, 127}));
   connect(iqMaxPu, absLimRateLimFirstOrderAntiWindup1.yMax) annotation(
     Line(points = {{-150, 20}, {-120, 20}, {-120, 6}, {-102, 6}}, color = {0, 0, 127}));
   connect(iqMinPu, absLimRateLimFirstOrderAntiWindup1.yMin) annotation(
     Line(points = {{-150, -20}, {-120, -20}, {-120, -6}, {-102, -6}}, color = {0, 0, 127}));
+  connect(iGs.y, product.u2) annotation(
+    Line(points = {{60, -40}, {40, -40}, {40, -54}, {58, -54}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

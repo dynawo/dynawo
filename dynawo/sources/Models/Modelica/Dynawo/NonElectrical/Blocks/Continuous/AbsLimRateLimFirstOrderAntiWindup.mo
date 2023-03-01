@@ -14,6 +14,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block AbsLimRateLimFirstOrderAntiWindup "First order filter with absolute and rate limits, and an anti-windup loop"
   import Modelica;
+  import Dynawo;
   import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
@@ -47,7 +48,7 @@ block AbsLimRateLimFirstOrderAntiWindup "First order filter with absolute and ra
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));

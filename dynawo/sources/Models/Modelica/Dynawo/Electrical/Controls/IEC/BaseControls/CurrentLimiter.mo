@@ -137,10 +137,6 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
     Placement(visible = true, transformation(origin = {270, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max2 annotation(
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const6(k = 1e-5) annotation(
-    Placement(visible = true, transformation(origin = {190, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {240, 50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Logical.Greater greater annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k1 = -1) annotation(
@@ -277,20 +273,12 @@ equation
     Line(points = {{122, 100}, {310, 100}}, color = {0, 0, 127}));
   connect(switch1.y, gain.u) annotation(
     Line(points = {{122, 100}, {140, 100}, {140, 82}}, color = {0, 0, 127}));
-  connect(switch1.y, add.u1) annotation(
-    Line(points = {{122, 100}, {246, 100}, {246, 62}}, color = {0, 0, 127}));
-  connect(const6.y, add.u2) annotation(
-    Line(points = {{202, 80}, {234, 80}, {234, 62}}, color = {0, 0, 127}));
   connect(gain.y, max2.u1) annotation(
     Line(points = {{140, 60}, {140, -14}, {158, -14}}, color = {0, 0, 127}));
   connect(greater.y, switch3.u2) annotation(
     Line(points = {{222, 0}, {258, 0}}, color = {255, 0, 255}));
   connect(switch3.y, iqMinPu) annotation(
     Line(points = {{282, 0}, {310, 0}}, color = {0, 0, 127}));
-  connect(add.y, switch3.u3) annotation(
-    Line(points = {{240, 40}, {240, 8}, {258, 8}}, color = {0, 0, 127}));
-  connect(add.y, greater.u1) annotation(
-    Line(points = {{240, 40}, {240, 20}, {180, 20}, {180, 0}, {198, 0}}, color = {0, 0, 127}));
   connect(max2.y, switch3.u1) annotation(
     Line(points = {{182, -20}, {240, -20}, {240, -8}, {258, -8}}, color = {0, 0, 127}));
   connect(max2.y, greater.u2) annotation(
@@ -301,6 +289,10 @@ equation
     Line(points = {{2, -20}, {20, -20}, {20, -14}, {38, -14}}, color = {0, 0, 127}));
   connect(UWTCFiltPu, add1.u2) annotation(
     Line(points = {{-320, -80}, {20, -80}, {20, -26}, {38, -26}}, color = {0, 0, 127}));
+  connect(switch1.y, greater.u1) annotation(
+    Line(points = {{122, 100}, {180, 100}, {180, 0}, {198, 0}}, color = {0, 0, 127}));
+  connect(switch1.y, switch3.u3) annotation(
+    Line(points = {{122, 100}, {240, 100}, {240, 8}, {258, 8}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -3001,7 +3001,7 @@ class Factory:
     # prepare the lines that constitues the body of evalDynamicYType_omc
     # @param self : object pointer
     # @return
-    def prepare_for_evaldynamicytype(self):
+    def prepare_for_evaldynamictype(self):
         ind = 0
         diff_var_to_eq = {}
         for eq in self.get_list_eq_syst():
@@ -3014,6 +3014,8 @@ class Factory:
                             diff_var_to_eq[diff_var] = []
                         if eq not in  diff_var_to_eq[diff_var]:
                             diff_var_to_eq[diff_var].append(eq)
+
+        if len(diff_var_to_eq) == 0: return
 
         alg_vars = []
         for v in self.list_vars_syst:
@@ -3736,7 +3738,7 @@ class Factory:
         self.prepare_for_initrpar()
         self.prepare_for_setupdatastruc()
         self.prepare_for_evalstaticytype()
-        self.prepare_for_evaldynamicytype()
+        self.prepare_for_evaldynamictype()
         self.prepare_for_evalstaticftype()
         self.prepare_for_evaldynamicftype()
         self.prepare_for_defelem()

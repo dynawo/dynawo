@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
+model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
   import Modelica;
   import Modelica.ComplexMath;
   import Dynawo.Types;
@@ -40,7 +40,7 @@ model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a cu
   Types.PerUnit UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
   Types.PerUnit PF0 "Start value of power factor";
-  Types.PerUnit Id0Pu "Start value of d-axs current at injector in pu (base UNom, SNom) (generator convention)";
+  Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
 
 equation
@@ -59,4 +59,4 @@ equation
   Iq0Pu = Modelica.Math.sin(UPhaseInj0) * iInj0Pu.re - Modelica.Math.cos(UPhaseInj0) * iInj0Pu.im;
 
   annotation(Documentation(preferredView = "text"));
-end WTG4CurrentSource_INIT;
+end WT4CurrentSource_INIT;

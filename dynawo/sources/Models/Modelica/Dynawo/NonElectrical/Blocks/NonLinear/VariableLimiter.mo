@@ -9,7 +9,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain suite of simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model VariableLimiter "Limit the range of a signal with variable limits"
@@ -57,11 +57,9 @@ is passed as output.
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Line(
-          visible=strict,
           points={{50,70},{80,70}},
           color={255,0,0}),
         Line(
-          visible=strict,
           points={{-80,-70},{-50,-70}},
           color={255,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{

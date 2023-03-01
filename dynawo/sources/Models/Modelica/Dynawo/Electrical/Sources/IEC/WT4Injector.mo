@@ -72,11 +72,6 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput iWtPu(re(start = -i0Pu.re * SystemBase.SnRef / SNom), im(start = -i0Pu.im * SystemBase.SnRef / SNom)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Add add annotation(
-    Placement(visible = true, transformation(origin = {10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 1e-10) annotation(
-    Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex1 annotation(
@@ -133,8 +128,6 @@ equation
     Line(points = {{-110, -20}, {-82, -20}, {-82, -8}, {-62, -8}}, color = {0, 0, 127}));
   connect(iqMinPu, genSystem.iqMinPu) annotation(
     Line(points = {{-110, -40}, {-80, -40}, {-80, -16}, {-62, -16}}, color = {0, 0, 127}));
-  connect(const.y, add.u2) annotation(
-    Line(points = {{-39, -80}, {-20, -80}, {-20, -86}, {-2, -86}}, color = {0, 0, 127}));
   connect(realToComplex1.y, uWtPu) annotation(
     Line(points = {{82, -80}, {110, -80}}, color = {85, 170, 255}));
   connect(realToComplex.y, iWtPu) annotation(
@@ -143,16 +136,14 @@ equation
     Line(points = {{36, -22}, {36, -34}, {58, -34}}, color = {0, 0, 127}));
   connect(elecSystem.iWtRePu, realToComplex.re) annotation(
     Line(points = {{32, -22}, {32, -46}, {58, -46}}, color = {0, 0, 127}));
-  connect(elecSystem.uWtRePu, add.u1) annotation(
-    Line(points = {{22, -22}, {22, -60}, {-20, -60}, {-20, -74}, {-2, -74}}, color = {0, 0, 127}));
-  connect(add.y, realToComplex1.re) annotation(
-    Line(points = {{22, -80}, {40, -80}, {40, -86}, {58, -86}}, color = {0, 0, 127}));
   connect(elecSystem.uWtImPu, realToComplex1.im) annotation(
     Line(points = {{26, -22}, {26, -74}, {58, -74}}, color = {0, 0, 127}));
   connect(fOCB, genSystem.fOCB) annotation(
     Line(points = {{40, 110}, {40, 60}, {-32, 60}, {-32, 22}}, color = {255, 0, 255}));
   connect(genSystem.PAgPu, PAgPu) annotation(
     Line(points = {{-18, -16}, {0, -16}, {0, -50}, {-80, -50}, {-80, -110}}, color = {0, 0, 127}));
+  connect(elecSystem.uWtRePu, realToComplex1.re) annotation(
+    Line(points = {{22, -22}, {22, -86}, {58, -86}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
