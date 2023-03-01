@@ -26,7 +26,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
   Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0, XPu = 0.00675, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {36, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous generatorSynchronous(
-    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
+    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 3.5, DPu = 0,
     PNomAlt = 2200, PNomTurb = 2220, SNom = 2220,
     SnTfo = 2220, UBaseHV = 24, UBaseLV = 24, UNom = 24, UNomHV = 24, UNomLV = 24, XTfPu = 0, RTfPu = 0,

@@ -25,7 +25,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
    Cos2Eta0 = 0.586492,
    DPu = 0,
    Efd0Pu = 2.50789,
-   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
+   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
    H = 4,
    IRotor0Pu = 2.50789,
    IStator0Pu = 5.03993,
