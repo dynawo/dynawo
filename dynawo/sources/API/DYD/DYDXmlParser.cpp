@@ -146,7 +146,7 @@ XmlParser::parseModelicaModel() {
                         } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:initConnect"))) {
                             boost::shared_ptr<Connector> initConnector = parseConnect();
                             modelicaModel->addInitConnect(initConnector);
-                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn::macroConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroConnect"))) {
                             boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
                             modelicaModel->addMacroConnect(macroConnect);
                         } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
@@ -201,7 +201,7 @@ XmlParser::parseModelTemplate() {
                         } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:initConnect"))) {
                             boost::shared_ptr<Connector> initConnector = parseConnect();
                             modelTemplate->addInitConnect(initConnector);
-                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn::macroConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:macroConnect"))) {
                             boost::shared_ptr<MacroConnect> macroConnect = parseMacroConnect();
                             modelTemplate->addMacroConnect(macroConnect);
                         } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
@@ -310,10 +310,10 @@ XmlParser::parseMacroConnector() {
                 if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
                     try {
                         const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
-                        if (xmlStrEqual(elementName.get(), DYN::S2XML("connect"))) {
+                        if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:connect"))) {
                             boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
                             macroConnector->addConnect(macroConnection);
-                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("initConnect"))) {
+                        } else if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:initConnect"))) {
                             boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
                             macroConnector->addInitConnect(macroConnection);
                         } else {
@@ -327,6 +327,7 @@ XmlParser::parseMacroConnector() {
         } else {
             throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:macroConnector");
         }
+        dynamicModelsCollection_->addMacroConnector(macroConnector);
     } catch (const std::exception& err) {
         throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
     }
