@@ -36,6 +36,8 @@ class XmlParser {
   void activateXSDValidation(const std::string& xsdSchemaFile);
 
  private:
+  using ParsingCallback = std::function<void()>;
+
   void parseDynamicModelsArchitecture();
   void parseModelicaModel();
   void parseModelTemplate();
@@ -50,6 +52,7 @@ class XmlParser {
   boost::shared_ptr<MacroStaticRef> parseMacroStaticRef() const;
   boost::shared_ptr<UnitDynamicModel> parseUnitDynamicModel() const;
   void parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model) const;
+  void parseSubElements(const ParsingCallback& callback) const;
 
   boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;
   const DYN::XmlReader reader_;
