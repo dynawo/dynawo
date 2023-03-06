@@ -133,7 +133,7 @@ XmlParser::parseModelicaModel() {
                                                         DYN::str2Bool(DYN::XML2S(modelicaModelGenerateCalculatedVariables.get())));
             }
 
-            parseSubElements([&]() {
+            parseSubElements("dyn:modelicaModel", [&]() {
                 const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
                 if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:unitDynamicModel"))) {
                     boost::shared_ptr<UnitDynamicModel> unitDynamicModel = parseUnitDynamicModel();
@@ -182,7 +182,7 @@ XmlParser::parseModelTemplate() {
                                             DYN::str2Bool(DYN::XML2S(modelTemplateGenerateCalculatedVariables.get())));
             }
 
-            parseSubElements([&]() {
+            parseSubElements("dyn:modelTemplate", [&]() {
                 const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
                 if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:unitDynamicModel"))) {
                     boost::shared_ptr<UnitDynamicModel> unitDynamicModel = parseUnitDynamicModel();
@@ -239,7 +239,7 @@ XmlParser::parseBlackBoxModel() {
             if (blackBoxModelParId != nullptr) {
                 blackBoxModel->setParId(DYN::XML2S(blackBoxModelParId.get()));
             }
-            parseBlackBoxModelOrModelTemplateExpansion(blackBoxModel);
+            parseBlackBoxModelOrModelTemplateExpansion("dyn:blackBoxModel", blackBoxModel);
         } else {
             throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:blackBoxModel");
         }
@@ -276,7 +276,7 @@ XmlParser::parseModelTemplateExpansion() {
                 modelTemplateExpansion->setParId(DYN::XML2S(modelTemplateExpansionParId.get()));
             }
 
-            parseBlackBoxModelOrModelTemplateExpansion(modelTemplateExpansion);
+            parseBlackBoxModelOrModelTemplateExpansion("dyn:modelTemplateExpansion", modelTemplateExpansion);
         } else {
             throw DYNError(DYN::Error::API, XmlMissingAttributeError, filename_, "dyn:modelTemplateExpansion");
         }
@@ -294,7 +294,7 @@ XmlParser::parseMacroConnector() {
         if (macroConnectorId != nullptr) {
             macroConnector = boost::shared_ptr<MacroConnector>(new MacroConnector(DYN::XML2S(macroConnectorId.get())));
 
-            parseSubElements([&]() {
+            parseSubElements("dyn:macroConnector", [&]() {
                 const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
                 if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:connect"))) {
                     boost::shared_ptr<dynamicdata::MacroConnection> macroConnection = parseMacroConnection();
@@ -323,7 +323,7 @@ XmlParser::parseMacroStaticReference() {
         if (macroStaticReferenceId != nullptr) {
             macroStaticReference = boost::shared_ptr<MacroStaticReference>(
                                                     new MacroStaticReference(DYN::XML2S(macroStaticReferenceId.get())));
-            parseSubElements([&]() {
+            parseSubElements("dyn:macroStaticReference", [&]() {
                 const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
                 if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
                     boost::shared_ptr<StaticRef> staticRef = parseStaticRef();
@@ -505,8 +505,8 @@ XmlParser::parseUnitDynamicModel() const {
 }
 
 void
-XmlParser::parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model) const {
-    parseSubElements([&]() {
+XmlParser::parseBlackBoxModelOrModelTemplateExpansion(const std::string& elementName, boost::shared_ptr<Model> model) const {
+    parseSubElements(elementName, [&]() {
         const DYN::XmlString elementName(xmlTextReaderName(reader_.get()));
         if (xmlStrEqual(elementName.get(), DYN::S2XML("dyn:staticRef"))) {
             boost::shared_ptr<StaticRef> staticRef = parseStaticRef();
@@ -521,8 +521,9 @@ XmlParser::parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> m
 }
 
 void
-XmlParser::parseSubElements(const ParsingCallback& callback) const {
-    while (xmlTextReaderRead(reader_.get()) == 1 && xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT) {
+XmlParser::parseSubElements(const std::string& elementName, const ParsingCallback& callback) const {
+    while (xmlTextReaderRead(reader_.get()) == 1 &&
+            (xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT || DYN::XML2S(xmlTextReaderName(reader_.get())) != elementName)) {
         if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
             try {
                 callback();

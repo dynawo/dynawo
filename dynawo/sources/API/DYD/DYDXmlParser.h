@@ -51,8 +51,8 @@ class XmlParser {
   boost::shared_ptr<StaticRef> parseStaticRef() const;
   boost::shared_ptr<MacroStaticRef> parseMacroStaticRef() const;
   boost::shared_ptr<UnitDynamicModel> parseUnitDynamicModel() const;
-  void parseBlackBoxModelOrModelTemplateExpansion(boost::shared_ptr<Model> model) const;
-  void parseSubElements(const ParsingCallback& callback) const;
+  void parseBlackBoxModelOrModelTemplateExpansion(const std::string& elementName, boost::shared_ptr<Model> model) const;
+  void parseSubElements(const std::string& elementName, const ParsingCallback& callback) const;
 
   boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;
   const DYN::XmlReader reader_;
