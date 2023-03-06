@@ -484,6 +484,8 @@ XmlParser::parseUnitDynamicModel() const {
                 unitDynamicModel->setInitModelName(DYN::XML2S(unitDynamicModelInitModelName.get()));
             }
             if (unitDynamicModelInitFileName != nullptr) {
+                if (unitDynamicModelInitModelName == nullptr)
+                    throw DYNError(DYN::Error::API, MissingDYDInitName, DYN::XML2S(unitDynamicModelDynamicModelName.get()));
                 unitDynamicModel->setInitFileName(DYN::XML2S(unitDynamicModelInitFileName.get()));
             }
             if (unitDynamicModelParFile != nullptr) {
