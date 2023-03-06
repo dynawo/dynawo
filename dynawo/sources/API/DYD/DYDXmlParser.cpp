@@ -522,15 +522,23 @@ XmlParser::parseBlackBoxModelOrModelTemplateExpansion(const std::string& element
 
 void
 XmlParser::parseSubElements(const std::string& elementName, const ParsingCallback& callback) const {
-    while (xmlTextReaderRead(reader_.get()) == 1 &&
+    int emptyElement = xmlTextReaderIsEmptyElement(reader_.get());
+    if (emptyElement == 1) {
+        // nothing to do if current element has no subelements
+        return;
+    } else if (emptyElement == 0) {
+        while (xmlTextReaderRead(reader_.get()) == 1 &&
             (xmlTextReaderNodeType(reader_.get()) != XML_READER_TYPE_END_ELEMENT || DYN::XML2S(xmlTextReaderName(reader_.get())) != elementName)) {
-        if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
-            try {
-                callback();
-            } catch (const std::exception& err) {
-                throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+            if (xmlTextReaderNodeType(reader_.get()) == XML_READER_TYPE_ELEMENT) {
+                try {
+                    callback();
+                } catch (const std::exception& err) {
+                    throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, err.what());
+                }
             }
         }
+    } else {
+        throw DYNError(DYN::Error::API, XmlFileParsingError, filename_, "An error occurred while calling xmlTextReaderIsEmptyElement function");
     }
 }
 
