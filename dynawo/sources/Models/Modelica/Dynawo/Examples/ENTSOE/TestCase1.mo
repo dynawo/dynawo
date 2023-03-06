@@ -25,7 +25,7 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
    Cos2Eta0 = 1,
    DPu = 0,
    Efd0Pu = 1,
-   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
+   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
    H = 4,
    IRotor0Pu = 1,
    IStator0Pu = 0,

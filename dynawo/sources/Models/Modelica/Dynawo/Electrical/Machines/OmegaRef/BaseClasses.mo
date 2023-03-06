@@ -66,7 +66,7 @@ package BaseClasses
   end BaseGeneratorSimplifiedPFBehavior;
 
   record GeneratorSynchronousParameters "Synchronous machine record: Common parameters to the init and the dynamic models"
-    type ExcitationPuType = enumeration(NominalStatorVoltageNoLoad "1 pu gives nominal air-gap stator voltage at no load", Kundur "Base voltage as per Kundur, Power System Stability and Control", UserBase "User defined base for the excitation voltage", Nominal "Base for excitation voltage in nominal conditions (PNomAlt, QNom, UNom)");
+    type ExcitationPuType = enumeration(NoLoad "1 pu gives nominal air-gap stator voltage at no load", NoLoadSaturated "1 pu gives nominal air-gap stator voltage at no load, accounting for saturation", UserBase "User defined base for the excitation voltage", Nominal "Base for excitation voltage in nominal conditions (PNomAlt, QNom, UNom)", Kundur "Base voltage as per Kundur, Power System Stability and Control");
 
     // General parameters of the synchronous machine
     parameter Types.VoltageModule UNom "Nominal voltage in kV";
@@ -142,7 +142,7 @@ package BaseClasses
     // pu factor for excitation voltage
     parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in pu";
     parameter Types.PerUnit MdPPuEfdNom "Direct axis mutual inductance used to determine the excitation voltage in nominal conditions in pu";
-    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd elseif ExcitationPu == ExcitationPuType.NominalStatorVoltageNoLoad then RfPPu / MdPPu else RfPPu / MdPPuEfdNom "Scaling factor for excitation pu voltage";
+    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd elseif ExcitationPu == ExcitationPuType.NoLoad then RfPPu / MdPPu elseif ExcitationPu == ExcitationPuType.NoLoadSaturated then RfPPu * (1 + md) / MdPPu else RfPPu / MdPPuEfdNom "Scaling factor for excitation pu voltage";
 
     // Start values given as inputs of the initialization process
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";

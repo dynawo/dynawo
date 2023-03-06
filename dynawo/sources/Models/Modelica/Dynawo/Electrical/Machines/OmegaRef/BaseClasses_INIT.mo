@@ -391,8 +391,10 @@ package BaseClasses_INIT
     elseif ExcitationPu == ExcitationPuType.UserBase then
       assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
       Kuf = RfPPu / MdPPuEfd;
-    elseif ExcitationPu == ExcitationPuType.NominalStatorVoltageNoLoad then
+    elseif ExcitationPu == ExcitationPuType.NoLoad then
       Kuf = RfPPu / MdPPu;
+    elseif ExcitationPu == ExcitationPuType.NoLoadSaturated then
+      Kuf = RfPPu * (1 + md) / MdPPu;
     else
       Kuf = RfPPu / MdPPuEfdNom;
     end if;
@@ -469,8 +471,10 @@ package BaseClasses_INIT
     elseif ExcitationPu == ExcitationPuType.UserBase then
       assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
       Kuf = RfPPu / MdPPuEfd;
-    elseif ExcitationPu == ExcitationPuType.NominalStatorVoltageNoLoad then
+    elseif ExcitationPu == ExcitationPuType.NoLoad then
       Kuf = RfPPu / MdPPu;
+    elseif ExcitationPu == ExcitationPuType.NoLoadSaturated then
+      Kuf = RfPPu * (1 + md) / MdPPu;
     else
       Kuf = RfPPu / MdPPuEfdNom;
     end if;

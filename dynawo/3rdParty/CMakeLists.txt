@@ -119,8 +119,8 @@ set(googletest_url       ${googletest_prefix_url}/release-${googletest_version}.
 set(googletest_md5       2E6FBEB6A91310A16EFE181886C59596)
 
 set(libarchive_version_required 2.8.0)
-set(libarchive_version        3.4.0)
-set(libarchive_md5            bdfe6fb43e4c6018c9c859b6aa6d384d)
+set(libarchive_version        3.5.1)
+set(libarchive_md5            742a47936955f280b9dc712ac544f8ec)
 set(libarchive_name      libarchive-${libarchive_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_LIBARCHIVE_DOWNLOAD_URL})
   set(libarchive_prefix_url $ENV{DYNAWO_LIBARCHIVE_DOWNLOAD_URL})

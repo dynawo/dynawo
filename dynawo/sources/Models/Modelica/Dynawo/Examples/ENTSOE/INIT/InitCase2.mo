@@ -17,7 +17,7 @@ model InitCase2 "Synchronous generator starting at 380 MW and 0 Mvar - Start val
 
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousInt_INIT generatorSynchronousInt_INIT(
   DPu = 0,
-  ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
+  ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
   H = 4,
   LDPu = 0.19063,
   LQ1Pu = 0.51659,
