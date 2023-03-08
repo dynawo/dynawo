@@ -51,7 +51,7 @@ def namespaceDYN(tag):
     return "{" + DYN_NAMESPACE + "}" + tag
 
 def cleanIdForJS(id):
-    return id.replace(".","_").replace(" ","_").replace("-","_")
+    return id.replace(".","_").replace(" ","_").replace("-","_").replace('#',"_").replace('+',"_")
 
 
 ### CSV READER and DUMP into jsFile
