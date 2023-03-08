@@ -157,7 +157,9 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSimpleIn
     ASSERT_NO_THROW(voltmu->evalDynamicYType());
     // The internal parameters haven't been initialized, it should return 0.
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 0.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minIValIdx_), 0);
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), 0.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxIValIdx_), 0);
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), 0.0);
     // We now make sure it is initialized
     ASSERT_NO_THROW(voltmu->getY0());
@@ -248,7 +250,9 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesConnecti
     voltmu->evalG(nextTs);
     voltmu->evalZ(nextTs);
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 1.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minIValIdx_), 0);
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxIValIdx_), nbVoltages-1);
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
                     nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
 
@@ -436,6 +440,20 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     for (std::size_t i = 0; i < nbVoltages; ++i) {
         ASSERT_EQ(expectedGradAvgVal[i], gradAvgVal[i]);
+    }
+
+    std::vector<double> gradMinIVal(voltmu->sizeY(), 0.);
+    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMinIVal);
+
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        ASSERT_EQ(0.0, gradMinIVal[i]);
+    }
+
+    std::vector<double> gradMaxIVal(voltmu->sizeY(), 0.);
+    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMaxIVal);
+
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        ASSERT_EQ(0.0, gradMaxIVal[i]);
     }
 
     std::vector<double> wrongIndexGrad(voltmu->sizeY(), 0.);
