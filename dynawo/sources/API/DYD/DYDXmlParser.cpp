@@ -76,7 +76,10 @@ XmlParser::parseXML() {
 
 void
 XmlParser::activateXSDValidation(const std::string& xsdSchemaFile) {
-    xmlTextReaderSchemaValidate(reader_.get(), xsdSchemaFile.c_str());
+    int res = xmlTextReaderSchemaValidate(reader_.get(), xsdSchemaFile.c_str());
+    if (res == -1) {
+        throw DYNError(DYN::Error::API, XmlSchemaValidationActivationError);
+    }
 }
 
 void

@@ -19,6 +19,7 @@ XmlParsingError             =             error while parsing stream %1%
 XmlUnknownElementName       =             unknown element name %1% in file %2%
 XmlMissingAttributeError    =             missing attribue in node %1%
 XsdValidationError          =             XSD validation error : %1%
+XmlSchemaValidationActivationError =      an error occurred while calling xmlTextReaderSchemaValidate function
 
 //---------------- SIMULATION ---------------------------------------
 SlowStepIncrease            =             time step <= %2% s for more than %1% iterations
