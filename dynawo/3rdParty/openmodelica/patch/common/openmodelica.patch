@@ -2482,7 +2482,7 @@ index ff8e494a27..41d21e9837 100644
    input BackendDAE.BackendDAE inBackendDAE;
    output BackendDAE.BackendDAE outBackendDAE;
 diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-index 032d59bee2..306d310bfc 100644
+index 032d59bee2..27e67aaa9b 100644
 --- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +++ b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 @@ -8545,12 +8545,27 @@ algorithm
@@ -2603,6 +2603,21 @@ index 032d59bee2..306d310bfc 100644
    dumpSimCodeDAEmodeDataString(simCode.daeModeData);
  end dumpSimCodeDebug;
  
+@@ -9682,7 +9766,13 @@ algorithm
+         isProtected = BackendVariable.isProtected(dlowVar);
+         hideResult = getHideResult(hideResultExp);
+         (minValue, maxValue) = getMinMaxValues(dlowVar);
+-        initVal = getStartValue(dlowVar);
++       
++        if (BackendVariable.isParam(dlowVar) and not BackendVariable.varHasBindExp(dlowVar) and BackendVariable.varFixed(dlowVar)) then
++          // This parameter had no initial value, we do not want to force one
++          initVal = NONE();
++        else
++          initVal = getStartValue(dlowVar);
++        end if;
+         nomVal = getNominalValue(dlowVar);
+         // checkInitVal(initVal, source);
+         isFixed = BackendVariable.varFixed(dlowVar);
 diff --git a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
 index 0feec88e4e..d33da95dcd 100644
 --- a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
@@ -2717,19 +2732,6 @@ index 824c555fb7..7cce67c4bd 100644
      "../BackEnd/DAEMode.mo",
      "../BackEnd/DataReconciliation.mo",
      "../BackEnd/Differentiate.mo",
-diff --git a/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h b/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h
-index eb2868960f..44e56b0fe3 100644
---- a/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h
-+++ b/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h
-@@ -66,7 +66,7 @@ static inline void mmc_init_stackoverflow_fast(threadData_t *threadData, threadD
-     mmc_init_stackoverflow(threadData);
- }
- #else
--static inline void mmc_init_stackoverflow_fast(threadData_t *threadData, threadData_t *oldThreadData)
-+static inline void mmc_init_stackoverflow_fast(threadData_t *threadData, threadData_t */*oldThreadData*/)
- {
-   mmc_init_stackoverflow(threadData);
- }
 diff --git a/OMCompiler/SimulationRuntime/c/simulation_data.h b/OMCompiler/SimulationRuntime/c/simulation_data.h
 index 4fe412a0a1..be1f13ba3d 100644
 --- a/OMCompiler/SimulationRuntime/c/simulation_data.h
