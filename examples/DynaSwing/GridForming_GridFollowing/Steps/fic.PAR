@@ -175,7 +175,7 @@
     <par type="DOUBLE" name="doubleStep_tStep2" value="2"/>
     <par type="DOUBLE" name="doubleStep_Height2" value="-0.1"/>
   </set>
-   <set id="STEPPHVDC1">
+  <set id="STEPPHVDC1">
     <par type="DOUBLE" name="doubleStep_Value0" value="0.87"/>
     <par type="DOUBLE" name="doubleStep_tStep1" value="4"/>
     <par type="DOUBLE" name="doubleStep_Height1" value="0.1"/>
