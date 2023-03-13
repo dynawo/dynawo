@@ -12,9 +12,10 @@
     simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-   <!-- Synchronous machine external parameters -->
+  <!-- Synchronous machine external parameters -->
   <set id="SynchronousGenerator">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0"/>
     <par type="DOUBLE" name="generator_mq" value="0"/>
     <par type="DOUBLE" name="generator_nd" value="0"/>

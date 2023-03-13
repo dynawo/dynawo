@@ -46,6 +46,7 @@
     <par type="DOUBLE" name="generator_nd" value="0"/>
     <par type="DOUBLE" name="generator_nq" value="0"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_H" value="3.5"/>
     <par type="DOUBLE" name="generator_DPu" value="0.0"/>

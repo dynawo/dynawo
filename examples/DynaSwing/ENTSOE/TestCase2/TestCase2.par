@@ -15,6 +15,7 @@
   <!-- Synchronous machine external parameters and regulations -->
   <set id="SynchronousGenerator">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0"/>
     <par type="DOUBLE" name="generator_mq" value="0"/>
     <par type="DOUBLE" name="generator_nd" value="0"/>

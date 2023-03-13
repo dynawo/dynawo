@@ -421,6 +421,8 @@ package BaseClasses_INIT
   partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for synchronous machine from external parameters"
     extends BaseGeneratorSynchronous_INIT;
 
+    parameter Boolean UseApproximation "True if an approximate formula is used for the calculation of the internal parameters";
+
     // External parameters of the synchronous machine given as parameters in pu (base UNom, SNom)
     parameter Types.PerUnit RaPu "Armature resistance in pu";
     parameter Types.PerUnit XlPu "Stator leakage in pu";
@@ -457,6 +459,9 @@ package BaseClasses_INIT
 
     // Auxiliary parameters: quadrature axis (see Kundur implementation, p143)
     // see subclasses
+
+    // Auxiliary parameters for precise calculation of internal parameters
+    Real xd, B1d, B2d, C1d, C2d, Pd, Qd, Bd, RADd, V1d, V2d, U1d, U2d, Z1d, Z2d, E1d, E2d, Ed, Fd, Vd, Ud, Rf1, Rf2, RfPuApprox, RfPuPrecise, LfPuApprox, LfPuPrecise, RDPuPrecise, LDPuPrecise;
 
   equation
     // Variables related to the magnetic saturation and rotor position
@@ -497,7 +502,6 @@ package BaseClasses_INIT
 
     MrcPu = 0;
 
-    // Direct axis
     Tpd = Tpd0 * XpdPu / XdPu;
     Tppd = Tppd0 * XppdPu / XpdPu;
 
@@ -506,11 +510,49 @@ package BaseClasses_INIT
     T4dPu = Tpd   * SystemBase.omegaNom;
     T6dPu = Tppd  * SystemBase.omegaNom;
 
-    LfPu * (MdPu + LdPu) * (T1dPu - T4dPu) = MdPu * ( (MdPu + LdPu) * T4dPu - LdPu * T1dPu);
-    RfPu * T1dPu = MdPu + LfPu;
+    // Precise calculation of direct axis
+    B1d = T1dPu + T3dPu;
+    B2d = T4dPu + T6dPu;
+    C1d = T1dPu * T3dPu;
+    C2d = T4dPu * T6dPu;
+    xd = MdPu * LdPu / XdPu;
+    Pd = (B1d / MdPu) - (B2d / xd);
+    Qd = (1 / xd) - (1 / MdPu);
+    Bd = C2d - C1d * LdPu / XdPu;
+    RADd = sqrt(1 - 4 * Bd * LdPu * Qd * Qd / (xd * Pd * Pd));
+    V1d = - 0.5 * Pd * (1 + RADd) / Qd;
+    V2d = - 0.5 * Pd * (1 - RADd) / Qd;
+    U1d = Bd * LdPu / (xd * V1d);
+    U2d = Bd * LdPu / (xd * V2d);
+    Z1d = Bd * LdPu + MdPu * (B2d + Pd / Qd) * V1d;
+    Z2d = Bd * LdPu + MdPu * (B2d + Pd / Qd) * V2d;
+    E1d = (C1d - Z1d / xd) / ((U1d - V1d) * MdPu);
+    E2d = (C1d - Z2d / xd) / ((U2d - V2d) * MdPu);
+    Rf1 = 1 / E1d;
+    Rf2 = 1 / E2d;
+    LfPuApprox = (Tpd * MdPu - Tpd0 * xd) / (Tpd0 - Tpd);
+    RfPuApprox = (MdPu + LfPuApprox) / T1dPu;
+    RfPuPrecise = if abs(Rf1 - RfPuApprox) < abs(Rf2 - RfPuApprox) then Rf1 else Rf2;
+    Ed = if abs(Rf1 - RfPuApprox) < abs(Rf2 - RfPuApprox) then E1d else E2d;
+    Vd = if abs(Rf1 - RfPuApprox) < abs(Rf2 - RfPuApprox) then V1d else V2d;
+    Ud = if abs(Rf1 - RfPuApprox) < abs(Rf2 - RfPuApprox) then U1d else U2d;
+    Fd = (B2d + Pd / Qd) / xd - Ed;
+    RDPuPrecise = 1 / Fd;
+    LDPuPrecise = Ud * RDPuPrecise;
+    LfPuPrecise = Vd * RfPuPrecise;
 
-    LDPu * (MdPu + LfPu) * (T3dPu - T6dPu) = MdPu * LfPu * (T6dPu - T3dPu * (MdPu + LfPu) * LdPu / (MdPu * LdPu + MdPu * LfPu + LdPu * LfPu));
-    RDPu * T3dPu = LDPu + MdPu * LfPu / (MdPu + LfPu);
+    // Calculation of direct axis
+    if UseApproximation then
+      RfPu * T1dPu = MdPu + LfPu;
+      RDPu * T3dPu = LDPu + MdPu * LfPu / (MdPu + LfPu);
+      LDPu * (MdPu + LfPu) * (T3dPu - T6dPu) = MdPu * LfPu * (T6dPu - T3dPu * (MdPu + LfPu) * LdPu / (MdPu * LdPu + MdPu * LfPu + LdPu * LfPu));
+      LfPu * (MdPu + LdPu) * (T1dPu - T4dPu) = MdPu * ( (MdPu + LdPu) * T4dPu - LdPu * T1dPu);
+    else
+      RfPu = RfPuPrecise;
+      RDPu = RDPuPrecise;
+      LDPu = LDPuPrecise;
+      LfPu = LfPuPrecise;
+    end if;
 
     annotation(preferredView = "text");
   end BaseGeneratorSynchronousExt_INIT;
@@ -531,6 +573,9 @@ package BaseClasses_INIT
     Types.PerUnit T3qPu;
     Types.PerUnit T6qPu;
 
+    // Auxiliary parameters for precise calculation of internal parameters
+    Real xq, B1q, B2q, C1q, C2q, Pq, Qq, Bq, RADq, V1q, V2q, U1q, U2q, Z1q, Z2q, E1q, E2q, Eq, Fq, Vq, Uq, RQ11, RQ12, RQ1PuApprox, RQ1PuPrecise, LQ1PuApprox, LQ1PuPrecise, RQ2PuPrecise, LQ2PuPrecise;
+
   equation
     Tpq = Tpq0 * XpqPu / XqPu;
     Tppq = Tppq0 * XppqPu / XpqPu;
@@ -538,10 +583,50 @@ package BaseClasses_INIT
     T4qPu = Tpq   * SystemBase.omegaNom;
     T3qPu = Tppq0 * SystemBase.omegaNom;
     T6qPu = Tppq  * SystemBase.omegaNom;
-    LQ1Pu * (MqPu + LqPu) * (T1qPu - T4qPu) = (MqPu + LqPu) * MqPu * T4qPu - MqPu * LqPu * T1qPu;
-    RQ1Pu * T1qPu = MqPu + LQ1Pu;
-    LQ2Pu * (MqPu + LQ1Pu) * (T3qPu - T6qPu) = MqPu * LQ1Pu * (T6qPu - T3qPu * (MqPu + LQ1Pu) * LqPu / (MqPu * LqPu + MqPu * LQ1Pu + LqPu * LQ1Pu));
-    RQ2Pu * T3qPu = LQ2Pu + MqPu * LQ1Pu / (MqPu + LQ1Pu);
+
+    // Precise calculation of quadrature axis
+    B1q = T1qPu + T3qPu;
+    B2q = T4qPu + T6qPu;
+    C1q = T1qPu * T3qPu;
+    C2q = T4qPu * T6qPu;
+    xq = MqPu * LqPu / XqPu;
+    Pq = (B1q / MqPu) - (B2q / xq);
+    Qq = (1 / xq) - (1 / MqPu);
+    Bq = C2q - C1q * LqPu / XqPu;
+    RADq = sqrt(1 - 4 * Bq * LqPu * Qq * Qq / (xq * Pq * Pq));
+    V1q = - 0.5 * Pq * (1 + RADq) / Qq;
+    V2q = - 0.5 * Pq * (1 - RADq) / Qq;
+    U1q = Bq * LqPu / (xq * V1q);
+    U2q = Bq * LqPu / (xq * V2q);
+    Z1q = Bq * LqPu + MqPu * (B2q + Pq / Qq) * V1q;
+    Z2q = Bq * LqPu + MqPu * (B2q + Pq / Qq) * V2q;
+    E1q = (C1q - Z1q / xq) / ((U1q - V1q) * MqPu);
+    E2q = (C1q - Z2q / xq) / ((U2q - V2q) * MqPu);
+    RQ11 = 1 / E1q;
+    RQ12 = 1 / E2q;
+    LQ1PuApprox = (Tpq * MqPu - Tpq0 * xq) / (Tpq0 - Tpq);
+    RQ1PuApprox = (MqPu + LQ1PuApprox) / T1qPu;
+    RQ1PuPrecise = if abs(RQ11 - RQ1PuApprox) < abs(RQ12 - RQ1PuApprox) then RQ11 else RQ12;
+    Eq = if abs(RQ11 - RQ1PuApprox) < abs(RQ12 - RQ1PuApprox) then E1q else E2q;
+    Vq = if abs(RQ11 - RQ1PuApprox) < abs(RQ12 - RQ1PuApprox) then V1q else V2q;
+    Uq = if abs(RQ11 - RQ1PuApprox) < abs(RQ12 - RQ1PuApprox) then U1q else U2q;
+    Fq = (B2q + Pq / Qq) / xq - Eq;
+    RQ2PuPrecise = 1 / Fq;
+    LQ2PuPrecise = Uq * RQ2PuPrecise;
+    LQ1PuPrecise = Vq * RQ1PuPrecise;
+
+    // Calculation of quadrature axis
+    if UseApproximation then
+      LQ1Pu * (MqPu + LqPu) * (T1qPu - T4qPu) = (MqPu + LqPu) * MqPu * T4qPu - MqPu * LqPu * T1qPu;
+      RQ1Pu * T1qPu = MqPu + LQ1Pu;
+      LQ2Pu * (MqPu + LQ1Pu) * (T3qPu - T6qPu) = MqPu * LQ1Pu * (T6qPu - T3qPu * (MqPu + LQ1Pu) * LqPu / (MqPu * LqPu + MqPu * LQ1Pu + LqPu * LQ1Pu));
+      RQ2Pu * T3qPu = LQ2Pu + MqPu * LQ1Pu / (MqPu + LQ1Pu);
+    else
+      LQ1Pu = LQ1PuPrecise;
+      RQ1Pu = RQ1PuPrecise;
+      LQ2Pu = LQ2PuPrecise;
+      RQ2Pu = RQ2PuPrecise;
+    end if;
 
     annotation(preferredView = "text");
   end BaseGeneratorSynchronousExt4E_INIT;

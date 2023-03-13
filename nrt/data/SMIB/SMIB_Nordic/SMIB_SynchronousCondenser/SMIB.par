@@ -46,6 +46,7 @@
     <par name="generator_PNomTurb" type="DOUBLE" value="285"/>
     <par name="generator_PNomAlt" type="DOUBLE" value="293"/>
     <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par name="generator_MdPuEfd" type="DOUBLE" value="1"/>
     <par name="generator_H" type="DOUBLE" value="2"/>
     <par name="generator_DPu" type="DOUBLE" value="0"/>

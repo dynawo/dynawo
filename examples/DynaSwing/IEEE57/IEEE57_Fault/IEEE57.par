@@ -44,6 +44,7 @@
   </set>
   <set id="Generator6">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.084"/>
     <par type="DOUBLE" name="generator_mq" value="0.084"/>
     <par type="DOUBLE" name="generator_nd" value="5.57"/>
@@ -92,6 +93,7 @@
   </set>
   <set id="Generator9">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.05"/>
     <par type="DOUBLE" name="generator_mq" value="0.05"/>
     <par type="DOUBLE" name="generator_nd" value="9.285"/>
@@ -140,6 +142,7 @@
   </set>
   <set id="Generator1">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.05"/>
     <par type="DOUBLE" name="generator_mq" value="0.05"/>
     <par type="DOUBLE" name="generator_nd" value="9.285"/>
@@ -188,6 +191,7 @@
   </set>
   <set id="Generator12">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.05"/>
     <par type="DOUBLE" name="generator_mq" value="0.05"/>
     <par type="DOUBLE" name="generator_nd" value="9.285"/>
@@ -236,6 +240,7 @@
   </set>
   <set id="Generator3">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.215"/>
     <par type="DOUBLE" name="generator_mq" value="0.215"/>
     <par type="DOUBLE" name="generator_nd" value="6.995"/>
@@ -284,6 +289,7 @@
   </set>
   <set id="Generator8">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.215"/>
     <par type="DOUBLE" name="generator_mq" value="0.215"/>
     <par type="DOUBLE" name="generator_nd" value="6.995"/>
@@ -332,6 +338,7 @@
   </set>
   <set id="Generator2">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0.05"/>
     <par type="DOUBLE" name="generator_mq" value="0.05"/>
     <par type="DOUBLE" name="generator_nd" value="9.285"/>
