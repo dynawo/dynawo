@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="LoadAlphaBetaMotor">
-    <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBetaMotor" initName="Dynawo.Electrical.Loads.LoadAlphaBetaMotor_INIT"/>
+  <dyn:modelicaModel id="LoadAlphaBetaMotorSimplified">
+    <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBetaMotorSimplified" initName="Dynawo.Electrical.Loads.LoadAlphaBetaMotorSimplified_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

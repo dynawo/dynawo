@@ -1,0 +1,4 @@
+1.000000 | Fault | Fault (node) : beginning
+1.000000 | GEN | Voltage regulator : upper limit reached (Efd)
+1.100000 | Fault | Fault (node) : end
+1.102575 | GEN | Voltage regulator : back to regulation

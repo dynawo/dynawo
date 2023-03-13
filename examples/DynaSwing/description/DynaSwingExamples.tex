@@ -1059,4 +1059,66 @@ Generator 9 is electrically close to generator 12. When the fault is applied on 
 \caption{Generator 9 response to the three-phase fault}
 \end{figure}
 
+\chapter{Impact of load modelling on voltage stability - Single machine system}
+
+\section{Test case description}
+
+The considered network consist in a 1000~MW generator that feeds a 600~MW + 200~MVar load though a step-up transformer 24/400kV, two parallel lines, and a step-down transformer 400/158kV.
+
+\textbf{Note. Arbirary dynamic data is used in the model of the generator.}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{SingleMachineSystem.png}
+  \caption{Single machine system}
+\end{figure}
+
+\subsection{Scenario}
+The simulated scenario is :
+\begin{itemize}
+\item at $t=1s$: a 0.1s three-phase fault at the load bus;
+\end{itemize}
+
+Two test cases are considered:
+\begin{itemize}
+\item Load modelled as a 500~MW constant impedance load in parallel with a 100~MW electronic load
+\item Load modelled as 60\% constant impedance load, 20\% motor B industrial load, and 20\% motor C industrial load (parameter values from Table 3-6 and 3-9 of WECC, 'Technical Guide on Composite Load Modeling', 3002019209, Aug 2020
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-4}$;
+\item $Accuracy_{Abs}$=$10^{-4}$;
+\end{itemize}
+
+\newpage
+\section{Results}
+
+The two figures below show the evolution of the voltage at the load bus for the two considered test cases. In the case with an electronic load model, the voltage quickly recovers after the fault, and is even slightly higher than before the fault due to part of the electronic load being disconnected. In the case with a motor load model, a mild fault-induced delayed voltage recovery is observed due to the large amount of reactive power drawn by the motors while reaccelerating after the fault is cleared.
+
+\begin{figure}[H]
+\subfigure[Constant impedance + electronic load case]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=NETWORK_NLOAD_Upu_value]
+        {../SingleMachineSystem/SingleMachineSystem_ElectronicLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Constant impedance + motor load case]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=NETWORK_NLOAD_Upu_value]
+        {../SingleMachineSystem/SingleMachineSystem_LoadAlphaBetaMotorFifthOrder/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Voltage at the load bus in pu for all considered cases}
+\end{figure}
+
 \end{document}
