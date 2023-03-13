@@ -1,4 +1,6 @@
 BaseClasses
+BaseClasses_INIT
+ElectronicLoad
 LoadPQ
 LoadZIP
 LoadAlphaBeta
@@ -6,8 +8,16 @@ LoadAlphaBetaRestorative
 LoadAlphaBetaRestorativeLimitsRecalc_INIT
 LoadAlphaBetaRestorativeReset
 Load_INIT
+LoadPF_INIT
 LoadConnect_INIT
 LoadAuxiliaries_INIT
-LoadAlphaBetaMotor
-LoadAlphaBetaMotor_INIT
-LoadAlphaBetaRestorativeNetwork
+LoadAlphaBetaMotorSimplified
+LoadAlphaBetaMotorSimplified_INIT
+LoadAlphaBetaTwoMotorSimplified
+LoadAlphaBetaTwoMotorSimplified_INIT
+LoadAlphaBetaMotorFifthOrder
+LoadAlphaBetaMotorFifthOrder_INIT
+LoadAlphaBetaTwoMotorFifthOrder
+LoadAlphaBetaTwoMotorFifthOrder_INIT
+LoadAlphaBetaThreeMotorFifthOrder
+LoadAlphaBetaThreeMotorFifthOrder_INIT

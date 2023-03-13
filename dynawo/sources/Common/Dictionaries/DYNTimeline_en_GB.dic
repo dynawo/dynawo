@@ -159,6 +159,9 @@ IECProtectionFOver         =              IEC WT disconnected due to overfrequen
 IECProtectionFUnder        =              IEC WT disconnected due to underfrequency protection (minimum allowed frequency : %1% p.u)
 IECProtectionUOver         =              IEC WT disconnected due to overvoltage protection (maximum allowed voltage : %1% p.u)
 IECProtectionUUnder        =              IEC WT disconnected due to undervoltage protection (minimum allowed voltage : %1% p.u)
+// --> Motor
+MotorConnected             =             Motor : connecting
+MotorDisconnected          =             Motor : disconnecting
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
