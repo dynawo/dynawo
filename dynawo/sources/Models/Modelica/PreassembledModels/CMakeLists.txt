@@ -23,6 +23,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
   EventQuadripoleDisconnection.xml
@@ -144,7 +145,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
-  LoadAlphaBetaMotor.xml
+  LoadAlphaBetaMotorFifthOrder.xml
+  LoadAlphaBetaTwoMotorFifthOrder.xml
+  LoadAlphaBetaThreeMotorFifthOrder
+  LoadAlphaBetaMotorSimplified.xml
+  LoadAlphaBetaTwoMotorSimplified.xml
   LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml

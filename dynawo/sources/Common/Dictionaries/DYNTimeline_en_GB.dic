@@ -152,6 +152,9 @@ UFLS10Activated            =              UFLS step 10 activated
 // --> VRRemote
 VRFrozen                   =             Entering in frozen mode
 VRUnfrozen                 =             Leaving frozen mode
+// --> Motor
+MotorConnected             =             Motor : connecting
+MotorDisconnected          =             Motor : disconnecting
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
