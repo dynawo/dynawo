@@ -158,59 +158,13 @@ ModelVoltageMeasurementsUtilities::evalMode(const double /*t*/) {
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& res) const {
-  if (iCalculatedVar < nbCalculatedVars_) {
-    for (size_t i = 0; i < sizeY_; ++i) {
-      res[i] = 0.;
-    }
-  }
-  switch (iCalculatedVar) {
-    case minValIdx_: {
-      if (achievedMin_ < nbConnectedInputs_) {
-        res[achievedMin_] = 1.;
-      }
-      break;
-    }
-    case maxValIdx_: {
-      if (achievedMax_ < nbConnectedInputs_) {
-        res[achievedMax_] = 1.;
-      }
-      break;
-    }
-    case avgValIdx_: {
-      if (nbActive_ > 0) {
-        for (unsigned i = 0; i < nbConnectedInputs_; ++i) {
-          if (isRunning(i)) {
-            res[i] = 1./nbActive_;
-          }
-        }
-      }
-      break;
-    }
-    case minIValIdx_:
-    case maxIValIdx_:
-      break;
-    default: {
-      throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
-    }
-  }
+ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& /*res*/) const {
+  throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
 }
 
 void
-ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalculatedVar, std::vector<int>& indexes) const {
-  switch (iCalculatedVar) {
-    case minValIdx_:
-    case maxValIdx_:
-    case avgValIdx_:
-    case minIValIdx_:
-    case maxIValIdx_:
-      for (unsigned i = 0; i < nbConnectedInputs_; i++) {
-        indexes.push_back(static_cast<int>(i));
-      }
-      break;
-    default:
-        throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
-  }
+ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalculatedVar, std::vector<int>& /*indexes*/) const {
+  throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
 }
 
 double

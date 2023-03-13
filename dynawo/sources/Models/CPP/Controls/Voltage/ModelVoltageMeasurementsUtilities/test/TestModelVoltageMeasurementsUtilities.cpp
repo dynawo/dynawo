@@ -309,27 +309,18 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
 
     // Check the indexes needed for computing the min
     std::vector<int> minIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(minIndexes[i], i);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     // Check the indexes needed for computing the max
     std::vector<int> maxIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(maxIndexes[i], i);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     // Check the indexes needed for computing the average
     std::vector<int> avgIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(avgIndexes[i], i);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, avgIndexes),
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -361,23 +352,18 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
 
     // Check the indexes needed for computing the min
     std::vector<int> minIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(minIndexes[i], i);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     // Check the indexes needed for computing the max
     std::vector<int> maxIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(maxIndexes[i], i);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     // Check the indexes needed for computing the average
     std::vector<int> avgIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes);
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     for (std::size_t i=0; i < nbVoltages; ++i) {
         ASSERT_EQ(avgIndexes[i], i);
@@ -414,47 +400,24 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     // Check the values of the jacobian for the min
     std::vector<double> gradMinVal(voltmu->sizeY(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    std::vector<double> expectedGradMinVal(voltmu->sizeY(), 0.);
-    expectedGradMinVal[0] = 1.0;
-
-    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
-        ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradMaxVal(voltmu->sizeY(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    std::vector<double> expectedGradMaxVal(voltmu->sizeY(), 0.);
-    expectedGradMaxVal[nbVoltages-1] = 1.0;
-
-    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
-        ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradAvgVal(voltmu->sizeY(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
-    std::vector<double> expectedGradAvgVal(voltmu->sizeY(), 0.);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        expectedGradAvgVal[i] = 1.0/nbVoltages;
-    }
-
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        ASSERT_EQ(expectedGradAvgVal[i], gradAvgVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradMinIVal(voltmu->sizeY(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMinIVal);
-
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        ASSERT_EQ(0.0, gradMinIVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMinIVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradMaxIVal(voltmu->sizeY(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMaxIVal);
-
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        ASSERT_EQ(0.0, gradMaxIVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMaxIVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> wrongIndexGrad(voltmu->sizeY(), 0.);
     ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, wrongIndexGrad),
@@ -487,21 +450,16 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     // Check the values of the jacobian for the min
     std::vector<double> gradMinVal(voltmu->sizeZ(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    std::vector<double> expectedGradMinVal(voltmu->sizeZ(), 0.);
-    expectedGradMinVal[0] = 1.0;
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradMaxVal(voltmu->sizeZ(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    std::vector<double> expectedGradMaxVal(voltmu->sizeZ(), 0.);
-    expectedGradMaxVal[nbVoltages-1] = 1.0;
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradAvgVal(voltmu->sizeZ(), 0.);
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
-    std::vector<double> expectedGradAvgVal(voltmu->sizeZ(), 0.);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        expectedGradAvgVal[i] = 1.0/nbVoltages;
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> wrongIndexGrad(voltmu->sizeZ(), 0.);
     ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, wrongIndexGrad),
@@ -513,21 +471,12 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
     voltmu->evalG(newTs);
     voltmu->evalZ(newTs);
 
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
-        ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
-    }
-
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
-        ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
-    }
-
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        ASSERT_EQ(expectedGradAvgVal[i], gradAvgVal[i]);
-    }
-
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
     ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, wrongIndexGrad),
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
@@ -538,26 +487,12 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     // Update the expected grad values.
     // Min has changed, so has the average. Max remains unchanged.
-    expectedGradMinVal[0] = 0.0;
-    expectedGradMinVal[1] = 1.0;
-    expectedGradAvgVal[0] = 0.0;
-    for (size_t i = 1; i < nbVoltages; ++i) {
-        expectedGradAvgVal[i] = 1.0/(nbVoltages - 1);
-    }
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
-        ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
-    }
-
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
-        ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
-    }
-
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        ASSERT_EQ(expectedGradAvgVal[i], gradAvgVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     // We now make sure the max could change too.
     newTs += step + 1.0;
@@ -568,26 +503,12 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     // Update the expected grad values.
     // Max has changed, so has the average. Min remains unchanged.
-    expectedGradMaxVal[nbVoltages - 1] = 0.0;
-    expectedGradMaxVal[nbVoltages - 2] = 1.0;
-    expectedGradAvgVal[nbVoltages - 1] = 0.0;
-    for (size_t i = 1; i < nbVoltages - 1; ++i) {
-        expectedGradAvgVal[i] = 1.0/(nbVoltages - 2);
-    }
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
-        ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
-    }
-
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
-        ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
-    }
-
-    voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        ASSERT_EQ(expectedGradAvgVal[i], gradAvgVal[i]);
-    }
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 }
 
 TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalGNoInit) {
