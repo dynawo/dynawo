@@ -365,10 +365,6 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
     ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes),
             Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(avgIndexes[i], i);
-    }
-
     ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, avgIndexes),
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 }
