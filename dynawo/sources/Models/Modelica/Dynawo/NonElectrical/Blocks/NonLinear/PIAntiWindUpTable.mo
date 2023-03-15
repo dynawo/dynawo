@@ -23,7 +23,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
 
   parameter Real Ki "Integrator constant";
   parameter Real Kp "Gain constant";
-  parameter Real Kaw "Gain de l'anti windup";
+  parameter Real Kaw "Gain constant for AntiWindup";
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
 
