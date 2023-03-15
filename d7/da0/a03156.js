@@ -4,6 +4,8 @@ var a03156 =
       [ "minValIdx_", "d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8ba48d7da82cea939e8a6abe235ab17813a", null ],
       [ "maxValIdx_", "d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8ba2f1d18b83c1f58edb362c3b08d83ecd4", null ],
       [ "avgValIdx_", "d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8ba55cb84445ef5a6721688669b9eddc672", null ],
+      [ "minIValIdx_", "d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8ba0c41bbc76e4eba9431fbe654a1f75f18", null ],
+      [ "maxIValIdx_", "d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8bacba1ebc7ccc4db0c95139e318befe867", null ],
       [ "nbCalculatedVars_", "d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8bae33185f63d97560911d9dc8b86070c98", null ]
     ] ],
     [ "DiscreteVars_t", "d7/da0/a03156.html#aaac467d3cff2b63fe7c7a7ac5b24639e", [

@@ -123,10 +123,15 @@ Inheritance diagram for DYN::ModelVoltageMeasurementsUtilities:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac8c1bb2755c678cfbd582da67edd0e8b"><td class="memItemLeft" align="right" valign="top"><a id="ac8c1bb2755c678cfbd582da67edd0e8b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8b">CalculatedVars_t</a> { <b>minValIdx_</b> = 0, 
+<tr class="memitem:ac8c1bb2755c678cfbd582da67edd0e8b"><td class="memItemLeft" align="right" valign="top"><a id="ac8c1bb2755c678cfbd582da67edd0e8b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/da0/a03156.html#ac8c1bb2755c678cfbd582da67edd0e8b">CalculatedVars_t</a> { <br />
+&#160;&#160;<b>minValIdx_</b> = 0, 
 <b>maxValIdx_</b>, 
 <b>avgValIdx_</b>, 
+<b>minIValIdx_</b>, 
+<br />
+&#160;&#160;<b>maxIValIdx_</b>, 
 <b>nbCalculatedVars_</b>
+<br />
  }</td></tr>
 <tr class="memdesc:ac8c1bb2755c678cfbd582da67edd0e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">define type of calculated variables <br /></td></tr>
 <tr class="separator:ac8c1bb2755c678cfbd582da67edd0e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -928,7 +933,7 @@ boost::shared_ptr&lt; <a class="el" href="../../d5/d04/a02428.html">parameters::
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Voltage measurement utilities model class. </p>
-<p>This model connects to a dynamic number of buses and outputs some interesting values computed from the input voltage levels. Outputs currently included: -&gt; Minimum voltage level -&gt; Maximum voltage level -&gt; Average voltage level </p>
+<p>This model connects to a dynamic number of buses and outputs some interesting values computed from the input voltage levels. Outputs currently included: -&gt; Minimum voltage level -&gt; Maximum voltage level -&gt; Average voltage level -&gt; Where minimum voltage level is coming from -&gt; Where maximum voltage level is coming from </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab39f59995836bb058469bbff9f9d8819"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab39f59995836bb058469bbff9f9d8819">&#9670;&nbsp;</a></span>checkDataCoherence()</h2>
@@ -2155,7 +2160,7 @@ boost::shared_ptr&lt; <a class="el" href="../../d5/d04/a02428.html">parameters::
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/da0/a03156.html">ModelVoltageMeasurementsUtilities</a></li>
-    <li class="footer">Generated on Tue Mar 14 2023 10:46:03 for Dynawo by
+    <li class="footer">Generated on Wed Mar 15 2023 10:58:00 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

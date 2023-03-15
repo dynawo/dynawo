@@ -2,7 +2,7 @@ var searchData=
 [
   ['tableparameternames',['tableParameterNames',['../d5/d04/a02428.html#a08469d6391a572bef84a0bbbf5281ddf',1,'parameters::ParametersSet']]],
   ['tapchangerstep',['TapChangerStep',['../d4/dcb/a03268.html#a8f3048080d6957fb43fb05c92edcac6e',1,'DYN::TapChangerStep::TapChangerStep()'],['../d4/dcb/a03268.html#a993b63dd7682cdc0bf727fd586eece9e',1,'DYN::TapChangerStep::TapChangerStep(double rho, double alpha, double r, double x, double g, double b)']]],
-  ['terminate',['Terminate',['../dd/dc4/a02632.html#a4f9ea1f9c0222c943c01ee94025a046a',1,'DYN::Terminate::Terminate(const Terminate &amp;t)'],['../dd/dc4/a02632.html#ac21913ddd679a095f2d61d3693c5c7da',1,'DYN::Terminate::Terminate(const Message &amp;m)'],['../dd/dc4/a02632.html#a31fe7daca668bf1b350b121714d76cb0',1,'DYN::Terminate::Terminate()'],['../d7/d52/a03292.html#a77704a8e3e6726cd34391b65abf061af',1,'DYN::Simulation::terminate()']]],
+  ['terminate',['terminate',['../d7/d52/a03292.html#a77704a8e3e6726cd34391b65abf061af',1,'DYN::Simulation::terminate()'],['../dd/dc4/a02632.html#a4f9ea1f9c0222c943c01ee94025a046a',1,'DYN::Terminate::Terminate(const Terminate &amp;t)'],['../dd/dc4/a02632.html#ac21913ddd679a095f2d61d3693c5c7da',1,'DYN::Terminate::Terminate(const Message &amp;m)'],['../dd/dc4/a02632.html#a31fe7daca668bf1b350b121714d76cb0',1,'DYN::Terminate::Terminate()']]],
   ['terminate_5f',['terminate_',['../d6/d2f/a00854.html#a48c9454e148dcf3c46b60e8923db1f63',1,'DYN']]],
   ['threewtransformerinterfaceiidm',['ThreeWTransformerInterfaceIIDM',['../d5/d3a/a03100.html#a91ef339c1a7cd80d5d40840d0a444a45',1,'DYN::ThreeWTransformerInterfaceIIDM']]],
   ['throw_5f',['throw_',['../d6/d2f/a00854.html#ab13a552d570a91d4d37a70be723024e2',1,'DYN']]],
