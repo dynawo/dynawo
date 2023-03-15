@@ -365,6 +365,14 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
     ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes),
             Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
+    std::vector<int> IMinIndexes;
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, IMinIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+
+    std::vector<int> IMaxIndexes;
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxIValIdx_, IMaxIndexes),
+            Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+
     ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, avgIndexes),
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 }
@@ -412,7 +420,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> gradMaxIVal(voltmu->sizeY(), 0.);
-    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minIValIdx_, gradMaxIVal),
+    ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxIValIdx_, gradMaxIVal),
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 
     std::vector<double> wrongIndexGrad(voltmu->sizeY(), 0.);
