@@ -14,6 +14,7 @@ within Dynawo.Electrical.Buses;
 
 model InfiniteBusFromTable "Infinite bus with UPu, UPhase and omegaRefPu given by tables as functions of time"
   import Modelica;
+  import Dynawo.Electrical.SystemBase;
   import Dynawo.Connectors;
 
   extends AdditionalIcons.Bus;
@@ -27,8 +28,17 @@ model InfiniteBusFromTable "Infinite bus with UPu, UPhase and omegaRefPu given b
   parameter String UPhaseTableName "Name of the table in the text file to get UPhase from time";
 
   Types.AngularVelocityPu omegaRefPu "Infinite bus frequency in pu (base omegaNom)";
-  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
+  Types.ActivePower P "Active power in MW (receptor convention)";
+  Types.ActivePower PInj "Active power in MW (generator convention)";
+  Types.ActivePowerPu PInjPu "Active power in pu (base SnRef) (generator convention)";
+  Types.ActivePowerPu PPu "Active power in pu (base SnRef) (receptor convention)";
+  Types.ReactivePower Q "Reactive power in Mvar (receptor convention)";
+  Types.ReactivePower QInj "Reactive power in Mvar (generator convention)";
+  Types.ReactivePowerPu QInjPu "Reactive power in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QPu "Reactive power in pu (base SnRef) (receptor convention)";
+  Types.ComplexApparentPowerPu sPu "Apparent power in pu (base SnRef) (receptor convention)";
   Types.Angle UPhase "Infinite bus voltage angle in rad";
+  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
 
   Modelica.Blocks.Sources.CombiTimeTable tableOmegaRefPu(tableOnFile = true, tableName = OmegaRefPuTableName, fileName = TableFile) "Table to get omegaRefPu from time";
   Modelica.Blocks.Sources.CombiTimeTable tableUPu(tableOnFile = true, tableName = UPuTableName, fileName = TableFile) "Table to get UPu from time";
@@ -39,6 +49,15 @@ equation
   UPu = tableUPu.y[1];
   UPhase = tableUPhase.y[1];
   terminal.V = UPu * ComplexMath.exp(ComplexMath.j * UPhase);
+
+  sPu = Complex(PPu, QPu);
+  sPu = terminal.V * ComplexMath.conj(terminal.i);
+  P = SystemBase.SnRef * PPu;
+  Q = SystemBase.SnRef * QPu;
+  PInjPu = - PPu;
+  QInjPu = - QPu;
+  PInj = - P;
+  QInj = - Q;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The InfiniteBusFromTable model imposes a complex voltage value: the bus voltage magnitude, angle and frequency are given by tables as functions of time.</body></html>"));
