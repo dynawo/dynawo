@@ -70,6 +70,8 @@ class ModelVoltageMeasurementsUtilitiesFactory : public SubModelFactory {
  * -> Minimum voltage level
  * -> Maximum voltage level
  * -> Average voltage level
+ * -> Where minimum voltage level is coming from
+ * -> Where maximum voltage level is coming from
  */
 class ModelVoltageMeasurementsUtilities : public ModelCPP {
  public:
@@ -81,6 +83,8 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
     minValIdx_ = 0,
     maxValIdx_,
     avgValIdx_,
+    minIValIdx_,
+    maxIValIdx_,
     nbCalculatedVars_
   } CalculatedVars_t;
 

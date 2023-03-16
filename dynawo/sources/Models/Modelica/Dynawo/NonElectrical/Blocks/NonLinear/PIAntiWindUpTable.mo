@@ -23,6 +23,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
 
   parameter Real Ki "Integrator constant";
   parameter Real Kp "Gain constant";
+  parameter Real Kaw "Gain constant for AntiWindup";
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
 
@@ -32,7 +33,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Continuous.Integrator integrator(k = Ki, y_start = Y0 + (1 - Kp) * U0) annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add1 annotation(
+  Modelica.Blocks.Math.Add add1(k2 = Kaw)  annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
