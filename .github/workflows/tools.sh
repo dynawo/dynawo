@@ -35,3 +35,26 @@ upload_zip_file()
       --header "Content-Type: application/zip" \
       --data-binary @$FILE
 }
+
+upload_pdf_file()
+{
+  local UPLOAD_URL=$1
+  local FILE=$2
+  local TOKEN=$3
+  echo "upload_pdf_file($UPLOAD_URL, $FILE)"
+
+  if [ -e "$FILE" ]; then
+    echo "Upload asset $FILE"
+    # Limit rate is used to ensure uploads finish
+    # When not used, systematic errors for TCP connection reset are received
+    curl \
+        --retry 20 --retry-delay 0 --retry-max-time 40 --max-time 180 --limit-rate 5M \
+        --request POST \
+        --url $UPLOAD_URL?name=$FILE \
+        --header "authorization: Bearer $TOKEN" \
+        --header "Content-Type: application/pdf" \
+        --data-binary @$FILE
+  else
+    echo "Error : $FILE is missing"
+  fi
+}
