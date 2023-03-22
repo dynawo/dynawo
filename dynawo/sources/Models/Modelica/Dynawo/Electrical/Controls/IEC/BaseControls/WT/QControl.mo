@@ -346,7 +346,7 @@ equation
     Line(points = {{250, 238}, {250, 106}, {260, 106}}, color = {0, 0, 127}));
   connect(gain3.y, switch4.u[2]) annotation(
     Line(points = {{250, 238}, {250, 103}, {260, 103}}, color = {0, 0, 127}));
-  connect(gain3.y, switch4.u[3]) annotation(
+  connect(gain3.y, switch4.u[4]) annotation(
     Line(points = {{250, 238}, {250, 97}, {260, 97}}, color = {0, 0, 127}));
   connect(division.y, variableLimiter1.limit1) annotation(
     Line(points = {{62, 180}, {70, 180}, {70, 220}, {130, 220}, {130, 208}, {138, 208}}, color = {0, 0, 127}));
@@ -400,7 +400,7 @@ equation
     Line(points = {{120, 22}, {120, 130}, {170, 130}, {170, 111}}, color = {255, 0, 255}));
   connect(division2.y, absLimRateLimFeedthroughFreeze.u) annotation(
     Line(points = {{62, 100}, {159, 100}}, color = {0, 0, 127}));
-  connect(gain4.y, switch4.u[4]) annotation(
+  connect(gain4.y, switch4.u[3]) annotation(
     Line(points = {{222, 100}, {260, 100}}, color = {0, 0, 127}));
   connect(gain4.y, switch4.u[5]) annotation(
     Line(points = {{222, 100}, {240, 100}, {240, 94}, {260, 94}}, color = {0, 0, 127}));
