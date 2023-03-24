@@ -2300,7 +2300,8 @@ class Factory:
                 func_header_cpp+=param_type + " " + param.get_name()+ last_char
             func_body.append(func_header_cpp.replace(get_adept_function_name(func), MODEL_NAME_NAMESPACE +get_adept_function_name(func)))
             func_header+= ";\n"
-            self.list_for_evalfadept_external_call_headers.append(func_header)
+            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header):
+                self.list_for_evalfadept_external_call_headers.append(func_header)
             for line in func.get_corrected_body():
                 if "OMC_LABEL_UNUSED" in line: continue
                 if "omc_assert" in line or "omc_terminate" in line: continue
@@ -2317,7 +2318,8 @@ class Factory:
                             functions_to_dump.append(func)
                 func_body.append(line)
             func_body.append("\n\n")
-            list_functions_body.append(func_body)
+            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header):
+                list_functions_body.append(func_body)
 
         # Need to dump in reversed order to put the functions called by other functions in first
         for func_body in reversed(list_functions_body):

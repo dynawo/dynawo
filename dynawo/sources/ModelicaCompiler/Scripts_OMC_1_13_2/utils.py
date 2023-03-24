@@ -911,6 +911,49 @@ def transform_line(line):
         line_tmp = line_tmp.replace("info,","")
     return line_tmp
 
+
+def replace_getTable1DValue(match):
+    ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+    text = match.group()
+    match_state_var = ptrn_vars.search(match.group('var_input'))
+    if match_state_var is not None:
+        text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTable1DValue", "ModelicaStandardTables_CombiTable1D_getDerValue")
+    return text
+
+def replace_getTable2DValue(match):
+    ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+    text = match.group()
+    match_state_var1 = ptrn_vars.search(match.group('var_input1'))
+    match_state_var2 = ptrn_vars.search(match.group('var_input2'))
+    if match_state_var1 is not None and match_state_var2 is not None:
+        text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTable2DValue", "ModelicaStandardTables_CombiTable2D_getDerValue")
+    return text
+
+def replace_getTimeTableValue(match):
+    ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+    text = match.group()
+    match_state_var = ptrn_vars.search(match.group('var_input'))
+    if match_state_var is not None:
+        text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTimeTableValue", "ModelicaStandardTables_CombiTimeTable_getDerValue")
+    return text
+
+
+def replace_combi_table_jacobian_adept(line):
+    if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" not in line \
+    and "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" not in line \
+    and "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" not in line:
+        return line
+    if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line:
+        table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable1DValue\(.*,.*,(?P<var_input>.*)\)')
+        line = re.sub(table_value_ptrn, replace_getTable1DValue, line)
+    if "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line:
+        table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable2DValue\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)')
+        line = re.sub(table_value_ptrn, replace_getTable2DValue, line)
+    if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line:
+        table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTimeTableValue\(.*,.*,(?P<var_input>.*),.*,.*\)')
+        line = re.sub(table_value_ptrn, replace_getTimeTableValue, line)
+
+    return line
 ##
 # Transform a line using adept so that it can be compiled
 # @param line : line to analyse
@@ -931,6 +974,7 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
     line_tmp = line_tmp.replace("threadData,", "")
     line_tmp = line_tmp.replace(", threadData)", ")")
+    line_tmp = replace_combi_table_jacobian_adept(line_tmp)
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp

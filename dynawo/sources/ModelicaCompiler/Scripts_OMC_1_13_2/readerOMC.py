@@ -1915,6 +1915,35 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("data", "DATA *", 2, True))
         self.list_omc_functions.append(func)
 
+        func = RawOmcFunctions()
+        func.set_name("ModelicaStandardTables_CombiTable1D_getDerValue")
+        func.set_signature("modelica_real ModelicaStandardTables_CombiTable1D_getDerValue(void* tableID, int icol, modelica_real der_u)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("tableID", "void*", 0, True))
+        func.add_params(OmcFunctionParameter("icol", "int", 1, True))
+        func.add_params(OmcFunctionParameter("der_u", "modelica_real", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("ModelicaStandardTables_CombiTable2D_getDerValue")
+        func.set_signature("modelica_real ModelicaStandardTables_CombiTable2D_getDerValue(void* tableID, modelica_real der_u1, modelica_real der_u2)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("tableID", "void*", 0, True))
+        func.add_params(OmcFunctionParameter("der_u1", "modelica_real", 1, True))
+        func.add_params(OmcFunctionParameter("der_u2", "modelica_real", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("ModelicaStandardTables_CombiTimeTable_getDerValue")
+        func.set_signature("modelica_real ModelicaStandardTables_CombiTimeTable_getDerValue(void* tableID, int icol, modelica_real der_t, double nextTimeEvent, double preNextTimeEvent)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("tableID", "void*", 0, True))
+        func.add_params(OmcFunctionParameter("icol", "int", 1, True))
+        func.add_params(OmcFunctionParameter("der_t", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("nextTimeEvent", "double", 3, True))
+        func.add_params(OmcFunctionParameter("preNextTimeEvent", "double", 4, True))
+        self.list_omc_functions.append(func)
+
 
     ##
     # Read *_functions.c file and store all functions' body declared
