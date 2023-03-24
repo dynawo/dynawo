@@ -18,6 +18,7 @@ set(MODEL_MANAGER_SOURCES
     DYNModelManager.cpp
     DYNModelManagerCommon.cpp
     DYNModelManagerOwnFunctions.cpp
+    DYNModelicaOverridenFunctions.cpp
     )
 
 set(MODEL_MANAGER_INCLUDE_HEADERS
@@ -26,6 +27,7 @@ set(MODEL_MANAGER_INCLUDE_HEADERS
     DYNModelManagerOwnTypes.h
     DYNModelModelica.h
     DYNModelManagerOwnFunctions.h
+    DYNModelicaOverridenFunctions.h
     )
 
 add_library(dynawo_ModelManager SHARED ${MODEL_MANAGER_SOURCES})
