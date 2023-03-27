@@ -6,6 +6,8 @@ var searchData=
   ['calculatedvarnames_5f',['calculatedVarNames_',['../d5/dc7/a02744.html#a9061d1555e075dc9f42d4695c5069f33',1,'DYN::SubModel']]],
   ['calculatedvarnamesinit_5f',['calculatedVarNamesInit_',['../d5/dc7/a02744.html#a8d57d0324c88368f654a3cd282ee8c75',1,'DYN::SubModel']]],
   ['calculatedvars_5f',['calculatedVars_',['../d5/dc7/a02744.html#a85fe6b1a98020baf8098c209b8695a87',1,'DYN::SubModel::calculatedVars_()'],['../d6/d25/a03284.html#a7d7fe4d6e87943ac51015cf9426a1f0e',1,'DYN::NetworkComponent::calculatedVars_()']]],
+  ['canbeclosed_5f',['canBeClosed_',['../d1/dda/a03260.html#a7a5af736c123f3ef8dc71ce242154c5c',1,'DYN::ModelSwitch']]],
+  ['cannotbedisconnected_5f',['cannotBeDisconnected_',['../d7/d44/a03252.html#a2b5f5d49b1c3b3392348cf5ce3841dfa',1,'DYN::ModelShuntCompensator']]],
   ['cardinality_5f',['cardinality_',['../d7/d1c/a02732.html#a2aedff540a5d05ccb90dbe4617c1a11b',1,'DYN::ParameterModeler::cardinality_()'],['../d5/dba/a02776.html#aff4e5b9d0869243363a5068150599c9a',1,'DYN::VariableMultiple::cardinality_()']]],
   ['cardinalityinformator_5f',['cardinalityInformator_',['../d7/d1c/a02732.html#a31af93b4842d03e0ef670e33242ee713',1,'DYN::ParameterModeler']]],
   ['cardinalityname_5f',['cardinalityName_',['../d5/dba/a02776.html#a1274f102ea0468c085b5cf1517a67146',1,'DYN::VariableMultiple']]],

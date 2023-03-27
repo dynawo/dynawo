@@ -338,6 +338,7 @@ var searchData=
   ['isphasestep_5f',['isPhaseStep_',['../d5/d37/a03092.html#a288a0ddf78e8b5ff3514f29eba17a718',1,'DYN::StepInterfaceIIDM']]],
   ['isrecursive',['isRecursive',['../d0/df5/a02576.html#a982d09afba8de5f2844d261341036706',1,'UserDefinedDirectory']]],
   ['isrestorative_5f',['isRestorative_',['../d0/d77/a03232.html#ac05896f73af0c88d15d4ffc57d2a9212',1,'DYN::ModelLoad']]],
+  ['isretained',['isRetained',['../d2/d0c/a02932.html#ad6ec1a8554557b6895cdf0034835a8ff',1,'DYN::SwitchInterface::isRetained()'],['../de/d98/a03096.html#af07f25073b41252f5929fd22deb1baee',1,'DYN::SwitchInterfaceIIDM::isRetained()']]],
   ['isrunning',['isRunning',['../d7/da0/a03156.html#accf58c33624762d46583825cda678644',1,'DYN::ModelVoltageMeasurementsUtilities::isRunning()'],['../d0/d77/a03232.html#ad286cf935f2a7d0c8e466828cafdecf1',1,'DYN::ModelLoad::isRunning()']]],
   ['isself_5f',['isSelf_',['../d0/dcc/a03148.html#a05f90f6ec9b0ca0a080acde2e8ee61b7',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['isstandby',['isStandBy',['../d9/dc5/a02924.html#aa370d973a003559480f7acd0eb04a7ce',1,'DYN::StaticVarCompensatorInterface::isStandBy()'],['../dc/de6/a03084.html#a60f6bbf6b48e2bd18b1debb9f09dfb66',1,'DYN::StaticVarCompensatorInterfaceIIDM::isStandBy()'],['../dd/d50/a03088.html#a9824a971d819855462787f996432c5ca',1,'DYN::StaticVarCompensatorInterfaceIIDMExtension::isStandBy()']]],

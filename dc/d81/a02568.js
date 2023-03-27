@@ -238,7 +238,6 @@ var a02568 =
       [ "VariableMultipleHasNoIndex", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea32773f0bb36f312099531dbd8afa4a37", null ],
       [ "VariableNativeIndexAlreadySet", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea692c133c8aa3c821c615dff937fd4ac3", null ],
       [ "VariableNativeIndexNotSet", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecead8ed4e9379f1b4317ea6a9c3026a63cb", null ],
-      [ "VoltageLevelBBSError", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea7354a432771d39cfe379866c6ee45477", null ],
       [ "VoltageLevelGraphUndefined", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea7d5987c3fd721e188a7ffbf02baacf6d", null ],
       [ "VoltageLevelTopoError", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea796a38d3998e24e419e9dde0d9aaaecb", null ],
       [ "WrongCheckSum", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea62baf32f41a51edab4e88045c3ff4773", null ],

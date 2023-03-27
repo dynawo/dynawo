@@ -12,6 +12,8 @@ var searchData=
   ['callalgebraicsolver',['callAlgebraicSolver',['../d2/d66/a03352.html#a0579bb95263a1b1752aaa2ad87933fe1',1,'DYN::SolverCommonFixedTimeStep']]],
   ['callcustomparametersconstructors',['callCustomParametersConstructors',['../db/d6b/a03128.html#a05b9675d94a5340f07f88114ad73ef76',1,'DYN::ModelModelica']]],
   ['callexternalautomatonmodel',['callExternalAutomatonModel',['../d6/d2f/a00854.html#a13e87d8a055556e204cf8b9d26271a72',1,'DYN']]],
+  ['canbeclosed',['canBeClosed',['../d1/dda/a03260.html#a2014c0f32363ac8bde2ec3318f3c23e9',1,'DYN::ModelSwitch']]],
+  ['canbedisconnected',['canBeDisconnected',['../de/d7f/a03280.html#af557499109d1fb19d96091be0ab789fd',1,'DYN::ModelVoltageLevel']]],
   ['canonical',['canonical',['../d6/d1a/a00485.html#ad7e6ee465650c4ba7dab595ab51b6242',1,'DYNFileSystemUtils.h']]],
   ['canusevariant',['canUseVariant',['../d6/dbc/a02856.html#a309971065dd1d2a60dd8e4f86b1cbd2d',1,'DYN::DataInterface::canUseVariant()'],['../d6/db9/a02980.html#abed20de3d818bdd51a1b1a322e36f250',1,'DYN::DataInterfaceIIDM::canUseVariant()']]],
   ['cardinalityset',['cardinalitySet',['../d5/dba/a02776.html#ae7f52b9c9bade2d9fcc201264950d8ba',1,'DYN::VariableMultiple']]],

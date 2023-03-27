@@ -14,6 +14,7 @@ var a03096 =
     [ "importStaticParameters", "de/d98/a03096.html#ae39deda4239c7ded32164f3ec943f2b1", null ],
     [ "isConnected", "de/d98/a03096.html#aeda3bcf0400ae459fcd8c3bb011dd61f", null ],
     [ "isOpen", "de/d98/a03096.html#a77e333ee494e725906c016e5d0847320", null ],
+    [ "isRetained", "de/d98/a03096.html#af07f25073b41252f5929fd22deb1baee", null ],
     [ "open", "de/d98/a03096.html#a23d07bf7812e95af969f69a729aeeadc", null ],
     [ "setBusInterface1", "de/d98/a03096.html#af503c07cf21e11c7dcd4b646a89e0f7a", null ],
     [ "setBusInterface2", "de/d98/a03096.html#a7276dac92773d2bff97eaa82ddefe974", null ],

@@ -60,6 +60,7 @@ var a03252 =
     [ "setGequations", "d7/d44/a03252.html#a029445bdefabff42b35a1a34ad2b5580", null ],
     [ "setModelBus", "d7/d44/a03252.html#a836ac0623b0ac6e5bef0ac3d9f3e9bc2", null ],
     [ "setSubModelParameters", "d7/d44/a03252.html#af044ba5ee96d5f422367e52d1cca3571", null ],
+    [ "cannotBeDisconnected_", "d7/d44/a03252.html#a2b5f5d49b1c3b3392348cf5ce3841dfa", null ],
     [ "connectionState_", "d7/d44/a03252.html#afde265d6e819baad82427799c63c65e2", null ],
     [ "currentSection_", "d7/d44/a03252.html#a799d35f08495f0b6b736401671464ec7", null ],
     [ "ii0_", "d7/d44/a03252.html#a3153fc8c5708affb7866e3f4ba16e242", null ],

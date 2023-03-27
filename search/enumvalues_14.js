@@ -14,7 +14,6 @@ var searchData=
   ['variablenativeindexalreadyset',['VariableNativeIndexAlreadySet',['../dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea692c133c8aa3c821c615dff937fd4ac3',1,'DYN::KeyError_t']]],
   ['variablenativeindexnotset',['VariableNativeIndexNotSet',['../dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecead8ed4e9379f1b4317ea6a9c3026a63cb',1,'DYN::KeyError_t']]],
   ['variablenotset',['VariableNotSet',['../db/d34/a02608.html#a963225344a251150ba0ad6d5264f567fa5feb6a7b6b0c6db7fe58789fdbaa2da3',1,'DYN::KeyLog_t']]],
-  ['voltagelevelbbserror',['VoltageLevelBBSError',['../dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea7354a432771d39cfe379866c6ee45477',1,'DYN::KeyError_t']]],
   ['voltagelevelgraphundefined',['VoltageLevelGraphUndefined',['../dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea7d5987c3fd721e188a7ffbf02baacf6d',1,'DYN::KeyError_t']]],
   ['voltageleveltopoerror',['VoltageLevelTopoError',['../dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea796a38d3998e24e419e9dde0d9aaaecb',1,'DYN::KeyError_t']]],
   ['voltagesetpointchangeended',['VoltageSetPointChangeEnded',['../dd/d32/a02636.html#a9294fd85b78754e1a11fec544395ad51a51485bfaa5530cd69c9290071f4e37e7',1,'DYN::KeyTimeline_t']]],

@@ -167,6 +167,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a5a987be24c55a54bf033e368f6be6b4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d7f/a03280.html#a5a987be24c55a54bf033e368f6be6b4a">connectNode</a> (const unsigned int node)</td></tr>
 <tr class="memdesc:a5a987be24c55a54bf033e368f6be6b4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between a node and a bus bar section node, then close all switches between them (if they are breaker)  <a href="#a5a987be24c55a54bf033e368f6be6b4a">More...</a><br /></td></tr>
 <tr class="separator:a5a987be24c55a54bf033e368f6be6b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af557499109d1fb19d96091be0ab789fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d7f/a03280.html#af557499109d1fb19d96091be0ab789fd">canBeDisconnected</a> (const unsigned int node)</td></tr>
+<tr class="memdesc:af557499109d1fb19d96091be0ab789fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">return true if this node can be disconnected  <a href="#af557499109d1fb19d96091be0ab789fd">More...</a><br /></td></tr>
+<tr class="separator:af557499109d1fb19d96091be0ab789fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabc14596cfe642001fe03ac8e7b3d5e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d7f/a03280.html#aabc14596cfe642001fe03ac8e7b3d5e9">disconnectNode</a> (const unsigned int node)</td></tr>
 <tr class="memdesc:aabc14596cfe642001fe03ac8e7b3d5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)  <a href="#aabc14596cfe642001fe03ac8e7b3d5e9">More...</a><br /></td></tr>
 <tr class="separator:aabc14596cfe642001fe03ac8e7b3d5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,7 +177,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memdesc:aa9da4d8f833cb3992fb1235c3a5346b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the closest bus bar section of a bus in a voltage level  <a href="#aa9da4d8f833cb3992fb1235c3a5346b1">More...</a><br /></td></tr>
 <tr class="separator:aa9da4d8f833cb3992fb1235c3a5346b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a659af2f611bdd92ec1e7c975a9e010d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d7f/a03280.html#a659af2f611bdd92ec1e7c975a9e010d2">isClosestBBSSwitchedOff</a> (const boost::shared_ptr&lt; <a class="el" href="../../de/d3a/a03200.html">ModelBus</a> &gt; &amp;bus)</td></tr>
-<tr class="memdesc:a659af2f611bdd92ec1e7c975a9e010d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">return true if the closest bus bar section is switched off  <a href="#a659af2f611bdd92ec1e7c975a9e010d2">More...</a><br /></td></tr>
+<tr class="memdesc:a659af2f611bdd92ec1e7c975a9e010d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">return true if the closest bus bar section is switched off or unreachable  <a href="#a659af2f611bdd92ec1e7c975a9e010d2">More...</a><br /></td></tr>
 <tr class="separator:a659af2f611bdd92ec1e7c975a9e010d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a721907700c3a7e476942f7dc2c6d15"><td class="memItemLeft" align="right" valign="top"><a id="a0a721907700c3a7e476942f7dc2c6d15"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d7f/a03280.html#a0a721907700c3a7e476942f7dc2c6d15">setInitialSwitchCurrents</a> ()</td></tr>
@@ -643,6 +646,33 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="af557499109d1fb19d96091be0ab789fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af557499109d1fb19d96091be0ab789fd">&#9670;&nbsp;</a></span>canBeDisconnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ModelVoltageLevel::canBeDisconnected </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return true if this node can be disconnected </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>node to test </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if this node can be disconnected </dd></dl>
 
 </div>
 </div>
@@ -1771,14 +1801,14 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
       </table>
 </div><div class="memdoc">
 
-<p>return true if the closest bus bar section is switched off </p>
+<p>return true if the closest bus bar section is switched off or unreachable </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bus</td><td>the bus from which to look for the closest bus bar section </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true is the closest bus bar section is switched off, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true is the closest bus bar section is switched off or unreachable, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -2126,7 +2156,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d7f/a03280.html">ModelVoltageLevel</a></li>
-    <li class="footer">Generated on Fri Mar 24 2023 12:01:14 for Dynawo by
+    <li class="footer">Generated on Mon Mar 27 2023 15:43:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

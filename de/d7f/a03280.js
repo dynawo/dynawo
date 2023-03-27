@@ -9,6 +9,7 @@ var a03280 =
     [ "addBusNeighbors", "de/d7f/a03280.html#a6ebd3a97bdc8c7b68870d720d9d95db0", null ],
     [ "addComponent", "de/d7f/a03280.html#a904560ae36ffb3ad018af7080d004f40", null ],
     [ "addSwitch", "de/d7f/a03280.html#ae45f40de914500e0b81477b8a44e5338", null ],
+    [ "canBeDisconnected", "de/d7f/a03280.html#af557499109d1fb19d96091be0ab789fd", null ],
     [ "collectSilentZ", "de/d7f/a03280.html#a9b3d0b7ddf595252cc58df905fcd3a7f", null ],
     [ "computeLoops", "de/d7f/a03280.html#a82128427a83c94a642835781d9fe1480", null ],
     [ "connectNode", "de/d7f/a03280.html#a5a987be24c55a54bf033e368f6be6b4a", null ],

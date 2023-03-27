@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['u0_5f',['U0_',['../db/d1b/a02960.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../db/db9/a02964.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../dd/d7e/a02984.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()'],['../de/d3a/a03200.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../d0/d77/a03232.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()']]],
+  ['u0_5f',['u0_',['../de/d3a/a03200.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../d0/d77/a03232.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../db/d1b/a02960.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../db/db9/a02964.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../dd/d7e/a02984.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
   ['u0pu_5f',['u0Pu_',['../da/d72/a03140.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['u2pu_5f',['U2Pu_',['../de/d3a/a03200.html#a7d907b69c37cccb7382ba6d36b503b5b',1,'DYN::ModelBus']]],
   ['u_5f',['U_',['../de/d3a/a03200.html#a990b7793275b61e9d4c7a1271a0669a4',1,'DYN::ModelBus']]],
@@ -26,7 +26,7 @@ var searchData=
   ['umaxstate_5f',['uMaxState_',['../d9/d01/a03248.html#a230bda68edddc6841375937e6642f83d',1,'DYN::ModelRatioTapChanger']]],
   ['umin_5f',['uMin_',['../de/d3a/a03200.html#a962ec8c10f19a902a350a49d5ff8f6a6',1,'DYN::ModelBus']]],
   ['uminpu',['uMinPu',['../d3/d8e/a00647.html#a320744a0d22db5702ebc7aa8eaee31d4',1,'DYN']]],
-  ['uminpu_5f',['uMinPu_',['../dd/d40/a01636.html#a8e7869c1827a2c4f773e12de88d68c29',1,'criteria::CriteriaParamsVoltageLevel::uMinPu_()'],['../da/d72/a03140.html#a3c30ba887a588bae6646158007b325aa',1,'DYN::ModelLoadRestorativeWithLimits::UMinPu_()']]],
+  ['uminpu_5f',['UMinPu_',['../da/d72/a03140.html#a3c30ba887a588bae6646158007b325aa',1,'DYN::ModelLoadRestorativeWithLimits::UMinPu_()'],['../dd/d40/a01636.html#a8e7869c1827a2c4f773e12de88d68c29',1,'criteria::CriteriaParamsVoltageLevel::uMinPu_()']]],
   ['uminpureached_5f',['UMinPuReached_',['../da/d72/a03140.html#af7044ffa845192d007e503245781fa94',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['uminstate_5f',['uMinState_',['../d9/d01/a03248.html#a2696d61e29ac7f8dcf0019013f947546',1,'DYN::ModelRatioTapChanger']]],
   ['unabletocloseline',['UnableToCloseLine',['../db/d34/a02608.html#a963225344a251150ba0ad6d5264f567fa2c5fb088eede4f489db8c2f81d826d7c',1,'DYN::KeyLog_t']]],
@@ -119,7 +119,7 @@ var searchData=
   ['urp1',['urp1',['../d6/d63/a03228.html#a1b379249ff23617ad816f9aa9d04ff36',1,'DYN::ModelLine']]],
   ['urp2',['urp2',['../d6/d63/a03228.html#a0200cb85d49ac10592e945ff7c1d27d2',1,'DYN::ModelLine']]],
   ['urynum',['urYNum',['../de/d3a/a03200.html#ab53422c36aa96fc3e1821661a8acb886',1,'DYN::ModelBus']]],
-  ['urynum_5f',['UrYNum_',['../da/d72/a03140.html#aee1ce70a32f764002658ab39b977e0e0',1,'DYN::ModelLoadRestorativeWithLimits::UrYNum_()'],['../de/d3a/a03200.html#ad729570cd64b1733c7d390820d55b678',1,'DYN::ModelBus::urYNum_()']]],
+  ['urynum_5f',['urYNum_',['../de/d3a/a03200.html#ad729570cd64b1733c7d390820d55b678',1,'DYN::ModelBus::urYNum_()'],['../da/d72/a03140.html#aee1ce70a32f764002658ab39b977e0e0',1,'DYN::ModelLoadRestorativeWithLimits::UrYNum_()']]],
   ['usealiasing_5f',['useAliasing_',['../df/dd0/a01912.html#a0fd05cfcffc72060e237b3f7513543fd',1,'dynamicdata::ModelicaModel::useAliasing_()'],['../d6/da2/a01920.html#ae2553bdeb12ecf8bd9904e5bf6c663e3',1,'dynamicdata::ModelTemplate::useAliasing_()']]],
   ['used_5f',['used_',['../d5/d2b/a02420.html#adb49178093310452e847814fce74dce8',1,'parameters::Parameter']]],
   ['usefulmodeltemplates_5f',['usefulModelTemplates_',['../d4/d9d/a02704.html#af7741039e43ad75a1dca4e857f25486b',1,'DYN::DynamicData']]],

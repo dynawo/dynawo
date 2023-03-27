@@ -7,6 +7,7 @@ var a02932 =
     [ "getBusInterface2", "d2/d0c/a02932.html#a8d319afb423db271fca2d7a619de44d8", null ],
     [ "getID", "d2/d0c/a02932.html#a0fc1e903927a7ef131f034b756af2fd0", null ],
     [ "isOpen", "d2/d0c/a02932.html#acdd54991cade55b13dd3d9d611a9d1b3", null ],
+    [ "isRetained", "d2/d0c/a02932.html#ad6ec1a8554557b6895cdf0034835a8ff", null ],
     [ "open", "d2/d0c/a02932.html#ae6ec783d9c026478bd7b12fa25046b5b", null ],
     [ "setBusInterface1", "d2/d0c/a02932.html#aeb312c40ae6b92a52c80ae82fb05ca44", null ],
     [ "setBusInterface2", "d2/d0c/a02932.html#aed88e8b2acad7d153108fec64987ef3b", null ]

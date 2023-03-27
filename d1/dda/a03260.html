@@ -177,6 +177,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8566f917c853cda4ac9531b59daef8b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dda/a03260.html#a8566f917c853cda4ac9531b59daef8b2">irYNum</a> () const</td></tr>
 <tr class="memdesc:a8566f917c853cda4ac9531b59daef8b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute value  <a href="#a8566f917c853cda4ac9531b59daef8b2">More...</a><br /></td></tr>
 <tr class="separator:a8566f917c853cda4ac9531b59daef8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2014c0f32363ac8bde2ec3318f3c23e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dda/a03260.html#a2014c0f32363ac8bde2ec3318f3c23e9">canBeClosed</a> () const</td></tr>
+<tr class="memdesc:a2014c0f32363ac8bde2ec3318f3c23e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">return false if this switch is initially open and cannot be closed  <a href="#a2014c0f32363ac8bde2ec3318f3c23e9">More...</a><br /></td></tr>
+<tr class="separator:a2014c0f32363ac8bde2ec3318f3c23e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace52115a2d83dab9e0004fba370dd066"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../de/d3a/a03200.html">ModelBus</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dda/a03260.html#ace52115a2d83dab9e0004fba370dd066">getModelBus1</a> () const</td></tr>
 <tr class="memdesc:ace52115a2d83dab9e0004fba370dd066"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the bus at end 1 of the switch  <a href="#ace52115a2d83dab9e0004fba370dd066">More...</a><br /></td></tr>
 <tr class="separator:ace52115a2d83dab9e0004fba370dd066"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -420,6 +423,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dda/a03260.html#a8d2387e5cd5db3ae67b00ad23f53de23">iiYNum_</a></td></tr>
 <tr class="memdesc:a8d2387e5cd5db3ae67b00ad23f53de23"><td class="mdescLeft">&#160;</td><td class="mdescRight">iiYNum <br /></td></tr>
 <tr class="separator:a8d2387e5cd5db3ae67b00ad23f53de23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a5af736c123f3ef8dc71ce242154c5c"><td class="memItemLeft" align="right" valign="top"><a id="a7a5af736c123f3ef8dc71ce242154c5c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dda/a03260.html#a7a5af736c123f3ef8dc71ce242154c5c">canBeClosed_</a></td></tr>
+<tr class="memdesc:a7a5af736c123f3ef8dc71ce242154c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">false if this switch is initially open and cannot be closed <br /></td></tr>
+<tr class="separator:a7a5af736c123f3ef8dc71ce242154c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -547,6 +554,34 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2014c0f32363ac8bde2ec3318f3c23e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2014c0f32363ac8bde2ec3318f3c23e9">&#9670;&nbsp;</a></span>canBeClosed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ModelSwitch::canBeClosed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>return false if this switch is initially open and cannot be closed </p>
+<dl class="section return"><dt>Returns</dt><dd>false if this switch is initially open and cannot be closed </dd></dl>
+
+</div>
+</div>
 <a id="ae31c019a554db28abf0ac6ec9bab9cd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae31c019a554db28abf0ac6ec9bab9cd7">&#9670;&nbsp;</a></span>collectSilentZ()</h2>
 
@@ -1840,7 +1875,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/dda/a03260.html">ModelSwitch</a></li>
-    <li class="footer">Generated on Fri Mar 24 2023 12:01:13 for Dynawo by
+    <li class="footer">Generated on Mon Mar 27 2023 15:43:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
