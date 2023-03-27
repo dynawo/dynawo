@@ -46,9 +46,9 @@ model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold1(threshold = UPll2Pu) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.FixedBooleanDelay fixedBooleanDelay1(Y0 = false, tDelay = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.FixedBooleanDelay fixedBooleanDelay1(Y0 = U0Pu < UPll2Pu, tDelay = tS) annotation(
     Placement(visible = true, transformation(origin = {-10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.FixedBooleanDelay fixedBooleanDelay(Y0 = false, tDelay = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.FixedBooleanDelay fixedBooleanDelay(Y0 = U0Pu < UPll1Pu, tDelay = tS) annotation(
     Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

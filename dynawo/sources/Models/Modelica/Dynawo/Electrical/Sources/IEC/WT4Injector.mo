@@ -18,6 +18,8 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
 
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
+
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
@@ -73,6 +75,9 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Types.ActivePowerPu PGenPu(start = -P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QGenPu(start = -Q0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
+
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex1 annotation(
@@ -113,6 +118,9 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Dialog(tab = "Operating point"));
 
 equation
+  PGenPu = ComplexMath.real(terminal.V * ComplexMath.conj(-terminal.i));
+  QGenPu = ComplexMath.imag(terminal.V * ComplexMath.conj(-terminal.i));
+  genSystem.running = running.value;
   connect(theta, genSystem.theta) annotation(
     Line(points = {{-40, 110}, {-40, 22}}, color = {0, 0, 127}));
   connect(genSystem.terminal, elecSystem.terminal1) annotation(
@@ -148,5 +156,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-90, -30}, {90, 30}}, textString = "IEC WT4A"), Text(origin = {0, -30}, extent = {{-90, -30}, {90, 30}}, textString = "Converter")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-90, -30}, {90, 30}}, textString = "IEC WT4"), Text(origin = {0, -30}, extent = {{-90, -30}, {90, 30}}, textString = "Converter")}, coordinateSystem(initialScale = 0.1)));
 end WT4Injector;
