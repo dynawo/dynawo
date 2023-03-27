@@ -63,6 +63,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput iqMinPu(start = IqMin0Pu) "Minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, 10}, {10, -10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
+  input Boolean running(start = true) "True if the converter is running";
   Modelica.Blocks.Interfaces.RealInput theta(start = UPhase0) "Phase shift between the converter and the grid rotating frames in rad" annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
@@ -116,7 +117,7 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Dialog(tab = "Operating point"));
 
 equation
-  if fOCB then
+  if fOCB or not(running) then
     terminal.i = Complex(0, 0);
   else
     Complex(iECFrameRotation.iGsRePu, iECFrameRotation.iGsImPu) = -terminal.i * (SystemBase.SnRef / SNom);

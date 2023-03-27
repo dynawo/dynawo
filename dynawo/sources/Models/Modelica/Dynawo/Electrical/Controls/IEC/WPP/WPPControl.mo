@@ -117,7 +117,7 @@ model WPPControl "Control model for IEC N°61400-27-1 standard WPP"
     Placement(visible = true, transformation(origin = {-200, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = XWT0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
@@ -134,7 +134,7 @@ model WPPControl "Control model for IEC N°61400-27-1 standard WPP"
     Placement(visible = true, transformation(origin = {40, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.WPP.LinearCommunication linearCommunicationWPRef(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), XWT0Pu}, nu = 2, tLag = tLag, tLead = tLead)  annotation(
+  Dynawo.Electrical.Controls.IEC.BaseControls.WPP.LinearCommunication linearCommunicationWPRef(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), X0Pu}, nu = 2, tLag = tLag, tLead = tLead)  annotation(
     Placement(visible = true, transformation(origin = {-80, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.BaseControls.WPP.LinearCommunication linearCommunicationWPM(X0Pu = {-P0Pu * SystemBase.SnRef / SNom, -Q0Pu * SystemBase.SnRef / SNom, U0Pu, SystemBase.omegaRef0Pu}, nu = 4, tLag = tLag, tLead = tLead)  annotation(
     Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
