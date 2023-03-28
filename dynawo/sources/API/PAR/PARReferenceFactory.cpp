@@ -25,8 +25,8 @@ using std::string;
 namespace parameters {
 
 boost::shared_ptr<Reference>
-ReferenceFactory::newReference(const string& name) {
-  return boost::shared_ptr<Reference>(new Reference(name));
+ReferenceFactory::newReference(const string& name, Reference::OriginData origData) {
+  return boost::shared_ptr<Reference>(new Reference(name, origData));
 }
 
 }  // namespace parameters

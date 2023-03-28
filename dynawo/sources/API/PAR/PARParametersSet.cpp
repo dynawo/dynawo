@@ -250,6 +250,11 @@ ParametersSet::getParameters() {
   return parameters_;
 }
 
+boost::unordered_map<std::string, boost::shared_ptr<Reference> >&
+ParametersSet::getReferences() {
+  return references_;
+}
+
 ParametersSet::parameter_const_iterator
 ParametersSet::cbeginParameter() const {
   return ParametersSet::parameter_const_iterator(this, true);
