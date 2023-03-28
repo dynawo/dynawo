@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- Fault -->
+  <set id="1">
+    <par type="DOUBLE" name="tBegin" value="1"/>
+    <par type="DOUBLE" name="tEnd" value="1.07"/>
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0"/>
+  </set>
+  <!-- line 1 -->
+  <set id="2">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0.022522"/>
+    <par type="DOUBLE" name="BPu" value="0.0"/>
+    <par type="DOUBLE" name="GPu" value="0.0"/>
+  </set>
+  <!-- line 2 -->
+  <set id="3">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0.04189"/>
+    <par type="DOUBLE" name="BPu" value="0"/>
+    <par type="DOUBLE" name="GPu" value="0"/>
+  </set>
+  <!-- tfo -->
+  <set id="4">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <reference type="DOUBLE" name="XPu" origData="PAR" origName="XPu" parId="1" parFile="jobs/myPar.par"/>
+    <par type="DOUBLE" name="BPu" value="0.0"/>
+    <par type="DOUBLE" name="GPu" value="0.0"/>
+    <par type="DOUBLE" name="rTfoPu" value="1"/>
+  </set>
+  <!-- InfiniteBus -->
+  <set id="5">
+    <par type="DOUBLE" name="UPu" value="0.90081"/>
+    <par type="DOUBLE" name="UPhase" value="0.0"/>
+  </set>
+</parametersSet>

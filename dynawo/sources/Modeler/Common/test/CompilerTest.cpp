@@ -94,4 +94,16 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   ASSERT_THROW_DYNAWO(modeler.initSystem(), Error::MODELER, KeyError_t::FlowConnectionMixedSystemAndInternal);
 }
 
+TEST(CompilerTest, testReferenceToAnotherReference) {
+  std::vector<std::string> testFileNames = {"jobs/testReferenceToAnotherReference1.dyd",
+                                              "jobs/testReferenceToAnotherReference2.dyd",
+                                              "jobs/testReferenceToAnotherReference3.dyd"};
+  for (std::string testFileName : testFileNames) {
+    boost::shared_ptr<DynamicData> dyd(new DynamicData());
+    std::vector <std::string> fileNames;
+    fileNames.push_back(testFileName);
+    ASSERT_THROW_DYNAWO(dyd->initFromDydFiles(fileNames), Error::API, KeyError_t::ReferenceToAnotherReference);
+  }
+}
+
 }  // namespace DYN

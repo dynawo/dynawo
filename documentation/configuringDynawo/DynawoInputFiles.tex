@@ -169,7 +169,7 @@ Here is an example of a par file (extraction from IEEE14.par):
 
 For each parameter, the user should give the name, the type (DOUBLE, INT, BOOL or STRING) and the value of the parameter. \\
 
-Sometimes, the par file contains references to parameters present in the iidm file (see paragraph \ref{sec:Set a reference to a value stored in the iidm file}).
+Sometimes, the par file contains references to parameters present in the iidm file or a given par file. (see paragraph \ref{sec:Set a reference to a value stored in the iidm file}).
 
 \subsection{crv file}
 
@@ -679,10 +679,10 @@ And then we can use this macro static reference as many times as needed with the
 
 \subsection{par file}
 
-\subsubsection{Set a reference to a value stored in the iidm file}
+\subsubsection{Set a reference to a value stored in the iidm file or a given par file}
 \label{sec:Set a reference to a value stored in the iidm file}
 
-If the parameter's value is stored in the iidm file, a reference to this value can be added in the par file as in the example bellow:
+If the parameter's value is stored in the iidm file, a reference to this value can be added in the par file as in the example below:
 \begin{lstlisting}[language=XML, morekeywords={reference}]
 <set>
   <par type="ParType" name="ParName" value="ParValue"/>
@@ -691,7 +691,20 @@ If the parameter's value is stored in the iidm file, a reference to this value c
 </set>
 \end{lstlisting}
 
-When no componentId is given, it is assumed that the data is linked with the static component which id is given by the staticId defined in the dyd file.
+When no componentId is given, it is assumed that the data is linked with the static component which id is given by the staticId defined in the dyd file.  \\
+
+To use the value from another parameter, a parameter reference can be used as shown in the example below:
+
+\begin{lstlisting}[language=XML, morekeywords={reference}]
+<set>
+  <par type="ParType" name="ParName" value="ParValue"/>
+  ...
+  <reference type="RefType" name="RefName1" origData="PAR" origName="NamePAR1" parId="ParID" parFile="parfile.par" />
+  <reference type="RefType" name="RefName2" origData="PAR" origName="NamePAR2" parId="ParID" />
+</set>
+\end{lstlisting}
+
+When no parFile is given, it is assumed that the referenced value is in the current par file. If neither the parFile nor the parId are provided, it is assumed that the referenced value is in the current par set of the current par file.
 
 \subsubsection{Enter a table of parameter}
 
