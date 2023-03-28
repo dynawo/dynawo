@@ -49,6 +49,7 @@ equation
   else
     y.value = pre(y.value);
   end if;
+
   connect(add1.y, integrator.u) annotation(
     Line(points = {{-59, -20}, {-41, -20}}, color = {0, 0, 127}));
   connect(discreteError.y, add1.u2) annotation(
