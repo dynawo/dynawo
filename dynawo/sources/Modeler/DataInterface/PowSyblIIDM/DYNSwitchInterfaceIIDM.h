@@ -27,6 +27,9 @@
 
 namespace DYN {
 
+/**
+ * class SwitchInterfaceIIDM
+ */
 class SwitchInterfaceIIDM : public SwitchInterface {
  public:
   /**
@@ -105,6 +108,11 @@ class SwitchInterfaceIIDM : public SwitchInterface {
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @copydoc SwitchInterface::isRetained()
+   */
+  bool isRetained() const;
 
  private:
   powsybl::iidm::Switch& switchIIDM_;              ///< reference to the iidm switch instance
