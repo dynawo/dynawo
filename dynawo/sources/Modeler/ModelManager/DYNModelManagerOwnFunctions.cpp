@@ -945,6 +945,32 @@ void put_boolean_element(m_boolean value, int i1, boolean_array_t *dest) {
     boolean_set(dest, i1, value);
 }
 
+/** function: base_array_create
+ **
+ ** sets all fields in a base_array, i.e. data, ndims and dim_size.
+ **/
+
+void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
+    int i;
+
+    dest->data = data;
+    dest->ndims = ndims;
+
+    dest->dim_size = size_alloc(ndims);
+
+    for (i = 0; i < ndims; ++i) {
+        dest->dim_size[i] = va_arg(ap, int);
+    }
+
+    /* uncomment for debugging!
+    fprintf(stderr, "created array ndims[%d] (", ndims);
+    for(i = 0; i < ndims; ++i) {
+      fprintf(stderr, "size(%d)=[%d], ", i, (int)dest->dim_size[i]);
+    }
+    fprintf(stderr, ")\n"); fflush(stderr);
+    */
+}
+
 
 /* array_alloc_scalar_boolean_array
  *
@@ -959,6 +985,19 @@ void array_alloc_scalar_boolean_array(boolean_array_t* dest, int n, ...) {
     for (i = 0; i < n; ++i) {
         put_boolean_element((m_boolean) va_arg(ap, int), i, dest);
     }
+    va_end(ap);
+}
+
+/** function: boolean_array_create
+ **
+ ** sets all fields in a boolean_array, i.e. data, ndims and dim_size.
+ **/
+
+void boolean_array_create(boolean_array_t *dest, modelica_boolean *data,
+                          int ndims, ...) {
+    va_list ap;
+    va_start(ap, ndims);
+    base_array_create(dest, data, ndims, ap);
     va_end(ap);
 }
 
