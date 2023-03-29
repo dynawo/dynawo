@@ -192,6 +192,9 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   virtual bool isPartiallyConnected() const;
 
  private:
+  explicit ThreeWTransformerInterfaceIIDM(const ThreeWTransformerInterfaceIIDM& other) = delete;
+
+ private:
   powsybl::iidm::ThreeWindingsTransformer& tfoIIDM_;  ///< reference to the tfo's iidm instance
   boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
   boost::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected
