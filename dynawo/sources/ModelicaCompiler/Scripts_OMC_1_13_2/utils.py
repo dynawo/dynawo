@@ -521,7 +521,7 @@ def find_all_temporary_variable_in_line(line):
 
 def add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add):
     tmps_to_add_depend = []
-    if not tmp in tmps_to_add:
+    if tmp not in tmps_to_add:
         tmps_to_add.append(tmp)
         for tmp_assignment in tmps_assignment:
             if tmp in tmp_assignment:
