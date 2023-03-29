@@ -14,6 +14,6 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- Infinite bus with UPu, UPhase and OmegaRefPu given by tables as functions of time -->
   <dyn:modelicaModel id="InfiniteBusFromTable">
-    <dyn:unitDynamicModel id="infiniteBus" name="Dynawo.Electrical.Buses.InfiniteBusFromTable"/>
+    <dyn:unitDynamicModel id="infiniteBus" name="Dynawo.Electrical.Buses.InfiniteBusFromTable" initName="Dynawo.Electrical.Buses.InfiniteBusFromTable_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
