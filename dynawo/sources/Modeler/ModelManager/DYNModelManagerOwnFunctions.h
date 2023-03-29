@@ -332,6 +332,18 @@ void put_boolean_element(m_boolean value, int i1, boolean_array_t* dest);
 void array_alloc_scalar_boolean_array(boolean_array_t* dest, int n, ...);
 
 /**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void boolean_array_create(boolean_array_t *dest, modelica_boolean *data, int ndims, ...);
+
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */

@@ -390,7 +390,7 @@ def replace_dynamic_indexing(body):
         if ("calc_base_index_dims_subs" not in line):
             body_to_return.append(line)
             continue
-        ptrn_var_dynamic_index = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\([0-9]+, (?P<size>[0-9]+), (?P<expr>.*)\)\]')
+        ptrn_var_dynamic_index = re.compile(r'\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\([0-9]+, (?P<size>[0-9]+), (?P<expr>.*)\)\]')
         match = ptrn_var_dynamic_index.findall(line)
         index_tmp = 0
         body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
