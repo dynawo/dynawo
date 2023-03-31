@@ -10,6 +10,7 @@ var a03104 =
     ] ],
     [ "~TwoWTransformerInterfaceIIDM", "da/dc0/a03104.html#a984035a6ececf4ab50f367a12f392075", null ],
     [ "TwoWTransformerInterfaceIIDM", "da/dc0/a03104.html#a75fbfc6703726522c293f69f869e41fc", null ],
+    [ "TwoWTransformerInterfaceIIDM", "da/dc0/a03104.html#a06a02c6533c65fdda98830909638872e", null ],
     [ "addCurrentLimitInterface1", "da/dc0/a03104.html#a6124154ded9372cc6da8da4b7e288168", null ],
     [ "addCurrentLimitInterface2", "da/dc0/a03104.html#ab06d71cbf5014a43d7d95ea280754789", null ],
     [ "exportStateVariablesUnitComponent", "da/dc0/a03104.html#a746660ba227d74ee089d670f90771ee1", null ],

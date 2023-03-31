@@ -2,6 +2,7 @@ var a03100 =
 [
     [ "~ThreeWTransformerInterfaceIIDM", "d5/d3a/a03100.html#a919d6f9080abf3bf609a38a7e4d57458", null ],
     [ "ThreeWTransformerInterfaceIIDM", "d5/d3a/a03100.html#a91ef339c1a7cd80d5d40840d0a444a45", null ],
+    [ "ThreeWTransformerInterfaceIIDM", "d5/d3a/a03100.html#adb36174753b00558e998c7372af6a93e", null ],
     [ "addCurrentLimitInterface1", "d5/d3a/a03100.html#a68301f59ff740803e13ca5941d8857a8", null ],
     [ "addCurrentLimitInterface2", "d5/d3a/a03100.html#a6ad4ae155cdce727ba2d60d5247e612b", null ],
     [ "addCurrentLimitInterface3", "d5/d3a/a03100.html#abab3b1e4aebc5e2737c0e39059aa82e1", null ],
