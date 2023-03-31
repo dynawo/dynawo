@@ -248,6 +248,10 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   bool isPartiallyConnected() const;
 
  private:
+  /**
+   * @brief Copy constructor
+   * @param other two windings transformer to copy
+   */
   explicit TwoWTransformerInterfaceIIDM(const TwoWTransformerInterfaceIIDM& other) = delete;
 
  private:
