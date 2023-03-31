@@ -248,6 +248,13 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   bool isPartiallyConnected() const;
 
  private:
+  /**
+   * @brief Copy constructor
+   * @param other two windings transformer to copy
+   */
+  explicit TwoWTransformerInterfaceIIDM(const TwoWTransformerInterfaceIIDM& other) = delete;
+
+ private:
   powsybl::iidm::TwoWindingsTransformer& tfoIIDM_;  ///< reference to the tfo's iidm instance
   boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
   boost::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected

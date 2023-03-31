@@ -17,6 +17,7 @@ set(MODEL_FILES
   InfiniteBus.mo
   InfiniteBus.extvar
   InfiniteBusFromTable.mo
+  InfiniteBusFromTable_INIT.mo
   InfiniteBusFromTable.extvar
   InfiniteBusWithImpedance.mo
   InfiniteBusWithImpedance.extvar
