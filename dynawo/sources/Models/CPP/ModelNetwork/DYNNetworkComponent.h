@@ -455,6 +455,10 @@ class NetworkComponent {  ///< Base class for network component models
   template <typename T> void findParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids, T& value) const;
 
+  /**
+   * @brief copy constructor
+   * @param other NetworkComponent to copy
+   */
   explicit NetworkComponent(const NetworkComponent& other) = delete;
 
  protected:
