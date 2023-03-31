@@ -192,6 +192,10 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   virtual bool isPartiallyConnected() const;
 
  private:
+  /**
+   * @brief Copy constructor
+   * @param other three windings transformer to copy
+   */
   explicit ThreeWTransformerInterfaceIIDM(const ThreeWTransformerInterfaceIIDM& other) = delete;
 
  private:
