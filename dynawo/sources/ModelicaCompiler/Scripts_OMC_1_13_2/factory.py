@@ -2845,7 +2845,7 @@ class Factory:
 
                 line_value_setting = "  %s = %s; \n" % (local_par_name, init_val)
                 line_par_other.append (line_value_setting)
-                line_modelica_params = create_parameter_pattern % (to_compile_name(par.get_name()), local_par_name)
+                line_modelica_params = create_parameter_pattern % (to_compile_name(self.replace_table_name(par.get_name())), local_par_name)
                 line_par_other.append (line_modelica_params)
 
         # concatenation of lists
@@ -2886,9 +2886,7 @@ class Factory:
             elif (par in self.list_params_string):
                 motif = motif_string
 
-            name = to_compile_name(par.get_name())
-            name_underscore = name + "_"
-            line = motif % ( name_underscore, name )
+            line = motif % ( to_compile_name(par.get_name())+"_", to_compile_name(self.replace_table_name(par.get_name())) )
             self.list_for_setparams.append(line)
 
         # convert native boolean variables
@@ -3137,6 +3135,22 @@ class Factory:
     def get_list_for_evaldynamicftype(self):
         return self.list_for_evaldynamicftype
 
+
+    ##
+    # decrease by 1 the index in a variable belonging to a Modelica table so that indexes are between 0->SIZE-1 (C++ style)
+    # @param match : current match
+    def replace_table_index(self, match):
+        return "["+str(int(match.group('varIndex')) - 1)+"]"
+
+    ##
+    # Test if the variable is from a table indexed from 1->N. If it is the case, decrease by 1 the indexes to match c++ style
+    # @param match : current match
+    def replace_table_name(self, var_name):
+        ptrn_table = re.compile(r'\[(?P<varIndex>[0-9]+)\]')
+        first_table_index = re.sub(ptrn_table,"[0]" , var_name)
+        if to_param_address(first_table_index) is None:
+            return re.sub(ptrn_table, self.replace_table_index, var_name)
+        return var_name
     ##
     # prepare the lines that constitues the body of setVariables
     # @param self : object pointer
@@ -3151,7 +3165,8 @@ class Factory:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars: continue # will be done in a second time to make sure we first declare the const variables and then the others
             if is_when_var(v): continue
-            name = to_compile_name(v.get_name())
+            name = to_compile_name(self.replace_table_name(v.get_name()))
+
             negated = "true" if v.get_alias_negated() else "false"
             line = ""
             if is_real_const_var(v):
@@ -3159,13 +3174,13 @@ class Factory:
             elif is_const_var(v):
                 line = line_ptrn_native_state % ( name, v.get_dyn_type(), "false")
             elif v.is_alias():
-                alias_name = to_compile_name(v.get_alias_name())
+                alias_name = to_compile_name(self.replace_table_name(v.get_alias_name()))
                 line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
             else:
                 line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             self.list_for_setvariables.append(line)
         for v in self.reader.list_calculated_vars:
-            name = to_compile_name(v.get_name())
+            name = to_compile_name(self.replace_table_name(v.get_name()))
             line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false")
             self.list_for_setvariables.append(line)
 
@@ -3195,7 +3210,7 @@ class Factory:
         # Les parametres
         for par in all_parameters:
             par_type = param_scope_str (param_scope (par))
-            name = to_compile_name(par.get_name())
+            name = to_compile_name(self.replace_table_name(par.get_name()))
             value_type = par.get_value_type_c().upper()
             line = line_ptrn %( name, "VAR_TYPE_"+value_type, par_type)
             self.list_for_defineparameters.append(line)
@@ -3231,8 +3246,8 @@ class Factory:
 
         # # First part of defineElements (...)
         for elt in self.list_elements :
-            elt_name = elt.get_element_name()
-            elt_short_name = elt.get_element_short_name()
+            elt_name = self.replace_table_name(elt.get_element_name())
+            elt_short_name = self.replace_table_name(elt.get_element_short_name())
             line =""
             if not elt.is_structure() :
                 line = motif1 % ( to_compile_name(elt_short_name), to_compile_name(elt_name), "TERMINAL" )
@@ -3264,7 +3279,7 @@ class Factory:
 
         # Third part of defineElements (...)
         for elt in self.list_elements :
-            elt_name = elt.get_element_name()
+            elt_name = self.replace_table_name(elt.get_element_name())
             elt_index = elt.get_element_num()
             # The structure itself
             line = motif2 % (to_compile_name(elt_name), elt_index)
