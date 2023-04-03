@@ -14,6 +14,8 @@ within Dynawo.Electrical.Machines.SignalN;
 
 model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the frequency handling with an N points PQ diagram."
   import Modelica;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
@@ -59,14 +61,17 @@ equation
     qStatus = QStatus.AbsorptionMax;
     limUQUp = false;
     limUQDown = true;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
     limUQUp = true;
     limUQDown = false;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
     limUQUp = false;
     limUQDown = false;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

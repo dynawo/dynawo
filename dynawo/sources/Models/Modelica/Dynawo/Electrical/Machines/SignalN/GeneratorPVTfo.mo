@@ -14,6 +14,8 @@ within Dynawo.Electrical.Machines.SignalN;
 
 model GeneratorPVTfo "Model for generator PV based on SignalN for the frequency handling, with a simplified transformer and a voltage regulation at stator"
   import Dynawo;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends Dynawo.Electrical.Machines.SignalN.BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
@@ -56,14 +58,17 @@ equation
     qStatus = QStatus.AbsorptionMax;
     limUQUp = false;
     limUQDown = true;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and UStatorPu <= UStatorRefPu then
     qStatus = QStatus.GenerationMax;
     limUQUp = true;
     limUQDown = false;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or UStatorPu < UStatorRefPu) and (QGenPu < QMaxPu or UStatorPu > UStatorRefPu) then
     qStatus = QStatus.Standard;
     limUQUp = false;
     limUQDown = false;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

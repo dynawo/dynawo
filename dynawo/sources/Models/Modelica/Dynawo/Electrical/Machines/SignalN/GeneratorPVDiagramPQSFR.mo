@@ -14,6 +14,8 @@ within Dynawo.Electrical.Machines.SignalN;
 
 model GeneratorPVDiagramPQSFR "Model for generator PV based on SignalN for the frequency handling, with an N points PQ diagram and that participates in the Secondary Frequency Regulation (SFR)"
   import Modelica;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseClasses.BaseGeneratorSignalNSFR;
   extends AdditionalIcons.Machine;
@@ -50,10 +52,13 @@ equation
 
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

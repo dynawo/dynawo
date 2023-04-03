@@ -13,6 +13,9 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPQPropSFR "Model for generator PQ based on SignalN for the frequency handling, with a proportional reactive power regulation and that participates in the Secondary Frequency Regulation (SFR)"
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   extends BaseClasses.BaseGeneratorSignalNSFR;
   extends AdditionalIcons.Machine;
 
@@ -45,14 +48,17 @@ equation
     qStatus = QStatus.AbsorptionMax;
     limUQUp = false;
     limUQDown = true;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenRawPu >= QMaxPu then
     qStatus = QStatus.GenerationMax;
     limUQUp = true;
     limUQDown = false;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen QGenRawPu > QMinPu and QGenRawPu < QMaxPu then
     qStatus = QStatus.Standard;
     limUQUp = false;
     limUQDown = false;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

@@ -13,6 +13,9 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVRemoteSFR "Model for generator PV based on SignalN for the frequency handling and a remote voltage regulation and that participates in the Secondary Frequency Regulation (SFR)"
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   extends BaseClasses.BaseGeneratorSignalNSFR;
   extends AdditionalIcons.Machine;
 
@@ -36,10 +39,13 @@ protected
 equation
   when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and URegulated <= URef then
     qStatus = QStatus.GenerationMax;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or URegulated < URef) and (QGenPu < QMaxPu or URegulated > URef) then
     qStatus = QStatus.Standard;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

@@ -13,6 +13,9 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVProp "Model for generator PV based on SignalN for the frequency handling and with a proportional voltage regulation"
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -36,10 +39,13 @@ protected
 equation
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

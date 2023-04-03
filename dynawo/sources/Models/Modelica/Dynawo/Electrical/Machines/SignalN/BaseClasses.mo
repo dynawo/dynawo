@@ -17,8 +17,12 @@ package BaseClasses
 
   partial model BaseGeneratorSignalN "Base dynamic model for generators based on SignalN for the frequency handling"
     import Dynawo.Electrical.Machines;
+    import Dynawo.NonElectrical.Logs.Timeline;
+    import Dynawo.NonElectrical.Logs.TimelineKeys;
 
     extends Machines.BaseClasses.BaseGeneratorSimplified;
+
+    type PStatus = enumeration(Standard, LimitPMin, LimitPMax);
 
     parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in pu (base SnRef) (receptor convention)";
     parameter Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
@@ -32,8 +36,23 @@ package BaseClasses
 
   protected
     Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
+    PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
 
   equation
+    when PGenRawPu >= PMaxPu and pre(pStatus) <> PStatus.LimitPMax then
+      pStatus = PStatus.LimitPMax;
+      Timeline.logEvent1(TimelineKeys.ActivatePMAX);
+    elsewhen PGenRawPu <= PMinPu and pre(pStatus) <> PStatus.LimitPMin then
+      pStatus = PStatus.LimitPMin;
+      Timeline.logEvent1(TimelineKeys.ActivatePMIN);
+    elsewhen PGenRawPu > PMinPu and pre(pStatus) == PStatus.LimitPMin then
+      pStatus = PStatus.Standard;
+      Timeline.logEvent1(TimelineKeys.DeactivatePMIN);
+    elsewhen PGenRawPu < PMaxPu and pre(pStatus) == PStatus.LimitPMax then
+      pStatus = PStatus.Standard;
+      Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
+    end when;
+
     if running.value then
       PGenRawPu = - PRefPu + Alpha * N;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
@@ -47,8 +66,12 @@ package BaseClasses
 
   partial model BaseGeneratorSignalNSFR "Base dynamic model for generators based on SignalN for the frequency handling and that participate in the Secondary Frequency Regulation (SFR)"
     import Dynawo.Electrical.Machines;
+    import Dynawo.NonElectrical.Logs.Timeline;
+    import Dynawo.NonElectrical.Logs.TimelineKeys;
 
     extends Machines.BaseClasses.BaseGeneratorSimplified;
+
+    type PStatus = enumeration(Standard, LimitPMin, LimitPMax);
 
     parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in pu (base SnRef) (receptor convention)";
     parameter Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
@@ -65,8 +88,23 @@ package BaseClasses
 
   protected
     Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
+    PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
 
   equation
+    when PGenRawPu >= PMaxPu and pre(pStatus) <> PStatus.LimitPMax then
+      pStatus = PStatus.LimitPMax;
+      Timeline.logEvent1(TimelineKeys.ActivatePMAX);
+    elsewhen PGenRawPu <= PMinPu and pre(pStatus) <> PStatus.LimitPMin then
+      pStatus = PStatus.LimitPMin;
+      Timeline.logEvent1(TimelineKeys.ActivatePMIN);
+    elsewhen PGenRawPu > PMinPu and pre(pStatus) == PStatus.LimitPMin then
+      pStatus = PStatus.Standard;
+      Timeline.logEvent1(TimelineKeys.DeactivatePMIN);
+    elsewhen PGenRawPu < PMaxPu and pre(pStatus) == PStatus.LimitPMax then
+      pStatus = PStatus.Standard;
+      Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
+    end when;
+
     if running.value then
       PGenRawPu = - PRefPu + Alpha * N + AlphaSFR * NSFR;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
