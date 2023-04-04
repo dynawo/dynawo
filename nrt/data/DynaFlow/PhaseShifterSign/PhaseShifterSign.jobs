@@ -22,6 +22,7 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="1000"/>
     <dyn:outputs directory="outputs">
+      <dyn:timeline exportMode="XML"/>
       <dyn:curves inputFile="PhaseShifterSign.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>

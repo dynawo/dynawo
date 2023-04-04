@@ -17,6 +17,8 @@ model SVarCPV "PV static var compensator model without mode handling"
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends AdditionalIcons.SVarC;
   extends SwitchOff.SwitchOffShunt;
@@ -35,6 +37,7 @@ model SVarCPV "PV static var compensator model without mode handling"
 
   input Types.VoltageModule URefPu(start = URef0Pu) "Reference voltage amplitude in pu (base UNom)";
 
+  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
   Types.PerUnit BVarPu(start = BVar0Pu) "Variable susceptance of the static var compensator in pu (base UNom, SnRef)";
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in pu (base UNom, SnRef)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
@@ -46,9 +49,16 @@ model SVarCPV "PV static var compensator model without mode handling"
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in pu (base UNom, SnRef)";
-  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
 
 equation
+  when bStatus == BStatus.SusceptanceMax and pre(bStatus) <> BStatus.SusceptanceMax then
+    Timeline.logEvent1(TimelineKeys.SVarCMaxB);
+  elsewhen bStatus == BStatus.SusceptanceMin and pre(bStatus) <> BStatus.SusceptanceMin then
+    Timeline.logEvent1(TimelineKeys.SVarCMinB);
+  elsewhen bStatus == BStatus.Standard and pre(bStatus) <> BStatus.Standard then
+    Timeline.logEvent1(TimelineKeys.SVarCBackRegulation);
+  end when;
+
   when BVarPu >= BMaxPu and UPu <= URefPu then
     bStatus = BStatus.SusceptanceMax;
   elsewhen BVarPu <= BMinPu and UPu >= URefPu then

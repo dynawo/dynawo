@@ -19,6 +19,8 @@ model SVarCPVModeHandling "PV static var compensator model with mode handling"
   import Dynawo.Electrical.StaticVarCompensators.BaseControls.Mode;
   import Dynawo.Electrical.StaticVarCompensators.BaseControls.Parameters;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends AdditionalIcons.SVarC;
   extends SwitchOff.SwitchOffShunt;
@@ -40,6 +42,7 @@ model SVarCPVModeHandling "PV static var compensator model with mode handling"
   input Boolean selectModeAuto(start = selectModeAuto0) "Whether the static var compensator is in automatic configuration";
   input Integer setModeManual(start = setModeManual0) "Mode selected when in manual configuration";
 
+  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
   Types.PerUnit BVarPu(start = BVar0Pu) "Variable susceptance of the static var compensator in pu (base UNom, SnRef)";
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in pu (base UNom, SnRef)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
@@ -57,13 +60,20 @@ model SVarCPVModeHandling "PV static var compensator model with mode handling"
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
   final parameter Integer setModeManual0 = Integer(Mode0) "Start value of the mode when in manual configuration";
-  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
 
 equation
   UPu = modeHandling.UPu;
   URef = modeHandling.URef;
   selectModeAuto = modeHandling.selectModeAuto;
   setModeManual = modeHandling.setModeManual;
+
+  when bStatus == BStatus.SusceptanceMax and pre(bStatus) <> BStatus.SusceptanceMax then
+    Timeline.logEvent1(TimelineKeys.SVarCMaxB);
+  elsewhen bStatus == BStatus.SusceptanceMin and pre(bStatus) <> BStatus.SusceptanceMin then
+    Timeline.logEvent1(TimelineKeys.SVarCMinB);
+  elsewhen bStatus == BStatus.Standard and pre(bStatus) <> BStatus.Standard then
+    Timeline.logEvent1(TimelineKeys.SVarCBackRegulation);
+  end when;
 
   when BVarPu >= BMaxPu and UPu <= URefPu then
     bStatus = BStatus.SusceptanceMax;

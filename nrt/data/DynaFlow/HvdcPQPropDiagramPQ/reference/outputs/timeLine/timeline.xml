@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="30.000000" modelName="Hvdc1" message="DC line open"/>
+  <event time="60.000000" modelName="_BUS____5-BUS____6-1_PS" message="Tap +1"/>
+</timeline>

@@ -18,6 +18,8 @@ package BaseClasses
   partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of the active power"
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
+    import Dynawo.NonElectrical.Logs.Timeline;
+    import Dynawo.NonElectrical.Logs.TimelineKeys;
 
     extends SwitchOff.SwitchOffDCLine;
 
@@ -28,6 +30,8 @@ package BaseClasses
      (terminal1) -->-------HVDC-------<-- (terminal2)
 
   */
+
+    type PStatus = enumeration(Standard, LimitPMax);
 
     Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
       Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -51,6 +55,7 @@ package BaseClasses
     Types.ActivePowerPu P2Pu(start = s20Pu.re) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
     Types.ActivePowerPu PInj1Pu(start = - s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (generator convention)";
     Types.ActivePowerPu PInj2Pu(start = - s20Pu.re) "Active power at terminal 2 in pu (base SnRef) (generator convention)";
+    PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
     Types.VoltageModulePu U1Pu(start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in pu (base UNom)";
     Types.VoltageModulePu U2Pu(start = ComplexMath.'abs'(u20Pu)) "Voltage amplitude at terminal 2 in pu (base UNom)";
     Types.ComplexApparentPowerPu s1Pu(re(start = s10Pu.re), im(start = s10Pu.im)) "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -67,6 +72,14 @@ package BaseClasses
     s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
     s2Pu = Complex(P2Pu, Q2Pu);
     s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
+
+    when (P1RefPu >= PMaxPu or P1RefPu <= -PMaxPu) and pre(pStatus) <> PStatus.LimitPMax then
+      pStatus = PStatus.LimitPMax;
+      Timeline.logEvent1(TimelineKeys.HVDCMaxP);
+    elsewhen (P1RefPu < PMaxPu and P1RefPu > -PMaxPu) and pre(pStatus) == PStatus.LimitPMax then
+      pStatus = PStatus.Standard;
+      Timeline.logEvent1(TimelineKeys.HVDCDeactivateMaxP);
+    end when;
 
     if running.value then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
@@ -89,6 +102,8 @@ package BaseClasses
   partial model BaseHvdcPDangling "Base dynamic model for HVDC links with a regulation of the active power and with terminal2 connected to a switched-off bus"
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
+    import Dynawo.NonElectrical.Logs.Timeline;
+    import Dynawo.NonElectrical.Logs.TimelineKeys;
 
     extends SwitchOff.SwitchOffDCLine;
 
@@ -99,6 +114,8 @@ package BaseClasses
      (terminal1) -->-------HVDC-------<-- (switched-off terminal2)
 
   */
+
+    type PStatus = enumeration(Standard, LimitPMax);
 
     Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
         Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -119,6 +136,7 @@ package BaseClasses
     Types.ActivePowerPu P2Pu(start = 0) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
     Types.ActivePowerPu PInj1Pu(start = - s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (generator convention)";
     Types.ActivePowerPu PInj2Pu(start = 0) "Active power at terminal 2 in pu (base SnRef) (generator convention)";
+    PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
     Types.VoltageModulePu U1Pu(start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in pu (base UNom)";
     Types.ComplexApparentPowerPu s1Pu(re(start = s10Pu.re), im(start = s10Pu.im)) "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
     Types.ReactivePowerPu Q1Pu(start = s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -127,6 +145,14 @@ package BaseClasses
     Types.ReactivePowerPu QInj2Pu(start = 0) "Reactive power at terminal 2 in pu (base SnRef) (generator convention)";
 
   equation
+    when (P1RefPu >= PMaxPu or P1RefPu <= -PMaxPu) and pre(pStatus) <> PStatus.LimitPMax then
+      pStatus = PStatus.LimitPMax;
+      Timeline.logEvent1(TimelineKeys.HVDCMaxP);
+    elsewhen (P1RefPu < PMaxPu and P1RefPu > -PMaxPu) and pre(pStatus) == PStatus.LimitPMax then
+      pStatus = PStatus.Standard;
+      Timeline.logEvent1(TimelineKeys.HVDCDeactivateMaxP);
+    end when;
+
     //Connected side
     if runningSide1.value then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);

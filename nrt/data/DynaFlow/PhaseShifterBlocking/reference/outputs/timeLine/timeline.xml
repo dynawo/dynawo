@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="0.000000" modelName="PhaseShifter" message="Phase-shifter : back to acceptable value"/>
+  <event time="20.000000" modelName="_BUS____9-BUS___10-1_AC" message="LINE : opening both sides"/>
+  <event time="20.000000" modelName="PhaseShifter" message="Phase-shifter : above maximum allowed value"/>
+  <event time="20.000000" modelName="PhaseShifterLock" message="Phase-shifter : block order arming by over-current constraint"/>
+  <event time="20.000000" modelName="PhaseShifter" message="Phase-shifter : above maximum allowed value"/>
+  <event time="20.000000" modelName="PhaseShifterLock" message="Phase-shifter : block order arming by over-current constraint"/>
+  <event time="20.000000" modelName="PhaseShifter" message="Phase-shifter : above maximum allowed value"/>
+  <event time="20.000000" modelName="PhaseShifterLock" message="Phase-shifter : block order arming by over-current constraint"/>
+  <event time="20.000000" modelName="PhaseShifter" message="Phase-shifter : above maximum allowed value"/>
+  <event time="20.000000" modelName="PhaseShifterLock" message="Phase-shifter : block order arming by over-current constraint"/>
+  <event time="30.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="40.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="40.000000" modelName="PhaseShifterLock" message="Phase-shifter : order to block"/>
+  <event time="40.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="40.000000" modelName="PhaseShifterLock" message="Phase-shifter : order to block"/>
+  <event time="40.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="40.000000" modelName="PhaseShifterLock" message="Phase-shifter : order to block"/>
+</timeline>

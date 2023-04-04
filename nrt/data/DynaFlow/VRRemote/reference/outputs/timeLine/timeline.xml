@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="50.000000" modelName="Line1Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="Line1BisNoFreezing" message="LINE : opening both sides"/>
+  <event time="70.000000" modelName="Generator2" message="PV Generator : max reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator2NoFreezing" message="PV Generator : max reactive power limit reached"/>
+  <event time="140.000000" modelName="Generator1" message="PV Generator : max reactive power limit reached"/>
+  <event time="140.000000" modelName="Generator1NoFreezing" message="PV Generator : max reactive power limit reached"/>
+  <event time="140.000000" modelName="Generator1" message="PV Generator : max reactive power limit reached"/>
+  <event time="140.000000" modelName="Generator1NoFreezing" message="PV Generator : max reactive power limit reached"/>
+  <event time="1000.000000" modelName="Generator1" message="PV Generator : back to voltage regulation"/>
+  <event time="1120.000000" modelName="Generator1NoFreezing" message="PV Generator : back to voltage regulation"/>
+</timeline>

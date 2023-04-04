@@ -17,9 +17,15 @@ model SVarCPVPropRemote "PV static var compensator model with remote voltage reg
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends AdditionalIcons.SVarC;
   extends SwitchOff.SwitchOffShunt;
+
+  type BStatus = enumeration (Standard "Susceptance is between its maximal and minimal values",
+                              SusceptanceMax "Susceptance is fixed to its maximal value",
+                              SusceptanceMin "Susceptance is fixed to its minimal value");
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
   input Types.VoltageModulePu URegulatedPu "Regulated voltage in pu (base UNomRemote)";
@@ -33,6 +39,7 @@ model SVarCPVPropRemote "PV static var compensator model with remote voltage reg
 
   input Types.VoltageModule URefPu(start = URef0Pu) "Voltage reference for the regulation in kV";
 
+  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
   Types.PerUnit BVarRawPu(start = BVar0Pu) "Raw variable susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
   Types.PerUnit BVarPu(start = BVar0Pu) "Variable susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
@@ -49,6 +56,17 @@ model SVarCPVPropRemote "PV static var compensator model with remote voltage reg
 equation
   URefPu = URegulatedPu + LambdaPu * (BVarRawPu + BShuntPu) * UPu ^ 2;
   BVarPu = if BVarRawPu > BMaxPu then BMaxPu elseif BVarRawPu < BMinPu then BMinPu else BVarRawPu;
+
+  when BVarRawPu >= BMaxPu and pre(bStatus) <> BStatus.SusceptanceMax then
+    bStatus = BStatus.SusceptanceMax;
+    Timeline.logEvent1(TimelineKeys.SVarCMaxB);
+  elsewhen BVarRawPu <= BMinPu and pre(bStatus) <> BStatus.SusceptanceMin then
+    bStatus = BStatus.SusceptanceMin;
+    Timeline.logEvent1(TimelineKeys.SVarCMinB);
+  elsewhen (BVarRawPu < BMaxPu and BVarRawPu > BMinPu) and pre(bStatus) <> BStatus.Standard then
+    bStatus = BStatus.Standard;
+    Timeline.logEvent1(TimelineKeys.SVarCBackRegulation);
+  end when;
 
   if (running.value) then
     UPu = Modelica.ComplexMath.'abs'(terminal.V);

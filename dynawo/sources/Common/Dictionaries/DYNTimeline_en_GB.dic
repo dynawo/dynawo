@@ -28,6 +28,13 @@ GeneratorPVBackRegulation =             PV Generator : back to voltage regulatio
 GeneratorMaxQ           =             Generator : maximum reactive power limit reached
 GeneratorMinQ           =             Generator : minimum reactive power limit reached
 GeneratorBackRegulation =             Generator : back to voltage / reactive power regulation
+// --> SVarC
+SVarCMaxB               =             SVarC : maximum susceptance reached
+SVarCMinB               =             SVarC : minimum susceptance reached
+SVarCBackRegulation     =             SVarC : back to voltage / reactive power regulation
+// --> HVDC
+HVDCMaxP                =             HVDC : maximum active power limit reached
+HVDCDeactivateMaxP      =             HVDC : back to active power regulation
 // --> BaseTapChangerPhaseShifter
 TapUp                     =             Tap +1
 TapDown                   =             Tap -1

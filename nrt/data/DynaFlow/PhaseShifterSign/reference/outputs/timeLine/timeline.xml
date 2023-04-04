@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="0.000000" modelName="PhaseShifter" message="Phase-shifter : above maximum allowed value"/>
+  <event time="40.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="60.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="80.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="100.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="120.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="140.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="160.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="180.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="200.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="220.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="240.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="260.000000" modelName="PhaseShifter" message="Tap +1"/>
+  <event time="410.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="430.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="450.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="470.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="490.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="510.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="530.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="550.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="570.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="590.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="610.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="630.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="650.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="670.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="690.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="710.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="730.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="750.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="770.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="790.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="810.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="830.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="850.000000" modelName="PhaseShifter" message="Tap -1"/>
+  <event time="870.000000" modelName="PhaseShifter" message="Tap -1"/>
+</timeline>
