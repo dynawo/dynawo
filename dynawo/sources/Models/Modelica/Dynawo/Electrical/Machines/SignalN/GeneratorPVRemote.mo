@@ -37,15 +37,20 @@ protected
   QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
+  when qStatus == QStatus.AbsorptionMax and pre(qStatus) <> QStatus.AbsorptionMax then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
+  elsewhen qStatus == QStatus.GenerationMax and pre(qStatus) <> QStatus.GenerationMax then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
+  elsewhen qStatus == QStatus.Standard and pre(qStatus) <> QStatus.Standard then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
+  end when;
+
   when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and URegulated <= URef then
     qStatus = QStatus.GenerationMax;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or URegulated < URef) and (QGenPu < QMaxPu or URegulated > URef) then
     qStatus = QStatus.Standard;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

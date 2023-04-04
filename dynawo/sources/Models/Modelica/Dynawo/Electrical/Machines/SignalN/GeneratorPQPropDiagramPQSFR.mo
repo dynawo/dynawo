@@ -59,21 +59,26 @@ equation
 
   QGenRawPu = - QRef0Pu + QPercent * NQ;
 
+  when qStatus == QStatus.AbsorptionMax and pre(qStatus) <> QStatus.AbsorptionMax then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
+  elsewhen qStatus == QStatus.GenerationMax and pre(qStatus) <> QStatus.GenerationMax then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
+  elsewhen qStatus == QStatus.Standard and pre(qStatus) <> QStatus.Standard then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
+  end when;
+
   when QGenRawPu <= QMinPu then
     qStatus = QStatus.AbsorptionMax;
     limUQUp = false;
     limUQDown = true;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenRawPu >= QMaxPu then
     qStatus = QStatus.GenerationMax;
     limUQUp = true;
     limUQDown = false;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen QGenRawPu > QMinPu and QGenRawPu < QMaxPu then
     qStatus = QStatus.Standard;
     limUQUp = false;
     limUQDown = false;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then

@@ -57,21 +57,26 @@ equation
   PGenPu = tableQMax.u[1];
   QMaxPu = tableQMax.y[1];
 
+  when qStatus == QStatus.AbsorptionMax and pre(qStatus) <> QStatus.AbsorptionMax then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
+  elsewhen qStatus == QStatus.GenerationMax and pre(qStatus) <> QStatus.GenerationMax then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
+  elsewhen qStatus == QStatus.Standard and pre(qStatus) <> QStatus.Standard then
+    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
+  end when;
+
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQUp = false;
     limUQDown = true;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
     limUQUp = true;
     limUQDown = false;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
     limUQUp = false;
     limUQDown = false;
-    Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then
