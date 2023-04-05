@@ -205,6 +205,8 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
   for (std::vector<boost::shared_ptr<LoadInterface> >::const_iterator loadIt = loads_.begin(), loadItEnd = loads_.end();
       loadIt != loadItEnd; ++loadIt) {
     boost::shared_ptr<DYN::LoadInterface> load = *loadIt;
+    if (load->isFictitious())
+      continue;
     double p = load->getP();
     if (!params_->getVoltageLevels().empty()) {
       if (alreadyChecked.find(load->getID()) != alreadyChecked.end()) continue;
