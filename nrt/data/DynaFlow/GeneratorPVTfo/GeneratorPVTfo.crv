@@ -46,6 +46,7 @@
   <curve model="Generator5" variable="reactivePowerControlLoop_level"/>
   <curve model="Generator5" variable="reactivePowerControlLoop_QStatorPu"/>
   <curve model="Generator5" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="Generator5" variable="reactivePowerControlLoop_integrator_y"/>
   <curve model="Generator6" variable="generator_UPu"/>
   <curve model="Generator6" variable="generator_UStatorPu"/>
   <curve model="Generator6" variable="generator_UStatorRefPu"/>

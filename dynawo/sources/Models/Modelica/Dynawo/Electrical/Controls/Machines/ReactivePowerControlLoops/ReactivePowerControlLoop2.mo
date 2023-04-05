@@ -35,7 +35,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
 
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput UStatorRefPu(start = UStatorRef0Pu) "Reference voltage for the generator voltage regulator in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {218, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {218, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Blocks
   Modelica.Blocks.Math.Gain participation(k = QrPu) annotation(
@@ -74,6 +74,12 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
 
+// Limiter for UStatorRefPu
+  parameter Real UStatorRefMinPu "Minimum reference voltage for the generator voltage regulator in pu";
+  parameter Real UStatorRefMaxPu "Maximum reference voltage for the generator voltage regulator in pu";
+  Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(limitsAtInit = true, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu)  annotation(
+    Placement(visible = true, transformation(origin = {146, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(integrator.u, rampLim.y) annotation(
     Line(points = {{98, 0}, {21, 0}}, color = {0, 0, 127}));
@@ -99,8 +105,6 @@ equation
     Line(points = {{-99, 80}, {-20, 80}, {-20, 8}, {-2, 8}}, color = {0, 0, 127}));
   connect(swLimDown.y, rampLim.limit2) annotation(
     Line(points = {{-76, -120}, {-20, -120}, {-20, -8}, {-2, -8}}, color = {0, 0, 127}));
-  connect(integrator.y, UStatorRefPu) annotation(
-    Line(points = {{121, 0}, {150, 0}}, color = {0, 0, 127}));
   connect(QStatorPu, firstOrder.u) annotation(
     Line(points = {{-172, -40}, {-142, -40}}, color = {0, 0, 127}));
   connect(firstOrder.y, errQ.u2) annotation(
@@ -115,7 +119,10 @@ equation
     Line(points = {{40, -40}, {22, -40}}, color = {0, 0, 127}));
   connect(gain.y, feedback.u2) annotation(
     Line(points = {{0, -40}, {-40, -40}, {-40, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
-
+  connect(integrator.y, limiter_UStatorRefMinMaxPu.u) annotation(
+    Line(points = {{122, 0}, {134, 0}}, color = {0, 0, 127}));
+  connect(limiter_UStatorRefMinMaxPu.y, UStatorRefPu) annotation(
+    Line(points = {{158, 0}, {190, 0}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {140, 140}})),
     Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
