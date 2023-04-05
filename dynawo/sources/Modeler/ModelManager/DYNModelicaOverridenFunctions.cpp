@@ -24,6 +24,17 @@
 
 #ifdef _ADEPT_
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
+#pragma clang diagnostic ignored "-Wmissing-prototypes"
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+#pragma clang diagnostic ignored "-Wold-style-cast"
+#pragma clang diagnostic ignored "-Wfloat-equal"
+#pragma clang diagnostic ignored "-Wunused-macros"
+#endif  // __clang__
+
 // Copied from ModelicaExternalC library
 // Copied from ModelicaStandardTables.c
 /* ----- Interface enumerations ----- */
@@ -1435,4 +1446,9 @@ adept::adouble ModelicaStandardTables_CombiTimeTable_getDerValue_adept(void* _ta
     }
     return der_y;
 }
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 #endif
