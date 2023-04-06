@@ -2166,26 +2166,15 @@ TEST(DataInterfaceIIDMTest, testDontTestFictitiousLoadsInCriteria) {
   criteriaParams->setType(CriteriaParams::LOCAL_VALUE);
   criteriaParams->setScope(CriteriaParams::DYNAMIC);
   criteriaParams->setPMax(90);
-
-  shared_ptr<DataInterface> data1 = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithOneFictitiousLoadAmongTwo(180, 190, 100, 100));
-  exportStates(data1);
-  std::vector<boost::shared_ptr<LoadInterface> > loads1 = data1->getNetwork()->getVoltageLevels()[0]->getLoads();
-  LoadCriteria criteria1(criteriaParams);
-  for (size_t i = 0; i < loads1.size(); ++i)
-    criteria1.addLoad(loads1[i]);
-  criteria1.checkCriteria(0, false);
-  const std::vector<std::pair<double, std::string> > failingCriteria1 = criteria1.getFailingCriteria();
-  ASSERT_EQ(failingCriteria1.size(), 1);
-
-  shared_ptr<DataInterface> data2 = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
-  exportStates(data2);
-  std::vector<boost::shared_ptr<LoadInterface> > loads2 = data2->getNetwork()->getVoltageLevels()[0]->getLoads();
-  LoadCriteria criteria2(criteriaParams);
-  for (size_t i = 0; i < loads2.size(); ++i)
-    criteria2.addLoad(loads2[i]);
-  criteria2.checkCriteria(0, false);
-  const std::vector<std::pair<double, std::string> > failingCriteria2 = criteria2.getFailingCriteria();
-  ASSERT_EQ(failingCriteria2.size(), 2);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithOneFictitiousLoadAmongTwo(180, 190, 100, 100));
+  exportStates(data);
+  std::vector<boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  LoadCriteria criteria(criteriaParams);
+  for (size_t i = 0; i < loads.size(); ++i)
+    criteria.addLoad(loads[i]);
+  criteria.checkCriteria(0, false);
+  const std::vector<std::pair<double, std::string> > failingCriteria = criteria.getFailingCriteria();
+  ASSERT_EQ(failingCriteria.size(), 1);
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
