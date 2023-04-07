@@ -71,7 +71,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   Modelica.Blocks.Math.Gain gain(k = Ti / Tech) annotation(
     Placement(visible = true, transformation(origin = {10, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(limitsAtInit = true, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu)  annotation(
-    Placement(visible = true, transformation(origin = {146, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
@@ -123,6 +123,6 @@ equation
     Line(points = {{158, 0}, {190, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(extent = {{-160, -180}, {140, 140}})),
+    Diagram(coordinateSystem(extent = {{-160, -180}, {180, 140}})),
     Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
 end ReactivePowerControlLoop2;
