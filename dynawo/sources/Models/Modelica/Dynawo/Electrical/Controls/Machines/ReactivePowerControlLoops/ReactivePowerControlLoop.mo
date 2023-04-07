@@ -19,6 +19,8 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Types.PerUnit DerURefMaxPu "Maximum variation rate of UStatorRefPu in pu/s (base UNom)";
   parameter Types.ReactivePowerPu QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNomAlt)";
   parameter Types.Time TiQ "Reactive power control loop integrator time constant in s";
+  parameter Types.VoltageModulePu UStatorRefMinPu = 0.85 "Minimum reference voltage for the generator voltage regulator in pu (base UNom)";
+  parameter Types.VoltageModulePu UStatorRefMaxPu = 1.15 "Maximum reference voltage for the generator voltage regulator in pu (base UNom)";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
@@ -57,17 +59,13 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const3(k = -DerURefMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-170, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter_UStatorMinMaxPu(limitsAtInit = true, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu)  annotation(
+    Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
-
-// Limiter for UStatorRefPu
-  parameter Real UStatorRefMinPu "Minimum reference voltage for the generator voltage regulator in pu";
-  parameter Real UStatorRefMaxPu "Maximum reference voltage for the generator voltage regulator in pu";
-  Modelica.Blocks.Nonlinear.Limiter limiter_UStatorMinMaxPu(limitsAtInit = true, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu)  annotation(
-    Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   connect(rampLim.u, gainIntegrator.y) annotation(
@@ -102,6 +100,7 @@ equation
     Line(points = {{42, 0}, {58, 0}}, color = {0, 0, 127}));
   connect(limiter_UStatorMinMaxPu.y, UStatorRefPu) annotation(
     Line(points = {{82, 0}, {122, 0}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {60, 140}})),
     Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
