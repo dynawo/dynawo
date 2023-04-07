@@ -34,7 +34,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
 
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput UStatorRefPu(start = UStatorRef0Pu) "Reference voltage for the generator voltage regulator in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {122, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {218, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {218, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Blocks
   Modelica.Blocks.Math.Gain participation(k = QrPu) annotation(
@@ -99,9 +99,9 @@ equation
   connect(integrator.y, limiter_UStatorMinMaxPu.u) annotation(
     Line(points = {{42, 0}, {58, 0}}, color = {0, 0, 127}));
   connect(limiter_UStatorMinMaxPu.y, UStatorRefPu) annotation(
-    Line(points = {{82, 0}, {122, 0}}, color = {0, 0, 127}));
+    Line(points = {{82, 0}, {110, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(extent = {{-160, -180}, {60, 140}})),
+    Diagram(coordinateSystem(extent = {{-160, -180}, {100, 140}})),
     Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
 end ReactivePowerControlLoop;
