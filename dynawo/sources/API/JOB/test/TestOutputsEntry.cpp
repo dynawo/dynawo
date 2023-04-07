@@ -36,6 +36,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   // check default attributes
   ASSERT_EQ(outputs->getOutputsDirectory(), "");
   ASSERT_EQ(outputs->getInitValuesEntry(), boost::shared_ptr<InitValuesEntry>());
+  ASSERT_EQ(outputs->getFinalValuesEntry(), boost::shared_ptr<FinalValuesEntry>());
   ASSERT_EQ(outputs->getConstraintsEntry(), boost::shared_ptr<ConstraintsEntry>());
   ASSERT_EQ(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   ASSERT_EQ(outputs->getFinalStateEntries().empty(), true);
@@ -47,6 +48,9 @@ TEST(APIJOBTest, testOutputsEntry) {
 
   boost::shared_ptr<InitValuesEntry> initValues = boost::shared_ptr<InitValuesEntry>(new InitValuesEntry());
   outputs->setInitValuesEntry(initValues);
+
+  boost::shared_ptr<FinalValuesEntry> finalValues = boost::shared_ptr<FinalValuesEntry>(new FinalValuesEntry());
+  outputs->setFinalValuesEntry(finalValues);
 
   boost::shared_ptr<ConstraintsEntry> constraints = boost::shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
   outputs->setConstraintsEntry(constraints);
@@ -69,6 +73,7 @@ TEST(APIJOBTest, testOutputsEntry) {
 
   ASSERT_EQ(outputs->getOutputsDirectory(), "/tmp/outputs");
   ASSERT_EQ(outputs->getInitValuesEntry(), initValues);
+  ASSERT_EQ(outputs->getFinalValuesEntry(), finalValues);
   ASSERT_EQ(outputs->getConstraintsEntry(), constraints);
   ASSERT_EQ(outputs->getTimelineEntry(), timeline);
   ASSERT_EQ(outputs->getFinalStateEntries().size(), 1);
@@ -80,6 +85,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   boost::shared_ptr<OutputsEntry> outputs_bis = DYN::clone(outputs);
   ASSERT_EQ(outputs_bis->getOutputsDirectory(), "/tmp/outputs");
   ASSERT_NE(outputs_bis->getInitValuesEntry(), initValues);
+  ASSERT_NE(outputs_bis->getFinalValuesEntry(), finalValues);
   ASSERT_NE(outputs_bis->getConstraintsEntry(), constraints);
   ASSERT_NE(outputs_bis->getTimelineEntry(), timeline);
   ASSERT_EQ(outputs_bis->getFinalStateEntries().size(), 1);
@@ -91,6 +97,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   OutputsEntry outputs_bis2 = *outputs;
   ASSERT_EQ(outputs_bis2.getOutputsDirectory(), "/tmp/outputs");
   ASSERT_NE(outputs_bis2.getInitValuesEntry(), initValues);
+  ASSERT_NE(outputs_bis2.getFinalValuesEntry(), finalValues);
   ASSERT_NE(outputs_bis2.getConstraintsEntry(), constraints);
   ASSERT_NE(outputs_bis2.getTimelineEntry(), timeline);
   ASSERT_EQ(outputs_bis2.getFinalStateEntries().size(), 1);

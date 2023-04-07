@@ -42,6 +42,7 @@ OutputsEntry::copy(const OutputsEntry& other) {
   outputsDirectory_ = other.outputsDirectory_;
 
   initValuesEntry_ = DYN::clone(other.initValuesEntry_);
+  finalValuesEntry_ = DYN::clone(other.finalValuesEntry_);
   constraintsEntry_ = DYN::clone(other.constraintsEntry_);
   timelineEntry_ = DYN::clone(other.timelineEntry_);
   timetableEntry_ = DYN::clone(other.timetableEntry_);
@@ -74,6 +75,16 @@ OutputsEntry::setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initV
 boost::shared_ptr<InitValuesEntry>
 OutputsEntry::getInitValuesEntry() const {
   return initValuesEntry_;
+}
+
+void
+OutputsEntry::setFinalValuesEntry(const boost::shared_ptr<FinalValuesEntry>& finalValuesEntry) {
+  finalValuesEntry_ = finalValuesEntry;
+}
+
+boost::shared_ptr<FinalValuesEntry>
+OutputsEntry::getFinalValuesEntry() const {
+  return finalValuesEntry_;
 }
 
 void

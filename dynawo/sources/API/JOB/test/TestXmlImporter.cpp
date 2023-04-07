@@ -30,6 +30,7 @@
 #include "JOBSimulationEntry.h"
 #include "JOBOutputsEntry.h"
 #include "JOBInitValuesEntry.h"
+#include "JOBFinalValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
@@ -88,6 +89,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "<dyn:simulation startTime=\"10\" stopTime=\"200\"/>"
     "<dyn:outputs directory=\"outputs/dump\">"
     "<dyn:dumpInitValues local=\"true\" global=\"false\"/>"
+    "<dyn:dumpFinalValues/>"
     "<dyn:constraints exportMode=\"XML\"/>"
     "<dyn:timeline exportMode=\"TXT\" exportTime=\"true\"/>"
     "<dyn:finalState exportDumpFile=\"true\" exportIIDMFile=\"true\"/>"
@@ -202,6 +204,11 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<InitValuesEntry> initValues = outputs->getInitValuesEntry();
   ASSERT_EQ(initValues->getDumpLocalInitValues(), true);
   ASSERT_EQ(initValues->getDumpGlobalInitValues(), false);
+
+  // ===== FinalValuesEntry =====
+  ASSERT_NE(outputs->getFinalValuesEntry(), boost::shared_ptr<FinalValuesEntry>());
+  boost::shared_ptr<FinalValuesEntry> finalValues = outputs->getFinalValuesEntry();
+  ASSERT_EQ(finalValues->getDumpFinalValues(), true);
 
   // ===== ConstraintsEntry =====
   ASSERT_NE(outputs->getConstraintsEntry(), boost::shared_ptr<ConstraintsEntry>());
