@@ -181,6 +181,7 @@ lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
 dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
+dumpFinalValues_(false),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -269,11 +270,14 @@ Simulation::clean() {
 
 void
 Simulation::configureSimulationOutputs() {
-  if (jobEntry_->getOutputsEntry()) {
+  if (jobEntry_->getOutputsEntry() != nullptr) {
     // Init Values settings
-    if (jobEntry_->getOutputsEntry()->getInitValuesEntry()) {
+    if (jobEntry_->getOutputsEntry()->getInitValuesEntry() != nullptr) {
       setDumpLocalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpLocalInitValues());
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
+    }
+    if (jobEntry_->getOutputsEntry()->getFinalValuesEntry() != nullptr) {
+      setDumpFinalValues(jobEntry_->getOutputsEntry()->getFinalValuesEntry()->getDumpFinalValues());
     }
     configureConstraintsOutputs();
     configureTimelineOutputs();
@@ -1253,6 +1257,13 @@ Simulation::terminate() {
     openFileStream(fileConstraints, constraintsOutputFile_);
     printConstraints(fileConstraints);
     fileConstraints.close();
+  }
+
+  if (dumpFinalValues_) {
+    string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
+    if (!exists(finalValuesDir))
+      create_directory(finalValuesDir);
+    model_->printInitValues(finalValuesDir);
   }
 
   if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
