@@ -35,44 +35,27 @@
 namespace DYN {
 
 bool
-SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype * lastRowVals) {
+SolverCommon::copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& JJ, const std::vector<sunindextype>& lastRowVals) {
   bool matrixStructChange = false;
   if (SM_NNZ_S(JJ) < smj.nbElem()) {
-    free(SM_INDEXPTRS_S(JJ));
-    free(SM_INDEXVALS_S(JJ));
-    free(SM_DATA_S(JJ));
-    SM_NNZ_S(JJ) = smj.nbElem();
-    SM_INDEXPTRS_S(JJ) = reinterpret_cast<sunindextype*> (malloc((size + 1) * sizeof (sunindextype)));
-    SM_INDEXVALS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(SM_NNZ_S(JJ) * sizeof (sunindextype)));
-    SM_DATA_S(JJ) = reinterpret_cast<realtype*> (malloc(SM_NNZ_S(JJ) * sizeof (realtype)));
     matrixStructChange = true;
   }
 
-  // NNZ has to be actualized anyway
   SM_NNZ_S(JJ) = smj.nbElem();
+  SM_INDEXPTRS_S(JJ) = &(smj.getNonCstAp())[0];
+  SM_INDEXVALS_S(JJ) = &(smj.getNonCstAi())[0];
+  SM_DATA_S(JJ) = &(smj.getNonCstAx())[0];
 
-  for (unsigned i = 0, iEnd = size + 1; i < iEnd; ++i) {
-    SM_INDEXPTRS_S(JJ)[i] = smj.Ap_[i];  //!!! implicit conversion from unsigned to sunindextype
-  }
-  for (unsigned i = 0, iEnd = smj.nbElem(); i < iEnd; ++i) {
-    SM_INDEXVALS_S(JJ)[i] = smj.Ai_[i];  //!!! implicit conversion from int to sunindextype
-    SM_DATA_S(JJ)[i] = smj.Ax_[i];  //!!! implicit conversion from double to realtype
-  }
-
-  if (lastRowVals != NULL) {
-    if (memcmp(lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ)) != 0) {
-      matrixStructChange = true;
-    }
-  } else {  // first time or size change
+  if (!std::equal(lastRowVals.begin(), lastRowVals.end(), smj.getAi().begin())) {
     matrixStructChange = true;
   }
 
   return matrixStructChange;
 }
 
-void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype** lastRowVals,
+void SolverCommon::propagateMatrixStructureChangeToKINSOL(SparseMatrix& smj, SUNMatrix& JJ, std::vector<sunindextype>& lastRowVals,
                                                           SUNLinearSolver& LS, const std::string& linearSolverName, bool log) {
-  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, *lastRowVals);
+  bool matrixStructChange = copySparseToKINSOL(smj, JJ, lastRowVals);
 
   if (matrixStructChange) {
     if (linearSolverName == "KLU") {
@@ -84,11 +67,8 @@ void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& sm
 #else
   }
 #endif
-    if (*lastRowVals != NULL) {
-      free(*lastRowVals);
-    }
-    *lastRowVals = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(*lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
+    lastRowVals.resize(SM_NNZ_S(JJ));
+    lastRowVals = smj.getAi();
     if (log)
       Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
   }

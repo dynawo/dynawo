@@ -307,7 +307,7 @@ double SparseMatrix::infinityNorm() const {
 
 void SparseMatrix::getRowColIndicesFromPosition(unsigned int position, int& iRow, int& jCol) const {
   assert(position < static_cast<unsigned int>(nbTerm_) && "Position must be lower than number of terms");
-  std::vector<unsigned>::const_iterator lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
+  std::vector<long int>::const_iterator lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
   iRow = Ai_[position];
   jCol = static_cast<int>(lower-Ap_.begin()) - 1;
 }
