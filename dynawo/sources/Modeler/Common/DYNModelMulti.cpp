@@ -344,9 +344,9 @@ ModelMulti::printMessages() {
 }
 
 void
-ModelMulti::printInitValues(const string& directory) {
+ModelMulti::printDumpedValues(const string& directory, const string& dumpFileName) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->printInitValues(directory);
+    (*it)->printDumpedValues(directory, dumpFileName);
 }
 
 void

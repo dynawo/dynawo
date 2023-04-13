@@ -669,7 +669,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
       assert(0);
   }
 
-  mm->printInitValues("res");
+  mm->printDumpedValues("res", "dumpInitValues");
   std::stringstream ssDiff;
   executeCommand("diff res/dumpInitValues-MyModelManager_ref.txt res/dumpInitValues-MyModelManager.txt", ssDiff);
   std::cout << ssDiff.str() << std::endl;
