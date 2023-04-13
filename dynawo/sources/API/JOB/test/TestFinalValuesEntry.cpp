@@ -25,10 +25,10 @@ namespace job {
 TEST(APIJOBTest, testFinalValuesEntry) {
     boost::shared_ptr<FinalValuesEntry> finalValues = boost::shared_ptr<FinalValuesEntry>(new FinalValuesEntry());
     // check default attribute
-    ASSERT_EQ(finalValues->getDumpFinalValues(), false);
+    ASSERT_FALSE(finalValues->getDumpFinalValues());
 
     finalValues->setDumpFinalValues(true);
-    ASSERT_EQ(finalValues->getDumpFinalValues(), true);
+    ASSERT_TRUE(finalValues->getDumpFinalValues());
 }
 
 }  // namespace job

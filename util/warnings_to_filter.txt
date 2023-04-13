@@ -88,7 +88,7 @@ warning: return type of member DYN::Model::initBuffers is not documented
 warning: return type of member DYN::Model::initSilentZ is not documented
 warning: return type of member DYN::Model::loadParameters is not documented
 warning: return type of member DYN::Model::loadVariables is not documented
-warning: return type of member DYN::Model::printInitValues is not documented
+warning: return type of member DYN::Model::printDumpedValues is not documented
 warning: return type of member DYN::Model::printModel is not documented
 warning: return type of member DYN::Model::reinitMode is not documented
 warning: return type of member DYN::Model::rotateBuffers is not documented
@@ -137,7 +137,6 @@ warning: return type of member DYN::ModelCPP::initSubBuffers is not documented
 warning: return type of member DYN::ModelCPP::loadParameters is not documented
 warning: return type of member DYN::ModelCPP::loadVariables is not documented
 warning: return type of member DYN::ModelCPP::notifyTimeStep is not documented
-warning: return type of member DYN::ModelCPP::printInitValues is not documented
 warning: return type of member DYN::ModelCPP::rotateBuffers is not documented
 warning: return type of member DYN::ModelCPP::setFequations is not documented
 warning: return type of member DYN::ModelCPP::setFequationsInit is not documented
@@ -338,7 +337,6 @@ warning: return type of member DYN::SubModel::init is not documented
 warning: return type of member DYN::SubModel::initializeFromData is not documented
 warning: return type of member DYN::SubModel::loadParameters is not documented
 warning: return type of member DYN::SubModel::loadVariables is not documented
-warning: return type of member DYN::SubModel::printInitValues is not documented
 warning: return type of member DYN::SubModel::rotateBuffers is not documented
 warning: return type of member DYN::SubModelFactory::destroy is not documented
 warning: return type of member DYN::SwitchInterface::open is not documented

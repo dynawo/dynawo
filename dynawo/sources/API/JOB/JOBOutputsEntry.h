@@ -87,7 +87,7 @@ class OutputsEntry {
 
   /**
    * @brief Final Values entry setter
-   * @param FinalValuesEntry : FinalValues entry container for the job
+   * @param finalValuesEntry : FinalValues entry container for the job
    */
   void setFinalValuesEntry(const boost::shared_ptr<FinalValuesEntry>& finalValuesEntry);
 

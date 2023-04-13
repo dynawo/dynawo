@@ -208,7 +208,7 @@ TEST(APIJOBTest, testXmlImporter) {
   // ===== FinalValuesEntry =====
   ASSERT_NE(outputs->getFinalValuesEntry(), boost::shared_ptr<FinalValuesEntry>());
   boost::shared_ptr<FinalValuesEntry> finalValues = outputs->getFinalValuesEntry();
-  ASSERT_EQ(finalValues->getDumpFinalValues(), true);
+  ASSERT_TRUE(finalValues->getDumpFinalValues());
 
   // ===== ConstraintsEntry =====
   ASSERT_NE(outputs->getConstraintsEntry(), boost::shared_ptr<ConstraintsEntry>());

@@ -293,8 +293,9 @@ class SubModel {
    * @brief write initial values of a model in a file
    *
    * @param directory directory where the file should be printed
+   * @param dumpFileName name of the file where to dump the values
    */
-  void printInitValues(const std::string& directory);
+  void printDumpedValues(const std::string& directory, const std::string& dumpFileName);
 
   /**
    * @brief define each variables of the model

@@ -296,6 +296,10 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
   boost::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< current init values entry object
 };
 
+/**
+ * @class FinalValuesHandler
+ * @brief Handler used to read final values element
+ */
 class FinalValuesHandler : public xml::sax::parser::ComposableElementHandler {
  public:
   /**
