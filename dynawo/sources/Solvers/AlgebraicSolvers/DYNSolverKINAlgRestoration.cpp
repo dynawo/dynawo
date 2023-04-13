@@ -316,7 +316,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
 
-  double cj = 1;
+  double cj = 1.;
   SparseMatrix smj;
   smj.init(model.sizeY(), model.sizeY());
   model.evalJt(solver->t0_, cj, smj);

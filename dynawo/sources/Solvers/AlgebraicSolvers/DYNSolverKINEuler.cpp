@@ -75,7 +75,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   Model& model = solver->getModel();
   Solver& timeSchemeSolver = solver->getTimeSchemeSolver();
 
-  // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
+  // evalF has already been called in the scaling part in SolverKINEuler::solve(...) method so it doesn't have to be called again for the first iteration
   realtype* irr = NV_DATA_S(rr);
   if (solver->getFirstIteration()) {
     solver->setFirstIteration(false);
@@ -159,11 +159,13 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
   const vector<double>& currentY = timeSchemeSolver_->getCurrentY();
+  const vector<double>& currentYp = timeSchemeSolver_->getCurrentYP();
+  timeSchemeSolver_->computeYP(&currentY[0]);
   firstIteration_ = true;
   if (skipAlgebraicResidualsEvaluation)
-    model_->evalFDiff(t0_ + timeSchemeSolver_->getTimeStep(), &currentY[0], &timeSchemeSolver_->getCurrentYP()[0], &vectorF_[0]);
+    model_->evalFDiff(t0_ + timeSchemeSolver_->getTimeStep(), &currentY[0], &currentYp[0], &vectorF_[0]);
   else
-    model_->evalF(t0_ + timeSchemeSolver_->getTimeStep() , &currentY[0], &timeSchemeSolver_->getCurrentYP()[0], &vectorF_[0]);
+    model_->evalF(t0_ + timeSchemeSolver_->getTimeStep() , &currentY[0], &currentYp[0], &vectorF_[0]);
 
   vectorFScale_.assign(numF_, 1.);
   for (unsigned int i = 0; i < numF_; ++i) {

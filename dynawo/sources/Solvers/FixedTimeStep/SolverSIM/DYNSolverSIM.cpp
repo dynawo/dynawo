@@ -39,6 +39,7 @@
 #include "DYNModel.h"
 
 using boost::shared_ptr;
+using std::make_pair;
 
 /**
  * @brief SolverSIMFactory getter
@@ -73,6 +74,10 @@ extern "C" void DYN::SolverSIMFactory::destroy(DYN::Solver* solver) const {
 
 namespace DYN {
 
+SolverSIM::SolverSIM() :
+SolverCommonFixedTimeStep(),
+order1Prediction_(false) {}
+
 std::string
 SolverSIM::solverType() const {
   return "SimplifiedSolver";
@@ -84,9 +89,31 @@ SolverSIM::init(const boost::shared_ptr<Model>& model, const double t0, const do
 }
 
 void
+SolverSIM::defineSpecificParameters() {
+  defineSpecificParametersCommon();
+
+  const bool optional = false;  // name of the parameter indicates its purpose not its value
+  parameters_.insert(make_pair("order1Prediction", ParameterSolver("order1Prediction", VAR_TYPE_BOOL, optional)));
+}
+
+void
+SolverSIM::setSolverSpecificParameters() {
+  setSolverSpecificParametersCommon();
+
+  const ParameterSolver& order1Prediction = findParameter("order1Prediction");
+  if (order1Prediction.hasValue())
+    order1Prediction_ = order1Prediction.getValue<bool>();
+}
+
+void
 SolverSIM::calculateIC(double /*tEnd*/) {
   calculateICCommon();
   setDifferentialVariablesIndices();
+
+  if (hasPrediction()) {
+    getSolverKINYPrim().setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_,
+                                                     mxiterAlg_, printflAlg_);
+  }
 #if _DEBUG_
   solverKINAlgRestoration_->setCheckJacobian(true);
 #endif
@@ -102,6 +129,17 @@ SolverSIM::calculateIC(double /*tEnd*/) {
     solverKINAlgRestoration_->solve();
     solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
 
+    if (hasPrediction()) {
+      SolverKINAlgRestoration& solverKINYPrim = getSolverKINYPrim();
+
+      // Velocity initialization with solverKINYPrim_
+      solverKINYPrim.setInitialValues(tSolve_, vectorY_, vectorYp_);
+      const bool noInitSetup = false;
+      const bool evaluateOnlyMode = false;
+      solverKINYPrim.solve(noInitSetup, evaluateOnlyMode);
+      solverKINYPrim.getValues(vectorY_, vectorYp_);
+    }
+
     if (calculateICCommonModeChange(counter, change)) {
       break;
     }
@@ -113,9 +151,17 @@ SolverSIM::calculateIC(double /*tEnd*/) {
 #endif
 }
 
+bool SolverSIM::hasPrediction() const {
+  return order1Prediction_;
+}
+
 void
 SolverSIM::solveStep(double tAim, double &tNxt) {
   solveStepCommon(tAim, tNxt);
+
+  // Velocity recalculated after each time step.
+  if (!skipNextNR_ && hasPrediction())
+    updateVelocity();
 }
 
 void
@@ -123,15 +169,41 @@ SolverSIM::computeYP(const double* yy) {
   // YP[i] = (y[i]-yprec[i])/h for each differential variable
   assert(h_ > 0.);
   for (unsigned int i = 0; i < differentialVariablesIndices_.size(); ++i) {
-    vectorYp_[differentialVariablesIndices_[i]] = (yy[differentialVariablesIndices_[i]] - ySave_[differentialVariablesIndices_[i]]) / h_;
+    vectorYp_[differentialVariablesIndices_[i]] = (yy[differentialVariablesIndices_[i]] - vectorYSave_[differentialVariablesIndices_[i]]) / h_;
   }
 }
 
 void
+SolverSIM::updateVelocity() {
+  computeYP(&vectorY_[0]);
+}
+
+void
 SolverSIM::computePrediction() {
-  // order-0 prediction - YP = 0
-  // and Y0_{n+1} = Y_n (natively true so nothing to do)
-  std::fill(vectorYp_.begin(), vectorYp_.end(), 0.);
+  if (hasPrediction()) {
+    // order-1 prediction - Y0_{n+1} = Y_n + h * Yp_n
+    for (unsigned int i = 0; i < differentialVariablesIndices_.size(); ++i) {
+      vectorY_[differentialVariablesIndices_[i]] += h_ * vectorYp_[differentialVariablesIndices_[i]];
+    }
+  } else {
+    // order-0 prediction - YP = 0
+    // and Y0_{n+1} = Y_n (natively true so nothing to do)
+    std::fill(vectorYp_.begin(), vectorYp_.end(), 0.);
+  }
+}
+
+void
+SolverSIM::saveContinuousVariables() {
+  vectorYSave_.assign(vectorY_.begin(), vectorY_.end());
+  if (hasPrediction())
+    vectorYpSave_.assign(vectorYp_.begin(), vectorYp_.end());
+}
+
+void
+SolverSIM::restoreContinuousVariables() {
+  vectorY_.assign(vectorYSave_.begin(), vectorYSave_.end());
+  if (hasPrediction())
+    vectorYp_.assign(vectorYpSave_.begin(), vectorYpSave_.end());
 }
 
 }  // end namespace DYN

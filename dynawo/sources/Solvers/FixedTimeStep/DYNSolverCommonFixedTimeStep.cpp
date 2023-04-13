@@ -85,9 +85,9 @@ nbLastTimeSimulated_(0) {
 }
 
 void
-SolverCommonFixedTimeStep::defineSpecificParameters() {
-  const bool mandatory = true;
-  const bool optional = false;
+SolverCommonFixedTimeStep::defineSpecificParametersCommon() {
+  const bool mandatory = true;  // name of the parameter indicates its purpose not its value
+  const bool optional = false;  // name of the parameter indicates its purpose not its value
   // Time-domain part parameters
   parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE, mandatory)));
@@ -107,7 +107,7 @@ SolverCommonFixedTimeStep::defineSpecificParameters() {
 }
 
 void
-SolverCommonFixedTimeStep::setSolverSpecificParameters() {
+SolverCommonFixedTimeStep::setSolverSpecificParametersCommon() {
   hMin_ = findParameter("hMin").getValue<double>();
   hMax_ = findParameter("hMax").getValue<double>();
   kReduceStep_ = findParameter("kReduceStep").getValue<double>();
@@ -164,6 +164,10 @@ SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const doub
 
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
+  if (hasPrediction()) {
+    solverKINYPrim_.reset(new SolverKINAlgRestoration());
+    getSolverKINYPrim().init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+  }
 
   setDifferentialVariablesIndices();
 
@@ -239,7 +243,7 @@ SolverCommonFixedTimeStep::calculateICCommon() {
   Trace::debug() << DYNLog(CalculateIC) << Trace::endline;
   // Root evaluation before the initialization
   // --------------------------------
-  ySave_.assign(vectorY_.begin(), vectorY_.end());
+  vectorYSave_.assign(vectorY_.begin(), vectorY_.end());
 
   // Updating discrete variable values and mode
   model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
@@ -283,11 +287,6 @@ SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& chang
   return false;
 }
 
-void
-SolverCommonFixedTimeStep::saveContinuousVariables() {
-  ySave_.assign(vectorY_.begin(), vectorY_.end());
-}
-
 void SolverCommonFixedTimeStep::handleMaximumTries(int& counter) {
   ++counter;
   if (counter >= maxNewtonTry_)
@@ -313,14 +312,15 @@ SolverCommonFixedTimeStep::callAlgebraicSolver() {
     return KIN_INITIAL_GUESS_OK;
   } else {
     // Step initialization
-    computePrediction();
+    if (hasPrediction())
+      computePrediction();
 
     // Forcing the Jacobian calculation for the next Newton-Raphson resolution
     bool noInitSetup = true;
     if (stats_.nst_ == 0 || factorizationForced_)
       noInitSetup = false;
 
-    // Call the solving method in Backward Euler method (Newton-Raphson resolution)
+    // Call the Newton-Raphson resolution
     flag = solverKINEuler_->solve(noInitSetup, skipAlgebraicResidualsEvaluation_);
 
     // Update statistics
@@ -377,11 +377,6 @@ SolverCommonFixedTimeStep::decreaseStep() {
   hNew_ = max(h_ * kReduceStep_, hMin_);
 }
 
-void
-SolverCommonFixedTimeStep::restoreContinuousVariables() {
-  vectorY_.assign(ySave_.begin(), ySave_.end());
-}
-
 void SolverCommonFixedTimeStep::handleConvergence(bool& redoStep) {
   factorizationForced_ = false;
   redoStep = false;
@@ -426,11 +421,20 @@ bool SolverCommonFixedTimeStep::setupNewAlgRestoration(modeChangeType_t modeChan
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
                                                            printflAlg_);
     setDifferentialVariablesIndices();
+
+    if (hasPrediction())
+      getSolverKINYPrim().setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+
     return false;  // no J factorization
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                            printflAlgJ_);
     setDifferentialVariablesIndices();
+
+    if (hasPrediction()) {
+      getSolverKINYPrim().setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
+                                                       printflAlgJ_);
+    }
     return true;  // new J factorization
   }
   return false;  // no J factorization
@@ -461,7 +465,6 @@ SolverCommonFixedTimeStep::reinit() {
 
     solverKINAlgRestoration_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     int flag = solverKINAlgRestoration_->solve(noInitSetup, evaluateOnlyMode);
-    model_->reinitMode();
 
     // Update statistics
     long int nre = 0;
@@ -472,9 +475,29 @@ SolverCommonFixedTimeStep::reinit() {
     stats_.nje_ += nje;
 
     // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
-    if (flag == KIN_INITIAL_GUESS_OK)
+    if (flag == KIN_INITIAL_GUESS_OK) {
+      model_->reinitMode();
       return;
+    }
     solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
+
+    if (hasPrediction()) {
+      // Recomputation of differential variables' values
+      std::fill(vectorYp_.begin(), vectorYp_.end(), 0.);
+
+      SolverKINAlgRestoration& solverKINYPrim = getSolverKINYPrim();
+
+      solverKINYPrim.setInitialValues(tSolve_, vectorY_, vectorYp_);
+      solverKINYPrim.solve(noInitSetup, evaluateOnlyMode);
+      solverKINYPrim.getValues(vectorY_, vectorYp_);
+
+      solverKINYPrim.updateStatistics(nNewt_, nre, nje);
+      stats_.nre_ += nre;
+      stats_.nni_ += nNewt_;
+      stats_.nje_ += nje;
+    }
+
+    model_->reinitMode();
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
     model_->evalG(tSolve_, g1_);

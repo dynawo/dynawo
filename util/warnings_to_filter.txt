@@ -424,3 +424,6 @@ warning: return type of member DYN::SubModel::defineNamesImpl is not documented
 warning: return type of member DYN::Model::printInitModelValues is not documented
 warning: return type of member DYN::SubModel::getInitSubModelParameterValue is not documented
 warning: return type of member DYN::SubModel::printInitValuesParameters is not documented
+warning: return type of member DYN::SolverCommonFixedTimeStep::hasPrediction is not documented
+warning: return type of member DYN::SolverCommonFixedTimeStep::saveContinuousVariables is not documented
+warning: return type of member DYN::SolverCommonFixedTimeStep::restoreContinuousVariables is not documented
