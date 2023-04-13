@@ -65,6 +65,8 @@
     <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
     <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
     <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMaxPu" value="1.15"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMinPu" value="0.85"/>
   </macroParameterSet>
   <macroParameterSet id="macro_rpcl2">
     <par type="DOUBLE" name="reactivePowerControlLoop_DeltaURefMaxPu" value="0.002"/>
@@ -72,6 +74,8 @@
     <par name="reactivePowerControlLoop_CqMaxPu" type="DOUBLE" value="15"/>
     <par name="reactivePowerControlLoop_Tech" type="DOUBLE" value="10"/>
     <par name="reactivePowerControlLoop_Ti" type="DOUBLE" value="60"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMaxPu" value="1.15"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMinPu" value="0.85"/>
   </macroParameterSet>
   <macroParameterSet id="macro_pqprop">
     <par type="DOUBLE" name="generator_QPercent" value="1"/>

@@ -1390,7 +1390,7 @@ class ReaderOMC:
                 if next_iter is None: break # If we reach the end of the file, exit loop
 
                 table_declaration = ""
-                while not "};" in next_iter:
+                while "};" not in next_iter:
                     table_declaration+=next_iter
                     next_iter = next(it, None)
                 table_declaration+=next_iter
@@ -1664,7 +1664,7 @@ class ReaderOMC:
                 for discr_var in discr_vars:
                     if discr_var == name_var_eval: continue
                     if "/* " + discr_var + " " in str(f.get_body()):
-                        if not discr_var in discr_variable_to_discs_equation_dependencies:
+                        if discr_var not in discr_variable_to_discs_equation_dependencies:
                             discr_variable_to_discs_equation_dependencies[discr_var] = []
                         discr_variable_to_discs_equation_dependencies[discr_var].append(f_num_omc)
 
@@ -1672,7 +1672,7 @@ class ReaderOMC:
                 for discr_var in discr_vars:
                     if discr_var == name_var_eval: continue
                     if "/* " + discr_var + " " in str(f.get_body()):
-                        if not discr_var in discr_variable_to_cont_equation_dependencies:
+                        if discr_var not in discr_variable_to_cont_equation_dependencies:
                             discr_variable_to_cont_equation_dependencies[discr_var] = []
                         discr_variable_to_cont_equation_dependencies[discr_var].append(f_num_omc)
 
@@ -1757,7 +1757,7 @@ class ReaderOMC:
                     if is_integer_var(var): continue
                     if is_bool_var(var): continue
                     if is_when_condition(var_name) : continue
-                    if not var_name in variable_to_equation_dependencies:
+                    if var_name not in variable_to_equation_dependencies:
                         variable_to_equation_dependencies[var_name] = []
                     variable_to_equation_dependencies[var_name].append(f_num_omc)
 
@@ -1913,6 +1913,35 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("x", "modelica_real", 0, True))
         func.add_params(OmcFunctionParameter("index", "modelica_integer", 1, True))
         func.add_params(OmcFunctionParameter("data", "DATA *", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("ModelicaStandardTables_CombiTable1D_getDerValue")
+        func.set_signature("modelica_real ModelicaStandardTables_CombiTable1D_getDerValue(void* tableID, int icol, modelica_real der_u)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("tableID", "void*", 0, True))
+        func.add_params(OmcFunctionParameter("icol", "int", 1, True))
+        func.add_params(OmcFunctionParameter("der_u", "modelica_real", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("ModelicaStandardTables_CombiTable2D_getDerValue")
+        func.set_signature("modelica_real ModelicaStandardTables_CombiTable2D_getDerValue(void* tableID, modelica_real der_u1, modelica_real der_u2)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("tableID", "void*", 0, True))
+        func.add_params(OmcFunctionParameter("der_u1", "modelica_real", 1, True))
+        func.add_params(OmcFunctionParameter("der_u2", "modelica_real", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("ModelicaStandardTables_CombiTimeTable_getDerValue")
+        func.set_signature("modelica_real ModelicaStandardTables_CombiTimeTable_getDerValue(void* tableID, int icol, modelica_real der_t, double nextTimeEvent, double preNextTimeEvent)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("tableID", "void*", 0, True))
+        func.add_params(OmcFunctionParameter("icol", "int", 1, True))
+        func.add_params(OmcFunctionParameter("der_t", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("nextTimeEvent", "double", 3, True))
+        func.add_params(OmcFunctionParameter("preNextTimeEvent", "double", 4, True))
         self.list_omc_functions.append(func)
 
 

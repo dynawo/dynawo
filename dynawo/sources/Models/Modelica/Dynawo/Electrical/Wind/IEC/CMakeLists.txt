@@ -10,15 +10,12 @@
 # of simulation tools for power systems.
 
 add_subdirectory(BaseClasses B)
+add_subdirectory(WPP W)
+add_subdirectory(WT T)
 
 set(MODEL_FILES
   package.mo
   package.order
-  WT4CurrentSource_INIT.mo
-  WT4ACurrentSource.mo
-  WT4ACurrentSource.extvar
-  WT4BCurrentSource.mo
-  WT4BCurrentSource.extvar
   )
 
 #

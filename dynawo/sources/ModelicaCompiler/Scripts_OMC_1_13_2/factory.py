@@ -107,11 +107,11 @@ class ZeroCrossingFilter:
                 self.number_of_zero_crossings +=1
             else:
                 indexes_to_filter.append(nb_zero_crossing_tot)
-                if "static const char *res[] =" in line and not "}" in line: #this is the first g equation and there is more than 1 equation
+                if "static const char *res[] =" in line and "}" not in line: #this is the first g equation and there is more than 1 equation
                     new_line = line.replace("\"time > 999999.0\",","")
                     new_line = new_line.rstrip()
                     self.function_zero_crossing_description_raw_func.append(new_line)
-                elif not "static const char *res[] =" in line and "}" in line: #this is the last g equation
+                elif "static const char *res[] =" not in line and "}" in line: #this is the last g equation
                     new_line = line.replace("\"time > 999999.0\"","")
                     self.function_zero_crossing_description_raw_func.append(new_line)
             nb_zero_crossing_tot +=1
@@ -1274,7 +1274,7 @@ class Factory:
                         tmps_definition.append(str(line).replace("  ", ""))
                     if (re.search(r'tmp[0-9]+ = [a-zA-Z]*.*?\;', line)):
                         tmps_assignment.append(str(line).replace("  ", ""))
-                    if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
+                    if (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line):
                         tmps_relation = find_all_temporary_variable_in_line(line)
                         for tmp in tmps_relation:
                             tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
@@ -1329,10 +1329,10 @@ class Factory:
                             boolean = True
                     evaluated_var = eq.get_evaluated_var()
                     if (eq.get_type() == DIFFERENTIAL or eq.get_type() == MIXED):
-                        if (not var in self.modes.modes_discretes):
+                        if (var not in self.modes.modes_discretes):
                             self.modes.modes_discretes[var] = ModeDiscrete(eq.get_type(), boolean)
-                    elif (not(evaluated_var) in self.list_name_discrete_vars and not(evaluated_var) in self.list_name_integer_vars):
-                        if (not var in self.modes.modes_discretes):
+                    elif (evaluated_var not in self.list_name_discrete_vars and evaluated_var not in self.list_name_integer_vars):
+                        if (var not in self.modes.modes_discretes):
                             self.modes.modes_discretes[var] = ModeDiscrete(eq.get_type(), boolean)
                         else:
                             self.modes.modes_discretes[var].set_type(eq.get_type())
@@ -1343,12 +1343,11 @@ class Factory:
         for eq in self.list_int_equations:
             relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
             for relation in relations_found:
-                index_relation = relation.split(", ")[3]
                 self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
         for var in self.reader.list_calculated_vars :
             if var.get_alias_name() != "":
-                if (not var.get_name() in self.modes.modes_discretes):
+                if (var.get_name() not in self.modes.modes_discretes):
                     self.modes.modes_discretes[var.get_alias_name()] = ModeDiscrete(ALGEBRAIC, False)
                 else:
                     self.modes.modes_discretes[var.get_alias_name()].set_type(ALGEBRAIC)
@@ -1596,7 +1595,7 @@ class Factory:
                 index = 0
                 index_relation = 0
                 for line in eq_body:
-                    if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
+                    if (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line):
                         index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
                         assert(len(index_relations) > 0 and index_relation < len(index_relations))
                         eq_body[index] = self.transform_in_relation(line, index_relations[index_relation])
@@ -1793,7 +1792,7 @@ class Factory:
         nb_zero_crossing = 0;
         for line in filtered_func :
             self.list_for_setgequations.append(line)
-            if not("  static const char *res[] = {" == line) and not("  };" == line.rstrip()):
+            if "  static const char *res[] = {" != line and "  };" != line.rstrip():
                 nb_zero_crossing +=1
         for i in range(nb_zero_crossing):
             value = "res[" + str(i) + "]"
@@ -2301,7 +2300,8 @@ class Factory:
                 func_header_cpp+=param_type + " " + param.get_name()+ last_char
             func_body.append(func_header_cpp.replace(get_adept_function_name(func), MODEL_NAME_NAMESPACE +get_adept_function_name(func)))
             func_header+= ";\n"
-            self.list_for_evalfadept_external_call_headers.append(func_header)
+            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header):
+                self.list_for_evalfadept_external_call_headers.append(func_header)
             for line in func.get_corrected_body():
                 if "OMC_LABEL_UNUSED" in line: continue
                 if "omc_assert" in line or "omc_terminate" in line: continue
@@ -2318,7 +2318,8 @@ class Factory:
                             functions_to_dump.append(func)
                 func_body.append(line)
             func_body.append("\n\n")
-            list_functions_body.append(func_body)
+            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header):
+                list_functions_body.append(func_body)
 
         # Need to dump in reversed order to put the functions called by other functions in first
         for func_body in reversed(list_functions_body):
@@ -2576,7 +2577,7 @@ class Factory:
                             if not is_adept_func(func, self.list_adept_structs) : continue
                             used_functions.append(func)
                     line = self.replace_adept_functions_in_line(line)
-                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
+                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line):
                         index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
                         assert(len(index_relations) > 0 and index_relation < len(index_relations))
                         line = self.transform_in_relation(line, index_relations[index_relation])
@@ -2972,7 +2973,7 @@ class Factory:
                 diff_vars = self.reader.var_name_to_differential_dependency_variables[var_name]
                 for tables in diff_vars:
                     for diff_var in tables:
-                        if not diff_var in mixed_var:
+                        if diff_var not in mixed_var:
                             if self.reader.var_name_to_eq_type[var_name] == MIXED:
                                 mixed_var.append(diff_var)
                             elif diff_var in self.reader.fictive_continuous_vars or diff_var in self.reader.fictive_optional_continuous_vars:
@@ -2980,17 +2981,17 @@ class Factory:
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars : continue
-            if not v.get_name() in mixed_var:
+            if v.get_name() not in mixed_var:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
                 if is_alg_var(v) :
                     spin = "ALGEBRAIC"
                 if v.get_name() in self.reader.dummy_der_variables:
                     spin = "DIFFERENTIAL"
-                if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
+                if v.get_name() in self.reader.fictive_continuous_vars and v.get_name() not in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"
-                elif v.get_name() in self.reader.fictive_optional_continuous_vars and not v.get_name() in external_diff_var:
+                elif v.get_name() in self.reader.fictive_optional_continuous_vars and v.get_name() not in external_diff_var:
                   spin = "OPTIONAL_EXTERNAL"
                   var_ext = "- optional external variables"
                 line = "   yType[ %s ] = %s;   /* %s (%s) %s */\n" % (str(ind), spin, to_compile_name(v.get_name()), v.get_type(), var_ext)

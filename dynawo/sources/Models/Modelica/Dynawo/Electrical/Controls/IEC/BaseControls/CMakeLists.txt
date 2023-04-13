@@ -9,18 +9,13 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+add_subdirectory(Auxiliaries A)
+add_subdirectory(WPP W)
+add_subdirectory(WT T)
+
 set(MODEL_FILES
   package.mo
   package.order
-  CurrentLimiter.mo
-  GridProtection.mo
-  Measurements.mo
-  Mechanical.mo
-  PControl4A.mo
-  PControl4B.mo
-  PLL.mo
-  QControl.mo
-  QLimiter.mo
   )
 
 #

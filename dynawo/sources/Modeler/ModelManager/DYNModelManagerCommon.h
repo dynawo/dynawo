@@ -45,6 +45,7 @@
 #include "DYNMessageTimeline.h"
 #include "DYNTimeline_keys.h"
 #include "DYNModelManagerOwnTypes.h"  ///< redefinition of local own types : should be before simulation_data.h
+#include "DYNModelicaOverridenFunctions.h"
 #ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wc++98-compat-pedantic"

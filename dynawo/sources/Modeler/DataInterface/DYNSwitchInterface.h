@@ -91,6 +91,12 @@ class SwitchInterface : public ComponentInterface {
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
+
+  /**
+   * @brief return true if this switch is retained
+   * @return true if this switch is retained
+   */
+  virtual bool isRetained() const = 0;
 };
 
 #ifdef __clang__

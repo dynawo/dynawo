@@ -83,9 +83,7 @@ class ModelShuntCompensator : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus(const boost::shared_ptr<ModelBus>& model) {
-    modelBus_ = model;
-  }
+  void setModelBus(const boost::shared_ptr<ModelBus>& model);
 
   /**
    * @brief evaluate node injection
@@ -358,6 +356,7 @@ class ModelShuntCompensator : public NetworkComponent {
   double ir0_;  ///< initial real part of the current
   double ii0_;  ///< initial imaginary part of the current
   startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
+  bool cannotBeDisconnected_;  ///< true if this shunt cannot be disconnected (due to closed not retained switches in node breaker)
 };  ///< Generic model for Shunt compensator in network
 }  // namespace DYN
 

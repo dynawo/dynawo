@@ -1,9 +1,3 @@
-CurrentLimiter
-GridProtection
-Measurements
-Mechanical
-PControl4A
-PControl4B
-PLL
-QControl
-QLimiter
+Auxiliaries
+WPP
+WT

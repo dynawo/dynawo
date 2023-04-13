@@ -1808,6 +1808,7 @@ class RootObject:
                 continue
             if not has_omc_trace (line) and not has_omc_equation_indexes (line):
                 line = sub_division_sim(line)
+                line = line.replace('threadData,','')
                 new_body.append(line)
             i = i + 1
         self.body_for_num_relation = new_body

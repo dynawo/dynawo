@@ -640,6 +640,108 @@ createNetworkWithCustomisableNumberOfLoadsAndGenerators(double busV, double busV
   return network;
 }
 
+static boost::shared_ptr<powsybl::iidm::Network>
+createBusBreakerNetworkWithOneFictitiousLoadAmongTwo(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
+
+  auto substationAdder = network->newSubstation()
+                                     .setId("MySubStation")
+                                     .setName("MySubStation_NAME")
+                                     .setTso("TSO");
+
+  if (addCountry)
+    substationAdder.setCountry(powsybl::iidm::Country::FR);
+  powsybl::iidm::Substation& substation = substationAdder.add();
+
+  powsybl::iidm::VoltageLevel& vl1 = substation.newVoltageLevel()
+                                     .setId("MyVoltageLevel")
+                                     .setName("MyVoltageLevel_NAME")
+                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setNominalV(busVNom)
+                                     .add();
+
+  powsybl::iidm::Bus& bus = vl1.getBusBreakerView().newBus().setId("MyBus").add();
+  bus.setV(busV);
+  bus.setAngle(1.5);
+
+  powsybl::iidm::Load& load = vl1.newLoad()
+      .setId("MyLoad")
+      .setBus("MyBus")
+      .setConnectableBus("MyBus")
+      .setName("MyLoad_NAME")
+      .setLoadType(powsybl::iidm::LoadType::FICTITIOUS)
+      .setP0(pow1)
+      .setQ0(90.0)
+      .add();
+  load.getTerminal().setP(pow1);
+  load.getTerminal().setQ(90.);
+
+  powsybl::iidm::Load& load2 = vl1.newLoad()
+      .setId("MyLoad2")
+      .setBus("MyBus")
+      .setConnectableBus("MyBus")
+      .setName("MyLoad2_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(pow2)
+      .setQ0(90.0)
+      .add();
+  load2.getTerminal().setP(pow2);
+  load2.getTerminal().setQ(90.);
+
+  powsybl::iidm::VoltageLevel& vl2 = substation.newVoltageLevel()
+                                     .setId("MyVoltageLevel2")
+                                     .setName("MyVoltageLevel2_NAME")
+                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setNominalV(500)
+                                     .add();
+
+  powsybl::iidm::Bus& bus2 = vl2.getBusBreakerView().newBus().setId("MyBus2").add();
+  bus2.setV(400);
+  bus2.setAngle(1.5);
+
+  powsybl::iidm::Load& load3 = vl2.newLoad()
+      .setId("MyLoad3")
+      .setBus("MyBus2")
+      .setConnectableBus("MyBus2")
+      .setName("MyLoad3_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(pow1)
+      .setQ0(90.0)
+      .add();
+  load3.getTerminal().setP(pow1);
+  load3.getTerminal().setQ(90.);
+
+  powsybl::iidm::Load& load4 = vl2.newLoad()
+      .setId("MyLoad4")
+      .setBus("MyBus2")
+      .setConnectableBus("MyBus2")
+      .setName("MyLoad4_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(pow2)
+      .setQ0(90.0)
+      .add();
+  load4.getTerminal().setP(pow2);
+  load4.getTerminal().setQ(90.);
+
+  substation.newTwoWindingsTransformer()
+      .setId("MyTransformer2Winding")
+      .setVoltageLevel1(vl1.getId())
+      .setBus1(bus.getId())
+      .setConnectableBus1(bus.getId())
+      .setVoltageLevel2(vl2.getId())
+      .setBus2(bus2.getId())
+      .setConnectableBus2(bus2.getId())
+      .setR(1.1)
+      .setX(1.2)
+      .setG(1.3)
+      .setB(1.4)
+      .setRatedU1(busV)
+      .setRatedU2(400)
+      .setRatedS(3.0)
+      .add();
+  return network;
+}
+
 static shared_ptr<SubModel>
 initModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../../M/CPP/ModelNetwork/DYNModelNetwork" +
@@ -2057,6 +2159,22 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
+}
+
+TEST(DataInterfaceIIDMTest, testDontTestFictitiousLoadsInCriteria) {
+  boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
+  criteriaParams->setType(CriteriaParams::LOCAL_VALUE);
+  criteriaParams->setScope(CriteriaParams::DYNAMIC);
+  criteriaParams->setPMax(90);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithOneFictitiousLoadAmongTwo(180, 190, 100, 100));
+  exportStates(data);
+  std::vector<boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  LoadCriteria criteria(criteriaParams);
+  for (size_t i = 0; i < loads.size(); ++i)
+    criteria.addLoad(loads[i]);
+  criteria.checkCriteria(0, false);
+  const std::vector<std::pair<double, std::string> > failingCriteria = criteria.getFailingCriteria();
+  ASSERT_EQ(failingCriteria.size(), 1);
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {

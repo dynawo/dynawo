@@ -130,6 +130,14 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   }
 
   /**
+   * @brief return false if this switch is initially open and cannot be closed
+   * @return false if this switch is initially open and cannot be closed
+   */
+  bool canBeClosed() const {
+    return canBeClosed_;
+  }
+
+  /**
    * @brief retrieve the bus at end 1 of the switch
    * @return bus 1
    */
@@ -340,6 +348,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   // index use for filling the Jacobian
   int irYNum_;  ///< irYNum
   int iiYNum_;  ///< iiYNum
+  bool canBeClosed_;   ///< false if this switch is initially open and cannot be closed
 };
 
 }  // namespace DYN

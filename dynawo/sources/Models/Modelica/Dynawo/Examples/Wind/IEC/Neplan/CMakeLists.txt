@@ -12,6 +12,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  WPP4ACurrentSource.mo
+  WPP4BCurrentSource.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
   )

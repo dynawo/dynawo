@@ -17,10 +17,10 @@
     <par type="DOUBLE" name="WT_SNom" value="100"/>
     <par type="DOUBLE" name="WT_tS" value="0.001"/>
     <!-- Electrical -->
-    <par type="DOUBLE" name="WT_ResPu" value="0"/>
-    <par type="DOUBLE" name="WT_XesPu" value="0"/>
     <par type="DOUBLE" name="WT_GesPu" value="0"/>
     <par type="DOUBLE" name="WT_BesPu" value="0"/>
+    <par type="DOUBLE" name="WT_ResPu" value="0"/>
+    <par type="DOUBLE" name="WT_XesPu" value="0"/>
     <!-- Control -->
     <par type="DOUBLE" name="WT_DipMaxPu" value="1"/>
     <par type="DOUBLE" name="WT_DiqMaxPu" value="100"/>
@@ -49,8 +49,8 @@
     <par type="DOUBLE" name="WT_tPOrdP4B" value="0.05"/>
     <par type="DOUBLE" name="WT_UpDipPu" value="0"/>
     <!-- CurrentLimiter -->
-    <par type="DOUBLE" name="WT_IMaxPu" value="1.3"/>
     <par type="DOUBLE" name="WT_IMaxDipPu" value="1.3"/>
+    <par type="DOUBLE" name="WT_IMaxPu" value="1.3"/>
     <par type="DOUBLE" name="WT_Kpqu" value="20"/>
     <par type="BOOL" name="WT_MdfsLim" value="false"/>
     <par type="BOOL" name="WT_Mqpri" value="true"/>
@@ -91,14 +91,14 @@
     <par type="DOUBLE" name="WT_UUnderPu" value="0.9"/>
     <!-- Mechanical -->
     <par type="DOUBLE" name="WT_CdrtPu" value="15"/>
-    <par type="DOUBLE" name="WT_Hwtr" value="5"/>
     <par type="DOUBLE" name="WT_Hgen" value="1"/>
+    <par type="DOUBLE" name="WT_Hwtr" value="5"/>
     <par type="DOUBLE" name="WT_KdrtPu" value="500"/>
     <!-- Operating Point -->
-    <par type="DOUBLE" name="WT_U0Pu" value="1"/>
-    <par type="DOUBLE" name="WT_UPhase0" value="0.21949"/>
     <par type="DOUBLE" name="WT_P0Pu" value="-1"/>
     <par type="DOUBLE" name="WT_Q0Pu" value="0.21"/>
+    <par type="DOUBLE" name="WT_U0Pu" value="1"/>
+    <par type="DOUBLE" name="WT_UPhase0" value="0.21949"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="-0.5"/>
@@ -162,13 +162,13 @@
   </set>
   <set id="Fault">
     <par type="DOUBLE" name="fault_RPu" value="0"/>
-    <par type="DOUBLE" name="fault_XPu" value="0.215"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.315"/>
     <par type="DOUBLE" name="fault_tBegin" value="12"/>
     <par type="DOUBLE" name="fault_tEnd" value="12.15"/>
   </set>
   <set id="Fault1">
     <par type="DOUBLE" name="fault_RPu" value="0"/>
-    <par type="DOUBLE" name="fault_XPu" value="0.079"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.179"/>
     <par type="DOUBLE" name="fault_tBegin" value="6"/>
     <par type="DOUBLE" name="fault_tEnd" value="6.4"/>
   </set>

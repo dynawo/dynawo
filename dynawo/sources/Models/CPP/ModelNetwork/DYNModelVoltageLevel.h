@@ -104,6 +104,14 @@ class ModelVoltageLevel : public NetworkComponent {
   void connectNode(const unsigned int node);
 
   /**
+   * @brief return true if this node can be disconnected
+   * @param node node to test
+   * @return true if this node can be disconnected
+   */
+  bool canBeDisconnected(const unsigned int node);
+
+
+  /**
    * @brief find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)
    * @param node node to disconnect
    */
@@ -118,12 +126,11 @@ class ModelVoltageLevel : public NetworkComponent {
   unsigned int findClosestBBS(const unsigned int node, std::vector<std::string>& shortestPath);
 
   /**
-   * @brief return true if the closest bus bar section is switched off
+   * @brief return true if the closest bus bar section is switched off or unreachable
    * @param bus the bus from which to look for the closest bus bar section
-   * @return true is the closest bus bar section is switched off, false otherwise
+   * @return true is the closest bus bar section is switched off or unreachable, false otherwise
    */
   bool isClosestBBSSwitchedOff(const boost::shared_ptr<ModelBus>& bus);
-
   /**
    * @brief set the initial currents of each switch
    */

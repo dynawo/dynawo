@@ -85,9 +85,9 @@ def pre_compil():
 
     model_name = os.path.basename(file_name).replace(".mo", "")
     # modification of the .mo file
-    file = open(file_name, "r")
-    lines = file.readlines()
-    file.close()
+    f = open(file_name, "r")
+    lines = f.readlines()
+    f.close()
 
     for il in lines:
         line = il.rstrip('\n\r\t') # delete end of line characters

@@ -1,6 +1,7 @@
 Bus
 InfiniteBus
 InfiniteBusFromTable
+InfiniteBusFromTable_INIT
 InfiniteBusWithImpedance
 InfiniteBusWithImpedance_INIT
 InfiniteBusWithVariations

@@ -67,6 +67,10 @@ voltageLevelIIDM_(voltageLevel) {
 
     // Add edges
     for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
+      if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+        // Disconnectors should never be closed
+        continue;
+      }
       int node1 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId()));
       int node2 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId()));
       graph_.addEdge(node1, node2, itSwitch.getId());
@@ -265,6 +269,10 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   boost::unordered_map<string, float> electricalWeights;
 
   for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
+    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+      // Opened disconnectors are not in the graph
+      continue;
+    }
     string id = itSwitch.getId();
     bool open = itSwitch.isOpen();
     bool retained = itSwitch.isRetained();
@@ -425,6 +433,10 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // open all paths to bus bar section
   boost::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
+    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+      // Opened disconnectors are not in the graph
+      continue;
+    }
     weights[itSwitch.getId()] = !itSwitch.isOpen() ? 1 : 0;
   }
   // Additional edges for internal connections, all closed
@@ -475,6 +487,10 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   // Change weight of edges
   boost::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
+    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+      // Opened disconnectors are not in the graph
+      continue;
+    }
     weights[itSwitch.getId()] = itSwitch.isOpen() ? 0 : 1;
   }
   // Additional edges for internal connections, all closed
