@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="SIMOrder1">
+    <par type="DOUBLE" name="hMin" value="0.0001"/>
+    <par type="DOUBLE" name="hMax" value="0.01"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="20"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="0.0001"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="50"/>
+    <par type="INT" name="msbset" value="0"/>
+    <par type="BOOL" name="optimizeReinitAlgebraicResidualsEvaluations" value="false"/>
+    <par type="BOOL" name="optimizeAlgebraicResidualsEvaluations" value="false"/>
+    <par type="BOOL" name="skipNRIfInitialGuessOK" value="false"/>
+    <par type="BOOL" name="order1Prediction" value="true"/>
+  </set>
+  <set id="SIMOrder0">
+    <par type="DOUBLE" name="hMin" value="0.0001"/>
+    <par type="DOUBLE" name="hMax" value="0.01"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="20"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="0.0001"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="50"/>
+    <par type="INT" name="msbset" value="0"/>
+    <par type="BOOL" name="optimizeReinitAlgebraicResidualsEvaluations" value="false"/>
+    <par type="BOOL" name="optimizeAlgebraicResidualsEvaluations" value="false"/>
+    <par type="BOOL" name="skipNRIfInitialGuessOK" value="false"/>
+    <par type="BOOL" name="order1Prediction" value="false"/>
+  </set>
+</parametersSet>

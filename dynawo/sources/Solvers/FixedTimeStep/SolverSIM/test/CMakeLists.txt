@@ -21,6 +21,7 @@ target_link_libraries(${MODULE_NAME}
   dynawo_API_PAR
   dynawo_API_TL
   dynawo_SolverSIM
+  dynawo_SolverCommonFixedTimeStep
   dynawo_SolverCommon
   dynawo_API_DYD
   dynawo_CPPModelsCommon
@@ -62,9 +63,9 @@ add_custom_target(${MODULE_NAME}-pre-tests
   )
 
 if(BUILD_TESTS_COVERAGE)
-  set(EXTRACT_PATTERNS "'*/sources/Solvers/SolverSIM/DYN*'")
+  set(EXTRACT_PATTERNS '*/sources/Solvers/FixedTimeStep/SolverSIM/DYN*' '*/sources/Solvers/FixedTimeStep/DYN*')
 
-  add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
+  add_test_coverage_two_directories(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
 if(BUILD_TESTS)

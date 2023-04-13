@@ -82,8 +82,8 @@ void
 SolverTRAP::init(const shared_ptr<Model>& model, const double t0, const double tEnd) {
   initCommon(model, t0, tEnd);
 
-  solverKINYPrim_.reset(new SolverKINAlgRestoration());
-  solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+  solverKINYPrimInit_.reset(new SolverKINAlgRestoration());
+  solverKINYPrimInit_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
 }
 
 void
@@ -91,8 +91,8 @@ SolverTRAP::calculateIC(double /*tEnd*/) {
   calculateICCommon();
   setDifferentialVariablesIndices();
 
-  velocitySave_.assign(vectorYp_.begin(), vectorYp_.end());
-  solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_,
+  vectorYpSave_.assign(vectorYp_.begin(), vectorYp_.end());
+  solverKINYPrimInit_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_,
                                                 mxiterAlg_, printflAlg_);
 
 #if _DEBUG_
@@ -111,12 +111,12 @@ SolverTRAP::calculateIC(double /*tEnd*/) {
     solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
 
     // Velocity initialization with solverKINYPrim_
-    solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+    solverKINYPrimInit_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     bool noInitSetup = false;
     bool evaluateOnlyMode = false;
-    solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
-    solverKINYPrim_->getValues(vectorY_, vectorYp_);
-    velocitySave_.assign(vectorYp_.begin(), vectorYp_.end());
+    solverKINYPrimInit_->solve(noInitSetup, evaluateOnlyMode);
+    solverKINYPrimInit_->getValues(vectorY_, vectorYp_);
+    vectorYpSave_.assign(vectorYp_.begin(), vectorYp_.end());
 
     if (calculateICCommonModeChange(counter, change)) {
       break;
@@ -129,38 +129,49 @@ SolverTRAP::calculateIC(double /*tEnd*/) {
 #endif
 }
 
+void
+SolverTRAP::defineSpecificParameters() {
+  defineSpecificParametersCommon();
+}
+
+void
+SolverTRAP::setSolverSpecificParameters() {
+  setSolverSpecificParametersCommon();
+}
+
 void SolverTRAP::solveStep(double tAim, double& tNxt) {
   solveStepCommon(tAim, tNxt);
 
-  // Velocity recalculated after each step.
-  updateVelocity();
+  // Velocity recalculated after each time step.
+  if (!skipNextNR_)
+    updateVelocity();
 }
 
 void
 SolverTRAP::computeYP(const double* yy) {
-  // YP[i] = (y[i]-yprec[i])/h for each differential variable
   assert(h_ > 0.);
-
+  // Velocity_n[i] = 2(y[i] - yprev[i])/h - velocity_n[i]
   for (unsigned int i = 0; i < differentialVariablesIndices_.size(); ++i) {
     vectorYp_[differentialVariablesIndices_[i]] =
-        (2 / h_) * (yy[differentialVariablesIndices_[i]] - ySave_[differentialVariablesIndices_[i]]) - velocitySave_[differentialVariablesIndices_[i]];
+        (2. / h_) * (yy[differentialVariablesIndices_[i]] - vectorYSave_[differentialVariablesIndices_[i]]) - vectorYpSave_[differentialVariablesIndices_[i]];
   }
 }
 
 void
 SolverTRAP::updateVelocity() {
-  // Velocity_n[i] = 2(y[i] - yprec[i])/h - velocity_n[i]
-  assert(h_ > 0.);
-  for (unsigned int i = 0; i < differentialVariablesIndices_.size(); ++i) {
-    velocitySave_[differentialVariablesIndices_[i]] =
-        (2 / h_) * (vectorY_[differentialVariablesIndices_[i]] - ySave_[differentialVariablesIndices_[i]]) - velocitySave_[differentialVariablesIndices_[i]];
-  }
+  computeYP(&vectorY_[0]);
 }
 
 void
-SolverTRAP::computePrediction() {
-  // order-0 prediction - YP = 0
-  computeYP(&vectorY_[0]);
+SolverTRAP::saveContinuousVariables() {
+  vectorYSave_.assign(vectorY_.begin(), vectorY_.end());
+  vectorYpSave_.assign(vectorYp_.begin(), vectorYp_.end());
+}
+
+void
+SolverTRAP::restoreContinuousVariables() {
+  vectorY_.assign(vectorYSave_.begin(), vectorYSave_.end());
+  vectorYp_.assign(vectorYpSave_.begin(), vectorYpSave_.end());
 }
 
 }  // end namespace DYN

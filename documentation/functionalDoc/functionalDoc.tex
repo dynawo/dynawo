@@ -723,7 +723,7 @@ This solver goal is to have acceptable computation times for long-term dynamics 
 
 \subsubsection{Prediction step}
 
-At the moment, there is \textbf{no prediction} in the Simplified solver  algorithm. Indeed, the variables starting values for the time step $t_{n+1}$ are the variables values calculated at time step $t_n$. As a consequence, and considering the chosen integration method (\ac{BE} order 1), the differential variables are equal to zero at the beginning of a new time step.
+There is an option, \textit{order1Prediction} to chose the \textbf{prediction} scheme in the Simplified solver  algorithm. Order-0 prediction:
 
 \begin{equation}
 \begin{aligned}
@@ -732,7 +732,15 @@ At the moment, there is \textbf{no prediction} in the Simplified solver  algorit
 \end{aligned}
 \end{equation}
 
-It is important to mention that different prediction schemes have been tested both during the Pegase project and internally in RTE after the project. These alternatives have shown to be beneficial most of the time (especially when the system evolution is ``continuous") but have also led to very detrimental behaviours in certain cases. The current choice is thus to stick to this ``no-prediction" approach. In the current version, this choice can't be modified by the user.
+Order-1 prediction:
+
+\begin{equation}
+\begin{aligned}
+& y_0(t_{n+1}) = y(t_n) + h * \dot{y_0}(t_{n}) \\
+\end{aligned}
+\end{equation}
+
+It is important to mention that different prediction schemes have been tested both during the Pegase project and internally in RTE after the project. These alternatives have shown to be beneficial most of the time (especially when the system evolution is ``continuous") but have also led to very detrimental behaviours in certain cases. The current choice is thus to use the ``order-0" prediction most of the time.
 
 \subsubsection{Correction step}
 
