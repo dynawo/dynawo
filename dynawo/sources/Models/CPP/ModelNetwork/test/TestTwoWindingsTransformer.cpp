@@ -21,6 +21,7 @@
 #include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 #include <powsybl/iidm/PhaseTapChangerAdder.hpp>
 #include <powsybl/iidm/RatioTapChangerAdder.hpp>
+#include <powsybl/iidm/CurrentLimitsAdder.hpp>
 
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -185,8 +186,8 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         tw2ItfIIDM->addCurrentLimitInterface1(cLimit);
       }
     }
@@ -203,8 +204,8 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         tw2ItfIIDM->addCurrentLimitInterface2(cLimit);
       }
     }

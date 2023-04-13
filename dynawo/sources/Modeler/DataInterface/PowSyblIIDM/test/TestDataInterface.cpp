@@ -71,6 +71,7 @@
 #include <powsybl/iidm/BatteryAdder.hpp>
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
+#include <powsybl/iidm/CurrentLimitsAdder.hpp>
 
 #include <thread>
 
