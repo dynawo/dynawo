@@ -213,6 +213,54 @@ class SparseMatrix {
    */
   CheckError check() const;
 
+  /**
+   * @brief get vector Ap ie for each column, first non null element index in Ai and Ax
+   * @return vector Ap
+   */
+  inline const std::vector<long int>& getAp() const {
+    return Ap_;
+  }
+
+  /**
+   * @brief get vector Ai ie row index for each non null element
+   * @return vector Ai
+   */
+  inline const std::vector<long int>& getAi() const {
+    return Ai_;
+  }
+
+  /**
+   * @brief get vector Ax ie non null element value
+   * @return vector Ax
+   */
+  inline const std::vector<double>& getAx() const {
+    return Ax_;
+  }
+
+  /**
+   * @brief get non const vector Ap ie non null element value
+   * @return vector Ap
+   */
+  inline std::vector<long int>& getNonCstAp() {
+    return const_cast<std::vector<long int>&>(getAp());
+  }
+
+  /**
+   * @brief get non const vector Ai ie non null element value
+   * @return vector Ai
+   */
+  inline std::vector<long int>& getNonCstAi() {
+    return const_cast<std::vector<long int>&>(getAi());
+  }
+
+  /**
+   * @brief get non const vector Ax ie non null element value
+   * @return vector Ax
+   */
+  inline std::vector<double>& getNonCstAx() {
+    return const_cast<std::vector<double>&>(getAx());
+  }
+
  private:
   /**
    * @brief delete all allocated memory of the matrix
@@ -242,11 +290,6 @@ class SparseMatrix {
    */
   SparseMatrix(const SparseMatrix & M);
 
- public:
-  std::vector<unsigned> Ap_;  ///< for each column, first non-null element index in Ai and Ax
-  std::vector<unsigned> Ai_;  ///< row index for each non-null element
-  std::vector<double> Ax_;  ///< non-null element value;
-
  private:
   bool withoutNan_;  ///< @b true if there isn't any NaN value in the Sparse Matrix
   bool withoutInf_;  ///< @b true if there isn't any infinite value in the Sparse Matrix
@@ -259,6 +302,10 @@ class SparseMatrix {
   int iAx_;  ///< current index in the Ax_ array
   int nbTerm_;  ///< current number of values stored in the matrix
   int currentMaxTerm_;  ///< current maximum number of term that could be stored in the matrix without increasing the size of arrays
+
+  std::vector<long int> Ap_;  ///< for each column, first non-null element index in Ai and Ax
+  std::vector<long int> Ai_;  ///< row index for each non-null element
+  std::vector<double> Ax_;  ///< non-null element value;
 };
 
 }  // end of namespace DYN

@@ -12,19 +12,19 @@ set(SOLVER_COMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SOLVER_COMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(SOLVER_COMMON_SOURCES
-    DYNSolverImpl.cpp
-    DYNSolverFactory.cpp
-    DYNSolverCommon.cpp
-    DYNParameterSolver.cpp
-    )
+  DYNSolverImpl.cpp
+  DYNSolverFactory.cpp
+  DYNSolverCommon.cpp
+  DYNParameterSolver.cpp
+  )
 
 set(SOLVER_COMMON_INCLUDE_HEADERS
-    DYNSolver.h
-    DYNSolverFactory.h
-    DYNSolverCommon.h
-    DYNParameterSolver.h
-    DYNParameterSolver.hpp
-    )
+  DYNSolver.h
+  DYNSolverFactory.h
+  DYNSolverCommon.h
+  DYNParameterSolver.h
+  DYNParameterSolver.hpp
+  )
 
 add_library(dynawo_SolverCommon SHARED ${SOLVER_COMMON_SOURCES})
 

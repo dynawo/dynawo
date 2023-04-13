@@ -91,6 +91,14 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
     return yBuffer_;
   }
 
+  /**
+   * @brief get matrix used for resolution
+   * @return matrix used for resolution
+   */
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
  private:
   /**
    * @brief compute F(y) for a given value of y
@@ -124,6 +132,8 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
   std::vector<double> vectorYSubModel_;  ///< Current values of variables during the call of the solver
   double* yBuffer_;  ///< variables values
   double* fBuffer_;  ///< values of residual functions
+
+  SparseMatrix smj_;  ///< Jacobian matrix
 };  ///< class Solver related to a SubModel
 
 }  // namespace DYN

@@ -127,9 +127,19 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
     return *timeSchemeSolver_;
   }
 
+  /**
+  * @brief get Complete Jacobian matrix
+  *
+  * @return the Complete Jacobian matrix
+  */
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
  private:
   boost::shared_ptr<Model> model_;  ///< instance of model to interact with
   Solver* timeSchemeSolver_;  ///< instance of time-scheme solver to interact with
+  SparseMatrix smj_;  ///< Jacobian matrix
 };
 
 }  // namespace DYN

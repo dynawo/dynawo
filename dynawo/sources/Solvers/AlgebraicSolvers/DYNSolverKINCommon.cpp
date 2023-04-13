@@ -25,6 +25,7 @@
 #ifdef WITH_NICSLU
 #include <sunlinsol/sunlinsol_nicslu.h>
 #endif
+#include <sundials/sundials_types.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 
@@ -43,7 +44,6 @@ KINMem_(NULL),
 linearSolver_(NULL),
 sundialsMatrix_(NULL),
 sundialsVectorY_(NULL),
-lastRowVals_(NULL),
 numF_(0),
 t0_(0.),
 firstIteration_(false),
@@ -60,6 +60,19 @@ SolverKINCommon::~SolverKINCommon() {
 
 void SolverKINCommon::clean() {
   if (sundialsMatrix_ != NULL) {
+    if (SM_INDEXPTRS_S(sundialsMatrix_) != NULL) {
+      SM_INDEXPTRS_S(sundialsMatrix_) = NULL;
+      SM_CONTENT_S(sundialsMatrix_)->colptrs = NULL;
+      SM_CONTENT_S(sundialsMatrix_)->rowptrs = NULL;
+    }
+    if (SM_INDEXVALS_S(sundialsMatrix_) != NULL) {
+      SM_INDEXVALS_S(sundialsMatrix_) = NULL;
+      SM_CONTENT_S(sundialsMatrix_)->rowvals = NULL;
+      SM_CONTENT_S(sundialsMatrix_)->colvals = NULL;
+    }
+    if (SM_DATA_S(sundialsMatrix_) != NULL) {
+      SM_DATA_S(sundialsMatrix_) = NULL;
+    }
     SUNMatDestroy(sundialsMatrix_);
     sundialsMatrix_ = NULL;
   }
@@ -70,10 +83,6 @@ void SolverKINCommon::clean() {
   if (KINMem_ != NULL) {
     KINFree(&KINMem_);
     KINMem_ = NULL;
-  }
-  if (lastRowVals_ != NULL) {
-    free(lastRowVals_);
-    lastRowVals_ = NULL;
   }
 
   if (sundialsVectorFScale_ != NULL) {
@@ -134,10 +143,23 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   // -------------------
   // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
   // and not Ax = B (see sunlinsol_klu.c:149)
-  const int nnz = static_cast<int>(0.0001 * numF_ * numF_);  // This value will be adjusted later on in the process
+  const int nnz = 0;  // This value will be adjusted later on in the process
   sundialsMatrix_ = SUNSparseMatrix(numF_, numF_, nnz, CSR_MAT);
   if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
+  // We release any memory allocated by Sundials as underlying arrays will never be used
+  if (SM_INDEXPTRS_S(sundialsMatrix_) != NULL) {
+    free(SM_INDEXPTRS_S(sundialsMatrix_));
+    SM_INDEXPTRS_S(sundialsMatrix_) = NULL;
+  }
+  if (SM_INDEXVALS_S(sundialsMatrix_) != NULL) {
+    free(SM_INDEXVALS_S(sundialsMatrix_));
+    SM_INDEXVALS_S(sundialsMatrix_) = NULL;
+  }
+  if (SM_DATA_S(sundialsMatrix_) != NULL) {
+    free(SM_DATA_S(sundialsMatrix_));
+    SM_DATA_S(sundialsMatrix_) = NULL;
+  }
   if (linearSolverName_ == "KLU") {
     linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_);
     if (linearSolver_ == NULL)

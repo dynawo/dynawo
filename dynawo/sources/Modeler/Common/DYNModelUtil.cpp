@@ -31,8 +31,8 @@ namespace DYN {
 void printStructureToFile(const boost::shared_ptr<Model>& model, const SparseMatrix& matrix) {
   static std::string base = "tmpMatStruct/mat-struct-";
   static int nbPrintStruct = 0;
-  stringstream nomFichier;
-  nomFichier << base << nbPrintStruct << ".txt";
+  stringstream fileName;
+  fileName << base << nbPrintStruct << ".txt";
 
   // If not in debug the infos on equations are not set.
 #ifndef _DEBUG_
@@ -45,14 +45,14 @@ void printStructureToFile(const boost::shared_ptr<Model>& model, const SparseMat
   }
 
   std::ofstream file;
-  file.open(nomFichier.str().c_str(), std::ofstream::out);
+  file.open(fileName.str().c_str(), std::ofstream::out);
   std::string subModelName("");
   std::string fEquation("");
   int subModelIndexF = 0;
 
   for (int jCol = 0; jCol < matrix.nbCol(); ++jCol) {
-    for (unsigned ind = matrix.Ap_[jCol]; ind < matrix.Ap_[jCol + 1]; ++ind) {
-      unsigned iRow = matrix.Ai_[ind];
+    for (unsigned ind = matrix.getAp()[jCol]; ind < matrix.getAp()[jCol + 1]; ++ind) {
+      unsigned iRow = matrix.getAi()[ind];
       model->getFInfos(jCol, subModelName, subModelIndexF, fEquation);
       file << "(" << iRow << ", " << jCol << ") ";
       file << "F[" << jCol << "]" << " model:" << subModelName << " index: " << subModelIndexF << " equation: " << fEquation;
