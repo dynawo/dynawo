@@ -1079,6 +1079,10 @@ def LineToCompare (line, file_type):
 
         if ("number of" in line and "variables" in line and "evaluations" not in line) or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
             return True
+        dynAlgosMessages = ["starting variation", "load increase for variation", "scenario ", "using existing results", "maximal global variation", "maximal variation for", "model MODEL_LOAD_VARIATION_AREA"]
+        for message in dynAlgosMessages:
+            if message in line:
+                return True
     elif file_type == TYPE_TIMELINE:
         # We filter those lines as they are very unstable
         if ("PMIN : deactivation" not in line and "PMIN : activation" not in line and "PMAX : deactivation" not in line and "PMAX : activation" not in line):
