@@ -675,7 +675,7 @@ SubModel::defineParameters(const bool isInitParam) {
 }
 
 void
-SubModel::printDumpedValues(const std::string& directory, const std::string& dumpFileName) {
+SubModel::printModelValues(const std::string& directory, const std::string& dumpFileName) {
   const string& fileName = absolute(dumpFileName + "-" + name() + ".txt", directory);
 
   std::ofstream file;
