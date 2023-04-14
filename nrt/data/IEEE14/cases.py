@@ -108,6 +108,18 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEE
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+
+###########################################################
+#      IEEE14 - ReferenceToParameterFromAnotherModel      #
+###########################################################
+
+case_name = "IEEE14 - ReferenceToParameterFromAnotherModel"
+case_description = "IEEE14 - Reference to parameter from another model"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_ReferenceToParameterFromAnotherModel", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+
 #########################################
 #      IEEE14 - Disconnect line         #
 #########################################

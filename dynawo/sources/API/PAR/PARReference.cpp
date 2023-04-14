@@ -27,25 +27,13 @@ using std::string;
 
 namespace parameters {
 
-Reference::Reference(const string& name) : type_(""), name_(name), origName_(""), componentId_("") {}
+Reference::Reference(const string& name, OriginData origData) :
+  name_(name),
+  origData_(origData) {}
 
 void
 Reference::setType(const string& type) {
   type_ = type;
-}
-
-void
-Reference::setOrigData(const string& origData) {
-  if (origData == ReferenceOriginNames[Reference::IIDM]) {
-    setOrigData(Reference::IIDM);
-    return;
-  }
-  throw DYNError(Error::API, ReferenceUnknownOriginData, origData);
-}
-
-void
-Reference::setOrigData(const OriginData& origData) {
-  origData_ = origData;
 }
 
 void
@@ -58,12 +46,22 @@ Reference::setComponentId(const string& id) {
   componentId_ = id;
 }
 
-string
+void
+Reference::setParId(const string& parId) {
+  parId_ = parId;
+}
+
+void
+Reference::setParFile(const string& parFile) {
+  parFile_ = parFile;
+}
+
+const string&
 Reference::getType() const {
   return type_;
 }
 
-string
+const string&
 Reference::getName() const {
   return name_;
 }
@@ -78,14 +76,24 @@ Reference::getOrigDataStr() const {
   return ReferenceOriginNames[origData_];
 }
 
-string
+const string&
 Reference::getOrigName() const {
   return origName_;
 }
 
-string
+const string&
 Reference::getComponentId() const {
   return componentId_;
+}
+
+const string&
+Reference::getParId() const {
+  return parId_;
+}
+
+const string&
+Reference::getParFile() const {
+  return parFile_;
 }
 
 }  // namespace parameters
