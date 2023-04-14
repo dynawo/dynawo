@@ -102,11 +102,11 @@ TEST(APIPARTest, ParametersSetAddReference) {
   shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create and add a reference
-  shared_ptr<Reference> ref = ReferenceFactory::newReference("ref");
+  shared_ptr<Reference> ref = ReferenceFactory::newReference("ref", Reference::OriginData::IIDM);
   ASSERT_NO_THROW(parametersSet->addReference(ref));
 
   // Create and add a reference with same name: it should throw an error
-  shared_ptr<Reference> ref2 = ReferenceFactory::newReference("ref");
+  shared_ptr<Reference> ref2 = ReferenceFactory::newReference("ref", Reference::OriginData::IIDM);
   ASSERT_THROW_DYNAWO(parametersSet->addReference(ref2), DYN::Error::API, DYN::KeyError_t::ReferenceAlreadySet);
 
   // Get the reference and compare it to the initial one
@@ -118,6 +118,23 @@ TEST(APIPARTest, ParametersSetAddReference) {
   // Test hasReference
   ASSERT_EQ(parametersSet->hasReference("ref"), true);
   ASSERT_EQ(parametersSet->hasReference("inexistant"), false);
+
+  // Test getReferences
+  shared_ptr<ParametersSet> parametersSet2 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters2"));
+  shared_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3", Reference::OriginData::IIDM);
+  parametersSet2->addReference(ref3);
+  shared_ptr<Reference> ref4 = ReferenceFactory::newReference("ref4", Reference::OriginData::PAR);
+  parametersSet2->addReference(ref4);
+  shared_ptr<Reference> ref5 = ReferenceFactory::newReference("ref5", Reference::OriginData::PAR);
+  parametersSet2->addReference(ref5);
+
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> >& references = parametersSet2->getReferences();
+  const int nbRefs = 3;
+  std::array<std::string, nbRefs> refNamesList = {"ref3", "ref4", "ref5"};
+  for (const std::string& refName : refNamesList) {
+    ASSERT_TRUE(references.find(refName) != references.end());
+  }
+  ASSERT_EQ(references.size(), nbRefs);
 }
 
 //-----------------------------------------------------
@@ -181,9 +198,9 @@ TEST(APIPARTest, ParametersSetGetReferences) {
   shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create references
-  shared_ptr<Reference> ref1 = ReferenceFactory::newReference("ref1");
-  shared_ptr<Reference> ref2 = ReferenceFactory::newReference("ref2");
-  shared_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3");
+  shared_ptr<Reference> ref1 = ReferenceFactory::newReference("ref1", Reference::OriginData::IIDM);
+  shared_ptr<Reference> ref2 = ReferenceFactory::newReference("ref2", Reference::OriginData::IIDM);
+  shared_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3", Reference::OriginData::IIDM);
 
   // Add references to parameters set
   parametersSet->addReference(ref1);

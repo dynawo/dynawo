@@ -18,7 +18,6 @@
  */
 
 #include "PARMacroParameterSet.h"
-#include "PARReferenceFactory.h"
 #include "PARReference.h"
 #include "DYNMacrosMessage.h"
 

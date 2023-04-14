@@ -141,14 +141,14 @@ Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescripti
 
     for (vector<string>::const_iterator itRef = referencesNames.begin(); itRef != referencesNames.end(); ++itRef) {
       string refType = params->getReference(*itRef)->getType();
-      Reference::OriginData refOrigData_ = params->getReference(*itRef)->getOrigData();  // IIDM
+      Reference::OriginData refOrigData = params->getReference(*itRef)->getOrigData();
       string refOrigName = params->getReference(*itRef)->getOrigName();
       string staticID = modelDescription->getStaticId();
       string componentID = params->getReference(*itRef)->getComponentId();
       // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
       if (componentID != "")
         staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
-      if (refOrigData_ == Reference::IIDM) {
+      if (refOrigData == Reference::IIDM) {
         if (staticID.empty())
           throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, params->getReference(*itRef)->getName(), modelDescription->getID());
         if (refType == "DOUBLE") {
@@ -163,6 +163,8 @@ Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescripti
         } else {
           throw DYNError(Error::MODELER, ParameterWrongTypeReference, *itRef);
         }
+      } else if (refOrigData == Reference::PAR) {
+        continue;  // PAR reference already resolved in DynamicData => nothing to do
       } else {
         throw DYNError(Error::MODELER, FunctionNotAvailable);
       }

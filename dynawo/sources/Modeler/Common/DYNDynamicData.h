@@ -18,11 +18,13 @@
 #ifndef MODELER_COMMON_DYNDYNAMICDATA_H_
 #define MODELER_COMMON_DYNDYNAMICDATA_H_
 
+#include "DYDBlackBoxModel.h"
+#include "PARParameter.h"
+
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
-
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/noncopyable.hpp>
@@ -206,6 +208,14 @@ class DynamicData : public boost::noncopyable {
   }
 
  private:
+  /**
+   * @brief resolve par references by creating one parameter per reference in modelSet
+   * @param model model which references in parameters set have to be resolved
+   * @param modelSet model parameters set
+   */
+  void resolveParReferences(boost::shared_ptr<dynamicdata::Model> model,
+                            boost::shared_ptr<parameters::ParametersSet> modelSet);
+
   /**
    * @brief create model descriptions
    */

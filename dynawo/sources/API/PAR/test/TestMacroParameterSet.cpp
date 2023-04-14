@@ -29,10 +29,10 @@ namespace parameters {
   TEST(APIPARTest, MacroParameterSet) {
     boost::shared_ptr<MacroParameterSet> macroParameterSet = boost::shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
     ASSERT_EQ(macroParameterSet->getId(), "macroParameterSet");
-    boost::shared_ptr<Reference> reference = ReferenceFactory::newReference("reference");
+    boost::shared_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
     ASSERT_NO_THROW(macroParameterSet->addReference(reference));
     ASSERT_THROW_DYNAWO(macroParameterSet->addReference(reference), DYN::Error::API, DYN::KeyError_t::ReferenceAlreadySetInMacroParameterSet);
-    boost::shared_ptr<Reference> reference_2 = ReferenceFactory::newReference("reference_2");
+    boost::shared_ptr<Reference> reference_2 = ReferenceFactory::newReference("reference_2", Reference::OriginData::IIDM);
     ASSERT_NO_THROW(macroParameterSet->addReference(reference_2));
     boost::shared_ptr<Parameter> parameter = ParameterFactory::newParameter("parameter", true);
     ASSERT_NO_THROW(macroParameterSet->addParameter(parameter));

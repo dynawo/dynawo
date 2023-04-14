@@ -38,6 +38,7 @@ class Reference {
    */
   enum OriginData {
     IIDM,         ///< the parameter is written in the IIDM file
+    PAR,          ///< the parameter is written in the PAR file
     SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
   };
 
@@ -45,8 +46,9 @@ class Reference {
    * @brief Constructor of reference
    *
    * @param[in] name reference name
+   * @param origData reference's origin data
    */
-  explicit Reference(const std::string& name);
+  explicit Reference(const std::string& name, OriginData origData);
 
   /**
    * @brief Setter for reference type
@@ -54,21 +56,6 @@ class Reference {
    * @param type Reference's type
    */
   void setType(const std::string& type);
-
-  /**
-   * @brief Setter for reference origin data
-   *
-   * @param origData Reference's origin data
-   * @throws API exception if the origin data is unkown
-   */
-  void setOrigData(const std::string& origData);
-
-  /**
-   * @brief Setter for reference origin data
-   *
-   * @param origData Reference's origin data
-   */
-  void setOrigData(const OriginData& origData);
 
   /**
    * @brief Setter for reference origin name
@@ -85,16 +72,30 @@ class Reference {
   void setComponentId(const std::string& id);
 
   /**
+   * @brief Setter for the par id where the reference should be found
+   *
+   * @param parId Par's id
+   */
+  void setParId(const std::string& parId);
+
+  /**
+   * @brief Setter for the par file where the reference should be found
+   *
+   * @param parFile Par's file
+   */
+  void setParFile(const std::string& parFile);
+
+  /**
    * @brief Getter for reference type
    * @returns Reference's type
    */
-  std::string getType() const;
+  const std::string& getType() const;
 
   /**
    * @brief Getter for reference name
    * @returns Reference's name
    */
-  std::string getName() const;
+  const std::string& getName() const;
 
   /**
    * @brief Getter for reference origin data
@@ -112,13 +113,25 @@ class Reference {
    * @brief Getter for reference origin name
    * @returns Reference's origin name
    */
-  std::string getOrigName() const;
+  const std::string& getOrigName() const;
 
   /**
    * @brief Getter for the component id where the reference should be found
    * @return Component's id
    */
-  std::string getComponentId() const;
+  const std::string& getComponentId() const;
+
+  /**
+   * @brief Getter for the par id where the reference should be found
+   * @return Par's id
+   */
+  const std::string& getParId() const;
+
+  /**
+   * @brief Getter for the par file where the reference should be found
+   * @return Par's file
+   */
+  const std::string& getParFile() const;
 
  private:
   std::string type_;         ///< Reference's type
@@ -126,8 +139,10 @@ class Reference {
   OriginData origData_;      ///< Reference's origin data
   std::string origName_;     ///< Reference's origin name
   std::string componentId_;  ///< Reference's component id
+  std::string parId_;        ///< Reference's parId
+  std::string parFile_;      ///< Reference's par file
 };
-static const char* ReferenceOriginNames[Reference::SIZE_OF_ENUM] = {"IIDM"};  ///< string conversion of enum values
+static const char* ReferenceOriginNames[Reference::SIZE_OF_ENUM] = {"IIDM", "PAR"};  ///< string conversion of enum values
 // statically check that the size of ParameterTypeNames fits the number of ParameterTypes
 /**
  * @brief Test is the size of ParameterTypeNames is relevant with the enumeration size

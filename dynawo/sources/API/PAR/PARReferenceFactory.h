@@ -39,10 +39,11 @@ class ReferenceFactory {
    * @brief Create new Reference instance
    *
    * @param[in] name reference name
+   * @param[in] origData origin of the data
    *
    * @returns Shared pointer to a new @p Reference
    */
-  static boost::shared_ptr<Reference> newReference(const std::string& name);
+  static boost::shared_ptr<Reference> newReference(const std::string& name, Reference::OriginData origData);
 };
 
 }  // namespace parameters

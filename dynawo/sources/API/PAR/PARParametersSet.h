@@ -307,6 +307,13 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    */
   std::map<std::string, boost::shared_ptr<Parameter> >& getParameters();
 
+  /**
+   * @brief Get a reference to the map of references
+   *
+   * @returns Reference to the map of references
+   */
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> >& getReferences();
+
  public:
   /**
    * @class parameter_const_iterator
