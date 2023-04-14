@@ -16,7 +16,6 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcP;
-  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:
@@ -26,10 +25,10 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
 
 */
 
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
   parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
   parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
 
   input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
   input Real tanPhi2Ref(start = TanPhi2Ref0) "tan(Phi) regulation set point at terminal 2";

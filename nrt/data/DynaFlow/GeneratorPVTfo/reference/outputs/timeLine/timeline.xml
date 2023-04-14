@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="50.000000" modelName="Line1Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="Line2Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="Line3Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="Line4Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="Line5Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="Line6Bis" message="LINE : opening both sides"/>
+  <event time="70.000000" modelName="Generator10" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator12" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator4" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator6" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator8" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator11" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator7" message="Generator : maximum reactive power limit reached"/>
+  <event time="100.000000" modelName="Generator7" message="Generator : back to voltage / reactive power regulation"/>
+  <event time="140.000000" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
+  <event time="140.000000" modelName="Generator11" message="Generator : back to voltage / reactive power regulation"/>
+  <event time="600.000000" modelName="Generator7" message="Generator : maximum reactive power limit reached"/>
+  <event time="640.000000" modelName="Generator5" message="Generator : maximum reactive power limit reached"/>
+  <event time="680.000000" modelName="Generator11" message="Generator : maximum reactive power limit reached"/>
+</timeline>

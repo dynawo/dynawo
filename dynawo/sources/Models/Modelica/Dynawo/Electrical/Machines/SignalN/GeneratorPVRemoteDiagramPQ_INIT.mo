@@ -13,20 +13,11 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVRemoteDiagramPQ_INIT "Initialisation model for generator PV with a PQ diagram, based on SignalN for the frequency handling and a remote voltage regulation"
-  import Dynawo;
-  import Dynawo.Electrical.Machines;
-
   extends BaseClasses_INIT.BaseGeneratorSignalNPQDiagram_INIT;
   extends AdditionalIcons.Init;
 
   parameter Types.VoltageModulePu URef0 "Start value of the voltage regulation set point in pu (base UNom)";
   parameter Types.VoltageModulePu URegulated0 "Start value of the voltage regulated in pu (base UNom)";
-
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
-
-  QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
   if QGen0Pu <= QMin0Pu and URegulated0 >= URef0 then

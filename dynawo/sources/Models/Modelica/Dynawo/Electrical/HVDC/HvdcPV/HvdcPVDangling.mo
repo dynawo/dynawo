@@ -16,7 +16,6 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPDangling;
-  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:
@@ -30,24 +29,21 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
   parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
 
-  input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
-  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   input Boolean modeU1(start = modeU10) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
+  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
 
-  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
 protected
   QStatus q1Status(start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
 
 equation
-  s1Pu = Complex(P1Pu, Q1Pu);
-  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
-
   //Voltage/Reactive power regulation at terminal 1
   when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu then
     q1Status = QStatus.AbsorptionMax;

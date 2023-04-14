@@ -13,44 +13,17 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPV "Model for generator PV based on SignalN for the frequency handling"
-  extends BaseClasses.BaseGeneratorSignalN;
-  extends AdditionalIcons.Machine;
-
-  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
-
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
-
-  input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
-
-  Types.ReactivePowerPu QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt) "Stator reactive power in pu (base QNomAlt) (generator convention)";
-  Boolean limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
-  Boolean limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
-
-  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
-  parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
-  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
-
-protected
-  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
+  extends BaseClasses.BaseGeneratorSignalNFixedReactiveLimits;
+  extends BaseClasses.BasePV;
+  extends BaseClasses.BaseQStator(QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt));
 
 equation
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
-    limUQUp = false;
-    limUQDown = true;
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
-    limUQUp = true;
-    limUQDown = false;
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
-    limUQUp = false;
-    limUQDown = false;
   end when;
 
   if running.value then

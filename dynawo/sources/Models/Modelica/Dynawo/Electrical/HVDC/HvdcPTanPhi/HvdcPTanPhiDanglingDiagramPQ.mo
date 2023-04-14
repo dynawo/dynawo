@@ -16,7 +16,6 @@ model HvdcPTanPhiDanglingDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ dia
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
-  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:
@@ -34,9 +33,6 @@ protected
   Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
 
 equation
-  s1Pu = Complex(P1Pu, Q1Pu);
-  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
-
   //Reactive power control of the connected side
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
   if runningSide1.value then
