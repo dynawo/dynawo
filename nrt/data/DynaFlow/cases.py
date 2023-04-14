@@ -124,6 +124,16 @@ job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfo", "GeneratorP
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+################################################################################################################################
+#  Small System with generators with tfo and a secondary voltage control : focus on the reactive power control loop            #
+################################################################################################################################
+
+case_name = "DynaFlow - Generator PV with transformer and a secondary voltage control : focus on the reactive power control loop"
+case_description = "Small System with generators with transformers and a secondary voltage control : focus on the reactive power control loop"
+job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfo_rpcl_rpcl2", "GeneratorPVTfo_rpcl_rpcl2.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #################################################################
 #      Small System with generators regulating the same bus      #
 #################################################################

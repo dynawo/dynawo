@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator5" variable="generator_UPu"/>
+  <curve model="Generator5" variable="generator_UStatorPu"/>
+  <curve model="Generator5" variable="generator_UStatorRefPu"/>
+  <curve model="Generator5" variable="generator_PGenPu"/>
+  <curve model="Generator5" variable="generator_QGenPu"/>
+  <curve model="Generator5" variable="generator_QMaxPu"/>
+  <curve model="Generator5" variable="generator_QMinPu"/>
+  <curve model="Generator5" variable="reactivePowerControlLoop_level"/>
+  <curve model="Generator5" variable="reactivePowerControlLoop_QStatorPu"/>
+  <curve model="Generator5" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="Generator6" variable="generator_UPu"/>
+  <curve model="Generator6" variable="generator_UStatorPu"/>
+  <curve model="Generator6" variable="generator_UStatorRefPu"/>
+  <curve model="Generator6" variable="generator_PGenPu"/>
+  <curve model="Generator6" variable="generator_QGenPu"/>
+  <curve model="Generator6" variable="generator_QMaxPu"/>
+  <curve model="Generator6" variable="generator_QMinPu"/>
+  <curve model="Generator6" variable="reactivePowerControlLoop_level"/>
+  <curve model="Generator6" variable="reactivePowerControlLoop_QStatorPu"/>
+  <curve model="Generator6" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="SVC" variable="secondaryVoltageControl_UpPu"/>
+  <curve model="SVC" variable="secondaryVoltageControl_level"/>
+  <curve model="SVC" variable="secondaryVoltageControl_feedback1_y"/>
+  <curve model="SVC" variable="secondaryVoltageControl_limIntegrator_u"/>
+  <curve model="SVC" variable="secondaryVoltageControl_limIntegrator_y"/>
+  <curve model="Generator9" variable="generator_UPu"/>
+  <curve model="Generator9" variable="generator_UStatorPu"/>
+  <curve model="Generator9" variable="generator_UStatorRefPu"/>
+  <curve model="Generator9" variable="generator_PGenPu"/>
+  <curve model="Generator9" variable="generator_QGenPu"/>
+  <curve model="Generator9" variable="generator_QMaxPu"/>
+  <curve model="Generator9" variable="generator_QMinPu"/>
+  <curve model="Generator9" variable="reactivePowerControlLoop_level"/>
+  <curve model="Generator9" variable="reactivePowerControlLoop_QStatorPu"/>
+  <curve model="Generator9" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="Generator10" variable="generator_UPu"/>
+  <curve model="Generator10" variable="generator_UStatorPu"/>
+  <curve model="Generator10" variable="generator_UStatorRefPu"/>
+  <curve model="Generator10" variable="generator_PGenPu"/>
+  <curve model="Generator10" variable="generator_QGenPu"/>
+  <curve model="Generator10" variable="generator_QMaxPu"/>
+  <curve model="Generator10" variable="generator_QMinPu"/>
+  <curve model="Generator10" variable="reactivePowerControlLoop_level"/>
+  <curve model="Generator10" variable="reactivePowerControlLoop_QStatorPu"/>
+  <curve model="Generator10" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_UpPu"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_level"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_feedback1_y"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_limIntegrator_u"/>
+  <curve model="SVC2" variable="secondaryVoltageControl_limIntegrator_y"/>
+</curvesInput>
