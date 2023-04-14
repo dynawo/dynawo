@@ -21,6 +21,7 @@ var a02704 =
     [ "mappingModelicaModels", "d4/d9d/a02704.html#a44ff83244f93994a9f4ab4ca563dc719", null ],
     [ "markModelTemplatesCalledByExpansions", "d4/d9d/a02704.html#a9474720446b6eaa6ad32feeb2a9806c5", null ],
     [ "mergeParameters", "d4/d9d/a02704.html#a9cf7140d6667b095bc6b1299302e4495", null ],
+    [ "resolveParReferences", "d4/d9d/a02704.html#a650de7ff2b1693c29f3a1d16195c8a78", null ],
     [ "setDataInterface", "d4/d9d/a02704.html#a8dc00c15791ba7f1046007f01c6952a8", null ],
     [ "setNetworkParameters", "d4/d9d/a02704.html#a3713fc54b4ab220b4d7f4d956d270fa9", null ],
     [ "setParametersReference", "d4/d9d/a02704.html#ad2cbc6bd3c6850d1da20aa94339fdcf7", null ],

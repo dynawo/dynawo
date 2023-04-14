@@ -139,6 +139,7 @@ var a02568 =
       [ "ReferenceAlreadySet", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4eceaa4a46b03951ecf17ad782010d31060a9", null ],
       [ "ReferenceAlreadySetInMacroParameterSet", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea29ee09b987d6fc2390ee6843d9fd4404", null ],
       [ "ReferenceNotFoundInSet", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4eceae35c9912a36fcb8aec035bc9b9c602fc", null ],
+      [ "ReferenceToAnotherReference", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea36b6ffe050dca27f9d3694a8ffe7d4e2", null ],
       [ "ReferenceUnknownOriginData", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4ecea1aced2f1c54fd58f76622c94577ddf14", null ],
       [ "RegulationModeNotInIIDM", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4eceabba3a21278251efe60b28aed26751c5a", null ],
       [ "ResidualWithNanInf", "dc/d81/a02568.html#acfce33066451c48351076e31bd5b4eceacb15c3c3a2a6ef69fbd3a00d0c56c4e2", null ],

@@ -179,6 +179,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:a650de7ff2b1693c29f3a1d16195c8a78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d9d/a02704.html#a650de7ff2b1693c29f3a1d16195c8a78">resolveParReferences</a> (boost::shared_ptr&lt; <a class="el" href="../../d8/d45/a01908.html">dynamicdata::Model</a> &gt; model, boost::shared_ptr&lt; <a class="el" href="../../d5/d04/a02428.html">parameters::ParametersSet</a> &gt; modelSet)</td></tr>
+<tr class="memdesc:a650de7ff2b1693c29f3a1d16195c8a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">resolve par references by creating one parameter per reference in modelSet  <a href="#a650de7ff2b1693c29f3a1d16195c8a78">More...</a><br /></td></tr>
+<tr class="separator:a650de7ff2b1693c29f3a1d16195c8a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2244c656b3a191ed2c544b907f5438a3"><td class="memItemLeft" align="right" valign="top"><a id="a2244c656b3a191ed2c544b907f5438a3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d9d/a02704.html#a2244c656b3a191ed2c544b907f5438a3">createModelDescriptions</a> ()</td></tr>
 <tr class="memdesc:a2244c656b3a191ed2c544b907f5438a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">create model descriptions <br /></td></tr>
@@ -771,6 +774,51 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d1d/a02716.ht
 
 </div>
 </div>
+<a id="a650de7ff2b1693c29f3a1d16195c8a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a650de7ff2b1693c29f3a1d16195c8a78">&#9670;&nbsp;</a></span>resolveParReferences()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DynamicData::resolveParReferences </td>
+          <td>(</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d8/d45/a01908.html">dynamicdata::Model</a> &gt;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d5/d04/a02428.html">parameters::ParametersSet</a> &gt;&#160;</td>
+          <td class="paramname"><em>modelSet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>resolve par references by creating one parameter per reference in modelSet </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>model which references in parameters set have to be resolved </td></tr>
+    <tr><td class="paramname">modelSet</td><td>model parameters set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8dc00c15791ba7f1046007f01c6952a8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8dc00c15791ba7f1046007f01c6952a8">&#9670;&nbsp;</a></span>setDataInterface()</h2>
 
@@ -953,7 +1001,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d1d/a02716.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/d9d/a02704.html">DynamicData</a></li>
-    <li class="footer">Generated on Thu Apr 13 2023 08:30:35 for Dynawo by
+    <li class="footer">Generated on Fri Apr 14 2023 08:18:22 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

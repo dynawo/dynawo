@@ -31,6 +31,7 @@ var a02428 =
     [ "getParametersNames", "d5/d04/a02428.html#a4c0e3f260fe8282b10871d9f6b1d8ca4", null ],
     [ "getParamsUnused", "d5/d04/a02428.html#a385b95b5de060636928287fb08868c80", null ],
     [ "getReference", "d5/d04/a02428.html#a35a577a3694310ac5e8e31c1cd12e33b", null ],
+    [ "getReferences", "d5/d04/a02428.html#acc4900175fa21be709f0d12efc8f9fdc", null ],
     [ "getReferencesNames", "d5/d04/a02428.html#a2eafbb84df7296ec26af96f1db7eff85", null ],
     [ "hasMacroParSet", "d5/d04/a02428.html#a6daecf71e98b68c0b9da7e674db321d6", null ],
     [ "hasMacroParSet", "d5/d04/a02428.html#abdefec6efb9e47999f1e631e278a6a2e", null ],

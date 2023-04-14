@@ -109,16 +109,16 @@ $(document).ready(function(){initNavTree('d3/d19/a02464.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a8980727cb6f37476954bc725213f66cb"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d9/d04/a02460.html">Reference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/a02464.html#a8980727cb6f37476954bc725213f66cb">newReference</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a8980727cb6f37476954bc725213f66cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d9/d04/a02460.html" title="Reference interface class. ">Reference</a> instance.  <a href="#a8980727cb6f37476954bc725213f66cb">More...</a><br /></td></tr>
-<tr class="separator:a8980727cb6f37476954bc725213f66cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc74c05fe968d7d70334227a2f1c613c"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d9/d04/a02460.html">Reference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/a02464.html#acc74c05fe968d7d70334227a2f1c613c">newReference</a> (const std::string &amp;name, <a class="el" href="../../d9/d04/a02460.html#a04c7e516a69ff452dc4676e7b62fe44f">Reference::OriginData</a> origData)</td></tr>
+<tr class="memdesc:acc74c05fe968d7d70334227a2f1c613c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d9/d04/a02460.html" title="Reference interface class. ">Reference</a> instance.  <a href="#acc74c05fe968d7d70334227a2f1c613c">More...</a><br /></td></tr>
+<tr class="separator:acc74c05fe968d7d70334227a2f1c613c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../d9/d04/a02460.html" title="Reference interface class. ">Reference</a> factory class. </p>
 <p><a class="el" href="../../d3/d19/a02464.html" title="Reference factory class. ">ReferenceFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d9/d04/a02460.html" title="Reference interface class. ">Reference</a></code> objects. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8980727cb6f37476954bc725213f66cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8980727cb6f37476954bc725213f66cb">&#9670;&nbsp;</a></span>newReference()</h2>
+<a id="acc74c05fe968d7d70334227a2f1c613c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc74c05fe968d7d70334227a2f1c613c">&#9670;&nbsp;</a></span>newReference()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -130,8 +130,18 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d9/d04/a02460.html">Reference</a>&gt; parameters::ReferenceFactory::newReference </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/d04/a02460.html#a04c7e516a69ff452dc4676e7b62fe44f">Reference::OriginData</a>&#160;</td>
+          <td class="paramname"><em>origData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -144,7 +154,8 @@ Static Public Member Functions</h2></td></tr>
 <p>Create new <a class="el" href="../../d9/d04/a02460.html" title="Reference interface class. ">Reference</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>reference name</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>reference name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">origData</td><td>origin of the data</td></tr>
   </table>
   </dd>
 </dl>
@@ -172,7 +183,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../d3/d19/a02464.html">ReferenceFactory</a></li>
-    <li class="footer">Generated on Thu Apr 13 2023 08:30:36 for Dynawo by
+    <li class="footer">Generated on Fri Apr 14 2023 08:18:24 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
