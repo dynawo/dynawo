@@ -901,7 +901,7 @@ Simulation::calculateIC() {
     string localInitDir = createAbsolutePath("initValues/localInit", outputsDirectory_);
     if (!exists(localInitDir))
       create_directory(localInitDir);
-    model_->printDumpedValues(localInitDir, "dumpInitValues");
+    model_->printModelValues(localInitDir, "dumpInitValues");
   }
   // check coherence during local init process (use of init model)
   model_->checkDataCoherence(tCurrent_);
@@ -927,7 +927,7 @@ Simulation::calculateIC() {
     string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
     if (!exists(globalInitDir))
       create_directory(globalInitDir);
-    model_->printDumpedValues(globalInitDir, "dumpInitValues");
+    model_->printModelValues(globalInitDir, "dumpInitValues");
   }
 
   // after the initialization process (use of dynamic model)
@@ -1263,7 +1263,7 @@ Simulation::terminate() {
     string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
     if (!exists(finalValuesDir))
       create_directory(finalValuesDir);
-    model_->printDumpedValues(finalValuesDir, "dumpFinalValues");
+    model_->printModelValues(finalValuesDir, "dumpFinalValues");
   }
 
   if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {

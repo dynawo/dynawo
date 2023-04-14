@@ -88,7 +88,7 @@ warning: return type of member DYN::Model::initBuffers is not documented
 warning: return type of member DYN::Model::initSilentZ is not documented
 warning: return type of member DYN::Model::loadParameters is not documented
 warning: return type of member DYN::Model::loadVariables is not documented
-warning: return type of member DYN::Model::printDumpedValues is not documented
+warning: return type of member DYN::Model::printModelValues is not documented
 warning: return type of member DYN::Model::printModel is not documented
 warning: return type of member DYN::Model::reinitMode is not documented
 warning: return type of member DYN::Model::rotateBuffers is not documented

@@ -295,7 +295,7 @@ class SubModel {
    * @param directory directory where the file should be printed
    * @param dumpFileName name of the file where to dump the values
    */
-  void printDumpedValues(const std::string& directory, const std::string& dumpFileName);
+  void printModelValues(const std::string& directory, const std::string& dumpFileName);
 
   /**
    * @brief define each variables of the model
