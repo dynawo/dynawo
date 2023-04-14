@@ -16,7 +16,6 @@ model HvdcPQPropDangling "Model for HVDC link with a reactive power proportional
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPDangling;
-  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:
@@ -26,24 +25,22 @@ model HvdcPQPropDangling "Model for HVDC link with a reactive power proportional
 
 */
 
-  parameter Real QPercent1 "Percentage of the coordinated reactive control that comes from converter 1";
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
   parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Real QPercent1 "Percentage of the coordinated reactive control that comes from converter 1";
 
-  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   input Boolean modeU1(start = modeU10) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
   input Types.PerUnit NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation (generator convention)";
+  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
 
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
 
 protected
   Types.ReactivePowerPu Q1RawModeUPu(start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in pu and for mode U activated (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in pu (base SnRef) (receptor convention)";
 
 equation
-  s1Pu = Complex(P1Pu, Q1Pu);
-  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
   Q1RawModeUPu = Q1RefPu - QPercent1 * NQ1;
   Q1RawPu = if modeU1 then Q1RawModeUPu else Q1RefPu;
 

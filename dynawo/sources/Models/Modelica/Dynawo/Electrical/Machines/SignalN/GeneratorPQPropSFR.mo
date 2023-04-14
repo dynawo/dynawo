@@ -13,46 +13,16 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPQPropSFR "Model for generator PQ based on SignalN for the frequency handling, with a proportional reactive power regulation and that participates in the Secondary Frequency Regulation (SFR)"
-  extends BaseClasses.BaseGeneratorSignalNSFR;
-  extends AdditionalIcons.Machine;
-
-  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
-  parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
-
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
-
-  input Types.PerUnit NQ "Signal to change the reactive power generation of the generator depending on the centralized distant voltage regulation (generator convention)";
-
-  Boolean limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
-  Boolean limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
-
-  parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
-  parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
-  parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
-  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
-
-protected
-  Types.ReactivePowerPu QGenRawPu(start = QGen0Pu) "Reactive power generation without taking limits into account in pu (base SnRef) (generator convention)";
-  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
+  extends BaseClasses.BaseGeneratorSignalNSFRFixedReactiveLimits;
+  extends BaseClasses.BasePQProp(QGenRawPu(start = QGen0Pu));
 
 equation
-  QGenRawPu = - QRef0Pu + QPercent * NQ;
-
   when QGenRawPu <= QMinPu then
     qStatus = QStatus.AbsorptionMax;
-    limUQUp = false;
-    limUQDown = true;
   elsewhen QGenRawPu >= QMaxPu then
     qStatus = QStatus.GenerationMax;
-    limUQUp = true;
-    limUQDown = false;
   elsewhen QGenRawPu > QMinPu and QGenRawPu < QMaxPu then
     qStatus = QStatus.Standard;
-    limUQUp = false;
-    limUQDown = false;
   end when;
 
   if running.value then
