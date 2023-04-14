@@ -25,9 +25,9 @@ GeneratorPVMaxQ           =             PV Generator : max reactive power limit 
 GeneratorPVMinQ           =             PV Generator : min reactive power limit reached
 GeneratorPVBackRegulation =             PV Generator : back to voltage regulation
 // --> ReactivePowerControlLoop
-RPCLLimitationUsRefMin    =             Reactive Power Control Loop : min voltage limit reached (UStatorRefMin)
-RPCLLimitationUsRefMax    =             Reactive Power Control Loop : max voltage limit reached (UStatorRefMax)
-RPCLStandard              =             Reactive Power Control Loop : voltage within limits range (UStatorRefMin < UStatorRef < UStatorRefMax)
+RPCLLimitationUsRefMin    =             Reactive Power Control Loop : min voltage reference limit reached (UStatorRefMin)
+RPCLLimitationUsRefMax    =             Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)
+RPCLStandard              =             Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin < UStatorRef < UStatorRefMax)
 // --> BaseTapChangerPhaseShifter
 TapUp                     =             Tap +1
 TapDown                   =             Tap -1

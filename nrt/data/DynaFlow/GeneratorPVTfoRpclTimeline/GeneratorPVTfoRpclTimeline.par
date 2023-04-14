@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -50,8 +50,8 @@
     <par type="DOUBLE" name="generator_PMax" value="1000000"/>
     <par type="DOUBLE" name="generator_PNom" value="1"/>
     <par type="DOUBLE" name="generator_KGover" value="1"/>
-    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo_rpcl_rpcl2/Diagram.txt"/>
-    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo_rpcl_rpcl2/Diagram.txt"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfoRpclTimeline/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfoRpclTimeline/Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
     <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
   </macroParameterSet>
@@ -77,9 +77,6 @@
     <par name="reactivePowerControlLoop_Ti" type="DOUBLE" value="60"/>
     <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMaxPu" value="1.075"/>
     <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMinPu" value="0.85"/>
-  </macroParameterSet>
-  <macroParameterSet id="macro_pqprop">
-    <par type="DOUBLE" name="generator_QPercent" value="1"/>
   </macroParameterSet>
   <macroParameterSet id="macro_svc">
     <!-- Generator 1 parameters -->
@@ -109,25 +106,25 @@
     <!-- Generator 2 parameters -->
     <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.1"/>
   </macroParameterSet>
-  <set id="Generator5">
+  <set id="Generator1">
     <macroParSet id="macro_generator"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl"/>
   </set>
-  <set id="Generator6">
+  <set id="Generator2">
     <macroParSet id="macro_generator_diagram"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl"/>
   </set>
-  <set id="Generator9">
+  <set id="Generator3">
     <macroParSet id="macro_generator"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl2"/>
   </set>
-  <set id="Generator10">
+  <set id="Generator4">
     <macroParSet id="macro_generator_diagram"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
@@ -138,18 +135,9 @@
     <macroParSet id="macro_svc_tfo"/>
     <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
   </set>
-  <set id="SVC1">
-    <macroParSet id="macro_svc"/>
-  </set>
   <set id="Line">
     <par type="DOUBLE" name="line_RPu" value="0"/>
     <par type="DOUBLE" name="line_XPu" value="0.045044"/>
-    <par type="DOUBLE" name="line_BPu" value="0.0"/>
-    <par type="DOUBLE" name="line_GPu" value="0.0"/>
-  </set>
-  <set id="LineFict">
-    <par type="DOUBLE" name="line_RPu" value="0"/>
-    <par type="DOUBLE" name="line_XPu" value="1e-6"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
@@ -161,12 +149,6 @@
   <set id="InfiniteBus1">
     <par type="DOUBLE" name="infiniteBus_UPu" value="1.0305614"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
-  </set>
-  <set id="SignalNQ">
-    <par type="DOUBLE" name="vrremote_U0" value="1.05"/>
-    <par type="DOUBLE" name="vrremote_URef0" value="1.05"/>
-    <par type="DOUBLE" name="vrremote_Gain" value="1"/>
-    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
   </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="50"/>

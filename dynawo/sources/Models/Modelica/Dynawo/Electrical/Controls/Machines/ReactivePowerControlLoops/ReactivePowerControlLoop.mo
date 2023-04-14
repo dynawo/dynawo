@@ -72,7 +72,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
 
 protected
-  UStatus uStatus(start = UStatus.Standard) "Status of the voltage";
+  UStatus uStatus(start = UStatus.Standard) "Status of the voltage reference";
 
 equation
   when limiter_UStatorRefMinMaxPu.u >= limiter_UStatorRefMinMaxPu.uMax and pre(uStatus) <> UStatus.LimitUMax then
