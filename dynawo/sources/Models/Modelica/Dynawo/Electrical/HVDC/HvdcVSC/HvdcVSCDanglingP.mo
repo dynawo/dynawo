@@ -28,9 +28,10 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
   Connectors.ACPower terminal2 "Connector used to connect the injector to the grid (switched off side)" annotation(
     Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseActivePowerControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BlockingFunction;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBaseActivePowerControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
+
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";

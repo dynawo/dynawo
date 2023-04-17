@@ -17,8 +17,8 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
 
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_ElectricalControl;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_GeneratorControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsElectricalControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsGeneratorControl;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";

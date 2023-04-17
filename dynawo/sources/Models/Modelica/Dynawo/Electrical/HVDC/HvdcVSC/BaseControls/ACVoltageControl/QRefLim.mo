@@ -17,7 +17,7 @@ model QRefLim "Function that applies the limitations to QRef"
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_QRefLim;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsQRefLim;
 
   Modelica.Blocks.Interfaces.RealInput QRefUQPu(start = Q0Pu) "Raw reference reactive power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

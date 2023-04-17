@@ -19,7 +19,7 @@ model PlantControl "WECC PV Plant Control REPC"
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
-  extends Parameters.Params_PlantControl;
+  extends Parameters.ParamsPlantControl;
 
   parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1 in pu (base SnRef, UNom)";
   parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in pu (base SnRef, UNom)";

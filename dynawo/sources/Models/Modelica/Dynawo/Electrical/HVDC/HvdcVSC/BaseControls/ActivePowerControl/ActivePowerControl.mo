@@ -18,7 +18,7 @@ model ActivePowerControl "Active power control for the HVDC VSC model"
   import Dynawo.Types;
 
   extends HVDC.HvdcVSC.BaseControls.ActivePowerControl.BaseActivePowerControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DeltaP;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDeltaP;
 
   Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, 74}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

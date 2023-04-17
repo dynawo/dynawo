@@ -16,7 +16,7 @@ partial model BaseDriveTrain
   import Modelica;
   import Dynawo.Types;
 
-  extends Parameters.Params_DriveTrain;
+  extends Parameters.ParamsDriveTrain;
 
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));

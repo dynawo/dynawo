@@ -16,8 +16,8 @@ model Regulation "Variable susceptance calculation"
   import Modelica;
   import Dynawo.NonElectrical.Blocks.NonLinear;
 
-  extends Parameters.Params_Regulation;
-  extends Parameters.Params_Limitations;
+  extends Parameters.ParamsRegulation;
+  extends Parameters.ParamsLimitations;
 
   Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, 21}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));

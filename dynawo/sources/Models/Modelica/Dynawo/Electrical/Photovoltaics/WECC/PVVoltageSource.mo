@@ -26,11 +26,11 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
-  extends Parameters.Params_PlantControl;
-  extends Parameters.Params_ElectricalControl;
-  extends Parameters.Params_GeneratorControl;
-  extends Parameters.Params_PLL;
-  extends Parameters.Params_VSourceRef;
+  extends Parameters.ParamsPlantControl;
+  extends Parameters.ParamsElectricalControl;
+  extends Parameters.ParamsGeneratorControl;
+  extends Parameters.ParamsPLL;
+  extends Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";

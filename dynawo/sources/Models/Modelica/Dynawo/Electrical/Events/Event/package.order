@@ -1,0 +1,13 @@
+EventEquations
+EventBoolean
+EventReal
+SingleBooleanEvent
+DoubleBooleanEvent
+TripleBooleanEvent
+SingleRealEvent
+DoubleRealEvent
+TripleRealEvent
+EventQuadripoleStatus
+EventQuadripoleConnection
+EventQuadripoleDisconnection
+EventConnectedStatus

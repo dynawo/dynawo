@@ -17,7 +17,7 @@ model GeneratorSynchronousExt_3E_INIT "Synchronous machine with 3 windings - Ini
   import Dynawo.Electrical.Machines;
 
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
-  extends BaseClasses_INIT.BaseGeneratorSynchronousExt3E_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSynchronousExt_3E_INIT;
   extends AdditionalIcons.Init;
 
 annotation(preferredView = "text");

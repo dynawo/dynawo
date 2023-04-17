@@ -17,7 +17,7 @@ model SVarCPVRemoteModeHandling "PV static var compensator model with remote vol
 
   extends BaseClasses.BaseSVarC;
   extends BaseClasses.BaseModeHandling;
-  extends BaseControls.Parameters.Params_ModeHandling;
+  extends BaseControls.Parameters.ParamsModeHandling;
 
   parameter Types.VoltageModule UNomRemote "Static var compensator remote nominal voltage in kV";
 

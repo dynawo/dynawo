@@ -19,8 +19,8 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
   import Dynawo.Electrical.SystemBase;
 
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PlantControl;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PLL;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPlantControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPLL;
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-111, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -40,6 +40,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
+
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-125, 30}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 1) annotation(
