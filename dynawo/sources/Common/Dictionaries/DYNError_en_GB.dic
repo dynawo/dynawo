@@ -278,4 +278,5 @@ ReferenceAlreadySet         =             reference %1% is already set
 ReferenceAlreadySetInMacroParameterSet =   reference %1% is already set in macroParameterSet %2%
 ReferenceNotFoundInSet      =             reference %1% is not found in set %2%
 ReferenceUnknownOriginData  =             origin data %1% is not allowed for references
+ReferenceToAnotherReference =             reference %1% points to another reference %2% in par set %3% in file %4%
 //---TL----------------------

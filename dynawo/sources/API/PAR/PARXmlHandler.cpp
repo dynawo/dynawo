@@ -37,6 +37,7 @@
 #include "PARParametersSetCollectionFactory.h"
 #include "PARMacroParameterSet.h"
 #include "PARMacroParameterSet.h"
+#include "DYNMacrosMessage.h"
 
 
 using std::map;
@@ -235,12 +236,24 @@ RefHandler::RefHandler(elementName_type const& root_element) {
 RefHandler::~RefHandler() {}
 
 void RefHandler::create(attributes_type const & attributes) {
-  referenceRead_ = ReferenceFactory::newReference(attributes["name"]);
+  Reference::OriginData origData;
+  if (attributes["origData"].as_string() == ReferenceOriginNames[Reference::IIDM]) {
+    origData = Reference::OriginData::IIDM;
+  } else if (attributes["origData"].as_string() == ReferenceOriginNames[Reference::PAR]) {
+    origData = Reference::OriginData::PAR;
+  } else {
+    throw DYNError(DYN::Error::API, ReferenceUnknownOriginData, origData);
+  }
+
+  referenceRead_ = ReferenceFactory::newReference(attributes["name"], origData);
   referenceRead_->setType(attributes["type"]);
-  referenceRead_->setOrigData(attributes["origData"].as_string());
   referenceRead_->setOrigName(attributes["origName"].as_string());
   if (attributes.has("componentId"))
     referenceRead_->setComponentId(attributes["componentId"]);
+  if (attributes.has("parId"))
+    referenceRead_->setParId(attributes["parId"]);
+  if (attributes.has("parFile"))
+    referenceRead_->setParFile(attributes["parFile"]);
 }
 
 shared_ptr<Reference>
