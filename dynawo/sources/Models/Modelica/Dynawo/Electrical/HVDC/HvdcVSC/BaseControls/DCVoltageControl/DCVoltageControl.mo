@@ -16,7 +16,7 @@ model DCVoltageControl "DC Voltage Control for the HVDC VSC model"
   import Modelica;
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivateDeltaP;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsActivateDeltaP;
   extends HVDC.HvdcVSC.BaseControls.DCVoltageControl.BaseDCVoltageControl;
 
   Modelica.Blocks.Interfaces.BooleanOutput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(

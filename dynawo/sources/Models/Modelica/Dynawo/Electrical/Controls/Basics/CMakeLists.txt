@@ -8,6 +8,8 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+add_subdirectory(SwitchOff S)
+
 set(MODEL_FILES
   package.mo
   package.order
@@ -22,7 +24,6 @@ set(MODEL_FILES
   SineWave.mo
   Step.mo
   Step_INIT.mo
-  SwitchOff.mo
   )
 
 #

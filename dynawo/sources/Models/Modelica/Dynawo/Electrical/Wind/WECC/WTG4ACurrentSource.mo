@@ -19,8 +19,8 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
   import Dynawo.Electrical.SystemBase;
 
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PlantControl;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PLL;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPlantControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPLL;
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -19,11 +19,11 @@ model SVarCStandard "Standard static var compensator model"
   import Dynawo.Types;
 
   extends AdditionalIcons.SVarC;
-  extends BaseControls.Parameters.Params_BlockingFunction;
-  extends BaseControls.Parameters.Params_CalculationBG;
-  extends BaseControls.Parameters.Params_Limitations;
-  extends BaseControls.Parameters.Params_ModeHandling;
-  extends BaseControls.Parameters.Params_Regulation;
+  extends BaseControls.Parameters.ParamsBlockingFunction;
+  extends BaseControls.Parameters.ParamsCalculationBG;
+  extends BaseControls.Parameters.ParamsLimitations;
+  extends BaseControls.Parameters.ParamsModeHandling;
+  extends BaseControls.Parameters.ParamsRegulation;
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
 

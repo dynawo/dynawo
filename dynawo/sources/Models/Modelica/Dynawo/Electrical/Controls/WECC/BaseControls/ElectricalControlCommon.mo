@@ -17,7 +17,7 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
   import Dynawo;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
-  extends Parameters.Params_ElectricalControl;
+  extends Parameters.ParamsElectricalControl;
 
   Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

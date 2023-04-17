@@ -8,14 +8,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+# Models for static var compensator
 
-add_subdirectory(BaseControls A)
+add_subdirectory(BaseClasses B)
+add_subdirectory(BaseControls BC)
 
 set(MODEL_FILES
-  # Voltage control models
   package.mo
   package.order
-  BaseClasses.mo
   SVarCPV_INIT.mo
   SVarCPV.mo
   SVarCPV.extvar

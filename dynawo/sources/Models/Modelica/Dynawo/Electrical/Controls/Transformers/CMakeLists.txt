@@ -10,13 +10,13 @@
 
 # Controls for transformers models
 
+add_subdirectory(BaseClasses B)
+add_subdirectory(BaseClasses_INIT BI)
 add_subdirectory(Images I)
 
 set(MODEL_FILES
   package.mo
   package.order
-  BaseClasses.mo
-  BaseClasses_INIT.mo
   PhaseShifterI.mo
   PhaseShifterI.extvar
   PhaseShifterI_INIT.mo

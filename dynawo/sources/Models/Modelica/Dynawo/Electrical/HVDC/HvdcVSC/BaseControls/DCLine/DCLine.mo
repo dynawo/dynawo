@@ -29,7 +29,7 @@ model DCLine "DC line model"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCLine;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDCLine;
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   Modelica.Blocks.Interfaces.RealInput P1Pu(start = P10Pu) "Active power at terminal 1 in pu (base SNom)" annotation(

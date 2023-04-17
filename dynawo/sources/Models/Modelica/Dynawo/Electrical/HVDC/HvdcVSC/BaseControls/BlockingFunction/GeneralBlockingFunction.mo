@@ -19,7 +19,7 @@ model GeneralBlockingFunction "Undervoltage blocking function for the two sides 
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BlockingFunction;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
 
   Modelica.Blocks.Interfaces.RealInput U1Pu(start = U10Pu) "Voltage module at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

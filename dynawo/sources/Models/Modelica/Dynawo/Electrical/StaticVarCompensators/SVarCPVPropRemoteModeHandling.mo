@@ -17,7 +17,7 @@ model SVarCPVPropRemoteModeHandling "PV static var compensator model with remote
 
   extends BaseClasses.BaseSVarC;
   extends BaseClasses.BaseModeHandling;
-  extends BaseControls.Parameters.Params_ModeHandling;
+  extends BaseControls.Parameters.ParamsModeHandling;
 
   parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + LambdaPu*QPu in pu (base UNomRemote, SnRef)";
   parameter Types.VoltageModule UNomRemote "Static var compensator remote nominal voltage in kV";

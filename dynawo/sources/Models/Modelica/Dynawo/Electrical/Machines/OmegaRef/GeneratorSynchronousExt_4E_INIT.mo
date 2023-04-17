@@ -17,7 +17,7 @@ model GeneratorSynchronousExt_4E_INIT "Synchronous machine with 4 windings - Ini
   import Dynawo.Electrical.Machines;
 
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
-  extends BaseClasses_INIT.BaseGeneratorSynchronousExt4E_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSynchronousExt_4E_INIT;
   extends AdditionalIcons.Init;
 
 annotation(preferredView = "text");
