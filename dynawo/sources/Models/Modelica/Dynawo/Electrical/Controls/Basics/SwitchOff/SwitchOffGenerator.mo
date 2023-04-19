@@ -20,7 +20,6 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
      - a switch-off signal coming from an automaton in the generator (under-voltage protection for example)
   */
   import Dynawo.Electrical.Constants;
-  import Modelica;
 
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 

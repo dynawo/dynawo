@@ -20,7 +20,6 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
   From these values, the tap position and its corresponding ratio are determined.
   From the tap and ratio values, the final U2, P2 and Q2 values are calculated.
 */
-  import Dynawo.Electrical.SystemBase;
 
   // Transformer's parameters
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";

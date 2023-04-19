@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 */
 
 model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or the reactive power, depending on the user's choice."
-  import Modelica;
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;

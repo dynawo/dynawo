@@ -50,8 +50,8 @@ imPu goes downwards through jXm
   Real s(start = s0) "Slip of the motor";
   Types.AngularVelocity omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
 
-  Types.ActivePowerPu PLoadPu (start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu QLoadPu (start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu PLoadPu(start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu QLoadPu(start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
   Complex iLoadPu(re(start = iLoad0Pu.re), im(start = iLoad0Pu.im)) "Complex current consumed by the load in pu (base SnRef) (receptor convention)";
 
 protected
@@ -112,5 +112,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end LoadAlphaBetaMotor;

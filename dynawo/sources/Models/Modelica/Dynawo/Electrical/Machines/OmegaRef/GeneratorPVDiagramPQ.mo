@@ -18,7 +18,6 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
   The Q output is modulated in order to keep U + lambda * Q as close as possible to the target value
   When a reactive power limit is reached, the PV generator acts as a PQ generator
   */
-  import Modelica;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 

@@ -14,7 +14,6 @@ within Dynawo.Examples.RVS.Grid.BaseClasses;
 */
 
 model Network "RVS test grid with buses, lines and shunts"
-  import Dynawo;
 
   Dynawo.Electrical.Lines.Line line_101_103(BPu = 0.057 / 2, GPu = 0, RPu = 0.055, XPu = 0.211) annotation(
     Placement(visible = true, transformation(origin = {-168, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

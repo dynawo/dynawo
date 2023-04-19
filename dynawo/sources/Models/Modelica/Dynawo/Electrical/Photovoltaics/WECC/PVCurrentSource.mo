@@ -13,11 +13,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSource "WECC PV model with a current source as interface with the grid"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
   import Dynawo.Electrical.Controls.WECC.Parameters;
-  import Dynawo.Electrical.SystemBase;
 
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Parameters.ParamsElectricalControl;
@@ -30,7 +26,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

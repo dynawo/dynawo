@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block DiscreteIntegrator "Integrator with discrete input"
-  import Dynawo.Types;
-  import Modelica;
 
   parameter Types.Time tIntegral "Time integration constant";
 
@@ -37,7 +35,7 @@ block DiscreteIntegrator "Integrator with discrete input"
 
 equation
   connect(integrator.y, y) annotation(
-    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127})); 
+    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127}));
   connect(switch1.y, integrator.u) annotation(
     Line(points = {{-19, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(switch1.u3, u) annotation(
@@ -54,7 +52,7 @@ This block is a dynawo-compatible wrapper around Modelica's Integrator block con
 </p>
 <pre>
               1
- y = 	(--------------) * u
+ y =    (--------------) * u
           tIntegral*s
 </pre>
 

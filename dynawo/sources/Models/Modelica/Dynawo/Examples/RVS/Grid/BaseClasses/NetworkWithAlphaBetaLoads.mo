@@ -14,8 +14,6 @@ within Dynawo.Examples.RVS.Grid.BaseClasses;
 */
 
 model NetworkWithAlphaBetaLoads "RVS test grid with buses, lines, shunts and alpha-beta loads"
-  import Dynawo;
-
   extends Network;
 
   Dynawo.Electrical.Loads.LoadAlphaBeta load_1101_ABEL(alpha = 1, beta = 2, i0Pu = i0Pu_load_1101_ABEL, s0Pu = s0Pu_load_1101_ABEL, u0Pu = u0Pu_load_1101_ABEL) annotation(

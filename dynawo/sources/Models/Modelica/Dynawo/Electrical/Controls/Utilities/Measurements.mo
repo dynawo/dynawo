@@ -21,8 +21,6 @@ model Measurements "This block measures the voltage, current, active power and r
    (terminal1) -->---------MEASUREMENTS------------ (terminal2)
 
 */
-  import Modelica;
-  import Modelica.ComplexMath;
   import Dynawo.Connectors;
 
   Connectors.ACPower terminal1 annotation(

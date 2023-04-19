@@ -21,5 +21,5 @@ model GeneratorSynchronousIntTfo_INIT "Synchronous machine - Initialization mode
   extends BaseClasses_INIT.BaseGeneratorSynchronousInt_INIT;
   extends AdditionalIcons.Init;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorSynchronousIntTfo_INIT;

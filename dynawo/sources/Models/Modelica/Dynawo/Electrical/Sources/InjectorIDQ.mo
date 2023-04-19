@@ -13,12 +13,8 @@ within Dynawo.Electrical.Sources;
 */
 
 model InjectorIDQ "Injector controlled by d and q current components idPu and iqPu"
-  import Modelica;
-  import Modelica.ComplexMath;
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   extends SwitchOff.SwitchOffInjector;
 

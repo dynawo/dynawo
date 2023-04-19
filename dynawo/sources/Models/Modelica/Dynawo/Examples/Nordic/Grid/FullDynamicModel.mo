@@ -14,11 +14,9 @@ within Dynawo.Examples.Nordic.Grid;
 */
 
 model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
-  import Dynawo;
   import Dynawo.Electrical;
   import Dynawo.Examples.Nordic.Components.GeneratorWithControl;
   import Dynawo.Examples.Nordic.Components.TransformerWithControl;
-  import Dynawo.Types;
 
   extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
 //  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;

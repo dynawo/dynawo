@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block Power "Outputs a power of the input"
-
-  import Modelica;
-
   extends Modelica.Blocks.Interfaces.SISO;
 
   parameter Real N "Exponent of the power function";

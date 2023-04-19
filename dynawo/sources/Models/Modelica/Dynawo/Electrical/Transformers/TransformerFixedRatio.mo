@@ -45,7 +45,6 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
 equation
-
   if (running.value) then
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
@@ -59,7 +58,7 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>

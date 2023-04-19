@@ -14,7 +14,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 model LimPIDFreeze "PI controller with limited output, anti-windup compensation, setpoint weighting, optional feed-forward and optional freezing of the state"
   import Modelica.Blocks;
-  import Dynawo.Types;
 
   extends Blocks.Interfaces.SVcontrol;
 
@@ -55,7 +54,7 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Blocks.Math.Add3 addI(k2 = -1) annotation(
     Placement(transformation(extent = {{-80, -60}, {-60, -40}})));
-  Blocks.Math.Add addSat(k1 = +1, k2 = -1) annotation(
+  Blocks.Math.Add addSat(k1 = 1, k2 = -1) annotation(
     Placement(transformation(origin = {80, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
   Blocks.Math.Gain gainTrack(k = 1 / (K * Ni)) annotation(
     Placement(transformation(extent = {{0, -80}, {-20, -60}})));

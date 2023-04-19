@@ -13,11 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.WT;
 */
 
 model PControl4B "Active power control module for type 4B wind turbines (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.Controls.IEC.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4B, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4BPu, absLimRateLimFirstOrderAntiWindup.UseLimits = true);
 
   //Nominal parameter

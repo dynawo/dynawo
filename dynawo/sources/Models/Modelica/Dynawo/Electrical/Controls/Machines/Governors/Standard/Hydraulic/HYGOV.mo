@@ -14,10 +14,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic;
 */
 
 model HYGOV
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit At "Turbine gain";

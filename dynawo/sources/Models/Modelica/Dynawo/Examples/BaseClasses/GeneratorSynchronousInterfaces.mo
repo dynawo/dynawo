@@ -13,9 +13,7 @@ within Dynawo.Examples.BaseClasses;
 */
 
 model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces (inputs, outputs)"
-  import Modelica;
   import Modelica.Blocks.Interfaces;
-  import Dynawo;
 
   extends Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous;
 

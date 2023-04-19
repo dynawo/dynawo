@@ -24,10 +24,6 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
                             |
                            ---
 */
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -44,9 +40,9 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
 
   //Interfaces
   Dynawo.Connectors.ACPower terminal1(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = IGsRe0Pu * SNom / SystemBase.SnRef), im(start = IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput iGsImPu(start = IGsIm0Pu) "Imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(

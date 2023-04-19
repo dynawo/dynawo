@@ -13,9 +13,7 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVTfo_INIT "Initialisation model for generator PV based on SignalN for the frequency handling, with a transformer and a voltage regulation at stator. The voltage module reference at stator is calculated using the voltage module reference at terminal."
-  import Dynawo;
   import Dynawo.Electrical.Machines;
-  import Modelica.ComplexMath;
 
   extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;

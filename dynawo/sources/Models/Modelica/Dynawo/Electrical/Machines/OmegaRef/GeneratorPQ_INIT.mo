@@ -18,5 +18,5 @@ model GeneratorPQ_INIT "Initialisation model for generator PQ"
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorPQ_INIT;

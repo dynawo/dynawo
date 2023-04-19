@@ -13,11 +13,7 @@ within Dynawo.Electrical.Sources;
 */
 
 model InjectorBG "Injector controlled by a the susceptance B and the conductance G"
-  import Modelica;
-  import Modelica.ComplexMath;
   import Dynawo.Connectors;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffInjector;

@@ -13,8 +13,6 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
-  import Dynawo;
-
   extends AdditionalIcons.Bus;
 
   //Impedance parameters
@@ -25,7 +23,7 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
   Dynawo.Connectors.ACPower terminal(
     V(re(start = uTerminal0Pu.re), im(start = uTerminal0Pu.im)),
     i(re(start = iTerminal0Pu.re), im(start = iTerminal0Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = UPhaseBus0, UPu = UBus0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -14,7 +14,6 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses_INIT;
 */
 
 partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for SignalN generator models with PQ diagram"
-  import Dynawo;
   import Dynawo.Electrical.Machines;
 
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;

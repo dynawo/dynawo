@@ -13,8 +13,6 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusWithImpedance_INIT "Initial model for infinite bus connected to an impedance"
-  import Modelica.ComplexMath;
-
   extends AdditionalIcons.Init;
 
   //Impedance parameters

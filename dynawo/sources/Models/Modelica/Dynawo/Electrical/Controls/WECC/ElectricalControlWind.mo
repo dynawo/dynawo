@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model ElectricalControlWind "WECC Wind Electrical Control REEC"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.Controls.WECC.BaseControls.ElectricalControlCommon;
 
   parameter Types.VoltageComponent VDLIp11;
@@ -64,7 +60,7 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-230, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch pflagswitch annotation(
     Placement(visible = true, transformation(origin = {-90, 175}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add2(k1 = +1, k2 = -1) annotation(
+  Modelica.Blocks.Math.Add add2(k1 = 1, k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-39, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product2 annotation(
     Placement(visible = true, transformation(origin = {-190, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

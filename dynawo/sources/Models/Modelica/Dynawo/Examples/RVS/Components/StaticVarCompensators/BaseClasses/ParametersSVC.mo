@@ -14,7 +14,6 @@ within Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses;
 */
 
 record ParametersSVC "Parameter sets for the static VAR compensators of the RVS test system"
-  import Dynawo.Electrical.SystemBase.SnRef;
 
   type svcFramePreset = enumeration(sVarC_10106, sVarC_10114) "SVarC names";
   type svcParamNames = enumeration(UOvPu, BShuntPu, BMin, BMax, VMin, VMax, K, t3, t5) "Generator parameters";

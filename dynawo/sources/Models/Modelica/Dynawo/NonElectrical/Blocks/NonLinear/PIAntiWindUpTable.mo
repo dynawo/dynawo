@@ -13,7 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output. This model has discrete inputs and outputs."
-  import Modelica;
   import Dynawo.Connectors;
 
   Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
@@ -33,7 +32,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Continuous.Integrator integrator(k = Ki, y_start = Y0 + (1 - Kp) * U0) annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add1(k2 = Kaw)  annotation(
+  Modelica.Blocks.Math.Add add1(k2 = Kaw) annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -14,9 +14,7 @@ within Dynawo.Electrical.Shunts;
 
 model ShuntBWithSections "Shunt element with voltage-dependent reactive power and a variable susceptance given by a table and a section"
   import Dynawo.Connectors;
-  import Dynawo.Types;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  import Modelica;
 
   extends AdditionalIcons.Shunt;
   extends SwitchOff.SwitchOffShunt;

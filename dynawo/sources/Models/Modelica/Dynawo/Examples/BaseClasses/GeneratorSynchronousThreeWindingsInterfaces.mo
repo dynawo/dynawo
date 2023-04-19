@@ -14,9 +14,6 @@ within Dynawo.Examples.BaseClasses;
 */
 
 model GeneratorSynchronousThreeWindingsInterfaces "Synchronous generator with real interfaces (inputs, outputs)"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronousThreeWindings;
 
   //Input variables

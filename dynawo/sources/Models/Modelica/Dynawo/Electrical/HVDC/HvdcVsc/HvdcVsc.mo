@@ -13,11 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc;
 */
 
 model HvdcVsc "HVDC VSC model"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends AdditionalIcons.Hvdc;
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsActivePowerControl;

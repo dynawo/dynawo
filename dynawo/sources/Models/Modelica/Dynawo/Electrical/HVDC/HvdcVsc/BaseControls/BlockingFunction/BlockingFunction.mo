@@ -13,10 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.BlockingFunction;
 */
 
 model BlockingFunction "Undervoltage blocking function for one side of an HVDC link"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsBlockingFunction;
 
   //Input variable
