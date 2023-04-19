@@ -23,7 +23,6 @@
 
 // files in API parameter
 #include "PARParametersSet.h"
-#include "PARParameter.h"
 #include "PARParametersSetCollection.h"
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
@@ -49,7 +48,6 @@
 #include "DYDModel.h"
 #include "DYDUnitDynamicModel.h"
 #include "DYDModelicaModel.h"
-#include "DYDBlackBoxModel.h"
 #include "DYDModelTemplate.h"
 #include "DYDModelTemplateExpansion.h"
 #include "DYDConnector.h"
@@ -219,6 +217,7 @@ DynamicData::associateParameters() {
         std::map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUDM = models.begin();
         for (; itUDM != models.end(); ++itUDM) {
           shared_ptr<ParametersSet> udmSet = getParametersSet(model->getId(), itUDM->second->getParFile(), itUDM->second->getParId());
+          resolveParReferences(model, udmSet);
           if (unitDynamicModelsMap_.find(itUDM->second) == unitDynamicModelsMap_.end())
             throw DYNError(Error::MODELER, UDMUndefined, itUDM->first, model->getId());
 
@@ -234,12 +233,14 @@ DynamicData::associateParameters() {
       case Model::BLACK_BOX_MODEL: {
         shared_ptr<BlackBoxModel> bbm = dynamic_pointer_cast<BlackBoxModel>(model);
         shared_ptr<ParametersSet> modelSet = getParametersSet(bbm->getId(), bbm->getParFile(), bbm->getParId());
+        resolveParReferences(bbm, modelSet);
         (iter->second)->setParametersSet(modelSet);
         break;
       }
       case Model::MODEL_TEMPLATE_EXPANSION: {
         shared_ptr<ModelTemplateExpansion> modelTemplateExp = dynamic_pointer_cast<ModelTemplateExpansion>(model);
         shared_ptr<ParametersSet> modelSet = getParametersSet(modelTemplateExp->getId(), modelTemplateExp->getParFile(), modelTemplateExp->getParId());
+        resolveParReferences(modelTemplateExp, modelSet);
         (iter->second)->setParametersSet(modelSet);
         break;
       }
@@ -262,16 +263,50 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
     return shared_ptr<ParametersSet>();
   }
 
-  if (referenceParameters_.find(parFile) != referenceParameters_.end())
-    return referenceParameters_[parFile]->getParametersSet(parId);
+  std::string canonicalParFilePath = canonical(parFile, rootDirectory_);
+  if (referenceParameters_.find(canonicalParFilePath) != referenceParameters_.end())
+    return referenceParameters_[canonicalParFilePath]->getParametersSet(parId);
 
   // Parameters file not already loaded
   parameters::XmlImporter parametersImporter;
-  shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonical(parFile, rootDirectory_));
-  parametersSetCollection->propagateOriginData(parFile);
-  referenceParameters_[parFile] = parametersSetCollection;
+  shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonicalParFilePath);
+  parametersSetCollection->propagateOriginData(canonicalParFilePath);
+  referenceParameters_[canonicalParFilePath] = parametersSetCollection;
   parametersSetCollection->getParametersFromMacroParameter();
   return parametersSetCollection->getParametersSet(parId);
+}
+
+void
+DynamicData::resolveParReferences(shared_ptr<Model> model, shared_ptr<ParametersSet> modelSet) {
+  if (modelSet == nullptr)
+    return;
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> >& references = modelSet->getReferences();
+  for (const std::pair<const std::string, boost::shared_ptr<Reference> >& ref : references) {
+    const shared_ptr<Reference>& parRef = ref.second;
+    if (parRef->getOrigData() == Reference::OriginData::PAR) {
+      if (parRef->getParFile().empty()) {
+        if (parRef->getParId().empty()) {
+          parRef->setParId(modelSet->getId());
+        }
+        parRef->setParFile(modelSet->getFilePath());
+      }
+      const shared_ptr<ParametersSet> referencedParametersSet = getParametersSet(model->getId(), parRef->getParFile(), parRef->getParId());
+      const boost::unordered_map<std::string, shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
+      const boost::unordered_map<std::string, shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
+      if (itRef != references.end())
+        throw DYNError(DYN::Error::API, ReferenceToAnotherReference, parRef->getName(), parRef->getOrigName(), parRef->getParId(), parRef->getParFile());
+      shared_ptr<Parameter> referencedParameter = referencedParametersSet->getParameter(parRef->getOrigName());
+      if (parRef->getType() == "DOUBLE") {
+        modelSet->createParameter(parRef->getName(), referencedParameter->getDouble());
+      } else if (parRef->getType() == "INT") {
+        modelSet->createParameter(parRef->getName(), referencedParameter->getInt());
+      } else if (parRef->getType() == "BOOL") {
+        modelSet->createParameter(parRef->getName(), referencedParameter->getBool());
+      } else {
+        throw DYNError(Error::MODELER, ParameterWrongTypeReference, parRef->getName());
+      }
+    }
+  }
 }
 
 void
@@ -399,9 +434,8 @@ DynamicData::mergeParameters(shared_ptr<ParametersSet>& concatParams, const stri
   for (vector<string>::const_iterator itRefName = referencesName.begin(); itRefName != referencesName.end(); ++itRefName) {
     const shared_ptr<Reference> ref = udmSet->getReference(*itRefName);
     const string referenceName = udmName + "_" + *itRefName;
-    shared_ptr<Reference> reference = ReferenceFactory::newReference(referenceName);
+    shared_ptr<Reference> reference = ReferenceFactory::newReference(referenceName, ref->getOrigData());
     reference->setType(ref->getType());
-    reference->setOrigData(ref->getOrigData());
     reference->setOrigName(ref->getOrigName());
     reference->setComponentId(ref->getComponentId());
     concatParams->addReference(reference);

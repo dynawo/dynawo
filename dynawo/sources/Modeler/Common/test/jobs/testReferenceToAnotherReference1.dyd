@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Network model -->
+  <dyn:modelicaModel id="Network">
+    <dyn:unitDynamicModel id="line2" name="Dynawo.Electrical.Lines.Line" parFile="jobs/testReferenceToAnotherReference1.par" parId="3"/>
+    <dyn:unitDynamicModel id="tfo" name="Dynawo.Electrical.Transformers.TransformerFixedRatio" parFile="jobs/testReferenceToAnotherReference1.par" parId="4"/>
+    <dyn:unitDynamicModel id="fault" name="Dynawo.Electrical.Events.NodeFault" parFile="jobs/testReferenceToAnotherReference1.par" parId="1"/>
+    <dyn:connect id1="line2" var1="terminal2" id2="tfo" var2="terminal1"/>
+    <dyn:connect id1="tfo" var1="terminal1" id2="fault" var2="terminal"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="NetworkBus">
+    <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="jobs/testReferenceToAnotherReference1.par" parId="5"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="NetworkLine1">
+    <dyn:unitDynamicModel id="line1" name="Dynawo.Electrical.Lines.Line" parFile="jobs/testReferenceToAnotherReference1.par" parId="2"/>
+  </dyn:modelicaModel>
+  <!-- Connections -->
+  <dyn:connect id1="NetworkBus" var1="busInf_terminal" id2="NetworkLine1" var2="line1_terminal1"/>
+  <dyn:connect id1="NetworkBus" var1="busInf_terminal" id2="Network" var2="line2_terminal1"/>
+  <dyn:connect id1="NetworkLine1" var1="line1_terminal2" id2="Network" var2="tfo_terminal1"/>
+</dyn:dynamicModelsArchitecture>

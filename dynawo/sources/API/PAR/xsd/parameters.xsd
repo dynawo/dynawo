@@ -72,11 +72,14 @@
     <xs:attribute name="origData" use="required" type="dyn:OriginData"/>
     <xs:attribute name="origName" use="required" type="dyn:String"/>
     <xs:attribute name="componentId" type="dyn:String"/>
+    <xs:attribute name="parId" type="dyn:String"/>
+    <xs:attribute name="parFile" type="dyn:String"/>
   </xs:complexType>
 
   <xs:simpleType name="OriginData">
     <xs:restriction base="dyn:String">
       <xs:enumeration value="IIDM"/>
+      <xs:enumeration value="PAR"/>
     </xs:restriction>
   </xs:simpleType>
 

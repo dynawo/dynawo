@@ -118,7 +118,7 @@ TEST(APIPARTest, CollectionIterator) {
 TEST(APIPARTest, MacroParameterSetTest) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
   shared_ptr<MacroParameterSet> macroParameterSet = shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
-  shared_ptr<Reference> reference = ReferenceFactory::newReference("reference");
+  shared_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
   shared_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
   shared_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
   macroParameterSet->addParameter(parameter2);

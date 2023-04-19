@@ -10,6 +10,8 @@
 // for power systems.
 ActivatePMIN = DeactivatePMIN
 ActivatePMAX = DeactivatePMAX
+RPCLLimitationUsRefMin = RPCLStandard
+RPCLLimitationUsRefMax = RPCLStandard
 GeneratorPVMaxQ = GeneratorPVBackRegulation
 GeneratorPVMinQ = GeneratorPVBackRegulation
 PhaseShifterAboveMax = PhaseShifterBelowMax

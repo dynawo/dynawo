@@ -32,28 +32,37 @@ namespace parameters {
 //-----------------------------------------------------
 
 TEST(APIPARTest, Reference) {
-  shared_ptr<Reference> refencePar = ReferenceFactory::newReference("standardRef");
+  shared_ptr<Reference> refencePar = ReferenceFactory::newReference("standardRef", Reference::OriginData::IIDM);
 
   // Test default attributes
-  ASSERT_EQ(refencePar->getType(), "");
+  ASSERT_TRUE(refencePar->getType().empty());
   ASSERT_EQ(refencePar->getName(), "standardRef");
-  ASSERT_EQ(refencePar->getOrigName(), "");
-  ASSERT_EQ(refencePar->getComponentId(), "");
+  ASSERT_EQ(refencePar->getOrigData(), Reference::OriginData::IIDM);
+  ASSERT_EQ(refencePar->getOrigDataStr(), "IIDM");
+  ASSERT_TRUE(refencePar->getOrigName().empty());
+  ASSERT_TRUE(refencePar->getComponentId().empty());
+  ASSERT_TRUE(refencePar->getParId().empty());
+  ASSERT_TRUE(refencePar->getParFile().empty());
 
   // Test set methods
   refencePar->setType("DOUBLE");
-  ASSERT_NO_THROW(refencePar->setOrigData("IIDM"));
-  ASSERT_THROW_DYNAWO(refencePar->setOrigData("MyData"), DYN::Error::API, DYN::KeyError_t::ReferenceUnknownOriginData);
   refencePar->setOrigName("RefOrigin");
   refencePar->setComponentId("CompId");
+  refencePar->setParId("42");
+  refencePar->setParFile("myPar.par");
 
   // Test get methods
   ASSERT_EQ(refencePar->getType(), "DOUBLE");
   ASSERT_EQ(refencePar->getName(), "standardRef");
-  ASSERT_EQ(refencePar->getOrigData(), Reference::IIDM);
-  ASSERT_EQ(refencePar->getOrigDataStr(), "IIDM");
   ASSERT_EQ(refencePar->getOrigName(), "RefOrigin");
   ASSERT_EQ(refencePar->getComponentId(), "CompId");
+  ASSERT_EQ(refencePar->getParId(), "42");
+  ASSERT_EQ(refencePar->getParFile(), "myPar.par");
+
+  // Test Reference constructor
+  shared_ptr<Reference> refencePar2 = ReferenceFactory::newReference("standardRef2", Reference::PAR);
+  ASSERT_EQ(refencePar2->getOrigData(), Reference::PAR);
+  ASSERT_EQ(refencePar2->getOrigDataStr(), "PAR");
 }
 
 }  // namespace parameters
