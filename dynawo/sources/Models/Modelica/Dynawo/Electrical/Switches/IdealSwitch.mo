@@ -45,7 +45,6 @@ model IdealSwitch "Ideal switch"
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
 equation
-
   // When the switch is closed, V and i are equal on both sides. Otherwise, the currents are zero.
   if (running.value) then
     terminal1.i = - terminal2.i;
@@ -67,7 +66,7 @@ equation
     Q2Pu = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>When the switch is closed, the voltage on both terminals ar equal and the current is going through the switch.<div>When the switch is open, the current going through the switch is zero.</div><div><br></div><div>The equivalent circuit and conventions is:</div><div>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><!--StartFragment--><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1                  I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    (terminal1) --&gt;-------/ -------&lt;-- (terminal2)</span></pre>

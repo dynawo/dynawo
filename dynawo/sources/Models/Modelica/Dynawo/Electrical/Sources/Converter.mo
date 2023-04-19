@@ -26,10 +26,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
 ----------------------|__________|---------------------------------------------------------------------
 
 */
-  import Modelica;
-  import Dynawo.Types;
   import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffGenerator;

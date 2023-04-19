@@ -13,7 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model Regulation "Variable susceptance calculation"
-  import Modelica;
   import Dynawo.NonElectrical.Blocks.NonLinear;
 
   extends Parameters.ParamsRegulation;

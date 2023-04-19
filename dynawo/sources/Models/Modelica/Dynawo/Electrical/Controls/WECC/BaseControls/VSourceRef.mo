@@ -21,10 +21,7 @@ model VSourceRef
 */
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
-  import Dynawo;
   import Dynawo.Electrical.Controls.WECC.Parameters;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   extends Parameters.ParamsVSourceRef;
 

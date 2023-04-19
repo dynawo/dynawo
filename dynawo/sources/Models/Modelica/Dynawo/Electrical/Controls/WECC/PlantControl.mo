@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model PlantControl "WECC PV Plant Control REPC"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
   extends Parameters.ParamsPlantControl;

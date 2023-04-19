@@ -14,10 +14,6 @@ within Dynawo.Examples.DynaFlow.IEEE14.TestCases;
 */
 
 model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads. At t=50s, the consumption of load 5 increases. Three Current Limit Automatons are supervising current on lines B1-B5, B1-B2 and B2-B5."
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
   extends Modelica.Icons.Example;
 

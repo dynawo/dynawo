@@ -21,5 +21,5 @@ model GeneratorSynchronousExtTfo4W_INIT "Synchronous machine with 4 windings - I
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt4W_INIT;
   extends AdditionalIcons.Init;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorSynchronousExtTfo4W_INIT;

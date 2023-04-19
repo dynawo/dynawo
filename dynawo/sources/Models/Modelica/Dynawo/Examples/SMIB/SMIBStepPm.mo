@@ -13,8 +13,6 @@ within Dynawo.Examples.SMIB;
 */
 
 model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
-  import Dynawo;
-
   extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 0.90081) annotation(
@@ -62,7 +60,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
     MdSat0PPu = 1.5792, MqSat0PPu = 1.5292, LambdaAQ0Pu = -0.60044, LambdaAD0Pu = 0.89347, Mi0Pu = 1.5637, LambdaAirGap0Pu = 1.0764,
     Sin2Eta0 = 0.31111, Cos2Eta0 = 0.68888, Mds0Pu = 1.5785, Mqs0Pu = 1.5309,
     md = 0.031, mq = 0.031, nd = 6.93, nq = 6.93, MsalPu = 0.05) annotation(
-    Placement(visible = true, transformation(origin = {82, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.4659);
@@ -81,9 +79,9 @@ equation
   connect(line2.terminal2, transformer.terminal1) annotation(
     Line(points = {{-12, -20}, {0, -20}, {0, 0}, {16, 0}}, color = {0, 0, 255}));
   connect(line1.terminal2, transformer.terminal1) annotation(
-    Line(points = {{-12, 20}, {1.42109e-14, 20}, {1.42109e-14, -4.26324e-14}, {16, -4.26324e-14}}, color = {0, 0, 255}));
+    Line(points = {{-12, 20}, {0, 20}, {0, 0}, {16, 0}}, color = {0, 0, 255}));
   connect(line1.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{-52, 20}, {-62, 20}, {-62, -4.26324e-14}, {-92, -4.26324e-14}}, color = {0, 0, 255}));
+    Line(points = {{-52, 20}, {-62, 20}, {-62, 0}, {-92, 0}}, color = {0, 0, 255}));
   connect(line2.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-52, -20}, {-62, -20}, {-62, 0}, {-92, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);

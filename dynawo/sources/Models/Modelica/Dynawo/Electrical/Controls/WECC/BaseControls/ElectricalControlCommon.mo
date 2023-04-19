@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 partial model ElectricalControlCommon "WECC Electrical Control REEC common"
-  import Modelica;
-  import Dynawo;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
   extends Parameters.ParamsElectricalControl;
@@ -51,7 +49,7 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {90, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tRv, k = 1, y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add1(k1 = +1, k2 = +1) annotation(
+  Modelica.Blocks.Math.Add add1(k1 = 1, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {330, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {10, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -105,7 +103,7 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {10, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu4(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {50, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k1 = +1, k2 = -1) annotation(
+  Modelica.Blocks.Math.Add add(k1 = 1, k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = Dbd2, uMin = Dbd1) annotation(
     Placement(visible = true, transformation(origin = {180, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

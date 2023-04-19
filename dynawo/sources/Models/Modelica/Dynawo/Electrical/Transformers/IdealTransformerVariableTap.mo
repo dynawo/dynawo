@@ -27,7 +27,6 @@ model IdealTransformerVariableTap "Ideal transformer (lossless) with a variable 
   extends AdditionalIcons.Transformer;
 
 equation
-
   if (running.value) then
     // Transformer equations
     terminal1.i = - rTfoPu * terminal2.i;
@@ -37,7 +36,7 @@ equation
     terminal2.V = Complex (0);
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body><div>This model is an ideal transformer model with variable tap (that can be adjusted by an external other model such as the tap changer logic defined <a href=\"modelica://Dynawo.Electrical.Controls.Transformers.TapChanger\"> here</a>). It means that the transformer is lossless and the current and voltages on both sides are linked by the following equations:</div><div><br></div><div>rTfoPu = U2/U1 and rTfoPu = - I1/I2&nbsp;</div><div><br></div>The ideal transformer equivalent circuit is:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1   r  I2</span></pre>

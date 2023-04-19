@@ -20,5 +20,5 @@ model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model f
 
   extends AdditionalIcons.Init;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorSynchronousInt_INIT;

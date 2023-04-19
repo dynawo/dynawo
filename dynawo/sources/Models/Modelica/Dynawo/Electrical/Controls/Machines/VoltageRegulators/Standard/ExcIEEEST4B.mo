@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model ExcIEEEST4B "IEEE exciter type ST4B"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance (>= 0). Typical value = 0.113";

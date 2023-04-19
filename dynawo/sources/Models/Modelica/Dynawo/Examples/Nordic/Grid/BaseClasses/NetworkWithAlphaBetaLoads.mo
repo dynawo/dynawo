@@ -14,10 +14,7 @@ within Dynawo.Examples.Nordic.Grid.BaseClasses;
 */
 
 model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and voltage-dependent loads"
-  import Modelica.ComplexMath;
-  import Dynawo;
   import Dynawo.Electrical;
-  import Dynawo.Types;
 
   extends Dynawo.Examples.Nordic.Grid.BaseClasses.Network;
 

@@ -14,8 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseClasses;
 */
 
 partial model BaseSVarC "Base dynamic model for static var compensator"
-  import Modelica;
-  import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.NonElectrical.Logs.Timeline;

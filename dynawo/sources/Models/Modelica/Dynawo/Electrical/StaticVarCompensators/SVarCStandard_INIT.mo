@@ -14,7 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators;
 
 model SVarCStandard_INIT "Initialization for standard static var compensator model"
   import Dynawo.Electrical.Sources.InjectorBG_INIT;
-  import Dynawo.Electrical.SystemBase;
 
   extends AdditionalIcons.Init;
 

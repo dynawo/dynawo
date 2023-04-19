@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportionalIntegral "Proportional integral voltage regulator, keeps machine stator voltage constant"
-  import Modelica;
-  import Dynawo;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 

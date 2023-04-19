@@ -21,5 +21,5 @@ model GeneratorSynchronousExtTfo3W_INIT "Synchronous machine with 3 windings - I
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt3W_INIT;
   extends AdditionalIcons.Init;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorSynchronousExtTfo3W_INIT;

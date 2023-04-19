@@ -28,7 +28,6 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
                                 |
                                ---
 */
-  import Dynawo.Electrical.SystemBase;
 
   // Start values at terminal (network terminal side)
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";

@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportionalReactiveFeedback
-  import Modelica;
-  import Dynawo;
   import Dynawo.NonElectrical.Logs.Constraint;
   import Dynawo.NonElectrical.Logs.ConstraintKeys;
   import Dynawo.NonElectrical.Logs.Timeline;

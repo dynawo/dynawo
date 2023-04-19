@@ -13,11 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators;
 */
 
 model SVarCStandard "Standard static var compensator model"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends AdditionalIcons.SVarC;
   extends BaseControls.Parameters.ParamsBlockingFunction;
   extends BaseControls.Parameters.ParamsCalculationBG;

@@ -14,10 +14,7 @@ within Dynawo.Examples.RVS.Components.GeneratorWithControl;
 */
 
 model SteamSCRXFrame "Model of a steam generator with a governor, a voltage regulator, a power system stabilizer and an overexcitation limiter, for the RVS test system"
-  import Modelica;
-  import Dynawo;
   import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersGenerators;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersIEEEG1;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersOEL;

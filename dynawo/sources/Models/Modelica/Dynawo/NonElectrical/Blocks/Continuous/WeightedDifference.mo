@@ -13,7 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block WeightedDifference "Block which calculates the weighted difference between an input variable and a reference parameter"
-  import Modelica;
   import Modelica.Blocks.Interfaces;
   import Modelica.Blocks.Icons.Block;
 

@@ -13,12 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcVsc;
 */
 
 model HvdcVscDanglingUDc "HVDC VSC model with terminal2 connected to a switched-off bus (UDc control on terminal 1)"
-  import Modelica;
-  import Dynawo;
   import Dynawo.Electrical.Constants;
-  import Dynawo.Electrical.Sources;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   extends AdditionalIcons.Hvdc;
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;

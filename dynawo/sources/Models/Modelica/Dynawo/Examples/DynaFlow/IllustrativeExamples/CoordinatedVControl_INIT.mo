@@ -14,8 +14,6 @@ within Dynawo.Examples.DynaFlow.IllustrativeExamples;
 */
 
 model CoordinatedVControl_INIT "Initialisation model for the test case with coordinated voltage control"
-  import Dynawo;
-
   extends AdditionalIcons.Init;
 
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp_INIT Generator1(P0Pu = -1.5, PMax = 1000000, PMin = -1000000, Q0Pu = -0.5, QMax = 62, QMin = -200, U0Pu = 1.05, UPhase0 = 0);

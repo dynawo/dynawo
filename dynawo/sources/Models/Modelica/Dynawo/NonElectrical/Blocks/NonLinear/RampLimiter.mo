@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block RampLimiter "Slew rate limiter, simplified from Modelica Standard Library"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit DuMax "Maximum rising slew rate";
@@ -23,7 +21,7 @@ block RampLimiter "Slew rate limiter, simplified from Modelica Standard Library"
   parameter Types.PerUnit Y0 "Initial value of output";
 
   Modelica.Blocks.Interfaces.RealInput u annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 1.11022e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -31,14 +29,14 @@ block RampLimiter "Slew rate limiter, simplified from Modelica Standard Library"
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = 1 / tS)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = 1 / tS) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0)  annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   connect(u, feedback.u1) annotation(
-    Line(points = {{-120, 1.77636e-15}, {-94, 1.77636e-15}, {-94, 0}, {-88, 0}}, color = {0, 0, 127}));
+    Line(points = {{-120, 0}, {-94, 0}, {-94, 0}, {-88, 0}}, color = {0, 0, 127}));
   connect(integrator.y, y) annotation(
     Line(points = {{62, 0}, {110, 0}}, color = {0, 0, 127}));
   connect(integrator.y, feedback.u2) annotation(

@@ -20,7 +20,6 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
      --------           iSourcePu                                                 iPu
 */
   import Modelica.Blocks.Interfaces;
-  import Dynawo.Types;
 
   parameter Types.PerUnit RSourcePu "Source resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XSourcePu "Source reactance in pu (base UNom, SNom)";

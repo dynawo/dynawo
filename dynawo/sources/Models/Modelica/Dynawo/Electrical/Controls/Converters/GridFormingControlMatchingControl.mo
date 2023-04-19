@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.Converters;
 */
 
 model GridFormingControlMatchingControl "Grid forming control with matching control"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit KMatching "Proportional gain of the matching control";
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";

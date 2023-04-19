@@ -14,7 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls.Parameters;
 */
 
 record ParamsCalculationBG
-  import Dynawo.Types;
 
   parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in pu (for standby mode) (base SNom)";
 

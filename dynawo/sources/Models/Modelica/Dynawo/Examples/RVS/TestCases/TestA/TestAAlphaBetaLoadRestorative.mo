@@ -15,7 +15,6 @@ within Dynawo.Examples.RVS.TestCases.TestA;
 
 model TestAAlphaBetaLoadRestorative "RVS test system simulation case : reactive load connection, restorative loads"
   import Modelica.SIunits.Conversions.from_deg;
-  import Dynawo;
 
   extends Icons.Example;
   extends Dynawo.Examples.RVS.Grid.FullDynamicInfiniteBus(

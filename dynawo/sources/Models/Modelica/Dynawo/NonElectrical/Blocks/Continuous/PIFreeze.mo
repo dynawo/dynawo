@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block PIFreeze "Proportional-integrator controller with freezing of the state"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real Gain "Control gain";

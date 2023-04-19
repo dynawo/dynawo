@@ -14,10 +14,8 @@ within Dynawo.Examples.DynaFlow.IEEE14.BaseClasses;
 */
 
 model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads."
-  import Modelica;
   import Modelica.SIunits;
   import Dynawo.Electrical;
-  import Dynawo.Types;
 
   // Base Calculation
   final parameter SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;

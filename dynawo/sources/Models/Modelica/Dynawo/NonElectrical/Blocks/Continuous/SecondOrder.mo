@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block SecondOrder
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real k = 1 "Gain";

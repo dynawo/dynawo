@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 */
 
 model TransformDQtoRI "Transformation from d/q rotating reference frame with rotation angle phi to real/imaginary in stationary reference frame"
-  import Modelica;
 
   Modelica.Blocks.Interfaces.RealInput phi "Angle of the dq transform in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

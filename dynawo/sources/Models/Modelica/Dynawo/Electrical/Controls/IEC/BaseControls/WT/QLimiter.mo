@@ -13,11 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.WT;
 */
 
 model QLimiter "Reactive power limitation module for wind turbines (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.Controls.IEC.Parameters.QLimitParameters;
 
   //Nominal parameters

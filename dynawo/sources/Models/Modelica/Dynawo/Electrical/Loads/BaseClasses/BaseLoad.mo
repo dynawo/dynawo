@@ -14,15 +14,13 @@ within Dynawo.Electrical.Loads.BaseClasses;
 */
 
 partial model BaseLoad "Base model for loads"
-  import Modelica;
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  import Dynawo.Electrical.SystemBase;
 
   extends SwitchOff.SwitchOffLoad;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the load to the grid" annotation(
-    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // in order to change the load set-point, connect an event to PRefPu or QRefPu
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = s0Pu.re) "Active power request" annotation(

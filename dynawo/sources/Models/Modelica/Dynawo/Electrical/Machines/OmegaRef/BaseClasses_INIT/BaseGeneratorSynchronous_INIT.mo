@@ -15,7 +15,6 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses_INIT;
 
 partial model BaseGeneratorSynchronous_INIT "Base initialization model for synchronous machine"
   import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   extends BaseClasses.GeneratorSynchronousParameters;
 
