@@ -1,0 +1,12 @@
+ParametersGenerators
+ParametersIEEET1
+ParametersEXAC
+ParametersSCRX
+ParametersHYGOV
+ParametersPSS2B
+ParametersIEEEG1
+ParametersOEL
+GeneratorSynchronousThreeWindingsInterface
+InitializedGeneratorSynchronousThreeWindings
+GeneratorSynchronousFourWindingsInterface
+InitializedGeneratorSynchronousFourWindings
