@@ -1,0 +1,81 @@
+within Dynawo.Examples.RVS.Components.StaticVarCompensators;
+
+/*
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+model CSSCST
+  import Dynawo;
+  import Dynawo.Electrical.SystemBase;
+  
+  parameter Real K "Gain";
+  parameter Real BMin "Maximum capacitive range, negative";
+  parameter Real BMax "Maximum reactive range, positive";
+  
+  Modelica.Blocks.Interfaces.RealOutput BShuntPu annotation(
+    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UtPu annotation(
+    Placement(visible = true, transformation(origin = {-160, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain PuConversion(k = 1 / SystemBase.SnRef)  annotation(
+    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch VoltageOverrideSwitch annotation(
+    Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add UerrPu(k2 = -1)  annotation(
+    Placement(visible = true, transformation(origin = {-110, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant URefPuConst(k = URefPu)  annotation(
+    Placement(visible = true, transformation(origin = {-150, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant BRefPuConst(k = BRefPu)  annotation(
+    Placement(visible = true, transformation(origin = {-150, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add1(k1 = -1) annotation(
+    Placement(visible = true, transformation(origin = {-70, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.Exciters.Util.FirstOrderLimState thyristorBridge(T = T5, k = 1, yMax = BMax, yMin = BMin)  annotation(
+    Placement(visible = true, transformation(origin = {30, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Not not1 annotation(
+    Placement(visible = true, transformation(origin = {56, 6.66134e-16}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
+  Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.Exciters.Util.FirstOrderLimState phaseMargin(T = T3, k = K * MVArRange, yMax = BMax, yMin = BMin) annotation(
+    Placement(visible = true, transformation(origin = {-30, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Examples.RVS.Components.StaticVarCompensators.VoltageOverride voltageOverride(BMax = BMax, BMin = BMin)  annotation(
+    Placement(visible = true, transformation(origin = {0, -30}, extent = {{-15, -10}, {15, 10}}, rotation = 0)));
+
+protected 
+  parameter Real MVArRange = BMax - BMin;
+
+equation
+  connect(PuConversion.y, BShuntPu) annotation(
+    Line(points = {{131, 0}, {149, 0}}, color = {0, 0, 127}));
+  connect(VoltageOverrideSwitch.y, PuConversion.u) annotation(
+    Line(points = {{93, 0}, {108, 0}}, color = {0, 0, 127}));
+  connect(UtPu, UerrPu.u2) annotation(
+    Line(points = {{-160, 0}, {-122, 0}}, color = {0, 0, 127}));
+  connect(URefPuConst.y, UerrPu.u1) annotation(
+    Line(points = {{-139, 30}, {-133, 30}, {-133, 12}, {-122, 12}}, color = {0, 0, 127}));
+  connect(BRefPuConst.y, add1.u1) annotation(
+    Line(points = {{-139, 70}, {-93, 70}, {-93, 18}, {-82, 18}}, color = {0, 0, 127}));
+  connect(UerrPu.y, add1.u2) annotation(
+    Line(points = {{-99, 6}, {-82, 6}}, color = {0, 0, 127}));
+  connect(not1.y, VoltageOverrideSwitch.u2) annotation(
+    Line(points = {{60.4, 6.66134e-16}, {70.4, 6.66134e-16}}, color = {255, 0, 255}));
+  connect(phaseMargin.y, thyristorBridge.u) annotation(
+    Line(points = {{-19, 30}, {18, 30}}, color = {0, 0, 127}));
+  connect(add1.y, phaseMargin.u) annotation(
+    Line(points = {{-58, 12}, {-50, 12}, {-50, 30}, {-42, 30}}, color = {0, 0, 127}));
+  connect(thyristorBridge.y, VoltageOverrideSwitch.u1) annotation(
+    Line(points = {{42, 30}, {60, 30}, {60, 8}, {70, 8}}, color = {0, 0, 127}));
+  connect(voltageOverride.BShunt, VoltageOverrideSwitch.u3) annotation(
+    Line(points = {{16, -30}, {60, -30}, {60, -8}, {70, -8}}, color = {0, 0, 127}));
+  connect(UerrPu.y, voltageOverride.UerrPu) annotation(
+    Line(points = {{-98, 6}, {-92, 6}, {-92, -30}, {-17, -30}}, color = {0, 0, 127}));
+  connect(voltageOverride.OvActive, not1.u) annotation(
+    Line(points = {{16, -23}, {46, -23}, {46, 0}, {52, 0}}, color = {255, 0, 255}));
+protected
+  annotation(
+    Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
+end CSSCST;

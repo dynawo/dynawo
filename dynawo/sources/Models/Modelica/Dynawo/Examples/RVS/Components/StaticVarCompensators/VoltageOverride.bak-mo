@@ -1,0 +1,32 @@
+within Dynawo.Examples.RVS.Components.StaticVarCompensators;
+
+model VoltageOverride
+  import Modelica;
+  import Dynawo.Types;
+  Modelica.Blocks.Interfaces.RealInput UerrPu annotation(
+    Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput BShunt annotation(
+    Placement(visible = true, transformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanOutput OvActive annotation(
+    Placement(visible = true, transformation(origin = {160, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.VoltageModulePu UovPu = 0.5;
+  parameter Types.PerUnit BMax;
+  parameter Types.PerUnit BMin;
+  
+equation
+  if UerrPu > UovPu then
+    OvActive = true;
+    BShunt = BMin; // Maximum Capacitive Output
+  elseif UerrPu < -UovPu then
+    OvActive = true;
+    BShunt = BMax; // Maximum Inductive Output
+  else
+    OvActive = false;
+    BShunt = 0;
+  end if;
+
+annotation(
+    Icon(coordinateSystem(extent = {{-150, -100}, {150, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-150, 100}, {150, -100}}), Text(origin = {0, 40}, extent = {{-140, 20}, {140, -20}}, textString = "BMin if UerrPu > UovPu"), Text(origin = {0, -38}, extent = {{140, -20}, {-140, 20}}, textString = "BMax if UerrPu < -UovPu")}),
+    Diagram(coordinateSystem(extent = {{-150, -100}, {150, 100}})));
+end VoltageOverride;

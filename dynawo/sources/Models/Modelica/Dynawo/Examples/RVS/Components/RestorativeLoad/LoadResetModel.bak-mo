@@ -1,0 +1,42 @@
+within Dynawo.Examples.RVS.Components.RestorativeLoad;
+
+model LoadResetModel
+  import Modelica;
+  import Dynawo;
+  
+  parameter Types.PerUnit K;
+  parameter Types.PerUnit MltMaxPu;
+  parameter Types.PerUnit MltMinPu;
+
+  Modelica.Blocks.Interfaces.RealInput u annotation(
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y annotation(
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Product product annotation(
+    Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback annotation(
+    Placement(visible = true, transformation(origin = {60, -54}, extent = {{10, 10}, {-10, -10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(initType = Modelica.Blocks.Types.Init.InitialOutput, k = K, outMax = MltMaxPu, outMin = MltMinPu, y_start = 1)  annotation(
+    Placement(visible = true, transformation(origin = {-30, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput RefPu annotation(
+    Placement(visible = true, transformation(origin = {120, -60}, extent = {{20, -20}, {-20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Math.Division division annotation(
+    Placement(visible = true, transformation(origin = {22, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+equation
+  connect(u, product.u1) annotation(
+    Line(points = {{-120, 0}, {-92, 0}, {-92, 6}, {-62, 6}}, color = {0, 0, 127}));
+  connect(product.y, y) annotation(
+    Line(points = {{-38, 0}, {110, 0}}, color = {0, 0, 127}));
+  connect(product.y, feedback.u2) annotation(
+    Line(points = {{-38, 0}, {60, 0}, {60, -46}}, color = {0, 0, 127}));
+  connect(limIntegrator.y, product.u2) annotation(
+    Line(points = {{-40, -60}, {-80, -60}, {-80, -6}, {-62, -6}}, color = {0, 0, 127}));
+  connect(RefPu, feedback.u1) annotation(
+    Line(points = {{120, -60}, {94, -60}, {94, -54}, {68, -54}}, color = {0, 0, 127}));
+  connect(feedback.y, division.u1) annotation(
+    Line(points = {{51, -54}, {34, -54}}, color = {0, 0, 127}));
+  connect(division.y, limIntegrator.u) annotation(
+    Line(points = {{12, -60}, {-18, -60}}, color = {0, 0, 127}));
+  connect(RefPu, division.u2) annotation(
+    Line(points = {{120, -60}, {94, -60}, {94, -66}, {34, -66}}, color = {0, 0, 127}));
+end LoadResetModel;
