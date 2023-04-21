@@ -16,8 +16,8 @@ set(MODEL_FILES
   package.order
   BaseGeneratorSynchronous_INIT.mo
   BaseGeneratorSynchronousExt_INIT.mo
-  BaseGeneratorSynchronousExt_3E_INIT.mo
-  BaseGeneratorSynchronousExt_4E_INIT.mo
+  BaseGeneratorSynchronousExt3W_INIT.mo
+  BaseGeneratorSynchronousExt4W_INIT.mo
   BaseGeneratorSynchronousInt_INIT.mo
   MdPPuEfdNomCalculation.mo
   RotorPositionEstimation.mo

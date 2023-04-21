@@ -14,7 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
  <!-- Machine with three windings, constant mechanical power, a voltage regulator and a transformer, used for the RVS test system. -->
  <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1aTfo">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_3E_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEAC1A" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEAC1A_INIT"/>
     <dyn:unitDynamicModel id="overExcitationLimiter" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2_INIT"/>
     <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>

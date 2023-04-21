@@ -13,7 +13,7 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses_INIT;
 * of simulation tools for power systems.
 */
 
-partial model BaseGeneratorSynchronousExt_3E_INIT "Base initialization model for synchronous machine from external parameters with three windings"
+partial model BaseGeneratorSynchronousExt3W_INIT "Base initialization model for synchronous machine from external parameters with three windings"
   extends BaseGeneratorSynchronousExt_INIT;
 
   parameter Types.PerUnit XppqPu "Quadrature axis sub-transient reactance in pu";
@@ -36,4 +36,4 @@ equation
   LQ2Pu = 100000;
 
   annotation(preferredView = "text");
-end BaseGeneratorSynchronousExt_3E_INIT;
+end BaseGeneratorSynchronousExt3W_INIT;

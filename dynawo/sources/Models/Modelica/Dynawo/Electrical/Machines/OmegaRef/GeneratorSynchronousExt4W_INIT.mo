@@ -12,13 +12,13 @@ within Dynawo.Electrical.Machines.OmegaRef;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorSynchronousExt_4E_INIT "Synchronous machine with 4 windings - Initialization model from external parameters"
+model GeneratorSynchronousExt4W_INIT "Synchronous machine with 4 windings - Initialization model from external parameters"
 
   import Dynawo.Electrical.Machines;
 
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
-  extends BaseClasses_INIT.BaseGeneratorSynchronousExt_4E_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSynchronousExt4W_INIT;
   extends AdditionalIcons.Init;
 
 annotation(preferredView = "text");
-end GeneratorSynchronousExt_4E_INIT;
+end GeneratorSynchronousExt4W_INIT;

@@ -32,7 +32,7 @@ model InitializedGeneratorSynchronousThreeWindings "Model of synchronous generat
   parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant in s";
   parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant in s";
 
-  Machines.OmegaRef.GeneratorSynchronousExt_3E_INIT gen_init3(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0) ;
+  Machines.OmegaRef.GeneratorSynchronousExt3W_INIT gen_init3(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0) ;
 
 initial algorithm
   // Generator init values
