@@ -14,7 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
  <!-- Machine with three windings, a governor, a voltage regulator and a transformer, used for the Nordic 32 test system. -->
  <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_3E_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic_INIT"/>
     <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverNordic" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
     <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.GeneratorTransformer" initName="Dynawo.Electrical.Transformers.GeneratorTransformer_INIT"/>

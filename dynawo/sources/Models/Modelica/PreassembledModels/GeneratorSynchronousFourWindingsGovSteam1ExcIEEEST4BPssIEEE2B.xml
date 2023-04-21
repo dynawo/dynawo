@@ -14,7 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- Machine with four windings and standard IEEE regulations - GovSteam1, ExcIEEEST4B and PssIEEE2B -->
   <dyn:modelicaModel id="GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B_INIT"/>
     <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1" initName="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1_INIT"/>
     <dyn:unitDynamicModel id="pss" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>
