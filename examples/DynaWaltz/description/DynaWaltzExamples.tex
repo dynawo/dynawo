@@ -672,4 +672,75 @@ Following the generator disconnection, the voltage decreases on the whole networ
 \caption{Voltage evolution on different buses}
 \end{figure}
 
+\chapter{Nordic Test System}
+
+\section{Test case description}
+
+In an effort to provide proper models to industry, research and academia to facilitate the study of power system long-term dynamics and voltage stability assessment in general, the IEEE Power System Dynamic Performance Committee (PSDP) and the Test Systems for Voltage Stability and Security Assessment Task Force introduced the Nordic test system. It provides solid benchmarks for short- and long-term dynamic studies. This is achieved by including and properly tuning all the pertinent dynamic models. For the short-term dynamics, models such as Automatic Voltage Regulator (AVR), speed Governor (GOV) and Power System Stabilizers (PSS), among others are considered. As for the long-term dynamics, models such as Over-Excitation Limiter (OEL), automatic Load Tap Changers (LTC) and main flux saturation of synchronous machines are of particular importance.
+
+The Nordic test system is a variation of the so-called Nordic32 system, which was created by the CIGRE Task Force 38-02-08 in 1995 in order to illustrate the voltage collapse in Sweden that happened in the year 1983. Nevertheless, the system is not limited to long-term phenomena, its applicability to short-term dynamics such as transient stability and small-signal oscillatory angle stability is recognized.
+
+\section{System Description}\label{Secc: System Description}
+
+The Nordic test system, whose implementation in OpenModelica is depicted in Fig. \ref{fig: single_line} consists of 4 areas: an equivalent simplified network that has the biggest generators and therefore serves usually as the system reference, the northern region with few load and more generation, a central area with more load than generation and a southern region loosely connected to the rest of the system.
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{Nordic.png}
+  \caption{Nordic test system - OpenModelica single-line diagram.}
+  \label{fig: single_line}
+\end{figure}
+
+
+One important characteristic of the system is the high power transfer from the North to the Central area. This characteristic is what ultimately results in long-term voltage collapse if the power transfer capability is affected, e.g. by losing one of the transmission lines that connect both areas.
+
+All loads are connected to 20~kV buses (controlled by LTCs) and are represented by an exponential model which behavior is described as follows:
+
+\begin{equation} \label{Eq: 1}
+P=P_{0} \left(  \dfrac{V}{V_{0}} \right)   ^{\alpha}
+\end{equation}
+\begin{equation} \label{Eq: 2}
+Q=Q_{0} \left(  \dfrac{V}{V_{0}} \right)  ^{\beta}
+\end{equation}
+
+\noindent{being} $\alpha=1$ (constant current) and $\beta=2$ (constant impedance). $V_{0}$ assumes the voltage at initial conditions of the bus to which the load is connected.
+
+The Nordic test system makes use of hydro and thermal generation. Out of the total of twenty generators (nineteen generators and one synchronous condenser), the Equivalent and the North networks have twelve hydro generators that are modeled by salient-pole machines. The two biggest generators belong to the Equivalent grid while the North area has ten generators. On the other hand, there are seven thermal generators modeled by round-rotor machines, two of them belong to the small South region and the remaining five to the Central one that also has a synchronous condenser that is modeled as a salient-pole machine.
+
+\section{Results}
+
+The scenario consists of a three-phase fault at bus 4032 with a subsequent opening of the line 4032-4044 without further re-connection.
+The chain of events resulting in a voltage collapse runs as follows: a solid three phase fault is applied to the bus 4032. The line 4032-4044 is tripped 0.1 s later. The system is short-term stable and it settles to a new equilibrium in 30 s. At around 35 s, the LTCs start acting attempting to restore the distribution voltage and hence the load consumption. The action of the LTCs forces the generators to increase their reactive power injection and therefore their field current. Due to the actions of the LTCs, the OELs of some generators limit the field current. This leads to the voltage collapse depicted in the following figure.
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[height = 2 in]
+        \addplot[color=blue!50]
+            table[x=time,y=NETWORK_1041_131_Upu_value]
+        {../Nordic/outputs/curves/curves.csv};
+        \addplot[dashed, color=red!50]
+        table[x=time,y=NETWORK_1042_131_Upu_value]
+        {../Nordic/outputs/curves/curves.csv};
+    \legend{$Bus 1041$, $Bus 1042$}
+    \end{axis}
+  \end{tikzpicture}
+\caption{Voltage collapse in the Nordic Test System (voltages in pu)}
+\end{figure}
+
+When adding a Tap Changer Blocking Automaton, that blocks the LTCs when the voltage at bus 1042 is below 120kV, the voltage collapse is avoided, as shown in the following figure.
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[height = 2 in]
+        \addplot[color=blue!50]
+            table[x=time,y=NETWORK_1041_131_Upu_value]
+        {../NordicTCB/outputs/curves/curves.csv};
+        \addplot[dashed, color=red!50]
+        table[x=time,y=NETWORK_1042_131_Upu_value]
+        {../NordicTCB/outputs/curves/curves.csv};
+    \legend{$Bus 1041$, $Bus 1042$}
+    \end{axis}
+  \end{tikzpicture}
+\caption{Voltage collapse avoided in the Nordic Test System (voltages in pu)}
+\end{figure}
+
 \end{document}
