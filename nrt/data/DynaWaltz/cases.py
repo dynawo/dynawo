@@ -18,6 +18,24 @@ standardReturnCode = [0]
 standardReturnCodeType = "ALLOWED"
 forbiddenReturnCodeType = "FORBIDDEN"
 
+##########################################################################################
+#     Nordic Test System with a fault, the tripping of a line and a voltage collapse     #
+##########################################################################################
+case_name = "DynaWaltz - Nordic Test System"
+case_description = "Nordic Test System with a fault, the tripping of a line and a voltage collapse"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "Nordic", "Nordic.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################################################################
+#     Nordic Test System with a fault, the tripping of a line and a voltage collapse avoided thanks to the TCB    #
+###################################################################################################################
+case_name = "DynaWaltz - Nordic Test System - TCB"
+case_description = "Nordic Test System with a fault, the tripping of a line and a voltage collapse avoided thanks to the TCB"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "NordicTCB", "NordicTCB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #################################################
 #     IEEE14 - Generator disconnections         #
 #################################################
