@@ -64,7 +64,13 @@ equation
   keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and K * u < derLimitMin and pre(isFrozenMin);
   isFrozenMin = startFreezingMin or keepFreezingMin;
 
-  der(w) = if isFrozenMax then derLimitMax elseif isFrozenMin then derLimitMin else K * u;
+  if isFrozenMax then
+    w = limitMax;
+  elseif isFrozenMin then
+    w = limitMin;
+  else
+    der(w) = K * u;
+  end if;
 
   if limitMin > limitMax and DefaultLimitMax then
     y = limitMax;
