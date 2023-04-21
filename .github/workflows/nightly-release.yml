@@ -32,6 +32,11 @@ jobs:
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
+      - name: Build documentation
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-doc
+
       - name: Prepare files for distribution
         run: |
           export DYNAWO_HOME=$(pwd)
@@ -148,12 +153,17 @@ jobs:
           echo "ASSETS_URL=$ASSETS_URL" >> $GITHUB_ENV
 
           echo "Upload assets"
-          cd distributions
+          pushd distributions
           for FILE in *zip; do
             [ -f "$FILE" ] || break
             echo "Upload asset $FILE"
             upload_zip_file $UPLOAD_URL $FILE ${{ secrets.GITHUB_TOKEN }}
           done
+          popd
+
+          pushd documentation/dynawoDocumentation
+          upload_pdf_file $UPLOAD_URL DynawoDocumentation.pdf ${{ secrets.GITHUB_TOKEN }}
+          popd
 
       - name: INFO. Release assets
         run: eval $CURL_JSON $ASSETS_URL
