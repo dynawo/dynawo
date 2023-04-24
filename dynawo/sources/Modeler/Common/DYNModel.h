@@ -355,8 +355,9 @@ class Model {
    * @brief print initial values of the model
    *
    * @param directory directory where the file of initial values should be printed
+   * @param dumpFileName name of the file where to dump the values
    */
-  virtual void printInitValues(const std::string& directory) = 0;
+  virtual void printModelValues(const std::string& directory, const std::string& dumpFileName) = 0;
 
   /**
    * @brief evaluate the calculated variables of the model

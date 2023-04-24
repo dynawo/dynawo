@@ -109,6 +109,7 @@
   <xs:complexType name="OutputsEntry">
     <xs:sequence>
       <xs:element name="dumpInitValues" type="dyn:InitValuesEntry" minOccurs="0"/>
+      <xs:element name="dumpFinalValues" type="dyn:FinalValuesEntry" minOccurs="0"/>
       <xs:element name="constraints" type="dyn:ConstraintsEntry" minOccurs="0"/>
       <xs:element name="timeline" type="dyn:TimelineEntry" minOccurs="0"/>
       <xs:element name="timetable" type="dyn:TimetableEntry" minOccurs="0"/>
@@ -125,6 +126,8 @@
     <xs:attribute name="local" use="required" type="xs:boolean"/>
     <xs:attribute name="global" use="required" type="xs:boolean"/>
   </xs:complexType>
+
+  <xs:complexType name="FinalValuesEntry"/>
 
   <xs:complexType name="ConstraintsEntry">
     <xs:attribute name="exportMode" use="required" type="dyn:ConstraintsExportMode"/>

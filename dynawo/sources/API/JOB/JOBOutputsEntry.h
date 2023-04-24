@@ -24,6 +24,7 @@
 #include "JOBCurvesEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBFinalStateValuesEntry.h"
+#include "JOBFinalValuesEntry.h"
 #include "JOBInitValuesEntry.h"
 #include "JOBLogsEntry.h"
 #include "JOBLostEquipmentsEntry.h"
@@ -83,6 +84,18 @@ class OutputsEntry {
    * @return the init values entry container
    */
   boost::shared_ptr<InitValuesEntry> getInitValuesEntry() const;
+
+  /**
+   * @brief Final Values entry setter
+   * @param finalValuesEntry : FinalValues entry container for the job
+   */
+  void setFinalValuesEntry(const boost::shared_ptr<FinalValuesEntry>& finalValuesEntry);
+
+  /**
+   * @brief Final Values entries container getter
+   * @return the final values entry container
+   */
+  boost::shared_ptr<FinalValuesEntry> getFinalValuesEntry() const;
 
   /**
    * @brief Constraints entry setter
@@ -192,6 +205,7 @@ class OutputsEntry {
  private:
   std::string outputsDirectory_;                                        ///< directory for simulation outputs
   boost::shared_ptr<InitValuesEntry> initValuesEntry_;                  ///< Init Values entries container
+  boost::shared_ptr<FinalValuesEntry> finalValuesEntry_;                ///< Final Values entries container
   boost::shared_ptr<ConstraintsEntry> constraintsEntry_;                ///< Constraints entries container
   boost::shared_ptr<TimelineEntry> timelineEntry_;                      ///< Timeline entries container
   boost::shared_ptr<TimetableEntry> timetableEntry_;                    ///< Timetable entries container

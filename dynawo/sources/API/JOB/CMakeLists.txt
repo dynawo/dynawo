@@ -30,6 +30,7 @@ set(API_JOB_SOURCES
     JOBFinalStateEntry.cpp
     JOBFinalStateEntryFactory.cpp
     JOBFinalStateValuesEntry.cpp
+    JOBFinalValuesEntry.cpp
     JOBInitValuesEntry.cpp
     JOBInitialStateEntry.cpp
     JOBInitialStateEntryFactory.cpp
@@ -70,6 +71,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBFinalStateEntry.h
     JOBFinalStateEntryFactory.h
     JOBFinalStateValuesEntry.h
+    JOBFinalValuesEntry.h
     JOBInitValuesEntry.h
     JOBInitialStateEntry.h
     JOBInitialStateEntryFactory.h
