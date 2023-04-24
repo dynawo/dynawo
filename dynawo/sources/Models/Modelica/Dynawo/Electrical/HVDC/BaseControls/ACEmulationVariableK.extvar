@@ -12,8 +12,8 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable type="continuous" id="KACEmulation" optional="true"/>
+  <variable type="continuous" id="PRefSetPu" optional="true"/>
   <variable type="continuous" id="Theta1"/>
   <variable type="continuous" id="Theta2"/>
-  <variable type="continuous" id="KACEmulation"/>
-  <variable type="continuous" id="PRefSetPu" optional="true"/>
 </external_variables>
