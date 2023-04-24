@@ -57,7 +57,12 @@
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
 #pragma clang diagnostic ignored "-Wundef"
 #endif  // __clang__
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "simulation_data.h"
+#pragma GCC diagnostic pop
+
 #ifdef __clang__
 #pragma clang diagnostic pop
 #pragma clang diagnostic push

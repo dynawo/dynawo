@@ -1423,7 +1423,7 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
     # We need to fix the equations as sometime an embedded if is still dumped with a modelica_real tmp; if ... tmp = ...; else tmp = ...; in the final cpp
     idx = 0
     for main_tmp in tree_deps_tmp:
-        if "if" in equations[idx]  and "else" in equations[idx] and len(tree_deps_tmp[main_tmp]) > 1:
+        if ("if" in equations[idx] and "else " in equations[idx]) and len(tree_deps_tmp[main_tmp]) > 1:
             equations.insert(idx + 1, equations[idx][equations[idx].index("if"):equations[idx].index("else")])
             equations.insert(idx + 2, equations[idx][equations[idx].index("else"):])
             equations[idx] = equations[idx][:equations[idx].index("if")]
