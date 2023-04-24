@@ -382,6 +382,15 @@ class Simulation {
   }
 
   /**
+   * @brief setter for final values dump mode
+   * @param dumpFinalValues  @b true if final values should be dumped
+   * final values are the values of each models at the end of the simulation
+   */
+  inline void setDumpFinalValues(const bool dumpFinalValues) {
+    dumpFinalValues_ = dumpFinalValues;
+  }
+
+  /**
    * @brief indicates if the simulation has reached the stop time
    * @return @b true if current time >= stop time, @b false otherwise
    */
@@ -683,6 +692,7 @@ class Simulation {
   int  criteriaStep_;  ///< if activated, this number will be the number of iterations between two criteria checks
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
+  bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
