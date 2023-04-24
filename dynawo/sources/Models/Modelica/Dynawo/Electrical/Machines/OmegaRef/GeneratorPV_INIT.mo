@@ -14,6 +14,7 @@ within Dynawo.Electrical.Machines.OmegaRef;
 
 model GeneratorPV_INIT "Initialisation model for generator PV"
   import Dynawo.Electrical.Machines;
+  import Modelica;
 
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
@@ -23,7 +24,7 @@ model GeneratorPV_INIT "Initialisation model for generator PV"
 
   final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SystemBase.SnRef / SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
 
-  Types.VoltageModulePu URef0Pu "Initial voltage regulation set point in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealOutput URef0Pu "Initial voltage regulation set point in pu (base UNom)";
 
 equation
   URef0Pu = U0Pu + LambdaPu * QGen0Pu;

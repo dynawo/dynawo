@@ -201,6 +201,8 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
 
   // Transformer start values
   Connectors.ACPower terminal2;
+  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  flow Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
   Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   Integer Tap0 "Start value of transformer tap";
@@ -208,6 +210,8 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
   Constants.state state0 = Constants.state.Closed "Start value of connection state";
 
 equation
+ u20Pu = terminal2.V;
+ i20Pu = terminal2.i;
   // Initial ratio estimation
   if (NbTap == 1) then
     rTfo0Pu = rTfoMinPu;
@@ -264,6 +268,7 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
                                ---
 */
   import Dynawo.Electrical.SystemBase;
+  import Modelica;
 
   // Start values at terminal (network terminal side)
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -276,10 +281,10 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
   Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";
   Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 (base U2Nom)";
   Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
-  Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
-  Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (generator convention)";
-  Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
-  Types.Angle U2Phase0 "Start value of voltage angle in rad";
+  Modelica.Blocks.Interfaces.RealOutput U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
+  Modelica.Blocks.Interfaces.RealOutput P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput U2Phase0 "Start value of voltage angle in rad";
 
 equation
   s10Pu = Complex(P10Pu, Q10Pu);

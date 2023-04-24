@@ -18,6 +18,7 @@ package BaseClasses
   partial model BaseGeneratorSimplified "Base model for simplified generator models"
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
+    import Modelica;
     extends SwitchOff.SwitchOffGenerator;
 
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
@@ -31,8 +32,8 @@ package BaseClasses
 
     Types.ComplexApparentPowerPu SGenPu(re(start = PGen0Pu), im(start = QGen0Pu)) "Complex apparent power at terminal in pu (base SnRef) (generator convention)";
     Types.ActivePowerPu PGenPu(start = PGen0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QGenPu(start = QGen0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
-    Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
+    Modelica.Blocks.Interfaces.RealOutput QGenPu(start = QGen0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
+    Modelica.Blocks.Interfaces.RealOutput UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
 
   equation
     SGenPu = Complex(PGenPu, QGenPu);

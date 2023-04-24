@@ -728,6 +728,9 @@ class Factory:
 
                 if any(ext in " ".join(body_tmp) for ext in self.list_when_eq_to_filter):
                     continue
+                if "infoStreamPrint" in " ".join(body_tmp):
+                    # filter assert
+                    continue
                 self.list_call_for_setz.extend(body_tmp)
 
         for body in list_body_to_append_to_z:

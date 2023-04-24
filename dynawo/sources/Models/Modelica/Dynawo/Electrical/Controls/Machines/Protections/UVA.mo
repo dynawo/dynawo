@@ -16,6 +16,7 @@ model UVA "Under-Voltage Automaton"
   /* When the monitored voltage goes below a threshold (UMin)
      and does not go back above this threshold within a given time lag
      a tripping order is sent to the generator */
+  import Modelica;
   import Modelica.Constants;
   import Dynawo.Connectors;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -24,7 +25,7 @@ model UVA "Under-Voltage Automaton"
   parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in pu (base UNom)";
   parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
 
-  Types.VoltageModulePu UMonitoredPu "Monitored voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Monitored voltage in pu (base UNom)";
   Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
 
 protected
