@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNIoDico.h File Reference</title>
+<title>Dynawo: DYNInitXml.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,35 +97,26 @@ $(document).ready(function(){initNavTree('d5/d0f/a00494.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNIoDico.h File Reference</div>  </div>
+<div class="title">DYNInitXml.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>IOdico header IoDico read a dictionary file and return the message description associated to a key.  
+<p>Init xml parsers.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;unordered_set&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/noncopyable.hpp&gt;</code><br />
+<div class="textblock"><code>#include &quot;config.h&quot;</code><br />
+<code>#include &lt;xercesc/util/PlatformUtils.hpp&gt;</code><br />
 </div>
 <p><a href="../../d5/d0f/a00494_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d5d/a02596.html">DYN::OppositeEventDico</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d5d/a02596.html" title="OppositeEventDico class description. ">OppositeEventDico</a> class description.  <a href="../../df/d5d/a02596.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/df0/a02599.html">DYN::InitXerces</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d88/a02600.html">DYN::IoDico</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d88/a02600.html" title="IoDico class description. ">IoDico</a> class description.  <a href="../../d1/d88/a02600.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02604.html">DYN::IoDicos</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d7/d13/a02604.html" title="IoDicos class description. IoDicos read all the dictionary and give an access to a dictionary thanks ...">IoDicos</a> class description. <a class="el" href="../../d7/d13/a02604.html" title="IoDicos class description. IoDicos read all the dictionary and give an access to a dictionary thanks ...">IoDicos</a> read all the dictionary and give an access to a dictionary thanks to his name.  <a href="../../d7/d13/a02604.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d23/a02603.html">DYN::InitLibXml2</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>IOdico header IoDico read a dictionary file and return the message description associated to a key. </p>
+<div class="textblock"><p>Init xml parsers. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -142,8 +133,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d5/d0f/a00494.html">DYNIoDico.h</a></li>
-    <li class="footer">Generated on Mon Apr 24 2023 14:03:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d5/d0f/a00494.html">DYNInitXml.h</a></li>
+    <li class="footer">Generated on Mon Apr 24 2023 16:33:58 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

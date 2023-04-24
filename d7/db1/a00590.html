@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNModelMulti.h File Reference</title>
+<title>Dynawo: DYNModeler.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,34 +97,26 @@ $(document).ready(function(){initNavTree('d7/db1/a00590.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNModelMulti.h File Reference</div>  </div>
+<div class="title">DYNModeler.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class of model multi (contains all subModels and connectors between them)  
+<p>Modeler header : creates all submodels and connectors between them.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;set&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
-<code>#include &lt;boost/unordered_map.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d5c/a00578_source.html">DYNModel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/dc4/a00617_source.html">DYNVariable.h</a>&quot;</code><br />
-<code>#include &quot;DYNBitMask.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/db8/a00158_source.html">DYDModelicaModel.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d7/db1/a00590_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/deb/a02724.html">DYN::ModelMulti</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/dc7/a02712.html" title="Generic model Generic class for Model. ">Model</a> carrying multiple models Class for Multiple-Model.  <a href="../../d7/deb/a02724.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/a02728.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">struct used identify properties from a subModel found with a variable name  <a href="../../db/d59/a02728.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html">DYN::Modeler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class <a class="el" href="../../d1/d58/a02731.html" title="class Modeler ">Modeler</a>  <a href="../../d1/d58/a02731.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class of model multi (contains all subModels and connectors between them) </p>
+<div class="textblock"><p>Modeler header : creates all submodels and connectors between them. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -141,8 +133,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/db1/a00590.html">DYNModelMulti.h</a></li>
-    <li class="footer">Generated on Mon Apr 24 2023 14:03:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/db1/a00590.html">DYNModeler.h</a></li>
+    <li class="footer">Generated on Mon Apr 24 2023 16:33:58 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

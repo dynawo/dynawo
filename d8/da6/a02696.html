@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Delay Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d8/da6/a02696.html','../../');});
+$(document).ready(function(){initNavTree('dd/d9a/a02699.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,396 +94,231 @@ $(document).ready(function(){initNavTree('d8/da6/a02696.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../d6/da8/a02693.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Delay Class Reference</div>  </div>
+<div class="title">DYN::ConnectorCalculatedDiscreteVariable Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Structure to store delay variables.  
- <a href="../../d8/da6/a02696.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d0/d3e/a00566_source.html">DYNDelay.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab7d93521f5aee7cd0603623ddc5774ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#ab7d93521f5aee7cd0603623ddc5774ae">Delay</a> (const double *time, const double *value, double delayMax)</td></tr>
-<tr class="memdesc:ab7d93521f5aee7cd0603623ddc5774ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor by input reference.  <a href="#ab7d93521f5aee7cd0603623ddc5774ae">More...</a><br /></td></tr>
-<tr class="separator:ab7d93521f5aee7cd0603623ddc5774ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a066bf2ea3831f11182298025089d70c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a066bf2ea3831f11182298025089d70c2">Delay</a> (const std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;timepoints)</td></tr>
-<tr class="memdesc:a066bf2ea3831f11182298025089d70c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor by timepoints.  <a href="#a066bf2ea3831f11182298025089d70c2">More...</a><br /></td></tr>
-<tr class="separator:a066bf2ea3831f11182298025089d70c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a141efafced6dfae4c89ba693ced3e335"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a141efafced6dfae4c89ba693ced3e335">update</a> (const double *time, const double *value, double delayMax)</td></tr>
-<tr class="memdesc:a141efafced6dfae4c89ba693ced3e335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update reference internal values.  <a href="#a141efafced6dfae4c89ba693ced3e335">More...</a><br /></td></tr>
-<tr class="separator:a141efafced6dfae4c89ba693ced3e335"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e13e7cb98ce4578e952fb8b4a5787e0"><td class="memItemLeft" align="right" valign="top"><a id="a6e13e7cb98ce4578e952fb8b4a5787e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a6e13e7cb98ce4578e952fb8b4a5787e0">saveTimepoint</a> ()</td></tr>
-<tr class="memdesc:a6e13e7cb98ce4578e952fb8b4a5787e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Record a timepoint with the current value. <br /></td></tr>
-<tr class="separator:a6e13e7cb98ce4578e952fb8b4a5787e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2d79df83e2d2bc068db616b27f67c15"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#af2d79df83e2d2bc068db616b27f67c15">getDelay</a> (double delay) const</td></tr>
-<tr class="memdesc:af2d79df83e2d2bc068db616b27f67c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the delayed variable.  <a href="#af2d79df83e2d2bc068db616b27f67c15">More...</a><br /></td></tr>
-<tr class="separator:af2d79df83e2d2bc068db616b27f67c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ca59a5a64e4d53baa0b6f685415484f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a3ca59a5a64e4d53baa0b6f685415484f">size</a> () const</td></tr>
-<tr class="memdesc:a3ca59a5a64e4d53baa0b6f685415484f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the size of the delay.  <a href="#a3ca59a5a64e4d53baa0b6f685415484f">More...</a><br /></td></tr>
-<tr class="separator:a3ca59a5a64e4d53baa0b6f685415484f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb0937d3aa14780b0804a7140a53910d"><td class="memItemLeft" align="right" valign="top">const boost::optional&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#abb0937d3aa14780b0804a7140a53910d">initialValue</a> () const</td></tr>
-<tr class="memdesc:abb0937d3aa14780b0804a7140a53910d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves initial value of variable.  <a href="#abb0937d3aa14780b0804a7140a53910d">More...</a><br /></td></tr>
-<tr class="separator:abb0937d3aa14780b0804a7140a53910d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c64d6b07845e43b5cab444f1d92fc85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a1c64d6b07845e43b5cab444f1d92fc85">points</a> (std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;vec) const</td></tr>
-<tr class="memdesc:a1c64d6b07845e43b5cab444f1d92fc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the list of registered timepoints.  <a href="#a1c64d6b07845e43b5cab444f1d92fc85">More...</a><br /></td></tr>
-<tr class="separator:a1c64d6b07845e43b5cab444f1d92fc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e66f795abb1d007458c93c91848e17f"><td class="memItemLeft" align="right" valign="top"><a id="a7e66f795abb1d007458c93c91848e17f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a7e66f795abb1d007458c93c91848e17f">trigger</a> ()</td></tr>
-<tr class="memdesc:a7e66f795abb1d007458c93c91848e17f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger the delay to notify that we must start compute its value. <br /></td></tr>
-<tr class="separator:a7e66f795abb1d007458c93c91848e17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d5a7946b75ff88f90df7287408fc2be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a5d5a7946b75ff88f90df7287408fc2be">resetTrigger</a> ()</td></tr>
-<tr class="memdesc:a5d5a7946b75ff88f90df7287408fc2be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset trigger.  <a href="#a5d5a7946b75ff88f90df7287408fc2be">More...</a><br /></td></tr>
-<tr class="separator:a5d5a7946b75ff88f90df7287408fc2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2ede2c5b49279f45d16f284a36997b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#af2ede2c5b49279f45d16f284a36997b4">IsTriggered</a> () const</td></tr>
-<tr class="memdesc:af2ede2c5b49279f45d16f284a36997b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if delay is triggered.  <a href="#af2ede2c5b49279f45d16f284a36997b4">More...</a><br /></td></tr>
-<tr class="separator:af2ede2c5b49279f45d16f284a36997b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a8f5ee9acca02e0dfcab318ada1edf3aa"><td class="memItemLeft" align="right" valign="top"><a id="a8f5ee9acca02e0dfcab318ada1edf3aa"></a>
-const double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a8f5ee9acca02e0dfcab318ada1edf3aa">time_</a></td></tr>
-<tr class="memdesc:a8f5ee9acca02e0dfcab318ada1edf3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to time to use for timepoint and delay computation <br /></td></tr>
-<tr class="separator:a8f5ee9acca02e0dfcab318ada1edf3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a795dca7abc971d38f28e2f5423def346"><td class="memItemLeft" align="right" valign="top"><a id="a795dca7abc971d38f28e2f5423def346"></a>
-const double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a795dca7abc971d38f28e2f5423def346">value_</a></td></tr>
-<tr class="memdesc:a795dca7abc971d38f28e2f5423def346"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to value to use for timepoint <br /></td></tr>
-<tr class="separator:a795dca7abc971d38f28e2f5423def346"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8189823da13bd42b2aa2ff6e3fddc04e"><td class="memItemLeft" align="right" valign="top"><a id="a8189823da13bd42b2aa2ff6e3fddc04e"></a>
-<a class="el" href="../../da/dd3/a02736.html">RingBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#a8189823da13bd42b2aa2ff6e3fddc04e">buffer_</a></td></tr>
-<tr class="memdesc:a8189823da13bd42b2aa2ff6e3fddc04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ring buffer to manage the records <br /></td></tr>
-<tr class="separator:a8189823da13bd42b2aa2ff6e3fddc04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe42214626c0f00f6ea4506a6d739f91"><td class="memItemLeft" align="right" valign="top"><a id="afe42214626c0f00f6ea4506a6d739f91"></a>
-boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#afe42214626c0f00f6ea4506a6d739f91">initialValue_</a></td></tr>
-<tr class="memdesc:afe42214626c0f00f6ea4506a6d739f91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial value to use when delay cannot be computed. <br /></td></tr>
-<tr class="separator:afe42214626c0f00f6ea4506a6d739f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59319b00ae97098c93c234b7de4aaad"><td class="memItemLeft" align="right" valign="top"><a id="ab59319b00ae97098c93c234b7de4aaad"></a>
-boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da6/a02696.html#ab59319b00ae97098c93c234b7de4aaad">trigger_</a></td></tr>
-<tr class="memdesc:ab59319b00ae97098c93c234b7de4aaad"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-state trigger to determine the first time the delay is computed <br /></td></tr>
-<tr class="separator:ab59319b00ae97098c93c234b7de4aaad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure to store delay variables. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab7d93521f5aee7cd0603623ddc5774ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7d93521f5aee7cd0603623ddc5774ae">&#9670;&nbsp;</a></span>Delay() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::Delay::Delay </td>
-          <td>(</td>
-          <td class="paramtype">const double *&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double *&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>delayMax</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor by input reference. </p>
-<p>This constructor will be used during a normal simulation</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">time</td><td>pointer to the time variable used for this delay </td></tr>
-    <tr><td class="paramname">value</td><td>pointer to the value variable used for this delay </td></tr>
-    <tr><td class="paramname">delayMax</td><td>maximum allowed delay </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a066bf2ea3831f11182298025089d70c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a066bf2ea3831f11182298025089d70c2">&#9670;&nbsp;</a></span>Delay() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::Delay::Delay </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timepoints</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor by timepoints. </p>
-<p>This constructor wil be used to start a simulation from a dump</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timepoints</td><td>the list of the timepoints to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af2d79df83e2d2bc068db616b27f67c15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2d79df83e2d2bc068db616b27f67c15">&#9670;&nbsp;</a></span>getDelay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::Delay::getDelay </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>delay</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves the delayed variable. </p>
-<p>Use the underlying ring buffer</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">delay</td><td>the delay to apply</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the value where timepoint is the delayed time value </dd></dl>
-
-</div>
-</div>
-<a id="abb0937d3aa14780b0804a7140a53910d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb0937d3aa14780b0804a7140a53910d">&#9670;&nbsp;</a></span>initialValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const boost::optional&lt;double&gt;&amp; DYN::Delay::initialValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves initial value of variable. </p>
-<dl class="section return"><dt>Returns</dt><dd>initial value </dd></dl>
-
-</div>
-</div>
-<a id="af2ede2c5b49279f45d16f284a36997b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2ede2c5b49279f45d16f284a36997b4">&#9670;&nbsp;</a></span>IsTriggered()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::Delay::IsTriggered </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines if delay is triggered. </p>
-<dl class="section return"><dt>Returns</dt><dd>Whether the trigger has been activated by <em><a class="el" href="../../d8/da6/a02696.html#a7e66f795abb1d007458c93c91848e17f" title="Trigger the delay to notify that we must start compute its value. ">trigger()</a></em> function </dd></dl>
-
-</div>
-</div>
-<a id="a1c64d6b07845e43b5cab444f1d92fc85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c64d6b07845e43b5cab444f1d92fc85">&#9670;&nbsp;</a></span>points()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Delay::points </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vec</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves the list of registered timepoints. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vec</td><td>the list of registered time points </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a5d5a7946b75ff88f90df7287408fc2be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d5a7946b75ff88f90df7287408fc2be">&#9670;&nbsp;</a></span>resetTrigger()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Delay::resetTrigger </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset trigger. </p>
-<p>This has no effect if trigger is not activated. After this call, the trigger can no longer be activated </p>
-
-</div>
-</div>
-<a id="a3ca59a5a64e4d53baa0b6f685415484f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ca59a5a64e4d53baa0b6f685415484f">&#9670;&nbsp;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t DYN::Delay::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves the size of the delay. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of saved timepoints </dd></dl>
-
-</div>
-</div>
-<a id="a141efafced6dfae4c89ba693ced3e335"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a141efafced6dfae4c89ba693ced3e335">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Delay::update </td>
-          <td>(</td>
-          <td class="paramtype">const double *&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double *&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>delayMax</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Update reference internal values. </p>
-<p>This function MUST NOT be called for delays constructed with the references (Delay(time, value, delayMax))</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">time</td><td>pointer to the time variable used for this delay </td></tr>
-    <tr><td class="paramname">value</td><td>pointer to the value variable used for this delay </td></tr>
-    <tr><td class="paramname">delayMax</td><td>maximum allowed delay </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d0/d3e/a00566_source.html">DYNDelay.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4754b897c4fca929c4ff5fc3860bc33b">addConstraint</a>(const std::string &amp;modelName, bool begin, const Message &amp;description, const std::string &amp;modelType=&quot;&quot;, const boost::optional&lt; constraints::ConstraintData &gt; &amp;constraintData=boost::none)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a94595db4b9e7456f45acb375dcd8a015">addCurve</a>(boost::shared_ptr&lt; curves::Curve &gt; &amp;curve)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa53743a51dd235ef0386b75d3bd0cfdc">addEvent</a>(const std::string &amp;modelName, const MessageTimeline &amp;messageTimeline)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#abd7afebdd5afd987560d1c19384943c5">addMessage</a>(const std::string &amp;message)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a5d288e52e050ad9870db34b59e02b8eb">addParameter</a>(const ParameterModeler &amp;parameter, const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4ba1fd04e00fe21378111c5378487aa8">addParameterCurve</a>(boost::shared_ptr&lt; curves::Curve &gt; &amp;curve)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a995b41ea7082326f866004400a9fe68b">addParameters</a>(const std::vector&lt; ParameterModeler &gt; &amp;parameters, const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a85fe6b1a98020baf8098c209b8695a87">calculatedVars_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4fd58c3d7f863e840e0dc2da1c601c7b">checkDataCoherence</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a505a0010a5ff628c7e867ef42a992052">checkDataCoherenceSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a6cf80192f0a8a3dc4c75095a7d7ab7f6">checkParametersCoherence</a>() const</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a31d6f32875b5d2786e3f8d98066e2138">collectSilentZ</a>(BitMask *silentZTable)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#abcfee1fd9a7953846cde1094773b5ba2">ConnectorCalculatedDiscreteVariable</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a91601bba145712db1905a55a5b0a2fef">defineElements</a>(std::vector&lt; Element &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a958f711e45ee059b0dc16838aea0fb00">DYN::SubModel::defineElements</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4e3f8753a91f54e3dc54222e6cf124bc">defineNames</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a5d9a36345ac4f37ebdda0707eeebd0d9">defineNamesImpl</a>(std::vector&lt; boost::shared_ptr&lt; Variable &gt; &gt; &amp;variables, std::vector&lt; std::string &gt; &amp;zNames, std::vector&lt; std::string &gt; &amp;xNames, std::vector&lt; std::string &gt; &amp;calculatedVarNames)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa8cdd77774175355f5d7c87024783b49">defineNamesInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a886939a746b1dfc080cee43a6f359803">defineParameters</a>(std::vector&lt; ParameterModeler &gt; &amp;parameters)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a645cbcde26f5db994c7ed125ab9e5c20">DYN::SubModel::defineParameters</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a02a92f3039d507f7953e53ceda558178">DYN::SubModel::defineParameters</a>(const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a61453cb1aa0514cbbffac97cbb73eb91">defineParametersInit</a>(std::vector&lt; ParameterModeler &gt; &amp;parameters)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a475d4928f8db4f7ec65bf80ad40eae6c">DYN::SubModel::defineParametersInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ad114c41046f8eab649f7805968775cd0">defineVariables</a>(std::vector&lt; boost::shared_ptr&lt; Variable &gt; &gt; &amp;variables)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a26356e905878b5bdecc9b4166f4034c0">DYN::SubModel::defineVariables</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a1e7abd5cc22398cea9c2169d9f4c2587">defineVariablesInit</a>(std::vector&lt; boost::shared_ptr&lt; Variable &gt; &gt; &amp;variables)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aedb80e8617cc143501bdbc08fc0c7261">DYN::SubModel::defineVariablesInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a79477eacc76481d19f6be112a8cd9aeb">dumpParameters</a>(std::map&lt; std::string, std::string &gt; &amp;mapParameters)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a760f00ec138bebb7a54d2edd37dbe876">dumpUserReadableElementList</a>(const std::string &amp;nameElement) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a870988a00d88280fdb02c661aef58e1f">dumpVariables</a>(std::map&lt; std::string, std::string &gt; &amp;mapVariables)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#af43d06243ca33e1155662ce1db01cc40">evalCalculatedVarI</a>(unsigned iCalculatedVar) const</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ac1ab105d1f210d82aa92d3051b87eccb">evalCalculatedVariablesSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a6a35945614f2b37c1c932aeca60c5147">evalCalculatedVars</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a728e6df0c2cb245bf1b7a9ee1eef6e74">evalDynamicFType</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a5f9af8157477ca9cad8ac1f5f73a1369">evalDynamicYType</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a97d8b4aba2cb4a4c6cb2a5b88c56d2f7">evalF</a>(double t, propertyF_t type)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a68620ba993cc35e3498b7464a994ece6">evalFDiffSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0306206a60e4f5111a821ba6f9ac9a00">evalFSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a5cf4fb41de07746e46696be7ebaeac2c">evalG</a>(const double t)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a2b77dab3ac2be6d09951df3dde8a77cc">evalGSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a31a82a5d4628551699d309ded0cf7d88">evalJCalculatedVarI</a>(unsigned iCalculatedVar, std::vector&lt; double &gt; &amp;res) const</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a8292c649002a7f557954a93529464cc9">evalJt</a>(const double t, const double cj, SparseMatrix &amp;Jt, const int rowOffset)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#af98e5e956b77a3ef90c4bab5e560b9a8">evalJtPrim</a>(const double t, const double cj, SparseMatrix &amp;Jt, const int rowOffset)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ae712b05f9b4e74fb9e6ee1aceb8ca2fe">evalJtPrimSub</a>(const double t, const double cj, SparseMatrix &amp;jt, int &amp;rowOffset)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa46958b709c957f00bc04500c44ef6d1">evalJtSub</a>(const double t, const double cj, SparseMatrix &amp;Jt, int &amp;rowOffset)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ab9cd9e4d1ab0a9c8dcc2879ce135ed8a">evalMode</a>(const double t)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0fcb7bd1dca599c91ce34046775d65eb">evalModeSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a2d3207aec9c5669c1e76d3a70269c8d1">evalStaticFType</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a631b7b1feeb469e3f5acf11fea1d1f33">evalStaticYType</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a1c692ac6ef522feaaae90fe4e09b3fb1">evalZ</a>(const double t)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a6dccd17143bfe6875793e77c44753174">evalZSub</a>(const double t)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a49b2f75e82e82e317315b08d5c697c46">fDeb</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4e072b208fe98722710e0bf1ced25e9d">fDeb_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4144950a2e215502c1471465f934dc3c">fEquationIndex_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad0073396aa22dc1df9c4cda71d3bcfb5">fEquationInitIndex_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aea96dc28f8497d49a3b7eb61795fcee8">findParameter</a>(const std::string &amp;name, const bool isInitParam) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aaa5f372d5af8b2bb6e887cb8418173d5">findParameterDynamic</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a02f422b9728ccc4a2a4dd78cfa983f07">findParameterInit</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a2e7fbd704c3b41e9d58c963cf48d5e38">fLocal_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0bf81dae6d784cc120de744752439ea6">fLocalInit_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a41a82f1f3b85b50ebc04e45d1e1a93f9">fType_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aadac202837bb3dff7d572f482e239871">gDeb</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a69550a141fdacdffd220fb46e9b4e59a">gDeb_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ae511ea4542a4da913b86a6e5377d1e14">gEquationIndex_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a8b5503b9c0b5e8b20c32eb5d79a531b2">gEquationInitIndex_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a41edae37a8e7af253a01121923a038dd">getCalculatedVar</a>(int indexCalculatedVar)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a660d82248e5fe473daebdae96e038e32">getCalculatedVarName</a>(const unsigned int index)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a04738b2b43e8078ec69e071d8177381f">getCalculatedVarNames</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0643e88e5a8c82e516ce788fa3a354fd">getCalculatedVarNamesInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a8e58f132d16f647c0ce71d725ee17193">getCurrentTime</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a6b29a20466472e45e348133b1b548bfe">getElements</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aad43f10b30d8b4592101960526ff5804">getFequationByLocalIndex</a>(const int index)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a973874b56f8a19d1a4c9f38a8d6c31ca">getGequationByLocalIndex</a>(const int index)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a970b8620a24533e4ed496cdae42506b4">getIndexesOfVariablesUsedForCalculatedVarI</a>(unsigned iCalculatedVar, std::vector&lt; int &gt; &amp;indexes) const</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a59c96c7de310636579afa1f2f04ac14d">getIsInitProcess</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aed59444912b966cd6fa30e953fc7fc1d">getOffsetY</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a1f16607da320d5aa5e0508070059f871">getParameters</a>(const bool isInitParam) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad4cddfb0cdd418dc581b04196b045e12">getParametersDynamic</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#adf4e99a8ffbc97d588fe4218f6e8b345">getParametersInit</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ad8ce0d83beab3721b76dc90bb46fb13b">getSize</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a6e9d7648e585a330971c9e6a66c47476">getSubModelParameterValue</a>(const std::string &amp;nameParameter, std::string &amp;value, bool &amp;found)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a35a6c1f1fa9c2c814e2329e309f44400">getVariable</a>(const std::string &amp;variableName) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a43df8d174344a01aad06badee0676622">getVariableByName</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aac70903e5e87ffc2bf3909eb2083962e">getVariableIndexGlobal</a>(const boost::shared_ptr&lt; Variable &gt; &amp;variable) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0795a3e71ed406b4fe55d3d390d82d0a">getVariableValue</a>(const std::string &amp;nameVariable) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa1bcbf7fd7c398d7a8d5a84b6a4c6c81">getVariableValue</a>(const boost::shared_ptr&lt; Variable &gt; &amp;variable) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa03d7cbe19f43e2ae7ba8e8b355c2acd">getWorkingDirectory</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a9f97a6ccf2c6050664b98f4122263e63">getY0</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a74e38a4a49c6486151e22f2ec7918f08">getY0Sub</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a8504c3ee781b6c5a7916d161fa479d47">getY0Values</a>(std::vector&lt; double &gt; &amp;y0, std::vector&lt; double &gt; &amp;yp0, std::vector&lt; double &gt; &amp;z0)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#af2ee2911c12160300cb209798afd03ac">getYType</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a408f073a791e9c9b49581f92aa751720">getZ</a>(std::vector&lt; double &gt; &amp;z)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad6e7574f5e7c9637ee7c28524774723f">gLocal_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#af45f6172588a5c161cb1a06826f4898b">hasConstraints</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a72ae69f1d1f8da7ce4245c0c0ae408de">hasDataCheckCoherence</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ae4e1436a5b747ea5b12d03a3df85310b">hasParameter</a>(const std::string &amp;nameParameter, const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a3b32c0f1ba605254230095fa9b7c1431">hasParameterDynamic</a>(const std::string &amp;nameParameter)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a92bcc236a2dd5138a8f305086e507889">hasParameterInit</a>(const std::string &amp;nameParameter)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ac43c9a5f128f0999f3b4fc061ad8db0d">hasTimeline</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aef1fe9fc960a7ab4fbb4f528ef8a12cb">hasVariable</a>(const std::string &amp;nameVariable) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#af6d1625624aaca3b25a3b749abd150ef">hasVariableInit</a>(const std::string &amp;nameVariable) const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a676368141d6d501f2bd514d8d1be0a64">indexCalculatedVariable_</a></td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a8f8bb8c56867fda22f9eae7f5996a82f">init</a>(const double t0)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a35a57de8e2623d3ad31c294a34aa1453">initFromData</a>(const boost::shared_ptr&lt; DataInterface &gt; &amp;data)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ac4de35b10ddfa56e0f852a1e5808bf90">initializeFromData</a>(const boost::shared_ptr&lt; DataInterface &gt; &amp;data)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a7906cf9db47cbcad18f38b25a7dc1c13">initializeStaticData</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a2a9b39f7ae3bf4f21967e49aec1bfe30">initParams</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a99727f07b192bc54d86a330f59fa3964">initSize</a>(int &amp;sizeYGlob, int &amp;sizeZGlob, int &amp;sizeModeGlob, int &amp;sizeFGlob, int &amp;sizeGGlob)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0b3b495d1855319c0a4515dcbc43f734">initStaticData</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa766cedd5e8ae36097412d7568632275">initSub</a>(const double t0, boost::shared_ptr&lt; parameters::ParametersSet &gt; localInitParameters)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ae6c3b866a7648209323e47da903fbad7">initSubBuffers</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4549fbd3c5c233ebbd6cd88f3f0fc447">instantiateNonUnitaryParameters</a>(const bool isInitParam, const std::map&lt; std::string, ParameterModeler &gt; &amp;nonUnitaryParameters, boost::unordered_set&lt; std::string &gt; &amp;addedParameter)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a7f9970b469dd3112d6d3a6f059907e92">loadParameters</a>(const std::string &amp;parameters)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a07be52500cbfbe5bfb700963f1d81232">DYN::SubModel::loadParameters</a>(const std::map&lt; std::string, std::string &gt; &amp;mapParameters)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ab827bdacaf201bccd66841228f6bc2dd">loadVariables</a>(const std::string &amp;variables)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a632d46be10667adab02c8bbace0666a9">DYN::SubModel::loadVariables</a>(const std::map&lt; std::string, std::string &gt; &amp;mapVariables)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ae3bbe13ab64f817fdfd6408d825cb8e6">localInitParameters_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa04bc54826f9fb6e3a4bdb4019a3f0a0">modeChange</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a7f9e8d40c4a5c5b008b6d568e34b325b">modeChange</a>(const bool modeChange)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ab801a074af3b41dd8403588a16b81311">modeDeb_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#addd3b7fafca9e0002f8639b014259da4">model_</a></td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#aadafad16e623247fcf0ca09103b7bd84">modelType</a>() const</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a04c27cba14804926f308a52c2f763623">name</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a925f48076202358c5262b933a8386d1d">name</a>(const std::string &amp;name)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ae1845095b4ef0b8c0457e21052e08a53">notifyTimeStep</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad3549db6a9087e88daa18219e26f9ff7">offsetY_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#afb336cce2572005686530ddbf2d81461">operator=</a>(SubModel &amp;&amp;)=default</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#af11e7d44538b31d3732fa944f89428a3">parametersDynamic_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#adf72905dfc581f53e294309a39515da3">parametersFileName</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0901585e4693f7a4b11282ea8d79871e">parametersInit_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a2b51c163f08869b1d58323bd7701355e">prevZValue_</a></td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a19a39f028c68e5d8ba03247dd2e04532">printInitValuesParameters</a>(std::ofstream &amp;fstream)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a93c72f8f43cf81b7a3a20105a62a3f6b">printInitValuesVariables</a>(std::ofstream &amp;fstream)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a744c9372750ae424bb2bb9d557574a51">printLocalInitParametersValues</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a30ac8bc3007425c7c224b1e335cd5fcc">printMessages</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a59604e226486dfac7e660aa6534e8bfe">printModel</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a1899acfc2d9ec4a8aab429384492a9ad">printModelValues</a>(const std::string &amp;directory, const std::string &amp;dumpFileName)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#addc2bcdffe4ade923ae59a25899fc354">printParameterValues</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a79d86a5f23a7fe16764550ecf3140da3">readPARParameters_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a6f4bb70edb67a1642d19ebfece081ade">releaseElements</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a8c78b061555925bd2c2bc2b7887ea8cc">resetParameters</a>(const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#aa6d89d784e42c1088b5ee3b12f53c286">rotateBuffers</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ade3126db2ba309a4af810abb8d45d6b5">setBufferF</a>(double *f, const int offsetF)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a6d459fd1401d03dc6855fd5d0811d5c1">setBufferFType</a>(propertyF_t *fType, const int offsetFType)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a74f17233e56c314c6a1e12b381a9dc47">setBufferG</a>(state_g *g, const int offsetG)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a605ac79b9072c26cb003a0c1b4574e6f">setBufferY</a>(double *y, double *yp, const int offsetY)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa2a45b06f129ea218b45f79a8cf4cb32">setBufferYType</a>(propertyContinuousVar_t *yType, const int offsetYType)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad74a9ca804bc2641376502f36f27d6bf">setBufferZ</a>(double *z, bool *zConnected, int offsetZ)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a2e575f4056a3b5458b8a70766e741f8d">setConstraints</a>(const boost::shared_ptr&lt; constraints::ConstraintsCollection &gt; &amp;constraints)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a16ce07c46b7fdcbdb766f4523bc3a7e4">setCurrentTime</a>(const double time)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a3b5d7289d889d9b8b9b7bec1694af8f7">setFequations</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a8c8602b55354e2a657713927d7610ad6">setFequationsInit</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ada88673887533d61a67192d5e9d25dae">setFequationsSub</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ab37589a83da6bd403a7cd3facf7dbd68">setGequations</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a373d1eefe0e5174deebee0242c1375fd">setGequationsInit</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a159abc69341dfa4c740efc00d7281cdb">setGequationsSub</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a894b056cdc6b1323ce11ecebb8fa3127">setIsInitProcess</a>(bool isInitProcess)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#acf103f7fd6d11afdc386716badb42354">setModeChangeType</a>(const modeChangeType_t &amp;modeChangeType)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a3c76487ea6e086a5701f69e25c8cfba5">setParameterFromPARFile</a>(const std::string &amp;parameterName, const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad19ab5bb5b0e8d770c7867daa4589c5b">setParameterFromSet</a>(ParameterModeler &amp;parameter, const boost::shared_ptr&lt; parameters::ParametersSet &gt; &amp;parametersSet, const parameterOrigin_t &amp;origin)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a6ccbbe9ea000c846d0f3fcf1f573e4ad">setParametersFromPARFile</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a28865f864ffaa87e4a75a3402efd1625">setParametersFromPARFile</a>(const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a2dc5b5dbe842bb6799006e17e410315a">setParameterValue</a>(const std::string &amp;name, const parameterOrigin_t &amp;origin, const T &amp;value, const bool isInitParam)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#aa3744ee675aa01cf4229524a426da5f6">setParams</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model, const int indexCalculatedVariable)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a67234526c485cc0c34cc057d99939b36">setPARParameters</a>(const boost::shared_ptr&lt; parameters::ParametersSet &gt; &amp;params)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ae8a6c3720f3b3564f4fc10bb8c9f26a1">setSharedParametersDefaultValues</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#af5a3a6df3849bb32eaf3b013ab126ddb">setSharedParametersDefaultValuesInit</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a99f1c5a24deb4096d39cbd549281f703">setSubModelParameters</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a92cfd1aff54e57583c9e27299c7ebfac">setTimeline</a>(const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a5242d643cfde6d2ab34b7cd80a926f09">setVariableName</a>(std::string variableName)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a334ed0c43b8ce5378d6df19e35b1c227">setWorkingDirectory</a>(const std::string &amp;workingDirectory)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a35ff11ee1608946db55852af1491858f">sizeCalculatedVar</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a7d89f32133c61d8e2295c5efa893ac47">sizeCalculatedVar_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a55a0f15c850f09186580519c10882e60">sizeF</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#af57d2b722aa3e20ba42224c1d05ac154">sizeF_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a9fc3b49410eb56662e04c9a9c2070bed">sizeFInit</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a2cc4c706b85b83c0728ff7adf1cfb1d6">sizeG</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a07fc8bf5734ec0a5af35fc4e56dbbf29">sizeG_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a78ccd508d67f55435199d521545deac3">sizeGInit</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#af8fe7bda256449bd3ddbf35cba0efff2">sizeMode</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0ae4d10bc32e04bffb317ffda4f60b75">sizeMode_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a54cff26bb4995da5fddd20b82d50654f">sizeY</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#af631d1ab41e2e0de82e485976731f94b">sizeY_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#adcd711bd82d66e5812dcfe2479462eb6">sizeZ</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ae7d999f960a86b76ef512ce22a4cf715">sizeZ_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a57c153cae0c0cc21d41b5542fa5394c1">staticId</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0ab5828c68576c9d383883c8ec6179ab">staticId</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ad74b53a071129766d2bb9cf432d221f1">SubModel</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a8b4a440e4a001e0da6890058e853a960">SubModel</a>(SubModel &amp;&amp;)=default</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a1692c0c3b6f1151590e85786e7398258">updateCalculatedVarForCurve</a>(boost::shared_ptr&lt; curves::Curve &gt; &amp;curve)</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a5a26bc918cc5d8c937b7d3496967261e">variableName_</a></td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ab88dd80240a7290055a62946ff4c0b1f">variablesByName_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a45f07d3c603563b860b9488da9fcabaa">variablesByNameInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ade2474537851e941de94fae9729057d1">variablesByNameInit_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a0492a323276da4957bedce0d998d9b7d">variablesFileName</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a29bdea291963749b5afbf06a83494bc8">withLoadedParameters_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#af2b6c7d416d3f56d0f9533ff8a8fd0d7">withLoadedVariables_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ac75c6c0614bb31c1768c8961560cf604">xAliasesNames</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a2a9551afe323ccccfb6a12897257e12a">xNames</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a79d011084d19186bf843a6431c57f7d4">xNamesInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#ac40acc09fba92e27bb03f726333328c1">yDeb</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a06e7da52a8143b6370f24e9b7334b481">yDeb_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a3aeabff5f8a67b1878b6b4054ed42beb">yLocal_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#ac51f74b0780496853cae8cc0434c41ea">yLocalInit_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a528e9b3ca588c396ddb95d3aed861454">ypLocal_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a436353bf09939a34e3bc6d31f7877c59">ypLocalInit_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a4f4bc2692ded0f658542ed94cabf6e35">yType_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a01ae127c90132d1de2cb722abb85c481">zAliasesNames</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a02ce72a645bae60a41595816d7423346">zDeb</a>() const</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#af15987a7f0fb4064d4d48d39cf7ef93c">zDeb_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#af06a5b214fad1d404889501e3f9c585d">zLocal_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#acec224c631f5e0d483eedccbd9de59a7">zLocalConnected_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a6601f3b7f92f0f4561b7679da3829e5f">zLocalInit_</a></td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d02/a02755.html#a837516a82adc0c016f45490f578fb051">zNames</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#aa1709a1ce20c764697e6abc23f5c692f">zNamesInit</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#ac7b89d82d751838a150fe21ef0a13509">~ConnectorCalculatedDiscreteVariable</a>()</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::ConnectorCalculatedDiscreteVariable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d02/a02755.html#a62037734dd8e12f926685f1d82a44a96">~SubModel</a>()</td><td class="entry"><a class="el" href="../../df/d02/a02755.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -499,8 +334,7 @@ boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d8/da6/a02696.html">Delay</a></li>
-    <li class="footer">Generated on Mon Apr 24 2023 14:03:17 for Dynawo by
+    <li class="footer">Generated on Mon Apr 24 2023 16:33:58 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
