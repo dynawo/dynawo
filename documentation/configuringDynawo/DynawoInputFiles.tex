@@ -96,6 +96,7 @@ Warning: the following example files are extracted from IEEE14 case in \Dynawo a
 
 \subsection{jobs file}
 
+\subsubsection{Overview}
 The jobs file gathers information about the solver to use, the models to use, the simulation characteristics and the outputs wanted.
 
 Here is an example on a jobs file:
@@ -117,9 +118,838 @@ temporary file in \path{outputs/} directory to offer the possibility to follow t
 
 Absolute and relative paths can be used and mixed in a single jobs file. Relative paths refer to the directory where the jobs file is located.
 
-\subsection{iidm file}
+\subsubsection{jobs xml element}
 
-The iidm file represents the network to simulate with a static representation: it lists all the components present in the network and how they are connected. \\
+The \textit{jobs} element contains one or more \textit{job} elements. Each job describes a simulation that will be run sequentially by \Dynawo, as shown below.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}& \textbf{{Section}}\\
+\midrule
+\small{job} & \small{Unlimited} & \small{Description of a simulation that will be run by \Dynawo}  & \ref{DynawoInputFiles_inputs_jobs_job_tag}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{jobs} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={name}]
+<jobs xmlns="http://www.rte-france.com/dynawo">
+  <job name="MyFirstJOB">
+    ...
+  </job>
+  <job name="MySecondJOB">
+    ...
+  </job>
+</jobs>
+\end{lstlisting}
+
+\subsubsection{jobs/job element}
+\label{DynawoInputFiles_inputs_jobs_job_tag}
+
+A \textit{job} provides all the required data for \Dynawo to run a simulation.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{name} & \small{Required} & \small{Name of the current job (for logs)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{job} tag}
+\end{table}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}& \textbf{{Section}}\\
+\midrule
+\rowcolor{white}
+\small{solver} & \small{1 (required)} & \small{Description of the solver}  & \ref{DynawoInputFiles_inputs_jobs_job_solver}\\
+\rowcolor{gray!10}
+\small{modeler} & \small{1 (required)} & \small{Description of the power system}  & \ref{DynawoInputFiles_inputs_jobs_job_modeler}\\
+\rowcolor{white}
+\small{simulation} & \small{1 (required)} & \small{Description of the simulation parameters}  &  \ref{DynawoInputFiles_inputs_jobs_job_simulation}\\
+\rowcolor{gray!10}
+\small{outputs} & \small{0-1 (optional)} & \small{Description of the expected outputs of the simulation}  &  \ref{DynawoInputFiles_inputs_jobs_job_outputs}\\
+\rowcolor{white}
+\small{localInit} & \small{0-1 (optional)} & \small{Parameters of the solver during power system initialization}  & \ref{DynawoInputFiles_inputs_jobs_job_localInit}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{job} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={name}]
+  <dyn:job name="MyFirstJOB">
+    <dyn:solver .../>
+    <dyn:modeler ...>
+      ...
+    </dyn:modeler>
+    <dyn:simulation ...>
+      ...
+    </dyn:simulation>
+    <dyn:outputs ...>
+      ...
+    </dyn:outputs>
+    <dyn:localInit .../>
+  </dyn:job>
+\end{lstlisting}
+
+\subsubsection{jobs/job/solver element}
+\label{DynawoInputFiles_inputs_jobs_job_solver}
+
+The job \textit{solver} element file specifies the solver to use for the simulation. In \Dynawo two solvers are available:
+\begin{itemize}
+\item the simplified solver (fixed time step solver): dynawo\_SolverSIM;
+\item the IDA solver (variable time step solver): dynawo\_SolverIDA;
+\end{itemize}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{lib} & \small{Required} & \small{Name of the solver to use (dynawo\_SolverIDA or dynawo\_SolverSIM)}\\
+\rowcolor{gray!10}
+\small{parFile} & \small{Required} & \small{Path to the file containing the solver parameters (relative to jobs filepath)}\\
+\rowcolor{white}
+\small{parId} & \small{Required} & \small{Id of the parameter set containing the solver parameters}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{solver} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={lib}]
+<job name="MyJOBIDA">
+  <solver lib="dynawo_SolverIDA" parFile="MyPAR.xml" parId="0"/>
+  ...
+</job>
+<job name="MyJOBSIM">
+  <solver lib="dynawo_SolverSIM" parFile="MyPAR.xml" parId="1"/>
+  ...
+</job>
+\end{lstlisting}
+
+Please refer to \ref{DynawoInputFiles_inputs_par_solver} for a description of solver parameters.
+
+\subsubsection{jobs/job/modeler element}
+\label{DynawoInputFiles_inputs_jobs_job_modeler}
+
+The job \textit{modeler} element file describes the power system that will be simulated.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{compileDir} & \small{Required} & \small{Path where the models compiled on-the-fly will be stored}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{modeler} tag}
+\end{table}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}& \textbf{{Section}}\\
+\midrule
+\rowcolor{white}
+\small{network} & \small{0-1 (optional)} & \small{Description of static model (IIDM)}  & \ref{DynawoInputFiles_inputs_jobs_job_modeler_network}\\
+\rowcolor{gray!10}
+\small{dynModels} & \small{Unlimited (required)} & \small{Description of dynamic models}  & \ref{DynawoInputFiles_inputs_jobs_job_modeler_dynModels}\\
+\rowcolor{white}
+\small{initialState} & \small{0-1 (optional)} & \small{Description of the initial state to use for the simulation}  & \ref{DynawoInputFiles_inputs_jobs_job_modeler_initialState}\\
+\rowcolor{gray!10}
+\small{precompiledModels} & \small{1 (required)} & \small{Description of the pre-assembled models library to use}  & \ref{DynawoInputFiles_inputs_jobs_job_modeler_precompiledModels}\\
+\rowcolor{white}
+\small{modelicaModels} & \small{1 (required)} & \small{Description of the Modelica models to use}  & \ref{DynawoInputFiles_inputs_jobs_job_modeler_modelicaModels}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{modeler} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={network, dynModels, initialState, precompiledModels, modelicaModels}]
+<job name="MyJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      <network .../>
+      <dynModels .../>
+      <initialState .../>
+      <precompiledModels .../>
+      <modelicaModels .../>
+  </modeler>
+  ...
+</job>
+\end{lstlisting}
+
+\subsubsection{jobs/job/modeler/network element}
+\label{DynawoInputFiles_inputs_jobs_job_modeler_network}
+
+The \textit{network} element describes the static model to use during the simulation and the parameters of the default dynamic models (dynamic model used for component not described in the dyd file).
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{iidmFile} & \small{Required} & \small{Path to the input IIDM file (relative to jobs filepath)}\\
+\rowcolor{gray!10}
+\small{parFile} & \small{Required} & \small{Path to the file containing the network parameters (relative to jobs filepath)}\\
+\rowcolor{white}
+\small{parId} & \small{Required} & \small{Id of the parameter set containing the network parameters}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{network} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={network}]
+<job name="MyJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      <network iidmFile="MyIIDM.iidm" parFile="MyPAR.par" parId="NETWORK"/>
+      ...
+  </modeler>
+  ...
+</job>
+\end{lstlisting}
+
+Please refer to \ref{DynawoInputFiles_inputs_iidm} for a description of the IIDM file and to \ref{DynawoInputFiles_inputs_par_network} for a description of network parameters.\\
+
+This element is optional in a job. Please refer to \ref{sec:Run a simulation with no iidm file} for a description of how to run a simulation with no static model.
+
+\subsubsection{jobs/job/modeler/dynModels element}
+\label{DynawoInputFiles_inputs_jobs_job_modeler_dynModels}
+
+The \textit{dynModels} element describes the dynamic models to use during the simulation.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{dydFile} & \small{Required} & \small{Path to the input dynamic model description file (relative to jobs filepath)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{dynModels} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={network}]
+<job name="MyJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      ...
+      <dynModels dydFile="MyDYD.dyd"/>
+      ...
+  </modeler>
+  ...
+</job>
+\end{lstlisting}
+
+Please refer to \ref{DynawoInputFiles_inputs_dyd} for a description of the DYD file.
+
+\subsubsection{jobs/job/modeler/initialState element}
+\label{DynawoInputFiles_inputs_jobs_job_modeler_initialState}
+
+The \textit{initialState} element describes the initial state to use during the simulation.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{file} & \small{Required} & \small{Path to the initial state file (relative to jobs filepath)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{initialState} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={network}]
+<job name="MyJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      ...
+      <initialState file="initialState.dmp"/>
+      ...
+  </modeler>
+  ...
+</job>
+\end{lstlisting}
+
+Please refer to \ref{DynawoInputFiles_inputs_howto_jobs_job_modeler_initialState} for a description of how to use this element to restart a simulation from the final state of a previous simulation.
+
+\subsubsection{jobs/job/modeler/precompiledModels element}
+\label{DynawoInputFiles_inputs_jobs_job_modeler_precompiledModels}
+
+The \textit{precompiledModels} element describes the pre-assembled models library (models compiled before the simulation, either provided with \Dynawo distribution or custom models compiled by user)
+to use during the simulation.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{useStandardModels} & \small{Required} & \small{true if the simulation uses the pre-assembled}\\
+ &  & \small{models library provided with \Dynawo)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{precompiledModels} tag}
+\end{table}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c}
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{directory} & \small{Unlimited (optional)} & \small{Path to a directory containing custom pre-assembled models}\\
+ &  &  \small{(relative to jobs filepath) and whether}\\
+ &  &  \small{this directory should be explored recursively or not}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{precompiledModels} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={precompiledModels}]
+<job name="MyJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      ...
+      <precompiledModels useStandardModels="true">
+        <directory path="MyPreassembledFolder" recursive="true"/>
+      </precompiledModels>
+      ...
+  </modeler>
+  ...
+</job>
+\end{lstlisting}
+
+\subsubsection{jobs/job/modeler/modelicaModels element}
+\label{DynawoInputFiles_inputs_jobs_job_modeler_modelicaModels}
+
+The \textit{modelicaModels} element describes the Modelica models library (models used during on-the-fly compilation)
+to use during the simulation.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{useStandardModels} & \small{Required} & \small{true if the simulation uses the Modelica}\\
+ &  & \small{models library provided with \Dynawo)}\\
+\rowcolor{gray!10}
+\small{modelExtension} & \small{Optional} & \small{files extension (``.mo'' by default)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{modelicaModels} tag}
+\end{table}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c}
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{directory} & \small{Unlimited (optional)} & \small{Path to a directory containing Modelica models}\\
+ &  &  \small{(relative to jobs filepath) and whether}\\
+ &  &  \small{this directory should be explored recursively or not}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{modelicaModels} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={precompiledModels}]
+<job name="MyJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      ...
+      <modelicaModels useStandardModels="true" modelExtension=".txt">
+        <directory path="MyModelicaFolder" recursive="true"/>
+      </modelicaModels>
+      ...
+  </modeler>
+  ...
+</job>
+\end{lstlisting}
+
+\subsubsection{jobs/job/simulation element}
+\label{DynawoInputFiles_inputs_jobs_job_simulation}
+
+The job \textit{simulation} element describes the main attributes of the simulation to be run, the list of criteria to check and the time step between 2 criteria check.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{startTime} & \small{Required} & \small{Start time of the simulation}\\
+\rowcolor{gray!10}
+\small{stopTime} & \small{Required} & \small{Stop time of the simulation}\\
+\rowcolor{white}
+\small{criteriaStep} & \small{Optional} & \small{Minimum time between two criteria check}\\
+\rowcolor{gray!10}
+\small{precision} & \small{Optional} & \small{Float precision during comparisons (default: 1e-6)}\\
+\rowcolor{white}
+\small{timeout} & \small{Optional} & \small{Maximum elapsed time after which the simulation will stop (in s)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{simulation} tag}
+\end{table}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}& \textbf{{Section}}\\
+\midrule
+\rowcolor{white}
+\small{criteria} & \small{Unlimited (optional)} & \small{Path to criteria files}  & \ref{DynawoInputFiles_inputs_crt}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{simulation} tag}
+\end{table}
+
+
+When no criteria is specified, simulation will stop at the stop time given by
+the user. Otherwise, the simulation could stop before the stop
+time if a criterion is not respected.
+
+\begin{lstlisting}[language=XML, morekeywords={network, dynModels, initialState, precompiledModels, modelicaModels}]
+<job name="MyJOB">
+  ...
+  <simulation startTime="0" stopTime="30" criteriaStep="5" precision="1e-4" timeout="1000">
+    <criteria criteriaFile="MyCriteraFile.crt">
+    <criteria criteriaFile="MyOtherCriteraFile.crt">
+  </simulation>
+  ...
+</job>
+\end{lstlisting}
+
+\subsubsection{jobs/job/outputs element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs}
+
+The optional \textit{outputs} element describes the outputs that \Dynawo should create during the simulation.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{directory} & \small{Required} & \small{Directory path where the outputs will be written}\\
+ & & \small{(relative to jobs filepath)}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{outputs} tag}
+\end{table}
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}& \textbf{{Section}}\\
+\midrule
+\rowcolor{white}
+\small{dumpInitValues} & \small{0-1 (optional)} & \small{Dump all variables and parameters}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_dumpInitValues}\\
+ &  & \small{values during initialization}  & \\
+\rowcolor{gray!10}
+\small{dumpFinalValues} & \small{0-1 (optional)} & \small{Dump all variables and parameters}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_dumpFinalValues}\\
+\rowcolor{gray!10}
+ &  & \small{values after simulation}  & \\
+\rowcolor{white}
+\small{constraints} & \small{0-1 (optional)} & \small{Dump constraints}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_constraints}\\
+\rowcolor{gray!10}
+\small{timeline} & \small{0-1 (optional)} & \small{Dump timeline}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_timeline}\\
+\rowcolor{white}
+\small{timetable} & \small{0-1 (optional)} & \small{Dump \Dynawo advancement on-the-fly}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_timetable}\\
+\rowcolor{gray!10}
+\small{finalState} & \small{0-1 (optional)} & \small{Dump the final state as IIDM or binary file}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_finalState}\\
+\rowcolor{white}
+\small{curves} & \small{0-1 (optional)} & \small{Dump curves}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_curves}\\
+\rowcolor{gray!10}
+\small{finalStateValues} & \small{0-1 (optional)} & \small{Dump specific variables and parameters}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_finalStateValues}\\
+\rowcolor{gray!10}
+ & & \small{values after simulation}  & \\
+\rowcolor{white}
+\small{lostEquipments} & \small{0-1 (optional)} & \small{Dump lost equipments list}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_lostEquipments}\\
+\rowcolor{gray!10}
+\small{logs} & \small{0-1 (optional)} & \small{Description of logs to dump}  & \ref{DynawoInputFiles_inputs_jobs_job_outputs_logs}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{outputs} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={network}]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <dumpInitValues .../>
+      <dumpFinalValues .../>
+      <constraints .../>
+      <timeline .../>
+      <timetable .../>
+      <finalState .../>
+      <curves .../>
+      <lostEquipments .../>
+      <logs>
+        ...
+      </logs>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+\subsubsection{jobs/job/outputs/dumpInitValues element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_dumpInitValues}
+
+the user can have access to the values of the variables and parameters of the initialization stages (local and/or global) by adding the element \textit{dumpInitValues} in the outputs section in the jobs file.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{global} & \small{Required} & \small{'true' to dump value after global initialization}\\
+\rowcolor{gray!10}
+\small{local} & \small{Required} & \small{'true' to dump value after local initialization}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{dumpInitValues} tag}
+\end{table}
+
+
+\begin{lstlisting}[language=XML, morekeywords={dumpInitValues},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <dumpInitValues local="true" global="true"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'initValues' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/dumpFinalValues element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_dumpFinalValues}
+
+the user can have access to the values of the variables and parameters at the end of the simulation by adding the element \textit{dumpFinalValues} in the outputs section in the jobs file.
+
+
+\begin{lstlisting}[language=XML, morekeywords={dumpFinalValues},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <dumpFinalValues/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'finalValues' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/constraints element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_constraints}
+
+the user can have access to the list of constraints that happened during the simulation by adding the element \textit{constraints} in the outputs section in the jobs file, and by specifying the export mode.
+Two export modes are available for constraints: TXT or XML.
+
+\begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <constraints exportMode="TXT"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'constraints' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/timeline element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_timeline}
+
+the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the element \textit{timeline}
+in the outputs section in the jobs file, and by specifying the export mode.\\
+Three export modes are available for the timeline: TXT, XML or CSV.\\
+It is also possible to automatically filter the timeline by removing duplicated events and opposed events that happen during the same timestep.
+
+
+\begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <timeline exportMode="TXT" filter="true"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'timeLine' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/timetable element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_timetable}
+
+
+The user can follows the advancement of \Dynawo during the simulation by adding the element \textit{timetable}
+in the outputs section in the jobs file, and by specifying the number of iterations between two dumps in the file.\\
+
+\begin{lstlisting}[language=XML, morekeywords={timetable},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <timetable step="10"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a file with a name prefixed by 'dynawoexec' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/finalState element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_finalState}
+
+The user have access to the final state of the simulation by adding the element \textit{finalState}
+in the outputs section in the jobs file, and by specifying the type of the required file.\\
+Two types are available: iidm file and dump file (binary).\\
+The iidm output file contains the static data of the network at the end of the simulation.
+The dump file is a binary file that contains the value of all dynamic variables and derivatives at the end of the simulation and that enables to restart another simulation from this operating point.
+
+
+\begin{lstlisting}[language=XML, morekeywords={finalState},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <finalState exportIIDMFile="true" exportDumpFile="true"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'finalState' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/curves element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_curves}
+
+The user have access to all the values taken by a set of variables during the simulation by adding the element \textit{curves}
+in the outputs section in the jobs file, by specifying the type of the required file and optionally a step on simulation iteration or on simulation time (in seconds).\\
+Two export modes are available for curves export: CSV or XML.\\
+It's impossible to define both an iterationStep and a timeStep.
+
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <curves inputFile="MyCurves.crv" exportMode="CSV"/>
+    </outputs>
+  ...
+</job>
+<job name="MyJOB2">
+  ...
+    <outputs directory="outputs">
+      <curves inputFile="MyCurves.crv" exportMode="CSV" iterationStep="8"/>
+    </outputs>
+  ...
+</job>
+<job name="MyJOB3">
+  ...
+    <outputs directory="outputs">
+      <curves inputFile="MyCurves.crv" exportMode="CSV" timeStep="0.4"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'curves' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/finalStateValues element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_finalStateValues}
+
+the user can have access to the final values of a specific list of variables or parameters at the end of the simulation by adding the element
+\textit{finalStateValues} in the outputs section in the jobs file, and by specifying the export mode.\\
+Three export modes are available for the final state values: TXT, XML or CSV.\\.
+
+
+\begin{lstlisting}[language=XML, morekeywords={finalState},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <finalStateValues inputFile="MyFinalStateValues.fsv" exportMode="CSV"/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'finalStateValues' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/lostEquipments element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_lostEquipments}
+
+the user can have access to the list of nodes that were initially connected and that are disconnected at the end of the simulation by adding the element
+\textit{lostEquipments} in the outputs section in the jobs file.
+
+
+\begin{lstlisting}[language=XML, morekeywords={finalState},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <lostEquipments/>
+    </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+The results files will be generated in a directory named 'lostEquipments' in the outputs directory.
+
+\subsubsection{jobs/job/outputs/logs element}
+\label{DynawoInputFiles_inputs_jobs_job_outputs_logs}
+
+The user can have access to different log files that give information about the execution of the compilation and the simulation,
+and that could help him in case of failure. The main log file corresponds to the appender with no tag named ``dynawo.log'' in the example below.
+
+\begin{lstlisting}[language=XML, morekeywords={logs},numbers=none]
+<job name="MyJOB">
+  ...
+    <outputs directory="outputs">
+      <logs>
+        <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <appender tag="NETWORK" file="network.log" lvlFilter="DEBUG"/>
+        <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
+        <appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
+        <appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+        <appender tag="VARIABLES" file="variables.log" lvlFilter="DEBUG"/>
+        <appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
+      </logs>
+   </outputs>
+  ...
+</job>
+\end{lstlisting}
+
+For each ``appender'', a format could be configured to set how the log should be printed. By default, the format of the ``appender'' is the following:
+\begin{lstlisting}[numbers=none]
+%Y-%m-%d %H:%M:%S | <lvlFilter> | log
+\end{lstlisting}
+
+where ``lvlFilter'' is used to filter the trace exported by giving the minimum level exported. For example, if a level filter of ``WARN'' is set, only logs declared as ``WARN'' or ``ERROR'' will be exported. \\
+
+The available filters are: DEBUG, INFO, WARN, ERROR.\\
+
+The results files will be generated in a directory named 'logs' in the outputs directory.
+
+\subsubsection{jobs/job/localInit element}
+\label{DynawoInputFiles_inputs_jobs_job_localInit}
+
+The optional \textit{localInit} element describes the solver parameters to use during the initialization.
+if this element is not provided, the same parameters as the \textit{solver} element (see \ref{DynawoInputFiles_inputs_jobs_job_solver}) will be used.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}}\\
+\midrule
+\rowcolor{white}
+\small{parFile} & \small{Required} & \small{Path to the file containing the initialization}\\
+ &  & \small{solver parameters (relative to jobs filepath)}\\
+\rowcolor{gray!10}
+\small{parId} & \small{Required} & \small{Id of the parameter set containing the initialization solver parameters}\\
+\bottomrule
+\end{tabular}
+\caption{attributes of \textit{localInit} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={network}]
+<job name="MyJOB">
+  ...
+  <localInit parFile="MyPAR.par" parId="LocalSolverParamSet"/>
+  ...
+</job>
+\end{lstlisting}
+
+% TODO CHECK IF THIS IS THE GOOD LOCATION
+The list of local initialization solver parameters the user is as follows :
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}} & \textbf{{Default value}}\\
+\midrule
+\rowcolor{white}
+\small{mxiter} & \small{int} & \small{maximum number of nonlinear iterations} & \small{30} \\
+\rowcolor{gray!10}
+ &  & \small{stopping tolerance on L2-norm} &  \\
+\rowcolor{gray!10}
+\multirow{-2}{*}{\small{fnormtol}} & \multirow{-2}{*}{\small{double}} & \small{of function value} & \multirow{-2}{*}{\small{1e-4}} \\
+\rowcolor{white}
+\small{initialaddtol} & \small{double} & \small{stopping tolerance at initialization} & \small{0.1} \\
+\rowcolor{gray!10}
+\small{scsteptol} & \small{double} & \small{scaled step length tolerance} & \small{1e-4} \\
+\rowcolor{white}
+\small{mxnewtstep} & \small{double} & \small{maximum allowable scaled step length} & \small{100000} \\
+\rowcolor{gray!10}
+ &  & \small{maximum number of nonlinear iterations} &  \\
+\rowcolor{gray!10}
+\small{msbset} & \small{int} & \small{that may be performed between calls to} & \small{0} \\
+\rowcolor{gray!10}
+ &  & \small{the linear solver setup routine} &  \\
+ \rowcolor{gray!10}
+\rowcolor{white}
+\small{printfl} & \small{int} & \small{level of verbosity of output (from 0 to 3)} & \small{0} \\
+\bottomrule
+\end{tabular}
+\caption{Local initialization solver parameters}
+\end{table}
+
+Here is an example of a par file containing local initialization solver parameters :
+
+\begin{lstlisting}[language=XML]
+<set id="1">
+  <par type="INT" name="mxiter" value="30"/>
+  <par type="DOUBLE" name="fnormtol" value="1e-4"/>
+  <par type="DOUBLE" name="initialaddtol" value="0.1"/>
+  <par type="DOUBLE" name="scsteptol" value="1e-4"/>
+  <par type="DOUBLE" name="mxnewtstep" value="100000"/>
+  <par type="INT" name="msbset" value="0"/>
+  <par type="INT" name="printfl" value="0"/>
+</set>
+<set id="2">
+  <par type="INT" name="mxiter" value="25"/>
+  <par type="DOUBLE" name="fnormtol" value="1e-6"/>
+</set>
+\end{lstlisting}
+
+\subsection{iidm file}
+\label{DynawoInputFiles_inputs_iidm}
+
+The iidm (iTesla Internal Data Model) file represents the network to simulate with a static representation: it lists all the components present in the network and how they are connected. \\
 
 Basically, the iidm file is composed of:
 \begin{itemize}
@@ -143,7 +973,12 @@ iidm files are very dense and can be very large in case of large systems because
 \item the \textbf{network topology} in the initial situation. We have seen in our example that we have information about the connection between different voltage levels through a line.
 \end{itemize}
 
+A detailled description of the iidm format can be found \href{https://www.powsybl.org/pages/documentation/grid/model/)}{in the PowSybl documentation}.
+
+
 \subsection{dyd file}
+\label{DynawoInputFiles_inputs_dyd}
+\subsubsection{Overview}
 
 The dyd file gathers the dynamics models to use with their characteristics and if needed, their connections. \\
 
@@ -160,7 +995,36 @@ In most cases, the iidm file provides information about the network topology and
 
 When a static component has no equivalent in the dyd file, \Dynawo uses a default C++ model for the component. This is often the case for the lines for example. It can also be the case for any other component, but the reader should keep in mind that the default C++ models are basic and simple models. In order to obtain accurate and detailed results from a dynamic simulation, it is important to use accurate and detailed models.
 
+\subsubsection{dynamicModelsArchitecture xml element}
+
+%TODO
+
+The \textit{dynamicModelsArchitecture} element contains a list of dynamic models description and how they are connected to each others.
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Occurrences}} & \textbf{{Description}}& \textbf{{Section}}\\
+\midrule
+\small{job} & \small{Unlimited} & \small{Description of a simulation that will be run by \Dynawo}  & \ref{DynawoInputFiles_inputs_jobs_job_tag}\\
+\bottomrule
+\end{tabular}
+\caption{elements of \textit{dynamicModelsArchitecture} tag}
+\end{table}
+
+\begin{lstlisting}[language=XML, morekeywords={name}]
+<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
+  <job name="MyFirstJOB">
+    ...
+  </job>
+</dynamicModelsArchitecture>
+\end{lstlisting}
+
+
 \subsection{par file}
+\label{DynawoInputFiles_inputs_par}
+%TODO
 
 The par file contains all the parameters for the simulation: the solver parameters and the dynamic models' parameters. All these parameters are gathered in sets. \\
 
@@ -171,7 +1035,16 @@ For each parameter, the user should give the name, the type (DOUBLE, INT, BOOL o
 
 Sometimes, the par file contains references to parameters present in the iidm file or a given par file. (see paragraph \ref{sec:Set a reference to a value stored in the iidm file}).
 
+\subsubsection{Specific case: network parameters}
+\label{DynawoInputFiles_inputs_par_network}
+%TODO + check if this is the good location
+
+\subsubsection{Specific case: solver parameters}
+\label{DynawoInputFiles_inputs_par_solver}
+%TODO + check if this is the good location
+
 \subsection{crv file}
+%TODO
 
 The curves file lists all variables or parameters to plot. \\
 
@@ -181,6 +1054,7 @@ Here is an example of a crv file (extraction from IEEE14.crv):
 In this example, the curves available are the voltage amplitudes of buses \_BUS\_\_\_10\_TN and \_BUS\_\_\_10\_TN in per unit.
 
 \subsection{fsv file}
+%TODO
 
 The input final state values file lists all variables or parameters for which we want to observe the final value. \\
 
@@ -190,6 +1064,8 @@ Here is an example of a fsv file (extraction from IEEE14):
 In this example, the final state values available are the voltage amplitudes of buses \_BUS\_\_\_10\_TN and \_BUS\_\_\_10\_TN in per unit.
 
 \subsection{crt file}
+\label{DynawoInputFiles_inputs_crt}
+%TODO
 
 The crt file contains all the criteria to be checked during the
 simulation.
@@ -269,97 +1145,43 @@ $UNomMin$, $UNomMax$, $UMinPu$ and $UMaxPu$ are optionals. If one of them is not
 specified, the corresponding condition is not applied.
 If several voltage levels are specified then all loads satisfying at least one of the conditions will be taken into account.
 
-\section[Dynawo input files modification]{\Dynawo input files modification}
+\section[Dynawo input files scenarios]{\Dynawo input files modification}
 
-\Dynawo input files (jobs, iidm, dyd, par and crv) have been briefly described in the previous section. This section aims at giving more details on each file in order to help the user parametrize its inputs easily and autonomously.
+\Dynawo input files (jobs, iidm, dyd, par and crv) have been briefly described in the previous section.
+This section aims at giving some specific scenarios that could happen on each file in order to help the user parametrize its inputs easily and autonomously.
 
 \subsection{jobs file}
 
-\subsubsection{Simulate several scenarios}
-
-A jobs file can contain several jobs. For each job, the description is the same as illustrated in the previous section. The different jobs can be listed in the jobs file as in the example bellow:
-
-\begin{lstlisting}[language=XML, morekeywords={name}]
-<jobs xmlns="http://www.rte-france.com/dynawo">
-  <job name="MyFirstJOB">
-    ...
-  </job>
-  <job name="MySecondJOB">
-    ...
-  </job>
-</jobs>
-\end{lstlisting}
-
-\subsubsection{Change the solver}
-
-The jobs file specifies the solver library to use for the simulation. In \Dynawo two solvers are available:
-\begin{itemize}
-\item the simplified solver (fixed time step solver): library dynawo\_SolverSIM.so;
-\item the IDA solver (variable time step solver): library dynawo\_SolverIDA.so;
-\end{itemize}
-
-For IDA solver, IDA order 1 and IDA order 2 can be used (fill the value for the parameter ``order'' in the par file).
-
-\begin{lstlisting}[language=XML, morekeywords={lib}]
-<job name="MyJOB">
-  <solver lib="dynawo_SolverIDA.so" parFile="MyPAR.xml" parId="0"/>
-  ...
-</job>
-\end{lstlisting}
-
-The solver library is stored in the install directory in \path{dynawo/lib}.
-
-\subsubsection{Specify stop conditions for the simulation}
-
-The jobs file specifies the following simulation settings:
-\begin{itemize}
-\item the start time of the simulation;
-\item the stop time of the simulation;
-\item the list of criteria to check;
-\end{itemize}
-
-When no criteria is specified, simulation will stop at the stop time given by
-the user. Otherwise, the simulation could stop before the stop
-time if a criterion is not respected.
-
-\begin{lstlisting}[language=XML, morekeywords={activateCriteria}]
-<job name="MyJOB">
-  ...
-  <simulation startTime="0" stopTime="100" precision="1e-6">
-    <criteria criteriaFile="criteria.crt"/>
-  </simulation>
-  ...
-</job>
-\end{lstlisting}
-
-\subsubsection{Specify what kind of models to use}
-
-Dynamic models used by \Dynawo are either precompiled models or Modelica models. The user should specify which kind of models he wants to use (he can use both). These items may have an additional ``directory'' attribute with the path to case-specific models.
-
-\begin{lstlisting}[language=XML, morekeywords={precompiledModels, modelicaModels}]
-<job name="MyJOB">
-  ...
-  <modeler compileDir="outputs/compilation">
-      ...
-      <precompiledModels useStandardModels="true"/>
-      <modelicaModels directory="MyDirectory" useStandardModels="true"/>
-  </modeler>
-  ...
-</job>
-\end{lstlisting}
-
 \subsubsection{Start a simulation from the end of another one}
+\label{DynawoInputFiles_inputs_howto_jobs_job_modeler_initialState}
 
-In order to start a simulation from the end of another simulation, the item ``initialState'' should be added in the modeler section of the job file. The name of the dumpFile should be specified. This binary file contains the values of all variables and their derivatives at the end of the previous simulation and is needed to initialize the new simulation at the same operating point that the end of the previous simulation. To obtain this file, use the finalState item of the outputs section (see paragraph \ref{sec:Configure the jobs outputs}).
+In order to start a simulation from the end of another simulation, the item ``initialState'' should be added in the modeler section of the job file.
+This binary file contains the values of all variables and their derivatives at the end of the previous simulation and is needed to initialize the new simulation at the same operating point that the end of the previous simulation. \\
+To obtain this file, use the finalState item of the outputs section (see paragraph \ref{DynawoInputFiles_inputs_jobs_job_outputs_finalState}).\\
+The startTime from the \textit{simulation} element of the second job should be equals to the stop time of the first simulation.
+Also, the stopTime and the potential events time in the parameters should be coherent with this startTime.
 
 \begin{lstlisting}[language=XML, morekeywords={initialState}]
-<job name="MyJOB">
+<job name="MyInitialJOB">
   ...
   <modeler compileDir="outputs/compilation">
       <dynModels dydFile="MyDyd.dyd"/>
-      <initialState file="dumpFile"/>
       ...
   </modeler>
+  <simulation startTime="0" stopTime="100"/>
+  <outputs directory="outputs">
+    <finalState exportIIDMFile="false" exportDumpFile="true"/>
+  </outputs>
+  ...
+</job>
+<job name="MySecondJOB">
+  ...
+  <modeler compileDir="outputs/compilation">
+      <dynModels dydFile="MyDyd.dyd"/>
+      <initialState file="outputs/finalState/outputState.dmp"/>
+      ...
+  </modeler>
+  <simulation startTime="100" stopTime="130"/>
   ...
 </job>
 \end{lstlisting}
@@ -367,171 +1189,11 @@ In order to start a simulation from the end of another simulation, the item ``in
 \subsubsection{Run a simulation with no iidm file}
 \label{sec:Run a simulation with no iidm file}
 
-It is not mandatory to provide the jobs file with an iidm file as long as the whole system is described in the dyd file. We use this technique for small test cases such as unitary test cases with a few number of components. In that case, all models are listed in the dyd file, as well as all connections. Static components and topology normally defined in the iidm file should consequently be defined in the dyd file (buses, lines, etc).
+It is not mandatory to provide the jobs file with an iidm file as long as the whole system is described in the dyd file.
+We use this technique for small test cases such as unitary test cases with a few number of components.
+In that case, all models are listed in the dyd file, as well as all connections.
+Static components and topology normally defined in the iidm file should consequently be defined in the dyd file (buses, lines, etc).
 
-\subsubsection{Configure the jobs outputs}
-\label{sec:Configure the jobs outputs}
-
-The user can specify in the jobs file what outputs he wants to get from the simulation. The outputs are to be found in the jobs file directory or in a user-chosen directory when the attribute ``directory'' is provided:
-
-\begin{lstlisting}[language=XML,numbers=none]
-<outputs directory="outputs/">
-\end{lstlisting}
-
-Several outputs are available with \Dynawo:
-\begin{itemize}
-\item \textbf{Initialization}: the user can have access to the results of the initialization stages (local and/or global) by adding the item ``dumpInitValues'' in the jobs file.
-
-\begin{lstlisting}[language=XML, morekeywords={dumpInitValues},numbers=none]
-<dumpInitValues local="true" global="true"/>
-\end{lstlisting}
-
-\item \textbf{Final values}: the user can have access to all values of the variables and the parameters of the models at the end of the simulation by adding the item ``dumpFinalValues'' in the jobs file.
-
-\begin{lstlisting}[language=XML, morekeywords={dumpFinalValues},numbers=none]
-<dumpFinalValues/>
-\end{lstlisting}
-
-\item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode.
-\begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
-<constraints exportMode="TXT"/>
-\end{lstlisting}
-Two export modes are available for constraints: TXT or XML.
-
-\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode. It is also possible to automatically filter the timeline by removing duplicated events and opposed events that happen during the same timestep.
-
-\begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
-<timeline exportMode="TXT" filter="true"/>
-\end{lstlisting}
-Three export modes are available for the timeline: TXT, XML or CSV.
-
-\item \textbf{Timetable}: The user can follows the advancement of \Dynawo during the simulation by adding the item ``timetable'' in the jobs file, and by specifying the number of iterations between two dumps in the file.
-
-\begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
-<timetable step="10"/>
-\end{lstlisting}
-
-\item \textbf{Final state}: the user can have access to the final state of the simulation thanks to two files: the iidm file and the dump file. The user can specify which of those he wants to obtain. The iidm output file contains the static data of the network at the end of the simulation. The dump file is a binary file that contains the value of all dynamic variables and derivatives at the end of the simulation and that enables to restart another simulation from this operating point.
-
-\begin{lstlisting}[language=XML, morekeywords={finalState},numbers=none]
-<finalState exportIIDMFile="true" exportDumpFile="true"/>
-\end{lstlisting}
-
-\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted, the export mode and optionally a step on simulation iteration or on simulation time (in seconds).
-
-\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
-<curves inputFile="MyCurves.crv" exportMode="CSV"/>
-\end{lstlisting}
-
-\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
-<curves inputFile="MyCurves.crv" exportMode="CSV" iterationStep="8"/>
-\end{lstlisting}
-
-\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
-<curves inputFile="MyCurves.crv" exportMode="CSV" timeStep="0.4"/>
-\end{lstlisting}
-
-Two export modes are available for curves export: CSV or XML.
-It's impossible to define both an iterationStep and a timeStep.
-
-\item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.
-
-\begin{lstlisting}[language=XML, morekeywords={finalStateValues},numbers=none]
-<finalStateValues inputFile="MyFinalStateValues.fsv"/>
-\end{lstlisting}
-
-\item \textbf{Lost equipments}:  the user can have access to the list of nodes that were initially connected and that are disconnected at the end of the simulation by adding the item ``lostEquipments'' in the jobs file.
-
-\begin{lstlisting}[language=XML, morekeywords={lostEquipments},numbers=none]
-<lostEquipments/>
-\end{lstlisting}
-
-\item \textbf{Logs}: the user can have access to different log files that give information about the execution of the compilation and the simulation, and that could help him in case of failure. The main log file corresponds to the appender with no tag named ``dynawo.log'' in the example below.
-\begin{lstlisting}[language=XML, morekeywords={logs}]
-<logs>
-  <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-  <appender tag="NETWORK" file="network.log" lvlFilter="DEBUG"/>
-  <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
-  <appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
-  <appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
-  <appender tag="VARIABLES" file="variables.log" lvlFilter="DEBUG"/>
-  <appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
-</logs>
-\end{lstlisting}
-
-For each ``appender'', a format could be configured to set how the log should be printed. By default, the format of the ``appender'' is the following:
-\begin{lstlisting}[numbers=none]
-%Y-%m-%d %H:%M:%S | <lvlFilter> | log
-\end{lstlisting}
-
-where ``lvlFilter'' is used to filter the trace exported by giving the minimum level exported. For example, if a level filter of ``WARN'' is set, only logs declared as ``WARN'' or ``ERROR'' will be exported. \\
-
-The available filters are: DEBUG, INFO, WARN, ERROR.
-\end{itemize}
-
-\subsubsection{Specify the local initialization solver parameters}
-
-You can modify the values of the local initialization solver parameters by adding the localInit attribute :
-
-\begin{lstlisting}[language=XML]
-<job name="MyJOB">
-  ...
-  <dyn:localInit parFile="init.par" parId="1"/>
-  ...
-</job>
-\end{lstlisting}
-
-Here is the list of every local initialization solver parameters the user can configure :
-
-\begin{table}[H]
-\center
-\begin{tabular}{ l | c | c | c }
-\toprule
-\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}} & \textbf{{Default value}}\\
-\midrule
-\rowcolor{white}
-\small{mxiter} & \small{int} & \small{maximum number of nonlinear iterations} & \small{30} \\
-\rowcolor{gray!10}
- &  & \small{stopping tolerance on L2-norm} &  \\
-\rowcolor{gray!10}
-\multirow{-2}{*}{\small{fnormtol}} & \multirow{-2}{*}{\small{double}} & \small{of function value} & \multirow{-2}{*}{\small{1e-4}} \\
-\rowcolor{white}
-\small{initialaddtol} & \small{double} & \small{stopping tolerance at initialization} & \small{0.1} \\
-\rowcolor{gray!10}
-\small{scsteptol} & \small{double} & \small{scaled step length tolerance} & \small{1e-4} \\
-\rowcolor{white}
-\small{mxnewtstep} & \small{double} & \small{maximum allowable scaled step length} & \small{100000} \\
-\rowcolor{gray!10}
- &  & \small{maximum number of nonlinear iterations} &  \\
-\rowcolor{gray!10}
-\small{msbset} & \small{int} & \small{that may be performed between calls to} & \small{0} \\
-\rowcolor{gray!10}
- &  & \small{the linear solver setup routine} &  \\
- \rowcolor{gray!10}
-\rowcolor{white}
-\small{printfl} & \small{int} & \small{level of verbosity of output (from 0 to 3)} & \small{0} \\
-\bottomrule
-\end{tabular}
-\caption{Local initialization solver parameters}
-\end{table}
-
-Here is an example of a par file containing local initialization solver parameters :
-
-\begin{lstlisting}[language=XML]
-<set id="1">
-  <par type="INT" name="mxiter" value="30"/>
-  <par type="DOUBLE" name="fnormtol" value="1e-4"/>
-  <par type="DOUBLE" name="initialaddtol" value="0.1"/>
-  <par type="DOUBLE" name="scsteptol" value="1e-4"/>
-  <par type="DOUBLE" name="mxnewtstep" value="100000"/>
-  <par type="INT" name="msbset" value="0"/>
-  <par type="INT" name="printfl" value="0"/>
-</set>
-<set id="2">
-  <par type="INT" name="mxiter" value="25"/>
-  <par type="DOUBLE" name="fnormtol" value="1e-6"/>
-</set>
-\end{lstlisting}
 
 \subsection{dyd file}
 
