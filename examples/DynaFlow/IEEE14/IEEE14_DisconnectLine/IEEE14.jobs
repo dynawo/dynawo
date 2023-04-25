@@ -21,6 +21,7 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="1000"/>
     <dyn:outputs directory="outputs">
+      <dyn:dumpInitValues local="true" global="true"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
