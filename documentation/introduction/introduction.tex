@@ -70,6 +70,43 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 
 \section{Changes from previous versions}
 
+\subsection{Changes from v1.4.1}
+\underline{Models:}
+
+\begin{itemize}
+\item Simplified transformer representation in DynaFlow generator models
+\item Fixed the initialization of the frozen state of the DynaFlow VRRemote model to start from a coherent start after global initialization and increased the maximum number of connections to handle big cases
+\item Fix of Phase Shifter model
+\end{itemize}
+
+\underline{Performance:}
+
+\begin{itemize}
+\item Added a frozen state in the DynaFlow Secondary Voltage Control model to stop integrating when all generators in the area have reached their limits
+\end{itemize}
+
+\underline{Bug fixes:}
+
+\begin{itemize}
+\item Fixed memory leak
+\end{itemize}
+
+\underline{New features:}
+\begin{itemize}
+\item Added the possibility to declare optional external continuous variables in extvar files
+\item Added the option of flat (P, Q, V values not available in iidm) or warm (P,Q, V values available in iidm file) start for initialization
+\item Added the possibility to select the result file format for final state values (xml, csv, txt)
+\item Added the possibility to connect a calculated discrete variable to a state discrete variable
+\end{itemize}
+
+\underline{Platform integration:}
+DynaWaltz and DynaFlow integration into PowSybl were tested with the following versions:
+\begin{itemize}
+\item \href{https://github.com/powsybl/powsybl-core/releases/tag/v5.2.0}{powsybl-core v5.2.0}
+\item \href{https://github.com/powsybl/powsybl-dynawo/releases/tag/v1.13.0}{powsybl-dynawo v1.13.0}
+\end{itemize}
+
+
 \subsection{Changes from v1.4.0}
 
 \underline{New features:}
