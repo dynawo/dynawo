@@ -69,19 +69,19 @@ equation
   SignalNQ.limUQUp[1] = Generator1.limUQUp;
   SignalNQ.limUQUp[2] = Generator2.limUQUp;
 
-  // Network connections
-  connect(DiconnectLine.state1, Line1bis.switchOffSignal2);
-  connect(Line1bis.terminal2, infiniteBus1.terminal) annotation(
+ // Network connections
+ connect(DiconnectLine.state1, Line1bis.switchOffSignal2);
+ connect(Line1bis.terminal2, infiniteBus1.terminal) annotation(
     Line(points = {{20, 20}, {40, 20}, {40, 0}, {60, 0}}, color = {0, 0, 255}));
-  connect(Line1.terminal2, infiniteBus1.terminal) annotation(
+ connect(Line1.terminal2, infiniteBus1.terminal) annotation(
     Line(points = {{20, -20}, {40, -20}, {40, 0}, {60, 0}}, color = {0, 0, 255}));
-  connect(Generator2.terminal, Bus.terminal) annotation(
+ connect(Generator2.terminal, Bus.terminal) annotation(
     Line(points = {{-80, -20}, {-60, -20}, {-60, 0}, {-40, 0}}, color = {0, 0, 255}));
-  connect(Generator1.terminal, Bus.terminal) annotation(
+ connect(Generator1.terminal, Bus.terminal) annotation(
     Line(points = {{-80, 20}, {-60, 20}, {-60, 0}, {-40, 0}}, color = {0, 0, 255}));
-  connect(Bus.terminal, Line1bis.terminal1) annotation(
+ connect(Bus.terminal, Line1bis.terminal1) annotation(
     Line(points = {{-40, 0}, {-20, 0}, {-20, 20}, {0, 20}}, color = {0, 0, 255}));
-  connect(Bus.terminal, Line1.terminal1) annotation(
+ connect(Bus.terminal, Line1.terminal1) annotation(
     Line(points = {{-40, 0}, {-20, 0}, {-20, -20}, {0, -20}}, color = {0, 0, 255}));
 
   annotation(

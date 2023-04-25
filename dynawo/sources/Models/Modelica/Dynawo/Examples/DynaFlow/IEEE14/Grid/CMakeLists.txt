@@ -8,12 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-add_subdirectory(IllustrativeExamples I)
-add_subdirectory(IEEE14 IE)
+add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo
   package.order
+  IEEE14.mo
+  IEEE14WithModifiedComponents.mo
   )
 
 #
