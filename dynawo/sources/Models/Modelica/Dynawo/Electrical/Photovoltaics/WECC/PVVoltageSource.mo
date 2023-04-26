@@ -82,6 +82,8 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   source.switchOffSignal1.value = injector.switchOffSignal1.value;
+  line.switchOffSignal2.value = injector.switchOffSignal2.value;
+  source.switchOffSignal2.value = injector.switchOffSignal2.value;
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-109, -14}, {-91, -14}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
