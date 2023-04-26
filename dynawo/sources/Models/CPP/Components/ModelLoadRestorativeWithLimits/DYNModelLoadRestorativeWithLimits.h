@@ -78,10 +78,12 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @brief  calculated variables type
   */
   typedef enum {
-    PNum_ = 0,
-    QNum_ = 1,
-    loadStateNum_ = 2,
-    nbCalculatedVariables_ = 3
+    PPuNum_ = 0,
+    PNum_ = 1,
+    QNum_ = 2,
+    loadStateNum_ = 3,
+    loadRealStateNum_ = 4,
+    nbCalculatedVariables_ = 5
   } CalculatedVariables_t;
 
   /**
