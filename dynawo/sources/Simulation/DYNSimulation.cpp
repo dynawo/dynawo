@@ -181,6 +181,7 @@ lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
 dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
+dumpFinalValues_(false),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -269,11 +270,14 @@ Simulation::clean() {
 
 void
 Simulation::configureSimulationOutputs() {
-  if (jobEntry_->getOutputsEntry()) {
+  if (jobEntry_->getOutputsEntry() != nullptr) {
     // Init Values settings
-    if (jobEntry_->getOutputsEntry()->getInitValuesEntry()) {
+    if (jobEntry_->getOutputsEntry()->getInitValuesEntry() != nullptr) {
       setDumpLocalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpLocalInitValues());
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
+    }
+    if (jobEntry_->getOutputsEntry()->getFinalValuesEntry() != nullptr) {
+      setDumpFinalValues(jobEntry_->getOutputsEntry()->getFinalValuesEntry()->getDumpFinalValues());
     }
     configureConstraintsOutputs();
     configureTimelineOutputs();
@@ -897,7 +901,7 @@ Simulation::calculateIC() {
     string localInitDir = createAbsolutePath("initValues/localInit", outputsDirectory_);
     if (!exists(localInitDir))
       create_directory(localInitDir);
-    model_->printInitValues(localInitDir);
+    model_->printModelValues(localInitDir, "dumpInitValues");
   }
   // check coherence during local init process (use of init model)
   model_->checkDataCoherence(tCurrent_);
@@ -923,7 +927,7 @@ Simulation::calculateIC() {
     string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
     if (!exists(globalInitDir))
       create_directory(globalInitDir);
-    model_->printInitValues(globalInitDir);
+    model_->printModelValues(globalInitDir, "dumpInitValues");
   }
 
   // after the initialization process (use of dynamic model)
@@ -1253,6 +1257,13 @@ Simulation::terminate() {
     openFileStream(fileConstraints, constraintsOutputFile_);
     printConstraints(fileConstraints);
     fileConstraints.close();
+  }
+
+  if (dumpFinalValues_) {
+    string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
+    if (!exists(finalValuesDir))
+      create_directory(finalValuesDir);
+    model_->printModelValues(finalValuesDir, "dumpFinalValues");
   }
 
   if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {

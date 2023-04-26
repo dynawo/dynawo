@@ -49,6 +49,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEE
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
+#      IEEE14 - Dump final values       #
+#########################################
+
+case_name = "IEEE14 - DumpFinalValues"
+case_description = "IEEE14 - DumpFinalValues"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_DumpFinalValues", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
 #      IEEE14 - FSV without CRV         #
 #########################################
 
