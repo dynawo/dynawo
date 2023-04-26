@@ -68,6 +68,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
 
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
+  line.switchOffSignal2.value = injector.switchOffSignal2.value;
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-29, -24}, {-19, -24}}, color = {0, 0, 127}));
   connect(line.terminal2, injector.terminal) annotation(

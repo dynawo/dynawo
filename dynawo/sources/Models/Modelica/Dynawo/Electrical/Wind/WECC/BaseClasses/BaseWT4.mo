@@ -59,6 +59,7 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
 
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
+  line.switchOffSignal2.value = injector.switchOffSignal2.value;
   connect(line.terminal2, injector.terminal) annotation(
     Line(points = {{93, 4}, {74.5, 4}}, color = {0, 0, 255}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
