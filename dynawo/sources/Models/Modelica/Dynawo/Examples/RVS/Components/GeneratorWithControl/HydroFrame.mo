@@ -40,7 +40,7 @@ model HydroFrame
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Controllers & Governors
+// Controllers & Governors
   Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.Governors.HYGOV hygov(
     At = hgpar.exciterParams[hygovPreset, hgpar.exciterParamNames.At], 
     DTurb = hgpar.exciterParams[hygovPreset, hgpar.exciterParamNames.DTurb], 
@@ -89,7 +89,7 @@ model HydroFrame
   ) annotation(
     Placement(visible = true, transformation(origin = {-130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Misc
+// Misc
   Modelica.Blocks.Sources.Constant UuelConst(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmRefPuConst(k(fixed = false)) annotation(
@@ -102,9 +102,9 @@ model HydroFrame
     Placement(visible = true, transformation(origin = {71, 63}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {27, 19}, extent = {{5, 5}, {-5, -5}}, rotation = 0)));
-  Util.GeneratorSynchronousThreeWindingsInterface generatorSynchronous(DPu = genpar.genParamValues[gen, genpar.genParamNames.DPu], ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad, H = genpar.genParamValues[gen, genpar.genParamNames.H], P0Pu = P0Pu, PNomAlt = genpar.genParamValues[gen, genpar.genParamNames.PNom], PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom], Q0Pu = Q0Pu, RTfPu = 0, RaPu = genpar.genParamValues[gen, genpar.genParamNames.RaPu], SNom = genpar.genParamValues[gen, genpar.genParamNames.SNom], SnTfo = genpar.genParamValues[gen, genpar.genParamNames.SNom], Tpd0 = genpar.genParamValues[gen, genpar.genParamNames.Tpd0], Tppd0 = genpar.genParamValues[gen, genpar.genParamNames.Tppd0], Tppq0 = genpar.genParamValues[gen, genpar.genParamNames.Tppq0], Tpq0 = genpar.genParamValues[gen, genpar.genParamNames.Tpq0], U0Pu = U0Pu, UBaseHV = UNom, UBaseLV = UNom, UNom = UNom, UNomHV = UNom, UNomLV = UNom, UPhase0 = UPhase0, XTfPu = 0, XdPu = genpar.genParamValues[gen, genpar.genParamNames.XdPu], XlPu = genpar.genParamValues[gen, genpar.genParamNames.XlPu], XpdPu = genpar.genParamValues[gen, genpar.genParamNames.XpdPu], XppdPu = genpar.genParamValues[gen, genpar.genParamNames.XppdPu], XppqPu = genpar.genParamValues[gen, genpar.genParamNames.XppqPu], XpqPu = genpar.genParamValues[gen, genpar.genParamNames.XpqPu], XqPu = genpar.genParamValues[gen, genpar.genParamNames.XqPu], md = genpar.genParamValues[gen, genpar.genParamNames.md], mq = genpar.genParamValues[gen, genpar.genParamNames.mq], nd = genpar.genParamValues[gen, genpar.genParamNames.nd], nq = genpar.genParamValues[gen, genpar.genParamNames.nq]) annotation(
-    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
+  Util.GeneratorSynchronousThreeWindingsInterface generatorSynchronous(DPu = genpar.genParamValues[gen, genpar.genParamNames.DPu], ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad, H = genpar.genParamValues[gen, genpar.genParamNames.H], P0Pu = P0Pu, PNomAlt = genpar.genParamValues[gen, genpar.genParamNames.PNom], PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom], Q0Pu = Q0Pu, RTfPu = 0, RaPu = genpar.genParamValues[gen, genpar.genParamNames.RaPu], SNom = genpar.genParamValues[gen, genpar.genParamNames.SNom], SnTfo = genpar.genParamValues[gen, genpar.genParamNames.SNom], Tpd0 = genpar.genParamValues[gen, genpar.genParamNames.Tpd0], Tppd0 = genpar.genParamValues[gen, genpar.genParamNames.Tppd0], Tppq0 = genpar.genParamValues[gen, genpar.genParamNames.Tppq0], Tpq0 = genpar.genParamValues[gen, genpar.genParamNames.Tpq0], U0Pu = U0Pu, UBaseHV = UNom, UBaseLV = UNom, UNom = UNom, UNomHV = UNom, UNomLV = UNom, UPhase0 = UPhase0, XTfPu = 0, XdPu = genpar.genParamValues[gen, genpar.genParamNames.XdPu], XlPu = genpar.genParamValues[gen, genpar.genParamNames.XlPu], XpdPu = genpar.genParamValues[gen, genpar.genParamNames.XpdPu], XppdPu = genpar.genParamValues[gen, genpar.genParamNames.XppdPu], XppqPu = genpar.genParamValues[gen, genpar.genParamNames.XppqPu], XpqPu = genpar.genParamValues[gen, genpar.genParamNames.XpqPu], XqPu = genpar.genParamValues[gen, genpar.genParamNames.XqPu], md = genpar.genParamValues[gen, genpar.genParamNames.md], mq = genpar.genParamValues[gen, genpar.genParamNames.mq], nd = genpar.genParamValues[gen, genpar.genParamNames.nd], nq = genpar.genParamValues[gen, genpar.genParamNames.nq]) annotation(
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 initial algorithm
   hygov.Pm0Pu := generatorSynchronous.Pm0Pu;
   scrx.Efd0Pu := generatorSynchronous.Efd0Pu;

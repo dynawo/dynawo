@@ -22,88 +22,88 @@ model NetworkWithPQLoads
  
    parameter  Types.ActivePowerPu P0Pu_load_1101_ABEL;
   parameter  Types.ReactivePowerPu Q0Pu_load_1101_ABEL;
-  parameter  Types.VoltageModulePu U0Pu_load_1101_ABEL;
-  parameter  Types.Angle UPhase0_load_1101_ABEL;
+  parameter  Types.VoltageModulePu U0Pu_load_1101_ABEL = 1;
+  parameter  Types.Angle UPhase0_load_1101_ABEL = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1102_ADAMS;
   parameter  Types.ReactivePowerPu Q0Pu_load_1102_ADAMS;
-  parameter  Types.VoltageModulePu U0Pu_load_1102_ADAMS;
-  parameter  Types.Angle UPhase0_load_1102_ADAMS;
+  parameter  Types.VoltageModulePu U0Pu_load_1102_ADAMS = 1;
+  parameter  Types.Angle UPhase0_load_1102_ADAMS = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1103_ADLER;
   parameter  Types.ReactivePowerPu Q0Pu_load_1103_ADLER;
-  parameter  Types.VoltageModulePu U0Pu_load_1103_ADLER;
-  parameter  Types.Angle UPhase0_load_1103_ADLER;
+  parameter  Types.VoltageModulePu U0Pu_load_1103_ADLER = 1;
+  parameter  Types.Angle UPhase0_load_1103_ADLER = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1104_AGRICOLA;
   parameter  Types.ReactivePowerPu Q0Pu_load_1104_AGRICOLA;
-  parameter  Types.VoltageModulePu U0Pu_load_1104_AGRICOLA;
-  parameter  Types.Angle UPhase0_load_1104_AGRICOLA;
+  parameter  Types.VoltageModulePu U0Pu_load_1104_AGRICOLA = 1;
+  parameter  Types.Angle UPhase0_load_1104_AGRICOLA = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1105_AIKEN;
   parameter  Types.ReactivePowerPu Q0Pu_load_1105_AIKEN;
-  parameter  Types.VoltageModulePu U0Pu_load_1105_AIKEN;
-  parameter  Types.Angle UPhase0_load_1105_AIKEN;
+  parameter  Types.VoltageModulePu U0Pu_load_1105_AIKEN = 1;
+  parameter  Types.Angle UPhase0_load_1105_AIKEN = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1106_ALBER;
   parameter  Types.ReactivePowerPu Q0Pu_load_1106_ALBER;
-  parameter  Types.VoltageModulePu U0Pu_load_1106_ALBER;
-  parameter  Types.Angle UPhase0_load_1106_ALBER;
+  parameter  Types.VoltageModulePu U0Pu_load_1106_ALBER = 1;
+  parameter  Types.Angle UPhase0_load_1106_ALBER = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1107_ALDER;
   parameter  Types.ReactivePowerPu Q0Pu_load_1107_ALDER;
-  parameter  Types.VoltageModulePu U0Pu_load_1107_ALDER;
-  parameter  Types.Angle UPhase0_load_1107_ALDER;
+  parameter  Types.VoltageModulePu U0Pu_load_1107_ALDER = 1;
+  parameter  Types.Angle UPhase0_load_1107_ALDER = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1108_ALGER;
   parameter  Types.ReactivePowerPu Q0Pu_load_1108_ALGER;
-  parameter  Types.VoltageModulePu U0Pu_load_1108_ALGER;
-  parameter  Types.Angle UPhase0_load_1108_ALGER;
+  parameter  Types.VoltageModulePu U0Pu_load_1108_ALGER = 1;
+  parameter  Types.Angle UPhase0_load_1108_ALGER = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1109_ALI;
   parameter  Types.ReactivePowerPu Q0Pu_load_1109_ALI;
-  parameter  Types.VoltageModulePu U0Pu_load_1109_ALI;
-  parameter  Types.Angle UPhase0_load_1109_ALI;
+  parameter  Types.VoltageModulePu U0Pu_load_1109_ALI = 1;
+  parameter  Types.Angle UPhase0_load_1109_ALI = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1110_ALLEN;
   parameter  Types.ReactivePowerPu Q0Pu_load_1110_ALLEN;
-  parameter  Types.VoltageModulePu U0Pu_load_1110_ALLEN;
-  parameter  Types.Angle UPhase0_load_1110_ALLEN;
+  parameter  Types.VoltageModulePu U0Pu_load_1110_ALLEN = 1;
+  parameter  Types.Angle UPhase0_load_1110_ALLEN = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1113_ARNE;
   parameter  Types.ReactivePowerPu Q0Pu_load_1113_ARNE;
-  parameter  Types.VoltageModulePu U0Pu_load_1113_ARNE;
-  parameter  Types.Angle UPhase0_load_1113_ARNE;
+  parameter  Types.VoltageModulePu U0Pu_load_1113_ARNE = 1;
+  parameter  Types.Angle UPhase0_load_1113_ARNE = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1114_ARNOLD;
   parameter  Types.ReactivePowerPu Q0Pu_load_1114_ARNOLD;
-  parameter  Types.VoltageModulePu U0Pu_load_1114_ARNOLD;
-  parameter  Types.Angle UPhase0_load_1114_ARNOLD;
+  parameter  Types.VoltageModulePu U0Pu_load_1114_ARNOLD = 1;
+  parameter  Types.Angle UPhase0_load_1114_ARNOLD = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1115_ARTHUR;
   parameter  Types.ReactivePowerPu Q0Pu_load_1115_ARTHUR;
-  parameter  Types.VoltageModulePu U0Pu_load_1115_ARTHUR;
-  parameter  Types.Angle UPhase0_load_1115_ARTHUR;
+  parameter  Types.VoltageModulePu U0Pu_load_1115_ARTHUR = 1;
+  parameter  Types.Angle UPhase0_load_1115_ARTHUR = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1116_ASSER;
   parameter  Types.ReactivePowerPu Q0Pu_load_1116_ASSER;
-  parameter  Types.VoltageModulePu U0Pu_load_1116_ASSER;
-  parameter  Types.Angle UPhase0_load_1116_ASSER;
+  parameter  Types.VoltageModulePu U0Pu_load_1116_ASSER = 1;
+  parameter  Types.Angle UPhase0_load_1116_ASSER = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1118_ASTOR;
   parameter  Types.ReactivePowerPu Q0Pu_load_1118_ASTOR;
-  parameter  Types.VoltageModulePu U0Pu_load_1118_ASTOR;
-  parameter  Types.Angle UPhase0_load_1118_ASTOR;
+  parameter  Types.VoltageModulePu U0Pu_load_1118_ASTOR = 1;
+  parameter  Types.Angle UPhase0_load_1118_ASTOR = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1119_ATTAR;
   parameter  Types.ReactivePowerPu Q0Pu_load_1119_ATTAR;
-  parameter  Types.VoltageModulePu U0Pu_load_1119_ATTAR;
-  parameter  Types.Angle UPhase0_load_1119_ATTAR;
+  parameter  Types.VoltageModulePu U0Pu_load_1119_ATTAR = 1;
+  parameter  Types.Angle UPhase0_load_1119_ATTAR = 0;
 
   parameter  Types.ActivePowerPu P0Pu_load_1120_ATTILA;
   parameter  Types.ReactivePowerPu Q0Pu_load_1120_ATTILA;
-  parameter  Types.VoltageModulePu U0Pu_load_1120_ATTILA;
-  parameter  Types.Angle UPhase0_load_1120_ATTILA;
+  parameter  Types.VoltageModulePu U0Pu_load_1120_ATTILA = 1;
+  parameter  Types.Angle UPhase0_load_1120_ATTILA = 0;
 
   Dynawo.Electrical.Loads.LoadPQ load_1118_ASTOR(i0Pu = i0Pu_load_1118_ASTOR, s0Pu = s0Pu_load_1118_ASTOR, u0Pu = u0Pu_load_1118_ASTOR) annotation(
     Placement(visible = true, transformation(origin = {66, 260}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -140,75 +140,177 @@ model NetworkWithPQLoads
   Dynawo.Electrical.Loads.LoadPQ load_1110_ALLEN(i0Pu = i0Pu_load_1110_ALLEN, s0Pu = s0Pu_load_1110_ALLEN, u0Pu = u0Pu_load_1110_ALLEN) annotation(
     Placement(visible = true, transformation(origin = {86, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1101_ABEL = Complex(P0Pu_load_1101_ABEL, Q0Pu_load_1101_ABEL);
+  parameter Types.ComplexVoltagePu u0Pu_load_1101_ABEL = ComplexMath.fromPolar(U0Pu_load_1101_ABEL, UPhase0_load_1101_ABEL);
+  parameter Types.ComplexCurrentPu i0Pu_load_1101_ABEL = ComplexMath.conj(s0Pu_load_1101_ABEL / u0Pu_load_1101_ABEL);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1102_ADAMS = Complex(P0Pu_load_1102_ADAMS, Q0Pu_load_1102_ADAMS);
+  parameter Types.ComplexVoltagePu u0Pu_load_1102_ADAMS = ComplexMath.fromPolar(U0Pu_load_1102_ADAMS, UPhase0_load_1102_ADAMS);
+  parameter Types.ComplexCurrentPu i0Pu_load_1102_ADAMS = ComplexMath.conj(s0Pu_load_1102_ADAMS / u0Pu_load_1102_ADAMS);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1103_ADLER = Complex(P0Pu_load_1103_ADLER, Q0Pu_load_1103_ADLER);
+  parameter Types.ComplexVoltagePu u0Pu_load_1103_ADLER = ComplexMath.fromPolar(U0Pu_load_1103_ADLER, UPhase0_load_1103_ADLER);
+  parameter Types.ComplexCurrentPu i0Pu_load_1103_ADLER = ComplexMath.conj(s0Pu_load_1103_ADLER / u0Pu_load_1103_ADLER);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1104_AGRICOLA = Complex(P0Pu_load_1104_AGRICOLA, Q0Pu_load_1104_AGRICOLA);
+  parameter Types.ComplexVoltagePu u0Pu_load_1104_AGRICOLA = ComplexMath.fromPolar(U0Pu_load_1104_AGRICOLA, UPhase0_load_1104_AGRICOLA);
+  parameter Types.ComplexCurrentPu i0Pu_load_1104_AGRICOLA = ComplexMath.conj(s0Pu_load_1104_AGRICOLA / u0Pu_load_1104_AGRICOLA);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1105_AIKEN = Complex(P0Pu_load_1105_AIKEN, Q0Pu_load_1105_AIKEN);
+  parameter Types.ComplexVoltagePu u0Pu_load_1105_AIKEN = ComplexMath.fromPolar(U0Pu_load_1105_AIKEN, UPhase0_load_1105_AIKEN);
+  parameter Types.ComplexCurrentPu i0Pu_load_1105_AIKEN = ComplexMath.conj(s0Pu_load_1105_AIKEN / u0Pu_load_1105_AIKEN);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1106_ALBER = Complex(P0Pu_load_1106_ALBER, Q0Pu_load_1106_ALBER);
+  parameter Types.ComplexVoltagePu u0Pu_load_1106_ALBER = ComplexMath.fromPolar(U0Pu_load_1106_ALBER, UPhase0_load_1106_ALBER);
+  parameter Types.ComplexCurrentPu i0Pu_load_1106_ALBER = ComplexMath.conj(s0Pu_load_1106_ALBER / u0Pu_load_1106_ALBER);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1107_ALDER = Complex(P0Pu_load_1107_ALDER, Q0Pu_load_1107_ALDER);
+  parameter Types.ComplexVoltagePu u0Pu_load_1107_ALDER = ComplexMath.fromPolar(U0Pu_load_1107_ALDER, UPhase0_load_1107_ALDER);
+  parameter Types.ComplexCurrentPu i0Pu_load_1107_ALDER = ComplexMath.conj(s0Pu_load_1107_ALDER / u0Pu_load_1107_ALDER);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1108_ALGER = Complex(P0Pu_load_1108_ALGER, Q0Pu_load_1108_ALGER);
+  parameter Types.ComplexVoltagePu u0Pu_load_1108_ALGER = ComplexMath.fromPolar(U0Pu_load_1108_ALGER, UPhase0_load_1108_ALGER);
+  parameter Types.ComplexCurrentPu i0Pu_load_1108_ALGER = ComplexMath.conj(s0Pu_load_1108_ALGER / u0Pu_load_1108_ALGER);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1109_ALI = Complex(P0Pu_load_1109_ALI, Q0Pu_load_1109_ALI);
+  parameter Types.ComplexVoltagePu u0Pu_load_1109_ALI = ComplexMath.fromPolar(U0Pu_load_1109_ALI, UPhase0_load_1109_ALI);
+  parameter Types.ComplexCurrentPu i0Pu_load_1109_ALI = ComplexMath.conj(s0Pu_load_1109_ALI / u0Pu_load_1109_ALI);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1110_ALLEN = Complex(P0Pu_load_1110_ALLEN, Q0Pu_load_1110_ALLEN);
+  parameter Types.ComplexVoltagePu u0Pu_load_1110_ALLEN = ComplexMath.fromPolar(U0Pu_load_1110_ALLEN, UPhase0_load_1110_ALLEN);
+  parameter Types.ComplexCurrentPu i0Pu_load_1110_ALLEN = ComplexMath.conj(s0Pu_load_1110_ALLEN / u0Pu_load_1110_ALLEN);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1113_ARNE = Complex(P0Pu_load_1113_ARNE, Q0Pu_load_1113_ARNE);
+  parameter Types.ComplexVoltagePu u0Pu_load_1113_ARNE = ComplexMath.fromPolar(U0Pu_load_1113_ARNE, UPhase0_load_1113_ARNE);
+  parameter Types.ComplexCurrentPu i0Pu_load_1113_ARNE = ComplexMath.conj(s0Pu_load_1113_ARNE / u0Pu_load_1113_ARNE);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1114_ARNOLD = Complex(P0Pu_load_1114_ARNOLD, Q0Pu_load_1114_ARNOLD);
+  parameter Types.ComplexVoltagePu u0Pu_load_1114_ARNOLD = ComplexMath.fromPolar(U0Pu_load_1114_ARNOLD, UPhase0_load_1114_ARNOLD);
+  parameter Types.ComplexCurrentPu i0Pu_load_1114_ARNOLD = ComplexMath.conj(s0Pu_load_1114_ARNOLD / u0Pu_load_1114_ARNOLD);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1115_ARTHUR = Complex(P0Pu_load_1115_ARTHUR, Q0Pu_load_1115_ARTHUR);
+  parameter Types.ComplexVoltagePu u0Pu_load_1115_ARTHUR = ComplexMath.fromPolar(U0Pu_load_1115_ARTHUR, UPhase0_load_1115_ARTHUR);
+  parameter Types.ComplexCurrentPu i0Pu_load_1115_ARTHUR = ComplexMath.conj(s0Pu_load_1115_ARTHUR / u0Pu_load_1115_ARTHUR);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1116_ASSER = Complex(P0Pu_load_1116_ASSER, Q0Pu_load_1116_ASSER);
+  parameter Types.ComplexVoltagePu u0Pu_load_1116_ASSER = ComplexMath.fromPolar(U0Pu_load_1116_ASSER, UPhase0_load_1116_ASSER);
+  parameter Types.ComplexCurrentPu i0Pu_load_1116_ASSER = ComplexMath.conj(s0Pu_load_1116_ASSER / u0Pu_load_1116_ASSER);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1118_ASTOR = Complex(P0Pu_load_1118_ASTOR, Q0Pu_load_1118_ASTOR);
+  parameter Types.ComplexVoltagePu u0Pu_load_1118_ASTOR = ComplexMath.fromPolar(U0Pu_load_1118_ASTOR, UPhase0_load_1118_ASTOR);
+  parameter Types.ComplexCurrentPu i0Pu_load_1118_ASTOR = ComplexMath.conj(s0Pu_load_1118_ASTOR / u0Pu_load_1118_ASTOR);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1119_ATTAR = Complex(P0Pu_load_1119_ATTAR, Q0Pu_load_1119_ATTAR);
+  parameter Types.ComplexVoltagePu u0Pu_load_1119_ATTAR = ComplexMath.fromPolar(U0Pu_load_1119_ATTAR, UPhase0_load_1119_ATTAR);
+  parameter Types.ComplexCurrentPu i0Pu_load_1119_ATTAR = ComplexMath.conj(s0Pu_load_1119_ATTAR / u0Pu_load_1119_ATTAR);
+  
+  parameter Types.ComplexApparentPowerPu s0Pu_load_1120_ATTILA = Complex(P0Pu_load_1120_ATTILA, Q0Pu_load_1120_ATTILA);
+  parameter Types.ComplexVoltagePu u0Pu_load_1120_ATTILA = ComplexMath.fromPolar(U0Pu_load_1120_ATTILA, UPhase0_load_1120_ATTILA);
+  parameter Types.ComplexCurrentPu i0Pu_load_1120_ATTILA = ComplexMath.conj(s0Pu_load_1120_ATTILA / u0Pu_load_1120_ATTILA);
+
 equation
   load_1101_ABEL.switchOffSignal1.value = false;
   load_1101_ABEL.switchOffSignal2.value = false;
   load_1101_ABEL.PRefPu = P0Pu_load_1101_ABEL;
   load_1101_ABEL.QRefPu = Q0Pu_load_1101_ABEL;
+  load_1101_ABEL.deltaP = 0;
+  load_1101_ABEL.deltaQ = 0;
   load_1102_ADAMS.switchOffSignal1.value = false;
   load_1102_ADAMS.switchOffSignal2.value = false;
   load_1102_ADAMS.PRefPu = P0Pu_load_1102_ADAMS;
   load_1102_ADAMS.QRefPu = Q0Pu_load_1102_ADAMS;
+  load_1102_ADAMS.deltaP = 0;
+  load_1102_ADAMS.deltaQ = 0;
   load_1103_ADLER.switchOffSignal1.value = false;
   load_1103_ADLER.switchOffSignal2.value = false;
   load_1103_ADLER.PRefPu = P0Pu_load_1103_ADLER;
   load_1103_ADLER.QRefPu = Q0Pu_load_1103_ADLER;
+  load_1103_ADLER.deltaP = 0;
+  load_1103_ADLER.deltaQ = 0;
   load_1104_AGRICOLA.switchOffSignal1.value = false;
   load_1104_AGRICOLA.switchOffSignal2.value = false;
   load_1104_AGRICOLA.PRefPu = P0Pu_load_1104_AGRICOLA;
   load_1104_AGRICOLA.QRefPu = Q0Pu_load_1104_AGRICOLA;
+  load_1104_AGRICOLA.deltaP = 0;
+  load_1104_AGRICOLA.deltaQ = 0;
   load_1105_AIKEN.switchOffSignal1.value = false;
   load_1105_AIKEN.switchOffSignal2.value = false;
   load_1105_AIKEN.PRefPu = P0Pu_load_1105_AIKEN;
   load_1105_AIKEN.QRefPu = Q0Pu_load_1105_AIKEN;
+  load_1105_AIKEN.deltaP = 0;
+  load_1105_AIKEN.deltaQ = 0;
   load_1106_ALBER.switchOffSignal1.value = false;
   load_1106_ALBER.switchOffSignal2.value = false;
   load_1106_ALBER.PRefPu = P0Pu_load_1106_ALBER;
   load_1106_ALBER.QRefPu = Q0Pu_load_1106_ALBER;
+  load_1106_ALBER.deltaP = 0;
+  load_1106_ALBER.deltaQ = 0;
   load_1107_ALDER.switchOffSignal1.value = false;
   load_1107_ALDER.switchOffSignal2.value = false;
   load_1107_ALDER.PRefPu = P0Pu_load_1107_ALDER;
   load_1107_ALDER.QRefPu = Q0Pu_load_1107_ALDER;
+  load_1107_ALDER.deltaP = 0;
+  load_1107_ALDER.deltaQ = 0;
   load_1108_ALGER.switchOffSignal1.value = false;
   load_1108_ALGER.switchOffSignal2.value = false;
   load_1108_ALGER.PRefPu = P0Pu_load_1108_ALGER;
   load_1108_ALGER.QRefPu = Q0Pu_load_1108_ALGER;
+  load_1108_ALGER.deltaP = 0;
+  load_1108_ALGER.deltaQ = 0;
   load_1109_ALI.switchOffSignal1.value = false;
   load_1109_ALI.switchOffSignal2.value = false;
   load_1109_ALI.PRefPu = P0Pu_load_1109_ALI;
   load_1109_ALI.QRefPu = Q0Pu_load_1109_ALI;
+  load_1109_ALI.deltaP = 0;
+  load_1109_ALI.deltaQ = 0;
   load_1110_ALLEN.switchOffSignal1.value = false;
   load_1110_ALLEN.switchOffSignal2.value = false;
   load_1110_ALLEN.PRefPu = P0Pu_load_1110_ALLEN;
   load_1110_ALLEN.QRefPu = Q0Pu_load_1110_ALLEN;
+  load_1110_ALLEN.deltaP = 0;
+  load_1110_ALLEN.deltaQ = 0;
   load_1113_ARNE.switchOffSignal1.value = false;
   load_1113_ARNE.switchOffSignal2.value = false;
   load_1113_ARNE.PRefPu = P0Pu_load_1113_ARNE;
   load_1113_ARNE.QRefPu = Q0Pu_load_1113_ARNE;
-  load_1118_ASTOR.switchOffSignal1.value = false;
-  load_1118_ASTOR.switchOffSignal2.value = false;
-  load_1118_ASTOR.PRefPu = P0Pu_load_1118_ASTOR;
-  load_1118_ASTOR.QRefPu = Q0Pu_load_1118_ASTOR;
+  load_1113_ARNE.deltaP = 0;
+  load_1113_ARNE.deltaQ = 0;
   load_1114_ARNOLD.switchOffSignal1.value = false;
   load_1114_ARNOLD.switchOffSignal2.value = false;
   load_1114_ARNOLD.PRefPu = P0Pu_load_1114_ARNOLD;
   load_1114_ARNOLD.QRefPu = Q0Pu_load_1114_ARNOLD;
+  load_1114_ARNOLD.deltaP = 0;
+  load_1114_ARNOLD.deltaQ = 0;
   load_1115_ARTHUR.switchOffSignal1.value = false;
   load_1115_ARTHUR.switchOffSignal2.value = false;
   load_1115_ARTHUR.PRefPu = P0Pu_load_1115_ARTHUR;
   load_1115_ARTHUR.QRefPu = Q0Pu_load_1115_ARTHUR;
+  load_1115_ARTHUR.deltaP = 0;
+  load_1115_ARTHUR.deltaQ = 0;
   load_1116_ASSER.switchOffSignal1.value = false;
   load_1116_ASSER.switchOffSignal2.value = false;
   load_1116_ASSER.PRefPu = P0Pu_load_1116_ASSER;
   load_1116_ASSER.QRefPu = Q0Pu_load_1116_ASSER;
+  load_1116_ASSER.deltaP = 0;
+  load_1116_ASSER.deltaQ = 0;
+  load_1118_ASTOR.switchOffSignal1.value = false;
+  load_1118_ASTOR.switchOffSignal2.value = false;
+  load_1118_ASTOR.PRefPu = P0Pu_load_1118_ASTOR;
+  load_1118_ASTOR.QRefPu = Q0Pu_load_1118_ASTOR;
+  load_1118_ASTOR.deltaP = 0;
+  load_1118_ASTOR.deltaQ = 0;
   load_1119_ATTAR.switchOffSignal1.value = false;
   load_1119_ATTAR.switchOffSignal2.value = false;
   load_1119_ATTAR.PRefPu = P0Pu_load_1119_ATTAR;
   load_1119_ATTAR.QRefPu = Q0Pu_load_1119_ATTAR;
+  load_1119_ATTAR.deltaP = 0;
+  load_1119_ATTAR.deltaQ = 0;
   load_1120_ATTILA.switchOffSignal1.value = false;
   load_1120_ATTILA.switchOffSignal2.value = false;
   load_1120_ATTILA.PRefPu = P0Pu_load_1120_ATTILA;
   load_1120_ATTILA.QRefPu = Q0Pu_load_1120_ATTILA;
+  load_1120_ATTILA.deltaP = 0;
+  load_1120_ATTILA.deltaQ = 0;
   connect(load_1101_ABEL.terminal, bus_1101_ABEL.terminal) annotation(
     Line(points = {{-288, -186}, {-268, -186}}, color = {0, 0, 255}));
   connect(load_1102_ADAMS.terminal, bus_1102_ADAMS.terminal) annotation(

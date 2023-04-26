@@ -17,10 +17,10 @@ model Network
   import Dynawo;
   import Dynawo.Electrical.SystemBase.SnRef;
 
-  parameter Types.ReactivePowerPu Q0Pu_line_reactor_106;
+  parameter Types.ReactivePowerPu Q0Pu_line_reactor_106 = 0.75;
   parameter Types.VoltageModulePu U0Pu_line_reactor_106 = 1;
   parameter Types.Angle UPhase0_line_reactor_106 = 0;
-  parameter Types.ReactivePowerPu Q0Pu_line_reactor_110;
+  parameter Types.ReactivePowerPu Q0Pu_line_reactor_110 = 0.75;
   parameter Types.VoltageModulePu U0Pu_line_reactor_110 = 1;
   parameter Types.Angle UPhase0_line_reactor_110 = 0;
 

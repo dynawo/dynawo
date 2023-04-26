@@ -41,40 +41,40 @@ model SteamIEEET1Frame
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.GeneratorSynchronousThreeWindingsInterface generatorSynchronous(
-    P0Pu = P0Pu,
-    Q0Pu = Q0Pu, 
-    U0Pu = U0Pu,
-    UPhase0 = UPhase0,  
-    DPu = genpar.genParamValues[gen, genpar.genParamNames.DPu],  
-    H = genpar.genParamValues[gen, genpar.genParamNames.H], 
+      
+    DPu = genpar.genParamValues[gen, genpar.genParamNames.DPu],
+    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,  
+    H = genpar.genParamValues[gen, genpar.genParamNames.H],P0Pu = P0Pu, 
     PNomAlt = genpar.genParamValues[gen, genpar.genParamNames.PNom], 
-    PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom], 
+    PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom],
+    Q0Pu = Q0Pu,
+    RTfPu = 0, 
     RaPu = genpar.genParamValues[gen, genpar.genParamNames.RaPu], 
     SNom = genpar.genParamValues[gen, genpar.genParamNames.SNom], 
-    SnTfo = genpar.genParamValues[gen, genpar.genParamNames.SNom],
-    RTfPu = 0, 
-    XTfPu = 0, 
-    UNom = UNom, 
-    UBaseHV = UNom, 
-    UBaseLV = UNom, 
-    UNomHV = UNom, 
-    UNomLV = UNom, 
+    SnTfo = genpar.genParamValues[gen, genpar.genParamNames.SNom], 
     Tpd0 = genpar.genParamValues[gen, genpar.genParamNames.Tpd0], 
-    Tpq0 = genpar.genParamValues[gen, genpar.genParamNames.Tpq0], 
     Tppd0 = genpar.genParamValues[gen, genpar.genParamNames.Tppd0], 
     Tppq0 = genpar.genParamValues[gen, genpar.genParamNames.Tppq0], 
+    Tpq0 = genpar.genParamValues[gen, genpar.genParamNames.Tpq0], 
+    U0Pu = U0Pu, 
+    UBaseHV = UNom, 
+    UBaseLV = UNom, 
+    UNom = UNom, 
+    UNomHV = UNom, 
+    UNomLV = UNom,
+    UPhase0 = UPhase0, 
+    XTfPu = 0, 
     XdPu = genpar.genParamValues[gen, genpar.genParamNames.XdPu], 
+    XlPu = genpar.genParamValues[gen, genpar.genParamNames.XlPu], 
     XpdPu = genpar.genParamValues[gen, genpar.genParamNames.XpdPu], 
     XppdPu = genpar.genParamValues[gen, genpar.genParamNames.XppdPu], 
     XppqPu = genpar.genParamValues[gen, genpar.genParamNames.XppqPu], 
     XpqPu = genpar.genParamValues[gen, genpar.genParamNames.XpqPu], 
     XqPu = genpar.genParamValues[gen, genpar.genParamNames.XqPu], 
-    XlPu = genpar.genParamValues[gen, genpar.genParamNames.XlPu], 
     md = genpar.genParamValues[gen, genpar.genParamNames.md], 
     mq = genpar.genParamValues[gen, genpar.genParamNames.mq], 
     nd = genpar.genParamValues[gen, genpar.genParamNames.nd], 
-    nq = genpar.genParamValues[gen, genpar.genParamNames.nq],
-    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad
+    nq = genpar.genParamValues[gen, genpar.genParamNames.nq]
   ) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
@@ -95,12 +95,10 @@ model SteamIEEET1Frame
     PMaxPu = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.PMax],
     PMinPu = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.PMin], 
     PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom],
-    PgvTableName = "dummyTable",
     Pm0Pu = generatorSynchronous.Pm0Pu,
     PmRef0Pu(fixed=false), SNom = genpar.genParamValues[gen, genpar.genParamNames.SNom],
     Sdb1 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Sdb1] > 0,
     Sdb2 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Sdb2] > 0, 
-    TablesFile = "C:\\Users\\lohrs\\Documents\\workspace\\Dynawo\\dummyTable.txt",
     Uc = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Uc],
     Uo = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Uo],
     ValveOn = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.ValveOn] > 0,
@@ -210,11 +208,11 @@ equation
   connect(PmPuConst.y, switch1.u3) annotation(
     Line(points = {{40, 66}, {36, 66}, {36, 30}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
-    Line(points = {{-38, 40}, {-34, 40}, {-34, 28}}, color = {0, 0, 127}));
+    Line(points = {{-38, 40}, {-35, 40}, {-35, 27}}, color = {0, 0, 127}));
   connect(exc.EfdPu, switch.u1) annotation(
-    Line(points = {{-38, 0}, {-34, 0}, {-34, 20}}, color = {0, 0, 127}));
+    Line(points = {{-38, 0}, {-35, 0}, {-35, 19}}, color = {0, 0, 127}));
   connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-24, 24}, {-16, 24}, {-16, 0}}, color = {0, 0, 127}));
+    Line(points = {{-23.5, 23}, {-16, 23}, {-16, 0}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaRefPu_out, UelPu.u1) annotation(
     Line(points = {{10, -18}, {10, -64}, {-4, -64}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, UelPu.u2) annotation(

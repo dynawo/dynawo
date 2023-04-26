@@ -130,6 +130,12 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {150, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, initType = Modelica.Blocks.Types.Init.InitialState, y_start = at) annotation(
+    Placement(visible = true, transformation(origin = {392, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain9(k = K) annotation(
+    Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain10(k = SNom / PNomTurb) annotation(
+    Placement(visible = true, transformation(origin = {480, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)" annotation(
@@ -138,14 +144,9 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
     Dialog(group = "Initialization"));
   Dynawo.Examples.RVS.Components.StaticVarCompensators.Util.LeadLagBlockPass leadLagBlockPass(Tb = t1, Tc = t2, initType = Modelica.Blocks.Types.Init.InitialState)  annotation(
     Placement(visible = true, transformation(origin = {-260, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain9(k = K) annotation(
-    Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain10(k = SNom / PNomTurb) annotation(
-    Placement(visible = true, transformation(origin = {480, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+protected 
   parameter Real at(fixed=false);
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, initType = Modelica.Blocks.Types.Init.InitialState, y_start = at) annotation(
-    Placement(visible = true, transformation(origin = {392, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   at := if K1 + K3 + K5 + K7 > 0 then (Pm0Pu  * PNomTurb / SNom) / (K1 + K3 + K5 + K7) else 0;

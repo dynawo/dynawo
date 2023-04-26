@@ -50,8 +50,8 @@ equation
     else
       der(QMltPu) = Kq * ((QRefPu - QPu) / QRefPu);
     end if;
-    PPu = PRefPu * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha) * PMltPu;
-    QPu = QRefPu * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta) * QMltPu;
+    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha) * PMltPu;
+    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta) * QMltPu;
   else
     der(PMltPu) = 0;
     der(QMltPu) = 0;
