@@ -31,6 +31,7 @@ package BaseClasses
 
     Types.ComplexApparentPowerPu SGenPu(re(start = PGen0Pu), im(start = QGen0Pu)) "Complex apparent power at terminal in pu (base SnRef) (generator convention)";
     Types.ActivePowerPu PGenPu(start = PGen0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGen(start = SystemBase.SnRef * PGen0Pu) "Active power at terminal in MW (generator convention)";
     Types.ReactivePowerPu QGenPu(start = QGen0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
     Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
 
@@ -42,6 +43,7 @@ package BaseClasses
     else
       UPu = 0;
     end if;
+   PGen = SystemBase.SnRef * PGenPu;
 
     annotation(preferredView = "text");
   end BaseGeneratorSimplified;

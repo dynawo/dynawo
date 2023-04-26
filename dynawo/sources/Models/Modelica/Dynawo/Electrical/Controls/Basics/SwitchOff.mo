@@ -130,10 +130,13 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
      - a switch-off signal coming from an automaton in the generator (under-voltage protection for example)
   */
   import Dynawo.Electrical.Constants;
+  import Modelica;
 
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 
   Constants.state state(start = State0) "Generator connection state";
+  Real genState(start = 0) "Generator continuous connection state";
+  Modelica.Blocks.Math.IntegerToReal converter "Converter for generator state";
 
   parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
@@ -145,6 +148,8 @@ equation
     Timeline.logEvent1 (TimelineKeys.GeneratorConnected);
     state = Constants.state.Closed;
   end when;
+  connect(converter.y, genState);
+  converter.u = Integer(state);
 
   annotation(preferredView = "text");
 end SwitchOffGenerator;
