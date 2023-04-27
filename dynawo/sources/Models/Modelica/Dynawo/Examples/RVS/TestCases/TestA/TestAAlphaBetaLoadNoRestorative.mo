@@ -235,6 +235,8 @@ model TestAAlphaBetaLoadNoRestorative
 equation
   load_101.switchOffSignal1.value = false;
   load_101.switchOffSignal2.value = false;
+  load_101.deltaP = 0;
+  load_101.deltaQ = 0;
   load_101.PRefPu = 0;
   load_101.QRefPu = if time < event_time_loadstep then 0 else event_QPu_load_101;
   line_106_110.switchOffSignal1.value = if time < event_time_line_sw1 then false else true;

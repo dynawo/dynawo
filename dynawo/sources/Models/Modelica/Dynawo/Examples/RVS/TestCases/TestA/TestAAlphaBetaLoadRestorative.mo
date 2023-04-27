@@ -235,6 +235,8 @@ model TestAAlphaBetaLoadRestorative
 equation
   load_101.switchOffSignal1.value = false;
   load_101.switchOffSignal2.value = false;
+  load_101.deltaP = 0;
+  load_101.deltaQ = 0;
   load_101.PRefPu = 0;
   load_101.QRefPu = if time < event_time_loadstep then 0 else event_QPu_load_101;
   connect(load_101.terminal, bus_101_ABEL.terminal) annotation(
