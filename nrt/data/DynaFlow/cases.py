@@ -154,6 +154,16 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcPowerTransfer", "HvdcPow
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#####################################################################
+#  Small System with two HVDC links and a secondary voltage control #
+#####################################################################
+
+case_name = "DynaFlow - HVDC links with a secondary voltage control"
+case_description = "Small System with two HVDC links and a secondary voltage control"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcRpcl2", "HvdcRpcl2.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ################################################################################################
 #  Small System with a Load Restoration following a line disconnection, using a cpp model #
 ################################################################################################

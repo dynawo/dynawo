@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,13 +9,14 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.BaseClasses.BaseHvdcP;
+  extends HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;
+  extends HVDC.BaseClasses.BasePTanPhi(QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
 
 /*
   Equivalent circuit and conventions:
@@ -25,39 +26,24 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
 
 */
 
-  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
-
-  input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
-  input Real tanPhi2Ref(start = TanPhi2Ref0) "tan(Phi) regulation set point at terminal 2";
-
-  parameter Real TanPhi1Ref0 "Start value of tan(Phi) regulation set point at terminal 1";
-  parameter Real TanPhi2Ref0 "Start value of tan(Phi) regulation set point at terminal 2";
-
-protected
-  Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2RawPu(start = s20Pu.im) "Raw reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
-
 equation
-  Q1RawPu = tanPhi1Ref * P1Pu;
-  Q2RawPu = tanPhi2Ref * P2Pu;
+  QInj1RawPu = tanPhi1Ref * PInj1Pu;
+  QInj2RawPu = tanPhi2Ref * PInj2Pu;
 
   if running.value then
-    if Q1RawPu >= Q1MaxPu then
-     Q1Pu = Q1MaxPu;
-    elseif Q1RawPu <= Q1MinPu then
-     Q1Pu = Q1MinPu;
+    if QInj1RawPu >= Q1MaxPu then
+     QInj1Pu = Q1MaxPu;
+    elseif QInj1RawPu <= Q1MinPu then
+     QInj1Pu = Q1MinPu;
     else
-     Q1Pu = Q1RawPu;
+     QInj1Pu = QInj1RawPu;
     end if;
-    if Q2RawPu >= Q2MaxPu then
-     Q2Pu = Q2MaxPu;
-    elseif Q2RawPu <= Q2MinPu then
-     Q2Pu = Q2MinPu;
+    if QInj2RawPu >= Q2MaxPu then
+     QInj2Pu = Q2MaxPu;
+    elseif QInj2RawPu <= Q2MinPu then
+     QInj2Pu = Q2MinPu;
     else
-     Q2Pu = Q2RawPu;
+     QInj2Pu = QInj2RawPu;
     end if;
   else
     Q1Pu = 0;

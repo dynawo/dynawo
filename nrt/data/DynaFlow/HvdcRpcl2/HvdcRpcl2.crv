@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Hvdc1" variable="hvdc_UseLambda1"/>
+  <curve model="Hvdc1" variable="hvdc_q1Status"/>
+  <curve model="Hvdc1" variable="hvdc_q2Status"/>
+  <curve model="Hvdc1" variable="hvdc_PInj1Pu"/>
+  <curve model="Hvdc1" variable="hvdc_QInj1Pu"/>
+  <curve model="Hvdc1" variable="hvdc_PInj2Pu"/>
+  <curve model="Hvdc1" variable="hvdc_QInj2Pu"/>
+  <curve model="Hvdc1" variable="hvdc_U1Pu"/>
+  <curve model="Hvdc1" variable="hvdc_U2Pu"/>
+  <curve model="Hvdc1" variable="line_P1Pu"/>
+  <curve model="Hvdc1" variable="line_Q1Pu"/>
+  <curve model="Hvdc1" variable="line_P2Pu"/>
+  <curve model="Hvdc1" variable="line_Q2Pu"/>
+  <curve model="Hvdc2" variable="hvdc_UseLambda1"/>
+  <curve model="Hvdc2" variable="hvdc_q1Status"/>
+  <curve model="Hvdc2" variable="hvdc_q2Status"/>
+  <curve model="Hvdc2" variable="hvdc_PInj1Pu"/>
+  <curve model="Hvdc2" variable="hvdc_QInj1Pu"/>
+  <curve model="Hvdc2" variable="hvdc_PInj2Pu"/>
+  <curve model="Hvdc2" variable="hvdc_QInj2Pu"/>
+  <curve model="Hvdc2" variable="hvdc_U1Pu"/>
+  <curve model="Hvdc2" variable="hvdc_U2Pu"/>
+  <curve model="Hvdc2" variable="line_P1Pu"/>
+  <curve model="Hvdc2" variable="line_Q1Pu"/>
+  <curve model="Hvdc2" variable="line_P2Pu"/>
+  <curve model="Hvdc2" variable="line_Q2Pu"/>
+  <curve model="SVC" variable="secondaryVoltageControl_level"/>
+  <curve model="Load" variable="load_UPu_value"/>
+  <curve model="Load" variable="load_PPu"/>
+  <curve model="Load" variable="load_QPu"/>
+</curvesInput>
