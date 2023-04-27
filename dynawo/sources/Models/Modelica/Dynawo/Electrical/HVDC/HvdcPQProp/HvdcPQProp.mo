@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPQProp;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,10 +13,12 @@ within Dynawo.Electrical.HVDC.HvdcPQProp;
 */
 
 model HvdcPQProp "Model of HVDC link with a proportional reactive power control. Each terminal can inject a fixed reactive power or use the proportional control, depending on the user's choice."
-  import Modelica;
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.BaseClasses.BaseHvdcP;
+  extends HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;
+  extends HVDC.BaseClasses.BaseQStatus;
+  extends HVDC.BaseClasses.BasePQProp(QInj1RawModeUPu(start = - s10Pu.im), QInj2RawModeUPu(start = - s20Pu.im), QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
+  extends HVDC.BaseClasses.BaseVoltageRegulation;
 
 /*
   Equivalent circuit and conventions:
@@ -26,70 +28,65 @@ model HvdcPQProp "Model of HVDC link with a proportional reactive power control.
 
 */
 
-  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
-  parameter Real QPercent1 "Percentage of the coordinated reactive control that comes from converter 1";
-  parameter Real QPercent2 "Percentage of the coordinated reactive control that comes from converter 2";
-
-  input Boolean modeU1(start = modeU10) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
-  input Boolean modeU2(start = modeU20) "Boolean assessing the mode of the control of converter 2: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
-  input Types.PerUnit NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation (generator convention)";
-  input Types.PerUnit NQ2 "Signal to change the reactive power of converter 2 depending on the centralized voltage regulation (generator convention)";
-  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
-  input Types.ReactivePowerPu Q2RefPu(start = Q2Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
-
-  Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
-  Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
-
-  parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
-  parameter Boolean modeU20 "Start value of the boolean assessing the mode of the control of converter 2";
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
-  parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
-  parameter Types.Angle UPhase10 "Start value of voltage angle and filtered voltage angle at terminal 1 in rad";
-  parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
-
-protected
-  Types.ReactivePowerPu Q1RawModeUPu(start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in pu and for mode U activated (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2RawModeUPu(start = s20Pu.im) "Reactive power of converter 2 without taking limits into account in pu and for mode U activated (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2RawPu(start = s20Pu.im) "Reactive power of converter 2 without taking limits into account in pu (base SnRef) (receptor convention)";
-
 equation
-  Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
-  Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
-
-  Q1RawModeUPu = Q1RefPu - QPercent1 * NQ1;
-  Q2RawModeUPu = Q2RefPu - QPercent2 * NQ2;
-  Q1RawPu = if modeU1 then Q1RawModeUPu else Q1RefPu;
-  Q2RawPu = if modeU2 then Q2RawModeUPu else Q2RefPu;
+  QInj1RawModeUPu = - Q1RefPu + QPercent1 * NQ1;
+  QInj2RawModeUPu = - Q2RefPu + QPercent2 * NQ2;
+  QInj1RawPu = if modeU1 then QInj1RawModeUPu else - Q1RefPu;
+  QInj2RawPu = if modeU2 then QInj2RawModeUPu else - Q2RefPu;
 
   // Reactive power regulation at terminal 1
   if runningSide1.value then
-    if Q1RawPu <= Q1MinPu then
-      Q1Pu = Q1MinPu;
-    elseif Q1RawPu >= Q1MaxPu then
-      Q1Pu = Q1MaxPu;
+    if QInj1RawPu <= Q1MinPu then
+      QInj1Pu = Q1MinPu;
+    elseif QInj1RawPu >= Q1MaxPu then
+      QInj1Pu = Q1MaxPu;
     else
-      Q1Pu = Q1RawPu;
+      QInj1Pu = QInj1RawPu;
     end if;
   else
-    Q1Pu = 0;
+    QInj1Pu = 0;
   end if;
+
+  when QInj1RawPu <= Q1MinPu then
+    q1Status = QStatus.AbsorptionMax;
+    limUQDown1 = true;
+    limUQUp1 = false;
+  elsewhen QInj1RawPu >= Q1MaxPu then
+    q1Status = QStatus.GenerationMax;
+    limUQDown1 = false;
+    limUQUp1 = true;
+  elsewhen QInj1RawPu > Q1MinPu and QInj1RawPu < Q1MaxPu then
+    q1Status = QStatus.Standard;
+    limUQDown1 = false;
+    limUQUp1 = false;
+  end when;
 
   // Reactive power regulation at terminal 2
   if runningSide2.value then
-    if Q2RawPu <= Q2MinPu then
-      Q2Pu = Q2MinPu;
-    elseif Q2RawPu >= Q2MaxPu then
-      Q2Pu = Q2MaxPu;
+    if QInj2RawPu <= Q2MinPu then
+      QInj2Pu = Q2MinPu;
+    elseif QInj2RawPu >= Q2MaxPu then
+      QInj2Pu = Q2MaxPu;
     else
-      Q2Pu = Q2RawPu;
+      QInj2Pu = QInj2RawPu;
     end if;
   else
-    Q2Pu = 0;
+    QInj2Pu = 0;
   end if;
+
+  when QInj2RawPu <= Q2MinPu then
+    q2Status = QStatus.AbsorptionMax;
+    limUQDown2 = true;
+    limUQUp2 = false;
+  elsewhen QInj2RawPu >= Q2MaxPu then
+    q2Status = QStatus.GenerationMax;
+    limUQDown2 = false;
+    limUQUp2 = true;
+  elsewhen QInj2RawPu > Q2MinPu and QInj2RawPu < Q2MaxPu then
+    q2Status = QStatus.Standard;
+    limUQDown2 = false;
+    limUQUp2 = false;
+  end when;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the reactive power at each of its terminals (with a fixed Q reference or a proportional regulation). The active power setpoint is given as an input and can be modified during the simulation, as well as the reactive power references.</div></body></html>"));

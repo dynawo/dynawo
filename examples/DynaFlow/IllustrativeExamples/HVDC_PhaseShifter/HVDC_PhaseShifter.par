@@ -48,6 +48,10 @@
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
   </set>
   <set id="5">
+    <par type="DOUBLE" name="hvdc_Q1Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Q2Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Lambda1Pu" value="0"/>
+    <par type="DOUBLE" name="hvdc_Lambda2Pu" value="0"/>
     <par type="DOUBLE" name="hvdc_P20Pu" value="-8.385"/>
     <par type="DOUBLE" name="hvdc_Q20Pu" value="0.144"/>
     <par type="DOUBLE" name="hvdc_U20Pu" value="1"/>
