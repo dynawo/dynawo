@@ -16,7 +16,6 @@ model HvdcPTanPhiDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram"
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPDiagramPQ;
-  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:

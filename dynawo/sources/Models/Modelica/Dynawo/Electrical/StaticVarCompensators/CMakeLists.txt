@@ -15,6 +15,7 @@ set(MODEL_FILES
   # Voltage control models
   package.mo
   package.order
+  BaseClasses.mo
   SVarCPV_INIT.mo
   SVarCPV.mo
   SVarCPV.extvar

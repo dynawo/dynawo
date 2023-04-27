@@ -13,43 +13,10 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVRemoteDiagramPQSFR "Model for generator PV with a PQ diagram, based on SignalN for the frequency handling and a remote voltage regulation and that participates in the Secondary Frequency Regulation (SFR)"
-  import Modelica;
-
-  extends BaseClasses.BaseGeneratorSignalNSFR;
-  extends AdditionalIcons.Machine;
-
-  parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
-  parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
-  parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
-  parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
-
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
-
-  input Types.VoltageModule URegulated(start = URegulated0) "Regulated voltage in kV";
-  input Types.VoltageModule URef(start = URef0) "Voltage regulation set point in kV";
-
-  Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
-  Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";
-  Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef)";
-  Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
-
-  parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in pu (base SnRef)";
-  parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
-  parameter Types.VoltageModulePu URegulated0 "Start value of the voltage regulated in pu (base UNom)";
-  parameter QStatus qStatus0 "Start voltage regulation status: standard, absorptionMax or generationMax";
-
-protected
-  QStatus qStatus(start = qStatus0) "Voltage regulation status: standard, absorptionMax or generationMax";
+  extends BaseClasses.BaseGeneratorSignalNSFRDiagramPQ;
+  extends BaseClasses.BasePVRemote;
 
 equation
-  PGenPu = tableQMin.u[1];
-  QMinPu = tableQMin.y[1];
-  PGenPu = tableQMax.u[1];
-  QMaxPu = tableQMax.y[1];
-
   when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;
   elsewhen QGenPu >= QMaxPu and URegulated <= URef then

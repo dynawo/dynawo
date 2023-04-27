@@ -2,16 +2,12 @@
 <timeline xmlns="http://www.rte-france.com/dynawo">
   <event time="0.000000" modelName="Generator3" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="0.000000" modelName="Generator4" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="0.000000" modelName="Generator3" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="0.000000" modelName="Generator4" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="0.000000" modelName="Generator3" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="0.000000" modelName="Generator4" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="50.000000" modelName="Line1Bis" message="LINE : opening both sides"/>
   <event time="50.000000" modelName="Line2Bis" message="LINE : opening both sides"/>
   <event time="70.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="70.000000" modelName="Generator2" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="70.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="70.000000" modelName="Generator2" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
+  <event time="70.000000" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="Generator4" message="Generator : maximum reactive power limit reached"/>
   <event time="80.000000" modelName="Generator1" message="Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin &lt; UStatorRef &lt; UStatorRefMax)"/>
   <event time="200.000000" modelName="Generator3" message="Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin &lt; UStatorRef &lt; UStatorRefMax)"/>
   <event time="530.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
