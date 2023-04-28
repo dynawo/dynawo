@@ -135,7 +135,8 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 
   Constants.state state(start = State0) "Generator connection state";
-  Real genState(start = 0) "Generator continuous connection state";
+  Real genState(start = Integer(State0)) "Generator continuous connection state";
+
   Modelica.Blocks.Math.IntegerToReal converter "Converter for generator state";
 
   parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
