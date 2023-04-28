@@ -30,6 +30,7 @@ generator_switchOffSignal1_value                  : z =      -1.000000
 generator_switchOffSignal2_value                  : z =      -1.000000
 generator_switchOffSignal3_value                  : z =      -1.000000
 generator_converter_u                             : z =       2.000000
+generator_pStatus                                 : z =       1.000000
 generator_qStatus                                 : z =       1.000000
 generator_state                                   : z =       2.000000
  ====== PARAMETERS VALUES ======
