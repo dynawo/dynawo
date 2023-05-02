@@ -405,7 +405,7 @@ warning: return type of member parameters::XmlExporter::exportToFile is not docu
 warning: return type of member parameters::XmlExporter::exportToStream is not documented
 warning: return type of member timeline::Exporter::exportToFile is not documented
 warning: return type of member timeline::Exporter::exportToStream is not documented
-warning: return type of member DYN::SubModel::printInitValuesParameters is not documented
+warning: return type of member DYN::SubModel::printValuesParameters is not documented
 warning: return type of member lostEquipments::Exporter::exportToFile is not documented
 warning: return type of member lostEquipments::Exporter::exportToStream is not documented
 warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const (function) of class DYN::NetworkComponent is not documented.
