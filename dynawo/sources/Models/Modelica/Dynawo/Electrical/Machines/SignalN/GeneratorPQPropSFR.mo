@@ -19,10 +19,16 @@ model GeneratorPQPropSFR "Model for generator PQ based on SignalN for the freque
 equation
   when QGenRawPu <= QMinPu then
     qStatus = QStatus.AbsorptionMax;
+    limUQDown = true;
+    limUQUp = false;
   elsewhen QGenRawPu >= QMaxPu then
     qStatus = QStatus.GenerationMax;
+    limUQDown = false;
+    limUQUp = true;
   elsewhen QGenRawPu > QMinPu and QGenRawPu < QMaxPu then
     qStatus = QStatus.Standard;
+    limUQDown = false;
+    limUQUp = false;
   end when;
 
   if running.value then
