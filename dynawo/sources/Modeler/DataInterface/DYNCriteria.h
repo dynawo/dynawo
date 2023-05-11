@@ -106,9 +106,9 @@ class Criteria {
                                                       double currentTime) const = 0;
 
    protected:
-    Bound bound_;                   // Crossed bound : min or max
-    std::string nodeId_;            // node id
-    const std::string criteriaId_;  // criteria id
+    Bound bound_;                   ///< Crossed bound : min or max
+    std::string nodeId_;            ///< node id
+    const std::string criteriaId_;  ///< criteria id
   };
 
   /**
@@ -216,10 +216,10 @@ class BusCriteria : public Criteria {
                                               double currentTime) const override;
 
    private:
-    double v_;                      // bus voltage in kV
-    double vPu_;                    // bus voltage in pu
-    double vBound_;                 // bus voltage limit in kV
-    double vBoundPu_;               // bus voltage limit in pu
+    double v_;                      ///< bus voltage in kV
+    double vPu_;                    ///< bus voltage in pu
+    double vBound_;                 ///< bus voltage limit in kV
+    double vBoundPu_;               ///< bus voltage limit in pu
   };
 
  private:
@@ -313,8 +313,8 @@ class LoadCriteria : public Criteria {
                                               double currentTime) const override;
 
    private:
-    double p_;                      // load power in MW
-    double pBound_;                 // load power limit in MW
+    double p_;                      ///< load power in MW
+    double pBound_;                 ///< load power limit in MW
   };
 
  private:

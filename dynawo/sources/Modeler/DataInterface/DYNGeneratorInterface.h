@@ -65,6 +65,12 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
   virtual double getP() = 0;
 
   /**
+   * @brief Getter for the state variable "p"
+   * @return The value of state variable p of the generator in MW
+   */
+  virtual double getStateVarP() = 0;
+
+  /**
    * @brief Getter for the minimum active power of the generator
    * @return The minimum active power of the generator in MW (generator convention)
    */
