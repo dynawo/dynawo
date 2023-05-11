@@ -38,8 +38,9 @@ BatteryInterfaceIIDM::BatteryInterfaceIIDM(powsybl::iidm::Battery& battery) :
 InjectorInterfaceIIDM(battery, battery.getId()),
 batteryIIDM_(battery) {
   setType(ComponentInterface::GENERATOR);
+  const bool neededForCriteriaCheck = true;
   stateVariables_.resize(3);
-  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
+  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE, neededForCriteriaCheck);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
   activePowerControl_ = battery.findExtension<powsybl::iidm::extensions::iidm::ActivePowerControl>();
@@ -156,6 +157,11 @@ BatteryInterfaceIIDM::getInitialConnected() {
 double
 BatteryInterfaceIIDM::getP() {
   return getPInjector();
+}
+
+double
+BatteryInterfaceIIDM::getStateVarP() {
+  return getValue<double>(VAR_P);
 }
 
 double
