@@ -18,6 +18,7 @@ var a03071 =
     [ "getPUnderVoltage", "df/d48/a03071.html#ac8c42cef6209d2fbdeed357aa52c8038", null ],
     [ "getQ", "df/d48/a03071.html#ab6e2a3377e0d10014748aff4fa05b0a6", null ],
     [ "getQ0", "df/d48/a03071.html#ac4f5b3878cfaf31a3c79d36c9354144d", null ],
+    [ "getStateVarP", "df/d48/a03071.html#a6f49659059a147e6a396c42e6338bf29", null ],
     [ "importStaticParameters", "df/d48/a03071.html#aac91af46842853406f817603608e3369", null ],
     [ "isConnected", "df/d48/a03071.html#ad95b26b46ed98715f35fb4bfec92b268", null ],
     [ "isFictitious", "df/d48/a03071.html#abdaaf83b67fc5b6afce687dded986ddb", null ],

@@ -25,6 +25,7 @@ var a02967 =
     [ "getQMin", "dd/d81/a02967.html#a65adec3508459bae6c28f972579093c0", null ],
     [ "getQNom", "dd/d81/a02967.html#a1610cbd963bf44dc22a6a2afba34548f", null ],
     [ "getReactiveCurvesPoints", "dd/d81/a02967.html#acb6312a6593b12740cf46fbe63511b28", null ],
+    [ "getStateVarP", "dd/d81/a02967.html#adf2bb340ba8f51e9010f79d6bc7c2240", null ],
     [ "getTargetP", "dd/d81/a02967.html#a141c34ff2133ef23d60230ed063622ef", null ],
     [ "getTargetQ", "dd/d81/a02967.html#aedca79299c6ccb3d25c6068da04b56dd", null ],
     [ "getTargetV", "dd/d81/a02967.html#a0638c4e6fcff751462553ca0c01cfea4", null ],

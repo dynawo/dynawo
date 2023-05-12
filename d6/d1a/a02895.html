@@ -132,6 +132,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:ad5bba551cbe1547b77434b7224789a3b"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a02895.html#ad5bba551cbe1547b77434b7224789a3b">getP</a> ()=0</td></tr>
 <tr class="memdesc:ad5bba551cbe1547b77434b7224789a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power of the load.  <a href="#ad5bba551cbe1547b77434b7224789a3b">More...</a><br /></td></tr>
 <tr class="separator:ad5bba551cbe1547b77434b7224789a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a476b08d3566285a118395e7280c8b6"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a02895.html#a1a476b08d3566285a118395e7280c8b6">getStateVarP</a> ()=0</td></tr>
+<tr class="memdesc:a1a476b08d3566285a118395e7280c8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the state variable "p".  <a href="#a1a476b08d3566285a118395e7280c8b6">More...</a><br /></td></tr>
+<tr class="separator:a1a476b08d3566285a118395e7280c8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48d3b82d65ccb022da6ba6954051007c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a02895.html#a48d3b82d65ccb022da6ba6954051007c">getP0</a> ()=0</td></tr>
 <tr class="memdesc:a48d3b82d65ccb022da6ba6954051007c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial active power of the load.  <a href="#a48d3b82d65ccb022da6ba6954051007c">More...</a><br /></td></tr>
 <tr class="separator:a48d3b82d65ccb022da6ba6954051007c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -537,6 +540,36 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../df/d74/a02931.ht
 
 </div>
 </div>
+<a id="a1a476b08d3566285a118395e7280c8b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a476b08d3566285a118395e7280c8b6">&#9670;&nbsp;</a></span>getStateVarP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::LoadInterface::getStateVarP </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the state variable "p". </p>
+<dl class="section return"><dt>Returns</dt><dd>The value of state variable p of the load in MW </dd></dl>
+
+<p>Implemented in <a class="el" href="../../df/d48/a03071.html#a6f49659059a147e6a396c42e6338bf29">DYN::LoadInterfaceIIDM</a>.</p>
+
+</div>
+</div>
 <a id="a165f2225eebcbea67fe25946869876e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a165f2225eebcbea67fe25946869876e7">&#9670;&nbsp;</a></span>isFictitious()</h2>
 
@@ -659,7 +692,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../df/d74/a02931.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d1a/a02895.html">LoadInterface</a></li>
-    <li class="footer">Generated on Thu May 11 2023 15:34:03 for Dynawo by
+    <li class="footer">Generated on Fri May 12 2023 13:36:00 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

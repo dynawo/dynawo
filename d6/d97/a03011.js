@@ -25,6 +25,7 @@ var a03011 =
     [ "getQMin", "d6/d97/a03011.html#a55e91ecd3291e563428e04b0e0814e79", null ],
     [ "getQNom", "d6/d97/a03011.html#a2e4176b4159b6ae17fd9fdedfd642d37", null ],
     [ "getReactiveCurvesPoints", "d6/d97/a03011.html#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d", null ],
+    [ "getStateVarP", "d6/d97/a03011.html#a88e9566ba101a0b089729e62431728a4", null ],
     [ "getTargetP", "d6/d97/a03011.html#a00862185113f1610612bdee0e88aaee4", null ],
     [ "getTargetQ", "d6/d97/a03011.html#aec9a49522ccec6fca23c7b0806a192c1", null ],
     [ "getTargetV", "d6/d97/a03011.html#a942778486822c0d624e35dd702f5614b", null ],

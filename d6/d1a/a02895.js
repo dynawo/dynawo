@@ -10,6 +10,7 @@ var a02895 =
     [ "getPUnderVoltage", "d6/d1a/a02895.html#a56c72b72f7aee30c56bbe2763aa050e2", null ],
     [ "getQ", "d6/d1a/a02895.html#adfbd1e1bcbb707d95afe175c2c7ac30e", null ],
     [ "getQ0", "d6/d1a/a02895.html#a462fcbb2839b6ebfe736a4142c8d4033", null ],
+    [ "getStateVarP", "d6/d1a/a02895.html#a1a476b08d3566285a118395e7280c8b6", null ],
     [ "isFictitious", "d6/d1a/a02895.html#a165f2225eebcbea67fe25946869876e7", null ],
     [ "setBusInterface", "d6/d1a/a02895.html#a4b80d76d98549539808bed09040b7bd7", null ],
     [ "setVoltageLevelInterface", "d6/d1a/a02895.html#adf689746fe2a3cb830db91255dfba264", null ]
