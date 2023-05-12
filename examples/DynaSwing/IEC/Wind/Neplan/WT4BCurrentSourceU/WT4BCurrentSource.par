@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="WT4B">
+    <!-- Nominal -->
+    <par type="DOUBLE" name="WT_SNom" value="100"/>
+    <par type="DOUBLE" name="WT_tS" value="0.001"/>
+    <!-- Electrical -->
+    <par type="DOUBLE" name="WT_GesPu" value="0"/>
+    <par type="DOUBLE" name="WT_BesPu" value="0"/>
+    <par type="DOUBLE" name="WT_ResPu" value="0"/>
+    <par type="DOUBLE" name="WT_XesPu" value="0"/>
+    <!-- Control -->
+    <par type="DOUBLE" name="WT_DipMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT_DiqMaxPu" value="100"/>
+    <par type="DOUBLE" name="WT_DiqMinPu" value="-100"/>
+    <par type="DOUBLE" name="WT_Kipaw" value="100"/>
+    <par type="DOUBLE" name="WT_Kiqaw" value="100"/>
+    <par type="DOUBLE" name="WT_tG" value="0.01"/>
+    <!-- MeasurementC -->
+    <par type="DOUBLE" name="WT_DfcMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT_tfcFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tIcFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tPcFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tQcFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tUcFilt" value="0.01"/>
+    <!-- MeasurementP -->
+    <par type="DOUBLE" name="WT_DfpMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT_tfpFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tIpFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tPpFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tQpFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT_tUpFilt" value="0.01"/>
+    <!-- PLL -->
+    <par type="DOUBLE" name="WT_tPll" value="0.01"/>
+    <par type="DOUBLE" name="WT_UPll1Pu" value="999"/>
+    <par type="DOUBLE" name="WT_UPll2Pu" value="0.13"/>
+    <!-- PControl -->
+    <par type="DOUBLE" name="WT_DPMaxP4BPu" value="1"/>
+    <par type="DOUBLE" name="WT_DPRefMax4BPu" value="100"/>
+    <par type="DOUBLE" name="WT_DPRefMin4BPu" value="-100"/>
+    <par type="DOUBLE" name="WT_Kpaw" value="1000"/>
+    <par type="BOOL" name="WT_MpUScale" value="false"/>
+    <par type="DOUBLE" name="WT_tPAero" value="0.1"/>
+    <par type="DOUBLE" name="WT_tPOrdP4B" value="0.05"/>
+    <par type="DOUBLE" name="WT_UpDipPu" value="0"/>
+    <!-- CurrentLimiter -->
+    <par type="DOUBLE" name="WT_IMaxDipPu" value="1.3"/>
+    <par type="DOUBLE" name="WT_IMaxPu" value="1.3"/>
+    <par type="DOUBLE" name="WT_Kpqu" value="20"/>
+    <par type="BOOL" name="WT_MdfsLim" value="false"/>
+    <par type="BOOL" name="WT_Mqpri" value="true"/>
+    <par type="DOUBLE" name="WT_UpquMaxPu" value="1.1"/>
+    <!-- QControl -->
+    <par type="DOUBLE" name="WT_DUdb1Pu" value="-0.1"/>
+    <par type="DOUBLE" name="WT_DUdb2Pu" value="0.1"/>
+    <par type="DOUBLE" name="WT_IqH1Pu" value="1.05"/>
+    <par type="DOUBLE" name="WT_IqMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="WT_IqMinPu" value="-1.05"/>
+    <par type="DOUBLE" name="WT_IqPostPu" value="0"/>
+    <par type="DOUBLE" name="WT_Kiq" value="2.25"/>
+    <par type="DOUBLE" name="WT_Kiu" value="10"/>
+    <par type="DOUBLE" name="WT_Kpq" value="1.1"/>
+    <par type="DOUBLE" name="WT_Kpu" value="2"/>
+    <par type="DOUBLE" name="WT_Kpufrt" value="2"/>
+    <par type="DOUBLE" name="WT_Kqv" value="2"/>
+    <par type="INT" name="WT_Mqfrt" value="1"/>
+    <par type="INT" name="WT_MqG" value="0"/>
+    <par type="DOUBLE" name="WT_RDropPu" value="0"/>
+    <par type="DOUBLE" name="WT_tPost" value="0"/>
+    <par type="DOUBLE" name="WT_tQord" value="0.05"/>
+    <par type="DOUBLE" name="WT_tUss" value="1"/>
+    <par type="DOUBLE" name="WT_UMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WT_UMinPu" value="0.9"/>
+    <par type="DOUBLE" name="WT_UqDipPu" value="0.9"/>
+    <par type="DOUBLE" name="WT_UqRisePu" value="1.1"/>
+    <par type="DOUBLE" name="WT_URef0Pu" value="0"/>
+    <par type="DOUBLE" name="WT_XDropPu" value="0"/>
+    <!-- QLimiter -->
+    <par type="BOOL" name="WT_QlConst" value="true"/>
+    <par type="DOUBLE" name="WT_QMaxPu" value="0.8"/>
+    <par type="DOUBLE" name="WT_QMinPu" value="-0.8"/>
+    <!-- GridProtection -->
+    <par type="DOUBLE" name="WT_fOverPu" value="1.1"/>
+    <par type="DOUBLE" name="WT_fUnderPu" value="0.9"/>
+    <par type="DOUBLE" name="WT_UOverPu" value="1.1"/>
+    <par type="DOUBLE" name="WT_UUnderPu" value="0.9"/>
+    <!-- Mechanical -->
+    <par type="DOUBLE" name="WT_CdrtPu" value="15"/>
+    <par type="DOUBLE" name="WT_Hgen" value="1"/>
+    <par type="DOUBLE" name="WT_Hwtr" value="5"/>
+    <par type="DOUBLE" name="WT_KdrtPu" value="500"/>
+    <!-- Operating Point -->
+    <par type="DOUBLE" name="WT_P0Pu" value="-1"/>
+    <par type="DOUBLE" name="WT_Q0Pu" value="0.21"/>
+    <par type="DOUBLE" name="WT_U0Pu" value="1"/>
+    <par type="DOUBLE" name="WT_UPhase0" value="0.21949"/>
+  </set>
+  <set id="PRefPu">
+    <par type="DOUBLE" name="step_Height" value="-0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="2"/>
+    <par type="DOUBLE" name="step_Value0" value="1"/>
+  </set>
+  <set id="omegaRefPu">
+    <par type="DOUBLE" name="doubleStep_Height1" value="-0.01"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="0.01"/>
+    <par type="DOUBLE" name="doubleStep_tStep1" value="20"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="21"/>
+    <par type="DOUBLE" name="doubleStep_Value0" value="1"/>
+  </set>
+  <set id="InfiniteBus">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0678"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="0.99"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="-0.04"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="20"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="21"/>
+  </set>
+  <set id="Line">
+    <par type="DOUBLE" name="line_RPu" value="0.015"/>
+    <par type="DOUBLE" name="line_XPu" value="0.025"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.005"/>
+  </set>
+  <set id="Line1">
+    <par type="DOUBLE" name="line_RPu" value="0.01"/>
+    <par type="DOUBLE" name="line_XPu" value="0.1"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.01"/>
+  </set>
+  <set id="Line2A">
+    <par type="DOUBLE" name="line_RPu" value="0.005"/>
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.005"/>
+  </set>
+  <set id="Line2B">
+    <par type="DOUBLE" name="line_RPu" value="0.005"/>
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.005"/>
+  </set>
+  <set id="Line3">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0457"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+  </set>
+  <set id="Tfo">
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.05"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
+  </set>
+  <set id="Tfo1">
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.1"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
+  </set>
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.36"/>
+    <par type="DOUBLE" name="fault_tBegin" value="12"/>
+    <par type="DOUBLE" name="fault_tEnd" value="12.15"/>
+  </set>
+  <set id="Fault1">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.18"/>
+    <par type="DOUBLE" name="fault_tBegin" value="6"/>
+    <par type="DOUBLE" name="fault_tEnd" value="6.4"/>
+  </set>
+  <set id="IDA">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="1e-7"/>
+    <par type="DOUBLE" name="minStep" value="1e-7"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-3"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
+  </set>
+</parametersSet>

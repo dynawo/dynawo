@@ -32,6 +32,7 @@ set(MODEL_FILES
   PIAntiWindUpTable.extvar
   PulseFixedDuration.mo
   PulseMinimumDuration.mo
+  RampLimiter.mo
   StandAloneRampRateLimiter.mo
   Switch.mo
   Switch.extvar

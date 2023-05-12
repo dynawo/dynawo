@@ -46,36 +46,36 @@ model WT4BCurrentSource "Wind Turbine Type 4B model from IEC 61400-27-1 standard
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));
 
 equation
+  connect(wT4Injector.PAgPu, mechanical.PAgPu) annotation(
+    Line(points = {{42, -56}, {50, -56}, {50, -72}, {58, -72}}, color = {0, 0, 127}));
+  connect(control4B.PAeroPu, mechanical.PAeroPu) annotation(
+    Line(points = {{-60, -62}, {-60, -88}, {58, -88}}, color = {0, 0, 127}));
+  connect(mechanical.omegaGenPu, control4B.omegaGenPu) annotation(
+    Line(points = {{102, -72}, {110, -72}, {110, -14}, {-60, -14}, {-60, -18}}, color = {0, 0, 127}));
   connect(control4B.ipMaxPu, wT4Injector.ipMaxPu) annotation(
     Line(points = {{-38, -24}, {-2, -24}}, color = {0, 0, 127}));
-  connect(control4B.iqMaxPu, wT4Injector.iqMaxPu) annotation(
-    Line(points = {{-38, -40}, {-2, -40}}, color = {0, 0, 127}));
   connect(control4B.ipCmdPu, wT4Injector.ipCmdPu) annotation(
     Line(points = {{-38, -32}, {-2, -32}}, color = {0, 0, 127}));
+  connect(control4B.iqMaxPu, wT4Injector.iqMaxPu) annotation(
+    Line(points = {{-38, -40}, {-2, -40}}, color = {0, 0, 127}));
   connect(control4B.iqCmdPu, wT4Injector.iqCmdPu) annotation(
     Line(points = {{-38, -48}, {-2, -48}}, color = {0, 0, 127}));
   connect(control4B.iqMinPu, wT4Injector.iqMinPu) annotation(
     Line(points = {{-38, -56}, {-2, -56}}, color = {0, 0, 127}));
-  connect(measurements.UPu, control4B.UWTCPu) annotation(
-    Line(points = {{-2, 80}, {-90, 80}, {-90, -28}, {-82, -28}}, color = {0, 0, 127}));
-  connect(measurements.UFiltPu, control4B.UWTCFiltPu) annotation(
-    Line(points = {{-2, 76}, {-88, 76}, {-88, -22}, {-82, -22}}, color = {0, 0, 127}));
-  connect(measurements.PFiltPu, control4B.PWTCFiltPu) annotation(
-    Line(points = {{-2, 96}, {-92, 96}, {-92, -46}, {-82, -46}}, color = {0, 0, 127}));
-  connect(measurements.QFiltPu, control4B.QWTCFiltPu) annotation(
-    Line(points = {{-2, 92}, {-94, 92}, {-94, -58}, {-82, -58}}, color = {0, 0, 127}));
-  connect(PWTRefPu, control4B.PWTRefPu) annotation(
-    Line(points = {{-110, -20}, {-96, -20}, {-96, -34}, {-82, -34}}, color = {0, 0, 127}));
   connect(xWTRefPu, control4B.xWTRefPu) annotation(
-    Line(points = {{-110, -60}, {-92, -60}, {-92, -52}, {-82, -52}}, color = {0, 0, 127}));
+    Line(points = {{-130, -60}, {-100, -60}, {-100, -52}, {-82, -52}}, color = {0, 0, 127}));
   connect(tanPhi, control4B.tanPhi) annotation(
-    Line(points = {{-110, -40}, {-82, -40}}, color = {0, 0, 127}));
-  connect(control4B.PAeroPu, mechanical.PAeroPu) annotation(
-    Line(points = {{-60, -62}, {-60, -88}, {58, -88}}, color = {0, 0, 127}));
-  connect(wT4Injector.PAgPu, mechanical.PAgPu) annotation(
-    Line(points = {{42, -56}, {50, -56}, {50, -72}, {58, -72}}, color = {0, 0, 127}));
-  connect(mechanical.omegaGenPu, control4B.omegaGenPu) annotation(
-    Line(points = {{102, -72}, {120, -72}, {120, -10}, {-60, -10}, {-60, -18}}, color = {0, 0, 127}));
+    Line(points = {{-130, -40}, {-82, -40}}, color = {0, 0, 127}));
+  connect(PWTRefPu, control4B.PWTRefPu) annotation(
+    Line(points = {{-130, -20}, {-100, -20}, {-100, -34}, {-82, -34}}, color = {0, 0, 127}));
+  connect(controlMeasurements.UFiltPu, control4B.UWTCFiltPu) annotation(
+    Line(points = {{-76, 58}, {-76, 20}, {-86, 20}, {-86, -22}, {-82, -22}}, color = {0, 0, 127}));
+  connect(controlMeasurements.UPu, control4B.UWTCPu) annotation(
+    Line(points = {{-80, 58}, {-80, 24}, {-90, 24}, {-90, -28}, {-82, -28}}, color = {0, 0, 127}));
+  connect(controlMeasurements.PFiltPu, control4B.PWTCFiltPu) annotation(
+    Line(points = {{-96, 58}, {-96, -46}, {-82, -46}}, color = {0, 0, 127}));
+  connect(controlMeasurements.QFiltPu, control4B.QWTCFiltPu) annotation(
+    Line(points = {{-92, 58}, {-92, -58}, {-82, -58}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
