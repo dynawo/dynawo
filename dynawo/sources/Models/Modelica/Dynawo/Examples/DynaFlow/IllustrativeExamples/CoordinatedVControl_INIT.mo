@@ -18,10 +18,8 @@ model CoordinatedVControl_INIT "Initialisation model for the test case with coor
 
   extends AdditionalIcons.Init;
 
-  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp_INIT Generator1(P0Pu = -1.5, PMax = 1000000, PMin = -1000000, Q0Pu = -0.5, QMax = 62, QMin = -200, U0Pu = 1.05, UPhase0 = 0) annotation(
-    Placement(visible = true, transformation(origin = {-28, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ_INIT Generator2(P0Pu = -1.5, PMax = 1000000, PMin = -1000000, Q0Pu = -0.5, QMax0 = 200, QMin0 = -185, U0Pu = 1.05, UPhase0 = 0) annotation(
-    Placement(visible = true, transformation(origin = {-28, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp_INIT Generator1(P0Pu = -1.5, PMax = 1000000, PMin = -1000000, Q0Pu = -0.5, QMax = 62, QMin = -200, U0Pu = 1.05, UPhase0 = 0);
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ_INIT Generator2(P0Pu = -1.5, PMax = 1000000, PMin = -1000000, Q0Pu = -0.5, QMax0 = 200, QMin0 = -185, U0Pu = 1.05, UPhase0 = 0);
 
   annotation(
     Documentation(info = "<html><head></head><body>Initialisation is done by initialising each of the two generators.</body></html>"));
