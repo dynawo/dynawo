@@ -95,6 +95,11 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   double getP();
 
   /**
+   * @copydoc GeneratorInterface::getStateVarP()
+   */
+  double getStateVarP();
+
+  /**
    * @copydoc GeneratorInterface::getPMin()
    */
   double getPMin();
