@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS.TestCases;
 * of simulation tools for power systems.
 */
 
-package TestB
+package TestB "RVS test system simulation cases : line disconnection"
   extends Icons.Package;
 
 end TestB;

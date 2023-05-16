@@ -13,49 +13,47 @@ within Dynawo.Examples.RVS.Components.GeneratorWithControl;
 * of simulation tools for power systems.
 */
 
-model SteamSCRXFrame
+model SteamSCRXFrame "Model of a steam generator with a governor, a voltage regulator, a power system stabilizer and an overexcitation limiter, for the RVS test system"
   import Modelica;
   import Dynawo;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
-  import ieeeg1par = Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.ParametersIEEEG1;
-  import pss2bpar = Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.ParametersPSS2B;
-  import scrxpar = Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.ParametersSCRX;
-  import oelpar = Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.ParametersOEL;
-  import genpar = Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.ParametersGenerators;
+  import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersGenerators;
+  import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersIEEEG1;
+  import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersOEL;
+  import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersPSS2B;
+  import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersSCRX;
 
-  parameter ieeeg1par.genFramePreset ieeeg1Preset = ieeeg1par.genFramePreset.g10107;
-  parameter pss2bpar.genFramePreset pss2bPreset = pss2bpar.genFramePreset.g10107;
-  parameter scrxpar.genFramePreset scrxPreset = scrxpar.genFramePreset.g10107;
-  parameter oelpar.oelFramePreset oelPreset = oelpar.oelFramePreset.all;
-  parameter genpar.genFramePreset gen = genpar.genFramePreset.g10107;
-  parameter Types.ActivePowerPu P0Pu;
-  parameter Types.ReactivePowerPu Q0Pu;
-  parameter Types.VoltageModulePu U0Pu;
-  parameter Types.Angle UPhase0;
-  parameter Types.VoltageModule UNom = 18;
+  parameter ParametersGenerators.genFramePreset gen = ParametersGenerators.genFramePreset.g10107;
+  parameter ParametersIEEEG1.genFramePreset ieeeg1Preset = ParametersIEEEG1.genFramePreset.g10107;
+  parameter ParametersOEL.oelFramePreset oelPreset = ParametersOEL.oelFramePreset.all;
+  parameter ParametersPSS2B.genFramePreset pss2bPreset = ParametersPSS2B.genFramePreset.g10107;
+  parameter ParametersSCRX.genFramePreset scrxPreset = ParametersSCRX.genFramePreset.g10107;
+
   parameter Boolean AvrInService = true;
-  parameter Boolean GovInService = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.hasGov] > 0;
+  parameter Boolean GovInService = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.hasGov] > 0;
+  parameter Types.VoltageModule UNom = 18;
 
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Examples.RVS.Components.GeneratorWithControl.Util.GeneratorSynchronousThreeWindingsInterface generatorSynchronous(
-
-    DPu = genpar.genParamValues[gen, genpar.genParamNames.DPu],
+  //Generator
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(
+    DPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.DPu],
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
-    H = genpar.genParamValues[gen, genpar.genParamNames.H],P0Pu = P0Pu,
-    PNomAlt = genpar.genParamValues[gen, genpar.genParamNames.PNom],
-    PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom],
+    H = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.H],
+    P0Pu = P0Pu,
+    PNomAlt = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.PNom],
+    PNomTurb = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.PNom],
     Q0Pu = Q0Pu,
     RTfPu = 0,
-    RaPu = genpar.genParamValues[gen, genpar.genParamNames.RaPu],
-    SNom = genpar.genParamValues[gen, genpar.genParamNames.SNom],
-    SnTfo = genpar.genParamValues[gen, genpar.genParamNames.SNom],
-    Tpd0 = genpar.genParamValues[gen, genpar.genParamNames.Tpd0],
-    Tppd0 = genpar.genParamValues[gen, genpar.genParamNames.Tppd0],
-    Tppq0 = genpar.genParamValues[gen, genpar.genParamNames.Tppq0],
-    Tpq0 = genpar.genParamValues[gen, genpar.genParamNames.Tpq0],
+    RaPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.RaPu],
+    SNom = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.SNom],
+    SnTfo = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.SNom],
+    Tpd0 = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.Tpd0],
+    Tppd0 = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.Tppd0],
+    Tppq0 = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.Tppq0],
+    Tpq0 = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.Tpq0],
     U0Pu = U0Pu,
     UBaseHV = UNom,
     UBaseLV = UNom,
@@ -64,167 +62,177 @@ model SteamSCRXFrame
     UNomLV = UNom,
     UPhase0 = UPhase0,
     XTfPu = 0,
-    XdPu = genpar.genParamValues[gen, genpar.genParamNames.XdPu],
-    XlPu = genpar.genParamValues[gen, genpar.genParamNames.XlPu],
-    XpdPu = genpar.genParamValues[gen, genpar.genParamNames.XpdPu],
-    XppdPu = genpar.genParamValues[gen, genpar.genParamNames.XppdPu],
-    XppqPu = genpar.genParamValues[gen, genpar.genParamNames.XppqPu],
-    XpqPu = genpar.genParamValues[gen, genpar.genParamNames.XpqPu],
-    XqPu = genpar.genParamValues[gen, genpar.genParamNames.XqPu],
-    md = genpar.genParamValues[gen, genpar.genParamNames.md],
-    mq = genpar.genParamValues[gen, genpar.genParamNames.mq],
-    nd = genpar.genParamValues[gen, genpar.genParamNames.nd],
-    nq = genpar.genParamValues[gen, genpar.genParamNames.nq]
-  ) annotation(
+    XdPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XdPu],
+    XlPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XlPu],
+    XpdPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XpdPu],
+    XppdPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XppdPu],
+    XppqPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XppqPu],
+    XpqPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XpqPu],
+    XqPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.XqPu],
+    md = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.md],
+    mq = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.mq],
+    nd = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.nd],
+    nq = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.nq]) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.Governors.GovSteam1 ieeeg1(
-    Db1 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Db1],
-    Db2 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Db2],
-    Eps = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Eps],
-    K = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K],
-    K1 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K1],
-    K2 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K2],
-    K3 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K3],
-    K4 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K4],
-    K5 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K5],
-    K6 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K6],
-    K7 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K7],
-    K8 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.K8],
-    PMaxPu = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.PMax],
-    PMinPu = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.PMin], PNomTurb = genpar.genParamValues[gen, genpar.genParamNames.PNom],
-    PgvTableName = "Pgv",
+
+  //Controls
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1 ieeeg1(
+    DerPMaxPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.DerPMaxPu],
+    DerPMinPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.DerPMinPu],
+    K = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K],
+    K1 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K1],
+    K2 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K2],
+    K3 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K3],
+    K4 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K4],
+    K5 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K5],
+    K6 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K6],
+    K7 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K7],
+    K8 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K8],
     Pm0Pu = generatorSynchronous.Pm0Pu,
-    PmRef0Pu(fixed = false),
-    SNom = genpar.genParamValues[gen, genpar.genParamNames.SNom],
-    Sdb1 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Sdb1] > 0,
-    Sdb2 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Sdb2] > 0, TablesFile = "../dynawo/dynawo/nrt/data/SMIB/Standard/Gain_power.txt",
-    Uc = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Uc],
-    Uo = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.Uo],
-    ValveOn = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.ValveOn] > 0,
-    t1 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T1],
-    t2 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T2],
-    t3 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T3],
-    t4 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T4],
-    t5 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T5],
-    t6 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T6],
-    t7 = ieeeg1par.exciterParams[ieeeg1Preset, ieeeg1par.exciterParamNames.T7]
-  ) annotation(
-    Placement(visible = true, transformation(origin = {64.4, 0.666667}, extent = {{24.4, -20.3333}, {-24.4, 20.3333}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.Exciters.SCRX avr(
+    PMaxPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.PMaxPu],
+    PMinPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.PMinPu],
+    PNomTurb = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.PNom],
+    SNom = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.SNom],
+    t1 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t1],
+    t2 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t2],
+    t3 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t3],
+    t4 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t4],
+    t5 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t5],
+    t6 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t6],
+    t7 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t7]) annotation(
+    Placement(visible = true, transformation(origin = {120, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX scrx(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     IRotor0Pu = generatorSynchronous.IRotor0Pu,
+    K = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.K],
+    tA = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.tA],
+    tB = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.tB],
+    tE = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.tE],
     UStator0Pu = generatorSynchronous.UStator0Pu,
-    EMaxPu = scrxpar.exciterParams[scrxPreset, scrxpar.exciterParamNames.EMaxPu],
-    EMinPu = scrxpar.exciterParams[scrxPreset, scrxpar.exciterParamNames.EMinPu],
-    K = scrxpar.exciterParams[scrxPreset, scrxpar.exciterParamNames.K],
-    Ta = scrxpar.exciterParams[scrxPreset, scrxpar.exciterParamNames.Ta],
-    Tb = scrxpar.exciterParams[scrxPreset, scrxpar.exciterParamNames.Tb],
-    Te = scrxpar.exciterParams[scrxPreset, scrxpar.exciterParamNames.Te],
-    URef0Pu = generatorSynchronous.UStator0Pu + generatorSynchronous.Efd0Pu / U0Pu / avr.K, Ut0Pu = U0Pu
-  ) annotation(
-    Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.PssIEEE2B pssIEEE2B(
-    Ks1 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Ks1],
-    Ks2 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Ks2],
-    Ks3 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Ks3],
+    Ut0Pu = U0Pu,
+    VrMaxPu = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.VrMaxPu],
+    VrMinPu = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.VrMinPu]) annotation(
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B pssIEEE2B(
+    derivative.x_start = 0,
+    Ks1 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Ks1],
+    Ks2 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Ks2],
+    Ks3 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Ks3],
     PGen0Pu = -P0Pu,
     SNom = generatorSynchronous.SNom,
-    Vsi1MaxPu = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.VSI1Max],
-    Vsi1MinPu = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.VSI1Min],
-    Vsi2MaxPu = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.VSI2Max],
-    Vsi2MinPu = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.VSI2Min],
-    VstMaxPu = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.VSTMax],
-    VstMinPu = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.VSTMin],
-    t1 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T1],
-    t10 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T10],
-    t11 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T11],
-    t2 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T2],
-    t3 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T3],
-    t4 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T4],
-    t6 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T6],
-    t7 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T7],
-    t8 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T8],
-    t9 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.T9],
-    tw1 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Tw1],
-    tw2 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Tw2],
-    tw3 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Tw3],
-    tw4 = pss2bpar.exciterParams[pss2bPreset, pss2bpar.exciterParamNames.Tw4]
-  ) annotation(
-    Placement(visible = true, transformation(origin = {-60, -60}, extent = {{20, 20}, {-20, -20}}, rotation = 0)));
-  Controls.OEL.MAXEX2 maxex2(
-    Xfd0Pu = generatorSynchronous.IRotor0Pu,
-    XfdRatedPu = genpar.genParamValues[gen, genpar.genParamNames.ifdRatedPu],
-    Kmx = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.Kmx],
-    ULowPu = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.ULowPu],
-    T1 = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.T1],
-    T2 = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.T2],
-    T3 = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.T3],
-    E1 = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.E1],
-    E2 = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.E2],
-    E3 = oelpar.oelParamValues[oelPreset, oelpar.oelParamNames.E3]
-  ) annotation(
-    Placement(visible = true, transformation(origin = {-130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    t1 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t1],
+    t2 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t2],
+    t3 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t3],
+    t4 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t4],
+    t6 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t6],
+    t7 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t7],
+    t8 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t8],
+    t9 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t9],
+    t10 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t10],
+    t11 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.t11],
+    tw1 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.tw1],
+    tw2 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.tw2],
+    tw3 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.tw3],
+    tw4 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.tw4],
+    Vsi1MaxPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Vsi1MaxPu],
+    Vsi1MinPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Vsi1MinPu],
+    Vsi2MaxPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Vsi2MaxPu],
+    Vsi2MinPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Vsi2MinPu],
+    VstMaxPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.VstMaxPu],
+    VstMinPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.VstMinPu]) annotation(
+    Placement(visible = true, transformation(origin = {-100, -60}, extent = {{20, 20}, {-20, -20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.MAXEX2 maxex2(
+    Ifd0Pu = generatorSynchronous.IRotor0Pu,
+    Ifd1Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd1Pu],
+    Ifd2Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd2Pu],
+    Ifd3Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd3Pu],
+    IfdRated = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.ifdRatedPu],
+    Kmx = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Kmx],
+    t1 = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.t1],
+    t2 = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.t2],
+    t3 = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.t3],
+    ULowPu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.ULowPu]) annotation(
+    Placement(visible = true, transformation(origin = {-130, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.Constant UuelConst(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPuConst(k = ieeeg1.PmRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {114, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmPuConst(k = generatorSynchronous.Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {45, 65}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch1 annotation(
-    Placement(visible = true, transformation(origin = {29, 25}, extent = {{5, 5}, {-5, -5}}, rotation = 0)));
+  //Target values
+  Modelica.Blocks.Sources.Constant PmRefPu(k = ieeeg1.PmRef0Pu) annotation(
+    Placement(visible = true, transformation(origin = {190, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
-    Placement(visible = true, transformation(origin = {-29, 7}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-54, 40}, extent = {{-6, 6}, {6, -6}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = generatorSynchronous.Efd0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-47, 47}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-86, 80}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant2(k = generatorSynchronous.Pm0Pu) annotation(
+    Placement(visible = true, transformation(origin = {86, 80}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(visible = true, transformation(origin = {46, 40}, extent = {{6, 6}, {-6, -6}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = AvrInService) annotation(
+    Placement(visible = true, transformation(origin = {-86, 40}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = GovInService) annotation(
+    Placement(visible = true, transformation(origin = {86, 40}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant URefPu(k = generatorSynchronous.UStator0Pu + generatorSynchronous.Efd0Pu / (U0Pu * scrx.K)) annotation(
+    Placement(visible = true, transformation(origin = {-174, 0}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant UUelPu(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-174, 20}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Math.Add dOmegaPu(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-16, -72}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-30, -72}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  //Initial parameters
+  parameter Types.ActivePowerPu P0Pu "Initial active power at generator terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at generator terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at generator terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Initial voltage angle at generator terminal in rad";
 
 equation
-  switch.u2 = AvrInService;
-  switch1.u2 = GovInService;
-  avr.URefPu = generatorSynchronous.UStator0Pu + generatorSynchronous.Efd0Pu / U0Pu / avr.K;
   connect(generatorSynchronous.PGenPu_out, pssIEEE2B.PGenPu) annotation(
-    Line(points = {{-10, -18}, {-10, -48}, {-36, -48}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UPu_out, avr.UtPu) annotation(
-    Line(points = {{-18, 14}, {-30, 14}, {-30, 34}, {-44, 34}, {-44, 24}}, color = {0, 0, 127}));
+    Line(points = {{-10, -18}, {-10, -48}, {-76, -48}}, color = {0, 0, 127}));
   connect(generatorSynchronous.terminal, terminal) annotation(
     Line(points = {{0, 0}, {0, 100}}, color = {0, 0, 255}));
-  connect(UuelConst.y, avr.UuelPu) annotation(
-    Line(points = {{-118, 50}, {-76, 50}, {-76, 24}}, color = {0, 0, 127}));
-  connect(pssIEEE2B.UPssPu, avr.UPssPu) annotation(
-    Line(points = {{-82, -60}, {-100, -60}, {-100, -12}, {-84, -12}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UStatorPu_out, avr.UStatorPu) annotation(
-    Line(points = {{-6, 18}, {-6, 54}, {-40, 54}, {-40, 124}, {-168, 124}, {-168, -16}, {-110, -16}, {-110, 0}, {-84, 0}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, ieeeg1.omegaPu) annotation(
-    Line(points = {{0, -18}, {0, -72}, {132, -72}, {132, 1}, {89, 1}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.IRotorPu_out, avr.IRotorPu) annotation(
-    Line(points = {{-18, -10}, {-24, -10}, {-24, -16}, {-36, -16}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.IRotorPu_out, maxex2.XfdPu) annotation(
-    Line(points = {{-18, -10}, {-24, -10}, {-24, -32}, {-150, -32}, {-150, 90}, {-140, 90}}, color = {0, 0, 127}));
-  connect(PmPuConst.y, switch1.u3) annotation(
-    Line(points = {{39.5, 65}, {38, 65}, {38, 29}, {35, 29}}, color = {0, 0, 127}));
-  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{23.5, 25}, {22, 25}, {22, 0}, {16, 0}}, color = {0, 0, 127}));
-  connect(maxex2.UoelPu, avr.UoelPu) annotation(
-    Line(points = {{-120, 90}, {-64, 90}, {-64, 24}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.IRotorPu_out, maxex2.IfdPu) annotation(
+    Line(points = {{-18, -10}, {-30, -10}, {-30, 90}, {-118, 90}}, color = {0, 0, 127}));
+  connect(constant2.y, switch1.u3) annotation(
+    Line(points = {{79, 80}, {60, 80}, {60, 45}, {53, 45}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaRefPu_out, dOmegaPu.u1) annotation(
-    Line(points = {{10, -18}, {10, -66}, {-4, -66}}, color = {0, 0, 127}));
+    Line(points = {{10, -18}, {10, -66}, {-18, -66}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(generatorSynchronous.omegaPu_out, dOmegaPu.u2) annotation(
-    Line(points = {{0, -18}, {0, -78}, {-4, -78}}, color = {0, 0, 127}));
+    Line(points = {{0, -18}, {0, -78}, {-18, -78}}, color = {0, 0, 127}));
   connect(dOmegaPu.y, pssIEEE2B.omegaPu) annotation(
-    Line(points = {{-26, -72}, {-36, -72}}, color = {0, 0, 127}));
-  connect(PmRefPuConst.y, ieeeg1.PmRefPu) annotation(
-    Line(points = {{104, 40}, {64, 40}, {64, 21}}, color = {0, 0, 127}));
-  connect(ieeeg1.Pm1Pu, switch1.u1) annotation(
-    Line(points = {{39, 9}, {35, 9}, {35, 21}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, switch.u1) annotation(
-    Line(points = {{-38, 0}, {-36, 0}, {-36, 3}, {-35, 3}}, color = {0, 0, 127}));
+    Line(points = {{-41, -72}, {-36, -72}}, color = {0, 0, 127}));
+  connect(maxex2.UOelPu, scrx.UOelPu) annotation(
+    Line(points = {{-140, 90}, {-150, 90}, {-150, 16}, {-144, 16}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
-    Line(points = {{-42, 48}, {-36, 48}, {-36, 11}, {-35, 11}}, color = {0, 0, 127}));
+    Line(points = {{-79, 80}, {-70, 80}, {-70, 45}, {-61, 45}}, color = {0, 0, 127}));
+  connect(scrx.EfdPu, switch.u1) annotation(
+    Line(points = {{-98, 0}, {-70, 0}, {-70, 35}, {-61, 35}}, color = {0, 0, 127}));
+  connect(booleanConstant.y, switch.u2) annotation(
+    Line(points = {{-79.4, 40}, {-61.4, 40}}, color = {255, 0, 255}));
+  connect(booleanConstant1.y, switch1.u2) annotation(
+    Line(points = {{79.4, 40}, {53.4, 40}}, color = {255, 0, 255}));
+  connect(URefPu.y, scrx.URefPu) annotation(
+    Line(points = {{-167, 0}, {-144, 0}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.UStatorPu_out, scrx.UStatorPu) annotation(
+    Line(points = {{-6, 18}, {-6, 60}, {-200, 60}, {-200, -20}, {-160, -20}, {-160, -8}, {-144, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(pssIEEE2B.UPssPu, scrx.UPssPu) annotation(
+    Line(points = {{-122, -60}, {-150, -60}, {-150, -16}, {-144, -16}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.omegaPu_out, ieeeg1.omegaPu) annotation(
+    Line(points = {{0, -18}, {0, -80}, {160, -80}, {160, -8}, {144, -8}}, color = {0, 0, 127}));
+  connect(PmRefPu.y, ieeeg1.PmRefPu) annotation(
+    Line(points = {{180, 20}, {160, 20}, {160, 8}, {144, 8}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.UPu_out, scrx.UtPu) annotation(
+    Line(points = {{-18, 14}, {-96, 14}, {-96, 34}, {-104, 34}, {-104, 24}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-23.5, 7}, {-22, 7}, {-22, 0}, {-16, 0}}, color = {0, 0, 127}));
+    Line(points = {{-48, 40}, {-40, 40}, {-40, 0}, {-16, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+  connect(generatorSynchronous.IRotorPu_out, scrx.IRotorPu) annotation(
+    Line(points = {{-18, -10}, {-30, -10}, {-30, -16}, {-96, -16}}, color = {0, 0, 127}));
+  connect(ieeeg1.Pm1Pu, switch1.u1) annotation(
+    Line(points = {{98, 8}, {60, 8}, {60, 35}, {54, 35}}, color = {0, 0, 127}));
+  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
+    Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
+  connect(dOmegaPu.y, pssIEEE2B.omegaPu) annotation(
+    Line(points = {{-40, -72}, {-76, -72}}, color = {0, 0, 127}));
+  connect(UUelPu.y, scrx.UUelPu) annotation(
+    Line(points = {{-167, 20}, {-160, 20}, {-160, 8}, {-144, 8}}, color = {0, 0, 127}));
 
-  annotation(
-    Icon(graphics = {Line(points = {{-35.9986, -20}, {-34.0014, -5.4116}, {-30.0014, 9.5884}, {-23.0014, 22.0884}, {-16.0014, 26.5884}, {-6.00142, 21.5884}, {-1, 8.4116}, {0, 0}, {1, -8.4116}, {6.00142, -21.5884}, {16.0014, -26.5884}, {23.0014, -22.0884}, {30.0014, -9.5884}, {34.0014, 5.4116}, {35.9986, 20}}), Line(origin = {-110, 55}, points = {{42, -15}}), Ellipse(origin = {0, -1}, extent = {{-60, 61}, {60, -59}}), Text(origin = {0, 80}, lineColor = {0, 0, 255}, extent = {{-80, 10}, {80, -10}}, textString = "%name"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+  annotation(preferredView = "diagram",
+    Icon(graphics = {Line(points = {{-35.9986, -20}, {-34.0014, -5.4116}, {-30.0014, 9.5884}, {-23.0014, 22.0884}, {-16.0014, 26.5884}, {-6.00142, 21.5884}, {-1, 8.4116}, {0, 0}, {1, -8.4116}, {6.00142, -21.5884}, {16.0014, -26.5884}, {23.0014, -22.0884}, {30.0014, -9.5884}, {34.0014, 5.4116}, {35.9986, 20}}), Line(origin = {-110, 55}, points = {{42, -15}}), Ellipse(extent = {{-60, 60}, {60, -60}}, endAngle = 360), Text(origin = {0, 80}, lineColor = {0, 0, 255}, extent = {{-80, 10}, {80, -10}}, textString = "%name"), Rectangle(extent = {{-100, 100}, {100, -100}})}),
+    Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}})));
 end SteamSCRXFrame;

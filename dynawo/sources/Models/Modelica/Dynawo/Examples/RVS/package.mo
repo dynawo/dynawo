@@ -13,7 +13,7 @@ within Dynawo.Examples;
 * of simulation tools for power systems.
 */
 
-package RVS "Reliability and Voltage Stability test system"
+package RVS "Reliability and voltage stability test system"
   extends Icons.Package;
 
 end RVS;

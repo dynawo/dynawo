@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS;
 * of simulation tools for power systems.
 */
 
-package TestCases
+package TestCases "Nordic 32 test system simulation cases"
   extends Icons.Package;
 
 end TestCases;

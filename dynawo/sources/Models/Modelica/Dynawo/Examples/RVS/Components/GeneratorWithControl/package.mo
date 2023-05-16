@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS.Components;
 * of simulation tools for power systems.
 */
 
-package GeneratorWithControl
+package GeneratorWithControl "Models of generators with control for the RVS test system"
   extends Icons.Package;
 
 end GeneratorWithControl;

@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS.Components;
 * of simulation tools for power systems.
 */
 
-package TransformerWithControl
+package TransformerWithControl "Controlled transformer frame of the RVS test system"
   extends Icons.Package;
 
 end TransformerWithControl;

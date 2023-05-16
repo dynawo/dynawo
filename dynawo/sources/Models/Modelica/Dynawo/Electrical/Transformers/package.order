@@ -2,7 +2,6 @@ BaseClasses
 BaseClasses_INIT
 TransformerFixedRatio
 TransformerVariableTap
-TransformerVariableTap2
 TransformerVariableTapXtdPu
 TransformerVariableTapPQ_INIT
 TransformerVariableTapI_INIT

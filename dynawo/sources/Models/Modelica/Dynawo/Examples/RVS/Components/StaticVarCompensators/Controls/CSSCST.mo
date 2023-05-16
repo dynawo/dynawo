@@ -13,93 +13,105 @@ within Dynawo.Examples.RVS.Components.StaticVarCompensators.Controls;
 * of simulation tools for power systems.
 */
 
-model CSSCST "Static var compensator control model with voltage override as susceptance command for switched shunts."
+model CSSCST "Static var compensator control model with voltage override as susceptance command for switched shunts"
   import Modelica;
-  import Modelica.Blocks;
   import Dynawo;
   import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Examples.RVS.Components.GeneratorWithControl;
-  import Dynawo.Examples.RVS.Components.StaticVarCompensators;
 
-  parameter Types.PerUnit K "Control gain constant. ";
-  parameter Real BMin "Maximum capacitive range, negative, in MVAr";
-  parameter Real BMax "Maximum reactive range, positive, in MVAr";
-  parameter Real VMin "Phase margin lower limit";
-  parameter Real VMax "Phase margin upper limit";
-  parameter Real SBase = 1 "pu conversion base";
-  parameter Types.Time T1 "Phase margin lead time constant in s";
-  parameter Types.Time T2 "Phase margin lead time constant in s";
-  parameter Types.Time T3 "Phase margin lag time constant in s";
-  parameter Types.Time T4 "Phase margin lag time constant in s";
-  parameter Types.Time T5 "Thyristor bridge time constant in s";
-  parameter Types.PerUnit BRef0Pu = -BVar0Pu * 100 / K  "Susceptance reference in pu";
-  parameter Types.PerUnit BVar0Pu "Initial value of susceptance command in pu (base SnRef)";
-  parameter Types.VoltageModulePu UovPu "Overvoltage threshold (base UNom)";
-  parameter Types.VoltageModulePu U0Pu = URef0Pu "Initial value of input terminal voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu URef0Pu "Initial value of input terminal voltage reference in pu (base UNom)";
+  parameter Real BMax "Maximum capacitive output of the SVarC in S";
+  parameter Real BMin "Maximum inductive output of the SVarC in S";
+  parameter Types.PerUnit K "Control gain constant";
+  parameter Types.ApparentPowerModule SBase = 1 "Base apparent power in MVA";
+  parameter Types.Time t3 "Control lag time constant in s";
+  parameter Types.Time t5 "Thyristor bridge time constant in s";
+  parameter Types.VoltageModulePu UOvPu "Overvoltage threshold in pu (base UNom)";
+  parameter Real VMax "Maximum capacitive range of the SVarC in kV";
+  parameter Real VMin "Maximum inductive range of the SVarC in kV";
 
-  Blocks.Interfaces.RealOutput BVarPu(start = BVar0Pu) "Susceptance command in pu (base SnRef)" annotation(
-    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Input terminal voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-160, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -24}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Input terminal voltage reference in pu" annotation(
-    Placement(visible = true, transformation(origin = {-160, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 26}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput BRefPu(start = BRef0Pu) "Input susceptance reference in pu" annotation(
-    Placement(visible = true, transformation(origin = {-160, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 76}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput others(start = 0) "Input other signals" annotation(
-    Placement(visible = true, transformation(origin = {-160, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -76}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput BRefPu(start = BRef0Pu) "Reference susceptance in pu (base SnRef, UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -26}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UOtherPu(start = 0) "Other input signals in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -76}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-180, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 76}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) "Reference voltage amplitude at terminal in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-180, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 26}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Blocks.Math.Gain PuConversion(k = 1 / SBase) annotation(
-    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Math.Add UerrPu(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-110, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.GeneratorWithControl.Controls.Exciters.Util.FirstOrderLimState thyristorBridge(T = T5, initType = Modelica.Blocks.Types.Init.InitialOutput, k = 1, yMax = BMax, yMin = BMin, y_start = BVar0Pu * 100) annotation(
-    Placement(visible = true, transformation(origin = {80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.StaticVarCompensators.Controls.Util.VoltageOverride voltageOverride(BCommand0 = BVar0Pu * 100,BMax = BMax, BMin = BMin, Uerr0Pu = URef0Pu - U0Pu, UovPu = UovPu)  annotation(
-    Placement(visible = true, transformation(origin = {50, -20}, extent = {{-15, -10}, {15, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add3 add3(k1 = -1, k3 = -1)  annotation(
-    Placement(visible = true, transformation(origin = {-70, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = false, strict = false, uMax = VMax, uMin = VMin)  annotation(
-    Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.StaticVarCompensators.Util.LeadLagBlockPass leadLagBlockPass(Tb = T3, Tc = T1, initType = Modelica.Blocks.Types.Init.InitialState, x_start = BVar0Pu * 100, y_start = BVar0Pu * 100)  annotation(
-    Placement(visible = true, transformation(origin = {-10, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.StaticVarCompensators.Util.LeadLagBlockPass leadLagBlockPass1(Tb = T4, Tc = T2, initType = Modelica.Blocks.Types.Init.InitialState, x_start = BVar0Pu * 100, y_start = BVar0Pu * 100)  annotation(
-    Placement(visible = true, transformation(origin = {20, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = K) annotation(
-    Placement(visible = true, transformation(origin = {-40, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  //Output variable
+  Modelica.Blocks.Interfaces.RealOutput BVarPu(start = BVar0Pu) "Susceptance command in pu (base SBase)" annotation(
+    Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Math.Gain PuConversion(k = 1 / SBase) annotation(
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add3 add3(k1 = -1, k2 = -1) annotation(
+    Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = K, YMax = VMax, YMin = VMin, tFilter = t3) annotation(
+    Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder1(YMax = BMax, YMin = BMin, tFilter = t5) annotation(
+    Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch annotation(
+    Placement(visible = true, transformation(origin = {10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = BMax) annotation(
+    Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const1(k = BMin) annotation(
+    Placement(visible = true, transformation(origin = {-70, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold = -UOvPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold = UOvPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.And and1 annotation(
+    Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback annotation(
+    Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.VoltageModulePu U0Pu "Initial value of voltage amplitude at terminal in pu (base UNom)";
+  parameter Types.PerUnit BVar0Pu "Initial value of susceptance command in pu (base SnRef, UNom)";
+
+  final parameter Types.PerUnit BRef0Pu = -BVar0Pu * 100 / K "Susceptance reference in pu (base SnRef, UNom)";
 
 equation
   connect(PuConversion.y, BVarPu) annotation(
-    Line(points = {{131, 0}, {149, 0}}, color = {0, 0, 127}));
-  connect(URefPu, UerrPu.u1) annotation(
-    Line(points = {{-160, 20}, {-132, 20}, {-132, 12}, {-122, 12}}, color = {0, 0, 127}));
-  connect(UPu, UerrPu.u2) annotation(
-    Line(points = {{-160, -20}, {-132, -20}, {-132, 0}, {-122, 0}}, color = {0, 0, 127}));
-  connect(others, add3.u3) annotation(
-    Line(points = {{-160, -60}, {-92, -60}, {-92, -2}, {-82, -2}}, color = {0, 0, 127}));
-  connect(UerrPu.y, add3.u2) annotation(
-    Line(points = {{-98, 6}, {-82, 6}}, color = {0, 0, 127}));
-  connect(add3.y, gain.u) annotation(
-    Line(points = {{-58, 6}, {-56, 6}, {-56, 50}, {-52, 50}}, color = {0, 0, 127}));
-  connect(BRefPu, add3.u1) annotation(
-    Line(points = {{-160, 60}, {-88, 60}, {-88, 14}, {-82, 14}}, color = {0, 0, 127}));
-  connect(gain.y, leadLagBlockPass.u) annotation(
-    Line(points = {{-28, 50}, {-22, 50}}, color = {0, 0, 127}));
-  connect(leadLagBlockPass.y, leadLagBlockPass1.u) annotation(
-    Line(points = {{2, 50}, {8, 50}}, color = {0, 0, 127}));
-  connect(leadLagBlockPass1.y, limiter.u) annotation(
-    Line(points = {{32, 50}, {38, 50}}, color = {0, 0, 127}));
-  connect(limiter.y, thyristorBridge.u) annotation(
-    Line(points = {{62, 50}, {68, 50}}, color = {0, 0, 127}));
-  connect(thyristorBridge.y, voltageOverride.BCommand) annotation(
-    Line(points = {{92, 50}, {98, 50}, {98, 6}, {14, 6}, {14, -16}, {34, -16}}, color = {0, 0, 127}));
-  connect(UerrPu.y, voltageOverride.UerrPu) annotation(
-    Line(points = {{-98, 6}, {-88, 6}, {-88, -24}, {34, -24}}, color = {0, 0, 127}));
-  connect(voltageOverride.BVarRaw, PuConversion.u) annotation(
-    Line(points = {{66, -20}, {90, -20}, {90, 0}, {108, 0}}, color = {0, 0, 127}));
+    Line(points = {{141, 0}, {170, 0}}, color = {0, 0, 127}));
+  connect(UOtherPu, add3.u1) annotation(
+    Line(points = {{-180, 100}, {-100, 100}, {-100, 68}, {-82, 68}}, color = {0, 0, 127}));
+  connect(BRefPu, add3.u2) annotation(
+    Line(points = {{-180, 60}, {-82, 60}}, color = {0, 0, 127}));
+  connect(URefPu, feedback.u1) annotation(
+    Line(points = {{-180, -20}, {-128, -20}}, color = {0, 0, 127}));
+  connect(UPu, feedback.u2) annotation(
+    Line(points = {{-180, -60}, {-120, -60}, {-120, -28}}, color = {0, 0, 127}));
+  connect(feedback.y, add3.u3) annotation(
+    Line(points = {{-111, -20}, {-100, -20}, {-100, 52}, {-82, 52}}, color = {0, 0, 127}));
+  connect(feedback.y, greaterEqualThreshold.u) annotation(
+    Line(points = {{-111, -20}, {-82, -20}}, color = {0, 0, 127}));
+  connect(feedback.y, lessEqualThreshold.u) annotation(
+    Line(points = {{-111, -20}, {-100, -20}, {-100, 20}, {-82, 20}}, color = {0, 0, 127}));
+  connect(and1.y, switch1.u2) annotation(
+    Line(points = {{21, 0}, {78, 0}}, color = {255, 0, 255}));
+  connect(const.y, switch.u1) annotation(
+    Line(points = {{-59, -60}, {-40, -60}, {-40, -72}, {-2, -72}}, color = {0, 0, 127}));
+  connect(const1.y, switch.u3) annotation(
+    Line(points = {{-59, -100}, {-40, -100}, {-40, -88}, {-2, -88}}, color = {0, 0, 127}));
+  connect(switch.y, switch1.u3) annotation(
+    Line(points = {{21, -80}, {60, -80}, {60, -8}, {78, -8}}, color = {0, 0, 127}));
+  connect(limitedFirstOrder1.y, switch1.u1) annotation(
+    Line(points = {{21, 60}, {60, 60}, {60, 8}, {78, 8}}, color = {0, 0, 127}));
+  connect(add3.y, limitedFirstOrder.u) annotation(
+    Line(points = {{-59, 60}, {-43, 60}}, color = {0, 0, 127}));
+  connect(limitedFirstOrder.y, limitedFirstOrder1.u) annotation(
+    Line(points = {{-19, 60}, {-2, 60}}, color = {0, 0, 127}));
+  connect(switch1.y, PuConversion.u) annotation(
+    Line(points = {{101, 0}, {117, 0}}, color = {0, 0, 127}));
+  connect(greaterEqualThreshold.y, switch.u2) annotation(
+    Line(points = {{-59, -20}, {-20, -20}, {-20, -80}, {-3, -80}}, color = {255, 0, 255}));
+  connect(lessEqualThreshold.y, and1.u1) annotation(
+    Line(points = {{-58, 20}, {-20, 20}, {-20, 0}, {-2, 0}}, color = {255, 0, 255}));
+  connect(greaterEqualThreshold.y, and1.u2) annotation(
+    Line(points = {{-58, -20}, {-20, -20}, {-20, -8}, {-2, -8}}, color = {255, 0, 255}));
 
-  annotation(
-    Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})),
-    Documentation(info = "<html><head></head><body>second order lead/lag block, phase margin, has been replaced by first order block, since all other time constants = 0.</body></html>"));
+  annotation(preferredView = "diagram",
+    Diagram(coordinateSystem(extent = {{-160, -120}, {160, 120}})));
 end CSSCST;
