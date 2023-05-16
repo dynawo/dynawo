@@ -12,9 +12,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  LineWithAdditionalEquations.mo
-  LoadAlphaBetaRestorativeAdditionalEquations.mo
-  TransformerFixedRatioWithAdditionalEquations.mo
+  LineExtVar.mo
+  LoadAlphaBetaRestorativeExtVar.mo
+  TransformerFixedRatioExtVar.mo
   )
 
 #

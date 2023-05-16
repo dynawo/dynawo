@@ -1,6 +1,4 @@
 within Dynawo.Examples.DynaFlow.IEEE14.TestCases;
-
-model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
   /*
   * Copyright (c) 2023, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -13,14 +11,43 @@ model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite
   * of simulation tools for power systems.
   */
+model IEEE14DisconnectLine "IEEE 14-bus system benchmark formed with 14 buses, 5 generators, 1 shunt, 3 transfoormers , 17 lines and 11 loads. Disconnection of a line is represented at time 100s of the simulation."
+  import Modelica;
+  import Modelica.SIunits;
   import Dynawo;
   import Dynawo.Electrical;
   import Dynawo.Types;
-  import Modelica.SIunits;
-  import Modelica;
 
   extends Icons.Example;
 
+  parameter Types.ActivePowerPu P0Pu_Load2 = 0.217000;
+  parameter Types.ReactivePowerPu Q0Pu_Load2 = 0.127000;
+  parameter Types.ActivePowerPu P0Pu_Load3 = 0.942000;
+  parameter Types.ReactivePowerPu Q0Pu_Load3 = 0.190000;
+  parameter Types.ActivePowerPu P0Pu_Load4 = 0.478000;
+  parameter Types.ReactivePowerPu Q0Pu_Load4 = -0.039000;
+  parameter Types.ActivePowerPu P0Pu_Load5 = 0.076000;
+  parameter Types.ReactivePowerPu Q0Pu_Load5 = 0.016000;
+  parameter Types.ActivePowerPu P0Pu_Load6 = 0.112000;
+  parameter Types.ReactivePowerPu Q0Pu_Load6 = 0.075000;
+  parameter Types.ActivePowerPu P0Pu_Load9 = 0.295000;
+  parameter Types.ReactivePowerPu Q0Pu_Load9 = 0.166000;
+  parameter Types.ActivePowerPu P0Pu_Load10 = 0.090000;
+  parameter Types.ReactivePowerPu Q0Pu_Load10 = 0.058000;
+  parameter Types.ActivePowerPu P0Pu_Load11 = 0.035000;
+  parameter Types.ReactivePowerPu Q0Pu_Load11 = 0.018000;
+  parameter Types.ActivePowerPu P0Pu_Load12 = 0.061000;
+  parameter Types.ReactivePowerPu Q0Pu_Load12 = 0.016000;
+  parameter Types.ActivePowerPu P0Pu_Load13 = 0.135000;
+  parameter Types.ReactivePowerPu Q0Pu_Load13 = 0.058000;
+  parameter Types.ActivePowerPu P0Pu_Load14 = 0.149000;
+  parameter Types.ReactivePowerPu Q0Pu_Load14 = 0.050000;
+
+  // Base Calculation
+  final parameter SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
+  final parameter SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
+
+  // Generators
   Dynawo.Electrical.Machines.SignalN.GeneratorPV Gen1(KGover = 1, PGen0Pu = 2.3239, PMaxPu = 10.9, PMinPu = 0, PNom = 1090, PRef0Pu = -2.3239, QGen0Pu = -0.1655, QMaxPu = 100, QMinPu = -100, QNomAlt = 10000, U0Pu = 1.06, URef0Pu = 1.06, i0Pu = Complex(-2.192358, -0.156132), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPV.QStatus.Standard, u0Pu = Complex(1.06, 0)) annotation(
     Placement(visible = true, transformation(origin = {-116, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPV Gen2(KGover = 1, PGen0Pu = 0.4, PMaxPu = 10.08, PMinPu = 0, PNom = 1008, PRef0Pu = -0.4, QGen0Pu = 0.4356, QMaxPu = 100, QMinPu = -100, QNomAlt = 10000, U0Pu = 1.045072, URef0Pu = 1.045072, i0Pu = Complex(-0.345121, 0.448465), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPV.QStatus.Standard, u0Pu = Complex(1.041127, -0.090721)) annotation(
@@ -31,6 +58,12 @@ model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
     Placement(visible = true, transformation(origin = {-30, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPV Gen8(KGover = 1, PGen0Pu = 0, PMaxPu = 2.28, PMinPu = 0, PNom = 228, PRef0Pu = 0, QGen0Pu = 0.1762, QMaxPu = 100, QMinPu = -100, QNomAlt = 10000, U0Pu = 1.089855, URef0Pu = 1.089855, i0Pu = Complex(0.037358, 0.157298), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPV.QStatus.Standard, u0Pu = Complex(1.060361, -0.251831)) annotation(
     Placement(visible = true, transformation(origin = {110, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Generators control
+  Dynawo.Electrical.Controls.Frequency.SignalN ModelSignalN;
+  Types.Angle Theta_Bus1;
+
+  // Loads
   Dynawo.Electrical.Loads.LoadAlphaBetaRestorative Load2(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.196308, -0.139089), s0Pu = Complex(0.217000, 0.127000), tFilter = 10, u0Pu = Complex(1.041127, -0.090721)) annotation(
     Placement(visible = true, transformation(origin = {-86, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Loads.LoadAlphaBetaRestorative Load3(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.868294, -0.389016), s0Pu = Complex(0.942000, 0.190000), tFilter = 10, u0Pu = Complex(0.985173, -0.222561)) annotation(
@@ -53,18 +86,10 @@ model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
     Placement(visible = true, transformation(origin = {-32, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Loads.LoadAlphaBetaRestorative Load14(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.124816, -0.086053), s0Pu = Complex(0.149000, 0.050000), tFilter = 10, u0Pu = Complex(0.996351, -0.286332)) annotation(
     Placement(visible = true, transformation(origin = {24, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Frequency.SignalN ModelSignalN annotation(
-    Placement(visible = true, transformation(origin = {-130, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.Bus Bus10 annotation(
-    Placement(visible = true, transformation(origin = {22, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.Bus Bus11 annotation(
-    Placement(visible = true, transformation(origin = {-12, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.Bus Bus12 annotation(
-    Placement(visible = true, transformation(origin = {-88, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.Bus Bus13 annotation(
-    Placement(visible = true, transformation(origin = {-32, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.Bus Bus14 annotation(
-    Placement(visible = true, transformation(origin = {24, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Buses
+  Dynawo.Electrical.Buses.Bus Bus1(terminal.V.re(start = 1)) annotation(
+    Placement(visible = true, transformation(origin = {-116, -94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus Bus2 annotation(
     Placement(visible = true, transformation(origin = {-86, -98}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus Bus3 annotation(
@@ -81,8 +106,18 @@ model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
     Placement(visible = true, transformation(origin = {110, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus Bus9 annotation(
     Placement(visible = true, transformation(origin = {38, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.Bus Bus1(terminal.V.re(start = 1)) annotation(
-    Placement(visible = true, transformation(origin = {-116, -94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus Bus10 annotation(
+    Placement(visible = true, transformation(origin = {22, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus Bus11 annotation(
+    Placement(visible = true, transformation(origin = {-12, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus Bus12 annotation(
+    Placement(visible = true, transformation(origin = {-88, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus Bus13 annotation(
+    Placement(visible = true, transformation(origin = {-32, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.Bus Bus14 annotation(
+    Placement(visible = true, transformation(origin = {24, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Lines
   Dynawo.Electrical.Lines.Line LineB10B11(BPu = 0, GPu = 0, RPu = 0.156256 / ZBASE2, XPu = 0.365778 / ZBASE2) annotation(
     Placement(visible = true, transformation(origin = {12, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line LineB12B13(BPu = 0, GPu = 0, RPu = 0.42072 / ZBASE2, XPu = 0.380651 / ZBASE2) annotation(
@@ -117,12 +152,20 @@ model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
     Placement(visible = true, transformation(origin = {24, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line LineB9B14(BPu = 0, GPu = 0, RPu = 0.242068 / ZBASE2, XPu = 0.514912 / ZBASE2) annotation(
     Placement(visible = true, transformation(origin = {38, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Transformers
   Dynawo.Electrical.Transformers.TransformerFixedRatio Tfo1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.47994804 / ZBASE2, rTfoPu = 1.0729614) annotation(
     Placement(visible = true, transformation(origin = {-30, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio Tfo2(BPu = 0, GPu = 0, RPu = 0, XPu = 1.0591881 / ZBASE2, rTfoPu = 1.0319917) annotation(
     Placement(visible = true, transformation(origin = {70, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio Tfo3(BPu = 0, GPu = 0, RPu = 0, XPu = 0.39824802 / ZBASE2, rTfoPu = 1.0224948) annotation(
     Placement(visible = true, transformation(origin = {90, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
+  // Shunt
+  Electrical.Shunts.ShuntB Bank9(BPu = -0.099769 * ZBASE2, i0Pu = Complex(-0.05189336832, 0.19450355029), s0Pu = Complex(0, -0.21256718), u0Pu = Complex(1.02024743959, -0.2722010785)) annotation(
+    Placement(visible = true, transformation(origin = {16, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Loads references
   Electrical.Controls.Basics.SetPoint PrefPu_Load2(Value0 = P0Pu_Load2);
   Electrical.Controls.Basics.SetPoint QrefPu_Load2(Value0 = Q0Pu_Load2);
   Electrical.Controls.Basics.SetPoint PrefPu_Load3(Value0 = P0Pu_Load3);
@@ -145,70 +188,9 @@ model IEEE14DisconnectLine "Test case on IEEE 14 buses benchmark"
   Electrical.Controls.Basics.SetPoint QrefPu_Load13(Value0 = Q0Pu_Load13);
   Electrical.Controls.Basics.SetPoint PrefPu_Load14(Value0 = P0Pu_Load14);
   Electrical.Controls.Basics.SetPoint QrefPu_Load14(Value0 = Q0Pu_Load14);
-  Types.Angle Theta_Bus1;
-  Electrical.Shunts.ShuntB Bank9(BPu = -0.099769 * ZBASE2, i0Pu = Complex(-0.05189336832, 0.19450355029), s0Pu = Complex(0, -0.21256718), u0Pu = Complex(1.02024743959, -0.2722010785)) annotation(
-    Placement(visible = true, transformation(origin = {16, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  parameter Types.ActivePowerPu P0Pu_Load2 = 0.217000;
-  parameter Types.ReactivePowerPu Q0Pu_Load2 = 0.127000;
-  parameter Types.ActivePowerPu P0Pu_Load3 = 0.942000;
-  parameter Types.ReactivePowerPu Q0Pu_Load3 = 0.190000;
-  parameter Types.ActivePowerPu P0Pu_Load4 = 0.478000;
-  parameter Types.ReactivePowerPu Q0Pu_Load4 = -0.039000;
-  parameter Types.ActivePowerPu P0Pu_Load5 = 0.076000;
-  parameter Types.ReactivePowerPu Q0Pu_Load5 = 0.016000;
-  parameter Types.ActivePowerPu P0Pu_Load6 = 0.112000;
-  parameter Types.ReactivePowerPu Q0Pu_Load6 = 0.075000;
-  parameter Types.ActivePowerPu P0Pu_Load9 = 0.295000;
-  parameter Types.ReactivePowerPu Q0Pu_Load9 = 0.166000;
-  parameter Types.ActivePowerPu P0Pu_Load10 = 0.090000;
-  parameter Types.ReactivePowerPu Q0Pu_Load10 = 0.058000;
-  parameter Types.ActivePowerPu P0Pu_Load11 = 0.035000;
-  parameter Types.ReactivePowerPu Q0Pu_Load11 = 0.018000;
-  parameter Types.ActivePowerPu P0Pu_Load12 = 0.061000;
-  parameter Types.ReactivePowerPu Q0Pu_Load12 = 0.016000;
-  parameter Types.ActivePowerPu P0Pu_Load13 = 0.135000;
-  parameter Types.ReactivePowerPu Q0Pu_Load13 = 0.058000;
-  parameter Types.ActivePowerPu P0Pu_Load14 = 0.149000;
-  parameter Types.ReactivePowerPu Q0Pu_Load14 = 0.050000;
-  final parameter SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
-  final parameter SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
 
 equation
-//ModelSignalN
-  ModelSignalN.thetaRef = Theta_Bus1;
-  Theta_Bus1 = Modelica.ComplexMath.arg(Bus1.terminal.V);
-//Generators
-  Gen1.N = ModelSignalN.N;
-  Gen2.N = ModelSignalN.N;
-  Gen3.N = ModelSignalN.N;
-  Gen6.N = ModelSignalN.N;
-  Gen8.N = ModelSignalN.N;
-  Gen1.URefPu = Gen1.URef0Pu;
-  Gen1.PRefPu = Gen1.PRef0Pu;
-  Gen1.switchOffSignal1.value = false;
-  Gen1.switchOffSignal2.value = false;
-  Gen1.switchOffSignal3.value = false;
-  Gen2.URefPu = Gen2.URef0Pu;
-  Gen2.PRefPu = Gen2.PRef0Pu;
-  Gen2.switchOffSignal1.value = false;
-  Gen2.switchOffSignal2.value = false;
-  Gen2.switchOffSignal3.value = false;
-  Gen3.URefPu = Gen3.URef0Pu;
-  Gen3.PRefPu = Gen3.PRef0Pu;
-  Gen3.switchOffSignal1.value = false;
-  Gen3.switchOffSignal2.value = false;
-  Gen3.switchOffSignal3.value = false;
-  Gen6.URefPu = Gen6.URef0Pu;
-  Gen6.PRefPu = Gen6.PRef0Pu;
-  Gen6.switchOffSignal1.value = false;
-  Gen6.switchOffSignal2.value = false;
-  Gen6.switchOffSignal3.value = false;
-  Gen8.URefPu = Gen8.URef0Pu;
-  Gen8.PRefPu = Gen8.PRef0Pu;
-  Gen8.switchOffSignal1.value = false;
-  Gen8.switchOffSignal2.value = false;
-  Gen8.switchOffSignal3.value = false;
-//Loads
+  // Loads references
   Load2.PRefPu = PrefPu_Load2.setPoint.value;
   Load2.QRefPu = QrefPu_Load2.setPoint.value;
   Load3.PRefPu = PrefPu_Load3.setPoint.value;
@@ -253,6 +235,43 @@ equation
   Load13.deltaQ = 0;
   Load14.deltaP = 0;
   Load14.deltaQ = 0;
+
+  // Generators controls and references
+  ModelSignalN.thetaRef = Theta_Bus1;
+  Theta_Bus1 = Modelica.ComplexMath.arg(Bus1.terminal.V);
+  Gen1.N = ModelSignalN.N;
+  Gen2.N = ModelSignalN.N;
+  Gen3.N = ModelSignalN.N;
+  Gen6.N = ModelSignalN.N;
+  Gen8.N = ModelSignalN.N;
+  Gen1.URefPu = Gen1.URef0Pu;
+  Gen1.PRefPu = Gen1.PRef0Pu;
+  Gen2.URefPu = Gen2.URef0Pu;
+  Gen2.PRefPu = Gen2.PRef0Pu;
+  Gen3.URefPu = Gen3.URef0Pu;
+  Gen3.PRefPu = Gen3.PRef0Pu;
+  Gen6.URefPu = Gen6.URef0Pu;
+  Gen6.PRefPu = Gen6.PRef0Pu;
+  Gen8.URefPu = Gen8.URef0Pu;
+  Gen8.PRefPu = Gen8.PRef0Pu;
+
+  // Switch off signals for generators, loads, lines, transformers and bank
+  Gen1.switchOffSignal1.value = false;
+  Gen1.switchOffSignal2.value = false;
+  Gen1.switchOffSignal3.value = false;
+  Gen2.switchOffSignal1.value = false;
+  Gen2.switchOffSignal2.value = false;
+  Gen2.switchOffSignal3.value = false;
+  Gen3.switchOffSignal1.value = false;
+  Gen3.switchOffSignal2.value = false;
+  Gen3.switchOffSignal3.value = false;
+  Gen6.switchOffSignal1.value = false;
+  Gen6.switchOffSignal2.value = false;
+  Gen6.switchOffSignal3.value = false;
+  Gen8.switchOffSignal1.value = false;
+  Gen8.switchOffSignal2.value = false;
+  Gen8.switchOffSignal3.value = false;
+
   Load2.switchOffSignal1.value = false;
   Load2.switchOffSignal2.value = false;
   Load3.switchOffSignal1.value = false;
@@ -275,9 +294,7 @@ equation
   Load13.switchOffSignal2.value = false;
   Load14.switchOffSignal1.value = false;
   Load14.switchOffSignal2.value = false;
-//Disconnecting line B1B5
-  LineB1B5.switchOffSignal2.value = if time < 100 then false else true;
-//Lines
+
   LineB10B11.switchOffSignal1.value = false;
   LineB10B11.switchOffSignal2.value = false;
   LineB12B13.switchOffSignal1.value = false;
@@ -285,7 +302,7 @@ equation
   LineB13B14.switchOffSignal1.value = false;
   LineB13B14.switchOffSignal2.value = false;
   LineB1B5.switchOffSignal1.value = false;
-//  LineB1B5.switchOffSignal2.value = false;
+  LineB1B5.switchOffSignal2.value = if time < 100 then false else true; // Disconnecting line B1B5
   LineB1B2.switchOffSignal1.value = false;
   LineB1B2.switchOffSignal2.value = false;
   LineB2B3.switchOffSignal1.value = false;
@@ -312,16 +329,18 @@ equation
   LineB9B10.switchOffSignal2.value = false;
   LineB9B14.switchOffSignal1.value = false;
   LineB9B14.switchOffSignal2.value = false;
-//Transformers
+
   Tfo1.switchOffSignal1.value = false;
   Tfo1.switchOffSignal2.value = false;
   Tfo2.switchOffSignal1.value = false;
   Tfo2.switchOffSignal2.value = false;
   Tfo3.switchOffSignal1.value = false;
   Tfo3.switchOffSignal2.value = false;
-//Shunt
+
   Bank9.switchOffSignal1.value = false;
   Bank9.switchOffSignal2.value = false;
+
+  // Network connections
   connect(Bus10.terminal, Load10.terminal) annotation(
     Line(points = {{22, 48}, {22, 38}}, color = {0, 0, 255}));
   connect(Bus11.terminal, Load11.terminal) annotation(

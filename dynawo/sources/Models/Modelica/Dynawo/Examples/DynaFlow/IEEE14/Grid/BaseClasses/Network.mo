@@ -13,10 +13,14 @@ within Dynawo.Examples.DynaFlow.IEEE14.Grid.BaseClasses;
 * of simulation tools for power systems.
 */
 
-model Network "Network base for IEEE 14 test case with buses, lines and transformers. External equations (mainly for switch off signals) are added directly in this model without using components defined in IEEE14.Components"
+model Network "Network base for IEEE 14-bus system benchmark with 14 buses, 17 lines and 3 transformers. External equations (mainly for switch off signals) are added in this model's equations without using components defined in IEEE14.Components"
 
   import Modelica;
   import Dynawo;
+
+  // Base Calculation
+  final parameter Modelica.SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
 
   // Buses
   Dynawo.Electrical.Buses.Bus Bus1(terminal.V.re(start = 1)) annotation(
@@ -92,12 +96,8 @@ model Network "Network base for IEEE 14 test case with buses, lines and transfor
   Dynawo.Electrical.Transformers.TransformerFixedRatio Tfo3(BPu = 0, GPu = 0, RPu = 0, XPu = 0.39824802 / ZBASE2, rTfoPu = 1.0224948) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  // Base Calculation
-  final parameter Modelica.SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
-
 equation
-  // Switch off signals
+  // Switch off signals for lines and transformers
   LineB10B11.switchOffSignal1.value = false;
   LineB10B11.switchOffSignal2.value = false;
   LineB12B13.switchOffSignal1.value = false;
@@ -132,6 +132,7 @@ equation
   LineB9B10.switchOffSignal2.value = false;
   LineB9B14.switchOffSignal1.value = false;
   LineB9B14.switchOffSignal2.value = false;
+
   Tfo1.switchOffSignal1.value = false;
   Tfo1.switchOffSignal2.value = false;
   Tfo2.switchOffSignal1.value = false;
