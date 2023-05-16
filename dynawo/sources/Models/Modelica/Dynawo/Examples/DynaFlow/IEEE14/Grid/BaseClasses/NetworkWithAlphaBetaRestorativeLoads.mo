@@ -13,11 +13,33 @@ within Dynawo.Examples.DynaFlow.IEEE14.Grid.BaseClasses;
 * of simulation tools for power systems.
 */
 
-model NetworkWithAlphaBetaRestorativeLoads "Network base for IEEE 14 test case with loads, buses, lines and transformers. External equations (mainly for switch off signals) are added directly in this model without using components defined in IEEE14.Components"
+model NetworkWithAlphaBetaRestorativeLoads "Network base for IEEE 14-bus system benchmark with 14 buses, 17 lines, 3 transformers and 11 loads. External equations (mainly for switch off signals) are added in this model's equations without using components defined in IEEE14.Components"
   import Dynawo;
 
-
   extends Grid.BaseClasses.Network;
+
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load2 = 0.217000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load2 = 0.127000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load3 = 0.942000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load3 = 0.190000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load4 = 0.478000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load4 = -0.039000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load5 = 0.076000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load5 = 0.016000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load6 = 0.112000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load6 = 0.075000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load9 = 0.295000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load9 = 0.166000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load10 = 0.090000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load10 = 0.058000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load11 = 0.035000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load11 = 0.018000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load12 = 0.061000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load12 = 0.016000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load13 = 0.135000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load13 = 0.058000;
+  parameter Dynawo.Types.ActivePowerPu P0Pu_Load14 = 0.149000;
+  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load14 = 0.050000;
 
   // Loads
   Dynawo.Electrical.Loads.LoadAlphaBetaRestorative Load2(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.196308, -0.139089), s0Pu = Complex(0.217000, 0.127000), tFilter = 10, u0Pu = Complex(1.041127, -0.090721)) annotation(
@@ -43,7 +65,11 @@ model NetworkWithAlphaBetaRestorativeLoads "Network base for IEEE 14 test case w
   Dynawo.Electrical.Loads.LoadAlphaBetaRestorative Load14(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.124816, -0.086053), s0Pu = Complex(0.149000, 0.050000), tFilter = 10, u0Pu = Complex(0.996351, -0.286332)) annotation(
     Placement(visible = true, transformation(origin = {30, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // set point for loads
+  // Shunt
+  Dynawo.Electrical.Shunts.ShuntB Bank9(BPu = 0.099769 * ZBASE2, i0Pu = Complex(-0.0455016, -0.186237), s0Pu = Complex(0, 0.193446), u0Pu = Complex(1.020247, -0.272201)) annotation(
+    Placement(visible = true, transformation(origin = {26, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Loads references
   Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_Load2(Value0 = P0Pu_Load2);
   Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_Load2(Value0 = Q0Pu_Load2);
   Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_Load3(Value0 = P0Pu_Load3);
@@ -67,36 +93,8 @@ model NetworkWithAlphaBetaRestorativeLoads "Network base for IEEE 14 test case w
   Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_Load14(Value0 = P0Pu_Load14);
   Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_Load14(Value0 = Q0Pu_Load14);
 
-  // Loads Power initialisation
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load2 = 0.217000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load2 = 0.127000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load3 = 0.942000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load3 = 0.190000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load4 = 0.478000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load4 = -0.039000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load5 = 0.076000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load5 = 0.016000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load6 = 0.112000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load6 = 0.075000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load9 = 0.295000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load9 = 0.166000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load10 = 0.090000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load10 = 0.058000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load11 = 0.035000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load11 = 0.018000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load12 = 0.061000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load12 = 0.016000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load13 = 0.135000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load13 = 0.058000;
-  parameter Dynawo.Types.ActivePowerPu P0Pu_Load14 = 0.149000;
-  parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load14 = 0.050000;
-
-  // Shunt
-  Dynawo.Electrical.Shunts.ShuntB Bank9(BPu = 0.099769 * ZBASE2, i0Pu = Complex(-0.0455016, -0.186237), s0Pu = Complex(0, 0.193446), u0Pu = Complex(1.020247, -0.272201)) annotation(
-    Placement(visible = true, transformation(origin = {26, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 equation
-  // Loads Reference values
+  // Loads references
   Load2.PRefPu = PrefPu_Load2.setPoint.value;
   Load2.QRefPu = QrefPu_Load2.setPoint.value;
   Load3.PRefPu = PrefPu_Load3.setPoint.value;

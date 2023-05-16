@@ -13,9 +13,13 @@ within Dynawo.Examples.DynaFlow.IEEE14.Grid.BaseClasses;
 * of simulation tools for power systems.
 */
 
-model NetworkComponentsExtVar "Network base for IEEE 14 test case with buses, lines and transformers. In this model, components used are defined in IEEE14.Components"
+model NetworkComponentsExtVar "Network base for IEEE 14-bus system benchmark with 14 buses, 17 lines and 3 transformers. In this model, components used are defined in IEEE14.Components"
   import Modelica;
   import Dynawo;
+
+  // Base Calculation
+  final parameter Modelica.SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
 
   // Buses
   Dynawo.Electrical.Buses.Bus Bus1(terminal.V.re(start = 1)) annotation(
@@ -90,10 +94,6 @@ model NetworkComponentsExtVar "Network base for IEEE 14 test case with buses, li
     Placement(visible = true, transformation(origin = {70, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Components.TransformerFixedRatioExtVar Tfo3(BPu = 0, GPu = 0, RPu = 0, XPu = 0.39824802 / ZBASE2, rTfoPu = 1.0224948) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  // Base Calculation
-  final parameter Modelica.SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
 
 equation
   // Network Connections

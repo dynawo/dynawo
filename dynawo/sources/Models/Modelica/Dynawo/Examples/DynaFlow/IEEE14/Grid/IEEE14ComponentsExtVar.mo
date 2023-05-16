@@ -1,4 +1,5 @@
 within Dynawo.Examples.DynaFlow.IEEE14.Grid;
+
 /*
 * Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -12,11 +13,11 @@ within Dynawo.Examples.DynaFlow.IEEE14.Grid;
 * of simulation tools for power systems.
 */
 
-model IEEE14ComponentsExtVar "Test case on IEEE 14 buses benchmark"
+model IEEE14ComponentsExtVar "IEEE 14-bus system benchmark formed with 14 buses, 5 generators, 1 shunt, 3 transformers , 17 lines and 11 loads. This model inherite from IEEE14.BaseClasses.NetworkWithAlphaBetaRestorativeLoads."
   import Dynawo;
   import Modelica;
 
-  extends Icons.Example;
+  extends Modelica.Icons.Example;
   extends Dynawo.Examples.DynaFlow.IEEE14.Grid.BaseClasses.NetworkWithAlphaBetaRestorativeLoads;
 
   // Generators
@@ -36,10 +37,26 @@ model IEEE14ComponentsExtVar "Test case on IEEE 14 buses benchmark"
   Dynawo.Types.Angle Theta_Bus1;
 
 equation
-//ModelSignalN
+  // Switch off signals for generators
+  Gen1.switchOffSignal1.value = false;
+  Gen1.switchOffSignal2.value = false;
+  Gen1.switchOffSignal3.value = false;
+  Gen2.switchOffSignal1.value = false;
+  Gen2.switchOffSignal2.value = false;
+  Gen2.switchOffSignal3.value = false;
+  Gen3.switchOffSignal1.value = false;
+  Gen3.switchOffSignal2.value = false;
+  Gen3.switchOffSignal3.value = false;
+  Gen6.switchOffSignal1.value = false;
+  Gen6.switchOffSignal2.value = false;
+  Gen6.switchOffSignal3.value = false;
+  Gen8.switchOffSignal1.value = false;
+  Gen8.switchOffSignal2.value = false;
+  Gen8.switchOffSignal3.value = false;
+
+  // Generators controls and references
   ModelSignalN.thetaRef = Theta_Bus1;
   Theta_Bus1 = Modelica.ComplexMath.arg(Bus1.terminal.V);
-//Generators
   Gen1.N = ModelSignalN.N;
   Gen2.N = ModelSignalN.N;
   Gen3.N = ModelSignalN.N;
@@ -47,30 +64,16 @@ equation
   Gen8.N = ModelSignalN.N;
   Gen1.URefPu = Gen1.URef0Pu;
   Gen1.PRefPu = Gen1.PRef0Pu;
-  Gen1.switchOffSignal1.value = false;
-  Gen1.switchOffSignal2.value = false;
-  Gen1.switchOffSignal3.value = false;
   Gen2.URefPu = Gen2.URef0Pu;
   Gen2.PRefPu = Gen2.PRef0Pu;
-  Gen2.switchOffSignal1.value = false;
-  Gen2.switchOffSignal2.value = false;
-  Gen2.switchOffSignal3.value = false;
   Gen3.URefPu = Gen3.URef0Pu;
   Gen3.PRefPu = Gen3.PRef0Pu;
-  Gen3.switchOffSignal1.value = false;
-  Gen3.switchOffSignal2.value = false;
-  Gen3.switchOffSignal3.value = false;
   Gen6.URefPu = Gen6.URef0Pu;
   Gen6.PRefPu = Gen6.PRef0Pu;
-  Gen6.switchOffSignal1.value = false;
-  Gen6.switchOffSignal2.value = false;
-  Gen6.switchOffSignal3.value = false;
   Gen8.URefPu = Gen8.URef0Pu;
   Gen8.PRefPu = Gen8.PRef0Pu;
-  Gen8.switchOffSignal1.value = false;
-  Gen8.switchOffSignal2.value = false;
-  Gen8.switchOffSignal3.value = false;
 
+  // Network connections
   connect(Gen1.terminal, Bus1.terminal) annotation(
     Line(points = {{-120, -20}, {-120, -40}}, color = {0, 0, 255}));
   connect(Gen2.terminal, Bus2.terminal) annotation(
@@ -88,5 +91,4 @@ equation
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
     Diagram(coordinateSystem(extent = {{-150, -150}, {150, 150}})),
     Icon(coordinateSystem(extent = {{-150, -150}, {150, 150}})));
-
 end IEEE14ComponentsExtVar;

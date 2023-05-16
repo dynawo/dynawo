@@ -13,8 +13,8 @@ set(MODEL_FILES
   package.mo
   package.order
   Network.mo
-  NetworkComponentsModified.mo
-  NetworkWithLoadAlphaBetaRestorative.mo
+  NetworkComponentsExtVar.mo
+  NetworkWithAlphaBetaRestorativeLoads.mo
   )
 
 #
