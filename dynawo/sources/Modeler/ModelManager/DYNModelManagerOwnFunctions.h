@@ -34,10 +34,46 @@ extern void *mmc_emptystring;
 extern void *mmc_strings_len1[256];
 
 /**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void index_alloc_base_array_size(const base_array_t * source, const index_spec_t* source_spec, base_array_t* dest);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+inline int size_of_dimension_base_array(const base_array_t a, int i);
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real first, ...);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void simple_index_real_array1(const real_array_t * source,
+                              int i1,
+                              real_array_t* dest);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void index_real_array(const real_array_t * source,
+                      const index_spec_t* source_spec,
+                      real_array_t* dest);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real sum_real_array(const real_array_t a);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void index_alloc_real_array(const real_array_t * source,
+                            const index_spec_t* source_spec,
+                            real_array_t* dest);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/string_array.h
  * It is needed for Dynawo models dynamic libraries compilation

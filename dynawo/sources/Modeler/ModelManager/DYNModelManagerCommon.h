@@ -717,7 +717,17 @@ void throw_(ModelManager* model, const Message& message);
  * @param dim1 the first array dimension
  * @return the address of an integer element in an array
  */
-const modelica_integer* integerArrayElementAddress1_(const modelica_integer * source, int dim1);
+modelica_integer* integerArrayElementAddress1_(integer_array& source, int dim1);
+
+/**
+ * @brief retrieve the address of an integer element in an array
+ *
+ *
+ * @param source the integer array
+ * @param dim1 the first array dimension
+ * @return the address of an integer element in an array
+ */
+modelica_integer* integerArrayElementAddress1_(modelica_integer * source, int dim1);
 
 /**
  * @brief compute the size of an integer array

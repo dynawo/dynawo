@@ -1916,6 +1916,14 @@ class ReaderOMC:
         self.list_omc_functions.append(func)
 
         func = RawOmcFunctions()
+        func.set_name("size_of_dimension_base_array")
+        func.set_signature("int size_of_dimension_base_array(const base_array_t a, int i)")
+        func.set_return_type("int")
+        func.add_params(OmcFunctionParameter("a", "base_array_t", 0, True))
+        func.add_params(OmcFunctionParameter("i", "int", 1, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
         func.set_name("ModelicaStandardTables_CombiTable1D_getDerValue")
         func.set_signature("modelica_real ModelicaStandardTables_CombiTable1D_getDerValue(void* tableID, int icol, modelica_real der_u)")
         func.set_return_type("modelica_real")

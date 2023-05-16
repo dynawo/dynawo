@@ -223,8 +223,11 @@ bool compareString_(const std::string& x, const std::string& y) {
   return (x.compare(y) == 0);
 }
 
-const
-modelica_integer* integerArrayElementAddress1_(const modelica_integer * source, int dim1) {
+modelica_integer* integerArrayElementAddress1_(integer_array& source, int dim1) {
+  return (reinterpret_cast<modelica_integer *>(source.data)) + dim1 - 1;
+}
+
+modelica_integer* integerArrayElementAddress1_(modelica_integer * source, int dim1) {
   return ( source + dim1 - 1);
 }
 

@@ -2713,7 +2713,7 @@ class Factory:
 
             return_type = func.get_return_type()
             # type is not a predefined type
-            if (return_type !="void" and return_type[0:9] != 'modelica_' and return_type[0:10] != 'real_array'):
+            if (return_type !="void" and return_type[0:9] != 'modelica_' and return_type[0:10] != 'real_array' and return_type[0:13] != 'integer_array'):
                 new_return_type =MODEL_NAME_NAMESPACE+return_type
                 signature = signature.replace(return_type, new_return_type, 1)
 

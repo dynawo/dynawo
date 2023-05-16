@@ -743,6 +743,15 @@ void alloc_string_array(string_array_t *dest, int ndims, ...) {
   dest->data = new m_string[elements]();
 }
 
+void alloc_integer_array(integer_array_t* dest, int ndims, ...) {
+    size_t elements = 0;
+    va_list ap;
+    va_start(ap, ndims);
+    elements = alloc_base_array(dest, ndims, ap);
+    va_end(ap);
+    dest->data = integer_alloc(elements);
+}
+
 void check_base_array_dim_sizes(const base_array_t *elts, int n) {
   int ndims = elts[0].ndims;
   for (int i = 1; i < n; ++i) {
@@ -804,6 +813,159 @@ void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real firs
     put_real_element(va_arg(ap, modelica_real), i, dest);
   }
   va_end(ap);
+}
+
+/*
+ * function: index_alloc_real_array
+ *
+ * Returns an subscript of the source array in the destination array
+ * in the same manner as index_real_array, except that the destination
+ * array is allocated.
+ *
+ *
+ * a := b[1:3];
+ */
+void index_alloc_real_array(const real_array_t * source,
+                            const index_spec_t* source_spec,
+                            real_array_t* dest) {
+    index_alloc_base_array_size(source, source_spec, dest);
+    alloc_real_array_data(dest);
+    index_real_array(source, source_spec, dest);
+}
+
+/* Helper function for index_alloc_TYPE_array; allocates the ndims and dim_size */
+void index_alloc_base_array_size(const real_array_t * source,
+                                 const index_spec_t* source_spec,
+                                 base_array_t* dest) {
+    int i;
+    int j;
+
+    assert(base_array_ok(source));
+    assert(index_spec_ok(source_spec));
+    assert(index_spec_fit_base_array(source_spec, source));
+
+    for (i = 0, j = 0; i < source_spec->ndims; ++i) {
+         if (source_spec->dim_size[i] != 0) { /* is 'W' or 'A' */
+           ++j;
+         }
+    }
+    dest->ndims = j;
+    dest->dim_size = size_alloc(dest->ndims);
+
+    for (i = 0, j = 0; i < source_spec->ndims; ++i) {
+        if (source_spec->dim_size[i] != 0) { /* is 'W' or 'A' */
+            if (source_spec->index[i] != NULL) { /* is 'A' */
+                dest->dim_size[j] = source_spec->dim_size[i];
+            } else { /* is 'W' */
+                dest->dim_size[j] = source->dim_size[i];
+            }
+
+            ++j;
+        }
+    }
+}
+
+/* Returns dest := source[i1,:,:...]*/
+void simple_index_real_array1(const real_array_t * source,
+                                 int i1,
+                                 real_array_t* dest) {
+    size_t i;
+    size_t nr_of_elements = base_array_nr_of_elements(*dest);
+    size_t off = nr_of_elements * i1;
+
+    for (i = 0; i < nr_of_elements; off++, i++) {
+        real_set(dest, i, real_get(*source, off));
+    }
+}
+
+/*
+ * function: index_real_array
+ *
+ * Returns an subscript of the source array in the destination array.
+ * Assumes that both source array and destination array is properly
+ * allocated.
+ *
+ * a := b[1:3];
+ *
+ */
+void index_real_array(const real_array_t * source,
+                      const index_spec_t* source_spec,
+                      real_array_t* dest) {
+    _index_t* idx_vec1;
+    _index_t* idx_size;
+    int j;
+    int i;
+
+    assert(base_array_ok(source));
+    assert(base_array_ok(dest));
+    assert(index_spec_ok(source_spec));
+    assert(index_spec_fit_base_array(source_spec, source));
+
+    for (i = 0, j = 0; i < source_spec->ndims; ++i) {
+        if (source_spec->dim_size[i] != 0) {
+            ++j;
+        }
+    }
+    assert(j == dest->ndims);
+
+    idx_vec1 = size_alloc(source->ndims);  /*indices in the source array*/
+    /* idx_vec2 = size_alloc(dest->ndims); / * indices in the destination array* / */
+    idx_size = size_alloc(source_spec->ndims);
+
+    for (i = 0; i < source->ndims; ++i) {
+        idx_vec1[i] = 0;
+    }
+    for (i = 0; i < source_spec->ndims; ++i) {
+        if (source_spec->index[i] != NULL) { /* is 'S' or 'A' */
+            idx_size[i] = imax(source_spec->dim_size[i], 1); /* the imax() is not needed, because there is (idx[d] >= size[d]) in the next_index(), but ... */
+        } else { /* is 'W' */
+            idx_size[i] = source->dim_size[i];
+        }
+    }
+
+    j = 0;
+    do {
+        real_set(dest, j,  /* calc_base_index(dest->ndims, idx_vec2, dest), */
+                 real_get(*source,
+                          calc_base_index_spec(source->ndims, idx_vec1,
+                                               source, source_spec)));
+        j++;
+    } while (0 == next_index(source->ndims, idx_vec1, idx_size));
+
+    assert(((size_t)j) == base_array_nr_of_elements(*dest));
+}
+
+modelica_real sum_real_array(const real_array_t a) {
+    size_t i;
+    size_t nr_of_elements;
+    modelica_real sum = 0;
+
+    assert(base_array_ok(&a));
+
+    nr_of_elements = base_array_nr_of_elements(a);
+
+    for (i = 0; i < nr_of_elements; ++i) {
+        sum += real_get(a, i);
+    }
+
+    return sum;
+}
+
+int size_of_dimension_base_array(const base_array_t a, int i) {
+  /* assert(base_array_ok(&a)); */
+  if ((i > 0) && (i <= a.ndims)) {
+    return a.dim_size[i-1];
+  }
+  /* This is a weird work-around to return 0 if the dimension is out of bounds and a dimension is 0
+   * The reason is that we lose the dimensions in the DAE.ARRAY after a 0-dimension
+   * Note: We return size(arr,2)=0 if arr has dimensions [0,2], and not the expected 2
+   */
+  for (i=0; i < a.ndims; i++) {
+    if (a.dim_size[i] == 0) {
+      return 0;
+    }
+  }
+  abort();
 }
 
 static inline void* generic_ptrget(const base_array_t *a, size_t sze, size_t i) {
@@ -1066,15 +1228,6 @@ void copy_real_array_data(const real_array_t source, real_array_t *dest) {
 /* Allocation of real data */
 void alloc_real_array_data(real_array_t *a) {
     a->data = real_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
-}
-
-void alloc_integer_array(integer_array_t* dest, int ndims, ...) {
-    size_t elements = 0;
-    va_list ap;
-    va_start(ap, ndims);
-    elements = alloc_base_array(dest, ndims, ap);
-    va_end(ap);
-    dest->data = new modelica_integer[elements];
 }
 
 /* Unpacks an integer_array that was packed with pack_integer_array */
