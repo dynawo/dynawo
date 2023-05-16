@@ -13,7 +13,7 @@ within Dynawo.Electrical.Transformers;
 * of simulation tools for power systems.
 */
 
-model TransformerVariableTapXtdPu "Transformer with variable tap to be connected to a tap changer, used in the Nordic 32 test system"
+model TransformerVariableTapXtdPu "Transformer with variable tap to be connected to a tap changer"
   /*
     Equivalent circuit and conventions:
 
@@ -38,7 +38,8 @@ model TransformerVariableTapXtdPu "Transformer with variable tap to be connected
   parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
   parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
 
-  Types.PerUnit XtdPu(start = 0.1 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom) "Ratio dependent reactance of side 1 in pu (base U2Nom, SNom)";
+  Types.PerUnit RtdPu(start = R / 100 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom) "Ratio dependent resistance of side 1 in pu (base U2Nom, SNom)";
+  Types.PerUnit XtdPu(start = X / 100 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom) "Ratio dependent reactance of side 1 in pu (base U2Nom, SNom)";
 
 protected
   parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
@@ -46,11 +47,12 @@ protected
   Types.ComplexImpedancePu ZPu "Transformer impedance in pu (base U2Nom, SnRef)";
 
 equation
-  XtdPu = 0.1 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
+  RtdPu = R / 100 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
+  XtdPu = X / 100 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
+  ZPu.re = RtdPu;
   ZPu.im = XtdPu;
-  ZPu.re = R / 100 * SystemBase.SnRef / SNom;
+
   if running.value then
-// Transformer equations
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
     ZPu * terminal1.i = rTfoPu * rTfoPu * terminal1.V - rTfoPu * terminal2.V;
   else
@@ -60,5 +62,5 @@ equation
 
   annotation(
     preferredView = "text",
-    Documentation(info = "<html><head></head><body>This model is a variation of the TransformerVariableTap, where the reactance of side 2 is calculated from the reactance of side 1, therefore dependent on the transformer ratio over time.<div>This model is used in the Nordic 32 test system for voltage stability studies.</div></body></html>"));
+    Documentation(info = "<html><head></head><body>This model is a variation of the TransformerVariableTap, where the impedance of side 2 is calculated from the impedance of side 1, therefore depending on the transformer ratio over time.</body></html>"));
 end TransformerVariableTapXtdPu;

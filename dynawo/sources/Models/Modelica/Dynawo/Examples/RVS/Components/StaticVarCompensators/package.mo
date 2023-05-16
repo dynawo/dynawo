@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS.Components;
 * of simulation tools for power systems.
 */
 
-package StaticVarCompensators
+package StaticVarCompensators "Models of static var compensators with control for the RVS test system"
   extends Icons.Package;
 
 end StaticVarCompensators;

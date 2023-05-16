@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS.TestCases;
 * of simulation tools for power systems.
 */
 
-package TestA
+package TestA "RVS test system simulation cases : shunt connection"
   extends Icons.Package;
 
 end TestA;

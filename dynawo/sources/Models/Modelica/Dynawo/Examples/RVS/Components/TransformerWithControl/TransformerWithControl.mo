@@ -13,14 +13,14 @@ within Dynawo.Examples.RVS.Components.TransformerWithControl;
 * of simulation tools for power systems.
 */
 
-model TransformerWithControl "Model of transformer with variable tap, for the Nordic 32 test system"
+model TransformerWithControl "Model of transformer with variable tap, for the RVS test system"
   import Dynawo;
   import Dynawo.Types;
-  import Dynawo.Examples.RVS.Components.TransformerWithControl.Util.TransformerParameters;
+  import Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses.TransformerParameters;
 
   extends Dynawo.AdditionalIcons.Transformer;
 
-  parameter TransformerParameters.tfoPreset tfo;
+  parameter TransformerParameters.tfoPreset tfo "Transformer name";
 
   //Terminals
   Dynawo.Connectors.ACPower terminal1 "Connector used to connect the transformer to the grid" annotation(
@@ -29,19 +29,30 @@ model TransformerWithControl "Model of transformer with variable tap, for the No
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {98, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(
-    U0 = U10Pu, UDeadBand = 0.01, UTarget = U10Pu, increaseTapToIncreaseValue = false, locked0 = false, regulating0 = true,
+    U0 = U10Pu,
+    UDeadBand = 0.01,
+    UTarget = U10Pu,
+    increaseTapToIncreaseValue = false,
+    locked0 = false,
+    regulating0 = true,
     state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard,
     t1st = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.t1st],
-    tNext = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.tNext], tap0(fixed = false),
-    tapMax = TransformerParameters.NbTap - 1, tapMin = 0) annotation(
+    tNext = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.tNext],
+    tap0(fixed = false),
+    tapMax = TransformerParameters.NbTap - 1,
+    tapMin = 0) annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.TransformerWithControl.Util.InitializedTransformerVariableTap tfoVariableTap(
+  Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses.InitializedTransformerVariableTap tfoVariableTap(
     SNom = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.SNom],
+    R = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.R],
     X = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.X],
+    G = 0,
+    B = 0,
     Uc20Pu = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.Uc20Pu],
-    G = 0, B = 0, R = 0,
-    P10Pu = P10Pu, Q10Pu = Q10Pu, U10Pu = U10Pu, U1Phase0 = U1Phase0
-    ) annotation(
+    P10Pu = P10Pu,
+    Q10Pu = Q10Pu,
+    U10Pu = U10Pu,
+    U1Phase0 = U1Phase0) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
 
   parameter Types.ActivePowerPu P10Pu;
@@ -58,10 +69,6 @@ initial equation
 
 equation
   tapChanger.locked = false;
-  /*tfoVariableTap.switchOffSignal1.value = false;
-  tfoVariableTap.switchOffSignal2.value = false;
-  tapChanger.switchOffSignal1.value = false;
-  tapChanger.switchOffSignal2.value = false;*/
 
   when tapChanger.tap.value <> pre(tapChanger.tap.value) then
     tfoVariableTap.tap.value = tapChanger.tap.value;
