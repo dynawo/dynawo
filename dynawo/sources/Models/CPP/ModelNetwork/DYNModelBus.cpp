@@ -591,7 +591,7 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   }
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
 
   for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i) {
     std::string busBarSectionId = busBarSectionIdentifiers_[i];
@@ -635,7 +635,7 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_i_im", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
 }
 
 void

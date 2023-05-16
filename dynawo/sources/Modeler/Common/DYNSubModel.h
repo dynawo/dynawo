@@ -585,7 +585,7 @@ class SubModel {
    * @param xNames vector linking continuous (possibly flow) variables with names
    * @param calculatedVarNames vector linking calculated variables with names
    */
-  void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
+  virtual void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
                        std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
 
   /**

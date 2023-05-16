@@ -28,7 +28,7 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
   Connectors.ImPin IMonitored "Monitored current (unit depending on IMax unit)";
 
   //Output
-  Connectors.ZPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
+  Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
 protected
   discrete Types.Time tThresholdReached(start = Constants.inf) "Time when IMonitored > IMax was first reached in s";
