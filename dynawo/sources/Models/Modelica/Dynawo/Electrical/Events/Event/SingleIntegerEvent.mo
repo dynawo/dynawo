@@ -13,11 +13,8 @@ within Dynawo.Electrical.Events.Event;
 * of simulation tools for power systems.
 */
 
-model EventConnectedStatus "Event for changing connection status of a component (connected or disconnected)"
-  extends SingleIntegerEvent (stateEvent1 = if(open) then Integer(Constants.state.Open)
-                                         else Integer(Constants.state.Closed));
-
-  parameter Boolean open "Disconnect the component ?";
+model SingleIntegerEvent "Specific model for Integer one-variable event"
+  extends EventInteger(nbEventVariables = 1);
 
   annotation(preferredView = "text");
-end EventConnectedStatus;
+end SingleIntegerEvent;

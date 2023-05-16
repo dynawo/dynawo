@@ -476,11 +476,11 @@ ModelHvdcLink::evalState(const double& /*time*/) {
 void
 ModelHvdcLink::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   // at point of common coupling 1
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state1_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state1_value", INTEGER));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
   // at point of common coupling 2
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state2_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state2_value", INTEGER));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
 }
@@ -488,11 +488,11 @@ ModelHvdcLink::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
 void
 ModelHvdcLink::defineVariables(vector<shared_ptr<Variable> >& variables) {
   // at point of common coupling 1
-  variables.push_back(VariableNativeFactory::createState("@ID@_state1_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state1_value", INTEGER));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
   // at point of common coupling 2
-  variables.push_back(VariableNativeFactory::createState("@ID@_state2_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state2_value", INTEGER));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
 }

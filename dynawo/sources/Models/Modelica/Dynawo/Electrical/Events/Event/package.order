@@ -1,5 +1,6 @@
 EventEquations
 EventBoolean
+EventInteger
 EventReal
 SingleBooleanEvent
 DoubleBooleanEvent
@@ -7,6 +8,7 @@ TripleBooleanEvent
 SingleRealEvent
 DoubleRealEvent
 TripleRealEvent
+SingleIntegerEvent
 EventQuadripoleStatus
 EventQuadripoleConnection
 EventQuadripoleDisconnection

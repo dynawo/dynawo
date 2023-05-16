@@ -246,11 +246,12 @@ modelica_integer sizeOffArray_(const modelica_integer array[], modelica_integer 
 void
 callExternalAutomatonModel(const std::string& modelName, const char* command, const double time,
     const double* inputs, const char** inputsName, const int nbInputs, const int nbMaxInputs,
-    double* outputs, const char** outputsName, const int nbOutputs, const int nbMaxOutputs, const std::string& workingDirectory) {
+    double* outputs, const char** outputsName, const int nbOutputs, const int nbMaxOutputs,
+    int* intOutputs, const char** intOutputsName, const int nbIntOutputs, const int nbMaxIntOutputs, const std::string& workingDirectory) {
   if (nbInputs >= nbMaxInputs)
     throw DYNError(Error::GENERAL, AutomatonMaximumInputSizeReached, modelName,
         boost::lexical_cast<std::string>(nbInputs), boost::lexical_cast<std::string>(nbMaxInputs));
-  if (nbOutputs >= nbMaxOutputs)
+  if (nbOutputs >= nbMaxOutputs || nbIntOutputs >= nbMaxIntOutputs)
     throw DYNError(Error::GENERAL, AutomatonMaximumOutputSizeReached, modelName,
         boost::lexical_cast<std::string>(nbOutputs), boost::lexical_cast<std::string>(nbMaxOutputs));
   static std::string separator = ";";
@@ -294,6 +295,12 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
     if (iter == values.end())
       throw DYNError(Error::GENERAL, UnknownAutomatonOutput, modelName, outputsName[i]);
     outputs[i] = iter->second;
+  }
+  for (int i=0; i< nbIntOutputs; ++i) {
+    std::map<std::string, double>::const_iterator iter = values.find(intOutputsName[i]);
+    if (iter == values.end())
+      throw DYNError(Error::GENERAL, UnknownAutomatonOutput, modelName, intOutputsName[i]);
+    intOutputs[i] = iter->second;
   }
 }
 

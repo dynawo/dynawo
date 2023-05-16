@@ -641,7 +641,7 @@ ModelDanglingLine::instantiateVariables(vector<shared_ptr<Variable> >& variables
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_bus_vr", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_bus_vi", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
 }
 
@@ -652,7 +652,7 @@ ModelDanglingLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_bus_vr", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_bus_vi", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
 }
 
