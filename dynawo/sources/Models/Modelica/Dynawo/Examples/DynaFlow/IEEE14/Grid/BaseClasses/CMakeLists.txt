@@ -12,9 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  Network.mo
-  NetworkComponentsExtVar.mo
-  NetworkWithAlphaBetaRestorativeLoads.mo
+  IEEE14Base.mo
   )
 
 #

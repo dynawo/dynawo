@@ -14,7 +14,6 @@ set(MODEL_FILES
   package.mo
   package.order
   IEEE14.mo
-  IEEE14ComponentsExtVar.mo
   )
 
 #
