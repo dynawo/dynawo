@@ -53,7 +53,7 @@ var a03127 =
     [ "modelModelicaInit", "d7/d2e/a03127.html#ad7969c6acf4f85556dce2d49470b9779", null ],
     [ "modelType", "d7/d2e/a03127.html#ab2b2ba2367fb8291fd7ddc674de2bea4", null ],
     [ "notifyTimeStep", "d7/d2e/a03127.html#ae17a4e7405b212f6c74000208a5e38a7", null ],
-    [ "printInitValuesParameters", "d7/d2e/a03127.html#a399ac703bb84d8e77071a6f8d5032b52", null ],
+    [ "printValuesParameters", "d7/d2e/a03127.html#a404e000c623cc77d14d6ebd2ab0ec367", null ],
     [ "rotateBuffers", "d7/d2e/a03127.html#abbbadb3ef41c15fe8bbee3a8f479e18a", null ],
     [ "setCalculatedParameter", "d7/d2e/a03127.html#ad16f5eee835206ae52dfa78f53057b7c", null ],
     [ "setCalculatedParameter", "d7/d2e/a03127.html#a87578b4d5532462649787a35b5c705d1", null ],

@@ -687,12 +687,12 @@ Protected Member Functions</h2></td></tr>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d02/a02755.html#a3b153eb351c9b46c01b3e669957b0ca0">initParams</a> ()=0</td></tr>
 <tr class="memdesc:a3b153eb351c9b46c01b3e669957b0ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the parameters thanks to external values and internal equations <br /></td></tr>
 <tr class="separator:a3b153eb351c9b46c01b3e669957b0ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93c72f8f43cf81b7a3a20105a62a3f6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d02/a02755.html#a93c72f8f43cf81b7a3a20105a62a3f6b">printInitValuesVariables</a> (std::ofstream &amp;fstream)</td></tr>
-<tr class="memdesc:a93c72f8f43cf81b7a3a20105a62a3f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial variables values of a model in a file  <a href="#a93c72f8f43cf81b7a3a20105a62a3f6b">More...</a><br /></td></tr>
-<tr class="separator:a93c72f8f43cf81b7a3a20105a62a3f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19a39f028c68e5d8ba03247dd2e04532"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d02/a02755.html#a19a39f028c68e5d8ba03247dd2e04532">printInitValuesParameters</a> (std::ofstream &amp;fstream)</td></tr>
-<tr class="memdesc:a19a39f028c68e5d8ba03247dd2e04532"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial values parameters of a model in a file  <a href="#a19a39f028c68e5d8ba03247dd2e04532">More...</a><br /></td></tr>
-<tr class="separator:a19a39f028c68e5d8ba03247dd2e04532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a33fad9a18370f7d50a724d9736993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d02/a02755.html#a15a33fad9a18370f7d50a724d9736993">printValuesVariables</a> (std::ofstream &amp;fstream)</td></tr>
+<tr class="memdesc:a15a33fad9a18370f7d50a724d9736993"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial variables values of a model in a file  <a href="#a15a33fad9a18370f7d50a724d9736993">More...</a><br /></td></tr>
+<tr class="separator:a15a33fad9a18370f7d50a724d9736993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f88da1df85decd8a7c6fe9e5c7c2365"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d02/a02755.html#a4f88da1df85decd8a7c6fe9e5c7c2365">printValuesParameters</a> (std::ofstream &amp;fstream)</td></tr>
+<tr class="memdesc:a4f88da1df85decd8a7c6fe9e5c7c2365"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial values parameters of a model in a file  <a href="#a4f88da1df85decd8a7c6fe9e5c7c2365">More...</a><br /></td></tr>
+<tr class="separator:a4f88da1df85decd8a7c6fe9e5c7c2365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72ae69f1d1f8da7ce4245c0c0ae408de"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d02/a02755.html#a72ae69f1d1f8da7ce4245c0c0ae408de">hasDataCheckCoherence</a> () const</td></tr>
 <tr class="memdesc:a72ae69f1d1f8da7ce4245c0c0ae408de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the sub model has a data check coherence operation (non-empty function)  <a href="#a72ae69f1d1f8da7ce4245c0c0ae408de">More...</a><br /></td></tr>
 <tr class="separator:a72ae69f1d1f8da7ce4245c0c0ae408de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4298,76 +4298,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
-<a id="a19a39f028c68e5d8ba03247dd2e04532"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19a39f028c68e5d8ba03247dd2e04532">&#9670;&nbsp;</a></span>printInitValuesParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DYN::SubModel::printInitValuesParameters </td>
-          <td>(</td>
-          <td class="paramtype">std::ofstream &amp;&#160;</td>
-          <td class="paramname"><em>fstream</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>write initial values parameters of a model in a file </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fstream</td><td>the file to stream parameters to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented in <a class="el" href="../../d7/d2e/a03127.html#a399ac703bb84d8e77071a6f8d5032b52">DYN::ModelManager</a>.</p>
-
-</div>
-</div>
-<a id="a93c72f8f43cf81b7a3a20105a62a3f6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93c72f8f43cf81b7a3a20105a62a3f6b">&#9670;&nbsp;</a></span>printInitValuesVariables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SubModel::printInitValuesVariables </td>
-          <td>(</td>
-          <td class="paramtype">std::ofstream &amp;&#160;</td>
-          <td class="paramname"><em>fstream</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>write initial variables values of a model in a file </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fstream</td><td>the file to stream variables to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a1899acfc2d9ec4a8aab429384492a9ad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1899acfc2d9ec4a8aab429384492a9ad">&#9670;&nbsp;</a></span>printModelValues()</h2>
 
@@ -4399,6 +4329,76 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
   <table class="params">
     <tr><td class="paramname">directory</td><td>directory where the file should be printed </td></tr>
     <tr><td class="paramname">dumpFileName</td><td>name of the file where to dump the values </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4f88da1df85decd8a7c6fe9e5c7c2365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f88da1df85decd8a7c6fe9e5c7c2365">&#9670;&nbsp;</a></span>printValuesParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::SubModel::printValuesParameters </td>
+          <td>(</td>
+          <td class="paramtype">std::ofstream &amp;&#160;</td>
+          <td class="paramname"><em>fstream</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>write initial values parameters of a model in a file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fstream</td><td>the file to stream parameters to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="../../d7/d2e/a03127.html#a404e000c623cc77d14d6ebd2ab0ec367">DYN::ModelManager</a>.</p>
+
+</div>
+</div>
+<a id="a15a33fad9a18370f7d50a724d9736993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a33fad9a18370f7d50a724d9736993">&#9670;&nbsp;</a></span>printValuesVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::SubModel::printValuesVariables </td>
+          <td>(</td>
+          <td class="paramtype">std::ofstream &amp;&#160;</td>
+          <td class="paramname"><em>fstream</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>write initial variables values of a model in a file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fstream</td><td>the file to stream variables to </td></tr>
   </table>
   </dd>
 </dl>
@@ -5696,7 +5696,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d02/a02755.html">SubModel</a></li>
-    <li class="footer">Generated on Tue May 16 2023 15:05:45 for Dynawo by
+    <li class="footer">Generated on Mon May 22 2023 12:58:44 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
