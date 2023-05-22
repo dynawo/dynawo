@@ -13,6 +13,7 @@ within Dynawo.Electrical.Wind.IEC.WT;
 */
 
 model WT4ACurrentSource "Wind Turbine Type 4A model from IEC 61400-27-1 standard : measurement, PLL, protection, PControl, QControl, limiters, electrical and generator modules"
+  import Modelica;
   import Dynawo;
   import Dynawo.Types;
 
@@ -32,34 +33,36 @@ model WT4ACurrentSource "Wind Turbine Type 4A model from IEC 61400-27-1 standard
 
   Dynawo.Electrical.Controls.IEC.WT.Control4A control4A(DPMaxP4APu = DPMaxP4APu, DPRefMax4APu = DPRefMax4APu, DPRefMin4APu = DPRefMin4APu, DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, IMaxDipPu = IMaxDipPu, IMaxPu = IMaxPu, IpMax0Pu = IpMax0Pu, IqH1Pu = IqH1Pu, IqMax0Pu = IqMax0Pu, IqMaxPu = IqMaxPu, IqMin0Pu = IqMin0Pu, IqMinPu = IqMinPu, IqPostPu = IqPostPu, Kiq = Kiq, Kiu = Kiu, Kpaw = Kpaw, Kpq = Kpq, Kpqu = Kpqu, Kpu = Kpu, Kpufrt = Kpufrt, Kqv = Kqv, MdfsLim = MdfsLim, MpUScale = MpUScale, MqG = MqG, Mqfrt = Mqfrt, Mqpri = Mqpri, P0Pu = P0Pu, Q0Pu = Q0Pu, QMax0Pu = QMax0Pu, QMaxPu = QMaxPu, QMin0Pu = QMin0Pu, QMinPu = QMinPu, QlConst = QlConst, RDropPu = RDropPu, SNom = SNom, U0Pu = U0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, UPhase0 = UPhase0, URef0Pu = URef0Pu, UpDipPu = UpDipPu, UpquMaxPu = UpquMaxPu, UqDipPu = UqDipPu, UqRisePu = UqRisePu, XDropPu = XDropPu, XWT0Pu = XWT0Pu, tPOrdP4A = tPOrdP4A, tPWTRef4A = tPWTRef4A, tPost = tPost, tQord = tQord, tS = tS, tUss = tUss) annotation(
     Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = 1)  annotation(
+    Placement(visible = true, transformation(origin = {-75, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
 equation
   connect(control4A.ipMaxPu, wT4Injector.ipMaxPu) annotation(
     Line(points = {{-38, -24}, {-2, -24}}, color = {0, 0, 127}));
-  connect(control4A.iqMaxPu, wT4Injector.iqMaxPu) annotation(
-    Line(points = {{-38, -40}, {-2, -40}}, color = {0, 0, 127}));
   connect(control4A.ipCmdPu, wT4Injector.ipCmdPu) annotation(
     Line(points = {{-38, -32}, {-2, -32}}, color = {0, 0, 127}));
+  connect(control4A.iqMaxPu, wT4Injector.iqMaxPu) annotation(
+    Line(points = {{-38, -40}, {-2, -40}}, color = {0, 0, 127}));
   connect(control4A.iqCmdPu, wT4Injector.iqCmdPu) annotation(
     Line(points = {{-38, -48}, {-2, -48}}, color = {0, 0, 127}));
   connect(control4A.iqMinPu, wT4Injector.iqMinPu) annotation(
     Line(points = {{-38, -56}, {-2, -56}}, color = {0, 0, 127}));
-  connect(measurements.UPu, control4A.UWTCPu) annotation(
-    Line(points = {{-2, 80}, {-90, 80}, {-90, -28}, {-82, -28}}, color = {0, 0, 127}));
-  connect(measurements.UFiltPu, control4A.UWTCFiltPu) annotation(
-    Line(points = {{-2, 76}, {-88, 76}, {-88, -22}, {-82, -22}}, color = {0, 0, 127}));
-  connect(measurements.PFiltPu, control4A.PWTCFiltPu) annotation(
-    Line(points = {{-2, 96}, {-92, 96}, {-92, -46}, {-82, -46}}, color = {0, 0, 127}));
-  connect(measurements.QFiltPu, control4A.QWTCFiltPu) annotation(
-    Line(points = {{-2, 92}, {-94, 92}, {-94, -58}, {-82, -58}}, color = {0, 0, 127}));
-  connect(PWTRefPu, control4A.PWTRefPu) annotation(
-    Line(points = {{-110, -20}, {-96, -20}, {-96, -34}, {-82, -34}}, color = {0, 0, 127}));
   connect(xWTRefPu, control4A.xWTRefPu) annotation(
-    Line(points = {{-110, -60}, {-92, -60}, {-92, -52}, {-82, -52}}, color = {0, 0, 127}));
+    Line(points = {{-130, -60}, {-100, -60}, {-100, -52}, {-82, -52}}, color = {0, 0, 127}));
   connect(tanPhi, control4A.tanPhi) annotation(
-    Line(points = {{-110, -40}, {-82, -40}}, color = {0, 0, 127}));
-  connect(omegaRefPu, control4A.omegaGenPu) annotation(
-    Line(points = {{110, 60}, {60, 60}, {60, 48}, {-60, 48}, {-60, -18}}, color = {0, 0, 127}));
+    Line(points = {{-130, -40}, {-82, -40}}, color = {0, 0, 127}));
+  connect(PWTRefPu, control4A.PWTRefPu) annotation(
+    Line(points = {{-130, -20}, {-100, -20}, {-100, -34}, {-82, -34}}, color = {0, 0, 127}));
+  connect(controlMeasurements.UFiltPu, control4A.UWTCFiltPu) annotation(
+    Line(points = {{-76, 58}, {-76, 20}, {-86, 20}, {-86, -22}, {-82, -22}}, color = {0, 0, 127}));
+  connect(controlMeasurements.UPu, control4A.UWTCPu) annotation(
+    Line(points = {{-80, 58}, {-80, 24}, {-90, 24}, {-90, -28}, {-82, -28}}, color = {0, 0, 127}));
+  connect(controlMeasurements.QFiltPu, control4A.QWTCFiltPu) annotation(
+    Line(points = {{-92, 58}, {-92, -58}, {-82, -58}}, color = {0, 0, 127}));
+  connect(const.y, control4A.omegaGenPu) annotation(
+    Line(points = {{-70, 0}, {-60, 0}, {-60, -18}}, color = {0, 0, 127}));
+  connect(controlMeasurements.PFiltPu, control4A.PWTCFiltPu) annotation(
+    Line(points = {{-96, 58}, {-96, -46}, {-82, -46}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

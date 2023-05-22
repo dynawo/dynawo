@@ -149,7 +149,7 @@ equation
     Timeline.logEvent1 (TimelineKeys.GeneratorConnected);
     state = Constants.state.Closed;
   end when;
-  connect(converter.y, genState);
+  converter.y = genState;
   converter.u = Integer(state);
 
   annotation(preferredView = "text");

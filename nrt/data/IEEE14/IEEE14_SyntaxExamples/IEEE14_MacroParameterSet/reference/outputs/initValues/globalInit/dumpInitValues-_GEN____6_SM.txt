@@ -14,10 +14,10 @@ generator_terminal_i_im                           : y =       0.118704 yp =     
 generator_terminal_i_re                           : y =       0.008109 yp =       0.000000
 generator_SGenPu_im                               : alias of generator_QGenPu
 generator_SGenPu_re                               : alias of generator_PGenPu
-generator_tableQMax_u_1_                          : alias of generator_PGenPu
-generator_tableQMax_y_1_                          : alias of generator_QMaxPu
-generator_tableQMin_u_1_                          : alias of generator_PGenPu
-generator_tableQMin_y_1_                          : alias of generator_QMinPu
+generator_tableQMax_u_0_                          : alias of generator_PGenPu
+generator_tableQMax_y_0_                          : alias of generator_QMaxPu
+generator_tableQMin_u_0_                          : alias of generator_PGenPu
+generator_tableQMin_y_0_                          : alias of generator_QMinPu
  ====== INIT CALCULATED VARIABLES VALUES ======
 generator_PGen                                    : y =       0.000000
 generator_QStatorPu                               : y =       0.509238
@@ -66,11 +66,11 @@ generator_tableQMin_verboseRead                    =       1.000000
 generator_NbSwitchOffSignals                       =              3
 generator_State0                                   =              2
 generator_qStatus0                                 =              1
-generator_tableQMax_columns_1_                     =              2
+generator_tableQMax_columns_0_                     =              2
 generator_tableQMax_extrapolation                  =              2
 generator_tableQMax_n                              =              1
 generator_tableQMax_smoothness                     =              1
-generator_tableQMin_columns_1_                     =              2
+generator_tableQMin_columns_0_                     =              2
 generator_tableQMin_extrapolation                  =              2
 generator_tableQMin_n                              =              1
 generator_tableQMin_smoothness                     =              1

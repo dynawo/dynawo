@@ -17,6 +17,7 @@ add_subdirectory(Nordic N)
 add_subdirectory(SVarC SV)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
+add_subdirectory(DynaFlow DF)
 
 set(MODEL_FILES
   package.mo
