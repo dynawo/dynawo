@@ -1,25 +1,34 @@
-within Dynawo.Examples.DynaFlow.IEEE14.Grid.BaseClasses;
+within Dynawo.Examples.DynaFlow.IEEE14.BaseClasses;
 
-  /*
-  * Copyright (c) 2023, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
+/*
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
 
-model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 buses, 5 generators, 1 shunt, 3 transformers , 17 lines and 11 loads."
+model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads."
+  import Modelica;
   import Modelica.SIunits;
   import Dynawo.Electrical;
+  import Dynawo.Types;
 
   // Base Calculation
   final parameter SIunits.Impedance ZBASE1 = 69 ^ 2 / Electrical.SystemBase.SnRef;
   final parameter SIunits.Impedance ZBASE2 = 13.8 ^ 2 / Electrical.SystemBase.SnRef;
+
+  // Load parameters
+  parameter Real alpha = 1.5 "Active load sensitivity to voltage";
+  parameter Real beta = 2.5 "Reactive load sensitivity to voltage";
+  parameter Types.VoltageModulePu uMaxPu = 1.05 "Maximum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
+  parameter Types.VoltageModulePu uMinPu = 0.95 "Minimum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
+  parameter Types.Time tfilter = 10;
 
   // Generators
   Electrical.Machines.SignalN.GeneratorPV Gen1(KGover = 1, PGen0Pu = 2.3239, PMaxPu = 10.9, PMinPu = 0, PNom = 1090, PRef0Pu = -2.3239, QGen0Pu = -0.1655, QMaxPu = 100, QMinPu = -100, QNomAlt = 10000, U0Pu = 1.06, URef0Pu = 1.06, i0Pu = Complex(-2.192358, -0.156132), limUQDown0 = false, limUQUp0 = false, qStatus0 = Electrical.Machines.SignalN.GeneratorPV.QStatus.Standard, u0Pu = Complex(1.06, 0)) annotation(
@@ -33,28 +42,32 @@ model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 bus
   Electrical.Machines.SignalN.GeneratorPV Gen8(KGover = 0, PGen0Pu = 0, PMaxPu = 2.28, PMinPu = 0, PNom = 228, PRef0Pu = 0, QGen0Pu = 0.1762, QMaxPu = 100, QMinPu = -100, QNomAlt = 10000, U0Pu = 1.089855, URef0Pu = 1.089855, i0Pu = Complex(0.037358, 0.157298), limUQDown0 = false, limUQUp0 = false, qStatus0 = Electrical.Machines.SignalN.GeneratorPV.QStatus.Standard, u0Pu = Complex(1.060361, -0.251831)) annotation(
     Placement(visible = true, transformation(origin = {170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  // Generators control
+  Electrical.Controls.Frequency.SignalN ModelSignalN;
+  Types.Angle Theta_Bus1;
+
   // Loads
-  Electrical.Loads.LoadAlphaBetaRestorative Load2(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.196308, -0.139089), s0Pu = Complex(0.217000, 0.127000), tFilter = 10, u0Pu = Complex(1.041127, -0.090721)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load2(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.196308, -0.139089), s0Pu = Complex(0.217000, 0.127000), tFilter = tfilter, u0Pu = Complex(1.041127, -0.090721)) annotation(
     Placement(visible = true, transformation(origin = {-120, -160}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load3(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.868294, -0.389016), s0Pu = Complex(0.942000, 0.190000), tFilter = 10, u0Pu = Complex(0.985173, -0.222561)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load3(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.868294, -0.389016), s0Pu = Complex(0.942000, 0.190000), tFilter = tfilter, u0Pu = Complex(0.985173, -0.222561)) annotation(
     Placement(visible = true, transformation(origin = {118, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load4(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.468972, -0.046384), s0Pu = Complex(0.478000, -0.039000), tFilter = 10, u0Pu = Complex(1.001230, -0.182187)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load4(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.468972, -0.046384), s0Pu = Complex(0.478000, -0.039000), tFilter = tfilter, u0Pu = Complex(1.001230, -0.182187)) annotation(
     Placement(visible = true, transformation(origin = {90, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load5(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.071279, -0.026881), s0Pu = Complex(0.076000, 0.016000), tFilter = 10, u0Pu = Complex(1.007583, -0.155511)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load5(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.071279, -0.026881), s0Pu = Complex(0.076000, 0.016000), tFilter = tfilter, u0Pu = Complex(1.007583, -0.155511)) annotation(
     Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load6(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.084225, -0.093633), s0Pu = Complex(0.112000, 0.075000), tFilter = 10, u0Pu = Complex(1.037496, -0.262912)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load6(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.084225, -0.093633), s0Pu = Complex(0.112000, 0.075000), tFilter = tfilter, u0Pu = Complex(1.037496, -0.262912)) annotation(
     Placement(visible = true, transformation(origin = {0, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load9(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.229406, -0.223911), s0Pu = Complex(0.295000, 0.166000), tFilter = 10, u0Pu = Complex(1.020247, -0.272201)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load9(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.229406, -0.223911), s0Pu = Complex(0.295000, 0.166000), tFilter = tfilter, u0Pu = Complex(1.020247, -0.272201)) annotation(
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load10(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.068305, -0.075586), s0Pu = Complex(0.090000, 0.058000), tFilter = 10, u0Pu = Complex(1.014711, -0.273737)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load10(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.068305, -0.075586), s0Pu = Complex(0.090000, 0.058000), tFilter = tfilter, u0Pu = Complex(1.014711, -0.273737)) annotation(
     Placement(visible = true, transformation(origin = {30, 82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load11(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.027671, -0.024921), s0Pu = Complex(0.035000, 0.018000), tFilter = 10, u0Pu = Complex(1.021886, -0.269814)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load11(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.027671, -0.024921), s0Pu = Complex(0.035000, 0.018000), tFilter = tfilter, u0Pu = Complex(1.021886, -0.269814)) annotation(
     Placement(visible = true, transformation(origin = {10, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load12(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.051876, -0.029677), s0Pu = Complex(0.061000, 0.016000), tFilter = 10, u0Pu = Complex(1.018873, -0.274446)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load12(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.051876, -0.029677), s0Pu = Complex(0.061000, 0.016000), tFilter = tfilter, u0Pu = Complex(1.018873, -0.274446)) annotation(
     Placement(visible = true, transformation(origin = {-130, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load13(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.109617, -0.086901), s0Pu = Complex(0.135000, 0.058000), tFilter = 10, u0Pu = Complex(1.013840, -0.274628)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load13(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.109617, -0.086901), s0Pu = Complex(0.135000, 0.058000), tFilter = tfilter, u0Pu = Complex(1.013840, -0.274628)) annotation(
     Placement(visible = true, transformation(origin = {-70, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Electrical.Loads.LoadAlphaBetaRestorative Load14(Alpha = 1.5, Beta = 2.5, UMaxPu = 1.05, UMinPu = 0.95, i0Pu = Complex(0.124816, -0.086053), s0Pu = Complex(0.149000, 0.050000), tFilter = 10, u0Pu = Complex(0.996351, -0.286332)) annotation(
+  Electrical.Loads.LoadAlphaBetaRestorative Load14(Alpha = alpha, Beta = beta, UMaxPu = uMaxPu, UMinPu = uMinPu, i0Pu = Complex(0.124816, -0.086053), s0Pu = Complex(0.149000, 0.050000), tFilter = tfilter, u0Pu = Complex(0.996351, -0.286332)) annotation(
     Placement(visible = true, transformation(origin = {10, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   // Buses
@@ -124,7 +137,7 @@ model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 bus
     Placement(visible = true, transformation(origin = {50, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Transformers
-  Electrical.Transformers.TransformerFixedRatio Tfo1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.47994804 / ZBASE2, rTfoPu = 1.0729614) annotation(
+  Dynawo.Electrical.Transformers.TransformerFixedRatio Tfo1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.47994804 / ZBASE2, rTfoPu = 1.0729614) annotation(
     Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Electrical.Transformers.TransformerFixedRatio Tfo2(BPu = 0, GPu = 0, RPu = 0, XPu = 1.0591881 / ZBASE2, rTfoPu = 1.0319917) annotation(
     Placement(visible = true, transformation(origin = {80, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -136,7 +149,16 @@ model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 bus
     Placement(visible = true, transformation(origin = {100, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
-// Network connections
+  // Generators control
+  ModelSignalN.thetaRef = Theta_Bus1;
+  Theta_Bus1 = Modelica.ComplexMath.arg(Bus1.terminal.V);
+  Gen1.N = ModelSignalN.N;
+  Gen2.N = ModelSignalN.N;
+  Gen3.N = ModelSignalN.N;
+  Gen6.N = ModelSignalN.N;
+  Gen8.N = ModelSignalN.N;
+
+  // Network connections
   connect(Bus10.terminal, Load10.terminal) annotation(
     Line(points = {{30, 100}, {30, 82}}, color = {0, 0, 255}));
   connect(Bus12.terminal, Load12.terminal) annotation(
