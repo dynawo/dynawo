@@ -1,4 +1,4 @@
-within Dynawo.Examples.DynaFlow.IEEE14.Grid;
+within Dynawo.Examples.DynaFlow.IEEE14;
 
 /*
 * Copyright (c) 2023, RTE (http://www.rte-france.com)

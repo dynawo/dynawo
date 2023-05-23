@@ -27,7 +27,6 @@
   <curve model="NETWORK" variable="_BUS___12_TN_Upu_value"/>
   <curve model="NETWORK" variable="_BUS___13_TN_Upu_value"/>
   <curve model="NETWORK" variable="_BUS___14_TN_Upu_value"/>
-  <curve model="NETWORK" variable="_BANK___9_SC_ui0"/>
   <curve model="GEN____1_SM" variable="generator_PGenPu"/>
   <curve model="GEN____2_SM" variable="generator_PGenPu"/>
   <curve model="GEN____3_SM" variable="generator_PGenPu"/>
@@ -38,16 +37,4 @@
   <curve model="GEN____3_SM" variable="generator_QGenPu"/>
   <curve model="GEN____6_SM" variable="generator_QGenPu"/>
   <curve model="GEN____8_SM" variable="generator_QGenPu"/>
-  <curve model="Model_Signal_N" variable="signalN_N"/>
-  <curve model="Model_Signal_N" variable="signalN_thetaRef"/>
-  <curve model="GEN____1_SM" variable="generator_PRefPu"/>
-  <curve model="GEN____2_SM" variable="generator_PRefPu"/>
-  <curve model="GEN____3_SM" variable="generator_PRefPu"/>
-  <curve model="GEN____6_SM" variable="generator_PRefPu"/>
-  <curve model="GEN____8_SM" variable="generator_PRefPu"/>
-  <curve model="GEN____1_SM" variable="generator_Alpha"/>
-  <curve model="GEN____2_SM" variable="generator_Alpha"/>
-  <curve model="GEN____3_SM" variable="generator_Alpha"/>
-  <curve model="GEN____6_SM" variable="generator_Alpha"/>
-  <curve model="GEN____8_SM" variable="generator_Alpha"/>
 </curvesInput>
