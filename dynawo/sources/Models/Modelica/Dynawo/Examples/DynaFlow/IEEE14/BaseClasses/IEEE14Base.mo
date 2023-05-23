@@ -137,7 +137,7 @@ model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 bus
     Placement(visible = true, transformation(origin = {50, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Transformers
-  Dynawo.Electrical.Transformers.TransformerFixedRatio Tfo1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.47994804 / ZBASE2, rTfoPu = 1.0729614) annotation(
+  Electrical.Transformers.TransformerFixedRatio Tfo1(BPu = 0, GPu = 0, RPu = 0, XPu = 0.47994804 / ZBASE2, rTfoPu = 1.0729614) annotation(
     Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Electrical.Transformers.TransformerFixedRatio Tfo2(BPu = 0, GPu = 0, RPu = 0, XPu = 1.0591881 / ZBASE2, rTfoPu = 1.0319917) annotation(
     Placement(visible = true, transformation(origin = {80, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -149,7 +149,7 @@ model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 bus
     Placement(visible = true, transformation(origin = {100, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
-  // Generators control
+  // Generators controls
   ModelSignalN.thetaRef = Theta_Bus1;
   Theta_Bus1 = Modelica.ComplexMath.arg(Bus1.terminal.V);
   Gen1.N = ModelSignalN.N;
