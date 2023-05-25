@@ -1411,14 +1411,14 @@ class SubModel {
    *
    * @param fstream the file to stream variables to
    */
-  void printInitValuesVariables(std::ofstream& fstream);
+  void printValuesVariables(std::ofstream& fstream);
 
   /**
    * @brief write initial values parameters of a model in a file
    *
    * @param fstream the file to stream parameters to
    */
-  virtual void printInitValuesParameters(std::ofstream& fstream);
+  virtual void printValuesParameters(std::ofstream& fstream);
 
   /**
    * @brief Determines if the sub model has a data check coherence operation (non-empty function)
