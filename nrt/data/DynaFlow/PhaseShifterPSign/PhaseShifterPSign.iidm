@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<network xmlns="http://www.itesla_project.eu/schema/iidm/1_0" xmlns:as="http://www.itesla_project.eu/schema/iidm/ext/active-season/1_0" xmlns:bbsp="http://www.itesla_project.eu/schema/iidm/ext/busbarsectionposition/1_0" xmlns:clps="http://www.itesla_project.eu/schema/iidm/ext/current-limits-per-season/1_0" xmlns:cp="http://www.itesla_project.eu/schema/iidm/ext/connectable_position/1_0" xmlns:gapc="http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0" xmlns:gec="http://www.itesla_project.eu/schema/iidm/ext/generator_entsoe_category/1_0" xmlns:gs="http://www.itesla_project.eu/schema/iidm/ext/generator_startup/1_0" xmlns:hapc="http://www.itesla_project.eu/schema/iidm/ext/hvdc_angle_droop_active_power_control/1_0" xmlns:hopr="http://www.itesla_project.eu/schema/iidm/ext/hvdc_operator_active_power_range/1_0" xmlns:ld="http://www.itesla_project.eu/schema/iidm/ext/load_detail/1_0" xmlns:sa="http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0" id="ieee14bus" caseDate="2017-06-09T10:14:24.146+02:00" forecastDistance="0" sourceFormat="CIM1">
+  <substation id="SubStation" name="SubStation">
+    <voltageLevel id="VoltageLevel1" name="VoltageLevel1" nominalV="400" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="Bus1" v="400" angle="0"/>
+      </busBreakerTopology>
+      <generator id="Generator" name="Generator" energySource="NUCLEAR" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="0" targetQ="0" targetV="400" bus="Bus1" connectableBus="Bus1" p="0" q="0">
+        <minMaxReactiveLimits minQ="-999" maxQ="999"/>
+      </generator>
+    </voltageLevel>
+    <voltageLevel id="VoltageLevel2" name="VoltageLevel2" nominalV="400" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="Bus2" v="400" angle="0"/>
+      </busBreakerTopology>
+      <load id="Load" name="Load" loadType="UNDEFINED" p0="0" q0="0" bus="Bus2" connectableBus="Bus2" p="0" q="0"/>
+    </voltageLevel>
+    <twoWindingsTransformer id="PhaseShifter" name="PhaseShifter" r="0" x="10" g="0" b="0" ratedU1="400" ratedU2="400" voltageLevelId1="VoltageLevel1" bus1="Bus1" connectableBus1="Bus1" voltageLevelId2="VoltageLevel2" bus2="Bus2" connectableBus2="Bus2" p1="0" q1="0" p2="0" q2="0">
+      <phaseTapChanger lowTapPosition="1" tapPosition="13" regulationMode="CURRENT_LIMITER" regulationValue="770" regulating="true">
+        <terminalRef id="PhaseShifter" side="ONE"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.3"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.275"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.25"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.225"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.2"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.175"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.15"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.125"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.1"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.07"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.04"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.02"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.02"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.04"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.07"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.1"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.125"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.15"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.175"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.2"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.225"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.25"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.275"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.3"/>
+      </phaseTapChanger>
+    </twoWindingsTransformer>
+    <twoWindingsTransformer id="PhaseShifterBis" name="PhaseShifterBis" r="0" x="10" g="0" b="0" ratedU1="400" ratedU2="400" voltageLevelId1="VoltageLevel1" bus1="Bus1" connectableBus1="Bus1" voltageLevelId2="VoltageLevel2" bus2="Bus2" connectableBus2="Bus2" p1="0" q1="0" p2="0" q2="0">
+      <phaseTapChanger lowTapPosition="1" tapPosition="13" regulationMode="CURRENT_LIMITER" regulationValue="770" regulating="true">
+        <terminalRef id="PhaseShifterBis" side="ONE"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.3"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.275"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.25"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.225"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.2"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.175"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.15"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.125"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.1"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.07"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.04"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.02"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.02"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.04"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.07"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.1"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.125"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.15"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.175"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.2"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.225"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.25"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.275"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.3"/>
+      </phaseTapChanger>
+    </twoWindingsTransformer>
+  </substation>
+  <line id="Line" name="Line" r="0.1" x="10" g1="0" b1="0" g2="0" b2="0" voltageLevelId1="VoltageLevel1" bus1="Bus1" connectableBus1="Bus1" voltageLevelId2="VoltageLevel2" bus2="Bus2" connectableBus2="Bus2" p1="0" q1="0" p2="0" q2="0">
+    <currentLimits1 permanentLimit="4183.10999999999998"/>
+  </line>
+</network>

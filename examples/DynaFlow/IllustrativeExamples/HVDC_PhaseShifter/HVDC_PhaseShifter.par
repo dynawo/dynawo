@@ -35,7 +35,6 @@
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
   <set id="4">
-    <par type="DOUBLE" name="phaseShifter_sign" value="-1"/>
     <par type="DOUBLE" name="phaseShifter_t1st" value="3"/>
     <par type="DOUBLE" name="phaseShifter_tNext" value="6"/>
     <par type="DOUBLE" name="phaseShifter_PTarget" value="7.4"/>
