@@ -297,7 +297,6 @@
     <par type="BOOL" name="event_disconnectExtremity" value="true"/>
   </set>
   <set id="10">
-    <par type="DOUBLE" name="phaseShifter_sign" value="-1"/>
     <par type="DOUBLE" name="phaseShifter_t1st" value="10"/>
     <par type="DOUBLE" name="phaseShifter_tNext" value="5"/>
     <par type="DOUBLE" name="phaseShifter_PTarget" value="0.44"/>
