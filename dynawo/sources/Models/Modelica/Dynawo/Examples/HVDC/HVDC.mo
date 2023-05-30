@@ -18,7 +18,7 @@ model HVDC "HVDC link connected to two infinite buses"
 
   extends Icons.Example;
 
-  Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSC HVDC(CdcPu = 1.99, DUDC = 0.01, DeadBandU = 0, InPu = 1.081, Ip10Pu = 0.885803, Ip20Pu = -0.876285, IpMaxCstPu = 1.0, Iq10Pu = -0.297138, Iq20Pu = -0.292657, KiACVoltageControl = 33.5, KiDeltaP = 20, KiPControl = 100, Kidc = 20, KpACVoltageControl = 0, KpDeltaP = 10, KpPControl = 0.4, Kpdc = 40, Lambda = 0.1754386, P10Pu = -8.98, P20Pu = 9, PMaxOPPu = 1, PMinOPPu = -1, Q10Pu = -3.01229, Q20Pu = -3.00569, QMaxCombPu = 0.4, QMaxOPPu = 0.4, QMinCombPu = -0.6, QMinOPPu = -0.6, RdcPu = 0.000244, SNom = 1000, SlopePRefPu = 0.083333, SlopeQRefPu = 100, SlopeRPFault = 1000, SlopeURefPu = 100, TBlock = 0.1, TBlockUV = 0.01, TDeblockU = 0.02, TQ = 0.1, U10Pu = 1.01377, U20Pu = 1.02704, UBlockUVPu = -1, UMaxdbPu = 1.2, UMindbPu = 0.8, UPhase10 = 0.0316806, UPhase20 = -0.0328543, Udc10Pu = 0.997804, Udc20Pu = 1, UdcMaxPu = 1.05, UdcMinPu = 0.95, UdcRefMaxPu = 1.15, UdcRefMinPu = 0.95, i10Pu = Complex(-8.9477, 2.6893), i20Pu = Complex(8.85426, 2.63714), modeU10 = 1, modeU20 = 1, u10Pu = Complex(1.01326, 0.03211), u20Pu = Complex(1.02648, -0.03373)) annotation(
+  Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSC HVDC(CdcPu = 1.99, DUDC = 0.01, DeadBandU = 0, InPu = 1.081, Ip10Pu = 0.885803, Ip20Pu = -0.876285, IpMaxCstPu = 1.0, Iq10Pu = -0.297138, Iq20Pu = -0.292657, KiACVoltageControl = 33.5, KiDeltaP = 20, KiPControl = 100, KiPLL = 20, Kidc = 20, KpACVoltageControl = 0, KpDeltaP = 10, KpPControl = 0.4, KpPLL = 3, Kpdc = 40, Lambda = 0.1754386, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P10Pu = -8.98, P20Pu = 9, PMaxOPPu = 1, PMinOPPu = -1, Q10Pu = -3.01229, Q20Pu = -3.00569, QMaxCombPu = 0.4, QMaxOPPu = 0.4, QMinCombPu = -0.6, QMinOPPu = -0.6, RdcPu = 0.000244, SNom = 1000, SlopePRefPu = 0.083333, SlopeQRefPu = 100, SlopeRPFault = 1000, SlopeURefPu = 100, TBlock = 0.1, TBlockUV = 0.01, TDeblockU = 0.02, TQ = 0.1, U10Pu = 1.01377, U20Pu = 1.02704, UBlockUVPu = -1, UMaxdbPu = 1.2, UMindbPu = 0.8, UPhase10 = 0.0316806, UPhase20 = -0.0328543, Udc10Pu = 0.997804, Udc20Pu = 1, UdcMaxPu = 1.05, UdcMinPu = 0.95, UdcRefMaxPu = 1.15, UdcRefMinPu = 0.95, i10Pu = Complex(-8.9477, 2.6893), i20Pu = Complex(8.85426, 2.63714), modeU10 = 1, modeU20 = 1, u10Pu = Complex(1.01326, 0.03211), u20Pu = Complex(1.02648, -0.03373)) annotation(
     Placement(visible = true, transformation(origin = {20, -30}, extent = {{-50, -30}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.00037, XPu = 0.0037) annotation(
     Placement(visible = true, transformation(origin = {-52, -25}, extent = {{-40, -40}, {10, 10}}, rotation = 0)));
@@ -41,7 +41,7 @@ model HVDC "HVDC link connected to two infinite buses"
   Modelica.Blocks.Sources.Step QRef2Pu(height = 0, offset = 0.301, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step URef2Pu(height = 0, offset = 1.079767, startTime = 4.5) annotation(
-    Placement(visible = true, transformation(origin = {50, 49}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {50, 50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UdcRefPu(height = 0.0, offset = 1, startTime = 6) annotation(
     Placement(visible = true, transformation(origin = {50, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.00, XPu = 0.0075, tBegin = 0.5, tEnd = 1.5) annotation(
@@ -79,7 +79,7 @@ equation
   connect(UdcRefPu.y, HVDC.UdcRefPu) annotation(
     Line(points = {{39, 20}, {21, 20}, {21, -18}}, color = {0, 0, 127}));
   connect(URef2Pu.y, HVDC.URef2Pu) annotation(
-    Line(points = {{39, 49}, {15, 49}, {15, -18}}, color = {0, 0, 127}));
+    Line(points = {{39, 50}, {15, 50}, {15, -18}}, color = {0, 0, 127}));
   connect(QRef2Pu.y, HVDC.QRef2Pu) annotation(
     Line(points = {{39, 80}, {9, 80}, {9, -18}}, color = {0, 0, 127}));
   connect(nodeFault.terminal, line2.terminal1) annotation(
