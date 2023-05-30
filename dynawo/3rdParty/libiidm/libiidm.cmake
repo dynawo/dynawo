@@ -39,7 +39,6 @@ else()
   endif()
   set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
 
-  GetPatchCommand(libiidm)
   include(ExternalProject)
   ExternalProject_Add(
                       "${package_name}"
@@ -55,7 +54,6 @@ else()
     STAMP_DIR         "${DOWNLOAD_DIR}/${package_name}-stamp"
     BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
     SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}"
-    PATCH_COMMAND     "${libiidm_patch_common}"
 
     CMAKE_CACHE_ARGS  -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
                       -DCMAKE_CXX_FLAGS_INIT:STRING=$<$<CONFIG:Debug>:-O0>
