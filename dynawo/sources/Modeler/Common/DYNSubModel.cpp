@@ -681,14 +681,14 @@ SubModel::printModelValues(const std::string& directory, const std::string& dump
   std::ofstream file;
   file.open(fileName.c_str());
 
-  printInitValuesVariables(file);
-  printInitValuesParameters(file);
+  printValuesVariables(file);
+  printValuesParameters(file);
 
   file.close();
 }
 
 void
-SubModel::printInitValuesParameters(std::ofstream& fstream) {
+SubModel::printValuesParameters(std::ofstream& fstream) {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
@@ -1316,8 +1316,8 @@ SubModel::getSubModelParameterValue(const string& nameParameter, std::string& va
 }
 
 void
-SubModel::printInitValuesVariables(std::ofstream& fstream) {
-  fstream << " ====== INIT VARIABLES VALUES ======\n";
+SubModel::printValuesVariables(std::ofstream& fstream) {
+  fstream << " ====== VARIABLES VALUES ======\n";
   const vector<string>& xNames = (*this).xNames();
   for (unsigned int i = 0; i < sizeY(); ++i)
     fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocal_[i])
