@@ -18,7 +18,6 @@ set(MODEL_FILES
   ParamsElectricalControl.mo
   ParamsGeneratorControl.mo
   ParamsPlantControl.mo
-  ParamsPLL.mo
   ParamsVSourceRef.mo
   )
 

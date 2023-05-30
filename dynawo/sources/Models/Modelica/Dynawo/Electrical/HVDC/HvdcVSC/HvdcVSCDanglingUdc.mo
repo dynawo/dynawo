@@ -13,38 +13,38 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 */
 
 model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-off bus (Udc control on terminal 1)"
-  extends AdditionalIcons.Hvdc;
-
   import Modelica;
-  import Dynawo.Electrical.Sources;
-  import Dynawo.Electrical.HVDC;
-  import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
+  import Dynawo;
   import Dynawo.Electrical.Constants;
+  import Dynawo.Electrical.HVDC;
+  import Dynawo.Electrical.SystemBase;
+  import Dynawo.Types;
 
-  Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
-    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2 "Connector used to connect the injector to the grid (switched off side)" annotation(
-    Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  extends AdditionalIcons.Hvdc;
+  extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBaseDCVoltageControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDCLine;
 
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
-  parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 1 of the HVDC link in pu (base SNom) and in generator convention" annotation(
-    Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcRef0Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
+  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
+
+  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
+    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal2 "Connector used to connect the injector to the grid (switched off side)" annotation(
+    Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Interfaces.RealInput modeU1(start = modeU10) "Boolean assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {-30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 1 of the HVDC link in pu (base SNom) and in generator convention" annotation(
+    Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcRef0Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   HVDC.HvdcVSC.BaseControls.DCVoltageControlSideDangling UdcPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq10Pu, KiACVoltageControl = KiACVoltageControl, Kidc = Kidc, KpACVoltageControl = KpACVoltageControl, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P10Pu * (SystemBase.SnRef/SNom), Q0Pu = - Q10Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, RdcPu = RdcPu, SNom = SNom, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcRef0Pu = UdcRef0Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, modeU0 = if modeU10 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "DC Voltage Control Side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-45, 0}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
@@ -64,24 +64,27 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PQDanglingTerminal(k = 0) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.PLL.PLL pll1(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u10Pu) annotation(
+    Placement(visible = true, transformation(origin = {-103, 30}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant omegaRef1(k = 1) annotation(
+    Placement(visible = true, transformation(origin = {-125, 36}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Constants.state Conv2_state(start = Conv2_State0) "Converter 2 connection state";
 
-  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
-  parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 (in rad)";
-  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
   parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom)";
   parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
   parameter Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
-  parameter Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
-
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
+  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  parameter Types.VoltageModulePu Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
   parameter Types.VoltageModulePu Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
-  parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
+  parameter Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
+  parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 (in rad)";
 
 equation
   connect(PQDanglingTerminal.y, Conv2_PInjPu) annotation(
@@ -106,8 +109,6 @@ equation
     Line(points = {{-28, 0}, {-18, 0}, {-18, 0}, {-16, 0}}, color = {0, 0, 127}));
   connect(ConstantPdcDanglingTerminal.y, dCLine.P2Pu) annotation(
     Line(points = {{32, 0}, {17, 0}, {17, 0}, {17, 0}}, color = {0, 0, 127}));
-  connect(Conv1.terminal, terminal1) annotation(
-    Line(points = {{-101, -8}, {-122, -8}, {-122, -8}, {-130, -8}}, color = {0, 0, 255}));
   connect(Conv1.UPu, Blocking.UPu) annotation(
     Line(points = {{-101, 8}, {-110, 8}, {-110, -50}, {-72, -50}, {-72, -50}}, color = {0, 0, 127}));
   connect(Blocking.blocked, UdcPu_Side.blocked) annotation(
@@ -120,10 +121,19 @@ equation
     Line(points = {{-101, 4}, {-109, 4}, {-109, -28}, {-52, -28}, {-52, -16}, {-52, -16}}, color = {0, 0, 127}));
   connect(Conv1.QInjPuSn, UdcPu_Side.QPu) annotation(
     Line(points = {{-101, 1}, {-108, 1}, {-108, -26}, {-59, -26}, {-59, -16}, {-59, -16}}, color = {0, 0, 127}));
-  terminal2.i = Complex(0,0);
+  connect(omegaRef1.y, pll1.omegaRefPu) annotation(
+    Line(points = {{-119.5, 36}, {-114, 36}}, color = {0, 0, 127}));
+  connect(pll1.phi, Conv1.UPhase) annotation(
+    Line(points = {{-92, 29}, {-90, 29}, {-90, 12}}, color = {0, 0, 127}));
+  connect(Conv1.uPu, pll1.uPu) annotation(
+    Line(points = {{-101, -3}, {-118, -3}, {-118, 24}, {-114, 24}}, color = {85, 170, 255}));
+  connect(Conv1.terminal, terminal1) annotation(
+    Line(points = {{-101, -8}, {-130, -8}}, color = {0, 0, 255}));
+  terminal2.i = Complex(0, 0);
   Conv2_state = Conv1.state;
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),
     Icon(coordinateSystem(grid = {1, 1})));
 end HvdcVSCDanglingUdc;
