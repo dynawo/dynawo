@@ -42,7 +42,7 @@ model SVarCRVS
     U0Pu = U0Pu,
     UNom = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.UNom]) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.StaticVarCompensators.Controls.CSSCST csscst(
+  Dynawo.Electrical.StaticVarCompensators.BaseControls.CSSCST csscst(
     BMax = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BMax],
     BMin = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BMin],
     BVar0Pu(fixed = false),
