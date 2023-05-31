@@ -44,9 +44,8 @@
   <set id="PhaseShifter">
     <par type="DOUBLE" name="phaseShifter_t1st" value="40"/>
     <par type="DOUBLE" name="phaseShifter_tNext" value="20"/>
-    <par type="BOOL" name="running0" value="true"/>
     <par type="DOUBLE" name="phaseShifter_PTarget" value="0.3"/>
-    <par type="DOUBLE" name="phaseShifter_PDeadBand" value="0"/>
+    <par type="DOUBLE" name="phaseShifter_PDeadBand" value="0.1"/>
     <reference type="DOUBLE" name="phaseShifter_P0" origData="IIDM" origName="p1" componentId="PhaseShifter"/>
     <reference type="INT" name="phaseShifter_tap0" origData="IIDM" origName="tapPosition" componentId="PhaseShifter"/>
     <reference type="INT" name="phaseShifter_tapMin" origData="IIDM" origName="lowTapPosition" componentId="PhaseShifter"/>
@@ -57,7 +56,6 @@
   <set id="PhaseShifterBis">
     <par type="DOUBLE" name="phaseShifter_t1st" value="50"/>
     <par type="DOUBLE" name="phaseShifter_tNext" value="20"/>
-    <par type="BOOL" name="running0" value="true"/>
     <par type="DOUBLE" name="phaseShifter_PTarget" value="0"/>
     <par type="DOUBLE" name="phaseShifter_PDeadBand" value="0.1"/>
     <reference type="DOUBLE" name="phaseShifter_P0" origData="IIDM" origName="p1" componentId="PhaseShifterBis"/>
