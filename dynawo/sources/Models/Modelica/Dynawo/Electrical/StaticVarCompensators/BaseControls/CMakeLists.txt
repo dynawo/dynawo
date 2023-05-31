@@ -21,6 +21,7 @@ set(MODEL_FILES
   Limitations.mo
   ModeHandling.mo
   ModeConnector.mo
+  CSSCST.mo
   )
 
 #

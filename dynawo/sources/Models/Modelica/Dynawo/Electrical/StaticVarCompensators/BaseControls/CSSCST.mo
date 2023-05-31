@@ -1,4 +1,4 @@
-within Dynawo.Examples.RVS.Components.StaticVarCompensators.Controls;
+within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 
 /*
 * Copyright (c) 2023, RTE (http://www.rte-france.com)
