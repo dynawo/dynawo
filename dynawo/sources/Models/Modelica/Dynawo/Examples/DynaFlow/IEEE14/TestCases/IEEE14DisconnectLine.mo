@@ -188,7 +188,7 @@ equation
   Bank9.switchOffSignal1.value = false;
   Bank9.switchOffSignal2.value = false;
 
-annotation(
+  annotation(
     experiment(StartTime = 0, StopTime = 2000, Tolerance = 1e-6, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));
