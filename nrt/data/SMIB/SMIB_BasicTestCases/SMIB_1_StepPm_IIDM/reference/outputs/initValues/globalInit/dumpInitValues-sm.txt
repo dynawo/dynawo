@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 generator_lambdaDPu                               : y =       0.908428 yp =       0.000274
 generator_lambdaQ1Pu                              : y =      -0.577466 yp =       0.000006
 generator_lambdaQ2Pu                              : y =      -0.577466 yp =       0.000133

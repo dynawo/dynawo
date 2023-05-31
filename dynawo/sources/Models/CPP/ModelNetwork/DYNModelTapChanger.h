@@ -45,6 +45,7 @@ class ModelTapChanger {
       : id_(id),
         currentStepIndex_(0),
         regulating_(false),
+        fictitious_(false),
         lowStepIndex_(lowIndex),
         highStepIndex_(0),
         tFirst_(60),
@@ -165,12 +166,26 @@ class ModelTapChanger {
    */
   inline void setTNext(double time) { tNext_ = time; }
 
+  /**
+   * @brief set fictitious property
+   *
+   * @param fictitious fictitious
+   */
+  inline void setFictitious(bool fictitious) { fictitious_ = fictitious; }
+
+  /**
+   * @brief wether the tap changer is fictitious
+   * @return fictitious
+   */
+  inline bool isFictitious() const { return fictitious_; }
+
  private:
   std::string id_;  ///< id of the tap changer
   std::vector<TapChangerStep>
       steps_;             ///< vector of TapChangerStep
   int currentStepIndex_;  ///< index of the current step
   bool regulating_;       ///< is the tapChanger regulating ?
+  bool fictitious_;       ///< wether the tap changer comes from an iidm object or not
   const int lowStepIndex_;      ///< Lowest step
   int highStepIndex_;     ///< Highest step
   double tFirst_;  ///< time to wait before changing of step for the first time
