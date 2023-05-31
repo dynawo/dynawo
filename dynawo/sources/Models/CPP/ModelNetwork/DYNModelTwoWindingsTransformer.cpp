@@ -224,6 +224,7 @@ modelType_("TwoWindingsTransformer") {
     modelTapChanger_->addStep(TapChangerStep(ratio, 0, r, x, g, b));
     modelTapChanger_->setHighStepIndex(0);
     modelTapChanger_->setCurrentStepIndex(0);
+    modelTapChanger_->setFictitious(true);
   }
 
   factorPuToASide1_ = 1000. * SNREF / (sqrt(3.) * vNom1_);

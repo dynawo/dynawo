@@ -443,7 +443,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     data->setReference("p2", id, id, "P2_value");
     data->setReference("q2", id, id, "Q2_value");
     data->setReference("state", id, id, "state_value");
-    data->setReference("tapIndex", id, id, "step_value");
+    if (modelTwoWindingsTransformer->getModelRatioTapChanger() ||
+        modelTwoWindingsTransformer->getModelPhaseTapChanger() ||
+        (modelTwoWindingsTransformer->getModelTapChanger() && !modelTwoWindingsTransformer->getModelTapChanger()->isFictitious())) {
+      data->setReference("tapIndex", id, id, "step_value");
+    }
   }
 
   // =================================
