@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,6 +16,7 @@ model HvdcPTanPhiDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram"
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPDiagramPQ;
+  extends HVDC.BaseClasses.BasePTanPhi(QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
 
 /*
   Equivalent circuit and conventions:
@@ -24,16 +25,6 @@ model HvdcPTanPhiDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram"
    (terminal1) -->-------HVDC-------<-- (terminal2)
 
 */
-
-  input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
-  input Real tanPhi2Ref(start = TanPhi2Ref0) "tan(Phi) regulation set point at terminal 2";
-
-  parameter Real TanPhi1Ref0 "Start value of tan(Phi) regulation set point at terminal 1";
-  parameter Real TanPhi2Ref0 "Start value of tan(Phi) regulation set point at terminal 2";
-
-protected
-  Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QInj2RawPu(start = - s20Pu.im) "Raw reactive power at terminal 2 in pu (base SnRef) (generator convention)";
 
 equation
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
@@ -60,5 +51,5 @@ equation
   end if;
 
   annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at each of its terminal. The power factor setpoint is given as an input and can be modified during the simulation, as well as the active power setpoint.</div></body></html>"));
+    Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at each of its terminal. The power factor setpoint is given as an input and can be modified during the simulation, as well as the active power setpoint. The reactive power limits are given by a PQ diagram.</div></body></html>"));
 end HvdcPTanPhiDiagramPQ;

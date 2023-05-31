@@ -35,6 +35,10 @@
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
   <set id="4">
+    <par type="DOUBLE" name="hvdc_Q1Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Q2Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Lambda1Pu" value="0"/>
+    <par type="DOUBLE" name="hvdc_Lambda2Pu" value="0"/>
     <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
     <reference type="DOUBLE" name="hvdc_Q20Pu" origData="IIDM" origName="q2_pu"/>
     <reference type="DOUBLE" name="hvdc_U20Pu" origData="IIDM" origName="v2_pu"/>
@@ -61,6 +65,10 @@
     <par type="DOUBLE" name="acemulation_PRefSet0Pu" value="0"/>
   </set>
   <set id="5">
+    <par type="DOUBLE" name="hvdc_Q1Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Q2Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Lambda1Pu" value="0"/>
+    <par type="DOUBLE" name="hvdc_Lambda2Pu" value="0"/>
     <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
     <reference type="DOUBLE" name="hvdc_Q20Pu" origData="IIDM" origName="q2_pu"/>
     <reference type="DOUBLE" name="hvdc_U20Pu" origData="IIDM" origName="v2_pu"/>

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPV;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,6 +16,9 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
   import Dynawo.Electrical.HVDC;
 
   extends HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
+  extends HVDC.BaseClasses.BaseQStatusDangling;
+  extends HVDC.BaseClasses.BaseVoltageRegulationDangling;
+  extends HVDC.BaseClasses.BasePVDangling(QInj1PuQNom(start = - s10Pu.im * SystemBase.SnRef / Q1Nom));
 
 /*
   Equivalent circuit and conventions:
@@ -25,29 +28,22 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
 
 */
 
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
-
-  input Boolean modeU1(start = modeU10) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
-  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
-  input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
-
-  parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
-  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
-
-protected
-  QStatus q1Status(start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
-
 equation
+  QInj1PuQNom = QInj1Pu * SystemBase.SnRef / Q1Nom;
+
   //Voltage/Reactive power regulation at terminal 1
-  when QInj1Pu >= QInj1MaxPu and U1Pu <= U1RefPu then
+  when QInj1Pu >= QInj1MaxPu and U1Pu + Lambda1Pu * QInj1Pu <= U1RefPu then
     q1Status = QStatus.GenerationMax;
-  elsewhen QInj1Pu <= QInj1MinPu and U1Pu >= U1RefPu then
+    limUQDown1 = false;
+    limUQUp1 = true;
+  elsewhen QInj1Pu <= QInj1MinPu and U1Pu + Lambda1Pu * QInj1Pu >= U1RefPu then
     q1Status = QStatus.AbsorptionMax;
-  elsewhen (QInj1Pu < QInj1MaxPu or U1Pu > U1RefPu) and (QInj1Pu > QInj1MinPu or U1Pu < U1RefPu) then
+    limUQDown1 = true;
+    limUQUp1 = false;
+  elsewhen (QInj1Pu < QInj1MaxPu or U1Pu + Lambda1Pu * QInj1Pu > U1RefPu) and (QInj1Pu > QInj1MinPu or U1Pu + Lambda1Pu * QInj1Pu < U1RefPu) then
     q1Status = QStatus.Standard;
+    limUQDown1 = false;
+    limUQUp1 = false;
   end when;
 
   if runningSide1.value then
@@ -57,7 +53,11 @@ equation
       elseif q1Status == QStatus.AbsorptionMax then
         QInj1Pu = QInj1MinPu;
       else
-        U1Pu = U1RefPu;
+        if UseLambda1 then
+          U1Pu + Lambda1Pu * QInj1Pu = U1RefPu;
+        else
+          U1Pu = U1RefPu;
+        end if;
       end if;
     else
       if - Q1RefPu <= QInj1MinPu then
@@ -73,5 +73,5 @@ equation
   end if;
 
   annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at terminal1. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage reference and the reactive power reference. The terminal2 is connected to a switched-off bus.</div></body></html>"));
+    Documentation(info = "<html><head></head><body>This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at terminal1. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage reference and the reactive power reference. The terminal2 is connected to a switched-off bus. The Q limitations follow a PQ diagram.</div></body></html>"));
 end HvdcPVDanglingDiagramPQ;
