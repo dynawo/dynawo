@@ -46,19 +46,33 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   parameter Types.Time tG "Current generation time constant in s" annotation(
     Dialog(tab = "Control"));
 
-  //Measurement parameters
-  parameter Types.PerUnit DfMaxPu "Maximum frequency ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "Measurement"));
+  //Measurement parameters for control
+  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+
+  //Measurement parameters for protection
+  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom)" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
 
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
@@ -160,26 +174,28 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
 
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 90), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput xWTRefPu(start = XWT0Pu) "Reactive power loop reference : reactive power or voltage reference depending on the Q control mode (MqG), in pu (base SNom or UNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Sources.IEC.WT4Injector wT4Injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, XesPu = XesPu, i0Pu = i0Pu, tG = tG, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.Measurements measurements(DfMaxPu = DfMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIFilt, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
-    Placement(visible = true, transformation(origin = {20, 80}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.Measurements protectionMeasurements(DfMaxPu = DfpMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIpFilt, tPFilt = tPpFilt, tQFilt = tQpFilt, tS = tS, tUFilt = tUpFilt, tfFilt = tfpFilt, u0Pu = u0Pu) annotation(
+    Placement(visible = true, transformation(origin = {60, 80}, extent = {{20, 20}, {-20, -20}}, rotation = 90)));
+  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.Measurements controlMeasurements(DfMaxPu = DfcMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIcFilt, tPFilt = tPcFilt, tQFilt = tQcFilt, tS = tS, tUFilt = tUcFilt, tfFilt = tfcFilt, u0Pu = u0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-80, 80}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
-    Placement(visible = true, transformation(origin = {-20, 20}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {-20, 20}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.GridProtection gridProtection(U0Pu = U0Pu, UOverPu = UOverPu, UUnderPu = UUnderPu, fOverPu = fOverPu, fUnderPu = fUnderPu) annotation(
-    Placement(visible = true, transformation(origin = {60, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {60, 20}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -218,28 +234,35 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Dialog(tab = "Operating point"));
 
 equation
-  connect(pll.thetaPll, wT4Injector.theta) annotation(
-    Line(points = {{2, 20}, {8, 20}, {8, -18}}, color = {0, 0, 127}));
-  connect(gridProtection.fOCB, wT4Injector.fOCB) annotation(
-    Line(points = {{38, 20}, {20, 20}, {20, -18}}, color = {255, 0, 255}));
   connect(wT4Injector.terminal, terminal) annotation(
-    Line(points = {{42, -40}, {108, -40}}, color = {0, 0, 255}));
-  connect(measurements.theta, pll.theta) annotation(
-    Line(points = {{-2, 68}, {-50, 68}, {-50, 28}, {-42, 28}}, color = {0, 0, 127}));
-  connect(measurements.omegaFiltPu, gridProtection.omegaFiltPu) annotation(
-    Line(points = {{-2, 64}, {-20, 64}, {-20, 50}, {90, 50}, {90, 28}, {82, 28}}, color = {0, 0, 127}));
-  connect(measurements.UFiltPu, gridProtection.UWTPFiltPu) annotation(
-    Line(points = {{-2, 76}, {-10, 76}, {-10, 52}, {92, 52}, {92, 12}, {82, 12}}, color = {0, 0, 127}));
-  connect(measurements.UPu, pll.UWTPu) annotation(
-    Line(points = {{-2, 80}, {-52, 80}, {-52, 12}, {-42, 12}}, color = {0, 0, 127}));
-  connect(wT4Injector.iWtPu, measurements.iPu) annotation(
-    Line(points = {{42, -24}, {94, -24}, {94, 80}, {42, 80}}, color = {85, 170, 255}));
-  connect(wT4Injector.uWtPu, measurements.uPu) annotation(
-    Line(points = {{42, -28}, {96, -28}, {96, 92}, {42, 92}}, color = {85, 170, 255}));
-  connect(omegaRefPu, measurements.omegaRefPu) annotation(
-    Line(points = {{110, 60}, {60, 60}, {60, 68}, {42, 68}}, color = {0, 0, 127}));
+    Line(points = {{42, -40}, {130, -40}}, color = {0, 0, 255}));
+  connect(gridProtection.fOCB, wT4Injector.fOCB) annotation(
+    Line(points = {{60, -2}, {60, -10}, {20, -10}, {20, -18}}, color = {255, 0, 255}));
+  connect(pll.thetaPll, wT4Injector.theta) annotation(
+    Line(points = {{-20, -2}, {-20, -10}, {8, -10}, {8, -18}}, color = {0, 0, 127}));
+  connect(omegaRefPu, protectionMeasurements.omegaRefPu) annotation(
+    Line(points = {{0, 130}, {0, 116}, {48, 116}, {48, 102}}, color = {0, 0, 127}));
+  connect(omegaRefPu, controlMeasurements.omegaRefPu) annotation(
+    Line(points = {{0, 130}, {0, 116}, {-68, 116}, {-68, 102}}, color = {0, 0, 127}));
+  connect(protectionMeasurements.omegaFiltPu, gridProtection.omegaFiltPu) annotation(
+    Line(points = {{44, 58}, {44, 50}, {52, 50}, {52, 42}}, color = {0, 0, 127}));
+  connect(protectionMeasurements.UFiltPu, gridProtection.UWTPFiltPu) annotation(
+    Line(points = {{56, 58}, {56, 50}, {68, 50}, {68, 42}}, color = {0, 0, 127}));
+  connect(controlMeasurements.theta, pll.theta) annotation(
+    Line(points = {{-68, 58}, {-68, 50}, {-12, 50}, {-12, 42}}, color = {0, 0, 127}));
+  connect(wT4Injector.iWtPu, controlMeasurements.iPu) annotation(
+    Line(points = {{42, -24}, {100, -24}, {100, 106}, {-80, 106}, {-80, 102}}, color = {85, 170, 255}));
+  connect(wT4Injector.iWtPu, protectionMeasurements.iPu) annotation(
+    Line(points = {{42, -24}, {100, -24}, {100, 106}, {60, 106}, {60, 102}}, color = {85, 170, 255}));
+  connect(wT4Injector.uWtPu, controlMeasurements.uPu) annotation(
+    Line(points = {{42, -28}, {104, -28}, {104, 110}, {-92, 110}, {-92, 102}}, color = {85, 170, 255}));
+  connect(wT4Injector.uWtPu, protectionMeasurements.uPu) annotation(
+    Line(points = {{42, -28}, {104, -28}, {104, 110}, {72, 110}, {72, 102}}, color = {85, 170, 255}));
+  connect(controlMeasurements.UPu, pll.UWTPu) annotation(
+    Line(points = {{-80, 58}, {-80, 48}, {-28, 48}, {-28, 42}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT4")}));
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT4")}),
+  Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}})));
 end BaseWT4;

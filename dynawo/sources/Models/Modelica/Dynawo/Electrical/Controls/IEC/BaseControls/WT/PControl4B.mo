@@ -45,7 +45,7 @@ model PControl4B "Active power control module for type 4B wind turbines (IEC N°
 
   Modelica.Blocks.Math.Product product2 annotation(
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = DPRefMax4BPu, DuMin = DPRefMin4BPu, Y0 = -P0Pu * SystemBase.SnRef / SNom, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPRefMax4BPu, DuMin = DPRefMin4BPu, Y0 = -P0Pu * SystemBase.SnRef / SNom, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPAero, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {110, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,11 +57,11 @@ equation
     Line(points = {{62, -100}, {78, -100}}, color = {0, 0, 127}));
   connect(omegaGenPu, product2.u2) annotation(
     Line(points = {{-180, 20}, {30, 20}, {30, -94}, {38, -94}}, color = {0, 0, 127}));
-  connect(PWTRefPu, standAloneRampRateLimiter.u) annotation(
+  connect(PWTRefPu, rampLimiter.u) annotation(
     Line(points = {{-180, -100}, {-122, -100}}, color = {0, 0, 127}));
-  connect(standAloneRampRateLimiter.y, product.u1) annotation(
+  connect(rampLimiter.y, product.u1) annotation(
     Line(points = {{-98, -100}, {-80, -100}, {-80, -134}, {-62, -134}}, color = {0, 0, 127}));
-  connect(standAloneRampRateLimiter.y, switch1.u3) annotation(
+  connect(rampLimiter.y, switch1.u3) annotation(
     Line(points = {{-98, -100}, {-40, -100}, {-40, -92}, {-2, -92}}, color = {0, 0, 127}));
   connect(switch1.y, firstOrder.u) annotation(
     Line(points = {{22, -100}, {30, -100}, {30, -120}, {80, -120}, {80, -140}, {98, -140}}, color = {0, 0, 127}));

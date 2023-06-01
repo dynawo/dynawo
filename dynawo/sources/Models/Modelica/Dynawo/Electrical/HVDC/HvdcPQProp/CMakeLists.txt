@@ -15,10 +15,13 @@ set(MODEL_FILES
   HvdcPQProp_INIT.mo
   HvdcPQProp.extvar
   HvdcPQPropDiagramPQ.mo
+  HvdcPQPropDiagramPQ_INIT.mo
   HvdcPQPropDiagramPQ.extvar
   HvdcPQPropDangling.mo
+  HvdcPQPropDangling_INIT.mo
   HvdcPQPropDangling.extvar
   HvdcPQPropDanglingDiagramPQ.mo
+  HvdcPQPropDanglingDiagramPQ_INIT.mo
   HvdcPQPropDanglingDiagramPQ.extvar
   )
 

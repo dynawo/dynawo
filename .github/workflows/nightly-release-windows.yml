@@ -26,7 +26,7 @@ jobs:
       - name: Install OpenModelica
         shell: cmd
         env:
-          VERSION: v1.3.2
+          VERSION: v1.4.1
         run: |
           cd \
           set url=https://github.com/dynawo/dynawo/releases/download/%VERSION%/Dynawo_Windows_%VERSION%.zip

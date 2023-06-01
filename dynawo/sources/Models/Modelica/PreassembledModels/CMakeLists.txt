@@ -97,6 +97,16 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcPVDiagramPQEmulationVariableK.xml
   HvdcPVDangling.xml
   HvdcPVDanglingDiagramPQ.xml
+  HvdcPVRpcl2Side1.xml
+  HvdcPVEmulationRpcl2Side1.xml
+  HvdcPVEmulationSetRpcl2Side1.xml
+  HvdcPVEmulationVariableKRpcl2Side1.xml
+  HvdcPVDiagramPQRpcl2Side1.xml
+  HvdcPVDiagramPQEmulationRpcl2Side1.xml
+  HvdcPVDiagramPQEmulationSetRpcl2Side1.xml
+  HvdcPVDiagramPQEmulationVariableKRpcl2Side1.xml
+  HvdcPVDanglingRpcl2Side1.xml
+  HvdcPVDanglingDiagramPQRpcl2Side1.xml
   HvdcPTanPhi.xml
   HvdcPTanPhiDiagramPQ.xml
   HvdcPTanPhiDangling.xml

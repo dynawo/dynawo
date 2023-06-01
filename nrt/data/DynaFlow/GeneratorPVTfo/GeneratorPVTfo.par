@@ -82,19 +82,19 @@
   </macroParameterSet>
   <macroParameterSet id="macro_svc">
     <!-- Generator 1 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_0_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_0_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_0_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_0_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_0_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_0_" value="280"/>
+    <!-- Generator 2 parameters -->
     <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
     <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
     <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-0.5"/>
     <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
     <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
-    <!-- Generator 2 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
     <!-- SVC parameters -->
     <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
@@ -104,9 +104,9 @@
   </macroParameterSet>
   <macroParameterSet id="macro_svc_tfo">
     <!-- Generator 1 parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_0_" value="0.1"/>
     <!-- Generator 2 parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
   </macroParameterSet>
   <set id="Generator1">
     <macroParSet id="macro_generator"/>

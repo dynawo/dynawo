@@ -188,9 +188,6 @@ package BaseClasses
       terminal.i.re = 0;
     end if;
 
-    limUQDown = qStatus == QStatus.AbsorptionMax;
-    limUQUp = qStatus == QStatus.GenerationMax;
-
     annotation(preferredView = "text");
   end BaseGenerator;
 

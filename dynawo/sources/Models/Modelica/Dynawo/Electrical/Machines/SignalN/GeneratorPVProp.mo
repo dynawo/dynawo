@@ -19,10 +19,16 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
 equation
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
+    limUQDown = true;
+    limUQUp = false;
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
+    limUQDown = false;
+    limUQUp = true;
   elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
+    limUQDown = false;
+    limUQUp = false;
   end when;
 
   if running.value then

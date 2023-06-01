@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="HvdcPVDanglingDiagramPQRpcl2Side1">
+    <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPV.HvdcPVDanglingDiagramPQ" initName="Dynawo.Electrical.HVDC.HvdcPV.HvdcPVDanglingDiagramPQ_INIT"/>
+    <dyn:unitDynamicModel id="reactivePowerControlLoop" name="Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops.ReactivePowerControlLoop2" initName="Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops.ReactivePowerControlLoop_INIT"/>
+    <dyn:initConnect id1="reactivePowerControlLoop" var1="UStatorRef0Pu" id2="hvdc" var2="U1Ref0PuVar"/>
+    <dyn:initConnect id1="reactivePowerControlLoop" var1="QStator0Pu" id2="hvdc" var2="QInj10PuQNom"/>
+    <dyn:initConnect id1="reactivePowerControlLoop" var1="limUQUp0" id2="hvdc" var2="limUQUp10"/>
+    <dyn:initConnect id1="reactivePowerControlLoop" var1="limUQDown0" id2="hvdc" var2="limUQDown10"/>
+    <dyn:connect id1="reactivePowerControlLoop" var1="UStatorRefPu" id2="hvdc" var2="U1RefPu"/>
+    <dyn:connect id1="reactivePowerControlLoop" var1="QStatorPu" id2="hvdc" var2="QInj1PuQNom"/>
+    <dyn:connect id1="reactivePowerControlLoop" var1="limUQUp" id2="hvdc" var2="limUQUp1"/>
+    <dyn:connect id1="reactivePowerControlLoop" var1="limUQDown" id2="hvdc" var2="limUQDown1"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

@@ -19,10 +19,16 @@ model GeneratorPVRemoteDiagramPQSFR "Model for generator PV with a PQ diagram, b
 equation
   when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;
+    limUQDown = true;
+    limUQUp = false;
   elsewhen QGenPu >= QMaxPu and URegulated <= URef then
     qStatus = QStatus.GenerationMax;
+    limUQDown = false;
+    limUQUp = true;
   elsewhen (QGenPu > QMinPu or URegulated < URef) and (QGenPu < QMaxPu or URegulated > URef) then
     qStatus = QStatus.Standard;
+    limUQDown = false;
+    limUQUp = false;
   end when;
 
   if running.value then
