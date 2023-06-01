@@ -14,6 +14,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   BooleanTable.xml
   Bus.xml
   CombiTimeTable.xml
+  ConditionalForward.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
   DiscretePI.xml
@@ -163,7 +164,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   StaticVarCompensatorPVPropRemote.xml
   StaticVarCompensatorPVPropRemoteModeHandling.xml
   Step.xml
-  Switch.xml
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
   TapChangerBlockingAutomaton2.xml
