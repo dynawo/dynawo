@@ -14,4 +14,5 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="u1" type="discrete"/>
   <variable id="u2" type="discrete"/>
+  <variable id="u3" type="discrete" optional="true"/>
 </external_variables>

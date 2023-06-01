@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="Switch">
-    <dyn:unitDynamicModel id="switch" name="Dynawo.NonElectrical.Blocks.NonLinear.Switch"/>
+  <dyn:modelicaModel id="ConditionalForward">
+    <dyn:unitDynamicModel id="conditionalForward" name="Dynawo.NonElectrical.Blocks.NonLinear.ConditionalForward"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
