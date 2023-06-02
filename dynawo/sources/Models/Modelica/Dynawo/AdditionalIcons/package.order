@@ -5,6 +5,6 @@ Load
 Machine
 Shunt
 SVarC
-ConditionalForward
+Switch
 Hvdc
 Init
