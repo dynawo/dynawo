@@ -15,7 +15,6 @@ set(MODEL_FILES
   package.order
   PSS2A.mo
   PSS2A.extvar
-  PSS2A_INIT.mo
   PssIEEE2B.mo
   PssIEEE2B.extvar
   PssKundur.mo

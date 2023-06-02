@@ -119,7 +119,8 @@ model SteamIEEET1Frame "Model of a steam generator with a governor, a voltage re
     UStator0Pu = generatorSynchronous.UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B pssIEEE2B(
-    derivative.x_start = 0,
+    KOmega = -1,
+    KOmegaRef = 1,
     Ks1 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Ks1],
     Ks2 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Ks2],
     Ks3 = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Ks3],
@@ -145,8 +146,8 @@ model SteamIEEET1Frame "Model of a steam generator with a governor, a voltage re
     Vsi2MinPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.Vsi2MinPu],
     VstMaxPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.VstMaxPu],
     VstMinPu = ParametersPSS2B.exciterParams[pss2bPreset, ParametersPSS2B.exciterParamNames.VstMinPu]) annotation(
-    Placement(visible = true, transformation(origin = {-100, -60}, extent = {{20, 20}, {-20, -20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.MAXEX2 maxex2(
+    Placement(visible = true, transformation(origin = {-60, -60}, extent = {{20, 20}, {-20, -20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2 maxex2(
     Ifd0Pu = generatorSynchronous.IRotor0Pu,
     Ifd1Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd1Pu],
     Ifd2Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd2Pu],
@@ -178,8 +179,6 @@ model SteamIEEET1Frame "Model of a steam generator with a governor, a voltage re
     Placement(visible = true, transformation(origin = {-174, 0}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UUelPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-174, 20}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Math.Add dOmegaPu(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-30, -72}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at generator terminal in pu (base SnRef) (receptor convention)";
@@ -189,19 +188,17 @@ model SteamIEEET1Frame "Model of a steam generator with a governor, a voltage re
 
 equation
   connect(generatorSynchronous.PGenPu_out, pssIEEE2B.PGenPu) annotation(
-    Line(points = {{-10, -18}, {-10, -48}, {-76, -48}}, color = {0, 0, 127}));
+    Line(points = {{-10, -18}, {-10, -48}, {-36, -48}}, color = {0, 0, 127}));
   connect(generatorSynchronous.terminal, terminal) annotation(
     Line(points = {{0, 0}, {0, 100}}, color = {0, 0, 255}));
   connect(generatorSynchronous.IRotorPu_out, maxex2.IfdPu) annotation(
     Line(points = {{-18, -10}, {-30, -10}, {-30, 90}, {-118, 90}}, color = {0, 0, 127}));
   connect(constant2.y, switch1.u3) annotation(
     Line(points = {{79, 80}, {60, 80}, {60, 45}, {53, 45}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaRefPu_out, dOmegaPu.u1) annotation(
-    Line(points = {{10, -18}, {10, -66}, {-18, -66}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(generatorSynchronous.omegaPu_out, dOmegaPu.u2) annotation(
-    Line(points = {{0, -18}, {0, -78}, {-18, -78}}, color = {0, 0, 127}));
-  connect(dOmegaPu.y, pssIEEE2B.omegaPu) annotation(
-    Line(points = {{-41, -72}, {-36, -72}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.omegaPu_out, pssIEEE2B.omegaPu) annotation(
+    Line(points = {{0, -18}, {0, -72}, {-36, -72}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.omegaRefPu_out, pssIEEE2B.omegaRefPu) annotation(
+    Line(points = {{10, -18}, {10, -60}, {-36, -60}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(maxex2.UOelPu, ieeet1.UOelPu) annotation(
     Line(points = {{-141, 90}, {-150, 90}, {-150, 16}, {-144, 16}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
@@ -217,7 +214,7 @@ equation
   connect(generatorSynchronous.UStatorPu_out, ieeet1.UStatorPu) annotation(
     Line(points = {{-6, 18}, {-6, 60}, {-200, 60}, {-200, -20}, {-160, -20}, {-160, -8}, {-144, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(pssIEEE2B.UPssPu, ieeet1.UPssPu) annotation(
-    Line(points = {{-122, -60}, {-150, -60}, {-150, -16}, {-144, -16}}, color = {0, 0, 127}));
+    Line(points = {{-82, -60}, {-150, -60}, {-150, -16}, {-144, -16}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, ieeeg1.omegaPu) annotation(
     Line(points = {{0, -18}, {0, -80}, {160, -80}, {160, -8}, {144, -8}}, color = {0, 0, 127}));
   connect(PmRefPu.y, ieeeg1.PmRefPu) annotation(
@@ -228,8 +225,6 @@ equation
     Line(points = {{98, 8}, {60, 8}, {60, 35}, {54, 35}}, color = {0, 0, 127}));
   connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
     Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
-  connect(dOmegaPu.y, pssIEEE2B.omegaPu) annotation(
-    Line(points = {{-40, -72}, {-76, -72}}, color = {0, 0, 127}));
   connect(UUelPu.y, ieeet1.UUelPu) annotation(
     Line(points = {{-167, 20}, {-160, 20}, {-160, 8}, {-144, 8}}, color = {0, 0, 127}));
 

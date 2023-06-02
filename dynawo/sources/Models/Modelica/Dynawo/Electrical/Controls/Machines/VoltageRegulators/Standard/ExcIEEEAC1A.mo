@@ -15,7 +15,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 model ExcIEEEAC1A "As defined in IEEE 1981 Excitation System Models for Power System Stability Studies"
   import Modelica;
-  import Modelica.Blocks;
   import Dynawo;
 
   parameter Types.PerUnit Ka "Voltage regulator gain";
@@ -74,7 +73,7 @@ model ExcIEEEAC1A "As defined in IEEE 1981 Excitation System Models for Power Sy
     Placement(visible = true, transformation(origin = {90, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(UHigh = VExcHighPu, ULow = VExcLowPu, YHigh = VExcSatHighPu, YLow = VExcSatLowPu) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(Asq = VExcThresholdPu, Bsq = Bsq, Sq = Sq, UHigh = VExcHighPu, ULow = VExcLowPu, YHigh = VExcSatHighPu, YLow = VExcSatLowPu) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 999, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

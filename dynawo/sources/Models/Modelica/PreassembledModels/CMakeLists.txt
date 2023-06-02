@@ -73,6 +73,16 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+  GeneratorSynchronousThreeWindingsHyGovScrx.xml
+  GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
+  GeneratorSynchronousThreeWindingsIeeeG1IeeeT1.xml
+  GeneratorSynchronousThreeWindingsIeeeG1IeeeT1Tfo.xml
+  GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
+  GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1a.xml
+  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1aTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstScrx.xml
+  GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml

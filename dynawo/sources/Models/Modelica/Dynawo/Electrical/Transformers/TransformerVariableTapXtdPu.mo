@@ -38,19 +38,13 @@ model TransformerVariableTapXtdPu "Transformer with variable tap to be connected
   parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
   parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
 
-  Types.PerUnit RtdPu(start = R / 100 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom) "Ratio dependent resistance of side 1 in pu (base U2Nom, SNom)";
-  Types.PerUnit XtdPu(start = X / 100 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom) "Ratio dependent reactance of side 1 in pu (base U2Nom, SNom)";
-
 protected
   parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
 
-  Types.ComplexImpedancePu ZPu "Transformer impedance in pu (base U2Nom, SnRef)";
+  Types.ComplexImpedancePu ZPu(re(start = R / 100 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom), im(start = X / 100 * rTfo0Pu ^ 2 * SystemBase.SnRef / SNom)) "Transformer impedance in pu (base U2Nom, SnRef)";
 
 equation
-  RtdPu = R / 100 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
-  XtdPu = X / 100 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
-  ZPu.re = RtdPu;
-  ZPu.im = XtdPu;
+  ZPu = Complex(R, X) / 100 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
 
   if running.value then
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);

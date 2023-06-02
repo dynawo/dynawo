@@ -16,6 +16,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic;
 model HYGOV
   import Modelica;
   import Dynawo;
+  import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
 
   //Regulation parameters
@@ -38,9 +39,9 @@ model HYGOV
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaPu(start = omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-420, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-420, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = PmRef0Pu) "Reference mechanical power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-420, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -94,8 +95,6 @@ model HYGOV
   Modelica.Blocks.Math.Gain gain1(k = SNom / PNomTurb) annotation(
     Placement(visible = true, transformation(origin = {370, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.AngularVelocityPu omega0Pu "Initial angular frequency in pu (base omegaNom)";
-  parameter Types.AngularVelocityPu omegaRef0Pu "Initial reference angular frequency in pu (base omegaNom)";
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNomTurb)";
 
   final parameter Types.PerUnit FlowTurbine0 = FlowNoLoad + Pm0Pu * (PNomTurb / SNom) / (At * HDam) "Initial flow through turbine";
