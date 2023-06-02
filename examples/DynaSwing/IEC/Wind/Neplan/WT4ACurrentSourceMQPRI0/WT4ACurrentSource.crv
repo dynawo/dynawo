@@ -19,5 +19,6 @@
   <curve model="WT4A" variable="WT_terminal_V_im"/>
   <curve model="WT4A" variable="WT_terminal_i_re"/>
   <curve model="WT4A" variable="WT_terminal_i_im"/>
-  <curve model="WT4A" variable="WT_gridProtection_fOCB"/>
+  <curve model="WT4A" variable="WT_control4A_ipMaxPu"/>
+  <curve model="WT4A" variable="WT_control4A_iqMaxPu"/>
 </curvesInput>
