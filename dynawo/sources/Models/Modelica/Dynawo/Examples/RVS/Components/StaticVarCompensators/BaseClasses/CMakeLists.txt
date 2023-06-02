@@ -13,8 +13,7 @@ set(MODEL_FILES
   package.mo
   package.order
   ParametersSVC.mo
-  SVarCVPropInterface.mo
-  SVarCPVProp.mo
+  SVarCPVInterfaces.mo
   )
 
 #

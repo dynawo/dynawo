@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model SCRX
+model SCRX "Bus-fed or solid-fed exciter model"
   import Modelica;
   import Dynawo;
 
@@ -38,7 +38,7 @@ model SCRX
   Modelica.Blocks.Interfaces.RealInput UStatorPu(start = UStator0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-240, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UtPu(start = Ut0Pu) "Generator terminal voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-240, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-240, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput UUelPu(start = 0) "UEL output voltage correction in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-240, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 

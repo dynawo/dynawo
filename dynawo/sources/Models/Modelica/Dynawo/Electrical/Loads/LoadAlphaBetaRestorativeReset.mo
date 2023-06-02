@@ -22,40 +22,36 @@ model LoadAlphaBetaRestorativeReset "Load with voltage-dependent active and reac
   parameter Real Alpha "Active load sensitivity to voltage";
   parameter Real Beta "Reactive load sensitivity to voltage";
   parameter Types.PerUnit Kp = 0.05 "Active power reset multiplier gain";
+  parameter Types.PerUnit KpMltMax = 2 "Active power reset multiplier maximum";
+  parameter Types.PerUnit KpMltMin = 0.9 "Active power reset multiplier minimum";
   parameter Types.PerUnit Kq = 0.05 "Reactive power reset multiplier gain";
-  parameter Types.PerUnit PMltMaxPu = 2 "Active power reset multiplier maximum in pu (base UNom, PRefPu)";
-  parameter Types.PerUnit PMltMinPu = 0.9 "Active power reset multiplier minimum in pu (base UNom, PRefPu)";
-  parameter Types.PerUnit QMltMaxPu = 2 "Reactive power reset multiplier maximum in pu (base UNom, QRefPu)";
-  parameter Types.PerUnit QMltMinPu = 0.9 "Reactive power reset multiplier minimum in pu (base UNom, QRefPu)";
+  parameter Types.PerUnit KqMltMax = 2 "Reactive power reset multiplier maximum";
+  parameter Types.PerUnit KqMltMin = 0.9 "Reactive power reset multiplier minimum";
 
-  Types.ActivePowerPu PMltPu "Active power load reset multiplier in pu (base UNom, PRefPu)";
-  Types.ReactivePowerPu QMltPu "Reactive power load reset multiplier in pu (base UNom, QRefPu)" ;
-
-initial equation
-  PMltPu = 1.0;
-  QMltPu = 1.0;
+  Types.PerUnit KpMlt(start = 1) "Active power load reset variable multiplier";
+  Types.PerUnit KqMlt(start = 1) "Reactive power load reset variable multiplier";
 
 equation
   if running.value then
-    if PMltPu > PMltMaxPu and Kp * ((PRefPu - PPu) / PRefPu) > 0 then
-      der(PMltPu) = 0;
-    elseif PMltPu < PMltMinPu and Kp * ((PRefPu - PPu) / PRefPu) < 0 then
-      der(PMltPu) = 0;
+    if KpMlt > KpMltMax and Kp * (PRefPu - PPu) / PRefPu > 0 then
+      der(KpMlt) = 0;
+    elseif KpMlt < KpMltMin and Kp * (PRefPu - PPu) / PRefPu < 0 then
+      der(KpMlt) = 0;
     else
-      der(PMltPu) = Kp * ((PRefPu - PPu) / PRefPu);
+      der(KpMlt) = Kp * (PRefPu - PPu) / PRefPu;
     end if;
-    if QMltPu > QMltMaxPu and Kq * ((QRefPu - QPu) / QRefPu) > 0 then
-      der(QMltPu) = 0;
-    elseif QMltPu < QMltMinPu and Kq * ((QRefPu - QPu) / QRefPu) < 0 then
-      der(QMltPu) = 0;
+    if KqMlt > KqMltMax and Kq * (QRefPu - QPu) / QRefPu > 0 then
+      der(KqMlt) = 0;
+    elseif KqMlt < KqMltMin and Kq * (QRefPu - QPu) / QRefPu < 0 then
+      der(KqMlt) = 0;
     else
-      der(QMltPu) = Kq * ((QRefPu - QPu) / QRefPu);
+      der(KqMlt) = Kq * (QRefPu - QPu) / QRefPu;
     end if;
-    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * PMltPu;
-    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta) * QMltPu;
+    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * KpMlt;
+    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta) * KqMlt;
   else
-    der(PMltPu) = 0;
-    der(QMltPu) = 0;
+    der(KpMlt) = 0;
+    der(KqMlt) = 0;
     terminal.i = Complex(0);
   end if;
 

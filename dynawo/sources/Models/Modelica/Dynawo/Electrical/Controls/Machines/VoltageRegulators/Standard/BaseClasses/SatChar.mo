@@ -16,6 +16,9 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasse
 block SatChar "Saturation characteristic of exciter"
   import Modelica;
 
+  parameter Types.PerUnit Asq "Threshold below which saturation function output is zero";
+  parameter Types.PerUnit Bsq "Proportional coefficient of saturation characteristic";
+  parameter Types.PerUnit Sq "Ratio of saturation characteristic";
   parameter Types.PerUnit UHigh "Higher abscissa of saturation characteristic";
   parameter Types.PerUnit ULow "Lower abscissa of saturation characteristic";
   parameter Types.PerUnit YHigh "Higher ordinate of saturation characteristic";
@@ -25,10 +28,6 @@ block SatChar "Saturation characteristic of exciter"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y "Output of saturation function" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  final parameter Types.PerUnit Asq = (ULow - UHigh * Sq) / (1 - Sq) "Threshold below which saturation function output is zero";
-  final parameter Types.PerUnit Bsq = if UHigh > Asq then UHigh * YHigh / (UHigh - Asq) ^ 2 else 0 "Proportional coefficient of saturation characteristic";
-  final parameter Types.PerUnit Sq = if (UHigh > 0 and YHigh > 0) then sqrt(ULow * YLow / (UHigh * YHigh)) else 0 "Ratio of saturation characteristic";
 
 equation
   if u  > Asq then

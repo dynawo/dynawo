@@ -13,7 +13,7 @@ within Dynawo.Examples.RVS.Components.StaticVarCompensators;
 * of simulation tools for power systems.
 */
 
-model SVarCRVS
+model SVarCRVS "Model of a regulated static var compensator with built-in initialization, for RVS test system"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
@@ -21,7 +21,6 @@ model SVarCRVS
 
   parameter Boolean ControlInService = true;
   parameter Types.PerUnit K;
-  parameter Types.ApparentPowerModule SBase = 1 "Base apparent power in MVA";
   parameter Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses.ParametersSVC.svcFramePreset svcPreset;
 
   //Terminal
@@ -34,20 +33,18 @@ model SVarCRVS
 
   Dynawo.Electrical.StaticVarCompensators.SVarCPV_INIT sVarCPV_INIT(P0Pu = 0, Q0Pu = Q0Pu, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses.SVarCVPropInterface sVarCVPropInterface(
+  Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses.SVarCPVInterfaces sVarCPVInterfaces(
     B0Pu(fixed = false),
     BShuntPu = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BShuntPu],
     i0Pu(re(fixed = false), im(fixed = false)),
     u0Pu(re(fixed = false), im(fixed = false)),
-    U0Pu = U0Pu,
-    UNom = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.UNom]) annotation(
+    U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.StaticVarCompensators.BaseControls.CSSCST csscst(
     BMax = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BMax],
     BMin = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BMin],
     BVar0Pu(fixed = false),
     K = K,
-    SBase = SBase,
     t3 = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.t3],
     t5 = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.t5],
     U0Pu = U0Pu,
@@ -61,7 +58,7 @@ model SVarCRVS
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = sVarCVPropInterface.B0Pu) annotation(
+  Modelica.Blocks.Sources.Constant constant1(k = sVarCPVInterfaces.B0Pu) annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = ControlInService) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -72,17 +69,17 @@ model SVarCRVS
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
 
 initial algorithm
-  sVarCVPropInterface.B0Pu := sVarCPV_INIT.B0Pu;
-  sVarCVPropInterface.u0Pu.re := sVarCPV_INIT.u0Pu.re;
-  sVarCVPropInterface.u0Pu.im := sVarCPV_INIT.u0Pu.im;
-  sVarCVPropInterface.i0Pu.re := sVarCPV_INIT.i0Pu.re;
-  sVarCVPropInterface.i0Pu.im := sVarCPV_INIT.i0Pu.im;
+  sVarCPVInterfaces.B0Pu := sVarCPV_INIT.B0Pu;
+  sVarCPVInterfaces.u0Pu.re := sVarCPV_INIT.u0Pu.re;
+  sVarCPVInterfaces.u0Pu.im := sVarCPV_INIT.u0Pu.im;
+  sVarCPVInterfaces.i0Pu.re := sVarCPV_INIT.i0Pu.re;
+  sVarCPVInterfaces.i0Pu.im := sVarCPV_INIT.i0Pu.im;
   csscst.BVar0Pu := sVarCPV_INIT.B0Pu;
 
 equation
-  connect(terminal, sVarCVPropInterface.terminal) annotation(
+  connect(terminal, sVarCPVInterfaces.terminal) annotation(
     Line(points = {{0, 100}, {0, 0}}));
-  connect(sVarCVPropInterface.UPu_out, csscst.UPu) annotation(
+  connect(sVarCPVInterfaces.UPu_out, csscst.UPu) annotation(
     Line(points = {{22, 0}, {40, 0}, {40, -45}, {24, -45}}, color = {0, 0, 127}));
   connect(otherSignalsConst.y, csscst.UOtherPu) annotation(
     Line(points = {{79, -80}, {60, -80}, {60, -75}, {24, -75}}, color = {0, 0, 127}));
@@ -94,7 +91,7 @@ equation
     Line(points = {{-22, -60}, {-80, -60}, {-80, -8}, {-62, -8}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
     Line(points = {{-99, 40}, {-80, 40}, {-80, 8}, {-62, 8}}, color = {0, 0, 127}));
-  connect(switch.y, sVarCVPropInterface.BVarPu_in) annotation(
+  connect(switch.y, sVarCPVInterfaces.BVarPu_in) annotation(
     Line(points = {{-39, 0}, {-24, 0}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
     Line(points = {{-98, 0}, {-62, 0}}, color = {255, 0, 255}));

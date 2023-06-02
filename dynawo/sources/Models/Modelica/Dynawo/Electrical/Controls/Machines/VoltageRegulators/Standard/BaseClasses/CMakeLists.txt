@@ -12,7 +12,6 @@
 set(MODEL_FILES
   package.mo
   package.order
-  MAXEX2.mo
   PotentialCircuit.mo
   RectifierRegulationCharacteristic.mo
   SatChar.mo

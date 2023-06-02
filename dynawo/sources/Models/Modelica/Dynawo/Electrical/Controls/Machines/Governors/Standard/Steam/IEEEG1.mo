@@ -15,7 +15,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 
 model IEEEG1 "Steam turbine governor"
   import Modelica;
-  import Dynawo;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
 

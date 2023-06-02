@@ -19,6 +19,8 @@ set(MODEL_FILES
   SVarCPV_INIT.mo
   SVarCPV.mo
   SVarCPV.extvar
+  SVarCPVNoLimits.mo
+  SVarCPVNoLimits.extvar
   SVarCPVModeHandling.mo
   SVarCPVModeHandling.extvar
   SVarCPVRemote.mo

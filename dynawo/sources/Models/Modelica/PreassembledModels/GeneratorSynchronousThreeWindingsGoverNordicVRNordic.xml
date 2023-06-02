@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
- <!-- Machine with four windings, a governor and a voltage regulator, used for the Nordic 32 test system. -->
+ <!-- Machine with three windings, a governor and a voltage regulator, used for the Nordic 32 test system. -->
  <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsGoverNordicVRNordic">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_3E_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic_INIT"/>

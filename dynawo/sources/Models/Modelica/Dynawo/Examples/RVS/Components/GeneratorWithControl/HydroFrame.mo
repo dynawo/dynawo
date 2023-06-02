@@ -81,8 +81,6 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
     FlowNoLoad = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.FlowNoLoad],
     KDroopPerm = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.KDroopPerm],
     KDroopTemp = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.KDroopTemp],
-    omega0Pu = SystemBase.omega0Pu,
-    omegaRef0Pu = SystemBase.omegaRef0Pu,
     OpeningGateMax = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.OpeningGateMax],
     OpeningGateMin = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.OpeningGateMin],
     Pm0Pu = generatorSynchronous.Pm0Pu,
@@ -106,7 +104,7 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
     VrMaxPu = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.VrMaxPu],
     VrMinPu = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.VrMinPu]) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.MAXEX2 maxex2(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2 maxex2(
     Ifd0Pu = generatorSynchronous.IRotor0Pu,
     Ifd1Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd1Pu],
     Ifd2Pu = ParametersOEL.oelParamValues[oelPreset, ParametersOEL.oelParamNames.Ifd2Pu],
@@ -158,7 +156,7 @@ equation
   connect(generatorSynchronous.IRotorPu_out, maxex2.IfdPu) annotation(
     Line(points = {{-18, -10}, {-40, -10}, {-40, -60}, {-98, -60}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UPu_out, scrx.UtPu) annotation(
-    Line(points = {{-18, 14}, {-30, 14}, {-30, 100}, {-104, 100}, {-104, 24}}, color = {0, 0, 127}));
+    Line(points = {{-18, 14}, {-96, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(generatorSynchronous.IRotorPu_out, scrx.IRotorPu) annotation(
     Line(points = {{-18, -10}, {-40, -10}, {-40, -16}, {-96, -16}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaRefPu_out, hygov.omegaRefPu) annotation(

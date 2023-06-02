@@ -15,7 +15,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 model IEEET1 "IEEE type 1 Exciter (IEEET1)"
   import Modelica;
-  import Modelica.Blocks;
   import Dynawo;
   import Dynawo.Types;
 
@@ -53,7 +52,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(UHigh = EfdHighPu, ULow = EfdLowPu, YHigh = EfdSatHighPu, YLow = EfdSatLowPu) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(Asq = EfdThresholdPu, Bsq = Bsq, Sq = Sq, UHigh = EfdHighPu, ULow = EfdLowPu, YHigh = EfdSatHighPu, YLow = EfdSatLowPu) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, T = tR, y_start = UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

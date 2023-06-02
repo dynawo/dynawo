@@ -16,12 +16,12 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 model CSSCST "Static var compensator control model with voltage override as susceptance command for switched shunts"
   import Modelica;
   import Dynawo;
+  import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
 
   parameter Real BMax "Maximum capacitive output of the SVarC in S";
   parameter Real BMin "Maximum inductive output of the SVarC in S";
   parameter Types.PerUnit K "Control gain constant";
-  parameter Types.ApparentPowerModule SBase = 1 "Base apparent power in MVA";
   parameter Types.Time t3 "Control lag time constant in s";
   parameter Types.Time t5 "Thyristor bridge time constant in s";
   parameter Types.VoltageModulePu UOvPu "Overvoltage threshold in pu (base UNom)";
@@ -29,7 +29,7 @@ model CSSCST "Static var compensator control model with voltage override as susc
   parameter Real VMin "Maximum inductive range of the SVarC in kV";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput BRefPu(start = BRef0Pu) "Reference susceptance in pu (base SnRef, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput BRefPu(start = BRef0Pu) "Reference susceptance in pu (base UNom, SBase = 1)" annotation(
     Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -26}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UOtherPu(start = 0) "Other input signals in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -76}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -39,10 +39,10 @@ model CSSCST "Static var compensator control model with voltage override as susc
     Placement(visible = true, transformation(origin = {-180, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 26}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput BVarPu(start = BVar0Pu) "Susceptance command in pu (base SBase)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput BVarPu(start = BVar0Pu) "Susceptance command in pu (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Gain PuConversion(k = 1 / SBase) annotation(
+  Modelica.Blocks.Math.Gain PuConversion(k = 1 / SystemBase.SnRef) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k1 = -1, k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -68,9 +68,9 @@ model CSSCST "Static var compensator control model with voltage override as susc
     Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu U0Pu "Initial value of voltage amplitude at terminal in pu (base UNom)";
-  parameter Types.PerUnit BVar0Pu "Initial value of susceptance command in pu (base SnRef, UNom)";
+  parameter Types.PerUnit BVar0Pu "Initial value of susceptance command in pu (base UNom, SnRef)";
 
-  final parameter Types.PerUnit BRef0Pu = -BVar0Pu * 100 / K "Susceptance reference in pu (base SnRef, UNom)";
+  final parameter Types.PerUnit BRef0Pu = -BVar0Pu * SystemBase.SnRef / K "Susceptance reference in pu (base UNom, SBase = 1)";
 
 equation
   connect(PuConversion.y, BVarPu) annotation(
