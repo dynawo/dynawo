@@ -28,7 +28,7 @@
       <load id="Load" name="Load" loadType="UNDEFINED" p0="0" q0="0" bus="Bus2" connectableBus="Bus2" p="0" q="0"/>
     </voltageLevel>
     <twoWindingsTransformer id="PhaseShifter" name="PhaseShifter" r="0" x="10" g="0" b="0" ratedU1="400" ratedU2="400" voltageLevelId1="VoltageLevel1" bus1="Bus1" connectableBus1="Bus1" voltageLevelId2="VoltageLevel2" bus2="Bus2" connectableBus2="Bus2" p1="0" q1="0" p2="0" q2="0">
-      <phaseTapChanger lowTapPosition="1" tapPosition="13" regulationMode="CURRENT_LIMITER" regulationValue="770" regulating="true">
+      <phaseTapChanger lowTapPosition="1" tapPosition="13" regulationMode="ACTIVE_POWER_CONTROL" regulationValue="30" regulating="true">
         <terminalRef id="PhaseShifter" side="ONE"/>
         <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.3"/>
         <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.275"/>
@@ -58,7 +58,7 @@
       </phaseTapChanger>
     </twoWindingsTransformer>
     <twoWindingsTransformer id="PhaseShifterBis" name="PhaseShifterBis" r="0" x="10" g="0" b="0" ratedU1="400" ratedU2="400" voltageLevelId1="VoltageLevel1" bus1="Bus1" connectableBus1="Bus1" voltageLevelId2="VoltageLevel2" bus2="Bus2" connectableBus2="Bus2" p1="0" q1="0" p2="0" q2="0">
-      <phaseTapChanger lowTapPosition="1" tapPosition="13" regulationMode="CURRENT_LIMITER" regulationValue="770" regulating="true">
+      <phaseTapChanger lowTapPosition="1" tapPosition="13" regulationMode="ACTIVE_POWER_CONTROL" regulationValue="0" regulating="true">
         <terminalRef id="PhaseShifterBis" side="ONE"/>
         <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.3"/>
         <step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.275"/>

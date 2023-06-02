@@ -92,6 +92,11 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
   double getThresholdI() const;
 
   /**
+   * @copydoc PhaseTapChangerInterface::getTargetP() const
+   */
+  double getTargetP() const;
+
+  /**
    * @copydoc PhaseTapChangerInterface::getCurrentR() const
    */
   double getCurrentR() const;
