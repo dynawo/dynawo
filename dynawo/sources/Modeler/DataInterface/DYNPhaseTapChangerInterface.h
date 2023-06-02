@@ -95,6 +95,11 @@ class PhaseTapChangerInterface {
    */
   virtual double getThresholdI() const = 0;
 
+  /**
+   * @brief Getter for the power target of the phase tap changer
+   * @return the power target
+   */
+  virtual double getTargetP() const = 0;
 
   /**
    * @brief Getter for the current step's resistance of the phase tap changer
