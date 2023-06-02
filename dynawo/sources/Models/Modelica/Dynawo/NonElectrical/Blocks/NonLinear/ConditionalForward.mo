@@ -15,7 +15,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 block ConditionalForward "Forwards the first input if it is positive or if the second input is negative and returns a third (optional) one if neither one of the conditions is valid."
   import Modelica.Blocks.Interfaces;
 
-  parameter Types.Real u30;
+  parameter Real u30;
 
   discrete Interfaces.RealInput u1 "The first input" annotation(Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   discrete Interfaces.RealInput u2 "The second input" annotation(Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
