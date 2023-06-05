@@ -18,8 +18,10 @@ examples/*/*/*/outputs*/
 examples/*/*/*/*/outputs*/
 examples/*/*/*/*/*/outputs*/
 examples/*/*/*/*/*/*/outputs*/
-!examples/*/*/*/reference/*
 !examples/*/*/reference/*
+!examples/*/*/*/reference/*
+!examples/*/*/*/*/reference/*
+!examples/*/*/*/*/*/reference/*
 examples/*/description/*aux
 examples/*/description/*pdf
 examples/*/description/*gz

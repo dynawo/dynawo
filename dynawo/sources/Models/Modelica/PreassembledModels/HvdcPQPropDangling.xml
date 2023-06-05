@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="HvdcPQPropDangling">
-    <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPQProp.HvdcPQPropDangling" initName="Dynawo.Electrical.HVDC.HvdcPQProp.HvdcPQProp_INIT"/>
+    <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPQProp.HvdcPQPropDangling" initName="Dynawo.Electrical.HVDC.HvdcPQProp.HvdcPQPropDangling_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

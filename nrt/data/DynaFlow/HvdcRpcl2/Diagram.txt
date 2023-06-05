@@ -1,0 +1,7 @@
+#1
+double tableqmin(2,2)
+  -11    -2
+   11    -2
+double tableqmax(2,2)
+  -11     2
+   11     2

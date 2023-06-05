@@ -87,9 +87,9 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#     IEC Wind Turbine Type 4A Current Source Q   #
-###################################################
+######################################################
+#     IEC Wind Turbine Type 4A Current Source Q      #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Turbine Type 4A - Current source - Q"
 case_description = "IEC - Wind Turbine Type 4A - Current source - QRef"
@@ -97,9 +97,9 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#     IEC Wind Turbine Type 4A Current Source U   #
-###################################################
+######################################################
+#     IEC Wind Turbine Type 4A Current Source U      #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Turbine Type 4A - Current source - U"
 case_description = "IEC - Wind Turbine Type 4A - Current source URef"
@@ -107,9 +107,39 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#     IEC Wind Turbine Type 4B Current Source Q   #
-###################################################
+######################################################
+#     IEC Wind Turbine Type 4A Current Source FOCB   #
+######################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4A - Current source - FOCB"
+case_description = "IEC - Wind Turbine Type 4A - Current source - Disconnection"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4ACurrentSourceFOCB", "WT4ACurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#     IEC Wind Turbine Type 4A Current Source MQPRI0 #
+######################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4A - Current source - MQPRI0"
+case_description = "IEC - Wind Turbine Type 4A - Current source - Active current priority"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4ACurrentSourceMQPRI0", "WT4ACurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#     IEC Wind Turbine Type 4A Current Source MQPRI1 #
+######################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4A - Current source - MQPRI1"
+case_description = "IEC - Wind Turbine Type 4A - Current source - Reactive current priority"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4ACurrentSourceMQPRI1", "WT4ACurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#     IEC Wind Turbine Type 4B Current Source Q      #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Turbine Type 4B - Current source - Q"
 case_description = "IEC - Wind Turbine Type 4B - Current source - QRef"
@@ -117,9 +147,9 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#     IEC Wind Turbine Type 4B Current Source U   #
-###################################################
+######################################################
+#     IEC Wind Turbine Type 4B Current Source U      #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Turbine Type 4B - Current source - U"
 case_description = "IEC - Wind Turbine Type 4B - Current source - URef"
@@ -127,19 +157,29 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#   IEC Wind Power Plant Type 4A Current Source Q #
-###################################################
+######################################################
+#     IEC Wind Turbine Type 4B Current Source FOCB   #
+######################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 4B - Current source - FOCB"
+case_description = "IEC - Wind Turbine Type 4B - Current source - Disconnection"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WT4BCurrentSourceFOCB", "WT4BCurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#   IEC Wind Power Plant Type 4A Current Source Q    #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Power Plant Type 4A - Current source - Q"
-case_description = "IEC - Wind Power Plant Type 4A - Current source - Q"
+case_description = "IEC - Wind Power Plant Type 4A - Current source - QRef"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WPP4ACurrentSourceQ", "WPP4ACurrentSource.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#   IEC Wind Power Plant Type 4A Current Source U #
-###################################################
+######################################################
+#   IEC Wind Power Plant Type 4A Current Source U    #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Power Plant Type 4A - Current source - U"
 case_description = "IEC - Wind Power Plant Type 4A - Current source - URef"
@@ -147,9 +187,19 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#   IEC Wind Power Plant Type 4B Current Source Q #
-###################################################
+######################################################
+#   IEC Wind Power Plant Type 4A Current Source FOCB #
+######################################################
+
+case_name = "DynaSwing - IEC - Wind Power Plant Type 4A - Current source - FOCB"
+case_description = "IEC - Wind Power Plant Type 4A - Current source - Disconnection"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WPP4ACurrentSourceFOCB", "WPP4ACurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#   IEC Wind Power Plant Type 4B Current Source Q    #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Power Plant Type 4B - Current source - Q"
 case_description = "IEC - Wind Power Plant Type 4B - Current source - QRef"
@@ -157,13 +207,23 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-###################################################
-#   IEC Wind Power Plant Type 4B Current Source U #
-###################################################
+######################################################
+#   IEC Wind Power Plant Type 4B Current Source U    #
+######################################################
 
 case_name = "DynaSwing - IEC - Wind Power Plant Type 4B - Current source - U"
 case_description = "IEC - Wind Power Plant Type 4B - Current source - URef"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WPP4BCurrentSourceU", "WPP4BCurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#   IEC Wind Power Plant Type 4B Current Source FOCB #
+######################################################
+
+case_name = "DynaSwing - IEC - Wind Power Plant Type 4B - Current source - FOCB"
+case_description = "IEC - Wind Power Plant Type 4B - Current source - Disconnection"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "WPP4BCurrentSourceFOCB", "WPP4BCurrentSource.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 

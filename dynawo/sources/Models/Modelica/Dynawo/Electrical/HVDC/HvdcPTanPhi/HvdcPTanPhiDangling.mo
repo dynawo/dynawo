@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,7 +15,8 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connected to a switched-off bus"
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.BaseClasses.BaseHvdcPDangling;
+  extends HVDC.BaseClasses.BaseHvdcPDanglingFixedReactiveLimits;
+  extends HVDC.BaseClasses.BasePTanPhiDangling(QInj1RawPu(start = - s10Pu.im));
 
 /*
   Equivalent circuit and conventions:
@@ -25,26 +26,16 @@ model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connect
 
 */
 
-  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-
-  input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
-
-  parameter Real TanPhi1Ref0 "Start value of tan(Phi) regulation set point at terminal 1";
-
-protected
-  Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-
 equation
-  //Reactive power control of the connected side
-  Q1RawPu = tanPhi1Ref * P1Pu;
+  QInj1RawPu = tanPhi1Ref * PInj1Pu;
+
   if runningSide1.value then
-    if Q1RawPu >= Q1MaxPu then
-     Q1Pu = Q1MaxPu;
-    elseif Q1RawPu <= Q1MinPu then
-     Q1Pu = Q1MinPu;
+    if QInj1RawPu >= Q1MaxPu then
+     QInj1Pu = Q1MaxPu;
+    elseif QInj1RawPu <= Q1MinPu then
+     QInj1Pu = Q1MinPu;
     else
-     Q1Pu = Q1RawPu;
+     QInj1Pu = QInj1RawPu;
     end if;
   else
     terminal1.i.im = 0;
