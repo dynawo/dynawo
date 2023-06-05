@@ -188,6 +188,8 @@ ModelHvdcLink::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
 
 NetworkComponent::StateChange_t
 ModelHvdcLink::evalZ(const double& /*t*/) {
+  if (modelBus1_->getConnectionState() == OPEN)
+    z_[state1Num_] = OPEN;
   // evaluation of the discrete variables current values
   State currState1 = static_cast<State>(static_cast<int>(z_[state1Num_]));
   if (currState1 != getConnected1()) {
@@ -202,6 +204,9 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
     setConnected1(currState1);
     stateModified_ = true;
   }
+
+  if (modelBus2_->getConnectionState() == OPEN)
+    z_[state2Num_] = OPEN;
 
   State currState2 = static_cast<State>(static_cast<int>(z_[state2Num_]));
   if (currState2 != getConnected2()) {

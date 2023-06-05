@@ -178,6 +178,9 @@ ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::str
 
 NetworkComponent::StateChange_t
 ModelGenerator::evalZ(const double& /*t*/) {
+  if (modelBus_->getConnectionState() == OPEN)
+    z_[0] = OPEN;
+
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnected()) {
     Trace::info() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
