@@ -8,17 +8,29 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-add_subdirectory(BaseBlocks B)
+add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo
   package.order
+  ExcIEEEAC1A.mo
+  ExcIEEEAC1A.extvar
+  ExcIEEEAC1A_INIT.mo
   ExcIEEEST4B.mo
   ExcIEEEST4B.extvar
   ExcIEEEST4B_INIT.mo
-  SEXS_INIT.mo
+  IEEET1.mo
+  IEEET1.extvar
+  IEEET1_INIT.mo
+  MAXEX2.mo
+  MAXEX2.extvar
+  MAXEX2_INIT.mo
+  SCRX.mo
+  SCRX.extvar
+  SCRX_INIT.mo
   SEXS.mo
   SEXS.extvar
+  SEXS_INIT.mo
   VRKundur.mo
   VRKundur.extvar
   VRKundur_INIT.mo

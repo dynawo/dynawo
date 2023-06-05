@@ -10,6 +10,7 @@
 
 # Standard governor models
 
+add_subdirectory(Hydraulic H)
 add_subdirectory(Steam S)
 
 set(MODEL_FILES
