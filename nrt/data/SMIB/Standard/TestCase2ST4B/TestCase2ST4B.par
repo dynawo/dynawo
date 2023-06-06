@@ -99,6 +99,11 @@
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="-0.87"/>
     <par type="DOUBLE" name="voltageRegulator_XlPu" value="0.124"/>
   </set>
+  <!-- OmegaRef -->
+  <set id="OmegaRef">
+    <par type="INT" name="nbGen" value="1"/>
+    <par type="DOUBLE" name="weight_gen_0" value="500"/>
+  </set>
   <!-- Load -->
   <set id="Load">
     <par type="DOUBLE" name="load_P0Pu" value="3.8"/>
