@@ -11,7 +11,6 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite
     of simulation tools for power systems.
 -->
-
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="IfdPu" type="continuous"/>
 </external_variables>
