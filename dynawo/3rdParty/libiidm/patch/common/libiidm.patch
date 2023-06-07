@@ -1,0 +1,44 @@
+diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
+index 35c5a49..8072774 100644
+--- a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
++++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
+@@ -55,7 +55,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
+     }
+     auto& voltageLevel = dynamic_cast<VoltageLevel&>(extendable);
+     const std::string& id = context.getAnonymizer().deanonymizeString(context.getReader().getAttributeValue(converter::ID));
+-    const std::string& side = context.getReader().getAttributeValue(converter::SIDE);
++    const std::string& side = context.getReader().getOptionalAttributeValue(converter::SIDE, "");
+     Terminal& terminal = converter::xml::TerminalRefXml::readTerminalRef(voltageLevel.getNetwork(), id, side);
+     extendable.newExtension<SlackTerminalAdder>().withTerminal(terminal).add();
+     return extendable.getExtension<iidm::extensions::SlackTerminal>();
+diff --git a/src/xml/XmlStreamWriter.cpp b/src/xml/XmlStreamWriter.cpp
+index 17e2b54..9f80944 100644
+--- a/src/xml/XmlStreamWriter.cpp
++++ b/src/xml/XmlStreamWriter.cpp
+@@ -82,10 +82,9 @@ void XmlStreamWriter::writeEmptyElement(const std::string& uri, const std::strin
+ }
+ 
+ void XmlStreamWriter::writeEndDocument() {
+-    int written = xmlTextWriterEndDocument(m_writer.get());
+-    if (written < 0) {
+-        throw XmlStreamException("Failed to write end document");
+-    }
++    // deleting the xmlTextWriter pointer automatically calls xmlTextWriterFlush() and write to stream
++    // m_writer is instanciated in writeStartElement, so it must be deleted here
++    m_writer.reset();
+ }
+ 
+ void XmlStreamWriter::writeEndElement() {
+@@ -150,11 +149,9 @@ void XmlStreamWriter::writeStartDocument(const std::string& encoding, const std:
+     auto writeCallback = [](void* context, const char* buffer, int len) {
+         XmlStreamWriter& writer = *static_cast<XmlStreamWriter*>(context);
+ 
+-        size_t beforeWrite = writer.m_stream.tellp();
+         writer.m_stream.write(buffer, len);
+-        size_t afterWrite = writer.m_stream.tellp();
+ 
+-        return static_cast<int>(afterWrite - beforeWrite);
++        return len;
+     };
+ 
+     auto closeCallback = [](void* /*context*/) {
