@@ -588,6 +588,9 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 
 NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double& /*t*/) {
+  if (modelBus_->getConnectionState() == OPEN)
+    z_[0] = OPEN;
+
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnected()) {
     Trace::info() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;

@@ -149,6 +149,7 @@ equation
     Timeline.logEvent1 (TimelineKeys.GeneratorConnected);
     state = Constants.state.Closed;
   end when;
+
   converter.y = genState;
   converter.u = Integer(state);
 

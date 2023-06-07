@@ -228,6 +228,9 @@ NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
+  if (modelBus_->getConnectionState() == OPEN)
+    z_[connectionStateNum_] = OPEN;
+
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     Trace::info() << DYNLog(SVCStateChange, id_, getConnected(), z_[connectionStateNum_]) << Trace::endline;

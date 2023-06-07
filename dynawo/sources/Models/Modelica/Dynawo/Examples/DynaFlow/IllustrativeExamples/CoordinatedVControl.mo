@@ -21,7 +21,7 @@ model CoordinatedVControl "System with two generators and a coordinated voltage 
   // Generators
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp Generator1(KGover = 1, PGen0Pu = 1.5, PMaxPu = 10000, PMinPu = -10000, PNom = 1, PRef0Pu = -1.5, QGen0Pu = 0.5, QMaxPu = 0.62, QMinPu = -2, QPercent = 1, QRef0Pu = -0.5, U0Pu = 1.05, i0Pu = Complex(-1.42857, 0.47619), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard, u0Pu = Complex(1.05, 0)) annotation(
     Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
- Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ Generator2(KGover = 1, PGen0Pu = 1.5, PMaxPu = 10000, PMinPu = -10000, PNom = 1, PRef0Pu = -1.5, QGen0Pu = 0.5, QMax0Pu = 2, QMaxTableFile = "Models/Modelica/Dynawo/Examples/DynaFlow/IllustrativeExamples/Diagram.txt", QMaxTableName = "tableqmax", QMin0Pu = -1.85, QMinTableFile = "Models/Modelica/Dynawo/Examples/DynaFlow/IllustrativeExamples/Diagram.txt", QMinTableName = "tableqmin", QPercent = 1, QRef0Pu = -0.5, U0Pu = 1.05, i0Pu = Complex(-1.42857, 0.47619), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard, u0Pu = Complex(1.05, 0)) annotation(
+ Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ Generator2(KGover = 1, PGen0Pu = 1.5, PMaxPu = 10000, PMinPu = -10000, PNom = 1, PRef0Pu = -1.5, QGen0Pu = 0.5, QMax0Pu = 2, QPercent = 1, QRef0Pu = -0.5, U0Pu = 1.05, i0Pu = Complex(-1.42857, 0.47619), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard, tableQMax.table = [0, 2; 1.5, 2; 1.601, 0], tableQMax.tableOnFile = false, tableQMin.table = [0, -2; 2, -1], tableQMin.tableOnFile = false, u0Pu = Complex(1.05, 0)) annotation(
      Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Lines
@@ -41,7 +41,7 @@ model CoordinatedVControl "System with two generators and a coordinated voltage 
   Dynawo.Electrical.Controls.Voltage.VRRemote SignalNQ(FreezingActivated = true, Gain = 1, NbGenMax = 2, U0 = 1.05, URef0 = 1.05, tIntegral = 10);
 
   // Event
-  Dynawo.Electrical.Events.Event.SingleBooleanEvent DiconnectLine(stateEvent1 = true, tEvent = 50);
+  Dynawo.Electrical.Events.Event.SingleBooleanEvent DisconnectLine(stateEvent1 = true, tEvent = 50);
 
 equation
   // SwitchOffSignals
@@ -70,7 +70,7 @@ equation
   SignalNQ.limUQUp[2] = Generator2.limUQUp;
 
   // Network connections
-  connect(DiconnectLine.state1, Line1bis.switchOffSignal2);
+  connect(DisconnectLine.state1, Line1bis.switchOffSignal2);
   connect(Line1bis.terminal2, infiniteBus1.terminal) annotation(
     Line(points = {{20, 20}, {40, 20}, {40, 0}, {60, 0}}, color = {0, 0, 255}));
   connect(Line1.terminal2, infiniteBus1.terminal) annotation(

@@ -14,6 +14,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   BooleanTable.xml
   Bus.xml
   CombiTimeTable.xml
+  ConditionalForward.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
   DiscretePI.xml
@@ -73,6 +74,16 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+  GeneratorSynchronousThreeWindingsHyGovScrx.xml
+  GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
+  GeneratorSynchronousThreeWindingsIeeeG1IeeeT1.xml
+  GeneratorSynchronousThreeWindingsIeeeG1IeeeT1Tfo.xml
+  GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
+  GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1a.xml
+  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1aTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstScrx.xml
+  GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
@@ -163,7 +174,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   StaticVarCompensatorPVPropRemote.xml
   StaticVarCompensatorPVPropRemoteModeHandling.xml
   Step.xml
-  Switch.xml
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
   TapChangerBlockingAutomaton2.xml
