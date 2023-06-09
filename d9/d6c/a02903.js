@@ -14,6 +14,7 @@ var a02903 =
     [ "getRegulating", "d9/d6c/a02903.html#a1e672560f2ca7fb133c670ca46c246c2", null ],
     [ "getSteps", "d9/d6c/a02903.html#a93ec4352b08cfec1c59f71615c8a669e", null ],
     [ "getTargetDeadBand", "d9/d6c/a02903.html#a1ac23b5c6d3ca8f4e9c8f52658c4211b", null ],
+    [ "getTargetP", "d9/d6c/a02903.html#ac91a1ebefdfc5edcf05fa55e53373b02", null ],
     [ "getThresholdI", "d9/d6c/a02903.html#a6141281b2102ec17638140ff65862c34", null ],
     [ "isCurrentLimiter", "d9/d6c/a02903.html#acd992054612f5d436b2379631746dbc9", null ],
     [ "setCurrentPosition", "d9/d6c/a02903.html#abc3e0b367c58b1f1ccd454bebf81b490", null ]
