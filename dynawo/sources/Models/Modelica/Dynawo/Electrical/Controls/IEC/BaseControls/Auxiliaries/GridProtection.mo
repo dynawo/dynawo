@@ -80,8 +80,10 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Placement(visible = true, transformation(origin = {10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer3 annotation(
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.MathBoolean.Or or1(nu = 4) annotation(
+  Modelica.Blocks.MathBoolean.Or or1(nu = 5) annotation(
     Placement(visible = true, transformation(origin = {130, 3.55271e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Pre pre1 annotation(
+    Placement(visible = true, transformation(origin = {130, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameter
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
@@ -146,6 +148,10 @@ equation
     Line(points = {{82, -40}, {100, -40}, {100, 0}, {120, 0}}, color = {255, 0, 255}));
   connect(less1.y, or1.u[4]) annotation(
     Line(points = {{82, -120}, {100, -120}, {100, 0}, {120, 0}}, color = {255, 0, 255}));
+  connect(or1.y, pre1.u) annotation(
+    Line(points = {{142, 0}, {150, 0}, {150, -40}, {142, -40}}, color = {255, 0, 255}));
+  connect(pre1.y, or1.u[5]) annotation(
+    Line(points = {{120, -40}, {110, -40}, {110, 0}, {120, 0}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

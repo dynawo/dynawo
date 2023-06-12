@@ -19,7 +19,7 @@ model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
   import Dynawo.NonElectrical.Blocks;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseDCVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBaseDCVoltageControl;
 
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
   parameter Types.PerUnit RdcPu "DC line resistance in pu (base UdcNom, SnRef)";

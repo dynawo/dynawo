@@ -19,7 +19,7 @@ model PlantControl "WECC PV Plant Control REPC"
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
-  extends Parameters.Params_PlantControl;
+  extends Parameters.ParamsPlantControl;
 
   parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1 in pu (base SnRef, UNom)";
   parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in pu (base SnRef, UNom)";
@@ -34,6 +34,8 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {-310, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {79, 111}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QRegPu(start = QGen0Pu) "Reactive power at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {31, 111}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-50, 160}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at regulated bus in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-31, 111}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = iInj0Pu.re), im(start = iInj0Pu.im)) "Complex current at regulated bus in pu (generator convention) (base SnRef, UNom)" annotation(
@@ -112,8 +114,6 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VFrz, UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant uRefPu(k = URefPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression freeze1(y = freeze) annotation(
     Placement(visible = true, transformation(origin = {100, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, x_scaled(start = {QInj0Pu}), x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
@@ -128,7 +128,7 @@ model PlantControl "WECC PV Plant Control REPC"
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
 
-  final parameter Types.PerUnit URefPu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * QGen0Pu) "Voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * QGen0Pu) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
@@ -205,8 +205,6 @@ equation
     Line(points = {{-19, 86}, {-10, 86}, {-10, 58}, {-3, 58}}, color = {0, 0, 127}));
   connect(QCtrlErr.y, switch1.u3) annotation(
     Line(points = {{-18, 14}, {-10, 14}, {-10, 42}, {-3, 42}}, color = {0, 0, 127}));
-  connect(uRefPu.y, UCtrlErr.u1) annotation(
-    Line(points = {{-59, 120}, {-50, 120}, {-50, 92}, {-42, 92}}, color = {0, 0, 127}));
   connect(lineDropCompensation1.U1Pu, switch2.u1) annotation(
     Line(points = {{-259, 106}, {-130, 106}, {-130, 88}, {-122, 88}, {-122, 88}}, color = {0, 0, 127}));
   connect(QVCtrlErr.y, switch2.u3) annotation(
@@ -225,6 +223,8 @@ equation
     Line(points = {{141, 50}, {158, 50}}, color = {0, 0, 127}));
   connect(leadLag.y, QInjRefPu) annotation(
     Line(points = {{181, 50}, {210, 50}}, color = {0, 0, 127}));
+  connect(URefPu, UCtrlErr.u1) annotation(
+    Line(points = {{-50, 160}, {-50, 92}, {-42, 92}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
@@ -235,5 +235,5 @@ equation
     version = "",
     uses(Modelica(version = "3.2.3")),
     __OpenModelica_commandLineOptions = "",
-  Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "Plant Control"), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PInjRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "omegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QInjRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze")}, coordinateSystem(initialScale = 0.1)));
+  Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "Plant Control"), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PInjRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "omegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QInjRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze"), Text(origin = {1, -132}, extent = {{-23, 10}, {21, -10}}, textString = "URefPu")}, coordinateSystem(initialScale = 0.1)));
 end PlantControl;

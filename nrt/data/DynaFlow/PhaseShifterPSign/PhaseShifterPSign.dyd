@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="Generator" lib="GeneratorPVSignalN" parFile="PhaseShifterPSign.par" parId="Generator" staticId="Generator"/>
+  <dyn:blackBoxModel id="Signal_N" lib="SignalN"/>
+  <dyn:blackBoxModel id="Load" lib="LoadPQ" parFile="PhaseShifterPSign.par" parId="Load" staticId="Load"/>
+  <dyn:blackBoxModel id="StepLoad" lib="DoubleStep" parFile="PhaseShifterPSign.par" parId="StepLoad"/>
+  <dyn:blackBoxModel id="PhaseShifter" lib="PhaseShifterP" parFile="PhaseShifterPSign.par" parId="PhaseShifter"/>
+  <dyn:blackBoxModel id="PhaseShifterBis" lib="PhaseShifterP" parFile="PhaseShifterPSign.par" parId="PhaseShifterBis"/>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@Generator@@NODE@_ACPIN"/>
+  <dyn:connect id1="Generator" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
+  <dyn:connect id1="Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="@Generator@@NODE@_phi_value"/>
+  <dyn:connect id1="Load" var1="load_terminal" id2="NETWORK" var2="@Load@@NODE@_ACPIN"/>
+  <dyn:connect id1="StepLoad" var1="doubleStep_step_value" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="NETWORK" var2="PhaseShifter_step"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_PMonitored" id2="NETWORK" var2="PhaseShifter_P1"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="PhaseShifter_disable_internal_tapChanger"/>
+  <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_tap" id2="NETWORK" var2="PhaseShifterBis_step"/>
+  <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_PMonitored" id2="NETWORK" var2="PhaseShifterBis_P1"/>
+  <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="PhaseShifterBis_disable_internal_tapChanger"/>
+</dyn:dynamicModelsArchitecture>

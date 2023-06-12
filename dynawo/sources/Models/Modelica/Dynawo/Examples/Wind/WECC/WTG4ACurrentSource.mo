@@ -31,6 +31,8 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
+    Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
   connect(line.terminal2, WTG4A.terminal) annotation(
@@ -43,9 +45,10 @@ equation
     Line(points = {{70, 0}, {44, 0}, {44, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PRefPu.y, WTG4A.PRefPu) annotation(
     Line(points = {{69, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
+  connect(URefPu.y, WTG4A.URefPu) annotation(
+    Line(points = {{70, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
-  WTG4A.line.switchOffSignal2.value = false;
   WTG4A.injector.switchOffSignal1.value = false;
   WTG4A.injector.switchOffSignal2.value = false;
   WTG4A.injector.switchOffSignal3.value = false;

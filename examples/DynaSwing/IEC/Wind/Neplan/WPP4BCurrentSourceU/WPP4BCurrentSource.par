@@ -227,7 +227,7 @@
     <par type="DOUBLE" name="fault_RPu" value="0"/>
     <par type="DOUBLE" name="fault_XPu" value="0.18"/>
     <par type="DOUBLE" name="fault_tBegin" value="6"/>
-    <par type="DOUBLE" name="fault_tEnd" value="6.4"/>
+    <par type="DOUBLE" name="fault_tEnd" value="6.25"/>
   </set>
   <set id="IDA">
     <par type="INT" name="order" value="1"/>

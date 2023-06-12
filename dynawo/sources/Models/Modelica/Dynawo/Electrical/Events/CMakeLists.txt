@@ -8,11 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+# Events-related models
+
+add_subdirectory(Event E)
+
 set(MODEL_FILES
-  # Events-related models
   package.mo
   package.order
-  Event.mo
   NodeFault.mo
   NodeFault.extvar
   )

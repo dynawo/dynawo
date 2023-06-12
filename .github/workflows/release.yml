@@ -15,6 +15,7 @@ jobs:
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
+      GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -28,14 +29,17 @@ jobs:
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
+          util/envDynawo.sh build-doc
           util/envDynawo.sh distrib
           util/envDynawo.sh distrib-headers
           util/envDynawo.sh distrib-omc
           version=$(util/envDynawo.sh version | cut -f1 -d' ')
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_minimal_v${version}.zip --data-binary @distributions/Dynawo_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_headers_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Modelica_Library_v${version}.zip --data-binary @distributions/Dynawo_Modelica_library_V${version}.zip
+          url=$(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET ${GH_API}/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_minimal_v${version}.zip --data-binary @distributions/Dynawo_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_headers_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Modelica_Library_v${version}.zip --data-binary @distributions/Dynawo_Modelica_library_V${version}.zip
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/pdf" -X POST ${url}?name=DynawoDocumentation.pdf --data-binary @documentation/dynawoDocumentation/DynawoDocumentation.pdf
 
   distribution-centos7:
     name: Distribution Linux centos7
@@ -46,6 +50,7 @@ jobs:
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
+      GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -61,4 +66,5 @@ jobs:
           util/envDynawo.sh build-user
           util/envDynawo.sh distrib-omc
           version=$(util/envDynawo.sh version | cut -f1 -d' ')
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_centos7_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
+          url=$(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET ${GH_API}/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")
+          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_centos7_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip

@@ -17,7 +17,7 @@ model GeneratorControl "WECC PV Generator Control REGC"
   import Dynawo;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
-  extends Parameters.Params_GeneratorControl;
+  extends Parameters.ParamsGeneratorControl;
 
   Modelica.Blocks.Interfaces.RealInput idCmdPu(start = Id0Pu) "idCmdPu setpoint from electrical control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-160, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

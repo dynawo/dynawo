@@ -41,7 +41,6 @@ equation
     Line(points = {{70, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
-  WT4A.line.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal1.value = false;
   WT4A.injector.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal3.value = false;

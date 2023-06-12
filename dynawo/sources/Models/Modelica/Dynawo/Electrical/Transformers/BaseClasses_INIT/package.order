@@ -1,0 +1,7 @@
+BaseGeneratorTransformer_INIT
+BaseTransformerParameters_INIT
+BaseTransformerVariables_INIT
+BaseTransformerVariableTap_INIT
+BaseTransformerVariableTapCommon_INIT
+IdealTransformerTapEstimation
+TapEstimation

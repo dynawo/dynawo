@@ -8,16 +8,20 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+# Models of electrical loads
+
+add_subdirectory(BaseClasses B)
+
 set(MODEL_FILES
-  # Electrical Loads models
   package.mo
   package.order
-  BaseClasses.mo
   LoadAlphaBeta.mo
   LoadAlphaBeta.extvar
   LoadAlphaBetaRestorative.mo
   LoadAlphaBetaRestorative.extvar
   LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
+  LoadAlphaBetaRestorativeReset.mo
+  LoadAlphaBetaRestorativeReset.extvar
   LoadAlphaBetaMotor.mo
   LoadAlphaBetaMotor.extvar
   LoadAlphaBetaMotor_INIT.mo

@@ -10,11 +10,12 @@
 
 # Machines models
 
+add_subdirectory(BaseClasses B)
+add_subdirectory(BaseClasses_INIT BI)
+
 set(MODEL_FILES
   package.mo
   package.order
-  BaseClasses.mo
-  BaseClasses_INIT.mo
   GeneratorPQ.mo
   GeneratorPQ.extvar
   GeneratorPQ_INIT.mo
@@ -26,11 +27,11 @@ set(MODEL_FILES
   GeneratorSynchronous.mo
   GeneratorSynchronous.extvar
   GeneratorSynchronousInt_INIT.mo
-  GeneratorSynchronousExt_4E_INIT.mo
-  GeneratorSynchronousExt_3E_INIT.mo
+  GeneratorSynchronousExt3W_INIT.mo
+  GeneratorSynchronousExt4W_INIT.mo
   GeneratorSynchronousIntTfo_INIT.mo
-  GeneratorSynchronousExtTfo_4E_INIT.mo
-  GeneratorSynchronousExtTfo_3E_INIT.mo
+  GeneratorSynchronousExtTfo3W_INIT.mo
+  GeneratorSynchronousExtTfo4W_INIT.mo
   )
 
 #

@@ -19,7 +19,7 @@ model ACVoltageControl "AC voltage control for HVDC"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
   parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
 
   Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in pu (base SNom)" annotation(

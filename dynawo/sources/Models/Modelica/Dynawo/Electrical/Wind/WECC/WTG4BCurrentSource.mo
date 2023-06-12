@@ -19,8 +19,8 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
   import Dynawo.Electrical.SystemBase;
 
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PlantControl;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PLL;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPlantControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPLL;
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-111, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -28,6 +28,8 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     Placement(visible = true, transformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-111, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-61, -4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -38,10 +40,13 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
+
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-125, 30}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-125, 30}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
+
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
@@ -68,6 +73,8 @@ equation
     Line(points = {{135, 15}, {135, 56}, {-115, 56}, {-115, 42}, {-107, 42}}, color = {85, 170, 255}));
   connect(constant1.y, pll.omegaRefPu) annotation(
     Line(points = {{-121, 30}, {-107, 30}}, color = {0, 0, 127}));
+  connect(URefPu, wecc_repc.URefPu) annotation(
+    Line(points = {{-110, -40}, {-61, -40}, {-61, -15}}, color = {0, 0, 127}));
 
   annotation(
     Documentation(preferredView = "diagram",

@@ -19,8 +19,8 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
   import Dynawo.Electrical.SystemBase;
 
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PlantControl;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_PLL;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPlantControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPLL;
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -28,6 +28,8 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
     Placement(visible = true, transformation(origin = {-110, -23}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 13}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Sources.RealExpression OmegaRef1(y = OmegaRef.y) annotation(
     Placement(visible = true, transformation(origin = {-125, 30}, extent = {{-6.5, -5.5}, {6.5, 5.5}}, rotation = 0)));
@@ -40,6 +42,8 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
+
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
@@ -66,6 +70,8 @@ equation
     Line(points = {{-65, 7}, {-65, 30}, {135, 30}, {135, 15}}, color = {85, 170, 255}));
   connect(measurements.iPu, wecc_repc.iPu) annotation(
     Line(points = {{139, 15}, {139, 38}, {-70, 38}, {-70, 7}}, color = {85, 170, 255}));
+  connect(URefPu, wecc_repc.URefPu) annotation(
+    Line(points = {{-110, -40}, {-62, -40}, {-62, -15}}, color = {0, 0, 127}));
 
   annotation(
     Documentation(preferredView = "diagram",

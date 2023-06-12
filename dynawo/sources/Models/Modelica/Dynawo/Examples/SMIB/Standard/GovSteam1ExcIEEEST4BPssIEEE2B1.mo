@@ -96,14 +96,16 @@ model GovSteam1ExcIEEEST4BPssIEEE2B1 "Voltage reference step on the synchronous 
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B avr(Efd0Pu = generatorSynchronous.Efd0Pu, Ifd0Pu = generatorSynchronous.IRotor0Pu, Kc = 0.113, Kg = 0, Ki = 0, Kim = 0, Kir = 10.75, Kp = 9.3, Kpm = 1, Kpr = 10.75, Thetap = 0, UOel0Pu = 10, Ub0Pu = 9.23476, Us0Pu = generatorSynchronous.U0Pu, VbMaxPu = 11.63, VmMaxPu = 99, VmMinPu = -99, VrMaxPu = 1, VrMinPu = -0.87, XlPu = 0.124, it0Pu = generatorSynchronous.i0Pu, tA = 0.02, tR = 0.02, ut0Pu = generatorSynchronous.u0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B pss(Ks1 = 12, Ks2 = 0.2, Ks3 = 1, PGen0Pu = -generatorSynchronous.P0Pu, SNom = generatorSynchronous.SNom, Vsi1MaxPu = 2, Vsi1MinPu = -2, Vsi2MaxPu = 2, Vsi2MinPu = -2, VstMaxPu = 0.1, VstMinPu = -0.1, t1 = 0.12, t10 = 0.01, t11 = 0.01, t2 = 0.02, t3 = 0.3, t4 = 0.02, t6 = 0.01, t7 = 2, t8 = 0.2, t9 = 0.1, tw1 = 2, tw2 = 2, tw3 = 2, tw4 = 1e-5) annotation(
+  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B pss(KOmega = 1, KOmegaRef = 0, Ks1 = 12, Ks2 = 0.2, Ks3 = 1, PGen0Pu = -generatorSynchronous.P0Pu, SNom = generatorSynchronous.SNom, Vsi1MaxPu = 2, Vsi1MinPu = -2, Vsi2MaxPu = 2, Vsi2MinPu = -2, VstMaxPu = 0.1, VstMinPu = -0.1, t1 = 0.12, t10 = 0.01, t11 = 0.01, t2 = 0.02, t3 = 0.3, t4 = 0.02, t6 = 0.01, t7 = 2, t8 = 0.2, t9 = 0.1, tw1 = 2, tw2 = 2, tw3 = 2, tw4 = 1e-5) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, PMaxPu = 1, PMinPu = 0, PgvTableName = "Pgv", Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = generatorSynchronous.Pm0Pu, Sdb1 = true, Sdb2 = true, TablesFile = "nrt/data/SMIB/Standard/Gain_power.txt", Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, pgv.table = [0, 0; 0.4, 0.75; 0.5, 0.91; 0.6, 0.98; 1, 1], pgv.tableOnFile = false, PMaxPu = 1, PMinPu = 0, Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = generatorSynchronous.Pm0Pu, Sdb1 = true, Sdb2 = true, Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UsRefPu(height = 0.05, offset = 1, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {56, -6.66134e-16}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {21, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
@@ -146,6 +148,8 @@ equation
     Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
+  connect(omegaRefPu.y, pss.omegaRefPu) annotation(
+    Line(points = {{60, 0}, {78, 0}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

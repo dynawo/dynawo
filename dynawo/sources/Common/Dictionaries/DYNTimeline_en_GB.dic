@@ -39,6 +39,12 @@ SVarCBackRegulation     =             SVarC : back to voltage / reactive power r
 // --> HVDC
 HVDCMaxP                =             HVDC : maximum active power limit reached
 HVDCDeactivateMaxP      =             HVDC : back to active power regulation
+HVDC1MaxQ           =             HVDC : maximum reactive power limit reached for converter 1
+HVDC1MinQ           =             HVDC : minimum reactive power limit reached for converter 1
+HVDC1BackRegulation =             HVDC : back to voltage / reactive power regulation for converter 1
+HVDC2MaxQ           =             HVDC : maximum reactive power limit reached for converter 2
+HVDC2MinQ           =             HVDC : minimum reactive power limit reached for converter 2
+HVDC2BackRegulation =             HVDC : back to voltage / reactive power regulation for converter 2
 // --> BaseTapChangerPhaseShifter
 TapUp                     =             Tap +1
 TapDown                   =             Tap -1

@@ -91,6 +91,14 @@ PhaseTapChangerInterfaceIIDM::getThresholdI() const {
 }
 
 double
+PhaseTapChangerInterfaceIIDM::getTargetP() const {
+  if (std::isnan(tapChangerIIDM_.getRegulationValue())) {
+    return 99999.0;
+  }
+  return tapChangerIIDM_.getRegulationValue();
+}
+
+double
 PhaseTapChangerInterfaceIIDM::getCurrentR() const {
   auto i = tapChangerIIDM_.getTapPosition() - tapChangerIIDM_.getLowTapPosition();
   return steps_.at(i)->getR();

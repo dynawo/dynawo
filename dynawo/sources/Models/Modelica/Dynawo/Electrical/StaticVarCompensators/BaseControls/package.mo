@@ -12,7 +12,7 @@ within Dynawo.Electrical.StaticVarCompensators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package BaseControls "Model for static var compensator"
+package BaseControls "Models of base controls for static var compensator"
   extends Icons.Package;
 
     type Mode = enumeration(OFF "No regulation", STANDBY "Standby mode", RUNNING_V "Voltage control");

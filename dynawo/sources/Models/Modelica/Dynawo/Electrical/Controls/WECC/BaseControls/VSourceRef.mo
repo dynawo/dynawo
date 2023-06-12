@@ -26,7 +26,7 @@ model VSourceRef
   import Dynawo.Electrical.Controls.WECC.Parameters;
   import Dynawo.Electrical.SystemBase;
 
-  extends Parameters.Params_VSourceRef;
+  extends Parameters.ParamsVSourceRef;
 
   ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = uInj0Pu.re), im(start = uInj0Pu.im)) "Complex voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, 5}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

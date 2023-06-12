@@ -17,7 +17,7 @@ partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
   import Dynawo;
 
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.Params_DriveTrain;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrain;
 
   Dynawo.Electrical.Controls.WECC.DriveTrainPmConstant driveTrainPmConstrant(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, PInj0Pu = PInj0Pu, PePu(start = PInj0Pu)) annotation(
     Placement(visible = true, transformation(origin = {17.1733, -32.936}, extent = {{-7.38218, -5.33158}, {7.38218, 5.33158}}, rotation = 0)));

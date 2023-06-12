@@ -17,8 +17,9 @@ model ActivePowerControlSideDangling "Active power control side for the HVDC VSC
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseActivePowerControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBaseActivePowerControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
+
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
 

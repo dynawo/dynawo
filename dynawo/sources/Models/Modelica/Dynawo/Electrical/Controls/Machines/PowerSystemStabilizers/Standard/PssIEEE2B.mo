@@ -19,10 +19,11 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
   import Dynawo.Types;
 
   //Regulation parameters
+  parameter Types.PerUnit KOmega "Coefficient applied to angular frequency";
+  parameter Types.PerUnit KOmegaRef "Coefficient applied to reference angular frequency";
   parameter Types.PerUnit Ks1 "Stabilizer gain. Typical value = 12";
   parameter Types.PerUnit Ks2 "Gain on signal #2. Typical value = 0.2";
   parameter Types.PerUnit Ks3 "Gain on signal #2 input before ramp-tracking filter. Typical value = 1";
-  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.Time t1 "Lead time constant of first lead/lag in s (>= 0). Typical value = 0.12";
   parameter Types.Time t2 "Lag time constant of first lead/lag in s (>= 0). Typical value = 0.02";
   parameter Types.Time t3 "Lead time constant of second lead/lag in s (>= 0). Typical value = 0.3";
@@ -44,11 +45,16 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
   parameter Types.VoltageModulePu VstMaxPu "Stabilizer output maximum limit in pu (base UNom) (> vstmin). Typical value = 0.1";
   parameter Types.VoltageModulePu VstMinPu "Stabilizer output minimum limit in pu (base UNom) (< vstmax). Typical value = -0.1";
 
+  //Generator parameter
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-254, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-254, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+    Placement(visible = true, transformation(origin = {-254, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-254, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput UPssPu(start = 0) "Voltage output in pu (base UNom)" annotation(
@@ -56,7 +62,7 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
 
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tw1, k = tw1, x_start = SystemBase.omega0Pu) annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(T = tw1, k = tw1, x_start = KOmega * SystemBase.omega0Pu + KOmegaRef * SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative1(T = tw2, k = tw2) annotation(
     Placement(visible = true, transformation(origin = {-90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -90,16 +96,22 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
     Placement(visible = true, transformation(origin = {150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-210, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add1(k1 = KOmega, k2 = KOmegaRef) annotation(
+    Placement(visible = true, transformation(origin = {-210, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  //Initial parameters
+  //Initial parameter
   parameter Types.ActivePowerPu PGen0Pu "Initial active power input in pu (base SnRef) (generator convention)" annotation(
   Dialog(group="Initialization"));
 
 equation
   connect(limiter.y, UPssPu) annotation(
     Line(points = {{221, -40}, {250, -40}}, color = {0, 0, 127}));
-  connect(omegaPu, limiter1.u) annotation(
-    Line(points = {{-254, 40}, {-182, 40}}, color = {0, 0, 127}));
+  connect(omegaPu, add1.u1) annotation(
+    Line(points = {{-254, 40}, {-230, 40}, {-230, 26}, {-222, 26}}, color = {0, 0, 127}));
+  connect(omegaRefPu, add1.u2) annotation(
+    Line(points = {{-254, 0}, {-230, 0}, {-230, 14}, {-222, 14}}, color = {0, 0, 127}));
+  connect(add1.y, limiter1.u) annotation(
+    Line(points = {{-198, 20}, {-190, 20}, {-190, 40}, {-182, 40}}, color = {0, 0, 127}));
   connect(limiter1.y, derivative.u) annotation(
     Line(points = {{-159, 40}, {-142, 40}}, color = {0, 0, 127}));
   connect(derivative.y, derivative1.u) annotation(

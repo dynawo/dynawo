@@ -9,12 +9,12 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 add_subdirectory(BaseControls B)
+add_subdirectory(Parameters P)
 add_subdirectory(Utilities U)
 
 set(MODEL_FILES
   package.mo
   package.order
-  Parameters.mo
   DriveTrainPeFiltered.mo
   DriveTrainPmConstant.mo
   ElectricalControlPV.mo

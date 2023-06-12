@@ -20,7 +20,7 @@ model QRefQU "Function that calculates QRef for the Q mode and the U mode depend
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_QRefQU;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsQRefQU;
 
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) "Reference reactive power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

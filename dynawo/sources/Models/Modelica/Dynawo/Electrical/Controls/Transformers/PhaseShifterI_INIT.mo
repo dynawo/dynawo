@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 model PhaseShifterI_INIT "Initialisation model for a phase-shifter monitoring the current"
-  extends BaseClasses_INIT.BaseTapChangerPhaseShifter_MAX_INIT(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, increaseTapToIncreaseValue = (sign0 * increasePhase < 0));
+  extends BaseClasses_INIT.BaseTapChangerPhaseShifterMax_INIT(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, increaseTapToIncreaseValue = (sign0 * increasePhase < 0));
   extends AdditionalIcons.Init;
 
   parameter Types.CurrentModule iMax "Maximum allowed current (unit depending on the monitored current unit)";

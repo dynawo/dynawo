@@ -17,7 +17,7 @@ model SVarCPVModeHandling "PV static var compensator model with mode handling"
 
   extends BaseClasses.BaseSVarC;
   extends BaseClasses.BaseModeHandling;
-  extends BaseControls.Parameters.Params_ModeHandling;
+  extends BaseControls.Parameters.ParamsModeHandling;
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
 

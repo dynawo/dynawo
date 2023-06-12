@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="100.0000" modelName="Line2" message="LINE : opening both sides"/>
+  <event time="910.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="920.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="930.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="960.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="970.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="1040.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="1050.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="1230.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="1240.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="1770.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="1780.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+</timeline>

@@ -13,5 +13,6 @@
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="omegaPu" type="continuous"/>
+  <variable id="omegaRefPu" type="continuous" optional="true"/>
   <variable id="PGenPu" type="continuous"/>
 </external_variables>

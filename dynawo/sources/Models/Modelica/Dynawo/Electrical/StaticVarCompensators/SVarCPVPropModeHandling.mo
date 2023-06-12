@@ -17,7 +17,7 @@ model SVarCPVPropModeHandling "PV static var compensator model with slope and mo
 
   extends BaseClasses.BaseSVarC;
   extends BaseClasses.BaseModeHandling;
-  extends BaseControls.Parameters.Params_ModeHandling;
+  extends BaseControls.Parameters.ParamsModeHandling;
 
   parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + LambdaPu*QPu in pu (base UNom, SnRef)";
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";

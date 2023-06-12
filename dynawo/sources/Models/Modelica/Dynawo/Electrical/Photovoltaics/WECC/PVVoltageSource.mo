@@ -26,11 +26,11 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
-  extends Parameters.Params_PlantControl;
-  extends Parameters.Params_ElectricalControl;
-  extends Parameters.Params_GeneratorControl;
-  extends Parameters.Params_PLL;
-  extends Parameters.Params_VSourceRef;
+  extends Parameters.ParamsPlantControl;
+  extends Parameters.ParamsElectricalControl;
+  extends Parameters.ParamsGeneratorControl;
+  extends Parameters.ParamsPLL;
+  extends Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
@@ -45,6 +45,8 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {-190, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-190, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {130, -8}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -78,6 +80,8 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current in pu (base UNom, SnRef) (receptor convention)";
+
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
@@ -142,6 +146,8 @@ equation
     Line(points = {{-190, -30}, {-160, -30}, {-160, -14}, {-131, -14}}, color = {0, 0, 127}));
   connect(measurements.uPu, pll.uPu) annotation(
     Line(points = {{162, 3}, {162, 58}, {-177, 58}, {-177, 50}, {-171, 50}}, color = {85, 170, 255}));
+  connect(URefPu, wecc_repc.URefPu) annotation(
+    Line(points = {{-190, -50}, {-120, -50}, {-120, -19}}, color = {0, 0, 127}));
 
   annotation(
     Documentation(preferredView = "diagram",

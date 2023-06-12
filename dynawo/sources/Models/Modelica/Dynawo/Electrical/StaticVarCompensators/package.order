@@ -2,6 +2,7 @@ BaseClasses
 BaseControls
 SVarCPV_INIT
 SVarCPV
+SVarCPVNoLimits
 SVarCPVModeHandling
 SVarCPVRemote
 SVarCPVRemoteModeHandling
