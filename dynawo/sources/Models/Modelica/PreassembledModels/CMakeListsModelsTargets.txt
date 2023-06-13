@@ -52,7 +52,7 @@ endforeach()
 ## SMIB
 
 add_custom_target(SMIB_MODELS)
-add_dependencies(SMIB_MODELS InfiniteBus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean)
+add_dependencies(SMIB_MODELS InfiniteBus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step)
 
 ## DYNAFLOW
 
