@@ -153,6 +153,6 @@ jobs:
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
-          D:\d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs
+          call \d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs
           echo %ERRORLEVEL%
-          D:\d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs
+          call \d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs
