@@ -229,9 +229,7 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          cd \dynawo
-          set "dynawo_dir=D:\dynawo\nrt\data"
-          forfiles /p %dynawo_dir% /m *.jobs /s /c "cmd /c D:\d-i\dynawo.cmd jobs @path || exit /b 1"
+          forfiles /p \dynawo\nrt\data /m *.jobs /s /c "cmd /c cd \dynawo & \d-i\dynawo.cmd jobs @path || exit /b 1"
 
       - name: Deploy Dynawo
         shell: cmd
