@@ -36,7 +36,6 @@
     <par type="DOUBLE" name="hMax" value="10"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
     <par type="DOUBLE" name="fnormtolAlgInit" value="1e-4"/>
     <par type="DOUBLE" name="initialaddtolAlgInit" value="1e-4"/>
     <par type="DOUBLE" name="scsteptolAlgInit" value="1e-4"/>

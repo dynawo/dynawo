@@ -25,7 +25,6 @@
         <par type="DOUBLE" name="initialaddtolAlgInit" value="1"/>
         <par type="DOUBLE" name="initialaddtolAlgJ" value="1"/>
         <par type="DOUBLE" name="kReduceStep" value="0.5"/>
-        <par type="STRING" name="linearSolverName" value="KLU"/>
         <par type="INT" name="maxNewtonTry" value="10"/>
         <par type="INT" name="maximumNumberSlowStepIncrease" value="40"/>
         <par type="DOUBLE" name="minimalAcceptableStep" value="1.0"/>

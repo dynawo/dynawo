@@ -58,7 +58,6 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    *
    * @param model instance of model to interact with
    * @param timeSchemeSolver instance of time scheme solver calling for an algebraic resolution
-   * @param linearSolverName choice for linear solver (KLU or NICSLU at the moment)
    * @param fnormtol stopping tolerance on L2-norm of function value
    * @param initialaddtol stopping tolerance at initialization
    * @param scsteptol scaled step length tolerance
@@ -68,7 +67,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @param printfl level of verbosity of output
    * @param sundialsVectorY solution of the algebraic resolution
    */
-  void init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
+  void init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
             double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY);
 
   /**

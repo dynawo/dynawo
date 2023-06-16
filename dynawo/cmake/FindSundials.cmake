@@ -51,27 +51,21 @@ mark_as_advanced(SUNDIALS_NVECSERIAL_LIBRARY)
 find_library(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
 mark_as_advanced(SUNDIALS_SUNLINSOLKLU_LIBRARY)
 
-if(NICSLU_FOUND)
-  # Searching for sundials sunmatrixsparse
-  find_library(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
-  mark_as_advanced(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
-
-  # Searching for sundials sunlinsolnicslu
-  find_library(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
-  mark_as_advanced(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
-endif()
-
 if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
   set(SundialsTest_DIR ${PROJECT_BINARY_DIR}/SundialsTest_DIR)
   file(MAKE_DIRECTORY ${SundialsTest_DIR})
 
   file(WRITE ${SundialsTest_DIR}/testSundials.cpp
     "\#include <ida/ida.h>\n"
+    "\#include <sundials/sundials_context.h>\n"
     "int main() {\n"
-    "  void* IDAMem = IDACreate();\n"
+    "  SUNContext ctx;\n"
+    "  int retval = SUNContext_Create(NULL, &ctx);\n"
+    "  void* IDAMem = IDACreate(ctx);\n"
     "  int flag = IDASetMinStep(IDAMem, 0.1);\n"
-    "  static_cast<void>(flag);"
+    "  static_cast<void>(flag);\n"
     "  IDAFree(&IDAMem);\n"
+    "  SUNContext_Free(&ctx);\n"
     "  return 0;\n"
     "}\n")
 
@@ -180,29 +174,5 @@ if(Sundials_FOUND)
       $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_Config,IMPORTED_LOCATION>
       $<TARGET_PROPERTY:Sundials::Sundials_SUNMATRIXSPARSE,IMPORTED_LOCATION>
       )
-  endif()
-
-  if(NICSLU_FOUND)
-    if(NOT TARGET Sundials::Sundials_SUNLINSOLNICSLU)
-      add_library(Sundials::Sundials_SUNLINSOLNICSLU UNKNOWN IMPORTED)
-      if(Sundials_INCLUDE_DIRS)
-        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
-          INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
-      endif()
-      if(EXISTS "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
-        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
-          IMPORTED_LINK_INTERFACE_LANGUAGES "C"
-          IMPORTED_LOCATION "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
-      endif()
-      set_property(TARGET Sundials::Sundials_SUNLINSOLNICSLU APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-        $<TARGET_PROPERTY:NICSLU::NICSLU,INTERFACE_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:NICSLU::NICSLU_Util,INTERFACE_INCLUDE_DIRECTORIES>
-        )
-      set_property(TARGET Sundials::Sundials_SUNLINSOLNICSLU APPEND PROPERTY INTERFACE_LINK_LIBRARIES
-        $<TARGET_PROPERTY:Sundials::Sundials_SUNMATRIXSPARSE,IMPORTED_LOCATION>
-        $<TARGET_PROPERTY:NICSLU::NICSLU,IMPORTED_LOCATION>
-        $<TARGET_PROPERTY:NICSLU::NICSLU_Util,IMPORTED_LOCATION>
-        )
-    endif()
   endif()
 endif()

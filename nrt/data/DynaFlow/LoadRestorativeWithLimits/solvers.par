@@ -36,7 +36,6 @@
     <par type="DOUBLE" name="hMax" value="10"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
   </set>
   <!-- Simplified solver with step recalculation -->
   <set id="4">
@@ -47,7 +46,6 @@
     <par type="INT" name="nDeadband" value="2"/>
     <par type="INT" name="maxRootRestart" value="3"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
   </set>
   <!-- IDA order 2 solver with higher accuracy requirements -->
   <set id="5">

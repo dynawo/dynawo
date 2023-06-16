@@ -26,7 +26,6 @@ target_link_libraries(dynawo_SolverKINCommon
     Sundials::Sundials_KINSOL
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
-    $<$<BOOL:${NICSLU_FOUND}>:Sundials::Sundials_SUNLINSOLNICSLU>
   )
 
 add_library(dynawo_SolverKINSubModel SHARED DYNSolverKINSubModel.cpp)

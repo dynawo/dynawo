@@ -320,6 +320,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   std::vector<state_g> g0_;  ///< previous values of root functions
   std::vector<state_g> g1_;  ///< updated values of root functions
 
+  SUNContext sundialsContext_;  ///< context of sundials structure
   N_Vector sundialsVectorY_;  ///< continuous variables values stored in sundials structure
   N_Vector sundialsVectorYp_;  ///<  derivative of variables stored in sundials structure
   std::vector<double> vectorY_;  ///< continuous variables values

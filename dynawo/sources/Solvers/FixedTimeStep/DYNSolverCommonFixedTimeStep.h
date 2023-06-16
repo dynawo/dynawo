@@ -242,7 +242,6 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   bool factorizationForced_;  ///< force the Jacobian calculation due to an algebraic mode or a non convergence of the previous NR
 
   // Parameters for the algebraic resolution at each time step
-  std::string linearSolverName_;  ///< name of the linear solver (KLU or NICSLU at the moment)
   double fnormtol_;  ///< stopping tolerance on L2-norm of residual function
   double initialaddtol_;  ///< stopping tolerance at initialization of residual function
   double scsteptol_;  ///< scaled step length tolerance

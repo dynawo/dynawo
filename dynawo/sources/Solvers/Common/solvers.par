@@ -39,6 +39,5 @@
     <par type="INT" name="nDeadband" value="2"/>
     <par type="INT" name="maxRootRestart" value="3"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
   </set>
 </parametersSet>

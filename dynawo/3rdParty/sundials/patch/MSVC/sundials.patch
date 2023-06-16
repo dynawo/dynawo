@@ -1,7 +1,6 @@
-diff --git a/src/sunlinsol/klu/sunlinsol_klu.c b/src/sunlinsol/klu/sunlinsol_klu.c
-index 000a4e2..67e2fbd 100644
---- a/src/sunlinsol/klu/sunlinsol_klu.c
-+++ b/src/sunlinsol/klu/sunlinsol_klu.c
+diff -urpN sundials-6.3.0/src/sunlinsol/klu/sunlinsol_klu.c sundials-6.3.0_patched/src/sunlinsol/klu/sunlinsol_klu.c
+--- sundials-6.3.0/src/sunlinsol/klu/sunlinsol_klu.c	2022-08-11 06:34:01.000000000 +0200
++++ sundials-6.3.0_patched/src/sunlinsol/klu/sunlinsol_klu.c	2023-11-23 09:02:34.702421525 +0100
 @@ -48,7 +48,7 @@
   */
  
@@ -11,7 +10,7 @@ index 000a4e2..67e2fbd 100644
  #else
  #define KLU_INDEXTYPE int
  #endif
-@@ -143,7 +143,7 @@ SUNLinearSolver SUNLinSol_KLU(N_Vector y, SUNMatrix A)
+@@ -126,7 +126,7 @@ SUNLinearSolver SUNLinSol_KLU(N_Vector y
  #error  Incompatible sunindextype for KLU
  #endif
  
@@ -20,7 +19,7 @@ index 000a4e2..67e2fbd 100644
    if (flag == 0) { SUNLinSolFree(S); return(NULL); }
    (content->common).ordering = SUNKLU_ORDERING_DEFAULT;
  
-@@ -305,7 +305,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S, SUNMatrix A)
+@@ -288,7 +288,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S
  
    } else {   /* not the first decomposition, so just refactor */
  
@@ -29,7 +28,7 @@ index 000a4e2..67e2fbd 100644
                                (KLU_INDEXTYPE*) SUNSparseMatrix_IndexValues(A),
                                SUNSparseMatrix_Data(A),
                                SYMBOLIC(S),
-@@ -322,7 +322,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S, SUNMatrix A)
+@@ -305,7 +305,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S
        the prior numeric factorization and recompute it.
        -----------------------------------------------------------*/
  
@@ -38,7 +37,7 @@ index 000a4e2..67e2fbd 100644
      if (retval == 0) {
        LASTFLAG(S) = SUNLS_PACKAGE_FAIL_REC;
        return(LASTFLAG(S));
-@@ -332,7 +332,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S, SUNMatrix A)
+@@ -315,7 +315,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S
  
        /* Condition number may be getting large.
  	 Compute more accurate estimate */
@@ -47,7 +46,7 @@ index 000a4e2..67e2fbd 100644
                                 SUNSparseMatrix_Data(A),
                                 SYMBOLIC(S),
                                 NUMERIC(S),
-@@ -387,7 +387,7 @@ int SUNLinSolSolve_KLU(SUNLinearSolver S, SUNMatrix A, N_Vector x,
+@@ -370,7 +370,7 @@ int SUNLinSolSolve_KLU(SUNLinearSolver S
    }
  
    /* Call KLU to solve the linear system */

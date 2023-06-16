@@ -6,7 +6,7 @@
 # license. All rights reserved.
 
 folders=(configuringDynawo functionalDoc installation introduction advancedDoc dynawoDocumentation
-licenses/Adept licenses/Nicslu licenses/OpenModelica licenses/cpplint licenses/dynawo licenses/dynawo-documentation
+licenses/Adept licenses/OpenModelica licenses/cpplint licenses/dynawo licenses/dynawo-documentation
 licenses/jQuery licenses/suitesparse licenses/sundials)
 
 for folder in ${folders[*]}; do

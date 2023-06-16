@@ -773,13 +773,7 @@ One can expect that symbolical decomposition is required only in the case of imp
 \subparagraph{LU decomposition libraries}
 ~~\\
 
-Two LU decomposition libraries could be used into \Dynawo   at the moment:
-\begin{itemize}
-\item KLU \cite{DavisKLU}, which has been deeply tested during the Pegase project and has proved to be the most efficient of the existing LU decomposition library available at this time for power system problems. This is the library that we advise to use at the moment;
-\item NICSLU \cite{chenNicsLu}, which results from a more recent effort and that is also very efficient for power system problems. NISCLU is in particular faster for refactorization (numerical factorization only) but its integration into \ac{SUNDIALS} and its use in \Dynawo is still under experimentation;
-\end{itemize}
-
-It is possible to switch from KLU to NICSLU by modifying the solver parameter called ``linearSolverName". If you want more details on the LU decomposition libraries, please have a look to our paper published at the 2019 PowerTech conference \cite{LUDecomposition}.
+One LU decomposition libraries is used into \Dynawo  at the moment:  KLU \cite{DavisKLU}, which has been deeply tested during the Pegase project and has proved to be the most efficient of the existing LU decomposition library available at this time for power system problems.
 
 \paragraph{Residual function evaluation}
 ~~\\
@@ -876,7 +870,6 @@ During a simulation with the simplified solver, different parameters are used, f
 \item the maximum time-step \textit{hMax}
 \item the reduction/increase factor for the time step in case of a non convergence \textit{kReduceStep}
 \item the maximum number of Newton resolutions for one time-step \textit{maxNewtonTry}
-\item the linear solver library name that should be used - as of today, KLU or NICSLU - \textit{linearSolverName}.
 \end{itemize}
 
 Recommended values for these parameters are:
@@ -890,7 +883,6 @@ hMin & 1e-6 \\
 hMax & 1 \\
 kReduceStep & 0.5 \\
 maxNewtonTry & 10 \\
-linearSolverName & KLU \\
 \bottomrule
 \end{tabular}
 \caption{Required parameters for the simplified solver}
@@ -993,7 +985,7 @@ The Jacobian matrix is never re-evaluated during the correction step (ie during 
 \end{itemize}
 As for the Simplified solver, the idea is to try to minimize the number of Jacobian evaluations. However, the Jacobian evaluations are much more frequent with IDA because of the time-step variations, especially for simulations with a lots of events where the time-step decreases around the event and increases during steady-state.
 
-Regarding the LU decompositions that could be used with \ac{IDA} in \Dynawo , the user can choose to use KLU or NICSLU. Most of the simulations have been done until now with KLU but NICSLU gives slightly better performances (especially because the Jacobian is sometimes updated without any change in its structure when using \ac{IDA}).
+KLU is used as solution for the LU decompositions with \ac{IDA} in \Dynawo.
 
 \subsubsection{Events detection}
 

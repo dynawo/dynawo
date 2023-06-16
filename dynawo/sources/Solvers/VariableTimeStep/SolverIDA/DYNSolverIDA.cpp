@@ -191,7 +191,7 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
   // (4) IDACreate
   // -------------
   // Creation of IDA solver's intern memory space
-  IDAMem_ = IDACreate();
+  IDAMem_ = IDACreate(sundialsContext_);
   if (IDAMem_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDACreate");
 
@@ -206,7 +206,7 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
   std::vector<double> vYAcc;
   vYAcc.assign(model->sizeY(), absAccuracy_);
 
-  N_Vector yAcc = N_VMake_Serial(model->sizeY(), &(vYAcc[0]));
+  N_Vector yAcc = N_VMake_Serial(model->sizeY(), &(vYAcc[0]), sundialsContext_);
   if (yAcc == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateAcc);
 
@@ -256,7 +256,7 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
   }
 
   // Algebraic or differential variable indicator (vector<int>)
-  sundialsVectorYType_ = N_VNew_Serial(model->sizeY());
+  sundialsVectorYType_ = N_VNew_Serial(model->sizeY(), sundialsContext_);
   if (sundialsVectorYType_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateID);
 
@@ -273,12 +273,12 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
 
   // (8) Solver choice
   // -------------------
-  sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 10., CSR_MAT);
+  sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 10., CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNSparseMatrix");
 
   /* Create KLU SUNLinearSolver object */
-  linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_);
+  linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
   if (linearSolver_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNLinSol_KLU");
 
@@ -589,7 +589,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   smj.init(size, size);
   model.copyContinuousVariables(iyy, iyp);
   model.evalJt(tt, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, "KLU", true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }
@@ -656,8 +656,8 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     nbErr = nbY;
 
   // Defining necessary data structure and retrieving information from IDA
-  N_Vector nvWeights = N_VNew_Serial(nbY);
-  N_Vector nvErrors = N_VNew_Serial(nbY);
+  N_Vector nvWeights = N_VNew_Serial(nbY, sundialsContext_);
+  N_Vector nvErrors = N_VNew_Serial(nbY, sundialsContext_);
   if (IDAGetErrWeights(IDAMem_, nvWeights) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetErrWeights");
 

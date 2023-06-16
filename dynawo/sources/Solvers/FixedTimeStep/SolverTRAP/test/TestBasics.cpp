@@ -57,7 +57,6 @@ static boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvalu
   params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
-  params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
   params->addParameter(parameters::ParameterFactory::newParameter("optimizeAlgebraicResidualsEvaluations", optimizeAlgebraicResidualsEvaluations));
   params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", skipNR));
   params->addParameter(parameters::ParameterFactory::newParameter("enableSilentZ", enableSilentZ));

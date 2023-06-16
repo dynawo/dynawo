@@ -87,11 +87,14 @@ enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
-tSolve_(0.)
-{ }
+tSolve_(0.) {
+  if (SUNContext_Create(NULL, &sundialsContext_) != 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
+}
 
 Solver::Impl::~Impl() {
   clean();
+  SUNContext_Free(&sundialsContext_);
 }
 
 void
@@ -118,13 +121,13 @@ Solver::Impl::init(const double t0, const boost::shared_ptr<Model>& model) {
     throw DYNError(Error::SUNDIALS_ERROR, SolverYvsF, nbEq, model->sizeF());
 
   vectorY_.resize(nbEq);
-  sundialsVectorY_ = N_VMake_Serial(nbEq, &(vectorY_[0]));
+  sundialsVectorY_ = N_VMake_Serial(nbEq, &(vectorY_[0]), sundialsContext_);
   if (sundialsVectorY_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
   // Derivatives
   vectorYp_.assign(nbEq, 0.);
-  sundialsVectorYp_ = N_VMake_Serial(nbEq, &(vectorYp_[0]));
+  sundialsVectorYp_ = N_VMake_Serial(nbEq, &(vectorYp_[0]), sundialsContext_);
   if (sundialsVectorYp_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYP);
 

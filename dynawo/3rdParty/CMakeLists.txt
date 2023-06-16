@@ -139,17 +139,17 @@ endif()
 set(adept_url            ${adept_prefix_url}/${adept_name})
 set(adept_md5            327306b9cc14a82df15c54c498cb0480)
 
-set(suitesparse_version  5.4.0)
+set(suitesparse_version  5.10.1)
 set(suitesparse_name     SuiteSparse-${suitesparse_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_SUITESPARSE_DOWNLOAD_URL})
   set(suitesparse_prefix_url $ENV{DYNAWO_SUITESPARSE_DOWNLOAD_URL})
 else()
-  set(suitesparse_prefix_url http://faculty.cse.tamu.edu/davis/SuiteSparse)
+  set(suitesparse_prefix_url https://github.com/DrTimothyAldenDavis/SuiteSparse/archive)
 endif()
-set(suitesparse_url      ${suitesparse_prefix_url}/${suitesparse_name})
-set(suitesparse_md5      4A6D4E74FC44C503F52996AE95CAD03A)
+set(suitesparse_url      ${suitesparse_prefix_url}/v${suitesparse_version}.tar.gz)
+set(suitesparse_md5      68bb912f3cf3d2b01f30ebafef690302)
 
-set(sundials_version     5.3.0)
+set(sundials_version     6.3.0)
 set(sundials_name        sundials-${sundials_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_SUNDIALS_DOWNLOAD_URL})
   set(sundials_prefix_url $ENV{DYNAWO_SUNDIALS_DOWNLOAD_URL})
@@ -157,7 +157,7 @@ else()
   set(sundials_prefix_url https://github.com/LLNL/sundials/releases/download)
 endif()
 set(sundials_url         ${sundials_prefix_url}/v${sundials_version}/${sundials_name})
-set(sundials_md5         4546D887F63E8A5F7B3BA7933D877C83)
+set(sundials_md5         6be7057c88990021de5b08109eb2f133)
 
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
 set(omdev_tag            origin/OM113maintenance)
@@ -539,6 +539,7 @@ else()
     STAMP_DIR           ${DOWNLOAD_DIR}/suitesparse-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/suitesparse
     BINARY_DIR          ${DOWNLOAD_DIR}/suitesparse-build
+    DOWNLOAD_NAME       ${suitesparse_name}
     URL                 ${suitesparse_url}
     URL_MD5             ${suitesparse_md5}
     PATCH_COMMAND       ${suitesparse_patch_common}
@@ -555,45 +556,6 @@ else()
   set(SUITESPARSE_HOME ${install_dir})
 endif()
 
-if(UNIX)
-  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/nicslu/_nicslu301.zip")
-    set(NICSLU_HOME ${CMAKE_INSTALL_PREFIX}/nicslu)
-    find_package(NICSLU QUIET)
-    if(NICSLU_FOUND)
-      add_custom_target(nicslu)
-      set(NICSLU_HOME ${CMAKE_INSTALL_PREFIX}/nicslu)
-    else()
-      ExternalProject_Add(nicslu
-        INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/nicslu
-        DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/nicslu
-        DOWNLOAD_COMMAND    ""
-        STAMP_DIR           ${DOWNLOAD_DIR}/nicslu-stamp
-        SOURCE_DIR          ${DOWNLOAD_DIR}/nicslu
-        BINARY_DIR          ${DOWNLOAD_DIR}/nicslu-build
-        TMP_DIR             ${TMP_DIR}
-        CONFIGURE_COMMAND   ""
-        BUILD_COMMAND       ${CMAKE_CURRENT_SOURCE_DIR}/nicslu/nicslu-chain.sh --install-dir=<INSTALL_DIR> --build-dir=<BINARY_DIR> --build-type${CMAKE_BUILD_TYPE}
-        INSTALL_COMMAND     ""
-      )
-      ExternalProject_Get_Property(nicslu install_dir)
-      set(NICSLU_HOME ${install_dir})
-      set(NICSLU_FOUND True)
-    endif()
-  else()
-    add_custom_target(nicslu)
-    set(NICSLU_FOUND False)
-  endif()
-else()
-  add_custom_target(nicslu)
-  set(NICSLU_FOUND False)
-endif()
-
-if(NICSLU_FOUND)
- set(sundials_patch_nicslu patch -p1 --forward --no-backup-if-mismatch -r /dev/null -i ${CMAKE_CURRENT_SOURCE_DIR}/sundials/patch/nicslu/sundials.patch)
-else()
-  set(sundials_patch_nicslu ${CMAKE_COMMAND} -E echo No nicslu patch.)
-endif()
-
 set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)
 find_package(Sundials QUIET)
 unset(SUNDIALS_HOME)
@@ -604,7 +566,7 @@ if(Sundials_FOUND)
   set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)
 else()
   ExternalProject_Add(sundials
-    DEPENDS             suitesparse nicslu
+    DEPENDS             suitesparse
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/sundials
     DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/sundials
     STAMP_DIR           ${DOWNLOAD_DIR}/sundials-stamp
@@ -615,7 +577,6 @@ else()
     URL_MD5             ${sundials_md5}
     PATCH_COMMAND       ${sundials_patch_common}
     COMMAND             ${sundials_patch_compiler}
-    COMMAND             ${sundials_patch_nicslu}
 
     # workaround on Linux: add -lm to check correctly that KLU is functional
     CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
@@ -632,11 +593,9 @@ else()
                         -DBUILD_CVODE:BOOL=OFF
                         -DBUILD_ARKODE:BOOL=OFF
                         -DBUILD_IDAS:BOOL=OFF
-                        -DKLU_ENABLE:BOOL=ON
+                        -DENABLE_KLU:BOOL=ON
                         -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include
                         -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib
-                        -DNICSLU_ENABLE=$<BOOL:${NICSLU_FOUND}>
-                        -DNICSLU_HOME=${NICSLU_HOME}
                         $<$<BOOL:${MSVC}>:-DCMAKE_INSTALL_LIBDIR=bin>
   )
   ExternalProject_Get_Property(sundials install_dir)

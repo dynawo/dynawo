@@ -70,6 +70,9 @@ TEST(SimulationCommonTest, testParameterSolver) {
 }
 
 TEST(SimulationCommonTest, testSolverCommon) {
+  SUNContext sundialsContext;
+  if (SUNContext_Create(NULL, &sundialsContext) != 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
   SparseMatrix smj;
   smj.init(3, 3);
   smj.changeCol();
@@ -81,7 +84,7 @@ TEST(SimulationCommonTest, testSolverCommon) {
   smj.addTerm(1, 4.);
   SparseMatrix::CheckError check_status = smj.check();
   ASSERT_EQ(SparseMatrix::CHECK_OK, check_status.code);
-  SUNMatrix JJ = SUNSparseMatrix(3, 3, 2, CSC_MAT);
+  SUNMatrix JJ = SUNSparseMatrix(3, 3, 2, CSC_MAT, sundialsContext);
   assert(JJ != NULL);
 
   int row = 0;
@@ -119,6 +122,7 @@ TEST(SimulationCommonTest, testSolverCommon) {
   ASSERT_EQ(SM_DATA_S(JJ)[3], 4);
   ASSERT_EQ(SM_NNZ_S(JJ), 4);
   SUNMatDestroy_Sparse(JJ);
+  SUNContext_Free(&sundialsContext);
 }
 
 TEST(SimulationCommonTest, testNormVectors) {

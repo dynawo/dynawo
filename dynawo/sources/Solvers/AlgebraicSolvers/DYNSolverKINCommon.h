@@ -56,7 +56,6 @@ class SolverKINCommon {
   /**
    * @brief initialize KINSOL memory and parameters
    *
-   * @param linearSolverName choice for linear solver
    * @param fnormtol stopping tolerance on L2-norm of function value
    * @param initialaddtol stopping tolerance on initialization
    * @param scsteptol scaled step length tolerance
@@ -68,7 +67,7 @@ class SolverKINCommon {
    * @param evalJ method to evaluate the Jacobian
    * @param sundialsVectorY solution of the algebraic resolution
    */
-  void initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
+  void initCommon(double fnormtol, double initialaddtol, double scsteptol,
             double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY);
 
   /**
@@ -129,15 +128,6 @@ class SolverKINCommon {
   }
 
   /**
-   * @brief linear solver name getter
-   *
-   * @return linear solver name
-   */
-  inline const std::string& getLinearSolverName() const {
-    return linearSolverName_;
-  }
-
-  /**
    * @brief update statistics of solver Euler kin execution
    *
    * @param nni non linear iterations number
@@ -147,13 +137,13 @@ class SolverKINCommon {
   void updateStatistics(long int& nni, long int& nre, long int& nje);
 
  protected:
+  SUNContext sundialsContext_;  ///< context of sundials structure
   void* KINMem_;  ///< KINSOL internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
   SUNMatrix sundialsMatrix_;  ///< sparse SUNMatrix
   N_Vector sundialsVectorY_;  ///< variables values stored in Sundials structure
   sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 
-  std::string linearSolverName_;  ///< linear solver name used
   unsigned int numF_;  ///< number of equations to solve
   double t0_;  ///< initial time to use
   bool firstIteration_;  ///< @b true if first iteration, @b false otherwise

@@ -22,9 +22,6 @@
 #include <sundials/sundials_linearsolver.h>
 #include <sundials/sundials_matrix.h>
 #include <sunlinsol/sunlinsol_klu.h>
-#ifdef WITH_NICSLU
-#include <sunlinsol/sunlinsol_nicslu.h>
-#endif
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 
@@ -49,6 +46,8 @@ t0_(0.),
 firstIteration_(false),
 sundialsVectorFScale_(NULL),
 sundialsVectorYScale_(NULL) {
+  if (SUNContext_Create(NULL, &sundialsContext_) != 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
 
 SolverKINCommon::~SolverKINCommon() {
@@ -56,6 +55,7 @@ SolverKINCommon::~SolverKINCommon() {
   // This vector is not allocated by this class so no need to release the memory
   if (sundialsVectorY_ != NULL)
     sundialsVectorY_ = NULL;
+  SUNContext_Free(&sundialsContext_);
 }
 
 void SolverKINCommon::clean() {
@@ -87,9 +87,8 @@ void SolverKINCommon::clean() {
 }
 
 void
-SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
+SolverKINCommon::initCommon(double fnormtol, double initialaddtol, double scsteptol,
                      double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY) {
-  linearSolverName_ = linearSolverName;
   sundialsVectorY_ = sundialsVectorY;
 
   // (1) Problem size
@@ -99,7 +98,7 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
   // (2) Creation of Kinsol internal memory
   // --------------------------------------
-  KINMem_ = KINCreate();
+  KINMem_ = KINCreate(sundialsContext_);
   if (KINMem_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINCreate");
 
@@ -135,28 +134,15 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
   // and not Ax = B (see sunlinsol_klu.c:149)
   const int nnz = static_cast<int>(0.0001 * numF_ * numF_);  // This value will be adjusted later on in the process
-  sundialsMatrix_ = SUNSparseMatrix(numF_, numF_, nnz, CSR_MAT);
+  sundialsMatrix_ = SUNSparseMatrix(numF_, numF_, nnz, CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
-  if (linearSolverName_ == "KLU") {
-    linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_);
-    if (linearSolver_ == NULL)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
+  linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
+  if (linearSolver_ == NULL)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_KLU");
-    flag = KINSetLinearSolver(KINMem_, linearSolver_, sundialsMatrix_);
-    if (flag < 0)
+  flag = KINSetLinearSolver(KINMem_, linearSolver_, sundialsMatrix_);
+  if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINKLU");
-#ifdef WITH_NICSLU
-  } else if (linearSolverName_ == "NICSLU") {
-    linearSolver_ = SUNLinSol_NICSLU(sundialsVectorY_, sundialsMatrix_);
-    if (linearSolver_ == NULL)
-      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_NICSLU");
-    flag = KINSetLinearSolver(KINMem_, linearSolver_, sundialsMatrix_);
-    if (flag < 0)
-      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "kinNICSLU");
-#endif
-  } else {
-    throw DYNError(Error::SUNDIALS_ERROR, WrongLinearSolverChoice);
-  }
 
   // Specify method to use to print error message
   flag = KINSetErrHandlerFn(KINMem_, errHandlerFn, NULL);
@@ -192,8 +178,8 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
   vectorFScale_.resize(numF_);
   vectorYScale_.resize(numF_);
-  sundialsVectorFScale_ = N_VMake_Serial(numF_, &vectorFScale_[0]);
-  sundialsVectorYScale_ = N_VMake_Serial(numF_, &vectorYScale_[0]);
+  sundialsVectorFScale_ = N_VMake_Serial(numF_, &vectorFScale_[0], sundialsContext_);
+  sundialsVectorYScale_ = N_VMake_Serial(numF_, &vectorYScale_[0], sundialsContext_);
 }
 
 int

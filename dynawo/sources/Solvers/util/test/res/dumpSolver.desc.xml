@@ -15,7 +15,6 @@
       <parameter name="initialaddtolAlgInit" valueType="DOUBLE" cardinality="1"/>
       <parameter name="initialaddtolAlgJ" valueType="DOUBLE" cardinality="1"/>
       <parameter name="kReduceStep" valueType="DOUBLE" cardinality="1"/>
-      <parameter name="linearSolverName" valueType="STRING" cardinality="1"/>
       <parameter name="maximumNumberSlowStepIncrease" valueType="INT" cardinality="1"/>
       <parameter name="maxNewtonTry" valueType="INT" cardinality="1"/>
       <parameter name="minimalAcceptableStep" valueType="DOUBLE" cardinality="1"/>

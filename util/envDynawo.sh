@@ -404,7 +404,6 @@ set_environment() {
   export_var_env_default DYNAWO_LIBXML2_HOME=UNDEFINED
 
   export_var_env_force DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/suitesparse
-  export_var_env_force DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/nicslu
   export_var_env_force DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/sundials
   export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/adept
   export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/xerces-c
@@ -542,7 +541,6 @@ set_standard_environment_variables() {
     fi
   fi
 
-  ld_library_path_prepend $DYNAWO_NICSLU_INSTALL_DIR/lib
   ld_library_path_prepend $DYNAWO_SUITESPARSE_INSTALL_DIR/lib
   if [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib64" ]; then
     ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
@@ -828,7 +826,6 @@ config_dynawo() {
     -DADEPT_HOME=$DYNAWO_ADEPT_INSTALL_DIR \
     -DSUNDIALS_HOME=$DYNAWO_SUNDIALS_INSTALL_DIR \
     -DSUITESPARSE_HOME=$DYNAWO_SUITESPARSE_INSTALL_DIR \
-    -DNICSLU_HOME=$DYNAWO_NICSLU_INSTALL_DIR \
     -DLIBZIP_HOME=$DYNAWO_LIBZIP_INSTALL_DIR \
     -DLIBXML_HOME=$DYNAWO_LIBXML_INSTALL_DIR \
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
@@ -1651,12 +1648,6 @@ deploy_dynawo() {
   cp -P $DYNAWO_ADEPT_INSTALL_DIR/lib/*.* lib/
   echo "deploying SuiteSparse libraries"
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/lib/*.* lib/
-  if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/lib" ]; then
-    if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/lib)" ]; then
-      echo "deploying Nicslu libraries"
-      cp -P $DYNAWO_NICSLU_INSTALL_DIR/lib/*.* lib/
-    fi
-  fi
   echo "deploying libzip libraries"
   cp -P $DYNAWO_LIBZIP_HOME/lib/*.* lib/
   echo "deploying libxml libraries"
@@ -1686,12 +1677,6 @@ deploy_dynawo() {
   cp -n -R $DYNAWO_ADEPT_INSTALL_DIR/include/* include/
   echo "deploying SuiteSparse include folder"
   cp -n -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* include/
-  if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/include" ]; then
-    if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/include)" ]; then
-      echo "deploying Nicslu include folder"
-      cp -n -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* include/
-    fi
-  fi
   echo "deploying libzip include folder"
   cp -n -R -P $DYNAWO_LIBZIP_HOME/include/libzip include/
   echo "deploying libxml include folder"
@@ -2155,7 +2140,6 @@ unittest_gdb() {
 }
 
 reset_environment_variables() {
-  ld_library_path_remove $DYNAWO_NICSLU_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_SUITESPARSE_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
   ld_library_path_remove $DYNAWO_SUNDIALS_INSTALL_DIR/lib
