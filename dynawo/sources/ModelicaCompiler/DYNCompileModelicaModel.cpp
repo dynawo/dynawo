@@ -417,9 +417,6 @@ compileLib(const string& modelName, const string& compilationDir) {
   envVariableToCheck.push_back("DYNAWO_INSTALL_OPENMODELICA");
   envVariableToCheck.push_back("DYNAWO_XERCESC_INSTALL_DIR");
   envVariableToCheck.push_back("DYNAWO_LIBXML_HOME");
-#ifdef WITH_NICSLU
-  envVariableToCheck.push_back("DYNAWO_NICSLU_INSTALL_DIR");
-#endif
   for (size_t i = 0, iEnd = envVariableToCheck.size(); i < iEnd; ++i) {
     if (!hasEnvVar(envVariableToCheck[i]))
       throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, envVariableToCheck[i]);

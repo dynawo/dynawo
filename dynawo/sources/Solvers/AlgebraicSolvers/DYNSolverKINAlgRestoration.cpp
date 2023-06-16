@@ -173,7 +173,7 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double in
 
     vectorYOrYpSolution_.assign(numF_, 0.);
     cleanAlgebraicVectors();
-    sundialsVectorY_ = N_VMake_Serial(numF_, &(vectorYOrYpSolution_[0]));
+    sundialsVectorY_ = N_VMake_Serial(numF_, &(vectorYOrYpSolution_[0]), sundialsContext_);
 
     if (sundialsVectorY_ == NULL)
       throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
@@ -181,10 +181,10 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double in
     clean();
     switch (mode_) {
       case KIN_ALGEBRAIC:
-        initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY_);
+        initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY_);
         break;
       case KIN_DERIVATIVES:
-        initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN, sundialsVectorY_);
+        initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN, sundialsVectorY_);
         break;
     }
   } else {
@@ -331,7 +331,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
     checkJacobian(smjKin, model);
   }
 #endif
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }
@@ -353,7 +353,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }

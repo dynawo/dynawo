@@ -17,7 +17,6 @@
     <par type="DOUBLE" name="hMax" value="10"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
     <par type="INT" name="msbsetAlg" value="1"/>
     <par type="INT" name="msbset" value="1"/>
     <par type="INT" name="msbsetAlgJ" value="1"/>

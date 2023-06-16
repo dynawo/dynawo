@@ -18,7 +18,6 @@
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-6"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
   </set>
   <set id="NETWORK">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>

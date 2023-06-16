@@ -95,7 +95,6 @@ SolverCommonFixedTimeStep::defineSpecificParameters() {
   parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", VAR_TYPE_INT, mandatory)));
 
   // Parameters for the algebraic resolution at each time step
-  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING, mandatory)));
   parameters_.insert(make_pair("fnormtol", ParameterSolver("fnormtol", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("initialaddtol", ParameterSolver("initialaddtol", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("scsteptol", ParameterSolver("scsteptol", VAR_TYPE_DOUBLE, optional)));
@@ -113,7 +112,6 @@ SolverCommonFixedTimeStep::setSolverSpecificParameters() {
   hMax_ = findParameter("hMax").getValue<double>();
   kReduceStep_ = findParameter("kReduceStep").getValue<double>();
   maxNewtonTry_ =  findParameter("maxNewtonTry").getValue<int>();
-  linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
 
   const ParameterSolver& fnormtol = findParameter("fnormtol");
   if (fnormtol.hasValue())
@@ -161,7 +159,7 @@ SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const doub
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
-    solverKINEuler_->init(model, this, linearSolverName_, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_);
+    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_);
   }
 
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());

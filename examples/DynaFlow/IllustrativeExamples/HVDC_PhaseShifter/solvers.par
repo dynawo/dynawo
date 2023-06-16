@@ -36,7 +36,6 @@
     <par type="DOUBLE" name="hMax" value="10"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
   </set>
   <!-- IDA order 2 solver with higher accuracy requirements -->
   <set id="5">

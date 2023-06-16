@@ -112,7 +112,6 @@ documents/inputFiles/DynawoInputFiles.synctex.gz
 documents/inputFiles/DynawoInputFiles.toc
 dynawo/3rdParty/adept/adept-*.tar.gz
 dynawo/3rdParty/suitesparse/SuiteSparse-*.tar.gz
-dynawo/3rdParty/nicslu/_nicslu301.zip
 dynawo/3rdParty/sundials/sundials-*.tar.gz
 dynawo/3rdParty/xercesc/xerces-c-*.tar.gz
 dynawo/3rdParty/libarchive/libarchive-*.tar.gz
@@ -179,10 +178,6 @@ documentation/licenses/Adept/license.aux
 documentation/licenses/Adept/license.log
 documentation/licenses/Adept/license.pdf
 documentation/licenses/Adept/license.synctex.gz
-documentation/licenses/Nicslu/license.aux
-documentation/licenses/Nicslu/license.log
-documentation/licenses/Nicslu/license.pdf
-documentation/licenses/Nicslu/license.synctex.gz
 documentation/licenses/OpenModelica/license.aux
 documentation/licenses/OpenModelica/license.log
 documentation/licenses/OpenModelica/license.pdf
@@ -218,9 +213,6 @@ documentation/licenses/sundials/license.synctex.gz
 documentation/licenses/Adept/license-no-numbering.aux
 documentation/licenses/Adept/license-no-numbering.log
 documentation/licenses/Adept/license-no-numbering.pdf
-documentation/licenses/Nicslu/license-no-numbering.aux
-documentation/licenses/Nicslu/license-no-numbering.log
-documentation/licenses/Nicslu/license-no-numbering.pdf
 documentation/licenses/OpenModelica/license-no-numbering.aux
 documentation/licenses/OpenModelica/license-no-numbering.log
 documentation/licenses/OpenModelica/license-no-numbering.pdf

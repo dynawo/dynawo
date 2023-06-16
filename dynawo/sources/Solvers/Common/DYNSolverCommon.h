@@ -55,11 +55,10 @@ class SolverCommon {
    * @param size size of the square matrix (nb columns)
    * @param lastRowVals pointer to the latest value of the previous matrix
    * @param LS linear solver pointer
-   * @param linearSolverName name of the linear solver name (KLU / NICSLU)
    * @param log @b true if a log should be added if a complete re-initialization is done
    */
   static void propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size,
-                                                     sunindextype** lastRowVals, SUNLinearSolver& LS, const std::string& linearSolverName, bool log);
+                                                     sunindextype** lastRowVals, SUNLinearSolver& LS, bool log);
 
   /**
    * @brief Print the largest residuals errors

@@ -92,15 +92,6 @@ find_package(Boost 1.64 REQUIRED
 set(SUITESPARSE_HOME "$ENV{DYNAWO_SUITESPARSE_INSTALL_DIR}")
 find_package(SuiteSparse REQUIRED)
 
-if(DEFINED ENV{DYNAWO_NICSLU_INSTALL_DIR})
-  set(NICSLU_HOME $ENV{DYNAWO_NICSLU_INSTALL_DIR})
-endif()
-find_package(NICSLU)
-
-if(${NICSLU_FOUND})
-  add_definitions(-DWITH_NICSLU)
-endif()
-
 set(SUNDIALS_HOME "$ENV{DYNAWO_SUNDIALS_INSTALL_DIR}")
 find_package(Sundials REQUIRED)
 

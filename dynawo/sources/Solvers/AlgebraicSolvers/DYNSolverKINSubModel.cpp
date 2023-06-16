@@ -74,7 +74,7 @@ SolverKINSubModel::init(SubModel* subModel,
 
   vectorYSubModel_.assign(numF_, 0.);
 
-  sundialsVectorY_ = N_VMake_Serial(numF_, &(vectorYSubModel_[0]));
+  sundialsVectorY_ = N_VMake_Serial(numF_, &(vectorYSubModel_[0]), sundialsContext_);
   if (sundialsVectorY_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
@@ -104,7 +104,7 @@ SolverKINSubModel::init(SubModel* subModel,
     if (localInitParameters->hasParameter("printfl"))
       printfl = localInitParameters->getParameter("printfl")->getInt();
   }
-  initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN, sundialsVectorY_);
+  initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN, sundialsVectorY_);
 
   vectorYSubModel_.assign(yBuffer, yBuffer + numF_);
 }
@@ -150,7 +150,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   // Arbitrary value for cj
   const double cj = 1.;
   subModel->evalJt(solver->t0_, cj, smj, 0);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, false);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, false);
 
   return 0;
 }

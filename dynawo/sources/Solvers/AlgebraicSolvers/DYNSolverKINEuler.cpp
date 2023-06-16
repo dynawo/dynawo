@@ -50,12 +50,11 @@ SolverKINEuler::~SolverKINEuler() {
 }
 
 void
-SolverKINEuler::init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
+SolverKINEuler::init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
                      double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
   clean();
   model_ = model;
   timeSchemeSolver_ = timeSchemeSolver;
-  linearSolverName_ = linearSolverName;
 
   // Problem size
   // ----------------
@@ -67,7 +66,7 @@ SolverKINEuler::init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSo
   vectorF_.resize(model_->sizeF());
   numF_ = model_->sizeF();
 
-  initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
+  initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
 }
 
 int
@@ -143,7 +142,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = model.sizeY();
   smj.init(size, size);
   model.evalJt(solver->t0_ + h0, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }

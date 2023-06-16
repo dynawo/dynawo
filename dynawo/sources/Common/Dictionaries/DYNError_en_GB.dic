@@ -27,6 +27,7 @@ NoJobDefined                =             no job found in the .jobs file
 IncorrectDelay              =             inconsistent delay %1% at time %2% (max delay is %3%)
 IterationStepAndTimeStepBothDefined =     iteration step and time step can't be defined at the same time
 //---------------- SOLVER -----------------------------------------
+SolverContextCreationError  =             error during context creation
 SolverSubModelYvsF          =             model's initialisation %1% :  Variables number %2% not equals to the equations number %3%
 SolverYvsF                  =             variables number %1% not equals to the equations number %2%
 SolverCreateYY              =             impossible to create the YY vector

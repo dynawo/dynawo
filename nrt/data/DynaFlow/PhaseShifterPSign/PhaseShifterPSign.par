@@ -17,7 +17,6 @@
     <par type="DOUBLE" name="hMax" value="10"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
   </set>
   <set id="Generator">
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>

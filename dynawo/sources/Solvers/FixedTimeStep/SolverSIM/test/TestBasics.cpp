@@ -57,7 +57,6 @@ static boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvalu
   params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
-  params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
   params->addParameter(parameters::ParameterFactory::newParameter("optimizeAlgebraicResidualsEvaluations", optimizeAlgebraicResidualsEvaluations));
   params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", skipNR));
   params->addParameter(parameters::ParameterFactory::newParameter("enableSilentZ", enableSilentZ));
@@ -930,8 +929,6 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
   ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
-  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
-  params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
 
@@ -971,7 +968,7 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestoration", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 41);
+  ASSERT_EQ(solver->getParametersMap().size(), 40);
 }
 
 TEST(ParametersTest, testParametersInit) {
@@ -990,8 +987,6 @@ TEST(ParametersTest, testParametersInit) {
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
   ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
-  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
-  params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
 
@@ -1020,7 +1015,7 @@ TEST(ParametersTest, testParametersInit) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestorationInit", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 41);
+  ASSERT_EQ(solver->getParametersMap().size(), 40);
 }
 
 }  // namespace DYN

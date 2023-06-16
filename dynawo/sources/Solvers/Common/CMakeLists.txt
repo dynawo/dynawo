@@ -55,13 +55,6 @@ target_link_libraries(dynawo_SolverCommon
     dynawo_API_PAR
   )
 
-if(${NICSLU_FOUND})
-  target_link_libraries(dynawo_SolverCommon
-    PRIVATE
-      Sundials::Sundials_SUNLINSOLNICSLU
-  )
-endif()
-
 set_target_properties(dynawo_SolverCommon PROPERTIES VERSION ${SOLVER_COMMON_VERSION_STRING}
                                                    SOVERSION ${SOLVER_COMMON_VERSION_MAJOR})
 

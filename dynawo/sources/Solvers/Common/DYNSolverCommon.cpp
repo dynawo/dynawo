@@ -22,10 +22,6 @@
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <sunlinsol/sunlinsol_klu.h>
 
-#ifdef WITH_NICSLU
-#include <sunlinsol/sunlinsol_nicslu.h>
-#endif
-
 #include "DYNMacrosMessage.h"
 #include "DYNModel.h"
 #include "DYNSolverCommon.h"
@@ -71,19 +67,11 @@ SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const i
 }
 
 void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype** lastRowVals,
-                                                          SUNLinearSolver& LS, const std::string& linearSolverName, bool log) {
+                                                          SUNLinearSolver& LS, bool log) {
   bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, *lastRowVals);
 
   if (matrixStructChange) {
-    if (linearSolverName == "KLU") {
-      SUNLinSol_KLUReInit(LS, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-#ifdef WITH_NICSLU
-    } else if (linearSolverName == "NICSLU") {
-      SUNLinSol_NICSLUReInit(LS, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    }
-#else
-  }
-#endif
+    SUNLinSol_KLUReInit(LS, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
     if (*lastRowVals != NULL) {
       free(*lastRowVals);
     }
