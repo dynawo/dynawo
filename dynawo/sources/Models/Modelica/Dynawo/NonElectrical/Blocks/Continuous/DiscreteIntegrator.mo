@@ -12,11 +12,10 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 */
 
-block DiscretePI "Proportional integrator with discrete input"
+block DiscreteIntegrator "Integrator with discrete input"
   import Dynawo.Types;
   import Modelica;
 
-  parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 
   discrete Modelica.Blocks.Interfaces.RealInput u "Input connector" annotation(
@@ -27,7 +26,7 @@ block DiscretePI "Proportional integrator with discrete input"
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output of the PI controller." annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.PI pi(T = tIntegral, k = Gain, x_start = Y0/Gain, y_start = Y0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0, k=1/tIntegral ) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) "Constant 0 value in case of frozen PI" annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -37,9 +36,9 @@ block DiscretePI "Proportional integrator with discrete input"
   parameter Real Y0 "Start value of the PI output";
 
 equation
-  connect(pi.y, y) annotation(
-    Line(points = {{61, 0}, {110, 0}}, color = {0, 0, 127}));
-  connect(switch1.y, pi.u) annotation(
+  connect(integrator.y, y) annotation(
+    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127})); 
+  connect(switch1.y, integrator.u) annotation(
     Line(points = {{-19, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(switch1.u3, u) annotation(
     Line(points = {{-42, -8}, {-80, -8}, {-80, -40}, {-110, -40}}, color = {0, 0, 127}));
@@ -48,19 +47,15 @@ equation
   connect(frozen, switch1.u2) annotation(
     Line(points = {{-110, 0}, {-42, 0}}));
 
-  annotation(defaultComponentName="DiscretePI",
+  annotation(defaultComponentName="DiscreteIntegrator",
     Documentation(info="<html>
 <p>
-This block is a dynawo-compatible wrapper around Modelica's PI block constrained to discrete inputs. It defines the transfer function between the input u and
-the output y as <em>PI</em> system:
+This block is a dynawo-compatible wrapper around Modelica's Integrator block constrained to discrete inputs. It defines the transfer function between the input u and the output y as <em>PI</em> system:
 </p>
 <pre>
-                        1
- y = Gain * (1 + -------------) * u
-                  tIntegral*s
-             tIntegral*s + 1
-   = Gain * ----------------- * u
-               tIntegral*s
+              1
+ y = 	(--------------) * u
+          tIntegral*s
 </pre>
 
 
@@ -76,4 +71,6 @@ the output y as <em>PI</em> system:
         Text(
           extent={{-150,-150},{150,-110}},
           textString="T=%T")}));
-end DiscretePI;
+end DiscreteIntegrator;
+
+

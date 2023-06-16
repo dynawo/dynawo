@@ -17,7 +17,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   ConditionalForward.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
-  DiscretePI.xml
+  DiscreteIntegrator.xml
   DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
