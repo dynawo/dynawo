@@ -11,8 +11,8 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
-<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="DiscretePI">
-    <dyn:unitDynamicModel id="pI" name="Dynawo.NonElectrical.Blocks.Continuous.DiscretePI"/>
-  </dyn:modelicaModel>
-</dyn:dynamicModelsArchitecture>
+<external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable type="discrete" id="u"/>
+  <variable type="boolean" id="frozen" defaultValue="false"/>
+</external_variables>
+
