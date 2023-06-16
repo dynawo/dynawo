@@ -50,7 +50,9 @@ namespace DYN {
                       RatedU1_(ratedU1),
                       activeSeason_(activeSeason) {
     setType(ComponentInterface::TWO_WTFO);
-    if (leg.get().hasRatioTapChanger() || leg.get().hasPhaseTapChanger())
+    if (leg.get().hasPhaseTapChanger() ||
+        (leg.get().hasRatioTapChanger() && leg.get().getRatioTapChanger().getRegulationTerminal() &&
+         stdcxx::areSame(leg.get().getTerminal(), leg.get().getRatioTapChanger().getRegulationTerminal().get())))
       stateVariables_.resize(6);
     else
       stateVariables_.resize(5);
@@ -59,8 +61,11 @@ namespace DYN {
     stateVariables_[VAR_Q1] = StateVariable("q1", StateVariable::DOUBLE);  // Q1
     stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);  // Q2
     stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
-    if (leg.get().hasPhaseTapChanger() || leg.get().hasRatioTapChanger())
+    if (leg.get().hasPhaseTapChanger() ||
+      (leg.get().hasRatioTapChanger() && leg.get().getRatioTapChanger().getRegulationTerminal() &&
+      stdcxx::areSame(leg.get().getTerminal(), leg.get().getRatioTapChanger().getRegulationTerminal().get()))) {
       stateVariables_[VAR_TAPINDEX] = StateVariable("tapIndex", StateVariable::INT);
+    }
   }
 
   FictTwoWTransformerInterfaceIIDM::~FictTwoWTransformerInterfaceIIDM() {
