@@ -12,7 +12,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 */
 
-block DiscretePI "Proportional integrator with discrete input"
+block DiscreteIntegrator "Integrator with discrete input"
   import Dynawo.Types;
   import Modelica;
 
@@ -37,7 +37,7 @@ block DiscretePI "Proportional integrator with discrete input"
 
 equation
   connect(integrator.y, y) annotation(
-  Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127})); 
+    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127})); 
   connect(switch1.y, integrator.u) annotation(
     Line(points = {{-19, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(switch1.u3, u) annotation(
@@ -47,11 +47,10 @@ equation
   connect(frozen, switch1.u2) annotation(
     Line(points = {{-110, 0}, {-42, 0}}));
 
-  annotation(defaultComponentName="DiscretePI",
+  annotation(defaultComponentName="DiscreteIntegrator",
     Documentation(info="<html>
 <p>
-This block is a dynawo-compatible wrapper around Modelica's PI block constrained to discrete inputs. It defines the transfer function between the input u and
-the output y as <em>PI</em> system:
+This block is a dynawo-compatible wrapper around Modelica's Integrator block constrained to discrete inputs. It defines the transfer function between the input u and the output y as <em>PI</em> system:
 </p>
 <pre>
               1
@@ -72,5 +71,6 @@ the output y as <em>PI</em> system:
         Text(
           extent={{-150,-150},{150,-110}},
           textString="T=%T")}));
-end DiscretePI;
+end DiscreteIntegrator;
+
 
