@@ -593,7 +593,6 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
           .setRho(1.)
           .endStep()
           .add();
-      transformer.getLeg1().getRatioTapChanger().setRegulationTerminal(stdcxx::ref(transformer.getLeg1().getTerminal()));
     }
     if (properties.instantiatePhaseTapChanger) {
       transformer.getLeg2().newPhaseTapChanger()
@@ -1617,7 +1616,7 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       true /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
-   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   boost::shared_ptr<BusInterface> fictBus =
       boost::dynamic_pointer_cast<BusInterface>(data->findComponent("MyTransformer3Winding_FictBUS"));
