@@ -1,6 +1,13 @@
 name: CI
 
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      perform-nrt:
+        description: Run NRT on Linux
+        type: boolean
+        default: true
+  push:
 
 defaults:
   run:
@@ -11,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci:latest
     env:
-      DYNAWO_BUILD_TYPE: Debug
+      DYNAWO_BUILD_TYPE: ${{ github.event_name == 'workflow_dispatch' && inputs.perform-nrt && 'Release' || 'Debug' }}
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
@@ -19,7 +26,7 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Build
         run: |
@@ -46,7 +53,14 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./install/gcc8/HEAD/Debug/shared/dynawo/doxygen/html
 
+      - name: NRT
+        if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh nrt
+
   coverage:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci:latest
     env:
@@ -76,7 +90,7 @@ jobs:
           dnf install -y java-11-openjdk
 
       - name: Checkout sources
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       # In a PR use pre-built 3rd parties to optimize the duration of the job
       - name: Build branch PR
@@ -107,6 +121,7 @@ jobs:
         run: $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
 
   build-windows:
+    if: github.event_name == 'push'
     runs-on: windows-2019
     steps:
       - name: Checkout sources
@@ -135,10 +150,11 @@ jobs:
 
       - name: Build Dynawo
         shell: cmd
+        env:
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
-          set PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\HostX64\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\VC\VCPackages;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\bin\Roslyn;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Team Tools\Performance Tools\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\\x64;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\x64\;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64;C:\Program Files (x86)\Windows Kits\10\bin\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\\MSBuild\Current\Bin;C:\Windows\Microsoft.NET\Framework64\v4.0.30319;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\;C:\vcpkg;C:\Program Files (x86)\GitHub CLI;C:\Program Files\Git\bin;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Java_Temurin-Hotspot_jdk\8.0.352-8\x64\bin;C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\Chocolatey\bin;C:\Program Files\PowerShell\7\;C:\Program Files\OpenSSL\bin;C:\Program Files\CMake\bin;C:\ProgramData\chocolatey\lib\maven\apache-maven-3.8.6\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\GitHub CLI\;C:\Users\runneradmin\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;
           cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles"
           cmake --build b --target install || exit /b 1
           cmake --build b --target models-cpp || exit /b 1
@@ -153,6 +169,7 @@ jobs:
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
-          call \d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs
-          echo %ERRORLEVEL%
-          call \d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs
+          call \d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs || echo Error while running SMIB_1_StepPm job
+          set _error=%ERRORLEVEL%
+          call \d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs || echo Error while running IEEE14_BlackBoxModels job
+          exit /b %_error%%ERRORLEVEL%
