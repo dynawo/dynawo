@@ -33,13 +33,6 @@ jobs:
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
-      - name: Update Docker Hub
-        env:
-          DOCKER_HUB_TOKEN1: ${{ secrets.DOCKER_HUB_TOKEN1 }}
-          DOCKER_HUB_TOKEN2: ${{ secrets.DOCKER_HUB_TOKEN2 }}
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        run: curl -sw '%{http_code}\n' --header "Content-Type":" application/json" -X POST --data '{"dynawo":"Update"}' https://hub.docker.com/api/build/v1/source/$DOCKER_HUB_TOKEN1/trigger/$DOCKER_HUB_TOKEN2/call/
-
       - name: Doxygen build
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
