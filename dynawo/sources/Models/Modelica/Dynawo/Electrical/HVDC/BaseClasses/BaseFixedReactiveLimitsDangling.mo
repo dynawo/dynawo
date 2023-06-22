@@ -15,8 +15,11 @@ within Dynawo.Electrical.HVDC.BaseClasses;
 
 partial model BaseFixedReactiveLimitsDangling "Base dynamic model for fixed reactive limits at terminal 1"
 
-  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (generator convention)";
-  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (generator convention)";
+  parameter Types.ReactivePower Q1Max "Maximum reactive power in Mvar at terminal 1 (generator convention)";
+  parameter Types.ReactivePower Q1Min "Minimum reactive power in Mvar at terminal 1 (generator convention)";
+
+  final parameter Types.ReactivePowerPu Q1MaxPu = Q1Max / SystemBase.SnRef "Maximum reactive power in pu (base SnRef) at terminal 1 (generator convention)";
+  final parameter Types.ReactivePowerPu Q1MinPu = Q1Min / SystemBase.SnRef "Minimum reactive power in pu (base SnRef) at terminal 1 (generator convention)";
 
   annotation(preferredView = "text");
 end BaseFixedReactiveLimitsDangling;
