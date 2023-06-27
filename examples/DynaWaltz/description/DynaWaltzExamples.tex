@@ -716,10 +716,10 @@ The chain of events resulting in a voltage collapse runs as follows: a solid thr
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
             table[x=time,y=NETWORK_1041_131_Upu_value]
-        {../Nordic/outputs/curves/curves.csv};
+        {../Nordic/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
         table[x=time,y=NETWORK_1042_131_Upu_value]
-        {../Nordic/outputs/curves/curves.csv};
+        {../Nordic/reference/outputs/curves/curves.csv};
     \legend{$Bus 1041$, $Bus 1042$}
     \end{axis}
   \end{tikzpicture}
@@ -733,10 +733,10 @@ When adding a Tap Changer Blocking Automaton, that blocks the LTCs when the volt
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
             table[x=time,y=NETWORK_1041_131_Upu_value]
-        {../NordicTCB/outputs/curves/curves.csv};
+        {../NordicTCB/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
         table[x=time,y=NETWORK_1042_131_Upu_value]
-        {../NordicTCB/outputs/curves/curves.csv};
+        {../NordicTCB/reference/outputs/curves/curves.csv};
     \legend{$Bus 1041$, $Bus 1042$}
     \end{axis}
   \end{tikzpicture}

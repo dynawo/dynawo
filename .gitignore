@@ -32,9 +32,14 @@ examples/*/description/*/*pdf
 !nrt/data/*/*/reference/outputs*/
 !nrt/data/*/*/*/reference/outputs*/
 nrt/data/*/*/execution/
-nrt/data/*/*/description/*.log
+nrt/data/*/description/*.log
+nrt/data/*/description/*.pdf
+nrt/data/*/description/*.aux
+nrt/data/*/description/*.log
+nrt/data/*/description/*.out
 nrt/data/*/*/description/*.pdf
 nrt/data/*/*/description/*.aux
+nrt/data/*/*/description/*.log
 nrt/data/*/*/*/description/*.log
 nrt/data/*/*/*/description/*.pdf
 nrt/data/*/*/*/description/*.aux
