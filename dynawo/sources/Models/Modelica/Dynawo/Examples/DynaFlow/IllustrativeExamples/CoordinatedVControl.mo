@@ -84,7 +84,7 @@ equation
   connect(Bus.terminal, Line1.terminal1) annotation(
     Line(points = {{-40, 0}, {-20, 0}, {-20, -20}, {0, -20}}, color = {0, 0, 255}));
 
-  annotation(
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 3000, Tolerance = 1e-06, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
