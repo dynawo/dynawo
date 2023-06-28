@@ -54,8 +54,6 @@ model InitCase2 "Synchronous generator starting at 380 MW and 0 Mvar - Start val
   nq = 0) annotation(
     Placement(visible = true, transformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-equation
-
-  annotation(
+  annotation(preferredView = "text",
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst");
 end InitCase2;

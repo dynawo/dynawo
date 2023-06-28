@@ -100,7 +100,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
 
-  annotation(
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     //__OpenModelica_commandLineOptions = "--daeMode",
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
