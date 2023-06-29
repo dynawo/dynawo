@@ -1016,6 +1016,30 @@ void fill_alloc_real_array(real_array_t* dest, modelica_real value, int ndims, .
     }
 }
 
+/** function: integer_array_create
+ **
+ ** sets all fields in a integer_array, i.e. data, ndims and dim_size.
+ **/
+void integer_array_create(integer_array_t *dest, modelica_integer *data,
+                          int ndims, ...) {
+    va_list ap;
+    va_start(ap, ndims);
+    base_array_create(dest, data, ndims, ap);
+    va_end(ap);
+}
+
+/** function: real_array_create
+ **
+ ** sets all fields in a real_array, i.e. data, ndims and dim_size.
+ **/
+void real_array_create(real_array_t *dest, modelica_real *data, int ndims, ...) {
+    va_list ap;
+    va_start(ap, ndims);
+    base_array_create(dest, data, ndims, ap);
+    va_end(ap);
+}
+
+
 real_array_t sub_alloc_real_array(const real_array_t a, const real_array_t b) {
     real_array_t dest;
     clone_real_array_spec(&a, &dest);
@@ -1042,6 +1066,52 @@ void copy_real_array_data(const real_array_t source, real_array_t *dest) {
 /* Allocation of real data */
 void alloc_real_array_data(real_array_t *a) {
     a->data = real_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
+}
+
+void alloc_integer_array(integer_array_t* dest, int ndims, ...) {
+    size_t elements = 0;
+    va_list ap;
+    va_start(ap, ndims);
+    elements = alloc_base_array(dest, ndims, ap);
+    va_end(ap);
+    dest->data = new modelica_integer[elements];
+}
+
+/* Unpacks an integer_array that was packed with pack_integer_array */
+void unpack_integer_array(integer_array_t *a) {
+  if (sizeof(int) != sizeof(modelica_integer)) {
+    long i;
+    int * int_data = reinterpret_cast<int*>(a->data);
+    long n = (long)base_array_nr_of_elements(*a);
+
+    for (i = n - 1; i >= 0; --i) {
+      integer_set(a, i, int_data[i]);
+    }
+  }
+}
+
+void alloc_integer_array_data(integer_array_t* a) {
+    a->data = integer_alloc(base_array_nr_of_elements(*a));
+}
+
+void copy_integer_array(const integer_array_t source, integer_array_t *dest) {
+    clone_base_array_spec(&source, dest);
+    alloc_integer_array_data(dest);
+    copy_integer_array_data(*&source, dest);
+}
+
+void copy_integer_array_data(const integer_array_t source, integer_array_t* dest) {
+    size_t i, nr_of_elements;
+
+    assert(base_array_ok(&source));
+    assert(base_array_ok(dest));
+    assert(base_array_shape_eq(&source, dest));
+
+    nr_of_elements = base_array_nr_of_elements(source);
+
+    for (i = 0; i < nr_of_elements; ++i) {
+        integer_set(dest, i, integer_get(source, i));
+    }
 }
 
 void sub_real_array(const real_array_t * a, const real_array_t * b, real_array_t* dest) {

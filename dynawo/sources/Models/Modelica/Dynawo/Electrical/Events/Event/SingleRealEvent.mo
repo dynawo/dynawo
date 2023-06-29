@@ -13,7 +13,7 @@ within Dynawo.Electrical.Events.Event;
 * of simulation tools for power systems.
 */
 
-model SingleRealEvent "Specific model for Boolean one-variable event"
+model SingleRealEvent "Specific model for Real one-variable event"
   extends EventReal(nbEventVariables = 1);
 
   annotation(preferredView = "text");

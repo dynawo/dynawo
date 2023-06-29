@@ -13,7 +13,7 @@ within Dynawo.Electrical.Events.Event;
 * of simulation tools for power systems.
 */
 
-model TripleRealEvent "Specific model for Boolean three-variable event"
+model TripleRealEvent "Specific model for Real three-variable event"
   extends EventReal(nbEventVariables = 3);
 
   annotation(preferredView = "text");

@@ -115,7 +115,7 @@ ModelGenerator::evalF(propertyF_t /*type*/) {
 
 void
 ModelGenerator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState(id_ + "_Pc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_Qc_value", DISCRETE));
   variables.push_back(VariableAliasFactory::create(id_ + "_GENERATOR_state_value", id_ + "_state_value"));
@@ -126,7 +126,7 @@ ModelGenerator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelGenerator::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState("@ID@_Pc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_Qc_value", DISCRETE));
   variables.push_back(VariableAliasFactory::create("@ID@_GENERATOR_state_value", "@ID@_state_value"));
