@@ -14,11 +14,11 @@ within Dynawo.Examples.DynaFlow.IEEE14.TestCases;
 */
 
 model IEEE14NoEvent "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads."
-  import Dynawo.Electrical;
-  import Dynawo.Examples;
+  import Modelica;
+  import Dynawo;
   import Dynawo.Types;
 
-  extends Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
+  extends Dynawo.Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
   extends Modelica.Icons.Example;
 
   // Loads references
@@ -151,7 +151,7 @@ equation
   LineB13B14.switchOffSignal1.value = false;
   LineB13B14.switchOffSignal2.value = false;
   LineB1B5.switchOffSignal1.value = false;
-  LineB1B5.switchOffSignal2.value = false;
+  LineB1B5.switchOffSignal2.value = if time < -1 then true else false;
   LineB1B2.switchOffSignal1.value = false;
   LineB1B2.switchOffSignal2.value = false;
   LineB2B3.switchOffSignal1.value = false;
@@ -190,7 +190,7 @@ equation
   Bank9.switchOffSignal2.value = false;
 
   annotation(preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 2000, Tolerance = 1e-06, Interval = 10),
+    experiment(StartTime = 0, StopTime = 2000, Tolerance = 1e-6, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "euler", ls = "klu", nls = "kinsol"));
+    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));
 end IEEE14NoEvent;
