@@ -168,6 +168,12 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS0", vl2.getID()), Error::MODELER, KeyError_t::UnknownBus);
 
+  ASSERT_THROW_DYNAWO(serviceManager->isBusConnected("BUS0", vl.getID()), Error::MODELER, KeyError_t::UnknownBus);
+
+  ASSERT_THROW_DYNAWO(serviceManager->isBusConnected("BUS4", "notVL"), Error::MODELER, KeyError_t::UnknownVoltageLevel);
+
+  ASSERT_THROW_DYNAWO(serviceManager->isBusConnected("BUS0", vl2.getID()), Error::MODELER, KeyError_t::UnknownBus);
+
   auto connected = serviceManager->getBusesConnectedBySwitch("BUS4", vl.getID());
   ASSERT_EQ(0, connected.size());
 
@@ -175,24 +181,29 @@ TEST(DataInterfaceTest, ServiceManager) {
   ASSERT_EQ(2, connected.size());
   ASSERT_EQ(connected[0], "BUS2");
   ASSERT_EQ(connected[1], "BUS3");
+  ASSERT_TRUE(serviceManager->isBusConnected("BUS1", vl.getID()));
 
   connected = serviceManager->getBusesConnectedBySwitch("BUS2", vl.getID());
   ASSERT_EQ(2, connected.size());
   ASSERT_EQ(connected[0], "BUS1");
   ASSERT_EQ(connected[1], "BUS3");
+  ASSERT_TRUE(serviceManager->isBusConnected("BUS2", vl.getID()));
 
   switch1->open();
 
   connected = serviceManager->getBusesConnectedBySwitch("BUS1", vl.getID());
   ASSERT_EQ(1, connected.size());
   ASSERT_EQ(connected[0], "BUS3");
+  ASSERT_TRUE(serviceManager->isBusConnected("BUS1", vl.getID()));
 
   connected = serviceManager->getBusesConnectedBySwitch("BUS2", vl.getID());
   ASSERT_EQ(0, connected.size());
+  ASSERT_TRUE(serviceManager->isBusConnected("BUS2", vl.getID()));
 
   connected = serviceManager->getBusesConnectedBySwitch("BUS3", vl.getID());
   ASSERT_EQ(1, connected.size());
   ASSERT_EQ(connected[0], "BUS1");
+  ASSERT_TRUE(serviceManager->isBusConnected("BUS3", vl.getID()));
 
   // Node/breaker voltage level with internal connections
 
@@ -200,6 +211,7 @@ TEST(DataInterfaceTest, ServiceManager) {
   ASSERT_EQ("BUS54", bus54->getBusBarSectionIdentifiers()[0]);
   connected = serviceManager->getBusesConnectedBySwitch(bus54->getID(), vl2.getID());
   ASSERT_EQ(0, connected.size());
+  ASSERT_FALSE(serviceManager->isBusConnected(bus54->getID(), vl2.getID()));
 
   shared_ptr<BusInterface> bus51 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[0];
   shared_ptr<BusInterface> bus52 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[1];
@@ -211,11 +223,13 @@ TEST(DataInterfaceTest, ServiceManager) {
   ASSERT_EQ(2, connected.size());
   ASSERT_EQ(bus52->getID(), connected[0]);
   ASSERT_EQ(bus53->getID(), connected[1]);
+  ASSERT_TRUE(serviceManager->isBusConnected(bus51->getID(), vl2.getID()));
 
   connected = serviceManager->getBusesConnectedBySwitch(bus52->getID(), vl2.getID());
   ASSERT_EQ(2, connected.size());
   ASSERT_EQ(bus51->getID(), connected[0]);
   ASSERT_EQ(bus53->getID(), connected[1]);
+  ASSERT_TRUE(serviceManager->isBusConnected(bus52->getID(), vl2.getID()));
 
   boost::shared_ptr<SwitchInterface> switch5152 = interface.getNetwork()->getVoltageLevels()[1]->getSwitches()[0];
   switch5152->open();
@@ -223,13 +237,16 @@ TEST(DataInterfaceTest, ServiceManager) {
   connected = serviceManager->getBusesConnectedBySwitch(bus51->getID(), vl2.getID());
   ASSERT_EQ(1, connected.size());
   ASSERT_EQ(bus53->getID(), connected[0]);
+  ASSERT_TRUE(serviceManager->isBusConnected(bus53->getID(), vl2.getID()));
 
   connected = serviceManager->getBusesConnectedBySwitch(bus52->getID(), vl2.getID());
   ASSERT_EQ(0, connected.size());
+  ASSERT_FALSE(serviceManager->isBusConnected(bus52->getID(), vl2.getID()));
 
   connected = serviceManager->getBusesConnectedBySwitch(bus53->getID(), vl2.getID());
   ASSERT_EQ(1, connected.size());
   ASSERT_EQ(bus51->getID(), connected[0]);
+  ASSERT_TRUE(serviceManager->isBusConnected(bus51->getID(), vl2.getID()));
 }
 
 TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {

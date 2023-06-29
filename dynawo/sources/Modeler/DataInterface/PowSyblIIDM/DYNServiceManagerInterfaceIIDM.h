@@ -50,6 +50,11 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
   std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const final;
 
   /**
+   * @copydoc ServiceManagerInterface::isBusConnected
+   */
+  bool isBusConnected(const std::string& busId, const std::string& VLId) const final;
+
+  /**
    * @copydoc ServiceManagerInterface::getRegulatedBus
    */
   boost::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const;

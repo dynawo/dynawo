@@ -96,6 +96,49 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   return ret;
 }
 
+
+bool
+ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std::string& VLId) const {
+  const auto& levels = dataInterface_->getNetwork()->getVoltageLevels();
+  auto vlIt = std::find_if(levels.begin(), levels.end(), [&VLId](const boost::shared_ptr<DYN::VoltageLevelInterface>& vl) { return vl->getID() == VLId; });
+  if (vlIt == levels.end()) {
+    throw DYNError(Error::MODELER, UnknownVoltageLevel, VLId);
+  }
+  const auto& buses = (*vlIt)->getBuses();
+  auto it = std::find_if(buses.begin(), buses.end(), [&busId](const boost::shared_ptr<BusInterface>& bus) { return bus->getID() == busId;});
+
+  if (it == buses.end()) {
+    // check next voltage level if bus is not part of it
+    throw DYNError(Error::MODELER, UnknownBus, busId);
+  }
+  if ((*vlIt)->getVoltageLevelTopologyKind() == VoltageLevelInterface::BUS_BREAKER)
+    return true;
+
+  Graph graph;
+  buildGraph(graph, *vlIt);
+
+  // Change weight of edges
+  boost::unordered_map<std::string, float> weights;
+  for (const auto& sw : (*vlIt)->getSwitches()) {
+    weights[sw->getID()] = sw->isOpen() ? 0 : 1;
+  }
+
+  std::vector<std::string> ret;
+
+  size_t busIndexFound = it - buses.begin();
+  for (size_t busIndex = 0; busIndex < buses.size(); busIndex++) {
+    if (busIndex == busIndexFound) {
+      continue;
+    }
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), weights)) {
+      if (!buses[busIndex]->getBusBarSectionIdentifiers().empty()) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 boost::shared_ptr<BusInterface>
 ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingComponent) const {
   const auto& regulatingComp = dataInterface_->findComponent(regulatingComponent);

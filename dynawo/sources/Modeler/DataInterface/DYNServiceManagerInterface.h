@@ -65,6 +65,18 @@ struct ServiceManagerInterface {
   virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const = 0;
 
   /**
+   * @brief Returns true if the bus is connected to the network
+   *
+   * precondition: bus of id @p busId is contained in voltage level @p VLId . @p VLId argument is here to improve performance
+   * and avoid searching for the container of the bus.
+   *
+   * @param busId bus id to check
+   * @param VLId the id of the voltage level containing @p busId
+   * @returns true if the bus @p busId is connected to the network
+   */
+  virtual bool isBusConnected(const std::string& busId, const std::string& VLId) const = 0;
+
+  /**
    * @brief Retrieve the regulated bus interface
    *
    * @param regulatingComponent id of the regulating object
