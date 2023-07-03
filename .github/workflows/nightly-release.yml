@@ -35,48 +35,31 @@ jobs:
     name: Prepare nightly tag and release
     runs-on: ubuntu-latest
     steps:
-      - name: Delete previous nightly tag and release if necessary
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: .github/release.js
+          sparse-checkout-cone-mode: false
+
+      - name: Create nightly tag and release if necessary
         uses: actions/github-script@v6
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            try {
-              const { data: { object: { sha: sha_nightly } } } = await github.rest.git.getRef({ owner, repo, ref: "tags/${{ env.DYNAWO_TAG }}" });
-              const { data: { object: { sha: sha_master } } } = await github.rest.git.getRef({ owner, repo, ref: "heads/master" });
-              console.log("Current nightly tag SHA is:", sha_nightly);
-              console.log("Current master SHA is:", sha_master);
-
-              if (sha_nightly !== sha_master) {
-                try {
-                  const { data: { id: release_id } } = await github.rest.repos.getReleaseByTag({ owner, repo, tag: "${{ env.DYNAWO_TAG }}" });
-                  await github.rest.repos.deleteRelease({ owner, repo, release_id });
-                  console.log("Previous nightly release id", release_id, "was deleted.")
-                } catch (e) {
-                  console.log("Previous nightly release not found !");
-                }
-    
-                await github.rest.git.deleteRef({ owner, repo, ref: "tags/${{ env.DYNAWO_TAG }}" });
-                console.log("Previous nightly tag was deleted.")
-              }
-            } catch (e) {
-              console.log("Previous nightly tag not found !");
-            }
-
-      - name: Create newly nightly tag and release if necessary
-        uses: softprops/action-gh-release@v1
-        with:
+        env:
           body: |
             Dynawo's nightly release. Compiled on *release* settings.
             
             **Don't use it for production**
           draft: false
           prerelease: true
-          name: Nightly
+          release_name: Nightly
           tag_name: ${{ env.DYNAWO_TAG }}
-          target_commitish: "refs/heads/master"
+          target_commitish: heads/master
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
 
   fedora:
-    if: github.event_name != 'workflow_dispatch' || inputs.perform-linux
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux)
     name: Linux Fedora (Release, GCC, cxx11)
     runs-on: ubuntu-latest
     container: dynawo/dynawo-distribution-cxx11:latest
@@ -113,12 +96,19 @@ jobs:
         run: du -hs distributions/*
 
       - name: Upload assets for release
-        uses: softprops/action-gh-release@v1
-        with:
+        uses: actions/github-script@v6
+        env:
           tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
           files: |
             distributions/*.zip
             documentation/dynawoDocumentation/DynawoDocumentation.pdf
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
 
       # The secrets.DISPATCH_TOKEN should contain a fine-grained PAT with access to dynawo/dynawo-algorithms with Repository permissions 'Contents: Read and write'
       - name: Tell dynawo-algorithms the nightly release is ready
@@ -130,7 +120,7 @@ jobs:
             await github.rest.repos.createDispatchEvent({ owner: context.repo.owner, repo: "dynawo-algorithms", event_type: "nightly-linux" });
 
   windows:
-    if: github.event_name != 'workflow_dispatch' || inputs.perform-windows
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-windows)
     name: Windows 2019 (Release, VS2019)
     runs-on: windows-2019
     needs: nightly
@@ -209,11 +199,18 @@ jobs:
           move /y *.zip ${{ github.workspace }} 
 
       - name: Upload OpenModelica, 3rd parties and dynawo distribution
-        uses: softprops/action-gh-release@v1
-        with:
+        uses: actions/github-script@v6
+        env:
           tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
           files: |
             *.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('/dynawo/.github/release.js')
+            await release({github, context, core, glob})
 
       - name: Tell dynawo-algorithms the nightly release is ready
         if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
