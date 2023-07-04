@@ -13,25 +13,23 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 */
 
 partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
-  import Modelica;
   import Dynawo;
 
-  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrain;
+  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
   Dynawo.Electrical.Controls.WECC.DriveTrainPmConstant driveTrainPmConstrant(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, PInj0Pu = PInj0Pu, PePu(start = PInj0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {17.1733, -32.936}, extent = {{-7.38218, -5.33158}, {7.38218, 5.33158}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {-21, -32}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
 equation
-  connect(OmegaRef.y, driveTrainPmConstrant.omegaRefPu) annotation(
-    Line(points = {{-17, -32}, {10, -32}}, color = {0, 0, 127}));
   connect(driveTrainPmConstrant.omegaGPu, wecc_reec.omegaGPu) annotation(
-    Line(points = {{22, -26}, {22, -24}, {-26, -24}, {-26, -15}}, color = {0, 0, 127}));
-  connect(driveTrainPmConstrant.PePu, injector.PInjPuSn) annotation(
-    Line(points = {{27, -32}, {81.5, -32}, {81.5, -8}, {75, -8}}, color = {0, 0, 127}));
+    Line(points = {{-86, -35}, {-85, -35}, {-85, -11}}, color = {0, 0, 127}));
+  connect(injector.PInjPuSn, driveTrainPmConstrant.PePu) annotation(
+    Line(points = {{12, -4}, {25, -4}, {25, -40}, {-79, -40}}, color = {0, 0, 127}));
+  connect(OmegaRef.y, driveTrainPmConstrant.omegaRefPu) annotation(
+    Line(points = {{-179, 38}, {-175, 38}, {-175, -60}, {-110, -60}, {-110, -40}, {-101, -40}}, color = {0, 0, 127}));
 
   annotation(
-    Icon);
+    preferredView = "diagram",
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
 end BaseWT4A;

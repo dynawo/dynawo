@@ -2,5 +2,4 @@ ParamsDriveTrain
 ParamsElectricalControl
 ParamsGeneratorControl
 ParamsPlantControl
-ParamsPLL
 ParamsVSourceRef
