@@ -1342,7 +1342,7 @@ class Factory:
 
         for eq in self.list_int_equations:
             relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
-            for relation in relations_found:
+            for _ in relations_found:
                 self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
         for var in self.reader.list_calculated_vars :
