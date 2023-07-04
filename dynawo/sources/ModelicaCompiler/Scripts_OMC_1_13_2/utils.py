@@ -455,7 +455,7 @@ def sub_division_sim(line):
             div_block = get_div_block_sim(line_to_return, pos_start_div)
 
             arg1, end_pos_arg1 = get_argument(line_to_return, pos_start_div)
-            arg2, end_pos_arg2 = get_argument(line_to_return, end_pos_arg1 + 1)
+            arg2, _ = get_argument(line_to_return, end_pos_arg1 + 1)
             line_to_return = line_to_return.replace(div_block, "("+arg1 + ") / (" + arg2+")")
         nb_iter += 1
 

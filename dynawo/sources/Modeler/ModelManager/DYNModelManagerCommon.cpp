@@ -300,7 +300,7 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
     std::map<std::string, double>::const_iterator iter = values.find(intOutputsName[i]);
     if (iter == values.end())
       throw DYNError(Error::GENERAL, UnknownAutomatonOutput, modelName, intOutputsName[i]);
-    intOutputs[i] = iter->second;
+    intOutputs[i] = static_cast<int>(iter->second);
   }
 }
 
