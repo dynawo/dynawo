@@ -19,7 +19,7 @@ model HVDC "HVDC link connected to two infinite buses"
 
   extends Icons.Example;
 
-  Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSC HVDC(
+  Dynawo.Electrical.HVDC.HvdcVsc.HvdcVsc HVDC(
     CDcPu = 1.68,
     i10Pu = Complex(8.3614, -3.488),
     i20Pu = Complex(-8.6047, -3.3591),

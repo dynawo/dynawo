@@ -122,10 +122,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcPTanPhiDiagramPQ.xml
   HvdcPTanPhiDangling.xml
   HvdcPTanPhiDanglingDiagramPQ.xml
-  HvdcVSC.xml
-  HvdcVSCDanglingP.xml
-  HvdcVSCDanglingUdc.xml
-  HvdcVSCEmulation.xml
+  HvdcVsc.xml
+  HvdcVscDanglingP.xml
+  HvdcVscDanglingUDc.xml
+  HvdcVscEmulation.xml
   IECWPP4ACurrentSource.xml
   IECWPP4BCurrentSource.xml
   IECWT4ACurrentSource.xml

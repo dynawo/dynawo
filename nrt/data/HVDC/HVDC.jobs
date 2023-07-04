@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="HvdcVSC">
+    <job name="HvdcVsc">
         <solver lib="dynawo_SolverIDA" parFile="HVDC.par" parId="8"/>
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="HVDC.dyd"/>

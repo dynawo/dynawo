@@ -74,7 +74,7 @@ endforeach()
 ## DYNASWING
 
 file(GLOB DynaSwingGenerators GeneratorSynchronous*.xml)
-file(GLOB DynaSwingHvdcs HvdcVSC*.xml)
+file(GLOB DynaSwingHvdcs HvdcVsc*.xml)
 file(GLOB DynaSwingSVarC StaticVarCompensator.xml StaticVarCompensatorStepURef.xml)
 add_custom_target(DYNASWING_MODELS)
 foreach(item IN LISTS Basics Bus DynaSwingGenerators Events Fault Line Loads GridForming DynaSwingHvdcs InfiniteBus DynaSwingSVarC Renewable Transformer)

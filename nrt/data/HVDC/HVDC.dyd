@@ -16,7 +16,7 @@
   <dyn:blackBoxModel id="InfBus2" lib="InfiniteBus" parFile="HVDC.par" parId="2"/>
   <dyn:blackBoxModel id="Line1" lib="Line" parFile="HVDC.par" parId="3"/>
   <dyn:blackBoxModel id="Line2" lib="Line" parFile="HVDC.par" parId="4"/>
-  <dyn:blackBoxModel id="HVDC" lib="HvdcVSC" parFile="HVDC.par" parId="5"/>
+  <dyn:blackBoxModel id="HVDC" lib="HvdcVsc" parFile="HVDC.par" parId="5"/>
   <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="HVDC.par" parId="6"/>
   <dyn:blackBoxModel id="PRef" lib="CombiTimeTable" parFile="HVDC.par" parId="71"/>
   <dyn:blackBoxModel id="UDcRef" lib="CombiTimeTable" parFile="HVDC.par" parId="72"/>
