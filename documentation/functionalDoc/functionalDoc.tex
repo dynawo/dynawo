@@ -447,7 +447,7 @@ The HVDC package contains different HVDC models: complete standard VSC model for
 \item The HvdcPQProp models are simplified VSC models, with a proportional reactive control and a certain active power flowing into the link.
 \item The HvdcPV models are simplified VSC models, that regulates the network voltage at both sides and respects a certain active power flowing into the link (represented as a constant loss factor).
 \item The HvdcPTanPhi are simplified LCC models, for which the reactive power output is calculated thanks to a power factor and the active power is set (with constant losses in the DC line as for the HvdcPV model).
-\item The HvdcVSC models are standard VSC models, with a complete control scheme (active power control, dc and ac voltage control, etc.) and a physical DC line model. More details are available in \cite{AverageHVDC}
+\item The HvdcVsc models are standard VSC models, with a complete control scheme (active power control, dc and ac voltage control, etc.) and a physical DC line model. More details are available in \cite{AverageHVDC}
 \end{itemize}
 It also contains a BaseControls subpackage that gathers some control elements that can be used for several models (AC emulation for example).
 
@@ -534,7 +534,7 @@ The different preassembled models delivered with \Dynawo are:
 \item Several GeneratorPV and GeneratorPQ are generator preassembled models that can be connected to a SignalN implicit frequency model.
 \item GenericAutomaton that enables to call a C function every few s (corresponding to the GenericAutomaton model)
 \item Three grid forming converter models featuring different types of control: GridFormingConverterMatchingControl, GridFormingConverterDroopControl and GridFormingConverterDispatchableVirtualOscillatorControl
-\item The different HVDC models: a standard VSC model (HvdcVSC), simplified VSC models and simplified LCC models.
+\item The different HVDC models: a standard VSC model (HvdcVsc), simplified VSC models and simplified LCC models.
 \item Different load models: LoadAlphaBeta corresponding to the LoadAlphaBeta model, LoadOneTransformer which is a load alpha beta plus a transformer, LoadTwoTransformers which is a load alpha beta behind two transformers, LoadPQ corresponding to the constant LoadPQ model, LoadAlphaBetaRestorative corresponding to the LoadAlphaBetaRestorative model, LoadZIp corresponding to the LoadZIP model.
 \item PhaseShifterI and PhaseShifterP that are phase shifter models controlling either the current or the active power
 \item The \ac{WECC} photovoltaics models (voltage and current source ones)
