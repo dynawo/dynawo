@@ -460,6 +460,11 @@ class NetworkComponent {  ///< Base class for network component models
    * @param other NetworkComponent to copy
    */
   explicit NetworkComponent(const NetworkComponent& other) = delete;
+  /**
+   * @brief assignment
+   * @param other NetworkComponent to copy
+   */
+  NetworkComponent& operator=(const NetworkComponent& other) = delete;
 
  protected:
   double* y_;  ///< continuous variable
