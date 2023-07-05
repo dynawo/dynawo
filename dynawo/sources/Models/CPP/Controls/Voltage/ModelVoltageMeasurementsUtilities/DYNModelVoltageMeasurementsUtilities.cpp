@@ -258,7 +258,7 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
     name.str("");
     name.clear();
     name << "running_" << i << "_value";
-    variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
+    variables.push_back(VariableNativeFactory::createState(name.str(), INTEGER));
   }
 }
 
