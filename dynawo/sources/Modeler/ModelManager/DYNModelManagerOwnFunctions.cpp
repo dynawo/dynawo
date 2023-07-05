@@ -1091,7 +1091,7 @@ void unpack_integer_array(integer_array_t *a) {
 }
 
 void alloc_integer_array_data(integer_array_t* a) {
-    a->data = integer_alloc(base_array_nr_of_elements(*a));
+    a->data = integer_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
 }
 
 void copy_integer_array(const integer_array_t source, integer_array_t *dest) {
