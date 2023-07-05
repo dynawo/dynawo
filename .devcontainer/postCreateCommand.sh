@@ -23,6 +23,11 @@ export CMAKE_PREFIX_PATH=/opt/dynawo/cmake/:/opt/dynawo/share/cmake
 
 "$DYNAWO_HOME"/util/envDynawo.sh $@' > myEnvDynawo.sh
 chmod +x myEnvDynawo.sh
+echo '#!/bin/bash' > .vscode/fixForCodespaces.sh
+echo 'sed -i '"'"'17a\ \ \ \ \"cmake.parallelJobs": "1",'"'"' .vscode/settings.json' >> .vscode/fixForCodespaces.sh
+echo 'sed -i '"'"'s|\${workspaceFolder}/OpenModelica/Install|/opt/dynawo/OpenModelica|'"'"' .vscode/settings.json' >> .vscode/fixForCodespaces.sh
+echo 'sed -i '"'"'s/@CMAKE_GENERATOR@/Unix Makefiles/'"'"' dynawo/sources/ModelicaCompiler/PreloadCache.cmake.in' >> .vscode/fixForCodespaces.sh
+chmod +x .vscode/fixForCodespaces.sh
 ./myEnvDynawo.sh deploy-autocompletion --deploy
 sudo chmod -R 777 /opt
 cd /opt
@@ -36,6 +41,9 @@ rm -rf share/DYN* share/dynawo-* share/dictionaries_mapping.dic share/solvers.pa
 rm -rf share/cmake/Find* share/cmake/CPUCount.cmake
 rm -rf include/DYD* include/DYN* include/TL* include/JOB* include/PAR* include/CSTR* include/EXTVAR* include/CRV* include/CRT* include/FSV* include/LEQ* include/Modelica*
 rm -rf lib/dynawo_* lib/libdynawo_* lib/libModelica_externalC.so
+rm -rf include/boost include/powsybl
+rm -rf share/cmake/libiidm-config*
+rm -rf lib/libiidm*
 ln -s /opt/dynawo/ /opt/dynawo/adept
 ln -s /opt/dynawo/ /opt/dynawo/xerces-c
 ln -s /opt/dynawo/ /opt/dynawo/suitesparse
@@ -44,6 +52,3 @@ ln -s /opt/dynawo/ /opt/dynawo/libxml2
 ln -s /opt/dynawo/ /opt/dynawo/libzip
 cp /opt/dynawo/lib/libl* /opt/dynawo/OpenModelica/lib/x86_64-linux-gnu/omc
 cp /opt/dynawo/lib/libgfortran.so.3 /opt/dynawo/OpenModelica/lib/x86_64-linux-gnu/omc
-sed -i '17a\ \ \ \ \"cmake.parallelJobs": "1",' .vscode/settings.json
-sed -i 's|\${workspaceFolder}/OpenModelica/Install|/opt/dynawo/OpenModelica|' .vscode/settings.json
-sed -i 's/@CMAKE_GENERATOR@/Unix Makefiles/' dynawo/sources/ModelicaCompiler/PreloadCache.cmake.in
