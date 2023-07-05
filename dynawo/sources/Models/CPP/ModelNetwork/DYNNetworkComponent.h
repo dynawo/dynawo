@@ -463,7 +463,7 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief assignment
    * @param other NetworkComponent to copy
-   * @param return current modified instance
+   * @return current modified instance
    */
   NetworkComponent& operator=(const NetworkComponent& other) = delete;
 
