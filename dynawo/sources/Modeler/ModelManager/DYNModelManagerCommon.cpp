@@ -272,7 +272,8 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
   std::stringstream ss;
   std::string commandStr(command);
   boost::replace_all(commandStr, "${AUTOMATON_WORKING_DIR}", workingDir);
-  executeCommand(commandStr, ss);
+  if (executeCommand(commandStr, ss) != 0)
+    throw DYNError(Error::GENERAL, SystemCallFailed, commandStr, ss.str());
 
   Trace::debug() << ss.str() << Trace::endline;
 
