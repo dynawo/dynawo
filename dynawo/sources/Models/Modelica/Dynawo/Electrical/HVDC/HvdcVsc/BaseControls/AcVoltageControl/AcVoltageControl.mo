@@ -26,9 +26,9 @@ model AcVoltageControl "AC voltage control for HVDC"
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "If true, HVDC link is blocked" annotation(
     Placement(visible = true, transformation(origin = {160, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput iqMaxPu(start = sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Maximum reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMaxPu(start = sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Maximum reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-320, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqMinPu(start = -sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Minimum reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMinPu(start = -sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Minimum reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-320, -140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.BooleanInput modeU(start = ModeU0) "If true, control in U mode, if false, control in Q mode" annotation(
     Placement(visible = true, transformation(origin = {-220, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -44,9 +44,9 @@ model AcVoltageControl "AC voltage control for HVDC"
     Placement(visible = true, transformation(origin = {-320, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {310, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.AcVoltageControl.QRefQU qRefQU(KiAc = KiAc, KpAc = KpAc, LambdaPu = LambdaPu, Q0Pu = Q0Pu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, U0Pu = U0Pu) "Function that calculates QRef for the Q mode and the U mode depending on the setpoints for URef and QRef" annotation(
@@ -84,8 +84,8 @@ model AcVoltageControl "AC voltage control for HVDC"
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold annotation(
     Placement(visible = true, transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU0 "Initial mode of control : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (DC to AC)";

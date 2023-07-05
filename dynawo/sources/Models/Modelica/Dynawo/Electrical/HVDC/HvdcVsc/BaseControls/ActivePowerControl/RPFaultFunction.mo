@@ -34,7 +34,7 @@ model RPFaultFunction "rpfault function for HVDC"
 equation
   when (blocked1 or blocked2) == true then
     timer = Modelica.Constants.inf;
-  elsewhen (blocked1 or blocked2) == false then
+  elsewhen (blocked1 and blocked2) == false then
     timer = time;
   end when;
 

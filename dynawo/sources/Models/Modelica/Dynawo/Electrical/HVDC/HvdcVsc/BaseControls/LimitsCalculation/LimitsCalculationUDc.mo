@@ -22,15 +22,15 @@ model LimitsCalculationUDc "Reactive and active currents limits calculation mode
   parameter Types.PerUnit IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
 
   //Input variable
-  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current at terminal 1 in case of fault or overvoltage in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current at terminal 1 in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-30,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {111, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   //Output variables
   Modelica.Blocks.Interfaces.BooleanOutput activateDeltaP(start = false) "If true, DeltaP is activated" annotation(
     Placement(visible = true, transformation(origin = {290, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = InPu) "Maximum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = InPu) "Maximum active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, 85}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput ipMinPu(start = -InPu) "Minimum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipMinPu(start = -InPu) "Minimum active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, 69}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation

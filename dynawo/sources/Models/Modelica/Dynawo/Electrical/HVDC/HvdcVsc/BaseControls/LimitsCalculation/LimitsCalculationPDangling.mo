@@ -20,9 +20,9 @@ model LimitsCalculationPDangling "Reactive and active currents limits calculatio
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation.BaseLimitsCalculation;
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = IpMaxPu) "Maximum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = IpMaxPu) "Maximum active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, 85}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput ipMinPu(start = -IpMaxPu) "Minimum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipMinPu(start = -IpMaxPu) "Minimum active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, 69}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation

@@ -20,21 +20,21 @@ model BaseLimitsCalculation "Reactive and active currents limits calculation bas
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput ipRefPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipRefPu(start = Ip0Pu) "Active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-60,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {0,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput iqMaxPu(start = sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Maximum reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqMaxPu(start = sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Maximum reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = -sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Minimum reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = -sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Minimum reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = { -110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
 
 equation
   if iqModPu == 0 then

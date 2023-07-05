@@ -28,7 +28,7 @@ model DcVoltageControlSide "DC voltage control side of the HVDC link"
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "If true, converter is blocked" annotation(
     Placement(visible = true, transformation(origin = {-107, 0}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-46, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current at terminal 1 in case of fault or overvoltage in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current at terminal 1 in case of fault or overvoltage in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {107, 12}, extent = {{7, -7}, {-7, 7}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.BooleanInput modeU(start = ModeU0) "Mode of control : if true, U mode, if false, Q mode" annotation(
     Placement(visible = true, transformation(origin = {-107, -100}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -50,11 +50,11 @@ model DcVoltageControlSide "DC voltage control side of the HVDC link"
   //Output variables
   Modelica.Blocks.Interfaces.BooleanOutput activateDeltaP(start = false) "If true, DeltaP is activated" annotation(
     Placement(visible = true, transformation(origin = {107, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-110, 86}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, 70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, -70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcVoltageControl.DcVoltageControl dCVoltageControl(Ip0Pu = Ip0Pu, IpMaxPu = IpMaxPu, KiDc = KiDc, KpDc = KpDc, RDcPu = RDcPu, SNom = SNom, tMeasureU = tMeasureU, U0Pu = U0Pu, UDc0Pu = UDc0Pu, UDcRef0Pu = UDcRef0Pu, UDcRefMaxPu = UDcRefMaxPu, UDcRefMinPu = UDcRefMinPu) "DC voltage control for HVDC" annotation(
@@ -64,13 +64,13 @@ model DcVoltageControlSide "DC voltage control side of the HVDC link"
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation.LimitsCalculationUDc limitsCalculationUDc(InPu = InPu, Ip0Pu = Ip0Pu, IpDeadBandPu = IpDeadBandPu, IpMaxPu = IpMaxPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU0 "Initial mode of control : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (DC to AC)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base UDcNom)";
   parameter Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
 
 equation

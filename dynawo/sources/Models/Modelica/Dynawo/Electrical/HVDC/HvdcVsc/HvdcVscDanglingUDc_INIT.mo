@@ -17,7 +17,7 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
 
   parameter Types.PerUnit LambdaPu "Lambda coefficient for the QRefUPu calculation in pu (base SNom, UNom)";
   parameter Boolean ModeU1Set "Set mode of control on side 1 : if true, U mode, if false, Q mode";
-  parameter Types.PerUnit RDcPu "DC line resistance in pu (base UNom, SnRef)";
+  parameter Types.PerUnit RDcPu "DC line resistance in pu (base SnRef, UNom)";
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";
@@ -25,9 +25,9 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 in rad";
 
-  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (AC to DC)";
-  Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom) (DC to AC)";
-  Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom) (DC to AC)";
+  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
+  Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (DC to AC)";
   Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (AC to DC)";
