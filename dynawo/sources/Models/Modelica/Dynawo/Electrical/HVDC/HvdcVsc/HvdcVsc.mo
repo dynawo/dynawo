@@ -20,11 +20,11 @@ model HvdcVsc "HVDC VSC model"
 
   extends AdditionalIcons.Hvdc;
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsActivePowerControl;
-  extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
+  extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsBlockingFunction;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcLine;
+  extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDeltaP;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
@@ -47,7 +47,7 @@ model HvdcVsc "HVDC VSC model"
     Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu * (SystemBase.SnRef / SNom)) "Reactive power reference for the side 2 of the HVDC link in pu (base SNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UDcRefPu(start = UDcRef0Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UDcRefPu(start = UDcRef0Pu) "DC voltage reference of the HVDC link in pu (base UDcNom)" annotation(
     Placement(visible = true, transformation(origin = {60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - LambdaPu * Q10Pu * (SystemBase.SnRef / SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -80,12 +80,12 @@ model HvdcVsc "HVDC VSC model"
   Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
   Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
-  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (AC to DC)";
-  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base UNom, SnRef) (AC to DC)";
-  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom) (DC to AC)";
+  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
+  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base SnRef, UNom) (AC to DC)";
+  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   parameter Boolean ModeU20 "Initial mode of control on side 2 : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";

@@ -45,9 +45,9 @@ model DcVoltageControlSideDangling "DC voltage control side for the HVDC VSC mod
     Placement(visible = true, transformation(origin = {-107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-33, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, 70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { 110, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, -70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcVoltageControl.DcVoltageControlDangling dCVoltageControl(Ip0Pu = Ip0Pu, IpMaxPu = IpMaxPu, KiDc = KiDc, KpDc = KpDc, RDcPu = RDcPu, SNom = SNom, tMeasureU = tMeasureU, U0Pu = U0Pu, UDc0Pu = UDc0Pu, UDcRef0Pu = UDcRef0Pu, UDcRefMaxPu = UDcRefMaxPu, UDcRefMinPu = UDcRefMinPu) "DC voltage control for HVDC" annotation(
@@ -57,13 +57,13 @@ model DcVoltageControlSideDangling "DC voltage control side for the HVDC VSC mod
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation.LimitsCalculationUDcDangling limitsCalculationUDc(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxPu = IpMaxPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU0 "Initial mode of control : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (DC to AC)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base UDcNom)";
   parameter Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
 
 equation

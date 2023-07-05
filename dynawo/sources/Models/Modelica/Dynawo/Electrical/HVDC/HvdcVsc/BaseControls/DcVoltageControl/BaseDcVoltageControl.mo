@@ -25,9 +25,9 @@ model BaseDcVoltageControl "Base DC voltage control for the HVDC VSC model"
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMaxPu) "Maximum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMaxPu) "Maximum active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-300, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput ipMinPu(start = -IpMaxPu) "Minimum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipMinPu(start = -IpMaxPu) "Minimum active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-300, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput UDcPu(start = UDc0Pu) "DC voltage in pu (base UDcNom)" annotation(
     Placement(visible = true, transformation(origin = {-300, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -43}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -37,7 +37,7 @@ model BaseDcVoltageControl "Base DC voltage control for the HVDC VSC model"
     Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tMeasureU, y_start = U0Pu) annotation(
@@ -65,7 +65,7 @@ model BaseDcVoltageControl "Base DC voltage control for the HVDC VSC model"
   Modelica.Blocks.Math.Gain gain3(k = SNom / SystemBase.SnRef) annotation(
     Placement(visible = true, transformation(origin = {-50, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
   parameter Types.VoltageModulePu U0Pu "Start value of AC voltage in pu (base UNom)";
   parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base UDcNom)";
   parameter Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";

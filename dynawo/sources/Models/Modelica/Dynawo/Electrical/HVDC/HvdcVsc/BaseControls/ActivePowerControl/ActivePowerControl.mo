@@ -23,7 +23,7 @@ model ActivePowerControl "Active power control for the HVDC VSC model"
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput activateDeltaP(start = false) "If true, DeltaP is activated" annotation(
     Placement(visible = true, transformation(origin = {-220, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UDcPu(start = UDc0Pu) "DC voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UDcPu(start = UDc0Pu) "DC voltage in pu (base UDcNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Sources.Constant constant1(k = 0) annotation(
@@ -37,7 +37,7 @@ model ActivePowerControl "Active power control for the HVDC VSC model"
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-120, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base UDcNom)";
 
 equation
   connect(activateDeltaP, switch.u2) annotation(

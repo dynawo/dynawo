@@ -23,8 +23,8 @@ model HvdcVscDanglingP "HVDC VSC model with terminal2 connected to a switched-of
   extends AdditionalIcons.Hvdc;
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsActivePowerControl;
-  extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsBlockingFunction;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
+  extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsBlockingFunction;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -67,9 +67,9 @@ model HvdcVscDanglingP "HVDC VSC model with terminal2 connected to a switched-of
   Constants.state Conv2_state(start = Conv2_State0) "Converter 2 connection state";
 
   parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
-  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (AC to DC)";
-  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom) (DC to AC)";
+  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
+  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";
   parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (AC to DC)";

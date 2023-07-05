@@ -29,9 +29,9 @@ model ActivePowerControlSide "Active power control side of the HVDC link"
     Placement(visible = true, transformation(origin = {-107, 0}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {49, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.BooleanInput blocked2(start = false) "If true, converter 2 is blocked" annotation(
     Placement(visible = true, transformation(origin = {-107, 20}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {71, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput iqMod2Pu(start = 0) "Additional reactive current at terminal 2 in case of fault or overvoltage in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMod2Pu(start = 0) "Additional reactive current at terminal 2 in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, 12}, extent = {{7, -7}, {-7, 7}}, rotation = 0), iconTransformation(origin = {110, -58}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput iqRef2Pu(start = Iq0Pu) "Reactive current reference at terminal 2 in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqRef2Pu(start = Iq0Pu) "Reactive current reference at terminal 2 in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, -12}, extent = {{7, -7}, {-7, 7}}, rotation = 0), iconTransformation(origin = {-110, -69}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.BooleanInput modeU(start = ModeU0) "Mode of control : if true, U mode, if false, Q mode" annotation(
     Placement(visible = true, transformation(origin = {-107, -100}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -51,11 +51,11 @@ model ActivePowerControlSide "Active power control side of the HVDC link"
     Placement(visible = true, transformation(origin = {-107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {33, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, 70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { -110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {107, -70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { -110, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl.ActivePowerControl activePowerControl(Ip0Pu = Ip0Pu, IpMaxPu = IpMaxPu, KiDeltaP = KiDeltaP, KiP = KiP, KpDeltaP = KpDeltaP, KpP = KpP, P0Pu = P0Pu, POpMaxPu = POpMaxPu, POpMinPu = POpMinPu, SlopePRefPu = SlopePRefPu, SlopeRPFault = SlopeRPFault, tMeasureP = tMeasureP, UDc0Pu = UDc0Pu, UDcMaxPu = UDcMaxPu, UDcMinPu = UDcMinPu) "Active power control for HVDC link" annotation(
@@ -65,13 +65,13 @@ model ActivePowerControlSide "Active power control side of the HVDC link"
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.AcVoltageControl.AcVoltageControl aCVoltageControl(InPu = InPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, IqModTableName = IqModTableName, KiAc = KiAc, KpAc = KpAc, LambdaPu = LambdaPu, P0Pu = P0Pu, Q0Pu = Q0Pu, QOpMaxPu = QOpMaxPu, QOpMinPu = QOpMinPu, QPMaxTableName = QPMaxTableName, QPMinTableName = QPMinTableName, QUMaxTableName = QUMaxTableName, QUMinTableName = QUMinTableName, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TablesFile = TablesFile, tMeasure = tMeasure, tQ = tQ, U0Pu = U0Pu, ModeU0 = ModeU0) "AC voltage control for HVDC" annotation(
     Placement(visible = true, transformation(origin = {-30, -70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU0 "Initial mode of control : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (DC to AC)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base UDcNom)";
 
 equation
   connect(blocked1, activePowerControl.blocked1) annotation(
