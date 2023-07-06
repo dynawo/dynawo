@@ -99,7 +99,7 @@ equation
   connect(firstOrder.y, add.u2) annotation(
     Line(points = {{62, -81}, {62, -80}, {80, -80}, {80, -46}, {98, -46}}, color = {0, 0, 127}));
   connect(switch1.y, gain.u) annotation(
-    Line(points = {{241, 0}, {241, -1}, {259, -1}}, color = {0, 0, 127}));
+    Line(points = {{241, 0}, {259, 0}}, color = {0, 0, 127}));
   connect(URefPu, qRefQU.URefPu) annotation(
     Line(points = {{-320, 60}, {-280, 60}, {-280, 24}, {-222, 24}}, color = {0, 0, 127}));
   connect(QRefPu, qRefQU.QRefPu) annotation(

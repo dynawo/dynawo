@@ -53,13 +53,13 @@ model HvdcVscDanglingUDc "HVDC VSC model with terminal2 connected to a switched-
 
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcVoltageControlSideDangling UDcPuSide(InPu = InPu, Ip0Pu = Ip10Pu, IpMaxPu = IpMaxPu, Iq0Pu = Iq10Pu, IqModTableName = IqModTableName, KiAc = KiAc, KiDc = KiDc, KpAc = KpAc, KpDc = KpDc, LambdaPu = LambdaPu, P0Pu = - P10Pu * (SystemBase.SnRef / SNom), Q0Pu = - Q10Pu * (SystemBase.SnRef / SNom), QOpMaxPu = QOpMaxPu, QOpMinPu = QOpMinPu, QPMaxTableName = QPMaxTableName, QPMinTableName = QPMinTableName, QUMaxTableName = QUMaxTableName, QUMinTableName = QUMinTableName, RDcPu = RDcPu, SNom = SNom, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TablesFile = TablesFile, tMeasure = tMeasure, tMeasureU = tMeasureU, tQ = tQ, U0Pu = U10Pu, UDc0Pu = UDc10Pu, UDcRef0Pu = UDcRef0Pu, UDcRefMaxPu = UDcRefMaxPu, UDcRefMinPu = UDcRefMinPu, ModeU0 = ModeU10) "DC voltage control side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-45, 0}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcLine.DcLine dCLine(CDcPu = CDcPu, P10Pu = - P10Pu * (SystemBase.SnRef / SNom), P20Pu = - P20Pu * (SystemBase.SnRef / SNom), RDcPu = RDcPu, SNom = SNom, UDc10Pu = UDc10Pu, UDc20Pu = UDc20Pu) "DC line model" annotation(
+  Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcLine.DcLine dCLine(CDcPu = CDcPu, P10Pu = - P10Pu * (SystemBase.SnRef / SNom), P20Pu =  P10Pu * (SystemBase.SnRef / SNom), RDcPu = RDcPu, SNom = SNom, UDc10Pu = UDc10Pu, UDc20Pu = UDc20Pu) "DC line model" annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-12, -8}, {12, 8}}, rotation = 0)));
   Dynawo.Electrical.Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu, Q0Pu = Q10Pu, SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu) "Injector of the DC voltage control side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.BlockingFunction.BlockingFunction Blocking(tBlock = tBlock, tBlockUnderV = tBlockUnderV, tMeasureUBlock = tMeasureUBlock, tUnblock = tUnblock, U0Pu = U10Pu, UBlockUnderVPu = UBlockUnderVPu, UMaxDbPu = UMaxDbPu, UMinDbPu = UMinDbPu) annotation(
     Placement(visible = true, transformation(origin = {-90, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant ConstantPdcDanglingTerminal(k = -P20Pu * (SystemBase.SnRef / SNom)) annotation(
+  Modelica.Blocks.Sources.Constant ConstantPdcDanglingTerminal(k = P10Pu * (SystemBase.SnRef / SNom)) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PQDanglingTerminal(k = 0) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,7 +75,6 @@ model HvdcVscDanglingUDc "HVDC VSC model with terminal2 connected to a switched-
   parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";
-  parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (AC to DC)";
   parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (AC to DC)";
   parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (AC to DC)";
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
