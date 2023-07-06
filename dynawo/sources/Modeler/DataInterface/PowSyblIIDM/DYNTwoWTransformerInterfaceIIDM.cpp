@@ -383,8 +383,8 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
     tap0 = getPhaseTapChanger()->getCurrentPosition();
     tapMin = getPhaseTapChanger()->getLowPosition();
     tapMax = tapMin - 1 + getPhaseTapChanger()->getNbTap();
-    double thresholdI = getPhaseTapChanger()->getThresholdI();
-    double targetP = getPhaseTapChanger()->getTargetP();
+    double thresholdI = getPhaseTapChanger()->getRegulationValue();
+    double targetP = getPhaseTapChanger()->getRegulationValue();
     double factorAToPu = sqrt(3) * getVNom1() / (1000 * SNREF);
     staticParameters_.insert(std::make_pair("pTarget", StaticParameter("pTarget", StaticParameter::DOUBLE).setValue(targetP/SNREF)));
     staticParameters_.insert(std::make_pair("iMax", StaticParameter("iMax", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
