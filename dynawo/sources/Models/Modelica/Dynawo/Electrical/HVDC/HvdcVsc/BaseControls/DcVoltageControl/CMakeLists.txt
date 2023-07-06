@@ -11,9 +11,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  BaseDcVoltageControl.mo
   DcVoltageControl.mo
-  DcVoltageControlDangling.mo
   )
 
 #
