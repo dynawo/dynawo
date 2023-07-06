@@ -177,7 +177,7 @@ modelType_("TwoWindingsTransformer") {
 
     // At the moment, only current regulation is supported.
     bool regulating = phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
-    double thresholdI = phaseTapChanger->getThresholdI();
+    double thresholdI = phaseTapChanger->getRegulationValue();
     modelPhaseChanger_->setRegulating(regulating);
     modelPhaseChanger_->setThresholdI(thresholdI);
   } else if (ratioTapChanger) {

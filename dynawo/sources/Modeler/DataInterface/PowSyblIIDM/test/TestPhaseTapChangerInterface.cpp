@@ -187,12 +187,12 @@ TEST(DataInterfaceTest, PhaseTapChanger_2WT) {
 
   ptcCopy.setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::FIXED_TAP);
   ASSERT_FALSE(Ifce.isCurrentLimiter());
-  ASSERT_DOUBLE_EQ(Ifce.getThresholdI(), 99999.0);
+  ASSERT_DOUBLE_EQ(Ifce.getRegulationValue(), 99999.0);
 
   ptcCopy.setRegulationValue(100000.0);
   ptcCopy.setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::CURRENT_LIMITER);
   ASSERT_TRUE(Ifce.isCurrentLimiter());
-  ASSERT_DOUBLE_EQ(Ifce.getThresholdI(), 100000.0);
+  ASSERT_DOUBLE_EQ(Ifce.getRegulationValue(), 100000.0);
 
   ptcCopy.setRegulating(true);
   ASSERT_TRUE(Ifce.getRegulating());
