@@ -9,15 +9,16 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 partial model BaseWT4B "Base model for WECC Wind Turbine 4B"
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
 equation
-  connect(OmegaRef.y, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-179, 38}, {-175, 38}, {-175, -60}, {-85, -60}, {-85, -11}}, color = {0, 0, 127}));
+  connect(OmegaRef.y, reec.omegaGPu) annotation(
+    Line(points = {{-179, 34}, {-175, 34}, {-175, -60}, {-84, -60}, {-84, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram");

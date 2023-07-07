@@ -1,4 +1,4 @@
-time;WECCPV_photovoltaics_injector_PInjPu;WECCPV_photovoltaics_injector_QInjPu;WECCPV_photovoltaics_injector_terminal_V_re;WECCPV_photovoltaics_injector_terminal_i_re;WECCPV_photovoltaics_injector_terminal_V_im;WECCPV_photovoltaics_injector_terminal_i_im;WECCPV_photovoltaics_pll_omegaPLLPu;
+time;WECCPV_photovoltaics_regc_PInjPu;WECCPV_photovoltaics_regc_QInjPu;WECCPV_photovoltaics_regc_terminal_V_re;WECCPV_photovoltaics_regc_terminal_i_re;WECCPV_photovoltaics_regc_terminal_V_im;WECCPV_photovoltaics_regc_terminal_i_im;WECCPV_photovoltaics_pll_omegaPLLPu;
 0.000000;0.700000;0.279500;1.030000;-0.700000;0.105001;0.199999;1.000000;
 0.000000;0.700000;0.279500;1.030000;-0.700000;0.105001;0.199999;1.000000;
 0.000010;0.700000;0.279500;1.030000;-0.700000;0.105001;0.199999;1.000000;

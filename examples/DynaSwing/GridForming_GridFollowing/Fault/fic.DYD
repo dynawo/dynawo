@@ -35,13 +35,13 @@
   <blackBoxModel id="WP1" lib="WTG4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP1">
     <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
     <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
-    <staticRef var="WTG4A_injector_state" staticVar="state"/>
+    <staticRef var="WTG4A_regc_injectorIDQ_state" staticVar="state"/>
   </blackBoxModel>
   <macroConnect connector="WTG4AToNode" id1="WP1" id2="NETWORK"/>
   <blackBoxModel id="WP2" lib="WTG4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP2">
     <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
     <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
-    <staticRef var="WTG4A_injector_state" staticVar="state"/>
+    <staticRef var="WTG4A_regc_injectorIDQ_state" staticVar="state"/>
   </blackBoxModel>
   <macroConnect connector="WTG4AToNode" id1="WP2" id2="NETWORK"/>
 <!-- Grid frequency -->
@@ -77,6 +77,6 @@
   <macroConnector id="OmegaRefToWTG4A" index1="true">
     <connect var1="omega_grp_@INDEX@_value" var2="WTG4A_pll_omegaPLLPu"/>
     <connect var1="omegaRef_grp_@INDEX@_value" var2="WTG4A_omegaRefPu"/>
-    <connect var1="running_grp_@INDEX@" var2="WTG4A_injector_running"/>
+    <connect var1="running_grp_@INDEX@" var2="WTG4A_regc_injectorIDQ_running"/>
   </macroConnector>
 </dynamicModelsArchitecture>

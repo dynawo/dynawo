@@ -29,12 +29,12 @@
     <curve model="INF" variable="converter_IConvPu"/>
     <curve model="INF" variable="converter_UPu"/>
     <curve model="WP1" variable="WTG4A_pll_omegaPLLPu"/>
-    <curve model="WP1" variable="WTG4A_injector_PInjPuSn"/>
-    <curve model="WP1" variable="WTG4A_injector_QInjPuSn"/>
-    <curve model="WP1" variable="WTG4A_injector_UPu"/>
+    <curve model="WP1" variable="WTG4A_regc_injectorIDQ_PInjPuSn"/>
+    <curve model="WP1" variable="WTG4A_regc_injectorIDQ_QInjPuSn"/>
+    <curve model="WP1" variable="WTG4A_regc_injectorIDQ_UPu"/>
     <curve model="WP2" variable="WTG4A_pll_omegaPLLPu"/>
     <curve model="WP2" variable="WTG4A_PRefPu"/>
-    <curve model="WP2" variable="WTG4A_injector_PInjPuSn"/>
-    <curve model="WP2" variable="WTG4A_injector_QInjPuSn"/>
-    <curve model="WP2" variable="WTG4A_injector_UPu"/>
+    <curve model="WP2" variable="WTG4A_regc_injectorIDQ_PInjPuSn"/>
+    <curve model="WP2" variable="WTG4A_regc_injectorIDQ_QInjPuSn"/>
+    <curve model="WP2" variable="WTG4A_regc_injectorIDQ_UPu"/>
 </curvesInput>

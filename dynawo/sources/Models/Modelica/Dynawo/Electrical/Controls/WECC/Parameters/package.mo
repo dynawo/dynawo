@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 * of simulation tools for power systems.
 */
 
-package Parameters "Parameters of the PV WECC model"
+package Parameters "Parameters of the WECC models"
   extends Icons.RecordsPackage;
 
 end Parameters;

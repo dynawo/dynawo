@@ -9,16 +9,14 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-# Parameters of the PV WECC model
+add_subdirectory(Mechanical M)
+add_subdirectory(REEC EC)
+add_subdirectory(REGC GC)
+add_subdirectory(REPC PC)
 
 set(MODEL_FILES
   package.mo
   package.order
-  ParamsDriveTrain.mo
-  ParamsElectricalControl.mo
-  ParamsGeneratorControl.mo
-  ParamsPlantControl.mo
-  ParamsVSourceRef.mo
   )
 
 #

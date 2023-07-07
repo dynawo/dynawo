@@ -9,21 +9,23 @@ within Dynawo.Electrical.Wind.WECC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WT4BCurrentSource "WECC Wind Turbine model without plant controller and with a current source as interface with the grid"
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
 
-  Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = PInj0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = PInj0Pu) "Active power setpoint at injector terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at injector terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(PInjRefPu, wecc_reec.PInjRefPu) annotation(
+  connect(PInjRefPu, reec.PInjRefPu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
-  connect(QInjRefPu, wecc_reec.QInjRefPu) annotation(
+  connect(QInjRefPu, reec.QInjRefPu) annotation(
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
 
   annotation(
@@ -34,9 +36,8 @@ equation
 <li> Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.</li>
 <li> Electrical inverter control.</li>
 <li> Constant speed of drive train represented by constant block (no drive train).</li>
-<li> Generator control. </li>
+<li> Generator converter. </li>
 <li> Injector (id,iq). </li>
 </ul><div>Notice that in this model and contrary to the one in the norm, there is no plant controller included.</div> <p></p></body></html>"),
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WT 4B")}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WT 4B")}, coordinateSystem(initialScale = 0.1)));
 end WT4BCurrentSource;

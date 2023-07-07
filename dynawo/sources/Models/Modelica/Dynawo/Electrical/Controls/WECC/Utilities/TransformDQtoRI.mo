@@ -9,28 +9,31 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model TransformDQtoRI "Transformation from d/q rotating reference frame with rotation angle phi to real/imaginary in stationary reference frame"
 
+  //Input variables
   Modelica.Blocks.Interfaces.RealInput phi "Angle of the dq transform in rad" annotation(
+    Placement(visible = true, transformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput xdPu "d-axis quantity in pu (base XNom)" annotation(
+    Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput xqPu "q-axis quantity in pu (base XNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput udPu "d-axis voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uqPu "q-axis voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput uiPu "Imaginary part of the complex voltage in pu (base UNom)" annotation(
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput xImPu "Imaginary part of the complex quantity in pu (base XNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput urPu "Real part of the complex voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput xRePu "Real part of the complex quantity in pu (base XNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  urPu = udPu * cos(phi) - uqPu * sin(phi);
-  uiPu = udPu * sin(phi) + uqPu * cos(phi);
+  xRePu = xdPu * cos(phi) - xqPu * sin(phi);
+  xImPu = xdPu * sin(phi) + xqPu * cos(phi);
 
   annotation(
     preferredView = "text",
-    Icon(coordinateSystem(grid = {1, 1}), graphics = {Text(origin = {-118, 85}, extent = {{-14, 7}, {14, -7}}, textString = "udPu"), Text(origin = {-118, 45}, extent = {{-14, 7}, {14, -7}}, textString = "uqPu"), Text(origin = {-114, -43}, extent = {{-25, 14}, {14, -7}}, textString = "phi"), Text(origin = {114, 71}, extent = {{-14, 7}, {14, -7}}, textString = "urPu"), Text(origin = {114, -46}, extent = {{-14, 7}, {14, -7}}, textString = "uiPu"), Text(origin = {-20, 14}, extent = {{-60, 66}, {100, -94}}, textString = "DQ/RI"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Icon(graphics = {Text(origin = {-124, 75}, extent = {{-14, 7}, {14, -7}}, textString = "udPu"), Text(origin = {-126, -75}, extent = {{-14, 7}, {14, -7}}, textString = "uqPu"), Text(origin = {34, -117}, extent = {{-25, 14}, {14, -7}}, textString = "phi"), Text(origin = {120, 77}, extent = {{-14, 7}, {14, -7}}, textString = "urPu"), Text(origin = {122, -76}, extent = {{-14, 7}, {14, -7}}, textString = "uiPu"), Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-20, 14}, extent = {{-60, 66}, {100, -94}}, textString = "DQ/RI")}));
 end TransformDQtoRI;

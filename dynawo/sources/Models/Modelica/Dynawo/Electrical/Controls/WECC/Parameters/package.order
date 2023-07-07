@@ -1,5 +1,4 @@
-ParamsDriveTrain
-ParamsElectricalControl
-ParamsGeneratorControl
-ParamsPlantControl
-ParamsVSourceRef
+Mechanical
+REEC
+REGC
+REPC

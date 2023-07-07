@@ -12,11 +12,11 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="WT4B" variable="WT4B_injector_PInjPu"/>
-    <curve model="WT4B" variable="WT4B_injector_QInjPu"/>
-    <curve model="WT4B" variable="WT4B_injector_terminal_V_re"/>
-    <curve model="WT4B" variable="WT4B_injector_terminal_i_re"/>
-    <curve model="WT4B" variable="WT4B_injector_terminal_V_im"/>
-    <curve model="WT4B" variable="WT4B_injector_terminal_i_im"/>
+    <curve model="WT4B" variable="WT4B_regc_PInjPu"/>
+    <curve model="WT4B" variable="WT4B_regc_QInjPu"/>
+    <curve model="WT4B" variable="WT4B_regc_terminal_V_re"/>
+    <curve model="WT4B" variable="WT4B_regc_terminal_i_re"/>
+    <curve model="WT4B" variable="WT4B_regc_terminal_V_im"/>
+    <curve model="WT4B" variable="WT4B_regc_terminal_i_im"/>
     <curve model="WT4B" variable="WT4B_pll_omegaPLLPu"/>
 </curvesInput>

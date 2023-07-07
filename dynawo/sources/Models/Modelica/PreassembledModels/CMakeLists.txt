@@ -161,6 +161,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSource.xml
+  PhotovoltaicsWeccCurrentSourceREECd.xml
   PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
@@ -197,6 +198,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml
   WTG4AWeccCurrentSource.xml
+  WTG4AWeccVoltageSource.xml
   WTG4BWeccCurrentSource.xml
   )
 
