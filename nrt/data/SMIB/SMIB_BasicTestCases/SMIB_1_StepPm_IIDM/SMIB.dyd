@@ -16,11 +16,11 @@
     <dyn:staticRef var="infiniteBus_UPuVar" staticVar="v"/>
     <dyn:staticRef var="infiniteBus_UPhaseVar" staticVar="angle"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="bus1" lib="Bus" staticId="VL2_BUS1">
+  <dyn:blackBoxModel id="bus1" lib="Bus" staticId="VL2_BUS1" parFile="SMIB.par" parId="bus1">
     <dyn:staticRef var="bus_UPu" staticVar="v"/>
     <dyn:staticRef var="bus_UPhase" staticVar="angle"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="bus2" lib="Bus" staticId="VL3_BUS1">
+  <dyn:blackBoxModel id="bus2" lib="Bus" staticId="VL3_BUS1" parFile="SMIB.par" parId="bus2">
     <dyn:staticRef var="bus_UPu" staticVar="v"/>
     <dyn:staticRef var="bus_UPhase" staticVar="angle"/>
   </dyn:blackBoxModel>
