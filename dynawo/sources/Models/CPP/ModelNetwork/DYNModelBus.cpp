@@ -340,6 +340,9 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
   vector<string> ids;
   ids.push_back(id_);
   ids.push_back("bus");
+  for (auto& busBarSectionId : busBarSectionIdentifiers_) {
+    ids.push_back(busBarSectionId);
+  }
   success = false;
   bool boolValue = getParameterDynamicNoThrow<bool>(params, "hasShortCircuitCapabilities", success, ids);
   if (success)
@@ -621,6 +624,9 @@ ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
 void
 ModelBus::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler(id_ + "_hasShortCircuitCapabilities", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  for (auto& busBarSectionId : busBarSectionIdentifiers_) {
+    parameters.push_back(ParameterModeler(busBarSectionId + "_hasShortCircuitCapabilities", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  }
 }
 
 void
