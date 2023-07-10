@@ -78,6 +78,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
 #############################
+#   GFM / GFL - BBS Fault   #
+#############################
+
+case_name = "DynaSwing - All converter-interfaced 5-machine system - 3 GFM + 2 GFL - BBS Fault"
+case_description = "All converter-interfaced 5-machine system - 3 GFM + 2 GFL - BBS Fault"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "GridForming_GridFollowing", "BBSFault", "fic.JOB")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#############################
 #     GFM / GFL - DisconnectLine     #
 #############################
 
