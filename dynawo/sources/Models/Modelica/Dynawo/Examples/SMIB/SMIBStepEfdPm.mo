@@ -13,7 +13,7 @@ within Dynawo.Examples.SMIB;
 * of simulation tools for power systems.
 */
 
-model MachineInfiniteBus "Synchronous machine infinite bus with constant regulations"
+model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
   import Dynawo;
   import Modelica;
 
@@ -106,10 +106,10 @@ model MachineInfiniteBus "Synchronous machine infinite bus with constant regulat
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
 
   // Generator speed control
-  Dynawo.Electrical.Controls.Basics.SetPoint PmPu(Value0 = 0.948104);
+  Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.948104, Height = 0.1, tStep = 5);
 
   // Generator voltage control
-  Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.50416);
+  Dynawo.Electrical.Controls.Basics.Step EfdPu(Value0 = 2.50416, Height = 0.2, tStep = 15);
 
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
@@ -141,8 +141,8 @@ equation
   generatorSynchronous.switchOffSignal3.value = false;
 
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
-  connect(generatorSynchronous.PmPu, PmPu.setPoint);
-  connect(generatorSynchronous.efdPu, EfdPu.setPoint);
+  connect(generatorSynchronous.PmPu, PmPu.step);
+  connect(generatorSynchronous.efdPu, EfdPu.step);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{56, 0}, {82, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal2, transformer.terminal1) annotation(
@@ -160,5 +160,12 @@ equation
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     __OpenModelica_commandLineOptions = "--daeMode",
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
-    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This test case represents a 501 MVA synchronous machine connected to an infinite bus through a transformer and a line, with&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">an active and reactive load between the transformer and the line.</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br><br>No event is simulated, the variables are thus constant.</span></body></html>"));
-end MachineInfiniteBus;
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This test case represents a 501 MVA synchronous machine connected to an infinite bus through a transformer and a line, with&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">an active and reactive load between the transformer and the line.</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br><br>A step on PmPu is applied at t = 5 s, followed by a step on EfdPu at t = 15 s.&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The two figures below show the expected evolution of the generator voltage and active power during the simulation.</span><div><font face=\"DejaVu Sans Mono\"><br></font></div><div><font face=\"DejaVu Sans Mono\">
+    <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/PGenPu.png\">
+    </figure>
+    <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/UPu.png\">
+    </figure>
+    The step on PmPu causes an increase in the active power and a decrease in the stator voltage, as a bigger current implies a bigger voltage drop between the infinite bus and the generator. The step on EfdPu entails a rise in the stator voltage.<br></font><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br></span></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">Initial equations are provided on the generator differential variables to ensure a steady state initialization by OpenModelica. It had to be written here and not directly in Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous because the Dynawo simulator applies a different initialization strategy that does not involve the initial equation section.</span></div></div></body></html>"));
+end SMIBStepEfdPm;

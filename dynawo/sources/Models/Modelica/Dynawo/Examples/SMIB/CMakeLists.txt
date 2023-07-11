@@ -15,7 +15,7 @@ add_subdirectory(Standard S)
 set(MODEL_FILES
   package.mo
   package.order
-  MachineInfiniteBus.mo
+  SMIBStepEfdPm.mo
   SMIBStepPm.mo
   )
 
