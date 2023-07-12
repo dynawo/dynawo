@@ -137,13 +137,14 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
 }
 
 void
-DelayManager::setGomc(state_g* const p_glocal, size_t offset) {
+DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time, const std::string& /*name*/) {
   size_t index = offset;
 
   boost::unordered_map<size_t, Delay>::iterator it;
   triggered_ = false;
   for (it = delays_.begin(); it != delays_.end(); ++it, ++index) {
-    if (it->second.IsTriggered()) {
+    double delayTime = it->second.getDelayMax();
+    if (!(time < delayTime || doubleEquals(time, delayTime))) {
       p_glocal[index] = ROOT_UP;
       triggered_ = true;
     } else {
@@ -153,10 +154,21 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset) {
 }
 
 void
+DelayManager::evalMode(const double time, const std::string& /*name*/) {
+  boost::unordered_map<size_t, Delay>::iterator it;
+  for (it = delays_.begin(); it != delays_.end(); ++it) {
+    double delayTime = it->second.getDelayMax();
+    if (!(time < delayTime || doubleEquals(time, delayTime))) {
+      it->second.trigger();
+    }
+  }
+}
+
+void
 DelayManager::notifyEndTrigger() {
   boost::unordered_map<size_t, Delay>::iterator it;
   for (it = delays_.begin(); it != delays_.end(); ++it) {
-    if (it->second.IsTriggered()) {
+    if (it->second.isTriggered()) {
       it->second.resetTrigger();
     }
   }

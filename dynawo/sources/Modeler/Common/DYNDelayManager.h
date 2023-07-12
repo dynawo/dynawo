@@ -121,10 +121,17 @@ class DelayManager {
    * @param p_glocal local buffer to fill
    * @param offset offset to start in p_glocal array for delays
    */
-  void setGomc(state_g* const p_glocal, size_t offset);
+  void setGomc(state_g* const p_glocal, size_t offset, const double t, const std::string& name);
 
   /**
-   * @brief Determines if on delay has been triggered
+  * @brief evaluate modes for delays
+  *
+  * @param t local time
+  */
+  void evalMode(const double t, const std::string& name);
+
+  /**
+   * @brief Determines if one delay has been triggered
    *
    * @returns whether a delay has been triggered
    */
@@ -150,15 +157,14 @@ class DelayManager {
    */
   void notifyEndTrigger();
 
- private:
-  /**
-   * @brief Retrieves the delay by id (const version)
-   *
-   * Precondition: the id is acceptable
-   *
-   * @param id the id to use
-   * @returns the corresponding delay
-   */
+ /**
+ * @brief Retrieves the delay by id (const version)
+ *
+ * Precondition: the id is acceptable
+ *
+ * @param id the id to use
+ * @returns the corresponding delay
+ */
   const Delay& getDelayById(size_t id) const {
     return delays_.at(id);
   }

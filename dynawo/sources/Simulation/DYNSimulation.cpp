@@ -813,8 +813,10 @@ Simulation::init() {
 
   if (Trace::logExists(Trace::modeler(), DEBUG))
     model_->printModel();
-  if (Trace::logExists(Trace::variables(), DEBUG))
+  if (Trace::logExists(Trace::variables(), DEBUG)) {
+    model_->evalDynamicYType();
     model_->printVariableNames();
+  }
 
   if (Trace::logExists(Trace::equations(), DEBUG)) {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations

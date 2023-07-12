@@ -379,7 +379,7 @@ ModelManager::evalG(const double t) {
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);
-  delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings);
+  delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings, t, name());
 }
 
 void
@@ -421,7 +421,8 @@ ModelManager::evalZ(const double t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double t) {
-  modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_MODE : NO_MODE;
+  delayManager_.evalMode(t, name());
+  modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_J_UPDATE_MODE : NO_MODE;
   if (delayManager_.isTriggered()) {
     // reset trigger if delay mode is detected to prevent detection next time for the same reasons
     delayManager_.notifyEndTrigger();
@@ -1436,7 +1437,7 @@ ModelManager::computeDelay(int exprNumber, double exprValue, double time, double
   }
 
   if (time < delayTime || doubleEquals(time, delayTime)) {
-    // requested time is allowed but the simulation has not run for enought time to compute the delayed value:
+    // requested time is allowed but the simulation has not run for enough time to compute the delayed value:
     // use the initial value to avoid artefacts
     const boost::optional<double>& initialValue = delayManager_.getInitialValue(exprNumber);
 #if _DEBUG_
@@ -1444,12 +1445,18 @@ ModelManager::computeDelay(int exprNumber, double exprValue, double time, double
     assert(initialValue.is_initialized());
 #endif
     return *initialValue;
-  } else if (!doubleIsZero(delayTime)) {
-    // delayTime == 0 corresponds to initialization
-    delayManager_.triggerDelay(exprNumber);
   }
 
-  return delayManager_.getDelay(exprNumber, delayTime);
+  const Delay& delay = delayManager_.getDelayById(exprNumber);
+
+  if (!delay.isTriggeredValue()) {
+    const boost::optional<double> &initialValue = delayManager_.getInitialValue(exprNumber);
+    return *initialValue;
+  }
+
+  double value = delayManager_.getDelay(exprNumber, delayTime);
+
+  return value;
 }
 
 }  // namespace DYN

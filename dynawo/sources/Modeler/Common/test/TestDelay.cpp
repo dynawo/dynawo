@@ -96,13 +96,13 @@ TEST(CommonTest, testDelayClass) {
   ASSERT_EQ(vec[4].first, 5.);
   ASSERT_EQ(vec[4].second, 5.5);
 
-  ASSERT_FALSE(delay.IsTriggered());
+  ASSERT_FALSE(delay.isTriggered());
   delay.trigger();
-  ASSERT_TRUE(delay.IsTriggered());
+  ASSERT_TRUE(delay.isTriggered());
   delay.resetTrigger();
-  ASSERT_FALSE(delay.IsTriggered());
+  ASSERT_FALSE(delay.isTriggered());
   delay.trigger();  // trigger has not effect
-  ASSERT_FALSE(delay.IsTriggered());
+  ASSERT_FALSE(delay.isTriggered());
 }
 
 TEST(CommonTest, testDelayClassParameters) {

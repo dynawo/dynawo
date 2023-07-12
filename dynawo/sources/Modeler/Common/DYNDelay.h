@@ -114,6 +114,7 @@ class Delay {
   void trigger() {
     if (!trigger_.is_initialized()) {
       trigger_ = true;
+      triggerValue_ = true;
     }
   }
 
@@ -134,16 +135,26 @@ class Delay {
    *
    * @returns Whether the trigger has been activated by @a trigger() function
    */
-  bool IsTriggered() const {
+  bool isTriggered() const {
     return trigger_.is_initialized() && *trigger_;
+  }
+
+  bool isTriggeredValue() const {
+    return triggerValue_;
+  }
+
+  double getDelayMax() const {
+    return delayMax_;
   }
 
  private:
   const double* time_;                    ///< pointer to time to use for timepoint and delay computation
   const double* value_;                   ///< pointer to value to use for timepoint
+  double delayMax_;
   RingBuffer buffer_;                     ///< ring buffer to manage the records
   boost::optional<double> initialValue_;  ///< Initial value to use when delay cannot be computed
   boost::optional<bool> trigger_;         ///< 3-state trigger to determine the first time the delay is computed
+  bool triggerValue_;         ///< 3-state trigger to determine the first time the delay is computed
 };
 }  // namespace DYN
 
