@@ -1152,11 +1152,12 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  const std::vector<propertyContinuousVar_t>& modelYType = getYType();
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->xNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
       std::string varName = (*it)->name() + "_" + xNames[j];
-      Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+      Trace::debug(Trace::variables()) << nVar << " " << varName << " " << propertyVar2Str(modelYType[nVar]) << Trace::endline;
       ++nVar;
     }
   }

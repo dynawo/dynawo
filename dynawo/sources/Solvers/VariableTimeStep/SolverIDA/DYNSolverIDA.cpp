@@ -398,7 +398,7 @@ SolverIDA::calculateIC() {
   solverKINNormal_->setCheckJacobian(true);
 #endif
   do {
-    // call to solver KIN in order to find the new (adequate) algebraic variables's values
+    // call to solver KIN in order to find the new (adequate) algebraic variables' values
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
@@ -416,7 +416,7 @@ SolverIDA::calculateIC() {
     }
 #endif
     flagInit_ = true;
-    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, 10.);
+    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
 
     // gathering of values computed by IDACalcIC
@@ -668,16 +668,17 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
 
   double* weights = NV_DATA_S(nvWeights);
   double* errors = NV_DATA_S(nvErrors);
+  std::vector<double> weightedErrors(nbY);
 
   for (int i = 0; i < nbY; ++i)
-    errors[i] = fabs(weights[i] * errors[i]);
+    weightedErrors[i] = fabs(weights[i] * errors[i]);
 
   // Filling and sorting the vector
   vector<std::pair<double, int> > yErr;
   for (int i = 0; i < nbY; ++i) {
     // Tolerances (RTOL and ATOL) are 1e-04 by default so weights are around 1e4 therefore 1 is a relatively small value
-    if (errors[i] > thresholdErr) {
-      yErr.push_back(std::pair<double, int>(errors[i], i));
+    if (weightedErrors[i] > thresholdErr) {
+      yErr.push_back(std::pair<double, int>(weightedErrors[i], i));
     }
   }
   std::sort(yErr.begin(), yErr.end(), mapcompabs());
