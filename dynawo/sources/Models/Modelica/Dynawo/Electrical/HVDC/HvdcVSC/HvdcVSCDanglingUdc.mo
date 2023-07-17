@@ -46,6 +46,11 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
   Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
+  Modelica.Blocks.Interfaces.RealOutput Conv2_PInjPu(start = 0) annotation(
+    Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput Conv2_QInjPu(start = 0) annotation(
+    Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   HVDC.HvdcVSC.BaseControls.DCVoltageControlSideDangling UdcPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq10Pu, KiACVoltageControl = KiACVoltageControl, Kidc = Kidc, KpACVoltageControl = KpACVoltageControl, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P10Pu * (SystemBase.SnRef/SNom), Q0Pu = - Q10Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, RdcPu = RdcPu, SNom = SNom, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcRef0Pu = UdcRef0Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, modeU0 = if modeU10 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "DC Voltage Control Side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-45, 0}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
   HVDC.HvdcVSC.BaseControls.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu * (SystemBase.SnRef/SNom), P20Pu = - P20Pu * (SystemBase.SnRef/SNom), RdcPu = RdcPu, SNom = SNom, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu) "DC line model" annotation(
@@ -58,10 +63,6 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
     Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant ConstantPdcDanglingTerminal(k = -P20Pu * (SystemBase.SnRef / SNom)) annotation(
     Placement(visible = true, transformation(origin = {43, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput Conv2_PInjPu(start = 0) annotation(
-    Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput Conv2_QInjPu(start = 0) annotation(
-    Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PQDanglingTerminal(k = 0) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.PLL.PLL pll1(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u10Pu) annotation(
@@ -87,6 +88,8 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 (in rad)";
 
 equation
+  terminal2.i = Complex(0, 0);
+  Conv2_state = Conv1.state;
   connect(PQDanglingTerminal.y, Conv2_PInjPu) annotation(
     Line(points = {{91, 40}, {100, 40}, {100, 50}, {130, 50}, {130, 50}}, color = {0, 0, 127}));
   connect(PQDanglingTerminal.y, Conv2_QInjPu) annotation(
@@ -129,8 +132,6 @@ equation
     Line(points = {{-101, -3}, {-118, -3}, {-118, 24}, {-114, 24}}, color = {85, 170, 255}));
   connect(Conv1.terminal, terminal1) annotation(
     Line(points = {{-101, -8}, {-130, -8}}, color = {0, 0, 255}));
-  terminal2.i = Complex(0, 0);
-  Conv2_state = Conv1.state;
 
   annotation(
     preferredView = "diagram",

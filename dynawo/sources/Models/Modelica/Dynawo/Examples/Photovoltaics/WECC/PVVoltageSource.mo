@@ -33,6 +33,11 @@ model PVVoltageSource "WECC PV Vsource Model on infinite bus"
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
+  line.switchOffSignal1.value = false;
+  line.switchOffSignal2.value = false;
+  PV.injector.switchOffSignal1.value = false;
+  PV.injector.switchOffSignal2.value = false;
+  PV.injector.switchOffSignal3.value = false;
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
@@ -45,11 +50,6 @@ equation
     Line(points = {{69, -40}, {54, -40}, {54, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URefPu.y, PV.URefPu) annotation(
     Line(points = {{70, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  PV.injector.switchOffSignal1.value = false;
-  PV.injector.switchOffSignal2.value = false;
-  PV.injector.switchOffSignal3.value = false;
 
   annotation(
     preferredView = "diagram",

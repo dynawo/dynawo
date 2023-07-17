@@ -85,7 +85,8 @@ equation
   connect(nodeFault.terminal, line2.terminal1) annotation(
     Line(points = {{42, -84}, {42, -40}}, color = {0, 0, 255}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001, emit_protected = "()"),
     //__OpenModelica_commandLineOptions = "--daeMode",
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
