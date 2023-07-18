@@ -23,7 +23,8 @@ model OVA "Over-Voltage Automaton"
   parameter Types.VoltageModulePu UMaxPu "Voltage threshold above which the automaton is activated in pu (base UNom)";
   parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
 
-  Types.VoltageModulePu UMonitoredPu "Monitored voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Monitored voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
 
 protected
@@ -31,12 +32,16 @@ protected
 
 equation
   // Voltage comparison with the maximum accepted value
-  when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) then
+  when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.OVAArming);
-  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
+  elsewhen UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) then
+    tThresholdReached = time;
+  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.OVADisarming);
+  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
+    tThresholdReached = Constants.inf;
   end when;
 
   // Delay before tripping the generator
