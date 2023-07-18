@@ -121,9 +121,11 @@ IdealSwitchSwitchOn       =             Ideal switch closed
 DCLineOpen                =             DC line open
 DCLineClosed              =             DC line closed
 // --> Low voltage ride-through automaton
-LVRTTripped                =              LVRT generator tripped
-LVRTArming                 =              LVRT automaton for generator arming
-LVRTDisarming              =              LVRT automaton for generator disarming
+LVRTTripped                =            LVRT generator tripped
+LVRTArming                 =            LVRT automaton for generator arming
+LVRTDisarming              =            LVRT automaton for generator disarming
+// --> Aggregated IBG
+PartialTripping           =             Partial tripping ongoing
 // --> Distance protection
 DistanceTrippedZone1       =              Distance protection tripped zone 1
 DistanceTrippedZone2       =              Distance protection tripped zone 2
