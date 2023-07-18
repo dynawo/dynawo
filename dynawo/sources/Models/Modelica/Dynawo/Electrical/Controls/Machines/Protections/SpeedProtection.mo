@@ -21,8 +21,8 @@ model SpeedProtection "Sends a tripping signal to the generator when the frequen
   parameter Types.AngularVelocityPu OmegaMaxPu "Frequency threshold above which the automaton is activated in pu (base omegaNom)";
   parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
 
-  input Types.AngularVelocityPu omegaMonitoredPu "Monitored frequency in pu (base omegaNom)" annotation(
-  Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput omegaMonitoredPu "Monitored frequency in pu (base omegaNom)" annotation(
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
 
@@ -32,21 +32,29 @@ protected
 
 equation
   // Frequency comparison with the minimum accepted value
-  when omegaMonitoredPu <= OmegaMinPu and not(pre(switchOffSignal.value)) then
+  when omegaMonitoredPu <= OmegaMinPu and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReachedMin = time;
     Timeline.logEvent1(TimelineKeys.UnderspeedArming);
-  elsewhen omegaMonitoredPu > OmegaMinPu and pre(tThresholdReachedMin) <> Constants.inf and not(pre(switchOffSignal.value)) then
+  elsewhen omegaMonitoredPu <= OmegaMinPu and not(pre(switchOffSignal.value)) then
+    tThresholdReachedMin = time;
+  elsewhen omegaMonitoredPu > OmegaMinPu and pre(tThresholdReachedMin) <> Constants.inf and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReachedMin = Constants.inf;
     Timeline.logEvent1(TimelineKeys.UnderspeedDisarming);
+  elsewhen omegaMonitoredPu > OmegaMinPu and pre(tThresholdReachedMin) <> Constants.inf and not(pre(switchOffSignal.value)) then
+    tThresholdReachedMin = Constants.inf;
   end when;
 
   // Frequency comparison with the maximum accepted value
-  when omegaMonitoredPu >= OmegaMaxPu and not(pre(switchOffSignal.value)) then
+  when omegaMonitoredPu >= OmegaMaxPu and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReachedMax = time;
     Timeline.logEvent1(TimelineKeys.OverspeedArming);
-  elsewhen omegaMonitoredPu < OmegaMaxPu and pre(tThresholdReachedMax) <> Constants.inf and not(pre(switchOffSignal.value)) then
+  elsewhen omegaMonitoredPu >= OmegaMaxPu and not(pre(switchOffSignal.value)) then
+    tThresholdReachedMax = time;
+  elsewhen omegaMonitoredPu < OmegaMaxPu and pre(tThresholdReachedMax) <> Constants.inf and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReachedMax = Constants.inf;
     Timeline.logEvent1(TimelineKeys.OverspeedDisarming);
+  elsewhen omegaMonitoredPu < OmegaMaxPu and pre(tThresholdReachedMax) <> Constants.inf and not(pre(switchOffSignal.value)) then
+    tThresholdReachedMax = Constants.inf;
   end when;
 
   // Delay before tripping the generator
