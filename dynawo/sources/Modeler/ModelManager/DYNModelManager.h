@@ -104,7 +104,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @brief copy Z to local data
    *
-   * @param z discretes values to copy
+   * @param z discrete values to copy
    */
   void evalZ(std::vector<double>& z);
 

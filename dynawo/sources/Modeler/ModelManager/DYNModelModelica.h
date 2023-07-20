@@ -97,7 +97,7 @@ class ModelModelica {
   virtual modeChangeType_t evalMode(const double t) const = 0;
 
   /**
-   * @brief calculates the discretes values of the model
+   * @brief calculates the discrete values of the model
    *
    */
   virtual void setZomc() = 0;
@@ -109,7 +109,7 @@ class ModelModelica {
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
-   * @brief calculates the initial values (discretes and continuous) of the model
+   * @brief calculates the initial values (discrete and continuous) of the model
    *
    */
   virtual void setY0omc() = 0;

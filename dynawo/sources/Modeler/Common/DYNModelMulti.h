@@ -491,7 +491,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @brief copy the new values of discretes variables to the variables connected to it
+   * @brief copy the new values of discrete variables to the variables connected to it
    *
    * @return the type of discrete variable that has changed
    */
@@ -579,12 +579,12 @@ class ModelMulti : public Model, private boost::noncopyable {
   boost::unordered_map<size_t, std::vector<size_t > >
     subModelIdxToConnectorCalcVarsIdx_;  ///< associates a subModel index to the associated calculated variables connectors indexes
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
-  std::vector<double> zSave_;  ///< save of the last discretes values
+  std::vector<double> zSave_;  ///< save of the last discrete values
   std::vector<propertyF_t> fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
   std::vector<propertyContinuousVar_t> yType_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
 
   int sizeF_;  ///< number of the residuals functions
-  int sizeZ_;  ///< number of discretes values
+  int sizeZ_;  ///< number of discrete values
   int sizeG_;  ///< number of root functions
   int sizeMode_;  ///< number of mode
   int sizeY_;  ///< number of continuous values
@@ -599,8 +599,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   state_g* gLocal_;  ///< local buffer to fill with the roots values
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
-  double* zLocal_;  ///< local buffer to use when accessing discretes variables
-  bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
+  double* zLocal_;  ///< local buffer to use when accessing discrete variables
+  bool* zConnectedLocal_;  ///< local buffer to use when accessing discrete variables connection status
   BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
   bool silentZInitialized_;  ///< true if silentZ were collected
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
