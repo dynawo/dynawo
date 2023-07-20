@@ -295,10 +295,10 @@ class Model {
   virtual int sizeMode() const = 0;
 
   /**
-   * @brief get the number of discretes variables
+   * @brief get the number of discrete variables
    *
    *
-   * @return  number of discretes variables
+   * @return  number of discrete variables
    */
   virtual int sizeZ() const = 0;
 

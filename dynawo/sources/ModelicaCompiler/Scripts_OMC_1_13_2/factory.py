@@ -176,7 +176,7 @@ class Factory:
 
         ## List of derivatives variables
         self.list_vars_der = []
-        ## List of discretes variables
+        ## List of discrete variables
         self.list_vars_discr = []
         ## List of ALL discrete variables (including booleans)
         self.list_all_vars_discr = []

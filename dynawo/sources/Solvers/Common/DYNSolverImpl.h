@@ -272,12 +272,12 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void resetStats();
 
   /**
-   * @brief evaluate discretes variables values and values of zero crossing functions
+   * @brief evaluate discrete variables values and values of zero crossing functions
    * @param G0 previous value of zero crossing functions
    * @param G1 new value of zero crossing functions
    * @param time time to use to evaluate these values
    *
-   * @return @b true zero crossing functions or discretes variables have changed
+   * @return @b true zero crossing functions or discrete variables have changed
    */
   bool evalZMode(std::vector<state_g>& G0, std::vector<state_g>& G1, double time);
 
