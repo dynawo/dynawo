@@ -29,6 +29,7 @@
 #include "JOBFinalStateEntry.h"
 #include "JOBInitValuesEntry.h"
 #include "JOBInitialStateEntry.h"
+#include "JOBFinalValuesEntry.h"
 #include "JOBJobEntry.h"
 #include "JOBJobsCollection.h"
 #include "JOBLogsEntry.h"
@@ -293,6 +294,40 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   boost::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< current init values entry object
+};
+
+/**
+ * @class FinalValuesHandler
+ * @brief Handler used to read final values element
+ */
+class FinalValuesHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit FinalValuesHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~FinalValuesHandler();
+
+  /**
+   * @brief return the final values entry read in xml file
+   * @return final values entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<FinalValuesEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<FinalValuesEntry> finalValuesEntry_;  ///< current final values entry object
 };
 
 /**
@@ -602,6 +637,11 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void addInitValuesEntry();
 
   /**
+   * @brief add a final values object to the current job
+   */
+  void addFinalValuesEntry();
+
+  /**
    * @brief add a constraints object to the current job
    */
   void addConstraints();
@@ -651,6 +691,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
  private:
   boost::shared_ptr<OutputsEntry> outputs_;          ///< current outputs entry object
   InitValuesHandler initValuesHandler_;              ///< handler used to read init values element
+  FinalValuesHandler finalValuesHandler_;            ///< handler used to read final values element
   ConstraintsHandler constraintsHandler_;            ///< handler used to read constraints element
   TimelineHandler timelineHandler_;                  ///< handler used to read timeline element
   TimetableHandler timetableHandler_;                ///< handler used to read timetable element

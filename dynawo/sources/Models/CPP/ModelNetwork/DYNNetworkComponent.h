@@ -250,10 +250,10 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int& offsetF);
 
   /**
-   * @brief set the local buffer for discretes variables
+   * @brief set the local buffer for discrete variables
    *
-   * @param z global buffer for the discretes variables
-   * @param zConnected global buffer for the discretes variables connection status
+   * @param z global buffer for the discrete variables
+   * @param zConnected global buffer for the discrete variables connection status
    * @param offsetZ offset to use to find the beginning of the local buffer
    */
   virtual void setReferenceZ(double* z, bool* zConnected, const int& offsetZ);
@@ -460,6 +460,12 @@ class NetworkComponent {  ///< Base class for network component models
    * @param other NetworkComponent to copy
    */
   explicit NetworkComponent(const NetworkComponent& other) = delete;
+  /**
+   * @brief assignment
+   * @param other NetworkComponent to copy
+   * @return current modified instance
+   */
+  NetworkComponent& operator=(const NetworkComponent& other) = delete;
 
  protected:
   double* y_;  ///< continuous variable

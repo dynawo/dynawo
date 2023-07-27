@@ -16,6 +16,13 @@
   <set id="1">
     <reference type="DOUBLE" name="infiniteBus_UPu" origData="IIDM" origName="Upu"/>
     <reference type="DOUBLE" name="infiniteBus_UPhase" origData="IIDM" origName="Theta_pu"/>
+    <reference type="DOUBLE" name="infiniteBus_UNom" origData="IIDM" origName="UNom"/>
+  </set>
+  <set id="bus1">
+    <reference type="DOUBLE" name="bus_UNom" origData="IIDM" origName="UNom"/>
+  </set>
+  <set id="bus2">
+    <reference type="DOUBLE" name="bus_UNom" origData="IIDM" origName="UNom"/>
   </set>
   <!-- line 1 -->
   <set id="2">

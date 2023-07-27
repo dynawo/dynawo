@@ -68,7 +68,7 @@ getShellTool() {
   return tool;
 }
 
-void
+int
 executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir) {
   ss << "Executing command : " << command << std::endl;
 
@@ -83,6 +83,7 @@ executeCommand(const std::string & command, std::stringstream & ss, const std::s
     ss << line << std::endl;
 
   child.wait();
+  return child.exit_code();
 }
 
 bool hasEnvVar(std::string const& key) {

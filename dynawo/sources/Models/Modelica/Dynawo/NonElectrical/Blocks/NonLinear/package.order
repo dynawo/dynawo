@@ -16,9 +16,10 @@ MinThresholdSwitch
 MultiSwitch
 PulseFixedDuration
 PulseMinimumDuration
+RampLimiter
 StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
 PIAntiWindUpTable
-Switch
+ConditionalForward

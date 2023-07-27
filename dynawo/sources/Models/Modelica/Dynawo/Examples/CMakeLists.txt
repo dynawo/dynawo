@@ -14,9 +14,11 @@ add_subdirectory(ENTSOE E)
 add_subdirectory(GridForming G)
 add_subdirectory(HVDC H)
 add_subdirectory(Nordic N)
+add_subdirectory(RVS R)
 add_subdirectory(SVarC SV)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
+add_subdirectory(DynaFlow DF)
 
 set(MODEL_FILES
   package.mo

@@ -67,6 +67,12 @@ class LoadInterface : public ComponentInterface {
   virtual double getP() = 0;
 
   /**
+   * @brief Getter for the state variable "p"
+   * @return The value of state variable p of the load in MW
+   */
+  virtual double getStateVarP() = 0;
+
+  /**
    * @brief Getter for the initial active power of the load
    * @return The initial active power of the load in MW (load convention)
    */

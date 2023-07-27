@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="DOUBLE" name="hMin" value="1"/>
+    <par type="DOUBLE" name="hMax" value="10"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+    <par type="INT" name="msbsetAlg" value="1"/>
+    <par type="INT" name="msbset" value="1"/>
+    <par type="INT" name="msbsetAlgJ" value="1"/>
+  </set>
+  <set id="InfiniteBus">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.05"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+  </set>
+  <set id="Load">
+    <par type="DOUBLE" name="load_P0Pu" value="30"/>
+    <par type="DOUBLE" name="load_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="load_U0Pu" value="1"/>
+    <par type="DOUBLE" name="load_UPhase0" value="-0.31"/>
+  </set>
+  <set id="Line">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.004745"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <macroParameterSet id="macro_hvdc">
+    <par type="DOUBLE" name="reactivePowerControlLoop_DeltaURefMaxPu" value="0.002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1"/>
+    <par name="reactivePowerControlLoop_CqMaxPu" type="DOUBLE" value="15"/>
+    <par name="reactivePowerControlLoop_Tech" type="DOUBLE" value="10"/>
+    <par name="reactivePowerControlLoop_Ti" type="DOUBLE" value="60"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMaxPu" value="1.15"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMinPu" value="0.85"/>
+    <par type="DOUBLE" name="hvdc_P20Pu" value="7.5"/>
+    <par type="DOUBLE" name="hvdc_Q20Pu" value="1.3345"/>
+    <par type="DOUBLE" name="hvdc_U20Pu" value="1.0157"/>
+    <par type="DOUBLE" name="hvdc_Q2Ref0Pu" value="1.3345"/>
+    <par type="DOUBLE" name="hvdc_U2Ref0Pu" value="1.002355"/>
+    <par type="DOUBLE" name="hvdc_UPhase20" value="-0.134"/>
+    <par type="DOUBLE" name="hvdc_P10Pu" value="-7.5"/>
+    <par type="DOUBLE" name="hvdc_P1RefSetPu" value="-7.5"/>
+    <par type="DOUBLE" name="hvdc_Q10Pu" value="-1.0676"/>
+    <par type="DOUBLE" name="hvdc_U10Pu" value="1.01"/>
+    <par type="DOUBLE" name="hvdc_Q1Ref0Pu" value="-1.0676"/>
+    <par type="DOUBLE" name="hvdc_U1Ref0Pu" value="1.0206"/>
+    <par type="DOUBLE" name="hvdc_UPhase10" value="-0.1686"/>
+    <par type="DOUBLE" name="hvdc_PMaxPu" value="100"/>
+    <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <par type="BOOL" name="hvdc_modeU20" value="true"/>
+    <par type="DOUBLE" name="hvdc_Q1Nom" value="500"/>
+    <par type="DOUBLE" name="hvdc_Q2Nom" value="500"/>
+    <par type="DOUBLE" name="hvdc_Lambda1Pu" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_Lambda2Pu" value="0.01"/>
+  </macroParameterSet>
+  <set id="Hvdc1">
+    <macroParSet id="macro_hvdc"/>
+    <par type="DOUBLE" name="hvdc_Q1MinPu" value="-1.5"/>
+    <par type="DOUBLE" name="hvdc_Q1MaxPu" value="1.5"/>
+    <par type="DOUBLE" name="hvdc_Q2MinPu" value="-1.5"/>
+    <par type="DOUBLE" name="hvdc_Q2MaxPu" value="1.5"/>
+  </set>
+  <set id="Hvdc2">
+    <macroParSet id="macro_hvdc"/>
+    <par name="hvdc_QInj1MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcRpcl2/Diagram.txt"/>
+    <par name="hvdc_QInj1MinTableName" type="STRING" value="tableqmin"/>
+    <par name="hvdc_QInj2MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcRpcl2/Diagram.txt"/>
+    <par name="hvdc_QInj2MinTableName" type="STRING" value="tableqmin"/>
+    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcRpcl2/Diagram.txt"/>
+    <par name="hvdc_QInj1MaxTableName" type="STRING" value="tableqmax"/>
+    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcRpcl2/Diagram.txt"/>
+    <par name="hvdc_QInj2MaxTableName" type="STRING" value="tableqmax"/>
+    <par type="DOUBLE" name="hvdc_QInj1Min0Pu" value="-2"/>
+    <par type="DOUBLE" name="hvdc_QInj1Max0Pu" value="2"/>
+    <par type="DOUBLE" name="hvdc_QInj2Min0Pu" value="-2"/>
+    <par type="DOUBLE" name="hvdc_QInj2Max0Pu" value="2"/>
+  </set>
+  <set id="SVC">
+    <!-- HVDC 1 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_limUQUp0_1_" value="false"/>
+    <par type="BOOL" name="secondaryVoltageControl_limUQDown0_1_" value="false"/>
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-1.0676"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="500"/>
+    <!-- HVDC 2 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_limUQUp0_2_" value="false"/>
+    <par type="BOOL" name="secondaryVoltageControl_limUQDown0_2_" value="false"/>
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-1.0676"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="500"/>
+    <!-- SVC parameters -->
+    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.025"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+    <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
+  </set>
+  <set id="DisconnectLine">
+    <par type="DOUBLE" name="event_tEvent" value="100"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+</parametersSet>

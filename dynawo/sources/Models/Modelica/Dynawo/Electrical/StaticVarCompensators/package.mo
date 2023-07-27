@@ -12,7 +12,7 @@ within Dynawo.Electrical;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package StaticVarCompensators "Model for static var compensator"
+package StaticVarCompensators "Models for static var compensator"
   extends Icons.Package;
 
 end StaticVarCompensators;

@@ -55,6 +55,5 @@ model InitCase3 "Synchronous generator starting at 475 MW and 156 Mvar - Start v
   nq = 0) annotation(
     Placement(visible = true, transformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-equation
-
+  annotation(preferredView = "text");
 end InitCase3;

@@ -38,8 +38,9 @@ GeneratorInterfaceIIDM::GeneratorInterfaceIIDM(powsybl::iidm::Generator& generat
 InjectorInterfaceIIDM(generator, generator.getId()),
 generatorIIDM_(generator) {
   setType(ComponentInterface::GENERATOR);
+  const bool neededForCriteriaCheck = true;
   stateVariables_.resize(3);
-  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
+  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE, neededForCriteriaCheck);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
   activePowerControl_ = generator.findExtension<powsybl::iidm::extensions::iidm::ActivePowerControl>();
@@ -170,6 +171,11 @@ GeneratorInterfaceIIDM::isConnected() const {
 double
 GeneratorInterfaceIIDM::getP() {
   return getPInjector();
+}
+
+double
+GeneratorInterfaceIIDM::getStateVarP() {
+  return getValue<double>(VAR_P);
 }
 
 double

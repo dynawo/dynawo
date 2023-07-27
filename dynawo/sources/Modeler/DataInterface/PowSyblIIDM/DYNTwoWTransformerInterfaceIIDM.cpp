@@ -44,13 +44,17 @@ TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWin
     initialConnected1_(boost::none),
     initialConnected2_(boost::none) {
   setType(ComponentInterface::TWO_WTFO);
-  stateVariables_.resize(6);
+  if (tfo.hasRatioTapChanger() || tfo.hasPhaseTapChanger())
+    stateVariables_.resize(6);
+  else
+    stateVariables_.resize(5);
   stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
   stateVariables_[VAR_P2] = StateVariable("p2", StateVariable::DOUBLE);  // P2
   stateVariables_[VAR_Q1] = StateVariable("q1", StateVariable::DOUBLE);  // Q1
   stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);  // Q2
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
-  stateVariables_[VAR_TAPINDEX] = StateVariable("tapIndex", StateVariable::INT);
+  if (tfo.hasRatioTapChanger() || tfo.hasPhaseTapChanger())
+    stateVariables_[VAR_TAPINDEX] = StateVariable("tapIndex", StateVariable::INT);
 
   auto libPath = IIDMExtensions::findLibraryPath();
   auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
@@ -379,8 +383,10 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
     tap0 = getPhaseTapChanger()->getCurrentPosition();
     tapMin = getPhaseTapChanger()->getLowPosition();
     tapMax = tapMin - 1 + getPhaseTapChanger()->getNbTap();
-    double thresholdI = getPhaseTapChanger()->getThresholdI();
+    double thresholdI = getPhaseTapChanger()->getRegulationValue();
+    double targetP = getPhaseTapChanger()->getRegulationValue();
     double factorAToPu = sqrt(3) * getVNom1() / (1000 * SNREF);
+    staticParameters_.insert(std::make_pair("pTarget", StaticParameter("pTarget", StaticParameter::DOUBLE).setValue(targetP/SNREF)));
     staticParameters_.insert(std::make_pair("iMax", StaticParameter("iMax", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
     staticParameters_.insert(std::make_pair("iStop", StaticParameter("iStop", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
     staticParameters_.insert(std::make_pair("regulating",

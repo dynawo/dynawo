@@ -36,7 +36,7 @@ model CurrentLimitAutomatonTwoLevels "Current Limit Automaton (CLA) monitoring t
   Connectors.ImPin IMonitored2 "Monitored current on element 2 (unit depending on IMax2 unit)";
 
   //Outputs
-  Connectors.ZPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
+  Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
   //Blocks
   CurrentLimitAutomaton currentLimitAutomaton1(IMax = IMax1, OrderToEmit = OrderToEmit1, Running = Running1, tLagBeforeActing = tLagBeforeActing1);

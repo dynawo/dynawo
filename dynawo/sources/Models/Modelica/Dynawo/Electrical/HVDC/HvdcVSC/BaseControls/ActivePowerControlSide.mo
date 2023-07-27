@@ -19,8 +19,9 @@ model ActivePowerControlSide "Active Power Control Side of the HVDC link"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivePowerControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsActivePowerControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
+
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
 

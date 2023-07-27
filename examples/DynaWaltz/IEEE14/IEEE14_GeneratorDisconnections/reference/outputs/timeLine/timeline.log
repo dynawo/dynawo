@@ -1,162 +1,164 @@
-0 | GEN____8_SM | PMIN : activation
-1 | GEN____3_SM | PMIN : activation
-1 | GEN____8_SM | PMIN : deactivation
-1 | GEN____3_SM | PMIN : activation
-1 | GEN____8_SM | PMIN : deactivation
-2 | GEN____3_SM | PMIN : deactivation
-50 | GEN____2_SM | GENERATOR : disconnecting
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___5_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-50 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
-50 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
-50 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___5_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-50 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
-50 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
-50 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___5_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-50 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
-50 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
-50 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___5_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-57 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-60 | UVA | Under-voltage automaton for generator arming
-64 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-65 | UVA | Under-voltage generator trip
-65 | GEN____3_SM | GENERATOR : disconnecting
-65 | UVA | Under-voltage generator trip
-65 | _LOAD__11_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__11_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__11_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__11_EC | Tap-changer : below minimum allowed value
-65 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-65 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___2_EC | Tap +1
-80 | _LOAD___5_EC | Tap +1
-80 | _LOAD___2_EC | Tap +1
-80 | _LOAD___5_EC | Tap +1
-90 | _LOAD___2_EC | Tap +1
-90 | _LOAD___5_EC | Tap +1
-90 | _LOAD___2_EC | Tap +1
-90 | _LOAD___5_EC | Tap +1
-94 | _LOAD___4_EC | Tap +1
-95 | _LOAD___3_EC | Tap +1
-100 | _LOAD___2_EC | Tap +1
-100 | _LOAD___5_EC | Tap +1
-100 | _LOAD___2_EC | Tap +1
-100 | _LOAD___5_EC | Tap +1
-104 | _LOAD___4_EC | Tap +1
-105 | _LOAD___3_EC | Tap +1
-110 | _LOAD__10_EC | Tap +1
-110 | _LOAD__13_EC | Tap +1
-110 | _LOAD__14_EC | Tap +1
-110 | _LOAD___2_EC | Tap +1
-110 | _LOAD___4_EC | Tap +1
-110 | _LOAD___5_EC | Tap +1
-110 | _LOAD__10_EC | Tap +1
-110 | _LOAD__13_EC | Tap +1
-110 | _LOAD__14_EC | Tap +1
-110 | _LOAD___2_EC | Tap +1
-110 | _LOAD___4_EC | Tap +1
-110 | _LOAD___5_EC | Tap +1
-114 | _LOAD___4_EC | Tap +1
-115 | _LOAD___3_EC | Tap +1
-117 | _LOAD___3_EC | Tap +1
-120 | _LOAD__10_EC | Tap +1
-120 | _LOAD__14_EC | Tap +1
-120 | _LOAD___2_EC | Tap +1
-120 | _LOAD__10_EC | Tap +1
-120 | _LOAD__14_EC | Tap +1
-120 | _LOAD___2_EC | Tap +1
-120 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-124 | _LOAD___4_EC | Tap +1
-125 | _LOAD__11_EC | Tap +1
-125 | _LOAD__12_EC | Tap +1
-125 | _LOAD___3_EC | Tap +1
-125 | _LOAD___6_EC | Tap +1
-125 | _LOAD___9_EC | Tap +1
-125 | _LOAD__11_EC | Tap +1
-125 | _LOAD__12_EC | Tap +1
-125 | _LOAD___3_EC | Tap +1
-125 | _LOAD___6_EC | Tap +1
-125 | _LOAD___9_EC | Tap +1
-127 | _LOAD___3_EC | Tap +1
-130 | _LOAD___2_EC | Tap +1
-130 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-130 | _LOAD___2_EC | Tap-changer : above maximum allowed value
-130 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-130 | _LOAD___2_EC | Tap-changer : above maximum allowed value
-130 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-130 | _LOAD___2_EC | Tap-changer : above maximum allowed value
-130 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-130 | _LOAD___2_EC | Tap-changer : above maximum allowed value
-135 | _LOAD___3_EC | Tap +1
-135 | _LOAD___9_EC | Tap +1
-135 | _LOAD___3_EC | Tap +1
-135 | _LOAD___9_EC | Tap +1
-137 | _LOAD___3_EC | Tap +1
-137 | _LOAD___5_EC | Tap-changer : below minimum allowed value
-145 | _LOAD___3_EC | Tap +1
-145 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-155 | _LOAD___3_EC | Tap +1
-155 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-155 | _LOAD___3_EC | Tap-changer : above maximum allowed value
-155 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-155 | _LOAD___3_EC | Tap-changer : above maximum allowed value
-155 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-155 | _LOAD___3_EC | Tap-changer : above maximum allowed value
-155 | _LOAD___2_EC | Tap-changer : below minimum allowed value
-155 | _LOAD___3_EC | Tap-changer : above maximum allowed value
-165 | _LOAD___3_EC | Tap +1
-165 | _LOAD___3_EC | Tap-changer : above maximum allowed value
-167 | _LOAD___5_EC | Tap +1
-167 | _LOAD___5_EC | Tap-changer : above maximum allowed value
-168 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-175 | _LOAD___3_EC | Tap +1
-180 | _LOAD__13_EC | Tap +1
-185 | _LOAD___2_EC | Tap +1
-185 | _LOAD___2_EC | Tap-changer : above maximum allowed value
-190 | _LOAD__10_EC | Tap +1
-198 | _LOAD___4_EC | Tap +1
-205 | _LOAD__14_EC | Tap +1
-225 | _LOAD___3_EC | Tap -1
-227 | _LOAD___5_EC | Tap -1
-235 | _LOAD___3_EC | Tap -1
-245 | _LOAD___2_EC | Tap -1
+0.000000 | GEN____8_SM | PMIN : activation
+1.000000 | GEN____3_SM | PMIN : activation
+1.000000 | GEN____8_SM | PMIN : deactivation
+1.000000 | GEN____3_SM | PMIN : activation
+1.000000 | GEN____8_SM | PMIN : deactivation
+2.000000 | GEN____3_SM | PMIN : deactivation
+50.000000 | GEN____2_SM | GENERATOR : disconnecting
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+50.000000 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+50.000000 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+50.000000 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+57.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+60.000000 | UVA | Under-voltage automaton for generator arming
+64.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+65.000000 | UVA | Under-voltage generator trip
+65.000000 | GEN____3_SM | GENERATOR : disconnecting
+65.000000 | UVA | Under-voltage generator trip
+65.000000 | GEN____3_SM | GENERATOR : disconnecting
+65.000000 | UVA | Under-voltage generator trip
+65.000000 | _LOAD__11_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__11_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__11_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__11_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
+65.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___2_EC | Tap +1
+80.000000 | _LOAD___5_EC | Tap +1
+80.000000 | _LOAD___2_EC | Tap +1
+80.000000 | _LOAD___5_EC | Tap +1
+90.000000 | _LOAD___2_EC | Tap +1
+90.000000 | _LOAD___5_EC | Tap +1
+90.000000 | _LOAD___2_EC | Tap +1
+90.000000 | _LOAD___5_EC | Tap +1
+94.000000 | _LOAD___4_EC | Tap +1
+95.000000 | _LOAD___3_EC | Tap +1
+100.000000 | _LOAD___2_EC | Tap +1
+100.000000 | _LOAD___5_EC | Tap +1
+100.000000 | _LOAD___2_EC | Tap +1
+100.000000 | _LOAD___5_EC | Tap +1
+104.000000 | _LOAD___4_EC | Tap +1
+105.000000 | _LOAD___3_EC | Tap +1
+110.000000 | _LOAD__10_EC | Tap +1
+110.000000 | _LOAD__13_EC | Tap +1
+110.000000 | _LOAD__14_EC | Tap +1
+110.000000 | _LOAD___2_EC | Tap +1
+110.000000 | _LOAD___4_EC | Tap +1
+110.000000 | _LOAD___5_EC | Tap +1
+110.000000 | _LOAD__10_EC | Tap +1
+110.000000 | _LOAD__13_EC | Tap +1
+110.000000 | _LOAD__14_EC | Tap +1
+110.000000 | _LOAD___2_EC | Tap +1
+110.000000 | _LOAD___4_EC | Tap +1
+110.000000 | _LOAD___5_EC | Tap +1
+114.000000 | _LOAD___4_EC | Tap +1
+115.000000 | _LOAD___3_EC | Tap +1
+117.000000 | _LOAD___3_EC | Tap +1
+120.000000 | _LOAD__10_EC | Tap +1
+120.000000 | _LOAD__14_EC | Tap +1
+120.000000 | _LOAD___2_EC | Tap +1
+120.000000 | _LOAD__10_EC | Tap +1
+120.000000 | _LOAD__14_EC | Tap +1
+120.000000 | _LOAD___2_EC | Tap +1
+120.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+124.000000 | _LOAD___4_EC | Tap +1
+125.000000 | _LOAD__11_EC | Tap +1
+125.000000 | _LOAD__12_EC | Tap +1
+125.000000 | _LOAD___3_EC | Tap +1
+125.000000 | _LOAD___6_EC | Tap +1
+125.000000 | _LOAD___9_EC | Tap +1
+125.000000 | _LOAD__11_EC | Tap +1
+125.000000 | _LOAD__12_EC | Tap +1
+125.000000 | _LOAD___3_EC | Tap +1
+125.000000 | _LOAD___6_EC | Tap +1
+125.000000 | _LOAD___9_EC | Tap +1
+127.000000 | _LOAD___3_EC | Tap +1
+130.000000 | _LOAD___2_EC | Tap +1
+130.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+130.000000 | _LOAD___2_EC | Tap-changer : above maximum allowed value
+130.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+130.000000 | _LOAD___2_EC | Tap-changer : above maximum allowed value
+130.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+130.000000 | _LOAD___2_EC | Tap-changer : above maximum allowed value
+130.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+130.000000 | _LOAD___2_EC | Tap-changer : above maximum allowed value
+135.000000 | _LOAD___3_EC | Tap +1
+135.000000 | _LOAD___9_EC | Tap +1
+135.000000 | _LOAD___3_EC | Tap +1
+135.000000 | _LOAD___9_EC | Tap +1
+137.000000 | _LOAD___3_EC | Tap +1
+137.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
+145.000000 | _LOAD___3_EC | Tap +1
+145.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+155.000000 | _LOAD___3_EC | Tap +1
+155.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+155.000000 | _LOAD___3_EC | Tap-changer : above maximum allowed value
+155.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+155.000000 | _LOAD___3_EC | Tap-changer : above maximum allowed value
+155.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+155.000000 | _LOAD___3_EC | Tap-changer : above maximum allowed value
+155.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
+155.000000 | _LOAD___3_EC | Tap-changer : above maximum allowed value
+165.000000 | _LOAD___3_EC | Tap +1
+165.000000 | _LOAD___3_EC | Tap-changer : above maximum allowed value
+167.000000 | _LOAD___5_EC | Tap +1
+167.000000 | _LOAD___5_EC | Tap-changer : above maximum allowed value
+168.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+175.000000 | _LOAD___3_EC | Tap +1
+180.000000 | _LOAD__13_EC | Tap +1
+185.000000 | _LOAD___2_EC | Tap +1
+185.000000 | _LOAD___2_EC | Tap-changer : above maximum allowed value
+190.000000 | _LOAD__10_EC | Tap +1
+198.000000 | _LOAD___4_EC | Tap +1
+205.000000 | _LOAD__14_EC | Tap +1
+225.000000 | _LOAD___3_EC | Tap -1
+227.000000 | _LOAD___5_EC | Tap -1
+235.000000 | _LOAD___3_EC | Tap -1
+245.000000 | _LOAD___2_EC | Tap -1

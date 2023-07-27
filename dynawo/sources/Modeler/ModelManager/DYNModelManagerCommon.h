@@ -371,9 +371,10 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 
 #define modelica_string_to_modelica_string(item, index1, index2) item
 
-#define callExternalAutomaton(command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, nbMaxOutputs) \
+#define callExternalAutomaton(command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, \
+                              nbOutputs, nbMaxOutputs, intOutputs, intOutputsName, nbIntOutputs, nbMaxIntOutputs) \
     callExternalAutomatonModel((this)->getModelManager()->name(), command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, \
-nbMaxOutputs, this->getModelManager()->getWorkingDirectory());
+    nbMaxOutputs, intOutputs, intOutputsName, nbIntOutputs, nbMaxIntOutputs, this->getModelManager()->getWorkingDirectory());
 
 #define delayImpl(data, exprNumber, exprValue, time, delayTime, delayMax) \
   computeDelay((this)->getModelManager(), exprNumber, exprValue, time, delayTime, delayMax)
@@ -751,11 +752,16 @@ modelica_string enumToModelicaString_(modelica_integer nr, const char *e[]);
  * @param outputs_name name associated to each ouput value
  * @param nbOutputs number of outputs calculated by the automaton
  * @param nbMaxOutputs maximum number of outputs
+ * @param intOutputs integer values calculated by the automaton
+ * @param intOutputsName name associated to each output integer value
+ * @param nbIntOutputs number of integer outputs calculated by the automaton
+ * @param nbMaxIntOutput maximum number of integer outputs
  * @param workingDirectory Working directory of the simulation.
  */
 void callExternalAutomatonModel(const std::string& modelName, const char* command, const double time,
     const double* inputs, const char** inputs_name, const int nbInputs, const int nbMaxInputs,
     double* outputs, const char** outputs_name, const int nbOutputs, const int nbMaxOutputs,
+    int* intOutputs, const char** intOutputsName, const int nbIntOutputs, const int nbMaxIntOutput,
     const std::string& workingDirectory);
 
 }  // namespace DYN

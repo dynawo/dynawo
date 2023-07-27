@@ -70,7 +70,7 @@ model PControl "Active power control module for wind power plants (IEC N°61400-
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TablePwpBiasfwpFiltCom) annotation(
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = DPwpRefMaxPu, DuMin = DPwpRefMinPu, Y0 = -P0Pu * SystemBase.SnRef / SNom, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPwpRefMaxPu, DuMin = DPwpRefMinPu, Y0 = -P0Pu * SystemBase.SnRef / SNom, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3 annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -86,7 +86,7 @@ model PControl "Active power control module for wind power plants (IEC N°61400-
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, Y0 = (KwppRef - 1) * P0Pu * SystemBase.SnRef / SNom, YMax = PKiwppMaxPu, YMin = PKiwppMinPu, tI = if Kiwpp > 1e-5 then 1 / Kiwpp else 1 / Modelica.Constants.eps) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection(DyMax = 999, DyMin = -999, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection(DyMax = 999, DyMin = -999, U0 = -P0Pu * SystemBase.SnRef / SNom, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -96,9 +96,9 @@ model PControl "Active power control module for wind power plants (IEC N°61400-
     Dialog(tab = "Operating point"));
 
 equation
-  connect(PWPRefComPu, standAloneRampRateLimiter.u) annotation(
+  connect(PWPRefComPu, rampLimiter.u) annotation(
     Line(points = {{-180, 0}, {-142, 0}}, color = {0, 0, 127}));
-  connect(standAloneRampRateLimiter.y, add3.u2) annotation(
+  connect(rampLimiter.y, add3.u2) annotation(
     Line(points = {{-118, 0}, {-102, 0}}, color = {0, 0, 127}));
   connect(omegaWPFiltComPu, combiTable1Ds.u) annotation(
     Line(points = {{-180, -40}, {-142, -40}}, color = {0, 0, 127}));

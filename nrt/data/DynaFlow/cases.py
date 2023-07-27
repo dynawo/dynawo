@@ -124,6 +124,16 @@ job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfo", "GeneratorP
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+################################################################################################################################
+#  Small System with generators with tfo and a secondary voltage control : focus on the reactive power control loop            #
+################################################################################################################################
+
+case_name = "DynaFlow - Generator PV with transformer and a secondary voltage control : focus on the reactive power control loop"
+case_description = "Small System with generators with transformers and a secondary voltage control : focus on the reactive power control loop"
+job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfoRpclTimeline", "GeneratorPVTfoRpclTimeline.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #################################################################
 #      Small System with generators regulating the same bus      #
 #################################################################
@@ -141,6 +151,16 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 case_name = "DynaFlow - HVDC links with AC Emulation and a power transfer control"
 case_description = "Small System with two HVDC links with AC Emulation and a power transfer control"
 job_file = os.path.join(os.path.dirname(__file__), "HvdcPowerTransfer", "HvdcPowerTransfer.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#####################################################################
+#  Small System with two HVDC links and a secondary voltage control #
+#####################################################################
+
+case_name = "DynaFlow - HVDC links with a secondary voltage control"
+case_description = "Small System with two HVDC links and a secondary voltage control"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcRpcl2", "HvdcRpcl2.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -164,6 +184,16 @@ job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterBlocking", "Phas
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+##############################################################################
+#  Small System with two Phase Shifters P and a change of active power sign  #
+##############################################################################
+
+case_name = "DynaFlow - Phase Shifter P Sign"
+case_description = "Small System with two Phase Shifters P and a change of active power sign"
+job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterPSign", "PhaseShifterPSign.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #############################################################
 #  Small System with PST and a change of active power sign  #
 #############################################################
@@ -173,7 +203,6 @@ case_description = "Small System with PST and a change of active power sign"
 job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterSign", "PhaseShifterSign.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
-
 
 ######################################################################################################
 #  Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams #

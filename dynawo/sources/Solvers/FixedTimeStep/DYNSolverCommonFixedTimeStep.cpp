@@ -448,7 +448,7 @@ SolverCommonFixedTimeStep::reinit() {
     return;
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
-  skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
+  skipAlgebraicResidualsEvaluation_ = false;
 
   do {
     model_->rotateBuffers();

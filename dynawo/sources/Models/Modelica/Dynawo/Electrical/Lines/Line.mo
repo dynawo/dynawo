@@ -40,10 +40,10 @@ model Line "AC power line - PI model"
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)";
   parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)";
 
-  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef)";
-  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef)";
-  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef)";
+  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
 protected
   parameter Types.ComplexImpedancePu ZPu(re = RPu, im = XPu) "Line impedance";

@@ -1258,7 +1258,7 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
 }
 
 void
-ModelManager::printInitValuesParameters(std::ofstream& fstream) {
+ModelManager::printValuesParameters(std::ofstream& fstream) {
   fstream << " ====== PARAMETERS VALUES ======\n";
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param

@@ -8,19 +8,20 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+# Models of base controls for static var compensator
 
+add_subdirectory(Parameters P)
 
 set(MODEL_FILES
-  # Voltage control models
   package.mo
   package.order
-  Parameters.mo
   BlockingFunction.mo
   CalculationBG.mo
   Regulation.mo
   Limitations.mo
   ModeHandling.mo
   ModeConnector.mo
+  CSSCST.mo
   )
 
 #

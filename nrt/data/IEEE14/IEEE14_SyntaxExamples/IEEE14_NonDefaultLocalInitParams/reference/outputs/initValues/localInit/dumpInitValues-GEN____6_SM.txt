@@ -83,6 +83,7 @@ generator_QGenPu                                  : y =       0.127300
 generator_QStatorPu_value                         : y =       0.127300
 generator_QStatorPuQNom_value                     : y =       0.432923
 generator_UPu                                     : y =       1.070290
+generator_genState                                : y =       2.000000
 generator_iStatorPu_im                            : y =       0.115295
 generator_iStatorPu_re                            : y =       0.029217
 generator_sStatorPu_im                            : y =      -0.127300
@@ -111,6 +112,7 @@ voltageRegulator_limiterWithLag_initSaturatedMax  : z =      -1.000000
 voltageRegulator_limiterWithLag_initSaturatedMin  : z =      -1.000000
 governor_activeFrequencyRegulation_y              : z =       1.000000
 governor_switch_u2                                : z =       1.000000
+generator_converter_u                             : z =       2.000000
 generator_state                                   : z =       2.000000
 governor_state                                    : z =       1.000000
  ====== PARAMETERS VALUES ======

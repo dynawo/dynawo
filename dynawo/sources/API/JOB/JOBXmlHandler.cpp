@@ -273,6 +273,7 @@ SimulationHandler::addCriteriaFile() {
 
 OutputsHandler::OutputsHandler(elementName_type const& root_element) :
 initValuesHandler_(parser::ElementName(namespace_uri(), "dumpInitValues")),
+finalValuesHandler_(parser::ElementName(namespace_uri(), "dumpFinalValues")),
 constraintsHandler_(parser::ElementName(namespace_uri(), "constraints")),
 timelineHandler_(parser::ElementName(namespace_uri(), "timeline")),
 timetableHandler_(parser::ElementName(namespace_uri(), "timetable")),
@@ -284,6 +285,7 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   onStartElement(root_element, lambda::bind(&OutputsHandler::create, lambda::ref(*this), lambda_args::arg2));
 
   onElement(root_element + namespace_uri()("dumpInitValues"), initValuesHandler_);
+  onElement(root_element + namespace_uri()("dumpFinalValues"), finalValuesHandler_);
   onElement(root_element + namespace_uri()("constraints"), constraintsHandler_);
   onElement(root_element + namespace_uri()("timeline"), timelineHandler_);
   onElement(root_element + namespace_uri()("timetable"), timetableHandler_);
@@ -294,6 +296,7 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   onElement(root_element + namespace_uri()("logs"), logsHandler_);
 
   initValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addInitValuesEntry, lambda::ref(*this)));
+  finalValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalValuesEntry, lambda::ref(*this)));
   constraintsHandler_.onEnd(lambda::bind(&OutputsHandler::addConstraints, lambda::ref(*this)));
   timelineHandler_.onEnd(lambda::bind(&OutputsHandler::addTimeline, lambda::ref(*this)));
   timetableHandler_.onEnd(lambda::bind(&OutputsHandler::addTimetable, lambda::ref(*this)));
@@ -309,6 +312,11 @@ OutputsHandler::~OutputsHandler() {}
 void
 OutputsHandler::addInitValuesEntry() {
   outputs_->setInitValuesEntry(initValuesHandler_.get());
+}
+
+void
+OutputsHandler::addFinalValuesEntry() {
+  outputs_->setFinalValuesEntry(finalValuesHandler_.get());
 }
 
 void
@@ -396,6 +404,23 @@ InitValuesHandler::create(attributes_type const& attributes) {
 shared_ptr<InitValuesEntry>
 InitValuesHandler::get() const {
   return initValuesEntry_;
+}
+
+FinalValuesHandler::FinalValuesHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&FinalValuesHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+FinalValuesHandler::~FinalValuesHandler() {}
+
+void
+FinalValuesHandler::create(attributes_type const& /*attributes*/) {
+  finalValuesEntry_ = shared_ptr<FinalValuesEntry>(new FinalValuesEntry());
+  finalValuesEntry_->setDumpFinalValues(true);
+}
+
+shared_ptr<FinalValuesEntry>
+FinalValuesHandler::get() const {
+  return finalValuesEntry_;
 }
 
 ConstraintsHandler::ConstraintsHandler(elementName_type const& root_element) {

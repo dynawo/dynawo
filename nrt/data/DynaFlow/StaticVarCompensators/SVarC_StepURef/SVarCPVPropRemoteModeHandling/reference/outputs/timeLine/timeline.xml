@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="10.000000" modelName="svarc" message="SVarC : maximum susceptance reached"/>
+  <event time="20.000000" modelName="svarc" message="SVarC : back to voltage / reactive power regulation"/>
+</timeline>

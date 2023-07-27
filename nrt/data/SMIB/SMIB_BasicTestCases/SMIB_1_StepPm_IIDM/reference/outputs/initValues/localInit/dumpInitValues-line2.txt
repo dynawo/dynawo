@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 line_terminal1_V_im                               : y =       0.000000 yp =       0.000000
 line_terminal1_V_re                               : y =       0.900810 yp =       0.000000
 line_terminal2_V_im                               : y =       0.000000 yp =       0.000000

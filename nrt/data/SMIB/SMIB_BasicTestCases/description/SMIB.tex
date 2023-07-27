@@ -179,7 +179,7 @@ We observe that the active power is increased by 0.02 pu The voltage drop betwee
   \begin{tikzpicture}
     \begin{axis}[height = 2.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        table[x=time, y expr=\thisrow{SM_generator_UPu}*24]
         {../SMIB_1_StepPm/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -189,7 +189,7 @@ We observe that the active power is increased by 0.02 pu The voltage drop betwee
   \begin{tikzpicture}
     \begin{axis}[height = 2.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_gen_PGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{SM_generator_PGenPu}*100/2220]
         {../SMIB_1_StepPm/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -210,7 +210,7 @@ We observe that the reactive power injected by the machine is decreased in order
   \begin{tikzpicture}
     \begin{axis}[height = 2.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        table[x=time, y expr=\thisrow{SM_generator_UPu}*24]
         {../SMIB_2_StepEfd/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -220,7 +220,7 @@ We observe that the reactive power injected by the machine is decreased in order
   \begin{tikzpicture}
     \begin{axis}[height = 2.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_gen_QGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{SM_generator_QGenPu}*100/2220]
         {../SMIB_2_StepEfd/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}

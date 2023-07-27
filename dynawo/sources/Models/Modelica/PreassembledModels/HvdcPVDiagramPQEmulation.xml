@@ -13,7 +13,7 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="HvdcPVDiagramPQEmulation">
-    <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPV.HvdcPVDiagramPQ" initName="Dynawo.Electrical.HVDC.HvdcPV.HvdcPV_INIT"/>
+    <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPV.HvdcPVDiagramPQ" initName="Dynawo.Electrical.HVDC.HvdcPV.HvdcPVDiagramPQ_INIT"/>
     <dyn:unitDynamicModel id="acemulation" name="Dynawo.Electrical.HVDC.BaseControls.ACEmulation" initName="Dynawo.Electrical.HVDC.BaseControls.ACEmulation_INIT"/>
     <dyn:initConnect id1="hvdc" var1="P1Ref0Pu" id2="acemulation" var2="PRef0Pu"/>
     <dyn:initConnect id1="hvdc" var1="Theta10" id2="acemulation" var2="Theta10"/>

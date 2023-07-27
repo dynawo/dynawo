@@ -26,6 +26,7 @@
 #include "DYNModelCPP.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
+#include "DYNVariableNative.h"
 
 using std::string;
 using std::stringstream;
@@ -132,6 +133,53 @@ ModelCPP::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& /*varia
 void
 ModelCPP::defineParametersInit(std::vector<ParameterModeler>& /*parameters*/) {
   // not init parameter
+}
+
+void
+ModelCPP::defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
+                     std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames) {
+  zNames.clear();
+  xNames.clear();
+  calculatedVarNames.clear();
+
+  for (unsigned int i = 0; i < variables.size(); ++i) {
+    boost::shared_ptr<Variable> currentVariable = variables[i];
+    const typeVar_t type = currentVariable->getType();
+    const string name = currentVariable->getName();
+    const bool isState = currentVariable->isState();
+    int index = -1;
+
+    if (currentVariable->isAlias())  // no alias in names vector
+      continue;
+
+    boost::shared_ptr <VariableNative> nativeVariable = boost::dynamic_pointer_cast<VariableNative> (currentVariable);
+    if (!isState) {
+      index = static_cast<int>(calculatedVarNames.size());
+      calculatedVarNames.push_back(name);
+      nativeVariable->setIndex(index);
+    } else {
+      switch (type) {
+        case CONTINUOUS:
+        case FLOW: {
+          index = static_cast<int>(xNames.size());
+          xNames.push_back(name);
+          break;
+        }
+        case DISCRETE:
+        case BOOLEAN:
+        case INTEGER: {
+          index = static_cast<int>(zNames.size());
+          zNames.push_back(name);
+          break;
+        }
+        case UNDEFINED_TYPE:
+        {
+          throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
+        }
+      }
+      nativeVariable->setIndex(index);
+    }
+  }
 }
 
 }  // namespace DYN

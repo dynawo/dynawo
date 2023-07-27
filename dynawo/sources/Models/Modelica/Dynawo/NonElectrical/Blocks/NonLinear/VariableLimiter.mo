@@ -25,7 +25,7 @@ model VariableLimiter "Limit the range of a signal with variable limits"
 
 equation
 
-  y = if u > limit1 then limit1 else if u < limit2 then limit2 else u;
+  y = smooth(0, if u > limit1 then limit1 else if u < limit2 then limit2 else u);
 
   annotation(
     Documentation(info="<html>

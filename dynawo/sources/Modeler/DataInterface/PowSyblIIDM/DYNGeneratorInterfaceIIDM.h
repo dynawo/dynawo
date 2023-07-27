@@ -103,6 +103,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getP();
 
   /**
+   * @copydoc GeneratorInterface::getStateVarP()
+   */
+  double getStateVarP();
+
+  /**
    * @copydoc GeneratorInterface::getPMin()
    */
   double getPMin();

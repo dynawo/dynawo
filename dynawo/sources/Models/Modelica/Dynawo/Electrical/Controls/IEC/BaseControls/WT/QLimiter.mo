@@ -70,9 +70,9 @@ model QLimiter "Reactive power limitation module for wind turbines (IEC N°61400
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.IntegerToBoolean integerToBoolean(threshold = 1) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = 999, Y0 = U0Pu, YMax = 999, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = 999, U0 = U0Pu, Y0 = U0Pu, YMax = 999, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze1(DyMax = 999, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = 999, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze1(DyMax = 999, U0 = -P0Pu * SystemBase.SnRef / SNom, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = 999, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
@@ -132,5 +132,5 @@ equation
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})),
-    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Text(origin = {27, 17}, extent = {{-57, 51}, {3, 11}}, textString = "Q"), Text(origin = {-37, 43}, extent = {{-53, 49}, {127, -133}}, textString = "limitation"), Text(origin = {-3, -53}, extent = {{-53, 49}, {61, -39}}, textString = "module")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Text(origin = {27, 17}, extent = {{-57, 51}, {3, 11}}, textString = "Q"), Text(origin = {-37, 43}, extent = {{-53, 49}, {127, -133}}, textString = "Limitation"), Text(origin = {-3, -53}, extent = {{-53, 49}, {61, -39}}, textString = "Module")}, coordinateSystem(initialScale = 0.1)));
 end QLimiter;

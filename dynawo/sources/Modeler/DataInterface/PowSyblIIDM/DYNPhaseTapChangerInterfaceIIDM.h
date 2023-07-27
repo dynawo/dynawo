@@ -87,9 +87,9 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
   bool getRegulating() const;
 
   /**
-   * @copydoc PhaseTapChangerInterface::getThresholdI() const
+   * @copydoc PhaseTapChangerInterface::getRegulationValue() const
    */
-  double getThresholdI() const;
+  double getRegulationValue() const;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentR() const

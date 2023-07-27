@@ -81,6 +81,10 @@
     <par type="DOUBLE" name="hvdc_SlopeRPFault" value="1000"/>
     <par type="DOUBLE" name="hvdc_modeU1Set" value="1"/>
     <par type="DOUBLE" name="hvdc_modeU2Set" value="1"/>
+    <par type="DOUBLE" name="hvdc_KiPLL" value="20"/>
+    <par type="DOUBLE" name="hvdc_KpPLL" value="3"/>
+    <par type="DOUBLE" name="hvdc_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="hvdc_OmegaMinPu" value="0.5"/>
   </set>
   <set id="6">
     <par type="DOUBLE" name="fault_RPu" value="0"/>

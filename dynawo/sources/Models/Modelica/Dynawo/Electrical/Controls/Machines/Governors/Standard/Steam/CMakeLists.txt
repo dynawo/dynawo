@@ -16,6 +16,8 @@ set(MODEL_FILES
   GovSteam1.mo
   GovSteam1.extvar
   GovSteam1_INIT.mo
+  IEEEG1.mo
+  IEEEG1.extvar
   TGOV1.mo
   TGOV1.extvar
   )

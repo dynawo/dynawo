@@ -13,6 +13,8 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="HVDC">
+    <par type="DOUBLE" name="hvdc_Q1Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Lambda1Pu" value="0"/>
     <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
     <reference type="DOUBLE" name="hvdc_P1RefSetPu" origData="IIDM" origName="p1_pu"/>
     <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
@@ -24,12 +26,9 @@
     <reference type="DOUBLE" name="hvdc_UPhase20" origData="IIDM" origName="angle2_pu"/>
     <par type="DOUBLE" name="hvdc_Q1MinPu" value="-1.7976931348623157e+308"/>
     <par type="DOUBLE" name="hvdc_Q1MaxPu" value="1.7976931348623157e+308"/>
-    <par type="DOUBLE" name="hvdc_Q2MinPu" value="-1.7976931348623157e+308"/>
-    <par type="DOUBLE" name="hvdc_Q2MaxPu" value="1.7976931348623157e+308"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
     <par type="DOUBLE" name="hvdc_PMaxPu" value="10000"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
-    <par type="BOOL" name="hvdc_modeU20" value="true"/>
     <reference name="hvdc_CosPhi1Ref0" origData="IIDM" origName="powerFactor" type="DOUBLE" componentId="LCCStation1"/>
     <reference name="hvdc_CosPhi2Ref0" origData="IIDM" origName="powerFactor" type="DOUBLE" componentId="LCCStation1"/>
     <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>

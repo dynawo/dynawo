@@ -156,6 +156,7 @@ DynamicLineStatusNotSupported =           connection status (CLOSED_1 or CLOSED_
 MismatchingVariableSizes    =             the number of %1% variables and corresponding size are different in model %2% (%3% != %4%)
 ConverterWrongType          =             wrong converter type for converter %1%
 AttemptToPropagateBeforeMerge        =    discrete variables connectors should be merged before propagating information to model
+ZValueIsNaN                 =             discrete variable with index %1% has a NaN value
 //---Parameter---------------
 ParameterDeclaredTwice      =             model (%1%): parameter %2% is declared twice: once in par file and once in init model
 ParameterWrongTypeReference =             wrong type for reference parameter: %1%

@@ -15,6 +15,8 @@ within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model for renewable energy sources"
   import Modelica;
   import Dynawo.Types;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   parameter Types.PerUnit CqMaxPu "Max of Cq in the different exploitation schemes in pu (base UNom, QNom)";
   parameter Types.VoltageModulePu DeltaURefMaxPu "Maximum of deltaURef on one activation period (URef(t+1) - URef(t)) in pu (base UNom)";
@@ -24,6 +26,8 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   parameter Types.Time Ti "Filters' time constant in s";
   parameter Types.VoltageModulePu UStatorRefMinPu = 0.85 "Minimum reference voltage for the generator voltage regulator in pu (base UNom)";
   parameter Types.VoltageModulePu UStatorRefMaxPu = 1.15 "Maximum reference voltage for the generator voltage regulator in pu (base UNom)";
+
+  type UStatus = enumeration (Standard, LimitUMin, LimitUMax);
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
@@ -78,7 +82,24 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
 
+protected
+  UStatus uStatus(start = UStatus.Standard) "Status of the voltage reference";
+
 equation
+  when limiter_UStatorRefMinMaxPu.u >= limiter_UStatorRefMinMaxPu.uMax and pre(uStatus) <> UStatus.LimitUMax then
+    uStatus = UStatus.LimitUMax;
+    Timeline.logEvent1(TimelineKeys.RPCLLimitationUsRefMax);
+  elsewhen limiter_UStatorRefMinMaxPu.u <= limiter_UStatorRefMinMaxPu.uMin and pre(uStatus) <> UStatus.LimitUMin then
+    uStatus = UStatus.LimitUMin;
+    Timeline.logEvent1(TimelineKeys.RPCLLimitationUsRefMin);
+  elsewhen limiter_UStatorRefMinMaxPu.u < limiter_UStatorRefMinMaxPu.uMax and pre(uStatus) == UStatus.LimitUMax then
+    uStatus = UStatus.Standard;
+    Timeline.logEvent1(TimelineKeys.RPCLStandard);
+  elsewhen limiter_UStatorRefMinMaxPu.u > limiter_UStatorRefMinMaxPu.uMin and pre(uStatus) == UStatus.LimitUMin then
+    uStatus = UStatus.Standard;
+    Timeline.logEvent1(TimelineKeys.RPCLStandard);
+  end when;
+
   connect(integrator.u, rampLim.y) annotation(
     Line(points = {{98, 0}, {21, 0}}, color = {0, 0, 127}));
   connect(errQ.u1, participation.y) annotation(

@@ -1913,7 +1913,7 @@ create_modelica_distrib() {
     error_exit "You need to install zip command line utility."
   fi
   # create zipped Dynawo library for OM users
-  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
+  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_v$version.zip
   pushd $DYNAWO_INSTALL_DIR/ddb
   zip -r -y $DYNAWO_LIB_ZIP_FILE Dynawo/
   mv $DYNAWO_LIB_ZIP_FILE $DYNAWO_HOME/distributions
@@ -1934,9 +1934,9 @@ create_distrib_with_headers() {
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
 
   if [ "$with_omc" = "yes" ]; then
-    ZIP_FILE=Dynawo_omc_V$version.zip
+    ZIP_FILE=Dynawo_omc_v$version.zip
   else
-    ZIP_FILE=Dynawo_headers_V$version.zip
+    ZIP_FILE=Dynawo_headers_v$version.zip
   fi
 
   # check coding
@@ -2007,7 +2007,7 @@ create_distrib() {
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
 
-  ZIP_FILE=Dynawo_V$version.zip
+  ZIP_FILE=Dynawo_v$version.zip
 
   # check coding
   check_coding_files

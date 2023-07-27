@@ -10,7 +10,9 @@
 
 set(MODEL_FILES
   PGen.png
+  PGenPu.png
   UStatorPu.png
+  UPu.png
   )
 
 #

@@ -46,19 +46,47 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.Time tG "Current generation time constant in s" annotation(
     Dialog(tab = "Control"));
 
-  //Measurement parameters
+  //WP Measurement parameters
   parameter Types.PerUnit DfMaxPu "Maximum frequency ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "Measurement"));
+    Dialog(tab = "MeasurementWP"));
   parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "Measurement"));
+    Dialog(tab = "MeasurementWP"));
   parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(
-    Dialog(tab = "Measurement"));
+    Dialog(tab = "MeasurementWP"));
   parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "Measurement"));
+    Dialog(tab = "MeasurementWP"));
   parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "Measurement"));
+    Dialog(tab = "MeasurementWP"));
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "Measurement"));
+    Dialog(tab = "MeasurementWP"));
+
+  //Measurement parameters for control
+  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s" annotation(
+    Dialog(tab = "MeasurementC"));
+
+  //Measurement parameters for protection
+  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom)" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
+  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
+    Dialog(tab = "MeasurementP"));
 
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
@@ -237,11 +265,11 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-140, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PPDRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWPRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Reference active power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput xPDRefPu(start = XWT0Pu) "Reactive power loop reference : reactive power or voltage reference depending on the Q control mode (MqG), in pu (base SNom or UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.IEC.WPP.WPPControl wPPControl(DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DPwpRefMaxPu = DPwpRefMaxPu, DPwpRefMinPu = DPwpRefMinPu, DXRefMaxPu = DXRefMaxPu, DXRefMinPu = DXRefMinPu, DfMaxPu = DfMaxPu, Kiwpp = Kiwpp, Kiwpx = Kiwpx, Kpwpp = Kpwpp, Kpwpx = Kpwpx, KwppRef = KwppRef, KwpqRef = KwpqRef, Kwpqu = Kwpqu, MwpqMode = MwpqMode, P0Pu = P0Pu, PErrMaxPu = PErrMaxPu, PErrMinPu = PErrMinPu, PKiwppMaxPu = PKiwppMaxPu, PKiwppMinPu = PKiwppMinPu, PRefMaxPu = PRefMaxPu, PRefMinPu = PRefMinPu, Q0Pu = Q0Pu, RwpDropPu = RwpDropPu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, UwpqDipPu = UwpqDipPu, UwpqRisePu = UwpqRisePu, X0Pu = X0Pu, XErrMaxPu = XErrMaxPu, XErrMinPu = XErrMinPu, XKiwpxMaxPu = XKiwpxMaxPu, XKiwpxMinPu = XKiwpxMinPu, XRefMaxPu = XRefMaxPu, XRefMinPu = XRefMinPu, XWT0Pu = XWT0Pu, XwpDropPu = XwpDropPu, i0Pu = i0Pu, tIFilt = tIFilt, tLag = tLag, tLead = tLead, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tUqFilt = tUqFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
@@ -282,7 +310,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(group = "Initialization"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.PerUnit X0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
+  parameter Types.PerUnit X0Pu "Initial reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
@@ -292,9 +320,9 @@ equation
     Line(points = {{102, 0}, {130, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu, wPPControl.omegaRefPu) annotation(
     Line(points = {{-140, -40}, {-100, -40}, {-100, -16}, {-82, -16}}, color = {0, 0, 127}));
-  connect(xPDRefPu, wPPControl.xWPRefPu) annotation(
+  connect(xWPRefPu, wPPControl.xWPRefPu) annotation(
     Line(points = {{-140, 0}, {-100, 0}, {-100, 8}, {-82, 8}}, color = {0, 0, 127}));
-  connect(PPDRefPu, wPPControl.PWPRefPu) annotation(
+  connect(PWPRefPu, wPPControl.PWPRefPu) annotation(
     Line(points = {{-140, 40}, {-100, 40}, {-100, 16}, {-82, 16}}, color = {0, 0, 127}));
   connect(elecMeasurements.iPu, wPPControl.iPu) annotation(
     Line(points = {{72, -22}, {72, -30}, {-90, -30}, {-90, -8}, {-82, -8}}, color = {85, 170, 255}));
