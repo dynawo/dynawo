@@ -281,7 +281,7 @@ DynamicData::resolveParReferences(shared_ptr<Model> model, shared_ptr<Parameters
   if (modelSet == nullptr)
     return;
   boost::unordered_map<std::string, boost::shared_ptr<Reference> >& references = modelSet->getReferences();
-  for (const std::pair<std::string, boost::shared_ptr<Reference> >& ref : references) {
+  for (const std::pair<const std::string, boost::shared_ptr<Reference> >& ref : references) {
     const shared_ptr<Reference>& parRef = ref.second;
     if (parRef->getOrigData() == Reference::OriginData::PAR) {
       if (parRef->getParFile().empty()) {

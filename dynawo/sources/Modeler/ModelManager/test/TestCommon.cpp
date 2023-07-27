@@ -134,23 +134,44 @@ TEST(TestModelManager, TestModelManagerCommonAutomaton) {
   outputsName[0] = "d";
   outputsName[1] = "e";
 
+  int* intOutputs = new int[4];
+  intOutputs[0] = 0.;
+  intOutputs[1] = 0.;
+  intOutputs[2] = 0.;
+  intOutputs[3] = 0.;
+  const char** intOutputsName = new const char*[4];
+  intOutputsName[0] = "f";
+  intOutputsName[1] = "g";
+  intOutputsName[2] = "h";
+  intOutputsName[3] = "i";
+
   ASSERT_THROW_DYNAWO(callExternalAutomatonModel("MyAutomaton", command.c_str(), 1., inputs, inputsName, 3, 2,
-      outputs, outputsName, 2, 3, "res"), Error::GENERAL, KeyError_t::AutomatonMaximumInputSizeReached);
+      outputs, outputsName, 2, 3, intOutputs, intOutputsName, 4, 5, "res"), Error::GENERAL, KeyError_t::AutomatonMaximumInputSizeReached);
 
 
   ASSERT_THROW_DYNAWO(callExternalAutomatonModel("MyAutomaton", command.c_str(), 1., inputs, inputsName, 3, 4,
-      outputs, outputsName, 2, 2, "res"), Error::GENERAL, KeyError_t::AutomatonMaximumOutputSizeReached);
+      outputs, outputsName, 2, 2, intOutputs, intOutputsName, 4, 5, "res"), Error::GENERAL, KeyError_t::AutomatonMaximumOutputSizeReached);
+
+
+  ASSERT_THROW_DYNAWO(callExternalAutomatonModel("MyAutomaton", command.c_str(), 1., inputs, inputsName, 3, 4,
+      outputs, outputsName, 2, 2, intOutputs, intOutputsName, 6, 5, "res"), Error::GENERAL, KeyError_t::AutomatonMaximumOutputSizeReached);
 
   callExternalAutomatonModel("MyAutomaton", command.c_str(), 1., inputs, inputsName, 3, 4,
-      outputs, outputsName, 2, 3, "res");
+      outputs, outputsName, 2, 3, intOutputs, intOutputsName, 4, 5, "res");
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(outputs[0], 4.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(outputs[1], 5.);
+  ASSERT_EQ(intOutputs[0], 6.);
+  ASSERT_EQ(intOutputs[1], 7.);
+  ASSERT_EQ(intOutputs[2], 8.);
+  ASSERT_EQ(intOutputs[3], 9.);
 
   delete[] inputs;
   delete[] inputsName;
   delete[] outputs;
   delete[] outputsName;
+  delete[] intOutputs;
+  delete[] intOutputsName;
 }
 
 }  // namespace DYN

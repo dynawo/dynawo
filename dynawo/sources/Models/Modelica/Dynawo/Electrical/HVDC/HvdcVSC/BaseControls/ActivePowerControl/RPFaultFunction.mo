@@ -17,7 +17,7 @@ model RPFaultFunction "rpfault function for HVDC"
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_RPFaultFunction;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsRPFaultFunction;
 
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

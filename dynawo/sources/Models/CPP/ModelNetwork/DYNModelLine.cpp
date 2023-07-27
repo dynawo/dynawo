@@ -797,7 +797,7 @@ ModelLine::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U2_value", CONTINUOUS));
   // state as continuous variable (need for external automaton as inputs of automaton are continuous)
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_lineState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
 }
 
@@ -821,7 +821,7 @@ ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_U1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_U2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_lineState_value", CONTINUOUS));  // state as continuous variable
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
 }
 
@@ -870,6 +870,33 @@ ModelLine::evalZ(const double& t) {
     currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
+  }
+
+  switch (knownBus_) {
+  case BUS1_BUS2:
+  {
+    if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = OPEN;
+    } else if (modelBus1_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_2;
+
+    } else if (modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_1;
+    }
+    break;
+  }
+  case BUS1:
+  {
+    if (modelBus1_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
+  case BUS2:
+  {
+    if (modelBus2_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
   }
 
   State currState = static_cast<State>(static_cast<int>(z_[0]));

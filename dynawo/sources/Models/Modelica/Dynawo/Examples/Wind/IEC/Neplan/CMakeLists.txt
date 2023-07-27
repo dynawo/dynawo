@@ -13,9 +13,13 @@ set(MODEL_FILES
   package.mo
   package.order
   WPP4ACurrentSource.mo
+  WPP4ACurrentSourceFOCB.mo
   WPP4BCurrentSource.mo
+  WPP4BCurrentSourceFOCB.mo
   WT4ACurrentSource.mo
+  WT4ACurrentSourceFOCB.mo
   WT4BCurrentSource.mo
+  WT4BCurrentSourceFOCB.mo
   )
 
 #

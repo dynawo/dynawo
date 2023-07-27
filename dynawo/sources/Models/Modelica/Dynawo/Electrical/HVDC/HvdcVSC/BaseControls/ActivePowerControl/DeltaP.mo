@@ -20,7 +20,7 @@ model DeltaP "Function that calculates a DeltaP for the active power control sid
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DeltaP;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDeltaP;
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
 
   Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UdcNom)" annotation(

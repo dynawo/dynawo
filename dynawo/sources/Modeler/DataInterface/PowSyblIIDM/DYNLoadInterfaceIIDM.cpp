@@ -40,8 +40,9 @@ LoadInterfaceIIDM::LoadInterfaceIIDM(Load& load) : InjectorInterfaceIIDM(load, l
                                                    v0_(0.),
                                                    vNom_(0.) {
   setType(ComponentInterface::LOAD);
+  const bool neededForCriteriaCheck = true;
   stateVariables_.resize(3);
-  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);       // P
+  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE, neededForCriteriaCheck);       // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);       // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
 }
@@ -159,6 +160,11 @@ LoadInterfaceIIDM::isConnected() const {
 double
 LoadInterfaceIIDM::getP() {
   return getPInjector();
+}
+
+double
+LoadInterfaceIIDM::getStateVarP() {
+  return getValue<double>(VAR_P);
 }
 
 double

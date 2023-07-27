@@ -228,6 +228,9 @@ NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
+  if (modelBus_->getConnectionState() == OPEN)
+    z_[connectionStateNum_] = OPEN;
+
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     Trace::info() << DYNLog(SVCStateChange, id_, getConnected(), z_[connectionStateNum_]) << Trace::endline;
@@ -371,7 +374,7 @@ ModelStaticVarCompensator::instantiateVariables(vector<shared_ptr<Variable> >& v
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_mode_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
 }
 
 void
@@ -379,7 +382,7 @@ ModelStaticVarCompensator::defineVariables(vector<shared_ptr<Variable> >& variab
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_mode_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
 }
 
 void

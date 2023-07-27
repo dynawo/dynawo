@@ -98,6 +98,8 @@
     <par type="DOUBLE" name="voltageRegulator_VrMaxPu" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="-0.87"/>
     <par type="DOUBLE" name="voltageRegulator_XlPu" value="0.124"/>
+    <par type="DOUBLE" name="pss_KOmega" value="1"/>
+    <par type="DOUBLE" name="pss_KOmegaRef" value="0"/>
     <par type="DOUBLE" name="pss_Ks1" value="12"/>
     <par type="DOUBLE" name="pss_Ks2" value="0.2"/>
     <par type="DOUBLE" name="pss_Ks3" value="1"/>

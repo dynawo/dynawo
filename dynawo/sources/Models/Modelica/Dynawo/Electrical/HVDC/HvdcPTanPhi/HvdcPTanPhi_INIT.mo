@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,10 +9,10 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcPTanPhi_INIT "Initialisation model for P/tan(Phi) HVDC link"
+model HvdcPTanPhi_INIT "Initialisation model of P/tan(Phi) HVDC link"
   extends AdditionalIcons.Init;
   extends BaseClasses_INIT.BaseHVDC_INIT;
 
@@ -24,9 +24,9 @@ model HvdcPTanPhi_INIT "Initialisation model for P/tan(Phi) HVDC link"
   Real TanPhi2Ref0 "Start value of tan(Phi) regulation set point at terminal 2";
 
 equation
+  P1Ref0Pu = P1RefSetPu;
   TanPhi1Ref0 = if sign(P10Pu) == sign(Q10Pu) then abs(tan(acos(CosPhi1Ref0))) else - abs(tan(acos(CosPhi1Ref0)));
   TanPhi2Ref0 = if sign(P20Pu) == sign(Q20Pu) then abs(tan(acos(CosPhi2Ref0))) else - abs(tan(acos(CosPhi2Ref0)));
-  P1Ref0Pu = P1RefSetPu;
 
   annotation(preferredView = "text");
 end HvdcPTanPhi_INIT;

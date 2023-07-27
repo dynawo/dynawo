@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+    <dyn:blackBoxModel id="TCB" lib="TapChangerBlockingAutomaton1" parFile="TCB.par" parId="TCB"/>
+    <dyn:macroConnect connector="TCB1ToUMeasurement" id1="TCB" id2="NETWORK" name2="1042_131"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr11-1011"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr12-1012"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr13-1013"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr22-1022"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr1-1041"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr2-1042"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr3-1043"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr4-1044"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr5-1045"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr31-2031"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr32-2032"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr41-4041"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr42-4042"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr43-4043"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr46-4046"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr47-4047"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr51-4051"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr61-4061"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr62-4062"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr63-4063"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr71-4071"/>
+    <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr72-4072"/>
+    <dyn:macroConnector id="TCB1ToUMeasurement" name2="true">
+        <dyn:connect var1="tapChangerBlocking_UMonitored" var2="@NAME@_U"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="TCB1ToTransformer" name2="true">
+        <dyn:connect var1="tapChangerBlocking_blockedT" var2="@NAME@_TAP_CHANGER_locked_value"/>
+    </dyn:macroConnector>
+</dyn:dynamicModelsArchitecture>

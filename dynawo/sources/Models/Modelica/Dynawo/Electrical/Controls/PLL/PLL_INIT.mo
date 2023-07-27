@@ -23,5 +23,6 @@ model PLL_INIT "Initial model of phase-locked loop"
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text");
 end PLL_INIT;

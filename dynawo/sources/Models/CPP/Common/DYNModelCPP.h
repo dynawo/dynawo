@@ -304,6 +304,17 @@ class ModelCPP : public SubModel {
   void defineParametersInit(std::vector<ParameterModeler>& parameters);
 
   /**
+   * @brief define the indexes and names of all parameters and variables of a dynamic sub-model
+   *
+   * @param variables variables vector
+   * @param zNames vector linking discrete variables with names
+   * @param xNames vector linking continuous (possibly flow) variables with names
+   * @param calculatedVarNames vector linking calculated variables with names
+   */
+  void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
+                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
+
+  /**
    * @brief get whether the model is starting from dumped values
    * @return get whether the model is starting from dumped values
    */

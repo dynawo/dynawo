@@ -17,8 +17,9 @@ model DCVoltageControlSideDangling "DC Voltage Control Side for the HVDC VSC mod
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseDCVoltageControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBaseDCVoltageControl;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
+
   parameter Types.PerUnit RdcPu "DC line resistance in pu (base UdcNom, SnRef)";
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";

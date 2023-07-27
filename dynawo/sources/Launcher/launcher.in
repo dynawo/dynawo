@@ -181,7 +181,7 @@ esac
  # Launching Dynawo with the script args and the correct mode
 case ${MODE} in
 VALGRIND)
-  valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ${DYNAWO} ${ARGS}
+  valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log ${DYNAWO} ${ARGS}
   RETURN_CODE=$?
   ;;
 VALGRIND_CALLGRIND)

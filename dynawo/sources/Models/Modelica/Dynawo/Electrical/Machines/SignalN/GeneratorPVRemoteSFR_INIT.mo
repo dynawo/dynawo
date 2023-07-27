@@ -13,20 +13,11 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVRemoteSFR_INIT "Initialisation model for generator PV based on SignalN for the frequency handling and a remote voltage regulation and that participates in the Secondary Frequency Regulation (SFR)"
-  import Dynawo;
-  import Dynawo.Electrical.Machines;
-
   extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;
 
   parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
   parameter Types.VoltageModule URegulated0 "Start value of the regulated voltage in kV";
-
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
-
-  QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
   if QGen0Pu <= QMinPu and URegulated0 >= URef0 then

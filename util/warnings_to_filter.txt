@@ -88,7 +88,7 @@ warning: return type of member DYN::Model::initBuffers is not documented
 warning: return type of member DYN::Model::initSilentZ is not documented
 warning: return type of member DYN::Model::loadParameters is not documented
 warning: return type of member DYN::Model::loadVariables is not documented
-warning: return type of member DYN::Model::printInitValues is not documented
+warning: return type of member DYN::Model::printModelValues is not documented
 warning: return type of member DYN::Model::printModel is not documented
 warning: return type of member DYN::Model::reinitMode is not documented
 warning: return type of member DYN::Model::rotateBuffers is not documented
@@ -137,7 +137,6 @@ warning: return type of member DYN::ModelCPP::initSubBuffers is not documented
 warning: return type of member DYN::ModelCPP::loadParameters is not documented
 warning: return type of member DYN::ModelCPP::loadVariables is not documented
 warning: return type of member DYN::ModelCPP::notifyTimeStep is not documented
-warning: return type of member DYN::ModelCPP::printInitValues is not documented
 warning: return type of member DYN::ModelCPP::rotateBuffers is not documented
 warning: return type of member DYN::ModelCPP::setFequations is not documented
 warning: return type of member DYN::ModelCPP::setFequationsInit is not documented
@@ -338,7 +337,6 @@ warning: return type of member DYN::SubModel::init is not documented
 warning: return type of member DYN::SubModel::initializeFromData is not documented
 warning: return type of member DYN::SubModel::loadParameters is not documented
 warning: return type of member DYN::SubModel::loadVariables is not documented
-warning: return type of member DYN::SubModel::printInitValues is not documented
 warning: return type of member DYN::SubModel::rotateBuffers is not documented
 warning: return type of member DYN::SubModelFactory::destroy is not documented
 warning: return type of member DYN::SwitchInterface::open is not documented
@@ -407,7 +405,7 @@ warning: return type of member parameters::XmlExporter::exportToFile is not docu
 warning: return type of member parameters::XmlExporter::exportToStream is not documented
 warning: return type of member timeline::Exporter::exportToFile is not documented
 warning: return type of member timeline::Exporter::exportToStream is not documented
-warning: return type of member DYN::SubModel::printInitValuesParameters is not documented
+warning: return type of member DYN::SubModel::printValuesParameters is not documented
 warning: return type of member lostEquipments::Exporter::exportToFile is not documented
 warning: return type of member lostEquipments::Exporter::exportToStream is not documented
 warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const (function) of class DYN::NetworkComponent is not documented.
@@ -420,3 +418,4 @@ warning: return type of member DYN::DataInterface::setTimeline is not documented
 warning: return type of member DYN::Model::setLocalInitParameters is not documented
 warning: return type of member finalStateValues::Exporter::exportToFile is not documented
 warning: return type of member finalStateValues::Exporter::exportToStream is not documented
+warning: return type of member DYN::SubModel::defineNamesImpl is not documented

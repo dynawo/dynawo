@@ -69,7 +69,7 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
     Placement(visible = true, transformation(origin = {140, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max3 annotation(
+  Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sqrt sqrt annotation(
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -191,9 +191,9 @@ equation
     Line(points = {{81.5, 40}, {110, 40}, {110, 88}}, color = {255, 127, 0}));
   connect(booleanToInteger.y, product1.u[2]) annotation(
     Line(points = {{22, 20}, {40, 20}, {40, 40}, {60, 40}}, color = {255, 127, 0}));
-  connect(max3.y, switch1.u[1]) annotation(
+  connect(min1.y, switch1.u[1]) annotation(
     Line(points = {{82, 110}, {90, 110}, {90, 100}, {100, 100}}, color = {0, 0, 127}));
-  connect(sqrt.y, max3.u1) annotation(
+  connect(sqrt.y, min1.u1) annotation(
     Line(points = {{42, 120}, {50, 120}, {50, 116}, {58, 116}}, color = {0, 0, 127}));
   connect(max.y, sqrt.u) annotation(
     Line(points = {{2, 120}, {18, 120}}, color = {0, 0, 127}));
@@ -257,7 +257,7 @@ equation
     Line(points = {{-258, -60}, {-248, -60}}, color = {0, 0, 127}));
   connect(feedback3.y, min3.u1) annotation(
     Line(points = {{-230, -60}, {-226, -60}, {-226, -134}, {-222, -134}}, color = {0, 0, 127}));
-  connect(feedback3.y, max3.u2) annotation(
+  connect(feedback3.y, min1.u2) annotation(
     Line(points = {{-230, -60}, {-52, -60}, {-52, 60}, {50, 60}, {50, 104}, {58, 104}}, color = {0, 0, 127}));
   connect(feedback3.y, switch1.u[2]) annotation(
     Line(points = {{-230, -60}, {-52, -60}, {-52, 60}, {90, 60}, {90, 98}, {100, 98}}, color = {0, 0, 127}));

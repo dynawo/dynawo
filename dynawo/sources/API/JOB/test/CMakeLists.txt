@@ -17,6 +17,7 @@ set(MODULE_SOURCES
   TestDynModelsEntry.cpp
   TestFinalStateEntry.cpp
   TestFinalStateValuesEntry.cpp
+  TestFinalValuesEntry.cpp
   TestInitialStateEntry.cpp
   TestInitValuesEntry.cpp
   TestJobCollection.cpp

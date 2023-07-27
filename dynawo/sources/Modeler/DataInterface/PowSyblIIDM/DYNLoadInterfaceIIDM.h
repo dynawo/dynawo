@@ -100,6 +100,11 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
   double getP();
 
   /**
+   * @copydoc LoadInterface::getStateVarP()
+   */
+  double getStateVarP();
+
+  /**
    * @copydoc LoadInterface::getP0()
    */
   double getP0();

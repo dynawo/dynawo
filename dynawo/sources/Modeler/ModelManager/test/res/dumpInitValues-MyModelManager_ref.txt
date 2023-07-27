@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 MyVariable2                                       : y =       8.000000 yp =       0.000000
 MyAliasVariable                                   : alias of MyVariable2
  ====== INIT CALCULATED VARIABLES VALUES ======

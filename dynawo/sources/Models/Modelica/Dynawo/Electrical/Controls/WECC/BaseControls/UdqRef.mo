@@ -47,6 +47,7 @@ equation
   udSourceRefPu = udInjPu + idRefPu * RSourcePu - iqRefPu * XSourcePu;
   uqSourceRefPu = uqInjPu + iqRefPu * RSourcePu + idRefPu * XSourcePu;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Text(origin = {-121.5, 96}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idRef"), Text(origin = {-121.5, 46}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqRef"), Text(origin = {-135.067, -7.72727}, extent = {{1.06667, 1.72727}, {33.0667, -17.2727}}, textString = "udInjPu"), Text(origin = {126.654, 55.8824}, extent = {{-26.6538, 11.1176}, {39.3462, -15.8824}}, textString = "udSourceRef"), Text(origin = {-10.5, 12}, extent = {{-69.5, 68}, {90.5, -92}}, textString = "UdqRef"), Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-135.07, -56.73}, extent = {{1.07, 1.73}, {33.07, -17.27}}, textString = "uqInjPu"), Text(origin = {126.654, 55.8824}, extent = {{-26.6538, 11.1176}, {39.3462, -15.8824}}, textString = "udSourceRef"), Text(origin = {126.65, -24.12}, extent = {{-26.65, 11.12}, {39.35, -15.88}}, textString = "uqSourceRef")}));
 end UdqRef;

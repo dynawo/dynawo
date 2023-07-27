@@ -15,6 +15,7 @@
 #include "DYNCommon.h"
 #include "DYNCriteria.h"
 #include "DYNCommonConstants.h"
+#include "DYNModelConstants.h"
 #include "CRTCriteriaParamsVoltageLevel.h"
 
 namespace DYN {
@@ -205,18 +206,18 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
   for (std::vector<boost::shared_ptr<LoadInterface> >::const_iterator loadIt = loads_.begin(), loadItEnd = loads_.end();
       loadIt != loadItEnd; ++loadIt) {
     boost::shared_ptr<DYN::LoadInterface> load = *loadIt;
-    if (load->isFictitious())
-      continue;
-    double p = load->getP();
+    double p = load->getStateVarP() * SNREF;
     if (!params_->getVoltageLevels().empty()) {
       if (alreadyChecked.find(load->getID()) != alreadyChecked.end()) continue;
       for (std::vector<criteria::CriteriaParamsVoltageLevel>::const_iterator itVl = params_->getVoltageLevels().begin(),
           itVlEnd = params_->getVoltageLevels().end();
           itVl != itVlEnd; ++itVl) {
         const criteria::CriteriaParamsVoltageLevel& vl = *itVl;
-        if ((vl.hasUMaxPu() || vl.hasUMinPu()) && load->getBusInterface()) {
+        if ((vl.hasUMaxPu() || vl.hasUMinPu() || vl.hasUNomMax() || vl.hasUNomMin()) && load->getBusInterface()) {
           double v = load->getBusInterface()->getStateVarV();
           double vNom = load->getBusInterface()->getVNom();
+          if (vl.hasUNomMin() && vNom < vl.getUNomMin()) continue;
+          if (vl.hasUNomMax() && vNom > vl.getUNomMax()) continue;
           if (vl.hasUMaxPu() && v > vl.getUMaxPu()*vNom) continue;
           if (vl.hasUMinPu() && v < vl.getUMinPu()*vNom) continue;
         }
@@ -250,7 +251,7 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
             loadIt != loadToSourcesAddedIntoSumMap.crend();
             ++loadIt) {
         Trace::debug() << DYNLog(SourcePowerTakenIntoAccount, "load", loadIt->second->getID(), params_->getId(),
-            loadIt->second->getP(), loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+            loadIt->second->getStateVarP() * SNREF, loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
       }
 
       if (timeline != nullptr) {
@@ -268,7 +269,7 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
             loadIt != loadToSourcesAddedIntoSumMap.cend();
             ++loadIt) {
         Trace::debug() << DYNLog(SourcePowerTakenIntoAccount, "load", loadIt->second->getID(), params_->getId(),
-            loadIt->second->getP(), loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+            loadIt->second->getStateVarP() * SNREF, loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
       }
 
       if (timeline != nullptr) {
@@ -317,9 +318,9 @@ LoadCriteria::checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::LoadInte
       alreadyChecked.insert(load->getID());
     }
   } else {
-    loadToSourcesAddedIntoSumMap.insert({loadActivePower, load});
     if (alreadyChecked.find(load->getID()) != alreadyChecked.end()) return;
     alreadyChecked.insert(load->getID());
+    loadToSourcesAddedIntoSumMap.insert({loadActivePower, load});
     sum += loadActivePower;
     atLeastOneEligibleLoadWasFound = true;
   }
@@ -334,6 +335,8 @@ LoadCriteria::criteriaEligibleForLoad(const boost::shared_ptr<criteria::Criteria
 
 void
 LoadCriteria::addLoad(const boost::shared_ptr<LoadInterface>& load) {
+  if (load->isFictitious())
+    return;
   if (load->getBusInterface() &&
         (doubleIsZero(load->getBusInterface()->getV0()))) return;
   if (params_->getVoltageLevels().empty()) {
@@ -425,16 +428,18 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_p
         generatorItEnd = generators_.end();
         generatorIt != generatorItEnd; ++generatorIt) {
     boost::shared_ptr<GeneratorInterface> generator = *generatorIt;
-    double p = generator->getP();
+    double p = -generator->getStateVarP() * SNREF;
     if (params_->getVoltageLevels().size() != 0) {
       if (alreadyChecked.find(generator->getID()) != alreadyChecked.end()) continue;
       for (std::vector<criteria::CriteriaParamsVoltageLevel>::const_iterator itVl = params_->getVoltageLevels().begin(),
           itVlEnd = params_->getVoltageLevels().end();
           itVl != itVlEnd; ++itVl) {
         const criteria::CriteriaParamsVoltageLevel& vl = *itVl;
-        if ((vl.hasUMaxPu() || vl.hasUMinPu()) && generator->getBusInterface()) {
+        if ((vl.hasUMaxPu() || vl.hasUMinPu() || vl.hasUNomMin() || vl.hasUNomMax()) && generator->getBusInterface()) {
           double v = generator->getBusInterface()->getStateVarV();
           double vNom = generator->getBusInterface()->getVNom();
+          if (vl.hasUNomMin() && vNom < vl.getUNomMin()) continue;
+          if (vl.hasUNomMax() && vNom > vl.getUNomMax()) continue;
           if (vl.hasUMaxPu() && v > vl.getUMaxPu()*vNom) continue;
           if (vl.hasUMinPu() && v < vl.getUMinPu()*vNom) continue;
         }
@@ -468,7 +473,7 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_p
             generatorIt != generatorToSourcesAddedIntoSumMap.crend();
             ++generatorIt) {
         Trace::info() << DYNLog(SourcePowerTakenIntoAccount, "generator", generatorIt->second->getID(), params_->getId(),
-          generatorIt->second->getP(), generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+          -generatorIt->second->getStateVarP() * SNREF, generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
       }
 
       if (timeline != nullptr) {
@@ -486,7 +491,7 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_p
             generatorIt != generatorToSourcesAddedIntoSumMap.cend();
             ++generatorIt) {
         Trace::debug() << DYNLog(SourcePowerTakenIntoAccount, "generator", generatorIt->second->getID(), params_->getId(),
-            generatorIt->second->getP(), generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+            -generatorIt->second->getStateVarP() * SNREF, generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
       }
 
       if (timeline != nullptr) {

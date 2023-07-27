@@ -39,6 +39,7 @@ This repository contains Dyna&omega;o's project code.
   * [Building Dyna&omega;o](#build)
     * [Linux](#build_linux)
     * [Windows](#build_windows)
+    * [Codespaces](#build_codespaces)
   * [Launch Dyna&omega;o](#launch)
     * [Linux](#launch_linux)
     * [Windows](#launch_windows)
@@ -84,13 +85,13 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 ## Getting started!
 
 To get started with Dyna&omega;o you have different possibilities, depending on your background and what you want to do:
-- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Modelica_library_v1.4.0.zip) in OpenModelica for example.
+- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.4.1/Dynawo_Modelica_library_v1.4.1.zip) in OpenModelica for example.
 - If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution) and the examples directory.
 - If you want to checkout the repository and build it yourself to be able to modify the tool, please follow the build instructions available [here](#build)
 
-**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Modelica_library_v1.4.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
+**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.4.1/Dynawo_Modelica_library_v1.4.1.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
 
-**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.4.0/DynawoDocumentation.zip).**
+**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.4.1/DynawoDocumentation.zip).**
 
 <a name="installation"></a>
 ## Installation
@@ -98,8 +99,8 @@ To get started with Dyna&omega;o you have different possibilities, depending on 
 ### Dyna&omega;o Distribution
 
 You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **Windows**:
-- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Linux_v1.4.0.zip)
-- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.4.0/Dynawo_Windows_v1.4.0.zip)
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.4.1/Dynawo_Linux_v1.4.1.zip)
+- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.4.1/Dynawo_Windows_v1.4.1.zip)
 
 If you are on **MacOS** you can use [Docker](#docker).
 
@@ -295,6 +296,38 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 
 **Warning** Only the build directories (b and b-3-p) can be located in the `dynawo` folder, the install (d-i and d-3-p), OMDev and OpenModelica folders should be located outside to avoid problems with CMake.
 
+<a name="build_codespaces"></a>
+#### Codespaces
+
+Github provides a way to build open-source projects in the cloud with its solution [Codespaces](https://github.com/features/codespaces). If you want to build and test Dyna&omega;o without having to setup a development environment this is the solution. Start your Codespaces on the project and follow those steps:
+
+1. In the Vscode Terminal of Codespaces launch:
+``` bash
+$> ./.vscode/fixForCodespaces.sh && ./.vscode/switchVscodeConfig.sh
+```
+
+2. Go to `Extensions` and install `C/C++ Extension Pack`
+
+3. Press `F1`, select `CMake: Configurer` and select `GCC` as active kit.
+
+4. Click on `Build` at the bottom of the Window. This step will build the `all` target, building all the 3rd parties needed for Dyna&omega;o.
+
+5. Once the build is done go back to the Terminal and launch:
+
+``` bash
+$> ./.vscode/switchVscodeConfig.sh
+```
+
+6. Press `F1` and select `CMake: Configurer`
+
+7. Select `install` target and launch `Build`
+
+8. Select `models` target and launch `Build`
+
+9. Select `solvers` target and launch `Build`
+
+10. Dyna&omega;o is fully built and you can start testing it or adding your feature !
+
 <a name="launch"></a>
 ### Launch Dyna&omega;o
 
@@ -349,7 +382,9 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.4.0/DynawoDocumentation.zip).
+You can download Dyna&omega;o documentation here :
+- [Nightly version](https://github.com/dynawo/dynawo/releases/download/nightly/DynawoDocumentation.pdf)
+- [Release version](https://github.com/dynawo/dynawo/releases/download/v1.4.1/DynawoDocumentation.zip)
 
 <a name="doxygen"></a>
 ### Doxygen
@@ -388,7 +423,8 @@ Dyna&omega;o is currently maintained by the following people in RTE:
 * Gautier Bureau, [gautier.bureau@rte-france.com](mailto:gautier.bureau@rte-france.com)
 * Marco Chiaramello, [marco.chiaramello@rte-france.com](mailto:marco.chiaramello@rte-france.com)
 * Quentin Cossart, [quentin.cossart@rte-france.com](mailto:quentin.cossart@rte-france.com)
-* Adrien Guironnet, [adrien.guironnet@rte-france.com](mailto:adrien.guironnet@rte-france.com)
+* Joy El-Feghali, [joy.elfeghali@rte-france.com](mailto:joy.elfeghali@rte-france.com)
+* Baptiste Letellier, [baptiste.letellier@rte-france.com](mailto:baptiste.letellier@rte-france.com)
 * Ian Menezes, [ian.menezes@rte-france.com](mailto:ian.menezes@rte-france.com)
 * Florentine Rosiere, [florentine.rosiere@rte-france.com](mailto:florentine.rosiere@rte-france.com)
 

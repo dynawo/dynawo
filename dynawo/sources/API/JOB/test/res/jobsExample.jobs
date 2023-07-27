@@ -34,6 +34,7 @@
     </dyn:simulation>
     <dyn:outputs directory="outputs1">
       <dyn:dumpInitValues local="true" global="false"/>
+      <dyn:dumpFinalValues/>
       <dyn:constraints exportMode="XML"/>
       <dyn:timeline exportMode="TXT" exportTime="true" maxPriority="2" filter="true"/>
       <dyn:timetable step="10"/>

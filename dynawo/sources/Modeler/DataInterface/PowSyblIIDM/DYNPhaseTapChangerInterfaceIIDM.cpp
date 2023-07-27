@@ -83,7 +83,7 @@ PhaseTapChangerInterfaceIIDM::getRegulating() const {
 }
 
 double
-PhaseTapChangerInterfaceIIDM::getThresholdI() const {
+PhaseTapChangerInterfaceIIDM::getRegulationValue() const {
   if (std::isnan(tapChangerIIDM_.getRegulationValue())) {
     return 99999.0;
   }

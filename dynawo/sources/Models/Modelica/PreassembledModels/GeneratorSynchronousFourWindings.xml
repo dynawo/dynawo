@@ -14,6 +14,6 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- Synchronous generator with four windings, a fixed mechanical power and a fixed excitation voltage-->
   <dyn:modelicaModel id="GeneratorSynchronousFourWindings">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

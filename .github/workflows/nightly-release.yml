@@ -2,16 +2,68 @@ name: Nightly Release
 
 on:
   workflow_dispatch:
+    inputs:
+      perform-nightly:
+        description: Prepare nightly tag and release
+        type: boolean
+        default: true
+      perform-linux:
+        description: Build Linux release
+        type: boolean
+        default: true
+      perform-windows:
+        description: Build Windows release
+        type: boolean
+        default: true
+      perform-nrt:
+        description: Run NRT on Windows
+        type: boolean
+        default: true
+      perform-dispatch:
+        description: Tell dynawo-algorithms the nightly release is ready
+        type: boolean
+        default: true
   schedule:
     - cron:  "0 22 * * 1-5"
 
+env:
+  DYNAWO_TAG: nightly
+
 jobs:
+  nightly:
+    if: github.event_name != 'workflow_dispatch' || inputs.perform-nightly
+    name: Prepare nightly tag and release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: .github/release.js
+          sparse-checkout-cone-mode: false
+
+      - name: Create nightly tag and release if necessary
+        uses: actions/github-script@v6
+        env:
+          body: |
+            Dynawo's nightly release. Compiled on *release* settings.
+            
+            **Don't use it for production**
+          draft: false
+          prerelease: true
+          release_name: Nightly
+          tag_name: ${{ env.DYNAWO_TAG }}
+          target_commitish: heads/master
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
   fedora:
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux)
     name: Linux Fedora (Release, GCC, cxx11)
     runs-on: ubuntu-latest
     container: dynawo/dynawo-distribution-cxx11:latest
-    strategy:
-      fail-fast: false
+    needs: nightly
     env:
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
@@ -19,18 +71,19 @@ jobs:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_NB_PROCESSORS_USED: 2
-      GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CURL_JSON: 'curl --silent -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --header "Content-Type: application/json"'
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
+
+      - name: Build documentation
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-doc
 
       - name: Prepare files for distribution
         run: |
@@ -42,118 +95,127 @@ jobs:
       - name: INFO. Files created in distributions folder
         run: du -hs distributions/*
 
-      - name: Delete previous nightly release
-        run: |
-          source .github/workflows/tools.sh
-
-          echo "Obtain previous release id and delete it"
-          RELEASE_ID=$(eval $CURL_JSON "$GH_API/releases" | python3 -c 'import sys, json; releases=[release["id"] for release in json.load(sys.stdin) if release["tag_name"]=="nightly"]; print(releases[0] if releases else "")')
-          if [ ! -z "$RELEASE_ID" ]; then
-            echo "Release id with tag 'nightly' found: $RELEASE_ID"
-            echo "Delete release $RELEASE_ID ..."
-            curl \
-              --request DELETE \
-              --url "$GH_API/releases/$RELEASE_ID" \
-              --header "authorization: Bearer $GITHUB_TOKEN"
-            echo "Wait for release to be deleted ..."
-            wait_for_http_code "$GH_API/releases/$RELEASE_ID" 404 $GITHUB_TOKEN
-          else
-            echo "Previous nightly release not found"
-          fi
-
-      - name: INFO. List of all releases after deleting nightly
-        run: eval $CURL_JSON "$GH_API/releases"
-
-      - name: Delete previous nightly tag
-        run: |
-          source .github/workflows/tools.sh
-
-          echo "Delete previous tag. Won't fail if it does not exist"
-          curl \
-            --request DELETE \
-            --url "$GH_API/git/refs/tags/nightly" \
-            --header "authorization: Bearer $GITHUB_TOKEN" \
-            --header "Content-Type: application/json"
-
-          echo "Wait for tag to be deleted ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 404 $GITHUB_TOKEN
-
-      - name: INFO. Nightly tag should not be found
-        run: eval $CURL_JSON "$GH_API/git/refs/tags/nightly"
-
-      - name: Get last commit in master
-        run: |
-          echo "Obtaining refs/heads/master ..."
-          HEAD_MASTER=$(eval $CURL_JSON "$GH_API/git/refs/heads/master")
-          echo "Head master:"
-          echo $HEAD_MASTER
-          SHA_HEAD_MASTER=$(echo $HEAD_MASTER | python3 -c 'import sys, json; print(json.load(sys.stdin)["object"]["sha"])')
-          echo "Last commit in master has SHA = $SHA_HEAD_MASTER"
-          echo "MASTER_COMMIT_ID=$SHA_HEAD_MASTER" >> $GITHUB_ENV
-
-      - name: INFO. Check last commit in master
-        run: echo "Last commit in master SHA = $MASTER_COMMIT_ID"
-
-      - name: Create tag nightly
-        run: |
-          source .github/workflows/tools.sh
-          echo "Create tag nightly based on last commit in master branch"
-          curl \
-            --request POST \
-            --url "$GH_API/git/refs" \
-            --header "authorization: Bearer $GITHUB_TOKEN" \
-            --header "Content-Type: application/json" \
-            --data '{
-                "ref": "refs/tags/nightly",
-                "sha": "'$MASTER_COMMIT_ID'"
-                }'
-          echo "Wait for tag to be created ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 200 $GITHUB_TOKEN
-
-      - name: INFO. Tag nightly created"
-        run: eval $CURL_JSON "$GH_API/git/refs/tags/nightly"
-
-      - name: Create release nightly
-        run: |
-          source .github/workflows/tools.sh
-          echo "Create release nightly"
-          curl \
-            --request POST \
-            --url "$GH_API/releases" \
-            --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            --header "Content-Type: application/json" \
-            --data '{
-                "tag_name" : "nightly",
-                "target_commitish" : "'$MASTER_COMMIT_ID'",
-                "name" : "Nightly",
-                "body" : "Dynawo'"'"'s nightly release. Compiled on *release* settings.\n\n**Don'"'"'t use it for production**",
-                "draft" : false,
-                "prerelease" : true
-                }'
-          echo "Wait for the release to be published ..."
-          wait_for_http_code "$GH_API/releases/tags/nightly" 200 $GITHUB_TOKEN
-
-      - name: INFO. Release object created for tag nightly"
-        run: eval $CURL_JSON "$GH_API/releases/tags/nightly"
-
       - name: Upload assets for release
+        uses: actions/github-script@v6
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            distributions/*.zip
+            documentation/dynawoDocumentation/DynawoDocumentation.pdf
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+      # The secrets.DISPATCH_TOKEN should contain a fine-grained PAT with access to dynawo/dynawo-algorithms with Repository permissions 'Contents: Read and write'
+      - name: Tell dynawo-algorithms the nightly release is ready
+        if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.DISPATCH_TOKEN }}
+          script: |
+            await github.rest.repos.createDispatchEvent({ owner: context.repo.owner, repo: "dynawo-algorithms", event_type: "nightly-linux" });
+
+  windows:
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-windows)
+    name: Windows 2019 (Release, VS2019)
+    runs-on: windows-2019
+    needs: nightly
+    env:
+      DYNAWO_VERSION: 1.4.1   # latest release with OpenModelica
+    steps:
+      - name: No LF to CRLF conversion
+        shell: cmd
+        run: git config --global core.autocrlf input
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Git move to keep path as short as possible
+        shell: cmd
         run: |
-          source .github/workflows/tools.sh
-          echo "Obtain upload and assets urls from created release:"
-          RELEASE=$(eval $CURL_JSON "$GH_API/releases/tags/nightly")
-          UPLOAD_URL=$(echo ${RELEASE} | python3 -c 'import sys, json; release = json.load(sys.stdin); print(str(release["upload_url"]))' | grep -o ".*assets")
-          echo "Release upload URL = $UPLOAD_URL"
-          ASSETS_URL=$(echo ${RELEASE} | python3 -c 'import sys, json; release = json.load(sys.stdin); print(str(release["assets_url"]))')
-          echo "Release assets URL = $ASSETS_URL"
-          echo "ASSETS_URL=$ASSETS_URL" >> $GITHUB_ENV
+          cd ..
+          move dynawo \
+          md dynawo
 
-          echo "Upload assets"
-          cd distributions
-          for FILE in *zip; do
-            [ -f "$FILE" ] || break
-            echo "Upload asset $FILE"
-            upload_zip_file $UPLOAD_URL $FILE ${{ secrets.GITHUB_TOKEN }}
-          done
+      - name: Fetch previous release of Dynawo
+        shell: bash
+        run: curl -LOs https://github.com/dynawo/dynawo/releases/download/v$DYNAWO_VERSION/Dynawo_Windows_v$DYNAWO_VERSION.zip
 
-      - name: INFO. Release assets
-        run: eval $CURL_JSON $ASSETS_URL
+      - name: Unzip and retrieve OpenModelica
+        shell: cmd
+        run: |
+          7z x Dynawo_Windows_v%DYNAWO_VERSION%.zip dynawo\OpenModelica\ -r -o\OpenModelica
+          del Dynawo_Windows_v%DYNAWO_VERSION%.zip
+          cd \OpenModelica\dynawo
+          7z a ${{ github.workspace }}\OpenModelica-windows.zip -r OpenModelica\*
+
+      # We are forced to change the path to avoid too long commands when compiling
+      - name: Build Dynawo Third Parties
+        shell: cmd
+        env:
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd \dynawo
+          cmake -Wno-dev -S dynawo/3rdParty -B b-3-p -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/dynawo/OpenModelica -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "NMake Makefiles"
+          cmake --build b-3-p --target openmodelica
+          cmake --build b-3-p
+
+      - name: Create zip for Dynawo Third Parties
+        shell: cmd
+        run: |
+          cd \
+          ren d-3-p dynawo-3rd-parties-windows
+          7z a ${{ github.workspace }}\dynawo-3rd-parties-windows.zip -r dynawo-3rd-parties-windows\*
+          ren dynawo-3rd-parties-windows d-3-p
+
+      - name: Build Dynawo
+        shell: cmd
+        env:
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd \dynawo
+          cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/dynawo/OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles"
+          cmake --build b --target install solvers models || exit /b 1
+
+      - name: NRT Dynawo
+        if: github.event_name != 'workflow_dispatch' || inputs.perform-nrt
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          forfiles /p \dynawo\nrt\data /m *.jobs /s /c "cmd /c cd \dynawo & \d-i\dynawo.cmd jobs @path || exit /b 1"
+
+      - name: Deploy Dynawo
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd \dynawo
+          call util\windows\deploy.cmd ..\d-i ..\d-3-p \OpenModelica\dynawo\OpenModelica || exit /b 1
+          move /y *.zip ${{ github.workspace }} 
+
+      - name: Upload OpenModelica, 3rd parties and dynawo distribution
+        uses: actions/github-script@v6
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            *.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('/dynawo/.github/release.js')
+            await release({github, context, core, glob})
+
+      - name: Tell dynawo-algorithms the nightly release is ready
+        if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.DISPATCH_TOKEN }}
+          script: |
+            await github.rest.repos.createDispatchEvent({ owner: context.repo.owner, repo: "dynawo-algorithms", event_type: "nightly-windows" });

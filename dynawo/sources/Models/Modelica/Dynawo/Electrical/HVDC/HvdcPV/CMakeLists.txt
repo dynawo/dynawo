@@ -15,10 +15,13 @@ set(MODEL_FILES
   HvdcPV_INIT.mo
   HvdcPV.extvar
   HvdcPVDiagramPQ.mo
+  HvdcPVDiagramPQ_INIT.mo
   HvdcPVDiagramPQ.extvar
   HvdcPVDangling.mo
+  HvdcPVDangling_INIT.mo
   HvdcPVDangling.extvar
   HvdcPVDanglingDiagramPQ.mo
+  HvdcPVDanglingDiagramPQ_INIT.mo
   HvdcPVDanglingDiagramPQ.extvar
   )
 

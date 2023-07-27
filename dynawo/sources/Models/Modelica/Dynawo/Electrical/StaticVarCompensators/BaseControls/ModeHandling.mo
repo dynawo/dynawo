@@ -18,8 +18,10 @@ model ModeHandling "Static Var Compensator mode calculation"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends Parameters.Params_ModeHandling;
+  extends Parameters.ParamsModeHandling;
+
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
+
   final parameter Types.VoltageModule UThresholdUpPu = UThresholdUp / UNom;
   final parameter Types.VoltageModule UThresholdDownPu = UThresholdDown / UNom;
 

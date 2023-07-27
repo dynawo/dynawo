@@ -16,7 +16,7 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET(targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
+  extends BaseClasses.BaseTapChangerPhaseShifterTarget(targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
 
   parameter Types.ActivePower PTarget "Target active power";
   parameter Types.ActivePower PDeadBand(min = 0) "Active-power dead-band around the target";

@@ -18,4 +18,7 @@
   <variable type="continuous" id="PWTRefPu" optional="true"/>
   <variable type="continuous" id="tanPhi" optional="true"/>
   <variable type="continuous" id="xWTRefPu" optional="true"/>
+  <variable type="discrete" id="wT4Injector.switchOffSignal1.value" defaultValue="false"/>
+  <variable type="discrete" id="wT4Injector.switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="wT4Injector.switchOffSignal3.value" defaultValue="false"/>
 </external_variables>

@@ -123,6 +123,7 @@ if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
       "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
 
   if(NOT TEST_XERCESC)
+    message(WARNING "${XercesC_LIBRARY} found, version ${XercesC_VERSION}, does not compile on your system (it might be an issue with CXX11 ABI).")
     unset(XercesC_LIBRARY)
     unset(XercesC_INCLUDE_DIR)
     unset(XercesC_VERSION)

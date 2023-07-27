@@ -128,8 +128,10 @@ namespace DYN {
     variables.push_back(VariableNativeFactory::createState("Ir_value", FLOW));
     variables.push_back(VariableNativeFactory::createState("Ii_value", FLOW));
     variables.push_back(VariableNativeFactory::createCalculated("PPu_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createCalculated("P_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createCalculated("QPu_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createCalculated("state_value", INTEGER));
+    variables.push_back(VariableNativeFactory::createCalculated("loadState_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState("switchOff1_value", BOOLEAN));
     variables.push_back(VariableNativeFactory::createState("switchOff2_value", BOOLEAN));
     variables.push_back(VariableNativeFactory::createState("running_value", BOOLEAN));
@@ -382,10 +384,16 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalCalculatedVarI(unsigned iCalculatedVar) const {
     double output = 0;
     switch (iCalculatedVar) {
-      case PNum_:
+      case PPuNum_:
         if (isConnected()) {
           double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
           output = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
+        }
+        break;
+      case PNum_:
+        if (isConnected()) {
+          double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
+          output = SNREF * P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
         }
         break;
       case QNum_:
@@ -395,6 +403,7 @@ namespace DYN {
         }
         break;
       case loadStateNum_:
+      case loadRealStateNum_:
         if (isConnected()) {
           output = CLOSED;
         } else if (!isConnected()) {
@@ -409,14 +418,18 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalCalculatedVars() {
+    calculatedVars_[PPuNum_] = 0.;
     calculatedVars_[PNum_] = 0.;
     calculatedVars_[QNum_] = 0.;
     calculatedVars_[loadStateNum_] = OPEN;
+    calculatedVars_[loadRealStateNum_] = OPEN;
     if (isConnected()) {
       double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
-      calculatedVars_[PNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
+      calculatedVars_[PNum_] = SNREF * P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
+      calculatedVars_[PPuNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
       calculatedVars_[QNum_] = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
       calculatedVars_[loadStateNum_] = CLOSED;
+      calculatedVars_[loadRealStateNum_] = CLOSED;
     }
   }
 
@@ -424,6 +437,16 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
     switch (iCalculatedVar) {
       case PNum_:
+        if (isConnected()) {
+          double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
+          double U = sqrt(U2);
+          double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
+          res[0] = SNREF *P0Pu_ * alpha_ * yLocal_[UrYNum_] * alpha_pow / U2;  // P_dUr
+          res[1] = SNREF *P0Pu_ * alpha_ * yLocal_[UiYNum_] * alpha_pow / U2;  // P_dUi
+          res[2] = -1.0 * alpha_ * SNREF *P0Pu_ * alpha_pow / yLocal_[UfYNum_];  // P_dUf
+        }
+        break;
+      case PPuNum_:
         if (isConnected()) {
           double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
           double U = sqrt(U2);
@@ -444,6 +467,7 @@ namespace DYN {
         }
         break;
       case loadStateNum_:
+      case loadRealStateNum_:
         break;
       default:
         throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
@@ -454,6 +478,7 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
     switch (numCalculatedVar) {
       case PNum_:
+      case PPuNum_:
         numVars.push_back(UrYNum_);
         numVars.push_back(UiYNum_);
         numVars.push_back(UfYNum_);
@@ -464,6 +489,7 @@ namespace DYN {
         numVars.push_back(UfYNum_);
         break;
       case loadStateNum_:
+      case loadRealStateNum_:
         break;
       default:
         throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
@@ -484,10 +510,14 @@ namespace DYN {
     addSubElement("value", "Ii", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("PPu", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "PPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("P", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "P", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("QPu", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "QPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("state", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "state", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("loadState", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "loadState", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("switchOff1", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "switchOff1", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("switchOff2", Element::STRUCTURE, elements, mapElement);

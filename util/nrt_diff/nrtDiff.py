@@ -1015,7 +1015,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
 
             else:
                 return_value = IDENTICAL
-        elif file_name.startswith("dumpInitValues-") and file_extension == ".txt":
+        elif (file_name.startswith("dumpInitValues-") or file_name.startswith("dumpFinalValues-")) and file_extension == ".txt":
             (nb_differences) = InitValuesCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -1079,6 +1079,10 @@ def LineToCompare (line, file_type):
 
         if ("number of" in line and "variables" in line and "evaluations" not in line) or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
             return True
+        dynAlgosMessages = ["starting variation", "load increase for variation", "scenario ", "using existing results", "maximal global variation", "maximal variation for", "model MODEL_LOAD_VARIATION_AREA"]
+        for message in dynAlgosMessages:
+            if message in line:
+                return True
     elif file_type == TYPE_TIMELINE:
         # We filter those lines as they are very unstable
         if ("PMIN : deactivation" not in line and "PMIN : activation" not in line and "PMAX : deactivation" not in line and "PMAX : activation" not in line):

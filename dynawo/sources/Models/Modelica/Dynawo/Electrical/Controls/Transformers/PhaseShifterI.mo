@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 model PhaseShifterI "Phase-shifter monitoring the current so that it remains under iMax"
-  extends BaseClasses.BaseTapChangerPhaseShifter_MAX(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
+  extends BaseClasses.BaseTapChangerPhaseShifterMax(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
 
   parameter Types.CurrentModule iMax "Maximum allowed current";
   parameter Types.CurrentModule iStop "Current below which the phase-shifter will stop action";

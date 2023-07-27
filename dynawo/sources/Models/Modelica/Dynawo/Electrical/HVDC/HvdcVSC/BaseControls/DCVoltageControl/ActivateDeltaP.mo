@@ -20,7 +20,7 @@ model ActivateDeltaP "Function that activates the DeltaP when necessary"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivateDeltaP;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsActivateDeltaP;
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
 
   Modelica.Blocks.Interfaces.RealInput ipRefUdcPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom)" annotation(

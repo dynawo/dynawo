@@ -177,7 +177,7 @@ modelType_("TwoWindingsTransformer") {
 
     // At the moment, only current regulation is supported.
     bool regulating = phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
-    double thresholdI = phaseTapChanger->getThresholdI();
+    double thresholdI = phaseTapChanger->getRegulationValue();
     modelPhaseChanger_->setRegulating(regulating);
     modelPhaseChanger_->setThresholdI(thresholdI);
   } else if (ratioTapChanger) {
@@ -224,6 +224,7 @@ modelType_("TwoWindingsTransformer") {
     modelTapChanger_->addStep(TapChangerStep(ratio, 0, r, x, g, b));
     modelTapChanger_->setHighStepIndex(0);
     modelTapChanger_->setCurrentStepIndex(0);
+    modelTapChanger_->setFictitious(true);
   }
 
   factorPuToASide1_ = 1000. * SNREF / (sqrt(3.) * vNom1_);
@@ -1085,7 +1086,7 @@ ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >&
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide2_value", CONTINUOUS));
   // state as continuous variable (need for external automaton as inputs of automaton are continuous)
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_twtState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState(id_ + "_step_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_disable_internal_tapChanger_value", BOOLEAN));
@@ -1108,7 +1109,7 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_twtState_value", CONTINUOUS));  // state as continuous variable
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState("@ID@_step_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState("@ID@_disable_internal_tapChanger_value", BOOLEAN));
@@ -1174,6 +1175,33 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
     modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+  }
+
+  switch (knownBus_) {
+  case BUS1_BUS2:
+  {
+    if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = OPEN;
+    } else if (modelBus1_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_2;
+
+    } else if (modelBus2_->getConnectionState() == OPEN) {
+      z_[0] = CLOSED_1;
+    }
+    break;
+  }
+  case BUS1:
+  {
+    if (modelBus1_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
+  case BUS2:
+  {
+    if (modelBus2_->getConnectionState() == OPEN)
+      z_[0] = OPEN;
+    break;
+  }
   }
 
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));

@@ -10,6 +10,8 @@
 
 # Machines models
 
+add_subdirectory(BaseClasses B)
+add_subdirectory(BaseClasses_INIT BI)
 add_subdirectory(OmegaRef O)
 add_subdirectory(SignalN N)
 add_subdirectory(Simplified S)
@@ -17,8 +19,6 @@ add_subdirectory(Simplified S)
 set(MODEL_FILES
   package.mo
   package.order
-  BaseClasses.mo
-  BaseClasses_INIT.mo
   SwitchOffGenerator.extvar
   )
 

@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
  ====== INIT CALCULATED VARIABLES VALUES ======
 setPoint_setPoint_value                           : y =       1.000000
  ====== INIT DISCRETE VARIABLES VALUES ======

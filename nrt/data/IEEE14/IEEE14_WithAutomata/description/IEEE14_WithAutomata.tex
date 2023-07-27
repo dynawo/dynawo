@@ -36,7 +36,7 @@ The tested automaton are;
 \item the current limit automaton [\ref{CurrentLimitAutomaton}];
 \item the tap-changer automaton (Modelica) [\ref{TapChangerAutomatonModelica}];
 \item the tap-changer automaton (C++) [\ref{TapChangerAutomatonCpp}];
-\item the tap-changer lock automaton [\ref{TapChangerLockAutomaton}];
+\item the tap-changer blocking automaton [\ref{TapChangerBlockingAutomaton}];
 \end{itemize}
 
 
@@ -444,7 +444,7 @@ The simulated load variation makes the network voltage drop at node 3. The load 
 \caption{Impact of the transformer tap modification on the network voltage}
 \end{figure}
 
-We observe that changing the tap helps restoring the load terminal voltage but has a negative impact on the network voltage: each time the tap is increased, the network voltage is decreased a little. If many transformers are changing taps at the same time and on the same network area it could lead to a general voltage collapse. In order to avoid this phenomena, other automata called "Tap-Changer Lock" monitor the network voltage and can stop the transformers from changing their taps.
+We observe that changing the tap helps restoring the load terminal voltage but has a negative impact on the network voltage: each time the tap is increased, the network voltage is decreased a little. If many transformers are changing taps at the same time and on the same network area it could lead to a general voltage collapse. In order to avoid this phenomena, other automata called "Tap-Changer Block" monitor the network voltage and can stop the transformers from changing their taps.
 
 
 \newpage
@@ -521,7 +521,7 @@ The simulated load variation makes the network voltage drop at node 5, going out
 
 \newpage
 \section{Tap Changer Lock}
-\label{TapChangerLockAutomaton}
+\label{TapChangerBlockingAutomaton}
 
 The tap-changer lock automaton is an automaton that can prevent the tap-changers of a given area to change the tap of their transformers if the area monitored voltage  goes under a certain threshold for a certain amount of time. This automaton should prevent the network to experience voltage collapses.
 
@@ -569,10 +569,10 @@ The simulated load variations make the network voltage drop at node 2 and 3 (mon
     \begin{axis}[height = 2.3in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{_LOAD___2_EC_transformer_U2Pu}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{_LOAD___3_EC_transformer_U2Pu}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \legend{$U_{Load2}$, $U_{Load3}$}
     \end{axis}
   \end{tikzpicture}
@@ -583,10 +583,10 @@ The simulated load variations make the network voltage drop at node 2 and 3 (mon
     \begin{axis}[height = 2.3in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=green!50]
         table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \legend{$U_{Node2}$, $U_{Node3}$}
     \end{axis}
   \end{tikzpicture}
@@ -603,10 +603,10 @@ At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ p
     \begin{axis}[height = 2.7in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_U_value}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_UMin}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerBlocking_UMin}]
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \legend{$U_{Node3}$, $U_{Min}$}
     \end{axis}
   \end{tikzpicture}
@@ -616,14 +616,14 @@ At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ p
   \begin{tikzpicture}
     \begin{axis}[height = 1.5in, legend pos=north west]
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_state}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerBlocking_state}]
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_lockedD}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerBlocking_blockedD}]
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=green!50]
-        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_lockedT}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerBlocking_blockedT}]
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \legend{$state$, $LockedD$, $LockedT$}
     \end{axis}
   \end{tikzpicture}
@@ -634,10 +634,10 @@ At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ p
     \begin{axis}[height = 1.5in, legend pos=north west]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{_LOAD___2_EC_transformer_tap}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{_LOAD___3_EC_transformer_tap}]
-        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \legend{$Tap_{Load2}$, $Tap_{Load3}$}
     \end{axis}
   \end{tikzpicture}
@@ -654,10 +654,10 @@ If we try to simulate this test case without the tap-changer lock automaton we s
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}]
-        {../IEEE14_TapChangerLock/referenceNoTCL/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/referenceNoTCL/outputs/curves/curves.csv};
         \addplot[color=green!50]
         table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
-        {../IEEE14_TapChangerLock/referenceNoTCL/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/referenceNoTCL/outputs/curves/curves.csv};
         \legend{$U_{Node2}$, $U_{Node3}$}
     \end{axis}
   \end{tikzpicture}
@@ -668,10 +668,10 @@ If we try to simulate this test case without the tap-changer lock automaton we s
     \begin{axis}[height = 2in, legend pos=north west]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{_LOAD___2_EC_transformer_tap}]
-        {../IEEE14_TapChangerLock/referenceNoTCL/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/referenceNoTCL/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{_LOAD___3_EC_transformer_tap}]
-        {../IEEE14_TapChangerLock/referenceNoTCL/outputs/curves/curves.csv};
+        {../IEEE14_TapChangerBlocking/referenceNoTCL/outputs/curves/curves.csv};
         \legend{$Tap_{Load2}$, $Tap_{Load3}$}
     \end{axis}
   \end{tikzpicture}

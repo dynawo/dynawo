@@ -10,11 +10,12 @@
 
 # Transformers models
 
+add_subdirectory(BaseClasses B)
+add_subdirectory(BaseClasses_INIT BI)
+
 set(MODEL_FILES
   package.mo
   package.order
-  BaseClasses.mo
-  BaseClasses_INIT.mo
   TransformerFixedRatio.mo
   TransformerFixedRatio.extvar
   TransformerVariableTap.mo
