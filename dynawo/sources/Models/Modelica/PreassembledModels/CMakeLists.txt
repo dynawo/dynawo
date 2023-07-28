@@ -135,7 +135,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
-  PIAntiWindUpTable.xml
+  # PIAntiWindUpTable.xml
   ShuntBWithSections.xml
   SecondaryFrequencyRegulation.xml
   SecondaryVoltageControlSimp.xml
