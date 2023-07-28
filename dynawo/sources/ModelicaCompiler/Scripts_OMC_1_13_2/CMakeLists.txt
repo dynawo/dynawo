@@ -10,14 +10,15 @@
 
 # PYTHON scripts for OMC backend
 set(PYTHON_SCRIPTS_OMC
-  scriptVarExt.py
   dataContainer.py
   factory.py
+  headerPatternDefine.py
+  modelicaScriptsExceptions.py
+  modelWriter.py
   readerOMC.py
+  scriptVarExt.py
+  scriptVerifyModelList.py
   utils.py
   writeModel.py
-  headerPatternDefine.py
-  modelWriter.py
-  scriptVerifyModelList.py
   )
 install(PROGRAMS ${PYTHON_SCRIPTS_OMC} DESTINATION ${SBINDIR_NAME})
