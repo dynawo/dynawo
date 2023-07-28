@@ -59,7 +59,7 @@ add_dependencies(SMIB_MODELS_GENERATORS GeneratorSynchronousFourWindingsProporti
 
 ## DYNAFLOW
 
-file(GLOB DynaFlowAutomatons CurrentLimitAutomaton.xml PIAntiWindUpTable.xml WeightedDifference.xml)
+#file(GLOB DynaFlowAutomatons CurrentLimitAutomaton.xml PIAntiWindUpTable.xml WeightedDifference.xml)
 file(GLOB DynaFlowGenerators *SignalN*.xml VRRemote.xml)
 file(GLOB DynaFlowLoads LoadPQ.xml LoadAlphaBetaRestorative.xml LoadAlphaBeta.xml)
 file(GLOB DynaFlowHvdc HvdcP*.xml PowerTransferHVDCEmulation.xml)

@@ -1104,32 +1104,6 @@ void put_boolean_element(m_boolean value, int i1, boolean_array_t *dest) {
     boolean_set(dest, i1, value);
 }
 
-/** function: base_array_create
- **
- ** sets all fields in a base_array, i.e. data, ndims and dim_size.
- **/
-
-void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
-    int i;
-
-    dest->data = data;
-    dest->ndims = ndims;
-
-    dest->dim_size = size_alloc(ndims);
-
-    for (i = 0; i < ndims; ++i) {
-        dest->dim_size[i] = va_arg(ap, int);
-    }
-
-    /* uncomment for debugging!
-    fprintf(stderr, "created array ndims[%d] (", ndims);
-    for(i = 0; i < ndims; ++i) {
-      fprintf(stderr, "size(%d)=[%d], ", i, (int)dest->dim_size[i]);
-    }
-    fprintf(stderr, ")\n"); fflush(stderr);
-    */
-}
-
 
 /* array_alloc_scalar_boolean_array
  *
