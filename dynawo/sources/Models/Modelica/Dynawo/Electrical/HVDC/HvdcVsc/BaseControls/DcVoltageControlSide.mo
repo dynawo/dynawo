@@ -22,7 +22,7 @@ model DcVoltageControlSide "DC voltage control side of the HVDC link"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
   parameter Types.PerUnit IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit RDcPu "DC line resistance in pu (base UDcNom, SnRef)";
+  parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   //Input variables

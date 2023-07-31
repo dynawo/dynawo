@@ -19,7 +19,7 @@ model HvdcVsc_INIT "Initialisation model for the HVDC VSC model"
   parameter Types.PerUnit LambdaPu "Lambda coefficient for the QRefUPu calculation in pu (base SNom, UNom)";
   parameter Boolean ModeU1Set "Set mode of control on side 1 : if true, U mode, if false, Q mode";
   parameter Boolean ModeU2Set "Set mode of control on side 2 : if true, U mode, if false, Q mode";
-  parameter Types.PerUnit RDcPu "DC line resistance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
   Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";

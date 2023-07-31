@@ -180,7 +180,7 @@ equation
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001, emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-     This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5 s and cleared at t = 1.5 s.    </div><div><br></div><div>
+     This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 8 s and cleared at t = 9 s.    </div><div><br></div><div>
     </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div>
 </span></body></html>"),
