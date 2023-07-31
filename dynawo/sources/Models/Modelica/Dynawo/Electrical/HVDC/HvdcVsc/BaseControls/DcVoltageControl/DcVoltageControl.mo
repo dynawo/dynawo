@@ -21,7 +21,7 @@ model DcVoltageControl "DC voltage control for the HVDC VSC model"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
 
   parameter Types.PerUnit IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit RDcPu "DC line resistance in pu (base UDcNom, SnRef)";
+  parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   //Input variables

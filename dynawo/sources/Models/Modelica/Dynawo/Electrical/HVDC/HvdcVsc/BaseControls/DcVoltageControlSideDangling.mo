@@ -21,7 +21,7 @@ model DcVoltageControlSideDangling "DC voltage control side for the HVDC VSC mod
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
-  parameter Types.PerUnit RDcPu "DC line resistance in pu (base UDcNom, SnRef)";
+  parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   //Input variables

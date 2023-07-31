@@ -13,16 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcLine;
 */
 
 model DcLine "DC line model"
-  /*
-    Equivalent circuit and conventions:
-
-             IDc1Pu                   IDc2Pu
-     UDc1Pu ----<------------RDcPu------->----UDc2Pu
-     P1Pu               |           |         P2Pu
-                      CDcPu       CDcPu
-                        |           |
-                       ---         ---
-  */
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
@@ -67,5 +57,14 @@ equation
   CDcPu * der(UDc1Pu) = limiter1.y;
   CDcPu * der(UDc2Pu) = limiter2.y;
 
-  annotation(preferredView = "text");
+  annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>
+<pre><span>Equivalent circuit and conventions:</span></pre>
+<pre><br></pre>
+<pre><span>             IDc1Pu                   IDc2Pu</span></pre>
+<pre>     UDc1Pu ----&lt;----------2*RDcPu-------&gt;----UDc2Pu</span></pre>
+<pre>     P1Pu               |           |         P2Pu</span></pre>
+<pre>                      CDcPu       CDcPu</span></pre>
+<pre>                        |           |</span></pre>
+<pre><span>                       ---         ---</span></pre></body></html>"));
 end DcLine;
