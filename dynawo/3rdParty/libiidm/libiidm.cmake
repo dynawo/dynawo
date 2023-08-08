@@ -19,19 +19,19 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.5.0)
-set(package_RequiredVersionName "1.5.1-rc1")
+set(package_RequiredVersion "1.6.0")
+set(package_RequiredVersionName "1.6.0-rc1")
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
-find_package(${package_name} ${package_RequiredVersion} EXACT QUIET CONFIG)
+find_package(${package_name} "${package_RequiredVersion}" EXACT QUIET CONFIG)
 
 if(${package_name}_FOUND)
   add_custom_target("${package_name}" DEPENDS libxml2 boost)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_md5    cae653a48a356c450184f4293b294926)
+  set(package_md5    c8d864b44293a605d66cd292fc68f89f)
   if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
