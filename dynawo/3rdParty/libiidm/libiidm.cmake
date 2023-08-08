@@ -19,7 +19,7 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.5.0)
+set(package_RequiredVersion 1.6.0)
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
@@ -30,11 +30,11 @@ if(${package_name}_FOUND)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_md5    a2c618eec18a40524e6ad2289f18c4c4)
+  set(package_md5    963cd237f0e1e874eb4e1188c2a74c87)
   if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
-    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive)
+    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive/integration)
   endif()
   set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
 
