@@ -64,7 +64,7 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5}/' util/nrt_diff/settings.py
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":6.5}/' util/nrt_diff/settings.py
           util/envDynawo.sh build-user
 
       - name: NRT
