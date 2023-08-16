@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="STRING" name="load_name" value="myLoad"/>
+    <par type="BOOL" name="load_isControllable" value="true"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="INT" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_gamma" value="3.5"/>
+  </set>
+  <set id="8">
+  </set>
+</parametersSet>

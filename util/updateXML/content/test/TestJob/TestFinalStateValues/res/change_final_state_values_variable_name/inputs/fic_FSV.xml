@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<finalStateValuesInput xmlns="http://www.rte-france.com/dynawo">
+  <finalStateValue model="NETWORK" variable="_BUS____1_TN_Upu_value"/>
+  <finalStateValue model="NETWORK" variable="_BUS____2_TN_Upu_value"/>
+  <finalStateValue model="NETWORK" variable="_BUS____3_TN_Upu_value"/>
+  <finalStateValue model="GEN____1_SM" variable="generator_omegaPu"/>
+  <finalStateValue model="GEN____1_SM" variable="generator_QGen"/>
+  <finalStateValue model="GEN____2_SM" variable="generator_omegaPu"/>
+  <finalStateValue model="GEN____2_SM" variable="generator_QGen"/>
+  <finalStateValue model="GEN____3_SM" variable="generator_omegaPu"/>
+  <finalStateValue model="GEN____3_SM" variable="generator_PGen"/>
+  <finalStateValue model="_LOAD___1_EC" variable="load_PPu"/>
+  <finalStateValue model="_LOAD___1_EC" variable="load_QPu"/>
+  <finalStateValue model="_LOAD___2_EC" variable="load_PPu"/>
+  <finalStateValue model="_LOAD___2_EC" variable="load_QPu"/>
+</finalStateValuesInput>

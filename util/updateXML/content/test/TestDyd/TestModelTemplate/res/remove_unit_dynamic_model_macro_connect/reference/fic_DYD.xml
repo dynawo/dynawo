@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelTemplate id="MachineThreeWindingsTemplate">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
+    <dyn:macroConnect connector="SPURIOUS_CONNECTOR" id1="voltageRegulator" id2="voltageRegulator"/>
+    <dyn:macroConnect connector="GEN_GOVERNOR_CONNECTOR" id1="governor" id2="generator"/>
+  </dyn:modelTemplate>
+  <dyn:macroConnector id="GEN_VOLTAGE_REGULATOR_CONNECTOR_1">
+    <dyn:initConnect var1="Efd0PuLF" var2="Efd0Pu"/>
+    <dyn:connect var1="EfdPu" var2="efdPu.value"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_VOLTAGE_REGULATOR_CONNECTOR_2">
+    <dyn:initConnect var1="UStator0Pu" var2="Us0Pu"/>
+    <dyn:connect var1="UStatorPu.value" var2="UsPu"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="SPURIOUS_CONNECTOR">
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_GOVERNOR_CONNECTOR">
+    <dyn:initConnect var1="Pm0Pu" var2="Pm0Pu"/>
+    <dyn:connect var1="omegaPu" var2="omegaPu.value"/>
+    <dyn:connect var1="PmPu" var2="PmPu.value"/>
+  </dyn:macroConnector>
+</dyn:dynamicModelsArchitecture>

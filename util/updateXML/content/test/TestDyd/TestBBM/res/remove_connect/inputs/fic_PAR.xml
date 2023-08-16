@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+  </set>
+  <set id="2">
+  </set>
+  <set id="7">
+    <par type="INT" name="nbGen" value="2"/>
+    <par type="DOUBLE" name="weight_gen_0" value="1211"/>
+    <par type="DOUBLE" name="weight_gen_1" value="1120"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+  </set>
+</parametersSet>

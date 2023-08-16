@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="GEN____1_SM" staticId="_GEN____1_SM">
+    <dyn:staticRef var="generator_PGenPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu_NAME_CHANGED" staticVar="q"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="GEN____2_SM" staticId="_GEN____2_SM">
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="GEN____3_SM" staticId="_GEN____3_SM">
+    <dyn:macroStaticRef id="GEN1"/>
+    <dyn:staticRef var="generator_QGenPu_NAME_CHANGED" staticVar="q"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="GEN____4_SM" staticId="_GEN____4_SM">
+    <dyn:staticRef var="generator_PGenPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:macroStaticRef id="GEN2"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="GEN____5_SM" staticId="_GEN____5_SM">
+    <dyn:staticRef var="generator_PGenPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu_NAME_CHANGED" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:modelicaModel>
+  <dyn:macroStaticReference id="GEN">
+    <dyn:staticRef var="generator_PGenPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu_NAME_CHANGED" staticVar="q"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="GEN1">
+    <dyn:staticRef var="generator_PGenPu_NAME_CHANGED" staticVar="p"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="GEN2">
+    <dyn:staticRef var="generator_QGenPu_NAME_CHANGED" staticVar="q"/>
+  </dyn:macroStaticReference>
+</dyn:dynamicModelsArchitecture>

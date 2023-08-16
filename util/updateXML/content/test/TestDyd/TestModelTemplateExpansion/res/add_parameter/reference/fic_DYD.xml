@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelTemplateExpansion id="GEN____1_SM" templateId="MachineThreeWindingsTemplate" parFile="fic_PAR.xml" parId="1" staticId="_GEN____1_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____2_SM" templateId="MachineThreeWindingsTemplate" parFile="fic_PAR.xml" parId="1" staticId="_GEN____2_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____3_SM" templateId="MachineFourWindingsTemplate" parFile="fic_PAR.xml" parId="2" staticId="_GEN____3_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____4_SM" templateId="MachineFourWindingsTemplate" parFile="fic_PAR.xml" parId="2" staticId="_GEN____4_SM"/>
+  <dyn:modelTemplate id="MachineThreeWindingsTemplate">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
+  </dyn:modelTemplate>
+  <dyn:modelTemplate id="MachineFourWindingsTemplate">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
+  </dyn:modelTemplate>
+</dyn:dynamicModelsArchitecture>

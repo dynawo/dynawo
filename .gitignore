@@ -68,6 +68,7 @@ nbproject/*
 util/nrt_diff/output/
 util/nrt_diff/test/cases/outputs/**
 util/nrt_diff/nrtDiff.txt
+util/updateXML/**/outputs*
 util/timeline_filter/test/filtered*
 documents/ModelicaDocumentation
 .gitignore_local

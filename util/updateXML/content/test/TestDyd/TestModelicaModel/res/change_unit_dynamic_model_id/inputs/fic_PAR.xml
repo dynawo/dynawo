@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+  </set>
+  <set id="12">
+    <par type="INT" name="ExcitationPu" value="1"/>
+    <par type="BOOL" name="UseApproximation" value="true"/>
+    <par type="DOUBLE" name="md" value="0.215"/>
+    <par type="DOUBLE" name="mq" value="0.215"/>
+  </set>
+  <set id="122">
+    <par type="DOUBLE" name="LagEfdMax" value="0"/>
+    <par type="DOUBLE" name="LagEfdMin" value="0"/>
+    <par type="DOUBLE" name="EfdMinPu" value="-5"/>
+    <par type="DOUBLE" name="EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="UsRefMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="Gain" value="20"/>
+  </set>
+  <set id="123">
+    <par type="DOUBLE" name="KGover" value="5"/>
+    <par type="DOUBLE" name="PMin" value="0"/>
+    <par type="DOUBLE" name="PMax" value="1090"/>
+    <par type="DOUBLE" name="PNom" value="1090"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+  </set>
+</parametersSet>
