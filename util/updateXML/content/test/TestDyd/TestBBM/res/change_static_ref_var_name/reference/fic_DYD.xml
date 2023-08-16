@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___2_EC">
+    <dyn:staticRef var="load_PPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:staticRef var="load_QPu_NAME_CHANGED" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___3_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___3_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___4_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___4_EC">
+    <dyn:macroStaticRef id="LOAD1"/>
+    <dyn:macroStaticRef id="LOAD2"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___5_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___5_EC">
+    <dyn:macroStaticRef id="LOAD1"/>
+    <dyn:staticRef var="load_QPu_NAME_CHANGED" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___6_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___6_EC">
+    <dyn:staticRef var="load_PPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:macroStaticRef id="LOAD2"/>
+  </dyn:blackBoxModel>
+  <dyn:macroStaticReference id="LOAD">
+    <dyn:staticRef var="load_PPu_NAME_CHANGED" staticVar="p"/>
+    <dyn:staticRef var="load_QPu_NAME_CHANGED" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="LOAD1">
+    <dyn:staticRef var="load_PPu_NAME_CHANGED" staticVar="p"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="LOAD2">
+    <dyn:staticRef var="load_QPu_NAME_CHANGED" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+</dyn:dynamicModelsArchitecture>

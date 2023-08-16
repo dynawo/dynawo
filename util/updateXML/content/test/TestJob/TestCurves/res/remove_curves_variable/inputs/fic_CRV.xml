@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="_BUS____1_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____2_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____3_TN_Upu_value"/>
+  <curve model="GEN____1_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____1_SM" variable="generator_QGen"/>
+  <curve model="GEN____2_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____2_SM" variable="generator_QGen"/>
+  <curve model="GEN____3_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____3_SM" variable="generator_PGen"/>
+  <curve model="_LOAD___2_EC" variable="load_PPu"/>
+  <curve model="_LOAD___2_EC" variable="load_QPu"/>
+</curvesInput>

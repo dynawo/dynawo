@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+  </set>
+  <set id="12">
+    <par type="INT" name="ExcitationPu" value="1"/>
+    <par type="BOOL" name="UseApproximation" value="true"/>
+    <par type="DOUBLE" name="md" value="0.215"/>
+    <par type="DOUBLE" name="mq" value="0.215"/>
+    <par type="DOUBLE" name="nd" value="6.995"/>
+    <par type="DOUBLE" name="nq" value="6.995"/>
+    <par type="DOUBLE" name="MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="DPu" value="0"/>
+    <par type="DOUBLE" name="H" value="5.4000000000000004"/>
+    <par type="DOUBLE" name="RaPu" value="0.0027959999999999999"/>
+    <par type="DOUBLE" name="XlPu" value="0.20200000000000001"/>
+    <par type="DOUBLE" name="XdPu" value="2.2200000000000002"/>
+    <par type="DOUBLE" name="XpdPu" value="0.38400000000000001"/>
+    <par type="DOUBLE" name="XppdPu" value="0.26400000000000001"/>
+    <par type="DOUBLE" name="Tpd0" value="8.0939999999999994"/>
+    <par type="DOUBLE" name="Tppd0" value="0.080000000000000002"/>
+    <par type="DOUBLE" name="XqPu" value="2.2200000000000002"/>
+    <par type="DOUBLE" name="XpqPu" value="0.39300000000000002"/>
+    <par type="DOUBLE" name="XppqPu" value="0.26200000000000001"/>
+    <par type="DOUBLE" name="Tpq0" value="1.5720000000000001"/>
+    <par type="DOUBLE" name="Tppq0" value="0.084000000000000005"/>
+    <par type="DOUBLE" name="UNom" value="24"/>
+    <par type="DOUBLE" name="SNom" value="1211"/>
+    <par type="DOUBLE" name="PNomTurb" value="1090"/>
+    <par type="DOUBLE" name="PNomAlt" value="1090"/>
+    <par type="DOUBLE" name="SnTfo" value="1211"/>
+    <par type="DOUBLE" name="UNomHV" value="69"/>
+    <par type="DOUBLE" name="UNomLV" value="24"/>
+    <par type="DOUBLE" name="UBaseHV" value="69"/>
+    <par type="DOUBLE" name="UBaseLV" value="24"/>
+    <par type="DOUBLE" name="RTfPu" value="0.0"/>
+    <par type="DOUBLE" name="XTfPu" value="0.1"/>
+    <reference name="P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="122">
+    <par type="DOUBLE" name="LagEfdMax" value="0"/>
+    <par type="DOUBLE" name="LagEfdMin" value="0"/>
+    <par type="DOUBLE" name="EfdMinPu" value="-5"/>
+    <par type="DOUBLE" name="EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="UsRefMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="Gain" value="20"/>
+  </set>
+  <set id="123">
+    <par type="DOUBLE" name="KGover" value="5"/>
+    <par type="DOUBLE" name="PMin" value="0"/>
+    <par type="DOUBLE" name="PMax" value="1090"/>
+    <par type="DOUBLE" name="PNom" value="1090"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+  </set>
+</parametersSet>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="Job Test">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+    <dyn:modeler compileDir="outputs/compilation">
+      <dyn:network iidmFile="fic_IIDM.xml" parFile="fic_PAR.xml" parId="8"/>
+      <dyn:dynModels dydFile="fic_DYD.xml"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="100"/>
+  </dyn:job>
+</dyn:jobs>

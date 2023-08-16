@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____1_SM"/>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____2_SM"/>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____3_SM"/>
+  <dyn:blackBoxModel id="GEN____4_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____4_SM"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="fic_PAR.xml" parId="2"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="GEN____2_SM" id2="NETWORK"/>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
+    <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_OMEGAREF_CONNECTOR">
+    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+    <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
+  </dyn:macroConnector>
+</dyn:dynamicModelsArchitecture>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+  </set>
+  <set id="2">
+  </set>
+  <set id="3">
+  </set>
+  <set id="8">
+  </set>
+  <set id="121">
+  </set>
+  <set id="122">
+  </set>
+  <set id="123">
+  </set>
+</parametersSet>

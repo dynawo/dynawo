@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+  </set>
+  <set id="2">
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_md" value="0.215"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+  </set>
+  <set id="3">
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_md" value="0.084"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+  </set>
+  <set id="4">
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_md" value="0.05"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+  </set>
+  <set id="5">
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_md" value="0.16"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+  </set>
+  <set id="6">
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_md" value="0"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+  </set>
+</parametersSet>

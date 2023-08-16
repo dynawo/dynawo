@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="generator_md" value="0.215"/>
+    <par type="DOUBLE" name="generator_mq" value="0.415"/>
+  </set>
+  <set id="81">
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+  </set>
+  <set id="82">
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+  </set>
+</parametersSet>

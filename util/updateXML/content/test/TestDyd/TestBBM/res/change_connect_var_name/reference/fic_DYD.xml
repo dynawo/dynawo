@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____1_SM"/>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____2_SM"/>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____3_SM"/>
+  <dyn:blackBoxModel id="GEN____4_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____4_SM"/>
+  <dyn:blackBoxModel id="GEN____5_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="1" staticId="_GEN____4_SM"/>
+  <dyn:connect id1="GEN____1_SM" var1="generator_terminal_NAME_CHANGED" id2="NETWORK" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal1_NAME_CHANGED" id2="NETWORK" var2="@STATIC_ID@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal2" id2="NETWORK" var2="@STATIC_ID@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____3_SM" var1="generator_switchOffSignal1_NAME_CHANGED" id2="NETWORK" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  <dyn:connect id1="GEN____4_SM" var1="generator_terminal_NAME_CHANGED" id2="NETWORK" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="GEN____2_SM" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR1" id1="GEN____3_SM" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR2" id1="GEN____4_SM" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR3" id1="GEN____5_SM" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR4" id1="GEN____5_SM" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR5" id1="GEN____5_SM" id2="NETWORK"/>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
+    <dyn:connect var1="generator_terminal_NAME_CHANGED" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal1_NAME_CHANGED" var2="@STATIC_ID@@NODE@_switchOff"/>
+    <dyn:connect var1="generator_switchOffSignal2" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR1">
+    <dyn:connect var1="generator_terminal_NAME_CHANGED" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal2" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR2">
+    <dyn:connect var1="generator_switchOffSignal1_NAME_CHANGED" var2="@STATIC_ID@@NODE@_switchOff"/>
+    <dyn:connect var1="generator_switchOffSignal2" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR3">
+    <dyn:connect var1="generator_terminal_NAME_CHANGED" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR4">
+    <dyn:connect var1="generator_switchOffSignal1_NAME_CHANGED" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR5">
+    <dyn:connect var1="generator_switchOffSignal2" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+</dyn:dynamicModelsArchitecture>

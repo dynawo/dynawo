@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelTemplate id="MachineThreeWindingsTemplate">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+  </dyn:modelTemplate>
+  <dyn:modelTemplate id="MachineFourWindingsTemplate">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:modelTemplate>
+  <dyn:macroStaticReference id="GEN">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+  </dyn:macroStaticReference>
+</dyn:dynamicModelsArchitecture>

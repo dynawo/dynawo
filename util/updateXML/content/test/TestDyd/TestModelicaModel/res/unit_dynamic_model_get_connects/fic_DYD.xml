@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="_LOAD___1_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___1_EC"/>
+  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___2_EC"/>
+  <dyn:modelicaModel id="GEN____1_SM" staticId="_GEN____1_SM">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT" parFile="fic_PAR.xml" parId="121"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional_INIT" parFile="fic_PAR.xml" parId="122"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT" parFile="fic_PAR.xml" parId="123"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Efd0PuLF" id2="generator" var2="Efd0Pu"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
+    <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>
+    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu.value"/>
+    <dyn:connect id1="governor" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
+    <dyn:connect id1="generator" var1="PmPu.value" id2="governor" var2="PmPu"/>
+  </dyn:modelicaModel>
+  <dyn:connect id1="_LOAD___1_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____2_TN_ACPIN"/>
+  <dyn:connect id1="_LOAD___2_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____3_TN_ACPIN"/>
+  <dyn:connect id1="GEN____1_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
+  <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
+</dyn:dynamicModelsArchitecture>
