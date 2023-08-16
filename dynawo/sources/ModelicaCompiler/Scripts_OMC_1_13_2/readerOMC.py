@@ -1341,13 +1341,21 @@ class ReaderOMC:
             if model_element.tag == "name":
                 pass  # nothing to do
             elif model_element.tag == "elements":
-                for elements_element in model_element:
-                    if elements_element.tag == "struct":
-                        self.parse_struct(list_struct, elements_element)
-                    elif elements_element.tag == "terminal":
-                        self.parse_terminal(list_struct, elements_element)
+                # parse all structs first and then parse terminals
+                for elements_struct_element in model_element:
+                    if elements_struct_element.tag == "struct":
+                        self.parse_struct(list_struct, elements_struct_element)
+                    elif elements_struct_element.tag == "terminal":
+                        pass  # will be parsed later
                     else:
-                        raise UnknownElementsElement(elements_element.tag)
+                        raise UnknownElementsElement(elements_struct_element.tag)
+                for elements_terminal_element in model_element:
+                    if elements_terminal_element.tag == "terminal":
+                        self.parse_terminal(list_struct, elements_terminal_element)
+                    elif elements_terminal_element.tag == "struct":
+                        pass  # already parsed
+                    else:
+                        raise UnknownElementsElement(elements_terminal_element.tag)
             else:
                raise UnknownModelElement(model_element.tag)
 
@@ -1394,7 +1402,7 @@ class ReaderOMC:
                 number_of_struct_terminal_connectors += 1
                 if number_of_struct_terminal_connectors >= 2:
                     raise TerminalHasMoreThanOneConnector
-                type_connector = struct_terminal_subelem.attrib['type']
+                type_connector = struct_terminal_subelem.attrib.get('type', '')
             elif struct_terminal_subelem.tag == "kind" or \
                     struct_terminal_subelem.tag == "number" or \
                     struct_terminal_subelem.tag == "id" or \
@@ -1462,7 +1470,7 @@ class ReaderOMC:
                 number_of_terminal_connector += 1
                 if number_of_terminal_connector >= 2:
                     raise TerminalHasMoreThanOneConnector
-                type_connector = elements_terminal_element.attrib['type']
+                type_connector = elements_terminal_element.attrib.get('type', '')
             elif elements_terminal_element.tag == "kind" or \
                     elements_terminal_element.tag == "number" or \
                     elements_terminal_element.tag == "id" or \
