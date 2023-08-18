@@ -322,12 +322,15 @@
     <par type="BOOL" name="phaseShifter_regulating0" value="true"/>
   </set>
   <set id="12">
-    <par type="DOUBLE" name="transformer_RatioTfoPu" value="1.0729614"/>
-    <par type="DOUBLE" name="transformer_ThetaTfo0" value="0.0"/>
+    <par type="DOUBLE" name="transformer_RatioTfo0Pu" value="1.0729614"/>
+    <par type="DOUBLE" name="transformer_P10Pu" value="0.440906"/>
+    <par type="DOUBLE" name="transformer_Q10Pu" value="0.124030"/>
+    <par type="DOUBLE" name="transformer_U10Pu" value="1.019555"/>
+    <par type="DOUBLE" name="transformer_U1Phase0" value="-0.15"/>
     <par type="INT" name="transformer_NbTap" value="13"/>
     <par type="INT" name="transformer_Tap0" value="6"/>
-    <par type="DOUBLE" name="transformer_ThetaTfoMin" value="-0.05235987755982988"/>
-    <par type="DOUBLE" name="transformer_ThetaTfoMax" value="0.05235987755982988"/>
+    <par type="DOUBLE" name="transformer_AlphaTfoMin" value="-0.05235987755982988"/>
+    <par type="DOUBLE" name="transformer_AlphaTfoMax" value="0.05235987755982988"/>
     <par type="DOUBLE" name="transformer_RPu" value="0"/>
     <par type="DOUBLE" name="transformer_XPu" value="0.25202060491493383"/>
     <par type="DOUBLE" name="transformer_GPu" value="0"/>
