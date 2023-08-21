@@ -802,7 +802,7 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def read_init_xml(self):
-        xml_parser = lxml.etree.XMLParser(remove_comments=True)
+        xml_parser = lxml.etree.XMLParser(remove_comments=True, resolve_entities=False)
         xml_tree = lxml.etree.parse(self.init_xml_file, xml_parser)
 
         root_element = xml_tree.getroot()
