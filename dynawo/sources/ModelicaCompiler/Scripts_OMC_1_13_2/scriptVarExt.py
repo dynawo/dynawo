@@ -14,7 +14,32 @@
 import os, sys
 import shutil
 from optparse import OptionParser
-import lxml.etree
+
+try:
+  from lxml import etree
+  print("running with lxml.etree")
+except ImportError:
+  try:
+    # Python 2.5
+    import xml.etree.cElementTree as etree
+    print("running with cElementTree on Python 2.5+")
+  except ImportError:
+    try:
+      # Python 2.5
+      import xml.etree.ElementTree as etree
+      print("running with ElementTree on Python 2.5+")
+    except ImportError:
+      try:
+        # normal cElementTree install
+        import cElementTree as etree
+        print("running with cElementTree")
+      except ImportError:
+        try:
+          # normal ElementTree install
+          import elementtree.ElementTree as etree
+          print("running with ElementTree")
+        except ImportError:
+          print("Failed to import ElementTree from any known place")
 
 from modelicaScriptsExceptions import UnknownExtVar
 
@@ -44,7 +69,7 @@ def list_external_variables (external_variables_file_path):
     liste_var_optional_ext_continuous = []
     liste_var_ext_boolean = []
 
-    xml_tree = lxml.etree.parse(external_variables_file_path)
+    xml_tree = etree.parse(external_variables_file_path)
     root_element = xml_tree.getroot()
 
     xmlns = "{http://www.rte-france.com/dynawo}"

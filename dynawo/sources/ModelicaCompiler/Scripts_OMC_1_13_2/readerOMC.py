@@ -20,7 +20,32 @@ import sys
 import itertools
 import re
 import json
-import lxml.etree
+
+try:
+  from lxml import etree
+  print("running with lxml.etree")
+except ImportError:
+  try:
+    # Python 2.5
+    import xml.etree.cElementTree as etree
+    print("running with cElementTree on Python 2.5+")
+  except ImportError:
+    try:
+      # Python 2.5
+      import xml.etree.ElementTree as etree
+      print("running with ElementTree on Python 2.5+")
+    except ImportError:
+      try:
+        # normal cElementTree install
+        import cElementTree as etree
+        print("running with cElementTree")
+      except ImportError:
+        try:
+          # normal ElementTree install
+          import elementtree.ElementTree as etree
+          print("running with ElementTree")
+        except ImportError:
+          print("Failed to import ElementTree from any known place")
 
 import scriptVarExt
 from dataContainer import *
@@ -802,8 +827,8 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def read_init_xml(self):
-        xml_parser = lxml.etree.XMLParser(remove_comments=True, resolve_entities=False)
-        xml_tree = lxml.etree.parse(self.init_xml_file, xml_parser)
+        xml_parser = etree.XMLParser(remove_comments=True, resolve_entities=False)
+        xml_tree = etree.parse(self.init_xml_file, xml_parser)
 
         root_element = xml_tree.getroot()
         if root_element.tag != "fmiModelDescription":
@@ -1329,7 +1354,7 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def read_struct_xml_file(self):
-        xml_tree = lxml.etree.parse(self.struct_xml_file)
+        xml_tree = etree.parse(self.struct_xml_file)
         root_element = xml_tree.getroot()
         if root_element.tag != "model":
             raise ModelElementNotFound(root_element.tag)
