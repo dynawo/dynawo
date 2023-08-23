@@ -1,3 +1,77 @@
+diff --git a/extensions/iidm/src/BranchObservability.cpp b/extensions/iidm/src/BranchObservability.cpp
+index 37a2602..1855cf1 100644
+--- a/extensions/iidm/src/BranchObservability.cpp
++++ b/extensions/iidm/src/BranchObservability.cpp
+@@ -34,35 +34,35 @@ const std::string& BranchObservability::getName() const {
+ }
+ 
+ stdcxx::CReference<ObservabilityQuality> BranchObservability::getQualityP1() const {
+-    return stdcxx::cref(m_qualityP1);
++    return stdcxx::cref<ObservabilityQuality>(m_qualityP1);
+ }
+ 
+ stdcxx::Reference<ObservabilityQuality> BranchObservability::getQualityP1() {
+-    return stdcxx::ref(m_qualityP1);
++    return stdcxx::ref<ObservabilityQuality>(m_qualityP1);
+ }
+ 
+ stdcxx::CReference<ObservabilityQuality> BranchObservability::getQualityP2() const {
+-    return stdcxx::cref(m_qualityP2);
++    return stdcxx::cref<ObservabilityQuality>(m_qualityP2);
+ }
+ 
+ stdcxx::Reference<ObservabilityQuality> BranchObservability::getQualityP2() {
+-    return stdcxx::ref(m_qualityP2);
++    return stdcxx::ref<ObservabilityQuality>(m_qualityP2);
+ }
+ 
+ stdcxx::CReference<ObservabilityQuality> BranchObservability::getQualityQ1() const {
+-    return stdcxx::cref(m_qualityQ1);
++    return stdcxx::cref<ObservabilityQuality>(m_qualityQ1);
+ }
+ 
+ stdcxx::Reference<ObservabilityQuality> BranchObservability::getQualityQ1() {
+-    return stdcxx::ref(m_qualityQ1);
++    return stdcxx::ref<ObservabilityQuality>(m_qualityQ1);
+ }
+ 
+ stdcxx::CReference<ObservabilityQuality> BranchObservability::getQualityQ2() const {
+-    return stdcxx::cref(m_qualityQ2);
++    return stdcxx::cref<ObservabilityQuality>(m_qualityQ2);
+ }
+ 
+ stdcxx::Reference<ObservabilityQuality> BranchObservability::getQualityQ2() {
+-    return stdcxx::ref(m_qualityQ2);
++    return stdcxx::ref<ObservabilityQuality>(m_qualityQ2);
+ }
+ 
+ const std::type_index& BranchObservability::getType() const {
+diff --git a/include/powsybl/stdcxx/reference.hpp b/include/powsybl/stdcxx/reference.hpp
+index ce81b0c..dde1c37 100644
+--- a/include/powsybl/stdcxx/reference.hpp
++++ b/include/powsybl/stdcxx/reference.hpp
+@@ -108,8 +108,8 @@ CReference<T> cref(const std::unique_ptr<T>& pointer) {
+     return static_cast<bool>(pointer) ? CReference<T>(*pointer) : CReference<T>();
+ }
+ 
+-template <typename T, typename = typename std::enable_if<!std::is_abstract<T>::value>::type>
+-CReference<T> cref(const stdcxx::optional<T>& optional) {
++template <typename T, typename U, typename = typename std::enable_if<!std::is_abstract<U>::value && std::is_same<T, U>::value>::type>
++CReference<T> cref(const stdcxx::optional<U>& optional) {
+     return static_cast<bool>(optional) ? CReference<T>(*optional) : CReference<T>();
+ }
+ 
+@@ -138,8 +138,8 @@ Reference<T> ref(const std::unique_ptr<T>& pointer) {
+     return static_cast<bool>(pointer) ? Reference<T>(*pointer) : Reference<T>();
+ }
+ 
+-template <typename T, typename = typename std::enable_if<!std::is_abstract<T>::value>::type>
+-Reference<T> ref(stdcxx::optional<T>& optional) {
++template <typename T, typename U, typename = typename std::enable_if<!std::is_abstract<U>::value && std::is_same<T, U>::value>::type>
++Reference<T> ref(stdcxx::optional<U>& optional) {
+     return static_cast<bool>(optional) ? Reference<T>(*optional) : Reference<T>();
+ }
+ 
 diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
 index 35c5a49..8072774 100644
 --- a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
