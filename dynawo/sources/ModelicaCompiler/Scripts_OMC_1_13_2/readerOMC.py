@@ -95,80 +95,80 @@ class ReaderOMC:
         # File to read
         # -------------------
         ## Full name of the _info.xml file
-        # self.infoXmlFile = os.path.join (input_dir, self.mod_name + "_info.xml")
+        # self.infoXmlFile = os.path.join(input_dir, self.mod_name + "_info.xml")
         # exist_file(self.infoXmlFile)
 
         ## Full name of the _info.json file
-        self.info_json_file = os.path.join (input_dir, self.mod_name + "_info.json")
+        self.info_json_file = os.path.join(input_dir, self.mod_name + "_info.json")
         exist_file(self.info_json_file)
 
         ## Full name of the _init.xml file
-        self.init_xml_file = os.path.join (input_dir, self.mod_name + "_init.xml")
+        self.init_xml_file = os.path.join(input_dir, self.mod_name + "_init.xml")
         exist_file(self.init_xml_file)
 
         ## Full name of the _model.h file
-        self.model_header = os.path.join (input_dir, self.mod_name + "_model.h")
+        self.model_header = os.path.join(input_dir, self.mod_name + "_model.h")
         exist_file(self.model_header)
 
         ## Full name of the .c file
-        self.main_c_file = os.path.join (input_dir, self.mod_name + ".c")
+        self.main_c_file = os.path.join(input_dir, self.mod_name + ".c")
         exist_file(self.main_c_file)
 
         ## Full name of the _08bnd.c file
         self._08bnd_c_file = []
-        file_name = os.path.join (input_dir, self.mod_name + "_08bnd.c")
+        file_name = os.path.join(input_dir, self.mod_name + "_08bnd.c")
         exist_file(file_name)
         self._08bnd_c_file.append(file_name)
         idx = 0
-        file_name = os.path.join (input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
+        file_name = os.path.join(input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
         while os.path.isfile(file_name):
             self._08bnd_c_file.append(file_name)
             idx +=1
-            file_name = os.path.join (input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
+            file_name = os.path.join(input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
 
         ## Full name of the _06inz.c file
         self._06inz_c_file = []
-        file_name = os.path.join (input_dir, self.mod_name + "_06inz.c")
+        file_name = os.path.join(input_dir, self.mod_name + "_06inz.c")
         exist_file(file_name)
         self._06inz_c_file.append(file_name)
         idx = 0
-        file_name = os.path.join (input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
+        file_name = os.path.join(input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
         while os.path.isfile(file_name):
             self._06inz_c_file.append(file_name)
             idx +=1
-            file_name = os.path.join (input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
+            file_name = os.path.join(input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
 
         ## Full name of the _05evt.c file
-        self._05evt_c_file = os.path.join (input_dir, self.mod_name + "_05evt.c")
+        self._05evt_c_file = os.path.join(input_dir, self.mod_name + "_05evt.c")
         exist_file(self._05evt_c_file)
 
         ## Full name of the _16dae.c file
-        self._16dae_c_file = os.path.join (input_dir, self.mod_name + "_16dae.c")
+        self._16dae_c_file = os.path.join(input_dir, self.mod_name + "_16dae.c")
         exist_file(self._16dae_c_file)
         ## Full name of the _16dae.h file
-        self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
+        self._16dae_h_file = os.path.join(input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
 
         ## Delay file
-        self._07dly_c_file = os.path.join (input_dir, self.mod_name + "_07dly.c")
+        self._07dly_c_file = os.path.join(input_dir, self.mod_name + "_07dly.c")
 
         ## Full name of xml containing fictitious equations description
-        self.eq_fictive_xml_file = os.path.join (input_dir, self.mod_name + ".extvar")
+        self.eq_fictive_xml_file = os.path.join(input_dir, self.mod_name + ".extvar")
 
         ## Full name of the _structure.xml file
-        self.struct_xml_file = os.path.join (input_dir, self.mod_name + "_structure.xml")
+        self.struct_xml_file = os.path.join(input_dir, self.mod_name + "_structure.xml")
         if not is_init_pb : exist_file(self.struct_xml_file)
 
         ## Full name of the _functions.h file
-        self._functions_header = os.path.join (input_dir, self.mod_name + "_functions.h")
+        self._functions_header = os.path.join(input_dir, self.mod_name + "_functions.h")
         ## Full name of the _functions.c file
-        self._functions_c_file  = os.path.join (input_dir, self.mod_name + "_functions.c")
+        self._functions_c_file  = os.path.join(input_dir, self.mod_name + "_functions.c")
         ## Full name of the _literals.h file
-        self._literals_file = os.path.join (input_dir, self.mod_name + "_literals.h")
+        self._literals_file = os.path.join(input_dir, self.mod_name + "_literals.h")
         ## List of constant strings literal names
         self.list_of_stringconstants = []
         ## Full name of the _literals.h file
-        self._variables_file = os.path.join (input_dir, self.mod_name + "_variables.txt")
+        self._variables_file = os.path.join(input_dir, self.mod_name + "_variables.txt")
 
         ## Regular expression to identify functions
         self.regular_expr_function_name = r'%s[ ]+%s\(.*\)[^;]$'
