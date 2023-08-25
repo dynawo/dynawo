@@ -1,3 +1,28 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b0d1540..529e384 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+ project(powsybl-iidm4cpp)
+ 
+ set(IIDM_VERSION_MAJOR 1)
+-set(IIDM_VERSION_MINOR 6)
++set(IIDM_VERSION_MINOR 7)
+ set(IIDM_VERSION_PATCH 0)
+ set(IIDM_VERSION ${IIDM_VERSION_MAJOR}.${IIDM_VERSION_MINOR}.${IIDM_VERSION_PATCH})
+ set(IIDM_SOVERSION ${IIDM_VERSION_MAJOR})
+diff --git a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
+index 68f4717..71efca3 100644
+--- a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
++++ b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
+@@ -36,6 +36,7 @@ MergedXnodeXmlSerializer::MergedXnodeXmlSerializer() :
+             .put(converter::xml::IidmXmlVersion::V1_4(), {"1.0", "1.1"})
+             .put(converter::xml::IidmXmlVersion::V1_5(), {"1.0", "1.1"})
+             .put(converter::xml::IidmXmlVersion::V1_6(), {"1.0", "1.1"})
++            .put(converter::xml::IidmXmlVersion::V1_7(), {"1.0", "1.1"})
+             .build(),
+         stdcxx::MapBuilder<std::string, std::string>()
+             .put("1.0", "http://www.itesla_project.eu/schema/iidm/ext/merged_xnode/1_0")
 diff --git a/extensions/iidm/src/BranchObservability.cpp b/extensions/iidm/src/BranchObservability.cpp
 index 37a2602..1855cf1 100644
 --- a/extensions/iidm/src/BranchObservability.cpp
@@ -46,6 +71,81 @@ index 37a2602..1855cf1 100644
  }
  
  const std::type_index& BranchObservability::getType() const {
+diff --git a/include/powsybl/iidm/converter/Constants.hpp b/include/powsybl/iidm/converter/Constants.hpp
+index 0b13361..f8e9009 100644
+--- a/include/powsybl/iidm/converter/Constants.hpp
++++ b/include/powsybl/iidm/converter/Constants.hpp
+@@ -101,6 +101,7 @@ static const char* const MAXIMUM_SECTION_COUNT = "maximumSectionCount";
+ static const char* const MIN_MAX_REACTIVE_LIMITS = "minMaxReactiveLimits";
+ static const char* const MIN_P = "minP";
+ static const char* const MIN_Q = "minQ";
++static const char* const MINIMUM_VALIDATION_LEVEL = "minimumValidationLevel";
+ static const char* const NAME = "name";
+ static const char* const NAME_ = "name_";
+ static const char* const NETWORK = "network";
+@@ -158,6 +159,7 @@ static const char* const SHUNT_NON_LINEAR_MODEL = "shuntNonLinearModel";
+ static const char* const SIDE = "side";
+ static const char* const SOURCE_FORMAT = "sourceFormat";
+ static const char* const STATIC_VAR_COMPENSATOR = "staticVarCompensator";
++static const char* const STEADY_STATE_HYPOTHESIS = "STEADY_STATE_HYPOTHESIS";
+ static const char* const STEP = "step";
+ static const char* const SUBSTATION = "substation";
+ static const char* const SWITCH = "switch";
+diff --git a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
+index 742607f..c933a55 100644
+--- a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
++++ b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
+@@ -62,6 +62,11 @@ public:
+      */
+     static const IidmXmlVersion& V1_6();
+ 
++    /**
++     * IIDM V1.7 (http://www.powsybl.org)
++     */
++    static const IidmXmlVersion& V1_7();
++
+ public:
+     /**
+      * Return the list of all supported XIIDM versions
+diff --git a/include/powsybl/iidm/Network.hpp b/include/powsybl/iidm/Network.hpp
+index c371a25..c64c65b 100644
+--- a/include/powsybl/iidm/Network.hpp
++++ b/include/powsybl/iidm/Network.hpp
+@@ -18,6 +18,7 @@
+ #include <powsybl/iidm/VariantArray.hpp>
+ #include <powsybl/iidm/VariantManager.hpp>
+ #include <powsybl/iidm/VariantManagerHolder.hpp>
++#include <powsybl/iidm/converter/Constants.hpp>
+ #include <powsybl/iidm/converter/ExportOptions.hpp>
+ #include <powsybl/iidm/converter/ImportOptions.hpp>
+ #include <powsybl/stdcxx/DateTime.hpp>
+@@ -259,6 +260,8 @@ public:
+ 
+     stdcxx::range<Load> getLoads();
+ 
++    const std::string& getMinimumValidationLevel() const;
++
+     const ShuntCompensator& getShuntCompensator(const std::string& id) const;
+ 
+     ShuntCompensator& getShuntCompensator(const std::string& id);
+@@ -369,6 +372,8 @@ public:
+ 
+     Network& setForecastDistance(int forecastDistance);
+ 
++    Network& setMinimumValidationLevel(const std::string& minimumValidationLevel);
++
+ protected:  // MultiVariantObject
+     void allocateVariantArrayElement(const std::set<unsigned long>& indexes, unsigned long sourceIndex) override;
+ 
+@@ -414,6 +419,8 @@ private:
+ 
+     std::string m_sourceFormat;
+ 
++    std::string m_minimumValidationLevel{converter::STEADY_STATE_HYPOTHESIS};
++
+     NetworkIndex m_networkIndex;
+ 
+     VariantManager m_variantManager;
 diff --git a/include/powsybl/stdcxx/reference.hpp b/include/powsybl/stdcxx/reference.hpp
 index ce81b0c..dde1c37 100644
 --- a/include/powsybl/stdcxx/reference.hpp
@@ -72,11 +172,78 @@ index ce81b0c..dde1c37 100644
      return static_cast<bool>(optional) ? Reference<T>(*optional) : Reference<T>();
  }
  
+diff --git a/src/iidm/converter/xml/IidmXmlVersion.cpp b/src/iidm/converter/xml/IidmXmlVersion.cpp
+index de78592..5d146d6 100644
+--- a/src/iidm/converter/xml/IidmXmlVersion.cpp
++++ b/src/iidm/converter/xml/IidmXmlVersion.cpp
+@@ -67,14 +67,15 @@ const IidmXmlVersions& IidmXmlVersion::all() {
+         std::cref(IidmXmlVersion::V1_3()),
+         std::cref(IidmXmlVersion::V1_4()),
+         std::cref(IidmXmlVersion::V1_5()),
+-        std::cref(IidmXmlVersion::V1_6())
++        std::cref(IidmXmlVersion::V1_6()),
++        std::cref(IidmXmlVersion::V1_7())
+     }};
+ 
+     return s_versions;
+ }
+ 
+ const IidmXmlVersion& IidmXmlVersion::CURRENT_IIDM_XML_VERSION() {
+-    return V1_6();
++    return V1_7();
+ }
+ 
+ const IidmXmlVersion& IidmXmlVersion::fromNamespaceURI(const std::string& namespaceURI) {
+@@ -157,6 +158,11 @@ const IidmXmlVersion& IidmXmlVersion::V1_6() {
+     return V1_6;
+ }
+ 
++const IidmXmlVersion& IidmXmlVersion::V1_7() {
++    static IidmXmlVersion V1_7("powsybl.org", {{1, 7}});
++    return V1_7;
++}
++
+ }  // namespace xml
+ 
+ }  // namespace converter
+diff --git a/src/iidm/converter/xml/NetworkXml.cpp b/src/iidm/converter/xml/NetworkXml.cpp
+index 8bacbd6..83d5d84 100644
+--- a/src/iidm/converter/xml/NetworkXml.cpp
++++ b/src/iidm/converter/xml/NetworkXml.cpp
+@@ -217,9 +217,12 @@ Network NetworkXml::read(const std::string& filename, std::istream& is, const Im
+     const std::string& sourceFormat = reader.getAttributeValue(SOURCE_FORMAT);
+     int forecastDistance = reader.getOptionalAttributeValue(FORECAST_DISTANCE, 0);
+     const std::string& caseDateStr = reader.getAttributeValue(CASE_DATE);
++    std::string minimumValidationLevel{STEADY_STATE_HYPOTHESIS};
++    IidmXmlUtil::runFromMinimumVersion(IidmXmlVersion::V1_7(), version, [&minimumValidationLevel, &reader] { minimumValidationLevel = reader.getAttributeValue(MINIMUM_VALIDATION_LEVEL); });
+ 
+     Network network(id, sourceFormat);
+     network.setForecastDistance(forecastDistance);
++    network.setMinimumValidationLevel(minimumValidationLevel);
+ 
+     try {
+         network.setCaseDate(stdcxx::DateTime::parse(caseDateStr));
+@@ -317,6 +320,7 @@ void NetworkXml::write(const std::string& filename, std::ostream& os, const Netw
+     writer.writeAttribute(CASE_DATE, network.getCaseDate().toString());
+     writer.writeAttribute(FORECAST_DISTANCE, network.getForecastDistance());
+     writer.writeAttribute(SOURCE_FORMAT, network.getSourceFormat());
++    IidmXmlUtil::runFromMinimumVersion(IidmXmlVersion::V1_7(), version, [&writer, &network] { writer.writeAttribute(MINIMUM_VALIDATION_LEVEL, network.getMinimumValidationLevel()); });
+ 
+     AliasesXml::write(network, NETWORK, context);
+     PropertiesXml::write(network, context);
 diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-index 35c5a49..8072774 100644
+index a132f81..a38b986 100644
 --- a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
 +++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-@@ -55,7 +55,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
+@@ -34,6 +34,7 @@ SlackTerminalXmlSerializer::SlackTerminalXmlSerializer() :
+               .put(converter::xml::IidmXmlVersion::V1_4(), {"1.1"})
+               .put(converter::xml::IidmXmlVersion::V1_5(), {"1.2"})
+               .put(converter::xml::IidmXmlVersion::V1_6(), {"1.2"})
++              .put(converter::xml::IidmXmlVersion::V1_7(), {"1.2"})
+               .build(),
+           stdcxx::MapBuilder<std::string, std::string>()
+               .put("1.0", "http://www.powsybl.org/schema/iidm/ext/slack_terminal/1_0")
+@@ -56,7 +57,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
      }
      auto& voltageLevel = dynamic_cast<VoltageLevel&>(extendable);
      const std::string& id = context.getAnonymizer().deanonymizeString(context.getReader().getAttributeValue(converter::ID));
@@ -85,6 +252,41 @@ index 35c5a49..8072774 100644
      Terminal& terminal = converter::xml::TerminalRefXml::readTerminalRef(voltageLevel.getNetwork(), id, side);
      extendable.newExtension<SlackTerminalAdder>().withTerminal(terminal).add();
      return extendable.getExtension<iidm::extensions::SlackTerminal>();
+diff --git a/src/iidm/Network.cpp b/src/iidm/Network.cpp
+index f5b2530..dd44ff1 100644
+--- a/src/iidm/Network.cpp
++++ b/src/iidm/Network.cpp
+@@ -88,6 +88,7 @@ Network::Network(Network&& network) noexcept :
+     m_caseDate(std::move(network.m_caseDate)),
+     m_forecastDistance(network.m_forecastDistance),
+     m_sourceFormat(std::move(network.m_sourceFormat)),
++    m_minimumValidationLevel(std::move(network.m_minimumValidationLevel)),
+     m_networkIndex(*this, std::move(network.m_networkIndex)),
+     m_variantManager(*this, std::move(network.m_variantManager)),
+     m_variants(*this, std::move(network.m_variants)),
+@@ -440,6 +441,10 @@ stdcxx::range<Load> Network::getLoads() {
+     return m_networkIndex.getAll<Load>();
+ }
+ 
++const std::string& Network::getMinimumValidationLevel() const {
++    return m_minimumValidationLevel;
++}
++
+ const Network& Network::getNetwork() const {
+     return *this;
+ }
+@@ -699,6 +704,11 @@ Network& Network::setForecastDistance(int forecastDistance) {
+     return *this;
+ }
+ 
++Network& Network::setMinimumValidationLevel(const std::string& minimumValidationLevel) {
++    m_minimumValidationLevel = checkNotEmpty(*this, minimumValidationLevel, "Minimum validation level is empty");
++    return *this;
++}
++
+ }  // namespace iidm
+ 
+ }  // namespace powsybl
 diff --git a/src/xml/XmlStreamWriter.cpp b/src/xml/XmlStreamWriter.cpp
 index 17e2b54..9f80944 100644
 --- a/src/xml/XmlStreamWriter.cpp

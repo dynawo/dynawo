@@ -19,7 +19,7 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.6.0)
+set(package_RequiredVersion 1.7.0)
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
@@ -34,10 +34,13 @@ else()
   if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
+    # final version 1.6.0 is on branch integration
     set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive/integration)
   endif()
-  set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
+  # final version downloadable is 1.6.0
+  set(package_url  "${package_prefix_url}/v1.6.0.tar.gz")
 
+  # patch bumps version to required version
   GetPatchCommand(libiidm)
   include(ExternalProject)
   ExternalProject_Add(
