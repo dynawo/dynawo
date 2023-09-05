@@ -14,22 +14,19 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses;
 */
 
 partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model"
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
   extends GeneratorSynchronousParameters;
-  extends SwitchOff.SwitchOffGenerator;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
 
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input variables
-  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in pu";
-  Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in pu (base PNomTurb)";
-  Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in pu (user-selected base voltage)";
+  Dynawo.Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in pu";
+  Dynawo.Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in pu (base PNomTurb)";
+  Dynawo.Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in pu (user-selected base voltage)";
 
   // Output variables
-  Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in pu";
+  Dynawo.Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in pu";
 
   // Internal parameters of the synchronous machine in pu (base UNom, SNom)
   // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
@@ -132,7 +129,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   Types.PerUnit sin2Eta(start = Sin2Eta0) "Common flux of quadrature axis contribution to the total air gap flux in pu";
   Types.PerUnit miPu(start = Mi0Pu) "Intermediate axis saturated mutual inductance in pu";
 
-  equation
+equation
   assert(SNom <> PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
 
   if running.value then

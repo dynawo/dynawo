@@ -13,11 +13,9 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusFromTable "Infinite bus with UPu, UPhase and omegaRefPu given by tables as functions of time"
-  import Dynawo.Connectors;
-
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal annotation(
+  Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter String TableFile "Text file that contains the tables to get UPu, UPhase and omegaRefPu from time";

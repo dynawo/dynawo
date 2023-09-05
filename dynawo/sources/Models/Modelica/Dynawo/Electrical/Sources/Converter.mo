@@ -26,12 +26,9 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
 ----------------------|__________|---------------------------------------------------------------------
 
 */
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
 
-  extends SwitchOff.SwitchOffGenerator;
-
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the converter to the grid" annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the converter to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {0, -105}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";

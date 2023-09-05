@@ -13,11 +13,10 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output. This model has discrete inputs and outputs."
-  import Dynawo.Connectors;
 
-  Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
+  Dynawo.Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ZPin y(value(start = Y0)) "Output connector" annotation(
+  Dynawo.Connectors.ZPin y(value(start = Y0)) "Output connector" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Real Ki "Integrator constant";

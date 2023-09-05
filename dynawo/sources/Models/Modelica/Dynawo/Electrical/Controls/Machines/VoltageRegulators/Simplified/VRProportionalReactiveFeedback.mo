@@ -88,7 +88,7 @@ equation
   elsewhen (UsPu < UsMaxPu) and pre(constraintUsMax) then
     Constraint.logConstraintEnd(ConstraintKeys.UsMax);
     constraintUsMax = false;
-  //UcTDerUpMaxPu = 0.;
+  //UcTDerUpMaxPu = 0;
   end when;
 
   when UsPu <= UsMinPu then

@@ -52,7 +52,7 @@ equation
 
   P20Pu = - ComplexMath.real(u20Pu * ComplexMath.conj(i20Pu));
   Q20Pu = - ComplexMath.imag(u20Pu * ComplexMath.conj(i20Pu));
-  U20Pu = ComplexMath.'abs' (u20Pu);
+  U20Pu = ComplexMath.'abs'(u20Pu);
   U2Phase0 = ComplexMath.arg(u20Pu);
 
   annotation(preferredView = "text");

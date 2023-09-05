@@ -24,17 +24,13 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
                                 |
                                ---
 */
-
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffTransformer;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffTransformer;
   extends BaseClasses.TransformerParameters;
   extends AdditionalIcons.Transformer;
 
-  Connectors.ACPower terminal1 annotation(
+  Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2 annotation(
+  Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
@@ -49,8 +45,8 @@ equation
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
   else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
+    terminal1.i = Complex(0);
+    terminal2.i = Complex(0);
   end if;
 
   P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));

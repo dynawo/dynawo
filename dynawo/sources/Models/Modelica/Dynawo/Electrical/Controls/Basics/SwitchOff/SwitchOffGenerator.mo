@@ -19,8 +19,6 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
      - a switch-off signal coming from the user (event)
      - a switch-off signal coming from an automaton in the generator (under-voltage protection for example)
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 
   Constants.state state(start = State0) "Generator connection state";

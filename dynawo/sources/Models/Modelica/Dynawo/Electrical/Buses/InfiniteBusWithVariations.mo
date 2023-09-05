@@ -13,11 +13,9 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusWithVariations "Infinite bus with configurable variations on the voltage module and on the frequency"
-  import Dynawo.Connectors;
-
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal annotation(
+  Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit U0Pu "Infinite bus voltage module before and after event in pu (base UNom)";

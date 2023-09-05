@@ -14,7 +14,6 @@ within Dynawo.Electrical.Events;
 */
 
 package Event
-  import Dynawo.Connectors;
   import Dynawo.Electrical.Constants;
 
   extends Icons.Package;

@@ -20,9 +20,6 @@ model IdealTransformerVariableTap "Ideal transformer (lossless) with a variable 
     U1,P1,Q1 -->---oo---<-- U2,P2,Q2
   (terminal1)              (terminal2)
 */
-
-  import Dynawo.Connectors;
-
   extends BaseClasses.BaseTransformerVariableTap;
   extends AdditionalIcons.Transformer;
 
@@ -33,7 +30,7 @@ equation
     rTfoPu * terminal1.V = terminal2.V;
   else
     terminal1.i = terminal2.i;
-    terminal2.V = Complex (0);
+    terminal2.V = Complex(0);
   end if;
 
   annotation(preferredView = "text",

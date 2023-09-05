@@ -13,14 +13,11 @@ within Dynawo.Electrical.Shunts;
 */
 
 model ShuntBWithSections "Shunt element with voltage-dependent reactive power and a variable susceptance given by a table and a section"
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
   extends AdditionalIcons.Shunt;
-  extends SwitchOff.SwitchOffShunt;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffShunt;
 
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
-  Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
+  Dynawo.Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter String TableBPuName "Name of the table to calculate BPu from the section of the shunt";

@@ -15,19 +15,17 @@ within Dynawo.Electrical.Controls.Transformers.BaseClasses;
 
 partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-shifters"
   import Modelica.Constants;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends SwitchOff.SwitchOffTapChangerPhaseShifter;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffTapChangerPhaseShifter;
   extends TapChangerPhaseShifterParams;
 
   parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action (unit depending on the monitored variable unit)";
 
-  Connectors.ImPin valueToMonitor(value(start = valueToMonitor0)) "Monitored value (unit depending on the monitored variable unit)";
-  Connectors.ZPin tap(value(start = tap0)) "Current tap";
-  Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton";
+  Dynawo.Connectors.ImPin valueToMonitor(value(start = valueToMonitor0)) "Monitored value (unit depending on the monitored variable unit)";
+  Dynawo.Connectors.ZPin tap(value(start = tap0)) "Current tap";
+  Dynawo.Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton";
 
   Boolean locked(start = locked0) "Whether the tap-changer/phase-shifter is locked";
   State state(start = state0) "State of the tap-changer/phase-shifter";
@@ -41,8 +39,8 @@ protected
   Types.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased in s";
 
 equation
-  assert (tap.value <= tapMax, "Tap value supposed to be below maximum tap");
-  assert (tap.value >= tapMin, "Tap value supposed to be above minimum tap");
+  assert(tap.value <= tapMax, "Tap value supposed to be below maximum tap");
+  assert(tap.value >= tapMin, "Tap value supposed to be above minimum tap");
 
   annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter;

@@ -13,11 +13,9 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBus "Infinite bus"
-  import Dynawo.Connectors;
-
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal annotation(
+  Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit UPu "Infinite bus constant voltage module";

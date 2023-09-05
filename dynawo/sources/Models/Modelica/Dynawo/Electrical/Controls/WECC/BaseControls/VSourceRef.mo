@@ -19,22 +19,18 @@ model VSourceRef
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-  import Modelica.Blocks;
-  import Modelica.ComplexBlocks;
-  import Dynawo.Electrical.Controls.WECC.Parameters;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
-  extends Parameters.ParamsVSourceRef;
-
-  Blocks.Interfaces.RealInput idPu(start = Id0Pu) "d-axis current in pu (base SNom, UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput idPu(start = Id0Pu) "d-axis current in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = uInj0Pu.re), im(start = uInj0Pu.im)) "Complex voltage at injector in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = uInj0Pu.re), im(start = uInj0Pu.im)) "Complex voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "q-axis current in pu (base SNom, UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "q-axis current in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Blocks.Interfaces.RealOutput uiSourcePu(start = uSource0Pu.im) "Imaginary voltage at source in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uiSourcePu(start = uSource0Pu.im) "Imaginary voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput urSourcePu(start = uSource0Pu.re) "Real voltage at source in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput urSourcePu(start = uSource0Pu.re) "Real voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.WECC.BaseControls.UdqRef udqRef(RSourcePu = RSourcePu, XSourcePu = XSourcePu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu) annotation(
@@ -43,13 +39,13 @@ model VSourceRef
     Placement(visible = true, transformation(origin = {-40, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.FirstOrder firstOrder(T = tE, k = 1, y_start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tE, k = 1, y_start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {40, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.FirstOrder firstOrder1(T = tE, k = 1, y_start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tE, k = 1, y_start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {40, 3}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 30, Kp = 10, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-90, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
+  Modelica.Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
@@ -94,5 +90,5 @@ equation
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 4}, extent = {{-82, 76}, {78, -84}}, textString = "VSourceRef"), Text(origin = {8.20588, -101.625}, extent = {{3.79412, -3.375}, {46.7941, -21.375}}, textString = "uInjPu"), Text(origin = {-121.5, 59}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, -42}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idPu"), Text(origin = {127, 67.3045}, extent = {{-19, 12.6955}, {57, -36.3045}}, textString = "urSourcePu"), Text(origin = {127, -12.7}, extent = {{-19, 12.7}, {57, -36.3}}, textString = "uiSourcePu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
-  Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}}, grid = {1, 1})));
+    Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}}, grid = {1, 1})));
 end VSourceRef;

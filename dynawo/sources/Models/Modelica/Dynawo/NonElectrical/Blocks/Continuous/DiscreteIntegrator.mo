@@ -46,18 +46,15 @@ equation
     Line(points = {{-110, 0}, {-42, 0}}));
 
   annotation(defaultComponentName="DiscreteIntegrator",
-    Documentation(info="<html>
-<p>
+    Documentation(info="<html><p>
 This block is a dynawo-compatible wrapper around Modelica's Integrator block constrained to discrete inputs. It defines the transfer function between the input u and the output y as <em>PI</em> system:
 </p>
 <pre>
               1
  y =    (--------------) * u
           tIntegral*s
-</pre>
-
-
-</html>"), Icon(coordinateSystem(
+</pre></html>"),
+    Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
@@ -70,5 +67,3 @@ This block is a dynawo-compatible wrapper around Modelica's Integrator block con
           extent={{-150,-150},{150,-110}},
           textString="T=%T")}));
 end DiscreteIntegrator;
-
-

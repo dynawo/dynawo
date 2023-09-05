@@ -24,7 +24,6 @@ function logConstraintBegin "Create a begin constraint"
   annotation(preferredView = "text");
 end logConstraintBegin;
 
-
 function logConstraintEnd "Create an end constraint"
   input Integer key;
   external "C" addLogConstraintEnd(key);

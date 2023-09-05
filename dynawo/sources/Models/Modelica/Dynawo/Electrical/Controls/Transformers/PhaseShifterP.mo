@@ -22,7 +22,7 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
   parameter Types.ActivePower PDeadBand(min = 0) "Active-power dead-band around the target";
   parameter Types.ActivePower P0 "Initial active power";
 
-  Connectors.ImPin PMonitored(value(start = P0)) "Monitored active power";
+  Dynawo.Connectors.ImPin PMonitored(value(start = P0)) "Monitored active power";
 
 equation
   connect(PMonitored, valueToMonitor);

@@ -14,7 +14,6 @@ within Dynawo.Examples.RVS.Components.GeneratorWithControl;
 */
 
 model HydroFrame "Model of a hydraulic generator with a governor, a voltage regulator and an overexcitation limitation, for the RVS test system"
-  import Dynawo.Connectors;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersGenerators;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersHYGOV;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersOEL;

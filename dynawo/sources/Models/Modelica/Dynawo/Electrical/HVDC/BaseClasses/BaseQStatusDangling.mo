@@ -17,9 +17,9 @@ partial model BaseQStatusDangling "Base dynamic model QStatus at terminal 1"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
+  type QStatus = enumeration(Standard "Reactive power is fixed to its initial value",
+                             AbsorptionMax "Reactive power is fixed to its absorption limit",
+                             GenerationMax "Reactive power is fixed to its generation limit");
 
   Boolean limUQDown1(start = limUQDown10) "Whether the minimum reactive power limits are reached or not at terminal 1";
   Boolean limUQUp1(start = limUQUp10) "Whether the maximum reactive power limits are reached or not at terminal 1";

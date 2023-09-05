@@ -19,7 +19,7 @@ model TransformerVariableTapPQ_INIT "Initialization for transformer based on the
 
 equation
   // Initial tap estimation
-  Tap0 = BaseClasses_INIT.TapEstimation (ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
+  Tap0 = BaseClasses_INIT.TapEstimation(ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
 
   // Transformer equations
   i10Pu = rTfo0Pu * (YPu * u20Pu - i20Pu);
