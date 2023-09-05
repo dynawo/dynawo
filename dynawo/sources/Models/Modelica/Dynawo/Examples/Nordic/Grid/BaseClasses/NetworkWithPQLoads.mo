@@ -14,120 +14,118 @@ within Dynawo.Examples.Nordic.Grid.BaseClasses;
 */
 
 model NetworkWithPQLoads "Nordic test grid with buses, lines, shunts and constant loads"
-  import Dynawo.Electrical;
-
   extends Dynawo.Examples.Nordic.Grid.BaseClasses.Network;
 
-  Electrical.Loads.LoadPQ load_01(s0Pu = s0Pu_load_01, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_01) annotation(
+  Dynawo.Electrical.Loads.LoadPQ load_01(s0Pu = s0Pu_load_01, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_01) annotation(
     Placement(visible = true, transformation(origin = {-55, -107}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_01(Value0 = P0Pu_load_01);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_01(Value0 = Q0Pu_load_01);
-  Electrical.Loads.LoadPQ load_02(s0Pu = s0Pu_load_02, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_02) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_01(Value0 = P0Pu_load_01);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_01(Value0 = Q0Pu_load_01);
+  Dynawo.Electrical.Loads.LoadPQ load_02(s0Pu = s0Pu_load_02, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_02) annotation(
     Placement(visible = true, transformation(origin = {35, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_02(Value0 = P0Pu_load_02);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_02(Value0 = Q0Pu_load_02);
-  Electrical.Loads.LoadPQ load_03(s0Pu = s0Pu_load_03, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_03) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_02(Value0 = P0Pu_load_02);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_02(Value0 = Q0Pu_load_02);
+  Dynawo.Electrical.Loads.LoadPQ load_03(s0Pu = s0Pu_load_03, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_03) annotation(
     Placement(visible = true, transformation(origin = {-65, -43}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_03(Value0 = P0Pu_load_03);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_03(Value0 = Q0Pu_load_03);
-  Electrical.Loads.LoadPQ load_04(s0Pu = s0Pu_load_04, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_04) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_03(Value0 = P0Pu_load_03);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_03(Value0 = Q0Pu_load_03);
+  Dynawo.Electrical.Loads.LoadPQ load_04(s0Pu = s0Pu_load_04, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_04) annotation(
     Placement(visible = true, transformation(origin = {-25, -43}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_04(Value0 = P0Pu_load_04);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_04(Value0 = Q0Pu_load_04);
-  Electrical.Loads.LoadPQ load_05(s0Pu = s0Pu_load_05, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_05) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_04(Value0 = P0Pu_load_04);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_04(Value0 = Q0Pu_load_04);
+  Dynawo.Electrical.Loads.LoadPQ load_05(s0Pu = s0Pu_load_05, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_05) annotation(
     Placement(visible = true, transformation(origin = {-25, -107}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_05(Value0 = P0Pu_load_05);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_05(Value0 = Q0Pu_load_05);
-  Electrical.Loads.LoadPQ load_11(s0Pu = s0Pu_load_11, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_11) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_05(Value0 = P0Pu_load_05);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_05(Value0 = Q0Pu_load_05);
+  Dynawo.Electrical.Loads.LoadPQ load_11(s0Pu = s0Pu_load_11, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_11) annotation(
     Placement(visible = true, transformation(origin = {21, 113}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_11(Value0 = P0Pu_load_11);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_11(Value0 = Q0Pu_load_11);
-  Electrical.Loads.LoadPQ load_12(s0Pu = s0Pu_load_12, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_12) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_11(Value0 = P0Pu_load_11);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_11(Value0 = Q0Pu_load_11);
+  Dynawo.Electrical.Loads.LoadPQ load_12(s0Pu = s0Pu_load_12, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_12) annotation(
     Placement(visible = true, transformation(origin = {39, 118}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_12(Value0 = P0Pu_load_12);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_12(Value0 = Q0Pu_load_12);
-  Electrical.Loads.LoadPQ load_13(s0Pu = s0Pu_load_13, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_13) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_12(Value0 = P0Pu_load_12);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_12(Value0 = Q0Pu_load_12);
+  Dynawo.Electrical.Loads.LoadPQ load_13(s0Pu = s0Pu_load_13, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_13) annotation(
     Placement(visible = true, transformation(origin = {85, 113}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_13(Value0 = P0Pu_load_13);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_13(Value0 = Q0Pu_load_13);
-  Electrical.Loads.LoadPQ load_22(s0Pu = s0Pu_load_22, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_22) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_13(Value0 = P0Pu_load_13);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_13(Value0 = Q0Pu_load_13);
+  Dynawo.Electrical.Loads.LoadPQ load_22(s0Pu = s0Pu_load_22, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_22) annotation(
     Placement(visible = true, transformation(origin = {-40, 33}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_22(Value0 = P0Pu_load_22);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_22(Value0 = Q0Pu_load_22);
-  Electrical.Loads.LoadPQ load_31(s0Pu = s0Pu_load_31, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_31) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_22(Value0 = P0Pu_load_22);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_22(Value0 = Q0Pu_load_22);
+  Dynawo.Electrical.Loads.LoadPQ load_31(s0Pu = s0Pu_load_31, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_31) annotation(
     Placement(visible = true, transformation(origin = {-35, 3}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_31(Value0 = P0Pu_load_31);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_31(Value0 = Q0Pu_load_31);
-  Electrical.Loads.LoadPQ load_32(s0Pu = s0Pu_load_32, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_32) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_31(Value0 = P0Pu_load_31);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_31(Value0 = Q0Pu_load_31);
+  Dynawo.Electrical.Loads.LoadPQ load_32(s0Pu = s0Pu_load_32, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_32) annotation(
     Placement(visible = true, transformation(origin = {-89, 3}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_32(Value0 = P0Pu_load_32);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_32(Value0 = Q0Pu_load_32);
-  Electrical.Loads.LoadPQ load_41(s0Pu = s0Pu_load_41, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_41) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_32(Value0 = P0Pu_load_32);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_32(Value0 = Q0Pu_load_32);
+  Dynawo.Electrical.Loads.LoadPQ load_41(s0Pu = s0Pu_load_41, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_41) annotation(
     Placement(visible = true, transformation(origin = {-81, -27}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_41(Value0 = P0Pu_load_41);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_41(Value0 = Q0Pu_load_41);
-  Electrical.Loads.LoadPQ load_42(s0Pu = s0Pu_load_42, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_42) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_41(Value0 = P0Pu_load_41);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_41(Value0 = Q0Pu_load_41);
+  Dynawo.Electrical.Loads.LoadPQ load_42(s0Pu = s0Pu_load_42, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_42) annotation(
     Placement(visible = true, transformation(origin = {55, 7}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_42(Value0 = P0Pu_load_42);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_42(Value0 = Q0Pu_load_42);
-  Electrical.Loads.LoadPQ load_43(s0Pu = s0Pu_load_43, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_43) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_42(Value0 = P0Pu_load_42);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_42(Value0 = Q0Pu_load_42);
+  Dynawo.Electrical.Loads.LoadPQ load_43(s0Pu = s0Pu_load_43, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_43) annotation(
     Placement(visible = true, transformation(origin = {25, -47}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_43(Value0 = P0Pu_load_43);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_43(Value0 = Q0Pu_load_43);
-  Electrical.Loads.LoadPQ load_46(s0Pu = s0Pu_load_46, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_46) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_43(Value0 = P0Pu_load_43);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_43(Value0 = Q0Pu_load_43);
+  Dynawo.Electrical.Loads.LoadPQ load_46(s0Pu = s0Pu_load_46, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_46) annotation(
     Placement(visible = true, transformation(origin = {71, -47}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_46(Value0 = P0Pu_load_46);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_46(Value0 = Q0Pu_load_46);
-  Electrical.Loads.LoadPQ load_47(s0Pu = s0Pu_load_47, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_47) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_46(Value0 = P0Pu_load_46);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_46(Value0 = Q0Pu_load_46);
+  Dynawo.Electrical.Loads.LoadPQ load_47(s0Pu = s0Pu_load_47, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_47) annotation(
     Placement(visible = true, transformation(origin = {61, -93}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_47(Value0 = P0Pu_load_47);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_47(Value0 = Q0Pu_load_47);
-  Electrical.Loads.LoadPQ load_51(s0Pu = s0Pu_load_51, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_51) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_47(Value0 = P0Pu_load_47);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_47(Value0 = Q0Pu_load_47);
+  Dynawo.Electrical.Loads.LoadPQ load_51(s0Pu = s0Pu_load_51, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_51) annotation(
     Placement(visible = true, transformation(origin = {35, -113}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_51(Value0 = P0Pu_load_51);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_51(Value0 = Q0Pu_load_51);
-  Electrical.Loads.LoadPQ load_61(s0Pu = s0Pu_load_61, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_61) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_51(Value0 = P0Pu_load_51);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_51(Value0 = Q0Pu_load_51);
+  Dynawo.Electrical.Loads.LoadPQ load_61(s0Pu = s0Pu_load_61, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_61) annotation(
     Placement(visible = true, transformation(origin = {-95, -67}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_61(Value0 = P0Pu_load_61);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_61(Value0 = Q0Pu_load_61);
-  Electrical.Loads.LoadPQ load_62(s0Pu = s0Pu_load_62, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_62) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_61(Value0 = P0Pu_load_61);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_61(Value0 = Q0Pu_load_61);
+  Dynawo.Electrical.Loads.LoadPQ load_62(s0Pu = s0Pu_load_62, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_62) annotation(
     Placement(visible = true, transformation(origin = {-100, -93}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_62(Value0 = P0Pu_load_62);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_62(Value0 = Q0Pu_load_62);
-  Electrical.Loads.LoadPQ load_63(s0Pu = s0Pu_load_63, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_63) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_62(Value0 = P0Pu_load_62);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_62(Value0 = Q0Pu_load_62);
+  Dynawo.Electrical.Loads.LoadPQ load_63(s0Pu = s0Pu_load_63, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_63) annotation(
     Placement(visible = true, transformation(origin = {-80, -147}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_63(Value0 = P0Pu_load_63);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_63(Value0 = Q0Pu_load_63);
-  Electrical.Loads.LoadPQ load_71(s0Pu = s0Pu_load_71, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_71) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_63(Value0 = P0Pu_load_63);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_63(Value0 = Q0Pu_load_63);
+  Dynawo.Electrical.Loads.LoadPQ load_71(s0Pu = s0Pu_load_71, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_71) annotation(
     Placement(visible = true, transformation(origin = {-95, 113}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_71(Value0 = P0Pu_load_71);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_71(Value0 = Q0Pu_load_71);
-  Electrical.Loads.LoadPQ load_72(s0Pu = s0Pu_load_72, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_72) annotation(
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_71(Value0 = P0Pu_load_71);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_71(Value0 = Q0Pu_load_71);
+  Dynawo.Electrical.Loads.LoadPQ load_72(s0Pu = s0Pu_load_72, u0Pu = Complex(1, 0), i0Pu = s0Pu_load_72) annotation(
     Placement(visible = true, transformation(origin = {-88, 63}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Controls.Basics.SetPoint PrefPu_load_72(Value0 = P0Pu_load_72);
-  Electrical.Controls.Basics.SetPoint QrefPu_load_72(Value0 = Q0Pu_load_72);
+  Dynawo.Electrical.Controls.Basics.SetPoint PrefPu_load_72(Value0 = P0Pu_load_72);
+  Dynawo.Electrical.Controls.Basics.SetPoint QrefPu_load_72(Value0 = Q0Pu_load_72);
 
-  Electrical.Shunts.ShuntB shunt_1022(BPu = BPu_shunt_1022, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1022, i0Pu = s0Pu_shunt_1022) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_1022(BPu = BPu_shunt_1022, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1022, i0Pu = s0Pu_shunt_1022) annotation(
     Placement(visible = true, transformation(origin = {-33.5, 56.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_1041(BPu = BPu_shunt_1041, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1041, i0Pu = s0Pu_shunt_1041) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_1041(BPu = BPu_shunt_1041, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1041, i0Pu = s0Pu_shunt_1041) annotation(
     Placement(visible = true, transformation(origin = {-66.5, -94.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_1043(BPu = BPu_shunt_1043, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1043, i0Pu = s0Pu_shunt_1043) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_1043(BPu = BPu_shunt_1043, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1043, i0Pu = s0Pu_shunt_1043) annotation(
     Placement(visible = true, transformation(origin = {-55.5, -67.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_1044(BPu = BPu_shunt_1044, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1044, i0Pu = s0Pu_shunt_1044) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_1044(BPu = BPu_shunt_1044, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1044, i0Pu = s0Pu_shunt_1044) annotation(
     Placement(visible = true, transformation(origin = {-15.5, -67.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_1045(BPu = BPu_shunt_1045, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1045, i0Pu = s0Pu_shunt_1045) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_1045(BPu = BPu_shunt_1045, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_1045, i0Pu = s0Pu_shunt_1045) annotation(
     Placement(visible = true, transformation(origin = {-12.5, -83.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_4012(BPu = BPu_shunt_4012, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4012, i0Pu = s0Pu_shunt_4012) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_4012(BPu = BPu_shunt_4012, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4012, i0Pu = s0Pu_shunt_4012) annotation(
     Placement(visible = true, transformation(origin = {-22.5, 106.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_4041(BPu = BPu_shunt_4041, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4041, i0Pu = s0Pu_shunt_4041) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_4041(BPu = BPu_shunt_4041, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4041, i0Pu = s0Pu_shunt_4041) annotation(
     Placement(visible = true, transformation(origin = {-94.5, -14.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_4043(BPu = BPu_shunt_4043, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4043, i0Pu = s0Pu_shunt_4043) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_4043(BPu = BPu_shunt_4043, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4043, i0Pu = s0Pu_shunt_4043) annotation(
     Placement(visible = true, transformation(origin = {24.5, -23.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_4046(BPu = BPu_shunt_4046, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4046, i0Pu = s0Pu_shunt_4046) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_4046(BPu = BPu_shunt_4046, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4046, i0Pu = s0Pu_shunt_4046) annotation(
     Placement(visible = true, transformation(origin = {76.5, -22.5}, extent = {{-2.5, 2.5}, {2.5, -2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_4051(BPu = BPu_shunt_4051, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4051, i0Pu = s0Pu_shunt_4051) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_4051(BPu = BPu_shunt_4051, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4051, i0Pu = s0Pu_shunt_4051) annotation(
     Placement(visible = true, transformation(origin = {21.5, -134.5}, extent = {{-2.5, -2.5}, {2.5, 2.5}}, rotation = 0)));
-  Electrical.Shunts.ShuntB shunt_4071(BPu = BPu_shunt_4071, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4071, i0Pu = s0Pu_shunt_4071) annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt_4071(BPu = BPu_shunt_4071, u0Pu = Complex(1, 0), s0Pu = s0Pu_shunt_4071, i0Pu = s0Pu_shunt_4071) annotation(
     Placement(visible = true, transformation(origin = {-85.5, 136.5}, extent = {{2.5, 2.5}, {-2.5, -2.5}}, rotation = 0)));
 
   // load_01 init values:

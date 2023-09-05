@@ -18,8 +18,6 @@ partial model SwitchOffLoad "Switch-off model for a load"
      - a switch-off signal coming from the node in case of a node disconnection
      - a switch-off signal coming from the user (event)
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
   Constants.state state(start = State0) "Load connection state";

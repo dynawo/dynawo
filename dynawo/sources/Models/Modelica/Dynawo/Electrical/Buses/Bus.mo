@@ -13,13 +13,11 @@ within Dynawo.Electrical.Buses;
 */
 
 model Bus "Bus"
-  import Dynawo.Connectors;
-
   extends AdditionalIcons.Bus;
 
   parameter Types.VoltageModule UNom = 1.0 "Nominal voltage in kV";
 
-  Connectors.ACPower terminal annotation(
+  Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Types.VoltageModulePu UPu "Voltage amplitude at terminal in pu (base UNom)";

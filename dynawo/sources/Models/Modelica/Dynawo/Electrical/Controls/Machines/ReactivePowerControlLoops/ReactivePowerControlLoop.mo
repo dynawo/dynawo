@@ -22,7 +22,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Types.VoltageModulePu UStatorRefMinPu = 0.85 "Minimum reference voltage for the generator voltage regulator in pu (base UNom)";
   parameter Types.VoltageModulePu UStatorRefMaxPu = 1.15 "Maximum reference voltage for the generator voltage regulator in pu (base UNom)";
 
-  type UStatus = enumeration (Standard, LimitUMin, LimitUMax);
+  type UStatus = enumeration(Standard, LimitUMin, LimitUMax);
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(

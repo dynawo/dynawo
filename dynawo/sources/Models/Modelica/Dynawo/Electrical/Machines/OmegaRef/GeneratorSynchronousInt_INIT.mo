@@ -13,11 +13,8 @@ within Dynawo.Electrical.Machines.OmegaRef;
 */
 
 model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model from internal parameters"
-  import Dynawo.Electrical.Machines;
-
-  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  extends Dynawo.Electrical.Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends BaseClasses_INIT.BaseGeneratorSynchronousInt_INIT;
-
   extends AdditionalIcons.Init;
 
   annotation(preferredView = "text");

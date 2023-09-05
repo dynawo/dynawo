@@ -21,11 +21,10 @@ model Measurements "This block measures the voltage, current, active power and r
    (terminal1) -->---------MEASUREMENTS------------ (terminal2)
 
 */
-  import Dynawo.Connectors;
 
-  Connectors.ACPower terminal1 annotation(
+  Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2 annotation(
+  Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput IPhase "Current angle at terminal 1 in rad" annotation(

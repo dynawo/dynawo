@@ -13,9 +13,7 @@ within Dynawo.Electrical.Machines.OmegaRef;
 */
 
 model GeneratorPQ_INIT "Initialisation model for generator PQ"
-  import Dynawo.Electrical.Machines;
-
-  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  extends Dynawo.Electrical.Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
   annotation(preferredView = "text");

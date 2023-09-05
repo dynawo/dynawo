@@ -45,7 +45,7 @@ equation
   end if;
 
   // Voltage at terminal 2
-  U20Pu = ComplexMath.'abs' (u20Pu);
+  U20Pu = ComplexMath.'abs'(u20Pu);
 
   annotation(preferredView = "text");
 end BaseTransformerVariableTapCommon_INIT;

@@ -13,14 +13,13 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 model VoltageCheck "This block generates a signal to freeze the control when the voltage is too low or too high"
-  import Modelica.Blocks;
 
   parameter Types.PerUnit UMinPu "Lower voltage limit for freeze in pu (base UNom)";
   parameter Types.PerUnit UMaxPu "Upper voltage limit for freeze in pu (base UNom)";
 
-  Blocks.Interfaces.RealInput UPu "Voltage module in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu "Voltage module in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.BooleanOutput freeze "Boolean to freeze the regulation" annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput freeze "Boolean to freeze the regulation" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

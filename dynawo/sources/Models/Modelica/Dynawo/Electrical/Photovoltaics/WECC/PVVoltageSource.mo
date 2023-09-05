@@ -19,13 +19,11 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-  import Dynawo.Electrical.Controls.WECC.Parameters;
-
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Parameters.ParamsElectricalControl;
-  extends Parameters.ParamsGeneratorControl;
-  extends Parameters.ParamsPlantControl;
-  extends Parameters.ParamsVSourceRef;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsElectricalControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsGeneratorControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPlantControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
@@ -84,6 +82,7 @@ equation
   source.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
   source.switchOffSignal2.value = injector.switchOffSignal2.value;
+
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

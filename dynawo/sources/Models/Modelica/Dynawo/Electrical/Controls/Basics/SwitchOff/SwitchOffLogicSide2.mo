@@ -16,11 +16,11 @@ within Dynawo.Electrical.Controls.Basics.SwitchOff;
 partial model SwitchOffLogicSide2 "Manage switch-off logic for side 2 of a quadripole"
   /* Handles a predefinite number of switch-off signals and sets running to false as soon as one signal is set to true */
 
-  Connectors.BPin switchOffSignal1Side2(value(start = false)) "Switch-off signal 1 for side 2 of the quadripole";
-  Connectors.BPin switchOffSignal2Side2(value(start = false)) if NbSwitchOffSignalsSide2 >= 2 "Switch-off signal 2 for side 2 of the quadripole";
-  Connectors.BPin switchOffSignal3Side2(value(start = false)) if NbSwitchOffSignalsSide2 >= 3 "Switch-off signal 3 for side 2 of the quadripole";
+  Dynawo.Connectors.BPin switchOffSignal1Side2(value(start = false)) "Switch-off signal 1 for side 2 of the quadripole";
+  Dynawo.Connectors.BPin switchOffSignal2Side2(value(start = false)) if NbSwitchOffSignalsSide2 >= 2 "Switch-off signal 2 for side 2 of the quadripole";
+  Dynawo.Connectors.BPin switchOffSignal3Side2(value(start = false)) if NbSwitchOffSignalsSide2 >= 3 "Switch-off signal 3 for side 2 of the quadripole";
 
-  Connectors.BPin runningSide2(value(start = true)) "Indicates if the component is running on side 2 or not";
+  Dynawo.Connectors.BPin runningSide2(value(start = true)) "Indicates if the component is running on side 2 or not";
 
   parameter Integer NbSwitchOffSignalsSide2(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 

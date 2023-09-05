@@ -14,266 +14,264 @@ within Dynawo.Examples.Nordic.Grid.BaseClasses;
 */
 
 model Network "Nordic test grid with buses and lines"
-  import Modelica.SIunits;
-  import Dynawo.Electrical;
 
-  Electrical.Buses.Bus bus_B01 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B01 annotation(
     Placement(visible = true, transformation(origin = {-55, -105}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B02 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B02 annotation(
     Placement(visible = true, transformation(origin = {35, -95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B03 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B03 annotation(
     Placement(visible = true, transformation(origin = {-65, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B04 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B04 annotation(
     Placement(visible = true, transformation(origin = {-25, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B05 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B05 annotation(
     Placement(visible = true, transformation(origin = {-25, -105}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B11 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B11 annotation(
     Placement(visible = true, transformation(origin = {21, 115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B12 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B12 annotation(
     Placement(visible = true, transformation(origin = {39, 115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B13 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B13 annotation(
     Placement(visible = true, transformation(origin = {85, 115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B22 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B22 annotation(
     Placement(visible = true, transformation(origin = {-40, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B31 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B31 annotation(
     Placement(visible = true, transformation(origin = {-35, 5}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B32 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B32 annotation(
     Placement(visible = true, transformation(origin = {-89, 5}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B41 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B41 annotation(
     Placement(visible = true, transformation(origin = {-81, -25}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B42 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B42 annotation(
     Placement(visible = true, transformation(origin = {55, 5}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B43 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B43 annotation(
     Placement(visible = true, transformation(origin = {25, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B47 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B47 annotation(
     Placement(visible = true, transformation(origin = {61, -95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B46 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B46 annotation(
     Placement(visible = true, transformation(origin = {71, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B51 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B51 annotation(
     Placement(visible = true, transformation(origin = {35, -115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B61 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B61 annotation(
     Placement(visible = true, transformation(origin = {-95, -65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B62 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B62 annotation(
     Placement(visible = true, transformation(origin = {-100, -95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B63 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B63 annotation(
     Placement(visible = true, transformation(origin = {-80, -145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B71 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B71 annotation(
     Placement(visible = true, transformation(origin = {-95, 115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_B72 annotation(
+  Dynawo.Electrical.Buses.Bus bus_B72 annotation(
     Placement(visible = true, transformation(origin = {-88, 65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG01 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG01 annotation(
     Placement(visible = true, transformation(origin = {25, 85}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG02 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG02 annotation(
     Placement(visible = true, transformation(origin = {75, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG03 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG03 annotation(
     Placement(visible = true, transformation(origin = {85, 85}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG04 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG04 annotation(
     Placement(visible = true, transformation(origin = {-85, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG05 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG05 annotation(
     Placement(visible = true, transformation(origin = {-45, 65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG06 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG06 annotation(
     Placement(visible = true, transformation(origin = {35, -65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG07 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG07 annotation(
     Placement(visible = true, transformation(origin = {-53, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG08 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG08 annotation(
     Placement(visible = true, transformation(origin = {-77, 5}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG09 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG09 annotation(
     Placement(visible = true, transformation(origin = {-25, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG10 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG10 annotation(
     Placement(visible = true, transformation(origin = {-35, 85}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG11 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG11 annotation(
     Placement(visible = true, transformation(origin = {35, 65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG12 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG12 annotation(
     Placement(visible = true, transformation(origin = {-4, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG13 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG13 annotation(
     Placement(visible = true, transformation(origin = {-70, -25}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG14 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG14 annotation(
     Placement(visible = true, transformation(origin = {50, -25}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG15 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG15 annotation(
     Placement(visible = true, transformation(origin = {80, -95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG16 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG16 annotation(
     Placement(visible = true, transformation(origin = {20, -115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG17 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG17 annotation(
     Placement(visible = true, transformation(origin = {-78, -95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG18 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG18 annotation(
     Placement(visible = true, transformation(origin = {-95, -145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG19 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG19 annotation(
     Placement(visible = true, transformation(origin = {-75, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_BG20 annotation(
+  Dynawo.Electrical.Buses.Bus bus_BG20 annotation(
     Placement(visible = true, transformation(origin = {-75, 65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1011 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1011 annotation(
     Placement(visible = true, transformation(origin = {30, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1012 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1012 annotation(
     Placement(visible = true, transformation(origin = {30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1013 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1013 annotation(
     Placement(visible = true, transformation(origin = {80, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1014 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1014 annotation(
     Placement(visible = true, transformation(origin = {80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1021 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1021 annotation(
     Placement(visible = true, transformation(origin = {-80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1022 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1022 annotation(
     Placement(visible = true, transformation(origin = {-40, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1041 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1041 annotation(
     Placement(visible = true, transformation(origin = {-60, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1042 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1042 annotation(
     Placement(visible = true, transformation(origin = {30, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1043 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1043 annotation(
     Placement(visible = true, transformation(origin = {-60, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1044 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1044 annotation(
     Placement(visible = true, transformation(origin = {-20, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_1045 annotation(
+  Dynawo.Electrical.Buses.Bus bus_1045 annotation(
     Placement(visible = true, transformation(origin = {-17, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_2031 annotation(
+  Dynawo.Electrical.Buses.Bus bus_2031 annotation(
     Placement(visible = true, transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_2032 annotation(
+  Dynawo.Electrical.Buses.Bus bus_2032 annotation(
     Placement(visible = true, transformation(origin = {-80, 21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4011 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4011 annotation(
     Placement(visible = true, transformation(origin = {-30, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4012 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4012 annotation(
     Placement(visible = true, transformation(origin = {-30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4021 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4021 annotation(
     Placement(visible = true, transformation(origin = {30, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4022 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4022 annotation(
     Placement(visible = true, transformation(origin = {-10, 49}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4031 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4031 annotation(
     Placement(visible = true, transformation(origin = {-13, 21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4032 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4032 annotation(
     Placement(visible = true, transformation(origin = {30, 21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4041 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4041 annotation(
     Placement(visible = true, transformation(origin = {-78, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4042 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4042 annotation(
     Placement(visible = true, transformation(origin = {50, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4043 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4043 annotation(
     Placement(visible = true, transformation(origin = {30, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4044 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4044 annotation(
     Placement(visible = true, transformation(origin = {-6, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4045 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4045 annotation(
     Placement(visible = true, transformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4046 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4046 annotation(
     Placement(visible = true, transformation(origin = {70, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4047 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4047 annotation(
     Placement(visible = true, transformation(origin = {70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4051 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4051 annotation(
     Placement(visible = true, transformation(origin = {14, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4061 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4061 annotation(
     Placement(visible = true, transformation(origin = {-92.5, -50.5}, extent = {{-7.5, -7.5}, {7.5, 7.5}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4062 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4062 annotation(
     Placement(visible = true, transformation(origin = {-87, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4063 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4063 annotation(
     Placement(visible = true, transformation(origin = {-87, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4071 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4071 annotation(
     Placement(visible = true, transformation(origin = {-80, 130}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Electrical.Buses.Bus bus_4072 annotation(
+  Dynawo.Electrical.Buses.Bus bus_4072 annotation(
     Placement(visible = true, transformation(origin = {-82.5, 80.5}, extent = {{-7.5, -7.5}, {7.5, 7.5}}, rotation = 0)));
 
-  Electrical.Lines.Line line_1011_1013a(BPu = 4.0841e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 11.83 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1011_1013a(BPu = 4.0841e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 11.83 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {50, 128}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1011_1013b(BPu = 4.0841e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 11.83 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1011_1013b(BPu = 4.0841e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 11.83 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {50, 125}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1012_1014a(BPu = 5.3407e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.37 / XBase_130, XPu = 15.21 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1012_1014a(BPu = 5.3407e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.37 / XBase_130, XPu = 15.21 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {55, 98}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1012_1014b(BPu = 5.3407e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.37 / XBase_130, XPu = 15.21 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1012_1014b(BPu = 5.3407e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.37 / XBase_130, XPu = 15.21 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {55, 95}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1013_1014a(BPu = 2.9845e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.18 / XBase_130, XPu = 8.450 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1013_1014a(BPu = 2.9845e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.18 / XBase_130, XPu = 8.450 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {75, 113}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_1013_1014b(BPu = 2.9845e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.18 / XBase_130, XPu = 8.450 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1013_1014b(BPu = 2.9845e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.18 / XBase_130, XPu = 8.450 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {78, 113}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_1021_1022a(BPu = 8.9535e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 5.07 / XBase_130, XPu = 33.80 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1021_1022a(BPu = 8.9535e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 5.07 / XBase_130, XPu = 33.80 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-63, 45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1021_1022b(BPu = 8.9535e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 5.07 / XBase_130, XPu = 33.80 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1021_1022b(BPu = 8.9535e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 5.07 / XBase_130, XPu = 33.80 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-63, 42}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1041_1043a(BPu = 3.6128e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 10.14 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1041_1043a(BPu = 3.6128e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 10.14 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-65, -75}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Electrical.Lines.Line line_1041_1043b(BPu = 3.6128e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 10.14 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1041_1043b(BPu = 3.6128e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 10.14 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-62, -75}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Electrical.Lines.Line line_1041_1045a(BPu = 7.3827e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.53 / XBase_130, XPu = 20.28 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1041_1045a(BPu = 7.3827e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.53 / XBase_130, XPu = 20.28 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-35, -84}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1041_1045b(BPu = 7.3827e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.53 / XBase_130, XPu = 20.28 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1041_1045b(BPu = 7.3827e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 2.53 / XBase_130, XPu = 20.28 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-35, -87}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1042_1044a(BPu = 1.7750e-4 * XBase_130, GPu = 0 * XBase_130, RPu = 6.42 / XBase_130, XPu = 47.32 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1042_1044a(BPu = 1.7750e-4 * XBase_130, GPu = 0 * XBase_130, RPu = 6.42 / XBase_130, XPu = 47.32 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {10, -74}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1042_1044b(BPu = 1.7750e-4 * XBase_130, GPu = 0 * XBase_130, RPu = 6.42 / XBase_130, XPu = 47.32 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1042_1044b(BPu = 1.7750e-4 * XBase_130, GPu = 0 * XBase_130, RPu = 6.42 / XBase_130, XPu = 47.32 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {10, -71}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1042_1045(BPu = 1.7750e-4 * XBase_130, GPu = 0 * XBase_130, RPu = 8.45 / XBase_130, XPu = 50.70 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1042_1045(BPu = 1.7750e-4 * XBase_130, GPu = 0 * XBase_130, RPu = 8.45 / XBase_130, XPu = 50.70 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {10, -85}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1043_1044a(BPu = 4.7124e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 13.52 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1043_1044a(BPu = 4.7124e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 13.52 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-40, -63}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_1043_1044b(BPu = 4.7124e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 13.52 / XBase_130) annotation(
+  Dynawo.Electrical.Lines.Line line_1043_1044b(BPu = 4.7124e-5 * XBase_130, GPu = 0 * XBase_130, RPu = 1.69 / XBase_130, XPu = 13.52 / XBase_130) annotation(
     Placement(visible = true, transformation(origin = {-40, -66}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_2031_2032a(BPu = 1.5708e-5 * XBase_220, GPu = 0 * XBase_220, RPu = 5.81 / XBase_220, XPu = 43.56 / XBase_220) annotation(
+  Dynawo.Electrical.Lines.Line line_2031_2032a(BPu = 1.5708e-5 * XBase_220, GPu = 0 * XBase_220, RPu = 5.81 / XBase_220, XPu = 43.56 / XBase_220) annotation(
     Placement(visible = true, transformation(origin = {-60, 18}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_2031_2032b(BPu = 1.5708e-5 * XBase_220, GPu = 0 * XBase_220, RPu = 5.81 / XBase_220, XPu = 43.56 / XBase_220) annotation(
+  Dynawo.Electrical.Lines.Line line_2031_2032b(BPu = 1.5708e-5 * XBase_220, GPu = 0 * XBase_220, RPu = 5.81 / XBase_220, XPu = 43.56 / XBase_220) annotation(
     Placement(visible = true, transformation(origin = {-60, 15}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4011_4012(BPu = 6.2832e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 12.80 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4011_4012(BPu = 6.2832e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 12.80 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-34, 118}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4011_4021(BPu = 5.6234e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 96.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4011_4021(BPu = 5.6234e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 96.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {5, 88}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4011_4022(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4011_4022(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-10, 88}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4011_4071(BPu = 4.3825e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 8.00 / XBase_400, XPu = 72.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4011_4071(BPu = 4.3825e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 8.00 / XBase_400, XPu = 72.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-53, 120}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4012_4022(BPu = 3.2830e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 56.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4012_4022(BPu = 3.2830e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 56.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-20, 75}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4012_4071(BPu = 4.6810e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 8.00 / XBase_400, XPu = 80.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4012_4071(BPu = 4.6810e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 8.00 / XBase_400, XPu = 80.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-53, 117}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4021_4032(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4021_4032(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {23, 40}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4021_4042(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 16.0 / XBase_400, XPu = 96.0 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4021_4042(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 16.0 / XBase_400, XPu = 96.0 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {44, 22}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4022_4031a(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4022_4031a(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-17, 40}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4022_4031b(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4022_4031b(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-13, 40}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4031_4032(BPu = 9.4248e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 16.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4031_4032(BPu = 9.4248e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 16.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {8, 21}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4031_4041a(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4031_4041a(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-22, 6}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4031_4041b(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4031_4041b(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-19, 6}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4032_4042(BPu = 6.2518e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 16.0 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4032_4042(BPu = 6.2518e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 16.0 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {34, 9}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4032_4044(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 80.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4032_4044(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 80.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-6, -4}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4041_4044(BPu = 2.8117e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4041_4044(BPu = 2.8117e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-40, -15}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4041_4061(BPu = 4.0684e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 72.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4041_4061(BPu = 4.0684e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 9.60 / XBase_400, XPu = 72.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-87, -35}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4042_4043(BPu = 1.5551e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 24.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4042_4043(BPu = 1.5551e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 24.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {41, -20}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4042_4044(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4042_4044(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {3, -17}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4043_4044(BPu = 9.4248e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 16.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4043_4044(BPu = 9.4248e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 16.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {12, -34}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4043_4046(BPu = 9.4248e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 16.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4043_4046(BPu = 9.4248e-5 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 16.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {49, -49}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4043_4047(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4043_4047(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {50, -68}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4044_4045a(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4044_4045a(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {1, -61}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4044_4045b(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4044_4045b(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-2, -61}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4045_4051a(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4045_4051a(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {5, -120}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4045_4051b(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4045_4051b(BPu = 3.7542e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 6.40 / XBase_400, XPu = 64.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {8, -120}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4045_4062(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 17.6 / XBase_400, XPu = 128.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4045_4062(BPu = 7.4927e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 17.6 / XBase_400, XPu = 128.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-40, -117}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Electrical.Lines.Line line_4046_4047(BPu = 1.5551e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 24.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4046_4047(BPu = 1.5551e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 1.60 / XBase_400, XPu = 24.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {79, -67}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4061_4062(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4061_4062(BPu = 1.8693e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 3.20 / XBase_400, XPu = 32.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-87, -80}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4062_4063a(BPu = 2.8117e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4062_4063a(BPu = 2.8117e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-90, -120}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4062_4063b(BPu = 2.8117e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4062_4063b(BPu = 2.8117e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-87, -120}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4071_4072a(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4071_4072a(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-84, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Electrical.Lines.Line line_4071_4072b(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
+  Dynawo.Electrical.Lines.Line line_4071_4072b(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-79, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
-  final parameter SIunits.Impedance XBase_130 = 130 ^ 2 / Electrical.SystemBase.SnRef;
-  final parameter SIunits.Impedance XBase_220 = 220 ^ 2 / Electrical.SystemBase.SnRef;
-  final parameter SIunits.Impedance XBase_400 = 400 ^ 2 / Electrical.SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance XBase_130 = 130 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance XBase_220 = 220 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance XBase_400 = 400 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
 
 equation
   line_1011_1013a.switchOffSignal1.value = false;

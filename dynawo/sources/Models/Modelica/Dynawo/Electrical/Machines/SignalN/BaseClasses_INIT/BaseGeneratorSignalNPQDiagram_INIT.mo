@@ -14,8 +14,6 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses_INIT;
 */
 
 partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for SignalN generator models with PQ diagram"
-  import Dynawo.Electrical.Machines;
-
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
@@ -24,9 +22,9 @@ partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for 
   parameter Types.ReactivePowerPu QMax0 "Start value of maximum reactive power in Mvar";
   parameter Types.ReactivePowerPu QMin0 "Start value of minimum reactive power in Mvar";
 
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
+  type QStatus = enumeration(Standard "Reactive power is fixed to its initial value",
+                             AbsorptionMax "Reactive power is fixed to its absorption limit",
+                             GenerationMax "Reactive power is fixed to its generation limit");
 
   Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";

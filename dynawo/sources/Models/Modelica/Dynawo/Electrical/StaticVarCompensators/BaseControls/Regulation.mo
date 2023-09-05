@@ -13,8 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model Regulation "Variable susceptance calculation"
-  import Dynawo.NonElectrical.Blocks.NonLinear;
-
   extends Parameters.ParamsRegulation;
   extends Parameters.ParamsLimitations;
 
@@ -38,7 +36,7 @@ model Regulation "Variable susceptance calculation"
     Placement(visible = true, transformation(origin = {-96, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain lambda(k = Lambda) annotation(
     Placement(visible = true, transformation(origin = {-134, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  NonLinear.VariableLimiter variableLimiter annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {112, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Limitations limitations(BMaxPu = BMaxPu, BMinPu = BMinPu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter) annotation(
     Placement(visible = true, transformation(origin = {-31, 45}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
