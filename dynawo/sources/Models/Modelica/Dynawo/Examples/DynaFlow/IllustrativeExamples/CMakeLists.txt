@@ -14,6 +14,8 @@ set(MODEL_FILES
   package.order
   CoordinatedVControl.mo
   CoordinatedVControl_INIT.mo
+  UStatorRegulation.mo
+  UStatorRegulation_INIT.mo
   )
 
 #
