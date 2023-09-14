@@ -346,8 +346,8 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
         .setConnectableBus("MyBus")
         .setMaxP(200.0)
         .setMinP(-150.0)
-        .setP0(5.0)
-        .setQ0(5.0)
+        .setTargetP(5.0)
+        .setTargetQ(5.0)
         .add();
     bat.getTerminal().setP(-105.);
     bat.getTerminal().setQ(-90.);
