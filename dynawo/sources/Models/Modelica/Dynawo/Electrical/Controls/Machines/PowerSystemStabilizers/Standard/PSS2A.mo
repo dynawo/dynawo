@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 */
 
 model PSS2A "IEEE Power System Stabilizer type 2A"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit Ks1 "PSS gain";
   parameter Types.PerUnit Ks2 "2nd signal transducer factor";
@@ -43,7 +39,7 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) - generator convention" annotation(
     Placement(visible = true, transformation(origin = {-194, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)"annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-194, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables

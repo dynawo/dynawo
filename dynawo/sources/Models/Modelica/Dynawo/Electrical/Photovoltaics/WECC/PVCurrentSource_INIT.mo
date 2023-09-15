@@ -13,11 +13,6 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSource_INIT "Initialization model for WECC PV model with a current source as interface with the grid"
-  import Modelica;
-  import Modelica.ComplexMath;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";

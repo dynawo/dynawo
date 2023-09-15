@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block MaxThresholdSwitch "Switch between two real values, depending on the input crossing a max threshold"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real UMax "Maximum allowed u";

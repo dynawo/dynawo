@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model DriveTrainPeFiltered "Drive train control with a mechanical power derived from filtered electrical power"
-  import Modelica;
-
   extends BaseControls.BaseDriveTrain;
 
   parameter Types.Time tP "Filter time constant for mechanical power calculation in seconds (typical:0.01..0.02)";

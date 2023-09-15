@@ -13,9 +13,6 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 */
 
 model WPP4ACurrentSource "Wind Power Plant Type 4A model from IEC 61400-27-1 standard : WT4A, communication modules"
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
 
   //PControl parameters

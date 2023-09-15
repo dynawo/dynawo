@@ -15,7 +15,6 @@ within Dynawo.Examples.RVS.Grid;
 
 model FullDynamicInfiniteBusNoLoadReset "RVS test grid with buses, lines, shunts, alpha-beta loads, transformers, generators and static var compensators"
   import Modelica.SIunits.Conversions.from_deg;
-  import Dynawo;
 
   extends BaseClasses.NetworkWithTrf;
 

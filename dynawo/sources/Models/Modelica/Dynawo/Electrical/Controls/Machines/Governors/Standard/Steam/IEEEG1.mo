@@ -14,9 +14,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 */
 
 model IEEEG1 "Steam turbine governor"
-  import Modelica;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit DerPMaxPu "Maximum power variation if valve is opening in pu/s (base PNomTurb)";

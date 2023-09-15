@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasse
 */
 
 block RectifierRegulationCharacteristic "Characteristic function of rectifier regulation"
-  import Modelica;
-
   extends Modelica.Blocks.Interfaces.SISO;
 
   parameter Real UHigh = 0.75 "Upper limit of non-linear mode";

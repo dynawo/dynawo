@@ -13,10 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block LimitedLeadLag "Simple lead-lag filter, with output limitation"
-
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Types.PerUnit K = 1 "Gain";

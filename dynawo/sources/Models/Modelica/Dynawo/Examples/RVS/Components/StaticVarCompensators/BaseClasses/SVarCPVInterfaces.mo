@@ -14,9 +14,6 @@ within Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses;
 */
 
 model SVarCPVInterfaces
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Electrical.StaticVarCompensators.SVarCPVNoLimits;
 
   Modelica.Blocks.Interfaces.RealInput BVarPu_in annotation(

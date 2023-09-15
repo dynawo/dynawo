@@ -14,9 +14,6 @@ within Dynawo.Examples.SMIB.Standard;
 */
 
 model GovSteam1ExcIEEEST4BPssIEEE2B1 "Voltage reference step on the synchronous machine (and its regulations) connected to a zero current bus"
-  import Modelica;
-  import Dynawo;
-
   extends Icons.Example;
 
   // Generator and regulations
@@ -92,7 +89,7 @@ model GovSteam1ExcIEEEST4BPssIEEE2B1 "Voltage reference step on the synchronous 
    mq = 0,
    nd = 0,
    nq = 0, u0Pu = Complex(1, 0)) annotation(
-    Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B avr(Efd0Pu = generatorSynchronous.Efd0Pu, Ifd0Pu = generatorSynchronous.IRotor0Pu, Kc = 0.113, Kg = 0, Ki = 0, Kim = 0, Kir = 10.75, Kp = 9.3, Kpm = 1, Kpr = 10.75, Thetap = 0, UOel0Pu = 10, Ub0Pu = 9.23476, Us0Pu = generatorSynchronous.U0Pu, VbMaxPu = 11.63, VmMaxPu = 99, VmMinPu = -99, VrMaxPu = 1, VrMinPu = -0.87, XlPu = 0.124, it0Pu = generatorSynchronous.i0Pu, tA = 0.02, tR = 0.02, ut0Pu = generatorSynchronous.u0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -105,7 +102,7 @@ model GovSteam1ExcIEEEST4BPssIEEE2B1 "Voltage reference step on the synchronous 
   Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {56, -6.66134e-16}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {56, 0}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {21, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
@@ -117,6 +114,7 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
+
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));

@@ -13,9 +13,6 @@ within Dynawo.Examples.ENTSOE;
 */
 
 model TestCase1 "Voltage reference step on the synchronous machine (and its regulations) connected to a zero current bus"
-  import Modelica;
-  import Dynawo;
-
   extends Icons.Example;
 
   // Generator and regulations
@@ -91,7 +88,7 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
    mq = 0,
    nd = 0,
    nq = 0) annotation(
-    Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.005) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -128,7 +125,7 @@ equation
   connect(step.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {70, 60}, {70, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{102, -30}, {102, -30.5}, {110, -30.5}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{102, -30}, {110, -30}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
 

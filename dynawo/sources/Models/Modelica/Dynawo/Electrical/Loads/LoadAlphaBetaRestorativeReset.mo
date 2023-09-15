@@ -14,9 +14,7 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadAlphaBetaRestorativeReset "Load with voltage-dependent active and reactive power with load reset (Alpha-Beta model)"
-  import Dynawo.Electrical.Loads.BaseClasses;
-
-  extends BaseClasses.BaseLoad;
+  extends Dynawo.Electrical.Loads.BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
   parameter Real Alpha "Active load sensitivity to voltage";
@@ -55,6 +53,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
-  annotation(
-    preferredView = "text");
+  annotation(preferredView = "text");
 end LoadAlphaBetaRestorativeReset;

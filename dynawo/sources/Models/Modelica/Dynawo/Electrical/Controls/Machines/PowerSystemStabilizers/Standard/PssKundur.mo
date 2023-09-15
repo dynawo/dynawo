@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 */
 
 model PssKundur "Power system stabilizer based on Kundur's book"
-  import Modelica;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit KStab "PSS gain";
   parameter Types.Time t1 "Phase compensation lead time constant in s";

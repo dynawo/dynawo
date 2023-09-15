@@ -62,7 +62,7 @@ equation
       BVarPu = 0;
     end if;
   else
-    BVarPu = 0.;
+    BVarPu = 0;
   end if;
 
   annotation(preferredView = "text");

@@ -19,11 +19,11 @@ standardReturnCodeType = "ALLOWED"
 forbiddenReturnCodeType = "FORBIDDEN"
 
 ##############################################################
-#                   HVDC Standard model                      #
+#                   HVDC standard model                      #
 ##############################################################
 
-case_name = "HVDC Standard Model"
-case_description = "HVDC Standard Model - Two nodes system"
+case_name = "HVDC standard model"
+case_description = "HVDC standard model - Two nodes system"
 job_file = os.path.join(os.path.dirname(__file__), "HVDC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

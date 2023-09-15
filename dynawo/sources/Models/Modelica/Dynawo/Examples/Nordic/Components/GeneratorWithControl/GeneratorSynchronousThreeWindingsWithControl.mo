@@ -14,11 +14,6 @@ within Dynawo.Examples.Nordic.Components.GeneratorWithControl;
 */
 
 model GeneratorSynchronousThreeWindingsWithControl "Model of synchronous generator with three windings, a governor and a voltage regulator, for the Nordic 32 test system"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends Dynawo.AdditionalIcons.Machine;
 
   parameter GeneratorWithControl.GeneratorParameters.genFramePreset gen "Generator preset for choosing parameters and values";
@@ -31,7 +26,7 @@ model GeneratorSynchronousThreeWindingsWithControl "Model of synchronous generat
     Placement(visible = true, transformation(origin = {60, 0}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic vrNordic(Efd0Pu(fixed = false), Ir0Pu(fixed = false), Us0Pu(fixed = false), KTgr = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.KTgr], IrLimPu = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.IrLimPu], KPss = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.KPss], tOelMin = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tOelMin], EfdMaxPu = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.EfdMaxPu], tLeadPss = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLeadPss], tLagPss = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLagPss], tLeadTgr = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLeadTgr], tLagTgr = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLagTgr], tDerOmega = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tDerOmega], OelMode = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.OelMode]) annotation(
     Placement(visible = true, transformation(origin = {-20, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverNordic goverNordic(Pm0Pu(fixed = false), KSigma = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.KSigma], Ki = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Ki], Kp = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Kp], PNom =  GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.PNom]) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverNordic goverNordic(Pm0Pu(fixed = false), KSigma = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.KSigma], Ki = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Ki], Kp = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Kp], PNom = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.PNom]) annotation(
     Placement(visible = true, transformation(origin = {-20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";

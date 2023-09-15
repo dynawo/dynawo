@@ -1,21 +1,15 @@
 encapsulated package Dynawo "Dynawo models library"
   // generic import commands
-  import Complex;
-  import Modelica.ComplexMath;
+  import Complex "Complex numbers foundation class";
+  import Modelica;
+  import Modelica.ComplexMath "Complex numbers operators (+, - , *, exp, abs...)";
   import Modelica.Icons;
-  import Dynawo.Types;
+  import Dynawo;
+  import Dynawo.AdditionalIcons;
+  import Dynawo.Electrical.SystemBase;
+  import Dynawo.Types "Standard Dynawo variable types";
 
   extends Icons.Package;
-
-
-
-
-
-
-
-
-
-
 
   annotation(
     version = "1.0.1",

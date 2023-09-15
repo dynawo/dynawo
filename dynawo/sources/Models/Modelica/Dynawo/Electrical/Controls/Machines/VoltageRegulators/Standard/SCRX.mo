@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model SCRX "Bus-fed or solid-fed exciter model"
-  import Modelica;
-  import Dynawo;
 
   parameter Boolean CSwitch = false "If true, exciter is solid-fed, if false, exciter is bus-fed";
   parameter Types.PerUnit K "Voltage regulator gain";

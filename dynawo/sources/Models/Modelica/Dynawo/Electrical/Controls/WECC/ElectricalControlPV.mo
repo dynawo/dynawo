@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model ElectricalControlPV "WECC PV Electrical Control REEC"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Electrical.Controls.WECC.BaseControls.ElectricalControlCommon;
 
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationPV currentLimitsCalculation1(IMaxPu = IMaxPu, PPriority = PPriority) annotation(

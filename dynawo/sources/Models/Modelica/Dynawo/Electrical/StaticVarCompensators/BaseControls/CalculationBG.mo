@@ -13,8 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model CalculationBG "Final calculation of the susceptance and the conductance"
-  import Modelica;
-
   extends Parameters.ParamsCalculationBG;
 
   Modelica.Blocks.Interfaces.RealInput BVarPu "Variable susceptance of the static var compensator in pu (base SNom)" annotation(
@@ -42,7 +40,7 @@ equation
     GPu = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 1}, extent = {{-60, 21}, {94, -23}}, textString = "CalculationBG")}, coordinateSystem(initialScale = 0.1)),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-70, 28}, extent = {{6, -6}, {142, -46}}, textString = "CalculationBG")}, coordinateSystem(initialScale = 0.1)));
 end CalculationBG;

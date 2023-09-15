@@ -14,9 +14,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 model IntegratorVariableLimits "Integrator with limited value of output (variable limits) and freeze"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Boolean DefaultLimitMax = true "If limitMin > limitMax : if true, y = limitMax, if false, y = limitMin";
@@ -24,9 +21,9 @@ model IntegratorVariableLimits "Integrator with limited value of output (variabl
   parameter Types.Time tDer = 0.01 "Time constant of derivative filters for limits, in s";
   parameter Types.PerUnit Tol "Tolerance on limit crossing as a fraction of the difference between initial limits";
 
-  Modelica.Blocks.Interfaces.RealInput limitMax(start = LimitMax0) "Connector of Real input signal used as maximum of input u" annotation(
+  Modelica.Blocks.Interfaces.RealInput limitMax(start = LimitMax0) "Connector of Real input signal used as maximum of output y" annotation(
     Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput limitMin(start = LimitMin0) "Connector of Real input signal used as minimum of input u" annotation(
+  Modelica.Blocks.Interfaces.RealInput limitMin(start = LimitMin0) "Connector of Real input signal used as minimum of output y" annotation(
     Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0);
@@ -120,7 +117,7 @@ the integral away from the bounds, with a sufficient margin defined by <em>Tol</
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-        Rectangle( lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
+        Rectangle(lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
         Text(
           extent={{-54,46},{-4,-48}},
           textString="lim"),

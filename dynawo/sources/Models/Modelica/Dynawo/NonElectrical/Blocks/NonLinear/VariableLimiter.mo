@@ -13,7 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 model VariableLimiter "Limit the range of a signal with variable limits"
-  import Modelica;
   extends Modelica.Blocks.Interfaces.SISO;
 
   Modelica.Blocks.Interfaces.RealInput limit1
@@ -24,7 +23,6 @@ model VariableLimiter "Limit the range of a signal with variable limits"
     annotation(Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
 equation
-
   y = smooth(0, if u > limit1 then limit1 else if u < limit2 then limit2 else u);
 
   annotation(

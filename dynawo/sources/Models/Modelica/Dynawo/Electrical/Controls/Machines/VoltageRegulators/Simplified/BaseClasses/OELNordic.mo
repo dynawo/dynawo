@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.BaseClas
 */
 
 model OELNordic "Overexcitation limitation model for the Nordic 32 test system used for voltage stability studies"
-  import Modelica;
 
   parameter Real OelMode "For positive field current error signal : if 1, OEL output constant, if 0, OEL output equal to error signal";
 

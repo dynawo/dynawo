@@ -36,8 +36,8 @@ equation
       BVarPu = BMinPu;
     end if;
   else
-    BVarPu = 0.;
-    BPu = 0.;
+    BVarPu = 0;
+    BPu = 0;
   end if;
 
   annotation(preferredView = "text");

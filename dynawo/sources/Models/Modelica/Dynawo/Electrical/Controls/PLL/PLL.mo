@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.PLL;
 */
 
 model PLL "Phase-Locked Loop"
-  import Modelica;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   //Parameters
   parameter Types.PerUnit Ki "PLL integrator gain";
@@ -37,13 +34,13 @@ model PLL "Phase-Locked Loop"
 
   Modelica.Blocks.Continuous.Integrator integrator(y_start = Modelica.ComplexMath.arg(u0Pu), k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add2(k1 = +1, k2 = +1) annotation(
+  Modelica.Blocks.Math.Add add2(k1 = 1, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {70, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = uPu.im * cos(phi) - uPu.re * sin(phi))  annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = uPu.im * cos(phi) - uPu.re * sin(phi)) annotation(
     Placement(visible = true, transformation(origin = {-85, 0}, extent = {{-45, -15}, {45, 15}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = SystemBase.omegaRef0Pu - OmegaMinPu, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {0, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add1(k1 = +1, k2 = +1) annotation(
+  Modelica.Blocks.Math.Add add1(k1 = 1, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {0, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

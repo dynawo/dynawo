@@ -26,9 +26,7 @@ model TransformerVariableTapXtdPu "Transformer with variable tap to be connected
 
     The transformer ratio is variable.
   */
-  import Dynawo.Electrical.Transformers.BaseClasses;
-
-  extends BaseClasses.BaseTransformerVariableTap;
+  extends Dynawo.Electrical.Transformers.BaseClasses.BaseTransformerVariableTap;
   extends AdditionalIcons.Transformer;
 
   // Transformer parameters

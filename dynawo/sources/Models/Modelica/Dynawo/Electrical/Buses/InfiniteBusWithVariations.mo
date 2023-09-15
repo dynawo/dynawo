@@ -13,15 +13,10 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusWithVariations "Infinite bus with configurable variations on the voltage module and on the frequency"
-  import Dynawo.Connectors;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-  import Modelica.ComplexMath;
-
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal annotation(
-    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit U0Pu "Infinite bus voltage module before and after event in pu (base UNom)";
   parameter Types.PerUnit UEvtPu "Infinite bus voltage module during event in pu (base UNom)";

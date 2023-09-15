@@ -16,11 +16,11 @@ within Dynawo.Electrical.Controls.Basics.SwitchOff;
 partial model SwitchOffLogic "Manage switch-off logic"
   /* Handles a predefinite number of switch-off signals and sets running to false as soon as one signal is set to true */
 
-  Connectors.BPin switchOffSignal1(value(start = false)) "Switch-off signal 1";
-  Connectors.BPin switchOffSignal2(value(start = false)) if NbSwitchOffSignals >= 2 "Switch-off signal 2";
-  Connectors.BPin switchOffSignal3(value(start = false)) if NbSwitchOffSignals >= 3 "Switch-off signal 3";
+  Dynawo.Connectors.BPin switchOffSignal1(value(start = false)) "Switch-off signal 1";
+  Dynawo.Connectors.BPin switchOffSignal2(value(start = false)) if NbSwitchOffSignals >= 2 "Switch-off signal 2";
+  Dynawo.Connectors.BPin switchOffSignal3(value(start = false)) if NbSwitchOffSignals >= 3 "Switch-off signal 3";
 
-  Connectors.BPin running(value(start = true)) "Indicates if the component is running or not";
+  Dynawo.Connectors.BPin running(value(start = true)) "Indicates if the component is running or not";
 
   parameter Integer NbSwitchOffSignals(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 

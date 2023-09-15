@@ -14,8 +14,6 @@ within Dynawo.Examples.RVS.Components.TransformerWithControl;
 */
 
 model TransformerWithControl "Model of transformer with variable tap, for the RVS test system"
-  import Dynawo;
-  import Dynawo.Types;
   import Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses.TransformerParameters;
 
   extends Dynawo.AdditionalIcons.Transformer;

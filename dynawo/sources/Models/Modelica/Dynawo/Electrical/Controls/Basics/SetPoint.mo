@@ -13,9 +13,8 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model SetPoint "Fixed set-point throughout a simulation"
-  import Dynawo.Connectors;
 
-  Connectors.ImPin setPoint(value(start= Value0)) "Set point value";
+  Dynawo.Connectors.ImPin setPoint(value(start= Value0)) "Set point value";
 
   parameter Real Value0 "Start value of the set-point model";
 

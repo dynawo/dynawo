@@ -86,7 +86,7 @@ TEST(APICRVTest, CurveUpdate) {
           ++itPt) {
     if (nbPoints == 0) {
       ASSERT_EQ((*itPt)->getTime(), 0);  // uptade method called at time = 0
-      ASSERT_EQ((*itPt)->getValue(), 0);  // the curve is a parameter curve so the value is set to zero (défault value)
+      ASSERT_EQ((*itPt)->getValue(), 0);  // the curve is a parameter curve so the value is set to zero (default value)
     } else if (nbPoints == 1) {
       ASSERT_EQ((*itPt)->getTime(), 1);  // uptade method called at time = 1
       ASSERT_EQ((*itPt)->getValue(), 1);  // negated is false so the value is 1 (value stored in the vector 'variables')

@@ -19,7 +19,7 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
   parameter Types.CurrentModule iStop "Current below which the phase-shifter will stop action";
   parameter Types.CurrentModule I0 "Initial current module";
 
-  Connectors.ImPin iMonitored(value(start = I0)) "Monitored current";
+  Dynawo.Connectors.ImPin iMonitored(value(start = I0)) "Monitored current";
 
 equation
   connect(iMonitored, valueToMonitor);

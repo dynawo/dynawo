@@ -13,9 +13,8 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model Step "Parametrable step model : applies a change of amplitude at a given time"
-  import Dynawo.Connectors;
 
-  Connectors.ImPin step(value(start = Value0));
+  Dynawo.Connectors.ImPin step(value(start = Value0));
 
   parameter Real Height "Amplitude of the step to be imposed by the model";
   parameter Types.Time tStep "Time instant when the step occurs";

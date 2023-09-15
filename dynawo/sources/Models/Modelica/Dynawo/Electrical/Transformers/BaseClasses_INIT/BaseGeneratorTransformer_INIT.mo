@@ -28,7 +28,6 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
                                 |
                                ---
 */
-  import Dynawo.Electrical.SystemBase;
 
   // Start values at terminal (network terminal side)
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -53,7 +52,7 @@ equation
 
   P20Pu = - ComplexMath.real(u20Pu * ComplexMath.conj(i20Pu));
   Q20Pu = - ComplexMath.imag(u20Pu * ComplexMath.conj(i20Pu));
-  U20Pu = ComplexMath.'abs' (u20Pu);
+  U20Pu = ComplexMath.'abs'(u20Pu);
   U2Phase0 = ComplexMath.arg(u20Pu);
 
   annotation(preferredView = "text");

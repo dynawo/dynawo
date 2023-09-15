@@ -13,11 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.WPP;
 */
 
 model QControl "Reactive power control module for wind power plants (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.Controls.IEC.Parameters.QControlParameters;
 
   //Nominal parameters

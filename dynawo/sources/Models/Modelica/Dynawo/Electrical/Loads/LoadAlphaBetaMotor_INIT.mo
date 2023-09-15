@@ -14,7 +14,6 @@ within Dynawo.Electrical.Loads;
 
 model LoadAlphaBetaMotor_INIT
   extends Load_INIT;
-  import Modelica;
 
   parameter Real ActiveMotorShare "Share of active power consumed by motors (between 0 and 1)";
   parameter Types.ApparentPowerModule SNom = ActiveMotorShare * P0Pu * SystemBase.SnRef "Nominal apparent power of a single motor in MVA";
@@ -64,5 +63,5 @@ equation
   // Total load
   i0Pu = iLoad0Pu + (SNom/SystemBase.SnRef)*is0Pu;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end LoadAlphaBetaMotor_INIT;

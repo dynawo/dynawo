@@ -14,8 +14,6 @@ within Dynawo.Examples.RVS.TestCases;
 */
 
 model LoadFlow "Model of load flow calculation for the RVS test system"
-  import Dynawo;
-
   extends Icons.Example;
   extends Dynawo.Examples.RVS.Grid.FullStatic(
     UNom_lower = 138,

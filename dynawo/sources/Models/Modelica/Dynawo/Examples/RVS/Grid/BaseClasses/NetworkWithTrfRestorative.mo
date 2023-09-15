@@ -14,7 +14,6 @@ within Dynawo.Examples.RVS.Grid.BaseClasses;
 */
 
 model NetworkWithTrfRestorative "RVS test grid with buses, lines, shunts, restorative loads and transformers"
-  import Dynawo;
   import Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses.TransformerParameters;
 
   extends NetworkWithRestorativeLoads;
@@ -87,7 +86,7 @@ model NetworkWithTrfRestorative "RVS test grid with buses, lines, shunts, restor
     Placement(visible = true, transformation(origin = {256, -174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -134}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Examples.RVS.Components.TransformerWithControl.TransformerWithControl tfo_1101_101(P10Pu = -P0Pu_load_1101_ABEL, Q10Pu = -Q0Pu_load_1101_ABEL, U10Pu = U0Pu_load_1101_ABEL, U1Phase0 = UPhase0_load_1101_ABEL, tfo = TransformerParameters.tfoPreset.trafo_1101_101)  annotation(
+  Dynawo.Examples.RVS.Components.TransformerWithControl.TransformerWithControl tfo_1101_101(P10Pu = -P0Pu_load_1101_ABEL, Q10Pu = -Q0Pu_load_1101_ABEL, U10Pu = U0Pu_load_1101_ABEL, U1Phase0 = UPhase0_load_1101_ABEL, tfo = TransformerParameters.tfoPreset.trafo_1101_101) annotation(
     Placement(visible = true, transformation(origin = {-248, -186}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Examples.RVS.Components.TransformerWithControl.TransformerWithControl tfo_1102_102(P10Pu = -P0Pu_load_1102_ADAMS, Q10Pu = -Q0Pu_load_1102_ADAMS, U10Pu = U0Pu_load_1102_ADAMS, U1Phase0 = UPhase0_load_1102_ADAMS, tfo = TransformerParameters.tfoPreset.trafo_1102_102) annotation(
     Placement(visible = true, transformation(origin = {-74, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

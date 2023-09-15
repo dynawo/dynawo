@@ -13,9 +13,6 @@ within Dynawo.Examples.ENTSOE;
 */
 
 model TestCase2 "Active power variation on the load"
-  import Modelica;
-  import Dynawo;
-
   extends Icons.Example;
 
   // Generator and regulations
@@ -91,7 +88,7 @@ model TestCase2 "Active power variation on the load"
    mq = 0,
    nd = 0,
    nq = 0) annotation(
-    Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.0090862 ) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
@@ -123,11 +120,11 @@ equation
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, 6}, {60, 6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{102, -30}, {102, -30.5}, {110, -30.5}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{102, -30}, {110, -30}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
   connect(const.y, avr.UpssPu) annotation(
     Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(const1.y, avr.UsRefPu) annotation(

@@ -13,9 +13,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 model IntegratorSetFreeze "Outputs the integral of the input signal with optional set/reset and optional state freeze"
-  import Modelica.Blocks;
-
-  extends Blocks.Interfaces.SISO(y(start = Y0));
+  extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real K = 1 "Integrator gain";
   parameter Boolean UseReset = false "=true, if reset port enabled" annotation(
@@ -33,19 +31,19 @@ model IntegratorSetFreeze "Outputs the integral of the input signal with optiona
     choices(checkBox = true));
   parameter Real Y0 = 0 "Initial or guess value of output (= state)";
 
-  Blocks.Interfaces.BooleanInput reset if UseReset "Optional connector of reset signal" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput reset if UseReset "Optional connector of reset signal" annotation(
     Placement(transformation(extent = {{-20, -20}, {20, 20}}, rotation = 90, origin = {60, -120})));
-  Blocks.Interfaces.RealInput set if UseReset and UseSet "Optional connector of set signal" annotation(
+  Modelica.Blocks.Interfaces.RealInput set if UseReset and UseSet "Optional connector of set signal" annotation(
     Placement(transformation(extent = {{-20, -20}, {20, 20}}, rotation = 270, origin = {60, 120})));
-  Blocks.Interfaces.BooleanInput freeze if UseFreeze "Optional connector of freeze signal" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput freeze if UseFreeze "Optional connector of freeze signal" annotation(
     Placement(visible = true, transformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 
 protected
-  Blocks.Interfaces.BooleanOutput resetLocal annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput resetLocal annotation(
     HideResult = true);
-  Blocks.Interfaces.BooleanOutput freezeLocal annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput freezeLocal annotation(
     HideResult = true);
-  Blocks.Interfaces.RealOutput setLocal annotation(
+  Modelica.Blocks.Interfaces.RealOutput setLocal annotation(
     HideResult = true);
 
 equation
@@ -76,7 +74,7 @@ equation
     der(y) = K * u;
   end if;
 
-  annotation(
+  annotation(preferredView = "text",
     Documentation(info = "<html>
 <p>
 This blocks computes output <strong>y</strong> as

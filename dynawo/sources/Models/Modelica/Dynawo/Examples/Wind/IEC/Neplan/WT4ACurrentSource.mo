@@ -13,9 +13,6 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 */
 
 model WT4ACurrentSource "Wind Turbine Type 4A model from IEC 61400-27-1 standard with infinite bus - fault and reference tracking tests (Active and reactive power steps)"
-  import Modelica;
-  import Dynawo;
-
   extends Icons.Example;
 
   Dynawo.Electrical.Wind.IEC.WT.WT4ACurrentSource wT4ACurrentSource(BesPu = 0, DPMaxP4APu = 1, DPRefMax4APu = 100, DPRefMin4APu = -100, DUdb1Pu = -0.1, DUdb2Pu = 0.1, DfcMaxPu = 1, DfpMaxPu = 1, DipMaxPu = 1, DiqMaxPu = 100, DiqMinPu = -100, GesPu = 0, IGsIm0Pu = 0.423168, IGsRe0Pu = 0.930069, IMaxDipPu = 1.3, IMaxPu = 1.3, IpMax0Pu = 1.2, IqH1Pu = 1.05, IqMax0Pu = 0.4, IqMaxPu = 1.05, IqMin0Pu = -0.4, IqMinPu = -1.05, IqPostPu = 0, Kipaw = 100, Kiq = 2.25, Kiqaw = 100, Kiu = 10, Kpaw = 1000, Kpq = 1.1, Kpqu = 20, Kpu = 2, Kpufrt = 2, Kqv = 2, MdfsLim = false, MpUScale = false, MqG = 1, Mqfrt = 1, Mqpri = true, P0Pu = -1, PAg0Pu = 1, Q0Pu = 0.21, QMax0Pu = 0.8, QMaxPu = 0.8, QMin0Pu = -0.8, QMinPu = -0.8, QlConst = true, RDropPu = 0, ResPu = 0, SNom = 100, U0Pu = 1, UGsIm0Pu = 0.21823, UGsRe0Pu = 0.975897, UMaxPu = 1.1, UMinPu = 0.9, UOverPu = 1.1, UPhase0 = 0.21949, UPll1Pu = 999, UPll2Pu = 0.13, URef0Pu = 0, UUnderPu = 0.9, UpDipPu = 0, UpquMaxPu = 1.1, UqDipPu = 0.9, UqRisePu = 1.1, XDropPu = 0, XWT0Pu = -0.21, XesPu = 0, fOverPu = 1.1, fUnderPu = 0.9, i0Pu = Complex(-0.930069, -0.423168), tG = 0.01, tIcFilt = 0.01, tIpFilt = 0.01, tPOrdP4A = 0.1, tPWTRef4A = 0.01, tPcFilt = 0.01, tPll = 0.01, tPost = 0, tPpFilt = 0.01, tQcFilt = 0.01, tQord = 0.05, tQpFilt = 0.01, tS = 0.001, tUcFilt = 0.01, tUpFilt = 0.01, tUss = 1, tfcFilt = 0.01, tfpFilt = 0.01, u0Pu = Complex(0.975897, 0.2183)) annotation(

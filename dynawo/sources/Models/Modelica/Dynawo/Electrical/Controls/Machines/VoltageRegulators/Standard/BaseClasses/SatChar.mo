@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasse
 */
 
 block SatChar "Saturation characteristic of exciter"
-  import Modelica;
 
   parameter Types.PerUnit Asq "Threshold below which saturation function output is zero";
   parameter Types.PerUnit Bsq "Proportional coefficient of saturation characteristic";

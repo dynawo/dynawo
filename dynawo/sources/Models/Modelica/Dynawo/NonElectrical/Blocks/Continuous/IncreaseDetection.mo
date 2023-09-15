@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block IncreaseDetection "Output y is true, if the input u has risen to a higher value since the previous sample"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.Time tS "Integration time step in s";

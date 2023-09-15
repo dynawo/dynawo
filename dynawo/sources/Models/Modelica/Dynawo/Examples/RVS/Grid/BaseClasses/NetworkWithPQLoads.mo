@@ -14,8 +14,6 @@ within Dynawo.Examples.RVS.Grid.BaseClasses;
 */
 
 model NetworkWithPQLoads "RVS test grid with buses, lines, shunts and PQ loads"
-  import Dynawo;
-
   extends Network;
 
   Dynawo.Electrical.Loads.LoadPQ load_1101_ABEL(i0Pu = i0Pu_load_1101_ABEL, s0Pu = s0Pu_load_1101_ABEL, u0Pu = u0Pu_load_1101_ABEL) annotation(

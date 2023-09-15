@@ -13,10 +13,6 @@ within Dynawo.Electrical.Sources;
 */
 
 model Converter_INIT "Initialization model for converter model for grid forming and grid following applications"
-  import Modelica.ComplexMath;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends AdditionalIcons.Init;
 
   parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
@@ -82,4 +78,3 @@ equation
 
   annotation(preferredView = "text");
 end Converter_INIT;
-

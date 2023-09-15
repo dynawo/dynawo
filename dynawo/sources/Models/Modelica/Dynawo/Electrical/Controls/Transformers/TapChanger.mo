@@ -22,7 +22,7 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
   parameter Types.VoltageModule UDeadBand(min = 0) "Voltage dead-band";
   parameter Types.VoltageModule U0 "Initial voltage";
 
-  Connectors.ImPin UMonitored(value(start = U0)) "Initial voltage";
+  Dynawo.Connectors.ImPin UMonitored(value(start = U0)) "Initial voltage";
 
 equation
   connect(UMonitored, valueToMonitor);

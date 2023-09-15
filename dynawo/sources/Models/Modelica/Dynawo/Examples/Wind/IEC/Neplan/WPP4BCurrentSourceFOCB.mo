@@ -13,9 +13,6 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 */
 
 model WPP4BCurrentSourceFOCB "Wind Power Plant Type 4B model from IEC 61400-27-1 standard with infinite bus - fault and reference tracking tests (Active and reactive power steps)"
-  import Modelica;
-  import Dynawo;
-
   extends Icons.Example;
 
   Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(

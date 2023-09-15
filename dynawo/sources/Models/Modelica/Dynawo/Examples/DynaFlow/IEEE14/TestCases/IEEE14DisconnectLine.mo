@@ -14,11 +14,8 @@ within Dynawo.Examples.DynaFlow.IEEE14.TestCases;
 */
 
 model IEEE14DisconnectLine "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads. Disconnection of a line is represented at time 100s of the simulation."
-  import Dynawo.Electrical;
-  import Dynawo.Examples;
-  import Dynawo.Types;
-
-  extends Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
+  extends Dynawo.Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
+  extends Modelica.Icons.Example;
 
   // Loads references
   parameter Types.ActivePowerPu P0Pu_Load2 = 0.217000;
@@ -188,7 +185,7 @@ equation
   Bank9.switchOffSignal1.value = false;
   Bank9.switchOffSignal2.value = false;
 
-  annotation(
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 2000, Tolerance = 1e-6, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));

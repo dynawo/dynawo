@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 package BaseClasses
-
-  import Modelica;
-
   extends Modelica.Icons.Package;
 
 end BaseClasses;

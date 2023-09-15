@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block FixedBooleanDelay "Delay block with fixed delay time for boolean input"
-  import Modelica;
-  import Dynawo;
-
   extends Modelica.Blocks.Interfaces.BooleanSISO(y(start = Y0));
 
   parameter Dynawo.Types.Time tDelay "Delay time in s";

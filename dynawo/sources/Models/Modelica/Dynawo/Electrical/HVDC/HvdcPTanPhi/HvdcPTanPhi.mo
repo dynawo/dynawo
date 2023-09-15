@@ -13,10 +13,8 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 */
 
 model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;
-  extends HVDC.BaseClasses.BasePTanPhi(QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePTanPhi(QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
 
 /*
   Equivalent circuit and conventions:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,88 +8,151 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus 1 -->
   <set id="1">
-    <par type="DOUBLE" name="infiniteBus_UPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.08"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
+  <!-- InfiniteBus 2 -->
   <set id="2">
-    <par type="DOUBLE" name="infiniteBus_UPu" value="1.02"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.04"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
+  <!-- Line 1 -->
   <set id="3">
-    <par type="DOUBLE" name="line_XPu" value="0.0037"/>
     <par type="DOUBLE" name="line_RPu" value="0.00037"/>
-    <par type="DOUBLE" name="line_BPu" value="0.0"/>
-    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.013"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
   </set>
+  <!-- Line 2 -->
   <set id="4">
-    <par type="DOUBLE" name="line_XPu" value="0.0037"/>
     <par type="DOUBLE" name="line_RPu" value="0.00037"/>
-    <par type="DOUBLE" name="line_BPu" value="0.0"/>
-    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0093"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
   </set>
+  <!-- HVDC link parameters (standard) -->
   <set id="5">
-    <par type="DOUBLE" name="hvdc_P10Pu" value="-8.98"/>
-    <par type="DOUBLE" name="hvdc_P1RefSetPu" value="-8.98"/>
-    <par type="DOUBLE" name="hvdc_Q10Pu" value="-3.01"/>
-    <par type="DOUBLE" name="hvdc_U10Pu" value="1.01381"/>
-    <par type="DOUBLE" name="hvdc_UPhase10" value="0.0316757"/>
-    <par type="DOUBLE" name="hvdc_P20Pu" value="9"/>
-    <par type="DOUBLE" name="hvdc_Q20Pu" value="-3.01"/>
-    <par type="DOUBLE" name="hvdc_U20Pu" value="1.02696"/>
-    <par type="DOUBLE" name="hvdc_UPhase20" value="-0.0328494"/>
-    <par type="DOUBLE" name="hvdc_DUDC" value="0.01"/>
+    <!-- Common -->
     <par type="DOUBLE" name="hvdc_InPu" value="1.081"/>
-    <par type="DOUBLE" name="hvdc_IpMaxCstPu" value="1.001"/>
-    <par type="DOUBLE" name="hvdc_KiPControl" value="100"/>
-    <par type="DOUBLE" name="hvdc_KpPControl" value="0.4"/>
-    <par type="DOUBLE" name="hvdc_KpDeltaP" value="10"/>
-    <par type="DOUBLE" name="hvdc_KiDeltaP" value="20"/>
-    <par type="DOUBLE" name="hvdc_PMinOPPu" value="-1"/>
-    <par type="DOUBLE" name="hvdc_PMaxOPPu" value="1"/>
-    <par type="DOUBLE" name="hvdc_SlopePRefPu" value="0.083333"/>
-    <par type="DOUBLE" name="hvdc_UdcMinPu" value="0.95"/>
-    <par type="DOUBLE" name="hvdc_UdcMaxPu" value="1.05"/>
-    <par type="DOUBLE" name="hvdc_Kpdc" value="40"/>
-    <par type="DOUBLE" name="hvdc_Kidc" value="20"/>
-    <par type="DOUBLE" name="hvdc_UdcRefMinPu" value="0.95"/>
-    <par type="DOUBLE" name="hvdc_UdcRefMaxPu" value="1.15"/>
-    <par type="DOUBLE" name="hvdc_RdcPu" value="0.000244"/>
-    <par type="DOUBLE" name="hvdc_CdcPu" value="1.99"/>
-    <par type="DOUBLE" name="hvdc_KpACVoltageControl" value="0"/>
-    <par type="DOUBLE" name="hvdc_KiACVoltageControl" value="33.5"/>
-    <par type="DOUBLE" name="hvdc_Lambda" value="0.1754386"/>
-    <par type="DOUBLE" name="hvdc_QMinOPPu" value="-0.6"/>
-    <par type="DOUBLE" name="hvdc_QMaxOPPu" value="0.4"/>
-    <par type="DOUBLE" name="hvdc_QMinCombPu" value="-0.6"/>
-    <par type="DOUBLE" name="hvdc_QMaxCombPu" value="0.4"/>
-    <par type="DOUBLE" name="hvdc_SlopeURefPu" value="100"/>
-    <par type="DOUBLE" name="hvdc_SlopeQRefPu" value="100"/>
-    <par type="DOUBLE" name="hvdc_TBlockUV" value="0.01"/>
-    <par type="DOUBLE" name="hvdc_TBlock" value="0.1"/>
-    <par type="DOUBLE" name="hvdc_TDeblockU" value="0.02"/>
-    <par type="DOUBLE" name="hvdc_TQ" value="0.1"/>
-    <par type="DOUBLE" name="hvdc_UMindbPu" value="0.8"/>
-    <par type="DOUBLE" name="hvdc_UMaxdbPu" value="1.2"/>
-    <par type="DOUBLE" name="hvdc_UBlockUVPu" value="-1"/>
-    <par type="DOUBLE" name="hvdc_DeadBandU" value="0"/>
+    <par type="DOUBLE" name="hvdc_IpMaxPu" value="2"/>
+    <par type="BOOL" name="hvdc_ModeU1Set" value="true"/>
+    <par type="BOOL" name="hvdc_ModeU2Set" value="true"/>
     <par type="DOUBLE" name="hvdc_SNom" value="1000"/>
-    <par type="DOUBLE" name="hvdc_SlopeRPFault" value="1000"/>
-    <par type="DOUBLE" name="hvdc_modeU1Set" value="1"/>
-    <par type="DOUBLE" name="hvdc_modeU2Set" value="1"/>
-    <par type="DOUBLE" name="hvdc_KiPLL" value="20"/>
-    <par type="DOUBLE" name="hvdc_KpPLL" value="3"/>
+    <!-- DC line -->
+    <par type="DOUBLE" name="hvdc_CDcPu" value="1.68"/>
+    <par type="DOUBLE" name="hvdc_RDcPu" value="0.00012"/>
+    <!-- AC voltage control -->
+    <par type="STRING" name="hvdc_IqModTableName" value="IqMod"/>
+    <par type="DOUBLE" name="hvdc_KiAc" value="33.5"/>
+    <par type="DOUBLE" name="hvdc_KpAc" value="0"/>
+    <par type="DOUBLE" name="hvdc_LambdaPu" value="0.1316"/>
+    <par type="DOUBLE" name="hvdc_QOpMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="hvdc_QOpMinPu" value="-0.4"/>
+    <par type="STRING" name="hvdc_QPMaxTableName" value="QPMax"/>
+    <par type="STRING" name="hvdc_QPMinTableName" value="QPMin"/>
+    <par type="STRING" name="hvdc_QUMaxTableName" value="QUMax"/>
+    <par type="STRING" name="hvdc_QUMinTableName" value="QUMin"/>
+    <par type="DOUBLE" name="hvdc_SlopeQRefPu" value="100"/>
+    <par type="DOUBLE" name="hvdc_SlopeURefPu" value="100"/>
+    <par type="STRING" name="hvdc_TablesFile" value="nrt/data/HVDC/AcVoltageControl.txt"/>
+    <par type="DOUBLE" name="hvdc_tMeasure" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_tQ" value="0.01"/>
+    <!-- Active power control -->
+    <par type="DOUBLE" name="hvdc_KiDeltaP" value="20"/>
+    <par type="DOUBLE" name="hvdc_KiP" value="100"/>
+    <par type="DOUBLE" name="hvdc_KpDeltaP" value="10"/>
+    <par type="DOUBLE" name="hvdc_KpP" value="0.4"/>
+    <par type="DOUBLE" name="hvdc_POpMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="hvdc_POpMinPu" value="-1.05"/>
+    <par type="DOUBLE" name="hvdc_SlopePRefPu" value="0.083333"/>
+    <par type="DOUBLE" name="hvdc_SlopeRPFault" value="6.7"/>
+    <par type="DOUBLE" name="hvdc_tMeasureP" value="1e-4"/>
+    <par type="DOUBLE" name="hvdc_UDcMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="hvdc_UDcMinPu" value="0.95"/>
+    <!-- DC voltage control -->
+    <par type="DOUBLE" name="hvdc_IpDeadBandPu" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_KiDc" value="20"/>
+    <par type="DOUBLE" name="hvdc_KpDc" value="40"/>
+    <par type="DOUBLE" name="hvdc_tMeasureU" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_UDcRefMaxPu" value="1.15"/>
+    <par type="DOUBLE" name="hvdc_UDcRefMinPu" value="0.95"/>
+    <!-- Blocking -->
+    <par type="DOUBLE" name="hvdc_tBlock" value="0.1"/>
+    <par type="DOUBLE" name="hvdc_tBlockUnderV" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_tMeasureUBlock" value="1e-4"/>
+    <par type="DOUBLE" name="hvdc_tUnblock" value="0.02"/>
+    <par type="DOUBLE" name="hvdc_UBlockUnderVPu" value="-1"/>
+    <par type="DOUBLE" name="hvdc_UMaxDbPu" value="1.2"/>
+    <par type="DOUBLE" name="hvdc_UMinDbPu" value="0.8"/>
+    <!-- Phase-locked loop -->
+    <par type="DOUBLE" name="hvdc_KiPLL" value="1"/>
+    <par type="DOUBLE" name="hvdc_KpPLL" value="2"/>
     <par type="DOUBLE" name="hvdc_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="hvdc_OmegaMinPu" value="0.5"/>
+    <!-- Injectors -->
+    <par type="DOUBLE" name="hvdc_P10Pu" value="9"/>
+    <par type="DOUBLE" name="hvdc_Q10Pu" value="2.7"/>
+    <par type="DOUBLE" name="hvdc_U10Pu" value="1.03714"/>
+    <par type="DOUBLE" name="hvdc_UPhase10" value="-0.103748"/>
+    <par type="DOUBLE" name="hvdc_P20Pu" value="-8.98057"/>
+    <par type="DOUBLE" name="hvdc_Q20Pu" value="2.7"/>
+    <par type="DOUBLE" name="hvdc_U20Pu" value="1.01521"/>
+    <par type="DOUBLE" name="hvdc_UPhase20" value="0.080137"/>
   </set>
+  <!-- Fault -->
   <set id="6">
     <par type="DOUBLE" name="fault_RPu" value="0"/>
-    <par type="DOUBLE" name="fault_XPu" value="0.0075"/>
-    <par type="DOUBLE" name="fault_tBegin" value="0.5"/>
-    <par type="DOUBLE" name="fault_tEnd" value="1.5"/>
+    <par type="DOUBLE" name="fault_XPu" value="1e-4"/>
+    <par type="DOUBLE" name="fault_tBegin" value="8"/>
+    <par type="DOUBLE" name="fault_tEnd" value="9"/>
+  </set>
+  <!-- PRef -->
+  <set id="71">
+    <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="PRef"/>
+  </set>
+  <!-- UDcRef -->
+  <set id="72">
+    <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="UDcRef"/>
+  </set>
+  <!-- URef1 -->
+  <set id="73">
+    <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="URef1"/>
+  </set>
+  <!-- URef2 -->
+  <set id="74">
+    <!-- <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="URef2"/> -->
+    <par type="DOUBLE" name="doubleStep_Value0" value="0.9797"/>
+    <par type="DOUBLE" name="doubleStep_tStep1" value="7"/>
+    <par type="DOUBLE" name="doubleStep_Height1" value="0.0203"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="8"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="0"/>
+  </set>
+  <!-- Solver -->
+  <set id="8">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
   </set>
 </parametersSet>

@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 */
 
 model TGOV1 "IEEE Governor type TGOV1"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit R "Controller droop";
   parameter Types.Time Tg1 "Governor time constant in s";

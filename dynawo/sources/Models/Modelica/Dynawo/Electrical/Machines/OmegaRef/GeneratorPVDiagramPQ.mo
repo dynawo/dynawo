@@ -18,19 +18,18 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
   The Q output is modulated in order to keep U + lambda * Q as close as possible to the target value
   When a reactive power limit is reached, the PV generator acts as a PQ generator
   */
-  import Modelica;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;
   extends AdditionalIcons.Machine;
 
-  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                              AbsorptionMax "Reactive power is fixed to its absorption limit",
-                              GenerationMax "Reactive power is fixed to its generation limit");
+  type QStatus = enumeration(Standard "Reactive power is fixed to its initial value",
+                             AbsorptionMax "Reactive power is fixed to its absorption limit",
+                             GenerationMax "Reactive power is fixed to its generation limit");
 
-  Connectors.ImPin deltaURefPu(value(start = 0)) "Additional voltage reference in pu (base UNom)";
-  Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
+  Dynawo.Connectors.ImPin deltaURefPu(value(start = 0)) "Additional voltage reference in pu (base UNom)";
+  Dynawo.Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";

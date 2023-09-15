@@ -13,11 +13,6 @@ within Dynawo.Electrical.Wind.IEC.WT;
 */
 
 model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 standard : initialization model"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends AdditionalIcons.Init;
   extends Dynawo.Electrical.Controls.IEC.Parameters.QLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.Parameters.CurrentLimitParameters;
@@ -118,7 +113,7 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr1(y = Complex(IGsRe0Pu, IGsIm0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Load flow parameters

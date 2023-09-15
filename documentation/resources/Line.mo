@@ -25,10 +25,8 @@ model Line "AC power line - PI model"
                    ---         ---
 */
 
-  import Dynawo.Connectors;
-
-  Connectors.ACPower terminal1;
-  Connectors.ACPower terminal2;
+  Dynawo.Connectors.ACPower terminal1;
+  Dynawo.Connectors.ACPower terminal2;
 
   parameter SIunits.Resistance RPu "Resistance in pu (base SnRef)";
   parameter SIunits.Reactance XPu "Reactance in pu (base SnRef)";

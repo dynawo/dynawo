@@ -34,5 +34,5 @@ function Automaton "Function to call external automaton"
 
   external "C" callExternalAutomaton(command, timeActivation, inputs, inputsName, nbInputs, nbMaxInputs, outputs, outputsName, nbOutputs, nbMaxOuputs, intOutputs, intOutputsName, nbIntOutputs, nbMaxIntOuputs);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end Automaton;

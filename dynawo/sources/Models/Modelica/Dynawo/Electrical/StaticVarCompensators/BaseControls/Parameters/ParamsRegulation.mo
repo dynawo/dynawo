@@ -14,7 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls.Parameters;
 */
 
 record ParamsRegulation
-  import Dynawo.Types;
 
   parameter Types.PerUnit Kp "Proportional gain of the PI controller";
   parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda * QPu in pu (base UNom, SNom)";

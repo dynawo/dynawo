@@ -13,8 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model BlockingFunction "Blocking function for the SVarC model"
-  import Modelica;
-
   extends Parameters.ParamsBlockingFunction;
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";

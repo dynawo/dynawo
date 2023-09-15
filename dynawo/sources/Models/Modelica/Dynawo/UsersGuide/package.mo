@@ -15,7 +15,7 @@ within Dynawo;
 package UsersGuide "User's Guide"
   extends Icons.Information;
 
-annotation(preferredView = "info",
+  annotation(preferredView = "info",
     Documentation(info = "<html><head></head><body>
 <p>The Dynawo library is a Modelica library for analysis of power system stability. The models are written using the phasor approximation and the current and voltage are considered balanced.
 </p>

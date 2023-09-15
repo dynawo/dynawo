@@ -13,12 +13,10 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadPQ "Load with constant reactive/active power"
-
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
 equation
-
   if (running.value) then
     PPu = PRefPu * (1 + deltaP);
     QPu = QRefPu * (1 + deltaQ);
@@ -26,5 +24,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end LoadPQ;

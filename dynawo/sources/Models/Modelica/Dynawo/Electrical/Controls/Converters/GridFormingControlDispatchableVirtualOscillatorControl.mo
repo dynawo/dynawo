@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.Converters;
 */
 
 model GridFormingControlDispatchableVirtualOscillatorControl "Grid forming control with dispatchable virtual oscillator control"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit Eta "Parameter Eta in the dVOC control in pu (base UNom, SNom)";
   parameter Types.PerUnit Alpha "Parameter Alpha in the dVOC control in pu (base UNom, SNom)";

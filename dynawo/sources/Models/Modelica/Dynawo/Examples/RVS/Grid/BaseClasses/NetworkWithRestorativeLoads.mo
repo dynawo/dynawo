@@ -14,8 +14,6 @@ within Dynawo.Examples.RVS.Grid.BaseClasses;
 */
 
 model NetworkWithRestorativeLoads "RVS test grid with buses, lines, shunts and restorative loads"
-  import Dynawo;
-
   extends Network;
 
   Dynawo.Electrical.Loads.LoadAlphaBetaRestorativeReset load_1101_ABEL(Alpha = 1, Beta = 2, i0Pu = i0Pu_load_1101_ABEL, s0Pu = s0Pu_load_1101_ABEL, u0Pu = u0Pu_load_1101_ABEL) annotation(

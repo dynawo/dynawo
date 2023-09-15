@@ -15,7 +15,6 @@ within Dynawo.Examples.RVS.TestCases.TestA;
 
 model TestAShuntNoRestorative "RVS test system simulation case : shunt connection, alpha-beta loads"
   import Modelica.SIunits.Conversions.from_deg;
-  import Dynawo;
 
   extends Icons.Example;
   extends Dynawo.Examples.RVS.Grid.FullDynamicInfiniteBusNoLoadReset(
@@ -235,7 +234,7 @@ model TestAShuntNoRestorative "RVS test system simulation case : shunt connectio
   parameter Real event_time_reactor106_sw1 = 150;
   parameter Real event_time_reactor106_sw2 = 150;
 
-  Dynawo.Electrical.Shunts.ShuntB shunt(BPu = 2.5 / 1.0342 ^ 2, State0 = Dynawo.Electrical.Constants.state.Open, i0Pu = Complex(0, 0), s0Pu = Complex(0, 0), state(start = Dynawo.Electrical.Constants.state.Open), u0Pu = ComplexMath.fromPolar(1.0342, from_deg(-18.6)))  annotation(
+  Dynawo.Electrical.Shunts.ShuntB shunt(BPu = 2.5 / 1.0342 ^ 2, State0 = Dynawo.Electrical.Constants.state.Open, i0Pu = Complex(0, 0), s0Pu = Complex(0, 0), state(start = Dynawo.Electrical.Constants.state.Open), u0Pu = ComplexMath.fromPolar(1.0342, from_deg(-18.6))) annotation(
     Placement(visible = true, transformation(origin = {-294, -206}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
 
 equation

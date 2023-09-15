@@ -32,9 +32,9 @@ chmod +x .vscode/fixForCodespaces.sh
 sudo chmod -R 777 /opt
 cd /opt
 DYNAWO_VERSION=1.6.0
-curl -LO https://github.com/dynawo/dynawo/releases/download/nightly/Dynawo_omc_V${DYNAWO_VERSION}.zip
-unzip Dynawo_omc_V${DYNAWO_VERSION}.zip
-rm -f Dynawo_omc_V${DYNAWO_VERSION}.zip
+curl -LO https://github.com/dynawo/dynawo/releases/download/nightly/Dynawo_omc_v${DYNAWO_VERSION}.zip
+unzip Dynawo_omc_v${DYNAWO_VERSION}.zip
+rm -f Dynawo_omc_v${DYNAWO_VERSION}.zip
 cd dynawo
 rm -rf bin ddb dynawo.sh dynawoEnv.txt examples sbin
 rm -rf share/DYN* share/dynawo-* share/dictionaries_mapping.dic share/solvers.par

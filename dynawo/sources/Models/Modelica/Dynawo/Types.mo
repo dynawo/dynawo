@@ -18,32 +18,32 @@ package Types "Standard types for electrical variables"
   // Voltage
   record Voltage = Complex(redeclare VoltageComponent re "Real part of complex voltage",
                            redeclare VoltageComponent im "Imaginary part of complex voltage") "Complex voltage";
-  type VoltageComponent = Real (final unit="kV") "Real or imaginary part of complex voltage";
-  type VoltageModule = Real (final unit="kV") "Voltage module";
+  type VoltageComponent = Real(final unit="kV") "Real or imaginary part of complex voltage";
+  type VoltageModule = Real(final unit="kV") "Voltage module";
 
   // Current
   record Current = Complex(redeclare CurrentComponent re "Real part of complex current",
                            redeclare CurrentComponent im "Imaginary part of complex current") "Complex current";
-  type CurrentComponent = Real (final unit = "kA") "Real or imaginary part of complex current";
-  type CurrentModule = Real (final unit = "kA") "Current module";
+  type CurrentComponent = Real(final unit = "kA") "Real or imaginary part of complex current";
+  type CurrentModule = Real(final unit = "kA") "Current module";
 
   // Power
   record ApparentPower = Complex(redeclare ActivePower re "Real part of complex apparent power",
                                  redeclare ReactivePower im "Imaginary part of complex apparent power") "Complex apparent power";
-  type ApparentPowerModule = Real (final unit = "MVA") "Apparent power module";
-  type ActivePower = Real (final unit = "MW") "Active power";
-  type ReactivePower = Real (final unit = "Mvar") "Reactive power";
+  type ApparentPowerModule = Real(final unit = "MVA") "Apparent power module";
+  type ActivePower = Real(final unit = "MW") "Active power";
+  type ReactivePower = Real(final unit = "Mvar") "Reactive power";
 
   // Angle
-  type Angle = Real (final unit = "rad") "Angle";
-  type AngularVelocity = Real (final unit = "rad/s") "Angular velocity";
-  type AngularAcceleration = Real (final unit = "rad/s2") "Angular acceleration";
+  type Angle = Real(final unit = "rad") "Angle";
+  type AngularVelocity = Real(final unit = "rad/s") "Angular velocity";
+  type AngularAcceleration = Real(final unit = "rad/s2") "Angular acceleration";
 
   // Frequency
-  type Frequency = Real (final unit = "Hz") "Frequency";
+  type Frequency = Real(final unit = "Hz") "Frequency";
 
   // Time
-  type Time = Real (final unit = "s") "Time";
+  type Time = Real(final unit = "s") "Time";
 
   // PerUnit
   record ComplexPerUnit = Complex(redeclare PerUnit re "Real part of complex per unit quantity",

@@ -13,7 +13,6 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadAuxiliaries_INIT "Initialization for auxiliaries where u0Pu and i0Pu need to be connected"
-
   extends AdditionalIcons.Init;
 
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
@@ -27,5 +26,5 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end LoadAuxiliaries_INIT;

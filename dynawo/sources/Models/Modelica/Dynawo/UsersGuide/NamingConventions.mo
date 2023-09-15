@@ -15,7 +15,7 @@ within Dynawo.UsersGuide;
 package NamingConventions
   extends Icons.Information;
 
-annotation(preferredView = "info",
+  annotation(preferredView = "info",
     Documentation(info = "<html><head></head><body><p>This section contains the naming and style guidelines for the Dynawo library development. If you want to contribute to the library, please make sure you follow them strictly, to ensure a consistent style throughout the whole library.</p>
 
 <p>When writing a Modelica model, please respect the general <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica conventions</a> and follow the recommendations below.</p>

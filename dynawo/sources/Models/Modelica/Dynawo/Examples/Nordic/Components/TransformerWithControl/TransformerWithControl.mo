@@ -14,9 +14,6 @@ within Dynawo.Examples.Nordic.Components.TransformerWithControl;
 */
 
 model TransformerWithControl "Model of transformer with variable tap, for the Nordic 32 test system"
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.AdditionalIcons.Transformer;
 
   parameter TransformerParameters.tfoPreset tfo;

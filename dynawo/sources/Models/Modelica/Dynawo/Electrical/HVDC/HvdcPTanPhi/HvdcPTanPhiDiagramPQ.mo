@@ -13,10 +13,8 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 */
 
 model HvdcPTanPhiDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram"
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPDiagramPQ;
-  extends HVDC.BaseClasses.BasePTanPhi(QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPDiagramPQ;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePTanPhi(QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
 
 /*
   Equivalent circuit and conventions:

@@ -13,18 +13,14 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block WeightedDifference "Block which calculates the weighted difference between an input variable and a reference parameter"
-  import Modelica;
-  import Modelica.Blocks.Interfaces;
-  import Modelica.Blocks.Icons.Block;
-
-  extends Block;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Real Weight "Multiplicative weight for the associated entry";
   parameter Real Target "Reference (target) parameter";
 
   Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(Placement(
         visible = true, transformation(extent = {{-140, -60}, {-100, -20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
-  Interfaces.RealOutput y "Output signal connector" annotation(Placement(
+  Modelica.Blocks.Interfaces.RealOutput y "Output signal connector" annotation(Placement(
         transformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Sources.Constant const(k = Target) annotation(
@@ -45,6 +41,6 @@ equation
     Line(points = {{-120, -40}, {-40, -40}, {-40, -6}, {-12, -6}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-  Diagram(coordinateSystem(initialScale = 0.1)),
-  Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "Weighted Difference")}));
+    Diagram(coordinateSystem(initialScale = 0.1)),
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "Weighted Difference")}));
 end WeightedDifference;

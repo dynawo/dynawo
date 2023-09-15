@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model VRKundur "Proportional voltage regulator based on Kundur's book"
-  import Modelica;
 
   parameter Types.VoltageModulePu EfdMaxPu "Maximum excitation voltage in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum excitation voltage in pu (user-selected base voltage)";

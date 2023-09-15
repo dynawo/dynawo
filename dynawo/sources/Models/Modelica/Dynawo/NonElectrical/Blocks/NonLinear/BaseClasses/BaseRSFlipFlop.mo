@@ -13,19 +13,15 @@ within Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses;
 */
 
 partial block BaseRSFlipFlop "Base block of RS flip flop"
-
-  import Modelica;
-  import Modelica.Blocks.Interfaces;
-
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
 
   parameter Boolean Y0 = false "Start value of y";
 
-  Interfaces.BooleanInput r annotation(
+  Modelica.Blocks.Interfaces.BooleanInput r annotation(
       Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanInput s annotation(
+  Modelica.Blocks.Interfaces.BooleanInput s annotation(
       Placement(transformation(extent={{-140,40},{-100,80}})));
-  Interfaces.BooleanOutput y(start = Y0) annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput y(start = Y0) annotation(
       Placement(transformation(extent={{100,-10},{120,10}})));
 
   annotation(

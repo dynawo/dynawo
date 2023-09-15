@@ -13,10 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block LimitedIntegrator "Integrator with limited value of the output"
-
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.SISO(y(start=Y0));
 
   parameter Types.PerUnit K = 1 "Integrator gain";

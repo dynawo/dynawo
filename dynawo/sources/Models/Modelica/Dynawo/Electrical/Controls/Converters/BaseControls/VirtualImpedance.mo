@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model VirtualImpedance "Virtual impedance model for the current limitation of grid forming converters"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";

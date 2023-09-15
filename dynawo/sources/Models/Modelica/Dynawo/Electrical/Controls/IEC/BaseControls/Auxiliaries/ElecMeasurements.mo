@@ -21,9 +21,6 @@ model ElecMeasurements "This block measures the voltage and current in pu (base 
    (terminal1) -->---------MEASUREMENTS------------ (terminal2)
 
 */
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameter
   parameter Dynawo.Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

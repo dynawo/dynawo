@@ -13,14 +13,10 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusFromTable "Infinite bus with UPu, UPhase and omegaRefPu given by tables as functions of time"
-  import Modelica;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Connectors;
-
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal annotation(
-    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter String TableFile "Text file that contains the tables to get UPu, UPhase and omegaRefPu from time";
   parameter String OmegaRefPuTableName "Name of the table in the text file to get omegaRefPu from time";

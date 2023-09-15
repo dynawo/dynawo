@@ -16,7 +16,7 @@
            xmlns:dyn="http://www.rte-france.com/dynawo"
            targetNamespace="http://www.rte-france.com/dynawo"
            elementFormDefault="qualified">
-  <xs:element name="finalStateValueOutput">
+  <xs:element name="finalStateValuesOutput">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="finalStateValue" type="dyn:FinalStateValueOutput" minOccurs="0" maxOccurs="unbounded"/>

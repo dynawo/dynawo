@@ -13,8 +13,6 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulationVariableK "AC Emulation for HVDC with a variable KACEmulation"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.Time tFilter "Time constant of the angle measurement filter";
 

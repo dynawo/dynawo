@@ -13,8 +13,6 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 */
 
 partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
-  import Dynawo;
-
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrain;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 

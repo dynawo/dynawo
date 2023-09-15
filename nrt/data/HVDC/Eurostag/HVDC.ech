@@ -1,0 +1,35 @@
+HEADER     09/09/15 5.1 RTE
+
+B
+
+9 1 0 0 1 1 20    0.001                                 4   0         100.
+
+AA A
+
+DA DC
+
+1A INF_A                                                                                400.            1.       0.       0.       0.
+1A INF_B                                                                                400.            1.       0.       0.       0.
+1A BAIXAS                                                                               400.            1.       0.       0.       0.
+1A SLLOGAIA                                                                             400.            1.       0.       0.       0.
+
+5  INF_A                                     0.
+5  INF_B                                     0.
+
+3 INF_A    BAIXAS  1  0.00037   0.0093       0.       0.    1050.       0.       0.
+3 INF_B    SLLOGAIA1  0.00037    0.013       0.       0.    1050.       0.       0.
+
+G  INF_A    Y INF_A    -9999.99       0.  9999.99 -9999.99       0.  9999.99 V     432. INF_A          1.       0.       0.
+G  INF_B    Y INF_B    -9999.99       0.  9999.99 -9999.99       0.  9999.99 V     440. INF_B          1.       0.       0.
+
+CH BAIX     Y BAIXAS         0.       0.       0.       0.       0.       0.       0.       0.
+
+DC N DC1      DC     640.       1.
+DC N DC2      DC     640.       1.
+
+DC L DC1      DC2      1       1.
+
+DC V VSCA     DC1      GROUND   BAIXAS     V Q       0.      16.       0.     640.     330.     600.                1.
+DC V   -1200.    1200.   -1200.    1200.       0.       0.       0.       1.       0.
+DC V VSCB     DC2      GROUND   SLLOGAIA   P Q       0.      16.     900.     320.     320.     600.                1.
+DC V   -1200.    1200.   -1200.    1200.       0.       0.       0.       1.       0.

@@ -36,7 +36,7 @@ equation
   if (running.value) then
     BPu = BVarPu + BShuntPu;
   else
-    BPu = 0.;
+    BPu = 0;
   end if;
 
   annotation(preferredView = "text");

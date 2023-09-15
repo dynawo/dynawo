@@ -14,28 +14,26 @@ within Dynawo.Electrical.Transformers.BaseClasses;
 */
 
 partial model BaseTransformerVariableTap "Base class for ideal and classical transformers with variable tap"
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffTransformer;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffTransformer;
 
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
   parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
   parameter Integer NbTap "Number of taps";
 
   // Connection to the grid
-  Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the transformer to the grid" annotation(
-  Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid" annotation(
-  Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the transformer to the grid" annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid" annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input connectors
-  Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
+  Dynawo.Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Output connectors
-  Connectors.ImPin U1Pu(value(start = U10Pu)) "Absolute voltage on side 1";
-  Connectors.ImPin P1Pu(value(start = P10Pu)) "Active power on side 1";
-  Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power on side 1";
-  Connectors.ImPin U2Pu(value(start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
+  Dynawo.Connectors.ImPin U1Pu(value(start = U10Pu)) "Absolute voltage on side 1";
+  Dynawo.Connectors.ImPin P1Pu(value(start = P10Pu)) "Active power on side 1";
+  Dynawo.Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power on side 1";
+  Dynawo.Connectors.ImPin U2Pu(value(start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   // Parameters coming from the initialization process
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
@@ -68,8 +66,8 @@ equation
     // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-    U1Pu.value = ComplexMath.'abs' (terminal1.V);
-    U2Pu.value = ComplexMath.'abs' (terminal2.V);
+    U1Pu.value = ComplexMath.'abs'(terminal1.V);
+    U2Pu.value = ComplexMath.'abs'(terminal2.V);
   else
     P1Pu.value = 0;
     Q1Pu.value = 0;

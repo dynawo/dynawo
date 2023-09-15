@@ -14,9 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasse
 */
 
 block PotentialCircuit "Computes the absolute value of a generator field voltage"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit Ki "Gain coefficient applied to Real part of complex stator current";

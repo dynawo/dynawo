@@ -10,7 +10,7 @@ within Dynawo.Connectors;
 * SPDX-License-Identifier: MPL-2.0
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tool for power systems.
+* of simulation tools for power systems.
 */
 
 connector IntPin "Connector for propagating integer values"

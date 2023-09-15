@@ -14,9 +14,6 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses_INIT;
 */
 
 partial model BaseGeneratorSynchronous_INIT "Base initialization model for synchronous machine"
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
-
   extends BaseClasses.GeneratorSynchronousParameters;
 
   parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -105,7 +102,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 equation
   // Apparent power, voltage and current at stator side in pu (base SnRef, UNom)
   uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
-  iStator0Pu = rTfoPu * i0Pu ;
+  iStator0Pu = rTfoPu * i0Pu;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
 
   // Flux linkages
@@ -127,7 +124,7 @@ equation
   Pm0Pu = Cm0Pu*SystemBase.omega0Pu;
 
   // Output variables for external controlers
-  UStator0Pu = ComplexMath.'abs' (uStator0Pu);
+  UStator0Pu = ComplexMath.'abs'(uStator0Pu);
   IStator0Pu = rTfoPu * I0Pu * SNom/SystemBase.SnRef;
   QStator0Pu = - ComplexMath.imag(sStator0Pu);
   QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;

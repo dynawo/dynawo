@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportionalIntegral_INIT "Proportional integral voltage regulator initialization model"
-  import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT;
-
   extends AdditionalIcons.Init;
 
   parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed exciter field voltage in pu (user-selected base voltage)";
@@ -27,7 +25,7 @@ model VRProportionalIntegral_INIT "Proportional integral voltage regulator initi
   Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
   Types.VoltageModulePu yIntegrator0 "Initial integrator output in pu (user-selected base voltage)";
 
-  LimiterWithLag_INIT limiterWithLag(UMax = EfdMaxPu, UMin = EfdMinPu);
+  Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT limiterWithLag(UMax = EfdMaxPu, UMin = EfdMinPu);
 
 equation
   limiterWithLag.y0LF = Efd0PuLF;

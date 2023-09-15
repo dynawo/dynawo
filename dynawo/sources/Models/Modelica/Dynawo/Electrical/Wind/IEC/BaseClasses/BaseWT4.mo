@@ -13,10 +13,6 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 standard"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -93,7 +89,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   //Current limiter parameters
   parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
-  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom)"  annotation(
+  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
   parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));

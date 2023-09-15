@@ -14,10 +14,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 */
 
 model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with optional deadband and nonlinear valve gain added)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.AngularVelocityPu Db1 "Intentional deadband width in pu (base omegaNom). Typical value = 0";
@@ -203,9 +199,9 @@ equation
   connect(booleanConstant1.y, switch.u2) annotation(
     Line(points = {{-379, -50}, {-342, -50}}, color = {255, 0, 255}));
   connect(deadBand.y, switch.u1) annotation(
-    Line(points = {{-379, 0}, {-360.5, 0}, {-360.5, -42}, {-342, -42}}, color = {0, 0, 127}));
+    Line(points = {{-379, 0}, {-360, 0}, {-360, -42}, {-342, -42}}, color = {0, 0, 127}));
   connect(switch.y, transferFunction.u) annotation(
-    Line(points = {{-319, -50}, {-300.5, -50}, {-300.5, 0}, {-282, 0}}, color = {0, 0, 127}));
+    Line(points = {{-319, -50}, {-300, -50}, {-300, 0}, {-282, 0}}, color = {0, 0, 127}));
   connect(booleanConstant2.y, switch2.u2) annotation(
     Line(points = {{101, -50}, {138, -50}}, color = {255, 0, 255}));
   connect(backlashHysteresis.y, switch2.u3) annotation(

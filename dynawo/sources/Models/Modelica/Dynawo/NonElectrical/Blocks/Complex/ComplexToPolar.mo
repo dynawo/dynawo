@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.Complex;
 */
 
 block ComplexToPolar "Converts complex to polar representation. An eps is added to cope with the cases where the input is equal to 0."
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   Modelica.ComplexBlocks.Interfaces.ComplexInput u annotation(

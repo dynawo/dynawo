@@ -128,8 +128,8 @@ class CriteriaParams {
   const std::vector<CriteriaParamsVoltageLevel>& getVoltageLevels() const;
 
   /**
-   * @brief return true if at least one volage level was defined
-   * @return true if at least one volage level was defined
+   * @brief return true if at least one voltage level was defined
+   * @return true if at least one voltage level was defined
    */
   bool hasVoltageLevels() const;
 

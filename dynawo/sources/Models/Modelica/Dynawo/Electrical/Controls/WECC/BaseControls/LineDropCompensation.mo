@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 model LineDropCompensation "This block calculates the voltage drop in an RcPu, XcPu line knowing the current and the voltage on one side"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.PerUnit RcPu "Line drop compensation resistance in pu (base UNom, SnRef)";
   parameter Types.PerUnit XcPu "Line drop compentation reactance in pu (base UNom, SnRef)";

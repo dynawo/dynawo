@@ -13,19 +13,14 @@ within Dynawo.Electrical.Sources;
 */
 
 model InjectorURI "Injector controlled by real (R) part and imaginary (I) part voltage components urPu and uiPu"
-  import Modelica;
-  import Dynawo.Connectors;
-  import Dynawo.Types;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
 
-  extends SwitchOff.SwitchOffInjector;
-
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, -26}, {0, -26}}, rotation = 0), iconTransformation(origin = {115, -1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealInput urPu(start = u0Pu.re) "Voltage real part in pu (base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput urPu(start = u0Pu.re) "Voltage real part in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{10, -25}, {10, -25}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uiPu(start = u0Pu.im) "Voltage imaginary part in pu (base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uiPu(start = u0Pu.im) "Voltage imaginary part in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, -25}, {0, -25}}, rotation = 0), iconTransformation(origin = {-111, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";

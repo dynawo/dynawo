@@ -13,8 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model ModeHandling "Static Var Compensator mode calculation"
-  import Modelica;
-  import Dynawo.Types;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -91,7 +89,7 @@ equation
     URefPu = URefAuto / UNom;
   else
     mode.value = modeManual.value;
-    URefPu = URef /UNom;
+    URefPu = URef / UNom;
   end if;
 
   annotation(preferredView = "text",

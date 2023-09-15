@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model CombiTimeTable "Table look-up with respect to time and linear/periodic extrapolation methods (data from a two-column table in a .txt file) with one output"
-  import Modelica;
-  import Dynawo;
 
   parameter Modelica.Blocks.Types.Extrapolation Extrapolation
     "Extrapolation of data outside the definition range";

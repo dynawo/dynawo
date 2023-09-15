@@ -14,10 +14,8 @@ within Dynawo.Examples.Nordic.Components.GeneratorWithControl;
 */
 
 model GeneratorSynchronousFourWindingsWithControl "Model of synchronous generator with four windings, a governor and a voltage regulator, for the Nordic 32 test system"
-  import Dynawo.Examples.BaseClasses;
-
   extends GeneratorSynchronousThreeWindingsWithControl(
-    redeclare BaseClasses.InitializedGeneratorSynchronousFourWindings generatorSynchronous
+    redeclare Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronousFourWindings generatorSynchronous
   );
 
   annotation(preferredView = "text",

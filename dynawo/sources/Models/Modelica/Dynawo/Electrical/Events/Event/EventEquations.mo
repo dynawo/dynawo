@@ -31,7 +31,7 @@ model EventEquations
 
 protected
   // Replaceable items in order to allow using this model for various types (integer, boolean, real...)
-  replaceable connector typeConnector = Connectors.ZPin;
+  replaceable connector typeConnector = Dynawo.Connectors.ZPin;
   replaceable type typeParameter = Real;
 
 equation

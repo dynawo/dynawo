@@ -27,16 +27,13 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
                                ---
 
 */
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffTransformer;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffTransformer;
   extends BaseClasses.TransformerParameters;
   extends AdditionalIcons.Transformer;
 
-  Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
@@ -72,16 +69,16 @@ equation
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
   else
     terminal1.i = terminal2.i;
-    terminal2.V = Complex (0);
+    terminal2.V = Complex(0);
   end if;
 
   if (running.value) then
-    U1Pu = ComplexMath.'abs' (terminal1.V);
+    U1Pu = ComplexMath.'abs'(terminal1.V);
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
     P1GenPu = - P1Pu;
     Q1GenPu = - Q1Pu;
-    U2Pu = ComplexMath.'abs' (terminal2.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
     P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
     Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
   else

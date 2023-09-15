@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model VoltageLoop "Voltage loop control for grid forming and grid following converters"
-  import Modelica;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit Kpv "Proportional gain of the voltage loop";
   parameter Types.PerUnit Kiv "Integral gain of the voltage loop";

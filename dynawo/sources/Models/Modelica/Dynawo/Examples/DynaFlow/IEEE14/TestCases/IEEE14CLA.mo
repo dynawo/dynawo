@@ -1,25 +1,21 @@
 within Dynawo.Examples.DynaFlow.IEEE14.TestCases;
 
-  /*
-  * Copyright (c) 2023, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
+/*
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
 
-model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads. At t=50s, the consumption of load 5 increases. Three Current Limit Automatons are supervising current on lines B1-B5, B1-B2 and B2-B5. "
-
-  import Dynawo.Electrical;
-  import Dynawo.Examples;
-  import Dynawo.Types;
-
-  extends Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
+model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads. At t=50s, the consumption of load 5 increases. Three Current Limit Automatons are supervising current on lines B1-B5, B1-B2 and B2-B5."
+  extends Dynawo.Examples.DynaFlow.IEEE14.BaseClasses.IEEE14Base;
+  extends Modelica.Icons.Example;
 
   // Loads references
   parameter Types.ActivePowerPu P0Pu_Load2 = 0.217000;
@@ -47,9 +43,9 @@ model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators
 
   Real IB1B5, IB1B2, IB2B5;
 
-  Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B2(IMax = 1.55, OrderToEmit = 4, Running = true, tLagBeforeActing = 30);
-  Electrical.Controls.Current.CurrentLimitAutomaton CLAB2B5(IMax = 0.49, OrderToEmit = 4, Running = true, tLagBeforeActing = 20);
-  Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B5(IMax = 2, OrderToEmit = 4, Running = true, tLagBeforeActing = 50);
+  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B2(IMax = 1.55, OrderToEmit = 4, Running = true, tLagBeforeActing = 30);
+  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB2B5(IMax = 0.49, OrderToEmit = 4, Running = true, tLagBeforeActing = 20);
+  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B5(IMax = 2, OrderToEmit = 4, Running = true, tLagBeforeActing = 50);
 
 equation
   IB1B5 = sqrt(LineB1B5.terminal1.i.re * LineB1B5.terminal1.i.re + LineB1B5.terminal1.i.im * LineB1B5.terminal1.i.im);
@@ -213,7 +209,7 @@ equation
   Bank9.switchOffSignal1.value = false;
   Bank9.switchOffSignal2.value = false;
 
-  annotation(
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-06, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),

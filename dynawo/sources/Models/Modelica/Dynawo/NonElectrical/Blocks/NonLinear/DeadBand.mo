@@ -14,8 +14,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block DeadBand "Provide a region of zero output"
-  import Modelica;
-
   extends Modelica.Blocks.Interfaces.SISO;
 
   parameter Real EpsMax = UMax "Upper dead band hysteresis";

@@ -13,10 +13,8 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 */
 
 model HvdcPTanPhiDanglingDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram and with terminal2 connected to a switched-off bus"
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
-  extends HVDC.BaseClasses.BasePTanPhiDangling(QInj1RawPu(start = - s10Pu.im));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePTanPhiDangling(QInj1RawPu(start = - s10Pu.im));
 
 /*
   Equivalent circuit and conventions:

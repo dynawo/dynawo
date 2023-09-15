@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block PI "Proportional-integral controller"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit Ki "Integrator gain";

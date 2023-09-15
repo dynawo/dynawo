@@ -13,7 +13,6 @@ within Dynawo.Electrical.Loads;
 */
 
 model Load_INIT "Initialization for load from load-flow outputs"
-
   extends AdditionalIcons.Init;
 
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
@@ -30,5 +29,5 @@ equation
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end Load_INIT;

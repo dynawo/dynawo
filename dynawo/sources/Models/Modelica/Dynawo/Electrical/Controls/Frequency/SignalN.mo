@@ -20,6 +20,6 @@ model SignalN "Model for frequency regulation"
 equation
   der(thetaRef) = 0;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>All generators of the network are connected to this model through the signal N, which is common to all the generators in the same synchronous area and that changes the active power reference of the generators to balance the generation and the consumption. Moreover, the voltage angle of a chosen bus is fixed here to balance the number of equations and the number of variables. When using this model, the frequency is not explicitly modeled.</div></body></html>"));
 end SignalN;

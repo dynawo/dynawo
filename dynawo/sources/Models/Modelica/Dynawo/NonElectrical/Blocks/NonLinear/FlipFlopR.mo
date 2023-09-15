@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block FlipFlopR "RS flip flop with priority to reset"
-
-  import Dynawo;
-
   extends Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses.BaseRSFlipFlop;
 
 equation
@@ -26,9 +23,9 @@ equation
   end when;
 
   annotation(
-  preferredView = "text",
-  Documentation(info = "<html><head></head><body><p>
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body><p>
 The output <code>y</code>&nbsp; becomes true when s is true and r is false. y remains true as long as r is false.</p>
 </body></html>"),
-  Icon(graphics = {Ellipse(fillColor = {255, 255, 255}, lineThickness = 1, extent = {{-10, -90}, {-70, -30}}, endAngle = 360)}));
+    Icon(graphics = {Ellipse(fillColor = {255, 255, 255}, lineThickness = 1, extent = {{-10, -90}, {-70, -30}}, endAngle = 360)}));
 end FlipFlopR;

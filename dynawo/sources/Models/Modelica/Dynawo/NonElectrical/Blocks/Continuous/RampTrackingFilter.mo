@@ -13,10 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 model RampTrackingFilter "Ramp tracking filter"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real K = 1 "Gain";
@@ -30,7 +26,7 @@ model RampTrackingFilter "Ramp tracking filter"
   Modelica.Blocks.Math.Gain gain(k = K) annotation(
     Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LeadMOrderLag leadMOrderLagCascade[N](each M = M, each t1 = t1, each t2 = t2, each K = 1, each Y0 = Y0) annotation(
-    Placement(visible = true, transformation(origin = {-3.55271e-15, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation
   assert((N > 0 and M > 0) or N == 0, "If N > 0 then also M must be positive");

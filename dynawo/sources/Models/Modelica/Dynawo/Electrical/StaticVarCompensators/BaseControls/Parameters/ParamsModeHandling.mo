@@ -14,7 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls.Parameters;
 */
 
 record ParamsModeHandling
-  import Dynawo.Types;
 
   parameter Types.Time tThresholdDown "Time duration associated with the condition U < UThresholdDown for the change from standby to running mode, in s";
   parameter Types.Time tThresholdUp "Time duration associated with the condition U > UThresholdUp for the change from standby to running mode, in s";

@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 package Parameters "Parameters of the PV WECC model"
-  import Dynawo.Types;
-
   extends Icons.RecordsPackage;
 
 end Parameters;

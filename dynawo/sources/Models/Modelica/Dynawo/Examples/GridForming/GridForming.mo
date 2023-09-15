@@ -13,9 +13,6 @@ within Dynawo.Examples.GridForming;
 */
 
 model GridForming "Grid Forming converters test case"
-  import Dynawo;
-  import Modelica;
-
   extends Icons.Example;
 
   parameter Types.ActivePowerPu PRefLoadPu = 11.25 "Active power request for the load in pu (base SnRef)";

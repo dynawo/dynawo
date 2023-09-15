@@ -13,8 +13,6 @@ within Dynawo.Electrical.Transformers;
 */
 
 model GeneratorTransformer_INIT
-  import Dynawo.Electrical.SystemBase;
-
   extends BaseClasses_INIT.BaseGeneratorTransformer_INIT;
   extends AdditionalIcons.Init;
 

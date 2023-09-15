@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.Converters;
 */
 
 model GridFormingControlDroopControl "Grid forming control with droop control"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
   parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)";

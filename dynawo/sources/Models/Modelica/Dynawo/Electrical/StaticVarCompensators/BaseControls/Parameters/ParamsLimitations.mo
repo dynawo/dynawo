@@ -14,7 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls.Parameters;
 */
 
 record ParamsLimitations
-  import Dynawo.Types;
 
   parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in pu (base UNom, SNom)";
   parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in pu (base UNom, SNom)";

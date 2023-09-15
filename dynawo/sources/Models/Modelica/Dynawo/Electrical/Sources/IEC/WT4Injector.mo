@@ -13,11 +13,6 @@ within Dynawo.Electrical.Sources.IEC;
 */
 
 model WT4Injector "Converter model and grid interface according to IEC N°61400-27-1 standard for type 4A wind turbines"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
 
   //Nominal parameter

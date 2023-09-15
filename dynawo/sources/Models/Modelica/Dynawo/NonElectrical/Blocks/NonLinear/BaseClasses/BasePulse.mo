@@ -13,10 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses;
 */
 
 partial block BasePulse "Base block of pulse"
-
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.BooleanSISO;
 
   parameter Types.Time tPulse "Duration of the pulse in s";

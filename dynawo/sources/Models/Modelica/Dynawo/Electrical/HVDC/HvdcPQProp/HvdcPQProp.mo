@@ -13,12 +13,10 @@ within Dynawo.Electrical.HVDC.HvdcPQProp;
 */
 
 model HvdcPQProp "Model of HVDC link with a proportional reactive power control. Each terminal can inject a fixed reactive power or use the proportional control, depending on the user's choice."
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;
-  extends HVDC.BaseClasses.BaseQStatus;
-  extends HVDC.BaseClasses.BasePQProp(QInj1RawModeUPu(start = - s10Pu.im), QInj2RawModeUPu(start = - s20Pu.im), QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
-  extends HVDC.BaseClasses.BaseVoltageRegulation;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPFixedReactiveLimits;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseQStatus;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePQProp(QInj1RawModeUPu(start = - s10Pu.im), QInj2RawModeUPu(start = - s20Pu.im), QInj1RawPu(start = - s10Pu.im), QInj2RawPu(start = - s20Pu.im));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseVoltageRegulation;
 
 /*
   Equivalent circuit and conventions:

@@ -13,15 +13,12 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block DelayFlag "Provides an extended fault flag fO which adds a post-fault value 2 to the input fault flag fI for a set duration of tD"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   parameter Types.Time tD "Delay time constant in s, specifies the duration of post-fault flag";
   parameter Types.Time tS "Integration time step in s";
 
   Modelica.Blocks.Interfaces.BooleanInput fI(start = FI0) "Input fault flag (boolean)" annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.IntegerOutput fO(start = FO0) "Output fault flag (value 0, 1 or 2)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 

@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 model LeadMOrderLag "Lead-lag filter with M poles"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real K = 1 "Gain";

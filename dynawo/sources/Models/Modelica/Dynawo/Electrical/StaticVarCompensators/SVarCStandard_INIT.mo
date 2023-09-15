@@ -13,9 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators;
 */
 
 model SVarCStandard_INIT "Initialization for standard static var compensator model"
-  import Dynawo.Electrical.Sources.InjectorBG_INIT;
-  import Dynawo.Electrical.SystemBase;
-
   extends AdditionalIcons.Init;
 
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
@@ -35,7 +32,7 @@ model SVarCStandard_INIT "Initialization for standard static var compensator mod
   Types.PerUnit B0Pu "Start value of the susceptance in pu (base SNom)";
   Types.VoltageModule URef0 "Start value of voltage reference in kV";
 
-  InjectorBG_INIT injector(SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu);
+  Dynawo.Electrical.Sources.InjectorBG_INIT injector(SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu);
 
 equation
   URef0 = (U0Pu - Lambda*Q0Pu*SystemBase.SnRef/SNom) * UNom;

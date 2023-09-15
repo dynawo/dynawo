@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block StandAloneRampRateLimiter "Slew rate limiter as in IEC N°61400-27-1"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit DuMax "Maximum rising slew rate";
@@ -23,7 +21,7 @@ block StandAloneRampRateLimiter "Slew rate limiter as in IEC N°61400-27-1"
   parameter Types.PerUnit Y0 "Initial value of output";
 
   Modelica.Blocks.Interfaces.RealInput u annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 1.11022e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -50,7 +48,7 @@ equation
   connect(feedback.y, limiter.u) annotation(
     Line(points = {{-50, 0}, {-22, 0}}, color = {0, 0, 127}));
   connect(u, feedback.u1) annotation(
-    Line(points = {{-120, 1.77636e-15}, {-68, 1.77636e-15}}, color = {0, 0, 127}));
+    Line(points = {{-120, 0}, {-68, 0}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

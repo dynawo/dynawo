@@ -14,7 +14,6 @@ within Dynawo.Electrical.HVDC.BaseClasses;
 */
 
 partial model BaseDiagramPQTerminal1 "Base dynamic model for a PQ diagram at terminal 1"
-  import Modelica;
 
   parameter String QInj1MaxTableFile "Text file that contains the table to get QInj1MaxPu from PInj1Pu (generator convention)";
   parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";

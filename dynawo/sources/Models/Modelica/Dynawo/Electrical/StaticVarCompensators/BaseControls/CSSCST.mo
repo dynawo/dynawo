@@ -14,10 +14,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model CSSCST "Static var compensator control model with voltage override as susceptance command for switched shunts"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   parameter Real BMax "Maximum capacitive output of the SVarC in S";
   parameter Real BMin "Maximum inductive output of the SVarC in S";

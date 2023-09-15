@@ -13,9 +13,6 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 */
 
 model RefFrameRotation "Reference frame rotation module (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

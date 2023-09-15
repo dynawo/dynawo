@@ -82,7 +82,7 @@ step_(0.) {
 
 void
 ModelVoltageMeasurementsUtilities::init(const double /*t0*/) {
-  // Nothing to initalize here.
+  // Nothing to initialize here.
 }
 
 void

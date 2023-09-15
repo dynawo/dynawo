@@ -31,7 +31,6 @@ model InjectorBG_INIT "Initialization model for injector controlled by a the sus
   Types.PerUnit B0Pu "Start value of susceptance in pu (base Sn)";
 
 equation
-
   s0Pu = Complex(P0Pu, Q0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
@@ -40,5 +39,5 @@ equation
   G0Pu = ComplexMath.real(Y0PuSnRef) * SystemBase.SnRef / SNom;
   B0Pu = ComplexMath.imag(Y0PuSnRef) * SystemBase.SnRef / SNom;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end InjectorBG_INIT;

@@ -14,10 +14,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Simplified;
 */
 
 model GoverNordic "Governor model for the Nordic 32 test system used for voltage stability studies"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   parameter Types.PerUnit Ki "Integral gain of PI controller";
   parameter Types.PerUnit Kp "Proportional gain of PI controller";

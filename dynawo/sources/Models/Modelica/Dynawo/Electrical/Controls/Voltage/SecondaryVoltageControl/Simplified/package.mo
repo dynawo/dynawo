@@ -14,9 +14,6 @@ within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl;
 */
 
 package Simplified "Simplified secondary voltage control models"
-  import Modelica.Icons;
-  import Dynawo.AdditionalIcons;
-
   extends Icons.Package;
 
 end Simplified;

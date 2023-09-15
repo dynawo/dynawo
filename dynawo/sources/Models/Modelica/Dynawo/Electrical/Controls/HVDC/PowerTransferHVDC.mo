@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.HVDC;
 */
 
 model PowerTransferHVDC "Power transfer model for HVDC"
-  import Dynawo.Types;
-  import Dynawo.Connectors;
 
   input Types.ActivePowerPu PRefSet1RawPu(start = PRefSet10Pu) "Raw reference active power of HVDC link 1 in pu (base SnRef)";
   input Types.ActivePowerPu PRefSet2RawPu(start = PRefSet20Pu) "Raw reference active power of HVDC link 2 in pu (base SnRef)";
@@ -28,7 +26,6 @@ model PowerTransferHVDC "Power transfer model for HVDC"
   parameter Types.ActivePowerPu PRefSet20Pu "Start value of reference active power in pu (base SnRef) for HVDC link 2";
 
 equation
-
   if running1 and running2 then
     PRefSet1Pu = PRefSet1RawPu;
     PRefSet2Pu = PRefSet2RawPu;
@@ -43,6 +40,6 @@ equation
     PRefSet2Pu = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This model adapts the PRefSetPu of each of the two HVDC links in parallel depending on the running state of each of the links. If one link is disconnected, this allows the other one to compensate for the power loss. </div></body></html>"));
 end PowerTransferHVDC;

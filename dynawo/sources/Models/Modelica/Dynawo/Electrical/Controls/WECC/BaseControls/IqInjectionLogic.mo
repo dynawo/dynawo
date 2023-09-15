@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 model IqInjectionLogic "Reactive Current Injection Logic"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.CurrentModulePu IqFrzPu "Constant reactive current injection value in pu (base SNom, UNom)";
   parameter Types.Time HoldIq "Absolute value of HoldIq defines seconds to hold current injection after voltage dip ended. HoldIq < 0 for constant, 0 for no injection after voltage dip, HoldIq > 0 for voltage-dependent injection";

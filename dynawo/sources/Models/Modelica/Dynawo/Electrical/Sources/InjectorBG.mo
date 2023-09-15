@@ -13,16 +13,9 @@ within Dynawo.Electrical.Sources;
 */
 
 model InjectorBG "Injector controlled by a the susceptance B and the conductance G"
-  import Modelica;
-  import Modelica.ComplexMath;
-  import Dynawo.Connectors;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
 
-  extends SwitchOff.SwitchOffInjector;
-
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -61}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";

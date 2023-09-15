@@ -3,9 +3,28 @@ name: Release
 on:
   release:
     types: [published]
-
+  workflow_dispatch:
+    inputs:
+      release-id:
+        description: ID of the published release
+        type: string
+        required: true
+      perform-linux-cxx11:
+        description: Create assets for Linux cxx11
+        type: boolean
+        default: true
+      perform-linux-centos7:
+        description: Create assets for Linux centos7
+        type: boolean
+        default: true
+      perform-windows:
+        description: Create assets for Windows
+        type: boolean
+        default: true
+        
 jobs:
   distribution-cxx11:
+    if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-cxx11
     name: Distribution Linux cxx11
     runs-on: ubuntu-latest
     container: dynawo/dynawo-distribution-cxx11:latest
@@ -15,12 +34,10 @@ jobs:
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
-      GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Build
         env:
@@ -33,15 +50,25 @@ jobs:
           util/envDynawo.sh distrib
           util/envDynawo.sh distrib-headers
           util/envDynawo.sh distrib-omc
-          version=$(util/envDynawo.sh version | cut -f1 -d' ')
-          url=$(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET ${GH_API}/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_minimal_v${version}.zip --data-binary @distributions/Dynawo_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_headers_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Modelica_Library_v${version}.zip --data-binary @distributions/Dynawo_Modelica_library_V${version}.zip
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/pdf" -X POST ${url}?name=DynawoDocumentation.pdf --data-binary @documentation/dynawoDocumentation/DynawoDocumentation.pdf
+          for file in distributions/Dynawo_v*.zip ; do mv $file ${file//_/_Linux_minimal_} ; done
+          for file in distributions/Dynawo_headers_v*.zip ; do mv $file ${file//_headers_/_Linux_headers_} ; done
+          for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_} ; done
+
+      - name: Upload assets
+        uses: actions/github-script@v6
+        env:
+          release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
+          files: |
+            distributions/*.zip
+            documentation/dynawoDocumentation/DynawoDocumentation.pdf
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
 
   distribution-centos7:
+    if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-centos7
     name: Distribution Linux centos7
     runs-on: ubuntu-latest
     container: dynawo/dynawo-distribution-centos7:latest
@@ -50,12 +77,10 @@ jobs:
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
-      GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Build
         env:
@@ -65,6 +90,89 @@ jobs:
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
           util/envDynawo.sh distrib-omc
-          version=$(util/envDynawo.sh version | cut -f1 -d' ')
-          url=$(curl -s -H "authorization: Bearer $GITHUB_TOKEN" --request GET ${GH_API}/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")
-          curl -H "authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST ${url}?name=Dynawo_Linux_centos7_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
+          for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_centos7_} ; done
+
+      - name: Upload assets
+        uses: actions/github-script@v6
+        env:
+          release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
+          files: |
+            distributions/Dynawo_Linux_*.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+  distribution-windows:
+    if: github.event_name != 'workflow_dispatch' || inputs.perform-windows
+    name: Distribution Windows
+    runs-on: windows-2019
+    env:
+      DYNAWO_VERSION: 1.4.1   # latest release with OpenModelica
+    steps:
+      - name: No LF to CRLF conversion
+        shell: cmd
+        run: git config --global core.autocrlf input
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Git move to keep path as short as possible
+        shell: cmd
+        run: |
+          cd ..
+          move dynawo \
+          md dynawo
+
+      - name: Fetch previous release of Dynawo
+        shell: bash
+        run: curl -LOs https://github.com/${{ github.repository_owner }}/dynawo/releases/download/v$DYNAWO_VERSION/Dynawo_Windows_v$DYNAWO_VERSION.zip
+
+      - name: Unzip and retrieve OpenModelica
+        shell: cmd
+        run: |
+          7z x Dynawo_Windows_v%DYNAWO_VERSION%.zip dynawo\OpenModelica\ -r -o\OpenModelica
+          del Dynawo_Windows_v%DYNAWO_VERSION%.zip
+
+      # We are forced to change the path to avoid too long commands when compiling
+      - name: Build Dynawo Third Parties
+        shell: cmd
+        env:
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd \dynawo
+          cmake -Wno-dev -S dynawo/3rdParty -B b-3-p -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/dynawo/OpenModelica -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "NMake Makefiles"
+          cmake --build b-3-p --target openmodelica
+          cmake --build b-3-p
+
+      - name: Build Dynawo
+        shell: cmd
+        env:
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd \dynawo
+          cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/dynawo/OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles"
+          cmake --build b --target install solvers models || exit /b 1
+
+      - name: Deploy Dynawo
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd \dynawo
+          call util\windows\deploy.cmd ..\d-i ..\d-3-p \OpenModelica\dynawo\OpenModelica || exit /b 1
+          move /y *.zip ${{ github.workspace }} 
+
+      - name: Upload Dynawo distribution
+        uses: actions/github-script@v6
+        env:
+          release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
+          files: |
+            *.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('/dynawo/.github/release.js')
+            await release({github, context, core, glob})

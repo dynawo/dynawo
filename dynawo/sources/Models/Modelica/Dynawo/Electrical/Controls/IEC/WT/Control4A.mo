@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.IEC.WT;
 */
 
 model Control4A "Whole generator control module for type 4A wind turbines (IEC N°61400-27-1)"
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.Controls.IEC.BaseClasses.BaseControl4;
 
   //PControl parameters

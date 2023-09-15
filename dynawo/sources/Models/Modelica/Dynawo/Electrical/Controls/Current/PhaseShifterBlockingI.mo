@@ -16,7 +16,6 @@ model PhaseShifterBlockingI "Phase Shifter blocking model"
   import Modelica.Constants;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
-  import Dynawo.Types;
 
   parameter Types.CurrentModule IMax "Maximum current on the monitored component";
   parameter Types.Time tLagBeforeActing "Time lag before taking action";

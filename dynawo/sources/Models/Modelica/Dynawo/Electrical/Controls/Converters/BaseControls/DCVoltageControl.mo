@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model DCVoltageControl "DC voltage control for grid forming and grid following converters"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.PerUnit Kpdc "Proportional gain of the dc voltage control";
 

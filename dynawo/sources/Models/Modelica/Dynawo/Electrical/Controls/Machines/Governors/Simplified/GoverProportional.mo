@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Simplified;
 */
 
 model GoverProportional "Keeps the mechanical power as a constant modulated by the difference between omega and a reference"
-  import Modelica;
-  import Dynawo;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 

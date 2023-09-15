@@ -19,8 +19,6 @@ partial model SwitchOffInjector "Switch-off model for an injector"
      - a switch-off signal coming from the user (event)
      - a switch-off signal coming from an automaton/control block
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 
   Constants.state state(start = State0) "Injector connection state";

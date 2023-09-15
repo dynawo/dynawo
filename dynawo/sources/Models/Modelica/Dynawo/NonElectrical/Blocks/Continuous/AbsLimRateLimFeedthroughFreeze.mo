@@ -13,10 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block AbsLimRateLimFeedthroughFreeze "First order feed-through with absolute and rate limits, and a freezing flag, used when first order filter is bypassed"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
@@ -26,7 +22,7 @@ block AbsLimRateLimFeedthroughFreeze "First order feed-through with absolute and
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
   Modelica.Blocks.Interfaces.RealInput u(start = U0) "Input signal connector" annotation(
-    Placement(visible = true, transformation(origin = {-120, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 

@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 */
 
 model GovSteam1_INIT "Initialization model for GovSteam1"
-  import Modelica;
-
   extends AdditionalIcons.Init;
 
   //Regulation parameter

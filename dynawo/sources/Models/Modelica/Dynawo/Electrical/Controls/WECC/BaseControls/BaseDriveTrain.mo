@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 partial model BaseDriveTrain
-  import Modelica;
-  import Dynawo.Types;
-
   extends Parameters.ParamsDriveTrain;
 
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
@@ -89,7 +86,7 @@ equation
   connect(dTorque.y, dTorqueY) annotation(
     Line(points = {{141, 20}, {170, 20}}, color = {0, 0, 127}));
   connect(dampingY2.y, dTorqueM.u3) annotation(
-    Line(points = {{-119, 20}, {-100.5, 20}, {-100.5, 52}, {-82, 52}}, color = {0, 0, 127}));
+    Line(points = {{-119, 20}, {-100, 20}, {-100, 52}, {-82, 52}}, color = {0, 0, 127}));
   connect(Damping.y, dampingY) annotation(
     Line(points = {{141, -20}, {170, -20}}, color = {0, 0, 127}));
   connect(PePu, TorqueE.u1) annotation(

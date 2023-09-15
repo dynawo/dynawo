@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model ExcIEEEAC1A "As defined in IEEE 1981 Excitation System Models for Power System Stability Studies"
-  import Modelica;
-  import Dynawo;
 
   parameter Types.PerUnit Ka "Voltage regulator gain";
   parameter Types.PerUnit Kc "Rectifier load factor";

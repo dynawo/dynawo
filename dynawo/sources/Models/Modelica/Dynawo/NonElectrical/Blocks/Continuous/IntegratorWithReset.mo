@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block IntegratorWithReset "Integrator with absolute limits and reset"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.Time tI "Integrator time constant in s";
@@ -23,7 +20,7 @@ block IntegratorWithReset "Integrator with absolute limits and reset"
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
   Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
-    Placement(visible = true, transformation(origin = {-120, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.BooleanInput fReset(start = false) "Reset flag, true if yReset should be used" annotation(
     Placement(visible = true, transformation(origin = {-20, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput yReset(start = Y0) "Reset value of output" annotation(

@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model DroopControl "Droop control for grid forming converters"
-  import Modelica;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
   parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)";
@@ -45,9 +42,9 @@ model DroopControl "Droop control for grid forming converters"
     Placement(visible = true, transformation(origin = {-130, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealOutput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {50,95}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130,40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
-    Placement(visible = true, transformation(origin = {130, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput udFilterRefPu(start = UdFilter0Pu) "d-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = UqFilter0Pu) "q-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
@@ -55,17 +52,17 @@ model DroopControl "Droop control for grid forming converters"
 
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain (k=Mp)annotation(
+  Modelica.Blocks.Math.Gain gain (k = Mp)annotation(
     Placement(visible = true, transformation(origin = {-50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1/Wf, k=1, y_start = Mp * (PRef0Pu - PFilter0Pu)) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = 1 / Wf, k = 1, y_start = Mp * (PRef0Pu - PFilter0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-20, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {20, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback2 annotation(
-    Placement(visible = true, transformation(origin = {70, 95}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, 94}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom, y_start = Theta0) annotation(
-    Placement(visible = true, transformation(origin = {100, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k=1, y_start = QFilter0Pu) annotation(
+    Placement(visible = true, transformation(origin = {100, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k = 1, y_start = QFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kff) annotation(
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -111,13 +108,13 @@ equation
   connect(gain.y, firstOrder.u) annotation(
     Line(points = {{-39, 100}, {-32, 100}}, color = {0, 0, 127}));
   connect(add1.y, omegaPu) annotation(
-    Line(points = {{31, 94}, {40.5, 94}, {40.5, 95}, {50, 95}}, color = {0, 0, 127}));
-  connect(feedback2.u1, omegaPu) annotation(
-    Line(points = {{62, 95}, {50, 95}}, color = {0, 0, 127}));
+    Line(points = {{31, 94}, {40, 94}, {40, 40}, {130, 40}}, color = {0, 0, 127}));
+  connect(add1.y, feedback2.u1) annotation(
+    Line(points = {{31, 94}, {62, 94}}, color = {0, 0, 127}));
   connect(integrator.u, feedback2.y) annotation(
-    Line(points = {{88, 95}, {79, 95}}, color = {0, 0, 127}));
+    Line(points = {{88, 94}, {79, 94}}, color = {0, 0, 127}));
   connect(integrator.y, theta) annotation(
-    Line(points = {{130, 95}, {111, 95}}, color = {0, 0, 127}));
+    Line(points = {{111, 94}, {130, 94}}, color = {0, 0, 127}));
   connect(gain1.u, idPccPu) annotation(
     Line(points = {{-62, -70}, {-130, -70}}, color = {0, 0, 127}));
   connect(gain2.u, iqPccPu) annotation(
@@ -157,7 +154,7 @@ equation
   connect(UFilterRefPu, add2.u2) annotation(
     Line(points = {{-130, -50}, {0, -50}, {0, -2}, {8, -2}}, color = {0, 0, 127}));
   connect(omegaRefPu, feedback2.u2) annotation(
-    Line(points = {{-130, 120}, {70, 120}, {70, 103}}, color = {0, 0, 127}));
+    Line(points = {{-130, 120}, {70, 120}, {70, 102}}, color = {0, 0, 127}));
   connect(firstOrder3.y, feedback7.u1) annotation(
     Line(points = {{-9, -110}, {72, -110}}, color = {0, 0, 127}));
   connect(DeltaVVId, feedback5.u2) annotation(

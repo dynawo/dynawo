@@ -13,11 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries;
 */
 
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
-  import Modelica;
-  import Modelica.ComplexMath;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

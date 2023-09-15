@@ -23,8 +23,6 @@ block VDrop "Calculates the voltage in the serial impedance distance r+jx from t
           |                        |
        UDropPu                    UPu
 */
-  import Modelica;
-  import Dynawo.Types;
 
   //VDrop parameters
   parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base SNom, UNom)" annotation(

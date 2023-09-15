@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Machines;
 */
 
 package ReactivePowerControlLoops "Reactive power control loops models"
-  import Modelica.Icons;
-  import Dynawo.AdditionalIcons;
-
   extends Icons.Package;
 
 end ReactivePowerControlLoops;

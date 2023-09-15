@@ -13,10 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate limits, and a freezing flag"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
@@ -30,7 +26,7 @@ block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate l
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
   Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
-    Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput yMax if UseLimits "Upper limit of output" annotation(
     Placement(visible = true, transformation(origin = {-220, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput yMin if UseLimits "Lower limit of output" annotation(

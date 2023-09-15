@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block DecreaseDetection "Output y is true, if the input u has fallen to a lower value since the previous sample"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.Time tS "Integration time step in s";

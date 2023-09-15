@@ -13,7 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block MultiSwitch "Switch between N Real signals"
-  import Modelica;
 
   parameter Integer nu(min=0) = 0 "Number of input connections" annotation(
     Dialog(connectorSizing=true), HideResult=true);

@@ -14,10 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model ExcIEEEST4B_INIT "IEEE exciter type ST4B initialization model"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends AdditionalIcons.Init;
 
   //Regulation parameters

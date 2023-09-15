@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 */
 
 model SecondaryVoltageControl "Model for simplified secondary voltage control"
-  import Modelica;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit Alpha "PI integral gain";
@@ -54,7 +52,7 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
     Placement(visible = true, transformation(origin = {140, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Zero(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));

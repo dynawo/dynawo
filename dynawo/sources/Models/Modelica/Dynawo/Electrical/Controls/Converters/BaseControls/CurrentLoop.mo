@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model CurrentLoop "Current loop control for grid forming and grid following converters"
-  import Modelica;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit Kpc "Proportional gain of the current loop";
   parameter Types.PerUnit Kic "Integral gain of the current loop";

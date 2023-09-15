@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block MinThresholdSwitch "Switch between two real values, depending on the input crossing a min threshold"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real UMin "Minimum allowed u";
