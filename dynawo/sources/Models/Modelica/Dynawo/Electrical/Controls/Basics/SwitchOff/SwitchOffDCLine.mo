@@ -29,10 +29,10 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
 
 equation
   when not(runningSide1.value) or not(runningSide2.value) then
-    Timeline.logEvent1 (TimelineKeys.DCLineOpen);
+    Timeline.logEvent1(TimelineKeys.DCLineOpen);
     state = Constants.state.Open;
   elsewhen runningSide1.value and runningSide2.value and (not(pre(runningSide1.value)) or not(pre(runningSide2.value))) then
-    Timeline.logEvent1 (TimelineKeys.DCLineClosed);
+    Timeline.logEvent1(TimelineKeys.DCLineClosed);
     state = Constants.state.Closed;
   end when;
 

@@ -26,10 +26,10 @@ partial model SwitchOffShunt "Switch-off model for a shunt"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.ShuntDisconnected);
+    Timeline.logEvent1(TimelineKeys.ShuntDisconnected);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.ShuntConnected);
+    Timeline.logEvent1(TimelineKeys.ShuntConnected);
     state = Constants.state.Closed;
   end when;
 

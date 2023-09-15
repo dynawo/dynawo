@@ -27,10 +27,10 @@ partial model SwitchOffInjector "Switch-off model for an injector"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.ComponentDisconnected);
+    Timeline.logEvent1(TimelineKeys.ComponentDisconnected);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.ComponentConnected);
+    Timeline.logEvent1(TimelineKeys.ComponentConnected);
     state = Constants.state.Closed;
   end when;
 
