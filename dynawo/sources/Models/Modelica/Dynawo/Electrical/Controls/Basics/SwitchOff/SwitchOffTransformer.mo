@@ -26,10 +26,10 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
+    Timeline.logEvent1(TimelineKeys.TransformerSwitchOff);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.TransformerSwitchOn);
+    Timeline.logEvent1(TimelineKeys.TransformerSwitchOn);
     state = Constants.state.Closed;
   end when;
 
