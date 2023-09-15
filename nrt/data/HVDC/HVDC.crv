@@ -28,4 +28,8 @@
   <curve model="HVDC" variable="hvdc_Conv2_UPhase"/>
   <curve model="HVDC" variable="hvdc_dCLine_IDc2Pu"/>
   <curve model="HVDC" variable="hvdc_dCLine_UDc2Pu"/>
+  <!-- <curve model="HVDC" variable="hvdc_PRefPu"/>
+  <curve model="HVDC" variable="hvdc_UDcRefPu"/>
+  <curve model="HVDC" variable="hvdc_URef1Pu"/> -->
+  <curve model="HVDC" variable="hvdc_URef2Pu"/>
 </curvesInput>
