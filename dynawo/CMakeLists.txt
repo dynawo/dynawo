@@ -272,7 +272,7 @@ find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 
 set(DYNAWO_USE_LIBXML2 "Y")
 find_package(LibXml2 "2.9" REQUIRED)
-find_package(LibIIDM "1.8.0" REQUIRED PATHS ${LIBIIDM_HOME})
+find_package(LibIIDM "1.9.0" REQUIRED PATHS ${LIBIIDM_HOME})
 
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")

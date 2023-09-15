@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b0d1540..1418b5f 100644
+index b0d1540..401dabc 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
@@ -7,20 +7,21 @@ index b0d1540..1418b5f 100644
  
  set(IIDM_VERSION_MAJOR 1)
 -set(IIDM_VERSION_MINOR 6)
-+set(IIDM_VERSION_MINOR 8)
++set(IIDM_VERSION_MINOR 9)
  set(IIDM_VERSION_PATCH 0)
  set(IIDM_VERSION ${IIDM_VERSION_MAJOR}.${IIDM_VERSION_MINOR}.${IIDM_VERSION_PATCH})
  set(IIDM_SOVERSION ${IIDM_VERSION_MAJOR})
 diff --git a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
-index 68f4717..8d9e7ba 100644
+index 68f4717..a84948a 100644
 --- a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
 +++ b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
-@@ -36,6 +36,8 @@ MergedXnodeXmlSerializer::MergedXnodeXmlSerializer() :
+@@ -36,6 +36,9 @@ MergedXnodeXmlSerializer::MergedXnodeXmlSerializer() :
              .put(converter::xml::IidmXmlVersion::V1_4(), {"1.0", "1.1"})
              .put(converter::xml::IidmXmlVersion::V1_5(), {"1.0", "1.1"})
              .put(converter::xml::IidmXmlVersion::V1_6(), {"1.0", "1.1"})
 +            .put(converter::xml::IidmXmlVersion::V1_7(), {"1.0", "1.1"})
 +            .put(converter::xml::IidmXmlVersion::V1_8(), {"1.0", "1.1"})
++            .put(converter::xml::IidmXmlVersion::V1_9(), {"1.0", "1.1"})
              .build(),
          stdcxx::MapBuilder<std::string, std::string>()
              .put("1.0", "http://www.itesla_project.eu/schema/iidm/ext/merged_xnode/1_0")
@@ -210,10 +211,10 @@ index 0b13361..c074f51 100644
  static const char* const SUBSTATION = "substation";
  static const char* const SWITCH = "switch";
 diff --git a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
-index 742607f..bd511a5 100644
+index 742607f..b518fd9 100644
 --- a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
 +++ b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
-@@ -62,6 +62,16 @@ public:
+@@ -62,6 +62,21 @@ public:
       */
      static const IidmXmlVersion& V1_6();
  
@@ -226,6 +227,11 @@ index 742607f..bd511a5 100644
 +     * IIDM V1.8 (http://www.powsybl.org)
 +     */
 +    static const IidmXmlVersion& V1_8();
++
++    /**
++     * IIDM V1.9 (http://www.powsybl.org)
++     */
++    static const IidmXmlVersion& V1_9();
 +
  public:
      /**
@@ -572,17 +578,18 @@ index d8381f4..5e75095 100644
  
  }  // namespace xml
 diff --git a/src/iidm/converter/xml/IidmXmlVersion.cpp b/src/iidm/converter/xml/IidmXmlVersion.cpp
-index de78592..8636d5e 100644
+index de78592..a140b05 100644
 --- a/src/iidm/converter/xml/IidmXmlVersion.cpp
 +++ b/src/iidm/converter/xml/IidmXmlVersion.cpp
-@@ -67,14 +67,16 @@ const IidmXmlVersions& IidmXmlVersion::all() {
+@@ -67,14 +67,17 @@ const IidmXmlVersions& IidmXmlVersion::all() {
          std::cref(IidmXmlVersion::V1_3()),
          std::cref(IidmXmlVersion::V1_4()),
          std::cref(IidmXmlVersion::V1_5()),
 -        std::cref(IidmXmlVersion::V1_6())
 +        std::cref(IidmXmlVersion::V1_6()),
 +        std::cref(IidmXmlVersion::V1_7()),
-+        std::cref(IidmXmlVersion::V1_8())
++        std::cref(IidmXmlVersion::V1_8()),
++        std::cref(IidmXmlVersion::V1_9())
      }};
  
      return s_versions;
@@ -590,11 +597,11 @@ index de78592..8636d5e 100644
  
  const IidmXmlVersion& IidmXmlVersion::CURRENT_IIDM_XML_VERSION() {
 -    return V1_6();
-+    return V1_8();
++    return V1_9();
  }
  
  const IidmXmlVersion& IidmXmlVersion::fromNamespaceURI(const std::string& namespaceURI) {
-@@ -157,6 +159,16 @@ const IidmXmlVersion& IidmXmlVersion::V1_6() {
+@@ -157,6 +160,21 @@ const IidmXmlVersion& IidmXmlVersion::V1_6() {
      return V1_6;
  }
  
@@ -606,6 +613,11 @@ index de78592..8636d5e 100644
 +const IidmXmlVersion& IidmXmlVersion::V1_8() {
 +    static IidmXmlVersion V1_8("powsybl.org", {{1, 8}});
 +    return V1_8;
++}
++
++const IidmXmlVersion& IidmXmlVersion::V1_9() {
++    static IidmXmlVersion V1_9("powsybl.org", {{1, 9}});
++    return V1_9;
 +}
 +
  }  // namespace xml
@@ -753,6 +765,20 @@ index 0000000..c856740
 +
 +#endif  // POWSYBL_IIDM_CONVERTER_XML_NODEBREAKERVIEWFICTITIOUSINJECTIONXML_HPP
 +
+diff --git a/src/iidm/converter/xml/ShuntCompensatorXml.cpp b/src/iidm/converter/xml/ShuntCompensatorXml.cpp
+index 06095d9..12bacb0 100644
+--- a/src/iidm/converter/xml/ShuntCompensatorXml.cpp
++++ b/src/iidm/converter/xml/ShuntCompensatorXml.cpp
+@@ -170,7 +170,8 @@ void ShuntCompensatorXml::writeRootElementAttributes(const ShuntCompensator& shu
+     IidmXmlUtil::writeDoubleAttributeFromMinimumVersion(SHUNT, TARGET_V, shuntCompensator.getTargetV(), ErrorMessage::NOT_DEFAULT_NOT_SUPPORTED, IidmXmlVersion::V1_2(), context);
+     IidmXmlUtil::writeDoubleAttributeFromMinimumVersion(SHUNT, TARGET_DEADBAND, shuntCompensator.getTargetDeadband(), ErrorMessage::NOT_DEFAULT_NOT_SUPPORTED, IidmXmlVersion::V1_2(), context);
+     writeNodeOrBus(shuntCompensator.getTerminal(), context);
+-    writePQ(shuntCompensator.getTerminal(), context.getWriter());
++    IidmXmlUtil::runFromMinimumVersion(IidmXmlVersion::V1_9(), context.getVersion(), [&context, &shuntCompensator]() { context.getWriter().writeOptionalAttribute(P, shuntCompensator.getTerminal().getP()); });
++    context.getWriter().writeOptionalAttribute(Q, shuntCompensator.getTerminal().getQ());
+ }
+ 
+ void ShuntCompensatorXml::writeSubElements(const ShuntCompensator& sc, const VoltageLevel& /*voltageLevel*/, NetworkXmlWriterContext& context) const {
 diff --git a/src/iidm/converter/xml/VoltageLevelXml.cpp b/src/iidm/converter/xml/VoltageLevelXml.cpp
 index 5957abf..ce9d7f7 100644
 --- a/src/iidm/converter/xml/VoltageLevelXml.cpp
@@ -793,19 +819,20 @@ index 5957abf..ce9d7f7 100644
  }
  
 diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-index a132f81..911bff5 100644
+index a132f81..1da9a1f 100644
 --- a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
 +++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-@@ -34,6 +34,8 @@ SlackTerminalXmlSerializer::SlackTerminalXmlSerializer() :
+@@ -34,6 +34,9 @@ SlackTerminalXmlSerializer::SlackTerminalXmlSerializer() :
                .put(converter::xml::IidmXmlVersion::V1_4(), {"1.1"})
                .put(converter::xml::IidmXmlVersion::V1_5(), {"1.2"})
                .put(converter::xml::IidmXmlVersion::V1_6(), {"1.2"})
 +              .put(converter::xml::IidmXmlVersion::V1_7(), {"1.2"})
 +              .put(converter::xml::IidmXmlVersion::V1_8(), {"1.2"})
++              .put(converter::xml::IidmXmlVersion::V1_9(), {"1.2"})
                .build(),
            stdcxx::MapBuilder<std::string, std::string>()
                .put("1.0", "http://www.powsybl.org/schema/iidm/ext/slack_terminal/1_0")
-@@ -56,7 +58,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
+@@ -56,7 +59,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
      }
      auto& voltageLevel = dynamic_cast<VoltageLevel&>(extendable);
      const std::string& id = context.getAnonymizer().deanonymizeString(context.getReader().getAttributeValue(converter::ID));
