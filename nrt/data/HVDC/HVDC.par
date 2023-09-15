@@ -109,7 +109,7 @@
   <set id="6">
     <par type="DOUBLE" name="fault_RPu" value="0"/>
     <par type="DOUBLE" name="fault_XPu" value="1e-4"/>
-    <par type="DOUBLE" name="fault_tBegin" value="8"/>
+    <par type="DOUBLE" name="fault_tBegin" value="7.999999"/>
     <par type="DOUBLE" name="fault_tEnd" value="9"/>
   </set>
   <!-- PRef -->
@@ -135,15 +135,10 @@
   </set>
   <!-- URef2 -->
   <set id="74">
-    <!-- <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
+    <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
     <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
-    <par type="STRING" name="combiTimeTable_TableName" value="URef2"/> -->
-    <par type="DOUBLE" name="doubleStep_Value0" value="0.9797"/>
-    <par type="DOUBLE" name="doubleStep_tStep1" value="7"/>
-    <par type="DOUBLE" name="doubleStep_Height1" value="0.0203"/>
-    <par type="DOUBLE" name="doubleStep_tStep2" value="8"/>
-    <par type="DOUBLE" name="doubleStep_Height2" value="0"/>
+    <par type="STRING" name="combiTimeTable_TableName" value="URef2"/>
   </set>
   <!-- Solver -->
   <set id="8">
