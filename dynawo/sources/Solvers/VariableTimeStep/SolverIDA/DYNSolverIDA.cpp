@@ -442,6 +442,9 @@ SolverIDA::calculateIC() {
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
     model_->evalG(tSolve_, g1_);
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
+#ifdef _DEBUG_
+        printUnstableRoot(tSolve_, g0_, g1_);
+#endif
       g0_.assign(g1_.begin(), g1_.end());
       change = evalZMode(g0_, g1_, tSolve_);
     }
@@ -769,6 +772,9 @@ SolverIDA::reinit() {
       if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
         break;
       } else {
+#ifdef _DEBUG_
+        printUnstableRoot(tSolve_, g0_, g1_);
+#endif
         g0_.assign(g1_.begin(), g1_.end());
         evalZMode(g0_, g1_, tSolve_);
         modeChangeType = model_->getModeChangeType();
