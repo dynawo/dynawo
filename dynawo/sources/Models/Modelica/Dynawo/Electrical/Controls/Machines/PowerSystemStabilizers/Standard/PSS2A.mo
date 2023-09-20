@@ -37,7 +37,7 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   parameter Types.VoltageModulePu Upss0Pu "Initial voltage output in pu (base UNom)";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) - generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-194, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-194, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -48,23 +48,23 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
 
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VstMax, uMin = VstMin) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder transducerOmega(T = T6, k = 1) annotation(
+  Modelica.Blocks.Continuous.FirstOrder transducerOmega(T = T6) annotation(
     Placement(visible = true, transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction washoutOmega1(a = {Tw1, 1}, b = {Tw1, 0}) annotation(
+  Modelica.Blocks.Continuous.Derivative washoutOmega1(k = Tw1, T = Tw1) annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction washoutPGen1(a = {Tw3, 1}, b = {Tw3, 0}, y_start = PGen0Pu * gain.k) annotation(
+  Modelica.Blocks.Continuous.Derivative washoutPGen1(k = Tw3, T = Tw3, x_start = PGen0Pu * gain.k) annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder transducerPGen(T = T7, k = Ks2, y_start = Ks2 * PGen0Pu * gain.k) annotation(
+  Modelica.Blocks.Continuous.FirstOrder transducerPGen(k = Ks2, T = T7, y_start = Ks2 * PGen0Pu * gain.k) annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag1(a = {T2, 1}, b = {T1, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
+  Modelica.Blocks.Continuous.TransferFunction leadLag1(a = {T2, 1}, b = {T1, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y(start = Upss0Pu)) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction washoutOmega2(a = {Tw2, 1}, b = {Tw2, 0}) annotation(
+  Modelica.Blocks.Continuous.Derivative washoutOmega2(k = Tw2, T = Tw2) annotation(
     Placement(visible = true, transformation(origin = {-80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction washoutPGen2(a = {Tw4, 1}, b = {Tw4, 0}, y_start = PGen0Pu * gain.k) annotation(
+  Modelica.Blocks.Continuous.Derivative washoutPGen2(k = Tw4, T = Tw4) annotation(
     Placement(visible = true, transformation(origin = {-80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag2(a = {T4, 1}, b = {T3, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
+  Modelica.Blocks.Continuous.TransferFunction leadLag2(a = {T4, 1}, b = {T3, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y(start = Upss0Pu)) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -77,7 +77,7 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   Modelica.Blocks.Math.Add add(k2 = Ks3) annotation(
     Placement(visible = true, transformation(origin = {-10, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.ActivePowerPu PGen0Pu "Initial active power input in pu (base SnRef) - generator convention";
+  parameter Types.ActivePowerPu PGen0Pu "Initial active power input in pu (base SnRef) (generator convention)";
 
 equation
   connect(transducerPGen.y, feedback.u2) annotation(

@@ -33,12 +33,12 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.Integrator integrator(y_start = Modelica.ComplexMath.arg(u0Pu), k = SystemBase.omegaNom) annotation(
-    Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2(k1 = 1, k2 = 1) annotation(
-    Placement(visible = true, transformation(origin = {70, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {80, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression(y = uPu.im * cos(phi) - uPu.re * sin(phi)) annotation(
     Placement(visible = true, transformation(origin = {-85, 0}, extent = {{-45, -15}, {45, 15}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = SystemBase.omegaRef0Pu - OmegaMinPu, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = SystemBase.omegaRef0Pu - OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {0, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k1 = 1, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -50,19 +50,19 @@ model PLL "Phase-Locked Loop"
 
 equation
   connect(add2.y, omegaPLLPu) annotation(
-    Line(points = {{81, -84}, {150, -84}}, color = {0, 0, 127}));
+    Line(points = {{91, -84}, {150, -84}}, color = {0, 0, 127}));
   connect(omegaRefPu, add2.u2) annotation(
-    Line(points = {{-150, -90}, {58, -90}, {58, -90}, {58, -90}}, color = {0, 0, 127}));
+    Line(points = {{-150, -90}, {68, -90}}, color = {0, 0, 127}));
   connect(integrator.y, phi) annotation(
-    Line(points = {{81, 0}, {150, 0}}, color = {0, 0, 127}));
+    Line(points = {{91, 0}, {150, 0}}, color = {0, 0, 127}));
   connect(realExpression.y, limIntegrator.u) annotation(
     Line(points = {{-35, 0}, {-20, 0}, {-20, -20}, {-12, -20}}, color = {0, 0, 127}));
   connect(limIntegrator.y, add1.u2) annotation(
     Line(points = {{11, -20}, {20, -20}, {20, -6}, {28, -6}}, color = {0, 0, 127}));
   connect(add1.y, integrator.u) annotation(
-    Line(points = {{51, 0}, {58, 0}}, color = {0, 0, 127}));
+    Line(points = {{51, 0}, {68, 0}}, color = {0, 0, 127}));
   connect(add1.y, add2.u1) annotation(
-    Line(points = {{51, 0}, {54, 0}, {54, -78}, {58, -78}}, color = {0, 0, 127}));
+    Line(points = {{51, 0}, {60, 0}, {60, -78}, {68, -78}}, color = {0, 0, 127}));
   connect(realExpression.y, gain.u) annotation(
     Line(points = {{-35, 0}, {-20, 0}, {-20, 20}, {-12, 20}}, color = {0, 0, 127}));
   connect(gain.y, add1.u1) annotation(

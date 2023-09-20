@@ -56,7 +56,7 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-40, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter3(uMax = PMaxPu, uMin = PMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 175}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DPMin, Rising = DPMax, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DPMin, Rising = DPMax, y(start = PInj0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-230, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch pflagswitch annotation(
     Placement(visible = true, transformation(origin = {-90, 175}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -73,7 +73,7 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
     Placement(visible = true, transformation(origin = {311, 12}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationWind currentLimitsCalculation1(IMaxPu = IMaxPu, PPriority = PPriority, HoldIpMax = HoldIpMax) annotation(
     Placement(visible = true, transformation(origin = {432, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tPord, UseFreeze = true, UseRateLim = true, Y0 = PInj0Pu, k = 1) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tPord, UseFreeze = true, UseRateLim = true, Y0 = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 175}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

@@ -46,9 +46,9 @@ model HYGOV
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)" annotation(
     Placement(visible = true, transformation(origin = {410, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tF, initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / KDroopTemp) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1 / KDroopTemp, T = tF) annotation(
     Placement(visible = true, transformation(origin = {-310, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tG, initType = Modelica.Blocks.Types.Init.InitialState, y_start = OpeningGate0) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tG, y_start = OpeningGate0) annotation(
     Placement(visible = true, transformation(origin = {-50, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = DTurb) annotation(
     Placement(visible = true, transformation(origin = {-50, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -58,7 +58,7 @@ model HYGOV
     Placement(visible = true, transformation(origin = {70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(initType = Modelica.Blocks.Types.Init.InitialOutput, k = 1 / tW, y_start = FlowTurbine0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tW, y_start = FlowTurbine0) annotation(
     Placement(visible = true, transformation(origin = {210, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = HDam) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

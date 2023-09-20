@@ -22,7 +22,7 @@ model LeadMOrderLag "Lead-lag filter with M poles"
   parameter Real Y0 = 0 "Initial or guess value of output" annotation(
   Dialog(group="Initialization"));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrderCascade[max(0, M-1)](each T = t2, each k = 1, each y_start = Y0) if M > 1 annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderCascade[max(0, M-1)](each T = t2, each y_start = Y0) if M > 1 annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction leadlag(a = {t2, 1}, b = {K * t1, K}) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
