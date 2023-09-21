@@ -200,6 +200,10 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    */
   void updateTimeStep(double& tNxt);
 
+  inline void setInitStep(double initStep) {
+    static_cast<void>(initStep);
+  }
+
  protected:
   /**
    * @brief Common part of solveStep function. Used to factorize.

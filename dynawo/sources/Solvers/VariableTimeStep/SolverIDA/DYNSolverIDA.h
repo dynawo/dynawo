@@ -132,6 +132,15 @@ class SolverIDA : public Solver::Impl {
     return flagInit_;
   }
 
+  inline void setInitStep(double initStep) {
+    initStep_ = initStep;
+  }
+
+  inline std::string getName() {
+    static std::string name = "IDA";
+    return name;
+  }
+
  private:
   /**
    * @brief update statistics of execution of the solver
@@ -244,6 +253,16 @@ class SolverIDA : public Solver::Impl {
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
   bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
+
+  /**
+   * @brief Check jacobian
+   *
+   * @throw exceptions if jacobian is incorrect
+   *
+   * @param smj the jacobian to check
+   * @param model the model currelty used
+   */
+  static void checkJacobian(const SparseMatrix& smj, Model& model);
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure

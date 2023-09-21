@@ -25,6 +25,7 @@
 #include <boost/optional.hpp>
 #include <cstddef>
 #include <utility>
+#include <iostream>
 
 namespace DYN {
 /**
@@ -50,7 +51,7 @@ class Delay {
    *
    * @param timepoints the list of the timepoints to use
    */
-  explicit Delay(const std::vector<std::pair<double, double> >& timepoints);
+  explicit Delay(const std::vector<std::pair<double, double> >& timepoints, double delayMax);
 
   /**
    * @brief Update reference internal values
@@ -111,7 +112,7 @@ class Delay {
   /**
    * @brief Trigger the delay to notify that we must start compute its value
    */
-  void trigger() {
+  void trigger(double /*time*/, double /*delayTime*/, const std::string& /*name*/) {
     if (!trigger_.is_initialized()) {
       trigger_ = true;
       triggerValue_ = true;
@@ -150,7 +151,7 @@ class Delay {
  private:
   const double* time_;                    ///< pointer to time to use for timepoint and delay computation
   const double* value_;                   ///< pointer to value to use for timepoint
-  double delayMax_;
+  double delayMax_;                       ///<
   RingBuffer buffer_;                     ///< ring buffer to manage the records
   boost::optional<double> initialValue_;  ///< Initial value to use when delay cannot be computed
   boost::optional<bool> trigger_;         ///< 3-state trigger to determine the first time the delay is computed

@@ -840,6 +840,7 @@ Simulation::init() {
     Trace::info() << DYNLog(ModelInitialStateLoad) << Trace::endline;
     Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
     t0 = loadState(initialStateFile_);  // loadState and return initial time
+    // model_->printToFile("loadState", true, true, true);
     Trace::info() << DYNLog(ModelInitialStateLoadEnd) << Trace::endline;
     Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
   }
@@ -915,13 +916,20 @@ Simulation::calculateIC() {
   model_->evalDynamicYType();
   model_->evalDynamicFType();
 
+  // model_->printToFile("loadState", true, true, false);
+
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   // ensure globally satisfactory initial values for dynamic models
   solver_->init(model_, tStart_, tStop_);
+
+  // model_->printToFile("init", true, true, true);
+
   solver_->calculateIC();
   model_->getCurrentZ(zCurrent_);
+
+  // model_->printToFile("afterCalculateIC", true, true, true);
 
   model_->notifyTimeStep();
 
@@ -1051,7 +1059,17 @@ Simulation::simulate() {
         }
         intermediateStates_.pop();
       }
+      // model_->printToFile("", true, true, true);
     }
+
+//    static int nbPrint = 0;
+//
+//    std::vector<double> ff(model_->sizeY());
+//    model_->evalF(tCurrent_, &solver_->getCurrentY()[0], &solver_->getCurrentYP()[0], &ff[0]);
+//
+//    model_->printVectorToFile("tmpFEnd", "solF", &ff[0], model_->sizeY(), nbPrint);
+//
+//    model_->printToFile("", true, true, true);
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
     if (finalState_.iidmFile_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
@@ -1457,6 +1475,8 @@ Simulation::dumpState(const boost::filesystem::path& dumpFile) {
   boost::archive::binary_oarchive os(state);
 
   os << tCurrent_;
+  os << solver_->getName();
+  os << solver_->getTimeStep();
 
   map<string, string> mapValues;  // map associating file name with parameters/variables to dump
   mapValues[TIME_FILENAME] = state.str();
@@ -1492,12 +1512,19 @@ Simulation::loadState(const string& fileName) {
   stringstream state(iter->second);
   boost::archive::binary_iarchive is(state);
 
-  double tCurrent = 0;
+  double tCurrent = 0.;
+  double timeStep = 0.;
+  std::string solverName;
   is >> tCurrent;
+  is >> solverName;
+  is >> timeStep;
   // loading information
   tCurrent_ = tCurrent;
 
   model_->setInitialTime(tCurrent_);
+  if (solver_->getName() == solverName) {
+    solver_->setInitStep(timeStep);
+  }
 
   // loading parameters/model variables
   model_->loadParameters(mapValues);

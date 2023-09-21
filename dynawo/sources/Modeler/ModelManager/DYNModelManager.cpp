@@ -839,6 +839,9 @@ ModelManager::loadParameters(const string& parameters) {
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
   }
 
+  // To activate all delays
+  delayManager_.evalMode(getCurrentTime(), name());
+
   // copy of loaded parameters in the map
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param

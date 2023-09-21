@@ -346,6 +346,23 @@
     <par type="DOUBLE" name="tapChanger_U0" value="1"/>
     <par type="INT" name="tapChanger_tap0" value="5"/>
   </set>
+  <set id="1">
+    <par type="DOUBLE" name="load_alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_beta" value="2.5"/>
+    <par type="DOUBLE" name="transformer_B" value="0"/>
+    <par type="DOUBLE" name="transformer_G" value="0"/>
+    <par type="DOUBLE" name="transformer_R" value="0"/>
+    <par type="DOUBLE" name="transformer_X" value="10"/>
+    <par type="INT" name="transformer_NbTap" value="21"/>
+    <par type="DOUBLE" name="transformer_rTfoMaxPu" value="1.10"/>
+    <par type="DOUBLE" name="transformer_rTfoMinPu" value="0.90"/>
+    <par type="DOUBLE" name="transformer_Uc20Pu" value="1"/>
+    <reference type="DOUBLE" name="transformer_SNom" origData="IIDM" origName="sn"/>
+    <reference type="DOUBLE" name="transformer_P10Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="transformer_Q10Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="transformer_U10Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="transformer_U1Phase0" origData="IIDM" origName="angle_pu"/>
+  </set>
   <set id="14">
     <par type="DOUBLE" name="tapChangerBlocking_UMin" value="68.240"/>
     <par type="DOUBLE" name="tapChangerBlocking_tLagBeforeBlocked" value="20"/>

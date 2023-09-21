@@ -210,6 +210,10 @@ class Solver {
    */
   virtual void printSolve() const = 0;
 
+  virtual void setInitStep(double initStep) = 0;
+
+  virtual std::string getName() = 0;
+
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e. solution)
    *

@@ -32,7 +32,13 @@ initialValue_(),
 trigger_(),
 triggerValue_(false) {}
 
-Delay::Delay(const std::vector<std::pair<double, double> >& timepoints) : time_(NULL), value_(NULL), buffer_(0), initialValue_(), trigger_(),
+Delay::Delay(const std::vector<std::pair<double, double> >& timepoints, double delayMax) :
+time_(NULL),
+value_(NULL),
+delayMax_(delayMax),
+buffer_(0),
+initialValue_(),
+trigger_(),
 triggerValue_(false) {
   for (std::vector<std::pair<double, double> >::const_iterator it = timepoints.begin(); it != timepoints.end(); ++it) {
     buffer_.addNoCheck(it->first, it->second);

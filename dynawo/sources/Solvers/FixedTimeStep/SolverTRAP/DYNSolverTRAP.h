@@ -92,6 +92,11 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   */
   void computePrediction();
 
+  inline std::string getName() {
+    static std::string name = "TRAP";
+    return name;
+  }
+
  private:
   /**
    * @copydoc Solver::getTimeStep()

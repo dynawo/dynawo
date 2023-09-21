@@ -45,6 +45,7 @@
 #include "DYNTrace.h"
 #include "DYNTimer.h"
 #include "DYNSolverCommon.h"
+#include "DYNFileSystemUtils.h"
 
 using std::endl;
 using std::make_pair;
@@ -363,8 +364,9 @@ SolverIDA::calculateIC() {
   y0.assign(vectorY_.begin(), vectorY_.end());
 
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+  Trace::debug(Trace::solver()) << DYNLog(SolverIDAStartCalculateIC) << Trace::endline;
   for (int i = 0; i < model_->sizeY(); ++i) {
-    Trace::debug() << "Y[" << std::setw(3) << i << "] = "
+    Trace::debug(Trace::solver()) << "Y[" << std::setw(3) << i << "] = "
                    << std::setw(15) << vectorY_[i]
                    << " Yp[" << std::setw(2) << i << "] = "
                    << std::setw(15) << vectorYp_[i]
@@ -398,10 +400,14 @@ SolverIDA::calculateIC() {
   solverKINNormal_->setCheckJacobian(true);
 #endif
   do {
+    // model_->printToFile("SolverKINNormal", true, true, false);
+
     // call to solver KIN in order to find the new (adequate) algebraic variables' values
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
+
+    // model_->printToFile("SolverKINNormalAfter", true, true, false);
 
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
@@ -409,7 +415,7 @@ SolverIDA::calculateIC() {
     if (flag0 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 #ifdef _DEBUG_
-    Trace::debug() << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
+    Trace::debug(Trace::solver()) << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
     for (int i = 0; i < model_->sizeY(); ++i) {
       Trace::debug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vectorY_[i] << " Yp[" << std::setw(3) << i << "] = "
       << std::setw(15) << vectorYp_[i] << " diffY[" << std::setw(3) << i << "] = " << vectorY_[i] - ySave[i] << Trace::endline;
@@ -419,12 +425,14 @@ SolverIDA::calculateIC() {
     int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
 
+    // model_->printToFile("IDACalcIC", true, true, false);
+
     // gathering of values computed by IDACalcIC
     flag = IDAGetConsistentIC(IDAMem_, sundialsVectorY_, sundialsVectorYp_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetConsistentIC");
 #ifdef _DEBUG_
-    Trace::debug() << DYNLog(SolverIDAAfterInit) << Trace::endline;
+    Trace::debug(Trace::solver()) << DYNLog(SolverIDAAfterInit) << Trace::endline;
     double maxDiff = 0;
     int indice = -1;
     for (int i = 0; i < model_->sizeY(); ++i) {
@@ -435,7 +443,7 @@ SolverIDA::calculateIC() {
         indice = i;
       }
     }
-    Trace::debug() << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
+    Trace::debug(Trace::solver()) << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
 #endif
     // Root stabilization
     change = false;
@@ -535,7 +543,19 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
   realtype* irr = NV_DATA_S(rr);
+
+  // static int nbPrint = 0;
+
+  // std::cout << "nbPrint evalF " << nbPrint << std::endl;
+
+  // model.printToFile("evalF", true, true, false);
+
   model.evalF(tres, iyy, iyp, irr);
+
+  // model.printVectorToFile("tmpF", "solF", irr, model.sizeY(), nbPrint);
+
+  // ++nbPrint;
+
 #ifdef _DEBUG_
   if (solver->flagInit()) {
     Trace::debug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
@@ -593,7 +613,31 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   model.evalJt(tt, cj, smj);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, "KLU", true);
 
+  // if (tt > 99.) {
+  // smj.printToFile(true);
+  // }
+  // checkJacobian(smj, model);
+
   return 0;
+}
+
+void
+SolverIDA::checkJacobian(const SparseMatrix& smj, Model& model) {
+  SparseMatrix::CheckError error = smj.check();
+  string sub_model_name;
+  string equation;
+  string equation_bis;
+  int local_index;
+  switch (error.code) {
+    case SparseMatrix::CHECK_ZERO_ROW:
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info));
+    case SparseMatrix::CHECK_ZERO_COLUMN:
+      model.getFInfos(error.info, sub_model_name, local_index, equation);
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
+    case SparseMatrix::CHECK_OK:
+      // do nothing
+      break;
+  }
 }
 
 void
