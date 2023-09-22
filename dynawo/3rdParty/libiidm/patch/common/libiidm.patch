@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b0d1540..401dabc 100644
+index b0d1540..c0aac14 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
@@ -7,21 +7,22 @@ index b0d1540..401dabc 100644
  
  set(IIDM_VERSION_MAJOR 1)
 -set(IIDM_VERSION_MINOR 6)
-+set(IIDM_VERSION_MINOR 9)
++set(IIDM_VERSION_MINOR 10)
  set(IIDM_VERSION_PATCH 0)
  set(IIDM_VERSION ${IIDM_VERSION_MAJOR}.${IIDM_VERSION_MINOR}.${IIDM_VERSION_PATCH})
  set(IIDM_SOVERSION ${IIDM_VERSION_MAJOR})
 diff --git a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
-index 68f4717..a84948a 100644
+index 68f4717..9c7047d 100644
 --- a/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
 +++ b/extensions/entsoe/src/MergedXnodeXmlSerializer.cpp
-@@ -36,6 +36,9 @@ MergedXnodeXmlSerializer::MergedXnodeXmlSerializer() :
+@@ -36,6 +36,10 @@ MergedXnodeXmlSerializer::MergedXnodeXmlSerializer() :
              .put(converter::xml::IidmXmlVersion::V1_4(), {"1.0", "1.1"})
              .put(converter::xml::IidmXmlVersion::V1_5(), {"1.0", "1.1"})
              .put(converter::xml::IidmXmlVersion::V1_6(), {"1.0", "1.1"})
 +            .put(converter::xml::IidmXmlVersion::V1_7(), {"1.0", "1.1"})
 +            .put(converter::xml::IidmXmlVersion::V1_8(), {"1.0", "1.1"})
 +            .put(converter::xml::IidmXmlVersion::V1_9(), {"1.0", "1.1"})
++            .put(converter::xml::IidmXmlVersion::V1_10(), {"1.0", "1.1"})
              .build(),
          stdcxx::MapBuilder<std::string, std::string>()
              .put("1.0", "http://www.itesla_project.eu/schema/iidm/ext/merged_xnode/1_0")
@@ -181,10 +182,27 @@ index 5d3f8d4..265e966 100644
  
  }  // namespace iidm
 diff --git a/include/powsybl/iidm/converter/Constants.hpp b/include/powsybl/iidm/converter/Constants.hpp
-index 0b13361..c074f51 100644
+index 0b13361..93109d3 100644
 --- a/include/powsybl/iidm/converter/Constants.hpp
 +++ b/include/powsybl/iidm/converter/Constants.hpp
-@@ -64,6 +64,9 @@ static const char* const ENERGY_SOURCE = "energySource";
+@@ -46,6 +46,12 @@ static const char* const BUS1 = "bus1";
+ static const char* const BUS2 = "bus2";
+ static const char* const BUS_BREAKER_TOPOLOGY = "busBreakerTopology";
+ static const char* const BUSBAR_SECTION = "busbarSection";
++static const char* const C0P = "c0p";
++static const char* const C1P = "c1p";
++static const char* const C2P = "c2p";
++static const char* const C0Q = "c0q";
++static const char* const C1Q = "c1q";
++static const char* const C2Q = "c2q";
+ static const char* const CASE_DATE = "caseDate";
+ static const char* const CONNECTABLE_BUS = "connectableBus";
+ static const char* const CONNECTABLE_BUS1 = "connectableBus1";
+@@ -61,9 +67,13 @@ static const char* const CURRENT_LIMITS3 = "currentLimits3";
+ static const char* const CURRENT_SECTION_COUNT = "currentSectionCount";
+ static const char* const DANGLING_LINE = "danglingLine";
+ static const char* const ENERGY_SOURCE = "energySource";
++static const char* const EXPONENTIAL_MODEL = "exponentialModel";
  static const char* const EXTENSION = "extension";
  static const char* const FICTITIOUS = "fictitious";
  static const char* const FICTITIOUS_ = "fictitious_";
@@ -194,7 +212,7 @@ index 0b13361..c074f51 100644
  static const char* const FORECAST_DISTANCE = "forecastDistance";
  static const char* const G = "g";
  static const char* const G_PER_SECTION = "gPerSection";
-@@ -101,6 +104,7 @@ static const char* const MAXIMUM_SECTION_COUNT = "maximumSectionCount";
+@@ -101,6 +111,7 @@ static const char* const MAXIMUM_SECTION_COUNT = "maximumSectionCount";
  static const char* const MIN_MAX_REACTIVE_LIMITS = "minMaxReactiveLimits";
  static const char* const MIN_P = "minP";
  static const char* const MIN_Q = "minQ";
@@ -202,7 +220,16 @@ index 0b13361..c074f51 100644
  static const char* const NAME = "name";
  static const char* const NAME_ = "name_";
  static const char* const NETWORK = "network";
-@@ -158,6 +162,7 @@ static const char* const SHUNT_NON_LINEAR_MODEL = "shuntNonLinearModel";
+@@ -111,6 +122,8 @@ static const char* const NODE1 = "node1";
+ static const char* const NODE2 = "node2";
+ static const char* const NODES = "nodes";
+ static const char* const NOMINAL_V = "nominalV";
++static const char* const NP = "np";
++static const char* const NQ = "nq";
+ static const char* const OPEN = "open";
+ static const char* const P = "p";
+ static const char* const P0 = "p0";
+@@ -158,6 +171,7 @@ static const char* const SHUNT_NON_LINEAR_MODEL = "shuntNonLinearModel";
  static const char* const SIDE = "side";
  static const char* const SOURCE_FORMAT = "sourceFormat";
  static const char* const STATIC_VAR_COMPENSATOR = "staticVarCompensator";
@@ -210,11 +237,19 @@ index 0b13361..c074f51 100644
  static const char* const STEP = "step";
  static const char* const SUBSTATION = "substation";
  static const char* const SWITCH = "switch";
+@@ -192,6 +206,7 @@ static const char* const X2 = "x2";
+ static const char* const X3 = "x3";
+ static const char* const XNODE_P_ = "xnodeP_";
+ static const char* const XNODE_Q_ = "xnodeQ_";
++static const char* const ZIP_MODEL = "zipModel";
+ 
+ std::string toString(const char* attribute, stdcxx::optional<int> index);
+ 
 diff --git a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
-index 742607f..b518fd9 100644
+index 742607f..96fa9b2 100644
 --- a/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
 +++ b/include/powsybl/iidm/converter/xml/IidmXmlVersion.hpp
-@@ -62,6 +62,21 @@ public:
+@@ -62,6 +62,26 @@ public:
       */
      static const IidmXmlVersion& V1_6();
  
@@ -233,9 +268,311 @@ index 742607f..b518fd9 100644
 +     */
 +    static const IidmXmlVersion& V1_9();
 +
++    /**
++     * IIDM V1.10 (http://www.powsybl.org)
++     */
++    static const IidmXmlVersion& V1_10();
++
  public:
      /**
       * Return the list of all supported XIIDM versions
+diff --git a/include/powsybl/iidm/Load.hpp b/include/powsybl/iidm/Load.hpp
+index cc85d4a..c71e793 100644
+--- a/include/powsybl/iidm/Load.hpp
++++ b/include/powsybl/iidm/Load.hpp
+@@ -8,9 +8,11 @@
+ #ifndef POWSYBL_IIDM_LOAD_HPP
+ #define POWSYBL_IIDM_LOAD_HPP
+ 
++#include <memory>
+ #include <vector>
+ 
+ #include <powsybl/iidm/Injection.hpp>
++#include <powsybl/iidm/LoadModel.hpp>
+ #include <powsybl/iidm/LoadType.hpp>
+ 
+ namespace powsybl {
+@@ -29,12 +31,26 @@ public:
+ 
+     const LoadType& getLoadType() const;
+ 
++    template <typename T, typename = typename std::enable_if<std::is_base_of<LoadModel, T>::value>::type>
++    const T& getModel() const;
++
++    template <typename T, typename = typename std::enable_if<std::is_base_of<LoadModel, T>::value>::type>
++    T& getModel();
++
++    const LoadModel& getModel() const;
++
++    LoadModel& getModel();
++
++    const LoadModelType& getModelType() const;
++
+     double getP0() const;
+ 
+     double getQ0() const;
+ 
+     Load& setLoadType(const LoadType& loadType);
+ 
++    Load& setModel(std::unique_ptr<LoadModel>&& model);
++
+     Load& setP0(double p0);
+ 
+     Load& setQ0(double q0);
+@@ -52,6 +68,8 @@ private: // Identifiable
+ private:
+     LoadType m_loadType;
+ 
++    std::unique_ptr<LoadModel> m_model;
++
+     std::vector<double> m_p0;
+ 
+     std::vector<double> m_q0;
+@@ -61,4 +79,6 @@ private:
+ 
+ }  // namespace powsybl
+ 
++#include <powsybl/iidm/Load.hxx>
++
+ #endif  // POWSYBL_IIDM_LOAD_HPP
+diff --git a/include/powsybl/iidm/Load.hxx b/include/powsybl/iidm/Load.hxx
+new file mode 100644
+index 0000000..74e5703
+--- /dev/null
++++ b/include/powsybl/iidm/Load.hxx
+@@ -0,0 +1,38 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#ifndef POWSYBL_IIDM_LOAD_HXX
++#define POWSYBL_IIDM_LOAD_HXX
++
++#include <powsybl/iidm/Load.hpp>
++#include <powsybl/iidm/ValidationException.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++template <typename T, typename>
++const T& Load::getModel() const {
++    if (!m_model) {
++        throw ValidationException(*this, "load model is null");
++    }
++    if (stdcxx::isInstanceOf<T>(m_model)) {
++        return *dynamic_cast<const T*>(m_model.get());
++    }
++    throw ValidationException(*this, stdcxx::format("incorrect load model type %1%, expected %2%", stdcxx::demangle<T>(), stdcxx::demangle(*m_model)));
++}
++
++template <typename T, typename>
++T& Load::getModel() {
++    return const_cast<T&>(static_cast<const Load*>(this)->getModel<T>());
++}
++
++}  // namespace iidm
++
++}  // namespace powsybl
++
++#endif  // POWSYBL_IIDM_LOAD_HXX
+diff --git a/include/powsybl/iidm/LoadExponentialModel.hpp b/include/powsybl/iidm/LoadExponentialModel.hpp
+new file mode 100644
+index 0000000..daeefb8
+--- /dev/null
++++ b/include/powsybl/iidm/LoadExponentialModel.hpp
+@@ -0,0 +1,47 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#ifndef POWSYBL_IIDM_LOADEXPONENTIALMODEL_HPP
++#define POWSYBL_IIDM_LOADEXPONENTIALMODEL_HPP
++
++#include <memory>
++
++#include <powsybl/iidm/LoadModel.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++class Load;
++
++class LoadExponentialModel : public LoadModel {
++public:
++    LoadExponentialModel(double np, double nq);
++
++    ~LoadExponentialModel() noexcept override = default;
++
++    static std::unique_ptr<LoadModel> build(Load& load, double np, double nq);
++
++    double getNp() const;
++
++    double getNq() const;
++
++private:  // LoadModel
++
++    const LoadModelType& getType() const override;
++
++private:
++    double m_np;
++
++    double m_nq;
++};
++
++}  // namespace iidm
++
++}  // namespace powsybl
++
++#endif  // POWSYBL_IIDM_LOADEXPONENTIALMODEL_HPP
+diff --git a/include/powsybl/iidm/LoadModel.hpp b/include/powsybl/iidm/LoadModel.hpp
+new file mode 100644
+index 0000000..e8e06ce
+--- /dev/null
++++ b/include/powsybl/iidm/LoadModel.hpp
+@@ -0,0 +1,35 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#ifndef POWSYBL_IIDM_LOADMODEL_HPP
++#define POWSYBL_IIDM_LOADMODEL_HPP
++
++#include <powsybl/iidm/LoadModelType.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++class Load;
++
++class LoadModel {
++public:
++    LoadModel() = default;
++
++    virtual ~LoadModel() noexcept = default;
++
++private:
++    virtual const LoadModelType& getType() const = 0;
++
++    friend class Load;
++};
++
++}  // namespace iidm
++
++}  // namespace powsybl
++
++#endif  // POWSYBL_IIDM_LOADMODEL_HPP
+diff --git a/include/powsybl/iidm/LoadModelType.hpp b/include/powsybl/iidm/LoadModelType.hpp
+new file mode 100644
+index 0000000..22438ee
+--- /dev/null
++++ b/include/powsybl/iidm/LoadModelType.hpp
+@@ -0,0 +1,25 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#ifndef POWSYBL_IIDM_LOADMODELTYPE_HPP
++#define POWSYBL_IIDM_LOADMODELTYPE_HPP
++
++namespace powsybl {
++
++namespace iidm {
++
++enum class LoadModelType : unsigned char {
++    NONE,
++    ZIP,
++    EXPONENTIAL
++};
++
++}  // namespace iidm
++
++}  // namespace powsybl
++
++#endif  // POWSYBL_IIDM_LOADMODELTYPE_HPP
+diff --git a/include/powsybl/iidm/LoadZipModel.hpp b/include/powsybl/iidm/LoadZipModel.hpp
+new file mode 100644
+index 0000000..f8b98e5
+--- /dev/null
++++ b/include/powsybl/iidm/LoadZipModel.hpp
+@@ -0,0 +1,63 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#ifndef POWSYBL_IIDM_LOADZIPMODEL_HPP
++#define POWSYBL_IIDM_LOADZIPMODEL_HPP
++
++#include <memory>
++
++#include <powsybl/iidm/LoadModel.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++class Load;
++
++class LoadZipModel : public LoadModel {
++public:
++    LoadZipModel(double c0p, double c1p, double c2p, double c0q, double c1q, double c2q);
++
++    ~LoadZipModel() noexcept override = default;
++
++    static std::unique_ptr<LoadModel> build(Load& load, double c0p, double c1p, double c2p, double c0q, double c1q, double c2q);
++
++    double getC0p() const;
++
++    double getC1p() const;
++
++    double getC2p() const;
++
++    double getC0q() const;
++
++    double getC1q() const;
++
++    double getC2q() const;
++
++private:  // LoadModel
++
++    const LoadModelType& getType() const override;
++
++private:
++    double m_c0p;
++
++    double m_c1p;
++
++    double m_c2p;
++
++    double m_c0q;
++
++    double m_c1q;
++
++    double m_c2q;
++};
++
++}  // namespace iidm
++
++}  // namespace powsybl
++
++#endif  // POWSYBL_IIDM_LOADZIPMODEL_HPP
 diff --git a/include/powsybl/iidm/Network.hpp b/include/powsybl/iidm/Network.hpp
 index c371a25..c64c65b 100644
 --- a/include/powsybl/iidm/Network.hpp
@@ -275,6 +612,23 @@ index c371a25..c64c65b 100644
      NetworkIndex m_networkIndex;
  
      VariantManager m_variantManager;
+diff --git a/include/powsybl/iidm/ValidationUtils.hpp b/include/powsybl/iidm/ValidationUtils.hpp
+index c249dbb..fedd3de 100644
+--- a/include/powsybl/iidm/ValidationUtils.hpp
++++ b/include/powsybl/iidm/ValidationUtils.hpp
+@@ -42,8 +42,12 @@ double checkBmin(const Validable& validable, double bMin);
+ 
+ double checkBPerSection(const Validable& validable, double bPerSection);
+ 
++double checkCoefficient(const Validable& validable, double coefficient);
++
+ const HvdcLine::ConvertersMode& checkConvertersMode(const Validable& validable, const HvdcLine::ConvertersMode& converterMode);
+ 
++double checkExponent(const Validable& validable, double n);
++
+ int checkForecastDistance(const Validable& validable, int forecastDistance);
+ 
+ double checkG(const Validable& validable, double g);
 diff --git a/include/powsybl/iidm/VoltageLevelViews.hpp b/include/powsybl/iidm/VoltageLevelViews.hpp
 index e81d032..61e1df8 100644
 --- a/include/powsybl/iidm/VoltageLevelViews.hpp
@@ -328,10 +682,20 @@ index ce81b0c..dde1c37 100644
  }
  
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 894ddde..9efc854 100644
+index 894ddde..f1a89ba 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -175,6 +175,7 @@ set(IIDM_SOURCES
+@@ -77,7 +77,9 @@ set(IIDM_SOURCES
+     iidm/Load.cpp
+     iidm/LoadAdder.cpp
+     iidm/LoadingLimits.cpp
++    iidm/LoadExponentialModel.cpp
+     iidm/LoadType.cpp
++    iidm/LoadZipModel.cpp
+     iidm/MergedBus.cpp
+     iidm/MinMaxReactiveLimits.cpp
+     iidm/MinMaxReactiveLimitsAdder.cpp
+@@ -175,6 +177,7 @@ set(IIDM_SOURCES
      iidm/converter/xml/NetworkXml.cpp
      iidm/converter/xml/NetworkXmlReaderContext.cpp
      iidm/converter/xml/NetworkXmlWriterContext.cpp
@@ -578,10 +942,10 @@ index d8381f4..5e75095 100644
  
  }  // namespace xml
 diff --git a/src/iidm/converter/xml/IidmXmlVersion.cpp b/src/iidm/converter/xml/IidmXmlVersion.cpp
-index de78592..a140b05 100644
+index de78592..92768bf 100644
 --- a/src/iidm/converter/xml/IidmXmlVersion.cpp
 +++ b/src/iidm/converter/xml/IidmXmlVersion.cpp
-@@ -67,14 +67,17 @@ const IidmXmlVersions& IidmXmlVersion::all() {
+@@ -67,14 +67,18 @@ const IidmXmlVersions& IidmXmlVersion::all() {
          std::cref(IidmXmlVersion::V1_3()),
          std::cref(IidmXmlVersion::V1_4()),
          std::cref(IidmXmlVersion::V1_5()),
@@ -589,7 +953,8 @@ index de78592..a140b05 100644
 +        std::cref(IidmXmlVersion::V1_6()),
 +        std::cref(IidmXmlVersion::V1_7()),
 +        std::cref(IidmXmlVersion::V1_8()),
-+        std::cref(IidmXmlVersion::V1_9())
++        std::cref(IidmXmlVersion::V1_9()),
++        std::cref(IidmXmlVersion::V1_10())
      }};
  
      return s_versions;
@@ -597,11 +962,11 @@ index de78592..a140b05 100644
  
  const IidmXmlVersion& IidmXmlVersion::CURRENT_IIDM_XML_VERSION() {
 -    return V1_6();
-+    return V1_9();
++    return V1_10();
  }
  
  const IidmXmlVersion& IidmXmlVersion::fromNamespaceURI(const std::string& namespaceURI) {
-@@ -157,6 +160,21 @@ const IidmXmlVersion& IidmXmlVersion::V1_6() {
+@@ -157,6 +161,26 @@ const IidmXmlVersion& IidmXmlVersion::V1_6() {
      return V1_6;
  }
  
@@ -620,9 +985,92 @@ index de78592..a140b05 100644
 +    return V1_9;
 +}
 +
++const IidmXmlVersion& IidmXmlVersion::V1_10() {
++    static IidmXmlVersion V1_10("powsybl.org", {{1, 10}});
++    return V1_10;
++}
++
  }  // namespace xml
  
  }  // namespace converter
+diff --git a/src/iidm/converter/xml/LoadXml.cpp b/src/iidm/converter/xml/LoadXml.cpp
+index c235a3e..ed59e8b 100644
+--- a/src/iidm/converter/xml/LoadXml.cpp
++++ b/src/iidm/converter/xml/LoadXml.cpp
+@@ -11,6 +11,8 @@
+ 
+ #include <powsybl/iidm/Load.hpp>
+ #include <powsybl/iidm/LoadAdder.hpp>
++#include <powsybl/iidm/LoadExponentialModel.hpp>
++#include <powsybl/iidm/LoadZipModel.hpp>
+ #include <powsybl/iidm/VoltageLevel.hpp>
+ #include <powsybl/iidm/converter/Constants.hpp>
+ 
+@@ -51,7 +53,23 @@ Load& LoadXml::readRootElementAttributes(LoadAdder& loadAdder, NetworkXmlReaderC
+ 
+ void LoadXml::readSubElements(Load& load, NetworkXmlReaderContext& context) const {
+     context.getReader().readUntilEndElement(LOAD, [this, &load, &context]() {
+-        AbstractConnectableXml::readSubElements(load, context);
++        if (context.getReader().getLocalName() == ZIP_MODEL) {
++            IidmXmlUtil::assertMinimumVersion(LOAD, ZIP_MODEL, ErrorMessage::NOT_SUPPORTED, IidmXmlVersion::V1_10(), context);
++            const auto& c0p = context.getReader().getAttributeValue<double>(C0P);
++            const auto& c1p = context.getReader().getAttributeValue<double>(C1P);
++            const auto& c2p = context.getReader().getAttributeValue<double>(C2P);
++            const auto& c0q = context.getReader().getAttributeValue<double>(C0Q);
++            const auto& c1q = context.getReader().getAttributeValue<double>(C1Q);
++            const auto& c2q = context.getReader().getAttributeValue<double>(C2Q);
++            load.setModel(LoadZipModel::build(load, c0p, c1p, c2p, c0q, c1q, c2q));
++        } else if (context.getReader().getLocalName() == EXPONENTIAL_MODEL) {
++            IidmXmlUtil::assertMinimumVersion(LOAD, EXPONENTIAL_MODEL, ErrorMessage::NOT_SUPPORTED, IidmXmlVersion::V1_10(), context);
++            const auto& np = context.getReader().getAttributeValue<double>(NP);
++            const auto& nq = context.getReader().getAttributeValue<double>(NQ);
++            load.setModel(LoadExponentialModel::build(load, np, nq));
++        } else {
++            AbstractConnectableXml::readSubElements(load, context);
++        }
+     });
+ }
+ 
+@@ -63,6 +81,26 @@ void LoadXml::writeRootElementAttributes(const Load& load, const VoltageLevel& /
+     writePQ(load.getTerminal(), context.getWriter());
+ }
+ 
++void LoadXml::writeSubElements(const Load& load, const VoltageLevel& /*voltageLevel*/, NetworkXmlWriterContext& context) const {
++    IidmXmlUtil::runFromMinimumVersion(IidmXmlVersion::V1_10(), context.getVersion(), [&context, &load]() {
++        if (LoadModelType::ZIP == load.getModelType()) {
++            context.getWriter().writeStartElement(context.getVersion().getPrefix(), ZIP_MODEL);
++            context.getWriter().writeAttribute(C0P, load.getModel<LoadZipModel>().getC0p());
++            context.getWriter().writeAttribute(C1P, load.getModel<LoadZipModel>().getC1p());
++            context.getWriter().writeAttribute(C2P, load.getModel<LoadZipModel>().getC2p());
++            context.getWriter().writeAttribute(C0Q, load.getModel<LoadZipModel>().getC0q());
++            context.getWriter().writeAttribute(C1Q, load.getModel<LoadZipModel>().getC1q());
++            context.getWriter().writeAttribute(C2Q, load.getModel<LoadZipModel>().getC2q());
++            context.getWriter().writeEndElement();
++        } else if (LoadModelType::EXPONENTIAL == load.getModelType()) {
++            context.getWriter().writeStartElement(context.getVersion().getPrefix(), EXPONENTIAL_MODEL);
++            context.getWriter().writeAttribute(NP, load.getModel<LoadExponentialModel>().getNp());
++            context.getWriter().writeAttribute(NQ, load.getModel<LoadExponentialModel>().getNq());
++            context.getWriter().writeEndElement();
++        }
++    });
++}
++
+ }  // namespace xml
+ 
+ }  // namespace converter
+diff --git a/src/iidm/converter/xml/LoadXml.hpp b/src/iidm/converter/xml/LoadXml.hpp
+index c805851..fd19444 100644
+--- a/src/iidm/converter/xml/LoadXml.hpp
++++ b/src/iidm/converter/xml/LoadXml.hpp
+@@ -36,6 +36,8 @@ protected:  // AbstractIdentifiableXml
+ 
+     void writeRootElementAttributes(const Load& load, const VoltageLevel& voltageLevel, NetworkXmlWriterContext& context) const override;
+ 
++    void writeSubElements(const Load& load, const VoltageLevel& voltageLevel, NetworkXmlWriterContext& context) const override;
++
+ private:
+     LoadXml() = default;
+ 
 diff --git a/src/iidm/converter/xml/NetworkXml.cpp b/src/iidm/converter/xml/NetworkXml.cpp
 index 8bacbd6..83d5d84 100644
 --- a/src/iidm/converter/xml/NetworkXml.cpp
@@ -819,20 +1267,21 @@ index 5957abf..ce9d7f7 100644
  }
  
 diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-index a132f81..1da9a1f 100644
+index a132f81..ad227e8 100644
 --- a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
 +++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
-@@ -34,6 +34,9 @@ SlackTerminalXmlSerializer::SlackTerminalXmlSerializer() :
+@@ -34,6 +34,10 @@ SlackTerminalXmlSerializer::SlackTerminalXmlSerializer() :
                .put(converter::xml::IidmXmlVersion::V1_4(), {"1.1"})
                .put(converter::xml::IidmXmlVersion::V1_5(), {"1.2"})
                .put(converter::xml::IidmXmlVersion::V1_6(), {"1.2"})
 +              .put(converter::xml::IidmXmlVersion::V1_7(), {"1.2"})
 +              .put(converter::xml::IidmXmlVersion::V1_8(), {"1.2"})
 +              .put(converter::xml::IidmXmlVersion::V1_9(), {"1.2"})
++              .put(converter::xml::IidmXmlVersion::V1_10(), {"1.2"})
                .build(),
            stdcxx::MapBuilder<std::string, std::string>()
                .put("1.0", "http://www.powsybl.org/schema/iidm/ext/slack_terminal/1_0")
-@@ -56,7 +59,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
+@@ -56,7 +60,7 @@ Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::x
      }
      auto& voltageLevel = dynamic_cast<VoltageLevel&>(extendable);
      const std::string& id = context.getAnonymizer().deanonymizeString(context.getReader().getAttributeValue(converter::ID));
@@ -841,6 +1290,178 @@ index a132f81..1da9a1f 100644
      Terminal& terminal = converter::xml::TerminalRefXml::readTerminalRef(voltageLevel.getNetwork(), id, side);
      extendable.newExtension<SlackTerminalAdder>().withTerminal(terminal).add();
      return extendable.getExtension<iidm::extensions::SlackTerminal>();
+diff --git a/src/iidm/Load.cpp b/src/iidm/Load.cpp
+index cc5cc00..8bd46c1 100644
+--- a/src/iidm/Load.cpp
++++ b/src/iidm/Load.cpp
+@@ -43,6 +43,19 @@ const LoadType& Load::getLoadType() const {
+     return m_loadType;
+ }
+ 
++const LoadModel& Load::getModel() const {
++    return *m_model;
++}
++
++LoadModel& Load::getModel() {
++    return *m_model;
++}
++
++const LoadModelType& Load::getModelType() const {
++    static LoadModelType s_type = LoadModelType::NONE;
++    return m_model ? m_model->getType() : s_type;
++}
++
+ double Load::getP0() const {
+     return m_p0.at(getNetwork().getVariantIndex());
+ }
+@@ -75,6 +88,12 @@ Load& Load::setLoadType(const LoadType& loadType) {
+     return *this;
+ }
+ 
++Load& Load::setModel(std::unique_ptr<LoadModel>&& model) {
++    m_model = std::move(model);
++
++    return *this;
++}
++
+ Load& Load::setP0(double p0) {
+     m_p0[getNetwork().getVariantIndex()] = checkP0(*this, p0);
+ 
+diff --git a/src/iidm/LoadExponentialModel.cpp b/src/iidm/LoadExponentialModel.cpp
+new file mode 100644
+index 0000000..a57dd81
+--- /dev/null
++++ b/src/iidm/LoadExponentialModel.cpp
+@@ -0,0 +1,45 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#include <powsybl/iidm/LoadExponentialModel.hpp>
++
++#include <powsybl/iidm/Load.hpp>
++#include <powsybl/iidm/ValidationUtils.hpp>
++#include <powsybl/stdcxx/make_unique.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++LoadExponentialModel::LoadExponentialModel(double np, double nq) :
++    m_np(np),
++    m_nq(nq) {
++}
++
++std::unique_ptr<LoadModel> LoadExponentialModel::build(Load& load, double np, double nq) {
++    checkExponent(load, np);
++    checkExponent(load, nq);
++
++    return stdcxx::make_unique<LoadExponentialModel>(np, nq);
++}
++
++double LoadExponentialModel::getNp() const {
++    return m_np;
++}
++
++double LoadExponentialModel::getNq() const {
++    return m_nq;
++}
++
++const LoadModelType& LoadExponentialModel::getType() const {
++    static LoadModelType s_type = LoadModelType::EXPONENTIAL;
++    return s_type;
++}
++
++}  // namespace iidm
++
++}  // namespace powsybl
+diff --git a/src/iidm/LoadZipModel.cpp b/src/iidm/LoadZipModel.cpp
+new file mode 100644
+index 0000000..266b284
+--- /dev/null
++++ b/src/iidm/LoadZipModel.cpp
+@@ -0,0 +1,78 @@
++/**
++ * Copyright (c) 2023, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#include <powsybl/iidm/LoadZipModel.hpp>
++
++#include <powsybl/iidm/Load.hpp>
++#include <powsybl/iidm/ValidationUtils.hpp>
++#include <powsybl/stdcxx/make_unique.hpp>
++
++#include <cstdlib>
++
++namespace powsybl {
++
++namespace iidm {
++
++LoadZipModel::LoadZipModel(double c0p, double c1p, double c2p, double c0q, double c1q, double c2q) :
++    m_c0p(c0p),
++    m_c1p(c1p),
++    m_c2p(c2p),
++    m_c0q(c0q),
++    m_c1q(c1q),
++    m_c2q(c2q) {
++}
++
++std::unique_ptr<LoadModel> LoadZipModel::build(Load& load, double c0p, double c1p, double c2p, double c0q, double c1q, double c2q) {
++    checkCoefficient(load, c0p);
++    checkCoefficient(load, c1p);
++    checkCoefficient(load, c2p);
++    checkCoefficient(load, c0q);
++    checkCoefficient(load, c1q);
++    checkCoefficient(load, c2q);
++
++    if (std::abs(c0p + c1p + c2p - 1.) > std::numeric_limits<double>::epsilon()) {
++        throw ValidationException(load, "Sum of c0p, c1p and c2p should be 1");
++    }
++    if (std::abs(c0q + c1q + c2q - 1.) > std::numeric_limits<double>::epsilon()) {
++        throw ValidationException(load, "Sum of c0q, c1q and c2q should be 1");
++    }
++
++    return stdcxx::make_unique<LoadZipModel>(c0p, c1p, c2p, c0q, c1q, c2q);
++}
++
++double LoadZipModel::getC0p() const {
++    return m_c0p;
++}
++
++double LoadZipModel::getC1p() const {
++    return m_c1p;
++}
++
++double LoadZipModel::getC2p() const {
++    return m_c2p;
++}
++
++double LoadZipModel::getC0q() const {
++    return m_c0q;
++}
++
++double LoadZipModel::getC1q() const {
++    return m_c1q;
++}
++
++double LoadZipModel::getC2q() const {
++    return m_c2q;
++}
++
++const LoadModelType& LoadZipModel::getType() const {
++    static LoadModelType s_type = LoadModelType::ZIP;
++    return s_type;
++}
++
++}  // namespace iidm
++
++}  // namespace powsybl
 diff --git a/src/iidm/Network.cpp b/src/iidm/Network.cpp
 index f5b2530..dd44ff1 100644
 --- a/src/iidm/Network.cpp
@@ -1019,6 +1640,38 @@ index b922483..1871d3f 100644
      void traverse(unsigned long node, const TopologyTraverser& traverser) const override;
  
      void traverse(stdcxx::const_range<unsigned long>& nodes, const TopologyTraverser& traverser) const override;
+diff --git a/src/iidm/ValidationUtils.cpp b/src/iidm/ValidationUtils.cpp
+index e727de3..1e0c2cd 100644
+--- a/src/iidm/ValidationUtils.cpp
++++ b/src/iidm/ValidationUtils.cpp
+@@ -88,6 +88,13 @@ double checkBPerSection(const Validable& validable, double bPerSection) {
+     return bPerSection;
+ }
+ 
++double checkCoefficient(const Validable& validable, double coefficient) {
++    if (std::isnan(coefficient) || coefficient < 0) {
++        throw ValidationException(validable, stdcxx::format("Invalid zip load model coefficient: %1%", coefficient));
++    }
++    return coefficient;
++}
++
+ const HvdcLine::ConvertersMode& checkConvertersMode(const Validable& /*validable*/, const HvdcLine::ConvertersMode& converterMode) {
+     switch (converterMode) {
+         case HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER:
+@@ -100,6 +107,13 @@ const HvdcLine::ConvertersMode& checkConvertersMode(const Validable& /*validable
+     return converterMode;
+ }
+ 
++double checkExponent(const Validable& validable, double n) {
++    if (std::isnan(n) || n < 0) {
++        throw ValidationException(validable, stdcxx::format("Invalid load model exponential value: %1%", n));
++    }
++    return n;
++}
++
+ int checkForecastDistance(const Validable& validable, int forecastDistance) {
+     if (forecastDistance < 0) {
+         throw ValidationException(validable, "Forecast distance is < 0");
 diff --git a/src/network/BatteryNetworkFactory.cpp b/src/network/BatteryNetworkFactory.cpp
 index f0006a0..68cd790 100644
 --- a/src/network/BatteryNetworkFactory.cpp
