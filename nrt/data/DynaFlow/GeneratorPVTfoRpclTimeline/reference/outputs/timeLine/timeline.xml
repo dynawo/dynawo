@@ -5,11 +5,34 @@
   <event time="0.000000" modelName="SVC2" message="Entering in frozen mode"/>
   <event time="50.000000" modelName="Line1Bis" message="LINE : opening both sides"/>
   <event time="50.000000" modelName="Line2Bis" message="LINE : opening both sides"/>
+  <event time="60.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.21"/>
+  <event time="60.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.21"/>
   <event time="70.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="70.000000" modelName="Generator2" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
+  <event time="70.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.20"/>
   <event time="70.000000" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
   <event time="70.000000" modelName="Generator4" message="Generator : maximum reactive power limit reached"/>
   <event time="80.000000" modelName="Generator1" message="Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin &lt; UStatorRef &lt; UStatorRefMax)"/>
+  <event time="80.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.22"/>
+  <event time="80.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.22"/>
+  <event time="110.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.23"/>
+  <event time="170.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.24"/>
   <event time="200.000000" modelName="Generator3" message="Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin &lt; UStatorRef &lt; UStatorRefMax)"/>
+  <event time="250.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.25"/>
+  <event time="270.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.23"/>
+  <event time="350.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.26"/>
+  <event time="510.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
   <event time="530.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
+  <event time="710.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.28"/>
+  <event time="900.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.29"/>
+  <event time="1090.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.30"/>
+  <event time="1280.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.31"/>
+  <event time="1480.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.32"/>
+  <event time="1670.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.33"/>
+  <event time="1860.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.34"/>
+  <event time="2050.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.35"/>
+  <event time="2240.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.36"/>
+  <event time="2440.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.37"/>
+  <event time="2630.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.38"/>
+  <event time="2820.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.39"/>
 </timeline>
