@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator1" variable="generator_UPu"/>
+  <curve model="Generator1" variable="generator_UStatorPu"/>
+  <curve model="Generator1" variable="generator_UStatorRefPu"/>
+  <curve model="Generator1" variable="generator_PGenPu"/>
+  <curve model="Generator1" variable="generator_QGenPu"/>
+  <curve model="Generator1" variable="generator_QMaxPu"/>
+  <curve model="Generator1" variable="generator_QMinPu"/>
+  <curve model="Generator1" variable="reactivePowerControlLoop_level"/>
+  <curve model="Generator1" variable="reactivePowerControlLoop_QStatorPu"/>
+  <curve model="Generator1" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="Generator2" variable="generator_UPu"/>
+  <curve model="Generator2" variable="generator_UStatorPu"/>
+  <curve model="Generator2" variable="generator_UStatorRefPu"/>
+  <curve model="Generator2" variable="generator_PGenPu"/>
+  <curve model="Generator2" variable="generator_QGenPu"/>
+  <curve model="Generator2" variable="generator_QMaxPu"/>
+  <curve model="Generator2" variable="generator_QMinPu"/>
+  <curve model="Generator2" variable="reactivePowerControlLoop_level"/>
+  <curve model="Generator2" variable="reactivePowerControlLoop_QStatorPu"/>
+  <curve model="Generator2" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="SVC" variable="secondaryVoltageControl_UpPu"/>
+  <curve model="SVC" variable="secondaryVoltageControl_level"/>
+  <curve model="SVC" variable="secondaryVoltageControl_feedback1_y"/>
+  <curve model="SVC" variable="secondaryVoltageControl_limIntegrator_u"/>
+  <curve model="SVC" variable="secondaryVoltageControl_limIntegrator_y"/>
+</curvesInput>

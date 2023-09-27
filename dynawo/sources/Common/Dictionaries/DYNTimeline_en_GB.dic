@@ -68,10 +68,10 @@ PhaseShifterBlockingIDisarming =        Phase-shifter : block order disarming as
 // --> Tap-Changer Lock
 TapChangersArming         =             TCB : tap changers blocking arming (U < UMin)
 TapChangersUnarming       =             TCB : tap changers blocking disarming (U > UMin)
-TapChangersBlocked         =            TCB : tap changers blocking order activated on area
-TapChangersUnblocked       =            TCB : tap changers blocking order deactivated on area
-TapChangersBlockedT        =            TCB : high voltage tap changers blocked on area
-TapChangersBlockedD        =            TCB : low voltage tap changers blocked on area
+TapChangersBlocked        =            TCB : tap changers blocking order activated on area
+TapChangersUnblocked      =            TCB : tap changers blocking order deactivated on area
+TapChangersBlockedT       =            TCB : high voltage tap changers blocked on area
+TapChangersBlockedD       =            TCB : low voltage tap changers blocked on area
 // --> Transformer
 TransformerSwitchOff      =             Transformer : switched off
 TransformerSwitchOn       =             Transformer : switched on
@@ -81,10 +81,13 @@ VRLimitationEfdMin        =             Voltage regulator : lower limit reached 
 VRLimitationEfdMax        =             Voltage regulator : upper limit reached (Efd)
 VRLimitationUsRefMin      =             Voltage regulator : lower limit reached (UsRef)
 VRLimitationUsRefMax      =             Voltage regulator : upper limit reached (UsRef)
+// --> Secondary Voltage regulation
+SVRLevelChanging          =             Secondary Voltage Regulation : Voltage regulation level starts changing
+SVRLevelStabilized        =             Secondary Voltage Regulation : Voltage regulation level stabilized
 // --> Under-voltage automaton
-UVATripped                =              Under-voltage generator trip
-UVAArming                 =              Under-voltage automaton for generator arming
-UVADisarming              =              Under-voltage automaton for generator disarming
+UVATripped                =             Under-voltage generator trip
+UVAArming                 =             Under-voltage automaton for generator arming
+UVADisarming              =             Under-voltage automaton for generator disarming
 // --> CurrentLimit
 OverloadUp                =             Overload %1% : activation
 OverloadDown              =             Overload %1% : deactivation

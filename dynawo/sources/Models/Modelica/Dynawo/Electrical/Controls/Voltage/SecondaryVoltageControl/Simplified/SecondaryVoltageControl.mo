@@ -13,6 +13,10 @@ within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 */
 
 model SecondaryVoltageControl "Model for simplified secondary voltage control"
+  import Modelica;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
+  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit Alpha "PI integral gain";
@@ -52,7 +56,7 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
     Placement(visible = true, transformation(origin = {140, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
+  Modelica.Blocks.Sources.Constant Zero(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -78,6 +82,12 @@ equation
   blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
   frozen = FreezingActivated and ((blockedUp and (UpRefPu - UpPu) > 0) or (blockedDown and (UpRefPu - UpPu) < 0));
   switch1.u2 = frozen;
+
+  when (pre(level) <> level) then
+    Timeline.logEvent1(TimelineKeys.SVRLevelChanging);
+  elsewhen pre(level) == level and time > 0 then
+    Timeline.logEvent1(TimelineKeys.SVRLevelStabilized);
+  end when;
 
   connect(limiter.y, level) annotation(
     Line(points = {{181, 0}, {230, 0}}, color = {0, 0, 127}));

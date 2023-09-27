@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="0.000000" modelName="SVC" message="Secondary Voltage Regulation : Voltage regulation level starts changing"/>
+  <event time="10.000000" modelName="SVC" message="Secondary Voltage Regulation : Voltage regulation level stabilized"/>
+  <event time="70.000000" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
+  <event time="70.000000" modelName="SVC" message="Secondary Voltage Regulation : Voltage regulation level starts changing"/>
+  <event time="70.000000" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
+  <event time="80.000000" modelName="Generator1" message="Generator : back to voltage / reactive power regulation"/>
+  <event time="250.000000" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
+  <event time="260.000000" modelName="SVC" message="Secondary Voltage Regulation : Voltage regulation level stabilized"/>
+</timeline>
