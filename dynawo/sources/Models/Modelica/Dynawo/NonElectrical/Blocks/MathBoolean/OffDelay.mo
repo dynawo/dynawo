@@ -40,4 +40,5 @@ equation
     y = false;
   end if;
 
+  annotation(preferredView = "text");
 end OffDelay;

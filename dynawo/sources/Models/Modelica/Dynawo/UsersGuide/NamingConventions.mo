@@ -175,5 +175,4 @@ e.g tInteger, t0...</li>
 <li>One blank line between equations and a when equation or an if equation</li>
 <li>One blank line before annotations</li>
 <li><b>No</b> blank line between annotations and end of model</li></ul><div>Two spaces must be used for indentation.</div></div><p></p></body></html>"));
-
 end NamingConventions;

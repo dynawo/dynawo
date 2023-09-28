@@ -58,4 +58,5 @@ record ParametersGenerators "Parameter sets for the generators of the RVS test s
   { 412.0,  350.0,  0.00, 3.297, 0.16, 2.46, 2.32, 0.25, 0.41, 0.19, 0.19, 9.5, 0.99, 0.023, 0.035, 3.0, 0, 7.603568, 7.603568, 0.1, 0.1} // g30123, 412 MVA Steam (Round/3-windings)
   } "Matrix of generator parameters";
 
+  annotation(preferredView = "text");
 end ParametersGenerators;
