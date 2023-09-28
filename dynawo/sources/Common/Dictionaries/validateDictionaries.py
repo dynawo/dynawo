@@ -323,6 +323,7 @@ class Dictionary:
         file_name = os.path.join(str(modelica_dir), name + 'Keys.mo-tmp')
 
         with open(file_name, 'w') as mo_file:
+            mo_file.write("within " + modelica_package + ";\n\n")
             mo_file.write('''/*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -332,14 +333,14 @@ class Dictionary:
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
-* for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 ''')
-            mo_file.write("within " + modelica_package + ";\n\n")
-            mo_file.write('encapsulated package ' + name + 'Keys\n\n')
+            mo_file.write('\nencapsulated package ' + name + 'Keys\n\n')
             for i, key in enumerate(sorted(self.messages)):
-                mo_file.write("final constant Integer " + key + " = " + str(i) + ";\n")
+                mo_file.write("  final constant Integer " + key + " = " + str(i) + ";\n")
+            mo_file.write('\n  annotation(preferredView = "text");')
             mo_file.write("\nend " + name + "Keys;\n")
             mo_file.close()
 

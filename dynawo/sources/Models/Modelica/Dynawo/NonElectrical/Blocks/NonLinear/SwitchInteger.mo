@@ -28,14 +28,15 @@ equation
   y = if u2 then u1 else u3;
 
   annotation(
+    preferredView = "text",
     defaultComponentName = "switch1",
     Documentation(info = "<html>
-<p>The Logical.Switch switches, depending on the
-logical connector u2 (the middle connector)
-between the two possible input signals
-u1 (upper connector) and u3 (lower connector).</p>
-<p>If u2 is <strong>true</strong>, the output signal y is set equal to
-u1, else it is set equal to u3.</p>
-</html>"),
+    <p>The Logical.Switch switches, depending on the
+    logical connector u2 (the middle connector)
+    between the two possible input signals
+    u1 (upper connector) and u3 (lower connector).</p>
+    <p>If u2 is <strong>true</strong>, the output signal y is set equal to
+    u1, else it is set equal to u3.</p>
+    </html>"),
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(fillColor = {210, 210, 210}, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Raised, extent = {{-100, 100}, {100, -100}}), Line(points = {{-40, 12}, {-40, -12}}, color = {255, 0, 255}), Text(lineColor = {0, 0, 255}, extent = {{-150, 150}, {150, 110}}, textString = "%name"), Line(points = {{-38, 80}, {6, 2}}, color = {245, 121, 0}, thickness = 1), Line(origin = {0.279255, 0}, points = {{-100, 0}, {-40, 0}}, color = {255, 0, 255}), Line(points = {{-100, 80}, {-38, 80}}, color = {245, 121, 0}), Line(points = {{-100, -80}, {-40, -80}, {-40, -80}}, color = {245, 121, 0}), Line(points = {{12, 0}, {100, 0}}, color = {245, 121, 0}), Ellipse(lineColor = {0, 0, 255}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{2, -8}, {18, 8}})}));
 end SwitchInteger;

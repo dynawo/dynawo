@@ -240,6 +240,7 @@ equation
     Line(points = {{-51, 119}, {-51, 110}, {-118, 110}, {-118, 119}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 3, Tolerance = 0.000001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
@@ -252,7 +253,6 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/current.png\">
     </figure>
     One can remark that after the events, the frequencies of the three converters are equal and close to their value before the events, thanks to the power-sharing allowed by the outer loop controls (droop, matching and dVOC).</div><div><br></div><div> One can also remark that during the fault, the currents of the three converters are limited at a value lower than 1.2 pu thanks to the virtual impedance. More details can be found in the MIGRATE project deliverables.</div>
-    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
-"),
+    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>"),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-150, -100}, {150, 200}})));
 end GridForming;

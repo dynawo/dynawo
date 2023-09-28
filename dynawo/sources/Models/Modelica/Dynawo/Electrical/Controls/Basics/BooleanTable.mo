@@ -15,15 +15,12 @@ within Dynawo.Electrical.Controls.Basics;
 
 model BooleanTable "Generates a Boolean output signal based on a table stored in a .txt file (column 1 : time instants, column 2 : 0 or 1)"
 
-  parameter Modelica.Blocks.Types.Extrapolation Extrapolation
-    "Extrapolation of data outside the definition range";
-  parameter String FileName = "NoName" "File where vector is stored"
-    annotation(Dialog(
-      enable=TableOnFile,
-      loadSelector(filter="Text files (*.txt);;MATLAB MAT-files (*.mat)",
-          caption="Open file in which table is present")));
-  parameter String TableName = "NoName"
-    "Table name on file or in function usertab (see docu)";
+  parameter Modelica.Blocks.Types.Extrapolation Extrapolation "Extrapolation of data outside the definition range";
+  parameter String FileName = "NoName" "File where vector is stored" annotation(
+    Dialog(enable = TableOnFile,
+    loadSelector(filter = "Text files (*.txt);;MATLAB MAT-files (*.mat)",
+    caption = "Open file in which table is present")));
+  parameter String TableName = "NoName" "Table name on file or in function usertab (see docu)";
 
   Dynawo.Connectors.BPin source "Output value";
 

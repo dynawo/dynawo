@@ -1,7 +1,7 @@
-within myPackage;
+within Dynawo.NonElectrical.Logs.Timeline;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,12 +13,14 @@ within myPackage;
 * of simulation tools for power systems.
 */
 
-encapsulated package oKeys
+function logEventRaw3
+  extends Icons.Function;
 
-  final constant Integer MyEntry = 0;
-  final constant Integer MyFourthEntry = 1;
-  final constant Integer MySecondEntry = 2;
-  final constant Integer MyThirdEntry = 3;
+  input String key1;
+  input String key2;
+  input String key3;
+
+  external "C" addLogEventRaw3 (key1, key2, key3) annotation(Include = "#include \"logEvent.h\"");
 
   annotation(preferredView = "text");
-end oKeys;
+end logEventRaw3;

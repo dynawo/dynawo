@@ -8,6 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+add_subdirectory(Constants Cs)
 add_subdirectory(Controls C)
 add_subdirectory(Events E)
 add_subdirectory(Buses B)
@@ -27,7 +28,6 @@ set(MODEL_FILES
   package.mo
   package.order
   SystemBase.mo
-  Constants.mo
   )
 
 #
