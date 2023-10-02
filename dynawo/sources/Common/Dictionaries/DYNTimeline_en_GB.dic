@@ -82,8 +82,7 @@ VRLimitationEfdMax        =             Voltage regulator : upper limit reached 
 VRLimitationUsRefMin      =             Voltage regulator : lower limit reached (UsRef)
 VRLimitationUsRefMax      =             Voltage regulator : upper limit reached (UsRef)
 // --> Secondary Voltage regulation
-SVRLevelChanging          =             Secondary Voltage Regulation : Voltage regulation level starts changing
-SVRLevelStabilized        =             Secondary Voltage Regulation : Voltage regulation level stabilized
+SVRLevelNew               =             Secondary Voltage Regulation : new level %
 // --> Under-voltage automaton
 UVATripped                =             Under-voltage generator trip
 UVAArming                 =             Under-voltage automaton for generator arming

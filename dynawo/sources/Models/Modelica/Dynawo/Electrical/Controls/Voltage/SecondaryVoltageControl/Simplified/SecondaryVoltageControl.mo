@@ -37,7 +37,7 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput level(start = Level0) "Level demand (between -1 and 1)" annotation(
   Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  discrete Real levelDiscrete(start = Level0);
+  discrete Real levelDiscrete(start = Level0) "Discrete level demand";
 
   //Blocks
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 1) annotation(
@@ -62,8 +62,6 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
   Placement(visible = true, transformation(origin = {10, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Discrete.Sampler sampler annotation(
-  Placement(visible = true, transformation(origin = {198, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit Level0 "Initial level demand (between -1 and 1)" annotation(
@@ -77,6 +75,7 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   parameter Boolean Frozen0 = false "Start value of the frozen status";
 
 protected
+  Types.Time tUpdate(start = 0) "Time when the SVC level is updated in s";
   Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "If true, all generators have reached their reactive power lower limits";
   Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "If true, all generators have reached their reactive power upper limits";
   Boolean frozen(start = Frozen0) "True if the integration is frozen";
@@ -87,17 +86,18 @@ equation
   frozen = FreezingActivated and ((blockedUp and (UpRefPu - UpPu) > 0) or (blockedDown and (UpRefPu - UpPu) < 0));
   switch1.u2 = frozen;
 
-  when rem(time,tSample) == 0 then
+  //level is sampled every tSample seconds to calculate levelDiscrete
+  if time >= tUpdate + tSample then
+    tUpdate = time;
     levelDiscrete = level;
-  end when;
+  else
+    tUpdate = pre(tUpdate);
+    levelDiscrete = pre(levelDiscrete);
+  end if;
 
-  /*
   when (pre(levelDiscrete) <> levelDiscrete) then
-    Timeline.logEvent1(TimelineKeys.SVRLevelChanging);
-  elsewhen pre(level) == level and time > 0 then
-    Timeline.logEvent1(TimelineKeys.SVRLevelStabilized);
+    Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete));
   end when;
-  */
 
   connect(limiter.y, level) annotation(
   Line(points = {{163, 0}, {230, 0}}, color = {0, 0, 127}));
@@ -131,8 +131,6 @@ equation
   Line(points = {{22, -8}, {38, -8}}, color = {0, 0, 127}));
   connect(limIntegrator.y, add.u2) annotation(
   Line(points = {{62, -8}, {80, -8}, {80, -6}, {98, -6}}, color = {0, 0, 127}));
-  connect(sampler.u, limiter.y) annotation(
-  Line(points = {{186, -60}, {174, -60}, {174, 0}, {164, 0}}, color = {0, 0, 127}));
 
   annotation(
   preferredView = "diagram",

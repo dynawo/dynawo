@@ -34,6 +34,7 @@
   <curve model="Generator2" variable="reactivePowerControlLoop_UStatorRefPu"/>
   <curve model="SVC" variable="secondaryVoltageControl_UpPu"/>
   <curve model="SVC" variable="secondaryVoltageControl_level"/>
+  <curve model="SVC" variable="secondaryVoltageControl_levelDiscrete"/>
   <curve model="SVC" variable="secondaryVoltageControl_feedback1_y"/>
   <curve model="SVC" variable="secondaryVoltageControl_limIntegrator_u"/>
   <curve model="SVC" variable="secondaryVoltageControl_limIntegrator_y"/>
