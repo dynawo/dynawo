@@ -96,7 +96,7 @@ equation
   end if;
 
   when (pre(levelDiscrete) <> levelDiscrete) then
-    Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete));
+    Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete, significantDigits = 3));
   end when;
 
   connect(limiter.y, level) annotation(
