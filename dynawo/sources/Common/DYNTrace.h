@@ -411,6 +411,12 @@ class Trace {
   static std::string modeler();
 
   /**
+   * @brief Get solver identifier
+   * @return solver identifier
+   */
+  static std::string solver();
+
+  /**
    * @brief Print end of line in trace.
    *
    * @param os : Trace to add end of line.

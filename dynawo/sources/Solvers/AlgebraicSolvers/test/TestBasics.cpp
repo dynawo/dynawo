@@ -136,6 +136,13 @@ class SolverMock : public Solver::Impl {
   double getTimeStep() const { return 0.; }
 
   void solveStep(double /*tAim*/, double& /*tNxt*/) {}
+
+  inline void setInitStep(double /*initStep*/) {
+  }
+
+  inline std::string getName() {
+    return "SolverMock";
+  }
 };
 
 SolverMock::~SolverMock() {}

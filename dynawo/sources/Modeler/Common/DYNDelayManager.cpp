@@ -76,6 +76,7 @@ DelayManager::dumpDelays() const {
     it->second.points(values);
 
     ss << it->first << ":";
+    ss << it->second.getDelayMax() << ":";
     for (std::vector<std::pair<double, double> >::const_iterator itvec = values.begin(); itvec != values.end(); ++itvec) {
       ss << itvec->first << "," << itvec->second << ";";
     }
@@ -96,6 +97,12 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
     if (c != ':') {
       return false;
     }
+    double delayMax;
+    is >> delayMax;
+    is >> c;
+    if (c != ':') {
+      return false;
+    }
 
     boost::optional<double> last_time = boost::make_optional(false, double());
     std::vector<std::pair<double, double> > items;
@@ -106,7 +113,7 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
 
       if (!last_time) {
         last_time = value;
-      } else if (doubleEquals(time, *last_time) || *last_time > time) {
+      } else if (*last_time > time) {
         // last_time >= time : error
         return false;
       }
@@ -129,7 +136,7 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
       }
     }
 
-    Delay new_delay(items);
+    Delay new_delay(items, delayMax);
     delays_.insert(std::make_pair(id, new_delay));
   }
 
@@ -144,7 +151,7 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time,
   triggered_ = false;
   for (it = delays_.begin(); it != delays_.end(); ++it, ++index) {
     double delayTime = it->second.getDelayMax();
-    if (!(time < delayTime || doubleEquals(time, delayTime))) {
+    if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggeredValue()) {
       p_glocal[index] = ROOT_UP;
       triggered_ = true;
     } else {
@@ -154,12 +161,12 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time,
 }
 
 void
-DelayManager::evalMode(const double time, const std::string& /*name*/) {
+DelayManager::evalMode(const double time, const std::string& name) {
   boost::unordered_map<size_t, Delay>::iterator it;
   for (it = delays_.begin(); it != delays_.end(); ++it) {
     double delayTime = it->second.getDelayMax();
     if (!(time < delayTime || doubleEquals(time, delayTime))) {
-      it->second.trigger();
+      it->second.trigger(time, delayTime, name);
     }
   }
 }

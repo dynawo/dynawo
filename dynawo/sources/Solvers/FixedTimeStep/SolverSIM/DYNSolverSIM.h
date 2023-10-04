@@ -87,6 +87,11 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   */
   void computeYP(const double* yy);
 
+  inline std::string getName() {
+    static std::string name = "SIM";
+    return name;
+  }
+
  private:
   /**
    * @copydoc Solver::getTimeStep()

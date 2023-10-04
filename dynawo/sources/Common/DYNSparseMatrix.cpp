@@ -154,17 +154,18 @@ SparseMatrix::free() {
 }
 
 void SparseMatrix::printToFile(bool sparse) const {
-  static std::string base = "tmpMat/mat-";
+  static std::string folder = "tmpMat";
+  static std::string base = folder + "/mat-";
   static int nbPrint = 0;
-  stringstream nomFichier;
-  nomFichier << base << nbPrint << ".txt";
+  stringstream fileName;
+  fileName << base << nbPrint << ".txt";
 
-  if (!exists("tmpMat")) {
-    create_directory("tmpMat");
-    }
+  if (!exists(folder)) {
+    create_directory(folder);
+  }
 
   std::ofstream file;
-  file.open(nomFichier.str().c_str(), std::ofstream::out);
+  file.open(fileName.str().c_str(), std::ofstream::out);
 
   if (!sparse) {
     std::vector< std::vector<double> > matrix;

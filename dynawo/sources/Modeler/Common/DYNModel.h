@@ -512,6 +512,27 @@ class Model {
    * @param localInitParameters local initialization solver parameters set
    */
   virtual void setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
+
+  /**
+   * @brief
+   * @param suffix
+   * @param printY
+   * @param printYp
+   * @param printZ
+   */
+  virtual void printToFile(const std::string& outputDir, const std::string& suffix, bool printY, bool printYp, bool printZ) = 0;
+
+  /**
+   * @brief
+   * @param folderName
+   * @param fileNamePrefix
+   * @param vector
+   * @param vectorSize
+   * @param numPrint
+   */
+  virtual void printVectorToFile(const std::string& folderName, const std::string& fileNamePrefix, double* vector, int vectorSize, int numPrint) = 0;
+
+  virtual const state_g* getG() const = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

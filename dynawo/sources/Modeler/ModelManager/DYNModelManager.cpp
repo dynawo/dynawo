@@ -422,7 +422,7 @@ ModelManager::evalZ(const double t) {
 modeChangeType_t
 ModelManager::evalMode(const double t) {
   delayManager_.evalMode(t, name());
-  modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_J_UPDATE_MODE : NO_MODE;
+  modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_MODE : NO_MODE;
   if (delayManager_.isTriggered()) {
     // reset trigger if delay mode is detected to prevent detection next time for the same reasons
     delayManager_.notifyEndTrigger();
@@ -838,6 +838,9 @@ ModelManager::loadParameters(const string& parameters) {
   if (!delayManager_.loadDelays(delay_def)) {
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
   }
+
+  // To activate all delays
+  delayManager_.evalMode(getCurrentTime(), name());
 
   // copy of loaded parameters in the map
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();

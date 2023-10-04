@@ -563,6 +563,18 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void collectSilentZ();
 
+  /**
+   * @copydoc Model::printToFile()
+   */
+  void printToFile(const std::string& outputDir, const std::string& suffix = "", bool printY = true, bool printYp = true, bool printZ = true);
+
+  /**
+   * @copydoc Model::printToFileVector()
+   */
+  void printVectorToFile(const std::string& folderName, const std::string& fileNamePrefix, double* vector, int vectorSize, int numPrint);
+
+  virtual const state_g* getG() const;
+
  private:
   /**
    * @brief delete all informations about the local buffers (size, buffers, etc...)

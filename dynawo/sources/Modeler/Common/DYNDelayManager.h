@@ -120,6 +120,8 @@ class DelayManager {
    *
    * @param p_glocal local buffer to fill
    * @param offset offset to start in p_glocal array for delays
+   * @param t
+   * @param name
    */
   void setGomc(state_g* const p_glocal, size_t offset, const double t, const std::string& name);
 
@@ -147,7 +149,7 @@ class DelayManager {
    * @param id the delay id
    */
   void triggerDelay(size_t id) {
-    delays_.at(id).trigger();
+    delays_.at(id).trigger(10., 10., "TEST");
   }
 
   /**

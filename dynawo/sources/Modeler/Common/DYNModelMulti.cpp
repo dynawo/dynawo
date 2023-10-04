@@ -41,6 +41,7 @@
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
 #include "DYNVariableAlias.h"
+#include "DYNFileSystemUtils.h"
 
 using std::min;
 using std::max;
@@ -367,6 +368,10 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 #endif
   copyContinuousVariables(y, yp);
 
+  // static int numPrint = 0;
+
+  // std::cout << "ModelMulti::evalF numPrint " << numPrint << std::endl;
+
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
@@ -381,6 +386,8 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
   connectorContainer_->evalFConnector(t);
 
   std::copy(fLocal_, fLocal_ + sizeF_, f);
+
+  // ++numPrint;
 }
 
 void
@@ -1288,6 +1295,111 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
 
 void ModelMulti::setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
   localInitParameters_ = localInitParameters;
+}
+
+void ModelMulti::printToFile(const std::string& outputDir, const std::string& suffix, bool printY, bool printYp, bool printZ) {
+  const std::vector<propertyContinuousVar_t>& modelYType = getYType();
+
+  static std::unordered_map<std::string, int> numPrintsSuffix;
+
+  static int numPrintBase = 0;
+
+  std::string folderBaseY = outputDir + "/tmpY";
+  std::string folderBaseYp = outputDir + "/tmpYp";
+  std::string folderBaseZ = outputDir + "/tmpZ";
+  if (!suffix.empty()) {
+    folderBaseY += "-" + suffix;
+    folderBaseYp += "-" + suffix;
+    folderBaseZ += "-" + suffix;
+  }
+  if (!suffix.empty() && numPrintsSuffix.find(suffix) == numPrintsSuffix.end()) {
+    int numPrintSuffix = 0;
+    numPrintsSuffix[suffix] = numPrintSuffix;
+  }
+  std::string baseY = folderBaseY + "/solY-";
+  std::string baseYp = folderBaseYp + "/solYp-";
+  std::string baseZ = folderBaseZ +"/solZ-";
+  int numPrint = suffix.empty() ? numPrintBase : numPrintsSuffix[suffix];
+  stringstream fileNameY;
+  fileNameY << baseY << numPrint << ".txt";
+  stringstream fileNameYp;
+  fileNameYp << baseYp << numPrint << ".txt";
+  stringstream fileNameZ;
+  fileNameZ << baseZ << numPrint << ".txt";
+
+  if (printY) {
+    if (!exists(folderBaseY)) {
+      create_directory(folderBaseY);
+    }
+
+    std::ofstream fileY;
+    fileY.open(fileNameY.str().c_str(), std::ofstream::out);
+
+    for (unsigned int i = 0; i < static_cast<unsigned int>(sizeY()); ++i) {
+      fileY << i << " " << yLocal_[i] << " " << getVariableName(i) << " " << propertyVar2Str(modelYType[i]) << "\n";
+    }
+
+    fileY.close();
+  }
+
+  if (printYp) {
+    if (!exists(folderBaseYp)) {
+      create_directory(folderBaseYp);
+    }
+
+    std::ofstream fileYp;
+    fileYp.open(fileNameYp.str().c_str(), std::ofstream::out);
+
+    for (unsigned int i = 0; i < static_cast<unsigned int>(sizeY()); ++i) {
+      fileYp << i << " " << ypLocal_[i] << " " << getVariableName(i) << " " << propertyVar2Str(modelYType[i]) << "\n";
+    }
+
+    fileYp.close();
+  }
+
+  if (printZ) {
+    if (!exists(folderBaseZ)) {
+      create_directory(folderBaseZ);
+    }
+
+    std::ofstream fileZ;
+    fileZ.open(fileNameZ.str().c_str(), std::ofstream::out);
+
+    for (unsigned int i = 0; i < static_cast<unsigned int>(sizeZ()); ++i) {
+      fileZ << i << " " << zLocal_[i] << "\n";
+    }
+
+    fileZ.close();
+  }
+
+  if (suffix.empty()) {
+    ++numPrintBase;
+  } else {
+    ++numPrintsSuffix[suffix];
+  }
+}
+
+void ModelMulti::printVectorToFile(const std::string& folderName, const std::string& fileNamePrefix, double* vector, int vectorSize, int numPrint) {
+  std::string baseFile = folderName + "/" + fileNamePrefix + "-";
+  stringstream fileName;
+  fileName << baseFile << numPrint << ".txt";
+
+  if (!exists(folderName)) {
+    create_directory(folderName);
+  }
+
+  std::ofstream file;
+  file.open(fileName.str().c_str(), std::ofstream::out);
+
+  for (int i = 0; i < vectorSize; ++i) {
+    file << i << " " << vector[i] << "\n";
+  }
+
+  file.close();
+}
+
+const state_g* ModelMulti::getG() const {
+  return gLocal_;
 }
 
 }  // namespace DYN

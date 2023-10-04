@@ -132,6 +132,15 @@ class SolverIDA : public Solver::Impl {
     return flagInit_;
   }
 
+  inline void setInitStep(double initStep) {
+    initStep_ = initStep;
+  }
+
+  inline std::string getName() {
+    static std::string name = "IDA";
+    return name;
+  }
+
  private:
   /**
    * @brief update statistics of execution of the solver
@@ -147,13 +156,13 @@ class SolverIDA : public Solver::Impl {
    */
   void getLastConf(long int &nst, int & kused, double & hused) const;
 
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
   /**
    * @brief indicates which root was activated
    * @return an array showing which root was activated
    */
   std::vector<state_g> getRootsFound() const;
-#endif
+// #endif
 
   /**
    * @brief computes the problem residual for given values of time, state vector
@@ -253,6 +262,21 @@ class SolverIDA : public Solver::Impl {
     return smj_;
   }
 
+  /**
+   * @brief Check jacobian
+   *
+   * @throw exceptions if jacobian is incorrect
+   *
+   * @param smj the jacobian to check
+   * @param model the model currelty used
+   */
+  static void checkJacobian(const SparseMatrix& smj, Model& model);
+
+  /**
+  * @brief Check jacobian
+  */
+  int solveTaskToInt();
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
@@ -268,6 +292,7 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  std::string solveTask_;  ///<
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

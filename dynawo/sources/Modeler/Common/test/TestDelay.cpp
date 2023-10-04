@@ -97,11 +97,11 @@ TEST(CommonTest, testDelayClass) {
   ASSERT_EQ(vec[4].second, 5.5);
 
   ASSERT_FALSE(delay.isTriggered());
-  delay.trigger();
+  delay.trigger(10., 10., "TEST");
   ASSERT_TRUE(delay.isTriggered());
   delay.resetTrigger();
   ASSERT_FALSE(delay.isTriggered());
-  delay.trigger();  // trigger has not effect
+  delay.trigger(10., 10., "TEST");  // trigger has not effect
   ASSERT_FALSE(delay.isTriggered());
 }
 
@@ -113,7 +113,7 @@ TEST(CommonTest, testDelayClassParameters) {
   values.push_back(std::make_pair(4., 4.4));
   values.push_back(std::make_pair(5., 5.5));
 
-  DYN::Delay delay(values);
+  DYN::Delay delay(values, 0.);
 
   std::vector<std::pair<double, double> > vec;
   delay.points(vec);
@@ -272,14 +272,14 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   ASSERT_ANY_THROW(manager.triggerDelay(id_none));
 
   manager.triggerDelay(id);
-  manager.setGomc(&states[0], 1);
+  manager.setGomc(&states[0], 1, time, "Test");
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
   ASSERT_TRUE(manager.isTriggered());
 
   manager.notifyEndTrigger();
-  manager.setGomc(&states[0], 1);  // always called before checking trigger
+  manager.setGomc(&states[0], 1, time, "Test");  // always called before checking trigger
   ASSERT_FALSE(manager.isTriggered());
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));

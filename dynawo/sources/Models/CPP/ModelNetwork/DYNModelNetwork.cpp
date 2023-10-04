@@ -1198,8 +1198,10 @@ ModelNetwork::getY0() {
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalNodeInjection();
 
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
-    (*itComponent)->getY0();
+  if (!isStartingFromDump()) {
+    for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
+      (*itComponent)->getY0();
+    }
   }
 
   busContainer_->resetCurrentUStatus();
@@ -1218,31 +1220,34 @@ ModelNetwork::initParams() {
   isInitModel_ = true;
 
   init(getCurrentTime());
-  getY0();
 
-  // solve initial problem
-  // generally, if the input is a network after a load flow, 5 iterations are enough to converge
-  // otherwise, the network is not balanced, and the global init of the model would be necessary to compute switches currents
-  SolverKINSubModel solver;
+  if (!isStartingFromDump()) {
+    getY0();
 
-  boost::shared_ptr<parameters::ParametersSet> networkModelLocalInitParameters =
+    // solve initial problem
+    // generally, if the input is a network after a load flow, 5 iterations are enough to converge
+    // otherwise, the network is not balanced, and the global init of the model would be necessary to compute switches currents
+    SolverKINSubModel solver;
+
+    boost::shared_ptr<parameters::ParametersSet> networkModelLocalInitParameters =
       boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("networkModelLocalInitParameters"));
-  networkModelLocalInitParameters->createParameter("mxiter", 5);
+    networkModelLocalInitParameters->createParameter("mxiter", 5);
 
-  solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], networkModelLocalInitParameters);
+    solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], networkModelLocalInitParameters);
 
-  try {
-  solver.solve();
-  vector<shared_ptr<ModelVoltageLevel> >::const_iterator itComponentVL;
-  for (itComponentVL = vLevelInitComponents_.begin(); itComponentVL != vLevelInitComponents_.end(); ++itComponentVL)
-    (*itComponentVL)->setInitialSwitchCurrents();
-  } catch (const DYN::Error &) {
-    Trace::warn() << DYNLog(NetworkInitSwitchCurrentsFailed) << Trace::endline;
+    try {
+      solver.solve();
+      vector<shared_ptr<ModelVoltageLevel> >::const_iterator itComponentVL;
+      for (itComponentVL = vLevelInitComponents_.begin(); itComponentVL != vLevelInitComponents_.end(); ++itComponentVL)
+        (*itComponentVL)->setInitialSwitchCurrents();
+    } catch (const DYN::Error &) {
+      Trace::warn() << DYNLog(NetworkInitSwitchCurrentsFailed) << Trace::endline;
+    }
+    solver.clean();
   }
 
   vLevelInitComponents_.clear();
   initComponents_.clear();
-  solver.clean();
   isInitModel_ = false;
 }
 
