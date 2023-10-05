@@ -585,7 +585,7 @@ class SubModel {
    * @param xNames vector linking continuous (possibly flow) variables with names
    * @param calculatedVarNames vector linking calculated variables with names
    */
-  void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
+  virtual void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
                        std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
 
   /**
@@ -1128,9 +1128,9 @@ class SubModel {
   }
 
   /**
-   * @brief get the names of all discretes variables of the dynamic model
+   * @brief get the names of all discrete variables of the dynamic model
    *
-   * @return names of all discretes variables
+   * @return names of all discrete variables
    */
   inline const std::vector<std::string>& zNames() {
     return zNames_;
@@ -1173,9 +1173,9 @@ class SubModel {
   }
 
   /**
-   * @brief get the names of all discretes variables of the init model
+   * @brief get the names of all discrete variables of the init model
    *
-   * @return names of all discretes variables
+   * @return names of all discrete variables
    */
   inline const std::vector<std::string>& zNamesInit() {
     return zNamesInit_;
@@ -1231,9 +1231,9 @@ class SubModel {
   }
 
   /**
-   * @brief get the number of discretes variables
+   * @brief get the number of discrete variables
    *
-   * @return number of discretes variables
+   * @return number of discrete variables
    */
   inline unsigned int sizeZ() const {
     return sizeZ_;
@@ -1501,7 +1501,7 @@ class SubModel {
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
   int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
-  double* zLocal_;  ///< local buffer to use when accessing discretes variables
+  double* zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
   std::vector<double> yLocalInit_;  ///< local buffer used for the init model
@@ -1549,7 +1549,7 @@ class SubModel {
   state_g* gLocalSave_;  ///< save of the local buffer of root functions
   double* yLocalSave_;  ///< save of the local buffer for continuous variables
   double* ypLocalSave_;  ///< save of the local buffer for the derivative of continuous variables
-  double* zLocalSave_;  ///< save of the local buffer for discretes variables
+  double* zLocalSave_;  ///< save of the local buffer for discrete variables
   int offsetYSave_;  ///< save of index in the global variable table
 
   bool modeChange_;  ///< @b true if one mode has changed
@@ -1561,7 +1561,7 @@ class SubModel {
 
   std::vector<boost::shared_ptr<Variable> > variables_;  ///< vector of sub-model variables
 
-  std::vector<std::string> zNames_;  ///< vector of the discretes variables name
+  std::vector<std::string> zNames_;  ///< vector of the discrete variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
   std::vector<std::string> calculatedVarNames_;  ///< vector of sub-model calculated variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > xAliasesNames_;  ///< vector of the continuous aliases variables names

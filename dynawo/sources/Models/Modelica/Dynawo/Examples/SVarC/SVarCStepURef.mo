@@ -13,8 +13,6 @@ within Dynawo.Examples.SVarC;
 */
 
 model SVarCStepURef
-  import Modelica;
-  import Dynawo;
 
  Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 1) annotation(
     Placement(visible = true, transformation(origin = {102, 20}, extent = {{-18, -18}, {18, 18}}, rotation = -90)));

@@ -13,12 +13,10 @@ within Dynawo.Electrical.HVDC.HvdcPQProp;
 */
 
 model HvdcPQPropDangling "Model of HVDC link with a proportional reactive power control. terminal1 can inject a fixed reactive power or use the proportional control, depending on the user's choice. terminal2 is connected to a switched-off bus"
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPDanglingFixedReactiveLimits;
-  extends HVDC.BaseClasses.BaseQStatusDangling;
-  extends HVDC.BaseClasses.BasePQPropDangling(QInj1RawModeUPu(start = - s10Pu.im), QInj1RawPu(start = - s10Pu.im));
-  extends HVDC.BaseClasses.BaseVoltageRegulationDangling;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPDanglingFixedReactiveLimits;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseQStatusDangling;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePQPropDangling(QInj1RawModeUPu(start = - s10Pu.im), QInj1RawPu(start = - s10Pu.im));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseVoltageRegulationDangling;
 
 /*
   Equivalent circuit and conventions:

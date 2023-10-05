@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.WPP;
 */
 
 model LinearCommunication "Linear communication module (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Integer nu(min = 1) = 1 "Number of input connections" annotation(
     Dialog(connectorSizing = true),

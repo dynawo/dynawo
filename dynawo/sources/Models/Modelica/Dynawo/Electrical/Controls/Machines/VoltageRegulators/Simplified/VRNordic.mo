@@ -14,10 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRNordic "Voltage regulator model for the Nordic 32 test system used for voltage stability studies"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   parameter Types.VoltageModulePu EfdMaxPu "Upper limit of excitation voltage in pu (user-selected base voltage)";
   parameter Real OelMode "For positive field current error signal : if 1, OEL output constant, if 0, OEL output equal to error signal";

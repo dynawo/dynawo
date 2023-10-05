@@ -13,24 +13,24 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 */
 
 model TransformDQtoRI "Transformation from d/q rotating reference frame with rotation angle phi to real/imaginary in stationary reference frame"
-  import Modelica.Blocks.Interfaces;
 
-  Interfaces.RealInput udPu "d-axis voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqPu "q-axis voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput cosPhi "cos(Phi) with Phi the angle of the dq transform" annotation(
-    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput sinPhi "sin(Phi) with Phi the angle of the dq transform" annotation(
-    Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput urPu "Real part of the complex voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uiPu "Imaginary part of the complex voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput phi "Angle of the dq transform in rad" annotation(
+    Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput udPu "d-axis voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput uqPu "q-axis voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.RealOutput uiPu "Imaginary part of the complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput urPu "Real part of the complex voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  urPu = udPu * cosPhi - uqPu * sinPhi;
-  uiPu = udPu * sinPhi + uqPu * cosPhi;
+  urPu = udPu * cos(phi) - uqPu * sin(phi);
+  uiPu = udPu * sin(phi) + uqPu * cos(phi);
 
-annotation(
-    Icon(coordinateSystem(grid = {1, 1}), graphics = {Text(origin = {-118, 85}, extent = {{-14, 7}, {14, -7}}, textString = "udPu"), Text(origin = {-118, 45}, extent = {{-14, 7}, {14, -7}}, textString = "uqPu"), Text(origin = {-114, -18}, extent = {{-25, 14}, {14, -7}}, textString = "cos(phi)"), Text(origin = {-114, -58}, extent = {{-25, 14}, {14, -7}}, textString = "sin(phi)"), Text(origin = {114, 71}, extent = {{-14, 7}, {14, -7}}, textString = "urPu"), Text(origin = {114, -50}, extent = {{-14, 7}, {14, -7}}, textString = "uiPu"), Text(origin = {-20, 14}, extent = {{-60, 66}, {100, -94}}, textString = "DQ/RI"), Rectangle(extent = {{-100, 100}, {100, -100}})}));end TransformDQtoRI;
+  annotation(
+    preferredView = "text",
+    Icon(coordinateSystem(grid = {1, 1}), graphics = {Text(origin = {-118, 85}, extent = {{-14, 7}, {14, -7}}, textString = "udPu"), Text(origin = {-118, 45}, extent = {{-14, 7}, {14, -7}}, textString = "uqPu"), Text(origin = {-114, -43}, extent = {{-25, 14}, {14, -7}}, textString = "phi"), Text(origin = {114, 71}, extent = {{-14, 7}, {14, -7}}, textString = "urPu"), Text(origin = {114, -46}, extent = {{-14, 7}, {14, -7}}, textString = "uiPu"), Text(origin = {-20, 14}, extent = {{-60, 66}, {100, -94}}, textString = "DQ/RI"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+end TransformDQtoRI;

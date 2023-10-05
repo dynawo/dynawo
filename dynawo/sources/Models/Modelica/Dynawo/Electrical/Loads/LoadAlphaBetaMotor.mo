@@ -27,7 +27,7 @@ imPu goes downwards through jXm
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
-  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
+  Dynawo.Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
 
   parameter Real ActiveMotorShare "Share of active power consumed by motors (between 0 and 1)";
   parameter Types.ApparentPowerModule SNom = ActiveMotorShare * s0Pu.re * SystemBase.SnRef "Nominal apparent power of a single motor in MVA";
@@ -50,14 +50,14 @@ imPu goes downwards through jXm
   Real s(start = s0) "Slip of the motor";
   Types.AngularVelocity omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
 
-  Types.ActivePowerPu PLoadPu (start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu QLoadPu (start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu PLoadPu(start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu QLoadPu(start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
   Complex iLoadPu(re(start = iLoad0Pu.re), im(start = iLoad0Pu.im)) "Complex current consumed by the load in pu (base SnRef) (receptor convention)";
 
 protected
-  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu,XsPu) "Stator impedance in pu (base UNom, SNom)";
-  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu,XrPu) "Rotor impedance in pu (base UNom, SNom)";
-  final parameter Types.ComplexImpedancePu ZmPu = Complex(0,XmPu) "Magnetising impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu, XsPu) "Stator impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu, XrPu) "Rotor impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZmPu = Complex(0, XmPu) "Magnetising impedance in pu (base UNom, SNom)";
 
 public
   // Motor initial values
@@ -82,8 +82,8 @@ equation
 
   if (running.value) then
     // PQ load
-    PLoadPu = (1-ActiveMotorShare) * PRefPu * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Alpha);
-    QLoadPu = (QRefPu * (1 + deltaQ) - QMotor0Pu * (SNom/SystemBase.SnRef) * (PRefPu/s0Pu.re) * (1 + deltaP)) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Beta); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
+    PLoadPu = (1-ActiveMotorShare) * PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha);
+    QLoadPu = (QRefPu * (1 + deltaQ) - QMotor0Pu * (SNom/SystemBase.SnRef) * (PRefPu/s0Pu.re) * (1 + deltaP)) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
     Complex(PLoadPu,QLoadPu) = terminal.V*ComplexMath.conj(iLoadPu);
 
     // Asynchronous motor
@@ -112,5 +112,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end LoadAlphaBetaMotor;

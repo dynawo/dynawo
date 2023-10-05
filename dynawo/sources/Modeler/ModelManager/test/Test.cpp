@@ -133,7 +133,7 @@ class MyModelica: public ModelModelica {
   }
 
   /**
-   * @brief calculates the discretes values of the model
+   * @brief calculates the discrete values of the model
    *
    */
   virtual void setZomc() {
@@ -147,7 +147,7 @@ class MyModelica: public ModelModelica {
   void collectSilentZ(BitMask* /*silentZTable*/) { }
 
   /**
-   * @brief calculates the initial values (discretes and continuous) of the model
+   * @brief calculates the initial values (discrete and continuous) of the model
    *
    */
   void setY0omc() {

@@ -548,7 +548,7 @@ ModelLoad::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Pc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Qc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_loadState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
 }
 
 void
@@ -562,7 +562,7 @@ ModelLoad::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Pc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Qc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_loadState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
 }
 
 void

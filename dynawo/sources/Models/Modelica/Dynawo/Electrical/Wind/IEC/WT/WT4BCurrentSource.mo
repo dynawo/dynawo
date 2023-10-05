@@ -13,9 +13,6 @@ within Dynawo.Electrical.Wind.IEC.WT;
 */
 
 model WT4BCurrentSource "Wind Turbine Type 4B model from IEC 61400-27-1 standard : measurement, PLL, protection, PControl, QControl, limiters, electrical, generator and mechanical modules"
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWT4;
 
   //PControl parameters

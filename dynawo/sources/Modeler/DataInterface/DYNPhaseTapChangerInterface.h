@@ -90,16 +90,10 @@ class PhaseTapChangerInterface {
   virtual bool getRegulating() const = 0;
 
   /**
-   * @brief Getter for the current threshold of the phase tap changer
-   * @return the current threshold
+   * @brief Getter for the regulation value of the phase tap changer depending on regulation mode
+   * @return the current threshold if regulationMode = "CURRENT_LIMITER" / the power target if regulationMode = "ACTIVE_POWER_CONTROL"
    */
-  virtual double getThresholdI() const = 0;
-
-  /**
-   * @brief Getter for the power target of the phase tap changer
-   * @return the power target
-   */
-  virtual double getTargetP() const = 0;
+  virtual double getRegulationValue() const = 0;
 
   /**
    * @brief Getter for the current step's resistance of the phase tap changer

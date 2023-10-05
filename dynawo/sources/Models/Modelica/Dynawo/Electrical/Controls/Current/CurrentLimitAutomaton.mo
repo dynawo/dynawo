@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Current;
 
 model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one component"
   import Modelica.Constants;
-  import Dynawo.Connectors;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -24,11 +23,11 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
   parameter Types.Time tLagBeforeActing "Time lag before taking action in s";
 
   //Inputs
-  Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton natively present in C++ object";
-  Connectors.ImPin IMonitored "Monitored current (unit depending on IMax unit)";
+  Dynawo.Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton natively present in C++ object";
+  Dynawo.Connectors.ImPin IMonitored "Monitored current (unit depending on IMax unit)";
 
   //Output
-  Connectors.ZPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
+  Dynawo.Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
 protected
   discrete Types.Time tThresholdReached(start = Constants.inf) "Time when IMonitored > IMax was first reached in s";

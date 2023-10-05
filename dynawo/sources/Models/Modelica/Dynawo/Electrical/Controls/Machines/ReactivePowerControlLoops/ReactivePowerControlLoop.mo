@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 */
 
 model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
-  import Modelica;
-  import Dynawo.Types;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -24,7 +22,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Types.VoltageModulePu UStatorRefMinPu = 0.85 "Minimum reference voltage for the generator voltage regulator in pu (base UNom)";
   parameter Types.VoltageModulePu UStatorRefMaxPu = 1.15 "Maximum reference voltage for the generator voltage regulator in pu (base UNom)";
 
-  type UStatus = enumeration (Standard, LimitUMin, LimitUMax);
+  type UStatus = enumeration(Standard, LimitUMin, LimitUMax);
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
@@ -63,7 +61,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const3(k = -DerURefMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-170, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(limitsAtInit = true, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";

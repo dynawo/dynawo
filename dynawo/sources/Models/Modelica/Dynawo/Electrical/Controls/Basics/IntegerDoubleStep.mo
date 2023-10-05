@@ -14,9 +14,8 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model IntegerDoubleStep "Parameterizable step model : applies two changes of amplitude at given times"
-  import Dynawo.Connectors;
 
-  Connectors.IntPin step(value(start = Value0));
+  Dynawo.Connectors.IntPin step(value(start = Value0));
 
   parameter Integer Height1 "Amplitude of the first step to be imposed by the model";
   parameter Types.Time tStep1 "Time instant when the first step occurs";

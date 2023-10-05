@@ -176,7 +176,7 @@ class Factory:
 
         ## List of derivatives variables
         self.list_vars_der = []
-        ## List of discretes variables
+        ## List of discrete variables
         self.list_vars_discr = []
         ## List of ALL discrete variables (including booleans)
         self.list_all_vars_discr = []
@@ -1269,12 +1269,18 @@ class Factory:
             tmps_to_add = []
             index_additional_relation = 0
             for eq in self.list_eq_syst:
+
+                no_event_nodes = []
+                if eq.get_evaluated_var() in self.reader.var_name_to_mixed_residual_vars_types:
+                    no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[eq.get_evaluated_var()].get_no_event()
+
+                index_if = 0
                 for line in eq.get_body():
                     if (re.search(r'modelica_[a-z]+ tmp[0-9]+?;', line)):
                         tmps_definition.append(str(line).replace("  ", ""))
                     if (re.search(r'tmp[0-9]+ = [a-zA-Z]*.*?\;', line)):
                         tmps_assignment.append(str(line).replace("  ", ""))
-                    if (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line):
+                    if (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line  and not no_event_nodes[index_if]):
                         tmps_relation = find_all_temporary_variable_in_line(line)
                         for tmp in tmps_relation:
                             tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
@@ -1287,6 +1293,8 @@ class Factory:
                         relation_to_create.set_body_definition("  data->simulationInfo->relations[" + str(index_relation_to_create) + "] = " + line.split(" = ")[0].replace("tmp", "tmp_cr").replace("  ", "") + ";\n")
                         self.modes.add_created_relation(relation_to_create)
                         self.nb_created_relations = index_additional_relation
+                    if "else" in line:
+                        index_if +=1
             self.add_tmps_for_modes(tmps_to_add, tmps_assignment, tmps_definition, True)
 
     ##
@@ -1342,7 +1350,7 @@ class Factory:
 
         for eq in self.list_int_equations:
             relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
-            for relation in relations_found:
+            for _ in relations_found:
                 self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
         for var in self.reader.list_calculated_vars :
@@ -1591,15 +1599,23 @@ class Factory:
             standard_eq_body = []
             standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
             eq_body = (eq.get_body_for_setf())
+
+            no_event_nodes = []
+            if var_name in self.reader.var_name_to_mixed_residual_vars_types:
+                no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+
+            index_if = 0
             if self.create_additional_relations():
                 index = 0
                 index_relation = 0
                 for line in eq_body:
-                    if (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line):
+                    if (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line and not no_event_nodes[index_if]):
                         index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
                         assert(len(index_relations) > 0 and index_relation < len(index_relations))
                         eq_body[index] = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation += 1
+                    if "else" in line:
+                        index_if +=1
                     index += 1
             standard_eq_body.extend(eq_body)
 
@@ -1743,7 +1759,7 @@ class Factory:
 
     def transform_in_relation(self, line, index_relation):
         tmp_to_define = find_all_temporary_variable_in_line(line)[0]
-        parenthesis_split = re.findall(r'[a-z]*[A-Z].*?\*\/.*,', line)[0].split("(")
+        parenthesis_split = re.findall(r'Greater\(.*,|Less\(.*,|GreaterEq\(.*,|LessEq\(.*,|Greater<adept::adouble>\(.*,|Less<adept::adouble>\(.*,|GreaterEq<adept::adouble>\(.*,|LessEq<adept::adouble>\(.*,', line)[0].split("(")
         comparator = parenthesis_split[0]
         variable_1 = '('.join(parenthesis_split[1:]).split(",")[0]
         variable_2 = re.findall(r',.*?;', line)[0].rsplit(")", 1)[0]
@@ -2571,17 +2587,24 @@ class Factory:
                 standard_body_with_standard_external_call = eq.get_body_for_evalf_adept()
                 standard_body = []
                 index_relation = 0
+
+                no_event_nodes = []
+                if var_name in self.reader.var_name_to_mixed_residual_vars_types:
+                    no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+                index_if = 0
                 for line in standard_body_with_standard_external_call:
                     for func in list_omc_functions:
                         if (func.get_name() + "(" in line or func.get_name() + " (" in line):
                             if not is_adept_func(func, self.list_adept_structs) : continue
                             used_functions.append(func)
                     line = self.replace_adept_functions_in_line(line)
-                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line):
+                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and "RELATIONHYSTERESIS" not in line and not no_event_nodes[index_if]):
                         index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
                         assert(len(index_relations) > 0 and index_relation < len(index_relations))
                         line = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation+=1
+                    if "else" in line:
+                        index_if +=1
                     standard_body.append(line)
 
                 # Build the whole equation body as if clauses linked with reinit

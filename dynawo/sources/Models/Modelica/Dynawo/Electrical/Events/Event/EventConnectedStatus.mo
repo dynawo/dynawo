@@ -14,8 +14,8 @@ within Dynawo.Electrical.Events.Event;
 */
 
 model EventConnectedStatus "Event for changing connection status of a component (connected or disconnected)"
-  extends SingleRealEvent(stateEvent1 = if(open) then Constants.stateToReal(Constants.state.Open)
-                                         else Constants.stateToReal(Constants.state.Closed));
+  extends SingleIntegerEvent (stateEvent1 = if(open) then Integer(Constants.state.Open)
+                                         else Integer(Constants.state.Closed));
 
   parameter Boolean open "Disconnect the component ?";
 

@@ -265,7 +265,7 @@ namespace DYN {
       tap0 = getPhaseTapChanger()->getCurrentPosition();
       tapMin = getPhaseTapChanger()->getLowPosition();
       tapMax = tapMin - 1 + getPhaseTapChanger()->getNbTap();
-      double thresholdI = getPhaseTapChanger()->getThresholdI();
+      double thresholdI = getPhaseTapChanger()->getRegulationValue();
       double factorAToPu = sqrt(3) * getVNom1() / (1000 * SNREF);
       staticParameters_.insert(std::make_pair("iMax", StaticParameter("iMax", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
       staticParameters_.insert(std::make_pair("iStop", StaticParameter("iStop", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));

@@ -142,6 +142,7 @@ BusInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("Umax_pu", StaticParameter("Umax_pu", StaticParameter::DOUBLE).setValue(getVMax() / getVNom())));
   staticParameters_.insert(std::make_pair("Umin", StaticParameter("Umin", StaticParameter::DOUBLE).setValue(getVMin())));
   staticParameters_.insert(std::make_pair("Umin_pu", StaticParameter("Umin_pu", StaticParameter::DOUBLE).setValue(getVMin() / getVNom())));
+  staticParameters_.insert(std::make_pair("UNom", StaticParameter("UNom", StaticParameter::DOUBLE).setValue(getVNom())));
 }
 
 }  // namespace DYN

@@ -493,19 +493,27 @@ ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
   zChangeType_t zChangeType = NO_Z_CHANGE;
   for (std::size_t i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
-    if (doubleNotEquals(zLocal_[nonSilentZIndexes_[i]], zSave_[nonSilentZIndexes_[i]])) {
-      indicesDiff.push_back(static_cast<int>(nonSilentZIndexes_[i]));
-      zChangeType = NOT_SILENT_Z_CHANGE;
+    if (!std::isnan(zLocal_[nonSilentZIndexes_[i]]) && !std::isnan(zSave_[nonSilentZIndexes_[i]])) {
+      if (doubleNotEquals(zLocal_[nonSilentZIndexes_[i]], zSave_[nonSilentZIndexes_[i]])) {
+        indicesDiff.push_back(static_cast<int>(nonSilentZIndexes_[i]));
+        zChangeType = NOT_SILENT_Z_CHANGE;
+      }
+    } else {
+      throw DYNError(Error::MODELER, ZValueIsNaN, nonSilentZIndexes_[i]);
     }
   }
   // test values of discrete variables that are not used to compute continuous equations
   // and raise the flag NotUsedInContinuousEquations if at least one has changed
   // If at least one non silent Z has changed then the flag is never raised
   for (std::size_t i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
-    if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]], zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
-      indicesDiff.push_back(static_cast<int>(notUsedInContinuousEqSilentZIndexes_[i]));
-      if (zChangeType != NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE && zChangeType != NOT_SILENT_Z_CHANGE)
-        zChangeType = NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE;
+    if (!std::isnan(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]]) && !std::isnan(zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
+      if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]], zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
+        indicesDiff.push_back(static_cast<int>(notUsedInContinuousEqSilentZIndexes_[i]));
+        if (zChangeType != NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE && zChangeType != NOT_SILENT_Z_CHANGE)
+          zChangeType = NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE;
+      }
+    } else {
+      throw DYNError(Error::MODELER, ZValueIsNaN, notUsedInContinuousEqSilentZIndexes_[i]);
     }
   }
   if (!indicesDiff.empty()) {
@@ -517,9 +525,13 @@ ModelMulti::propagateZModif() {
     // if only discrete variables that are used only in continuous equations then we just raise the NotUsedInDiscreteEquations flag
     // no need to propagate
     for (std::size_t i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
-      if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
-        std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
-        return NOT_USED_IN_DISCRETE_EQ_Z_CHANGE;
+      if (!std::isnan(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]]) && !std::isnan(zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
+        if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
+          std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+          return NOT_USED_IN_DISCRETE_EQ_Z_CHANGE;
+        }
+      } else {
+        throw DYNError(Error::MODELER, ZValueIsNaN, notUsedInDiscreteEqSilentZIndexes_[i]);
       }
     }
   }
@@ -818,12 +830,12 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
     else
       Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
   } else if (!isState1 && isState2) {  // when one variable is a state variable and the other one isn't, use a specific connection
-    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE) {
+    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE && typeVar2 != INTEGER) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel1, variable1, subModel2, variable2);
   } else if (isState1 && (!isState2)) {
-    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE) {
+    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE && typeVar1 != INTEGER) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel2, variable2, subModel1, variable1);
@@ -868,7 +880,7 @@ ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subMo
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
-    subModelConnector = variable1->getType() == DISCRETE ?
+    subModelConnector = (variable1->getType() == DISCRETE ||  variable1->getType() == INTEGER)?
                     setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()), name, subModel1, variable1) :
                     setConnector(shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable()), name, subModel1, variable1);
     addSubModel(subModelConnector, "");  // no library for connectors

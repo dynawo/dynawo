@@ -52,7 +52,10 @@ endforeach()
 ## SMIB
 
 add_custom_target(SMIB_MODELS)
-add_dependencies(SMIB_MODELS InfiniteBus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step)
+add_dependencies(SMIB_MODELS InfiniteBus Bus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step LoadAlphaBeta)
+
+add_custom_target(SMIB_MODELS_GENERATORS)
+add_dependencies(SMIB_MODELS_GENERATORS GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsGoverNordicVRNordic GeneratorSynchronousFourWindingsPmConstVRNordic GeneratorSynchronousThreeWindingsPmConstVRNordic GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B)
 
 ## DYNAFLOW
 
@@ -71,7 +74,7 @@ endforeach()
 ## DYNASWING
 
 file(GLOB DynaSwingGenerators GeneratorSynchronous*.xml)
-file(GLOB DynaSwingHvdcs HvdcVSC*.xml)
+file(GLOB DynaSwingHvdcs HvdcVsc*.xml)
 file(GLOB DynaSwingSVarC StaticVarCompensator.xml StaticVarCompensatorStepURef.xml)
 add_custom_target(DYNASWING_MODELS)
 foreach(item IN LISTS Basics Bus DynaSwingGenerators Events Fault Line Loads GridForming DynaSwingHvdcs InfiniteBus DynaSwingSVarC Renewable Transformer)

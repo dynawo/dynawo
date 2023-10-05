@@ -14,9 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model IEEET1 "IEEE type 1 Exciter (IEEET1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   parameter Types.VoltageModulePu EfdHighPu "Higher abscissa of saturation characteristic in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu EfdLowPu "Lower abscissa of saturation characteristic in pu (user-selected base voltage)";
@@ -72,7 +69,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu UStator0Pu "Initial stator voltage in pu (base UNom)";
 
-  final parameter Types.VoltageModulePu EfdRaw0Pu = if Efd0Pu > EfdThresholdPu then Bsq * (Efd0Pu - EfdThresholdPu) ^ 2 else 0 "Initial non-saturated excitation voltage in pu (user-selected base voltage)";
+  final parameter Types.VoltageModulePu EfdRaw0Pu = Ke * Efd0Pu + (if Efd0Pu > EfdThresholdPu then Bsq * (Efd0Pu - EfdThresholdPu) ^ 2 else 0) "Initial non-saturated excitation voltage in pu (user-selected base voltage)";
   final parameter Types.VoltageModulePu URef0Pu = if Ka > 0 then UStator0Pu + EfdRaw0Pu / Ka else 0 "Initial reference stator voltage in pu (base UNom)";
 
 equation

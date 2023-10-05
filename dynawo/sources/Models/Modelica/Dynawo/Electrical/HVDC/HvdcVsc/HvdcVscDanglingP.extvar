@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable id="modeU1" type="discrete" defaultValue="true"/>
+  <variable id="PRefPu" type="continuous" optional="true"/>
+  <variable id="QRef1Pu" type="continuous" optional="true"/>
+  <variable id="URef1Pu" type="continuous" optional="true"/>
+  <variable id="Conv1.switchOffSignal1.value" type="discrete" defaultValue="false"/>
+  <variable id="Conv1.switchOffSignal2.value" type="discrete" defaultValue="false"/>
+  <variable id="Conv1.switchOffSignal3.value" type="discrete" defaultValue="false"/>
+  <variable id="terminal1.V.re" type="continuous"/>
+  <variable id="terminal1.V.im" type="continuous"/>
+  <variable id="terminal2.V.re" type="continuous"/>
+  <variable id="terminal2.V.im" type="continuous"/>
+</external_variables>

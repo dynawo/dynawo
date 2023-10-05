@@ -340,6 +340,9 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
   vector<string> ids;
   ids.push_back(id_);
   ids.push_back("bus");
+  for (auto& busBarSectionId : busBarSectionIdentifiers_) {
+    ids.push_back(busBarSectionId);
+  }
   success = false;
   bool boolValue = getParameterDynamicNoThrow<bool>(params, "hasShortCircuitCapabilities", success, ids);
   if (success)
@@ -591,7 +594,7 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   }
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
 
   for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i) {
     std::string busBarSectionId = busBarSectionIdentifiers_[i];
@@ -621,6 +624,9 @@ ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
 void
 ModelBus::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler(id_ + "_hasShortCircuitCapabilities", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  for (auto& busBarSectionId : busBarSectionIdentifiers_) {
+    parameters.push_back(ParameterModeler(busBarSectionId + "_hasShortCircuitCapabilities", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  }
 }
 
 void
@@ -635,7 +641,7 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_i_im", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
 }
 
 void

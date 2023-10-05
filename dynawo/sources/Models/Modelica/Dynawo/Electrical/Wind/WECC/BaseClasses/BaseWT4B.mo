@@ -13,18 +13,12 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 */
 
 partial model BaseWT4B "Base model for WECC Wind Turbine 4B"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
-  Modelica.Blocks.Sources.Constant omegaG(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {18, -33}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-
 equation
-  connect(omegaG.y, wecc_reec.omegaGPu) annotation(
-    Line(points = {{12.5, -33}, {-26, -33}, {-26, -15}}, color = {0, 0, 127}));
+  connect(OmegaRef.y, wecc_reec.omegaGPu) annotation(
+    Line(points = {{-179, 38}, {-175, 38}, {-175, -60}, {-85, -60}, {-85, -11}}, color = {0, 0, 127}));
 
   annotation(
-    Icon);
+    preferredView = "diagram");
 end BaseWT4B;

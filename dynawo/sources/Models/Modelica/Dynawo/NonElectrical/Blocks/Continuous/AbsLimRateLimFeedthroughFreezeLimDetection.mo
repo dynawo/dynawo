@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block AbsLimRateLimFeedthroughFreezeLimDetection "First order feed-through with absolute and rate limits, a freezing flag, and limitation detection flags"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze;
 
   Modelica.Blocks.Interfaces.BooleanOutput fMax "Outputs true if upper limit is reached" annotation(

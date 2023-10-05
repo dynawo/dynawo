@@ -39,6 +39,7 @@ This repository contains Dyna&omega;o's project code.
   * [Building Dyna&omega;o](#build)
     * [Linux](#build_linux)
     * [Windows](#build_windows)
+    * [Codespaces](#build_codespaces)
   * [Launch Dyna&omega;o](#launch)
     * [Linux](#launch_linux)
     * [Windows](#launch_windows)
@@ -295,6 +296,38 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 
 **Warning** Only the build directories (b and b-3-p) can be located in the `dynawo` folder, the install (d-i and d-3-p), OMDev and OpenModelica folders should be located outside to avoid problems with CMake.
 
+<a name="build_codespaces"></a>
+#### Codespaces
+
+Github provides a way to build open-source projects in the cloud with its solution [Codespaces](https://github.com/features/codespaces). If you want to build and test Dyna&omega;o without having to setup a development environment this is the solution. Start your Codespaces on the project and follow those steps:
+
+1. In the Vscode Terminal of Codespaces launch:
+``` bash
+$> ./.vscode/fixForCodespaces.sh && ./.vscode/switchVscodeConfig.sh
+```
+
+2. Go to `Extensions` and install `C/C++ Extension Pack`
+
+3. Press `F1`, select `CMake: Configurer` and select `GCC` as active kit.
+
+4. Click on `Build` at the bottom of the Window. This step will build the `all` target, building all the 3rd parties needed for Dyna&omega;o.
+
+5. Once the build is done go back to the Terminal and launch:
+
+``` bash
+$> ./.vscode/switchVscodeConfig.sh
+```
+
+6. Press `F1` and select `CMake: Configurer`
+
+7. Select `install` target and launch `Build`
+
+8. Select `models` target and launch `Build`
+
+9. Select `solvers` target and launch `Build`
+
+10. Dyna&omega;o is fully built and you can start testing it or adding your feature !
+
 <a name="launch"></a>
 ### Launch Dyna&omega;o
 
@@ -349,7 +382,9 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.4.1/DynawoDocumentation.zip).
+You can download Dyna&omega;o documentation here :
+- [Nightly version](https://github.com/dynawo/dynawo/releases/download/nightly/DynawoDocumentation.pdf)
+- [Release version](https://github.com/dynawo/dynawo/releases/download/v1.4.1/DynawoDocumentation.zip)
 
 <a name="doxygen"></a>
 ### Doxygen

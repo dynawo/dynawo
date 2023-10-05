@@ -15,12 +15,14 @@ set(MODEL_FILES
   EventEquations.mo
   EventBoolean.mo
   EventReal.mo
+  EventInteger.mo
   SingleBooleanEvent.mo
   DoubleBooleanEvent.mo
   TripleBooleanEvent.mo
   SingleRealEvent.mo
   DoubleRealEvent.mo
   TripleRealEvent.mo
+  SingleIntegerEvent.mo
   EventQuadripoleStatus.mo
   EventQuadripoleConnection.mo
   EventQuadripoleDisconnection.mo

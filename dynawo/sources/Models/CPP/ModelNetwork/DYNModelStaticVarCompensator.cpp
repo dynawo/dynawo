@@ -374,7 +374,7 @@ ModelStaticVarCompensator::instantiateVariables(vector<shared_ptr<Variable> >& v
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_mode_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
 }
 
 void
@@ -382,7 +382,7 @@ ModelStaticVarCompensator::defineVariables(vector<shared_ptr<Variable> >& variab
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_mode_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
 }
 
 void

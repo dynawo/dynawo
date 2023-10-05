@@ -47,4 +47,6 @@
   <curve model="tfo" variable="transformer_terminal1_i_im"/>
   <curve model="tfo" variable="transformer_terminal2_i_re"/>
   <curve model="tfo" variable="transformer_terminal2_i_im"/>
+  <curve model="bus1" variable="bus_U"/>
+  <curve model="busInf" variable="infiniteBus_U"/>
 </curvesInput>

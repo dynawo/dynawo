@@ -173,7 +173,7 @@ ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
 
 void
 ModelShuntCompensator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState(id_ + "_isCapacitor_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_isAvailable_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_currentSection_value", DISCRETE));
@@ -182,7 +182,7 @@ ModelShuntCompensator::instantiateVariables(vector<shared_ptr<Variable> >& varia
 
 void
 ModelShuntCompensator::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createState("@ID@_isCapacitor_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_isAvailable_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_currentSection_value", DISCRETE));

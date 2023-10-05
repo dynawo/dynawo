@@ -13,9 +13,6 @@ within Dynawo.Examples.ENTSOE;
 */
 
 model TestCase3 "Bolted three-phase short circuit at the high-level side of the transformer"
-  import Modelica;
-  import Dynawo;
-
   extends Icons.Example;
 
   // Generator and regulations
@@ -91,7 +88,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
    mq = 0,
    nd = 0,
    nq = 0) annotation(
-    Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -146,7 +143,7 @@ equation
   connect(nodeFault.terminal, transformer.terminal1) annotation(
     Line(points = {{-52, 50}, {-52, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, 6}, {60, 6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
     Line(points = {{38, 10}, {70, 10}, {70, 6}, {78, 6}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, pss.omegaPu) annotation(
@@ -158,7 +155,7 @@ equation
   connect(const.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {80, 60}, {80, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{102, -30}, {102, -30.5}, {110, -30.5}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{102, -30}, {110, -30}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
 

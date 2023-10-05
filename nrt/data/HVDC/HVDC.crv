@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,18 +8,24 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="HVDC" variable="hvdc_PPu_Side_PPu"/>
-    <curve model="HVDC" variable="hvdc_PPu_Side_QPu"/>
-    <curve model="HVDC" variable="hvdc_dCLine_U1dcPu"/>
-    <curve model="HVDC" variable="hvdc_Conv1_UPu"/>
-    <curve model="HVDC" variable="hvdc_Conv1_UPhase"/>
-    <curve model="HVDC" variable="hvdc_UdcPu_Side_PPu"/>
-    <curve model="HVDC" variable="hvdc_UdcPu_Side_QPu"/>
-    <curve model="HVDC" variable="hvdc_dCLine_U2dcPu"/>
-    <curve model="HVDC" variable="hvdc_Conv2_UPu"/>
-    <curve model="HVDC" variable="hvdc_Conv2_UPhase"/>
+  <curve model="HVDC" variable="hvdc_Conv1_idPu"/>
+  <curve model="HVDC" variable="hvdc_Conv1_iqPu"/>
+  <curve model="HVDC" variable="hvdc_Conv1_PInjPu"/>
+  <curve model="HVDC" variable="hvdc_Conv1_QInjPu"/>
+  <curve model="HVDC" variable="hvdc_Conv1_UPu"/>
+  <curve model="HVDC" variable="hvdc_Conv1_UPhase"/>
+  <curve model="HVDC" variable="hvdc_dCLine_IDc1Pu"/>
+  <curve model="HVDC" variable="hvdc_dCLine_UDc1Pu"/>
+  <curve model="HVDC" variable="hvdc_Conv2_idPu"/>
+  <curve model="HVDC" variable="hvdc_Conv2_iqPu"/>
+  <curve model="HVDC" variable="hvdc_Conv2_PInjPu"/>
+  <curve model="HVDC" variable="hvdc_Conv2_QInjPu"/>
+  <curve model="HVDC" variable="hvdc_Conv2_UPu"/>
+  <curve model="HVDC" variable="hvdc_Conv2_UPhase"/>
+  <curve model="HVDC" variable="hvdc_dCLine_IDc2Pu"/>
+  <curve model="HVDC" variable="hvdc_dCLine_UDc2Pu"/>
 </curvesInput>

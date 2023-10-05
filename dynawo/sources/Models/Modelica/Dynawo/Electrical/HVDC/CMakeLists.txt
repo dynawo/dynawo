@@ -14,7 +14,7 @@ add_subdirectory(BaseControls BC)
 add_subdirectory(HvdcPQProp Q)
 add_subdirectory(HvdcPTanPhi T)
 add_subdirectory(HvdcPV P)
-add_subdirectory(HvdcVSC V)
+add_subdirectory(HvdcVsc V)
 
 set(MODEL_FILES
   package.mo

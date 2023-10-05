@@ -82,7 +82,7 @@ step_(0.) {
 
 void
 ModelVoltageMeasurementsUtilities::init(const double /*t0*/) {
-  // Nothing to initalize here.
+  // Nothing to initialize here.
 }
 
 void
@@ -258,7 +258,7 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
     name.str("");
     name.clear();
     name << "running_" << i << "_value";
-    variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
+    variables.push_back(VariableNativeFactory::createState(name.str(), INTEGER));
   }
 }
 

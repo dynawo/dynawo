@@ -386,28 +386,55 @@ def replace_pow(line):
 def replace_dynamic_indexing(body):
     body_to_return = []
     depend_vars = []
+    integer_array_create_tmp = {}
     for line in body:
         if ("calc_base_index_dims_subs" not in line):
             body_to_return.append(line)
+            for tmp in integer_array_create_tmp:
+                if "&"+tmp in line:
+                    table, index, var_name, size = integer_array_create_tmp[tmp]
+                    for i in range(0, int(size)):
+                        body_to_return.append("    data->localData[0]->" + table + "[" + str(int(index) + i) + "] /* " + var_name + "[" + str(i + 1) +"] DISCRETE */" + " = integer_get(" + tmp + ", " + str(i) + ");\n")
             continue
         ptrn_var_dynamic_index = re.compile(r'\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\([0-9]+, (?P<size>[0-9]+), (?P<expr>.*)\)\]')
         match = ptrn_var_dynamic_index.findall(line)
         index_tmp = 0
-        body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
-        for var, var_name, size, expr in match:
-            for i in range(1, int(size)+1):
-                body_to_return.append("  if (" + expr + " == " + str(i) +") {\n")
+        if "real_array_create" in line:
+            for var, var_name, size, expr in match:
+                index2 = -1
+                while var[index2] != '[':
+                    index2 -= 1
+                body_to_return.append(re.sub(ptrn_var_dynamic_index, "data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name+" DISCRETE */", line))
+        elif "integer_array_create" in line:
+            for var, var_name, size, expr in match:
                 index = -1
                 while var_name[index] != '[':
                     index -= 1
                 index2 = -1
                 while var[index2] != '[':
                     index2 -= 1
-                body_to_return.append("    tmp_calc_var_" + str(index_tmp) + " = data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name[:index]+"[" + str(i) + "]"+" DISCRETE */;\n")
-                body_to_return.append("  }\n")
-                depend_vars.append(var_name[:index]+"[" + str(i) + "]")
-            body_to_return.append(re.sub(ptrn_var_dynamic_index,"tmp_calc_var_" + str(index_tmp), line))
-            index_tmp+=1
+                ptrn_integer_array_create = re.compile(r'integer_array_create\(\&tmp(?P<tmp_idx>[0-9]+), .*')
+                match2 = ptrn_integer_array_create.findall(line)
+                for tmp_id in match2:
+                    body_to_return.append("  alloc_integer_array(&tmp" + tmp_id + ", " + expr + ", " + size + ");\n")
+                    integer_array_create_tmp["tmp" + tmp_id] = [var[:index2], var[index2 + 1:-1], var_name[:index], size]
+                #body_to_return.append(re.sub(ptrn_var_dynamic_index, "data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name+" DISCRETE */", line))
+        else:
+            body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
+            for var, var_name, size, expr in match:
+                for i in range(1, int(size)+1):
+                    body_to_return.append("  if (" + expr + " == " + str(i) +") {\n")
+                    index = -1
+                    while var_name[index] != '[':
+                        index -= 1
+                    index2 = -1
+                    while var[index2] != '[':
+                        index2 -= 1
+                    body_to_return.append("    tmp_calc_var_" + str(index_tmp) + " = data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name[:index]+"[" + str(i) + "]"+" DISCRETE */;\n")
+                    body_to_return.append("  }\n")
+                    depend_vars.append(var_name[:index]+"[" + str(i) + "]")
+                body_to_return.append(re.sub(ptrn_var_dynamic_index,"tmp_calc_var_" + str(index_tmp), line))
+                index_tmp+=1
 
     return (body_to_return, depend_vars)
 
@@ -428,7 +455,7 @@ def sub_division_sim(line):
             div_block = get_div_block_sim(line_to_return, pos_start_div)
 
             arg1, end_pos_arg1 = get_argument(line_to_return, pos_start_div)
-            arg2, end_pos_arg2 = get_argument(line_to_return, end_pos_arg1 + 1)
+            arg2, _ = get_argument(line_to_return, end_pos_arg1 + 1)
             line_to_return = line_to_return.replace(div_block, "("+arg1 + ") / (" + arg2+")")
         nb_iter += 1
 

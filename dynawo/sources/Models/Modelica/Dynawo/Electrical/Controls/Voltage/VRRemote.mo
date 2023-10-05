@@ -13,10 +13,8 @@ within Dynawo.Electrical.Controls.Voltage;
 */
 
 model VRRemote "Model for coordinated primary voltage regulation. This model is used when several generators regulate the same bus with a control law U = URef."
-  import Dynawo.Types;
-  import Modelica;
 
-  parameter Boolean FreezingActivated = false "Whether the freezing functionnality is activated or not";
+  parameter Boolean FreezingActivated = false "Whether the freezing functionality is activated or not";
   parameter Real Gain "Control gain";
   parameter Integer NbGenMax = 30 "Maximum number of generators that can participate in the coordinated primary voltage regulation of the considered bus";
   parameter Types.Time tIntegral "Time integration constant";

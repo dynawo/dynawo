@@ -223,7 +223,7 @@ void
 ModelSwitch::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_irsw", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_iisw", FLOW));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_swState_value", CONTINUOUS));
 }
 
@@ -231,7 +231,7 @@ void
 ModelSwitch::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_irsw", FLOW));
   variables.push_back(VariableNativeFactory::createState(id_ + "_iisw", FLOW));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_swState_value", CONTINUOUS));
 }
 

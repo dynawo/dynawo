@@ -19,23 +19,21 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-  import Modelica.Blocks.Interfaces;
-  import Dynawo.Types;
 
   parameter Types.PerUnit RSourcePu "Source resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XSourcePu "Source reactance in pu (base UNom, SNom)";
 
-  Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage at injector in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage at injector in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage at source in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
@@ -47,6 +45,7 @@ equation
   udSourceRefPu = udInjPu + idRefPu * RSourcePu - iqRefPu * XSourcePu;
   uqSourceRefPu = uqInjPu + iqRefPu * RSourcePu + idRefPu * XSourcePu;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Text(origin = {-121.5, 96}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idRef"), Text(origin = {-121.5, 46}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqRef"), Text(origin = {-135.067, -7.72727}, extent = {{1.06667, 1.72727}, {33.0667, -17.2727}}, textString = "udInjPu"), Text(origin = {126.654, 55.8824}, extent = {{-26.6538, 11.1176}, {39.3462, -15.8824}}, textString = "udSourceRef"), Text(origin = {-10.5, 12}, extent = {{-69.5, 68}, {90.5, -92}}, textString = "UdqRef"), Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-135.07, -56.73}, extent = {{1.07, 1.73}, {33.07, -17.27}}, textString = "uqInjPu"), Text(origin = {126.654, 55.8824}, extent = {{-26.6538, 11.1176}, {39.3462, -15.8824}}, textString = "udSourceRef"), Text(origin = {126.65, -24.12}, extent = {{-26.65, 11.12}, {39.35, -15.88}}, textString = "uqSourceRef")}));
 end UdqRef;
