@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,10 +13,8 @@ within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 */
 
 model SecondaryVoltageControl "Model for simplified secondary voltage control"
-  import Modelica;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit Alpha "PI integral gain";
@@ -95,8 +93,8 @@ equation
     levelDiscrete = pre(levelDiscrete);
   end if;
 
-  when (pre(levelDiscrete) <> levelDiscrete) then
-    Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete, significantDigits = 3));
+  when (pre(levelDiscrete) <> levelDiscrete) and String(levelDiscrete, significantDigits = 2) <> String(pre(levelDiscrete), significantDigits = 2) then
+    Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete, significantDigits = 2));
   end when;
 
   connect(limiter.y, level) annotation(
