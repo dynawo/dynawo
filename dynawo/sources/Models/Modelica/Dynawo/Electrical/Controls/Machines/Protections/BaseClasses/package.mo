@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Protections;
+within Dynawo.Electrical.Controls.Machines.Protections;
 
 /*
 * Copyright (c) 2023, RTE (http://www.rte-france.com)
@@ -9,7 +9,11 @@ within Dynawo.Electrical.Controls.Protections;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
-model UFLS10Steps = BaseClasses.BaseUFLS(NbSteps = 10);
+package BaseClasses "Base models for protections of machines"
+  extends Icons.Package;
+
+end BaseClasses;
