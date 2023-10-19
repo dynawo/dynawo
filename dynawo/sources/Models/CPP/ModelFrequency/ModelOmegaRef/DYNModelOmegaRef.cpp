@@ -332,24 +332,30 @@ void
 ModelOmegaRef::getY0() {
   sortGenByCC();  // need to sort generator by subnetwork
 
-  // OmegaRef by cc (I)
-  for (int i = 0; i < nbMaxCC; ++i) {
-    yLocal_[i] = omegaRef0_[i];
-    ypLocal_[i] = 0.;
-  }
-
-  // External variables (omega by generator)
-  for (int i = 0; i < nbGen_; ++i) {
-    if (weights_[i] > 0) {
-      yLocal_[i + nbMaxCC] = 1.;
-      ypLocal_[i + nbMaxCC] = 0.;
+  if (!isStartingFromDump()) {
+    // OmegaRef by cc (I)
+    for (int i = 0; i < nbMaxCC; ++i) {
+      yLocal_[i] = omegaRef0_[i];
+      ypLocal_[i] = 0.;
     }
-  }
 
-  // OmegaRef for each generator (II)
-  for (int i = 0; i < nbGen_; ++i) {
-    yLocal_[i + nbMaxCC + nbOmega_] = omegaRef0_[numCCNode_[i]];
-    ypLocal_[i + nbMaxCC + nbOmega_] = 0.;
+    // External variables (omega by generator)
+    for (int i = 0; i < nbGen_; ++i) {
+      if (weights_[i] > 0) {
+        yLocal_[i + nbMaxCC] = 1.;
+        ypLocal_[i + nbMaxCC] = 0.;
+      }
+    }
+
+    // OmegaRef for each generator (II)
+    for (int i = 0; i < nbGen_; ++i) {
+      yLocal_[i + nbMaxCC + nbOmega_] = omegaRef0_[numCCNode_[i]];
+      ypLocal_[i + nbMaxCC + nbOmega_] = 0.;
+    }
+  } else {
+    for (int i = 0; i < nbMaxCC; ++i) {
+      omegaRef0_[i] = yLocal_[i];
+    }
   }
 
   // External variables
