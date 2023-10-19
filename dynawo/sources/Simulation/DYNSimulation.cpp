@@ -837,7 +837,8 @@ Simulation::init() {
   if (Trace::logExists(Trace::modeler(), DEBUG))
     model_->printModel();
   if (Trace::logExists(Trace::variables(), DEBUG)) {
-    model_->printVariableNames();
+    bool withVariableType = false;  // At this point dynamic types are not known, the log is present to have infos in case calculateIC fails.
+    model_->printVariableNames(withVariableType);
   }
 
   if (Trace::logExists(Trace::equations(), DEBUG)) {
@@ -879,6 +880,11 @@ Simulation::init() {
   // therefore a calculateIC() is always necessary.
   zCurrent_.assign(model_->sizeZ(), 0.);
   calculateIC();
+
+  if (Trace::logExists(Trace::variables(), DEBUG)) {
+    bool withVariableType = true;  // We rewrite the file with types this time
+    model_->printVariableNames(withVariableType);
+  }
 
   // Initialize curves
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
