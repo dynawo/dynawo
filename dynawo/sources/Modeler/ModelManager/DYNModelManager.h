@@ -89,7 +89,6 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::evalMode(const double t);
    */
-  //--------------------------------------------------------------------
   modeChangeType_t evalMode(const double t);
 
   /**
@@ -232,7 +231,6 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement)
    */
-  //---------------------------------------------------------------------
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**

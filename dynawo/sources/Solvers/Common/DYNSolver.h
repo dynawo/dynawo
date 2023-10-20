@@ -183,8 +183,10 @@ class Solver {
 
   /**
    * @brief Calculate the intial condition of the DAE
+   *
+   * @param tEnd end time of the simulation
    */
-  virtual void calculateIC() = 0;
+  virtual void calculateIC(double tEnd) = 0;
 
   /**
    * @brief Integrate the DAE over an interval in t
@@ -209,6 +211,18 @@ class Solver {
    * @brief print the latest step made by the solver (i.e. solution)
    */
   virtual void printSolve() const = 0;
+
+  /**
+  * @brief print the latest step made by the solver (i.e. solution)
+  * @param initStep step for first time step
+  */
+  virtual void setInitStep(double initStep) = 0;
+
+  /**
+  * @brief name of the solver
+  * @return name of the solver
+  */
+  virtual std::string getName() = 0;
 
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e. solution)
@@ -290,6 +304,20 @@ class Solver {
   * @return the current time step
   */
   virtual double getTimeStep() const = 0;
+
+  /**
+  * @brief set start from dump
+  *
+  * @param startFromDump is starting from dump
+  */
+  virtual void setStartFromDump(bool startFromDump) = 0;
+
+  /**
+  * @brief is solver starting from dump
+  *
+  * @return is solver starting from dump
+  */
+  virtual bool startFromDump() const = 0;
 
   class Impl;
 };

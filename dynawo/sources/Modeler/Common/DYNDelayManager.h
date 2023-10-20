@@ -110,27 +110,29 @@ class DelayManager {
    * @brief Load delays from their formatted version
    *
    * @param values the delays definition, formatted according to the format defined by dumpDelays
+   * @param time of the restart
    *
    * @returns false if an parsing error occurs, true if not
    */
-  bool loadDelays(const std::vector<std::string>& values);
+  bool loadDelays(const std::vector<std::string>& values, double time);
 
   /**
    * @brief calculates the roots of the model for delays
    *
    * @param p_glocal local buffer to fill
    * @param offset offset to start in p_glocal array for delays
+   * @param t local time
    */
-  void setGomc(state_g* const p_glocal, size_t offset);
+  void setGomc(state_g* const p_glocal, size_t offset, const double t);
 
   /**
-   * @brief Determines if on delay has been triggered
-   *
-   * @returns whether a delay has been triggered
-   */
-  bool isTriggered() const {
-    return triggered_;
-  }
+  * @brief evaluate modes for delays
+  *
+  * @param t local time
+  *
+  * @return mode change type value
+  */
+  modeChangeType_t evalMode(double t);
 
   /**
    * @brief Trigger delay
@@ -144,28 +146,29 @@ class DelayManager {
   }
 
   /**
-   * @brief End triggers
-   *
-   * This will reset currently activated triggers
-   */
-  void notifyEndTrigger();
-
- private:
-  /**
-   * @brief Retrieves the delay by id (const version)
-   *
-   * Precondition: the id is acceptable
-   *
-   * @param id the id to use
-   * @returns the corresponding delay
-   */
+  * @brief Retrieves the delay by id (const version)
+  *
+  * Precondition: the id is acceptable
+  *
+  * @param id the id to use
+  * @returns the corresponding delay
+  */
   const Delay& getDelayById(size_t id) const {
     return delays_.at(id);
   }
 
+  /**
+   * @brief Set the time of the delay for delay with corresponding id
+   *
+   * @param id the id to use
+   * @param delayTime the time of the delay
+   */
+  void setDelayTime(size_t id, double delayTime) {
+    delays_.at(id).setDelayTime(delayTime);
+  }
+
  private:
   boost::unordered_map<size_t, Delay> delays_;  ///< list of registered delayed values
-  bool triggered_;                              ///< Determines if at least one delay has been triggered
 };
 }  // namespace DYN
 

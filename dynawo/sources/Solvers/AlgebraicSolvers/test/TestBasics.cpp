@@ -121,7 +121,7 @@ class SolverMock : public Solver::Impl {
 
   void init(const boost::shared_ptr<Model>& /*model*/, double /*t0*/, double /*tEnd*/) {}
 
-  void calculateIC() {}
+  void calculateIC(double /*tEnd*/) {}
 
   void reinit() {}
 
@@ -136,6 +136,12 @@ class SolverMock : public Solver::Impl {
   double getTimeStep() const { return 0.; }
 
   void solveStep(double /*tAim*/, double& /*tNxt*/) {}
+
+  inline void setInitStep(double /*initStep*/) {}
+
+  inline std::string getName() {
+    return "SolverMock";
+  }
 };
 
 SolverMock::~SolverMock() {}

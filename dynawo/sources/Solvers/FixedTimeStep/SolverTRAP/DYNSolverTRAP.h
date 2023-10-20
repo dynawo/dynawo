@@ -74,7 +74,7 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   /**
    * @copydoc Solver::calculateIC()
   */
-  void calculateIC();
+  void calculateIC(double tEnd);
 
   /**
   * @copydoc Solver::computeYP()
@@ -91,6 +91,15 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   * first Yp.
   */
   void computePrediction();
+
+  /**
+  * @brief name of the solver
+  * @return name of the solver
+  */
+  inline std::string getName() {
+    static std::string name = "TRAP";
+    return name;
+  }
 
  private:
   /**

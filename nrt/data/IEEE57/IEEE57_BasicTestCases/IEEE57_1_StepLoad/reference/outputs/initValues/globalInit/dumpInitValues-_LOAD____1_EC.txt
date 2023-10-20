@@ -6,7 +6,7 @@ load_deltaQ                                       : y =       0.000000 yp =     
 load_terminal_V_im                                : y =      -0.000008 yp =       0.000000
 load_terminal_V_re                                : y =       1.039999 yp =       0.000000
 load_PPu                                          : y =       0.549999 yp =       0.000000
-load_QPu                                          : y =       0.169999 yp =       0.000000
+load_QPu                                          : y =       0.170000 yp =       0.000000
 load_terminal_i_im                                : y =      -0.163465 yp =       0.000000
 load_terminal_i_re                                : y =       0.528845 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu

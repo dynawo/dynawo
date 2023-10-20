@@ -75,10 +75,10 @@ voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_Ef
  ====== INIT CALCULATED VARIABLES VALUES ======
 generator_IRotorPu_value                          : y =       2.557993
 generator_IStatorPu_value                         : y =      22.199690
-generator_PGen                                    : y =    1997.892532
+generator_PGen                                    : y =    1997.892533
 generator_PGenPu                                  : y =      19.978925
 generator_PePu                                    : y =       0.902952
-generator_QGen                                    : y =     967.862400
+generator_QGen                                    : y =     967.862401
 generator_QGenPu                                  : y =       9.678624
 generator_QStatorPu_value                         : y =       9.678624
 generator_QStatorPuQNom_value                     : y =       3.255274
