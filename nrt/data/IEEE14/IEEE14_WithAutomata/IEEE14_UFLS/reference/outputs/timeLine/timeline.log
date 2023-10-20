@@ -7,6 +7,8 @@
 2.183867 | GEN____3_SM | PMIN : activation
 2.338445 | GEN____8_SM | PMIN : activation
 2.758086 | GEN____3_SM | PMIN : deactivation
-5.099999 | GEN____1_SM | GENERATOR : disconnecting
-5.099999 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
-5.099999 | GEN____8_SM | PMIN : deactivation
+4.999999 | GEN____1_SM | GENERATOR : disconnecting
+4.999999 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+5.000000 | GEN____8_SM | PMIN : deactivation
+7.432796 | UFLS | UFLS step 1 arming
+7.532795 | UFLS | UFLS step 1 activated

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
@@ -291,13 +291,8 @@
     <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
     <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
   </set>
-  <set id="9">
-    <par type="DOUBLE" name="event_tEvent" value="5"/>
-    <par type="BOOL" name="event_disconnectOrigin" value="false"/>
-    <par type="BOOL" name="event_disconnectExtremity" value="true"/>
-  </set>
   <set id="GenDisc">
-    <par type="DOUBLE" name="event_tEvent" value="5.1"/>
+    <par type="DOUBLE" name="event_tEvent" value="5"/>
     <par type="BOOL" name="event_stateEvent1" value="true"/>
   </set>
   <set id="UFLS">
@@ -311,7 +306,7 @@
     <par type="DOUBLE" name="ufls_UFLSStep_7_" value="0.05"/>
     <par type="DOUBLE" name="ufls_UFLSStep_8_" value="0.05"/>
     <par type="DOUBLE" name="ufls_UFLSStep_9_" value="0.05"/>
-    <par type="DOUBLE" name="ufls_omegaThresholdPu_0_" value="0.98"/>
+    <par type="DOUBLE" name="ufls_omegaThresholdPu_0_" value="0.99"/>
     <par type="DOUBLE" name="ufls_omegaThresholdPu_1_" value="0.978"/>
     <par type="DOUBLE" name="ufls_omegaThresholdPu_2_" value="0.976"/>
     <par type="DOUBLE" name="ufls_omegaThresholdPu_3_" value="0.974"/>

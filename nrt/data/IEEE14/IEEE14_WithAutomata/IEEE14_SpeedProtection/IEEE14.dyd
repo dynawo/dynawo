@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:macroStaticReference id="GEN">
@@ -71,7 +71,8 @@
     <dyn:macroStaticRef id="GEN"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="7"/>
-  <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="IEEE14.par" parId="9"/>
+  <dyn:blackBoxModel id="FAULT" lib="NodeFault" parFile="IEEE14.par" parId="Fault"/>
+  <dyn:blackBoxModel id="GEN____1_SM_Speed" lib="SpeedProtection" parFile="IEEE14.par" parId="GEN____1_SM_Speed"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>
@@ -113,9 +114,7 @@
   <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
-  <dyn:blackBoxModel id="FAULT" lib="NodeFault" parFile="IEEE14.par" parId="Fault"/>
   <dyn:connect id1="FAULT" var1="fault_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
-  <dyn:blackBoxModel id="GEN____1_SM_Speed" lib="SpeedProtection" parFile="IEEE14.par" parId="GEN____1_SM_Speed"/>
   <dyn:connect id1="GEN____1_SM_Speed" var1="speedProtection_omegaMonitoredPu" id2="GEN____1_SM" var2="generator_omegaPu_value"/>
   <dyn:connect id1="GEN____1_SM_Speed" var1="speedProtection_switchOffSignal" id2="GEN____1_SM" var2="generator_switchOffSignal2"/>
 </dyn:dynamicModelsArchitecture>

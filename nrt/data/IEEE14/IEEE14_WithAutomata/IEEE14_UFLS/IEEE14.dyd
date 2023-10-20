@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:macroStaticReference id="GEN">
@@ -71,7 +71,8 @@
     <dyn:macroStaticRef id="GEN"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="7"/>
-  <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="IEEE14.par" parId="9"/>
+  <dyn:blackBoxModel id="DISC_GEN____1_SM" lib="EventSetPointBoolean" parFile="IEEE14.par" parId="GenDisc"/>
+  <dyn:blackBoxModel id="UFLS" lib="UFLS10Steps" parFile="IEEE14.par" parId="UFLS"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>
@@ -113,9 +114,7 @@
   <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
-  <dyn:blackBoxModel id="DISC_GEN____1_SM" lib="EventSetPointBoolean" parFile="IEEE14.par" parId="GenDisc"/>
   <dyn:connect id1="DISC_GEN____1_SM" var1="event_state1" id2="GEN____1_SM" var2="generator_switchOffSignal2"/>
-  <dyn:blackBoxModel id="UFLS" lib="UFLS10Steps" parFile="IEEE14.par" parId="UFLS"/>
   <dyn:connect id1="UFLS" var1="ufls_omegaMonitoredPu" id2="OMEGA_REF" var2="omegaRef_0_value"/>
   <dyn:connect id1="UFLS" var1="ufls_deltaPQfiltered" id2="_LOAD__10_EC" var2="load_deltaP"/>
   <dyn:connect id1="UFLS" var1="ufls_deltaPQfiltered" id2="_LOAD__10_EC" var2="load_deltaQ"/>

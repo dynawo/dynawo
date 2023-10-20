@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,9 +8,10 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
---><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="IEEE14 - Speed protection">
     <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
     <dyn:modeler compileDir="outputs/compilation">
@@ -19,7 +20,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="50"/>
+    <dyn:simulation startTime="0" stopTime="10"/>
     <dyn:outputs directory="outputs">
       <dyn:timeline exportMode="TXT"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>

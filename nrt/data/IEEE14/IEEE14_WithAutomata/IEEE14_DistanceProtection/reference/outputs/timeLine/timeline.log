@@ -9,16 +9,10 @@
 2.758086 | GEN____3_SM | PMIN : deactivation
 4.999999 | FAULT | Fault (node) : beginning
 4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 2 arming
-4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 3 arming
-4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 4 arming
 4.999999 | GEN____8_SM | Voltage regulator : upper limit reached (Efd)
 4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 2 arming
-4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 3 arming
-4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 4 arming
 4.999999 | GEN____8_SM | Voltage regulator : upper limit reached (Efd)
 4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 2 arming
-4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 3 arming
-4.999999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 4 arming
 5.000000 | GEN____8_SM | PMIN : deactivation
 5.218893 | GEN____3_SM | PMIN : activation
 5.367558 | GEN____6_SM | PMIN : activation
@@ -29,10 +23,6 @@
 5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection tripped zone 2
 5.379999 | GEN____8_SM | GENERATOR : disconnecting
 5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection tripped zone 2
-5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 3 disarming
-5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 4 disarming
-5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 3 disarming
-5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection zone 4 disarming
 5.499999 | FAULT | Fault (node) : end
 5.752229 | GEN____6_SM | PMIN : deactivation
 6.088093 | GEN____6_SM | PMIN : activation
