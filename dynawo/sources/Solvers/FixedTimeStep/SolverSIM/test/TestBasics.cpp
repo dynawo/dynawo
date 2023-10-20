@@ -190,7 +190,7 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 2);
@@ -261,7 +261,7 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   ASSERT_EQ(model->sizeY(), 1);
   ASSERT_EQ(model->sizeF(), 1);
@@ -321,7 +321,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -362,7 +362,7 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -469,7 +469,7 @@ TEST(SimulationTest, testSolverSkipNR) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -542,7 +542,7 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -624,7 +624,7 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -709,7 +709,7 @@ TEST(SimulationTest, testSolverSIMSilentZ) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -752,7 +752,7 @@ TEST(SimulationTest, testSolverSIMSilentZDisabled) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -795,7 +795,7 @@ TEST(SimulationTest, testSolverSIMSilentZNotUsedInContinuous) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -837,7 +837,7 @@ TEST(SimulationTest, testSolverSIMSilentZNotUsedInContinuousDisabled) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
@@ -879,7 +879,7 @@ TEST(SimulationTest, testSolverSIMSilentZNotUsedInContinuous2) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());

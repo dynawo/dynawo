@@ -328,6 +328,11 @@ Trace::modeler() {
   return "MODELER";
 }
 
+std::string
+Trace::solver() {
+  return "SOLVER";
+}
+
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
   instance().log_(slv, tag, message);
 }

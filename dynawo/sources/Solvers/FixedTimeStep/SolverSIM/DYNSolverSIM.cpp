@@ -84,7 +84,7 @@ SolverSIM::init(const boost::shared_ptr<Model>& model, const double t0, const do
 }
 
 void
-SolverSIM::calculateIC() {
+SolverSIM::calculateIC(double /*tEnd*/) {
   calculateICCommon();
   setDifferentialVariablesIndices();
 #if _DEBUG_

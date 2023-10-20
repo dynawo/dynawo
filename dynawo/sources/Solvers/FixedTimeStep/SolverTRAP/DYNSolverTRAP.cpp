@@ -87,7 +87,7 @@ SolverTRAP::init(const shared_ptr<Model>& model, const double t0, const double t
 }
 
 void
-SolverTRAP::calculateIC() {
+SolverTRAP::calculateIC(double /*tEnd*/) {
   calculateICCommon();
   setDifferentialVariablesIndices();
 

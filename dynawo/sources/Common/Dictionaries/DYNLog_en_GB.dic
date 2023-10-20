@@ -204,8 +204,9 @@ CalculateICIteration          =             initial condition iteration %1%
 IncoherentParamMinimumModeChangeType =      parameter minimumModeChangeTypeForAlgebraicRestoration (value=%1%) of solver should be one of DIFFERENTIAL, ALGEBRAIC or ALGEBRAIC_J_UPDATE. Default value will be used (ALGEBRAIC).
 // --> DYNSolverIDA
 SolverIDAInitOk               =             initialization of IDA solver : ok
-SolverIDABeforeCalcIC         =             BEFORE CALC IC
-SolverIDAAfterInit            =             AFTER INIT
+SolverIDAStartCalculateIC     =             start CalculateIC
+SolverIDABeforeCalcIC         =             before CalculateIC
+SolverIDAAfterInit            =             after init
 SolverIDAMaxDiff              =             max diff =%1% index =%2%
 IdaSuccess                    =             IDA_SUCCESS : IDASolve succeeded.
 IdaMemNull                    =             IDA_MEM_NULL : The argument ida mem was NULL.

@@ -21,6 +21,7 @@
 #define MODELER_COMMON_DYNDELAY_H_
 
 #include "DYNRingBuffer.h"
+#include "DYNCommon.h"
 
 #include <boost/optional.hpp>
 #include <cstddef>
@@ -49,8 +50,10 @@ class Delay {
    * This constructor wil be used to start a simulation from a dump
    *
    * @param timepoints the list of the timepoints to use
+   * @param delayMax maximum allowed delay
+   * @param initialTime start time of the simulation
    */
-  explicit Delay(const std::vector<std::pair<double, double> >& timepoints);
+  explicit Delay(const std::vector<std::pair<double, double> >& timepoints, double delayMax, double initialTime);
 
   /**
    * @brief Update reference internal values
@@ -112,21 +115,7 @@ class Delay {
    * @brief Trigger the delay to notify that we must start compute its value
    */
   void trigger() {
-    if (!trigger_.is_initialized()) {
-      trigger_ = true;
-    }
-  }
-
-  /**
-   * @brief Reset trigger
-   *
-   * This has no effect if trigger is not activated.
-   * After this call, the trigger can no longer be activated
-   */
-  void resetTrigger() {
-    if (trigger_.is_initialized()) {
-      trigger_ = false;
-    }
+    delayActivated_ = true;
   }
 
   /**
@@ -134,16 +123,47 @@ class Delay {
    *
    * @returns Whether the trigger has been activated by @a trigger() function
    */
-  bool IsTriggered() const {
-    return trigger_.is_initialized() && *trigger_;
+  bool isTriggered() const {
+    return delayActivated_;
+  }
+
+  /**
+   * @brief Get the time of the delay
+   *
+   * @returns the delay time
+   */
+  double getDelayTime() const {
+    return delayTime_;
+  }
+
+  /**
+   * @brief Set the time of the delay
+   *
+   * @param delayTime the time of the delay
+   */
+  void setDelayTime(double delayTime) {
+    if (!doubleEquals(delayTime, delayTime_))
+      delayActivated_ = false;
+    delayTime_ = delayTime;
+  }
+
+  /**
+   * @brief Get the time of the delay max
+   *
+   * @returns the delay max
+   */
+  double getDelayMax() const {
+    return delayMax_;
   }
 
  private:
   const double* time_;                    ///< pointer to time to use for timepoint and delay computation
   const double* value_;                   ///< pointer to value to use for timepoint
+  double delayTime_;                      ///< delay time
+  double delayMax_;                       ///< delay max
   RingBuffer buffer_;                     ///< ring buffer to manage the records
-  boost::optional<double> initialValue_;  ///< Initial value to use when delay cannot be computed
-  boost::optional<bool> trigger_;         ///< 3-state trigger to determine the first time the delay is computed
+  boost::optional<double> initialValue_;  ///< initial value to use when delay cannot be computed
+  bool delayActivated_;                   ///< true when the delay has been activated
 };
 }  // namespace DYN
 

@@ -272,6 +272,8 @@ warning: return type of member DYN::Solver::setParameters is not documented
 warning: return type of member DYN::Solver::setParametersFromPARFile is not documented
 warning: return type of member DYN::Solver::setTimeline is not documented
 warning: return type of member DYN::Solver::solve is not documented
+warning: return type of member DYN::Solver::setInitStep is not documented
+warning: return type of member DYN::Solver::setStartFromDump is not documented
 warning: return type of member DYN::Solver::Impl::computeYP is not documented
 warning: return type of member DYN::Solver::updateStatistics is not documented
 warning: return type of member DYN::Solver::Impl::calculateIC is not documented

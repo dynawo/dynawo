@@ -148,7 +148,7 @@ TEST(SimulationTest, testSolverTRAPTestAlpha) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 2);
@@ -219,7 +219,7 @@ TEST(SimulationTest, testSolverTRAPTestBeta) {
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
-  solver->calculateIC();
+  solver->calculateIC(tStop);
 
   ASSERT_EQ(model->sizeY(), 1);
   ASSERT_EQ(model->sizeF(), 1);

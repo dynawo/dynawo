@@ -251,6 +251,7 @@ SolverCommonFixedTimeStep::calculateICCommon() {
 
   solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_, msbsetAlgInit_,
                                                          mxiterAlgInit_, printflAlgInit_);
+  setDifferentialVariablesIndices();
 }
 
 bool
