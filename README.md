@@ -423,6 +423,7 @@ Dyna&omega;o is currently maintained by the following people in RTE:
 * Gautier Bureau, [gautier.bureau@rte-france.com](mailto:gautier.bureau@rte-france.com)
 * Marco Chiaramello, [marco.chiaramello@rte-france.com](mailto:marco.chiaramello@rte-france.com)
 * Quentin Cossart, [quentin.cossart@rte-france.com](mailto:quentin.cossart@rte-france.com)
+* Julien De Sloovere, [julien.desloovere@rte-france.com](mailto:julien.desloovere@rte-france.com)
 * Joy El-Feghali, [joy.elfeghali@rte-france.com](mailto:joy.elfeghali@rte-france.com)
 * Baptiste Letellier, [baptiste.letellier@rte-france.com](mailto:baptiste.letellier@rte-france.com)
 * Ian Menezes, [ian.menezes@rte-france.com](mailto:ian.menezes@rte-france.com)
