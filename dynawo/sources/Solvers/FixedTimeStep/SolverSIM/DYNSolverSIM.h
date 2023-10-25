@@ -62,6 +62,11 @@ class SolverSIMFactory : public SolverFactory {
 class SolverSIM : public SolverCommonFixedTimeStep {
  public:
   /**
+   * @brief default constructor
+   */
+  SolverSIM();
+
+  /**
    * @copydoc Solver::Impl::solverType()
    */
   std::string solverType() const;
@@ -72,9 +77,30 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   void init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
+   * @copydoc Solver::Impl::defineSpecificParameters()
+   */
+  void defineSpecificParameters();
+
+  /**
+   * @copydoc Solver::Impl::setSolverSpecificParameters()
+   */
+  void setSolverSpecificParameters();
+
+  /**
    * @copydoc Solver::calculateIC()
    */
   void calculateIC();
+
+  /**
+   * @brief save the initial values of y before the time step
+   */
+  void saveContinuousVariables();
+
+
+  /**
+   * @brief restore y to their initial values
+   */
+  void restoreContinuousVariables();
 
   /**
   * @brief SIM version of computePrediction. We just fill
@@ -83,9 +109,19 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   void computePrediction();
 
   /**
+  * @copydoc SolverCommonFixedTimeStep::hasPrediction()
+  */
+  bool hasPrediction();
+
+  /**
   * @copydoc Solver::computeYP()
   */
   void computeYP(const double* yy);
+
+  /**
+  * @brief update the derivatives values.
+  */
+  void updateVelocity();
 
  private:
   /**
@@ -99,6 +135,8 @@ class SolverSIM : public SolverCommonFixedTimeStep {
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
    */
   void solveStep(double tAim, double &tNxt);
+
+  bool order1Prediction_;  ///< enable to use order 1 prediction
 };
 
 }  // end of namespace DYN
