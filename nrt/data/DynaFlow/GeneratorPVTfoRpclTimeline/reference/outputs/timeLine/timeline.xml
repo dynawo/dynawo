@@ -2,6 +2,7 @@
 <timeline xmlns="http://www.rte-france.com/dynawo">
   <event time="0.000000" modelName="Generator3" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="0.000000" modelName="Generator4" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
+  <event time="0.000000" modelName="SVC2" message="Entering in frozen mode"/>
   <event time="50.000000" modelName="Line1Bis" message="LINE : opening both sides"/>
   <event time="50.000000" modelName="Line2Bis" message="LINE : opening both sides"/>
   <event time="70.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>

@@ -13,6 +13,8 @@ within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 */
 
 model SecondaryVoltageControl "Model for simplified secondary voltage control"
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   //Regulation parameters
   parameter Types.PerUnit Alpha "PI integral gain";
@@ -77,6 +79,11 @@ equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
   blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
   frozen = FreezingActivated and ((blockedUp and (UpRefPu - UpPu) > 0) or (blockedDown and (UpRefPu - UpPu) < 0));
+  when frozen and not(pre(frozen)) then
+    Timeline.logEvent1 (TimelineKeys.VRFrozen);
+  elsewhen not(frozen) and pre(frozen) then
+    Timeline.logEvent1 (TimelineKeys.VRUnfrozen);
+  end when;
   switch1.u2 = frozen;
 
   connect(limiter.y, level) annotation(

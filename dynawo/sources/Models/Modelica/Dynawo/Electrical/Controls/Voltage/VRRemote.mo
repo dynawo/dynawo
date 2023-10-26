@@ -13,6 +13,8 @@ within Dynawo.Electrical.Controls.Voltage;
 */
 
 model VRRemote "Model for coordinated primary voltage regulation. This model is used when several generators regulate the same bus with a control law U = URef."
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   parameter Boolean FreezingActivated = false "Whether the freezing functionality is activated or not";
   parameter Real Gain "Control gain";
@@ -47,6 +49,11 @@ equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
   blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
   frozen = FreezingActivated and ((blockedUp and (URef - URegulated) > 0) or (blockedDown and (URef - URegulated) < 0));
+  when frozen and not(pre(frozen)) then
+    Timeline.logEvent1 (TimelineKeys.VRFrozen);
+  elsewhen not(frozen) and pre(frozen) then
+    Timeline.logEvent1 (TimelineKeys.VRUnfrozen);
+  end when;
   der(deltaUInt) = if frozen then 0 else (URef - URegulated) / tIntegral;
   NQ = Gain * (deltaUInt + URef - URegulated);
 
