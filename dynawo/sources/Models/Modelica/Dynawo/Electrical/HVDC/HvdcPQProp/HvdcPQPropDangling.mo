@@ -43,6 +43,7 @@ equation
     terminal1.i.im = 0;
   end if;
 
+
   when QInj1RawPu <= Q1MinPu then
     q1Status = QStatus.AbsorptionMax;
     limUQDown1 = true;
@@ -50,6 +51,10 @@ equation
   elsewhen QInj1RawPu >= Q1MaxPu then
     q1Status = QStatus.GenerationMax;
     limUQDown1 = false;
+    limUQUp1 = true;
+  elsewhen not modeU1 then
+    q1Status = QStatus.Standard;
+    limUQDown1 = true;
     limUQUp1 = true;
   elsewhen QInj1RawPu > Q1MinPu and QInj1RawPu < Q1MaxPu then
     q1Status = QStatus.Standard;
