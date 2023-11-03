@@ -219,7 +219,6 @@
   <xs:complexType name="MacroConnector">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="connect" type="dyn:MacroConnection" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="initConnect" type="dyn:MacroConnection" minOccurs="0" maxOccurs="unbounded"/>
     </xs:choice>
     <xs:attribute name="id" use="required" type="xs:string"/>
     <xs:attribute name="index1" type="xs:boolean"/>

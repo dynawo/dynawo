@@ -381,11 +381,6 @@ DynamicData::createModelDescriptions() {
 
     shared_ptr<dynamicdata::MacroConnector> macroConnector = dynamicModelsCollection_->findMacroConnector(connector);
 
-    // check if macroConnector has no init connect
-    const std::map<string, shared_ptr<dynamicdata::MacroConnection> >& initConnector = macroConnector->getInitConnectors();
-    if (initConnector.size() != 0)
-      throw DYNError(DYN::Error::MODELER, SystemInitConnectorForbidden, connector);
-
     // for each connect, create a system connect
     const std::map<string, shared_ptr<dynamicdata::MacroConnection> >& connectors = macroConnector->getConnectors();
     std::map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();

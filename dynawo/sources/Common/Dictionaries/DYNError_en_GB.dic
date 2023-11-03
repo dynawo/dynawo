@@ -150,7 +150,6 @@ NoThirdSide                 =             component %1% does not have a third te
 UnsupportedComponentState   =             component %1% 's state is not supported
 UDMUndefined                =             trying to retrieve a unit dynamic model (%1%) which does not exist in model %2%
 IncompleteMacroConnection   =             macroConnect between %1% and %2% using macroConnector %3% : %4% is required
-SystemInitConnectorForbidden =            system macro connector id (%1%) could not have an init connection
 FlowConnectionMixedSystemAndInternal =    the system flow connection %1%_%2%->%3%_%4% is also connected inside a modelica model which is forbidden. Please merge the models inside a single modelica model.
 DynamicLineStatusNotSupported =           connection status (CLOSED_1 or CLOSED_2) not supported for dynamic line %1%
 MismatchingVariableSizes    =             the number of %1% variables and corresponding size are different in model %2% (%3% != %4%)
