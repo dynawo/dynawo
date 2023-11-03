@@ -245,6 +245,11 @@ class SolverIDA : public Solver::Impl {
    */
   bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
 
+  /**
+  * @brief set the index of each differential variables
+  */
+  void setDifferentialVariablesIndices();
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer

@@ -89,6 +89,7 @@ SolverTRAP::init(const shared_ptr<Model>& model, const double t0, const double t
 void
 SolverTRAP::calculateIC() {
   calculateICCommon();
+  setDifferentialVariablesIndices();
 
   velocitySave_.assign(vectorYp_.begin(), vectorYp_.end());
   solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_,

@@ -260,14 +260,7 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
   if (sundialsVectorYType_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateID);
 
-  const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
-
-  double* idx = NV_DATA_S(sundialsVectorYType_);
-  for (int ieq = 0; ieq < model->sizeY(); ++ieq) {
-    idx[ieq] = RCONST(1.);
-    if (modelYType[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
-      idx[ieq] = RCONST(0.);
-  }
+  setDifferentialVariablesIndices();
 
   flag = IDASetId(IDAMem_, sundialsVectorYType_);
   if (flag < 0)
@@ -393,6 +386,8 @@ SolverIDA::calculateIC() {
 
   solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
                                                   msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
+
+  setDifferentialVariablesIndices();
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
@@ -701,11 +696,13 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
 bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+    setDifferentialVariablesIndices();
     solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
     return false;  // no J factorization
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                    printflAlgJ_);
+    setDifferentialVariablesIndices();
     solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
     return true;  // new J factorization
   }
@@ -895,6 +892,18 @@ SolverIDA::errHandlerFn(int error_code, const char* module, const char* function
     Trace::warn() << module << " " << function << " :" << msg << Trace::endline;
   } else {
     Trace::error() << module << " " << function << " :" << msg << Trace::endline;
+  }
+}
+
+void
+SolverIDA::setDifferentialVariablesIndices() {
+  const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+
+  double* idx = NV_DATA_S(sundialsVectorYType_);
+  for (int ieq = 0; ieq < model_->sizeY(); ++ieq) {
+    idx[ieq] = RCONST(1.);
+    if (modelYType[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
+      idx[ieq] = RCONST(0.);
   }
 }
 

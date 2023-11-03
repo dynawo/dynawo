@@ -426,10 +426,12 @@ bool SolverCommonFixedTimeStep::setupNewAlgRestoration(modeChangeType_t modeChan
   if (modeChangeType == ALGEBRAIC_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
                                                            printflAlg_);
+    setDifferentialVariablesIndices();
     return false;  // no J factorization
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                            printflAlgJ_);
+    setDifferentialVariablesIndices();
     return true;  // new J factorization
   }
   return false;  // no J factorization

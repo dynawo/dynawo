@@ -86,6 +86,7 @@ SolverSIM::init(const boost::shared_ptr<Model>& model, const double t0, const do
 void
 SolverSIM::calculateIC() {
   calculateICCommon();
+  setDifferentialVariablesIndices();
 #if _DEBUG_
   solverKINAlgRestoration_->setCheckJacobian(true);
 #endif
