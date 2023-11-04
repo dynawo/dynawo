@@ -19,8 +19,7 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.4.0)
-# TODO(lecourtoisflo) Use version 1.5 to remove patch application on this project
+set(package_RequiredVersion 1.10.0)
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
@@ -31,14 +30,17 @@ if(${package_name}_FOUND)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_md5    d1f682c7610de891e91f4ab4cb900682)
+  set(package_md5    963cd237f0e1e874eb4e1188c2a74c87)
   if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
-    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive)
+    # final version 1.6.0 is on branch integration
+    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive/integration)
   endif()
-  set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
+  # final version downloadable is 1.6.0
+  set(package_url  "${package_prefix_url}/v1.6.0.tar.gz")
 
+  # patch bumps version to required version
   GetPatchCommand(libiidm)
   include(ExternalProject)
   ExternalProject_Add(
