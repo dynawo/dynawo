@@ -187,6 +187,13 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double in
         initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN, sundialsVectorY_);
         break;
     }
+
+    // needs to be done after initCommon for sundialsMatrix_ to exist
+    smjKin_.reserve(indexY_.size());
+    smj_.init(numF_, numF_);
+    SM_INDEXPTRS_S(sundialsMatrix_) = &(smjKin_.getNonCstAp())[0];
+    SM_INDEXVALS_S(sundialsMatrix_) = &(smjKin_.getNonCstAi())[0];
+    SM_DATA_S(sundialsMatrix_) = &(smjKin_.getNonCstAx())[0];
   } else {
     updateKINSOLSettings(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl);
   }
@@ -315,14 +322,14 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
+  SparseMatrix& smj = solver->getMatrix();
+  SparseMatrix& smjKin = solver->getMatrixAlgebraic();
 
-  double cj = 1;
-  SparseMatrix smj;
+  double cj = 1.;
   smj.init(model.sizeY(), model.sizeY());
   model.evalJt(solver->t0_, cj, smj);
 
   // Erase useless values in the jacobian
-  SparseMatrix smjKin;
   int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
@@ -331,7 +338,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
     checkJacobian(smjKin, model);
   }
 #endif
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
 
   return 0;
 }
@@ -341,19 +348,19 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
+  SparseMatrix& smj = solver->getMatrix();
+  SparseMatrix& smjKin = solver->getMatrixAlgebraic();
 
   const double cj = 1.;
 
-  SparseMatrix smj;
   smj.init(model.sizeY(), model.sizeY());
   model.evalJtPrim(solver->t0_, cj, smj);
 
   // Erase useless values in the jacobian
-  SparseMatrix smjKin;
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
 
   return 0;
 }

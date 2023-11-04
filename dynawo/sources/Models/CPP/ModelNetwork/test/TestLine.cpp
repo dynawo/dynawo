@@ -1215,8 +1215,8 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   dl->evalJt(smj, 1., 0);
   smj.changeCol();
   smj.changeCol();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -smj.Ax_[3]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[6], -smj.Ax_[7]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[2], -smj.getAx()[3]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[6], -smj.getAx()[7]);
   ASSERT_EQ(smj.nbElem(), 8);
 
   SparseMatrix smjPrime;
@@ -1224,7 +1224,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   dl->evalJtPrim(smjPrime, 0);
   smjPrime.changeCol();
   smjPrime.changeCol();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], smjPrime.Ax_[1]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.getAx()[0], smjPrime.getAx()[1]);
   ASSERT_EQ(smjPrime.nbElem(), 2);
 
   ASSERT_NO_THROW(dl->evalDerivatives(1));
@@ -1285,7 +1285,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   int size3 = dl3->sizeF();
   smj3.init(size3, size3);
   dl3->evalJt(smj3, 1., 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.getAx()[0], 1);
   ASSERT_EQ(smj3.nbElem(), 2);
 
   // Close side2 then only side1 then both sides

@@ -68,6 +68,11 @@ SolverKINEuler::init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSo
   numF_ = model_->sizeF();
 
   initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
+
+  smj_.init(numF_, numF_);
+  SM_INDEXPTRS_S(sundialsMatrix_) = &(smj_.getNonCstAp())[0];
+  SM_INDEXVALS_S(sundialsMatrix_) = &(smj_.getNonCstAi())[0];
+  SM_DATA_S(sundialsMatrix_) = &(smj_.getNonCstAx())[0];
 }
 
 int
@@ -132,6 +137,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   SolverKINEuler* solver = reinterpret_cast<SolverKINEuler*> (data);
   Model& model = solver->getModel();
+  SparseMatrix& smj = solver->getMatrix();
 
   // cj = 1/h
   const double h0 = solver->getTimeSchemeSolver().getTimeStep();
@@ -139,11 +145,10 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   // Sparse matrix version
   // ----------------------
-  SparseMatrix smj;
   const int size = model.sizeY();
   smj.init(size, size);
   model.evalJt(solver->t0_ + h0, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
 
   return 0;
 }

@@ -34,32 +34,30 @@ class Model;
  */
 class SolverCommon {
  public:
-  /**
-   * @brief Copy one sparse matrix to the KINSOL structure
-   *
-   * @param smj Sparse matrix to copy to the KINSOL structure
-   * @param JJ KINSOL structure where to copy the matrix
-   * @param size size of the square matrix (nb columns)
-   * @param lastRowVals pointer to the latest value of the previous matrix
-   *
-   * @return @b true if the matrix structure has changed, @b false else
-   */
-  static bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype * lastRowVals);
+/**
+ * @brief Copy one sparse matrix to the KINSOL structure
+ *
+ * @param smj Sparse matrix to copy to the KINSOL structure
+ * @param JJ KINSOL structure where to copy the matrix
+ * @param lastRowVals pointer to the latest value of the previous matrix
+ *
+ * @return @b true if the matrix structure has changed, @b false else
+ */
+static bool copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& JJ, const std::vector<sunindextype>& lastRowVals);
 
-  /**
-   *
-   * @brief propagate the matrix structure change to KINSOL structure
-   *
-   * @param smj Sparse matrix to copy to the KINSOL structure
-   * @param JJ KINSOL structure where to copy the matrix
-   * @param size size of the square matrix (nb columns)
-   * @param lastRowVals pointer to the latest value of the previous matrix
-   * @param LS linear solver pointer
-   * @param linearSolverName name of the linear solver name (KLU / NICSLU)
-   * @param log @b true if a log should be added if a complete re-initialization is done
-   */
-  static void propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size,
-                                                     sunindextype** lastRowVals, SUNLinearSolver& LS, const std::string& linearSolverName, bool log);
+/**
+ *
+ * @brief propagate the matrix structure change to KINSOL structure
+ *
+ * @param smj Sparse matrix to copy to the KINSOL structure
+ * @param JJ KINSOL structure where to copy the matrix
+ * @param lastRowVals pointer to the latest value of the previous matrix
+ * @param LS linear solver pointer
+ * @param linearSolverName name of the linear solver name (KLU / NICSLU)
+ * @param log @b true if a log should be added if a complete re-initialization is done
+ */
+static void propagateMatrixStructureChangeToKINSOL(SparseMatrix& smj, SUNMatrix& JJ,
+    std::vector<sunindextype>& lastRowVals, SUNLinearSolver& LS, const std::string& linearSolverName, bool log);
 
   /**
    * @brief Print the largest residuals errors

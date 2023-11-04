@@ -245,6 +245,14 @@ class SolverIDA : public Solver::Impl {
    */
   bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
 
+  /**
+   * @brief get matrix used for resolution
+   * @return matrix used for resolution
+   */
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
@@ -264,7 +272,9 @@ class SolverIDA : public Solver::Impl {
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
-  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  std::vector<sunindextype> lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+
+  SparseMatrix smj_;  ///< Jacobian matrix
 };
 
 }  // end of namespace DYN
