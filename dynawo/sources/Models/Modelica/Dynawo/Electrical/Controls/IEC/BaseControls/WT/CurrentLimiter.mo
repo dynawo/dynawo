@@ -66,7 +66,7 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sqrt sqrt annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Sqrt sqrt annotation(
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
@@ -98,7 +98,7 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
     Placement(visible = true, transformation(origin = {150, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min4 annotation(
     Placement(visible = true, transformation(origin = {90, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sqrt sqrt1 annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Sqrt sqrt1 annotation(
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback4 annotation(
     Placement(visible = true, transformation(origin = {-100, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

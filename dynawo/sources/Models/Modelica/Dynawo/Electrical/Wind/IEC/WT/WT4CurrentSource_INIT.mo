@@ -73,7 +73,7 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {-150, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sqrt sqrt annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Sqrt sqrt annotation(
     Placement(visible = true, transformation(origin = {110, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {70, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
