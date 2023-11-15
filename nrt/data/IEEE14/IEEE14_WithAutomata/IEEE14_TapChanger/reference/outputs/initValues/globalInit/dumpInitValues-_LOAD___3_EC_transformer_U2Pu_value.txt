@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 connector__LOAD___3_EC_transformer_U2Pu_value     : y =       0.992373 yp =       0.000000
  ====== INIT DISCRETE VARIABLES VALUES ======
  ====== PARAMETERS VALUES ======

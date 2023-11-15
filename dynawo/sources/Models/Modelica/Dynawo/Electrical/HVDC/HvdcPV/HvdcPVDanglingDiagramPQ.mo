@@ -13,12 +13,10 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 */
 
 model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and terminal2 connected to a switched-off bus"
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
-  extends HVDC.BaseClasses.BaseQStatusDangling;
-  extends HVDC.BaseClasses.BaseVoltageRegulationDangling;
-  extends HVDC.BaseClasses.BasePVDangling(QInj1PuQNom(start = - s10Pu.im * SystemBase.SnRef / Q1Nom));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseQStatusDangling;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseVoltageRegulationDangling;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePVDangling(QInj1PuQNom(start = - s10Pu.im * SystemBase.SnRef / Q1Nom));
 
 /*
   Equivalent circuit and conventions:

@@ -13,16 +13,10 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSource "WECC PV model with a current source as interface with the grid"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.Controls.WECC.Parameters;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Parameters.ParamsElectricalControl;
-  extends Parameters.ParamsGeneratorControl;
-  extends Parameters.ParamsPlantControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsElectricalControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsGeneratorControl;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPlantControl;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
@@ -30,7 +24,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -69,11 +63,12 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in rad";
 
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom)  "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
+
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

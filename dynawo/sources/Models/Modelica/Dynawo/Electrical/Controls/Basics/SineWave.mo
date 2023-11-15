@@ -14,9 +14,8 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model SineWave "Parameterizable sine wave model"
-  import Dynawo.Connectors;
 
-  Connectors.ImPin source(value(start = Offset));
+  Dynawo.Connectors.ImPin source(value(start = Offset));
 
   parameter Real K "Amplitude of the sine wave";
   parameter Real Offset "Average value of the sine wave";

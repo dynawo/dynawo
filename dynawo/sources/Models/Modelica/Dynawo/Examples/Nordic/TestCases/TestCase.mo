@@ -14,11 +14,6 @@ within Dynawo.Examples.Nordic.TestCases;
 */
 
 model TestCase "Nordic test system case with variable reference frequency"
-  import Modelica.ComplexMath;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends Dynawo.Examples.Nordic.Grid.FullDynamicModel(
     Alpha = 1,
     Beta = 2,

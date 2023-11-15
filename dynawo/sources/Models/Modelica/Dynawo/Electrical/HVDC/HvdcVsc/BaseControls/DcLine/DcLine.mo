@@ -13,12 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcLine;
 */
 
 model DcLine "DC line model"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcLine;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";

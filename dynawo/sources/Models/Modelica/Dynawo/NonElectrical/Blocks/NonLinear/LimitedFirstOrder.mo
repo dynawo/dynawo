@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block LimitedFirstOrder "First-order filter with non-windup limiter"
-  import Modelica;
-  import Dynawo.Types;
-
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Types.PerUnit K = 1 "Gain";

@@ -15,8 +15,6 @@ within Dynawo.Electrical.HVDC.BaseControls;
 model ACEmulationVariableK_INIT "Initialisation model for AC Emulation for HVDC with a variable KACEmulation"
   extends AdditionalIcons.Init;
 
-  import Dynawo.Types;
-
   parameter Types.PerUnit KACEmulation0 "Start value of inverse of the emulated AC reactance (base SnRef or SNom) (receptor or generator convention). If in generator convention, KACEmulation should be < 0.";
   parameter Types.ActivePowerPu PRefSet0Pu "Raw reference active power in pu (base SnRef or SNom) (receptor or generator convention)";
 

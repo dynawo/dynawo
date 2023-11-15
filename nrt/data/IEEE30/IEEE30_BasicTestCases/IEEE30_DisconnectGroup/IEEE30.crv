@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="B1_U_value"/>
+  <curve model="NETWORK" variable="B2_U_value"/>
+  <curve model="NETWORK" variable="B5_U_value"/>
+  <!-- <curve model="B1-G1" variable="generator_PGen"/>
+  <curve model="B1-G1" variable="generator_QGen"/>
+  <curve model="B2-G1" variable="generator_PGen"/>
+  <curve model="B2-G1" variable="generator_QGen"/>
+  <curve model="B5-G1" variable="generator_PGen"/>
+  <curve model="B5-G1" variable="generator_QGen"/>
+  <curve model="B8-G1" variable="generator_PGen"/>
+  <curve model="B8-G1" variable="generator_QGen"/>
+  <curve model="B11-G1" variable="generator_PGen"/>
+  <curve model="B11-G1" variable="generator_QGen"/>
+  <curve model="B13-G1" variable="generator_PGen"/>
+  <curve model="B13-G1" variable="generator_QGen"/>
+  <curve model="B8-L1" variable="tapChangerT_UTarget"/>
+  <curve model="B8-L1" variable="tapChangerT_UMonitored_value"/>
+  <curve model="B8-L1" variable="tapChangerT_tap_value"/>
+  <curve model="B8-L1" variable="tapChangerT_tapMax"/>
+  <curve model="B8-L1" variable="tapChangerT_tapMin"/>
+  <curve model="B5-L1" variable="tapChanger_U_value"/>
+  <curve model="B5-L1" variable="tapChangerT_UTarget"/>
+  <curve model="B5-L1" variable="tapChangerT_UMonitored_value"/>
+  <curve model="B5-L1" variable="tapChangerT_tap_value"/>
+  <curve model="B5-L1" variable="tapChangerT_tapMax"/>
+  <curve model="B5-L1" variable="tapChangerT_tapMin"/>
+  <curve model="B2-L1" variable="tapChanger_U_value"/>
+  <curve model="B2-L1" variable="tapChangerT_UTarget"/>
+  <curve model="B2-L1" variable="tapChangerT_UMonitored_value"/>
+  <curve model="B2-L1" variable="tapChangerT_tap_value"/>
+  <curve model="B2-L1" variable="tapChangerT_tapMax"/>
+  <curve model="B2-L1" variable="tapChangerT_tapMin"/>
+  <curve model="B1-L1" variable="tapChanger_U_value"/>
+  <curve model="B1-L1" variable="tapChangerT_UTarget"/>
+  <curve model="B1-L1" variable="tapChangerT_UMonitored_value"/>
+  <curve model="B1-L1" variable="tapChangerT_tap_value"/>
+  <curve model="B1-L1" variable="tapChangerT_tapMax"/>
+  <curve model="B1-L1" variable="tapChangerT_tapMin"/>
+
+  <curve model="B21-L1" variable="tapChanger_U_value"/>
+  <curve model="B21-L1" variable="tapChanger_UTarget"/>
+  <curve model="B21-L1" variable="tapChanger_UMonitored_value"/>
+  <curve model="B21-L1" variable="tapChanger_tap_value"/>
+  <curve model="B21-L1" variable="tapChanger_tapMax"/>
+  <curve model="B21-L1" variable="tapChanger_tapMin"/>
+
+  <curve model="B10-L1" variable="tapChanger_U_value"/>
+  <curve model="B10-L1" variable="tapChanger_UTarget"/>
+  <curve model="B10-L1" variable="tapChanger_UMonitored_value"/>
+  <curve model="B10-L1" variable="tapChanger_tap_value"/>
+  <curve model="B10-L1" variable="tapChanger_tapMax"/>
+  <curve model="B10-L1" variable="tapChanger_tapMin"/>
+
+  <curve model="B24-L1" variable="tapChanger_U_value"/>
+  <curve model="B24-L1" variable="tapChanger_UTarget"/>
+  <curve model="B24-L1" variable="tapChanger_UMonitored_value"/>
+  <curve model="B24-L1" variable="tapChanger_tap_value"/>
+  <curve model="B24-L1" variable="tapChanger_tapMax"/>
+  <curve model="B24-L1" variable="tapChanger_tapMin"/>
+
+  <curve model="B23-L1" variable="tapChanger_U_value"/>
+  <curve model="B23-L1" variable="tapChanger_UTarget"/>
+  <curve model="B23-L1" variable="tapChanger_UMonitored_value"/>
+  <curve model="B23-L1" variable="tapChanger_tap_value"/>
+  <curve model="B23-L1" variable="tapChanger_tapMax"/>
+  <curve model="B23-L1" variable="tapChanger_tapMin"/>
+
+  <curve model="B29-L1" variable="tapChanger_U_value"/>
+  <curve model="B29-L1" variable="tapChanger_UTarget"/>
+  <curve model="B29-L1" variable="tapChanger_UMonitored_value"/>
+  <curve model="B29-L1" variable="tapChanger_tap_value"/>
+  <curve model="B29-L1" variable="tapChanger_tapMax"/>
+  <curve model="B29-L1" variable="tapChanger_tapMin"/>
+
+  <curve model="B18-L1" variable="tapChanger_U_value"/>
+  <curve model="B18-L1" variable="tapChanger_UTarget"/>
+  <curve model="B18-L1" variable="tapChanger_UMonitored_value"/>
+  <curve model="B18-L1" variable="tapChanger_tap_value"/>
+  <curve model="B18-L1" variable="tapChanger_tapMax"/>
+  <curve model="B18-L1" variable="tapChanger_tapMin"/>
+  <curve model="B18-L1" variable="load_PPu"/>
+  <curve model="B18-L1" variable="load_QPu"/> -->
+</curvesInput>

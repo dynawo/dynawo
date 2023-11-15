@@ -14,9 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model MAXEX2 "Overexcitation limitation for standard voltage regulator"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   parameter Types.CurrentModulePu Ifd1Pu = 1.1 "Field current of first characteristic point in pu (base SNom, user-selected base voltage)";
   parameter Types.CurrentModulePu Ifd2Pu = 1.2 "Field current of second characteristic point in pu (base SNom, user-selected base voltage)";

@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseClasses;
 */
 
 partial model BaseControl4 "Whole generator base control module for type 4 wind turbines (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

@@ -14,26 +14,21 @@ within Dynawo.Electrical.StaticVarCompensators.BaseClasses;
 */
 
 partial model BaseSVarC "Base dynamic model for static var compensator"
-  import Modelica;
-  import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends AdditionalIcons.SVarC;
-  extends SwitchOff.SwitchOffShunt;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffShunt;
 
-  type BStatus = enumeration (Standard "Susceptance is between its maximal and minimal values",
-                SusceptanceMax "Susceptance is fixed to its maximal value",
-                SusceptanceMin "Susceptance is fixed to its minimal value");
-
+  type BStatus = enumeration(Standard "Susceptance is between its maximal and minimal values",
+                             SusceptanceMax "Susceptance is fixed to its maximal value",
+                             SusceptanceMin "Susceptance is fixed to its minimal value");
 
   parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in pu (base UNom, SnRef)";
   parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in pu (base UNom, SnRef)";
   parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in pu (for standby mode) (base UNom, SnRef)";
 
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
   input Types.VoltageModule URefPu(start = URef0Pu) "Reference voltage amplitude in pu (base UNom)";
 
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
@@ -51,7 +46,7 @@ partial model BaseSVarC "Base dynamic model for static var compensator"
 
   final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in pu (base UNom, SnRef)";
 
-  equation
+equation
   when bStatus == BStatus.SusceptanceMax and pre(bStatus) <> BStatus.SusceptanceMax then
     Timeline.logEvent1(TimelineKeys.SVarCMaxB);
   elsewhen bStatus == BStatus.SusceptanceMin and pre(bStatus) <> BStatus.SusceptanceMin then
@@ -64,7 +59,7 @@ partial model BaseSVarC "Base dynamic model for static var compensator"
     UPu = Modelica.ComplexMath.'abs'(terminal.V);
     terminal.i = terminal.V * Complex(0, BPu);
   else
-    UPu = 0.;
+    UPu = 0;
     terminal.i = Complex(0);
   end if;
 

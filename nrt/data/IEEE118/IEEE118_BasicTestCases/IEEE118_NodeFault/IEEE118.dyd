@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="B1-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B1-L1"/>
+  <dyn:blackBoxModel id="B2-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B2-L1"/>
+  <dyn:blackBoxModel id="B3-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B3-L1"/>
+  <dyn:blackBoxModel id="B4-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B4-L1"/>
+  <dyn:blackBoxModel id="B6-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B6-L1"/>
+  <dyn:blackBoxModel id="B7-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B7-L1"/>
+  <dyn:blackBoxModel id="B8-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B8-L1"/>
+  <dyn:blackBoxModel id="B11-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B11-L1"/>
+  <dyn:blackBoxModel id="B12-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B12-L1"/>
+  <dyn:blackBoxModel id="B13-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B13-L1"/>
+  <dyn:blackBoxModel id="B14-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B14-L1"/>
+  <dyn:blackBoxModel id="B15-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B15-L1"/>
+  <dyn:blackBoxModel id="B16-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B16-L1"/>
+  <dyn:blackBoxModel id="B17-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B17-L1"/>
+  <dyn:blackBoxModel id="B18-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B18-L1"/>
+  <dyn:blackBoxModel id="B19-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B19-L1"/>
+  <dyn:blackBoxModel id="B20-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B20-L1"/>
+  <dyn:blackBoxModel id="B21-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B21-L1"/>
+  <dyn:blackBoxModel id="B22-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B22-L1"/>
+  <dyn:blackBoxModel id="B23-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B23-L1"/>
+  <dyn:blackBoxModel id="B24-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B24-L1"/>
+  <dyn:blackBoxModel id="B27-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B27-L1"/>
+  <dyn:blackBoxModel id="B28-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B28-L1"/>
+  <dyn:blackBoxModel id="B29-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B29-L1"/>
+  <dyn:blackBoxModel id="B31-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B31-L1"/>
+  <dyn:blackBoxModel id="B32-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B32-L1"/>
+  <dyn:blackBoxModel id="B33-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B33-L1"/>
+  <dyn:blackBoxModel id="B34-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B34-L1"/>
+  <dyn:blackBoxModel id="B35-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B35-L1"/>
+  <dyn:blackBoxModel id="B36-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B36-L1"/>
+  <dyn:blackBoxModel id="B39-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B39-L1"/>
+  <dyn:blackBoxModel id="B40-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B40-L1"/>
+  <dyn:blackBoxModel id="B41-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B41-L1"/>
+  <dyn:blackBoxModel id="B42-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B42-L1"/>
+  <dyn:blackBoxModel id="B43-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B43-L1"/>
+  <dyn:blackBoxModel id="B44-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B44-L1"/>
+  <dyn:blackBoxModel id="B45-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B45-L1"/>
+  <dyn:blackBoxModel id="B46-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B46-L1"/>
+  <dyn:blackBoxModel id="B47-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B47-L1"/>
+  <dyn:blackBoxModel id="B48-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B48-L1"/>
+  <dyn:blackBoxModel id="B49-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B49-L1"/>
+  <dyn:blackBoxModel id="B50-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B50-L1"/>
+  <dyn:blackBoxModel id="B51-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B51-L1"/>
+  <dyn:blackBoxModel id="B52-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B52-L1"/>
+  <dyn:blackBoxModel id="B53-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B53-L1"/>
+  <dyn:blackBoxModel id="B54-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B54-L1"/>
+  <dyn:blackBoxModel id="B55-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B55-L1"/>
+  <dyn:blackBoxModel id="B56-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B56-L1"/>
+  <dyn:blackBoxModel id="B57-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B57-L1"/>
+  <dyn:blackBoxModel id="B58-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B58-L1"/>
+  <dyn:blackBoxModel id="B59-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B59-L1"/>
+  <dyn:blackBoxModel id="B60-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B60-L1"/>
+  <dyn:blackBoxModel id="B62-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B62-L1"/>
+  <dyn:blackBoxModel id="B66-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B66-L1"/>
+  <dyn:blackBoxModel id="B67-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B67-L1"/>
+  <dyn:blackBoxModel id="B70-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B70-L1"/>
+  <dyn:blackBoxModel id="B72-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B72-L1"/>
+  <dyn:blackBoxModel id="B73-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B73-L1"/>
+  <dyn:blackBoxModel id="B74-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B74-L1"/>
+  <dyn:blackBoxModel id="B75-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B75-L1"/>
+  <dyn:blackBoxModel id="B76-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B76-L1"/>
+  <dyn:blackBoxModel id="B77-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B77-L1"/>
+  <dyn:blackBoxModel id="B78-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B78-L1"/>
+  <dyn:blackBoxModel id="B79-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B79-L1"/>
+  <dyn:blackBoxModel id="B80-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B80-L1"/>
+  <dyn:blackBoxModel id="B82-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B82-L1"/>
+  <dyn:blackBoxModel id="B83-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B83-L1"/>
+  <dyn:blackBoxModel id="B84-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B84-L1"/>
+  <dyn:blackBoxModel id="B85-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B85-L1"/>
+  <dyn:blackBoxModel id="B86-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B86-L1"/>
+  <dyn:blackBoxModel id="B88-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B88-L1"/>
+  <dyn:blackBoxModel id="B90-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B90-L1"/>
+  <dyn:blackBoxModel id="B91-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B91-L1"/>
+  <dyn:blackBoxModel id="B92-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B92-L1"/>
+  <dyn:blackBoxModel id="B93-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B93-L1"/>
+  <dyn:blackBoxModel id="B94-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B94-L1"/>
+  <dyn:blackBoxModel id="B95-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B95-L1"/>
+  <dyn:blackBoxModel id="B96-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B96-L1"/>
+  <dyn:blackBoxModel id="B97-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B97-L1"/>
+  <dyn:blackBoxModel id="B98-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B98-L1"/>
+  <dyn:blackBoxModel id="B99-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B99-L1"/>
+  <dyn:blackBoxModel id="B100-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B100-L1"/>
+  <dyn:blackBoxModel id="B101-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B101-L1"/>
+  <dyn:blackBoxModel id="B102-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B102-L1"/>
+  <dyn:blackBoxModel id="B103-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B103-L1"/>
+  <dyn:blackBoxModel id="B104-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B104-L1"/>
+  <dyn:blackBoxModel id="B105-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B105-L1"/>
+  <dyn:blackBoxModel id="B106-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B106-L1"/>
+  <dyn:blackBoxModel id="B107-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B107-L1"/>
+  <dyn:blackBoxModel id="B108-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B108-L1"/>
+  <dyn:blackBoxModel id="B109-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B109-L1"/>
+  <dyn:blackBoxModel id="B110-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B110-L1"/>
+  <dyn:blackBoxModel id="B112-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B112-L1"/>
+  <dyn:blackBoxModel id="B113-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B113-L1"/>
+  <dyn:blackBoxModel id="B114-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B114-L1"/>
+  <dyn:blackBoxModel id="B115-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B115-L1"/>
+  <dyn:blackBoxModel id="B116-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B116-L1"/>
+  <dyn:blackBoxModel id="B117-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B117-L1"/>
+  <dyn:blackBoxModel id="B118-L1" lib="LoadAlphaBeta" parFile="IEEE118.par" parId="GenericLoadAlphaBeta" staticId="B118-L1"/>
+
+  <dyn:blackBoxModel id="B1-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator1" staticId="B1-G1"/>
+  <dyn:blackBoxModel id="B4-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator4" staticId="B4-G1"/>
+  <dyn:blackBoxModel id="B6-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator6" staticId="B6-G1"/>
+  <dyn:blackBoxModel id="B8-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator8" staticId="B8-G1"/>
+  <dyn:blackBoxModel id="B10-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator10" staticId="B10-G1"/>
+  <dyn:blackBoxModel id="B12-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator12" staticId="B12-G1"/>
+  <dyn:blackBoxModel id="B15-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator15" staticId="B15-G1"/>
+  <dyn:blackBoxModel id="B18-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator18" staticId="B18-G1"/>
+  <dyn:blackBoxModel id="B19-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator19" staticId="B19-G1"/>
+  <dyn:blackBoxModel id="B24-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator24" staticId="B24-G1"/>
+  <dyn:blackBoxModel id="B25-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator25" staticId="B25-G1"/>
+  <dyn:blackBoxModel id="B26-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator26" staticId="B26-G1"/>
+  <dyn:blackBoxModel id="B27-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator27" staticId="B27-G1"/>
+  <dyn:blackBoxModel id="B31-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator31" staticId="B31-G1"/>
+  <dyn:blackBoxModel id="B32-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator32" staticId="B32-G1"/>
+  <dyn:blackBoxModel id="B34-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator34" staticId="B34-G1"/>
+  <dyn:blackBoxModel id="B36-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator36" staticId="B36-G1"/>
+  <dyn:blackBoxModel id="B40-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator40" staticId="B40-G1"/>
+  <dyn:blackBoxModel id="B42-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator42" staticId="B42-G1"/>
+  <dyn:blackBoxModel id="B46-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator46" staticId="B46-G1"/>
+  <dyn:blackBoxModel id="B49-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator49" staticId="B49-G1"/>
+  <dyn:blackBoxModel id="B54-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator54" staticId="B54-G1"/>
+  <dyn:blackBoxModel id="B55-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator55" staticId="B55-G1"/>
+  <dyn:blackBoxModel id="B56-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator56" staticId="B56-G1"/>
+  <dyn:blackBoxModel id="B59-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator59" staticId="B59-G1"/>
+  <dyn:blackBoxModel id="B61-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator61" staticId="B61-G1"/>
+  <dyn:blackBoxModel id="B62-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator62" staticId="B62-G1"/>
+  <dyn:blackBoxModel id="B65-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator65" staticId="B65-G1"/>
+  <dyn:blackBoxModel id="B66-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator66" staticId="B66-G1"/>
+  <dyn:blackBoxModel id="B69-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator69" staticId="B69-G1"/>
+  <dyn:blackBoxModel id="B70-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator70" staticId="B70-G1"/>
+  <dyn:blackBoxModel id="B72-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator72" staticId="B72-G1"/>
+  <dyn:blackBoxModel id="B73-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator73" staticId="B73-G1"/>
+  <dyn:blackBoxModel id="B74-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator74" staticId="B74-G1"/>
+  <dyn:blackBoxModel id="B76-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator76" staticId="B76-G1"/>
+  <dyn:blackBoxModel id="B77-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator77" staticId="B77-G1"/>
+  <dyn:blackBoxModel id="B80-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator80" staticId="B80-G1"/>
+  <dyn:blackBoxModel id="B85-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator85" staticId="B85-G1"/>
+  <dyn:blackBoxModel id="B87-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator87" staticId="B87-G1"/>
+  <dyn:blackBoxModel id="B89-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator89" staticId="B89-G1"/>
+  <dyn:blackBoxModel id="B90-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator90" staticId="B90-G1"/>
+  <dyn:blackBoxModel id="B91-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator91" staticId="B91-G1"/>
+  <dyn:blackBoxModel id="B92-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator92" staticId="B92-G1"/>
+  <dyn:blackBoxModel id="B99-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator99" staticId="B99-G1"/>
+  <dyn:blackBoxModel id="B100-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator100" staticId="B100-G1"/>
+  <dyn:blackBoxModel id="B103-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator103" staticId="B103-G1"/>
+  <dyn:blackBoxModel id="B104-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator104" staticId="B104-G1"/>
+  <dyn:blackBoxModel id="B105-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator105" staticId="B105-G1"/>
+  <dyn:blackBoxModel id="B107-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator107" staticId="B107-G1"/>
+  <dyn:blackBoxModel id="B110-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator110" staticId="B110-G1"/>
+  <dyn:blackBoxModel id="B111-G1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator111" staticId="B111-G1"/>
+  <dyn:blackBoxModel id="B112-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator112" staticId="B112-G1"/>
+  <dyn:blackBoxModel id="B113-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator113" staticId="B113-G1"/>
+  <dyn:blackBoxModel id="B116-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator116" staticId="B116-G1"/>
+
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE118.par" parId="OmegaRef"/>
+  <dyn:blackBoxModel id="FAULT_GEN_19" lib="NodeFault" parFile="IEEE118.par" parId="Fault"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="B1-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="B1-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="B1_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_0" id2="B1-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1" id2="B4-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1" id2="B4-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="B4_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_1" id2="B4-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2" id2="B6-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2" id2="B6-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="B6_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_2" id2="B6-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3" id2="B8-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3" id2="B8-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_3" id2="NETWORK" var2="B8_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_3" id2="B8-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_53" id2="B10-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_53" id2="B10-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_53" id2="NETWORK" var2="B10_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_53" id2="B10-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4" id2="B12-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4" id2="B12-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_4" id2="NETWORK" var2="B12_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_4" id2="B12-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_5" id2="B15-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_5" id2="B15-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_5" id2="NETWORK" var2="B15_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_5" id2="B15-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_6" id2="B18-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_6" id2="B18-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_6" id2="NETWORK" var2="B18_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_6" id2="B18-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_7" id2="B19-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_7" id2="B19-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_7" id2="NETWORK" var2="B19_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_7" id2="B19-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_8" id2="B24-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_8" id2="B24-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_8" id2="NETWORK" var2="B24_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_8" id2="B24-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_9" id2="B25-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_9" id2="B25-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_9" id2="NETWORK" var2="B25_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_9" id2="B25-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_10" id2="B26-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_10" id2="B26-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_10" id2="NETWORK" var2="B26_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_10" id2="B26-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_11" id2="B27-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_11" id2="B27-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_11" id2="NETWORK" var2="B27_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_11" id2="B27-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_12" id2="B31-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_12" id2="B31-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_12" id2="NETWORK" var2="B31_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_12" id2="B31-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_13" id2="B32-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_13" id2="B32-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_13" id2="NETWORK" var2="B32_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_13" id2="B32-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_14" id2="B34-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_14" id2="B34-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_14" id2="NETWORK" var2="B34_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_14" id2="B34-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_15" id2="B36-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_15" id2="B36-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_15" id2="NETWORK" var2="B36_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_15" id2="B36-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_16" id2="B40-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_16" id2="B40-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_16" id2="NETWORK" var2="B40_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_16" id2="B40-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_17" id2="B42-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_17" id2="B42-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_17" id2="NETWORK" var2="B42_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_17" id2="B42-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_18" id2="B46-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_18" id2="B46-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_18" id2="NETWORK" var2="B46_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_18" id2="B46-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_19" id2="B49-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_19" id2="B49-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_19" id2="NETWORK" var2="B49_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_19" id2="B49-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_20" id2="B54-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_20" id2="B54-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_20" id2="NETWORK" var2="B54_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_20" id2="B54-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_21" id2="B55-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_21" id2="B55-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_21" id2="NETWORK" var2="B55_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_21" id2="B55-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_22" id2="B56-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_22" id2="B56-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_22" id2="NETWORK" var2="B56_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_22" id2="B56-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_23" id2="B59-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_23" id2="B59-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_23" id2="NETWORK" var2="B59_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_23" id2="B59-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_24" id2="B61-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_24" id2="B61-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_24" id2="NETWORK" var2="B61_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_24" id2="B61-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_25" id2="B62-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_25" id2="B62-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_25" id2="NETWORK" var2="B62_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_25" id2="B62-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_26" id2="B65-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_26" id2="B65-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_26" id2="NETWORK" var2="B65_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_26" id2="B65-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_27" id2="B66-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_27" id2="B66-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_27" id2="NETWORK" var2="B66_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_27" id2="B66-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_28" id2="B69-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_28" id2="B69-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_28" id2="NETWORK" var2="B69_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_28" id2="B69-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_29" id2="B70-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_29" id2="B70-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_29" id2="NETWORK" var2="B70_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_29" id2="B70-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_30" id2="B72-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_30" id2="B72-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_30" id2="NETWORK" var2="B72_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_30" id2="B72-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_31" id2="B73-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_31" id2="B73-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_31" id2="NETWORK" var2="B73_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_31" id2="B73-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_32" id2="B74-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_32" id2="B74-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_32" id2="NETWORK" var2="B74_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_32" id2="B74-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_33" id2="B76-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_33" id2="B76-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_33" id2="NETWORK" var2="B76_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_33" id2="B76-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_34" id2="B77-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_34" id2="B77-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_34" id2="NETWORK" var2="B77_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_34" id2="B77-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_35" id2="B80-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_35" id2="B80-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_35" id2="NETWORK" var2="B80_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_35" id2="B80-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_36" id2="B85-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_36" id2="B85-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_36" id2="NETWORK" var2="B85_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_36" id2="B85-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_37" id2="B87-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_37" id2="B87-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_37" id2="NETWORK" var2="B87_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_37" id2="B87-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_38" id2="B89-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_38" id2="B89-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_38" id2="NETWORK" var2="B89_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_38" id2="B89-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_39" id2="B90-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_39" id2="B90-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_39" id2="NETWORK" var2="B90_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_39" id2="B90-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_40" id2="B91-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_40" id2="B91-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_40" id2="NETWORK" var2="B91_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_40" id2="B91-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_41" id2="B92-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_41" id2="B92-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_41" id2="NETWORK" var2="B92_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_41" id2="B92-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_42" id2="B99-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_42" id2="B99-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_42" id2="NETWORK" var2="B99_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_42" id2="B99-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_43" id2="B100-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_43" id2="B100-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_43" id2="NETWORK" var2="B100_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_43" id2="B100-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_44" id2="B103-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_44" id2="B103-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_44" id2="NETWORK" var2="B103_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_44" id2="B103-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_45" id2="B104-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_45" id2="B104-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_45" id2="NETWORK" var2="B104_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_45" id2="B104-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_46" id2="B105-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_46" id2="B105-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_46" id2="NETWORK" var2="B105_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_46" id2="B105-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_47" id2="B107-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_47" id2="B107-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_47" id2="NETWORK" var2="B107_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_47" id2="B107-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_48" id2="B110-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_48" id2="B110-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_48" id2="NETWORK" var2="B110_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_48" id2="B110-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_49" id2="B111-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_49" id2="B111-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_49" id2="NETWORK" var2="B111_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_49" id2="B111-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_50" id2="B112-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_50" id2="B112-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_50" id2="NETWORK" var2="B112_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_50" id2="B112-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_51" id2="B113-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_51" id2="B113-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_51" id2="NETWORK" var2="B113_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_51" id2="B113-G1" var2="generator_running"/>
+
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_52" id2="B116-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_52" id2="B116-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_52" id2="NETWORK" var2="B116_numcc"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_52" id2="B116-G1" var2="generator_running"/>
+
+  <dyn:connect id1="B1-G1" var1="generator_terminal" id2="NETWORK" var2="B1_ACPIN"/>
+  <dyn:connect id1="B1-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B1_switchOff"/>
+  <dyn:connect id1="B4-G1" var1="generator_terminal" id2="NETWORK" var2="B4_ACPIN"/>
+  <dyn:connect id1="B4-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B4_switchOff"/>
+  <dyn:connect id1="B6-G1" var1="generator_terminal" id2="NETWORK" var2="B6_ACPIN"/>
+  <dyn:connect id1="B6-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B6_switchOff"/>
+  <dyn:connect id1="B8-G1" var1="generator_terminal" id2="NETWORK" var2="B8_ACPIN"/>
+  <dyn:connect id1="B8-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B8_switchOff"/>
+  <dyn:connect id1="B10-G1" var1="generator_terminal" id2="NETWORK" var2="B10_ACPIN"/>
+  <dyn:connect id1="B10-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B10_switchOff"/>
+  <dyn:connect id1="B12-G1" var1="generator_terminal" id2="NETWORK" var2="B12_ACPIN"/>
+  <dyn:connect id1="B12-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B12_switchOff"/>
+  <dyn:connect id1="B15-G1" var1="generator_terminal" id2="NETWORK" var2="B15_ACPIN"/>
+  <dyn:connect id1="B15-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B15_switchOff"/>
+  <dyn:connect id1="B18-G1" var1="generator_terminal" id2="NETWORK" var2="B18_ACPIN"/>
+  <dyn:connect id1="B18-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B18_switchOff"/>
+  <dyn:connect id1="B19-G1" var1="generator_terminal" id2="NETWORK" var2="B19_ACPIN"/>
+  <dyn:connect id1="B19-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B19_switchOff"/>
+  <dyn:connect id1="B24-G1" var1="generator_terminal" id2="NETWORK" var2="B24_ACPIN"/>
+  <dyn:connect id1="B24-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B24_switchOff"/>
+  <dyn:connect id1="B25-G1" var1="generator_terminal" id2="NETWORK" var2="B25_ACPIN"/>
+  <dyn:connect id1="B25-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B25_switchOff"/>
+  <dyn:connect id1="B26-G1" var1="generator_terminal" id2="NETWORK" var2="B26_ACPIN"/>
+  <dyn:connect id1="B26-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B26_switchOff"/>
+  <dyn:connect id1="B27-G1" var1="generator_terminal" id2="NETWORK" var2="B27_ACPIN"/>
+  <dyn:connect id1="B27-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B27_switchOff"/>
+  <dyn:connect id1="B31-G1" var1="generator_terminal" id2="NETWORK" var2="B31_ACPIN"/>
+  <dyn:connect id1="B31-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B31_switchOff"/>
+  <dyn:connect id1="B32-G1" var1="generator_terminal" id2="NETWORK" var2="B32_ACPIN"/>
+  <dyn:connect id1="B32-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B32_switchOff"/>
+  <dyn:connect id1="B34-G1" var1="generator_terminal" id2="NETWORK" var2="B34_ACPIN"/>
+  <dyn:connect id1="B34-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B34_switchOff"/>
+  <dyn:connect id1="B36-G1" var1="generator_terminal" id2="NETWORK" var2="B36_ACPIN"/>
+  <dyn:connect id1="B36-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B36_switchOff"/>
+  <dyn:connect id1="B40-G1" var1="generator_terminal" id2="NETWORK" var2="B40_ACPIN"/>
+  <dyn:connect id1="B40-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B40_switchOff"/>
+  <dyn:connect id1="B42-G1" var1="generator_terminal" id2="NETWORK" var2="B42_ACPIN"/>
+  <dyn:connect id1="B42-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B42_switchOff"/>
+  <dyn:connect id1="B46-G1" var1="generator_terminal" id2="NETWORK" var2="B46_ACPIN"/>
+  <dyn:connect id1="B46-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B46_switchOff"/>
+  <dyn:connect id1="B49-G1" var1="generator_terminal" id2="NETWORK" var2="B49_ACPIN"/>
+  <dyn:connect id1="B49-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B49_switchOff"/>
+  <dyn:connect id1="B54-G1" var1="generator_terminal" id2="NETWORK" var2="B54_ACPIN"/>
+  <dyn:connect id1="B54-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B54_switchOff"/>
+  <dyn:connect id1="B55-G1" var1="generator_terminal" id2="NETWORK" var2="B55_ACPIN"/>
+  <dyn:connect id1="B55-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B55_switchOff"/>
+  <dyn:connect id1="B56-G1" var1="generator_terminal" id2="NETWORK" var2="B56_ACPIN"/>
+  <dyn:connect id1="B56-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B56_switchOff"/>
+  <dyn:connect id1="B59-G1" var1="generator_terminal" id2="NETWORK" var2="B59_ACPIN"/>
+  <dyn:connect id1="B59-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B59_switchOff"/>
+  <dyn:connect id1="B61-G1" var1="generator_terminal" id2="NETWORK" var2="B61_ACPIN"/>
+  <dyn:connect id1="B61-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B61_switchOff"/>
+  <dyn:connect id1="B62-G1" var1="generator_terminal" id2="NETWORK" var2="B62_ACPIN"/>
+  <dyn:connect id1="B62-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B62_switchOff"/>
+  <dyn:connect id1="B65-G1" var1="generator_terminal" id2="NETWORK" var2="B65_ACPIN"/>
+  <dyn:connect id1="B65-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B65_switchOff"/>
+  <dyn:connect id1="B66-G1" var1="generator_terminal" id2="NETWORK" var2="B66_ACPIN"/>
+  <dyn:connect id1="B66-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B66_switchOff"/>
+  <dyn:connect id1="B69-G1" var1="generator_terminal" id2="NETWORK" var2="B69_ACPIN"/>
+  <dyn:connect id1="B69-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B69_switchOff"/>
+  <dyn:connect id1="B70-G1" var1="generator_terminal" id2="NETWORK" var2="B70_ACPIN"/>
+  <dyn:connect id1="B70-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B70_switchOff"/>
+  <dyn:connect id1="B72-G1" var1="generator_terminal" id2="NETWORK" var2="B72_ACPIN"/>
+  <dyn:connect id1="B72-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B72_switchOff"/>
+  <dyn:connect id1="B73-G1" var1="generator_terminal" id2="NETWORK" var2="B73_ACPIN"/>
+  <dyn:connect id1="B73-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B73_switchOff"/>
+  <dyn:connect id1="B74-G1" var1="generator_terminal" id2="NETWORK" var2="B74_ACPIN"/>
+  <dyn:connect id1="B74-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B74_switchOff"/>
+  <dyn:connect id1="B76-G1" var1="generator_terminal" id2="NETWORK" var2="B76_ACPIN"/>
+  <dyn:connect id1="B76-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B76_switchOff"/>
+  <dyn:connect id1="B77-G1" var1="generator_terminal" id2="NETWORK" var2="B77_ACPIN"/>
+  <dyn:connect id1="B77-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B77_switchOff"/>
+  <dyn:connect id1="B80-G1" var1="generator_terminal" id2="NETWORK" var2="B80_ACPIN"/>
+  <dyn:connect id1="B80-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B80_switchOff"/>
+  <dyn:connect id1="B85-G1" var1="generator_terminal" id2="NETWORK" var2="B85_ACPIN"/>
+  <dyn:connect id1="B85-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B85_switchOff"/>
+  <dyn:connect id1="B87-G1" var1="generator_terminal" id2="NETWORK" var2="B87_ACPIN"/>
+  <dyn:connect id1="B87-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B87_switchOff"/>
+  <dyn:connect id1="B89-G1" var1="generator_terminal" id2="NETWORK" var2="B89_ACPIN"/>
+  <dyn:connect id1="B89-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B89_switchOff"/>
+  <dyn:connect id1="B90-G1" var1="generator_terminal" id2="NETWORK" var2="B90_ACPIN"/>
+  <dyn:connect id1="B90-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B90_switchOff"/>
+  <dyn:connect id1="B91-G1" var1="generator_terminal" id2="NETWORK" var2="B91_ACPIN"/>
+  <dyn:connect id1="B91-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B91_switchOff"/>
+  <dyn:connect id1="B92-G1" var1="generator_terminal" id2="NETWORK" var2="B92_ACPIN"/>
+  <dyn:connect id1="B92-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B92_switchOff"/>
+  <dyn:connect id1="B99-G1" var1="generator_terminal" id2="NETWORK" var2="B99_ACPIN"/>
+  <dyn:connect id1="B99-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B99_switchOff"/>
+  <dyn:connect id1="B100-G1" var1="generator_terminal" id2="NETWORK" var2="B100_ACPIN"/>
+  <dyn:connect id1="B100-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B100_switchOff"/>
+  <dyn:connect id1="B103-G1" var1="generator_terminal" id2="NETWORK" var2="B103_ACPIN"/>
+  <dyn:connect id1="B103-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B103_switchOff"/>
+  <dyn:connect id1="B104-G1" var1="generator_terminal" id2="NETWORK" var2="B104_ACPIN"/>
+  <dyn:connect id1="B104-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B104_switchOff"/>
+  <dyn:connect id1="B105-G1" var1="generator_terminal" id2="NETWORK" var2="B105_ACPIN"/>
+  <dyn:connect id1="B105-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B105_switchOff"/>
+  <dyn:connect id1="B107-G1" var1="generator_terminal" id2="NETWORK" var2="B107_ACPIN"/>
+  <dyn:connect id1="B107-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B107_switchOff"/>
+  <dyn:connect id1="B110-G1" var1="generator_terminal" id2="NETWORK" var2="B110_ACPIN"/>
+  <dyn:connect id1="B110-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B110_switchOff"/>
+  <dyn:connect id1="B111-G1" var1="generator_terminal" id2="NETWORK" var2="B111_ACPIN"/>
+  <dyn:connect id1="B111-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B111_switchOff"/>
+  <dyn:connect id1="B112-G1" var1="generator_terminal" id2="NETWORK" var2="B112_ACPIN"/>
+  <dyn:connect id1="B112-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B112_switchOff"/>
+  <dyn:connect id1="B113-G1" var1="generator_terminal" id2="NETWORK" var2="B113_ACPIN"/>
+  <dyn:connect id1="B113-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B113_switchOff"/>
+  <dyn:connect id1="B116-G1" var1="generator_terminal" id2="NETWORK" var2="B116_ACPIN"/>
+  <dyn:connect id1="B116-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B116_switchOff"/>
+
+  <dyn:connect id1="B1-L1" var1="load_terminal" id2="NETWORK" var2="B1_ACPIN"/>
+  <dyn:connect id1="B2-L1" var1="load_terminal" id2="NETWORK" var2="B2_ACPIN"/>
+  <dyn:connect id1="B3-L1" var1="load_terminal" id2="NETWORK" var2="B3_ACPIN"/>
+  <dyn:connect id1="B4-L1" var1="load_terminal" id2="NETWORK" var2="B4_ACPIN"/>
+  <dyn:connect id1="B6-L1" var1="load_terminal" id2="NETWORK" var2="B6_ACPIN"/>
+  <dyn:connect id1="B7-L1" var1="load_terminal" id2="NETWORK" var2="B7_ACPIN"/>
+  <dyn:connect id1="B8-L1" var1="load_terminal" id2="NETWORK" var2="B8_ACPIN"/>
+  <dyn:connect id1="B11-L1" var1="load_terminal" id2="NETWORK" var2="B11_ACPIN"/>
+  <dyn:connect id1="B12-L1" var1="load_terminal" id2="NETWORK" var2="B12_ACPIN"/>
+  <dyn:connect id1="B13-L1" var1="load_terminal" id2="NETWORK" var2="B13_ACPIN"/>
+  <dyn:connect id1="B14-L1" var1="load_terminal" id2="NETWORK" var2="B14_ACPIN"/>
+  <dyn:connect id1="B15-L1" var1="load_terminal" id2="NETWORK" var2="B15_ACPIN"/>
+  <dyn:connect id1="B16-L1" var1="load_terminal" id2="NETWORK" var2="B16_ACPIN"/>
+  <dyn:connect id1="B17-L1" var1="load_terminal" id2="NETWORK" var2="B17_ACPIN"/>
+  <dyn:connect id1="B18-L1" var1="load_terminal" id2="NETWORK" var2="B18_ACPIN"/>
+  <dyn:connect id1="B19-L1" var1="load_terminal" id2="NETWORK" var2="B19_ACPIN"/>
+  <dyn:connect id1="B20-L1" var1="load_terminal" id2="NETWORK" var2="B20_ACPIN"/>
+  <dyn:connect id1="B21-L1" var1="load_terminal" id2="NETWORK" var2="B21_ACPIN"/>
+  <dyn:connect id1="B22-L1" var1="load_terminal" id2="NETWORK" var2="B22_ACPIN"/>
+  <dyn:connect id1="B23-L1" var1="load_terminal" id2="NETWORK" var2="B23_ACPIN"/>
+  <dyn:connect id1="B24-L1" var1="load_terminal" id2="NETWORK" var2="B24_ACPIN"/>
+  <dyn:connect id1="B27-L1" var1="load_terminal" id2="NETWORK" var2="B27_ACPIN"/>
+  <dyn:connect id1="B28-L1" var1="load_terminal" id2="NETWORK" var2="B28_ACPIN"/>
+  <dyn:connect id1="B29-L1" var1="load_terminal" id2="NETWORK" var2="B29_ACPIN"/>
+  <dyn:connect id1="B31-L1" var1="load_terminal" id2="NETWORK" var2="B31_ACPIN"/>
+  <dyn:connect id1="B32-L1" var1="load_terminal" id2="NETWORK" var2="B32_ACPIN"/>
+  <dyn:connect id1="B33-L1" var1="load_terminal" id2="NETWORK" var2="B33_ACPIN"/>
+  <dyn:connect id1="B34-L1" var1="load_terminal" id2="NETWORK" var2="B34_ACPIN"/>
+  <dyn:connect id1="B35-L1" var1="load_terminal" id2="NETWORK" var2="B35_ACPIN"/>
+  <dyn:connect id1="B36-L1" var1="load_terminal" id2="NETWORK" var2="B36_ACPIN"/>
+  <dyn:connect id1="B39-L1" var1="load_terminal" id2="NETWORK" var2="B39_ACPIN"/>
+  <dyn:connect id1="B40-L1" var1="load_terminal" id2="NETWORK" var2="B40_ACPIN"/>
+  <dyn:connect id1="B41-L1" var1="load_terminal" id2="NETWORK" var2="B41_ACPIN"/>
+  <dyn:connect id1="B42-L1" var1="load_terminal" id2="NETWORK" var2="B42_ACPIN"/>
+  <dyn:connect id1="B43-L1" var1="load_terminal" id2="NETWORK" var2="B43_ACPIN"/>
+  <dyn:connect id1="B44-L1" var1="load_terminal" id2="NETWORK" var2="B44_ACPIN"/>
+  <dyn:connect id1="B45-L1" var1="load_terminal" id2="NETWORK" var2="B45_ACPIN"/>
+  <dyn:connect id1="B46-L1" var1="load_terminal" id2="NETWORK" var2="B46_ACPIN"/>
+  <dyn:connect id1="B47-L1" var1="load_terminal" id2="NETWORK" var2="B47_ACPIN"/>
+  <dyn:connect id1="B48-L1" var1="load_terminal" id2="NETWORK" var2="B48_ACPIN"/>
+  <dyn:connect id1="B49-L1" var1="load_terminal" id2="NETWORK" var2="B49_ACPIN"/>
+  <dyn:connect id1="B50-L1" var1="load_terminal" id2="NETWORK" var2="B50_ACPIN"/>
+  <dyn:connect id1="B51-L1" var1="load_terminal" id2="NETWORK" var2="B51_ACPIN"/>
+  <dyn:connect id1="B52-L1" var1="load_terminal" id2="NETWORK" var2="B52_ACPIN"/>
+  <dyn:connect id1="B53-L1" var1="load_terminal" id2="NETWORK" var2="B53_ACPIN"/>
+  <dyn:connect id1="B54-L1" var1="load_terminal" id2="NETWORK" var2="B54_ACPIN"/>
+  <dyn:connect id1="B55-L1" var1="load_terminal" id2="NETWORK" var2="B55_ACPIN"/>
+  <dyn:connect id1="B56-L1" var1="load_terminal" id2="NETWORK" var2="B56_ACPIN"/>
+  <dyn:connect id1="B57-L1" var1="load_terminal" id2="NETWORK" var2="B57_ACPIN"/>
+  <dyn:connect id1="B58-L1" var1="load_terminal" id2="NETWORK" var2="B58_ACPIN"/>
+  <dyn:connect id1="B59-L1" var1="load_terminal" id2="NETWORK" var2="B59_ACPIN"/>
+  <dyn:connect id1="B60-L1" var1="load_terminal" id2="NETWORK" var2="B60_ACPIN"/>
+  <dyn:connect id1="B62-L1" var1="load_terminal" id2="NETWORK" var2="B62_ACPIN"/>
+  <dyn:connect id1="B66-L1" var1="load_terminal" id2="NETWORK" var2="B66_ACPIN"/>
+  <dyn:connect id1="B67-L1" var1="load_terminal" id2="NETWORK" var2="B67_ACPIN"/>
+  <dyn:connect id1="B70-L1" var1="load_terminal" id2="NETWORK" var2="B70_ACPIN"/>
+  <dyn:connect id1="B72-L1" var1="load_terminal" id2="NETWORK" var2="B72_ACPIN"/>
+  <dyn:connect id1="B73-L1" var1="load_terminal" id2="NETWORK" var2="B73_ACPIN"/>
+  <dyn:connect id1="B74-L1" var1="load_terminal" id2="NETWORK" var2="B74_ACPIN"/>
+  <dyn:connect id1="B75-L1" var1="load_terminal" id2="NETWORK" var2="B75_ACPIN"/>
+  <dyn:connect id1="B76-L1" var1="load_terminal" id2="NETWORK" var2="B76_ACPIN"/>
+  <dyn:connect id1="B77-L1" var1="load_terminal" id2="NETWORK" var2="B77_ACPIN"/>
+  <dyn:connect id1="B78-L1" var1="load_terminal" id2="NETWORK" var2="B78_ACPIN"/>
+  <dyn:connect id1="B79-L1" var1="load_terminal" id2="NETWORK" var2="B79_ACPIN"/>
+  <dyn:connect id1="B80-L1" var1="load_terminal" id2="NETWORK" var2="B80_ACPIN"/>
+  <dyn:connect id1="B82-L1" var1="load_terminal" id2="NETWORK" var2="B82_ACPIN"/>
+  <dyn:connect id1="B83-L1" var1="load_terminal" id2="NETWORK" var2="B83_ACPIN"/>
+  <dyn:connect id1="B84-L1" var1="load_terminal" id2="NETWORK" var2="B84_ACPIN"/>
+  <dyn:connect id1="B85-L1" var1="load_terminal" id2="NETWORK" var2="B85_ACPIN"/>
+  <dyn:connect id1="B86-L1" var1="load_terminal" id2="NETWORK" var2="B86_ACPIN"/>
+  <dyn:connect id1="B88-L1" var1="load_terminal" id2="NETWORK" var2="B88_ACPIN"/>
+  <dyn:connect id1="B90-L1" var1="load_terminal" id2="NETWORK" var2="B90_ACPIN"/>
+  <dyn:connect id1="B91-L1" var1="load_terminal" id2="NETWORK" var2="B91_ACPIN"/>
+  <dyn:connect id1="B92-L1" var1="load_terminal" id2="NETWORK" var2="B92_ACPIN"/>
+  <dyn:connect id1="B93-L1" var1="load_terminal" id2="NETWORK" var2="B93_ACPIN"/>
+  <dyn:connect id1="B94-L1" var1="load_terminal" id2="NETWORK" var2="B94_ACPIN"/>
+  <dyn:connect id1="B95-L1" var1="load_terminal" id2="NETWORK" var2="B95_ACPIN"/>
+  <dyn:connect id1="B96-L1" var1="load_terminal" id2="NETWORK" var2="B96_ACPIN"/>
+  <dyn:connect id1="B97-L1" var1="load_terminal" id2="NETWORK" var2="B97_ACPIN"/>
+  <dyn:connect id1="B98-L1" var1="load_terminal" id2="NETWORK" var2="B98_ACPIN"/>
+  <dyn:connect id1="B99-L1" var1="load_terminal" id2="NETWORK" var2="B99_ACPIN"/>
+  <dyn:connect id1="B100-L1" var1="load_terminal" id2="NETWORK" var2="B100_ACPIN"/>
+  <dyn:connect id1="B101-L1" var1="load_terminal" id2="NETWORK" var2="B101_ACPIN"/>
+  <dyn:connect id1="B102-L1" var1="load_terminal" id2="NETWORK" var2="B102_ACPIN"/>
+  <dyn:connect id1="B103-L1" var1="load_terminal" id2="NETWORK" var2="B103_ACPIN"/>
+  <dyn:connect id1="B104-L1" var1="load_terminal" id2="NETWORK" var2="B104_ACPIN"/>
+  <dyn:connect id1="B105-L1" var1="load_terminal" id2="NETWORK" var2="B105_ACPIN"/>
+  <dyn:connect id1="B106-L1" var1="load_terminal" id2="NETWORK" var2="B106_ACPIN"/>
+  <dyn:connect id1="B107-L1" var1="load_terminal" id2="NETWORK" var2="B107_ACPIN"/>
+  <dyn:connect id1="B108-L1" var1="load_terminal" id2="NETWORK" var2="B108_ACPIN"/>
+  <dyn:connect id1="B109-L1" var1="load_terminal" id2="NETWORK" var2="B109_ACPIN"/>
+  <dyn:connect id1="B110-L1" var1="load_terminal" id2="NETWORK" var2="B110_ACPIN"/>
+  <dyn:connect id1="B112-L1" var1="load_terminal" id2="NETWORK" var2="B112_ACPIN"/>
+  <dyn:connect id1="B113-L1" var1="load_terminal" id2="NETWORK" var2="B113_ACPIN"/>
+  <dyn:connect id1="B114-L1" var1="load_terminal" id2="NETWORK" var2="B114_ACPIN"/>
+  <dyn:connect id1="B115-L1" var1="load_terminal" id2="NETWORK" var2="B115_ACPIN"/>
+  <dyn:connect id1="B116-L1" var1="load_terminal" id2="NETWORK" var2="B116_ACPIN"/>
+  <dyn:connect id1="B117-L1" var1="load_terminal" id2="NETWORK" var2="B117_ACPIN"/>
+  <dyn:connect id1="B118-L1" var1="load_terminal" id2="NETWORK" var2="B118_ACPIN"/>
+
+  <dyn:connect id1="B1-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B1_switchOff"/>
+  <dyn:connect id1="B2-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B2_switchOff"/>
+  <dyn:connect id1="B3-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B3_switchOff"/>
+  <dyn:connect id1="B4-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B4_switchOff"/>
+  <dyn:connect id1="B6-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B6_switchOff"/>
+  <dyn:connect id1="B7-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B7_switchOff"/>
+  <dyn:connect id1="B8-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B8_switchOff"/>
+  <dyn:connect id1="B11-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B11_switchOff"/>
+  <dyn:connect id1="B12-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B12_switchOff"/>
+  <dyn:connect id1="B13-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B13_switchOff"/>
+  <dyn:connect id1="B14-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B14_switchOff"/>
+  <dyn:connect id1="B15-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B15_switchOff"/>
+  <dyn:connect id1="B16-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B16_switchOff"/>
+  <dyn:connect id1="B17-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B17_switchOff"/>
+  <dyn:connect id1="B18-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B18_switchOff"/>
+  <dyn:connect id1="B19-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B19_switchOff"/>
+  <dyn:connect id1="B20-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B20_switchOff"/>
+  <dyn:connect id1="B21-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B21_switchOff"/>
+  <dyn:connect id1="B22-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B22_switchOff"/>
+  <dyn:connect id1="B23-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B23_switchOff"/>
+  <dyn:connect id1="B24-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B24_switchOff"/>
+  <dyn:connect id1="B27-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B27_switchOff"/>
+  <dyn:connect id1="B28-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B28_switchOff"/>
+  <dyn:connect id1="B29-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B29_switchOff"/>
+  <dyn:connect id1="B31-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B31_switchOff"/>
+  <dyn:connect id1="B32-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B32_switchOff"/>
+  <dyn:connect id1="B33-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B33_switchOff"/>
+  <dyn:connect id1="B34-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B34_switchOff"/>
+  <dyn:connect id1="B35-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B35_switchOff"/>
+  <dyn:connect id1="B36-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B36_switchOff"/>
+  <dyn:connect id1="B39-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B39_switchOff"/>
+  <dyn:connect id1="B40-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B40_switchOff"/>
+  <dyn:connect id1="B41-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B41_switchOff"/>
+  <dyn:connect id1="B42-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B42_switchOff"/>
+  <dyn:connect id1="B43-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B43_switchOff"/>
+  <dyn:connect id1="B44-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B44_switchOff"/>
+  <dyn:connect id1="B45-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B45_switchOff"/>
+  <dyn:connect id1="B46-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B46_switchOff"/>
+  <dyn:connect id1="B47-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B47_switchOff"/>
+  <dyn:connect id1="B48-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B48_switchOff"/>
+  <dyn:connect id1="B49-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B49_switchOff"/>
+  <dyn:connect id1="B50-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B50_switchOff"/>
+  <dyn:connect id1="B51-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B51_switchOff"/>
+  <dyn:connect id1="B52-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B52_switchOff"/>
+  <dyn:connect id1="B53-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B53_switchOff"/>
+  <dyn:connect id1="B54-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B54_switchOff"/>
+  <dyn:connect id1="B55-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B55_switchOff"/>
+  <dyn:connect id1="B56-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B56_switchOff"/>
+  <dyn:connect id1="B57-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B57_switchOff"/>
+  <dyn:connect id1="B58-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B58_switchOff"/>
+  <dyn:connect id1="B59-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B59_switchOff"/>
+  <dyn:connect id1="B60-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B60_switchOff"/>
+  <dyn:connect id1="B62-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B62_switchOff"/>
+  <dyn:connect id1="B66-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B66_switchOff"/>
+  <dyn:connect id1="B67-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B67_switchOff"/>
+  <dyn:connect id1="B70-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B70_switchOff"/>
+  <dyn:connect id1="B72-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B72_switchOff"/>
+  <dyn:connect id1="B73-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B73_switchOff"/>
+  <dyn:connect id1="B74-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B74_switchOff"/>
+  <dyn:connect id1="B75-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B75_switchOff"/>
+  <dyn:connect id1="B76-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B76_switchOff"/>
+  <dyn:connect id1="B77-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B77_switchOff"/>
+  <dyn:connect id1="B78-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B78_switchOff"/>
+  <dyn:connect id1="B79-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B79_switchOff"/>
+  <dyn:connect id1="B80-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B80_switchOff"/>
+  <dyn:connect id1="B82-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B82_switchOff"/>
+  <dyn:connect id1="B83-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B83_switchOff"/>
+  <dyn:connect id1="B84-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B84_switchOff"/>
+  <dyn:connect id1="B85-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B85_switchOff"/>
+  <dyn:connect id1="B86-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B86_switchOff"/>
+  <dyn:connect id1="B88-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B88_switchOff"/>
+  <dyn:connect id1="B90-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B90_switchOff"/>
+  <dyn:connect id1="B91-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B91_switchOff"/>
+  <dyn:connect id1="B92-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B92_switchOff"/>
+  <dyn:connect id1="B93-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B93_switchOff"/>
+  <dyn:connect id1="B94-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B94_switchOff"/>
+  <dyn:connect id1="B95-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B95_switchOff"/>
+  <dyn:connect id1="B96-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B96_switchOff"/>
+  <dyn:connect id1="B97-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B97_switchOff"/>
+  <dyn:connect id1="B98-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B98_switchOff"/>
+  <dyn:connect id1="B99-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B99_switchOff"/>
+  <dyn:connect id1="B100-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B100_switchOff"/>
+  <dyn:connect id1="B101-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B101_switchOff"/>
+  <dyn:connect id1="B102-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B102_switchOff"/>
+  <dyn:connect id1="B103-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B103_switchOff"/>
+  <dyn:connect id1="B104-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B104_switchOff"/>
+  <dyn:connect id1="B105-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B105_switchOff"/>
+  <dyn:connect id1="B106-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B106_switchOff"/>
+  <dyn:connect id1="B107-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B107_switchOff"/>
+  <dyn:connect id1="B108-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B108_switchOff"/>
+  <dyn:connect id1="B109-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B109_switchOff"/>
+  <dyn:connect id1="B110-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B110_switchOff"/>
+  <dyn:connect id1="B112-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B112_switchOff"/>
+  <dyn:connect id1="B113-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B113_switchOff"/>
+  <dyn:connect id1="B114-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B114_switchOff"/>
+  <dyn:connect id1="B115-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B115_switchOff"/>
+  <dyn:connect id1="B116-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B116_switchOff"/>
+  <dyn:connect id1="B117-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B117_switchOff"/>
+  <dyn:connect id1="B118-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B118_switchOff"/>
+  <dyn:connect id1="FAULT_GEN_19" var1="fault_terminal" id2="NETWORK" var2="B19_ACPIN"/>
+</dyn:dynamicModelsArchitecture>

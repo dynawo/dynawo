@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Loads;
 */
 
 model LoadShedding "Load shedding model using a CombiTimeTable"
-  import Modelica;
 
   parameter String LoadSheddingProfileFileName = "NoName" "Name of the file where the table describing the load shedding profile over time is stored";
   parameter String LoadSheddingProfileTableName = "NoName" "Name of the table describing the load shedding profile over time";

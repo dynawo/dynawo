@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block PIAntiWindup "Anti-windup proportional integral controller"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BasePIAntiWindup;
 
   parameter Types.PerUnit YMax "Maximum output of controller";

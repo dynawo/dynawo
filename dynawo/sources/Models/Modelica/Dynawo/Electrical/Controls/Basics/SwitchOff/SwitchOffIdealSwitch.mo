@@ -17,8 +17,6 @@ partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
   /* The only possible/expected switch-off signal for an ideal switch is:
      - a switch-off signal coming from the outside (event or controller)
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogic(NbSwitchOffSignals = 1);
 
   Constants.state state(start = State0) "Ideal switch connection state";
@@ -27,10 +25,10 @@ partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOff);
+    Timeline.logEvent1(TimelineKeys.IdealSwitchSwitchOff);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOn);
+    Timeline.logEvent1(TimelineKeys.IdealSwitchSwitchOn);
     state = Constants.state.Closed;
   end when;
 

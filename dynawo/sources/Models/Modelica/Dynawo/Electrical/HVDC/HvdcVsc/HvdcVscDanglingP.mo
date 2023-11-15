@@ -13,13 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc;
 */
 
 model HvdcVscDanglingP "HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.Constants;
-  import Dynawo.Electrical.Sources;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends AdditionalIcons.Hvdc;
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsActivePowerControl;
@@ -64,9 +57,9 @@ model HvdcVscDanglingP "HVDC VSC model with terminal2 connected to a switched-of
     Placement(visible = true, transformation(origin = {-125, 36}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Dynawo.Electrical.Controls.PLL.PLL pll1(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u10Pu) annotation(
     Placement(visible = true, transformation(origin = {-103, 30}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Constants.state Conv2_state(start = Conv2_State0) "Converter 2 connection state";
+  Dynawo.Electrical.Constants.state Conv2_state(start = Conv2_State0) "Converter 2 connection state";
 
-  parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
+  parameter Dynawo.Electrical.Constants.state Conv2_State0 = Dynawo.Electrical.Constants.state.Closed "Start value of converter 2 connection state";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
   parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";

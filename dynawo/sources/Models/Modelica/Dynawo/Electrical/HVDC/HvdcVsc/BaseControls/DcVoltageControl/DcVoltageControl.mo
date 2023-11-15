@@ -13,11 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcVoltageControl;
 */
 
 model DcVoltageControl "DC voltage control for the HVDC VSC model"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
 
   parameter Types.PerUnit IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";

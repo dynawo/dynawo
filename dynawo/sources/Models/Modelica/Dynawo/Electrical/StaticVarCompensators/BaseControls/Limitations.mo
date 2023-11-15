@@ -13,8 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 */
 
 model Limitations "Variable susceptance limits computation"
-  import Modelica;
-
   extends Parameters.ParamsLimitations;
 
   Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in pu (base UNom, SNom)" annotation(
@@ -83,5 +81,6 @@ equation
   connect(limIntegratorMin.y, max.u2) annotation(
     Line(points = {{1, -60}, {17, -60}}, color = {0, 0, 127}));
 
-annotation(preferredView = "diagram",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 6}, extent = {{-63, 24}, {123, -32}}, textString = "Limitations")}));end Limitations;
+  annotation(preferredView = "diagram",
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 6}, extent = {{-63, 24}, {123, -32}}, textString = "Limitations")}));
+end Limitations;

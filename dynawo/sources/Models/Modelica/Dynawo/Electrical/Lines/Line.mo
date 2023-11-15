@@ -24,15 +24,12 @@ model Line "AC power line - PI model"
                     |           |
                    ---         ---
 */
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffLine;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffLine;
   extends AdditionalIcons.Line;
 
-  Connectors.ACPower terminal1 annotation(
+  Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2 annotation(
+  Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit RPu "Resistance in pu (base SnRef)";
@@ -54,8 +51,8 @@ equation
     ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
     ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
   else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
+    terminal1.i = Complex(0);
+    terminal2.i = Complex(0);
   end if;
 
   P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));

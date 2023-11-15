@@ -23,7 +23,7 @@ partial model BaseTapChangerPhaseShifterMax "Base model for tap-changers and pha
   parameter Real valueStop(max = valueMax) "Value below which the phase-shifter will stop (unit depending on the monitored variable unit)";
   parameter Integer increasePhase "Whether the phase shifting is increased when the tap is increased";
 
-  Connectors.ImPin P(value(start = P0)) "Active power (unit depending on the monitored active power unit)";
+  Dynawo.Connectors.ImPin P(value(start = P0)) "Active power (unit depending on the monitored active power unit)";
 
   Integer sign = if P.value < 0 then 1 else -1 "Sign of the active power flowing through the phase-shifter transformer";
   Boolean increaseTapToIncreaseValue = sign * increasePhase < 0 "Whether increasing the tap will increase the monitored value";

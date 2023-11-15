@@ -19,23 +19,21 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-  import Modelica.Blocks.Interfaces;
-  import Dynawo.Types;
 
   parameter Types.PerUnit RSourcePu "Source resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XSourcePu "Source reactance in pu (base UNom, SNom)";
 
-  Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage at injector in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage at injector in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage at source in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";

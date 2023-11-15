@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 */
 
 model SecondaryVoltageControl_INIT "Initialisation model for simplified secondary voltage control"
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   parameter Integer NbMaxGen = 50 "Maximum number of generators that should participate in the considered secondary voltage control";
   parameter Boolean[NbMaxGen] Participate0 = fill(false, NbMaxGen) "If true, the generator participates in the secondary voltage control (for each generator connected to the SVC).";

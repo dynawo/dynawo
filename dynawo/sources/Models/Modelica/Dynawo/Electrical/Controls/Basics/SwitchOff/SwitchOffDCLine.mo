@@ -18,12 +18,10 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
      - a switch-off signal coming from the node in case of a node disconnection
      - a switch-off signal coming from the user (event)
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogicSide1(NbSwitchOffSignalsSide1 = 2);
   extends SwitchOffLogicSide2(NbSwitchOffSignalsSide2 = 2);
 
-  Connectors.BPin running(value(start = true)) "Indicates if the component is running or not";
+  Dynawo.Connectors.BPin running(value(start = true)) "Indicates if the component is running or not";
 
   Constants.state state(start = State0) "DC Line connection state";
 
@@ -31,10 +29,10 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
 
 equation
   when not(runningSide1.value) or not(runningSide2.value) then
-    Timeline.logEvent1 (TimelineKeys.DCLineOpen);
+    Timeline.logEvent1(TimelineKeys.DCLineOpen);
     state = Constants.state.Open;
   elsewhen runningSide1.value and runningSide2.value and (not(pre(runningSide1.value)) or not(pre(runningSide2.value))) then
-    Timeline.logEvent1 (TimelineKeys.DCLineClosed);
+    Timeline.logEvent1(TimelineKeys.DCLineClosed);
     state = Constants.state.Closed;
   end when;
 

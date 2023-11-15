@@ -14,9 +14,6 @@ within Dynawo.Examples.RVS.Components.StaticVarCompensators;
 */
 
 model SVarCRVS "Model of a regulated static var compensator with built-in initialization, for RVS test system"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
   import Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses.ParametersSVC;
 
   parameter Boolean ControlInService = true;
