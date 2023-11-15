@@ -19,26 +19,26 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.6.0)
+set(package_RequiredVersion "1.6.0")
+set(package_RequiredVersionName "1.6.0-rc1")
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
-find_package(${package_name} ${package_RequiredVersion} EXACT QUIET CONFIG)
+find_package(${package_name} "${package_RequiredVersion}" EXACT QUIET CONFIG)
 
 if(${package_name}_FOUND)
   add_custom_target("${package_name}" DEPENDS libxml2 boost)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_md5    963cd237f0e1e874eb4e1188c2a74c87)
+  set(package_md5    c8d864b44293a605d66cd292fc68f89f)
   if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
-    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive/integration)
+    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive/refs/tags)
   endif()
-  set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
+  set(package_url  "${package_prefix_url}/v${package_RequiredVersionName}.tar.gz")
 
-  GetPatchCommand(libiidm)
   include(ExternalProject)
   ExternalProject_Add(
                       "${package_name}"
@@ -54,7 +54,6 @@ else()
     STAMP_DIR         "${DOWNLOAD_DIR}/${package_name}-stamp"
     BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
     SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}"
-    PATCH_COMMAND     "${libiidm_patch_common}"
 
     CMAKE_CACHE_ARGS  -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
                       -DCMAKE_CXX_FLAGS_INIT:STRING=$<$<CONFIG:Debug>:-O0>
