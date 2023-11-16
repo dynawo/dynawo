@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries;
 */
 
 model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   //Nominal parameter
   parameter Types.Time tS "Integration time step in s";

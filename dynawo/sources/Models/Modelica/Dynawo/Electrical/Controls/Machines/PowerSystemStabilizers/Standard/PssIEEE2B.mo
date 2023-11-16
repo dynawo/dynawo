@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 */
 
 model PssIEEE2B "IEEE Power System Stabilizer type 2B"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit KOmega "Coefficient applied to angular frequency";

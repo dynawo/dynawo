@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 model CurrentLimitsCalculationWind "This block calculates the current limits of the WECC regulation for the Wind Turbine"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in pu (base UNom, SNom)";
   parameter Boolean PPriority "Priority: reactive power (false) or active power (true)";
@@ -25,7 +23,7 @@ model CurrentLimitsCalculationWind "This block calculates the current limits of 
   Modelica.Blocks.Interfaces.RealInput iqCmdPu "q-axis command current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput vDip "Ongoing voltage dip" annotation(
-    Placement(visible = true, transformation(origin = {-112, 2.22045e-16}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-111, -1}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-112, 0}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-111, -1}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput ipVdlPu "Voltage-dependent limit for active current command in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-111, 73}, extent = {{-11, -11}, {11, 11}}, rotation = 0), iconTransformation(origin = {-111, 41}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqVdlPu "Voltage-dependent limit for reactive current command in pu (base UNom, SNom)" annotation(

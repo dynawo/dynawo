@@ -19,10 +19,6 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------          iSource0Pu                                               i0Pu
 */
-  import Modelica;
-  import Modelica.ComplexMath;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
 
   extends AdditionalIcons.Init;
 

@@ -13,8 +13,6 @@ within Dynawo.Examples.SVarC;
 */
 
 model SVarCFaultImp
-  import Modelica;
-  import Dynawo;
 
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 1) annotation(
     Placement(visible = true, transformation(origin = {102, 20}, extent = {{-18, -18}, {18, 18}}, rotation = -90)));
@@ -49,7 +47,7 @@ equation
   loadPQ.deltaQ = 0;
 
   connect(nodeFault.terminal, sVarCStandard.terminal) annotation(
-    Line(points = {{0, 42}, {-3.55271e-15, 42}, {-3.55271e-15, 20}}, color = {0, 0, 255}));
+    Line(points = {{0, 42}, {0, 42}, {0, 20}}, color = {0, 0, 255}));
   connect(loadPQ.terminal, sVarCStandard.terminal) annotation(
     Line(points = {{0, -22}, {0, 20}}, color = {0, 0, 255}));
   connect(selectMode.y, sVarCStandard.selectModeAuto) annotation(

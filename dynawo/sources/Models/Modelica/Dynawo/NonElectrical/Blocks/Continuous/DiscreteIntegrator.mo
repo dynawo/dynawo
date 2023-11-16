@@ -13,8 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block DiscreteIntegrator "Integrator with discrete input"
-  import Dynawo.Types;
-  import Modelica;
 
   parameter Types.Time tIntegral "Time integration constant";
 
@@ -37,7 +35,7 @@ block DiscreteIntegrator "Integrator with discrete input"
 
 equation
   connect(integrator.y, y) annotation(
-    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127})); 
+    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 127}));
   connect(switch1.y, integrator.u) annotation(
     Line(points = {{-19, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(switch1.u3, u) annotation(
@@ -48,18 +46,15 @@ equation
     Line(points = {{-110, 0}, {-42, 0}}));
 
   annotation(defaultComponentName="DiscreteIntegrator",
-    Documentation(info="<html>
-<p>
+    Documentation(info="<html><p>
 This block is a dynawo-compatible wrapper around Modelica's Integrator block constrained to discrete inputs. It defines the transfer function between the input u and the output y as <em>PI</em> system:
 </p>
 <pre>
               1
- y = 	(--------------) * u
+ y =    (--------------) * u
           tIntegral*s
-</pre>
-
-
-</html>"), Icon(coordinateSystem(
+</pre></html>"),
+    Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
@@ -72,5 +67,3 @@ This block is a dynawo-compatible wrapper around Modelica's Integrator block con
           extent={{-150,-150},{150,-110}},
           textString="T=%T")}));
 end DiscreteIntegrator;
-
-

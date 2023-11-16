@@ -14,7 +14,6 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses;
 */
 
 partial model BaseGenerator "Base dynamic model for generators based on SignalN for the frequency handling"
-  import Dynawo.Electrical.Machines;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 

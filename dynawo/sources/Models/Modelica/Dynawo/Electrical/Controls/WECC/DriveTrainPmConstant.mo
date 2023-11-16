@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model DriveTrainPmConstant "Drive train control with constant mechanical power equal to initial electrical power"
-  import Modelica;
-
   extends BaseControls.BaseDriveTrain;
 
   Modelica.Blocks.Sources.Constant PMech0Pu(k = PInj0Pu) "Initial value of the mechanical Power " annotation(

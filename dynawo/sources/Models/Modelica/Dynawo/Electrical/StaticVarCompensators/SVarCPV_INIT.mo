@@ -13,9 +13,6 @@ within Dynawo.Electrical.StaticVarCompensators;
 */
 
 model SVarCPV_INIT "Initialization for PV static var compensator"
-
-  import Dynawo.Electrical.SystemBase;
-
   extends AdditionalIcons.Init;
 
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
@@ -29,11 +26,10 @@ model SVarCPV_INIT "Initialization for PV static var compensator"
   Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNom, SnRef)";
 
 equation
-
   s0Pu = Complex(P0Pu, Q0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
   B0Pu = ComplexMath.imag(i0Pu / u0Pu);
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SVarCPV_INIT;

@@ -13,7 +13,6 @@ within Dynawo.Examples.ENTSOE.INIT;
 */
 
 model InitCase3 "Synchronous generator starting at 475 MW and 156 Mvar - Start values and parameters calculation from internal parameters"
-  import Dynawo;
 
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousInt_INIT generatorSynchronousInt_INIT(
   DPu = 0,

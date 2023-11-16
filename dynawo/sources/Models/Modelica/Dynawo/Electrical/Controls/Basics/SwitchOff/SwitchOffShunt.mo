@@ -18,8 +18,6 @@ partial model SwitchOffShunt "Switch-off model for a shunt"
      - a switch-off signal coming from the node in case of a node disconnection
      - a switch-off signal coming from the user (event)
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
   Constants.state state(start = State0) "Shunt connection state";
@@ -28,10 +26,10 @@ partial model SwitchOffShunt "Switch-off model for a shunt"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.ShuntDisconnected);
+    Timeline.logEvent1(TimelineKeys.ShuntDisconnected);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.ShuntConnected);
+    Timeline.logEvent1(TimelineKeys.ShuntConnected);
     state = Constants.state.Closed;
   end when;
 

@@ -13,8 +13,6 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulation "AC Emulation for HVDC"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.Time tFilter "Time constant of the angle measurement filter";
   parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance (base SnRef or SNom) (receptor or generator convention). If in generator convention, KACEmulation should be < 0.";
@@ -53,7 +51,7 @@ model ACEmulation "AC Emulation for HVDC"
 
 equation
   connect(gain.y, add.u1) annotation(
-    Line(points = {{1, 40}, {9.5, 40}, {9.5, 14}, {18, 14}}, color = {0, 0, 127}));
+    Line(points = {{1, 40}, {10, 40}, {10, 14}, {18, 14}}, color = {0, 0, 127}));
   connect(PRefSetPu.y, add.u2) annotation(
     Line(points = {{-99, -30}, {10, -30}, {10, 2}, {18, 2}}, color = {0, 0, 127}));
   connect(add.y, switch1.u1) annotation(

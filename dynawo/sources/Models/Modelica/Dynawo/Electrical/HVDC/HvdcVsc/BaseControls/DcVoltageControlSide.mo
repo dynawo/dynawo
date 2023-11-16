@@ -13,10 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls;
 */
 
 model DcVoltageControlSide "DC voltage control side of the HVDC link"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;

@@ -13,10 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls;
 */
 
 model DcVoltageControlSideDangling "DC voltage control side for the HVDC VSC model with terminal2 connected to a switched-off bus (UDc control on terminal 1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;

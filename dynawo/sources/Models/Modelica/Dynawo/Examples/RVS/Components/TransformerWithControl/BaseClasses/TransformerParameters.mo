@@ -14,7 +14,6 @@ within Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses;
 */
 
 record TransformerParameters "Parameter sets for the transformers of the RVS test system"
-  import Dynawo.Types;
 
   type tfoPreset = enumeration(trafo_1101_101, trafo_1102_102, trafo_1103_103, trafo_1104_104, trafo_1105_105, trafo_1106_106, trafo_1107_107, trafo_1108_108, trafo_1109_109, trafo_1110_110, trafo_1113_113, trafo_1114_114, trafo_1115_115, trafo_1116_116, trafo_1118_118, trafo_1119_119, trafo_1120_120, trafo_103_124, trafo_109_111, trafo_109_112, trafo_110_111, trafo_110_112) "Transformer names";
   type tfoParams = enumeration(SNom, R, X, t1st, tNext, Uc20Pu) "Transformer parameters";

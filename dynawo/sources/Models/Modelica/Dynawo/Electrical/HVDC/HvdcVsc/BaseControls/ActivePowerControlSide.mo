@@ -13,10 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls;
 */
 
 model ActivePowerControlSide "Active power control side of the HVDC link"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsActivePowerControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDeltaP;

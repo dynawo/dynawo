@@ -13,11 +13,6 @@ within Dynawo.Electrical.Wind.WECC;
 */
 
 model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
-  import Modelica;
-  import Modelica.ComplexMath;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";

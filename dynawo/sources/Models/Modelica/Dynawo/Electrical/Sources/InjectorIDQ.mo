@@ -13,19 +13,12 @@ within Dynawo.Electrical.Sources;
 */
 
 model InjectorIDQ "Injector controlled by d and q current components idPu and iqPu"
-  import Modelica;
-  import Modelica.ComplexMath;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
-  extends SwitchOff.SwitchOffInjector;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Terminal connection
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   // Inputs: d-q axis pu variables (base UNom, SNom) and rotor angle

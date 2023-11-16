@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 load_PRefPu                                       : y =       0.076000 yp =       0.000000
 load_QRefPu                                       : y =       0.016000 yp =       0.000000
 load_deltaP                                       : y =       0.000000 yp =       0.000000
@@ -27,5 +27,9 @@ load_s0Pu_im                                       =       0.016000
 load_s0Pu_re                                       =       0.076000
 load_u0Pu_im                                       =      -0.155511
 load_u0Pu_re                                       =       1.007583
+load_Running0                                      =       1.000000
+load_SwitchOffSignal10                             =      -1.000000
+load_SwitchOffSignal20                             =      -1.000000
+load_SwitchOffSignal30                             =      -1.000000
 load_NbSwitchOffSignals                            =              2
 load_State0                                        =              2

@@ -242,3 +242,43 @@ case_description = "IEEE14 with load 2 and 3 behind a transformer with a tap cha
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_TapChangerBlocking", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#       IEEE14 - UFLS                   #
+#########################################
+
+case_name = "IEEE14 - Under-frequency load shedding"
+case_description = "IEEE14 with under-frequency load shedding"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_UFLS", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#       IEEE14 - Loss of synchronism    #
+#########################################
+
+case_name = "IEEE14 - Loss of synchronism"
+case_description = "IEEE14 with loss of synchronism protection on generator 1"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_LossOfSynchronismProtection", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#       IEEE14 - Speed protection       #
+#########################################
+
+case_name = "IEEE14 - Speed protection"
+case_description = "IEEE14 with speed protection on generator 1"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_SpeedProtection", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#       IEEE14 - Distance protection    #
+#########################################
+
+case_name = "IEEE14 - Distance protection"
+case_description = "IEEE14 with distance protection on line 7-8 side 1"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_DistanceProtection", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

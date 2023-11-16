@@ -14,9 +14,6 @@ within Dynawo.Examples.HVDC;
 */
 
 model HVDC "HVDC link connected to two infinite buses"
-  import Dynawo;
-  import Modelica;
-
   extends Icons.Example;
 
   Dynawo.Electrical.HVDC.HvdcVsc.HvdcVsc HVDC(
