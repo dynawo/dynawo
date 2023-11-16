@@ -20,6 +20,7 @@
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/DanglingLine.hpp>
 #include <powsybl/iidm/DanglingLineAdder.hpp>
+#include <powsybl/iidm/CurrentLimitsAdder.hpp>
 
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -96,8 +97,8 @@ createModelDanglingLine(bool open, bool initModel) {
 
   // temporary limit
   for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-    if (!currentLimit.get().isFictitious()) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+    if (!currentLimit.isFictitious()) {
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
       dlItfIIDM->addCurrentLimitInterface(cLimit);
     }
   }
