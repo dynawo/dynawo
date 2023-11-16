@@ -13,8 +13,6 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 */
 
 model WPP4CurrentSource_INIT "Wind Power Plant Type 4 model from IEC 61400-27-1 standard : initialization model"
-  import Dynawo;
-
   extends Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT;
 
   //QControl parameter

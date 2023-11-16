@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportional "Simple proportional voltage regulator"
-  import Modelica;
-  import Dynawo;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 

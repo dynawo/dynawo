@@ -14,8 +14,6 @@ within Dynawo.Electrical.HVDC.BaseClasses;
 */
 
 partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of the active power"
-  import Modelica;
-
   extends BaseHvdc(P2Pu(start = s20Pu.re), PInj2Pu(start = - s20Pu.re), Q2Pu(start = s20Pu.im), QInj2Pu(start = - s20Pu.im), terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))));
 
 /*

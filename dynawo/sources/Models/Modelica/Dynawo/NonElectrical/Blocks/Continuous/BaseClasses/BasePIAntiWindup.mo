@@ -14,8 +14,6 @@ within Dynawo.NonElectrical.Blocks.Continuous.BaseClasses;
 */
 
 block BasePIAntiWindup "Base block for anti-windup proportional integral controller"
-  import Modelica;
-
   extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit Ki "Integral gain";

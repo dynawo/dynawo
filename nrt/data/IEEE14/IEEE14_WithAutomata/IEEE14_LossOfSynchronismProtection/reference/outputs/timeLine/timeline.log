@@ -1,0 +1,29 @@
+0.000000 | GEN____8_SM | PMIN : activation
+0.030691 | GEN____3_SM | PMIN : activation
+0.348405 | GEN____8_SM | PMIN : deactivation
+0.828675 | GEN____3_SM | PMIN : deactivation
+0.834701 | GEN____8_SM | PMIN : activation
+1.905712 | GEN____8_SM | PMIN : deactivation
+2.183867 | GEN____3_SM | PMIN : activation
+2.338445 | GEN____8_SM | PMIN : activation
+2.758086 | GEN____3_SM | PMIN : deactivation
+4.999999 | FAULT | Fault (node) : beginning
+4.999999 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+4.999999 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+4.999999 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+4.999999 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+4.999999 | GEN____8_SM | PMIN : deactivation
+5.008155 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
+5.094263 | GEN____6_SM | Voltage regulator : back to regulation
+6.277013 | GEN____2_SM | Voltage regulator : back to regulation
+6.277013 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+6.277931 | GEN____2_SM | Voltage regulator : back to regulation
+6.465367 | GEN____1_SM_InternalAngle | Loss of synchronism protection arming
+6.499999 | FAULT | Fault (node) : end
+6.499999 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+6.565367 | GEN____1_SM_InternalAngle | Loss of synchronism protection tripped
+6.565367 | GEN____1_SM | GENERATOR : disconnecting
+6.565367 | GEN____1_SM_InternalAngle | Loss of synchronism protection tripped
+6.565367 | GEN____1_SM | GENERATOR : disconnecting
+6.565367 | GEN____1_SM_InternalAngle | Loss of synchronism protection tripped
+6.565367 | GEN____2_SM | Voltage regulator : back to regulation

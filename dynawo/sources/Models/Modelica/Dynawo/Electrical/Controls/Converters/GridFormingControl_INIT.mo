@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Converters;
 */
 
 model GridFormingControl_INIT "Initialization model for the grid forming control"
-  import Dynawo.Types;
-
   extends AdditionalIcons.Init;
 
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";

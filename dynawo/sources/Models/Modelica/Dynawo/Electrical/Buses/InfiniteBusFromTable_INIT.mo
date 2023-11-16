@@ -13,8 +13,6 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusFromTable_INIT "Initial model for infinite bus with UPu, UPhase and omegaRefPu given by tables as functions of time"
-  import Modelica;
-
   extends AdditionalIcons.Init;
 
   parameter String TableFile "Text file that contains the tables to get UPu, UPhase and omegaRefPu from time";

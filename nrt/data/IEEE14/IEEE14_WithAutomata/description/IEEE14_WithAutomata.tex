@@ -37,6 +37,10 @@ The tested automaton are;
 \item the tap-changer automaton (Modelica) [\ref{TapChangerAutomatonModelica}];
 \item the tap-changer automaton (C++) [\ref{TapChangerAutomatonCpp}];
 \item the tap-changer blocking automaton [\ref{TapChangerBlockingAutomaton}];
+\item the line distance protection [\ref{DistanceProtection}];
+\item the loss-of-synchronism-protection [\ref{LossOfSynchronismProtection}];
+\item the over- and under-speed protection [\ref{SpeedProtection}];
+\item the under-frequency load shedding scheme [\ref{UFLS}];
 \end{itemize}
 
 
@@ -677,6 +681,293 @@ If we try to simulate this test case without the tap-changer lock automaton we s
   \end{tikzpicture}
 }
 \caption{Results with no Tap-Changer Lock automaton}
+\end{figure}
+
+\newpage
+\section{Line distance protection}
+\label{DistanceProtection}
+
+The line distance protection disconnects a line from the grid if the apparent impedance seen from a given end of the line is within a triangular zone in the R-X place for a certain amount of time.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE 14-bus basic test cases.
+
+\subsection{Models}
+
+A distance protection is added on the side 1 of line 7-8 (i.e. near the bus 7). The role of the protection is to disconnect the line in case of faults or system splits. A long-lasting faults is simulated such that the protection can activate.
+
+The distance protection measures the voltage, active power, and reactive power flowing in the line (on side 1), computes an apparent impedance (\(Z = \frac{U^2}{P + jQ}\)), and checks if the apparent impedance spends more than \(t_{Zone_i}\) in one of the \(i\) protected zones of the R-X plane.
+
+The protected zones are defined by \(Re(Z) \leq R_i\), \(Im(Z) \leq X_i\), and \(Re(Z) > -Im(Z)\)  for all \(i\) zones.
+
+
+The distance protection parameters are:
+\begin{center}
+\begin{tabular}{l|l|l|l}
+   $t_{Zone_0}=0.29s$ & $R_{Zone_0}=0.14pu$ & $X_{Zone_0}=0.14pu$ & $Tripping_{Zone_0}$ = False  \\
+   $t_{Zone_1}=0.30s$ & $R_{Zone_0}=0.203pu$ & $X_{Zone_0}=0.203pu$ & $Tripping_{Zone_0}$ = True  \\
+\end{tabular}
+\end{center}
+and the circuit breaker time is 0.08s. The zone 0 protects 80\% of the line but is not connected to a circuit breaker, and the zone 1 protects 120\% of the line and is connected to a circuit breaker.
+
+\subsection{Scenario}
+At $t=5s$, a 500ms three-phase fault is triggered at bus 8.
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+The simulated fault appears in zone 1 of the distance relay which thus trips after 0.3s\\
+
+\begin{figure}[H]
+\subfigure[Active and reactive powers measured by the distance relay (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{_BUS____7-BUS____8-1_AC_side1_Distance_distance_PMonitoredPu}]
+        {../IEEE14_DistanceProtection/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{_BUS____7-BUS____8-1_AC_side1_Distance_distance_QMonitoredPu}]
+        {../IEEE14_DistanceProtection/reference/outputs/curves/curves.csv};
+        \legend{$P_{Pu}$, $Q_{Pu}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Voltage measured by the distance relay (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{_BUS____7-BUS____8-1_AC_side1_Distance_distance_UMonitoredPu}]
+        {../IEEE14_DistanceProtection/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[State of the protected line]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{_BUS____7-BUS____8-1_AC_side1_Distance_distance_lineState}]
+        {../IEEE14_DistanceProtection/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the distance protection}
+\end{figure}
+
+\section{Loss of synchronism protection}
+\label{LossOfSynchronismProtection}
+
+The loss of synchronism protection disconnects a generator from the grid if the absolute value of its mechanical angle is larger than a threshold.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE 14-bus basic test cases.
+
+\subsection{Models}
+
+A loss of synchronism protection is added on the generator number 1. The role of the automaton is to disconnected the generator if it loses synchronism with the rest of the grid. This condition is checked via the mechanical angle of the generator. Once the condition is met, the protection acts after \(t_{Action}\) seconds.
+
+The loss of synchronism protection parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $\theta_{Max_{Pu}}=2\pi$ & $t_{Action}=0.1s$  \\
+\end{tabular}
+\end{center}
+
+\subsection{Scenario}
+At $t=5s$, a 1500ms three-phase fault is triggered at generator 1. This very high duration fault causes the generator to lose synchronism.
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+The simulated fault makes the generator 1 lose synchronism with the rest of the network leading to a continuous increase of its angle with respect to the rest of the grid. The protection triggers 100ms after the angle goes above \(2\pi\).
+
+\begin{figure}[H]
+\subfigure[Generator 1 angle (rad)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in, legend pos=south east]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____1_SM_InternalAngle_lossOfSynchronismProtection_thetaMonitored}]
+        {../IEEE14_LossOfSynchronismProtection/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=6.28]
+        {../IEEE14_LossOfSynchronismProtection/reference/outputs/curves/curves.csv};
+        \legend{$\theta_{Pu}$, $\theta_{Max_{Pu}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 running status]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____1_SM_InternalAngle_lossOfSynchronismProtection_switchOffSignal}]
+        {../IEEE14_LossOfSynchronismProtection/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the loss of synchronism protection}
+\end{figure}
+
+\newpage
+\section{Over- and under-speed protection}
+\label{SpeedProtection}
+
+The speed protection disconnects a generator from the grid if if its rotor angular speed goes outside of an allowed range.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE 14-bus basic test cases.
+
+\subsection{Models}
+
+A speed protection is added on the generator number 1. The role of the automaton is to disconnected the generator if its rotor angular speed goes above \(\omega_{Max_{Pu}}\) or below \(\omega_{Min_{Pu}}\) for more than \(t_{Action}\) seconds.
+
+The speed protection parameters are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $\omega_{Max_{Pu}}=1.01pu$ & $\omega_{Max_{Pu}}=0.95pu$ & $t_{Action}=0.1s$  \\
+\end{tabular}
+\end{center}
+
+\subsection{Scenario}
+At $t=5s$, a 1000ms three-phase fault is triggered at generator 1. This very high duration fault causes the generator to lose synchronism, and thus to accelerate.
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+The simulated fault makes the generator 1 lose synchronism with the rest of the network causing it to accelerate. The protection triggers 100ms after the angular speed of the generator goes above 1.01pu.
+
+\begin{figure}[H]
+\subfigure[Generator 1 angular speed (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in, legend pos=south east]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____1_SM_Speed_speedProtection_omegaMonitoredPu}]
+        {../IEEE14_SpeedProtection/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=1.01]
+        {../IEEE14_SpeedProtection/reference/outputs/curves/curves.csv};
+        \legend{$\omega_{Pu}$, $\omega_{Max_{Pu}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 running status]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____1_SM_Speed_speedProtection_switchOffSignal}]
+        {../IEEE14_SpeedProtection/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the speed protection}
+\end{figure}
+
+\newpage
+\section{Under-frequency load shedding}
+\label{UFLS}
+
+The under-frequency load shedding (UFLS) scheme sheds part of the load when frequency falls too low.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE 14-bus basic test cases.
+
+\subsection{Models}
+
+The under-frequency load shedding scheme monitors the average system frequency and disconnect a \(UFLS_{Step_i}\) share of the system load (uniformly) when the frequency falls below \(\omega_{Step_0{Pu}}\) for all \(i\) steps of the UFLS scheme. The load reduction is effective \(t_{Action}\) seconds after a frequency threshold is reached.
+
+The UFLS parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $\omega_{Step_0{Pu}}=0.99pu$ & $UFLS_{Step_0}=0.1$ \\
+   $\omega_{Step_1{Pu}}=0.978pu$ & $UFLS_{Step_1}=0.05$ \\
+   $\omega_{Step_2{Pu}}=0.976pu$ & $UFLS_{Step_2}=0.05$ \\
+   $\omega_{Step_3{Pu}}=0.974pu$ & $UFLS_{Step_3}=0.05$ \\
+   $\omega_{Step_4{Pu}}=0.972pu$ & $UFLS_{Step_4}=0.05$ \\
+   $\omega_{Step_5{Pu}}=0.97pu$ & $UFLS_{Step_5}=0.05$ \\
+   $\omega_{Step_6{Pu}}=0.968pu$ & $UFLS_{Step_6}=0.05$ \\
+   $\omega_{Step_7{Pu}}=0.966pu$ & $UFLS_{Step_7}=0.05$ \\
+   $\omega_{Step_8{Pu}}=0.964pu$ & $UFLS_{Step_8}=0.05$ \\
+   $\omega_{Step_9{Pu}}=0.962pu$ & $UFLS_{Step_9}=0.05$ \\
+\end{tabular}
+\end{center}
+
+and $t_{Action}=0.1s$.
+
+\subsection{Scenario}
+At $t=5s$, generator number 1 is disconnected leading to a frequency decrease. The frequency is stabilised thanks to the UFLS scheme.
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+The generator disconnection lead to a decrease in frequency. The UFLS scheme disconnects 10\% of all loads 100ms after the frequency drops below 0.99pu which stabilises the frequency.
+
+\begin{figure}[H]
+\subfigure[System frequency (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{UFLS_ufls_omegaMonitoredPu}]
+        {../IEEE14_UFLS/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=0.99]
+        {../IEEE14_UFLS/reference/outputs/curves/curves.csv};
+        \legend{$\omega_{Pu}$, $\omega_{Step_0{Pu}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Share of the load disconnected by the UFLS scheme]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{UFLS_ufls_deltaPQ}]
+        {../IEEE14_UFLS/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the UFLS scheme}
 \end{figure}
 
 \end{document}

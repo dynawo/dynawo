@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model MatchingControl "Matching control for grid forming converters"
-  import Modelica;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit KMatching "Proportional gain of the matching control";
 

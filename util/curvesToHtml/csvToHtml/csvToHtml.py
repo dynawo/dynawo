@@ -22,6 +22,8 @@ jsRefFileIn=csvToHtml_resources_dir+"/curves_ref.js.in"
 htmlFileIn=csvToHtml_resources_dir+"/curves.html.in"
 
 def cleanIdForJS(id):
+    if id[0].isdigit():
+        id = "c"+id
     return id.replace(".","_").replace(" ","_").replace("-","_").replace('#',"_").replace('+',"_")
 
 ### CSV READER and DUMP into jsFile

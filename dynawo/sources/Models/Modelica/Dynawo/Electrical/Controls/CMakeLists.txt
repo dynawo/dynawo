@@ -22,6 +22,7 @@ add_subdirectory(Transformers T)
 add_subdirectory(Utilities U)
 add_subdirectory(Voltage V)
 add_subdirectory(WECC W)
+add_subdirectory(Protections Pr)
 
 set(MODEL_FILES
   package.mo

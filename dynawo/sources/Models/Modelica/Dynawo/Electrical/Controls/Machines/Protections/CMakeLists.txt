@@ -8,11 +8,21 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-# Protection models
+# Protection models for machines
+
+add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo
   package.order
+  LossOfSynchronismProtection.mo
+  LossOfSynchronismProtection.extvar
+  LVRT4Points.mo
+  LVRT4Points.extvar
+  LVRT10Points.mo
+  LVRT10Points.extvar
+  SpeedProtection.mo
+  SpeedProtection.extvar
   UVA.mo
   UVA.extvar
   )

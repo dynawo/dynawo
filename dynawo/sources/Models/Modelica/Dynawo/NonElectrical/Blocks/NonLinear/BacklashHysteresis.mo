@@ -14,8 +14,6 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block BacklashHysteresis "Provides a region of offset with a hysteresis logic"
-  import Modelica;
-
   extends Modelica.Blocks.Interfaces.SISO;
 
   parameter Boolean H0 = false "Value of h at initial time";

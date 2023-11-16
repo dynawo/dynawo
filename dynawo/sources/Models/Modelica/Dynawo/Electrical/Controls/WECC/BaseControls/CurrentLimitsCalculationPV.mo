@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 */
 
 model CurrentLimitsCalculationPV "This block calculates the current limits of the WECC PV regulation"
-  import Modelica;
-  import Dynawo.Types;
 
   parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in pu (base UNom, SNom)";
   parameter Boolean PPriority "Priority: reactive power (false) or active power (true)";
@@ -41,10 +39,10 @@ equation
   if PPriority then
     ipMaxPu = IMaxPu;
     ipMinPu = 0;
-    iqMaxPu = sqrt(IMaxPu ^ 2 - ipLimPu ^ 2);
+    iqMaxPu = noEvent(if (abs(IMaxPu) > abs(ipLimPu)) then sqrt(IMaxPu ^ 2 - ipLimPu ^ 2) else 0);
     iqMinPu = - iqMaxPu;
   else
-    ipMaxPu = sqrt(IMaxPu ^ 2 - iqLimPu ^ 2);
+    ipMaxPu = noEvent(if(abs(IMaxPu) > abs(iqLimPu)) then sqrt(IMaxPu ^ 2 - iqLimPu ^ 2) else 0);
     ipMinPu = 0;
     iqMaxPu = IMaxPu;
     iqMinPu = - iqMaxPu;

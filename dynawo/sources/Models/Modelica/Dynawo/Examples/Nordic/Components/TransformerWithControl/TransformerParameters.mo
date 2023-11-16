@@ -14,7 +14,6 @@ within Dynawo.Examples.Nordic.Components.TransformerWithControl;
 */
 
 record TransformerParameters "Parameter sets for the transformers of the Nordic 32 test system"
-  import Dynawo.Types;
 
   type tfoPreset = enumeration(trafo_11_1011, trafo_12_1012, trafo_13_1013, trafo_22_1022, trafo_1_1041, trafo_2_1042, trafo_3_1043, trafo_4_1044, trafo_5_1045, trafo_31_2031, trafo_32_2032, trafo_41_4041, trafo_42_4042, trafo_43_4043, trafo_46_4046, trafo_47_4047, trafo_51_4051, trafo_61_4061, trafo_62_4062, trafo_63_4063, trafo_71_4071, trafo_72_4072) "Transformer names";
   type tfoParams = enumeration(SNom, X, t1st, tNext, Uc20Pu) "Transformer parameters";

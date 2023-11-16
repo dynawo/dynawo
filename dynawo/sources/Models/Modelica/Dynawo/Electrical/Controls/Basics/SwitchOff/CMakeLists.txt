@@ -23,6 +23,7 @@ set(MODEL_FILES
   SwitchOffLogic.mo
   SwitchOffLogicSide1.mo
   SwitchOffLogicSide2.mo
+  SwitchOffProtection.mo
   SwitchOffShunt.mo
   SwitchOffTapChangerPhaseShifter.mo
   SwitchOffTransformer.mo

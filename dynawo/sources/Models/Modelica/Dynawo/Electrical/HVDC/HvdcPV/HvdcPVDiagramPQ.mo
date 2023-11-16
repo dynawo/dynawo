@@ -13,13 +13,10 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 */
 
 model HvdcPVDiagramPQ "Model of PV HVDC link with a PQ diagram. Each terminal can regulate the voltage or the reactive power, depending on the user's choice."
-  import Modelica;
-  import Dynawo.Electrical.HVDC;
-
-  extends HVDC.BaseClasses.BaseHvdcPDiagramPQ;
-  extends HVDC.BaseClasses.BaseQStatus;
-  extends HVDC.BaseClasses.BaseVoltageRegulation;
-  extends HVDC.BaseClasses.BasePV(QInj1PuQNom(start = - s10Pu.im * SystemBase.SnRef / Q1Nom), QInj2PuQNom(start = - s20Pu.im * SystemBase.SnRef / Q2Nom));
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPDiagramPQ;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseQStatus;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BaseVoltageRegulation;
+  extends Dynawo.Electrical.HVDC.BaseClasses.BasePV(QInj1PuQNom(start = - s10Pu.im * SystemBase.SnRef / Q1Nom), QInj2PuQNom(start = - s20Pu.im * SystemBase.SnRef / Q2Nom));
 
 /*
   Equivalent circuit and conventions:

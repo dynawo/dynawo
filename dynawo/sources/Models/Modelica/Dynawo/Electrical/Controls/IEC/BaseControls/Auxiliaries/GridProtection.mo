@@ -13,11 +13,6 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries;
 */
 
 model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
-
   extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
 
   //Grid protection parameters
@@ -81,7 +76,7 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
   Modelica.Blocks.Logical.Timer timer3 annotation(
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or1(nu = 5) annotation(
-    Placement(visible = true, transformation(origin = {130, 3.55271e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Pre pre1 annotation(
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 

@@ -13,9 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation system)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   parameter Types.PerUnit K "Controller gain";
   parameter Types.Time Ta "Filter derivative time constant in s";

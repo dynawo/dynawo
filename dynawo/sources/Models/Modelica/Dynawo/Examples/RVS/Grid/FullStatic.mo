@@ -15,7 +15,6 @@ within Dynawo.Examples.RVS.Grid;
 
 model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transformers, used for load flow calculation"
   import Modelica.SIunits.Conversions.from_deg;
-  import Dynawo;
 
   extends BaseClasses.NetworkWithPQLoads;
 

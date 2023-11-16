@@ -14,9 +14,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation;
 */
 
 model LimitsCalculationPDangling "Reactive and active currents limits calculation model for the active power control of the HVDC VSC model with terminal2 connected to a switched-off bus"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation.BaseLimitsCalculation;
 
   //Output variable

@@ -12,9 +12,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-
 model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. This value will initialize the limiter's input variable, but since it could be out the saturation bounds, the initial value kept for y is y0 which is min(max(y0LF, UMin), UMax)"
-
   import Modelica.Constants;
 
   extends AdditionalIcons.Init;
@@ -29,7 +27,6 @@ model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. Th
   discrete Types.Time tUMaxReached0(start = Constants.inf) "Initial time when u went above UMax";
 
 equation
-
   u0 = y0LF;
   y0 = if (u0 < UMin) then UMin
          else if (u0 > UMax) then UMax

@@ -17,21 +17,19 @@ partial model BaseTapChangerBlocking "Base model for Tap Changer Blocking (TCB)"
 /* Lock tap changers when the voltage level goes below a predefined threshold
      in order to avoid a voltage collapse */
   import Modelica.Constants;
-  import Dynawo.Connectors;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-
-  type State = enumeration (Standard "1: TCB is in normal state",
-                            Armed "2: TCB is armed",
-                            Locked "3: TCB is blocked");
+  type State = enumeration(Standard "1: TCB is in normal state",
+                           Armed "2: TCB is armed",
+                           Locked "3: TCB is blocked");
 
   parameter Types.Time tLagBeforeBlocked "Time to wait before activating block event";
   parameter Types.Time tLagTransBlockedT "Time to wait before sending block event to high voltage transformers";
   parameter Types.Time tLagTransBlockedD "Time to wait before sending block event to low voltage transformers";
 
-  Connectors.BPin blockOrder(value(start = blocked0)) "TCB manual block order";
-  Connectors.BPin unblockOrder(value(start = blocked0)) "TCB manual unblock order";
+  Dynawo.Connectors.BPin blockOrder(value(start = blocked0)) "TCB manual block order";
+  Dynawo.Connectors.BPin unblockOrder(value(start = blocked0)) "TCB manual unblock order";
   Boolean blockedT(start = blocked0) "High voltage transformers blocked ?";
   Boolean blockedD(start = blocked0) "Low voltage transformers blocked ?";
 

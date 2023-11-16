@@ -14,7 +14,6 @@ within Dynawo.Electrical.Shunts;
 
 model ShuntBWithSections_INIT "Initialization for shunt with sections models"
   extends AdditionalIcons.Init;
-  import Dynawo.Types;
 
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at shunt terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at shunt terminal (in rad)";
