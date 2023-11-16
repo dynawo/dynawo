@@ -484,8 +484,8 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
                       .setConnectableBus(b1.getId())
                       .setMaxP(50.0)
                       .setMinP(3.0)
-                      .setP0(5.0)
-                      .setQ0(5.0)
+                      .setTargetP(5.0)
+                      .setTargetQ(5.0)
                       .add();
 
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
