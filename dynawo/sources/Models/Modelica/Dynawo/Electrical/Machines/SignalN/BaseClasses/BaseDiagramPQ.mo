@@ -14,7 +14,6 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses;
 */
 
 partial model BaseDiagramPQ "Base dynamic model for a PQ diagram"
-  import Modelica;
 
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";

@@ -13,9 +13,6 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block PIAntiWindupVariableLimits "Anti-windup proportional integral controller with variable limits"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BasePIAntiWindup;
 
   Modelica.Blocks.Interfaces.RealInput limitMax "Maximum output of controller" annotation(
@@ -39,6 +36,6 @@ equation
     Line(points = {{-160, -80}, {60, -80}, {60, -8}, {78, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
 
   annotation(preferredView = "diagram",
-  Diagram(coordinateSystem(initialScale = 0.1)),
-  Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "PI Anti Windup Variable Limits")}));
+    Diagram(coordinateSystem(initialScale = 0.1)),
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "PI Anti Windup Variable Limits")}));
 end PIAntiWindupVariableLimits;

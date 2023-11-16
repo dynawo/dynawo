@@ -14,16 +14,15 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses;
 */
 
 partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active power / frequency modulation"
-  import Dynawo.Electrical.Machines;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends Machines.BaseClasses.BaseGeneratorSimplified;
+  extends Dynawo.Electrical.Machines.BaseClasses.BaseGeneratorSimplified;
 
   type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
 
-  Connectors.ImPin deltaPmRefPu(value(start = 0)) "Additional active power reference in pu (base PNom)";
-  Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
+  Dynawo.Connectors.ImPin deltaPmRefPu(value(start = 0)) "Additional active power reference in pu (base PNom)";
+  Dynawo.Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
 
   parameter Types.ActivePower PMin "Minimum active power in MW";
   parameter Types.ActivePower PMax "Maximum active power in MW";

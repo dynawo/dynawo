@@ -14,9 +14,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model IEEET1 "IEEE type 1 Exciter (IEEET1)"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   parameter Types.VoltageModulePu EfdHighPu "Higher abscissa of saturation characteristic in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu EfdLowPu "Lower abscissa of saturation characteristic in pu (user-selected base voltage)";

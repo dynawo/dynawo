@@ -26,11 +26,11 @@ model TapChangerBlocking5 "Tap Changer Blocking 5 (TCB5)"
   parameter Types.VoltageModule UMin4 "Minimum voltage 4 threshold before tap-changer blocking";
   parameter Types.VoltageModule UMin5 "Minimum voltage 5 threshold before tap-changer blocking";
 
-  Connectors.ImPin UMonitored1 "Monitored voltage 1";
-  Connectors.ImPin UMonitored2 "Monitored voltage 2";
-  Connectors.ImPin UMonitored3 "Monitored voltage 3";
-  Connectors.ImPin UMonitored4 "Monitored voltage 4";
-  Connectors.ImPin UMonitored5 "Monitored voltage 5";
+  Dynawo.Connectors.ImPin UMonitored1 "Monitored voltage 1";
+  Dynawo.Connectors.ImPin UMonitored2 "Monitored voltage 2";
+  Dynawo.Connectors.ImPin UMonitored3 "Monitored voltage 3";
+  Dynawo.Connectors.ImPin UMonitored4 "Monitored voltage 4";
+  Dynawo.Connectors.ImPin UMonitored5 "Monitored voltage 5";
 
 equation
   // Check when the monitored voltage goes below UMin

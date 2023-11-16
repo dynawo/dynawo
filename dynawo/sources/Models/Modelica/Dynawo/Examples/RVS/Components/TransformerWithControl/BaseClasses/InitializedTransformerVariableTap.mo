@@ -14,10 +14,7 @@ within Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses;
 */
 
 model InitializedTransformerVariableTap "Model of transformer with variable tap and built-in initialization, for the RVS test system"
-  import Dynawo;
-  import Dynawo.Electrical;
   import Dynawo.Examples.RVS.Components.TransformerWithControl.BaseClasses.TransformerParameters;
-  import Dynawo.Types;
 
   extends Dynawo.Electrical.Transformers.TransformerVariableTapXtdPu(
     Tap0(fixed = false),
@@ -36,7 +33,7 @@ model InitializedTransformerVariableTap "Model of transformer with variable tap 
     i20Pu.re(fixed = false),
     i20Pu.im(fixed = false));
 
-  Electrical.Transformers.TransformerVariableTapPQ_INIT init(
+  Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT init(
     rTfoMinPu = TransformerParameters.rTfoMinPu,
     rTfoMaxPu = TransformerParameters.rTfoMaxPu,
     NbTap = TransformerParameters.NbTap,

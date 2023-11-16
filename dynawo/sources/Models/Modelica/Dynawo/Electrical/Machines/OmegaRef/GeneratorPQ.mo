@@ -25,14 +25,13 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
   extends AdditionalIcons.Machine;
 
 equation
-
   if running.value then
     QGenPu = QGen0Pu;
   else
     terminal.i.im = 0;
   end if;
 
-annotation(
+  annotation(
     preferredView = "text",
     Documentation(info = "<html><head></head><body>The active power output is modulated according to frequency (in order to model frequency containment reserves).<div>The reactive power output is fixed equal to its initial value QGen0Pu.</div></body></html>"));
 end GeneratorPQ;

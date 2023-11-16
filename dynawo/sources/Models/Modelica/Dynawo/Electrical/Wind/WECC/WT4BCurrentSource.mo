@@ -13,9 +13,6 @@ within Dynawo.Electrical.Wind.WECC;
 */
 
 model WT4BCurrentSource "WECC Wind Turbine model without plant controller and with a current source as interface with the grid"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
 
   Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = PInj0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(

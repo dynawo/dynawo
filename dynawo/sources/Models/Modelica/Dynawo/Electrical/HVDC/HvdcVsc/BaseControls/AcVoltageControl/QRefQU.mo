@@ -13,10 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.AcVoltageControl;
 */
 
 model QRefQU "Function that calculates QRef for the Q mode and the U mode depending on the setpoints for URef and QRef"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsQRefQU;
 
   //Input variables

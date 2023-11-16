@@ -16,13 +16,12 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
   /*
     Between tBegin and tEnd, the impedance between the node and the ground is equal to ZPu.
   */
-  import Dynawo.Connectors;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  Connectors.ACPower terminal annotation(
+  Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {2, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.BPin nodeFault(value(start = false)) "True when the fault is ongoing, false otherwise";
+  Dynawo.Connectors.BPin nodeFault(value(start = false)) "True when the fault is ongoing, false otherwise";
 
   parameter Types.PerUnit RPu "Fault resistance in pu (base SnRef)";
   parameter Types.PerUnit XPu "Fault reactance in pu (base SnRef)";

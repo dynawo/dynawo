@@ -13,10 +13,9 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model Perturbation "Parameterizable perturbation model : adds a constant signal at a given time"
-  import Dynawo.Connectors;
 
-  Connectors.ImPin signal(value(start = Value0));
-  Connectors.ImPin perturbatedSignal(value(start = Value0));
+  Dynawo.Connectors.ImPin signal(value(start = Value0));
+  Dynawo.Connectors.ImPin perturbatedSignal(value(start = Value0));
 
   parameter Real Height "Amplitude of the peturbation to be added";
   parameter Types.Time tStep "Time instant when the perturbation occurs";

@@ -14,9 +14,6 @@ within Dynawo.Examples.SMIB;
 */
 
 model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
-  import Dynawo;
-  import Modelica;
-
   extends Modelica.Icons.Example;
 
   // Grid with impedance
@@ -102,7 +99,7 @@ model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
     Mds0Pu = 1.85,
     Mqs0Pu = 1.65,
     MsalPu = 0.2) annotation(
-    Placement(visible = true, transformation(origin = {82, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
 
   // Generator speed control
@@ -146,9 +143,9 @@ equation
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{56, 0}, {82, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal2, transformer.terminal1) annotation(
-    Line(points = {{-12, 0}, {1.42109e-14, 0}, {1.42109e-14, -4.26324e-14}, {16, -4.26324e-14}}, color = {0, 0, 255}));
+    Line(points = {{-12, 0}, {0, 0}, {0, 0}, {16, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{-52, 0}, {-62, 0}, {-62, -4.26324e-14}, {-92, -4.26324e-14}}, color = {0, 0, 255}));
+    Line(points = {{-52, 0}, {-62, 0}, {-62, 0}, {-92, 0}}, color = {0, 0, 255}));
   connect(load.terminal, gridImpedance.terminal2) annotation(
     Line(points = {{0, -40}, {0, 0}, {-12, 0}}, color = {0, 0, 255}));
   connect(load.PRefPu, PRefPu.y) annotation(

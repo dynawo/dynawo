@@ -18,8 +18,6 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
      - a switch-off signal coming from the node in case of a node disconnection
      - a switch-off signal coming from the user (event)
   */
-  import Dynawo.Electrical.Constants;
-
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
   Constants.state state(start = State0) "Transformer connection state";
@@ -28,10 +26,10 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
+    Timeline.logEvent1(TimelineKeys.TransformerSwitchOff);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.TransformerSwitchOn);
+    Timeline.logEvent1(TimelineKeys.TransformerSwitchOn);
     state = Constants.state.Closed;
   end when;
 

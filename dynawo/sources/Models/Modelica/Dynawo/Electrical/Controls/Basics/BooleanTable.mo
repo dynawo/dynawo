@@ -14,8 +14,6 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 model BooleanTable "Generates a Boolean output signal based on a table stored in a .txt file (column 1 : time instants, column 2 : 0 or 1)"
-  import Modelica;
-  import Dynawo;
 
   parameter Modelica.Blocks.Types.Extrapolation Extrapolation
     "Extrapolation of data outside the definition range";

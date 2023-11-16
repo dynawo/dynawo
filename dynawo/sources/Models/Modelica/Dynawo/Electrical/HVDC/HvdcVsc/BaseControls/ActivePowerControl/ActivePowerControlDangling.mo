@@ -13,9 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl;
 */
 
 model ActivePowerControlDangling "Active power control for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
-  import Modelica;
-  import Dynawo;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl.BaseActivePowerControl;
 
   Modelica.Blocks.Sources.Constant zero1(k = 0) annotation(

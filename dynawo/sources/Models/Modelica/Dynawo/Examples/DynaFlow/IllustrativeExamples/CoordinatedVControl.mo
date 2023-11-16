@@ -14,8 +14,6 @@ within Dynawo.Examples.DynaFlow.IllustrativeExamples;
 */
 
 model CoordinatedVControl "System with two generators and a coordinated voltage control"
-  import Dynawo;
-
   extends Icons.Example;
 
   // Generators

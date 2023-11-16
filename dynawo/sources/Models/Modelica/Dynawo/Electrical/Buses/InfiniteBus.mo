@@ -13,17 +13,10 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBus "Infinite bus"
-
-/*
-  The bus voltage magnitude and angle will remain constant throughout the simulation.
-*/
-
-  import Dynawo.Connectors;
-
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal annotation(
-    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit UPu "Infinite bus constant voltage module";
   parameter Types.Angle UPhase "Infinite bus constant voltage angle";
@@ -34,12 +27,11 @@ model InfiniteBus "Infinite bus"
   Types.VoltageModule U "Voltage amplitude at terminal in kV";
 
 equation
-
   terminal.V = UPu * ComplexMath.exp(ComplexMath.j * UPhase);
   UPuVar = UPu;
   UPhaseVar = UPhase;
   U = UPu * UNom;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The InfiniteBus model imposes a complex voltage value: the bus voltage magnitude and angle will remain constant throughout the simulation.</body></html>"));
 end InfiniteBus;

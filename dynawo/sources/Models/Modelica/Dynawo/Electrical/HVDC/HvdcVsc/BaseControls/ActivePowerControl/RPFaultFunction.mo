@@ -13,9 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl;
 */
 
 model RPFaultFunction "rpfault function for HVDC"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
 
   parameter Types.PerUnit SlopeRPFault "Slope of the recovery of rpfault after a fault in pu/s";
 

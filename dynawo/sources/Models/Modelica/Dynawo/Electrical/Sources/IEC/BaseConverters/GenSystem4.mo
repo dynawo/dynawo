@@ -24,10 +24,6 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Anti-windup features have been added to the first order filters
     because the standard does not specify any change of behavior when the limits are reached.
   */
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-  import Dynawo.Electrical.SystemBase;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

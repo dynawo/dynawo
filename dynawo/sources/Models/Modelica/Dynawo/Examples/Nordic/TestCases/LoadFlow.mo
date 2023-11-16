@@ -14,11 +14,6 @@ within Dynawo.Examples.Nordic.TestCases;
 */
 
 model LoadFlow "Model of load flow calculation for the Nordic 32 test system used for voltage stability studies"
-  import Modelica.ComplexMath;
-  import Dynawo;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   extends Dynawo.Examples.Nordic.Grid.FullStaticModel(
     P0Pu_g01 = 6,
     P0Pu_g02 = 3,

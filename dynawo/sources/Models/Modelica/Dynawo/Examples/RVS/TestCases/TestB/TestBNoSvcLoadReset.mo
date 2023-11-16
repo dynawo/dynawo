@@ -14,8 +14,6 @@ within Dynawo.Examples.RVS.TestCases.TestB;
 */
 
 model TestBNoSvcLoadReset "RVS test system simulation case : line disconnection, no SVC, with load reset"
-  import Dynawo;
-
   extends Icons.Example;
   extends Dynawo.Examples.RVS.Grid.FullDynamicInfiniteBus(
     P0Pu_gen_10101_ABEL_G1 = -0.09999999999492322,

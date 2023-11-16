@@ -310,7 +310,7 @@
   <ScalarVariable
     name = "generator.U0Pu"
     valueReference = "1021"
-    description = "Start value of voltage at terminal amplitude in pu (base UNom)"
+    description = "Start value of voltage amplitude at terminal in pu (base UNom)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"

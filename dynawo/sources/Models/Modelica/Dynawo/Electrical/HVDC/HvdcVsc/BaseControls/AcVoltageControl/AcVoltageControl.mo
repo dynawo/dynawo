@@ -13,10 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.AcVoltageControl;
 */
 
 model AcVoltageControl "AC voltage control for HVDC"
-  import Modelica;
-  import Dynawo;
-  import Dynawo.Types;
-
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsAcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsQRefLim;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsQRefQU;
