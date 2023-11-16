@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="B1_U_value"/>
+  <curve model="NETWORK" variable="B2_U_value"/>
+  <curve model="NETWORK" variable="B3_U_value"/>
+  <curve model="NETWORK" variable="B4_U_value"/>
+  <curve model="NETWORK" variable="B5_U_value"/>
+  <curve model="NETWORK" variable="B6_U_value"/>
+  <curve model="NETWORK" variable="B7_U_value"/>
+  <curve model="NETWORK" variable="B8_U_value"/>
+  <curve model="NETWORK" variable="B9_U_value"/>
+  <curve model="NETWORK" variable="B10_U_value"/>
+  <curve model="NETWORK" variable="B11_U_value"/>
+  <curve model="NETWORK" variable="B12_U_value"/>
+  <curve model="NETWORK" variable="B13_U_value"/>
+  <curve model="NETWORK" variable="B14_U_value"/>
+  <curve model="NETWORK" variable="B15_U_value"/>
+  <curve model="B1-G1" variable="generator_omegaPu"/>
+  <curve model="B1-G1" variable="generator_PGen"/>
+  <curve model="B1-G1" variable="generator_QGen"/>
+  <curve model="B2-G1" variable="generator_omegaPu"/>
+  <curve model="B2-G1" variable="generator_PGen"/>
+  <curve model="B2-G1" variable="generator_QGen"/>
+  <curve model="B5-G1" variable="generator_omegaPu"/>
+  <curve model="B5-G1" variable="generator_PGen"/>
+  <curve model="B8-G1" variable="generator_PGen"/>
+  <curve model="B10-G1" variable="generator_PGen"/>
+  <curve model="B12-G1" variable="generator_PGen"/>
+  <curve model="B19-G1" variable="generator_PGen"/>
+  <curve model="B54-G1" variable="generator_PGen"/>
+  <curve model="B59-G1" variable="generator_PGen"/>
+  <curve model="B116-G1" variable="generator_PGen"/>
+  <curve model="B112-G1" variable="generator_PGen"/>
+  <curve model="B110-G1" variable="generator_PGen"/>
+  <curve model="B8-G1" variable="generator_QGen"/>
+  <curve model="B10-G1" variable="generator_QGen"/>
+  <curve model="B12-G1" variable="generator_QGen"/>
+  <curve model="B116-G1" variable="generator_QGen"/>
+  <curve model="B112-G1" variable="generator_QGen"/>
+</curvesInput>

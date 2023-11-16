@@ -51,6 +51,8 @@ def namespaceDYN(tag):
     return "{" + DYN_NAMESPACE + "}" + tag
 
 def cleanIdForJS(id):
+    if id[0].isdigit():
+        id = "c"+id
     return id.replace(".","_").replace(" ","_").replace("-","_").replace('#',"_").replace('+',"_")
 
 
