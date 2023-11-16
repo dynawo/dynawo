@@ -67,8 +67,8 @@ TEST(DataInterfaceTest, Battery_1) {
                       .setConnectableBus(bus1.getId())
                       .setMaxP(50.0)
                       .setMinP(3.0)
-                      .setP0(5.0)
-                      .setQ0(5.0)
+                      .setTargetP(5.0)
+                      .setTargetQ(5.0)
                       .add();
 
   BatteryInterfaceIIDM batItf(bat);
