@@ -276,12 +276,10 @@ DataInterfaceIIDM::initFromIIDM() {
   // create network interface
   network_.reset(new NetworkInterfaceIIDM(*networkIIDM_));
 
-  for (auto& substation : networkIIDM_->getSubstations()) {
-    for (auto& voltageLevel : substation.getVoltageLevels()) {
-      auto vl = importVoltageLevel(voltageLevel, substation.getCountry());
-      network_->addVoltageLevel(vl);
-      voltageLevels_[vl->getID()] = vl;
-    }
+  for (auto& voltageLevel : networkIIDM_->getVoltageLevels()) {
+    auto vl = importVoltageLevel(voltageLevel);
+    network_->addVoltageLevel(vl);
+    voltageLevels_[vl->getID()] = vl;
   }
 
   //===========================
@@ -321,13 +319,13 @@ DataInterfaceIIDM::initFromIIDM() {
 }
 
 shared_ptr<VoltageLevelInterfaceIIDM>
-DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelIIDM, const stdcxx::optional<powsybl::iidm::Country>& country) {
+DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelIIDM) {
   shared_ptr<VoltageLevelInterfaceIIDM> voltageLevel(new VoltageLevelInterfaceIIDM(voltageLevelIIDM));
+  const auto country = voltageLevelIIDM.getSubstation() ? voltageLevelIIDM.getSubstation().get().getCountry() : boost::none;
   string countryStr;
   if (country)
     countryStr = powsybl::iidm::getCountryName(country.get());
   voltageLevel->setCountry(countryStr);
-
   if (voltageLevelIIDM.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
     voltageLevel->calculateBusTopology();
 
@@ -528,8 +526,8 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         danglingLine->addCurrentLimitInterface(cLimit);
       }
     }
@@ -583,8 +581,8 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         twoWTfo->addCurrentLimitInterface1(cLimit);
       }
     }
@@ -601,8 +599,8 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         twoWTfo->addCurrentLimitInterface2(cLimit);
       }
     }
@@ -615,8 +613,8 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
   const string fictVLId = ThreeWindingTransformer.getId() + "_FictVL";
   const string fictBusId = ThreeWindingTransformer.getId() + "_FictBUS";
   string countryStr;
-  if (ThreeWindingTransformer.getSubstation().getCountry())
-    countryStr = powsybl::iidm::getCountryName(ThreeWindingTransformer.getSubstation().getCountry().get());
+  if (ThreeWindingTransformer.getSubstation() && ThreeWindingTransformer.getSubstation().get().getCountry())
+    countryStr = powsybl::iidm::getCountryName(ThreeWindingTransformer.getSubstation().get().getCountry().get());
 
   std::vector<stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> > legs;
   legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg1()));
@@ -678,9 +676,9 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
       }
       // temporary limit
       for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-        if (!currentLimit.get().isFictitious()) {
-          shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(),
-                                                    currentLimit.get().getAcceptableDuration()));
+        if (!currentLimit.isFictitious()) {
+          shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                    currentLimit.getAcceptableDuration()));
           fictTwoWTransf->addCurrentLimitInterface2(cLimit);
         }
       }
@@ -711,8 +709,8 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     }
     // temporary limit on side 1
     for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         line->addCurrentLimitInterface1(cLimit);
       }
     }
@@ -728,8 +726,8 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     }
     // temporary limit on side 12
     for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         line->addCurrentLimitInterface2(cLimit);
       }
     }
