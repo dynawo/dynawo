@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 generator_N                                       : y =       0.000000 yp =       0.000000
 generator_PRefPu                                  : y =      -0.000000 yp =       0.000000
 generator_URefPu                                  : y =       1.010000 yp =       0.000000
@@ -55,6 +55,10 @@ generator_tableQMin_u_max                          =       0.000000
 generator_tableQMin_u_min                          =       0.000000
 generator_u0Pu_im                                  =      -0.222561
 generator_u0Pu_re                                  =       0.985173
+generator_Running0                                 =       1.000000
+generator_SwitchOffSignal10                        =      -1.000000
+generator_SwitchOffSignal20                        =      -1.000000
+generator_SwitchOffSignal30                        =      -1.000000
 generator_limUQDown0                               =      -1.000000
 generator_limUQUp0                                 =      -1.000000
 generator_tableQMax_tableOnFile                    =       1.000000

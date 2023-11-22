@@ -26,10 +26,10 @@ partial model SwitchOffLine "Switch-off signal for a line"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1 (TimelineKeys.LineOpen);
+    Timeline.logEvent1(TimelineKeys.LineOpen);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1 (TimelineKeys.LineClosed);
+    Timeline.logEvent1(TimelineKeys.LineClosed);
     state = Constants.state.Closed;
   end when;
 

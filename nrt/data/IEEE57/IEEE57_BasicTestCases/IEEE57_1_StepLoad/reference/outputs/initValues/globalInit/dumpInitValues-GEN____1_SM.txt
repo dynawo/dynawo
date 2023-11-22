@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 generator_lambdaDPu                               : y =       0.976546 yp =      -0.000041
 generator_lambdaQ1Pu                              : y =      -0.441756 yp =      -0.000010
 generator_lambdaQ2Pu                              : y =      -0.441756 yp =      -0.000049
@@ -245,6 +245,10 @@ voltageRegulator_limiterWithLag_tUMaxReached0      =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached0      =   1.000000e+60
 voltageRegulator_limiterWithLag_u0                 =       1.586419
 voltageRegulator_limiterWithLag_y0                 =       1.586419
+generator_Running0                                 =       1.000000
+generator_SwitchOffSignal10                        =      -1.000000
+generator_SwitchOffSignal20                        =      -1.000000
+generator_SwitchOffSignal30                        =      -1.000000
 governor_ActiveFrequencyRegulation                 =       1.000000
 governor_activeFrequencyRegulation_k               =       1.000000
 governor_limiter_limitsAtInit                      =       1.000000
