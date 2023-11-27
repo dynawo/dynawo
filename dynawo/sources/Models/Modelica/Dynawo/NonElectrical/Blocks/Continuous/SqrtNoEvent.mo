@@ -13,7 +13,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * of simulation tools for power systems.
 */
 
-block Sqrt "Outputs the square root of the input"
+block SqrtNoEvent "If the input is positive, outputs its square root, if the input is negative, outputs zero"
   extends Modelica.Blocks.Interfaces.SISO;
 
 equation
@@ -65,14 +65,13 @@ equation
             extent={{60,-52},{84,-72}},
             lineColor={160,160,164},
             textString="u")}),
-    Documentation(info="<html>
-    <p>
-    This blocks computes the output <strong>y</strong> as <em>square root</em> of the input <strong>u</strong>:
+    Documentation(info= "<html><head></head><body><p>This block computes the output <strong>y</strong> as <em>extended square root</em> of the input <strong>u</strong>:
     </p>
     <pre>
-      y = <strong>sqrt</strong>( u );
-    </pre>
+       sqrt(u)  <strong>if</strong> u &gt; 0
+  y =
+          0     <strong>if</strong> u &le; 0
+</pre>
     <p>
-    If the input is negative, the output shall be zero.
-    </p></html>"));
-end Sqrt;
+    The noEvent function prevents the negative input values from being evaluated by the sqrt function, thus avoiding an error.</p></body></html>"));
+end SqrtNoEvent;
