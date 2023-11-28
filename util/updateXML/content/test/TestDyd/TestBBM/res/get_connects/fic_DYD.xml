@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="_LOAD___1_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___1_EC"/>
   <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___2_EC"/>
@@ -8,9 +20,6 @@
   <dyn:connect id1="_LOAD___3_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____3_TN_ACPIN"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="NETWORK" var1="@_GEN____1_SM@@NODE@_switchOff" id2="GEN____1_SM" var2="generator_switchOffSignal1"/>
-
-
-
   <dyn:connect id1="GEN____2_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
 </dyn:dynamicModelsArchitecture>
