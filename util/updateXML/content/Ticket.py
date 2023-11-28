@@ -19,8 +19,9 @@ from sources.utils.Common import *
 
 
 def ticket(num_ticket):
-    print("Apply ticket " + str(num_ticket))
     options = get_command_line_options()
+    if not options.update_nrt:
+        print("Apply ticket " + str(num_ticket))
     if options.log:
         dynawo_version_str = str(options.version)
         outputs_path = os.path.abspath(options.outputs_path)
