@@ -44,7 +44,7 @@ class Jobs:
         """
         options = get_command_line_options()
 
-        if not options.job or not options.origin or not options.version:
+        if not options.job or not options.origin or not options.version or not options.outputs_path:
             if not options.job:
                 print("No input job file (use --job option)")
             if not options.origin:
@@ -189,8 +189,9 @@ class Jobs:
                 if not re.match(r'^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$', module_version):
                     invalid_update_files.append(update_file)
                     continue
-                limit_version = (self.__dynawo_version[0], self.__dynawo_version[1], self.__dynawo_version[2]+1)
-                if self.__dynawo_origin < tuple(map(int, module_version.split('.'))) < limit_version:
+                min_limit_version = (self.__dynawo_origin[0], self.__dynawo_origin[1], self.__dynawo_origin[2]+1)
+                max_limit_version = (self.__dynawo_version[0], self.__dynawo_version[1], self.__dynawo_version[2]+1)
+                if min_limit_version < tuple(map(int, module_version.split('.'))) < max_limit_version:
                     unsorted_update_modules_list.append(update_filepath)
         self.__update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
 
