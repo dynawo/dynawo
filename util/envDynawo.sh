@@ -109,7 +109,8 @@ where [option] can be:"
         nrt-clean                             clean non-regression tests
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
-        nrt-xsl ([args])                      update automatically the xml input files from the nrt
+        nrt-xsl ([args])                      update automatically the xml input files from the nrt by applying xsl files
+        nrt-update ([args])                   update automatically the xml input files from the nrt by running python scripts
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
         list-models                           list all preassembled models you can use with clean-models or clean-build-models
@@ -431,6 +432,7 @@ set_environment() {
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
+  export_var_env_force DYNAWO_UPDATE_XML_DIR=$DYNAWO_HOME/util/updateXML
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -1580,6 +1582,10 @@ nrt_xsl() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/xsl/applyXsltToXml.py $@
 }
 
+nrt_update() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/content/updateDynawoNRT/updateDynawoNRT.py $@
+}
+
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -2469,6 +2475,10 @@ case $MODE in
 
   nrt-ref)
     nrt_ref ${ARGS} || error_exit "Error during Dynawo's NRT ref execution"
+    ;;
+
+  nrt-update)
+    nrt_update ${ARGS} || error_exit "Error during NRT update"
     ;;
 
   nrt-xsl)
