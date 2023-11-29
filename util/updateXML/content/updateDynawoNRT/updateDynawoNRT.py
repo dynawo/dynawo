@@ -36,9 +36,9 @@ def main():
 
     if not options.origin or not options.version:
         if not options.origin:
-            print("No input dynawo origin (use --origin option)")
+            print("Error : No input dynawo origin (use --origin option)")
         if not options.version:
-            print("No input dynawo version (use --version option)")
+            print("Error : No input dynawo version (use --version option)")
         sys.exit(1)
 
     dynawo_origin_str = str(options.origin)

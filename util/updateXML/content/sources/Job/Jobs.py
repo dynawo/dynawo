@@ -15,6 +15,8 @@ import sys
 import traceback
 import imp
 import lxml.etree
+from optparse import OptionParser
+from collections import Counter
 
 from ..utils.Common import *
 from .JobData import JobData
@@ -54,17 +56,26 @@ class Jobs:
         """
         Parse the Job file
         """
-        options = get_command_line_options()
+        parser = OptionParser()
+        parser.add_option('--job', dest="job", help=u"job to update")
+        parser.add_option('--origin', dest="origin", help=u"dynawo origin version")
+        parser.add_option('--version', dest="version", help=u"dynawo version")
+        parser.add_option('--tickets', dest="tickets_to_update", help=u"selected tickets to update")
+        parser.add_option('-o', dest="outputs_path", help=u"outputs path")
+        parser.add_option('--scriptfolders', dest="scriptfolders", help=u"folders containing update scripts")
+        parser.add_option('--log', action="store_true", dest="log", help=u"generate an applied_tickets.log file to list the numbers of applied tickets")
+        parser.add_option('--update-nrt', action="store_true", dest="update_nrt", help=u"generate output files without gathering them in an output folder to replace")
+        options, _ = parser.parse_args()
 
         if not options.job or not options.origin or not options.version or not options.outputs_path:
             if not options.job:
-                print("No input job file (use --job option)")
+                print("Error : No input job file (use --job option)")
             if not options.origin:
-                print("No input dynawo origin (use --origin option)")
+                print("Error : No input dynawo origin (use --origin option)")
             if not options.version:
-                print("No input dynawo version (use --version option)")
+                print("Error : No input dynawo version (use --version option)")
             if not options.outputs_path:
-                print("No outputs path (use -o option)")
+                print("Error : No outputs path (use -o option)")
             sys.exit(1)
 
         dynawo_origin_str = str(options.origin)
@@ -74,17 +85,27 @@ class Jobs:
 
         if len(self.__dynawo_origin) != 3 or len(self.__dynawo_version) != 3:
             if len(self.__dynawo_origin) != 3:
-                print("origin should be this format MAJOR.MINOR.PATCH")
+                print("Error : origin should be this format MAJOR.MINOR.PATCH")
             if len(self.__dynawo_version) != 3:
-                print("version should be this format MAJOR.MINOR.PATCH")
+                print("Error : version should be this format MAJOR.MINOR.PATCH")
             sys.exit(1)
 
-        script_folders = None
+        self.__script_folders = None
         if options.scriptfolders:
             script_folders_relative_paths = options.scriptfolders.split(',')
-            script_folders = [os.path.abspath(script_filepath) for script_filepath in script_folders_relative_paths]
+            self.__script_folders = [os.path.abspath(script_filepath) for script_filepath in script_folders_relative_paths]
 
-        self.__get_update_modules_list(script_folders)
+        self.__selected_tickets_to_update = None
+        if options.tickets_to_update:
+            self.__selected_tickets_to_update = options.tickets_to_update.split(',')
+            duplicate_tickets = [k for k,v in Counter(self.__selected_tickets_to_update).items() if v>1]
+            if len(duplicate_tickets) != 0:
+                print("Error : input tickets contain duplicates :")
+                for duplicate_ticket in duplicate_tickets:
+                    print("ticket number " + duplicate_ticket)
+                sys.exit(1)
+
+        self.__get_update_modules_to_execute()
 
         filepath = os.path.abspath(options.job)
         self.__filename = os.path.basename(filepath)
@@ -96,6 +117,11 @@ class Jobs:
             sys.exit(1)
 
         self.__outputs_path = os.path.abspath(options.outputs_path)
+
+        if options.log:
+            self.__does_print_logs = True
+        else:
+            self.__does_print_logs = False
 
         if options.update_nrt:
             self.__does_update_nrt = True
@@ -128,8 +154,6 @@ class Jobs:
         if number_of_jobs == 0:
             raise NoJobError(self.__jobtree.docinfo.URL)
 
-        self.__add_dynawo_version()
-
     # ---------------------------------------------------------------
     #   UPDATE METHOD
     # ---------------------------------------------------------------
@@ -138,15 +162,31 @@ class Jobs:
         """
         Call update functions in every patch script of the directory
         """
-        if len(self.__update_modules_list) == 0:
-            print("Patch files not found")
-            sys.exit(1)
-        for update_module_path in self.__update_modules_list:
+        self.__add_dynawo_version()
+
+        if self.__does_update_nrt:
+            outputs_dir_path = self.__outputs_path
+        else:
+            dynawo_version_str = '.'.join(map(str, self.__dynawo_version))
+            outputs_dir_name = "outputs" + dynawo_version_str
+            outputs_dir_path = os.path.join(self.__outputs_path, outputs_dir_name)
+        if not os.path.exists(outputs_dir_path):
+            os.makedirs(outputs_dir_path)
+
+        for update_module_path in self.__update_modules_filepath_list:
             update_module_filename = os.path.basename(update_module_path)
             update_module_filename_without_extension = update_module_filename.split('.')[0]
             update_module = imp.load_source(update_module_filename_without_extension, update_module_path)
+            if not self.__does_update_nrt and hasattr(update_module.update, 'ticket_number'):
+                print("Apply ticket " + str(update_module.update.ticket_number))
+            if self.__does_print_logs:
+                pid = os.getpid()
+                log_filename = "applied_tickets.log." + str(pid)
+                log_filepath = os.path.join(outputs_dir_path, log_filename)
+                with open(log_filepath, 'a') as logfile:
+                    print(update_module.update.ticket_number, file=logfile)
             update_module.update(self)
-        self.__generate_configuration_files()
+        self.__generate_configuration_files(outputs_dir_path)
 
     # ---------------------------------------------------------------
     #   USER METHODS
@@ -168,30 +208,38 @@ class Jobs:
     #   UTILITY METHODS
     # ---------------------------------------------------------------
 
-    def __get_update_modules_list(self, script_folders=None):
+    def __get_update_modules_to_execute(self):
         """
-        Populate __update_modules_list with the update modules
+        Populate __update_modules_filepath_list with the update modules file paths and check
         """
         call_stack = traceback.extract_stack()
-        main_update_file_path = os.path.abspath(call_stack[-3].filename)
-        main_update_filename = os.path.basename(main_update_file_path)
-        main_update_filename_without_extension = os.path.splitext(main_update_filename)[0]
-        if script_folders is None:
-            update_scripts_dir_path = os.path.dirname(main_update_file_path)
+        self.__main_update_file_path = os.path.abspath(call_stack[-3].filename)
+        all_files_in_all_scripts_dirs = self.__get_all_files_in_all_scripts_dirs()
+        sorted_update_modules_filepath_list = self.__get_update_modules_filepath_list(all_files_in_all_scripts_dirs)
+        self.__check_if_input_tickets_exist(sorted_update_modules_filepath_list)
+
+
+    def __get_all_files_in_all_scripts_dirs(self):
+        if self.__script_folders is None:
+            update_scripts_dir_path = os.path.dirname(self.__main_update_file_path)
             files_in_script_dir = os.listdir(update_scripts_dir_path)
-            files_in_all_scripts_dirs = [os.path.join(update_scripts_dir_path, script_filepath) for script_filepath in files_in_script_dir]
+            all_files_in_all_scripts_dirs = [os.path.join(update_scripts_dir_path, script_filepath) for script_filepath in files_in_script_dir]
         else:
-            files_in_all_scripts_dirs = list()
-            for script_folder in script_folders:
+            all_files_in_all_scripts_dirs = list()
+            for script_folder in self.__script_folders:
                 if os.path.isfile(script_folder):
                     print("Error : " + script_folder + " is not a directory")
                     sys.exit(1)
                 files_in_script_dir = os.listdir(script_folder)
-                files_in_all_scripts_dirs.extend([os.path.join(script_folder, script_filepath) for script_filepath in files_in_script_dir])
+                all_files_in_all_scripts_dirs.extend([os.path.join(script_folder, script_filepath) for script_filepath in files_in_script_dir])
+        return all_files_in_all_scripts_dirs
 
+    def __get_update_modules_filepath_list(self, all_files_in_all_scripts_dirs):
         unsorted_update_modules_list = list()
         invalid_update_files = list()
-        for update_filepath in files_in_all_scripts_dirs:
+        main_update_filename = os.path.basename(self.__main_update_file_path)
+        main_update_filename_without_extension = os.path.splitext(main_update_filename)[0]
+        for update_filepath in all_files_in_all_scripts_dirs:
             update_file = os.path.basename(update_filepath)
             if update_file.startswith(main_update_filename_without_extension) and \
                     update_file.endswith(PYTHON_FILE_EXTENSION) and \
@@ -205,25 +253,50 @@ class Jobs:
                 max_limit_version = (self.__dynawo_version[0], self.__dynawo_version[1], self.__dynawo_version[2]+1)
                 if min_limit_version < tuple(map(int, module_version.split('.'))) < max_limit_version:
                     unsorted_update_modules_list.append(update_filepath)
-        self.__update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
 
         if len(invalid_update_files) != 0:
             for invalid_update_file in invalid_update_files:
-                print("Invalid update file error : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.py'")
+                print("Error : Invalid update file : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.py'")
+            sys.exit(1)
+        if len(unsorted_update_modules_list) == 0:
+            print("Error : Patch files not found")
             sys.exit(1)
 
-    def __generate_configuration_files(self):
+        sorted_update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
+        return sorted_update_modules_list
+
+    def __check_if_input_tickets_exist(self, sorted_update_modules_filepath_list):
+        self.__update_modules_filepath_list = list()
+        all_tickets_list = list()
+
+        for update_module_path in sorted_update_modules_filepath_list:
+            update_module_filename = os.path.basename(update_module_path)
+            update_module_filename_without_extension = update_module_filename.split('.')[0]
+            update_module = imp.load_source(update_module_filename_without_extension, update_module_path)
+            if hasattr(update_module.update, 'ticket_number'):
+                all_tickets_list.append(update_module.update.ticket_number)
+            if self.__selected_tickets_to_update:
+                if not hasattr(update_module.update, 'ticket_number'):
+                    continue
+                if update_module.update.ticket_number not in self.__selected_tickets_to_update:
+                    continue
+            self.__update_modules_filepath_list.append(update_module_path)
+
+        invalid_tickets = set()
+        if self.__selected_tickets_to_update:
+            for selected_ticket_to_update in self.__selected_tickets_to_update:
+                if selected_ticket_to_update not in all_tickets_list:
+                    invalid_tickets.add(selected_ticket_to_update)
+        if len(invalid_tickets) != 0:
+            print("Error : following tickets do not exist :")
+            for invalid_ticket in invalid_tickets:
+                print("ticket number " + invalid_ticket)
+            sys.exit(1)
+
+    def __generate_configuration_files(self, outputs_dir_path):
         """
         Generate configuration files
         """
-        if self.__does_update_nrt:
-            outputs_dir_path = self.__outputs_path
-        else:
-            outputs_dir_name = "outputs" + '.'.join(map(str, self.__dynawo_version))
-            outputs_dir_path = os.path.join(self.__outputs_path, outputs_dir_name)
-            if not os.path.exists(outputs_dir_path):
-                os.makedirs(outputs_dir_path)
-
         generated_job_file_path = os.path.join(outputs_dir_path, self.__filename)
         self.__jobtree.write(generated_job_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
 

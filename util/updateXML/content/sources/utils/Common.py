@@ -11,7 +11,6 @@
 
 
 import re
-from optparse import OptionParser
 
 from ..Par.Par import Par
 from .UpdateXMLExceptions import *
@@ -61,25 +60,6 @@ def xmlns(xml_element_name):
         XML element name with namespace
     """
     return NAMESPACE_PREFIX + xml_element_name
-
-
-def get_command_line_options():
-    """
-    Get command line options input while building Jobs object
-
-    Returns:
-        optparse.Values object containing options values
-    """
-    parser = OptionParser()
-    parser.add_option('--job', dest="job", help=u"job to update")
-    parser.add_option('--origin', dest="origin", help=u"dynawo origin version")
-    parser.add_option('--version', dest="version", help=u"dynawo version")
-    parser.add_option('-o', dest="outputs_path", help=u"outputs path")
-    parser.add_option('--scriptfolders', dest="scriptfolders", help=u"folders containing update scripts")
-    parser.add_option('--log', action="store_true", dest="log", help=u"generate an applied_tickets.log file to list the numbers of applied tickets")
-    parser.add_option('--update-nrt', action="store_true", dest="update_nrt", help=u"generate output files without gathering them in an output folder to replace")
-    options, _ = parser.parse_args()
-    return options
 
 
 def get_parset(par_absolute_path, par_id, par_files_collection):
