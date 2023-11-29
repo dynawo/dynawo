@@ -66,7 +66,7 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sqrt sqrt annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent annotation(
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
@@ -98,7 +98,7 @@ model CurrentLimiter "Current limitation module for wind turbines (IEC N°61400-
     Placement(visible = true, transformation(origin = {150, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min4 annotation(
     Placement(visible = true, transformation(origin = {90, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sqrt sqrt1 annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent1 annotation(
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback4 annotation(
     Placement(visible = true, transformation(origin = {-100, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -166,11 +166,11 @@ equation
     Line(points = {{-90, -120}, {-60, -120}, {-60, -114}, {-42, -114}}, color = {0, 0, 127}));
   connect(const5.y, max1.u2) annotation(
     Line(points = {{-58, -140}, {-50, -140}, {-50, -126}, {-42, -126}}, color = {0, 0, 127}));
-  connect(max1.y, sqrt1.u) annotation(
+  connect(max1.y, sqrtNoEvent1.u) annotation(
     Line(points = {{-18, -120}, {18, -120}}, color = {0, 0, 127}));
   connect(product4.y, ipMaxPu) annotation(
     Line(points = {{222, -100}, {310, -100}}, color = {0, 0, 127}));
-  connect(sqrt1.y, min4.u2) annotation(
+  connect(sqrtNoEvent1.y, min4.u2) annotation(
     Line(points = {{42, -120}, {60, -120}, {60, -126}, {78, -126}}, color = {0, 0, 127}));
   connect(min4.y, switch4.u[2]) annotation(
     Line(points = {{102, -120}, {120, -120}, {120, -102}, {140, -102}}, color = {0, 0, 127}));
@@ -188,9 +188,9 @@ equation
     Line(points = {{22, 20}, {40, 20}, {40, 40}, {60, 40}}, color = {255, 127, 0}));
   connect(min1.y, switch1.u[1]) annotation(
     Line(points = {{82, 110}, {90, 110}, {90, 100}, {100, 100}}, color = {0, 0, 127}));
-  connect(sqrt.y, min1.u1) annotation(
+  connect(sqrtNoEvent.y, min1.u1) annotation(
     Line(points = {{42, 120}, {50, 120}, {50, 116}, {58, 116}}, color = {0, 0, 127}));
-  connect(max.y, sqrt.u) annotation(
+  connect(max.y, sqrtNoEvent.u) annotation(
     Line(points = {{2, 120}, {18, 120}}, color = {0, 0, 127}));
   connect(const1.y, max.u1) annotation(
     Line(points = {{-38, 140}, {-30, 140}, {-30, 126}, {-22, 126}}, color = {0, 0, 127}));

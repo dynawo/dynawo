@@ -73,7 +73,7 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {-150, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sqrt sqrt annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent annotation(
     Placement(visible = true, transformation(origin = {110, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {70, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -135,6 +135,7 @@ equation
   Complex(IGsRe0Pu, IGsIm0Pu) = (-i0Pu * SystemBase.SnRef / SNom) + Complex(GesPu, BesPu) * Complex(UGsRe0Pu, UGsIm0Pu);
   u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0);
   PAg0Pu = complexToReal.re;
+
   connect(const1.y, combiTable1Ds.u) annotation(
     Line(points = {{62, -40}, {80, -40}, {80, -20}, {98, -20}}, color = {0, 0, 127}));
   connect(const1.y, combiTable1Ds1.u) annotation(
@@ -151,9 +152,9 @@ equation
     Line(points = {{122, -60}, {140, -60}, {140, -174}, {178, -174}}, color = {0, 0, 127}));
   connect(combiTable1Ds.y[1], min.u1) annotation(
     Line(points = {{122, -20}, {140, -20}, {140, -14}, {178, -14}}, color = {0, 0, 127}));
-  connect(sqrt.y, min1.u1) annotation(
+  connect(sqrtNoEvent.y, min1.u1) annotation(
     Line(points = {{122, 180}, {130, 180}, {130, 186}, {138, 186}}, color = {0, 0, 127}));
-  connect(max1.y, sqrt.u) annotation(
+  connect(max1.y, sqrtNoEvent.u) annotation(
     Line(points = {{82, 180}, {98, 180}}, color = {0, 0, 127}));
   connect(constant1.y, max1.u1) annotation(
     Line(points = {{42, 180}, {50, 180}, {50, 186}, {58, 186}}, color = {0, 0, 127}));

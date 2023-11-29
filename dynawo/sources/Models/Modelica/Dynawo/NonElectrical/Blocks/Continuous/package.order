@@ -22,5 +22,6 @@ Power
 RampTrackingFilter
 RateLimFirstOrderFreeze
 SecondOrder
+SqrtNoEvent
 VarLimPIDFreeze
 WeightedDifference

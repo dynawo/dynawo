@@ -37,6 +37,7 @@ set(MODEL_FILES
   RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo
   SecondOrder.mo
+  SqrtNoEvent.mo
   VarLimPIDFreeze.mo
   WeightedDifference.mo
   WeightedDifference.extvar

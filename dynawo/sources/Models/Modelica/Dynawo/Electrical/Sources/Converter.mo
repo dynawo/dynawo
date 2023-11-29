@@ -120,7 +120,7 @@ equation
     LFilter / SystemBase.omegaNom * der(iqConvPu) = uqConvPu - RFilter * iqConvPu - omegaPu * LFilter * idConvPu - uqFilterPu;
     CFilter / SystemBase.omegaNom * der(udFilterPu) = idConvPu + omegaPu * CFilter * uqFilterPu - idPccPu;
     CFilter / SystemBase.omegaNom * der(uqFilterPu) = iqConvPu - omegaPu * CFilter * udFilterPu - iqPccPu;
-    IConvPu = sqrt (idConvPu * idConvPu + iqConvPu * iqConvPu);
+    IConvPu = sqrt(idConvPu * idConvPu + iqConvPu * iqConvPu);
 
     /* DC Side */
     Cdc * der(UdcSourcePu) = IdcSourcePu - IdcPu;
