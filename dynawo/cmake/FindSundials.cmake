@@ -54,6 +54,7 @@ mark_as_advanced(SUNDIALS_SUNLINSOLKLU_LIBRARY)
 if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
   set(SundialsTest_DIR ${PROJECT_BINARY_DIR}/SundialsTest_DIR)
   file(MAKE_DIRECTORY ${SundialsTest_DIR})
+  set(CXX_STDFLAG "-std=c++11")
 
   file(WRITE ${SundialsTest_DIR}/testSundials.cpp
     "\#include <ida/ida.h>\n"
