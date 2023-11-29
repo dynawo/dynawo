@@ -59,9 +59,9 @@ model ExcIEEEAC1A "As defined in IEEE 1981 Excitation System Models for Power Sy
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = tR, y_start = UStator0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {-250, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag(a = {tB, 1}, b = {tC, 1}, x_start = {Vr0Pu / Ka}, y_start = Vr0Pu / Ka) annotation(
+  Modelica.Blocks.Continuous.TransferFunction leadLag(a = {tB, 1}, b = {tC, 1}, x_scaled(start = {Vr0Pu / Ka}), x_start = {Vr0Pu / Ka}, y(start = Vr0Pu / Ka)) annotation(
     Placement(visible = true, transformation(origin = {-90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = Ke, k3 = Kd) annotation(
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

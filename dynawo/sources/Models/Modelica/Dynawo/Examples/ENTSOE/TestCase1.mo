@@ -95,10 +95,11 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A pss(IC1 = 1, IC2 = 3, Ks1 = 10, Ks2 = 0.1564, Ks3 = 1, PGen0Pu = -generatorSynchronous.P0Pu, PNomAlt = generatorSynchronous.PNomAlt, T1 = 0.25, T2 = 0.03, T3 = 0.15, T4 = 0.015, T6 = 1e-5, T7 = 2, T8 = 0.5, T9 = 0.1, Tw1 = 2, Tw2 = 2, Tw3 = 2, Tw4 = 1e-5, Upss0Pu = 0, VstMax = 0.1, VstMin = -0.1) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
-    Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step step(height = 0.05, offset = 1.005, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu);
+  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu) annotation(
+    Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Bus
   Dynawo.Electrical.Buses.Bus currentBus annotation(
@@ -108,12 +109,14 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
+
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
-  connect(governor.PmRefPu, PmRefPu.y);
+  connect(PmRefPu.y, governor.PmRefPu) annotation(
+    Line(points = {{120, -20}, {70, -20}, {70, -40}, {78, -40}}, color = {0, 0, 127}));
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -46}, {79, -46}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
     Line(points = {{38, 10}, {70, 10}, {70, 6}, {78, 6}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, pss.omegaPu) annotation(
@@ -125,16 +128,16 @@ equation
   connect(step.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {70, 60}, {70, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{102, -30}, {110, -30}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{101, -40}, {110, -40}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
+    Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 2, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-    Documentation(info = "<html><head></head><body><span style=\"left: 118.2px; top: 569.49px; font-family: sans-serif;\">The purpose of the first test case is to compare the dynamic behaviour</span><span style=\"left: 698.591px; top: 569.49px; font-family: sans-serif;\">r of the model for the </span><span style=\"left: 118.2px; top: 594.09px; font-family: sans-serif;\">synchronous </span><span style=\"left: 234.194px; top: 594.09px; font-family: sans-serif;\">machine </span><span style=\"left: 315.393px; top: 594.09px; font-family: sans-serif;\">and </span><span style=\"left: 357.989px; top: 594.09px; font-family: sans-serif;\">its AVR</span><span style=\"left: 425.977px; top: 594.09px; font-family: sans-serif;\"> by </span><span style=\"left: 469.18px; top: 594.09px; font-family: sans-serif;\">analysing</span><span style=\"left: 546.773px; top: 594.09px; font-family: sans-serif;\"> the terminal voltage</span><span style=\"left: 794.4px; top: 594.09px; font-family: sans-serif;\">&nbsp;and the </span><span style=\"left: 118.2px; top: 622.886px; font-family: sans-serif;\">excitation voltage </span><span style=\"left: 306.2px; top: 622.89px; font-family: sans-serif;\">inside</span><span style=\"left: 363.994px; top: 622.89px; font-family: sans-serif;\"> the </span><span style=\"left: 409.387px; top: 622.89px; font-family: sans-serif;\">machine</span><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\">.&nbsp;</span><div><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\">The test consists of a no-load operation with a step on the voltage reference value (+ 0.05 pu) done at t = 0.1 s.</span></div><div><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\"><br></span></div><div><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\">The results obtained perfectly match the results presented in the ENTSO-E report.</span></div>
+    Documentation(info = "<html><head></head><body>The purpose of the first test case is to compare the dynamic behaviour of the model for the synchronous machine and its AVR by analysing the terminal voltage and the excitation voltage inside the machine.<div><br></div>The test consists of a no-load operation with a step on the voltage reference value (+ 0.05 pu) done at t = 0.1 s.<div><br></div>The results obtained perfectly match the results presented in the ENTSO-E report.
 
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/EfdPuTestCase1.png\">

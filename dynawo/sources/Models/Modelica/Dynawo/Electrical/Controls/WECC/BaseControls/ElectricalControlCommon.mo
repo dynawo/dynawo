@@ -45,7 +45,7 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {90, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {90, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tRv, k = 1, y_start = UInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tRv, y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k1 = 1, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {330, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,7 +75,7 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {457, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1 annotation(
     Placement(visible = true, transformation(origin = {457, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = Tiq, k = 1, UseFreeze = true, UseRateLim = false, Y0 = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = Tiq, UseFreeze = true, UseRateLim = false, Y0 = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {124, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

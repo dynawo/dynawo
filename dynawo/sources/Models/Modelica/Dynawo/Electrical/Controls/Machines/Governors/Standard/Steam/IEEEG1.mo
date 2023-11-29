@@ -59,11 +59,11 @@ model IEEEG1 "Steam turbine governor"
     Placement(visible = true, transformation(origin = {-310, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-280, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t4, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PBoilerPu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t4, y_start = PBoilerPu) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t5, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PBoilerPu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t5, y_start = PBoilerPu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = t6, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PBoilerPu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = t6, y_start = PBoilerPu) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = 1 / t3) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -71,7 +71,7 @@ model IEEEG1 "Steam turbine governor"
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = DerPMaxPu, uMin = DerPMinPu) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, initType = Modelica.Blocks.Types.Init.InitialState, y_start = PBoilerPu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, y_start = PBoilerPu) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t1, 1}, b = {t2, 1}) annotation(
     Placement(visible = true, transformation(origin = {-230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

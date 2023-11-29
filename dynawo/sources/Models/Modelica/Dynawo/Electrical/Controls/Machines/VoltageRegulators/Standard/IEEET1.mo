@@ -51,7 +51,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
 
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(Asq = EfdThresholdPu, Bsq = Bsq, Sq = Sq, UHigh = EfdHighPu, ULow = EfdLowPu, YHigh = EfdSatHighPu, YLow = EfdSatLowPu) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, T = tR, y_start = UStator0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, tFilter = tA, Y0 = EfdRaw0Pu, YMax = EfdRawMaxPu, YMin = EfdRawMinPu) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -63,7 +63,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tE, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tF, k = Kf, x_start = Efd0Pu) annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(k = Kf, T = tF, x_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";

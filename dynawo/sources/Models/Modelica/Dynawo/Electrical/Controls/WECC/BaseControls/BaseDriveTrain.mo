@@ -49,11 +49,11 @@ partial model BaseDriveTrain
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dPhi(k = 1, y(start = PInj0Pu / Kshaft), y_start = PInj0Pu / Kshaft) annotation(
+  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu / Kshaft) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1 / (2 * Ht), y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1 / (2 * Ht)) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1 / (2 * Hg), y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1 / (2 * Hg)) annotation(
     Placement(visible = true, transformation(origin = {-30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add OmegaDiff(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

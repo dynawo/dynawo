@@ -46,7 +46,7 @@ model Regulation "Variable susceptance calculation"
     Placement(visible = true, transformation(origin = {140, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add3(k1 = Kp, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {68, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / Ti, y_start = BVar0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / Ti, y_start = BVar0Pu) annotation(
     Placement(visible = true, transformation(origin = {24, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add4 annotation(
     Placement(visible = true, transformation(origin = {-14, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

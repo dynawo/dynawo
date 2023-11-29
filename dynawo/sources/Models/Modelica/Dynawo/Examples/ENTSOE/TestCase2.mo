@@ -92,12 +92,13 @@ model TestCase2 "Active power variation on the load"
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.0090862 ) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
-    Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = 1.0090862) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu);
+  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu) annotation(
+    Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
@@ -115,29 +116,31 @@ equation
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
+
   connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu);
-  connect(governor.PmRefPu, PmRefPu.y);
+  connect(PmRefPu.y, governor.PmRefPu) annotation(
+    Line(points = {{120, -20}, {70, -20}, {70, -40}, {78, -40}}, color = {0, 0, 127}));
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -46}, {79, -46}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{102, -30}, {110, -30}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{101, -40}, {110, -40}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(const.y, avr.UpssPu) annotation(
     Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(const1.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {50, 60}, {50, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
+    Line(points = {{141, 18}, {152, 18}, {152, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 15, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-    Documentation(info = "<html><head></head><body><span style=\"left: 118.2px; top: 922.29px; font-family: sans-serif;\">The purpose of the second test case is to compare the dynamic behaviour</span><span style=\"left: 730px; top: 922.29px; font-family: sans-serif;\">r of the model for </span><span style=\"left: 118.2px; top: 946.688px; font-family: sans-serif;\">the synchronous generator and its governor</span><span style=\"left: 489.199px; top: 946.688px; font-family: sans-serif;\"> by </span><span style=\"left: 524.803px; top: 946.688px; font-family: sans-serif;\">analy</span><span style=\"left: 568.411px; top: 946.688px; font-family: sans-serif;\">sing</span><span style=\"left: 602.212px; top: 946.688px; font-family: sans-serif;\"> the terminal voltage</span><span style=\"left: 835.4px; top: 946.69px; font-family: sans-serif;\">, the </span><span style=\"left: 118.205px; top: 975.688px; font-family: sans-serif;\">active and mechanical power of the </span><span style=\"left: 414.206px; top: 975.688px; font-family: sans-serif;\">synchronous machine</span><span style=\"left: 712.4px; top: 975.69px; font-family: sans-serif;\">, the reactive power </span><span style=\"left: 118.209px; top: 1004.69px; font-family: sans-serif;\">of the synchronous machine</span><span style=\"left: 383.4px; top: 1004.69px; font-family: sans-serif;\">&nbsp;and </span><span style=\"left: 426.806px; top: 1004.69px; font-family: sans-serif;\">the </span><span style=\"left: 458.803px; top: 1004.69px; font-family: sans-serif;\">speed</span><span style=\"left: 540.4px; top: 1004.69px; font-family: sans-serif;\">.</span><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"font-family: sans-serif; left: 118.2px; top: 187.49px;\">At the event</span><span style=\"font-family: sans-serif; left: 216.198px; top: 187.49px;\">-time the active power demand of the additional constant impedance </span><span style=\"font-family: sans-serif; left: 776.202px; top: 187.49px;\">is increased </span><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\">by </font><font face=\"serif\">0.05 pu</font><font face=\"sans-serif\">.</font></span></span></div><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\"><br></font></span></span></div><div><span style=\"left: 540.4px; top: 1004.69px;\"><span style=\"left: 118.2px; top: 211.888px;\"><font face=\"sans-serif\">The results obtained perfectly match the ones presented in the ENTSO-E report.</font></span></span></div>
+    Documentation(info = "<html><head></head><body>The purpose of the second test case is to compare the dynamic behaviour of the model for the synchronous generator and its governor by analysing the terminal voltage, the active and mechanical power of the synchronous machine, the reactive power of the synchronous machine and the speed.<div><br></div>At the event time the active power demand of the additional constant impedance is increased by 0.05 pu.<div><br></div>The results obtained perfectly match the ones presented in the ENTSO-E report.
 
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/UPuTestCase2.png\">
