@@ -10,10 +10,16 @@
 # of simulation tools for power systems.
 
 
-def ticket(num_ticket):
+def ticket(ticket_number):
+    """
+    Decorator to assign a ticket number to update() function
+
+    Parameter:
+        ticket_number (int): ticket number
+    """
     def decorator(func):
-        def wrapper(jobs):
+        def update_function(jobs):
             return func(jobs)
-        wrapper.ticket_number = str(num_ticket)
-        return wrapper
+        update_function.ticket_number = str(ticket_number)
+        return update_function
     return decorator

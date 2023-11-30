@@ -40,14 +40,26 @@ class Jobs:
         attribute used to interact with Dyd files related to contained jobs
     __par_files_collection : dict[str, Par]
         collection of parsed Par files
-    __update_modules_list : list[str]
+    __curves_collection : dict[str, lxml.etree._ElementTree]
+        collection of curves trees
+    __final_state_values_collection : dict[str, lxml.etree._ElementTree]
+        collection of final state values trees
+    __update_modules_filepath_list : list[str]
         list of update modules to call to update XML files
-    __dynawo_version : tuple[int, int, int]
-        dynawo version to update
     __dynawo_origin : tuple[int, int, int]
         dynawo origin version (starting point of the update)
+    __dynawo_version : tuple[int, int, int]
+        dynawo version to update
+    __main_update_file_path : str
+        path of the script launching all update scripts
     __outputs_path : str
         path of the folder containing the output XML files
+    __script_folders : list[str]
+        contains --scriptfolders option value : folders containing update scripts
+    __selected_tickets_to_update : list[str]
+        contains --tickets option value : selected tickets to update
+    __does_print_logs : bool
+        contains --log option value. If true, print applied tickets numbers in a log file.
     __does_update_nrt : bool
         if True, generate output files without gathering them in an output folder. The aim of this feature is to
         update Dynawo nrt input files.
@@ -216,10 +228,18 @@ class Jobs:
         self.__main_update_file_path = os.path.abspath(call_stack[-3].filename)
         all_files_in_all_scripts_dirs = self.__get_all_files_in_all_scripts_dirs()
         sorted_update_modules_filepath_list = self.__get_update_modules_filepath_list(all_files_in_all_scripts_dirs)
-        self.__check_if_input_tickets_exist(sorted_update_modules_filepath_list)
-
+        if self.__selected_tickets_to_update:
+            self.__update_modules_filepath_list = self.__filter_update_modules(sorted_update_modules_filepath_list)
+        else:
+            self.__update_modules_filepath_list = sorted_update_modules_filepath_list
 
     def __get_all_files_in_all_scripts_dirs(self):
+        """
+        Get in a list all files in selected directories without checking if files are update scripts or not
+
+        Returns:
+            all_files_in_all_scripts_dirs (list[str]) : list of all files in selected directories
+        """
         if self.__script_folders is None:
             update_scripts_dir_path = os.path.dirname(self.__main_update_file_path)
             files_in_script_dir = os.listdir(update_scripts_dir_path)
@@ -235,6 +255,16 @@ class Jobs:
         return all_files_in_all_scripts_dirs
 
     def __get_update_modules_filepath_list(self, all_files_in_all_scripts_dirs):
+        """
+        Get in a list all update scripts and order them according to the sequence they will be called
+
+        Parameter:
+            all_files_in_all_scripts_dirs (list[str]): list of all files in selected directories without checking if
+                                                        they are update scripts or not
+
+        Returns:
+            sorted_update_modules_list (list[str]) : list of all update scripts in the order of call
+        """
         unsorted_update_modules_list = list()
         invalid_update_files = list()
         main_update_filename = os.path.basename(self.__main_update_file_path)
@@ -265,8 +295,17 @@ class Jobs:
         sorted_update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
         return sorted_update_modules_list
 
-    def __check_if_input_tickets_exist(self, sorted_update_modules_filepath_list):
-        self.__update_modules_filepath_list = list()
+    def __filter_update_modules(self, sorted_update_modules_filepath_list):
+        """
+        Check if tickets given with --tickets option exist.
+
+        Parameter:
+            sorted_update_modules_filepath_list (list[str]): list of all update scripts in the order of call
+
+        Returns:
+            filtered_update_modules_filepath_list (list[str]): filtered list of update scripts
+        """
+        filtered_update_modules_filepath_list = list()
         all_tickets_list = list()
 
         for update_module_path in sorted_update_modules_filepath_list:
@@ -275,23 +314,23 @@ class Jobs:
             update_module = imp.load_source(update_module_filename_without_extension, update_module_path)
             if hasattr(update_module.update, 'ticket_number'):
                 all_tickets_list.append(update_module.update.ticket_number)
-            if self.__selected_tickets_to_update:
-                if not hasattr(update_module.update, 'ticket_number'):
-                    continue
-                if update_module.update.ticket_number not in self.__selected_tickets_to_update:
-                    continue
-            self.__update_modules_filepath_list.append(update_module_path)
+            if not hasattr(update_module.update, 'ticket_number'):
+                continue
+            if update_module.update.ticket_number not in self.__selected_tickets_to_update:
+                continue
+            filtered_update_modules_filepath_list.append(update_module_path)
 
         invalid_tickets = set()
-        if self.__selected_tickets_to_update:
-            for selected_ticket_to_update in self.__selected_tickets_to_update:
-                if selected_ticket_to_update not in all_tickets_list:
-                    invalid_tickets.add(selected_ticket_to_update)
+        for selected_ticket_to_update in self.__selected_tickets_to_update:
+            if selected_ticket_to_update not in all_tickets_list:
+                invalid_tickets.add(selected_ticket_to_update)
         if len(invalid_tickets) != 0:
             print("Error : following tickets do not exist :")
             for invalid_ticket in invalid_tickets:
                 print("ticket number " + invalid_ticket)
             sys.exit(1)
+
+        return filtered_update_modules_filepath_list
 
     def __generate_configuration_files(self, outputs_dir_path):
         """
