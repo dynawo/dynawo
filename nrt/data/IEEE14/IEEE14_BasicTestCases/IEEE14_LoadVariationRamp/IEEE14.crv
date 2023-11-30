@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!--Curves for scenario-->
+  <curve model="NETWORK" variable="_BUS____1_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____2_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____3_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____4_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____5_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____6_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____7_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____8_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____9_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___10_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___11_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___12_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___13_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___14_TN_Upu_value"/>
+  <curve model="GEN____1_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____1_SM" variable="generator_PGen"/>
+  <curve model="GEN____1_SM" variable="generator_QGen"/>
+  <curve model="GEN____1_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____1_SM" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN____2_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____2_SM" variable="generator_PGen"/>
+  <curve model="GEN____2_SM" variable="generator_QGen"/>
+  <curve model="GEN____2_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____2_SM" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN____3_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____3_SM" variable="generator_PGen"/>
+  <curve model="GEN____3_SM" variable="generator_QGen"/>
+  <curve model="GEN____3_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____3_SM" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN____6_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____6_SM" variable="generator_PGen"/>
+  <curve model="GEN____6_SM" variable="generator_QGen"/>
+  <curve model="GEN____6_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____6_SM" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN____8_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____8_SM" variable="generator_PGen"/>
+  <curve model="GEN____8_SM" variable="generator_QGen"/>
+  <curve model="GEN____8_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____8_SM" variable="voltageRegulator_EfdPu"/>
+  <curve model="_LOAD___2_EC" variable="load_PPu"/>
+  <curve model="_LOAD___2_EC" variable="load_QPu"/>
+  <curve model="PREFPU_LOAD2" variable="ramp_y"/>
+  <curve model="QREFPU_LOAD2" variable="ramp_y"/>
+</curvesInput>
