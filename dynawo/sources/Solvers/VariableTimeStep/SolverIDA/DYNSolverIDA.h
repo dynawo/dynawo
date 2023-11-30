@@ -108,7 +108,7 @@ class SolverIDA : public Solver::Impl {
   /**
    * @copydoc Solver::calculateIC()
    */
-  void calculateIC();
+  void calculateIC(double tEnd);
 
   /**
    * @brief print solver specific introduction information
@@ -130,6 +130,23 @@ class SolverIDA : public Solver::Impl {
    */
   inline bool flagInit() const {
     return flagInit_;
+  }
+
+  /**
+  * @brief print the latest step made by the solver (i.e. solution)
+  * @param initStep step for first time step
+  */
+  inline void setInitStep(double initStep) {
+    initStep_ = initStep;
+  }
+
+  /**
+  * @brief name of the solver
+  * @return name of the solver
+  */
+  inline std::string getName() {
+    static std::string name = "IDA";
+    return name;
   }
 
  private:

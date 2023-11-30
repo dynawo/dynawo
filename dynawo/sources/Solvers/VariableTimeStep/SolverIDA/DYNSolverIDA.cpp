@@ -350,14 +350,15 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
 }
 
 void
-SolverIDA::calculateIC() {
+SolverIDA::calculateIC(double tEnd) {
 #ifdef _DEBUG_
   vector<double> y0;
   y0.assign(vectorY_.begin(), vectorY_.end());
 
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+  Trace::debug(Trace::solver()) << DYNLog(SolverIDAStartCalculateIC) << Trace::endline;
   for (int i = 0; i < model_->sizeY(); ++i) {
-    Trace::debug() << "Y[" << std::setw(3) << i << "] = "
+    Trace::debug(Trace::solver()) << "Y[" << std::setw(3) << i << "] = "
                    << std::setw(15) << vectorY_[i]
                    << " Yp[" << std::setw(2) << i << "] = "
                    << std::setw(15) << vectorYp_[i]
@@ -393,7 +394,7 @@ SolverIDA::calculateIC() {
   solverKINNormal_->setCheckJacobian(true);
 #endif
   do {
-    // call to solver KIN in order to find the new (adequate) algebraic variables's values
+    // call to solver KIN in order to find the new (adequate) algebraic variables' values
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
@@ -404,14 +405,14 @@ SolverIDA::calculateIC() {
     if (flag0 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 #ifdef _DEBUG_
-    Trace::debug() << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
+    Trace::debug(Trace::solver()) << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
     for (int i = 0; i < model_->sizeY(); ++i) {
-      Trace::debug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vectorY_[i] << " Yp[" << std::setw(3) << i << "] = "
+      Trace::debug(Trace::solver()) << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vectorY_[i] << " Yp[" << std::setw(3) << i << "] = "
       << std::setw(15) << vectorYp_[i] << " diffY[" << std::setw(3) << i << "] = " << vectorY_[i] - ySave[i] << Trace::endline;
     }
 #endif
     flagInit_ = true;
-    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, 10.);
+    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, startFromDump() ? initStep_ : tEnd);
     analyseFlag(flag);
 
     // gathering of values computed by IDACalcIC
@@ -419,18 +420,18 @@ SolverIDA::calculateIC() {
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetConsistentIC");
 #ifdef _DEBUG_
-    Trace::debug() << DYNLog(SolverIDAAfterInit) << Trace::endline;
+    Trace::debug(Trace::solver()) << DYNLog(SolverIDAAfterInit) << Trace::endline;
     double maxDiff = 0;
     int indice = -1;
     for (int i = 0; i < model_->sizeY(); ++i) {
-      Trace::debug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vectorY_[i] << " Yp[" << std::setw(3) << i << "] = "
+      Trace::debug(Trace::solver()) << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vectorY_[i] << " Yp[" << std::setw(3) << i << "] = "
       << std::setw(15) << vectorYp_[i] << " diff =" << std::setw(15) << y0[i] - vectorY_[i] << Trace::endline;
       if (std::abs(y0[i] - vectorY_[i]) > maxDiff) {
         maxDiff = std::abs(y0[i] - vectorY_[i]);
         indice = i;
       }
     }
-    Trace::debug() << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
+    Trace::debug(Trace::solver()) << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
 #endif
     // Root stabilization
     change = false;
@@ -666,16 +667,17 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
 
   double* weights = NV_DATA_S(nvWeights);
   double* errors = NV_DATA_S(nvErrors);
+  std::vector<double> weightedErrors(nbY);
 
   for (int i = 0; i < nbY; ++i)
-    errors[i] = fabs(weights[i] * errors[i]);
+    weightedErrors[i] = fabs(weights[i] * errors[i]);
 
   // Filling and sorting the vector
   vector<std::pair<double, int> > yErr;
   for (int i = 0; i < nbY; ++i) {
     // Tolerances (RTOL and ATOL) are 1e-04 by default so weights are around 1e4 therefore 1 is a relatively small value
-    if (errors[i] > thresholdErr) {
-      yErr.push_back(std::pair<double, int>(errors[i], i));
+    if (weightedErrors[i] > thresholdErr) {
+      yErr.push_back(std::pair<double, int>(weightedErrors[i], i));
     }
   }
   std::sort(yErr.begin(), yErr.end(), mapcompabs());

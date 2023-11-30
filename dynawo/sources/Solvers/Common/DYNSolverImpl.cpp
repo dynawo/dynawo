@@ -87,7 +87,8 @@ enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
-tSolve_(0.) {
+tSolve_(0.),
+startFromDump_(false) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }

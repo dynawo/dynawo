@@ -379,7 +379,7 @@ ModelManager::evalG(const double t) {
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);
-  delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings);
+  delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings, t);
 }
 
 void
@@ -421,11 +421,7 @@ ModelManager::evalZ(const double t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double t) {
-  modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_MODE : NO_MODE;
-  if (delayManager_.isTriggered()) {
-    // reset trigger if delay mode is detected to prevent detection next time for the same reasons
-    delayManager_.notifyEndTrigger();
-  }
+  modeChangeType_t delay_mode = delayManager_.evalMode(t);
 
   return std::max(delay_mode, modelModelica()->evalMode(t));
 }
@@ -834,9 +830,12 @@ ModelManager::loadParameters(const string& parameters) {
 
   std::vector<std::string> delay_def(parameterStringValues.begin() + static_cast<unsigned>(modelData()->nParametersString), parameterStringValues.end());
 
-  if (!delayManager_.loadDelays(delay_def)) {
+  if (!delayManager_.loadDelays(delay_def, getCurrentTime())) {
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
   }
+
+  // To activate all delays
+  delayManager_.evalMode(getCurrentTime());
 
   // copy of loaded parameters in the map
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
@@ -1435,21 +1434,17 @@ ModelManager::computeDelay(int exprNumber, double exprValue, double time, double
     return exprValue;
   }
 
-  if (time < delayTime || doubleEquals(time, delayTime)) {
-    // requested time is allowed but the simulation has not run for enought time to compute the delayed value:
-    // use the initial value to avoid artefacts
-    const boost::optional<double>& initialValue = delayManager_.getInitialValue(exprNumber);
-#if _DEBUG_
-    // shouldn't happen by construction
-    assert(initialValue.is_initialized());
-#endif
+  const Delay& delay = delayManager_.getDelayById(exprNumber);
+  delayManager_.setDelayTime(exprNumber, delayTime);
+
+  if (!delay.isTriggered()) {
+    const boost::optional<double> &initialValue = delayManager_.getInitialValue(exprNumber);
     return *initialValue;
-  } else if (!doubleIsZero(delayTime)) {
-    // delayTime == 0 corresponds to initialization
-    delayManager_.triggerDelay(exprNumber);
   }
 
-  return delayManager_.getDelay(exprNumber, delayTime);
+  double value = delayManager_.getDelay(exprNumber, delayTime);
+
+  return value;
 }
 
 }  // namespace DYN

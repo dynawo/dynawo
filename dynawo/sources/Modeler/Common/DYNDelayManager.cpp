@@ -29,7 +29,7 @@
 
 namespace DYN {
 
-DelayManager::DelayManager() : delays_(), triggered_(false) {}
+DelayManager::DelayManager() : delays_() {}
 
 void
 DelayManager::addDelay(size_t id, const double* time, const double* value, double delayMax) {
@@ -76,8 +76,9 @@ DelayManager::dumpDelays() const {
     it->second.points(values);
 
     ss << it->first << ":";
+    ss << it->second.getDelayMax() << ":";
     for (std::vector<std::pair<double, double> >::const_iterator itvec = values.begin(); itvec != values.end(); ++itvec) {
-      ss << itvec->first << "," << itvec->second << ";";
+      ss << DYN::double2String(itvec->first) << "," << DYN::double2String(itvec->second) << ";";
     }
     ret.push_back(ss.str());
   }
@@ -86,12 +87,18 @@ DelayManager::dumpDelays() const {
 }
 
 bool
-DelayManager::loadDelays(const std::vector<std::string>& values) {
+DelayManager::loadDelays(const std::vector<std::string>& values, double restartTime) {
   for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it) {
     std::istringstream is(*it);
     size_t id;
     is >> id;
     char c;
+    is >> c;
+    if (c != ':') {
+      return false;
+    }
+    double delayMax;
+    is >> delayMax;
     is >> c;
     if (c != ':') {
       return false;
@@ -106,8 +113,25 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
 
       if (!last_time) {
         last_time = value;
-      } else if (doubleEquals(time, *last_time) || *last_time > time) {
-        // last_time >= time : error
+      } else if (doubleEquals(time, *last_time)) {
+        // if with IDA we dump two times with the same time step we skip one
+        last_time = time;
+
+        is >> c;
+        if (is.fail()) {
+          return false;
+        }
+        if (c != ',') {
+          return false;
+        }
+        is >> value;
+        is >> c;
+        if (c != ';') {
+          return false;
+        }
+        continue;
+      } else if (*last_time > time) {
+        // last_time > time : error
         return false;
       }
       last_time = time;
@@ -129,7 +153,7 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
       }
     }
 
-    Delay new_delay(items);
+    Delay new_delay(items, delayMax, restartTime);
     delays_.insert(std::make_pair(id, new_delay));
   }
 
@@ -137,29 +161,32 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
 }
 
 void
-DelayManager::setGomc(state_g* const p_glocal, size_t offset) {
+DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time) {
   size_t index = offset;
 
   boost::unordered_map<size_t, Delay>::iterator it;
-  triggered_ = false;
   for (it = delays_.begin(); it != delays_.end(); ++it, ++index) {
-    if (it->second.IsTriggered()) {
+    double delayTime = it->second.getDelayTime();
+    if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
       p_glocal[index] = ROOT_UP;
-      triggered_ = true;
     } else {
       p_glocal[index] = ROOT_DOWN;
     }
   }
 }
 
-void
-DelayManager::notifyEndTrigger() {
+modeChangeType_t
+DelayManager::evalMode(const double time) {
   boost::unordered_map<size_t, Delay>::iterator it;
+  modeChangeType_t delay_mode = NO_MODE;
   for (it = delays_.begin(); it != delays_.end(); ++it) {
-    if (it->second.IsTriggered()) {
-      it->second.resetTrigger();
+    double delayTime = it->second.getDelayTime();
+    if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
+      it->second.trigger();
+      delay_mode = ALGEBRAIC_J_UPDATE_MODE;
     }
   }
+  return delay_mode;
 }
 
 }  // namespace DYN

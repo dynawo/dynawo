@@ -813,8 +813,9 @@ Simulation::init() {
 
   if (Trace::logExists(Trace::modeler(), DEBUG))
     model_->printModel();
-  if (Trace::logExists(Trace::variables(), DEBUG))
+  if (Trace::logExists(Trace::variables(), DEBUG)) {
     model_->printVariableNames();
+  }
 
   if (Trace::logExists(Trace::equations(), DEBUG)) {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
@@ -918,7 +919,7 @@ Simulation::calculateIC() {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   // ensure globally satisfactory initial values for dynamic models
   solver_->init(model_, tStart_, tStop_);
-  solver_->calculateIC();
+  solver_->calculateIC(tStop_);
   model_->getCurrentZ(zCurrent_);
 
   model_->notifyTimeStep();
@@ -992,6 +993,7 @@ Simulation::simulate() {
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
+        model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
@@ -1455,6 +1457,8 @@ Simulation::dumpState(const boost::filesystem::path& dumpFile) {
   boost::archive::binary_oarchive os(state);
 
   os << tCurrent_;
+  os << solver_->getName();
+  os << solver_->getTimeStep();
 
   map<string, string> mapValues;  // map associating file name with parameters/variables to dump
   mapValues[TIME_FILENAME] = state.str();
@@ -1490,12 +1494,21 @@ Simulation::loadState(const string& fileName) {
   stringstream state(iter->second);
   boost::archive::binary_iarchive is(state);
 
-  double tCurrent = 0;
+  double tCurrent = 0.;
+  double timeStep = 0.;
+  std::string solverName;
   is >> tCurrent;
+  is >> solverName;
+  is >> timeStep;
   // loading information
   tCurrent_ = tCurrent;
 
   model_->setInitialTime(tCurrent_);
+  if (solver_->getName() == solverName) {
+    solver_->setInitStep(timeStep);
+  }
+
+  solver_->setStartFromDump(true);
 
   // loading parameters/model variables
   model_->loadParameters(mapValues);

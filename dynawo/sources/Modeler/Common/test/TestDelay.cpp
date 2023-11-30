@@ -96,13 +96,9 @@ TEST(CommonTest, testDelayClass) {
   ASSERT_EQ(vec[4].first, 5.);
   ASSERT_EQ(vec[4].second, 5.5);
 
-  ASSERT_FALSE(delay.IsTriggered());
+  ASSERT_FALSE(delay.isTriggered());
   delay.trigger();
-  ASSERT_TRUE(delay.IsTriggered());
-  delay.resetTrigger();
-  ASSERT_FALSE(delay.IsTriggered());
-  delay.trigger();  // trigger has not effect
-  ASSERT_FALSE(delay.IsTriggered());
+  ASSERT_TRUE(delay.isTriggered());
 }
 
 TEST(CommonTest, testDelayClassParameters) {
@@ -113,7 +109,7 @@ TEST(CommonTest, testDelayClassParameters) {
   values.push_back(std::make_pair(4., 4.4));
   values.push_back(std::make_pair(5., 5.5));
 
-  DYN::Delay delay(values);
+  DYN::Delay delay(values, 0., 5.);
 
   std::vector<std::pair<double, double> > vec;
   delay.points(vec);
@@ -268,21 +264,40 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
 
   std::vector<DYN::state_g> states(3, DYN::NO_ROOT);
 
-  ASSERT_FALSE(manager.isTriggered());
   ASSERT_ANY_THROW(manager.triggerDelay(id_none));
 
-  manager.triggerDelay(id);
-  manager.setGomc(&states[0], 1);
+  time = 2.;  // time between the two max delays
+  manager.setGomc(&states[0], 1, time - 0.6);
+  ASSERT_EQ(DYN::NO_ROOT, states[0]);
+  ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
+  manager.setGomc(&states[0], 1, time + 0.1);
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
-  ASSERT_TRUE(manager.isTriggered());
+  manager.setGomc(&states[0], 1, time);
+  ASSERT_EQ(DYN::NO_ROOT, states[0]);
+  ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
+  ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
+  DYN::modeChangeType_t delay_mode = manager.evalMode(time);
+  ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
 
-  manager.notifyEndTrigger();
-  manager.setGomc(&states[0], 1);  // always called before checking trigger
-  ASSERT_FALSE(manager.isTriggered());
+  manager.setGomc(&states[0], 1, time);  // always called before checking trigger
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
+
+  manager.setGomc(&states[0], 1, time + 0.1);  // always called before checking trigger
+  ASSERT_EQ(DYN::NO_ROOT, states[0]);
+  ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
+  delay_mode = manager.evalMode(time + 0.1);
+  ASSERT_EQ(delay_mode, DYN::NO_MODE);
+
+  time = 3.1;  // time after the two delays
+  manager.setGomc(&states[0], 1, time);
+  ASSERT_EQ(DYN::NO_ROOT, states[0]);
+  ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
+  ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
+  delay_mode = manager.evalMode(time);
+  ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
 }
 
 static bool
@@ -297,17 +312,33 @@ compare(const std::vector<std::string>& lhs, const std::vector<std::string>& rhs
 }
 
 TEST(CommonTest, testDelayManagerClassParameters) {
-  std::string formatted1 = "10:1,1.1;2,2.2;3,3.3;4,4.4;5,5.5;";
-  std::string formatted2 = "20:1,1.1;2,2.2;3,3.3;4,4.4;5,5.5;";
+  std::string formatted1 = "10:1.5:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted2 = "20:3:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
   std::vector<std::string> format;
   format.push_back(formatted1);
   format.push_back(formatted2);
 
   DYN::DelayManager manager;
 
-  bool ok = manager.loadDelays(format);
+  bool ok = manager.loadDelays(format, 5.5);
   ASSERT_TRUE(ok);
 
   std::vector<std::string> formatted = manager.dumpDelays();
   ASSERT_TRUE(compare(formatted, format));
+
+  std::string formatted3 = "10:1.5:1.000000,1.100000;1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::vector<std::string> format2;
+  format2.push_back(formatted3);
+
+  DYN::DelayManager manager2;
+  ok = manager2.loadDelays(format2, 5.5);
+  ASSERT_TRUE(ok);
+
+  std::string formatted4 = "10:1.5:1.100000,1.100000;1.000000,1.100000;";
+  std::vector<std::string> format3;
+  format3.push_back(formatted4);
+
+  DYN::DelayManager manager3;
+  ok = manager3.loadDelays(format3, 1.1);
+  ASSERT_FALSE(ok);
 }

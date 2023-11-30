@@ -74,7 +74,7 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   /**
    * @copydoc Solver::calculateIC()
    */
-  void calculateIC();
+  void calculateIC(double tEnd);
 
   /**
   * @brief SIM version of computePrediction. We just fill
@@ -86,6 +86,15 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   * @copydoc Solver::computeYP()
   */
   void computeYP(const double* yy);
+
+  /**
+  * @brief name of the solver
+  * @return name of the solver
+  */
+  inline std::string getName() {
+    static std::string name = "SIM";
+    return name;
+  }
 
  private:
   /**

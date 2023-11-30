@@ -3,7 +3,7 @@ load_PRefPu                                       : y =       0.046000 yp =     
 load_QRefPu                                       : y =       0.023000 yp =       0.000000
 load_deltaP                                       : y =       0.000000 yp =       0.000000
 load_deltaQ                                       : y =       0.000000 yp =       0.000000
-load_terminal_V_im                                : y =      -0.181292 yp =       0.000000
+load_terminal_V_im                                : y =      -0.181291 yp =       0.000000
 load_terminal_V_re                                : y =       0.980026 yp =       0.000000
 load_PPu                                          : y =       0.046019 yp =       0.000000
 load_QPu                                          : y =       0.023016 yp =       0.000000

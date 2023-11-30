@@ -23,12 +23,26 @@
 #include "DYNCommon.h"
 
 namespace DYN {
-Delay::Delay(const double* time, const double* value, double delayMax) : time_(time), value_(value), buffer_(delayMax), initialValue_(), trigger_() {}
+Delay::Delay(const double* time, const double* value, double delayMax) :
+time_(time),
+value_(value),
+delayTime_(delayMax),
+delayMax_(delayMax),
+buffer_(delayMax),
+initialValue_(),
+delayActivated_(false) {}
 
-Delay::Delay(const std::vector<std::pair<double, double> >& timepoints) : time_(NULL), value_(NULL), buffer_(0), initialValue_(), trigger_() {
+Delay::Delay(const std::vector<std::pair<double, double> >& timepoints, double delayMax, double initialTime) :
+time_(NULL),
+value_(NULL),
+delayTime_(delayMax),
+delayMax_(delayMax),
+buffer_(delayMax),
+delayActivated_(false) {
   for (std::vector<std::pair<double, double> >::const_iterator it = timepoints.begin(); it != timepoints.end(); ++it) {
     buffer_.addNoCheck(it->first, it->second);
   }
+  initialValue_ = buffer_.get(initialTime, delayMax);
 }
 
 void

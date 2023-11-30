@@ -173,7 +173,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::calculateIC()
    */
-  virtual void calculateIC() = 0;
+  virtual void calculateIC(double tEnd) = 0;
 
   /**
    * @copydoc Solver::solve(double tAim, double &tNxt)
@@ -299,6 +299,24 @@ class Solver::Impl : public Solver, private boost::noncopyable {
     return g1_;
   }
 
+  /**
+  * @brief set start from dump
+  *
+  * @param startFromDump is starting from dump
+  */
+  void setStartFromDump(bool startFromDump) {
+    startFromDump_ = startFromDump;
+  }
+
+  /**
+  * @brief is solver starting from dump
+  *
+  * @return is solver starting from dump
+  */
+  virtual bool startFromDump() const {
+    return startFromDump_;
+  }
+
  protected:
   /**
    * @brief Integrate the DAE over an interval in t
@@ -365,6 +383,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
+
+  bool startFromDump_;  ///< is solver starting from dump
 };
 
 }  // end of namespace DYN
