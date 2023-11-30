@@ -54,7 +54,3 @@ class TestDyd(unittest.TestCase):
         self.assertTrue(filecmp.cmp(output_dyd_file_1_path, ref_dyd_file_1_path))
         self.assertTrue(filecmp.cmp(output_dyd_file_2_path, ref_dyd_file_2_path))
         self.assertTrue(filecmp.cmp(output_par_file_path, ref_par_file_path))
-
-
-if __name__ == '__main__':
-    unittest.main()
