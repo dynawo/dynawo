@@ -94,7 +94,7 @@ class DydData:
             func (function): function to match blackBoxModels
 
         Returns:
-            List of blackBoxModels matching the input function 'func'
+            selected_bbms (list[BlackBoxModel]): List of blackBoxModels matching the input function 'func'
         """
         selected_bbms = list()
         for model in self.__bbms:
@@ -112,7 +112,7 @@ class DydData:
             func (function): function to match modelicaModels
 
         Returns:
-            List of modelicaModels matching the input function 'func'
+            selected_modelica_models (list[ModelicaModel]): List of modelicaModels matching the input function 'func'
         """
         selected_modelica_models = list()
         for model in self.__modelica_models:
@@ -137,7 +137,7 @@ class DydData:
             func (function): function to match modelTemplateExpansions
 
         Returns:
-            List of modelTemplateExpansions matching the input function 'func'
+            selected_model_template_expansions (list[ModelTemplateExpansion]): List of modelTemplateExpansions matching                                                               the input function 'func'
         """
         selected_model_template_expansions = list()
         for model_template_expansion in self.__model_template_expansions:
