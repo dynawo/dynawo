@@ -110,7 +110,7 @@ class Jobs:
         self.__selected_tickets_to_update = None
         if options.tickets_to_update:
             self.__selected_tickets_to_update = options.tickets_to_update.split(',')
-            duplicate_tickets = [k for k,v in Counter(self.__selected_tickets_to_update).items() if v>1]
+            duplicate_tickets = [k for k, v in Counter(self.__selected_tickets_to_update).items() if v > 1]
             if len(duplicate_tickets) != 0:
                 print("Error : input tickets contain duplicates :")
                 for duplicate_ticket in duplicate_tickets:

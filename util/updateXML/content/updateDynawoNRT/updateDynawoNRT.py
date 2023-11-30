@@ -49,7 +49,7 @@ def main():
     python_cmd = os.environ["DYNAWO_PYTHON_COMMAND"]
     for case_dir in os.listdir(data_dir):
         case_path = os.path.join(data_dir, case_dir)
-        if os.path.isdir(case_path) == True:
+        if os.path.isdir(case_path) is True:
             sys.path.append(case_path)
             try:
                 import cases
