@@ -27,47 +27,57 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventQuadripoleConnection.xml
   EventQuadripoleDisconnection.xml
   EventSetPointBoolean.xml
-  EventSetPointReal.xml
   EventSetPointDouble.xml
   EventSetPointDoubleReal.xml
+  EventSetPointReal.xml
   GeneratorFictitious.xml
   GeneratorPQ.xml
-  GeneratorPQPropSignalN.xml
-  GeneratorPQPropSignalNSFR.xml
   GeneratorPQPropDiagramPQSignalN.xml
   GeneratorPQPropDiagramPQSignalNSFR.xml
+  GeneratorPQPropSignalN.xml
+  GeneratorPQPropSignalNSFR.xml
   GeneratorPV.xml
-  GeneratorPVFixed.xml
   GeneratorPVDiagramPQ.xml
-  GeneratorPVSignalN.xml
-  GeneratorPVRpclSignalN.xml
-  GeneratorPVRpcl2SignalN.xml
-  GeneratorPVSignalNSFR.xml
-  GeneratorPVTfoSignalN.xml
-  GeneratorPVTfoDiagramPQSignalN.xml
-  GeneratorPVTfoRpclSignalN.xml
-  GeneratorPVTfoRpcl2SignalN.xml
-  GeneratorPVTfoDiagramPQRpclSignalN.xml
-  GeneratorPVTfoDiagramPQRpcl2SignalN.xml
-  GeneratorPVDiagramPQSignalN.xml
-  GeneratorPVDiagramPQRpclSignalN.xml
   GeneratorPVDiagramPQRpcl2SignalN.xml
+  GeneratorPVDiagramPQRpclSignalN.xml
+  GeneratorPVDiagramPQSignalN.xml
   GeneratorPVDiagramPQSignalNSFR.xml
+  GeneratorPVFixed.xml
   GeneratorPVPropSignalN.xml
   GeneratorPVPropSignalNSFR.xml
-  GeneratorPVRemoteSignalN.xml
-  GeneratorPVRemoteSignalNSFR.xml
   GeneratorPVRemoteDiagramPQSignalN.xml
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
+  GeneratorPVRemoteSignalN.xml
+  GeneratorPVRemoteSignalNSFR.xml
+  GeneratorPVRpcl2SignalN.xml
+  GeneratorPVRpclSignalN.xml
+  GeneratorPVSignalN.xml
+  GeneratorPVSignalNSFR.xml
+  GeneratorPVTfoDiagramPQRpcl2SignalN.xml
+  GeneratorPVTfoDiagramPQRpclSignalN.xml
+  GeneratorPVTfoDiagramPQSignalN.xml
+  GeneratorPVTfoRpcl2SignalN.xml
+  GeneratorPVTfoRpclSignalN.xml
+  GeneratorPVTfoSignalN.xml
   GeneratorSynchronousFourWindings.xml
+  GeneratorSynchronousFourWindingsGastSt4b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
+  GeneratorSynchronousFourWindingsIeeeG1Ac1a.xml
+  GeneratorSynchronousFourWindingsIeeeG1IeeeX1.xml
+  GeneratorSynchronousFourWindingsIeeeG1IeeeX12.xml
+  GeneratorSynchronousFourWindingsPmConstIeeeX1.xml
+  GeneratorSynchronousFourWindingsPmConstIeeeX12.xml
+  GeneratorSynchronousFourWindingsPmConstSt4b.xml
   GeneratorSynchronousFourWindingsPmConstVRNordic.xml
   GeneratorSynchronousFourWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousFourWindingsProportionalRegulations.xml
+  GeneratorSynchronousFourWindingsTGov1IeeeX1.xml
+  GeneratorSynchronousFourWindingsTGov1Scrx1.xml
   GeneratorSynchronousFourWindingsTGov1Sexs.xml
-  GeneratorSynchronousFourWindingsTGov1SexsPss2A.xml
+  GeneratorSynchronousFourWindingsTGov1SexsPss2a.xml
+  GeneratorSynchronousFourWindingsTGov3IeeeX12.xml
   GeneratorSynchronousFourWindingsVRKundur.xml
   GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
   GeneratorSynchronousProportionalRegulationsInternalParameters.xml
@@ -75,57 +85,60 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
-  GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
-  GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
-  GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+  GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
   GeneratorSynchronousThreeWindingsHyGovScrx.xml
   GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
+  GeneratorSynchronousThreeWindingsHyGovScrx1.xml
   GeneratorSynchronousThreeWindingsIeeeG1IeeeT1.xml
   GeneratorSynchronousThreeWindingsIeeeG1IeeeT1Tfo.xml
   GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
   GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
+  GeneratorSynchronousThreeWindingsIeeeG2BbSex1.xml
   GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1a.xml
   GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1aTfo.xml
   GeneratorSynchronousThreeWindingsPmConstScrx.xml
   GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
+  GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
+  GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
+  GridFormingConverterDispatchableVirtualOscillatorControl.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
-  GridFormingConverterDispatchableVirtualOscillatorControl.xml
   HvdcPQProp.xml
-  HvdcPQPropEmulation.xml
-  HvdcPQPropEmulationSet.xml
-  HvdcPQPropEmulationVariableK.xml
+  HvdcPQPropDangling.xml
+  HvdcPQPropDanglingDiagramPQ.xml
   HvdcPQPropDiagramPQ.xml
   HvdcPQPropDiagramPQEmulation.xml
   HvdcPQPropDiagramPQEmulationSet.xml
   HvdcPQPropDiagramPQEmulationVariableK.xml
-  HvdcPQPropDangling.xml
-  HvdcPQPropDanglingDiagramPQ.xml
-  HvdcPV.xml
-  HvdcPVEmulation.xml
-  HvdcPVEmulationSet.xml
-  HvdcPVEmulationVariableK.xml
-  HvdcPVDiagramPQ.xml
-  HvdcPVDiagramPQEmulation.xml
-  HvdcPVDiagramPQEmulationSet.xml
-  HvdcPVDiagramPQEmulationVariableK.xml
-  HvdcPVDangling.xml
-  HvdcPVDanglingDiagramPQ.xml
-  HvdcPVRpcl2Side1.xml
-  HvdcPVEmulationRpcl2Side1.xml
-  HvdcPVEmulationSetRpcl2Side1.xml
-  HvdcPVEmulationVariableKRpcl2Side1.xml
-  HvdcPVDiagramPQRpcl2Side1.xml
-  HvdcPVDiagramPQEmulationRpcl2Side1.xml
-  HvdcPVDiagramPQEmulationSetRpcl2Side1.xml
-  HvdcPVDiagramPQEmulationVariableKRpcl2Side1.xml
-  HvdcPVDanglingRpcl2Side1.xml
-  HvdcPVDanglingDiagramPQRpcl2Side1.xml
+  HvdcPQPropEmulation.xml
+  HvdcPQPropEmulationSet.xml
+  HvdcPQPropEmulationVariableK.xml
   HvdcPTanPhi.xml
-  HvdcPTanPhiDiagramPQ.xml
   HvdcPTanPhiDangling.xml
   HvdcPTanPhiDanglingDiagramPQ.xml
+  HvdcPTanPhiDiagramPQ.xml
+  HvdcPV.xml
+  HvdcPVDangling.xml
+  HvdcPVDanglingDiagramPQ.xml
+  HvdcPVDanglingDiagramPQRpcl2Side1.xml
+  HvdcPVDanglingRpcl2Side1.xml
+  HvdcPVDiagramPQ.xml
+  HvdcPVDiagramPQEmulation.xml
+  HvdcPVDiagramPQEmulationRpcl2Side1.xml
+  HvdcPVDiagramPQEmulationSet.xml
+  HvdcPVDiagramPQEmulationSetRpcl2Side1.xml
+  HvdcPVDiagramPQEmulationVariableK.xml
+  HvdcPVDiagramPQEmulationVariableKRpcl2Side1.xml
+  HvdcPVDiagramPQRpcl2Side1.xml
+  HvdcPVEmulation.xml
+  HvdcPVEmulationRpcl2Side1.xml
+  HvdcPVEmulationSet.xml
+  HvdcPVEmulationSetRpcl2Side1.xml
+  HvdcPVEmulationVariableK.xml
+  HvdcPVEmulationVariableKRpcl2Side1.xml
+  HvdcPVRpcl2Side1.xml
   HvdcVsc.xml
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
@@ -140,11 +153,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
+  LVRT10Points.xml
+  LVRT4Points.xml
   Line.xml
   LoadAlphaBeta.xml
+  LoadAlphaBetaMotor.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
-  LoadAlphaBetaMotor.xml
   LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
@@ -153,34 +168,32 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   LossOfSynchronismProtection.xml
-  LVRT4Points.xml
-  LVRT10Points.xml
   Measurements.xml
   NodeFault.xml
+  PIAntiWindUpTable.xml
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
-  PIAntiWindUpTable.xml
-  ShuntBWithSections.xml
   SecondaryFrequencyRegulation.xml
   SecondaryVoltageControlSimp.xml
   SetPoint.xml
   ShuntB.xml
+  ShuntBWithSections.xml
   SignalN.xml
   SineWave.xml
   SpeedProtection.xml
   StaticVarCompensator.xml
   StaticVarCompensatorPV.xml
   StaticVarCompensatorPVModeHandling.xml
-  StaticVarCompensatorPVRemote.xml
-  StaticVarCompensatorPVRemoteModeHandling.xml
   StaticVarCompensatorPVProp.xml
   StaticVarCompensatorPVPropModeHandling.xml
   StaticVarCompensatorPVPropRemote.xml
   StaticVarCompensatorPVPropRemoteModeHandling.xml
+  StaticVarCompensatorPVRemote.xml
+  StaticVarCompensatorPVRemoteModeHandling.xml
   Step.xml
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
@@ -189,15 +202,15 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerBlockingAutomaton4.xml
   TapChangerBlockingAutomaton5.xml
   TransformerFixedRatio.xml
-  UFLS3Steps.xml
   UFLS10Steps.xml
+  UFLS3Steps.xml
   UnderVoltageAutomaton.xml
   VRRemote.xml
-  WeightedDifference.xml
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml
   WTG4AWeccCurrentSource.xml
   WTG4BWeccCurrentSource.xml
+  WeightedDifference.xml
   )
 
 # PYTHON scripts preassembled models

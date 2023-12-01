@@ -10,16 +10,28 @@
 
 # IEEE power system stabilizers models
 
+add_subdirectory(BaseClasses B)
+
 set(MODEL_FILES
-  package.mo
-  package.order
-  PSS2A.mo
-  PSS2A.extvar
-  PssIEEE2B.mo
-  PssIEEE2B.extvar
-  PssKundur.mo
-  PssKundur.extvar
-  )
+    package.mo
+    package.order
+    Pss1aOmega.mo
+    Pss1aOmega.extvar
+    Pss1aPGen.mo
+    Pss1aPGen.extvar
+    Pss2a.mo
+    Pss2a.extvar
+    Pss2b.mo
+    Pss2b.extvar
+    Pss2c.mo
+    Pss2c.extvar
+    Pss3b.mo
+    Pss3b.extvar
+    Pss6c.mo
+    Pss6c.extvar
+    PssKundur.mo
+    PssKundur.extvar
+    )
 
 #
 # Modelica models install

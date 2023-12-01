@@ -92,6 +92,8 @@
     <par type="DOUBLE" name="voltageRegulator_Thetap" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_tR" value="0.02"/>
     <par type="DOUBLE" name="voltageRegulator_UOel0Pu" value="10"/>
+    <par type="DOUBLE" name="voltageRegulator_VaMaxPu" value="99"/>
+    <par type="DOUBLE" name="voltageRegulator_VaMinPu" value="-99"/>
     <par type="DOUBLE" name="voltageRegulator_VbMaxPu" value="11.63"/>
     <par type="DOUBLE" name="voltageRegulator_VmMaxPu" value="99"/>
     <par type="DOUBLE" name="voltageRegulator_VmMinPu" value="-99"/>
@@ -103,6 +105,12 @@
     <par type="DOUBLE" name="pss_Ks1" value="12"/>
     <par type="DOUBLE" name="pss_Ks2" value="0.2"/>
     <par type="DOUBLE" name="pss_Ks3" value="1"/>
+    <par type="INT" name="pss_M" value="5"/>
+    <par type="INT" name="pss_N" value="1"/>
+    <par type="DOUBLE" name="pss_OmegaMaxPu" value="2"/>
+    <par type="DOUBLE" name="pss_OmegaMinPu" value="-2"/>
+    <par type="DOUBLE" name="pss_PGenMaxPu" value="2"/>
+    <par type="DOUBLE" name="pss_PGenMinPu" value="-2"/>
     <par type="DOUBLE" name="pss_SNom" value="500"/>
     <par type="DOUBLE" name="pss_t1" value="0.12"/>
     <par type="DOUBLE" name="pss_t2" value="0.02"/>
@@ -114,17 +122,12 @@
     <par type="DOUBLE" name="pss_t9" value="0.1"/>
     <par type="DOUBLE" name="pss_t10" value="0.01"/>
     <par type="DOUBLE" name="pss_t11" value="0.01"/>
-    <par type="DOUBLE" name="pss_tw1" value="2"/>
-    <par type="DOUBLE" name="pss_tw2" value="2"/>
-    <par type="DOUBLE" name="pss_tw3" value="2"/>
-    <par type="DOUBLE" name="pss_tw4" value="0.00001"/>
-    <par type="DOUBLE" name="pss_Vsi1MaxPu" value="2"/>
-    <par type="DOUBLE" name="pss_Vsi1MinPu" value="-2"/>
-    <par type="DOUBLE" name="pss_Vsi2MaxPu" value="2"/>
-    <par type="DOUBLE" name="pss_Vsi2MinPu" value="-2"/>
-    <par type="DOUBLE" name="pss_VstMaxPu" value="0.1"/>
-    <par type="DOUBLE" name="pss_VstMinPu" value="-0.1"/>
-    <par type="DOUBLE" name="pss_UPss0Pu" value="0"/>
+    <par type="DOUBLE" name="pss_tW1" value="2"/>
+    <par type="DOUBLE" name="pss_tW2" value="2"/>
+    <par type="DOUBLE" name="pss_tW3" value="2"/>
+    <par type="DOUBLE" name="pss_tW4" value="0.00001"/>
+    <par type="DOUBLE" name="pss_VPssMaxPu" value="0.1"/>
+    <par type="DOUBLE" name="pss_VPssMinPu" value="-0.1"/>
   </set>
   <!-- URef step -->
   <set id="URef">

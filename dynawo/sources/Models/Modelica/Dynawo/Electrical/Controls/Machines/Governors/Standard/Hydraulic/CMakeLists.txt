@@ -16,6 +16,8 @@ set(MODEL_FILES
   package.order
   HYGOV.mo
   HYGOV.extvar
+  HyGov1.mo
+  HyGov1.extvar
   )
 
 #

@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2A" parFile="TestCase1.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2a" parFile="TestCase1.par" parId="SynchronousGenerator"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="TestCase1.par" parId="OmegaRef"/>
   <dyn:blackBoxModel id="URef" lib="Step" parFile="TestCase1.par" parId="URef"/>
   <dyn:blackBoxModel id="Bus" lib="Bus"/>
