@@ -26,6 +26,7 @@ from optparse import OptionParser
 
 update_xml_dir = os.environ["DYNAWO_UPDATE_XML_DIR"]
 update_xml_script = os.path.join(update_xml_dir, "update.py")
+python_cmd = os.environ["DYNAWO_PYTHON_COMMAND"]
 
 
 def main():
@@ -33,6 +34,7 @@ def main():
     parser.add_option('--origin', dest="origin", help=u"dynawo origin version")
     parser.add_option('--version', dest="version", help=u"dynawo version")
     parser.add_option('--tickets', dest="tickets_to_update", help=u"selected tickets to update")
+    parser.add_option('--scriptfolders', dest="scriptfolders", help=u"folders containing update scripts")
     options, _ = parser.parse_args()
 
     if not options.origin or not options.version:
@@ -54,7 +56,6 @@ def main():
     update_message += " :"
     print(update_message)
     data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
-    python_cmd = os.environ["DYNAWO_PYTHON_COMMAND"]
     for case_dir in os.listdir(data_dir):
         case_path = os.path.join(data_dir, case_dir)
         if os.path.isdir(case_path) is True:
@@ -73,6 +74,8 @@ def main():
                                         "--update-nrt"]
                     if options.tickets_to_update:
                         cmd_to_execute.extend(["--tickets", options.tickets_to_update])
+                    if options.scriptfolders:
+                        cmd_to_execute.extend(["--scriptfolders", options.scriptfolders])
                     print("    Updating " + case_name)
                     subprocess.run(cmd_to_execute, check=True)
 

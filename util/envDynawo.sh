@@ -1887,6 +1887,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIFF_DIR/*.py sbin/nrt/nrt_diff
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
+  cp -r $DYNAWO_HOME/util/updateXML sbin/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
 
   rm -f lib/*.la
