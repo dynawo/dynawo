@@ -32,6 +32,7 @@ def main():
     parser = OptionParser()
     parser.add_option('--origin', dest="origin", help=u"dynawo origin version")
     parser.add_option('--version', dest="version", help=u"dynawo version")
+    parser.add_option('--tickets', dest="tickets_to_update", help=u"selected tickets to update")
     options, _ = parser.parse_args()
 
     if not options.origin or not options.version:
@@ -57,13 +58,16 @@ def main():
 
                 for case_name, _, job_file, _, _, _ in cases.test_cases:
                     job_dir = os.path.dirname(job_file)
+                    cmd_to_execute = [python_cmd, update_xml_script,
+                                        "--job", job_file,
+                                        "--origin", dynawo_origin_str,
+                                        "--version", dynawo_version_str,
+                                        "-o", job_dir,
+                                        "--update-nrt"]
+                    if options.tickets_to_update:
+                        cmd_to_execute.extend(["--tickets", options.tickets_to_update])
                     print("    Updating " + case_name)
-                    subprocess.run([python_cmd, update_xml_script,
-                                    "--job", job_file,
-                                    "--origin", dynawo_origin_str,
-                                    "--version", dynawo_version_str,
-                                    "-o", job_dir,
-                                    "--update-nrt"], check=True)
+                    subprocess.run(cmd_to_execute, check=True)
 
                 del sys.modules['cases']  # delete load module in order to load another module with the same name
             except:
