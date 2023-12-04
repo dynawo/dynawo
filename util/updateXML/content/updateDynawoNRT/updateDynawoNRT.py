@@ -45,7 +45,14 @@ def main():
     dynawo_origin_str = str(options.origin)
     dynawo_version_str = str(options.version)
 
-    print("Updating NRT from " + dynawo_origin_str + " to " + dynawo_version_str + " :")
+    update_message = "Updating NRT from " + dynawo_origin_str + " to " + dynawo_version_str
+    if options.tickets_to_update:
+        if len(options.tickets_to_update.split(',')) == 1:
+            update_message += " applying ticket " + options.tickets_to_update
+        else:
+            update_message += " applying tickets " + options.tickets_to_update
+    update_message += " :"
+    print(update_message)
     data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
     python_cmd = os.environ["DYNAWO_PYTHON_COMMAND"]
     for case_dir in os.listdir(data_dir):
