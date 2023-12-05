@@ -73,13 +73,13 @@ equation
       ipMaxPu = min(ipVdlPu, IMaxPu);
     end if;
     ipMinPu = 0;
-    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > min(ipLimPu, ipVdlPu) then sqrt(IMaxPu ^ 2 - min(ipLimPu, ipVdlPu) ^ 2) else 0));
+    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > min(ipLimPu, ipVdlPu) ^ 2 then sqrt(IMaxPu ^ 2 - min(ipLimPu, ipVdlPu) ^ 2) else 0));
     iqMinPu = -iqMaxPu;
   else
     if time <= vDipFrzEndTime and vDipFrzEndTime >= 0 then
       ipMaxPu = ipMaxFrzPu;
     else
-      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > min(iqLimPu, iqVdlPu) then sqrt(IMaxPu ^ 2 - min(iqLimPu, iqVdlPu) ^ 2) else 0));
+      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > min(iqLimPu, iqVdlPu) ^ 2 then sqrt(IMaxPu ^ 2 - min(iqLimPu, iqVdlPu) ^ 2) else 0));
     end if;
     ipMinPu = 0;
     iqMaxPu = min(iqVdlPu, IMaxPu);
