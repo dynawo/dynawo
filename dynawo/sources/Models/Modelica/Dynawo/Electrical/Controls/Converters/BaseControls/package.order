@@ -5,3 +5,7 @@ VirtualImpedance
 DroopControl
 MatchingControl
 DispatchableVirtualOscillatorControl
+ActivePowerLoop
+ReactivePowerLoop
+CurrentLoopGFL
+
