@@ -24,6 +24,7 @@ from TestJob.TestNetwork.TestNetwork import TestNetwork
 from TestJob.TestCurves.TestCurves import TestCurves
 from TestJob.TestFinalStateValues.TestFinalStateValues import TestFinalStateValues
 from TestPar.TestPar import TestPar
+from TestTicket.TestTicket import TestTicket
 
 
 if __name__ == '__main__':
@@ -40,6 +41,7 @@ if __name__ == '__main__':
     test_suite.addTest(TestCurves())
     test_suite.addTest(TestFinalStateValues())
     test_suite.addTest(TestPar())
+    test_suite.addTest(TestTicket())
 
     runner = unittest.TextTestRunner()
     result = runner.run(test_suite)

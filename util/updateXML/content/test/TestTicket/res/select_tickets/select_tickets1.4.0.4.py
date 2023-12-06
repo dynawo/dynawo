@@ -10,16 +10,10 @@
 # of simulation tools for power systems.
 
 
-def ticket(ticket_number):
-    """
-    Decorator to assign a ticket number to update() function
+from Ticket import ticket
 
-    Parameter:
-        ticket_number (int): ticket number
-    """
-    def decorator(func):
-        def update_function(jobs):
-            return func(jobs)
-        update_function.ticket_number = str(ticket_number)
-        return update_function
-    return decorator
+@ticket(55)
+def update(jobs):
+    loads = jobs.dyds.get_bbms(lambda bbm: bbm.get_id() == "_LOAD___5_EC")
+    for load in loads:
+        load.set_lib_name("Ticket55")

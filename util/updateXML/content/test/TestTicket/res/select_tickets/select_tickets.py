@@ -10,16 +10,12 @@
 # of simulation tools for power systems.
 
 
-def ticket(ticket_number):
-    """
-    Decorator to assign a ticket number to update() function
+from sources.Job.Jobs import Jobs
 
-    Parameter:
-        ticket_number (int): ticket number
-    """
-    def decorator(func):
-        def update_function(jobs):
-            return func(jobs)
-        update_function.ticket_number = str(ticket_number)
-        return update_function
-    return decorator
+def main():
+    jobs = Jobs()
+    jobs.update()
+
+
+if __name__ == '__main__':
+    main()
