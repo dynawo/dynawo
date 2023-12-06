@@ -24,13 +24,15 @@ encapsulated package Timeline "Timeline logs"
     annotation(preferredView = "text");
   end logEvent1;
 
+
   function logEvent2 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
     input String arg1;
     external "C" addLogEvent2(key, arg1) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEvent2;
+
 
   function logEvent3 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
@@ -38,8 +40,9 @@ encapsulated package Timeline "Timeline logs"
     input String arg2;
     external "C" addLogEvent3(key, arg1, arg2) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEvent3;
+
 
   function logEvent4 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
@@ -48,8 +51,9 @@ encapsulated package Timeline "Timeline logs"
     input String arg3;
     external "C" addLogEvent4(key, arg1, arg2, arg3) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEvent4;
+
 
   function logEvent5 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
@@ -59,16 +63,18 @@ encapsulated package Timeline "Timeline logs"
     input String arg4;
     external "C" addLogEvent5(key, arg1, arg2, arg3, arg4) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEvent5;
+
 
   function logEventRaw1
     input String key1;
 
     external "C" addLogEventRaw1 (key1) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEventRaw1;
+
 
   function logEventRaw2
     input String key1;
@@ -76,8 +82,9 @@ encapsulated package Timeline "Timeline logs"
 
     external "C" addLogEventRaw2 (key1, key2) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEventRaw2;
+
 
   function logEventRaw3
     input String key1;
@@ -86,8 +93,9 @@ encapsulated package Timeline "Timeline logs"
 
     external "C" addLogEventRaw3 (key1, key2, key3) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEventRaw3;
+
 
   function logEventRaw4
     input String key1;
@@ -97,8 +105,10 @@ encapsulated package Timeline "Timeline logs"
 
     external "C" addLogEventRaw4 (key1, key2, key3, key4) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEventRaw4;
+
+
 
   function logEventRaw5
     input String key1;
@@ -109,7 +119,7 @@ encapsulated package Timeline "Timeline logs"
 
     external "C" addLogEventRaw5 (key1, key2, key3, key4, key5) annotation(Include = "#include \"logEvent.h\"");
 
-    annotation(preferredView = "text");
+  annotation(preferredView = "text");
   end logEventRaw5;
 
 end Timeline;
