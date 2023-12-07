@@ -74,12 +74,16 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
     case ConverterInterface::VSC_CONVERTER: {
       shared_ptr<VscConverterInterfaceIIDM> vsc1 = dynamic_pointer_cast<VscConverterInterfaceIIDM>(conv1_);
       shared_ptr<VscConverterInterfaceIIDM> vsc2 = dynamic_pointer_cast<VscConverterInterfaceIIDM>(conv2_);
-      (vsc1->getVscIIDM()).getTerminal().setP(-1 * getValue<double>(VAR_P1) * SNREF);
-      (vsc1->getVscIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q1) * SNREF);
-      (vsc2->getVscIIDM()).getTerminal().setP(-1 * getValue<double>(VAR_P2) * SNREF);
-      (vsc2->getVscIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
       bool connected1 = (getValue<int>(VAR_STATE1) == CLOSED);
       bool connected2 = (getValue<int>(VAR_STATE2) == CLOSED);
+      if (connected1) {
+        vsc1->getVscIIDM().getTerminal().setP(-1 * getValue<double>(VAR_P1) * SNREF);
+        vsc1->getVscIIDM().getTerminal().setQ(-1 * getValue<double>(VAR_Q1) * SNREF);
+      }
+      if (connected2) {
+        vsc2->getVscIIDM().getTerminal().setP(-1 * getValue<double>(VAR_P2) * SNREF);
+        vsc2->getVscIIDM().getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
+      }
 
       if (vsc1->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
         // should be removed once a solution has been found to propagate switches (de)connection
@@ -113,12 +117,16 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
     case ConverterInterface::LCC_CONVERTER: {
       shared_ptr<LccConverterInterfaceIIDM> lcc1 = dynamic_pointer_cast<LccConverterInterfaceIIDM>(conv1_);
       shared_ptr<LccConverterInterfaceIIDM> lcc2 = dynamic_pointer_cast<LccConverterInterfaceIIDM>(conv2_);
-      (lcc1->getLccIIDM()).getTerminal().setP(-1 * getValue<double>(VAR_P1) * SNREF);
-      (lcc1->getLccIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q1) * SNREF);
-      (lcc2->getLccIIDM()).getTerminal().setP(-1 * getValue<double>(VAR_P2) * SNREF);
-      (lcc2->getLccIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
       bool connected1 = (getValue<int>(VAR_STATE1) == CLOSED);
       bool connected2 = (getValue<int>(VAR_STATE2) == CLOSED);
+      if (connected1) {
+        (lcc1->getLccIIDM()).getTerminal().setP(-1 * getValue<double>(VAR_P1) * SNREF);
+        (lcc1->getLccIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q1) * SNREF);
+      }
+      if (connected2) {
+        (lcc2->getLccIIDM()).getTerminal().setP(-1 * getValue<double>(VAR_P2) * SNREF);
+        (lcc2->getLccIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
+      }
 
       if (lcc1->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
         // should be removed once a solution has been found to propagate switches (de)connection
