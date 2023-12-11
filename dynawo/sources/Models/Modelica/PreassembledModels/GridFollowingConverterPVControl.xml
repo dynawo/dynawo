@@ -15,29 +15,25 @@
   <dyn:modelicaModel id="GridFollowingConverterPVControl">
     <dyn:unitDynamicModel id="injectorGFL" name="Dynawo.Electrical.Sources.InjectorGFL" initName="Dynawo.Electrical.Sources.InjectorGFL_INIT"/>
     <dyn:unitDynamicModel id="controlGFL" name="Dynawo.Electrical.Controls.Converters.GridFollowingControl" initName="Dynawo.Electrical.Controls.Converters.GridFollowingControl_INIT"/>
-    <!-- <dyn:initConnect id1="injectorGFL" var1="uPcc0Pu.re" id2="controlGFL" var2="uPcc0Pu.re"/>
-    <dyn:initConnect id1="injectorGFL" var1="uPcc0Pu.im" id2="controlGFL" var2="uPcc0Pu.im"/> -->
     <dyn:initConnect id1="injectorGFL" var1="uPcc0Pu" id2="controlGFL" var2="uPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iPcc0Pu" id2="controlGFL" var2="iPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uConv0Pu" id2="controlGFL" var2="uConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iConv0Pu" id2="controlGFL" var2="iConv0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="udPcc0Pu" id2="controlGFL" var2="udPcc0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="uqPcc0Pu" id2="controlGFL" var2="uqPcc0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="iPcc0Pu" id2="controlGFL" var2="iPcc0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="idPcc0Pu" id2="controlGFL" var2="idPcc0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="iqPcc0Pu" id2="controlGFL" var2="iqPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="udConv0Pu" id2="controlGFL" var2="udConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uqConv0Pu" id2="controlGFL" var2="uqConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="idConv0Pu" id2="controlGFL" var2="idConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iqConv0Pu" id2="controlGFL" var2="iqConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="udConvRef0Pu" id2="controlGFL" var2="udConvRef0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uqConvRef0Pu" id2="controlGFL" var2="uqConvRef0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="PGen0Pu" id2="controlGFL" var2="PGen0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="QGen0Pu" id2="controlGFL" var2="QGen0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="UConv0Pu" id2="controlGFL" var2="UConv0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="UConvRef0Pu" id2="controlGFL" var2="UConvRef0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="udConv0Pu" id2="controlGFL" var2="udConv0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="uqConv0Pu" id2="controlGFL" var2="uqConv0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="udConvRef0Pu" id2="controlGFL" var2="udConvRef0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="uqConvRef0Pu" id2="controlGFL" var2="uqConvRef0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="idConv0Pu" id2="controlGFL" var2="idConv0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="iqConv0Pu" id2="controlGFL" var2="iqConv0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="thetaPLL0Pu" id2="controlGFL" var2="thetaPLL0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="omegaPLL0Pu" id2="controlGFL" var2="omegaPLL0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="omegaRef0" id2="controlGFL" var2="omegaRef0"/>
-    <dyn:initConnect id1="injectorGFL" var1="PGenRef0Pu" id2="controlGFL" var2="PGenRef0Pu"/>
-    <dyn:initConnect id1="injectorGFL" var1="QGenRef0Pu" id2="controlGFL" var2="QGenRef0Pu"/>
     <dyn:connect id1="controlGFL" var1="udConvRefPu" id2="injectorGFL" var2="udConvRefPu"/>
     <dyn:connect id1="controlGFL" var1="uqConvRefPu" id2="injectorGFL" var2="uqConvRefPu"/>
     <dyn:connect id1="controlGFL" var1="omegaPLLPu" id2="injectorGFL" var2="omegaPLLPu"/>

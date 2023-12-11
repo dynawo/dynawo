@@ -27,7 +27,7 @@ set(MODEL_FILES
   InjectorURI.extvar
   InjectorGFL.mo
   InjectorGFL_INIT.mo
-  # InjectorGFL.extvar
+  InjectorGFL.extvar
   )
 
 #
