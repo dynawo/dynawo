@@ -102,7 +102,7 @@ equation
 
 if running.value then
   terminal.i.re = -1*(cos(thetaPLLPu)*idPccPu - sin(thetaPLLPu)*iqPccPu);
-  terminal.i.im = -1*(sin(thetaPLLPu)*idPccPu - cos(thetaPLLPu)*iqPccPu);
+  terminal.i.im = -1*(sin(thetaPLLPu)*idPccPu + cos(thetaPLLPu)*iqPccPu);
   else
     terminal.i = Complex(0);
   end if;
