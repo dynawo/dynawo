@@ -15,6 +15,8 @@ set(MODEL_FILES
   PLL.mo
   PLL.extvar
   PLL_INIT.mo
+  PLLGFL.mo
+  PLLGFL.extvar
   )
 
 #

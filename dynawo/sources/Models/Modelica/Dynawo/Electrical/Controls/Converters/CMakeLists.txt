@@ -21,6 +21,8 @@ set(MODEL_FILES
   GridFormingControlDispatchableVirtualOscillatorControl.mo
   GridFormingControlDispatchableVirtualOscillatorControl.extvar
   GridFormingControl_INIT.mo
+  GridFollowingControl.mo
+  GridFollowingControl_INIT.mo
   )
 
 #

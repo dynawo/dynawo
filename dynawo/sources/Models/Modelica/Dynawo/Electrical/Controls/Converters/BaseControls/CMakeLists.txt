@@ -19,6 +19,9 @@ set(MODEL_FILES
   DroopControl.mo
   MatchingControl.mo
   DispatchableVirtualOscillatorControl.mo
+  CurrentLoopGFL.mo
+  ActivePowerLoop.mo
+  ReactivePowerLoop.mo
   )
 
 #
