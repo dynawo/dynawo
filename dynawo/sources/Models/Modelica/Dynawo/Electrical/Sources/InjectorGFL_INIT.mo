@@ -13,6 +13,7 @@ model InjectorGFL_INIT "Injector model for grid following converter"
   parameter Types.PerUnit L "Transformer inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit Rc "resistance value from converter terminal to PCC in pu (base UNom, SNom)";
   parameter Types.PerUnit Xc "reactance value from converter terminal to PCC in pu (base UNom, SNom)";
+  parameter Types.AngularVelocity omegaRefPu;
   
   /* Converter bus initialisation data*/
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
@@ -25,9 +26,6 @@ model InjectorGFL_INIT "Injector model for grid following converter"
   Types.ComplexCurrentPu iPcc0Pu;
   Types.ComplexVoltagePu uConv0Pu;
   Types.ComplexCurrentPu iConv0Pu;
-  Types.PerUnit UConv0Pu;
-  Types.PerUnit omegaPLL0Pu;
-  Types.PerUnit thetaPLL0Pu;
   Types.PerUnit udPcc0Pu;
   Types.PerUnit uqPcc0Pu;
   Types.PerUnit idPcc0Pu;
@@ -38,11 +36,14 @@ model InjectorGFL_INIT "Injector model for grid following converter"
   Types.PerUnit iqConv0Pu;
   Types.PerUnit udConvRef0Pu;
   Types.PerUnit uqConvRef0Pu;
+  Types.PerUnit thetaPLL0Pu;
+  Types.PerUnit omegaPLL0Pu;
 
 equation
   uPcc0Pu = fromPolar(U0Pu, UPhase0);
   iPcc0Pu = ComplexMath.conj(Complex(PGen0Pu, QGen0Pu)/uPcc0Pu);
   thetaPLL0Pu = ComplexMath.arg(uPcc0Pu);
+  omegaPLL0Pu= omegaRefPu;
   udPcc0Pu = cos(thetaPLL0Pu)*uPcc0Pu.re + sin(thetaPLL0Pu)*uPcc0Pu.im;
   uqPcc0Pu = -sin(thetaPLL0Pu)*uPcc0Pu.re + cos(thetaPLL0Pu)*uPcc0Pu.im;
   idPcc0Pu = cos(thetaPLL0Pu)*iPcc0Pu.re + sin(thetaPLL0Pu)*iPcc0Pu.im;

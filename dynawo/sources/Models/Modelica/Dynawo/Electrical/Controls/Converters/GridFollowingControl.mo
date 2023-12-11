@@ -22,24 +22,29 @@ model GridFollowingControl
   parameter Types.PerUnit KiPLL;
   parameter Types.PerUnit OmegaMaxPu;
   parameter Types.PerUnit OmegaMinPu;
+  parameter Types.AngularVelocity omegaRefPu;
+  
   //Initial values
   parameter Types.ComplexVoltagePu uPcc0Pu;
   parameter Types.ComplexCurrentPu iPcc0Pu;
-  parameter Types.AngularVelocity omegaRefPu;
-  parameter Types.PerUnit omegaPLL0Pu;
-  parameter Types.Angle thetaPLL0Pu;
-  parameter Types.PerUnit PGen0Pu;
-  parameter Types.PerUnit QGen0Pu;
   parameter Types.ComplexVoltagePu uConv0Pu;
-  parameter Types.PerUnit UConv0Pu;
-  parameter Types.PerUnit idPcc0Pu;
-  parameter Types.PerUnit iqPcc0Pu;
-  parameter Types.PerUnit idConv0Pu;
-  parameter Types.PerUnit iqConv0Pu;
+  parameter Types.ComplexVoltagePu iConv0Pu;
   parameter Types.PerUnit udPcc0Pu;
   parameter Types.PerUnit uqPcc0Pu;
+  parameter Types.PerUnit idPcc0Pu;
+  parameter Types.PerUnit iqPcc0Pu;
+  parameter Types.PerUnit udConv0Pu;
+  parameter Types.PerUnit uqConv0Pu;
+  parameter Types.PerUnit idConv0Pu;
+  parameter Types.PerUnit iqConv0Pu;
   parameter Types.PerUnit udConvRef0Pu;
   parameter Types.PerUnit uqConvRef0Pu;
+  parameter Types.PerUnit PGen0Pu;
+  parameter Types.PerUnit QGen0Pu;
+  parameter Types.PerUnit UConv0Pu;
+  parameter Types.Angle thetaPLL0Pu;
+  parameter Types.PerUnit omegaPLL0Pu;
+
   Dynawo.Electrical.Controls.Converters.BaseControls.ReactivePowerLoop reactivePowerLoop(Kiv = Kiv, Kpv = Kpv, Tlpf = Tlpf, UConv0Pu = UConv0Pu, UConvRef0Pu = UConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, -12}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.ActivePowerLoop activePowerLoop(Kip = Kip, Kpp = Kpp, PGen0Pu = PGen0Pu, PGenRef0Pu = PGen0Pu, Tlpf = Tlpf, idConv0Pu = idConv0Pu) annotation(
