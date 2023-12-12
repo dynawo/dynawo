@@ -1,7 +1,6 @@
 within Dynawo.Electrical.Sources;
 
 model InjectorGFL_INIT "Injector model for grid following converter"
-  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
 
   import Modelica;
   import Dynawo;
@@ -14,12 +13,12 @@ model InjectorGFL_INIT "Injector model for grid following converter"
   parameter Types.PerUnit Rc "resistance value from converter terminal to PCC in pu (base UNom, SNom)";
   parameter Types.PerUnit Xc "reactance value from converter terminal to PCC in pu (base UNom, SNom)";
   parameter Types.AngularVelocity omegaRefPu;
-  
+
   /* Converter bus initialisation data*/
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
-  parameter Types.ActivePowerPu PGen0Pu "Start value of converter generated active power in pu (base SNom) (generator convention)";
-  parameter Types.ReactivePowerPu QGen0Pu "Start value of converter generated reactive power in pu (base SNom) (generator convention)";
+  parameter Types.ActivePowerPu P0Pu "Start value of converter generated active power in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of converter generated reactive power in pu (base SNom) (generator convention)";
 
   /* Initial quantities to calculate from initialisation data*/
   Types.ComplexVoltagePu uPcc0Pu;
@@ -38,9 +37,14 @@ model InjectorGFL_INIT "Injector model for grid following converter"
   Types.PerUnit uqConvRef0Pu;
   Types.PerUnit thetaPLL0Pu;
   Types.PerUnit omegaPLL0Pu;
+  Types.PerUnit PGen0Pu;
+  Types.PerUnit QGen0Pu;
+  Types.PerUnit UConv0Pu;
 
 equation
-  uPcc0Pu = fromPolar(U0Pu, UPhase0);
+  uPcc0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  PGen0Pu = P0Pu;
+  QGen0Pu = Q0Pu;
   iPcc0Pu = ComplexMath.conj(Complex(PGen0Pu, QGen0Pu)/uPcc0Pu);
   thetaPLL0Pu = ComplexMath.arg(uPcc0Pu);
   omegaPLL0Pu= omegaRefPu;
@@ -54,7 +58,7 @@ equation
   iqConv0Pu = -ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im;
   udConvRef0Pu = udPcc0Pu/ratioTr + R*idPcc0Pu*ratioTr - omegaPLL0Pu*L*iqPcc0Pu*ratioTr;
   uqConvRef0Pu = uqPcc0Pu/ratioTr + R*iqPcc0Pu*ratioTr + omegaPLL0Pu*L*idPcc0Pu*ratioTr;
-  
+
   uConv0Pu = (uPcc0Pu/ratioTr) + iPcc0Pu*ratioTr*Complex(R, Xc);
   iConv0Pu = iPcc0Pu*ratioTr;
   UConv0Pu = ComplexMath.'abs'(uConv0Pu);

@@ -12,23 +12,15 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="uPu.re"/>
-  <variable type="continuous" id="uPu.im"/>
-  <variable type="continuous" id="OmegaRefPu"/>
-  <variable id="PRefPu" type="continuous"/>
-  <!-- <variable id="QRefPu" type="continuous"/> -->
-  <variable id="UConvRefPu" type="continuous"/>
+  <variable id="uPccPu.re" type="continuous"/>
+  <variable id="uPccPu.im" type="continuous"/>
+  <variable id="omegaRef" type="continuous"/>
+  <variable id="PGenRefPu" type="continuous"/>
   <variable id="PGenPu" type="continuous"/>
-  <!-- <variable id="QGenPu" type="continuous"/> -->
+  <variable id="UConvRefPu" type="continuous"/>
   <variable id="UConvPu" type="continuous"/>
-  <variable id="idConvPu" type="continuous"/>
-  <variable id="iqConvPu" type="continuous"/>
   <variable id="udPccPu" type="continuous"/>
   <variable id="uqPccPu" type="continuous"/>
-  <variable id="omegaRefPu" type="continuous"/>
-  <variable id="udFilterPu" type="continuous"/>
-  <variable id="uqFilterPu" type="continuous"/>
-  <variable id="UdcSourcePu" type="continuous"/>
-  <variable id="PFilterPu" type="continuous"/>
-  <variable id="QFilterPu" type="continuous"/>
+  <variable id="idConvPu" type="continuous"/>
+  <variable id="iqConvPu" type="continuous"/>
 </external_variables>

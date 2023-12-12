@@ -23,6 +23,7 @@ set(MODEL_FILES
   GridFormingControl_INIT.mo
   GridFollowingControl.mo
   GridFollowingControl_INIT.mo
+  GridFollowingControl.extvar
   )
 
 #
