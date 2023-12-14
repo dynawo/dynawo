@@ -19,5 +19,4 @@
     <curve model="PVD" variable="PVD_regc_terminal_V_im"/>
     <curve model="PVD" variable="PVD_regc_terminal_i_im"/>
     <curve model="PVD" variable="PVD_pll_omegaPLLPu"/>
-    <curve model="PVD" variable="PVD_driveTrainPmConstant_PePu"/>
 </curvesInput>

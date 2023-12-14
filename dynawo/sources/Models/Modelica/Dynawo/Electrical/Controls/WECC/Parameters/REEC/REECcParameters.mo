@@ -27,10 +27,6 @@ record REECcParameters "Parameters for REECc"
     Dialog(tab = "Electrical Control", group = "REECc"));
   parameter Types.Time tBattery "Time it takes for the battery to discharge when putting out 1 pu power, in s (typically set to 9999 since most batteries are large as compared to the typical simulation time in a transient stability study)" annotation(
     Dialog(tab = "Electrical Control", group = "REECc"));
-  parameter Types.Time tHld2 "Time for which active current is held at its value during a voltage-dip, following the termination of the voltage-dip; in s (typical: 0..1, set to 0 to disable)" annotation(
-    Dialog(tab = "Electrical Control", group = "REECc"));
-  parameter Dynawo.Types.PerUnit VRef1Pu = 0 "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0)" annotation(
-    Dialog(tab = "Electrical Control", group = "REECc"));
 
   //CombiTable parameters
   parameter Types.PerUnit VDLIp11 annotation(

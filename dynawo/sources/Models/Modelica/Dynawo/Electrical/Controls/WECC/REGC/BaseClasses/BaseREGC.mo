@@ -25,7 +25,7 @@ partial model BaseREGC "WECC Renewable Energy Generator Converter base model"
 
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput frtOn(start = false) "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise" annotation(
-    Placement(visible = true, transformation(origin = {-240, 220}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-280, 220}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = Ip0Pu) "Active current setpoint from electrical control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Iq0Pu) "Reactive current setpoint from electrical control in pu (base SNom, UNom)" annotation(
@@ -42,7 +42,7 @@ partial model BaseREGC "WECC Renewable Energy Generator Converter base model"
     Placement(visible = true, transformation(origin = {310, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay offDelay(tDelay = max(abs(1 / IqrMaxPu), abs(1 / IqrMinPu))) annotation(
-    Placement(visible = true, transformation(origin = {-210, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-250, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = IqrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-130, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
@@ -73,6 +73,14 @@ partial model BaseREGC "WECC Renewable Energy Generator Converter base model"
     Placement(visible = true, transformation(origin = {-190, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Vt(y = UInjPu) annotation(
     Placement(visible = true, transformation(origin = {-310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = QInj0Pu > 0)  annotation(
+    Placement(visible = true, transformation(origin = {-250, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k = QInj0Pu < 0)  annotation(
+    Placement(visible = true, transformation(origin = {-250, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.And and1 annotation(
+    Placement(visible = true, transformation(origin = {-170, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.And and2 annotation(
+    Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -92,17 +100,13 @@ partial model BaseREGC "WECC Renewable Energy Generator Converter base model"
 
 equation
   connect(frtOn, offDelay.u) annotation(
-    Line(points = {{-240, 220}, {-240, 180}, {-224, 180}}, color = {255, 0, 255}));
+    Line(points = {{-280, 220}, {-280, 180}, {-264, 180}}, color = {255, 0, 255}));
   connect(switch.y, rateLimFirstOrderFreeze.dyMax) annotation(
     Line(points = {{-58, 160}, {-40, 160}, {-40, 126}, {-22, 126}}, color = {0, 0, 127}));
   connect(switch1.y, rateLimFirstOrderFreeze.dyMin) annotation(
     Line(points = {{-58, 80}, {-40, 80}, {-40, 114}, {-22, 114}}, color = {0, 0, 127}));
   connect(iqCmdPu, rateLimFirstOrderFreeze.u) annotation(
     Line(points = {{-320, 120}, {-22, 120}}, color = {0, 0, 127}));
-  connect(offDelay.y, switch.u2) annotation(
-    Line(points = {{-198, 180}, {-180, 180}, {-180, 160}, {-82, 160}}, color = {255, 0, 255}));
-  connect(offDelay.y, switch1.u2) annotation(
-    Line(points = {{-198, 180}, {-180, 180}, {-180, 80}, {-82, 80}}, color = {255, 0, 255}));
   connect(const.y, switch.u1) annotation(
     Line(points = {{-118, 180}, {-100, 180}, {-100, 168}, {-82, 168}}, color = {0, 0, 127}));
   connect(const3.y, switch1.u1) annotation(
@@ -121,6 +125,18 @@ equation
     Line(points = {{-178, -80}, {-160, -80}, {-160, -48}, {-142, -48}}, color = {0, 0, 127}));
   connect(Vt.y, firstOrder.u) annotation(
     Line(points = {{-298, 0}, {-262, 0}}, color = {0, 0, 127}));
+  connect(and1.y, switch.u2) annotation(
+    Line(points = {{-158, 160}, {-82, 160}}, color = {255, 0, 255}));
+  connect(and2.y, switch1.u2) annotation(
+    Line(points = {{-158, 80}, {-82, 80}}, color = {255, 0, 255}));
+  connect(offDelay.y, and1.u1) annotation(
+    Line(points = {{-238, 180}, {-200, 180}, {-200, 160}, {-182, 160}}, color = {255, 0, 255}));
+  connect(offDelay.y, and2.u1) annotation(
+    Line(points = {{-238, 180}, {-200, 180}, {-200, 80}, {-182, 80}}, color = {255, 0, 255}));
+  connect(booleanConstant2.y, and2.u2) annotation(
+    Line(points = {{-238, 60}, {-220, 60}, {-220, 72}, {-182, 72}}, color = {255, 0, 255}));
+  connect(booleanConstant1.y, and1.u2) annotation(
+    Line(points = {{-238, 140}, {-220, 140}, {-220, 152}, {-182, 152}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

@@ -25,9 +25,9 @@ model REGCc "WECC Renewable Energy Generator Converter model c"
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageSource voltageSource(Id0Pu = Ip0Pu, Iq0Pu = -Iq0Pu, PInj0Pu = PInj0Pu, QInj0Pu = QInj0Pu, RSourcePu = RSourcePu, SNom = SNom, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, i0Pu = i0Pu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze pid(K = Kip, Ti = Kii, Y0 = -Iq0Pu, YMax = IMaxGCPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIFreeze(K = Kip, Ti = Kii, Y0 = -Iq0Pu, YMax = IMaxGCPu) annotation(
     Placement(visible = true, transformation(origin = {110, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze pid1(K = Kip, Ti = Kii, Y0 = Ip0Pu, YMax = IMaxGCPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIFreeze1(K = Kip, Ti = Kii, Y0 = Ip0Pu, YMax = IMaxGCPu) annotation(
     Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -45,8 +45,8 @@ model REGCc "WECC Renewable Energy Generator Converter model c"
     Dialog(group = "Initialization"));
 
 equation
-  pid.freeze = false;
-  pid1.freeze = false;
+  limPIFreeze.freeze = false;
+  limPIFreeze1.freeze = false;
   pll.omegaRefPu = 1;
 
   connect(firstOrder.y, limiter.u) annotation(
@@ -77,19 +77,19 @@ equation
     Line(points = {{222, -8}, {280, -8}, {280, -60}, {310, -60}}, color = {0, 0, 127}));
   connect(voltageSource.uInjPu, uInjPu) annotation(
     Line(points = {{222, -16}, {260, -16}, {260, -120}, {310, -120}}, color = {85, 170, 255}));
-  connect(pid.y, voltageSource.iqPu) annotation(
+  connect(limPIFreeze.y, voltageSource.iqPu) annotation(
     Line(points = {{121, 120}, {140, 120}, {140, 12}, {178, 12}}, color = {0, 0, 127}));
   connect(It.y, transformRItoDQ.xPu) annotation(
     Line(points = {{-59, 0}, {-1, 0}}, color = {85, 170, 255}));
-  connect(pid1.y, voltageSource.idPu) annotation(
+  connect(limPIFreeze1.y, voltageSource.idPu) annotation(
     Line(points = {{121, -120}, {140, -120}, {140, -12}, {178, -12}}, color = {0, 0, 127}));
-  connect(rateLimFirstOrderFreeze.y, pid.u_s) annotation(
+  connect(rateLimFirstOrderFreeze.y, limPIFreeze.u_s) annotation(
     Line(points = {{2, 120}, {98, 120}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.xqPu, pid.u_m) annotation(
+  connect(transformRItoDQ.xqPu, limPIFreeze.u_m) annotation(
     Line(points = {{22, 6}, {110, 6}, {110, 108}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.xdPu, pid1.u_m) annotation(
+  connect(transformRItoDQ.xdPu, limPIFreeze1.u_m) annotation(
     Line(points = {{22, -6}, {110, -6}, {110, -108}}, color = {0, 0, 127}));
-  connect(division.y, pid1.u_s) annotation(
+  connect(division.y, limPIFreeze1.u_s) annotation(
     Line(points = {{62, -120}, {98, -120}}, color = {0, 0, 127}));
   connect(pll.phi, transformRItoDQ.phi) annotation(
     Line(points = {{178, -68}, {120, -68}, {120, 40}, {10, 40}, {10, 12}}, color = {0, 0, 127}, pattern = LinePattern.Dash));

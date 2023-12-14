@@ -65,7 +65,7 @@ model VoltageSource "Injector URI ready to be connected to the grid"
   parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)";
   parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";
-  parameter Types.VoltageModulePu UInj0Pu "Start value of voltage magnitude at injector in pu (base UNom)";
+  parameter Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";

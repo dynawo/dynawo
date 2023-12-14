@@ -95,7 +95,7 @@ equation
     Line(points = {{-198, 40}, {-180, 40}, {-180, -60}, {-54, -60}, {-54, -22}}, color = {0, 0, 127}));
   connect(limiter.y, feedback.u1) annotation(
     Line(points = {{22, 40}, {32, 40}}, color = {0, 0, 127}));
-  connect(feedback.y, varLimPIDFreeze.u_s) annotation(
+  connect(feedback.y, varLimPIFreeze.u_s) annotation(
     Line(points = {{50, 40}, {78, 40}}, color = {0, 0, 127}));
   connect(PAuxPu, add3.u2) annotation(
     Line(points = {{200, -200}, {200, -166}, {218, -166}}, color = {0, 0, 127}));

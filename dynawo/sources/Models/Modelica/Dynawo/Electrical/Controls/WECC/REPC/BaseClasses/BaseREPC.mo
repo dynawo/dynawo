@@ -29,10 +29,10 @@ partial model BaseREPC "WECC Renewable Energy Plant Controller base model"
     Placement(visible = true, transformation(origin = {-360, -220}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) "Freq_ref: Frequency setpoint in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-420, -140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRegPu(start = PGen0Pu) "Pbranch: Active power at terminal in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-420, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PGen0Pu) "Plant_pref: Active power setpoint at terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-420, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PRegPu(start = PGen0Pu) "Pbranch: Active power at terminal in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-420, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QGen0Pu) "Qref: Reactive power setpoint at terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-420, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRegPu(start = QGen0Pu) "Qbranch: Reactive power at terminal in pu (base SNom) (generator convention)" annotation(
@@ -70,7 +70,7 @@ partial model BaseREPC "WECC Renewable Energy Plant Controller base model"
     Placement(visible = true, transformation(origin = {350, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = FreqFlag) annotation(
     Placement(visible = true, transformation(origin = {290, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze pid(K = Kpg, Ti = Kpg / Kig, Xi0 = PInj0Pu / Kpg, Y0 = PInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIFreeze(K = Kpg, Ti = Kpg / Kig, Xi0 = PInj0Pu / Kpg, Y0 = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tLag, UseRateLim = false, Y0 = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {230, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -82,7 +82,7 @@ partial model BaseREPC "WECC Renewable Energy Plant Controller base model"
     Placement(visible = true, transformation(origin = {170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter3(uMax = EMaxPu, uMin = EMinPu) annotation(
     Placement(visible = true, transformation(origin = {230, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze pid1(K = Kp, Ti = Kp / Ki, Xi0 = QInjRef0Pu / Kp, Y0 = QInjRef0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIFreeze1(K = Kp, Ti = Kp / Ki, Xi0 = QInjRef0Pu / Kp, Y0 = QInjRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {290, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {tFv, 1}, b = {tFt, 1}, x_scaled(start = {QInjRef0Pu}), x_start = {QInjRef0Pu}, y_start = QInjRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {370, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -120,14 +120,15 @@ partial model BaseREPC "WECC Renewable Energy Plant Controller base model"
     Dialog(group = "Initialization"));
   parameter Types.ReactivePowerPu QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
+  parameter Types.PerUnit QInjRef0Pu "Start value of reactive power or voltage setpoint at injector in pu (base SNom or UNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.VoltageModulePu U0Pu "Start value of voltage module at terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.VoltageModulePu UInj0Pu "Start value of voltage magnitude at injector in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
 
-  final parameter Types.PerUnit QInjRef0Pu = if RefFlag == 1 then UInj0Pu else QInj0Pu "Start value of reactive power or voltage setpoint at injector in pu (base SNom or UNom) (generator convention)";
   final parameter Types.VoltageModulePu URef0Pu = if UCompFlag then UInj0Pu else (U0Pu + Kc * QGen0Pu) "Start value of voltage setpoint for plant level control, calculated depending on UCompFlag, in pu (base UNom)";
 
 equation
@@ -147,7 +148,7 @@ equation
     Line(points = {{-420, -140}, {-368, -140}}, color = {0, 0, 127}));
   connect(PRegPu, firstOrder.u) annotation(
     Line(points = {{-420, -40}, {-322, -40}}, color = {0, 0, 127}));
-  connect(limiter2.y, pid.u_s) annotation(
+  connect(limiter2.y, limPIFreeze.u_s) annotation(
     Line(points = {{61, -80}, {77, -80}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze.y, switch1.u1) annotation(
     Line(points = {{241, -80}, {260, -80}, {260, -60}, {320, -60}, {320, -72}, {338, -72}}, color = {0, 0, 127}));
@@ -161,9 +162,9 @@ equation
     Line(points = {{381, 80}, {410, 80}}, color = {0, 0, 127}));
   connect(deadZone1.y, limiter3.u) annotation(
     Line(points = {{182, 80}, {218, 80}}, color = {0, 0, 127}));
-  connect(limiter3.y, pid1.u_s) annotation(
+  connect(limiter3.y, limPIFreeze1.u_s) annotation(
     Line(points = {{242, 80}, {278, 80}}, color = {0, 0, 127}));
-  connect(booleanExpression.y, pid1.freeze) annotation(
+  connect(booleanExpression.y, limPIFreeze1.freeze) annotation(
     Line(points = {{280, 160}, {280, 120}, {284, 120}, {284, 92}}, color = {255, 0, 255}));
   connect(iPu, lineDropCompensation.iPu) annotation(
     Line(points = {{-360, 220}, {-360, 172}, {-342, 172}}, color = {85, 170, 255}));
@@ -177,9 +178,9 @@ equation
     Line(points = {{-420, 80}, {-322, 80}}, color = {0, 0, 127}));
   connect(firstOrder1.y, feedback1.u2) annotation(
     Line(points = {{-298, 80}, {0, 80}, {0, 48}}, color = {0, 0, 127}));
-  connect(const1.y, pid.u_m) annotation(
+  connect(const1.y, limPIFreeze.u_m) annotation(
     Line(points = {{99, -40}, {90, -40}, {90, -68}}, color = {0, 0, 127}));
-  connect(const2.y, pid1.u_m) annotation(
+  connect(const2.y, limPIFreeze1.u_m) annotation(
     Line(points = {{299, 140}, {290, 140}, {290, 92}}, color = {0, 0, 127}));
 
   annotation(

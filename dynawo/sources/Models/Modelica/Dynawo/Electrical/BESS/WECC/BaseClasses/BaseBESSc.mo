@@ -14,10 +14,10 @@ within Dynawo.Electrical.BESS.WECC.BaseClasses;
 */
 
 partial model BaseBESSc "Partial base model for the WECC BESS models including the electrical model type C"
-  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESS;
+  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESS(repc.QInjRef0Pu = if not PfFlag and not UFlag and QFlag then UInj0Pu else QInj0Pu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.REECcParameters;
 
-  Dynawo.Electrical.Controls.WECC.REEC.REECc reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PGen0Pu = -P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SOC0 = SOC0, SOCMaxPu = SOCMaxPu, SOCMinPu = SOCMinPu, UDipPu = UDipPu, UFlag = UFlag, UInj0Pu = UInj0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, UUpPu = UUpPu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, tBattery = tBattery, tHld2 = tHld2, tIq = tIq, tP = tP, tPOrd = tPOrd, tRv = tRv) annotation(
+  Dynawo.Electrical.Controls.WECC.REEC.REECc reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PGen0Pu = -P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SOC0 = SOC0, SOCMaxPu = SOCMaxPu, SOCMinPu = SOCMinPu, UDipPu = UDipPu, UFlag = UFlag, UInj0Pu = UInj0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, UUpPu = UUpPu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VRef0Pu = VRef0Pu, tBattery = tBattery, tIq = tIq, tP = tP, tPOrd = tPOrd, tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter

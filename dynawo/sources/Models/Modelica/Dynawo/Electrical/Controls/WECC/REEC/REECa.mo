@@ -67,7 +67,7 @@ equation
     Line(points = {{-258, 40}, {-240, 40}, {-240, -60}, {0, -60}, {0, -54}, {18, -54}}, color = {0, 0, 127}));
   connect(FRT5.y, iqInjectionLogic.vDip) annotation(
     Line(points = {{180, 200}, {180, 168}, {198, 168}}, color = {255, 0, 255}));
-  connect(limiter.y, varLimPIDFreeze.u_s) annotation(
+  connect(limiter.y, varLimPIFreeze.u_s) annotation(
     Line(points = {{22, 40}, {78, 40}}, color = {0, 0, 127}));
   connect(pfflagswitch.y, add2.u2) annotation(
     Line(points = {{-258, 40}, {-240, 40}, {-240, -60}, {-54, -60}, {-54, -22}}, color = {0, 0, 127}));

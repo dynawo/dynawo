@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 */
 
 model REPCa "WECC Renewable Energy Plant Controller REPC model a"
-  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3.k1 = -1, pid.YMax = PMaxPu, pid.YMin = PMinPu, pid1.YMax = QMaxPu, pid1.YMin = QMinPu);
+  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3.k1 = -1, limPIFreeze.YMax = PMaxPu, limPIFreeze.YMin = PMinPu, limPIFreeze1.YMax = QMaxPu, limPIFreeze1.YMin = QMinPu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.REPCaParameters;
 
   Modelica.Blocks.Math.Gain gain2(k = Kc) annotation(
@@ -43,7 +43,7 @@ equation
     Line(points = {{-298, -40}, {-80, -40}, {-80, -72}, {-62, -72}}, color = {0, 0, 127}));
   connect(add3.y, limiter2.u) annotation(
     Line(points = {{-38, -80}, {38, -80}}, color = {0, 0, 127}));
-  connect(pid.y, rateLimFirstOrderFreeze.u) annotation(
+  connect(limPIFreeze.y, rateLimFirstOrderFreeze.u) annotation(
     Line(points = {{102, -80}, {218, -80}}, color = {0, 0, 127}));
   connect(gain2.y, add1.u2) annotation(
     Line(points = {{-338, 100}, {-220, 100}, {-220, 94}, {-202, 94}}, color = {0, 0, 127}));
@@ -63,7 +63,7 @@ equation
     Line(points = {{0, 200}, {0, 148}, {38, 148}}, color = {0, 0, 127}));
   connect(QRegPu, gain2.u) annotation(
     Line(points = {{-420, 80}, {-380, 80}, {-380, 100}, {-362, 100}}, color = {0, 0, 127}));
-  connect(booleanConstant3.y, pid.freeze) annotation(
+  connect(booleanConstant3.y, limPIFreeze.freeze) annotation(
     Line(points = {{62, -40}, {84, -40}, {84, -68}}, color = {255, 0, 255}));
   connect(QRefPu, feedback1.u1) annotation(
     Line(points = {{-420, 40}, {-8, 40}}, color = {0, 0, 127}));
@@ -75,7 +75,7 @@ equation
     Line(points = {{10, 40}, {80, 40}, {80, 72}, {98, 72}}, color = {0, 0, 127}));
   connect(switch.y, deadZone1.u) annotation(
     Line(points = {{122, 80}, {158, 80}}, color = {0, 0, 127}));
-  connect(pid1.y, transferFunction.u) annotation(
+  connect(limPIFreeze1.y, transferFunction.u) annotation(
     Line(points = {{302, 80}, {358, 80}}, color = {0, 0, 127}));
 
   annotation(

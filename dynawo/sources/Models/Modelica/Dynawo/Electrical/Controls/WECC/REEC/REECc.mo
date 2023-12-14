@@ -53,7 +53,7 @@ equation
     Line(points = {{-258, 40}, {-240, 40}, {-240, -60}, {-60, -60}, {-60, 32}, {-42, 32}}, color = {0, 0, 127}));
   connect(pfflagswitch.y, division.u1) annotation(
     Line(points = {{-258, 40}, {-240, 40}, {-240, -60}, {0, -60}, {0, -54}, {18, -54}}, color = {0, 0, 127}));
-  connect(limiter.y, varLimPIDFreeze.u_s) annotation(
+  connect(limiter.y, varLimPIFreeze.u_s) annotation(
     Line(points = {{22, 40}, {78, 40}}, color = {0, 0, 127}));
   connect(UInjPu, voltageCheck.UPu) annotation(
     Line(points = {{-220, 200}, {-180, 200}, {-180, 220}, {-100, 220}}, color = {0, 0, 127}));

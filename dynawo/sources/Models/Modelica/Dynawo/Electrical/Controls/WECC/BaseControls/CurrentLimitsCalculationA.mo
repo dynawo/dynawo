@@ -42,49 +42,37 @@ model CurrentLimitsCalculationA "Current limiter for the WECC REEC type A"
   Modelica.Blocks.Interfaces.RealOutput iqMinPu "Minimum reactive current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-protected
-  Types.PerUnit ipMaxFrzPu(start = 0) "Freeze value of ipCmdPu, afer a voltage dip, in pu (base SNom, UNom)";
-  Types.Time vDipFrzIpEndTime(start = -1) "Time during which ipCmdPu is frozen, afer a voltage dip, in s";
+  Types.PerUnit ipMaxFrzPu(start = 0) "Freeze value of ipMaxPu (and ipCmdPu) afer a voltage dip, in pu (base SNom, UNom)";
+
+  Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay holdAfterDip(tDelay = tHld2) "True for tHld2 seconds after a voltage dip" annotation(
+    Placement(visible = true, transformation(origin = {-76, 0}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
 equation
-  /*  The following equations regarding ipMaxPu are similar to the ones in the IqInjectionLogic
-   *  model,  where it handles time sensitive output control. For a detailed description,
-   *  see the IqInjectionLogic block.
-   *  1. At the time the voltage dip ends, the momentary value of ipCmdPu is memorized
-   *     thanks to the when clause, assigned to ipMaxFrzPu and the end timing is
-   *     calculated. During this time, ipCmdPu is forced to the value of ipMaxFrzPu
-   *     because ipMaxPu and ipMinPu are both set to ipMaxFrzPu.
-   *  2. When the end timing is reached, ipMaxPu and ipMinPu are back to the usual logic.
-   */
-  when not(vDip) then
-    vDipFrzIpEndTime = time + tHld2;
-    ipMaxFrzPu = pre(ipCmdPu);
-  elsewhen vDip then
-    vDipFrzIpEndTime = -1;
-    ipMaxFrzPu = 1;
+  when edge(holdAfterDip.y) then
+    ipMaxFrzPu = pre(ipMaxPu);
   end when;
 
+  ipMinPu = 0;
   iqMinPu = -iqMaxPu;
 
   if PQFlag then
-    if time <= vDipFrzIpEndTime then
+    if holdAfterDip.y then
       ipMaxPu = ipMaxFrzPu;
-      ipMinPu = ipMaxFrzPu;
     else
       ipMaxPu = min(ipVdlPu, IMaxPu);
-      ipMinPu = 0;
     end if;
-    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu > abs(ipCmdPu) then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
+    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > ipCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
   else
-    if time <= vDipFrzIpEndTime then
+    if holdAfterDip.y then
       ipMaxPu = ipMaxFrzPu;
-      ipMinPu = ipMaxFrzPu;
     else
-      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu > abs(iqCmdPu) then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
-      ipMinPu = 0;
+      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
     end if;
     iqMaxPu = min(iqVdlPu, IMaxPu);
   end if;
+
+  connect(vDip, holdAfterDip.u) annotation(
+    Line(points = {{-110, 0}, {-82, 0}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "text",

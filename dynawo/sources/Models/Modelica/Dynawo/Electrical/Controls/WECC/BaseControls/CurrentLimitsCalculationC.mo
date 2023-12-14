@@ -61,12 +61,12 @@ equation
     else
       ipMaxPu = min(ipVdlPu, IMaxPu);
     end if;
-    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu > abs(ipCmdPu) then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
+    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > ipCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
   else
     if SOC <= SOCMin then
       ipMaxPu = 0;
     else
-      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu > abs(iqCmdPu) then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
+      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
     end if;
     iqMaxPu = min(iqVdlPu, IMaxPu);
   end if;

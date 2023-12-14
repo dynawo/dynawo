@@ -29,7 +29,7 @@ model WTG4AVoltageSource_INIT "Initialization model for WECC WT model with a vol
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit RSourcePu "Source resistance in pu (base SnRef, UNom) (typically set to zero, typical: 0..0.01)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage module at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XSourcePu "Source reactance in pu (base SnRef, UNom) (typical: 0.05..0.2)";

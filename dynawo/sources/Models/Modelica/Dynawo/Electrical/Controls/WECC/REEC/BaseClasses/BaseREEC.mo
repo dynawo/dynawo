@@ -64,7 +64,7 @@ partial model BaseREEC "WECC Renewable Energy Electrical Control base model"
     Placement(visible = true, transformation(origin = {-90, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRT3(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {124, -130}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(K = Kqp, Ti = Kqp / Kqi, Xi0 = UInj0Pu / Kqp, Y0 = UInj0Pu, YMax = UMaxPu, YMin = UMinPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIFreeze(K = Kqp, Ti = Kqp / Kqi, Xi0 = UInj0Pu / Kqp, Y0 = UInj0Pu, YMax = UMaxPu, YMin = UMinPu) annotation(
     Placement(visible = true, transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRT1(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {-160, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -98,7 +98,7 @@ partial model BaseREEC "WECC Renewable Energy Electrical Control base model"
     Placement(visible = true, transformation(origin = {30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k = QFlag) annotation(
     Placement(visible = true, transformation(origin = {150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze varLimPIDFreeze(K = Kvp, Ti = Kvp / Kvi, Xi0 = QInj0Pu / UInj0Pu / Kvp, Y0 = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze varLimPIFreeze(K = Kvp, Ti = Kvp / Kvi, Xi0 = QInj0Pu / UInj0Pu / Kvp, Y0 = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = UMaxPu, uMin = UMinPu) annotation(
     Placement(visible = true, transformation(origin = {10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -126,10 +126,10 @@ partial model BaseREEC "WECC Renewable Energy Electrical Control base model"
     Dialog(group = "Initialization"));
   parameter Types.ReactivePowerPu QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.VoltageModulePu UInj0Pu "Start value of voltage magnitude at injector in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
 
-  final parameter Types.PerUnit QInjRef0Pu = if UFlag then QInj0Pu else UInj0Pu "Start value of reactive power or voltage setpoint at injector in pu (base SNom or UNom) (generator convention)";
+  final parameter Types.PerUnit QInjRef0Pu = if not PfFlag and not UFlag and QFlag then UInj0Pu else QInj0Pu "Start value of reactive power or voltage setpoint at injector in pu (base SNom or UNom) (generator convention)";
 
 equation
   connect(PFaRef, tan.u) annotation(
@@ -166,9 +166,9 @@ equation
     Line(points = {{41, 160}, {77, 160}}, color = {0, 0, 127}));
   connect(variableLimiter.y, iqCmdPu) annotation(
     Line(points = {{421, 80}, {490, 80}}, color = {0, 0, 127}));
-  connect(limiter2.y, limPIDFreeze.u_s) annotation(
+  connect(limiter2.y, limPIFreeze.u_s) annotation(
     Line(points = {{-199, 40}, {-162, 40}}, color = {0, 0, 127}));
-  connect(limPIDFreeze.y, uflagswitch.u1) annotation(
+  connect(limPIFreeze.y, uflagswitch.u1) annotation(
     Line(points = {{-139, 40}, {-120, 40}, {-120, 60}, {-60, 60}, {-60, 48}, {-42, 48}}, color = {0, 0, 127}));
   connect(booleanConstant2.y, qflagswitch.u2) annotation(
     Line(points = {{161, 40}, {198, 40}}, color = {255, 0, 255}));
@@ -176,22 +176,22 @@ equation
     Line(points = {{221, 40}, {240, 40}, {240, 74}, {278, 74}}, color = {0, 0, 127}));
   connect(uflagswitch.y, limiter.u) annotation(
     Line(points = {{-19, 40}, {-2, 40}}, color = {0, 0, 127}));
-  connect(varLimPIDFreeze.y, qflagswitch.u1) annotation(
+  connect(varLimPIFreeze.y, qflagswitch.u1) annotation(
     Line(points = {{101, 40}, {120, 40}, {120, 60}, {180, 60}, {180, 48}, {198, 48}}, color = {0, 0, 127}));
-  connect(IqMin.y, varLimPIDFreeze.yMin) annotation(
+  connect(IqMin.y, varLimPIFreeze.yMin) annotation(
     Line(points = {{42, 0}, {60, 0}, {60, 34}, {78, 34}}, color = {0, 0, 127}));
-  connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
+  connect(IqMax.y, varLimPIFreeze.yMax) annotation(
     Line(points = {{42, 80}, {60, 80}, {60, 46}, {78, 46}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze1.y, qflagswitch.u3) annotation(
     Line(points = {{101, -60}, {180, -60}, {180, 32}, {198, 32}}, color = {0, 0, 127}));
   connect(division.y, rateLimFirstOrderFreeze1.u) annotation(
     Line(points = {{41, -60}, {78, -60}}, color = {0, 0, 127}));
-  connect(UFilt1.y, varLimPIDFreeze.u_m) annotation(
+  connect(UFilt1.y, varLimPIFreeze.u_m) annotation(
     Line(points = {{100, 1}, {100, 20}, {90, 20}, {90, 28}}, color = {0, 0, 127}));
   connect(FRT3.y, rateLimFirstOrderFreeze.freeze) annotation(
     Line(points = {{124, -141}, {124, -148}}, color = {255, 0, 255}));
   connect(firstOrder.y, UFilteredPu);
-  connect(FRT2.y, varLimPIDFreeze.freeze) annotation(
+  connect(FRT2.y, varLimPIFreeze.freeze) annotation(
     Line(points = {{80, 1}, {80, 20}, {83, 20}, {83, 28}}, color = {255, 0, 255}));
   connect(add1.y, variableLimiter.u) annotation(
     Line(points = {{301, 80}, {398, 80}}, color = {0, 0, 127}));
@@ -201,9 +201,9 @@ equation
     Line(points = {{-339, -20}, {-320, -20}, {-320, 40}, {-282, 40}}, color = {255, 0, 255}));
   connect(QInjRefPu, pfflagswitch.u3) annotation(
     Line(points = {{-500, -40}, {-300, -40}, {-300, 32}, {-282, 32}}, color = {0, 0, 127}));
-  connect(FRT1.y, limPIDFreeze.freeze) annotation(
+  connect(FRT1.y, limPIFreeze.freeze) annotation(
     Line(points = {{-160, 2}, {-160, 20}, {-156, 20}, {-156, 28}}, color = {255, 0, 255}));
-  connect(QInjPu, limPIDFreeze.u_m) annotation(
+  connect(QInjPu, limPIFreeze.u_m) annotation(
     Line(points = {{-140, -20}, {-140, 20}, {-150, 20}, {-150, 28}}, color = {0, 0, 127}));
   connect(FRT2.y, rateLimFirstOrderFreeze1.freeze) annotation(
     Line(points = {{80, 2}, {80, -40}, {84, -40}, {84, -48}}, color = {255, 0, 255}));

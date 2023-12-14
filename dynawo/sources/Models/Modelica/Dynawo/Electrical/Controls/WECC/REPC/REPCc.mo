@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 */
 
 model REPCc "WECC Renewable Energy Plant Controller REPC model c"
-  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(rateLimFirstOrderFreeze.UseRateLim = true, rateLimFirstOrderFreeze.UseFreeze = true, pid.YMax = PiMaxPu, pid.YMin = PiMinPu, pid1.YMax = QUMaxPu, pid1.YMin = QUMinPu);
+  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(rateLimFirstOrderFreeze.UseRateLim = true, rateLimFirstOrderFreeze.UseFreeze = true, limPIFreeze.YMax = PiMaxPu, limPIFreeze.YMin = PiMinPu, limPIFreeze1.YMax = QUMaxPu, limPIFreeze1.YMin = QUMinPu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.REPCcParameters;
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tFreq, y_start = SystemBase.omega0Pu) annotation(
@@ -121,7 +121,7 @@ equation
     Line(points = {{10, -80}, {38, -80}}, color = {0, 0, 127}));
   connect(add3.y, feedback2.u1) annotation(
     Line(points = {{-38, -80}, {-8, -80}}, color = {0, 0, 127}));
-  connect(pid.y, add2.u1) annotation(
+  connect(limPIFreeze.y, add2.u1) annotation(
     Line(points = {{102, -80}, {120, -80}, {120, -74}, {138, -74}}, color = {0, 0, 127}));
   connect(switch4.y, add2.u2) annotation(
     Line(points = {{102, -140}, {120, -140}, {120, -86}, {138, -86}}, color = {0, 0, 127}));
@@ -151,7 +151,7 @@ equation
     Line(points = {{-298, 80}, {-40, 80}, {-40, 28}}, color = {0, 0, 127}));
   connect(booleanExpression.y, rateLimFirstOrderFreeze.freeze) annotation(
     Line(points = {{280, 160}, {280, 120}, {260, 120}, {260, 0}, {224, 0}, {224, -92}}, color = {255, 0, 255}));
-  connect(booleanExpression.y, pid.freeze) annotation(
+  connect(booleanExpression.y, limPIFreeze.freeze) annotation(
     Line(points = {{280, 160}, {280, 120}, {260, 120}, {260, 0}, {84, 0}, {84, -68}}, color = {255, 0, 255}));
   connect(QRefPu, limiter7.u) annotation(
     Line(points = {{-420, 40}, {-362, 40}}, color = {0, 0, 127}));
@@ -175,7 +175,7 @@ equation
     Line(points = {{202, -120}, {210, -120}, {210, -86}, {218, -86}}, color = {0, 0, 127}));
   connect(const1.y, switch3.u3) annotation(
     Line(points = {{100, -40}, {20, -40}, {20, 0}, {-60, 0}, {-60, -12}, {-42, -12}}, color = {0, 0, 127}));
-  connect(pid1.y, slewRateLimiter2.u) annotation(
+  connect(limPIFreeze1.y, slewRateLimiter2.u) annotation(
     Line(points = {{302, 80}, {318, 80}}, color = {0, 0, 127}));
   connect(slewRateLimiter2.y, transferFunction.u) annotation(
     Line(points = {{342, 80}, {358, 80}}, color = {0, 0, 127}));
