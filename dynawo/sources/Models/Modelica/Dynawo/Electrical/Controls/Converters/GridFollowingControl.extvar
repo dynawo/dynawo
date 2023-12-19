@@ -14,7 +14,7 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="uPccPu.re" type="continuous"/>
   <variable id="uPccPu.im" type="continuous"/>
-  <variable id="omegaRef" type="continuous"/>
+  <variable id="omegaRefPu" type="continuous"/>
   <variable id="PGenRefPu" type="continuous"/>
   <variable id="PGenPu" type="continuous"/>
   <variable id="UConvRefPu" type="continuous"/>

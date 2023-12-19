@@ -7,7 +7,7 @@ model GridFollowingControl_INIT "Initialization model for the grid following con
   import Modelica;
   import Modelica.Constants;
   import Dynawo;
-  
+
   /* Initial quantities to calculate from initialisation data*/
   Types.ComplexVoltagePu uPcc0Pu;
   Types.ComplexCurrentPu iPcc0Pu;
@@ -28,9 +28,10 @@ model GridFollowingControl_INIT "Initialization model for the grid following con
   Types.PerUnit UConv0Pu;
   Types.PerUnit thetaPLL0Pu;
   Types.PerUnit omegaPLL0Pu;
+  Types.PerUnit omegaRef0Pu;
 
 equation
-  
+
   annotation(preferredView = "text");
 
 end GridFollowingControl_INIT;

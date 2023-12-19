@@ -22,7 +22,6 @@ model GridFollowingControl
   parameter Types.PerUnit KiPLL;
   parameter Types.PerUnit OmegaMaxPu;
   parameter Types.PerUnit OmegaMinPu;
-  parameter Types.AngularVelocity omegaRefPu;
   
   //Initial values
   parameter Types.ComplexVoltagePu uPcc0Pu;
@@ -44,7 +43,8 @@ model GridFollowingControl
   parameter Types.PerUnit UConv0Pu;
   parameter Types.Angle thetaPLL0Pu;
   parameter Types.PerUnit omegaPLL0Pu;
-
+  parameter Types.PerUnit omegaRef0Pu;
+  
   Dynawo.Electrical.Controls.Converters.BaseControls.ReactivePowerLoop reactivePowerLoop(Kiv = Kiv, Kpv = Kpv, Tlpf = Tlpf, UConv0Pu = UConv0Pu, UConvRef0Pu = UConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, -12}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.ActivePowerLoop activePowerLoop(Kip = Kip, Kpp = Kpp, PGen0Pu = PGen0Pu, PGenRef0Pu = PGen0Pu, Tlpf = Tlpf, idConv0Pu = idConv0Pu) annotation(
@@ -53,7 +53,7 @@ model GridFollowingControl
     Placement(visible = true, transformation(origin = {49, 15}, extent = {{-27, -27}, {27, 27}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PGenRefPu(start = PGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, 55}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRef(start = omegaRefPu) annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = omegaRef0Pu) annotation(
     Placement(transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput UConvRefPu(start = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -4}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -106,8 +106,6 @@ equation
     Line(points = {{-130, -90}, {68, -90}, {68, -15}}, color = {0, 0, 127}));
   connect(iqConvPu, currentLoopGFL.iqConvPu) annotation(
     Line(points = {{-130, -110}, {57, -110}, {57, -15}}, color = {0, 0, 127}));
-  connect(omegaRef, pll.omegaRefPu) annotation(
-    Line(points = {{-130, 100}, {-59, 100}}, color = {0, 0, 127}));
   connect(uPccPu, pll.uPu) annotation(
     Line(points = {{-127, 123}, {-59, 123}}, color = {85, 170, 255}));
   connect(pll.omegaPLLPu, omegaPLLPu) annotation(
@@ -116,6 +114,8 @@ equation
     Line(points = {{-18, 113}, {-18, 107}, {130, 107}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, currentLoopGFL.omegaPLLPu) annotation(
     Line(points = {{-18, 121}, {-4, 121}, {-4, 15}, {19, 15}}, color = {0, 0, 127}));
+  connect(omegaRefPu, pll.omegaRefPu) annotation(
+    Line(points = {{-130, 100}, {-59, 100}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -150}, {120, 150}})),
     preferredView = "diagram",

@@ -34,6 +34,7 @@
     <dyn:initConnect id1="injectorGFL" var1="UConv0Pu" id2="controlGFL" var2="UConv0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="thetaPLL0Pu" id2="controlGFL" var2="thetaPLL0Pu"/>
     <dyn:initConnect id1="injectorGFL" var1="omegaPLL0Pu" id2="controlGFL" var2="omegaPLL0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="omegaRef0Pu" id2="controlGFL" var2="omegaRef0Pu"/>
     <dyn:connect id1="controlGFL" var1="udConvRefPu" id2="injectorGFL" var2="udConvRefPu"/>
     <dyn:connect id1="controlGFL" var1="uqConvRefPu" id2="injectorGFL" var2="uqConvRefPu"/>
     <dyn:connect id1="controlGFL" var1="omegaPLLPu" id2="injectorGFL" var2="omegaPLLPu"/>

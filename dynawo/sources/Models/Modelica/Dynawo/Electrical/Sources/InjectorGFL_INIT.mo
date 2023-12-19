@@ -4,7 +4,6 @@ model InjectorGFL_INIT "Injector model for grid following converter"
 
   import Modelica;
   import Dynawo;
-  parameter Types.VoltageModule UNom "base voltage in kV";
   parameter Types.ApparentPowerModule SNom"base apparent power in MVA";
   parameter Types.AngularVelocity omegaNom "Nominal System angular frequency";
   parameter Types.PerUnit ratioTr "Connection transformer ratio in p.u";
@@ -12,7 +11,7 @@ model InjectorGFL_INIT "Injector model for grid following converter"
   parameter Types.PerUnit L "Transformer inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit Rc "resistance value from converter terminal to PCC in pu (base UNom, SNom)";
   parameter Types.PerUnit Xc "reactance value from converter terminal to PCC in pu (base UNom, SNom)";
-  parameter Types.AngularVelocity omegaRefPu;
+  parameter Types.AngularVelocity omegaRef0Pu;
 
   /* Converter bus initialisation data*/
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
@@ -47,7 +46,7 @@ equation
   QGen0Pu = Q0Pu;
   iPcc0Pu = ComplexMath.conj(Complex(PGen0Pu, QGen0Pu)/uPcc0Pu);
   thetaPLL0Pu = ComplexMath.arg(uPcc0Pu);
-  omegaPLL0Pu= omegaRefPu;
+  omegaPLL0Pu= omegaRef0Pu;
   udPcc0Pu = cos(thetaPLL0Pu)*uPcc0Pu.re + sin(thetaPLL0Pu)*uPcc0Pu.im;
   uqPcc0Pu = -sin(thetaPLL0Pu)*uPcc0Pu.re + cos(thetaPLL0Pu)*uPcc0Pu.im;
   idPcc0Pu = cos(thetaPLL0Pu)*iPcc0Pu.re + sin(thetaPLL0Pu)*iPcc0Pu.im;

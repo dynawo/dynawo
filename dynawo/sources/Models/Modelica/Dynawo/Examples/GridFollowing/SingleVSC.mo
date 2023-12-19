@@ -44,7 +44,7 @@ model SingleVSC
   uPcc0Pu= SingleVSC_INIT.uPcc0Pu ,
   iPcc0Pu= SingleVSC_INIT.iPcc0Pu ,
   omegaNom= SingleVSC_INIT.omegaNom,
-  omegaRefPu= SingleVSC_INIT.omegaRefPu,
+  omegaRef0Pu= SingleVSC_INIT.omegaRef0Pu,
   omegaPLL0Pu= SingleVSC_INIT.omegaPLL0Pu,
   thetaPLL0Pu= SingleVSC_INIT.thetaPLL0Pu,
   PGen0Pu= SingleVSC_INIT.PGen0Pu,
@@ -61,9 +61,9 @@ model SingleVSC
   uqConvRef0Pu= SingleVSC_INIT.uqConvRef0Pu
   ) annotation(
     Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step UConvRefPu(height = 0, offset = SingleVSC_INIT.UConvRef0Pu, startTime = 0.5) annotation(
+  Modelica.Blocks.Sources.Step UConvRefPu(height = +0.02, offset = SingleVSC_INIT.UConvRef0Pu, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant omegaRefPu(k = SingleVSC_INIT.omegaRefPu) annotation(
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = SingleVSC_INIT.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-110, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PGenRefPu(height = -0.05, offset = SingleVSC_INIT.PGenRef0Pu, startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -105,8 +105,10 @@ connect(GridFollowingControl.omegaPLLPu, InjectorGFL.omegaPLLPu) annotation(
     Line(points = {{-6, -22}, {-6, -42}, {-48, -42}, {-48, -22}}, color = {0, 0, 127}));
   connect(InjectorGFL.terminal, line.terminal1) annotation(
     Line(points = {{22, 0}, {46, 0}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, GridFollowingControl.omegaRef) annotation(
+  connect(omegaRefPu.y, GridFollowingControl.omegaRefPu) annotation(
     Line(points = {{-98, 56}, {-94, 56}, {-94, 14}, {-84, 14}}, color = {0, 0, 127}));
+  connect(omegaRefPu.y, GridFollowingControl.omegaRefPu) annotation(
+    Line(points = {{-98, 56}, {-90, 56}, {-90, 14}, {-84, 14}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 end SingleVSC;

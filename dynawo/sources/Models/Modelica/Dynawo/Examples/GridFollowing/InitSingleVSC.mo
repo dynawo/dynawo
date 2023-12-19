@@ -32,8 +32,8 @@ model InitSingleVSC
   parameter Types.PerUnit Kiv = 50 "Integral gain of the reactive power loop";
   parameter Types.Time Tpll = 0.1 "Time constant of PLL to calculate KpPLL and kiPLL (Tau)";
   parameter Types.PerUnit KpPLL = 10/(omegaNom*Tpll);
-  parameter Types.PerUnit OmegaMaxPu = 2;
-  parameter Types.PerUnit OmegaMinPu = 0.1;
+  parameter Types.PerUnit OmegaMaxPu = 1.5;
+  parameter Types.PerUnit OmegaMinPu = 0.5;
   parameter Types.PerUnit KiPLL = 25/(omegaNom*(Tpll^2));
   parameter Types.PerUnit Vpllb = 0.4 "vpll1 in the block diagrams: Hysteresis lower limit";
   parameter Types.PerUnit Vpllu = 0.5 "vpll2 in the block diagrams : Hysteresis upper limit";
@@ -86,7 +86,7 @@ model InitSingleVSC
   parameter Types.ComplexVoltagePu uTerminal0Pu = Complex(1, 0) "Infinite bus constant voltage module in pu (base UNom)";
   parameter Types.PerUnit UBus0Pu = ComplexMath.'abs'(Complex(RInfPu, XInfPu)*iTerminal0Pu + uTerminal0Pu) "Initial complex voltage at terminal in pu (base UNom)";
   parameter Types.PerUnit UPhaseBus0 = ComplexMath.arg(Complex(RInfPu, XInfPu)*iTerminal0Pu + uTerminal0Pu) "Infinite bus constant voltage angle in rad";
-  parameter Types.PerUnit omegaRefPu = 1;
+  parameter Types.PerUnit omegaRef0Pu = 1;
   parameter Types.PerUnit PGenRef0Pu = PGen0Pu;
   parameter Types.PerUnit QGenRef0Pu = QGen0Pu;
   parameter Types.PerUnit UConvRef0Pu = UConv0Pu;
