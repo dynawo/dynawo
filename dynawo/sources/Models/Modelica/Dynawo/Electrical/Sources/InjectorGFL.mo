@@ -3,21 +3,21 @@ within Dynawo.Electrical.Sources;
 model InjectorGFL "Converter model for grid following applications"
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
   /*
-        Model Characteristics: this model is based on the stepss converter model
-        - No DC control & DC dynamics
-        - No RLC filter (MMC technology) 
-        */
+          Model Characteristics: this model is based on the stepss converter model
+          - No DC control & DC dynamics
+          - No RLC filter (MMC technology) 
+          */
   /*
-        Equivalent circuit and conventions: 
-         __________
-        |                 |IConvPu(idConvPu,iqConvPu)                                      1   r  IPccPu (idPccPu, iqPccPu)
-        |                 |-->----------------------(R,L)----->--------------------------|   |---->---(PCC terminal)----
-        |                 |                                                                                  |   |
-        |  DC/AC      |  UConvPu                                                                   |   |       UPccPu                PGenPu =>
-        |                 |(udConvPu, uqConvPu)                                                 |   | (udPccPu, uqPccPU)    QGenPu =>
-        |                 |                                                                                  |   |
-        |_________ |---------------------------------------------------------------------- |   |-------------------------------
-        */
+          Equivalent circuit and conventions: 
+           __________
+          |                 |IConvPu(idConvPu,iqConvPu)                                      1   r  IPccPu (idPccPu, iqPccPu)
+          |                 |-->----------------------(R,L)----->--------------------------|   |---->---(PCC terminal)----
+          |                 |                                                                                  |   |
+          |  DC/AC      |  UConvPu                                                                   |   |       UPccPu                PGenPu =>
+          |                 |(udConvPu, uqConvPu)                                                 |   | (udPccPu, uqPccPU)    QGenPu =>
+          |                 |                                                                                  |   |
+          |_________ |---------------------------------------------------------------------- |   |-------------------------------
+          */
   import Modelica;
   import Dynawo;
   parameter Types.ApparentPowerModule SNom "Converter nominal apparent power in MVA";
@@ -62,7 +62,7 @@ model InjectorGFL "Converter model for grid following applications"
     Placement(visible = true, transformation(origin = {69, 25}, extent = {{-5, -5}, {5, 5}}, rotation = 0), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Types.PerUnit idPccPu(start = idPcc0Pu);
   Types.PerUnit iqPccPu(start = iqPcc0Pu);
-//   Types.ComplexVoltagePu uConvPu(re(start = uConv0Pu.re), im(start = uConv0Pu.im));
+  //   Types.ComplexVoltagePu uConvPu(re(start = uConv0Pu.re), im(start = uConv0Pu.im));
   Modelica.Blocks.Interfaces.RealOutput udPccPu(start = udPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {69, -15}, extent = {{-5, -5}, {5, 5}}, rotation = 0), iconTransformation(origin = {31, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput uqPccPu(start = uqPcc0Pu) annotation(
@@ -76,9 +76,11 @@ model InjectorGFL "Converter model for grid following applications"
   Modelica.Blocks.Interfaces.RealOutput QGenPu(start = QGen0Pu) "Injected reactive power at the PCC in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {69, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage magnitude at converter
-   terminal" annotation(
+     terminal" annotation(
     Placement(visible = true, transformation(origin = {69, -55}, extent = {{-5, -5}, {5, 5}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  Modelica.Blocks.Interfaces.RealOutput UPccPu(start = ComplexMath.'abs'(uPcc0Pu)) "Voltage magnitude at PCC
+       terminal" annotation(
+    Placement(transformation(origin = {25, -58}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}})));
 initial equation
   der(idPccPu) = 0.0;
   der(iqPccPu) = 0.0;
@@ -90,7 +92,6 @@ equation
 /*Dynamics of current in Transformer in DQ reference frame*/
   L*der(idPccPu*ratioTr) = omegaNom*(udConvRefPu - udPccPu/ratioTr - R*idPccPu*ratioTr + omegaPLLPu*L*iqPccPu*ratioTr);
   L*der(iqPccPu*ratioTr) = omegaNom*(uqConvRefPu - uqPccPu/ratioTr - R*iqPccPu*ratioTr - omegaPLLPu*L*idPccPu*ratioTr);
-
 /* Power Calculation */
   PGenPu = -1*ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i));
   QGenPu = -1*ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i));
@@ -99,10 +100,11 @@ equation
   iqConvPu = iqPccPu*ratioTr;
 /* Setpoint of compensated voltage */
   UConvPu = ComplexMath.'abs'(terminal.V/ratioTr - terminal.i*ratioTr*Complex(R, Xc));
-
-if running.value then
-  terminal.i.re = -1*(cos(thetaPLLPu)*idPccPu - sin(thetaPLLPu)*iqPccPu);
-  terminal.i.im = -1*(sin(thetaPLLPu)*idPccPu + cos(thetaPLLPu)*iqPccPu);
+  UPccPu = ComplexMath.'abs'(terminal.V);
+  
+  if running.value then
+    terminal.i.re = -1*(cos(thetaPLLPu)*idPccPu - sin(thetaPLLPu)*iqPccPu);
+    terminal.i.im = -1*(sin(thetaPLLPu)*idPccPu + cos(thetaPLLPu)*iqPccPu);
   else
     terminal.i = Complex(0);
   end if;
