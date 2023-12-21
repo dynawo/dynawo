@@ -1370,6 +1370,7 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
         del  tree_deps_tmp[tmp]
 
     equations = type_tree.get_equations()
+
     # We need to fix the equations as sometime an embedded if is still dumped with a modelica_real tmp; if ... tmp = ...; else tmp = ...; in the final cpp
     idx = 0
     for main_tmp in tree_deps_tmp:
@@ -1387,9 +1388,9 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
         if re.search(tmp_eq_ptrn, line) is not None:
             main_tmp = line.split("=")[0].strip()
             if main_tmp in tree_deps_tmp:
-                if re.search(tmp_eq_tmp_ptrn, line) is None or (idx < len(equations) and equations[idx] == "MIN/MAX" and re.search(tmp_eq_tmp_ptrn, line) is not None):
+                if re.search(tmp_eq_tmp_ptrn, line) is None:
                     assert(idx < len(equations))
-                    if equations[idx] == "MIN/MAX":
+                    if equations[idx] == "MIN/MAX value":
                         res_body.pop() # remove the corresponding if
                         idx += 1
                         continue
