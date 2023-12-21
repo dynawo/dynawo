@@ -483,7 +483,7 @@ class ReaderOMC:
             no_event = []
             for child in self.children:
                 no_event.extend(child.get_no_event())
-            if self.type != None:
+            if self.type != None and len(self.children) == 0:
                 no_event.append(self.no_event)
             return no_event
 
@@ -501,25 +501,16 @@ class ReaderOMC:
             for child in self.children:
                 child.force_differential()
 
-    def create_nodes_for_min_and_max(self, root):
-        if len(root.children) == 0:
-            nodes_to_add = 0
-            if "min" in root.eq:
-                nodes_to_add+= root.eq.count("min(")
-            if "max" in root.eq:
-                nodes_to_add+= root.eq.count("max(")
-            for _ in range(0, nodes_to_add):
-                node = self.Node()
-                node.eq = "MIN/MAX"
-                node.type = root.type
-                root.children.append(node)
-                node2 = self.Node()
-                node2.eq = "MIN/MAX"
-                node2.type = root.type
-                root.children.append(node2)
+    def reorder_nodes_for_min_and_max(self, root):
+        if (root.eq == "MIN/MAX"):
+            assert(len(root.children) == 2)
+            first = root.children[0]
+            second = root.children[1]
+            if len(first.children) == 0 and len(second.children) > 0:
+                root.children = [second, first]
         else:
             for child in root.children:
-                self.create_nodes_for_min_and_max(child)
+                self.reorder_nodes_for_min_and_max(child)
 
     def analyse_eq_expr(self, eq, root, no_event_found_parent):
         der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+?)\)')
@@ -530,9 +521,10 @@ class ReaderOMC:
             if (len(expr) == 0):
                 idx += 1
                 continue
-            if expr.startswith("(if") or expr.startswith("-(if") or expr.startswith("- (if"):
-                nb_parenthesis = 1
-                sub_eq= expr.replace("(","", 1)
+            match = re.compile(r'[(-]+if')
+            if match.match(expr) is not None:
+                nb_parenthesis = expr.count("(")
+                sub_eq= expr.replace("(","", nb_parenthesis)
                 idx+=1
                 while nb_parenthesis > 0:
                     if "(" in splitted_eq[idx]:
@@ -550,6 +542,22 @@ class ReaderOMC:
                 root.children.append(node)
                 (final_expr, idx, no_event_found_value) = self.find_value(idx, splitted_eq)
                 self.analyse_eq_expr(final_expr, node, no_event_found or no_event_found_value)
+            elif expr.startswith("min(") or expr.startswith("max("):
+                (idx, first, second) = self.find_expr_in_min_max(idx, splitted_eq, expr)
+                node = self.Node()
+                node.eq = "MIN/MAX"
+                node.no_event = False
+                root.children.append(node)
+                node1 = self.Node()
+                node1.eq = first[4:]
+                node1.no_event = False
+                node.children.append(node1)
+                self.analyse_eq_expr(node1.eq, node1, False)
+                node2 = self.Node()
+                node2.eq = second[:-1]
+                node2.no_event = False
+                node.children.append(node2)
+                self.analyse_eq_expr(second[:-1], node2, False)
             elif expr.startswith("else"):
                 node = self.Node()
                 root.children.append(node)
@@ -569,6 +577,7 @@ class ReaderOMC:
                         root.diff_var.append(m2)
                 else:
                     root.type = ALGEBRAIC
+                self.split_min_max(final_expr, root)
 
     def remove_condition(self, initial_idx, splitted_eq):
         idx = initial_idx
@@ -579,6 +588,45 @@ class ReaderOMC:
             idx+=1
         return (idx+1, no_event_found)
 
+
+    def split_min_max(self, final_expr, root):
+        nodes_to_add = 0
+        if "min" in root.eq:
+            nodes_to_add+= root.eq.count("min(")
+        if "max" in root.eq:
+            nodes_to_add+= root.eq.count("max(")
+        for _ in range(0, nodes_to_add):
+            node = self.Node()
+            node.eq = "MIN/MAX value"
+            node.type = root.type
+            node.no_event = root.no_event
+            root.children.append(node)
+            node2 = self.Node()
+            node2.eq = "MIN/MAX value"
+            node2.type = root.type
+            node2.no_event = root.no_event
+            root.children.append(node2)
+
+    def find_expr_in_min_max(self, initial_idx, splitted_eq, expr):
+        nb_parenthesis =  expr.count("min(") + expr.count("max(")
+        idx = initial_idx
+        idx+=1
+        sub_eq = expr
+        first = ""
+        second = ""
+        while nb_parenthesis > 0:
+            if sub_eq.endswith(',') and nb_parenthesis == 1 and len(first) == 0:
+                first = sub_eq
+                sub_eq = ""
+            if "(" in splitted_eq[idx]:
+                nb_parenthesis+=splitted_eq[idx].count("(")
+            if ")" in splitted_eq[idx]:
+                nb_parenthesis-=splitted_eq[idx].count(")")
+            sub_eq+= " " + splitted_eq[idx]
+            idx+=1
+        second = sub_eq
+        return (idx, first, second)
+
     def find_value(self, initial_idx, splitted_eq):
         idx = initial_idx
         no_event_found = False
@@ -586,7 +634,9 @@ class ReaderOMC:
             (idx, no_event_found) = self.remove_condition(idx, splitted_eq)
         final_expr = ""
 
-        if splitted_eq[idx].startswith("(if") or splitted_eq[idx].startswith("-(if") or splitted_eq[idx].startswith("- (if"):
+        match = re.compile(r'[(-]+if')
+        if match.match(splitted_eq[idx]) is not None:
+        #if splitted_eq[idx].startswith("(if") or splitted_eq[idx].startswith("-(if") or splitted_eq[idx].startswith("- (if"):
             nb_parenthesis = 1
             sub_eq= splitted_eq[idx].replace("(","", 1)
             idx+=1
@@ -598,6 +648,18 @@ class ReaderOMC:
                 sub_eq+= " " + splitted_eq[idx]
                 idx+=1
             return (sub_eq[:-1], idx, no_event_found)
+        elif splitted_eq[idx].startswith("min(") or splitted_eq[idx].startswith("max("):
+            nb_parenthesis = splitted_eq[idx].count("min(") + splitted_eq[idx].count("max(")
+            sub_eq= splitted_eq[idx]
+            idx+=1
+            while nb_parenthesis > 0:
+                if "(" in splitted_eq[idx]:
+                    nb_parenthesis+=splitted_eq[idx].count("(")
+                if ")" in splitted_eq[idx]:
+                    nb_parenthesis-=splitted_eq[idx].count(")")
+                sub_eq+= " " + splitted_eq[idx]
+                idx+=1
+            return (sub_eq, idx, no_event_found)
         else:
             keywords = ["else", "if", "-if"]
             operation_ptrn = re.compile(r'[+-]')
@@ -641,8 +703,9 @@ class ReaderOMC:
         else:
             root = self.Node()
             self.analyse_eq_expr(eq, root, False)
+
             root.propagate_differential()
-            self.create_nodes_for_min_and_max(root)
+            self.reorder_nodes_for_min_and_max(root)
             types = root.get_types()
 
             assert(len(types) > 0)
