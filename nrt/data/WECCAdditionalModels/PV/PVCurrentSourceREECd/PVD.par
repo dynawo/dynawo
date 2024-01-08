@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-5"/>
+    <par type="DOUBLE" name="minStep" value="1e-5"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+  </set>
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.6"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="2"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="PVD_P0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="PVD_Q0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="PVD_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="PVD_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="PVD_SNom" value="100"/>
+    <par type="DOUBLE" name="PVD_RPu" value="0"/>
+    <par type="DOUBLE" name="PVD_XPu" value="0.15"/>
+    <par type="DOUBLE" name="PVD_DDnPu" value="20"/>
+    <par type="DOUBLE" name="PVD_DUpPu" value="0.001"/>
+    <par type="BOOL" name="PVD_FreqFlag" value="true"/>
+    <par type="DOUBLE" name="PVD_IMaxPu" value="1.3"/>
+    <par type="DOUBLE" name="PVD_IqFrzPu" value="0"/>
+    <par type="DOUBLE" name="PVD_Iqh1Pu" value="1.1"/>
+    <par type="DOUBLE" name="PVD_Iql1Pu" value="-1.1"/>
+    <par type="DOUBLE" name="PVD_IqrMaxPu" value="20"/>
+    <par type="DOUBLE" name="PVD_IqrMinPu" value="-20"/>
+    <par type="DOUBLE" name="PVD_Kc" value="0"/>
+    <par type="DOUBLE" name="PVD_Ki" value="1.5"/>
+    <par type="DOUBLE" name="PVD_Kig" value="2.36"/>
+    <par type="DOUBLE" name="PVD_Kp" value="0.1"/>
+    <par type="DOUBLE" name="PVD_Kpg" value="0.05"/>
+    <par type="DOUBLE" name="PVD_Kqi" value="0.5"/>
+    <par type="DOUBLE" name="PVD_Kqp" value="1"/>
+    <par type="DOUBLE" name="PVD_Kqv" value="2"/>
+    <par type="DOUBLE" name="PVD_Kvi" value="0.7"/>
+    <par type="DOUBLE" name="PVD_Kvp" value="1"/>
+    <par type="DOUBLE" name="PVD_PMaxPu" value="1"/>
+    <par type="DOUBLE" name="PVD_PMinPu" value="0"/>
+    <par type="BOOL" name="PVD_PQFlag" value="false"/>
+    <par type="BOOL" name="PVD_PfFlag" value="false"/>
+    <par type="BOOL" name="PVD_QFlag" value="true"/>
+    <par type="DOUBLE" name="PVD_QMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="PVD_QMinPu" value="-0.4"/>
+    <par type="BOOL" name="PVD_RateFlag" value="false"/>
+    <par type="INT" name="PVD_RefFlag" value="1"/>
+    <par type="DOUBLE" name="PVD_tFilterPC" value="0.04"/>
+    <par type="DOUBLE" name="PVD_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="PVD_tFt" value="1e-5"/>
+    <par type="DOUBLE" name="PVD_tFv" value="0.1"/>
+    <par type="DOUBLE" name="PVD_tG" value="0.02"/>
+    <par type="DOUBLE" name="PVD_tIq" value="0.01"/>
+    <par type="DOUBLE" name="PVD_tLag" value="0.1"/>
+    <par type="DOUBLE" name="PVD_tP" value="0.05"/>
+    <par type="DOUBLE" name="PVD_tPOrd" value="0.01"/>
+    <par type="DOUBLE" name="PVD_tRv" value="0.01"/>
+    <par type="DOUBLE" name="PVD_UMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="PVD_UMinPu" value="0.9"/>
+    <par type="BOOL" name="PVD_UFlag" value="true"/>
+    <par type="BOOL" name="PVD_UCompFlag" value="false"/>
+    <par type="DOUBLE" name="PVD_UFrzPu" value="0"/>
+    <par type="DOUBLE" name="PVD_UUpPu" value="1.1"/>
+    <par type="DOUBLE" name="PVD_UDipPu" value="0.9"/>
+    <par type="DOUBLE" name="PVD_VRef0Pu" value="0"/>
+    <par type="DOUBLE" name="PVD_DPMaxPu" value="2"/>
+    <par type="DOUBLE" name="PVD_DPMinPu" value="-2"/>
+    <par type="DOUBLE" name="PVD_DbdPu" value="0.01"/>
+    <par type="DOUBLE" name="PVD_Dbd1Pu" value="-0.05"/>
+    <par type="DOUBLE" name="PVD_Dbd2Pu" value="0.05"/>
+    <par type="DOUBLE" name="PVD_EMaxPu" value="0.5"/>
+    <par type="DOUBLE" name="PVD_EMinPu" value="-0.5"/>
+    <par type="DOUBLE" name="PVD_FDbd1Pu" value="-0.004"/>
+    <par type="DOUBLE" name="PVD_FDbd2Pu" value="1"/>
+    <par type="DOUBLE" name="PVD_FEMaxPu" value="999"/>
+    <par type="DOUBLE" name="PVD_FEMinPu" value="-999"/>
+    <par type="DOUBLE" name="PVD_RrpwrPu" value="10"/>
+    <par type="DOUBLE" name="PVD_KiPLL" value="20"/>
+    <par type="DOUBLE" name="PVD_KpPLL" value="3"/>
+    <par type="DOUBLE" name="PVD_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="PVD_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="PVD_Brkpt" value="0.9"/>
+    <par type="DOUBLE" name="PVD_Lvpl1" value="1.22"/>
+    <par type="BOOL" name="PVD_LvplSw" value="false"/>
+    <par type="DOUBLE" name="PVD_Zerox" value="0.4"/>
+    <par type="DOUBLE" name="PVD_tHld" value="0"/>
+    <par type="DOUBLE" name="PVD_tHld2" value="0"/>
+    <par type="DOUBLE" name="PVD_VRef1Pu" value="0"/>
+    <par type="BOOL" name="PVD_PFlag" value="true"/>
+    <par type="DOUBLE" name="PVD_Ke" value="0"/>
+    <par type="DOUBLE" name="PVD_QUMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="PVD_QUMinPu" value="-0.4"/>
+    <par type="DOUBLE" name="PVD_RcPu" value="0"/>
+    <par type="DOUBLE" name="PVD_tBlkDelay" value="0.04"/>
+    <par type="DOUBLE" name="PVD_tR1" value="0"/>
+    <par type="DOUBLE" name="PVD_UBlkHPu" value="1.5"/>
+    <par type="DOUBLE" name="PVD_UBlkLPu" value="0.1"/>
+    <par type="BOOL" name="PVD_UCmpFlag" value="false"/>
+    <par type="DOUBLE" name="PVD_XcPu" value="0.15"/>
+    <par type="DOUBLE" name="PVD_VDLIp11" value="0"/>
+    <par type="DOUBLE" name="PVD_VDLIp12" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp21" value="0.4"/>
+    <par type="DOUBLE" name="PVD_VDLIp22" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp31" value="0.8"/>
+    <par type="DOUBLE" name="PVD_VDLIp32" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp41" value="0.9"/>
+    <par type="DOUBLE" name="PVD_VDLIp42" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp51" value="1"/>
+    <par type="DOUBLE" name="PVD_VDLIp52" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp61" value="1.1"/>
+    <par type="DOUBLE" name="PVD_VDLIp62" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp71" value="1.2"/>
+    <par type="DOUBLE" name="PVD_VDLIp72" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp81" value="1.3"/>
+    <par type="DOUBLE" name="PVD_VDLIp82" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIp91" value="1.6"/>
+    <par type="DOUBLE" name="PVD_VDLIp92" value="0.5"/>
+    <par type="DOUBLE" name="PVD_VDLIp101" value="2"/>
+    <par type="DOUBLE" name="PVD_VDLIp102" value="0.5"/>
+    <par type="DOUBLE" name="PVD_VDLIq11" value="0"/>
+    <par type="DOUBLE" name="PVD_VDLIq12" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq21" value="0.4"/>
+    <par type="DOUBLE" name="PVD_VDLIq22" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq31" value="0.8"/>
+    <par type="DOUBLE" name="PVD_VDLIq32" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq41" value="0.9"/>
+    <par type="DOUBLE" name="PVD_VDLIq42" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq51" value="1"/>
+    <par type="DOUBLE" name="PVD_VDLIq52" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq61" value="1.1"/>
+    <par type="DOUBLE" name="PVD_VDLIq62" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq71" value="1.2"/>
+    <par type="DOUBLE" name="PVD_VDLIq72" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq81" value="1.3"/>
+    <par type="DOUBLE" name="PVD_VDLIq82" value="1.05"/>
+    <par type="DOUBLE" name="PVD_VDLIq91" value="1.6"/>
+    <par type="DOUBLE" name="PVD_VDLIq92" value="0.5"/>
+    <par type="DOUBLE" name="PVD_VDLIq101" value="2"/>
+    <par type="DOUBLE" name="PVD_VDLIq102" value="0.5"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+</parametersSet>

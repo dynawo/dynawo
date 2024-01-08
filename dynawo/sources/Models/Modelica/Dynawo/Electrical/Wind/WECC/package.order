@@ -4,3 +4,5 @@ WTG4BCurrentSource
 WT4ACurrentSource
 WT4BCurrentSource
 WT4CurrentSource_INIT
+WTG4AVoltageSource
+WTG4AVoltageSource_INIT

@@ -1,4 +1,4 @@
-time;WT4A_WT4A_injector_PInjPu;WT4A_WT4A_injector_QInjPu;WT4A_WT4A_injector_terminal_V_re;WT4A_WT4A_injector_terminal_i_re;WT4A_WT4A_injector_terminal_V_im;WT4A_WT4A_injector_terminal_i_im;WT4A_WT4A_pll_omegaPLLPu;WT4A_WT4A_driveTrainPmConstrant_PePu;
+time;WT4A_WT4A_regc_PInjPu;WT4A_WT4A_regc_QInjPu;WT4A_WT4A_regc_terminal_V_re;WT4A_WT4A_regc_terminal_i_re;WT4A_WT4A_regc_terminal_V_im;WT4A_WT4A_regc_terminal_i_im;WT4A_WT4A_pll_omegaPLLPu;WT4A_WT4A_driveTrainPmConstant_PePu;
 0.000000;0.700000;0.279500;1.030000;-0.700000;0.105001;0.199999;1.000000;0.700000;
 0.000000;0.700000;0.279500;1.030000;-0.700000;0.105001;0.199999;1.000000;0.700000;
 0.000010;0.700000;0.279500;1.030000;-0.700000;0.105001;0.199999;1.000000;0.700000;
