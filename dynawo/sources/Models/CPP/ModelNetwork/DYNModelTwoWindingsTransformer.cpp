@@ -1125,7 +1125,7 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
   addElementWithValue(twtName + string("_P1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_P2"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_Q1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_Q12"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_Q2"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_iS1ToS2Side1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_iS2ToS1Side1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_iS1ToS2Side2"), modelType_, elements, mapElement);
