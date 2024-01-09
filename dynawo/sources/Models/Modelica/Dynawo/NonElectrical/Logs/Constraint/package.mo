@@ -1,7 +1,7 @@
-within myPackage;
+within Dynawo.NonElectrical.Logs;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,12 +13,7 @@ within myPackage;
 * of simulation tools for power systems.
 */
 
-encapsulated package oKeys
+package Constraint "Logging for constraints monitoring purposes"
+  extends Icons.Package;
 
-  final constant Integer MyEntry = 0;
-  final constant Integer MyFourthEntry = 1;
-  final constant Integer MySecondEntry = 2;
-  final constant Integer MyThirdEntry = 3;
-
-  annotation(preferredView = "text");
-end oKeys;
+end Constraint;

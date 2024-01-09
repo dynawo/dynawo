@@ -27,5 +27,4 @@ The library is organized as follows:
 <li> Specific <a href=\"modelica://Dynawo.Types\"> types</a> and <a href=\"modelica://Dynawo.AdditionalIcons\"> icons </a> are provided into particular packages.</li>
 </ul><div>As of today, initialization into Dynawo is carried out by specific initialization models, denoted by _INIT suffix. If you want to use the Dynawo library into a full Modelica tool (OpenModelica for example), you need to provide to the Modelica models consistent parameters that you have previously calculated.</div>
 </div></body></html>"));
-
 end UsersGuide;

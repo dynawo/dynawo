@@ -15,26 +15,26 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 model VariableLimiter "Limit the range of a signal with variable limits"
   extends Modelica.Blocks.Interfaces.SISO;
 
-  Modelica.Blocks.Interfaces.RealInput limit1
- "Connector of Real input signal used as maximum of input u"
-    annotation(Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput limit2
- "Connector of Real input signal used as minimum of input u"
-    annotation(Placement(transformation(extent={{-140,-100},{-100,-60}})));
+  Modelica.Blocks.Interfaces.RealInput limit1 "Connector of Real input signal used as maximum of input u" annotation(
+    Placement(transformation(extent = {{-140, 60},{-100, 100}})));
+  Modelica.Blocks.Interfaces.RealInput limit2 "Connector of Real input signal used as minimum of input u" annotation(
+    Placement(transformation(extent = {{-140, -100},{-100, -60}})));
 
 equation
   y = smooth(0, if u > limit1 then limit1 else if u < limit2 then limit2 else u);
 
   annotation(
-    Documentation(info="<html>
-<p>
-The Limiter block passes its input signal as output signal
-as long as the input is within the upper and lower
-limits specified by the two additional inputs limit1 and
-limit2. If this is not the case, the corresponding limit
-is passed as output.
-</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    preferredView = "text",
+    Documentation(info = "<html>
+    <p>
+    The Limiter block passes its input signal as output signal
+    as long as the input is within the upper and lower
+    limits specified by the two additional inputs limit1 and
+    limit2. If this is not the case, the corresponding limit
+    is passed as output.
+    </p>
+    </html>"),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Line(points={{0,-90},{0,68}}, color={192,192,192}),
         Line(points={{-90,0},{68,0}}, color={192,192,192}),

@@ -41,4 +41,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
+  annotation(preferredView = "text");
 end ShuntB;
