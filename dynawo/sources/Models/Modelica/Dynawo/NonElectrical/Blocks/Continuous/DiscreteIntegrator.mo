@@ -45,15 +45,17 @@ equation
   connect(frozen, switch1.u2) annotation(
     Line(points = {{-110, 0}, {-42, 0}}));
 
-  annotation(defaultComponentName="DiscreteIntegrator",
-    Documentation(info="<html><p>
-This block is a dynawo-compatible wrapper around Modelica's Integrator block constrained to discrete inputs. It defines the transfer function between the input u and the output y as <em>PI</em> system:
-</p>
-<pre>
-              1
- y =    (--------------) * u
-          tIntegral*s
-</pre></html>"),
+  annotation(
+    preferredView = "text",
+    defaultComponentName = "DiscreteIntegrator",
+    Documentation(info = "<html><p>
+    This block is a dynawo-compatible wrapper around Modelica's Integrator block constrained to discrete inputs. It defines the transfer function between the input u and the output y as <em>PI</em> system:
+    </p>
+    <pre>
+                  1
+    y =    (--------------) * u
+              tIntegral*s
+    </pre></html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

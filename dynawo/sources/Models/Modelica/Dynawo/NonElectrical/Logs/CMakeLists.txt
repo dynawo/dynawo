@@ -8,11 +8,12 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+add_subdirectory(Constraint)
+add_subdirectory(Timeline)
+
 set(MODEL_FILES
   package.mo
   package.order
-  Timeline.mo
-  Constraint.mo
   TimelineKeys.mo
   ConstraintKeys.mo
   ErrorKeys.mo

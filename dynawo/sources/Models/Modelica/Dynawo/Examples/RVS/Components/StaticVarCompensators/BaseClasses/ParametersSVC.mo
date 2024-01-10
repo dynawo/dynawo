@@ -24,4 +24,5 @@ record ParametersSVC "Parameter sets for the static VAR compensators of the RVS 
     {0.5, 0, -50, 200, -50, 200, 150 * 250, 3.55, 0.3}  //K is multiplied by susceptance range
   } "Matrix of static var compensator parameters";
 
+  annotation(preferredView = "text");
 end ParametersSVC;

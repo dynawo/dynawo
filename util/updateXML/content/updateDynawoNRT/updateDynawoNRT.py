@@ -26,30 +26,39 @@ from optparse import OptionParser
 
 update_xml_dir = os.environ["DYNAWO_UPDATE_XML_DIR"]
 update_xml_script = os.path.join(update_xml_dir, "update.py")
+python_cmd = os.environ["DYNAWO_PYTHON_COMMAND"]
 
 
 def main():
     parser = OptionParser()
     parser.add_option('--origin', dest="origin", help=u"dynawo origin version")
     parser.add_option('--version', dest="version", help=u"dynawo version")
+    parser.add_option('--tickets', dest="tickets_to_update", help=u"selected tickets to update")
+    parser.add_option('--scriptfolders', dest="scriptfolders", help=u"folders containing update scripts")
     options, _ = parser.parse_args()
 
     if not options.origin or not options.version:
         if not options.origin:
-            print("No input dynawo origin (use --origin option)")
+            print("Error : No input dynawo origin (use --origin option)")
         if not options.version:
-            print("No input dynawo version (use --version option)")
+            print("Error : No input dynawo version (use --version option)")
         sys.exit(1)
 
     dynawo_origin_str = str(options.origin)
     dynawo_version_str = str(options.version)
 
-    print("Updating NRT from " + dynawo_origin_str + " to " + dynawo_version_str + " :")
+    update_message = "Updating NRT from " + dynawo_origin_str + " to " + dynawo_version_str
+    if options.tickets_to_update:
+        if len(options.tickets_to_update.split(',')) == 1:
+            update_message += " applying ticket " + options.tickets_to_update
+        else:
+            update_message += " applying tickets " + options.tickets_to_update
+    update_message += " :"
+    print(update_message)
     data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
-    python_cmd = os.environ["DYNAWO_PYTHON_COMMAND"]
     for case_dir in os.listdir(data_dir):
         case_path = os.path.join(data_dir, case_dir)
-        if os.path.isdir(case_path) == True:
+        if os.path.isdir(case_path) is True:
             sys.path.append(case_path)
             try:
                 import cases
@@ -57,13 +66,18 @@ def main():
 
                 for case_name, _, job_file, _, _, _ in cases.test_cases:
                     job_dir = os.path.dirname(job_file)
+                    cmd_to_execute = [python_cmd, update_xml_script,
+                                        "--job", job_file,
+                                        "--origin", dynawo_origin_str,
+                                        "--version", dynawo_version_str,
+                                        "-o", job_dir,
+                                        "--update-nrt"]
+                    if options.tickets_to_update:
+                        cmd_to_execute.extend(["--tickets", options.tickets_to_update])
+                    if options.scriptfolders:
+                        cmd_to_execute.extend(["--scriptfolders", options.scriptfolders])
                     print("    Updating " + case_name)
-                    subprocess.run([python_cmd, update_xml_script,
-                                    "--job", job_file,
-                                    "--origin", dynawo_origin_str,
-                                    "--version", dynawo_version_str,
-                                    "-o", job_dir,
-                                    "--update-nrt"], check=True)
+                    subprocess.run(cmd_to_execute, check=True)
 
                 del sys.modules['cases']  # delete load module in order to load another module with the same name
             except:

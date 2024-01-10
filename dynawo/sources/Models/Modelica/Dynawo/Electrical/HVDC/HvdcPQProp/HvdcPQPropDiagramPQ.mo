@@ -53,6 +53,10 @@ equation
     q1Status = QStatus.GenerationMax;
     limUQDown1 = false;
     limUQUp1 = true;
+  elsewhen not modeU1 then
+    q1Status = QStatus.Standard;
+    limUQDown1 = true;
+    limUQUp1 = true;
   elsewhen QInj1RawPu > QInj1MinPu and QInj1RawPu < QInj1MaxPu then
     q1Status = QStatus.Standard;
     limUQDown1 = false;
@@ -79,6 +83,10 @@ equation
   elsewhen QInj2RawPu >= QInj2MaxPu then
     q2Status = QStatus.GenerationMax;
     limUQDown2 = false;
+    limUQUp2 = true;
+  elsewhen not modeU2 then
+    q2Status = QStatus.Standard;
+    limUQDown2 = true;
     limUQUp2 = true;
   elsewhen QInj2RawPu > QInj2MinPu and QInj2RawPu < QInj2MaxPu then
     q2Status = QStatus.Standard;

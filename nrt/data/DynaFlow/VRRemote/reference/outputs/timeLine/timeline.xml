@@ -6,6 +6,8 @@
   <event time="70.000000" modelName="Generator2NoFreezing" message="Generator : maximum reactive power limit reached"/>
   <event time="140.000000" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
   <event time="140.000000" modelName="Generator1NoFreezing" message="Generator : maximum reactive power limit reached"/>
+  <event time="140.000000" modelName="SignalNQ" message="Entering in frozen mode"/>
   <event time="1000.000000" modelName="Generator1" message="Generator : back to voltage / reactive power regulation"/>
+  <event time="1000.000000" modelName="SignalNQ" message="Leaving frozen mode"/>
   <event time="1120.000000" modelName="Generator1NoFreezing" message="Generator : back to voltage / reactive power regulation"/>
 </timeline>

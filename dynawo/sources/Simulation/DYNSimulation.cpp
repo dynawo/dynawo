@@ -595,6 +595,9 @@ Simulation::compileModels() {
 
 void
 Simulation::loadDynamicData() {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("Simulation::loadDynamicData()");
+#endif
   // Load model
   dyd_.reset(new DynamicData());  // takes ownership of pointer
   dyd_->setRootDirectory(context_->getInputDirectory());

@@ -149,6 +149,9 @@ UFLS7Activated             =              UFLS step 7 activated
 UFLS8Activated             =              UFLS step 8 activated
 UFLS9Activated             =              UFLS step 9 activated
 UFLS10Activated            =              UFLS step 10 activated
+// --> VRRemote
+VRFrozen                   =             Entering in frozen mode
+VRUnfrozen                 =             Leaving frozen mode
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off

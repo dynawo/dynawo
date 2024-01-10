@@ -52,6 +52,7 @@ equation
   end if;
 
   annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body><p>This block implements the behavior of the switch mechanic for reactive current injection, as specified in:<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><ul><li>Setting HoldIq to 0 results in abrupt ending of injection after the voltage dip has ended.</li><li>Setting HoldIq to a positive value continues the injection with the voltage-dependent injection for the absolute value of HoldIq seconds after the voltage dip has ended.</li><li>Setting HoldIq to a negative value continues the injection with a set constant (IqFrzPu) for the absolute value of HoldIq seconds after the voltage dip has ended.</li></ul></body></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-2, 74}, extent = {{-74, -38}, {82, -78}}, textString = "Reactive Current"), Text(origin = {1, -7}, extent = {{-63, 17}, {69, -21}}, textString = "Injection Logic"), Text(origin = {-129, 108}, extent = {{-19, 10}, {19, -10}}, textString = "vDip"), Text(origin = {-127, 28}, extent = {{-19, 10}, {19, -10}}, textString = "iqVPu"), Text(origin = {-127, 28}, extent = {{-19, 10}, {19, -10}}, textString = "iqVPu"), Text(origin = {121, 16}, extent = {{-19, 10}, {19, -10}}, textString = "iqInjPu")}));
 end IqInjectionLogic;

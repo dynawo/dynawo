@@ -53,3 +53,4 @@ Converter2SwitchOff = Converter2Connected
 TwoWTFOCloseSide1 = TwoWTFOOpenSide1
 TwoWTFOCloseSide2 = TwoWTFOOpenSide2
 TwoWTFOOpen = TwoWTFOClosed
+VRFrozen = VRUnfrozen

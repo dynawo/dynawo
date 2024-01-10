@@ -6,6 +6,7 @@
   <event time="50.000000" modelName="Line4Bis" message="LINE : opening both sides"/>
   <event time="50.000000" modelName="Line5Bis" message="LINE : opening both sides"/>
   <event time="50.000000" modelName="Line6Bis" message="LINE : opening both sides"/>
+  <event time="50.000000" modelName="SVC2" message="Entering in frozen mode"/>
   <event time="70.000000" modelName="Generator10" message="Generator : maximum reactive power limit reached"/>
   <event time="70.000000" modelName="Generator12" message="Generator : maximum reactive power limit reached"/>
   <event time="70.000000" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
@@ -19,5 +20,6 @@
   <event time="140.000000" modelName="Generator11" message="Generator : back to voltage / reactive power regulation"/>
   <event time="600.000000" modelName="Generator7" message="Generator : maximum reactive power limit reached"/>
   <event time="640.000000" modelName="Generator5" message="Generator : maximum reactive power limit reached"/>
+  <event time="640.000000" modelName="SVC" message="Entering in frozen mode"/>
   <event time="680.000000" modelName="Generator11" message="Generator : maximum reactive power limit reached"/>
 </timeline>
