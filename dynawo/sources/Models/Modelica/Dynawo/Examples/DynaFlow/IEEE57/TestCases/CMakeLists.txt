@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   IEEE57NoEvent.mo
   IEEE57DisconnectLine.mo
+  IEEE57HvdcPsDisconnectLine.mo
   )
 
 #

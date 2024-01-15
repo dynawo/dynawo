@@ -12,6 +12,7 @@ set(MODEL_FILES
   package.mo
   package.order
   IEEE57Base.mo
+  IEEE57BaseHvdcPs.mo
   )
 
 #

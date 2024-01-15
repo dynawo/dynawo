@@ -13,11 +13,28 @@ within Dynawo.Examples.DynaFlow.IEEE57.TestCases;
 * of simulation tools for power systems.
 */
 
-model IEEE57DisconnectLine "IEEE 57-bus system benchmark formed with 57 buses, 7 generators, 3 shunts, 16 transformers, 63 lines and 42 loads, with a line disconnection"
-  extends Dynawo.Examples.DynaFlow.IEEE57.BaseClasses.IEEE57Base;
+model IEEE57HvdcPsDisconnectLine "IEEE 57-bus system benchmark formed with 57 buses, 7 generators, 3 shunts, 16 transformers, 1 phase shifter, 63 lines, 1 HVDC line and 42 loads, with a line disconnection"
+  extends Dynawo.Examples.DynaFlow.IEEE57.BaseClasses.IEEE57BaseHvdcPs;
   extends Modelica.Icons.Example;
 
 equation
+  //PhaseShifter
+  PhaseShifterB7B29.locked = false;
+  PhaseShifterB7B29.PMonitored.value = TfoB7B29.P1Pu.value*100;
+
+   when PhaseShifterB7B29.tap.value <> pre(PhaseShifterB7B29.tap.value) then
+    TfoB7B29.tap.value = PhaseShifterB7B29.tap.value;
+  end when;
+
+  // HVDC references
+  HvdcLineB29B52.P1RefPu = AcEmulation.PRefPu;
+  HvdcLineB29B52.Q1RefPu = Load29.QRefPu;
+  HvdcLineB29B52.Q2RefPu = Load52.QRefPu;
+  HvdcLineB29B52.U1RefPu = 1;
+  HvdcLineB29B52.U2RefPu = 1;
+  HvdcLineB29B52.modeU1 = false;
+  HvdcLineB29B52.modeU2 = false;
+
   // Loads references
   Load1.PRefPu = 0.55;
   Load1.QRefPu = 0.17;
@@ -384,9 +401,9 @@ equation
   LineB27B28.switchOffSignal1.value = false;
   LineB27B28.switchOffSignal2.value = false;
   LineB28B29.switchOffSignal1.value = false;
-  LineB28B29.switchOffSignal2.value = if time < 100 then false else true; // Disconnecting line B28B29
+  LineB28B29.switchOffSignal2.value = false;
   LineB29B52.switchOffSignal1.value = false;
-  LineB29B52.switchOffSignal2.value = false;
+  LineB29B52.switchOffSignal2.value = if time < 150 then false else true;
   LineB30B31.switchOffSignal1.value = false;
   LineB30B31.switchOffSignal2.value = false;
   LineB31B32.switchOffSignal1.value = false;
@@ -440,6 +457,11 @@ equation
   LineB57B56.switchOffSignal1.value = false;
   LineB57B56.switchOffSignal2.value = false;
 
+  HvdcLineB29B52.switchOffSignal1Side1.value = false;
+  HvdcLineB29B52.switchOffSignal2Side1.value = false;
+  HvdcLineB29B52.switchOffSignal1Side2.value = false;
+  HvdcLineB29B52.switchOffSignal2Side2.value = false;
+
   TfoB10B51.switchOffSignal1.value = false;
   TfoB10B51.switchOffSignal2.value = false;
   TfoB13B49.switchOffSignal1.value = false;
@@ -475,6 +497,9 @@ equation
   TfoB11B41.switchOffSignal1.value = false;
   TfoB11B41.switchOffSignal2.value = false;
 
+  PhaseShifterB7B29.switchOffSignal1.value = false;
+  PhaseShifterB7B29.switchOffSignal2.value = false;
+
   Shunt18.switchOffSignal1.value = false;
   Shunt18.switchOffSignal2.value = false;
   Shunt25.switchOffSignal1.value = false;
@@ -483,7 +508,7 @@ equation
   Shunt53.switchOffSignal2.value = false;
 
   annotation(preferredView = "text",
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 10),
+    experiment(StartTime = 0, StopTime = 500, Tolerance = 1e-6, Interval = 1),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));
-end IEEE57DisconnectLine;
+end IEEE57HvdcPsDisconnectLine;
