@@ -232,6 +232,63 @@ struct BusBreakerNetworkProperty {
   bool instantiateBattery;
 };
 
+static powsybl::iidm::VscConverterStation&
+initializeVscConverterStation(powsybl::iidm::VoltageLevel& vl,
+                                const std::string& vscConverterId,
+                                const std::string& vscConverterName,
+                                const bool setBus) {
+  powsybl::iidm::VscConverterStationAdder vscAdder = vl.newVscConverterStation()
+                                                        .setId(vscConverterId)
+                                                        .setName(vscConverterName)
+                                                        .setConnectableBus("MyBus")
+                                                        .setLossFactor(3.0)
+                                                        .setVoltageRegulatorOn(true)
+                                                        .setVoltageSetpoint(1.2)
+                                                        .setReactivePowerSetpoint(-1.5);
+  if (setBus) {
+    vscAdder.setBus("MyBus");
+  }
+
+  powsybl::iidm::VscConverterStation& vsc = vscAdder.add();
+  return vsc;
+}
+
+static powsybl::iidm::LccConverterStation&
+initializeLccConverterStation(powsybl::iidm::VoltageLevel& vl,
+                              const std::string& lccConverterId,
+                              const std::string& lccConverterName,
+                              const bool setBus) {
+  powsybl::iidm::LccConverterStationAdder lccAdder = vl.newLccConverterStation()
+                                                        .setId(lccConverterId)
+                                                        .setName(lccConverterName)
+                                                        .setConnectableBus("MyBus")
+                                                        .setLossFactor(3.0)
+                                                        .setPowerFactor(1.);
+  if (setBus) {
+    lccAdder.setBus("MyBus");
+  }
+
+  powsybl::iidm::LccConverterStation& lcc = lccAdder.add();
+  return lcc;
+}
+
+static void
+initializeHvdcLine(const boost::shared_ptr<powsybl::iidm::Network>& network,
+                    const std::string& converterStationId1,
+                    const std::string& converterStationId2) {
+  network->newHvdcLine()
+          .setId("MyHvdcLine")
+          .setName("MyHvdcLine_NAME")
+          .setActivePowerSetpoint(111.1)
+          .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
+          .setConverterStationId1(converterStationId1)
+          .setConverterStationId2(converterStationId2)
+          .setMaxP(12.0)
+          .setNominalV(13.0)
+          .setR(14.0)
+          .add();
+}
+
 static boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
@@ -356,143 +413,51 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   }
 
   if (properties.instantiateVscConverterWithConnectedHvdc) {
-    powsybl::iidm::VscConverterStation& vsc = vl1.newVscConverterStation()
-        .setId("MyVscConverter")
-        .setName("MyVscConverter_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setVoltageRegulatorOn(true)
-        .setVoltageSetpoint(1.2)
-        .setReactivePowerSetpoint(-1.5)
-        .add();
+    powsybl::iidm::VscConverterStation& vsc = initializeVscConverterStation(vl1,
+                                                                            "MyVscConverter",
+                                                                            "MyVscConverter_NAME",
+                                                                            true);
     vsc.getTerminal().setP(150.);
     vsc.getTerminal().setQ(90.);
 
-    powsybl::iidm::VscConverterStation& vsc2 = vl1.newVscConverterStation()
-        .setId("MyVscConverter2")
-        .setName("MyVscConverter2_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setVoltageRegulatorOn(true)
-        .setVoltageSetpoint(1.2)
-        .setReactivePowerSetpoint(-1.5)
-        .add();
+    powsybl::iidm::VscConverterStation& vsc2 = initializeVscConverterStation(vl1,
+                                                                              "MyVscConverter2",
+                                                                              "MyVscConverter2_NAME",
+                                                                              true);
     vsc2.getTerminal().setP(150.);
     vsc2.getTerminal().setQ(90.);
 
-    network->newHvdcLine()
-        .setId("MyHvdcLine")
-        .setName("MyHvdcLine_NAME")
-        .setActivePowerSetpoint(111.1)
-        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-        .setConverterStationId1("MyVscConverter")
-        .setConverterStationId2("MyVscConverter2")
-        .setMaxP(12.0)
-        .setNominalV(13.0)
-        .setR(14.0)
-        .add();
+    initializeHvdcLine(network, "MyVscConverter", "MyVscConverter2");
   }
 
   if (properties.instantiateVscConverterWithDisconnectedHvdc) {
-    vl1.newVscConverterStation()
-        .setId("MyVscConverter")
-        .setName("MyVscConverter_NAME")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setVoltageRegulatorOn(true)
-        .setVoltageSetpoint(1.2)
-        .setReactivePowerSetpoint(-1.5)
-        .add();
-
-    vl1.newVscConverterStation()
-        .setId("MyVscConverter2")
-        .setName("MyVscConverter2_NAME")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setVoltageRegulatorOn(true)
-        .setVoltageSetpoint(1.2)
-        .setReactivePowerSetpoint(-1.5)
-        .add();
-
-    network->newHvdcLine()
-        .setId("MyHvdcLine")
-        .setName("MyHvdcLine_NAME")
-        .setActivePowerSetpoint(111.1)
-        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-        .setConverterStationId1("MyVscConverter")
-        .setConverterStationId2("MyVscConverter2")
-        .setMaxP(12.0)
-        .setNominalV(13.0)
-        .setR(14.0)
-        .add();
+    initializeVscConverterStation(vl1, "MyVscConverter", "MyVscConverter_NAME", false);
+    initializeVscConverterStation(vl1, "MyVscConverter2", "MyVscConverter2_NAME", false);
+    initializeHvdcLine(network, "MyVscConverter", "MyVscConverter2");
   }
 
   if (properties.instantiateLccConverterWithConnectedHvdc) {
-    powsybl::iidm::LccConverterStation& lcc = vl1.newLccConverterStation()
-        .setId("MyLccConverter")
-        .setName("MyLccConverter_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setPowerFactor(1.)
-        .add();
+    powsybl::iidm::LccConverterStation& lcc = initializeLccConverterStation(vl1,
+                                                                            "MyLccConverter",
+                                                                            "MyLccConverter_NAME",
+                                                                            true);
     lcc.getTerminal().setP(105.);
     lcc.getTerminal().setQ(90.);
 
-    powsybl::iidm::LccConverterStation& lcc2 = vl1.newLccConverterStation()
-        .setId("MyLccConverter2")
-        .setName("MyLccConverter2_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setPowerFactor(1.)
-        .add();
+    powsybl::iidm::LccConverterStation& lcc2 = initializeLccConverterStation(vl1,
+                                                                              "MyLccConverter2",
+                                                                              "MyLccConverter2_NAME",
+                                                                              true);
     lcc2.getTerminal().setP(105.);
     lcc2.getTerminal().setQ(90.);
 
-    network->newHvdcLine()
-        .setId("MyHvdcLine")
-        .setName("MyHvdcLine_NAME")
-        .setActivePowerSetpoint(111.1)
-        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-        .setConverterStationId1("MyLccConverter")
-        .setConverterStationId2("MyLccConverter2")
-        .setMaxP(12.0)
-        .setNominalV(13.0)
-        .setR(14.0)
-        .add();
+    initializeHvdcLine(network, "MyLccConverter", "MyLccConverter2");
   }
 
   if (properties.instantiateLccConverterWithDisconnectedHvdc) {
-    vl1.newLccConverterStation()
-        .setId("MyLccConverter")
-        .setName("MyLccConverter_NAME")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setPowerFactor(1.)
-        .add();
-
-    vl1.newLccConverterStation()
-        .setId("MyLccConverter2")
-        .setName("MyLccConverter2_NAME")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setPowerFactor(1.)
-        .add();
-
-    network->newHvdcLine()
-        .setId("MyHvdcLine")
-        .setName("MyHvdcLine_NAME")
-        .setActivePowerSetpoint(111.1)
-        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-        .setConverterStationId1("MyLccConverter")
-        .setConverterStationId2("MyLccConverter2")
-        .setMaxP(12.0)
-        .setNominalV(13.0)
-        .setR(14.0)
-        .add();
+    initializeLccConverterStation(vl1, "MyLccConverter", "MyLccConverter_NAME", false);
+    initializeLccConverterStation(vl1, "MyLccConverter2", "MyLccConverter2_NAME", false);
+    initializeHvdcLine(network, "MyLccConverter", "MyLccConverter2");
   }
 
   if (properties.instantiateCapacitorShuntCompensator) {
@@ -1174,38 +1139,63 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM) {
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
-  exportStateVariables(data);
-  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
-  boost::shared_ptr<VscConverterInterfaceIIDM> vsc1 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
-  boost::shared_ptr<VscConverterInterfaceIIDM> vsc2 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
+  shared_ptr<DataInterfaceIIDM> data1 = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data1);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc1 = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data1->findComponent("MyHvdcLine"));
+  boost::shared_ptr<VscConverterInterfaceIIDM> vsc11 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc1->getConverter1());
+  boost::shared_ptr<VscConverterInterfaceIIDM> vsc12 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc1->getConverter2());
 
-  ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getP()));
-  ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getQ()));
-  ASSERT_TRUE(std::isnan(vsc2->getVscIIDM().getTerminal().getP()));
-  ASSERT_TRUE(std::isnan(vsc2->getVscIIDM().getTerminal().getQ()));
-  ASSERT_FALSE(vsc1->getVscIIDM().getTerminal().isConnected());
-  ASSERT_FALSE(vsc2->getVscIIDM().getTerminal().isConnected());
+  ASSERT_TRUE(std::isnan(vsc11->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc11->getVscIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(vsc12->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc12->getVscIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(vsc11->getVscIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(vsc12->getVscIIDM().getTerminal().isConnected());
 
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), 0.);
-  ASSERT_TRUE(vsc1->getVscIIDM().getTerminal().isConnected());
-  ASSERT_TRUE(vsc2->getVscIIDM().getTerminal().isConnected());
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
+  data1->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc11->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc11->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc12->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc12->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_TRUE(vsc11->getVscIIDM().getTerminal().isConnected());
+  ASSERT_TRUE(vsc12->getVscIIDM().getTerminal().isConnected());
 
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), 0.);
-  ASSERT_FALSE(vsc1->getVscIIDM().getTerminal().isConnected());
-  ASSERT_FALSE(vsc2->getVscIIDM().getTerminal().isConnected());
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
+  data1->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc11->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc11->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc12->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc12->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_FALSE(vsc11->getVscIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(vsc12->getVscIIDM().getTerminal().isConnected());
+
+  shared_ptr<DataInterfaceIIDM> data2 = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data2);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc2 = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data2->findComponent("MyHvdcLine"));
+  boost::shared_ptr<VscConverterInterfaceIIDM> vsc21 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc2->getConverter1());
+  boost::shared_ptr<VscConverterInterfaceIIDM> vsc22 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc2->getConverter2());
+
+  ASSERT_TRUE(std::isnan(vsc21->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc21->getVscIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(vsc22->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc22->getVscIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(vsc21->getVscIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(vsc22->getVscIIDM().getTerminal().isConnected());
+
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_P1, 2.);
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_Q1, 4.);
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_P2, 6.);
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_Q2, 8.);
+  data2->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(std::isnan(vsc21->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc21->getVscIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(vsc22->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc22->getVscIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(vsc21->getVscIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(vsc22->getVscIIDM().getTerminal().isConnected());
 }  // TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM)
 
 TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM) {
@@ -1332,38 +1322,63 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM) {
       false /*instantiateBattery*/
   };
 
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
-  exportStateVariables(data);
-  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
-  boost::shared_ptr<LccConverterInterfaceIIDM> lcc1 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
-  boost::shared_ptr<LccConverterInterfaceIIDM> lcc2 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
+  shared_ptr<DataInterfaceIIDM> data1 = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data1);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc1 = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data1->findComponent("MyHvdcLine"));
+  boost::shared_ptr<LccConverterInterfaceIIDM> lcc11 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc1->getConverter1());
+  boost::shared_ptr<LccConverterInterfaceIIDM> lcc12 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc1->getConverter2());
 
-  ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getP()));
-  ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getQ()));
-  ASSERT_TRUE(std::isnan(lcc2->getLccIIDM().getTerminal().getP()));
-  ASSERT_TRUE(std::isnan(lcc2->getLccIIDM().getTerminal().getQ()));
-  ASSERT_FALSE(lcc1->getLccIIDM().getTerminal().isConnected());
-  ASSERT_FALSE(lcc2->getLccIIDM().getTerminal().isConnected());
+  ASSERT_TRUE(std::isnan(lcc11->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc11->getLccIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(lcc12->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc12->getLccIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(lcc11->getLccIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(lcc12->getLccIIDM().getTerminal().isConnected());
 
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), 0.);
-  ASSERT_TRUE(lcc1->getLccIIDM().getTerminal().isConnected());
-  ASSERT_TRUE(lcc2->getLccIIDM().getTerminal().isConnected());
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
+  data1->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc11->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc11->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc12->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc12->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_TRUE(lcc11->getLccIIDM().getTerminal().isConnected());
+  ASSERT_TRUE(lcc12->getLccIIDM().getTerminal().isConnected());
 
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
-  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), 0.);
-  ASSERT_FALSE(lcc1->getLccIIDM().getTerminal().isConnected());
-  ASSERT_FALSE(lcc2->getLccIIDM().getTerminal().isConnected());
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
+  hvdc1->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
+  data1->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc11->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc11->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc12->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc12->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_FALSE(lcc11->getLccIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(lcc12->getLccIIDM().getTerminal().isConnected());
+
+  shared_ptr<DataInterfaceIIDM> data2 = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data2);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc2 = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data2->findComponent("MyHvdcLine"));
+  boost::shared_ptr<LccConverterInterfaceIIDM> lcc21 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc2->getConverter1());
+  boost::shared_ptr<LccConverterInterfaceIIDM> lcc22 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc2->getConverter2());
+
+  ASSERT_TRUE(std::isnan(lcc21->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc21->getLccIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(lcc22->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc22->getLccIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(lcc21->getLccIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(lcc22->getLccIIDM().getTerminal().isConnected());
+
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_P1, 2.);
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_Q1, 4.);
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_P2, 6.);
+  hvdc2->setValue(HvdcLineInterfaceIIDM::VAR_Q2, 8.);
+  data2->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(std::isnan(lcc21->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc21->getLccIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(lcc22->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc22->getLccIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(lcc21->getLccIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(lcc22->getLccIIDM().getTerminal().isConnected());
 }  // TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM)
 
 TEST(DataInterfaceIIDMTest, testLineIIDM) {
