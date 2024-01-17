@@ -80,7 +80,9 @@ jobs:
           unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
           ln -s sonar-scanner-${SONAR_SCANNER_VERSION} sonar
           rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          dnf install -y java-11-openjdk
+          cd /
+          curl -LO https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+          tar xzf openjdk-17.0.2_linux-x64_bin.tar.gz
 
       - name: Checkout sources
         uses: actions/checkout@v3
@@ -111,7 +113,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           CONTAINER_WORKSPACE: ${{ runner.workspace }}
-        run: $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
+          JAVA_HOME: /jdk-17.0.2
+        run: |
+          export PATH=${JAVA_HOME}/bin:${PATH}
+          $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
 
   build-windows:
     if: github.event_name == 'push'
