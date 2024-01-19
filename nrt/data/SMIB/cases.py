@@ -238,3 +238,13 @@ case_description = "SMIB test case with a fault using St9c and Pss2c regulations
 job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt9cPss2c", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#             SMIB with GovCt2 and St4b                       #
+###############################################################
+
+case_name = "SMIB - TestCase - GovCt2 - St4b"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovCt2St4b", "TestCaseGovCt2St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
