@@ -1,4 +1,4 @@
-# Copyright (c) 2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,15 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-# Standard governor models
-
-add_subdirectory(Hydraulic H)
-add_subdirectory(Steam S)
-add_subdirectory(Generic G)
+# Standard generic governor models
 
 set(MODEL_FILES
   package.mo
   package.order
+  GovCT2.mo
+  GovCT2.extvar
   )
 
 #
