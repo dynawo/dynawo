@@ -61,6 +61,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVRemoteDiagramPQSignalN.xml
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
   GeneratorSynchronousFourWindings.xml
+  GeneratorSynchronousFourWindingsGovCT2SexsPss2A.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
