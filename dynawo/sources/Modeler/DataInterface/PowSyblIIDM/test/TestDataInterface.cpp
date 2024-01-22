@@ -221,14 +221,73 @@ struct BusBreakerNetworkProperty {
   bool instantiatePhaseTapChanger;
   bool instantiateDanglingLine;
   bool instantiateGenerator;
-  bool instantiateLccConverter;
+  bool instantiateLccConverterWithConnectedHvdc;
+  bool instantiateLccConverterWithDisconnectedHvdc;
   bool instantiateLine;
   bool instantiateLoad;
   bool instantiateSwitch;
-  bool instantiateVscConverter;
+  bool instantiateVscConverterWithConnectedHvdc;
+  bool instantiateVscConverterWithDisconnectedHvdc;
   bool instantiateThreeWindingTransformer;
   bool instantiateBattery;
 };
+
+static powsybl::iidm::VscConverterStation&
+initializeVscConverterStation(powsybl::iidm::VoltageLevel& vl,
+                                const std::string& vscConverterId,
+                                const std::string& vscConverterName,
+                                const bool setBus) {
+  powsybl::iidm::VscConverterStationAdder vscAdder = vl.newVscConverterStation()
+                                                        .setId(vscConverterId)
+                                                        .setName(vscConverterName)
+                                                        .setConnectableBus("MyBus")
+                                                        .setLossFactor(3.0)
+                                                        .setVoltageRegulatorOn(true)
+                                                        .setVoltageSetpoint(1.2)
+                                                        .setReactivePowerSetpoint(-1.5);
+  if (setBus) {
+    vscAdder.setBus("MyBus");
+  }
+
+  powsybl::iidm::VscConverterStation& vsc = vscAdder.add();
+  return vsc;
+}
+
+static powsybl::iidm::LccConverterStation&
+initializeLccConverterStation(powsybl::iidm::VoltageLevel& vl,
+                              const std::string& lccConverterId,
+                              const std::string& lccConverterName,
+                              const bool setBus) {
+  powsybl::iidm::LccConverterStationAdder lccAdder = vl.newLccConverterStation()
+                                                        .setId(lccConverterId)
+                                                        .setName(lccConverterName)
+                                                        .setConnectableBus("MyBus")
+                                                        .setLossFactor(3.0)
+                                                        .setPowerFactor(1.);
+  if (setBus) {
+    lccAdder.setBus("MyBus");
+  }
+
+  powsybl::iidm::LccConverterStation& lcc = lccAdder.add();
+  return lcc;
+}
+
+static void
+initializeHvdcLine(const boost::shared_ptr<powsybl::iidm::Network>& network,
+                    const std::string& converterStationId1,
+                    const std::string& converterStationId2) {
+  network->newHvdcLine()
+          .setId("MyHvdcLine")
+          .setName("MyHvdcLine_NAME")
+          .setActivePowerSetpoint(111.1)
+          .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
+          .setConverterStationId1(converterStationId1)
+          .setConverterStationId2(converterStationId2)
+          .setMaxP(12.0)
+          .setNominalV(13.0)
+          .setR(14.0)
+          .add();
+}
 
 static boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
@@ -353,81 +412,52 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     bat.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(20.).add();
   }
 
-
-  if (properties.instantiateVscConverter) {
-    powsybl::iidm::VscConverterStation& vsc = vl1.newVscConverterStation()
-        .setId("MyVscConverter")
-        .setName("MyVscConverter_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setVoltageRegulatorOn(true)
-        .setVoltageSetpoint(1.2)
-        .setReactivePowerSetpoint(-1.5)
-        .add();
+  if (properties.instantiateVscConverterWithConnectedHvdc) {
+    powsybl::iidm::VscConverterStation& vsc = initializeVscConverterStation(vl1,
+                                                                            "MyVscConverter",
+                                                                            "MyVscConverter_NAME",
+                                                                            true);
     vsc.getTerminal().setP(150.);
     vsc.getTerminal().setQ(90.);
 
-    powsybl::iidm::VscConverterStation& vsc2 = vl1.newVscConverterStation()
-        .setId("MyVscConverter2")
-        .setName("MyVscConverter2_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setVoltageRegulatorOn(true)
-        .setVoltageSetpoint(1.2)
-        .setReactivePowerSetpoint(-1.5)
-        .add();
+    powsybl::iidm::VscConverterStation& vsc2 = initializeVscConverterStation(vl1,
+                                                                              "MyVscConverter2",
+                                                                              "MyVscConverter2_NAME",
+                                                                              true);
     vsc2.getTerminal().setP(150.);
     vsc2.getTerminal().setQ(90.);
 
-    network->newHvdcLine()
-        .setId("MyHvdcLine")
-        .setName("MyHvdcLine_NAME")
-        .setActivePowerSetpoint(111.1)
-        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-        .setConverterStationId1("MyVscConverter")
-        .setConverterStationId2("MyVscConverter2")
-        .setMaxP(12.0)
-        .setNominalV(13.0)
-        .setR(14.0)
-        .add();
+    initializeHvdcLine(network, "MyVscConverter", "MyVscConverter2");
   }
 
-  if (properties.instantiateLccConverter) {
-    powsybl::iidm::LccConverterStation& lcc = vl1.newLccConverterStation()
-        .setId("MyLccConverter")
-        .setName("MyLccConverter_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setPowerFactor(1.)
-        .add();
+  if (properties.instantiateVscConverterWithDisconnectedHvdc) {
+    initializeVscConverterStation(vl1, "MyVscConverter", "MyVscConverter_NAME", false);
+    initializeVscConverterStation(vl1, "MyVscConverter2", "MyVscConverter2_NAME", false);
+    initializeHvdcLine(network, "MyVscConverter", "MyVscConverter2");
+  }
+
+  if (properties.instantiateLccConverterWithConnectedHvdc) {
+    powsybl::iidm::LccConverterStation& lcc = initializeLccConverterStation(vl1,
+                                                                            "MyLccConverter",
+                                                                            "MyLccConverter_NAME",
+                                                                            true);
     lcc.getTerminal().setP(105.);
     lcc.getTerminal().setQ(90.);
 
-    powsybl::iidm::LccConverterStation& lcc2 = vl1.newLccConverterStation()
-        .setId("MyLccConverter2")
-        .setName("MyLccConverter2_NAME")
-        .setBus("MyBus")
-        .setConnectableBus("MyBus")
-        .setLossFactor(3.0)
-        .setPowerFactor(1.)
-        .add();
+    powsybl::iidm::LccConverterStation& lcc2 = initializeLccConverterStation(vl1,
+                                                                              "MyLccConverter2",
+                                                                              "MyLccConverter2_NAME",
+                                                                              true);
     lcc2.getTerminal().setP(105.);
     lcc2.getTerminal().setQ(90.);
 
-    network->newHvdcLine()
-        .setId("MyHvdcLine")
-        .setName("MyHvdcLine_NAME")
-        .setActivePowerSetpoint(111.1)
-        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-        .setConverterStationId1("MyLccConverter")
-        .setConverterStationId2("MyLccConverter2")
-        .setMaxP(12.0)
-        .setNominalV(13.0)
-        .setR(14.0)
-        .add();
+    initializeHvdcLine(network, "MyLccConverter", "MyLccConverter2");
+  }
+
+  if (properties.instantiateLccConverterWithDisconnectedHvdc) {
+    initializeLccConverterStation(vl1, "MyLccConverter", "MyLccConverter_NAME", false);
+    initializeLccConverterStation(vl1, "MyLccConverter2", "MyLccConverter2_NAME", false);
+    initializeHvdcLine(network, "MyLccConverter", "MyLccConverter2");
   }
 
   if (properties.instantiateCapacitorShuntCompensator) {
@@ -776,11 +806,13 @@ TEST(DataInterfaceIIDMTest, testBusIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -814,11 +846,13 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
       false /*instantiatePhaseTapChanger*/,
       true /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -857,11 +891,13 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -922,11 +958,13 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       true /*instantiateBattery*/
   };
@@ -978,7 +1016,7 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
   ASSERT_TRUE(batIIDM.getTerminal().isConnected());
 }
 
-TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
+TEST(DataInterfaceIIDMTest, testConnectedHvdcLineVscConvertersIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
@@ -987,11 +1025,13 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      true /*instantiateVscConverter*/,
+      true /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1060,11 +1100,28 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), -800.);
   ASSERT_FALSE(vsc1->getVscIIDM().getTerminal().isConnected());
   ASSERT_FALSE(vsc2->getVscIIDM().getTerminal().isConnected());
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P1, 0.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q1, 0.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P2, 0.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q2, 0.);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), 0.);
   ASSERT_TRUE(vsc1->getVscIIDM().getTerminal().isConnected());
   ASSERT_TRUE(vsc2->getVscIIDM().getTerminal().isConnected());
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P1, 2.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q1, 4.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P2, 6.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q2, 8.);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), -600.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), -800.);
 
   boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
   ASSERT_FALSE(bus->hasConnection());
@@ -1074,9 +1131,9 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   ASSERT_TRUE(bus->hasConnection());
   hvdc->hasDynamicModel(false);
   ASSERT_TRUE(bus->hasConnection());
-}  // TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM)
+}  // TEST(DataInterfaceIIDMTest, testConnectedHvdcLineVscConvertersIIDM)
 
-TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
+TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
@@ -1085,11 +1142,66 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      true /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      true /*instantiateVscConverterWithDisconnectedHvdc*/,
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
+  };
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
+  boost::shared_ptr<VscConverterInterfaceIIDM> vsc1 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
+  boost::shared_ptr<VscConverterInterfaceIIDM> vsc2 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
+
+  ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(vsc2->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc2->getVscIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(vsc1->getVscIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(vsc2->getVscIIDM().getTerminal().isConnected());
+
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), 0.);
+  ASSERT_TRUE(vsc1->getVscIIDM().getTerminal().isConnected());
+  ASSERT_TRUE(vsc2->getVscIIDM().getTerminal().isConnected());
+
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(vsc2->getVscIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(vsc2->getVscIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(vsc1->getVscIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(vsc2->getVscIIDM().getTerminal().isConnected());
+}  // TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM)
+
+TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      true /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1158,11 +1270,28 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), -800.);
   ASSERT_FALSE(lcc1->getLccIIDM().getTerminal().isConnected());
   ASSERT_FALSE(lcc2->getLccIIDM().getTerminal().isConnected());
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P1, 0.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q1, 0.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P2, 0.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q2, 0.);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), 0.);
   ASSERT_TRUE(lcc1->getLccIIDM().getTerminal().isConnected());
   ASSERT_TRUE(lcc2->getLccIIDM().getTerminal().isConnected());
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P1, 2.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q1, 4.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_P2, 6.);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_Q2, 8.);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), -600.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), -800.);
 
   boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
   ASSERT_FALSE(bus->hasConnection());
@@ -1172,7 +1301,61 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   ASSERT_TRUE(bus->hasConnection());
   hvdc->hasDynamicModel(false);
   ASSERT_TRUE(bus->hasConnection());
-}  // TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM)
+}  // TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM)
+
+TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      true /*instantiateLccConverterWithDisconnectedHvdc*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
+  };
+
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
+  boost::shared_ptr<LccConverterInterfaceIIDM> lcc1 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
+  boost::shared_ptr<LccConverterInterfaceIIDM> lcc2 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
+
+  ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(lcc2->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc2->getLccIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(lcc1->getLccIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(lcc2->getLccIIDM().getTerminal().isConnected());
+
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), 0.);
+  ASSERT_TRUE(lcc1->getLccIIDM().getTerminal().isConnected());
+  ASSERT_TRUE(lcc2->getLccIIDM().getTerminal().isConnected());
+
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
+  hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getQ()));
+  ASSERT_TRUE(std::isnan(lcc2->getLccIIDM().getTerminal().getP()));
+  ASSERT_TRUE(std::isnan(lcc2->getLccIIDM().getTerminal().getQ()));
+  ASSERT_FALSE(lcc1->getLccIIDM().getTerminal().isConnected());
+  ASSERT_FALSE(lcc2->getLccIIDM().getTerminal().isConnected());
+}  // TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM)
 
 TEST(DataInterfaceIIDMTest, testLineIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -1183,11 +1366,13 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       true /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1256,11 +1441,13 @@ TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       true /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1309,11 +1496,13 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1353,11 +1542,13 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
     false /*instantiatePhaseTapChanger*/,
     false /*instantiateDanglingLine*/,
     false /*instantiateGenerator*/,
-    false /*instantiateLccConverter*/,
+    false /*instantiateLccConverterWithConnectedHvdc*/,
+    false /*instantiateLccConverterWithDisconnectedHvdc*/,
     false /*instantiateLine*/,
     false /*instantiateLoad*/,
     false /*instantiateSwitch*/,
-    false /*instantiateVscConverter*/,
+    false /*instantiateVscConverterWithConnectedHvdc*/,
+    false /*instantiateVscConverterWithDisconnectedHvdc*/,
     false /*instantiateThreeWindingTransformer*/,
     false /*instantiateBattery*/
   };
@@ -1403,11 +1594,13 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       true /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1436,11 +1629,13 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       true /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1515,11 +1710,13 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       true /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1608,11 +1805,13 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       true /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1704,11 +1903,13 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       true /*instantiateLoad*/,
       false /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
@@ -1878,11 +2079,13 @@ TEST(DataInterfaceIIDMTest, testFindLostEquipments) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
-      false /*instantiateLccConverter*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
       true /*instantiateLoad*/,
       true /*instantiateSwitch*/,
-      false /*instantiateVscConverter*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
       false /*instantiateThreeWindingTransformer*/,
       false /*instantiateBattery*/
   };
