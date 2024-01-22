@@ -69,36 +69,21 @@ model GovCT2 "IEEE Governor type TGOV1"
   parameter Types.Time ValveMinPu "Minimum valve position limit in pu";
   parameter Types.Time WFnlPu "No load fuel flow in pu";
   parameter Boolean WFspd "Switch for fuel source characteristic";
-
-
-  //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-2, 68}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-114, -60}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base PNom)" annotation(
-    Placement(visible = true, transformation(origin = {-114, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-114, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
-  //Output variables
-  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNom)" annotation(
-    Placement(visible = true, transformation(origin = {111, -1}, extent = {{-11, -11}, {11, 11}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain droop(k = 1/R) annotation(
-    Placement(visible = true, transformation(origin = {-40, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) "Angular reference frequency" annotation(
-    Placement(visible = true, transformation(origin = {-90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(tFilter = Tg1, YMax = VMax, YMin = VMin, Y0 = Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag(a = {Tg3, 1}, b = {Tg2, 1}, x_scaled(start = {Pm0Pu}), x_start = {Pm0Pu}, y_start = Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain friction(k = Dt) annotation(
-    Placement(visible = true, transformation(origin = {30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback2 annotation(
-    Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
-  Modelica.Blocks.Math.Feedback feedback1 annotation(
-    Placement(visible = true, transformation(origin = {60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput omegaPu annotation(
+    Placement(transformation(origin = {-163, 49}, extent = {{-13, -13}, {13, 13}}), iconTransformation(origin = {-66, 30}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealOutput PMechPu annotation(
+    Placement(transformation(origin = {160, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 32}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput PElecPu annotation(
+    Placement(transformation(origin = {-163, -103}, extent = {{-13, -13}, {13, 13}}), iconTransformation(origin = {-113, 33}, extent = {{-13, -13}, {13, 13}})));
+  Modelica.Blocks.Interfaces.RealInput PMwSetPu annotation(
+    Placement(transformation(origin = {-163, -81}, extent = {{-13, -13}, {13, 13}}), iconTransformation(origin = {-113, -23}, extent = {{-13, -13}, {13, 13}})));
+  Modelica.Blocks.Interfaces.RealInput PRefPu annotation(
+    Placement(transformation(origin = {-163, -45}, extent = {{-13, -13}, {13, 13}}), iconTransformation(origin = {-113, -45}, extent = {{-13, -13}, {13, 13}})));
 equation
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
-    Documentation(info = "<html><head></head><body>This model is a simple IEEE steam turbine-governor model type TGOV1 (<u>CIM name:</u>&nbsp;GovSteam0), implemented following the description done in the chapter 2.2 of the<span class=\"pl-c\">&nbsp;IEEE technical report PES-TR1 Jan 2013.&nbsp;</span></body></html>"));
+    Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302.</body></html>"),
+  Diagram(coordinateSystem(extent = {{-150, -150}, {150, 150}})),
+  Icon(coordinateSystem(extent = {{-150, -150}, {150, 150}})));
 end GovCT2;
