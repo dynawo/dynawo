@@ -33,17 +33,17 @@ model InjectorGFL "Converter model for grid following applications"
   parameter Types.PerUnit UConv0Pu;
   parameter Types.PerUnit udConvRef0Pu;
   parameter Types.PerUnit uqConvRef0Pu;
-  parameter Types.ActivePowerPu PGen0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu QGen0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu uPcc0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
-  parameter Types.ComplexCurrentPu iPcc0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexCurrentPu iConv0Pu;
-  parameter Types.PerUnit udPcc0Pu;
-  parameter Types.PerUnit uqPcc0Pu;
-  parameter Types.PerUnit idPcc0Pu;
-  parameter Types.PerUnit iqPcc0Pu;
-  parameter Types.PerUnit idConv0Pu;
-  parameter Types.PerUnit iqConv0Pu;
+  parameter Types.ActivePowerPu PGen0Pu "Start value of active power in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu QGen0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.ComplexVoltagePu uPcc0Pu "Start value of complex voltage at pcc terminal in pu (base UNom)";
+  parameter Types.ComplexCurrentPu iPcc0Pu "Start value of complex current at pcc terminal in pu (base UNom, SnRef) (generator convention)";
+  parameter Types.ComplexCurrentPu iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SnRef) (generator convention)";
+  parameter Types.PerUnit udPcc0Pu "(base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit uqPcc0Pu "(base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit idPcc0Pu "(base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit iqPcc0Pu "(base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit idConv0Pu "(base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit iqConv0Pu "(base UNom, SNom) (generator convention)";
   // Inputs:
   // Terminal connection
   Dynawo.Connectors.ACPower terminal(V(re(start = uPcc0Pu.re), im(start = uPcc0Pu.im)), i(re(start = -iPcc0Pu.re), im(start = -iPcc0Pu.im))) "Connector used to connect the injector to the grid" annotation(
@@ -90,21 +90,21 @@ equation
   udPccPu = cos(thetaPLLPu)*uPccPu.re + sin(thetaPLLPu)*uPccPu.im;
   uqPccPu = -sin(thetaPLLPu)*uPccPu.re + cos(thetaPLLPu)*uPccPu.im;
 /*Dynamics of current in Transformer in DQ reference frame*/
-  L*der(idPccPu*ratioTr) = omegaNom*(udConvRefPu - udPccPu/ratioTr - R*idPccPu*ratioTr + omegaPLLPu*L*iqPccPu*ratioTr);
-  L*der(iqPccPu*ratioTr) = omegaNom*(uqConvRefPu - uqPccPu/ratioTr - R*iqPccPu*ratioTr - omegaPLLPu*L*idPccPu*ratioTr);
+  L*der(idPccPu*ratioTr) = SystemBase.omegaNom*(udConvRefPu - udPccPu/ratioTr - R*idPccPu*ratioTr + omegaPLLPu*L*iqPccPu*ratioTr);
+  L*der(iqPccPu*ratioTr) = SystemBase.omegaNom*(uqConvRefPu - uqPccPu/ratioTr - R*iqPccPu*ratioTr - omegaPLLPu*L*idPccPu*ratioTr);
 /* Power Calculation */
-  PGenPu = -1*ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i));
-  QGenPu = -1*ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i));
+  PGenPu = -1*ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i))* SystemBase.SnRef / SNom;
+  QGenPu = -1*ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i))* SystemBase.SnRef / SNom;
 /* Controlled voltage source */
   idConvPu = idPccPu*ratioTr;
   iqConvPu = iqPccPu*ratioTr;
 /* Setpoint of compensated voltage */
-  UConvPu = ComplexMath.'abs'(terminal.V/ratioTr - terminal.i*ratioTr*Complex(R, Xc));
+  UConvPu = ComplexMath.'abs'(terminal.V/ratioTr - terminal.i*ratioTr*Complex(R, Xc)* (SystemBase.SnRef/SNom));
   UPccPu = ComplexMath.'abs'(terminal.V);
   
   if running.value then
-    terminal.i.re = -1*(cos(thetaPLLPu)*idPccPu - sin(thetaPLLPu)*iqPccPu);
-    terminal.i.im = -1*(sin(thetaPLLPu)*idPccPu + cos(thetaPLLPu)*iqPccPu);
+    terminal.i.re = -1*(cos(thetaPLLPu)*idPccPu - sin(thetaPLLPu)*iqPccPu)* SNom / SystemBase.SnRef;
+    terminal.i.im = -1*(sin(thetaPLLPu)*idPccPu + cos(thetaPLLPu)*iqPccPu)* SNom / SystemBase.SnRef;
   else
     terminal.i = Complex(0);
   end if;

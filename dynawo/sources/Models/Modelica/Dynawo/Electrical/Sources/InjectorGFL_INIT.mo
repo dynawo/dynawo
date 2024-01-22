@@ -21,24 +21,24 @@ model InjectorGFL_INIT "Injector model for grid following converter"
 
   /* Initial quantities to calculate from initialisation data*/
   Types.ComplexVoltagePu uPcc0Pu;
-  Types.ComplexCurrentPu iPcc0Pu;
+  Types.ComplexCurrentPu iPcc0Pu "Start value of the complex current at pcc terminal in pu (base UNom, SnRef)";
   Types.ComplexVoltagePu uConv0Pu;
-  Types.ComplexCurrentPu iConv0Pu;
-  Types.PerUnit udPcc0Pu;
-  Types.PerUnit uqPcc0Pu;
-  Types.PerUnit idPcc0Pu;
-  Types.PerUnit iqPcc0Pu;
-  Types.PerUnit udConv0Pu;
-  Types.PerUnit uqConv0Pu;
-  Types.PerUnit idConv0Pu;
-  Types.PerUnit iqConv0Pu;
-  Types.PerUnit udConvRef0Pu;
-  Types.PerUnit uqConvRef0Pu;
+  Types.ComplexCurrentPu iConv0Pu "Start value of the complex current at converter terminal in pu (base UNom, SnRef)";
+  Types.PerUnit udPcc0Pu "(base UNom)";
+  Types.PerUnit uqPcc0Pu "(base UNom)";
+  Types.PerUnit idPcc0Pu "(base UNom, SNom)";
+  Types.PerUnit iqPcc0Pu "(base UNom, SNom)";
+  Types.PerUnit udConv0Pu "(base UNom)";
+  Types.PerUnit uqConv0Pu "(base UNom)";
+  Types.PerUnit idConv0Pu "(base UNom, SNom)";
+  Types.PerUnit iqConv0Pu "(base UNom, SNom)";
+  Types.PerUnit udConvRef0Pu "(base UNom)";
+  Types.PerUnit uqConvRef0Pu "(base UNom)";
   Types.PerUnit thetaPLL0Pu;
   Types.PerUnit omegaPLL0Pu;
-  Types.PerUnit PGen0Pu;
-  Types.PerUnit QGen0Pu;
-  Types.PerUnit UConv0Pu;
+  Types.PerUnit PGen0Pu "(base SNom) (generator convention)";
+  Types.PerUnit QGen0Pu "(base SNom) (generator convention)";
+  Types.PerUnit UConv0Pu "(base UNom)";
 
 equation
   uPcc0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
@@ -49,16 +49,16 @@ equation
   omegaPLL0Pu= omegaRef0Pu;
   udPcc0Pu = cos(thetaPLL0Pu)*uPcc0Pu.re + sin(thetaPLL0Pu)*uPcc0Pu.im;
   uqPcc0Pu = -sin(thetaPLL0Pu)*uPcc0Pu.re + cos(thetaPLL0Pu)*uPcc0Pu.im;
-  idPcc0Pu = cos(thetaPLL0Pu)*iPcc0Pu.re + sin(thetaPLL0Pu)*iPcc0Pu.im;
-  iqPcc0Pu = -sin(thetaPLL0Pu)*iPcc0Pu.re + cos(thetaPLL0Pu)*iPcc0Pu.im;
+  idPcc0Pu = (cos(thetaPLL0Pu)*iPcc0Pu.re + sin(thetaPLL0Pu)*iPcc0Pu.im)*(SystemBase.SnRef/SNom);
+  iqPcc0Pu = (-sin(thetaPLL0Pu)*iPcc0Pu.re + cos(thetaPLL0Pu)*iPcc0Pu.im)*(SystemBase.SnRef/SNom);
   udConv0Pu = cos(thetaPLL0Pu)*uConv0Pu.re + sin(thetaPLL0Pu)*uConv0Pu.im;
   uqConv0Pu = -sin(thetaPLL0Pu)*uConv0Pu.re + cos(thetaPLL0Pu)*uConv0Pu.im;
-  idConv0Pu = ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.im;
-  iqConv0Pu = -ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im;
+  idConv0Pu = (ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.im)*(SystemBase.SnRef/SNom);
+  iqConv0Pu = (-ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im)*(SystemBase.SnRef/SNom);
   udConvRef0Pu = udPcc0Pu/ratioTr + R*idPcc0Pu*ratioTr - omegaPLL0Pu*L*iqPcc0Pu*ratioTr;
   uqConvRef0Pu = uqPcc0Pu/ratioTr + R*iqPcc0Pu*ratioTr + omegaPLL0Pu*L*idPcc0Pu*ratioTr;
 
-  uConv0Pu = (uPcc0Pu/ratioTr) + iPcc0Pu*ratioTr*Complex(R, Xc);
+  uConv0Pu = (uPcc0Pu/ratioTr) + iPcc0Pu*(SystemBase.SnRef/SNom)*ratioTr*Complex(R, Xc);
   iConv0Pu = iPcc0Pu*ratioTr;
   UConv0Pu = ComplexMath.'abs'(uConv0Pu);
 
