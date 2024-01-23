@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="GridFollowingConverterPVControlWithLimiters">
+    <dyn:unitDynamicModel id="injectorGFL" name="Dynawo.Electrical.Sources.InjectorGFL" initName="Dynawo.Electrical.Sources.InjectorGFL_INIT"/>
+    <dyn:unitDynamicModel id="controlGFL" name="Dynawo.Electrical.Controls.Converters.GridFollowingControlWithLimiters" initName="Dynawo.Electrical.Controls.Converters.GridFollowingControlWithLimiters_INIT"/>
+    <dyn:initConnect id1="injectorGFL" var1="uPcc0Pu" id2="controlGFL" var2="uPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iPcc0Pu" id2="controlGFL" var2="iPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uConv0Pu" id2="controlGFL" var2="uConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iConv0Pu" id2="controlGFL" var2="iConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="udPcc0Pu" id2="controlGFL" var2="udPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uqPcc0Pu" id2="controlGFL" var2="uqPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="idPcc0Pu" id2="controlGFL" var2="idPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iqPcc0Pu" id2="controlGFL" var2="iqPcc0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="udConv0Pu" id2="controlGFL" var2="udConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uqConv0Pu" id2="controlGFL" var2="uqConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="idConv0Pu" id2="controlGFL" var2="idConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="iqConv0Pu" id2="controlGFL" var2="iqConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="udConvRef0Pu" id2="controlGFL" var2="udConvRef0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="uqConvRef0Pu" id2="controlGFL" var2="uqConvRef0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="PGen0Pu" id2="controlGFL" var2="PGen0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="QGen0Pu" id2="controlGFL" var2="QGen0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="UConv0Pu" id2="controlGFL" var2="UConv0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="thetaPLL0Pu" id2="controlGFL" var2="thetaPLL0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="omegaPLL0Pu" id2="controlGFL" var2="omegaPLL0Pu"/>
+    <dyn:initConnect id1="injectorGFL" var1="omegaRef0Pu" id2="controlGFL" var2="omegaRef0Pu"/>
+    <dyn:connect id1="controlGFL" var1="udConvRefPu" id2="injectorGFL" var2="udConvRefPu"/>
+    <dyn:connect id1="controlGFL" var1="uqConvRefPu" id2="injectorGFL" var2="uqConvRefPu"/>
+    <dyn:connect id1="controlGFL" var1="omegaPLLPu" id2="injectorGFL" var2="omegaPLLPu"/>
+    <dyn:connect id1="controlGFL" var1="thetaPLLPu" id2="injectorGFL" var2="thetaPLLPu"/>
+    <dyn:connect id1="injectorGFL" var1="uPccPu" id2="controlGFL" var2="uPccPu"/>
+    <dyn:connect id1="injectorGFL" var1="idConvPu" id2="controlGFL" var2="idConvPu"/>
+    <dyn:connect id1="injectorGFL" var1="iqConvPu" id2="controlGFL" var2="iqConvPu"/>
+    <dyn:connect id1="injectorGFL" var1="udPccPu" id2="controlGFL" var2="udPccPu"/>
+    <dyn:connect id1="injectorGFL" var1="uqPccPu" id2="controlGFL" var2="uqPccPu"/>
+    <dyn:connect id1="injectorGFL" var1="PGenPu" id2="controlGFL" var2="PGenPu"/>
+    <dyn:connect id1="injectorGFL" var1="UConvPu" id2="controlGFL" var2="UConvPu"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

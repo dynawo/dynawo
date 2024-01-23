@@ -44,7 +44,7 @@ equation
   uPcc0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   PGen0Pu = P0Pu;
   QGen0Pu = Q0Pu;
-  iPcc0Pu = ComplexMath.conj(Complex(PGen0Pu, QGen0Pu)/uPcc0Pu);
+  iPcc0Pu = ComplexMath.conj(Complex(PGen0Pu, QGen0Pu)/uPcc0Pu)*(SNom/SystemBase.SnRef);
   thetaPLL0Pu = ComplexMath.arg(uPcc0Pu);
   omegaPLL0Pu= omegaRef0Pu;
   udPcc0Pu = cos(thetaPLL0Pu)*uPcc0Pu.re + sin(thetaPLL0Pu)*uPcc0Pu.im;
