@@ -18,7 +18,7 @@ model ActiveCurrentLimiter
     Placement(transformation(origin = {-25, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain2(k = -1) annotation(
     Placement(transformation(origin = {119, -30}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = didt_max, DuMin = didt_min, tS = Trlim) annotation(
+  NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter standAloneRampRateLimiter(DuMax = didt_max, DuMin = didt_min, tS = Trlim, Y0 = (InomPu^2 - iqConv0Pu^2)^0.5) annotation(
     Placement(transformation(origin = {25, 0}, extent = {{-10, -10}, {10, 10}})));
   NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = 1, Y0 = (InomPu^2 - iqConv0Pu^2)^0.5, YMax = InomPu, YMin = -InomPu) annotation(
     Placement(transformation(origin = {68, 0}, extent = {{-10, -10}, {10, 10}})));
