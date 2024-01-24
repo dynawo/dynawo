@@ -25,6 +25,7 @@ set(MODEL_FILES
   LimitedLeadLag.mo
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
+  LimRateLimFirstOrder.mo
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
   MultiSwitch.mo

@@ -1,5 +1,6 @@
 BaseClasses
 BacklashHysteresis
+ConditionalForward
 DeadBand
 DelayFlag
 FixedBooleanDelay
@@ -11,9 +12,11 @@ LimitedIntegrator
 LimitedLeadLag
 LimiterWithLag
 LimiterWithLag_INIT
+LimRateLimFirstOrder
 MaxThresholdSwitch
 MinThresholdSwitch
 MultiSwitch
+PIAntiWindUpTable
 PulseFixedDuration
 PulseMinimumDuration
 RampLimiter
@@ -21,5 +24,3 @@ StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
-PIAntiWindUpTable
-ConditionalForward
