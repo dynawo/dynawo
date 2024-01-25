@@ -2,133 +2,132 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Generic;
 
 model GovCT2 "IEEE Governor type TGOV1"
   /*
-                * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
-                * See AUTHORS.txt
-                * All rights reserved.
-                * This Source Code Form is subject to the terms of the Mozilla Public
-                * License, v. 2.0. If a copy of the MPL was not distributed with this
-                * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-                * SPDX-License-Identifier: MPL-2.0
-                *
-                * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-                */
-  parameter Types.PerUnit aSetPu=10 "Acceleration limiter setpoint in pu/s" annotation(
-	Dialog(tab = "Acceleration limiter"));
-  parameter Types.PerUnit DeltaOmegaDbPu=0 "Speed governor deadband in PU speed." annotation(
-    Dialog(tab = "Main control path"));
-  parameter Types.PerUnit DeltaOmegaMaxPu=1 "Maximum value for speed error signal in pu" annotation(
-    Dialog(tab = "Main control path"));
-  parameter Types.PerUnit DeltaOmegaMinPu=-1 "Minimum value for speed error signal in pu" annotation(
-    Dialog(tab = "Main control path"));
-  parameter Types.Time DeltaTSeconds=1 "Correction factor in s (to adapt the unit of the acceleration limiter gain from pu/s to pu)" annotation(
+                  * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+                  * See AUTHORS.txt
+                  * All rights reserved.
+                  * This Source Code Form is subject to the terms of the Mozilla Public
+                  * License, v. 2.0. If a copy of the MPL was not distributed with this
+                  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+                  * SPDX-License-Identifier: MPL-2.0
+                  *
+                  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+                  */
+  parameter Types.PerUnit aSetPu = 10 "Acceleration limiter setpoint in pu/s" annotation(
     Dialog(tab = "Acceleration limiter"));
-  parameter Types.PerUnit DmPu=0 "Speed sensitivity coefficient in pu (damping)" annotation(
+  parameter Types.PerUnit DeltaOmegaDbPu = 0 "Speed governor deadband in PU speed." annotation(
+    Dialog(tab = "Main control path"));
+  parameter Types.PerUnit DeltaOmegaMaxPu = 1 "Maximum value for speed error signal in pu" annotation(
+    Dialog(tab = "Main control path"));
+  parameter Types.PerUnit DeltaOmegaMinPu = -1 "Minimum value for speed error signal in pu" annotation(
+    Dialog(tab = "Main control path"));
+  parameter Types.Time DeltaTSeconds = 1 "Correction factor in s (to adapt the unit of the acceleration limiter gain from pu/s to pu)" annotation(
+    Dialog(tab = "Acceleration limiter"));
+  parameter Types.PerUnit DmPu = 0 "Speed sensitivity coefficient in pu (damping)" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Frequency fLim1Hz=49 "Frequency threshold 1 in Hz" annotation(
+  parameter Types.Frequency fLim1Hz = 49 "Frequency threshold 1 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim2Hz=0 "Frequency threshold 2 in Hz" annotation(
+  parameter Types.Frequency fLim2Hz = 8 "Frequency threshold 2 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim3Hz=0 "Frequency threshold 3 in Hz" annotation(
+  parameter Types.Frequency fLim3Hz = 7 "Frequency threshold 3 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim4Hz=0 "Frequency threshold 4 in Hz" annotation(
+  parameter Types.Frequency fLim4Hz = 6 "Frequency threshold 4 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim5Hz=0 "Frequency threshold 5 in Hz" annotation(
+  parameter Types.Frequency fLim5Hz = 5 "Frequency threshold 5 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim6Hz=0 "Frequency threshold 6 in Hz" annotation(
+  parameter Types.Frequency fLim6Hz = 4 "Frequency threshold 6 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim7Hz=0 "Frequency threshold 7 in Hz" annotation(
+  parameter Types.Frequency fLim7Hz = 3 "Frequency threshold 7 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim8Hz=0 "Frequency threshold 8 in Hz" annotation(
+  parameter Types.Frequency fLim8Hz = 2 "Frequency threshold 8 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim9Hz=0 "Frequency threshold 9 in Hz" annotation(
+  parameter Types.Frequency fLim9Hz = 1 "Frequency threshold 9 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fLim10Hz=0 "Frequency threshold 10 in Hz" annotation(
+  parameter Types.Frequency fLim10Hz = 0 "Frequency threshold 10 in Hz" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.Frequency fNomHz=50 "Nominal Frequency in Hz";
-  parameter Types.PerUnit KAPu=10 "Acceleration limiter gain in pu" annotation(
+  parameter Types.Frequency fNomHz = 50 "Nominal Frequency in Hz";
+  parameter Types.PerUnit KAPu = 10 "Acceleration limiter gain in pu" annotation(
     Dialog(tab = "Acceleration limiter"));
-  parameter Types.PerUnit KDGovPu=0 "Governor derivative gain in pu" annotation(
+  parameter Types.PerUnit KDGovPu = 0 "Governor derivative gain in pu" annotation(
     Dialog(tab = "Main control path"));
-  parameter Types.PerUnit KIGovPu=0.45 "Governor integral gain in pu" annotation(
+  parameter Types.PerUnit KIGovPu = 0.45 "Governor integral gain in pu" annotation(
     Dialog(tab = "Main control path"));
-  parameter Types.PerUnit KILoadPu=1 "Load limiter integral gain for PI controller in pu" annotation(
+  parameter Types.PerUnit KILoadPu = 1 "Load limiter integral gain for PI controller in pu" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.PerUnit KIMwPu=0 "Power controller gain in pu" annotation(
+  parameter Types.PerUnit KIMwPu = 0 "Power controller gain in pu" annotation(
     Dialog(tab = "Supervisory load controller"));
-  parameter Types.PerUnit KPGovPu=4 "Governor proportional gain in pu" annotation(
+  parameter Types.PerUnit KPGovPu = 4 "Governor proportional gain in pu" annotation(
     Dialog(tab = "Main control path"));
-  parameter Types.PerUnit KPLoadPu=1 "Load limiter proportional gain for PI controller in pu" annotation(
+  parameter Types.PerUnit KPLoadPu = 1 "Load limiter proportional gain for PI controller in pu" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.PerUnit KTurbPu=1.9168 "Turbine gain in pu" annotation(
+  parameter Types.PerUnit KTurbPu = 1.9168 "Turbine gain in pu" annotation(
     Dialog(tab = "Turbine/engine"));
   parameter Types.ActivePower PBaseMw "Base for power values (> 0) in MW";
-  parameter Types.ActivePowerPu PLdRefPu=1 "Load limiter reference value in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLdRefPu = 1 "Load limiter reference value in pu (base PBaseMw)" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.ActivePowerPu PLim1Pu=0.8325 "Power limit 1 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim1Pu = 0.8325 "Power limit 1 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim2Pu=0.8325 "Power limit 2 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim2Pu = 0.8325 "Power limit 2 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim3Pu=0.8325 "Power limit 3 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim3Pu = 0.8325 "Power limit 3 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim4Pu=0.8325 "Power limit 4 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim4Pu = 0.8325 "Power limit 4 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim5Pu=0.8325 "Power limit 5 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim5Pu = 0.8325 "Power limit 5 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim6Pu=0.8325 "Power limit 6 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim6Pu = 0.8325 "Power limit 6 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim7Pu=0.8325 "Power limit 7 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim7Pu = 0.8325 "Power limit 7 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim8Pu=0.8325 "Power limit 8 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim8Pu = 0.8325 "Power limit 8 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim9Pu=0.8325 "Power Limit 9 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim9Pu = 0.8325 "Power Limit 9 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLim10Pu=0.8325 "Power limit 10 in pu (base PBaseMw)" annotation(
+  parameter Types.ActivePowerPu PLim10Pu = 0.8325 "Power limit 10 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu;
-  fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz,PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu; fLim1Hz, PLim1Pu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation(
+  parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim10Hz, PLim10Pu; fLim9Hz, PLim9Pu; fLim8Hz, PLim8Pu; fLim7Hz, PLim7Pu; fLim6Hz, PLim6Pu; fLim5Hz, PLim5Pu; fLim4Hz, PLim4Pu; fLim3Hz, PLim3Pu; fLim2Hz, PLim2Pu; fLim1Hz, PLim1Pu; fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.PerUnit PRatePu=0.017 "Ramp rate for frequency-dependent power limit" annotation(
+  parameter Types.PerUnit PRatePu = 0.017 "Ramp rate for frequency-dependent power limit" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.PerUnit RPu=0.05 "Permanent droop in pu" annotation(
+  parameter Types.PerUnit RPu = 0.05 "Permanent droop in pu" annotation(
     Dialog(tab = "Main control path"));
-  parameter Types.PerUnit RClosePu=-99 "Minimum valve closing rate in pu/s" annotation(
+  parameter Types.PerUnit RClosePu = -99 "Minimum valve closing rate in pu/s" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.PerUnit RDownPu=-99 "Maximum rate of load limit decrease in pu" annotation(
+  parameter Types.PerUnit RDownPu = -99 "Maximum rate of load limit decrease in pu" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.PerUnit ROpenPu=99 "Maximum valve opening rate in pu/s" annotation(
+  parameter Types.PerUnit ROpenPu = 99 "Maximum valve opening rate in pu/s" annotation(
     Dialog(tab = "Turbine/engine"));
   parameter Integer RSelectInt "Feedback signal for droop" annotation(
     Dialog(tab = "Main control path"));
-  parameter Types.PerUnit RUpPu=99 "Maximum rate of load limit increase in pu" annotation(
+  parameter Types.PerUnit RUpPu = 99 "Maximum rate of load limit increase in pu" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.Time tASeconds=1 "Acceleration limiter time constant in s" annotation(
+  parameter Types.Time tASeconds = 1 "Acceleration limiter time constant in s" annotation(
     Dialog(tab = "Acceleration limiter"));
-  parameter Types.Time tActuatorSeconds=0.4 "Actuator time constant in s" annotation(
+  parameter Types.Time tActuatorSeconds = 0.4 "Actuator time constant in s" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Time tBSeconds=0.1 "Turbine lag time constant in s" annotation(
+  parameter Types.Time tBSeconds = 0.1 "Turbine lag time constant in s" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Time tCSeconds=0 "Turbine lead time constant in s" annotation(
+  parameter Types.Time tCSeconds = 0 "Turbine lead time constant in s" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Time tDGovSeconds=1 "Governor derivative controller time constant in s" annotation(
+  parameter Types.Time tDGovSeconds = 1 "Governor derivative controller time constant in s" annotation(
     Dialog(tab = "Main control path"));
-  parameter Types.Time tEngineSeconds=0 "Transport time delay for diesel engine in s" annotation(
+  parameter Types.Time tEngineSeconds = 0 "Transport time delay for diesel engine in s" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Time tFLoadSeconds=3 "Load limiter time constant in s" annotation(
+  parameter Types.Time tFLoadSeconds = 3 "Load limiter time constant in s" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.Time tPElecSeconds=2.5 "Electrical power transducer time constant in s" annotation(
+  parameter Types.Time tPElecSeconds = 2.5 "Electrical power transducer time constant in s" annotation(
     Dialog(tab = "Main control path"));
   parameter Types.Time tSSeconds "Simulation step size in s";
-  parameter Types.Time tSASeconds=0 "Temperature detection lead time constant in s" annotation(
+  parameter Types.Time tSASeconds = 0 "Temperature detection lead time constant in s" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.Time tSBSeconds=50 "Temperature detection lag time constant in s" annotation(
+  parameter Types.Time tSBSeconds = 50 "Temperature detection lag time constant in s" annotation(
     Dialog(tab = "Load limit controller"));
-  parameter Types.Time ValveMaxPu=1 "Maximum valve position limit in pu" annotation(
+  parameter Types.Time ValveMaxPu = 1 "Maximum valve position limit in pu" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Time ValveMinPu=0.175 "Minimum valve position limit in pu" annotation(
+  parameter Types.Time ValveMinPu = 0.175 "Minimum valve position limit in pu" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Types.Time WFnlPu=0.187 "No load fuel flow in pu" annotation(
+  parameter Types.Time WFnlPu = 0.187 "No load fuel flow in pu" annotation(
     Dialog(tab = "Turbine/engine"));
-  parameter Boolean WFSpdBool=false "Switch for fuel source characteristic" annotation(
+  parameter Boolean WFSpdBool = false "Switch for fuel source characteristic" annotation(
     Dialog(tab = "Turbine/engine"));
   Modelica.Blocks.Interfaces.RealInput omegaPu annotation(
     Placement(visible = true, transformation(origin = {-329, -19}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 190}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
@@ -176,7 +175,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant ROpen(k = ROpenPu) annotation(
     Placement(visible = true, transformation(origin = {214, -58}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter ValveMaxValveMin annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter ValveMaxValveMin(limitsAtInit = true, strict = false)  annotation(
     Placement(visible = true, transformation(origin = {130, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant RClose(k = RClosePu) annotation(
     Placement(visible = true, transformation(origin = {214, -114}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
@@ -184,7 +183,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {130, -112}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter PRate(DuMax = PRatePu, tS = tSSeconds) annotation(
     Placement(visible = true, transformation(origin = {176, -36}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain fNom(k(unit="") = fNomHz) annotation(
+  Modelica.Blocks.Math.Gain fNom(k(unit = "") = fNomHz) annotation(
     Placement(visible = true, transformation(origin = {138, 62}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Gain OneOverKTurb2(k = 1/KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {140, -2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -228,23 +227,17 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-250, -182}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain R(k = RPu) annotation(
     Placement(visible = true, transformation(origin = {-172, -124}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch RSelectSwitch(nu = 4) annotation(
-    Placement(visible = true, transformation(origin = {-171, -161}, extent = {{13, -13}, {-13, 13}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant Isochronous(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-200, -156}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-  Modelica.Blocks.Sources.IntegerConstant RSelect(k = RSelectInt) annotation(
-    Placement(visible = true, transformation(origin = {-122, -144}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addFsrKaDeltat annotation(
     Placement(visible = true, transformation(origin = {26, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain KADeltat(k(unit="") = KAPu*DeltaTSeconds) annotation(
+  Modelica.Blocks.Math.Gain KADeltat(k(unit = "") = KAPu*DeltaTSeconds) annotation(
     Placement(visible = true, transformation(origin = {-20, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add addAsetOmega(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add addAsetOmega(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-68, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant aSet(k = aSetPu) annotation(
     Placement(visible = true, transformation(origin = {-178, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction tA(a = {tASeconds, 1}, b = {1, 0}) annotation(
     Placement(visible = true, transformation(origin = {-142, -18}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rateLimitFsrt(DuMax = RUpPu, DuMin = RDownPu, tS = tSSeconds)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rateLimitFsrt(DuMax = RUpPu, DuMin = RDownPu, tS = tSSeconds) annotation(
     Placement(visible = true, transformation(origin = {-4, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limitFsrt(uMax = 1.0, uMin = -9999) annotation(
     Placement(visible = true, transformation(origin = {28, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -270,6 +263,12 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {184, 114}, extent = {{-8, -8}, {8, 8}}, rotation = -180)));
   Dynawo.NonElectrical.Blocks.Continuous.PowerExternalBase omegaToTheDm annotation(
     Placement(visible = true, transformation(origin = {214, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant Isochronous(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-200, -156}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
+  Modelica.Blocks.Sources.IntegerConstant RSelect(k = RSelectInt) annotation(
+    Placement(visible = true, transformation(origin = {-108, -158}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch RSelectSwitch(nu = 4) annotation(
+    Placement(visible = true, transformation(origin = {-172, -160}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
 equation
   connect(PLdRef.y, OneOverKTurb.u) annotation(
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
@@ -355,20 +354,8 @@ equation
     Line(points = {{-335, -183}, {-289, -183}, {-289, -182}, {-262, -182}}, color = {0, 0, 127}));
   connect(tPElec.y, AddPmwsetPefilt.u1) annotation(
     Line(points = {{-239, -182}, {-218, -182}, {-218, -165}, {-232, -165}, {-232, -160}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.y, R.u) annotation(
-    Line(points = {{-171, -146.7}, {-171, -139.7}, {-172, -139.7}, {-172, -135.7}}, color = {0, 0, 127}));
   connect(R.y, AddDeltaOmega.u3) annotation(
     Line(points = {{-172, -112}, {-172, -108}, {-192, -108}, {-192, -100}, {-184, -100}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.u[1], Isochronous.y) annotation(
-    Line(points = {{-170, -174}, {-176, -174}, {-176, -182}, {-200, -182}, {-200, -164}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.u[2], tPElec.y) annotation(
-    Line(points = {{-170, -174}, {-174, -174}, {-174, -186}, {-226, -186}, {-226, -182}, {-238, -182}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.u[3], tActuatorRatelim.y) annotation(
-    Line(points = {{-170, -174}, {-170, -190}, {214, -190}, {214, -134}, {240, -134}, {240, -88}, {226, -88}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.f, RSelect.y) annotation(
-    Line(points = {{-156, -160}, {-142, -160}, {-142, -144}, {-132, -144}}, color = {255, 127, 0}));
-  connect(RSelectSwitch.u[4], ValveMaxValveMin.y) annotation(
-    Line(points = {{-170, -174}, {-166, -174}, {-166, -180}, {158, -180}, {158, -88}, {142, -88}}, color = {0, 0, 127}));
   connect(addFsrKaDeltat.y, LowValueSelect.u2) annotation(
     Line(points = {{37, -18}, {50, -18}, {50, -28}, {60, -28}}, color = {0, 0, 127}));
   connect(ValveMaxValveMin.y, addFsrKaDeltat.u2) annotation(
@@ -432,8 +419,20 @@ equation
   connect(PMwSetPu, AddPmwsetPefilt.u2) annotation(
     Line(points = {{-332, -138}, {-286, -138}, {-286, -164}, {-244, -164}, {-244, -160}}, color = {0, 0, 127}));
   connect(PLimFromf.y[1], OneOverKTurb2.u) annotation(
-    Line(points = {{138, 22}, {140, 22}, {140, 10}}, color = {0, 0, 127})); annotation(
-  
+    Line(points = {{138, 22}, {138, 18}, {140, 18}, {140, 10}}, color = {0, 0, 127}));
+  connect(RSelectSwitch.y, R.u) annotation(
+    Line(points = {{-172, -149}, {-172, -136}}, color = {0, 0, 127}));
+  connect(RSelectSwitch.u[1], Isochronous.y) annotation(
+    Line(points = {{-172, -170}, {-172, -178}, {-200, -178}, {-200, -164}}, color = {0, 0, 127}));
+  connect(RSelect.y, RSelectSwitch.f) annotation(
+    Line(points = {{-118, -158}, {-138, -158}, {-138, -160}, {-160, -160}}, color = {255, 127, 0}));
+  connect(RSelectSwitch.u[2], tPElec.y) annotation(
+    Line(points = {{-172, -170}, {-172, -182}, {-238, -182}}, color = {0, 0, 127}));
+  connect(RSelectSwitch.u[3], tActuatorRatelim.y) annotation(
+    Line(points = {{-172, -170}, {-170, -170}, {-170, -190}, {210, -190}, {210, -132}, {238, -132}, {238, -88}, {226, -88}}, color = {0, 0, 127}));
+  connect(RSelectSwitch.u[4], ValveMaxValveMin.y) annotation(
+    Line(points = {{-172, -170}, {-172, -272}, {170, -272}, {170, -88}, {142, -88}}, color = {0, 0, 127}));
+  annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302.</body></html>"),
@@ -441,6 +440,9 @@ equation
 dependent
 limit"), Text(origin = {140, -193}, extent = {{-39, -3}, {39, 3}}, textString = "valve stroke"), Text(origin = {92, -183}, extent = {{-37, -5}, {37, 5}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {-22, 120}, extent = {{-13, -4}, {13, 4}}, textString = "Texm"), Text(origin = {106, 125}, extent = {{-11, -3}, {11, 3}}, textString = "Tex"), Text(origin = {-70, 156}, extent = {{-13, -4}, {13, 4}}, textString = "tlim"), Text(origin = {73, 44}, textColor = {0, 0, 255}, extent = {{-20, -18}, {20, 18}}, textString = "Low
 Value
-Select"), Text(origin = {182, 192}, extent = {{-17, -4}, {17, 4}}, textString = "dm>=0"), Text(origin = {168, 164}, extent = {{-17, -4}, {17, 4}}, textString = "dm<=0")}),
-    Icon(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {7, 7}, extent = {{-279, 123}, {279, -123}}, textString = "GovCT2"), Rectangle(origin = {0, 10}, extent = {{-320, 210}, {320, -210}})}));
+Select"), Text(origin = {182, 192}, extent = {{-17, -4}, {17, 4}}, textString = "dm>=0"), Text(origin = {168, 164}, extent = {{-17, -4}, {17, 4}}, textString = "dm<=0"), Text(origin = {-147, -200}, textColor = {255, 0, 0}, extent = {{-55, 16}, {55, -16}}, textString = "option 3 still missing!")}),
+    Icon(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {7, 7}, extent = {{-279, 123}, {279, -123}}, textString = "GovCT2"), Rectangle(origin = {0, 10}, extent = {{-320, 210}, {320, -210}})}),
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.001),
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"),
+    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian");
 end GovCT2;
