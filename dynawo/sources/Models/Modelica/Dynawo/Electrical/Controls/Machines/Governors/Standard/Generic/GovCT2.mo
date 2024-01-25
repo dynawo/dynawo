@@ -184,7 +184,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {130, -112}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter PRate(DuMax = PRatePu, tS = tSSeconds) annotation(
     Placement(visible = true, transformation(origin = {176, -36}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain fNom(k = fNomHz) annotation(
+  Modelica.Blocks.Math.Gain fNom(k(unit="") = fNomHz) annotation(
     Placement(visible = true, transformation(origin = {138, 62}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Gain OneOverKTurb2(k = 1/KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {140, -2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -236,7 +236,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-122, -144}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addFsrKaDeltat annotation(
     Placement(visible = true, transformation(origin = {26, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain KADeltat(k = KAPu*DeltaTSeconds) annotation(
+  Modelica.Blocks.Math.Gain KADeltat(k(unit="") = KAPu*DeltaTSeconds) annotation(
     Placement(visible = true, transformation(origin = {-20, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addAsetOmega(k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {-68, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
