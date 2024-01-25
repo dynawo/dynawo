@@ -1,9 +1,9 @@
  ====== VARIABLES VALUES ======
 MyVariable2                                       : y =       8.000000 yp =       0.000000
 MyAliasVariable                                   : alias of MyVariable2
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 MyVariable4                                       : y =       0.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 MyVariable                                        : z =       4.000000
  ====== PARAMETERS VALUES ======
 MyParam2                                           =       0.000000
