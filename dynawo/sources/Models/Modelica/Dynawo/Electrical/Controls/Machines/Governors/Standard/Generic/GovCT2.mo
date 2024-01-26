@@ -139,299 +139,297 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-333, -139}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -70}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu annotation(
     Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 68}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain OneOverKTurb(k = 1/KTurbPu) annotation(
+  Modelica.Blocks.Math.Gain gainOneOverKTurb(k = 1/KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {-236, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PLdRef(k = PLdRefPu) annotation(
+  Modelica.Blocks.Sources.Constant constPLdRef(k = PLdRefPu) annotation(
     Placement(visible = true, transformation(origin = {-298, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add AddWFnlPldRef annotation(
+  Modelica.Blocks.Math.Add addWFnlPldRef annotation(
     Placement(visible = true, transformation(origin = {-142, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant WFnl(k = WFnlPu) annotation(
+  Modelica.Blocks.Sources.Constant constWFnl(k = WFnlPu) annotation(
     Placement(visible = true, transformation(origin = {-176, 200}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Add AddtLimtExm(k2 = -1) annotation(
+  Modelica.Blocks.Math.Add addtLimtExm(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-64, 120}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder tFLoad(T = tFLoadSeconds) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrdertFLoad(T = tFLoadSeconds) annotation(
     Placement(visible = true, transformation(origin = {34, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction tSAtSB(a = {tSBSeconds, 1}, b = {tSASeconds, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSBSeconds, 1}, b = {tSASeconds, 1}) annotation(
     Placement(visible = true, transformation(origin = {80, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add AddPDmPTurbine(k1 = -1) annotation(
+  Modelica.Blocks.Math.Add addPDmPTurbine(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {276, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction tCtB(a = {tBSeconds, 1}, b = {tCSeconds, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tBSeconds, 1}, b = {tCSeconds, 1}) annotation(
     Placement(visible = true, transformation(origin = {256, 106}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain KTurb(k = KTurbPu) annotation(
+  Modelica.Blocks.Math.Gain gainKTurb(k = KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {256, 74}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Nonlinear.FixedDelay DelaytEngine(delayTime = tEngineSeconds) annotation(
+  Modelica.Blocks.Nonlinear.FixedDelay delaytEngine(delayTime = tEngineSeconds) annotation(
     Placement(visible = true, transformation(origin = {256, 24}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Add AddCfeWfnl(k1 = -1) annotation(
+  Modelica.Blocks.Math.Add addCfeWfnl(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {256, -6}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Product MultWFSpdValveStroke annotation(
+  Modelica.Blocks.Math.Product prodWFSpdValveStroke annotation(
     Placement(visible = true, transformation(origin = {252, -54}, extent = {{8, -8}, {-8, 8}}, rotation = -90)));
-  Modelica.Blocks.Logical.Switch SwitchWFSpd annotation(
+  Modelica.Blocks.Logical.Switch switchWFSpd annotation(
     Placement(visible = true, transformation(origin = {272, -126}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant one(k = 1) annotation(
+  Modelica.Blocks.Sources.Constant constOne(k = 1) annotation(
     Placement(visible = true, transformation(origin = {240, -178}, extent = {{9, -9}, {-9, 9}}, rotation = -90)));
-  Modelica.Blocks.Sources.BooleanConstant WFSpd(k = WFSpdBool) annotation(
+  Modelica.Blocks.Sources.BooleanConstant constWFSpd(k = WFSpdBool) annotation(
     Placement(visible = true, transformation(origin = {272, -176}, extent = {{8, -8}, {-8, 8}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze tActuatorRatelim(T = tActuatorSeconds, UseRateLim = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuatorSeconds, UseRateLim = true) annotation(
     Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant ROpen(k = ROpenPu) annotation(
+  Modelica.Blocks.Sources.Constant constROpen(k = ROpenPu) annotation(
     Placement(visible = true, transformation(origin = {214, -58}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter ValveMaxValveMin(limitsAtInit = true, strict = false)  annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter limitValveMaxValveMin(limitsAtInit = true, strict = false)  annotation(
     Placement(visible = true, transformation(origin = {130, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant RClose(k = RClosePu) annotation(
+  Modelica.Blocks.Sources.Constant constRClose(k = RClosePu) annotation(
     Placement(visible = true, transformation(origin = {214, -114}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant ValveMin(k = ValveMinPu) annotation(
+  Modelica.Blocks.Sources.Constant constValveMin(k = ValveMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, -112}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter PRate(DuMax = PRatePu, tS = tSSeconds) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter rateLimitPRate(DuMax = PRatePu, tS = tSSeconds) annotation(
     Placement(visible = true, transformation(origin = {176, -36}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain fNom(k(unit = "") = fNomHz) annotation(
+  Modelica.Blocks.Math.Gain gainfNom(k(unit = "") = fNomHz) annotation(
     Placement(visible = true, transformation(origin = {138, 62}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain OneOverKTurb2(k = 1/KTurbPu) annotation(
+  Modelica.Blocks.Math.Gain gainOneOverKTurb2(k = 1/KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {140, -2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Add AddWfnlValvemax(k1 = +1) annotation(
+  Modelica.Blocks.Math.Add addWfnlValvemax(k1 = +1) annotation(
     Placement(visible = true, transformation(origin = {146, -34}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.Constant WFnl3(k = WFnlPu) annotation(
+  Modelica.Blocks.Sources.Constant constWFnl3(k = WFnlPu) annotation(
     Placement(visible = true, transformation(origin = {174, -2}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.Constant WFnl2(k = WFnlPu) annotation(
+  Modelica.Blocks.Sources.Constant constWFnl2(k = WFnlPu) annotation(
     Placement(visible = true, transformation(origin = {302, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Tables.CombiTable1Ds PLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds tablePLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {138, 32}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation(
     Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu3(y = omegaPu) annotation(
     Placement(visible = true, transformation(origin = {341, -157}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
-  Modelica.Blocks.Math.Min LowValueSelect annotation(
+  Modelica.Blocks.Math.Min minLowValueSelect annotation(
     Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min LowValueSelect2 annotation(
+  Modelica.Blocks.Math.Min minLowValueSelect2 annotation(
     Placement(visible = true, transformation(origin = {69, -87}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain KPGov(k = KPGovPu) annotation(
+  Modelica.Blocks.Math.Gain gainKPGov(k = KPGovPu) annotation(
     Placement(visible = true, transformation(origin = {-48, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction KDGovTDGov(a = {tDGovSeconds, 1}, b = {KDGovPu, 0}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFuncKDGovTDGov(a = {tDGovSeconds, 1}, b = {KDGovPu, 0}) annotation(
     Placement(visible = true, transformation(origin = {-50, -132}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator KIGov(k = KIGovPu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorKIGov(k = KIGovPu) annotation(
     Placement(visible = true, transformation(origin = {-50, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone DeltaOmegaDb(uMax = DeltaOmegaDbPu) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone deadZoneDeltaOmegaDb(uMax = DeltaOmegaDbPu) annotation(
     Placement(visible = true, transformation(origin = {-132, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter DeltaOmegaMinMax(uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitDeltaOmegaMinMax(uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-100, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add3 AddGovController annotation(
+  Modelica.Blocks.Math.Add3 addGovController annotation(
     Placement(visible = true, transformation(origin = {8, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add3 AddDeltaOmega(k1 = -1, k3 = -1) annotation(
+  Modelica.Blocks.Math.Add3 addDeltaOmega(k1 = -1, k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-172, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add AddSupervisoryLoadController annotation(
+  Modelica.Blocks.Math.Add addSupervisoryLoadController annotation(
     Placement(visible = true, transformation(origin = {-216, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator KIMw(K = KIMwPu, YMax = 1.1*RPu, YMin = -1.1*RPu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator integratorKIMw(K = KIMwPu, YMax = 1.1*RPu, YMin = -1.1*RPu) annotation(
     Placement(visible = true, transformation(origin = {-238, -120}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Add AddPmwsetPefilt(k1 = -1) annotation(
+  Modelica.Blocks.Math.Add addPmwsetPefilt(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-238, -148}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.FirstOrder tPElec(T = tPElecSeconds) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrdertPElec(T = tPElecSeconds) annotation(
     Placement(visible = true, transformation(origin = {-250, -182}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain R(k = RPu) annotation(
+  Modelica.Blocks.Math.Gain gainR(k = RPu) annotation(
     Placement(visible = true, transformation(origin = {-172, -124}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.Add addFsrKaDeltat annotation(
     Placement(visible = true, transformation(origin = {26, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain KADeltat(k(unit = "") = KAPu*DeltaTSeconds) annotation(
+  Modelica.Blocks.Math.Gain gainKADeltat(k(unit = "") = KAPu*DeltaTSeconds) annotation(
     Placement(visible = true, transformation(origin = {-20, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addAsetOmega(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-68, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant aSet(k = aSetPu) annotation(
+  Modelica.Blocks.Sources.Constant constASet(k = aSetPu) annotation(
     Placement(visible = true, transformation(origin = {-178, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction tA(a = {tASeconds, 1}, b = {1, 0}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunctA(a = {tASeconds, 1}, b = {1, 0}) annotation(
     Placement(visible = true, transformation(origin = {-142, -18}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rateLimitFsrt(DuMax = RUpPu, DuMin = RDownPu, tS = tSSeconds) annotation(
     Placement(visible = true, transformation(origin = {-4, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limitFsrt(uMax = 1.0, uMin = -9999) annotation(
     Placement(visible = true, transformation(origin = {28, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add annotation(
+  Modelica.Blocks.Math.Add addLoadLimitController annotation(
     Placement(visible = true, transformation(origin = {-38, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator KILoad(k = KILoadPu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorKILoad(k = KILoadPu) annotation(
     Placement(visible = true, transformation(origin = {-104, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain KPLoad(k = KPLoadPu) annotation(
+  Modelica.Blocks.Math.Gain gainKPLoad(k = KPLoadPu) annotation(
     Placement(visible = true, transformation(origin = {-102, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max maxDm annotation(
     Placement(visible = true, transformation(origin = {160, 186}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minDm annotation(
     Placement(visible = true, transformation(origin = {144, 158}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant zero(k = 0) annotation(
+  Modelica.Blocks.Sources.Constant constZero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {84, 202}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Dm(k = DmPu) annotation(
+  Modelica.Blocks.Sources.Constant constDm(k = DmPu) annotation(
     Placement(visible = true, transformation(origin = {86, 164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Product multOmegaDm annotation(
+  Modelica.Blocks.Math.Product prodOmegaDm annotation(
     Placement(visible = true, transformation(origin = {236, 180}, extent = {{8, -8}, {-8, 8}}, rotation = 180)));
   Modelica.Blocks.Sources.RealExpression omegaPu4(y = omegaPu) annotation(
     Placement(visible = true, transformation(origin = {149, 227}, extent = {{-13, -9}, {13, 9}}, rotation = 0)));
-  Modelica.Blocks.Math.Product multOmegaCfe annotation(
+  Modelica.Blocks.Math.Product prodOmegaCfe annotation(
     Placement(visible = true, transformation(origin = {184, 114}, extent = {{-8, -8}, {8, 8}}, rotation = -180)));
-  Dynawo.NonElectrical.Blocks.Continuous.PowerExternalBase omegaToTheDm annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PowerExternalBase expOmegaToTheDm annotation(
     Placement(visible = true, transformation(origin = {214, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Isochronous(k = 0) annotation(
+  Modelica.Blocks.Sources.Constant constIsochronous(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-200, -156}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-  Modelica.Blocks.Sources.IntegerConstant RSelect(k = RSelectInt) annotation(
+  Modelica.Blocks.Sources.IntegerConstant constRSelect(k = RSelectInt) annotation(
     Placement(visible = true, transformation(origin = {-108, -158}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch RSelectSwitch(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switchRSelect(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-172, -160}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
 equation
-  connect(PLdRef.y, OneOverKTurb.u) annotation(
+  connect(constPLdRef.y, gainOneOverKTurb.u) annotation(
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
-  connect(OneOverKTurb.y, AddWFnlPldRef.u2) annotation(
+  connect(gainOneOverKTurb.y, addWFnlPldRef.u2) annotation(
     Line(points = {{-225, 144}, {-154, 144}}, color = {0, 0, 127}));
-  connect(tFLoad.u, tSAtSB.y) annotation(
+  connect(firstOrdertFLoad.u, transferFunctSAtSB.y) annotation(
     Line(points = {{46, 114}, {69, 114}}, color = {0, 0, 127}));
-  connect(AddPDmPTurbine.y, PMechPu) annotation(
+  connect(addPDmPTurbine.y, PMechPu) annotation(
     Line(points = {{287, 132}, {330, 132}}, color = {0, 0, 127}));
-  connect(tCtB.y, AddPDmPTurbine.u2) annotation(
+  connect(transferFunctCtB.y, addPDmPTurbine.u2) annotation(
     Line(points = {{256, 117}, {256, 126}, {264, 126}}, color = {0, 0, 127}));
-  connect(KTurb.y, tCtB.u) annotation(
+  connect(gainKTurb.y, transferFunctCtB.u) annotation(
     Line(points = {{256, 85}, {256, 94}}, color = {0, 0, 127}));
-  connect(DelaytEngine.y, KTurb.u) annotation(
+  connect(delaytEngine.y, gainKTurb.u) annotation(
     Line(points = {{256, 35}, {256, 62}}, color = {0, 0, 127}));
-  connect(AddCfeWfnl.y, DelaytEngine.u) annotation(
+  connect(addCfeWfnl.y, delaytEngine.u) annotation(
     Line(points = {{256, 5}, {256, 12}}, color = {0, 0, 127}));
-  connect(MultWFSpdValveStroke.y, AddCfeWfnl.u2) annotation(
+  connect(prodWFSpdValveStroke.y, addCfeWfnl.u2) annotation(
     Line(points = {{252, -45.2}, {252, -25.7}, {250, -25.7}, {250, -18.2}}, color = {0, 0, 127}));
-  connect(SwitchWFSpd.y, MultWFSpdValveStroke.u1) annotation(
+  connect(switchWFSpd.y, prodWFSpdValveStroke.u1) annotation(
     Line(points = {{272, -115}, {272, -73.5}, {257, -73.5}, {257, -64}}, color = {0, 0, 127}));
-  connect(one.y, SwitchWFSpd.u3) annotation(
+  connect(constOne.y, switchWFSpd.u3) annotation(
     Line(points = {{240, -168.1}, {240, -147.2}, {263.5, -147.2}, {263.5, -139.2}, {263, -139.2}}, color = {0, 0, 127}));
-  connect(WFSpd.y, SwitchWFSpd.u2) annotation(
+  connect(constWFSpd.y, switchWFSpd.u2) annotation(
     Line(points = {{272, -167.2}, {272, -138.4}}, color = {255, 0, 255}));
-  connect(tActuatorRatelim.y, MultWFSpdValveStroke.u2) annotation(
+  connect(firstOrdertActuatorRatelim.y, prodWFSpdValveStroke.u2) annotation(
     Line(points = {{225, -88}, {248, -88}, {248, -64}}, color = {0, 0, 127}));
-  connect(ROpen.y, tActuatorRatelim.dyMax) annotation(
+  connect(constROpen.y, firstOrdertActuatorRatelim.dyMax) annotation(
     Line(points = {{207.4, -58}, {181.4, -58}, {181.4, -81}, {201.4, -81}}, color = {0, 0, 127}));
-  connect(ValveMaxValveMin.y, tActuatorRatelim.u) annotation(
+  connect(limitValveMaxValveMin.y, firstOrdertActuatorRatelim.u) annotation(
     Line(points = {{141, -88}, {202, -88}}, color = {0, 0, 127}));
-  connect(RClose.y, tActuatorRatelim.dyMin) annotation(
+  connect(constRClose.y, firstOrdertActuatorRatelim.dyMin) annotation(
     Line(points = {{207.4, -114}, {182.4, -114}, {182.4, -94}, {202.4, -94}}, color = {0, 0, 127}));
-  connect(ValveMin.y, ValveMaxValveMin.limit2) annotation(
+  connect(constValveMin.y, limitValveMaxValveMin.limit2) annotation(
     Line(points = {{123.4, -112}, {109.4, -112}, {109.4, -96}, {117.4, -96}}, color = {0, 0, 127}));
-  connect(OneOverKTurb2.y, AddWfnlValvemax.u1) annotation(
+  connect(gainOneOverKTurb2.y, addWfnlValvemax.u1) annotation(
     Line(points = {{140, -13}, {140, -22}}, color = {0, 0, 127}));
-  connect(AddCfeWfnl.u1, WFnl2.y) annotation(
+  connect(addCfeWfnl.u1, constWFnl2.y) annotation(
     Line(points = {{262, -18}, {262, -34}, {291, -34}}, color = {0, 0, 127}));
-  connect(AddWfnlValvemax.u2, WFnl3.y) annotation(
+  connect(addWfnlValvemax.u2, constWFnl3.y) annotation(
     Line(points = {{152, -22}, {152, -16.5}, {174, -16.5}, {174, -13}}, color = {0, 0, 127}));
-  connect(fNom.y, PLimFromf.u) annotation(
+  connect(gainfNom.y, tablePLimFromf.u) annotation(
     Line(points = {{138, 51}, {138.5, 51}, {138.5, 44}, {138, 44}}, color = {0, 0, 127}));
-  connect(omegaPu3.y, SwitchWFSpd.u1) annotation(
+  connect(omegaPu3.y, switchWFSpd.u1) annotation(
     Line(points = {{327, -157}, {282, -157}, {282, -138}, {279.7, -138}}, color = {0, 0, 127}));
-  connect(omegaPu2.y, fNom.u) annotation(
+  connect(omegaPu2.y, gainfNom.u) annotation(
     Line(points = {{142.7, 89}, {137.7, 89}, {137.7, 74}}, color = {0, 0, 127}));
-  connect(AddWfnlValvemax.y, PRate.u) annotation(
+  connect(addWfnlValvemax.y, rateLimitPRate.u) annotation(
     Line(points = {{146, -45}, {146, -51}, {162, -51}, {162, -23}, {176, -23}, {176, -27}}, color = {0, 0, 127}));
-  connect(PRate.y, ValveMaxValveMin.limit1) annotation(
+  connect(rateLimitPRate.y, limitValveMaxValveMin.limit1) annotation(
     Line(points = {{176, -44.8}, {176, -65.8}, {106, -65.8}, {106, -79.8}, {118, -79.8}}, color = {0, 0, 127}));
-  connect(LowValueSelect.y, LowValueSelect2.u1) annotation(
+  connect(minLowValueSelect.y, minLowValueSelect2.u1) annotation(
     Line(points = {{83, -22}, {86.5, -22}, {86.5, -72}, {49.25, -72}, {49.25, -84}, {53.625, -84}, {53.625, -82}, {58, -82}}, color = {0, 0, 127}));
-  connect(LowValueSelect2.y, ValveMaxValveMin.u) annotation(
+  connect(minLowValueSelect2.y, limitValveMaxValveMin.u) annotation(
     Line(points = {{78.9, -87}, {100.9, -87}, {100.9, -89}, {118.9, -89}}, color = {0, 0, 127}));
-  connect(DeltaOmegaDb.y, DeltaOmegaMinMax.u) annotation(
+  connect(deadZoneDeltaOmegaDb.y, limitDeltaOmegaMinMax.u) annotation(
     Line(points = {{-121, -92}, {-113, -92}}, color = {0, 0, 127}));
-  connect(DeltaOmegaMinMax.y, KIGov.u) annotation(
+  connect(limitDeltaOmegaMinMax.y, integratorKIGov.u) annotation(
     Line(points = {{-89, -92}, {-63, -92}}, color = {0, 0, 127}));
-  connect(DeltaOmegaMinMax.y, KPGov.u) annotation(
+  connect(limitDeltaOmegaMinMax.y, gainKPGov.u) annotation(
     Line(points = {{-89, -92}, {-75, -92}, {-75, -54}, {-61, -54}}, color = {0, 0, 127}));
-  connect(DeltaOmegaMinMax.y, KDGovTDGov.u) annotation(
+  connect(limitDeltaOmegaMinMax.y, transferFuncKDGovTDGov.u) annotation(
     Line(points = {{-89, -92}, {-75, -92}, {-75, -132}, {-64, -132}}, color = {0, 0, 127}));
-  connect(KPGov.y, AddGovController.u1) annotation(
+  connect(gainKPGov.y, addGovController.u1) annotation(
     Line(points = {{-37, -54}, {-11, -54}, {-11, -84}, {-4, -84}}, color = {0, 0, 127}));
-  connect(KIGov.y, AddGovController.u2) annotation(
+  connect(integratorKIGov.y, addGovController.u2) annotation(
     Line(points = {{-39, -92}, {-4, -92}}, color = {0, 0, 127}));
-  connect(KDGovTDGov.y, AddGovController.u3) annotation(
+  connect(transferFuncKDGovTDGov.y, addGovController.u3) annotation(
     Line(points = {{-37, -132}, {-12.5, -132}, {-12.5, -100}, {-4, -100}}, color = {0, 0, 127}));
-  connect(AddGovController.y, LowValueSelect2.u2) annotation(
+  connect(addGovController.y, minLowValueSelect2.u2) annotation(
     Line(points = {{19, -92}, {58, -92}}, color = {0, 0, 127}));
-  connect(AddDeltaOmega.y, DeltaOmegaDb.u) annotation(
+  connect(addDeltaOmega.y, deadZoneDeltaOmegaDb.u) annotation(
     Line(points = {{-161, -92}, {-145, -92}}, color = {0, 0, 127}));
-  connect(AddSupervisoryLoadController.y, AddDeltaOmega.u2) annotation(
+  connect(addSupervisoryLoadController.y, addDeltaOmega.u2) annotation(
     Line(points = {{-205, -92}, {-184, -92}}, color = {0, 0, 127}));
-  connect(PRefPu, AddSupervisoryLoadController.u1) annotation(
+  connect(PRefPu, addSupervisoryLoadController.u1) annotation(
     Line(points = {{-333, -87}, {-229, -87}}, color = {0, 0, 127}));
-  connect(KIMw.y, AddSupervisoryLoadController.u2) annotation(
+  connect(integratorKIMw.y, addSupervisoryLoadController.u2) annotation(
     Line(points = {{-238, -109}, {-238, -98}, {-228, -98}}, color = {0, 0, 127}));
-  connect(AddPmwsetPefilt.y, KIMw.u) annotation(
+  connect(addPmwsetPefilt.y, integratorKIMw.u) annotation(
     Line(points = {{-238, -137}, {-238, -132}}, color = {0, 0, 127}));
-  connect(PElecPu, tPElec.u) annotation(
+  connect(PElecPu, firstOrdertPElec.u) annotation(
     Line(points = {{-335, -183}, {-289, -183}, {-289, -182}, {-262, -182}}, color = {0, 0, 127}));
-  connect(tPElec.y, AddPmwsetPefilt.u1) annotation(
+  connect(firstOrdertPElec.y, addPmwsetPefilt.u1) annotation(
     Line(points = {{-239, -182}, {-218, -182}, {-218, -165}, {-232, -165}, {-232, -160}}, color = {0, 0, 127}));
-  connect(R.y, AddDeltaOmega.u3) annotation(
+  connect(gainR.y, addDeltaOmega.u3) annotation(
     Line(points = {{-172, -112}, {-172, -108}, {-192, -108}, {-192, -100}, {-184, -100}}, color = {0, 0, 127}));
-  connect(addFsrKaDeltat.y, LowValueSelect.u2) annotation(
+  connect(addFsrKaDeltat.y, minLowValueSelect.u2) annotation(
     Line(points = {{37, -18}, {50, -18}, {50, -28}, {60, -28}}, color = {0, 0, 127}));
-  connect(ValveMaxValveMin.y, addFsrKaDeltat.u2) annotation(
+  connect(limitValveMaxValveMin.y, addFsrKaDeltat.u2) annotation(
     Line(points = {{142, -88}, {158, -88}, {158, -180}, {26, -180}, {26, -34}, {6, -34}, {6, -24}, {14, -24}}, color = {0, 0, 127}));
-  connect(KADeltat.y, addFsrKaDeltat.u1) annotation(
+  connect(gainKADeltat.y, addFsrKaDeltat.u1) annotation(
     Line(points = {{-9, -12}, {14, -12}}, color = {0, 0, 127}));
-  connect(addAsetOmega.y, KADeltat.u) annotation(
+  connect(addAsetOmega.y, gainKADeltat.u) annotation(
     Line(points = {{-56, -12}, {-32, -12}}, color = {0, 0, 127}));
-  connect(aSet.y, addAsetOmega.u1) annotation(
+  connect(constASet.y, addAsetOmega.u1) annotation(
     Line(points = {{-167, 4}, {-94, 4}, {-94, -6}, {-80, -6}}, color = {0, 0, 127}));
-  connect(tA.y, addAsetOmega.u2) annotation(
+  connect(transferFunctA.y, addAsetOmega.u2) annotation(
     Line(points = {{-129, -18}, {-80, -18}}, color = {0, 0, 127}));
-  connect(tA.u, omegaPu) annotation(
+  connect(transferFunctA.u, omegaPu) annotation(
     Line(points = {{-156, -18}, {-233, -18}, {-233, -19}, {-329, -19}}, color = {0, 0, 127}));
-  connect(omegaPu, AddDeltaOmega.u1) annotation(
+  connect(omegaPu, addDeltaOmega.u1) annotation(
     Line(points = {{-329, -19}, {-194, -19}, {-194, -84}, {-184, -84}}, color = {0, 0, 127}));
   connect(rateLimitFsrt.y, limitFsrt.u) annotation(
     Line(points = {{7, 40}, {16, 40}}, color = {0, 0, 127}));
-  connect(limitFsrt.y, LowValueSelect.u1) annotation(
+  connect(limitFsrt.y, minLowValueSelect.u1) annotation(
     Line(points = {{39, 40}, {54, 40}, {54, -16}, {60, -16}}, color = {0, 0, 127}));
-  connect(add.y, rateLimitFsrt.u) annotation(
+  connect(addLoadLimitController.y, rateLimitFsrt.u) annotation(
     Line(points = {{-27, 40}, {-16, 40}}, color = {0, 0, 127}));
-  connect(KILoad.y, add.u2) annotation(
+  connect(integratorKILoad.y, addLoadLimitController.u2) annotation(
     Line(points = {{-93, 34}, {-50, 34}}, color = {0, 0, 127}));
-  connect(KPLoad.y, add.u1) annotation(
+  connect(gainKPLoad.y, addLoadLimitController.u1) annotation(
     Line(points = {{-91, 70}, {-60, 70}, {-60, 46}, {-50, 46}}, color = {0, 0, 127}));
-  connect(AddWFnlPldRef.u1, WFnl.y) annotation(
+  connect(addWFnlPldRef.u1, constWFnl.y) annotation(
     Line(points = {{-154, 156}, {-176, 156}, {-176, 189}}, color = {0, 0, 127}));
-  connect(AddtLimtExm.y, KPLoad.u) annotation(
+  connect(addtLimtExm.y, gainKPLoad.u) annotation(
     Line(points = {{-75, 120}, {-132, 120}, {-132, 70}, {-114, 70}}, color = {0, 0, 127}));
-  connect(AddtLimtExm.y, KILoad.u) annotation(
+  connect(addtLimtExm.y, integratorKILoad.u) annotation(
     Line(points = {{-75, 120}, {-132, 120}, {-132, 34}, {-116, 34}}, color = {0, 0, 127}));
-  connect(AddtLimtExm.u2, tFLoad.y) annotation(
+  connect(addtLimtExm.u2, firstOrdertFLoad.y) annotation(
     Line(points = {{-52, 114}, {23, 114}}, color = {0, 0, 127}));
-  connect(AddWFnlPldRef.y, AddtLimtExm.u1) annotation(
+  connect(addWFnlPldRef.y, addtLimtExm.u1) annotation(
     Line(points = {{-131, 150}, {-44, 150}, {-44, 126}, {-52, 126}}, color = {0, 0, 127}));
-  connect(Dm.y, maxDm.u1) annotation(
+  connect(constDm.y, maxDm.u1) annotation(
     Line(points = {{97, 164}, {108.5, 164}, {108.5, 192}, {148, 192}}, color = {0, 0, 127}));
-  connect(Dm.y, minDm.u1) annotation(
+  connect(constDm.y, minDm.u1) annotation(
     Line(points = {{97, 164}, {132, 164}}, color = {0, 0, 127}));
-  connect(zero.y, maxDm.u2) annotation(
+  connect(constZero.y, maxDm.u2) annotation(
     Line(points = {{95, 202}, {122, 202}, {122, 180}, {148, 180}}, color = {0, 0, 127}));
-  connect(zero.y, minDm.u2) annotation(
+  connect(constZero.y, minDm.u2) annotation(
     Line(points = {{95, 202}, {122, 202}, {122, 152}, {132, 152}}, color = {0, 0, 127}));
-  connect(multOmegaDm.y, AddPDmPTurbine.u1) annotation(
+  connect(prodOmegaDm.y, addPDmPTurbine.u1) annotation(
     Line(points = {{244, 180}, {248, 180}, {248, 138}, {264, 138}}, color = {0, 0, 127}));
-  connect(maxDm.y, multOmegaDm.u1) annotation(
+  connect(maxDm.y, prodOmegaDm.u1) annotation(
     Line(points = {{172, 186}, {182, 186}, {182, 176}, {226, 176}}, color = {0, 0, 127}));
-  connect(tSAtSB.u, multOmegaCfe.y) annotation(
+  connect(transferFunctSAtSB.u, prodOmegaCfe.y) annotation(
     Line(points = {{92, 114}, {175, 114}}, color = {0, 0, 127}));
-  connect(omegaPu4.y, multOmegaDm.u2) annotation(
+  connect(omegaPu4.y, prodOmegaDm.u2) annotation(
     Line(points = {{163, 227}, {214, 227}, {214, 184}, {226, 184}}, color = {0, 0, 127}));
-  connect(omegaPu4.y, omegaToTheDm.u1) annotation(
+  connect(omegaPu4.y, expOmegaToTheDm.u1) annotation(
     Line(points = {{163, 227}, {196, 227}, {196, 156}, {202, 156}}, color = {0, 0, 127}));
-  connect(minDm.y, omegaToTheDm.u2) annotation(
+  connect(minDm.y, expOmegaToTheDm.u2) annotation(
     Line(points = {{155, 158}, {176, 158}, {176, 144}, {202, 144}}, color = {0, 0, 127}));
-  connect(omegaToTheDm.y, multOmegaCfe.u2) annotation(
+  connect(expOmegaToTheDm.y, prodOmegaCfe.u2) annotation(
     Line(points = {{226, 150}, {232, 150}, {232, 118}, {194, 118}}, color = {0, 0, 127}));
-  connect(multOmegaCfe.u1, MultWFSpdValveStroke.y) annotation(
+  connect(prodOmegaCfe.u1, prodWFSpdValveStroke.y) annotation(
     Line(points = {{194, 110}, {230, 110}, {230, -40}, {252, -40}, {252, -46}}, color = {0, 0, 127}));
-  connect(PMwSetPu, AddPmwsetPefilt.u2) annotation(
+  connect(PMwSetPu, addPmwsetPefilt.u2) annotation(
     Line(points = {{-332, -138}, {-286, -138}, {-286, -164}, {-244, -164}, {-244, -160}}, color = {0, 0, 127}));
-  connect(PLimFromf.y[1], OneOverKTurb2.u) annotation(
+  connect(tablePLimFromf.y[1], gainOneOverKTurb2.u) annotation(
     Line(points = {{138, 22}, {138, 18}, {140, 18}, {140, 10}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.y, R.u) annotation(
+  connect(switchRSelect.y, gainR.u) annotation(
     Line(points = {{-172, -149}, {-172, -136}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.u[1], Isochronous.y) annotation(
+  connect(switchRSelect.u[1], constIsochronous.y) annotation(
     Line(points = {{-172, -170}, {-172, -178}, {-200, -178}, {-200, -164}}, color = {0, 0, 127}));
-  connect(RSelect.y, RSelectSwitch.f) annotation(
+  connect(constRSelect.y, switchRSelect.f) annotation(
     Line(points = {{-118, -158}, {-138, -158}, {-138, -160}, {-160, -160}}, color = {255, 127, 0}));
-  connect(RSelectSwitch.u[2], tPElec.y) annotation(
+  connect(switchRSelect.u[2], firstOrdertPElec.y) annotation(
     Line(points = {{-172, -170}, {-172, -182}, {-238, -182}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.u[3], tActuatorRatelim.y) annotation(
+  connect(switchRSelect.u[3], firstOrdertActuatorRatelim.y) annotation(
     Line(points = {{-172, -170}, {-170, -170}, {-170, -190}, {210, -190}, {210, -132}, {238, -132}, {238, -88}, {226, -88}}, color = {0, 0, 127}));
-  connect(RSelectSwitch.u[4], ValveMaxValveMin.y) annotation(
-    Line(points = {{-172, -170}, {-172, -272}, {170, -272}, {170, -88}, {142, -88}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
