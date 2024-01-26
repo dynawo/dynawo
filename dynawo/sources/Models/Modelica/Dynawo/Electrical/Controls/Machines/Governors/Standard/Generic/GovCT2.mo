@@ -267,10 +267,10 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-200, -156}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
   Modelica.Blocks.Sources.IntegerConstant constRSelect(k = RSelectInt) annotation(
     Placement(visible = true, transformation(origin = {-108, -160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchNoVector switchRSelect annotation(
-    Placement(visible = true, transformation(origin = {-172, -154}, extent = {{5, -10}, {-5, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant constDummy(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-154, -168}, extent = {{-4, -4}, {4, 4}}, rotation = 180)));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchNoVector multiSwitchNoVector annotation(
+    Placement(visible = true, transformation(origin = {-172, -156}, extent = {{5, -10}, {-5, 10}}, rotation = -90)));
 equation
   connect(constPLdRef.y, gainOneOverKTurb.u) annotation(
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
@@ -422,20 +422,20 @@ equation
     Line(points = {{-332, -138}, {-286, -138}, {-286, -164}, {-244, -164}, {-244, -160}}, color = {0, 0, 127}));
   connect(tablePLimFromf.y[1], gainOneOverKTurb2.u) annotation(
     Line(points = {{138, 22}, {138, 18}, {140, 18}, {140, 10}}, color = {0, 0, 127}));
-  connect(switchRSelect.selection, constRSelect.y) annotation(
-    Line(points = {{-160.5, -154}, {-139.5, -154}, {-139.5, -160}, {-119, -160}}, color = {255, 127, 0}));
-  connect(switchRSelect.y, gainR.u) annotation(
-    Line(points = {{-172, -148}, {-172, -136}}, color = {0, 0, 127}));
-  connect(switchRSelect.u4, constIsochronous.y) annotation(
-    Line(points = {{-180, -160}, {-180, -170}, {-200, -170}, {-200, -164}}, color = {0, 0, 127}));
-  connect(switchRSelect.u3, firstOrdertPElec.y) annotation(
-    Line(points = {{-176, -160}, {-176, -182}, {-238, -182}}, color = {0, 0, 127}));
-  connect(switchRSelect.u2, firstOrdertActuatorRatelim.y) annotation(
-    Line(points = {{-172, -160}, {-172, -188}, {208, -188}, {208, -138}, {242, -138}, {242, -88}, {226, -88}}, color = {0, 0, 127}));
-  connect(switchRSelect.u1, limitValveMaxValveMin.y) annotation(
-    Line(points = {{-168, -160}, {-168, -180}, {158, -180}, {158, -88}, {142, -88}}, color = {0, 0, 127}));
-  connect(switchRSelect.u0, constDummy.y) annotation(
-    Line(points = {{-164, -160}, {-164, -168}, {-158, -168}}, color = {0, 0, 127}));
+  connect(gainR.u, multiSwitchNoVector.y) annotation(
+    Line(points = {{-172, -136}, {-172, -150}}, color = {0, 0, 127}));
+  connect(multiSwitchNoVector.selection, constRSelect.y) annotation(
+    Line(points = {{-160, -156}, {-134, -156}, {-134, -160}, {-118, -160}}, color = {255, 127, 0}));
+  connect(multiSwitchNoVector.u0, constDummy.y) annotation(
+    Line(points = {{-164, -162}, {-164, -168}, {-158, -168}}, color = {0, 0, 127}));
+  connect(constIsochronous.y, multiSwitchNoVector.u4) annotation(
+    Line(points = {{-200, -164}, {-200, -170}, {-180, -170}, {-180, -162}}, color = {0, 0, 127}));
+  connect(firstOrdertPElec.y, multiSwitchNoVector.u3) annotation(
+    Line(points = {{-238, -182}, {-176, -182}, {-176, -162}}, color = {0, 0, 127}));
+  connect(multiSwitchNoVector.u2, firstOrdertActuatorRatelim.y) annotation(
+    Line(points = {{-172, -162}, {-172, -190}, {200, -190}, {200, -140}, {240, -140}, {240, -88}, {226, -88}}, color = {0, 0, 127}));
+  connect(multiSwitchNoVector.u1, limitValveMaxValveMin.y) annotation(
+    Line(points = {{-168, -162}, {-168, -180}, {158, -180}, {158, -88}, {142, -88}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
