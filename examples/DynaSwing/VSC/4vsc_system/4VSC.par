@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+
+<!-- solver  -->
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-5"/>
+    <par type="DOUBLE" name="minStep" value="1e-5"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+  </set>
+
+<!-- Network parameters copied from dynaflow-launcher output: network.par -->
+  <set id="Network">
+    <par name="capacitor_no_reclosing_delay" type="DOUBLE" value="300"/>
+    <par name="dangling_line_currentLimit_maxTimeOperation" type="DOUBLE" value="90"/>
+    <par name="line_currentLimit_maxTimeOperation" type="DOUBLE" value="90"/>
+    <par name="load_Tp" type="DOUBLE" value="90"/>
+    <par name="load_Tq" type="DOUBLE" value="90"/>
+    <par name="load_alpha" type="DOUBLE" value="0"/>
+    <par name="load_alphaLong" type="DOUBLE" value="0"/>
+    <par name="load_beta" type="DOUBLE" value="0"/>
+    <par name="load_betaLong" type="DOUBLE" value="0"/>
+    <par name="load_isControllable" type="BOOL" value="false"/>
+    <par name="load_isRestorative" type="BOOL" value="false"/>
+    <par name="load_zPMax" type="DOUBLE" value="100"/>
+    <par name="load_zQMax" type="DOUBLE" value="100"/>
+    <par name="reactance_no_reclosing_delay" type="DOUBLE" value="0"/>
+    <par name="startingPointMode" type="STRING" value="warm"/>
+    <par name="transformer_currentLimit_maxTimeOperation" type="DOUBLE" value="90"/>
+    <par name="transformer_t1st_HT" type="DOUBLE" value="60"/>
+    <par name="transformer_t1st_THT" type="DOUBLE" value="30"/>
+    <par name="transformer_tNext_HT" type="DOUBLE" value="10"/>
+    <par name="transformer_tNext_THT" type="DOUBLE" value="10"/>
+    <par name="transformer_tolV" type="DOUBLE" value="0.014999999700000001"/>
+  </set>
+
+<!-- Infinite bus connected to an impedance (base SnRef) -->
+<!-- receptor convention -->
+  <set id="InfBusWithImpedance">
+    <!-- p and q must be negative!!! -->
+    <!-- <reference name="infiniteBus_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="infiniteBus_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="infiniteBus_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="infiniteBus_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="infiniteBus_P0Pu" value="0.014978751"/>
+    <par type="DOUBLE" name="infiniteBus_Q0Pu" value="-0.001806372"/>
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase0" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_RPu" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_XPu" value="0.00565"/>
+  </set>
+
+<!-- Converter with grid following control (base SNom) -->
+<!-- generator convention   -->
+  <set id="WP1">
+    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="injectorGFL_U0Pu" value="1.047562"/>
+    <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.18895444"/>
+    <par type="DOUBLE" name="injectorGFL_P0Pu" value="0.829958333"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="-0.061083333"/>
+
+    <par type="DOUBLE" name="injectorGFL_SNom" value="2400"/>
+    <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="injectorGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_L" value="0.12"/>
+    <par type="DOUBLE" name="injectorGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_Xc" value="0.12"/>
+    <par type="DOUBLE" name="injectorGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="injectorGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_SNom" value="2400"/>
+    <par type="DOUBLE" name="controlGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="controlGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_L" value="0.12"/>
+    <par type="DOUBLE" name="controlGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_Xc" value="0.12"/>
+    <par type="DOUBLE" name="controlGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Kpc" value="0.4584"/>
+    <par type="DOUBLE" name="controlGFL_Kic" value="6"/>
+    <par type="DOUBLE" name="controlGFL_Tlpf" value="0.0033"/>
+    <par type="DOUBLE" name="controlGFL_Kpp" value="0.0333"/>
+    <par type="DOUBLE" name="controlGFL_Kip" value="10"/>
+    <par type="DOUBLE" name="controlGFL_Kpv" value="0.1667"/>
+    <par type="DOUBLE" name="controlGFL_Kiv" value="50"/>
+    <par type="DOUBLE" name="controlGFL_KpPLL" value="0.31831"/>
+    <par type="DOUBLE" name="controlGFL_KiPLL" value="7.95775"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="controlGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
+    <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+  </set>
+
+  <set id="WP2">
+    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="injectorGFL_U0Pu" value="0.9997311"/>
+    <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.19815885"/>
+    <par type="DOUBLE" name="injectorGFL_P0Pu" value="0.829875"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0.074083333"/>
+
+    <par type="DOUBLE" name="injectorGFL_SNom" value="2400"/>
+    <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="injectorGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_L" value="0.12"/>
+    <par type="DOUBLE" name="injectorGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_Xc" value="0.12"/>
+    <par type="DOUBLE" name="injectorGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="injectorGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_SNom" value="2400"/>
+    <par type="DOUBLE" name="controlGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="controlGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_L" value="0.12"/>
+    <par type="DOUBLE" name="controlGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_Xc" value="0.12"/>
+    <par type="DOUBLE" name="controlGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Kpc" value="0.4584"/>
+    <par type="DOUBLE" name="controlGFL_Kic" value="6"/>
+    <par type="DOUBLE" name="controlGFL_Tlpf" value="0.0033"/>
+    <par type="DOUBLE" name="controlGFL_Kpp" value="0.0333"/>
+    <par type="DOUBLE" name="controlGFL_Kip" value="10"/>
+    <par type="DOUBLE" name="controlGFL_Kpv" value="0.1667"/>
+    <par type="DOUBLE" name="controlGFL_Kiv" value="50"/>
+    <par type="DOUBLE" name="controlGFL_KpPLL" value="0.31831"/>
+    <par type="DOUBLE" name="controlGFL_KiPLL" value="7.95775"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="controlGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
+    <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+  </set>
+
+  <set id="HVDC1">
+    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="injectorGFL_U0Pu" value="1.0075727"/>
+    <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.041624702"/>
+    <par type="DOUBLE" name="injectorGFL_P0Pu" value="-0.937666667"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0"/>
+
+    <par type="DOUBLE" name="injectorGFL_SNom" value="1200"/>
+    <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="injectorGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_L" value="0.15"/>
+    <par type="DOUBLE" name="injectorGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_Xc" value="0.15"/>
+    <par type="DOUBLE" name="injectorGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="injectorGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_SNom" value="1200"/>
+    <par type="DOUBLE" name="controlGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="controlGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_L" value="0.15"/>
+    <par type="DOUBLE" name="controlGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_Xc" value="0.15"/>
+    <par type="DOUBLE" name="controlGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Kpc" value="0.5730"/>
+    <par type="DOUBLE" name="controlGFL_Kic" value="6"/>
+    <par type="DOUBLE" name="controlGFL_Tlpf" value="0.0033"/>
+    <par type="DOUBLE" name="controlGFL_Kpp" value="0.0333"/>
+    <par type="DOUBLE" name="controlGFL_Kip" value="10"/>
+    <par type="DOUBLE" name="controlGFL_Kpv" value="0.1667"/>
+    <par type="DOUBLE" name="controlGFL_Kiv" value="50"/>
+    <par type="DOUBLE" name="controlGFL_KpPLL" value="0.31831"/>
+    <par type="DOUBLE" name="controlGFL_KiPLL" value="7.95775"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="controlGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
+    <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+  </set>
+
+  <set id="HVDC2">
+    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="injectorGFL_U0Pu" value="1.0054174"/>
+    <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.036073673"/>
+    <par type="DOUBLE" name="injectorGFL_P0Pu" value="-0.945588235"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0"/>
+
+    <par type="DOUBLE" name="injectorGFL_SNom" value="1700"/>
+    <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="injectorGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_L" value="0.15"/>
+    <par type="DOUBLE" name="injectorGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="injectorGFL_Xc" value="0.15"/>
+    <par type="DOUBLE" name="injectorGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="injectorGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_SNom" value="1700"/>
+    <par type="DOUBLE" name="controlGFL_omegaNom" value="314.159"/>
+    <par type="DOUBLE" name="controlGFL_R" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_L" value="0.15"/>
+    <par type="DOUBLE" name="controlGFL_Rc" value="0.005"/>
+    <par type="DOUBLE" name="controlGFL_Xc" value="0.15"/>
+    <par type="DOUBLE" name="controlGFL_ratioTr" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Kpc" value="0.5730"/>
+    <par type="DOUBLE" name="controlGFL_Kic" value="6"/>
+    <par type="DOUBLE" name="controlGFL_Tlpf" value="0.0033"/>
+    <par type="DOUBLE" name="controlGFL_Kpp" value="0.0333"/>
+    <par type="DOUBLE" name="controlGFL_Kip" value="10"/>
+    <par type="DOUBLE" name="controlGFL_Kpv" value="0.1667"/>
+    <par type="DOUBLE" name="controlGFL_Kiv" value="50"/>
+    <par type="DOUBLE" name="controlGFL_KpPLL" value="0.31831"/>
+    <par type="DOUBLE" name="controlGFL_KiPLL" value="7.95775"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="controlGFL_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="controlGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
+    <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+  </set>
+
+  <!-- OmegaRef Set Point -->
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+
+  <!-- WP1 -->
+  <!-- P Set Point -->
+  <set id="PRef_WP1">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.829958333"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+  </set>
+  <!-- U Set Point -->
+  <set id="URef_WP1">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.047562"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+  </set>
+
+  <!-- WP2 -->
+  <!-- P Set Point -->
+  <set id="PRef_WP2">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.829875"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+  </set>
+  <!-- U Set Point -->
+  <set id="URef_WP2">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.9997311"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+  </set>
+
+  <!-- HVDC1 -->
+  <!-- P Set Point -->
+  <set id="PRef_HVDC1">
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.937666667"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+  </set>
+  <!-- U Set Point -->
+  <set id="URef_HVDC1">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.0075727"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+  </set>
+
+  <!-- HVDC2 -->
+  <!-- P Set Point -->
+  <set id="PRef_HVDC2">
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.945588235"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+  </set>
+  <!-- U Set Point -->
+  <set id="URef_HVDC2">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.0054174"/>
+    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+  </set>
+
+  <!-- Events (dynamic library: EventQuadripoleDisconnection) -->
+  <set id="DisconnectLine">
+    <par type="DOUBLE" name="event_tEvent" value="5"/>
+    <par type="BOOL" name="event_disconnectOrigin" value="true"/>
+    <par type="BOOL" name="event_disconnectExtremity" value="true"/>
+  </set>
+</parametersSet>
