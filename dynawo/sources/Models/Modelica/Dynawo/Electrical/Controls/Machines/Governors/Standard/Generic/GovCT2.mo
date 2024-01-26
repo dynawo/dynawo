@@ -266,9 +266,11 @@ model GovCT2 "IEEE Governor type TGOV1"
   Modelica.Blocks.Sources.Constant constIsochronous(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-200, -156}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
   Modelica.Blocks.Sources.IntegerConstant constRSelect(k = RSelectInt) annotation(
-    Placement(visible = true, transformation(origin = {-108, -158}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switchRSelect(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-172, -160}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-108, -160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchNoVector switchRSelect annotation(
+    Placement(visible = true, transformation(origin = {-172, -154}, extent = {{5, -10}, {-5, 10}}, rotation = -90)));
+  Modelica.Blocks.Sources.Constant constDummy(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-154, -168}, extent = {{-4, -4}, {4, 4}}, rotation = 180)));
 equation
   connect(constPLdRef.y, gainOneOverKTurb.u) annotation(
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
@@ -420,25 +422,29 @@ equation
     Line(points = {{-332, -138}, {-286, -138}, {-286, -164}, {-244, -164}, {-244, -160}}, color = {0, 0, 127}));
   connect(tablePLimFromf.y[1], gainOneOverKTurb2.u) annotation(
     Line(points = {{138, 22}, {138, 18}, {140, 18}, {140, 10}}, color = {0, 0, 127}));
+  connect(switchRSelect.selection, constRSelect.y) annotation(
+    Line(points = {{-160.5, -154}, {-139.5, -154}, {-139.5, -160}, {-119, -160}}, color = {255, 127, 0}));
   connect(switchRSelect.y, gainR.u) annotation(
-    Line(points = {{-172, -149}, {-172, -136}}, color = {0, 0, 127}));
-  connect(switchRSelect.u[1], constIsochronous.y) annotation(
-    Line(points = {{-172, -170}, {-172, -178}, {-200, -178}, {-200, -164}}, color = {0, 0, 127}));
-  connect(constRSelect.y, switchRSelect.f) annotation(
-    Line(points = {{-118, -158}, {-138, -158}, {-138, -160}, {-160, -160}}, color = {255, 127, 0}));
-  connect(switchRSelect.u[2], firstOrdertPElec.y) annotation(
-    Line(points = {{-172, -170}, {-172, -182}, {-238, -182}}, color = {0, 0, 127}));
-  connect(switchRSelect.u[3], firstOrdertActuatorRatelim.y) annotation(
-    Line(points = {{-172, -170}, {-170, -170}, {-170, -190}, {210, -190}, {210, -132}, {238, -132}, {238, -88}, {226, -88}}, color = {0, 0, 127}));
+    Line(points = {{-172, -148}, {-172, -136}}, color = {0, 0, 127}));
+  connect(switchRSelect.u4, constIsochronous.y) annotation(
+    Line(points = {{-180, -160}, {-180, -170}, {-200, -170}, {-200, -164}}, color = {0, 0, 127}));
+  connect(switchRSelect.u3, firstOrdertPElec.y) annotation(
+    Line(points = {{-176, -160}, {-176, -182}, {-238, -182}}, color = {0, 0, 127}));
+  connect(switchRSelect.u2, firstOrdertActuatorRatelim.y) annotation(
+    Line(points = {{-172, -160}, {-172, -188}, {208, -188}, {208, -138}, {242, -138}, {242, -88}, {226, -88}}, color = {0, 0, 127}));
+  connect(switchRSelect.u1, limitValveMaxValveMin.y) annotation(
+    Line(points = {{-168, -160}, {-168, -180}, {158, -180}, {158, -88}, {142, -88}}, color = {0, 0, 127}));
+  connect(switchRSelect.u0, constDummy.y) annotation(
+    Line(points = {{-164, -160}, {-164, -168}, {-158, -168}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302.</body></html>"),
     Diagram(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {248, -35}, extent = {{-7, -3}, {7, 3}}, textString = "cfe"), Text(origin = {158, -84}, extent = {{-17, -4}, {17, 4}}, textString = "fsr"), Rectangle(origin = {157, 14}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-41, 68}, {41, -68}}), Text(origin = {174, 45}, textColor = {0, 0, 255}, extent = {{-23, -21}, {23, 21}}, textString = "frequency-
 dependent
-limit"), Text(origin = {140, -193}, extent = {{-39, -3}, {39, 3}}, textString = "valve stroke"), Text(origin = {92, -183}, extent = {{-37, -5}, {37, 5}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {-22, 120}, extent = {{-13, -4}, {13, 4}}, textString = "Texm"), Text(origin = {106, 125}, extent = {{-11, -3}, {11, 3}}, textString = "Tex"), Text(origin = {-70, 156}, extent = {{-13, -4}, {13, 4}}, textString = "tlim"), Text(origin = {73, 44}, textColor = {0, 0, 255}, extent = {{-20, -18}, {20, 18}}, textString = "Low
+limit"), Text(origin = {135, -194}, extent = {{-44, -4}, {44, 4}}, textString = "valve stroke"), Text(origin = {85, -184}, extent = {{-30, -4}, {30, 4}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {-22, 120}, extent = {{-13, -4}, {13, 4}}, textString = "Texm"), Text(origin = {106, 125}, extent = {{-11, -3}, {11, 3}}, textString = "Tex"), Text(origin = {-70, 156}, extent = {{-13, -4}, {13, 4}}, textString = "tlim"), Text(origin = {73, 44}, textColor = {0, 0, 255}, extent = {{-20, -18}, {20, 18}}, textString = "Low
 Value
-Select"), Text(origin = {182, 192}, extent = {{-17, -4}, {17, 4}}, textString = "dm>=0"), Text(origin = {168, 164}, extent = {{-17, -4}, {17, 4}}, textString = "dm<=0"), Text(origin = {-147, -200}, textColor = {255, 0, 0}, extent = {{-55, 16}, {55, -16}}, textString = "option 3 still missing!")}),
+Select"), Text(origin = {182, 192}, extent = {{-17, -4}, {17, 4}}, textString = "dm>=0"), Text(origin = {168, 164}, extent = {{-17, -4}, {17, 4}}, textString = "dm<=0")}),
     Icon(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {7, 7}, extent = {{-279, 123}, {279, -123}}, textString = "GovCT2"), Rectangle(origin = {0, 10}, extent = {{-320, 210}, {320, -210}})}),
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.001),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"),
