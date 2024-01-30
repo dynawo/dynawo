@@ -150,7 +150,7 @@ equation
   tr0206.switchOffSignal2.value = false;
   tr0311.switchOffSignal1.value = false;
   tr0410.switchOffSignal2.value = false;
-  annotation(
+  annotation(preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -100}, {300, 100}})),
     Icon(coordinateSystem(extent = {{-300, -100}, {300, 100}})));
 end Network;
