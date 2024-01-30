@@ -1,6 +1,6 @@
 within Dynawo.Examples.KundurTwoArea.Grid;
 
-package BaseClasses "Base grid models of the Nordic 32 test system"
+package BaseClasses "Base grid models of the Kundur two-area system"
   /*
   * Copyright (c) 2022, RTE (http://www.rte-france.com)
   * See AUTHORS.txt

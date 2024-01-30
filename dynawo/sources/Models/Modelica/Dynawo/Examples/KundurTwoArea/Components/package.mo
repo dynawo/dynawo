@@ -1,6 +1,6 @@
 within Dynawo.Examples.KundurTwoArea;
 
-package Components "Network components of the Nordic 32 test system"
+package Components "Network components of the Kundur two-area system"
   /*
   * Copyright (c) 2022, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -16,5 +16,5 @@ package Components "Network components of the Nordic 32 test system"
   extends Icons.Package;
   annotation(
     preferredView = "info",
-    Documentation(info = "<html><head></head><body>The components package contains the regulated generator and transformer models used in the full dynamic grid model.</body></html>"));
+    Documentation(info = "<html><head></head><body>The components package contains the regulated generator model.</body></html>"));
 end Components;

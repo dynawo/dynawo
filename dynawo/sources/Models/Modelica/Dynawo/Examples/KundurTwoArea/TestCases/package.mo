@@ -1,6 +1,6 @@
 within Dynawo.Examples.KundurTwoArea;
 
-package TestCases "Nordic 32 test system simulation cases"
+package TestCases "Kundur two-area test system simulation cases"
   /*
   * Copyright (c) 2022, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
