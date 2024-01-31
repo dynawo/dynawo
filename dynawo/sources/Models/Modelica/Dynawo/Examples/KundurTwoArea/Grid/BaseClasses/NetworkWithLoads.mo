@@ -24,18 +24,18 @@ model NetworkWithLoads "Kundur two-area system with buses, lines and transformer
     Placement(visible = true, transformation(origin = {-51, 35}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
  
   // loads
-  parameter Types.ActivePowerPu P0PuLoad07 = 967/Electrical.SystemBase.SnRef;
-  parameter Types.ReactivePowerPu Q0PuLoad07 = 100/Electrical.SystemBase.SnRef;
+  parameter Types.ActivePowerPu P0PuLoad07;
+  parameter Types.ReactivePowerPu Q0PuLoad07;
   final parameter Types.ComplexApparentPowerPu s0PuLoad07 = Complex(P0PuLoad07, Q0PuLoad07);
 
-  parameter Types.ActivePowerPu P0PuLoad09 = 1767/Electrical.SystemBase.SnRef;
-  parameter Types.ReactivePowerPu Q0PuLoad09 = 100/Electrical.SystemBase.SnRef;
+  parameter Types.ActivePowerPu P0PuLoad09;
+  parameter Types.ReactivePowerPu Q0PuLoad09;
   final parameter Types.ComplexApparentPowerPu s0PuLoad09 = Complex(P0PuLoad09, Q0PuLoad09)/Electrical.SystemBase.SnRef;
   // shunt capacitors
-  parameter Types.ReactivePowerPu Q0PuShunt07 = 200/Electrical.SystemBase.SnRef;
+  parameter Types.ReactivePowerPu Q0PuShunt07;
   final parameter Types.ComplexApparentPowerPu s0PuShunt07= Complex(0, Q0PuShunt07);
 
-  parameter Types.ReactivePowerPu Q0PuShunt09 = 350/Electrical.SystemBase.SnRef;
+  parameter Types.ReactivePowerPu Q0PuShunt09;
   final parameter Types.ComplexApparentPowerPu s0PuShunt09 = Complex(0, Q0PuShunt09);
 
 equation

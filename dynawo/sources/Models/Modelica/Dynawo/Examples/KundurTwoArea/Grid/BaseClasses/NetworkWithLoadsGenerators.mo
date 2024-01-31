@@ -31,15 +31,14 @@ model NetworkWithLoadsGenerators "Kundur two-area system with buses, lines and t
   parameter Types.VoltageModulePu U0PuGen04;
   parameter Types.Angle UAngle0Gen04;
   
-  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen01(QGen0Pu = Q0PuGen01, PGen0Pu = P0PuGen01, U0Pu=U0PuGen01) annotation(
+  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen01(QGen0Pu = Q0PuGen01, PGen0Pu = P0PuGen01, U0Pu=U0PuGen01, u0Pu=Complex(U0PuGen01*Modelica.Math.cos(UAngle0Gen01), U0PuGen01*Modelica.Math.sin(UAngle0Gen01))) annotation(
     Placement(visible = true, transformation(origin = {-270, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen04(QGen0Pu = Q0PuGen04, PGen0Pu = P0PuGen04, U0Pu=U0PuGen04) annotation(
-    Placement(visible = true, transformation(origin = {270, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen03(QGen0Pu = Q0PuGen03, PGen0Pu = P0PuGen03, U0Pu=U0PuGen03) annotation(
-    Placement(visible = true, transformation(origin = {130, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen02(QGen0Pu = Q0PuGen02, PGen0Pu = P0PuGen02, U0Pu=U0PuGen02) annotation(
+  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen02(QGen0Pu = Q0PuGen02, PGen0Pu = P0PuGen02, U0Pu=U0PuGen02, u0Pu=Complex(U0PuGen02*Modelica.Math.cos(UAngle0Gen02), U0PuGen02*Modelica.Math.sin(UAngle0Gen02))) annotation(
     Placement(visible = true, transformation(origin = {-130, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen03(QGen0Pu = Q0PuGen03, PGen0Pu = P0PuGen03, U0Pu=U0PuGen03, u0Pu=Complex(U0PuGen03*Modelica.Math.cos(UAngle0Gen03), U0PuGen03*Modelica.Math.sin(UAngle0Gen03))) annotation(
+    Placement(visible = true, transformation(origin = {130, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen04(QGen0Pu = Q0PuGen04, PGen0Pu = P0PuGen04, U0Pu=U0PuGen04, u0Pu=Complex(U0PuGen04*Modelica.Math.cos(UAngle0Gen04), U0PuGen04*Modelica.Math.sin(UAngle0Gen04))) annotation(
+    Placement(visible = true, transformation(origin = {270, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
   
 equation
