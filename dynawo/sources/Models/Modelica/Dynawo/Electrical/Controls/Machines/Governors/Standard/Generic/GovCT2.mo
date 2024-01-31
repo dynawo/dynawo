@@ -86,6 +86,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim10Hz, PLim10Pu; fLim9Hz, PLim9Pu; fLim8Hz, PLim8Pu; fLim7Hz, PLim7Pu; fLim6Hz, PLim6Pu; fLim5Hz, PLim5Pu; fLim4Hz, PLim4Pu; fLim3Hz, PLim3Pu; fLim2Hz, PLim2Pu; fLim1Hz, PLim1Pu; fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
+  parameter Types.PerUnit PMech0Pu "Initial value of mechanical power";
   parameter Types.PerUnit PRatePu = 0.017 "Ramp rate for frequency-dependent power limit" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.PerUnit RPu = 0.05 "Permanent droop in pu" annotation(
@@ -129,15 +130,16 @@ model GovCT2 "IEEE Governor type TGOV1"
     Dialog(tab = "Turbine/engine"));
   parameter Boolean WFSpdBool = false "Switch for fuel source characteristic" annotation(
     Dialog(tab = "Turbine/engine"));
-  Modelica.Blocks.Interfaces.RealInput omegaPu annotation(
+    
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-329, -19}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 190}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput PMechPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput PMechPu(start = PMech0Pu) annotation(
     Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PElecPu annotation(
+  Modelica.Blocks.Interfaces.RealInput PElecPu(start = PMech0Pu) annotation(
     Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-345, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PMwSetPu annotation(
+  Modelica.Blocks.Interfaces.RealInput PMwSetPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-333, -139}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -70}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PMech0Pu) annotation(
     Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 68}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainOneOverKTurb(k = 1/KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {-236, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -155,7 +157,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {80, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addPDmPTurbine(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {276, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tBSeconds, 1}, b = {tCSeconds, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tBSeconds, 1}, b = {tCSeconds, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, x_start = {PMech0Pu}, y_start = PMech0Pu) annotation(
     Placement(visible = true, transformation(origin = {256, 106}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.Gain gainKTurb(k = KTurbPu) annotation(
     Placement(visible = true, transformation(origin = {256, 74}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
@@ -171,7 +173,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {240, -178}, extent = {{9, -9}, {-9, 9}}, rotation = -90)));
   Modelica.Blocks.Sources.BooleanConstant constWFSpd(k = WFSpdBool) annotation(
     Placement(visible = true, transformation(origin = {272, -176}, extent = {{8, -8}, {-8, 8}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuatorSeconds, UseRateLim = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuatorSeconds, UseRateLim = true, y(start = PMech0Pu / KTurbPu)) annotation(
     Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constROpen(k = ROpenPu) annotation(
     Placement(visible = true, transformation(origin = {214, -58}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
@@ -207,7 +209,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-48, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFuncKDGovTDGov(a = {tDGovSeconds, 1}, b = {KDGovPu, 0}) annotation(
     Placement(visible = true, transformation(origin = {-50, -132}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorKIGov(k = KIGovPu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorKIGov(initType = Modelica.Blocks.Types.Init.SteadyState, k = KIGovPu) annotation(
     Placement(visible = true, transformation(origin = {-50, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneDeltaOmegaDb(uMax = DeltaOmegaDbPu) annotation(
     Placement(visible = true, transformation(origin = {-132, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -271,6 +273,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-154, -168}, extent = {{-4, -4}, {4, 4}}, rotation = 180)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchNoVector multiSwitchNoVector annotation(
     Placement(visible = true, transformation(origin = {-172, -156}, extent = {{5, -10}, {-5, 10}}, rotation = -90)));
+
 equation
   connect(constPLdRef.y, gainOneOverKTurb.u) annotation(
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
