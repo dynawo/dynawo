@@ -112,6 +112,24 @@ class Delay {
   }
 
   /**
+   * @brief Retrieves the list of registered timepoints
+   *
+   * @param vec the list of registered time points
+   */
+  double lastPointY() const {
+    return buffer_.end().second;
+  }
+
+  /**
+   * @brief Retrieves the list of registered timepoints
+   *
+   * @param vec the list of registered time points
+   */
+  double lastPointX() const {
+    return buffer_.end().first;
+  }
+
+  /**
    * @brief Trigger the delay to notify that we must start compute its value
    */
   void trigger() {

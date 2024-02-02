@@ -1619,6 +1619,7 @@ class Equation(EquationBase):
             if "throwStreamPrint" in line:
                 with_throw = True
                 break
+        delay = False
         for line in self.body:
             line = mmc_strings_len1(line)
 
@@ -1636,8 +1637,30 @@ class Equation(EquationBase):
                 text_to_return.append( self.ptrn_residual_var.sub(r'  f[%d] = $P$DAEres\g<1>;' % self.get_num_dyn(), line) )
             elif re.search(self.ptrn_evaluated_var, line) is None:
                 text_to_return.append( line )
+                if "delayImpl" in line:
+                    text_to_return.append("double lastPointX = ")
+                    lastPointX = line.split('=')[1].replace("delayImpl", "delayGetLastPointX")
+                    text_to_return.append(lastPointX)
+                    text_to_return.append("double lastPointY = ")
+                    lastPointY = line.split('=')[1].replace("delayImpl", "delayGetLastPointY")
+                    text_to_return.append(lastPointY)
+                    delay = True
+                    ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+                    match = ptrn_real_var.search(line)
+                    varIn = match.group()
+                    ptrn_real_param = re.compile(r'data->simulationInfo->realParameter\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+                    match = ptrn_real_param.search(line)
+                    delayParam = match.group()
             else:
-                text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line) )
+                if delay:
+                    text_to_return.append("if ((data->localData[0]->timeValue - " + delayParam + ") < lastPointX || doubleEquals(data->localData[0]->timeValue - " + delayParam + ", lastPointX)) {\n")
+                    text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line) )
+                    text_to_return.append("} else {\n")
+                    text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( lastPointY + (varIn - lastPointY) * (data->localData[0]->timeValue - delayParam - lastPointX ) / (data->localData[0]->timeValue - lastPointX) );' % self.get_num_dyn(), line).replace('varIn', varIn).replace('delayParam', delayParam) )
+                    text_to_return.append("}\n")
+                    delay = False
+                else:
+                    text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line) )
         return text_to_return
 
     ##
@@ -1651,6 +1674,7 @@ class Equation(EquationBase):
             if "throwStreamPrint" in line:
                 with_throw = True
                 break
+        delay = False
         for line in self.body:
             line = mmc_strings_len1(line)
             line_tmp = transform_line_adept(line)
@@ -1667,8 +1691,31 @@ class Equation(EquationBase):
                 text_to_return.append( self.ptrn_residual_var.sub(r'  res[%d] = $DAEres\g<1>;' % self.get_num_dyn(), line) )
             elif re.search(self.ptrn_evaluated_var, line_tmp) is None:
                 text_to_return.append( line_tmp )
+                if "delayImpl" in line_tmp:
+                    text_to_return.append("double lastPointX = ")
+                    lastPointX = line_tmp.split('=')[1].replace("delayImpl", "delayGetLastPointX")
+                    text_to_return.append(lastPointX)
+                    text_to_return.append("double lastPointY = ")
+                    lastPointY = line_tmp.split('=')[1].replace("delayImpl", "delayGetLastPointY")
+                    text_to_return.append(lastPointY)
+                    delay = True
+                    #varIn = line_tmp.split(',')[2:][0].split('/')[0:2]
+                    ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+                    match = ptrn_real_var.search(line_tmp)
+                    varIn = match.group()
+                    ptrn_real_param = re.compile(r'data->simulationInfo->realParameter\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+                    match = ptrn_real_param.search(line)
+                    delayParam = match.group()
             else:
-                text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line_tmp) )
+                if delay:
+                    text_to_return.append("if ((data->localData[0]->timeValue - " + delayParam + ") < lastPointX || doubleEquals(data->localData[0]->timeValue - " + delayParam + ", lastPointX)) {\n")
+                    text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line_tmp) )
+                    text_to_return.append("} else {\n")
+                    text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( lastPointY + (varIn - lastPointY) * (data->localData[0]->timeValue - delayParam - lastPointX ) / (data->localData[0]->timeValue - lastPointX) );' % self.get_num_dyn(), line_tmp).replace('varIn', varIn).replace('delayParam', delayParam) )
+                    text_to_return.append("}\n")
+                    delay = False
+                else:
+                    text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line_tmp) )
         return text_to_return
 
 ##

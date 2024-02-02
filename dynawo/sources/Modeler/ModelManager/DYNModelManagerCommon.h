@@ -379,6 +379,12 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 #define delayImpl(data, exprNumber, exprValue, time, delayTime, delayMax) \
   computeDelay((this)->getModelManager(), exprNumber, exprValue, time, delayTime, delayMax)
 
+#define delayGetLastPointY(data, exprNumber, exprValue, time, delayTime, delayMax) \
+  getLastPointY((this)->getModelManager(), exprNumber, exprValue, time, delayTime, delayMax)
+
+#define delayGetLastPointX(data, exprNumber, exprValue, time, delayTime, delayMax) \
+  getLastPointX((this)->getModelManager(), exprNumber, exprValue, time, delayTime, delayMax)
+
 #define createDelay(exprNumber, time, exprValue, delayMax) \
   addDelay((this)->getModelManager(), exprNumber, time, exprValue, delayMax)
 
@@ -509,6 +515,38 @@ const char* stringAppend(const std::string s1, const modelica_string s2);
  * @returns the computed delayed value
  */
 modelica_real computeDelay(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax);
+
+/**
+ * @brief Computes the delayed value
+ *
+ * Calls the corresponding function of @p manager
+ *
+ * @param manager the model manager to use
+ * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+ * @param exprValue the value corresponding to @p time
+ * @param time the current time point
+ * @param delayTime the delay to apply to the value
+ * @param delayMax the maximum delay allowed
+ *
+ * @returns the computed delayed value
+ */
+modelica_real getLastPointY(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax);
+
+/**
+ * @brief Computes the delayed value
+ *
+ * Calls the corresponding function of @p manager
+ *
+ * @param manager the model manager to use
+ * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+ * @param exprValue the value corresponding to @p time
+ * @param time the current time point
+ * @param delayTime the delay to apply to the value
+ * @param delayMax the maximum delay allowed
+ *
+ * @returns the computed delayed value
+ */
+modelica_real getLastPointX(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax);
 
 /**
  * @brief Add a new delay to manage

@@ -113,6 +113,8 @@ class RingBuffer {
    */
   void points(std::vector<std::pair<double, double> >& vec) const;
 
+  std::pair<double, double> end() const;
+
  private:
   /**
    * @brief Performs linear interpolation between the two 2D points @p p1 and @p p2 in abcisse @p time

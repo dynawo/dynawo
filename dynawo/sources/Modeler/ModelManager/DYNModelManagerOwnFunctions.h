@@ -445,18 +445,23 @@ int index_spec_fit_base_array(const index_spec_t *s, const base_array_t *a);
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
+extern "C" {
 int next_index(int ndims, _index_t* idx, const _index_t* size);
+}
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
-int index_spec_ok(const index_spec_t* s);
+extern "C" {
+  int index_spec_ok(const index_spec_t* s);
+}
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
+extern "C" {
 inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
   int i;
   va_list ap;
@@ -467,11 +472,56 @@ inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
   dest->index = index_alloc(nridx);
   dest->index_type = reinterpret_cast<char*>(generic_alloc(nridx+1, sizeof(char)));
   for (i = 0; i < nridx; ++i) {
-      dest->dim_size[i] = va_arg(ap, _index_t);
-      dest->index[i] = va_arg(ap, _index_t*);
-      dest->index_type[i] = static_cast<char>(va_arg(ap, _index_t)); /* char is cast to int by va_arg.*/
+    dest->dim_size[i] = va_arg(ap, _index_t);
+    dest->index[i] = va_arg(ap, _index_t*);
+    dest->index_type[i] = static_cast<char>(va_arg(ap, _index_t)); /* char is cast to int by va_arg.*/
   }
   va_end(ap);
+}
+}
+
+void index_real_array(const real_array_t * source,
+                      const index_spec_t* source_spec,
+                      real_array_t* dest);
+
+void index_alloc_real_array(const real_array_t * source,
+                            const index_spec_t* source_spec,
+                            real_array_t* dest);
+
+void index_alloc_base_array_size(const base_array_t * source, const index_spec_t* source_spec, base_array_t* dest);
+
+int ndims_base_array(const base_array_t* a);
+
+void promote_alloc_real_array(const real_array_t * a, int n, real_array_t* dest);
+
+void promote_real_array(const real_array_t * a, int n,real_array_t* dest);
+
+void cat_alloc_real_array(int k,real_array_t* dest, int n, const real_array_t* first,...);
+
+void div_real_array_scalar(const real_array_t * a,modelica_real b,real_array_t* dest);
+
+real_array_t div_alloc_real_array_scalar(const real_array_t a,modelica_real b);
+
+void usub_alloc_real_array(const real_array_t a, real_array_t* dest);
+
+void mul_real_array_scalar(const real_array_t * a,modelica_real b,real_array_t* dest);
+
+real_array_t mul_alloc_real_array_scalar(const real_array_t a,modelica_real b);
+
+void copy_real_array(const real_array_t source, real_array_t* dest);
+
+modelica_real sum_real_array(const real_array_t a);
+
+static inline size_t base_array_nr_of_elements(const base_array_t a) {
+  size_t nr_of_elements = 1;
+  for (int i = 0; i < a.ndims; ++i) {
+    nr_of_elements *= a.dim_size[i];
+  }
+  return nr_of_elements;
+}
+
+extern "C" {
+_index_t *make_index_array(int nridx, ...);
 }
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS

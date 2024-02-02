@@ -1447,4 +1447,21 @@ ModelManager::computeDelay(int exprNumber, double exprValue, double time, double
   return value;
 }
 
+double
+ModelManager::getLastPointY(int exprNumber, double exprValue, double time, double /*delayTime*/, double /*delayMax*/) {
+  if (doubleIsZero(time)) {
+    return exprValue;
+  }
+
+  return delayManager_.getDelayById(exprNumber).lastPointY();
+}
+
+double
+ModelManager::getLastPointX(int exprNumber, double /*exprValue*/, double time, double /*delayTime*/, double /*delayMax*/) {
+  if (doubleIsZero(time)) {
+    return time;
+  }
+  return delayManager_.getDelayById(exprNumber).lastPointX();
+}
+
 }  // namespace DYN

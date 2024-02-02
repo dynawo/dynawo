@@ -310,6 +310,16 @@ computeDelay(ModelManager* manager, int exprNumber, double exprValue, double tim
   return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
 }
 
+modelica_real
+getLastPointY(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+  return manager->getLastPointY(exprNumber, exprValue, time, delayTime, delayMax);
+}
+
+modelica_real
+getLastPointX(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+  return manager->getLastPointX(exprNumber, exprValue, time, delayTime, delayMax);
+}
+
 void
 addDelay(ModelManager* manager, int exprNumber, const double* time, const double* exprValue, double delayMax) {
   manager->addDelay(exprNumber, time, exprValue, delayMax);

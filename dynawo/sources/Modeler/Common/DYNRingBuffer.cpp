@@ -94,6 +94,10 @@ RingBuffer::get(double time, double delay) const {
   }
 }
 
+std::pair<double, double> RingBuffer::end() const {
+  return queue_.back();
+}
+
 bool
 RingBuffer::comparePairTime(const std::pair<double, double>& pair, const double& time_value) const {
   // timed value cannot be too close to each other as these times are sent by the solvers

@@ -328,7 +328,7 @@ set_environment() {
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
-  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
+  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/$DYNAWO_FOLDER_BUILD_TYPE/dynawo
 
   DIR_LIBIIDM="libiidm"
 

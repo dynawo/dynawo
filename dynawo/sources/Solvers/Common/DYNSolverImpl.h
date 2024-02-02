@@ -331,6 +331,10 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    */
   virtual bool setupNewAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
+  SUNContext getSundialsContext() const {
+    return sundialsContext_;
+  }
+
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   boost::shared_ptr<Model> model_;  ///< model currently simulated
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added or removed

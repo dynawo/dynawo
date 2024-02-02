@@ -989,6 +989,7 @@ Simulation::simulate() {
       if (currentIterNb == 0)
         printHighestDerivativesValues();
 
+      // printHighestDerivativesValues();
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {

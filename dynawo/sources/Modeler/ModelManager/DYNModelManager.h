@@ -337,6 +337,40 @@ class ModelManager : public SubModel, private boost::noncopyable {
   double computeDelay(int exprNumber, double exprValue, double time, double delayTime, double delayMax);
 
   /**
+   * @brief Computes the delayed value
+   *
+   * Retrieves the value corresponding to timepoint @p time - @p delayTime if allowed by @p delayMax
+   *
+   * @throw IncorrectDelay error if @p delayTime is not compatible (negative or less than @p delayMax)
+   *
+   * @param exprValue the value corresponding to @p time
+   * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+   * @param time the current time point
+   * @param delayTime the delay to apply to the value
+   * @param delayMax the maximum delay allowed
+   *
+   * @returns the computed delayed value
+   */
+  double getLastPointY(int exprNumber, double exprValue, double time, double delayTime, double delayMax);
+
+  /**
+   * @brief Computes the delayed value
+   *
+   * Retrieves the value corresponding to timepoint @p time - @p delayTime if allowed by @p delayMax
+   *
+   * @throw IncorrectDelay error if @p delayTime is not compatible (negative or less than @p delayMax)
+   *
+   * @param exprValue the value corresponding to @p time
+   * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+   * @param time the current time point
+   * @param delayTime the delay to apply to the value
+   * @param delayMax the maximum delay allowed
+   *
+   * @returns the computed delayed value
+   */
+  double getLastPointX(int exprNumber, double exprValue, double time, double delayTime, double delayMax);
+
+  /**
    * @brief Add new delay struture
    *
    * @param exprNumber the id of the delay to create
