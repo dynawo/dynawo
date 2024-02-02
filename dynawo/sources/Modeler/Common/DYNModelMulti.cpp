@@ -1122,7 +1122,7 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->xNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << xNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << Trace::endline;
        ++nVar;
     }
   }
@@ -1133,7 +1133,7 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->getCalculatedVarNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << xNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << Trace::endline;
        ++nVar;
     }
   }
@@ -1144,7 +1144,7 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& zNames = (*it)->zNamesInit();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-      Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << zNames[j] << Trace::endline;
+      Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << Trace::endline;
       ++nVar;
     }
   }
@@ -1155,7 +1155,7 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->xNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-      std::string varName = (*it)->name() + "_" + xNames[j];
+      std::string varName = (*it)->name() + " | " + xNames[j];
       Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
       ++nVar;
     }
@@ -1163,8 +1163,8 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& xAlias = (*it)->xAliasesNames();
     for (unsigned int j = 0; j < xAlias.size(); ++j) {
-      Trace::debug(Trace::variables()) << (*it)->name() << "_" << xAlias[j].first << " is an alias of " <<
-          (*it)->name() << "_" << xAlias[j].second.first << " (negated: " << xAlias[j].second.second << ")" << Trace::endline;
+      Trace::debug(Trace::variables()) << (*it)->name() << " | " << xAlias[j].first << " is an alias of " <<
+          (*it)->name() << " | " << xAlias[j].second.first << " (negated: " << xAlias[j].second.second << ")" << Trace::endline;
     }
   }
   nVar = 0;
@@ -1174,7 +1174,7 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->getCalculatedVarNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-      std::string varName = (*it)->name() + "_" + xNames[j];
+      std::string varName = (*it)->name() + " | " + xNames[j];
       Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
       ++nVar;
     }
@@ -1186,14 +1186,14 @@ void ModelMulti::printVariableNames() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& zNames = (*it)->zNames();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << zNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << Trace::endline;
        ++nVar;
     }
   }
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& zAlias = (*it)->zAliasesNames();
     for (unsigned int j = 0; j < zAlias.size(); ++j) {
-      Trace::debug(Trace::variables()) << (*it)->name() << "_" << zAlias[j].first << " is an alias of "
+      Trace::debug(Trace::variables()) << (*it)->name() << " | " << zAlias[j].first << " is an alias of "
           << (*it)->name() << "_" << zAlias[j].second.first << " (negated: " << zAlias[j].second.second << ")" << Trace::endline;
     }
   }
