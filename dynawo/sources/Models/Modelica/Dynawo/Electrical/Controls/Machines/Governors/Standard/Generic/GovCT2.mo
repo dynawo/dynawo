@@ -84,7 +84,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.ActivePowerPu PLim10Pu = 0.8325 "Power limit 10 in pu (base PBaseMw)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim10Hz, PLim10Pu; fLim9Hz, PLim9Pu; fLim8Hz, PLim8Pu; fLim7Hz, PLim7Pu; fLim6Hz, PLim6Pu; fLim5Hz, PLim5Pu; fLim4Hz, PLim4Pu; fLim3Hz, PLim3Pu; fLim2Hz, PLim2Pu; fLim1Hz, PLim1Pu; fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation(
+  parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim10Hz-0.000001, PLim10Pu; fLim10Hz, PLim10Pu; fLim9Hz, PLim9Pu; fLim8Hz, PLim8Pu; fLim7Hz, PLim7Pu; fLim6Hz, PLim6Pu; fLim5Hz, PLim5Pu; fLim4Hz, PLim4Pu; fLim3Hz, PLim3Pu; fLim2Hz, PLim2Pu; fLim1Hz, PLim1Pu; fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu; fLim1Hz + 1, (ValveMaxPu - WFnlPu)*KTurbPu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation(
     Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.PerUnit PMech0Pu "Initial value of mechanical power";
   parameter Types.PerUnit PRatePu = 0.017 "Ramp rate for frequency-dependent power limit" annotation(
@@ -195,7 +195,7 @@ model GovCT2 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {174, -2}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant constWFnl2(k = WFnlPu) annotation(
     Placement(visible = true, transformation(origin = {302, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Tables.CombiTable1Ds tablePLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds tablePLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.LastTwoPoints, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {138, 32}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation(
     Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
@@ -443,9 +443,9 @@ equation
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302.</body></html>"),
-    Diagram(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {248, -35}, extent = {{-7, -3}, {7, 3}}, textString = "cfe"), Text(origin = {158, -84}, extent = {{-17, -4}, {17, 4}}, textString = "fsr"), Rectangle(origin = {157, 14}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-41, 68}, {41, -68}}), Text(origin = {174, 45}, textColor = {0, 0, 255}, extent = {{-23, -21}, {23, 21}}, textString = "frequency-
+    Diagram(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {248, -35}, extent = {{-7, -3}, {7, 3}}, textString = "cfe"), Text(origin = {158, -84}, extent = {{-17, -4}, {17, 4}}, textString = "fsr"), Rectangle(origin = {157, 14}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-41, 68}, {41, -68}}), Text(origin = {174, 45}, lineColor = {0, 0, 255}, extent = {{-23, -21}, {23, 21}}, textString = "frequency-
 dependent
-limit"), Text(origin = {135, -194}, extent = {{-44, -4}, {44, 4}}, textString = "valve stroke"), Text(origin = {85, -184}, extent = {{-30, -4}, {30, 4}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {-22, 120}, extent = {{-13, -4}, {13, 4}}, textString = "Texm"), Text(origin = {106, 125}, extent = {{-11, -3}, {11, 3}}, textString = "Tex"), Text(origin = {-70, 156}, extent = {{-13, -4}, {13, 4}}, textString = "tlim"), Text(origin = {73, 44}, textColor = {0, 0, 255}, extent = {{-20, -18}, {20, 18}}, textString = "Low
+limit"), Text(origin = {135, -194}, extent = {{-44, -4}, {44, 4}}, textString = "valve stroke"), Text(origin = {85, -184}, extent = {{-30, -4}, {30, 4}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {-22, 120}, extent = {{-13, -4}, {13, 4}}, textString = "Texm"), Text(origin = {106, 125}, extent = {{-11, -3}, {11, 3}}, textString = "Tex"), Text(origin = {-70, 156}, extent = {{-13, -4}, {13, 4}}, textString = "tlim"), Text(origin = {73, 44}, lineColor = {0, 0, 255}, extent = {{-20, -18}, {20, 18}}, textString = "Low
 Value
 Select"), Text(origin = {182, 192}, extent = {{-17, -4}, {17, 4}}, textString = "dm>=0"), Text(origin = {168, 164}, extent = {{-17, -4}, {17, 4}}, textString = "dm<=0")}),
     Icon(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {7, 7}, extent = {{-279, 123}, {279, -123}}, textString = "GovCT2"), Rectangle(origin = {0, 10}, extent = {{-320, 210}, {320, -210}})}),
