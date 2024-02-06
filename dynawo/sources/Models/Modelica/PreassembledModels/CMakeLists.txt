@@ -21,6 +21,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   ConditionalForward.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
+  der_a.xml
+  der_a_AggregatedLVRT.xml
+  der_a_GenericLVRT.xml
   DiscreteIntegrator.xml
   DistanceProtectionLineFourZones.xml
   DistanceProtectionLineFourZonesWithBlinder.xml

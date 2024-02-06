@@ -10,6 +10,7 @@
 # of simulation tools for power systems.
 
 add_subdirectory(AggregatedIBG A)
+add_subdirectory(der_a D)
 add_subdirectory(GenericIBG G)
 
 set(MODEL_FILES

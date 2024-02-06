@@ -1,4 +1,4 @@
-# Copyright (c) 2023, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,25 +6,15 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite
-# of simulation tools for power systems.
-
-add_subdirectory(BaseClasses B)
-add_subdirectory(BaseClasses_INIT BI)
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 set(MODEL_FILES
   package.mo
   package.order
-  AggregatedIBG.mo
-  AggregatedIBG.extvar
-  der_a.mo
-  der_a.extvar
-  der_a_AggregatedLVRT.mo
-  der_a_AggregatedLVRT.extvar
-  der_a_GenericLVRT.mo
-  der_a_GenericLVRT.extvar
-  GenericIBG.mo
-  GenericIBG.extvar
+  base_der_a.mo
+  LVRT.mo
+  OVRT.mo
+  FRT.mo
   )
 
 #

@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  der_a_INIT.mo
   IBG_INIT.mo
   )
 
