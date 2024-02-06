@@ -12,11 +12,11 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Machine with constant mechanical power and a voltage regulator (IEEEX12). -->
+  <!-- Machine with constant mechanical power and a voltage regulator (IEEX2A). -->
   <!-- Used for ELADA091. -->
-  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsPmConstIeeeX12">
+  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsPmConstIeeX2a">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
-    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.IEEEX12" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.IEEX2A" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>

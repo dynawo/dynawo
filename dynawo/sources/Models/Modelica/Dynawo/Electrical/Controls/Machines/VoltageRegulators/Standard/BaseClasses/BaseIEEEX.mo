@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasse
 * of simulation tools for power systems.
 */
 
-model BaseIEEEX "IEEE excitation system types 1 and 2 base model"
+model BaseIEEEX "IEEE excitation system base model"
 
   //Regulation parameters
   parameter Types.PerUnit AEx "Gain of saturation function";

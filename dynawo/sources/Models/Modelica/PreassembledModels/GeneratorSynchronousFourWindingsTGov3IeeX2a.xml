@@ -12,12 +12,12 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Machine with a governor (IEEEG1) and a voltage regulator (IEEEX12). -->
-  <!-- Used for ECOMPO91, ECOMPS91, ELA_RO91. -->
-  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsIeeeG1IeeeX12">
+  <!-- Machine with a governor (TGov3) and a voltage regulator (IEEX2A). -->
+  <!-- Used for ESOTOR91. -->
+  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsTGov3IeeX2a">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
-    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.IEEEX12" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT"/>
-    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.IEEX2A" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov3" initName="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov3_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>

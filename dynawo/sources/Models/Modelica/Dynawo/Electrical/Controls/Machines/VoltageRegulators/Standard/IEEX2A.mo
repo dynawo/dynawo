@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model IEEEX12 "IEEE-inspired excitation system model"
+model IEEX2A "IEEE excitation system type 2A model"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseIEEEX(
     derivative.x_start = Efd0Pu * (Ke + AEx * exp(BEx * Efd0Pu)));
 
@@ -22,4 +22,4 @@ equation
     Line(points = {{40, -80}, {20, -80}, {20, -60}, {-58, -60}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
-end IEEEX12;
+end IEEX2A;
