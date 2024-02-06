@@ -14,9 +14,6 @@ within Dynawo.Electrical.InverterBasedGeneration;
 */
 
 model GenericIBG "Generic model of inverter-based generation (IBG)"
-  import Dynawo;
-  import Modelica;
-
   // Rating
   parameter Types.CurrentModulePu IMaxPu "Maximum current of the injector in pu (base UNom, SNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the injector (in MVA)";
@@ -33,8 +30,8 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
   parameter Types.AngularVelocityPu OmegaMinPu "Minimum frequency before disconnection in pu (base omegaNom)";
 
   // Voltage support
-  parameter Real kRCA "Slope of reactive current decrease for high voltages";
-  parameter Real kRCI "Slope of reactive current increase for low voltages";
+  parameter Real kRCA "Slope of reactive current decrease for high voltages in pu (base UNom, SNom)";
+  parameter Real kRCI "Slope of reactive current increase for low voltages in pu (base UNom, SNom)";
   parameter Real m "Current injection just outside of lower deadband in pu (base IMaxPu)";
   parameter Real n "Current injection just outside of lower deadband in pu (base IMaxPu)";
   parameter Types.VoltageModulePu UMaxPu "Maximum voltage over which the unit is disconnected in pu (base UNom)";
@@ -42,8 +39,8 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
   parameter Types.VoltageModulePu US2 "Higher voltage limit of deadband in pu (base UNom)";
 
   // Low voltage ride through
-  parameter Types.Time tLVRTMax "Time delay of trip for small voltage dips";
-  parameter Types.Time tLVRTMin "Time delay of trip for severe voltage dips";
+  parameter Types.Time tLVRTMax "Time delay of trip for small voltage dips in s";
+  parameter Types.Time tLVRTMin "Time delay of trip for severe voltage dips in s";
   parameter Types.Time tLVRTInt "Time delay of trip for intermediate voltage dips in s";
   parameter Types.VoltageModulePu ULVRTArmingPu "Voltage threshold under which the automaton is activated after tLVRTMax in pu (base UNom)";
   parameter Types.VoltageModulePu ULVRTIntPu "Voltage threshold under which the automaton is activated after tLVRTMin in pu (base UNom)";
@@ -51,12 +48,18 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
 
   parameter Real IpSlewMaxPu "Active current slew limit (both up and down) in pu (base UNom, SNom)";
   parameter Real IqSlewMaxPu "Reactive current slew limit (both up and down) in pu (base UNom, SNom) (not in the original model, can use arbitrarily large value to bypass it)";
-  parameter Types.VoltageModulePu UPLLFreezePu "PLL freeze voltage threshold (in pu)";
+  parameter Types.VoltageModulePu UPLLFreezePu "PLL freeze voltage threshold in pu (base UNom)";
   parameter Types.VoltageModulePu UQPrioPu "Voltage under which priority is given to reactive current injection in pu (base UNom)";
+
+  Modelica.Blocks.Interfaces.RealInput PextPu(start = -P0Pu*SystemBase.SnRef/SNom) "Available power from the DC source in pu (base SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-94, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput iQrefPu(start = IqRef0Pu) "Target reactive current in pu (base UNom, Snom)" annotation(
+    Placement(visible = true, transformation(origin = {-94, -304}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+    Placement(visible = true, transformation(origin = {8, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {306, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Dynawo.Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {240, -6}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Dynawo.Electrical.Controls.PLL.PLLFreeze PLLFreeze(OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
@@ -67,8 +70,6 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
     Placement(visible = true, transformation(origin = {-50, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG.LVRT lvrt(ULVRTArmingPu = ULVRTArmingPu, ULVRTIntPu = ULVRTIntPu, ULVRTMinPu = ULVRTMinPu, tLVRTMin = tLVRTMin, tLVRTInt = tLVRTInt, tLVRTMax = tLVRTMax) annotation(
     Placement(visible = true, transformation(origin = {-50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PextPu(start = -P0Pu*SystemBase.SnRef/SNom) "Available power from the DC source in pu (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-94, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {6, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter iPLimiter annotation(
@@ -85,8 +86,6 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
     Placement(visible = true, transformation(origin = {10, -220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG.VoltageSupport voltageSupport(IMaxPu = IMaxPu, US1 = US1, US2 = US2, kRCA = kRCA, kRCI = kRCI, m = m, n = n) annotation(
     Placement(visible = true, transformation(origin = {-90, -274}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput iQrefPu(start = IqRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-94, -304}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-50, -280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter iQLimiter annotation(
@@ -95,8 +94,6 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
     Placement(visible = true, transformation(origin = {110, -280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder omegaFilter(T = tFilterOmega, y_start = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-90, -344}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {8, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG.FrequencyProtection frequencyProtection(OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-48, -344}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG.OverFrequencySupport overFrequencySupport(OmegaDeadBandPu = OmegaDeadBandPu, OmegaMaxPu = OmegaMaxPu) annotation(

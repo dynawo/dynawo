@@ -23,11 +23,11 @@ model LimitUpdating
   Modelica.Blocks.Interfaces.BooleanInput PPriority "Priority to active power (true) or reactive power (false)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput IpMaxPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput IpMaxPu "Maximum active current command due to current limitation in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IqMaxPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput IqMaxPu "Maximum reactive current command due to current limitation in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IqMinPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput IqMinPu "Minimum reactive current command due to current limitation in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected

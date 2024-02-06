@@ -18,7 +18,7 @@ model OverVoltageProtection
 
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
 
-  Modelica.Blocks.Interfaces.RealInput Um annotation(
+  Modelica.Blocks.Interfaces.RealInput Um "Measured voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation

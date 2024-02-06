@@ -28,8 +28,8 @@ model IBG_INIT "Initialization model for IBGs"
   // Voltage support
   parameter Types.VoltageModulePu US1 "Lower voltage limit of deadband in pu (base UNom)";
   parameter Types.VoltageModulePu US2 "Higher voltage limit of deadband in pu (base UNom)";
-  parameter Real kRCI "Slope of reactive current increase for low voltages";
-  parameter Real kRCA "Slope of reactive current decrease for high voltages";
+  parameter Real kRCI "Slope of reactive current increase for low voltages in pu (base UNom, SNom)";
+  parameter Real kRCA "Slope of reactive current decrease for high voltages in pu (base UNom, SNom)";
   parameter Real m "Current injection just outside of lower deadband in pu (base IMaxPu)";
   parameter Real n "Current injection just outside of lower deadband in pu (base IMaxPu)";
 

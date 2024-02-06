@@ -27,12 +27,12 @@ model LVRT "Low voltage ride through"
   parameter Types.VoltageModulePu ULVRTMinPu "Voltage threshold under which the automaton is activated instantaneously in pu (base UNom)";
 
   // Parameters of the partial tripping curves
-  parameter Types.PerUnit c;
-  parameter Types.PerUnit d;
-  parameter Types.PerUnit e;
-  parameter Types.PerUnit f;
-  parameter Types.PerUnit g;
-  parameter Types.PerUnit h;
+  parameter Types.PerUnit c(min=0, max=1) "Share of units that disconnect at ULVRTMinPu";
+  parameter Types.PerUnit d(min=0, max=1) "Fraction of ULVRTMinPu at which all units are disconnected";
+  parameter Types.PerUnit e(min=0, max=1) "Share of units that disconnect at ULVRTIntPu";
+  parameter Types.PerUnit f(min=0, max=1) "Fraction of ULVRTIntPu at which all units are disconnected";
+  parameter Types.PerUnit g(min=0, max=1) "Share of units that disconnect at ULVRTArmingPu";
+  parameter Types.PerUnit h(min=0, max=1) "Fraction of ULVRTArmingPu at which all units are disconnected";
 
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
 
@@ -51,7 +51,7 @@ model LVRT "Low voltage ride through"
   Types.VoltageModulePu UMinMaxPu(start = 1) "Minimum voltage in period [tLVRTMax, inf] in pu (base UNom)";
 
 protected
-  Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached";
+  Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached in s";
 
 equation
   // Arming
@@ -121,7 +121,7 @@ equation
   end if;*/
   // Modified model
   if time - tThresholdReached < tLVRTMax and time - tThresholdReached > tLVRTInt and switchOffSignal.value == false and tThresholdReached <> Constants.inf then
-    aux3 = g * (UMonitoredPu - (f*ULVRTIntPu + (h*ULVRTArmingPu - f*ULVRTIntPu) * (time - tLVRTMax) / (tLVRTInt - tLVRTMax)));
+    aux3 = g * (UMonitoredPu - (f*ULVRTIntPu + (h*ULVRTArmingPu - f*ULVRTIntPu) * (time - tThresholdReached - tLVRTInt) / (tLVRTMax - tLVRTInt)));
     f3 + der(f3) * tFilter = if aux3 < f3 then aux3 else f3;
   else
     aux3 = 1;

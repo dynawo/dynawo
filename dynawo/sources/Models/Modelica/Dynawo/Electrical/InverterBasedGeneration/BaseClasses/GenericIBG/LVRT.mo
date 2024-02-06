@@ -31,7 +31,7 @@ model LVRT "Low voltage ride through"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 protected
-  Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached";
+  Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached in s";
 
 equation
   // Arming

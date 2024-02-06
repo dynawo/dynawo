@@ -57,12 +57,12 @@ model AggregatedIBG "Aggregated model of inverter-based generation (IBG)"
   parameter Types.VoltageModulePu UQPrioPu "Voltage under which priority is given to reactive current injection in pu (base UNom)";
 
   // Parameters of the partial tripping curves
-  parameter Types.PerUnit LVRTc;
-  parameter Types.PerUnit LVRTd;
-  parameter Types.PerUnit LVRTe;
-  parameter Types.PerUnit LVRTf;
-  parameter Types.PerUnit LVRTg;
-  parameter Types.PerUnit LVRTh;
+  parameter Types.PerUnit LVRTc "Share of units that disconnect at ULVRTMinPu";
+  parameter Types.PerUnit LVRTd "Fraction of ULVRTMinPu at which all units are disconnected";
+  parameter Types.PerUnit LVRTe "Share of units that disconnect at ULVRTIntPu";
+  parameter Types.PerUnit LVRTf "Fraction of ULVRTIntPu at which all units are disconnected";
+  parameter Types.PerUnit LVRTg "Share of units that disconnect at ULVRTArmingPu";
+  parameter Types.PerUnit LVRTh "Fraction of ULVRTArmingPu at which all units are disconnected";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {306, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

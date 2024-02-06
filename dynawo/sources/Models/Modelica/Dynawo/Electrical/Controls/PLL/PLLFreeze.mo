@@ -13,10 +13,6 @@ within Dynawo.Electrical.Controls.PLL;
 */
 
 model PLLFreeze "Phase-Locked Loop whose angle can be frozen"
-  import Modelica;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Types;
-
   //Parameters
   parameter Types.PerUnit Ki "PLL integrator gain";
   parameter Types.PerUnit Kp "PLL proportional gain";
