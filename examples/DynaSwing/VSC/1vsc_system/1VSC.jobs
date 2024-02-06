@@ -23,7 +23,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="10"/>
+        <simulation startTime="0" stopTime="2"/>
 
         <outputs directory="outputs">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>

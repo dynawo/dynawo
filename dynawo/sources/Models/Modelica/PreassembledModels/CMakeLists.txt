@@ -93,7 +93,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
   GridFollowingConverterPVControl.xml
-  GridFollowingConverterPVControlWithLimiters.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
   HvdcPQPropEmulationSet.xml

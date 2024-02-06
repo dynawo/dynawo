@@ -58,9 +58,13 @@ model SingleVSC
   idPcc0Pu= SingleVSC_INIT.idPcc0Pu,
   iqPcc0Pu= SingleVSC_INIT.iqPcc0Pu,
   udConvRef0Pu= SingleVSC_INIT.udConvRef0Pu,
-  uqConvRef0Pu= SingleVSC_INIT.uqConvRef0Pu
+  uqConvRef0Pu= SingleVSC_INIT.uqConvRef0Pu,
+  Trlim= SingleVSC_INIT.Trlim,
+  didt_min= SingleVSC_INIT.didt_min,
+  didt_max= SingleVSC_INIT.didt_max,
+  InomPu=SingleVSC_INIT.InomPu
   ) annotation(
-    Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(transformation(origin = {-62, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Sources.Step UConvRefPu(height = +0.2, offset = SingleVSC_INIT.UConvRef0Pu, startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SingleVSC_INIT.omegaRef0Pu) annotation(
@@ -92,21 +96,21 @@ connect(GridFollowingControl.omegaPLLPu, InjectorGFL.omegaPLLPu) annotation(
   connect(InjectorGFL.uPccPu, GridFollowingControl.uPccPu) annotation(
     Line(points = {{-10, 22}, {-10, 40}, {-76, 40}, {-76, 22}}, color = {85, 170, 255}));
   connect(InjectorGFL.PGenPu, GridFollowingControl.PGenPu) annotation(
-    Line(points = {{22, 16}, {30, 16}, {30, 30}, {-52, 30}, {-52, 22}}, color = {0, 0, 127}));
+    Line(points = {{22, 16}, {30, 16}, {30, 32}, {-52, 32}, {-52, 22}}, color = {0, 0, 127}));
   connect(InjectorGFL.UConvPu, GridFollowingControl.UConvPu) annotation(
-    Line(points = {{22, -10}, {38, -10}, {38, 36}, {-66, 36}, {-66, 22}}, color = {0, 0, 127}));
+    Line(points = {{22, -10}, {38, -10}, {38, 38}, {-66, 38}, {-66, 22}}, color = {0, 0, 127}));
   connect(InjectorGFL.udPccPu, GridFollowingControl.udPccPu) annotation(
     Line(points = {{6, -22}, {6, -46}, {-76, -46}, {-76, -22}}, color = {0, 0, 127}));
   connect(InjectorGFL.uqPccPu, GridFollowingControl.uqPccPu) annotation(
     Line(points = {{14, -22}, {14, -50}, {-68, -50}, {-68, -22}}, color = {0, 0, 127}));
   connect(InjectorGFL.idConvPu, GridFollowingControl.idConvPu) annotation(
-    Line(points = {{-14, -22}, {-16, -22}, {-16, -38}, {-56, -38}, {-56, -22}}, color = {0, 0, 127}));
+    Line(points = {{-14, -22}, {-16, -22}, {-16, -36}, {-56, -36}, {-56, -22}}, color = {0, 0, 127}));
   connect(InjectorGFL.iqConvPu, GridFollowingControl.iqConvPu) annotation(
     Line(points = {{-6, -22}, {-6, -42}, {-48, -42}, {-48, -22}}, color = {0, 0, 127}));
   connect(InjectorGFL.terminal, line.terminal1) annotation(
     Line(points = {{22, 0}, {46, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, GridFollowingControl.omegaRefPu) annotation(
-    Line(points = {{-98, 56}, {-94, 56}, {-94, 14}, {-84, 14}}, color = {0, 0, 127}));
+    Line(points = {{-98, 56}, {-92, 56}, {-92, 14}, {-84, 14}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 end SingleVSC;

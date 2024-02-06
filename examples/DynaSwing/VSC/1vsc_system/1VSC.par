@@ -22,27 +22,26 @@
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
   </set>
 
-<!-- Infinite bus connected to an impedance -->
+<!-- Infinite bus connected to an impedance (base SnRef) -->
 <!-- receptor convention -->
   <set id="InfBusWithImpedance">
     <par type="DOUBLE" name="infiniteBus_RPu" value="0.0"/>
-    <par type="DOUBLE" name="infiniteBus_XPu" value="0.12"/>
+    <par type="DOUBLE" name="infiniteBus_XPu" value="0.01"/>
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
     <par type="DOUBLE" name="infiniteBus_UPhase0" value="0"/>
-    <par type="DOUBLE" name="infiniteBus_P0Pu" value="0.833333"/>
-    <par type="DOUBLE" name="infiniteBus_Q0Pu" value="-0.0391667"/>
+    <par type="DOUBLE" name="infiniteBus_P0Pu" value="10"/>
+    <par type="DOUBLE" name="infiniteBus_Q0Pu" value="-0.47"/>
   </set>
 
-<!-- AC Pi-Line -->
+<!-- AC Pi-Line (base SnRef) -->
   <set id="Line">
-    <par type="DOUBLE" name="line_XPu" value="0.1125"/>
+    <par type="DOUBLE" name="line_XPu" value="0.009375"/>
     <par type="DOUBLE" name="line_RPu" value="0.0"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
 
-
-<!-- Converter with grid following control -->
+<!-- Converter with grid following control (base SNom) -->
 <!-- generator convention   -->
   <set id="GFLVSC">
     <par type="DOUBLE" name="injectorGFL_SNom" value="1200"/>
@@ -76,6 +75,10 @@
     <par type="DOUBLE" name="controlGFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="controlGFL_OmegaMinPu" value="0.5"/>
     <par type="DOUBLE" name="controlGFL_omegaRef0Pu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
+    <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
+    <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="10"/>
   </set>
 
   <!-- OmegaRef Set Point -->
@@ -87,7 +90,7 @@
   <set id="PStep">
     <par type="DOUBLE" name="step_Value0" value="0.833333"/>
     <par type="DOUBLE" name="step_Height" value="-0.05"/>
-    <par type="DOUBLE" name="step_tStep" value="5"/>
+    <par type="DOUBLE" name="step_tStep" value="0.5"/>
   </set>
 
   <!-- URef step -->

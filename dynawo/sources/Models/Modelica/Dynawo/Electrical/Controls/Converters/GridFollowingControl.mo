@@ -16,13 +16,17 @@ model GridFollowingControl
   parameter Types.Time Tlpf "Time constant of low pass filter";
   parameter Types.PerUnit Kpp "Proportional gain of the active power loop";
   parameter Types.PerUnit Kip "Integral gain of the active power loop";
+  parameter Types.PerUnit InomPu "Converter nominal current in pu";
+  //  parameter Types.PerUnit IqmaxPu = 99 "For cases with limited capability of voltage control the minimum between Iqmax and Iq1max is considered";
+  parameter Types.Time Trlim "Time constant of Id limitting loop";
+  parameter Types.Frequency didt_min "Minimum of ramp rate limiter in Id limitting loop";
+  parameter Types.Frequency didt_max "Maximum of ramp rate limiter in Id limitting loop";
   parameter Types.PerUnit Kpv "Proportional gain of the reactive power loop";
   parameter Types.PerUnit Kiv "Integral gain of the reactive power loop";
   parameter Types.PerUnit KpPLL;
   parameter Types.PerUnit KiPLL;
   parameter Types.PerUnit OmegaMaxPu;
   parameter Types.PerUnit OmegaMinPu;
-  
   //Initial values
   parameter Types.ComplexVoltagePu uPcc0Pu;
   parameter Types.ComplexCurrentPu iPcc0Pu;
@@ -44,19 +48,14 @@ model GridFollowingControl
   parameter Types.Angle thetaPLL0Pu;
   parameter Types.PerUnit omegaPLL0Pu;
   parameter Types.PerUnit omegaRef0Pu;
-  
-  Dynawo.Electrical.Controls.Converters.BaseControls.ReactivePowerLoop reactivePowerLoop(Kiv = Kiv, Kpv = Kpv, Tlpf = Tlpf, UConv0Pu = UConv0Pu, UConvRef0Pu = UConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-60, -12}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.ActivePowerLoop activePowerLoop(Kip = Kip, Kpp = Kpp, PGen0Pu = PGen0Pu, PGenRef0Pu = PGen0Pu, Tlpf = Tlpf, idConv0Pu = idConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-60, 42}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLoopGFL currentLoopGFL(Kic = Kic, Kpc = Kpc, L = L, R = R, idConv0Pu = idConv0Pu, iqConv0Pu = iqConv0Pu, omegaPLL0Pu = omegaPLL0Pu, ratioTr = ratioTr, udConvRef0Pu = udConvRef0Pu, udPcc0Pu = udPcc0Pu, uqConvRef0Pu = uqConvRef0Pu, uqPcc0Pu = uqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {49, 15}, extent = {{-27, -27}, {27, 27}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PGenRefPu(start = PGen0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-130, 55}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-130, 57}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = omegaRef0Pu) annotation(
     Placement(transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput UConvRefPu(start = UConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-130, -4}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-130, -13}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start = udConvRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -31}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput thetaPLLPu(start = thetaPLL0Pu) annotation(
@@ -72,7 +71,7 @@ model GridFollowingControl
   Modelica.Blocks.Interfaces.RealInput udPccPu(start = udPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput UConvPu(start = UConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-130, 9}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-130, 1}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput uqPccPu(start = uqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-30, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 270)));
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = idConv0Pu) annotation(
@@ -81,23 +80,15 @@ model GridFollowingControl
     Placement(visible = true, transformation(origin = {-130, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {69, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   PLL.PLL pll(u0Pu = uPcc0Pu, Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu) annotation(
     Placement(transformation(origin = {-38.5, 111.5}, extent = {{-18.5, -18.5}, {18.5, 18.5}})));
+  BaseControls.ActivePowerLoop activePowerLoop(Kip = Kip, Kpp = Kpp, PGen0Pu = PGen0Pu, PGenRef0Pu = PGen0Pu, Tlpf = Tlpf, InomPu = InomPu, Trlim = Trlim, didt_min = didt_min, didt_max = didt_max, idConv0Pu = idConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
+    Placement(transformation(origin = {-60.5, 42.5}, extent = {{-26.5, -26.5}, {26.5, 26.5}})));
+  BaseControls.ReactivePowerLoop reactivePowerLoop(Kiv = Kiv, Kpv = Kpv, Tlpf = Tlpf, UConv0Pu = UConv0Pu, UConvRef0Pu = UConv0Pu, InomPu = InomPu, idConv0Pu = idConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
+    Placement(transformation(origin = {-60.5, -20.5}, extent = {{-26.5, -26.5}, {26.5, 26.5}})));
 equation
-  connect(reactivePowerLoop.iqRefPu, currentLoopGFL.iqConvRefPu) annotation(
-    Line(points = {{-31.4, -12}, {18.6, -12}}, color = {0, 0, 127}));
-  connect(activePowerLoop.idRefPu, currentLoopGFL.idConvRefPu) annotation(
-    Line(points = {{-31.4, 42}, {18.6, 42}}, color = {0, 0, 127}));
-  connect(PGenRefPu, activePowerLoop.PGenRefPu) annotation(
-    Line(points = {{-130, 55}, {-89, 55}}, color = {0, 0, 127}));
-  connect(UConvRefPu, reactivePowerLoop.UConvRefPu) annotation(
-    Line(points = {{-130, -4}, {-89, -4}}, color = {0, 0, 127}));
   connect(currentLoopGFL.udConvRefPu, udConvRefPu) annotation(
     Line(points = {{78.7, 42}, {129.7, 42}}, color = {0, 0, 127}));
   connect(currentLoopGFL.uqConvRefPu, uqConvRefPu) annotation(
     Line(points = {{78.7, -12}, {129.7, -12}}, color = {0, 0, 127}));
-  connect(PGenPu, activePowerLoop.PGenPu) annotation(
-    Line(points = {{-130, 29}, {-89, 29}}, color = {0, 0, 127}));
-  connect(UConvPu, reactivePowerLoop.UConvPu) annotation(
-    Line(points = {{-130, 9}, {-89, 9}}, color = {0, 0, 127}));
   connect(udPccPu, currentLoopGFL.udPccPu) annotation(
     Line(points = {{-130, -50}, {41, -50}, {41, -15}}, color = {0, 0, 127}));
   connect(uqPccPu, currentLoopGFL.uqPccPu) annotation(
@@ -116,6 +107,20 @@ equation
     Line(points = {{-18, 121}, {-4, 121}, {-4, 15}, {19, 15}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-130, 100}, {-59, 100}}, color = {0, 0, 127}));
+  connect(PGenRefPu, activePowerLoop.PGenRefPu) annotation(
+    Line(points = {{-130, 57}, {-130, 56}, {-90, 56}}, color = {0, 0, 127}));
+  connect(PGenPu, activePowerLoop.PGenPu) annotation(
+    Line(points = {{-130, 29}, {-90, 29}}, color = {0, 0, 127}));
+  connect(activePowerLoop.idRefPu, currentLoopGFL.idConvRefPu) annotation(
+    Line(points = {{-31, 42.5}, {-31, 43}, {19, 43}, {19, 42}}, color = {0, 0, 127}));
+  connect(iqConvPu, activePowerLoop.iqConvPu) annotation(
+    Line(points = {{-130, -110}, {-101, -110}, {-101, 72}, {-60.5, 72}}, color = {0, 0, 127}));
+  connect(UConvPu, reactivePowerLoop.UConvPu) annotation(
+    Line(points = {{-130, 1}, {-90, 1}}, color = {0, 0, 127}));
+  connect(UConvRefPu, reactivePowerLoop.UConvRefPu) annotation(
+    Line(points = {{-130, -13}, {-90, -13}}, color = {0, 0, 127}));
+  connect(reactivePowerLoop.iqRefPu, currentLoopGFL.iqConvRefPu) annotation(
+    Line(points = {{-31, -20}, {1, -20}, {1, -12}, {19, -12}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -150}, {120, 150}})),
     preferredView = "diagram",

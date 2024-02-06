@@ -24,9 +24,6 @@ set(MODEL_FILES
   GridFollowingControl.mo
   GridFollowingControl_INIT.mo
   GridFollowingControl.extvar
-  GridFollowingControlWithLimiters.mo
-  GridFollowingControlWithLimiters_INIT.mo
-  GridFollowingControlWithLimiters.extvar
   )
 
 #

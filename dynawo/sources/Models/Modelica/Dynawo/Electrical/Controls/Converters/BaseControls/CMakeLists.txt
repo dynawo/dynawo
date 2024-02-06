@@ -22,8 +22,6 @@ set(MODEL_FILES
   CurrentLoopGFL.mo
   ActivePowerLoop.mo
   ReactivePowerLoop.mo
-  ActivePowerLoopWithLimiters.mo
-  ReactivePowerLoopWithLimiters.mo
   ActiveCurrentLimiter.mo
   ReactiveCurrentLimiter.mo
   )

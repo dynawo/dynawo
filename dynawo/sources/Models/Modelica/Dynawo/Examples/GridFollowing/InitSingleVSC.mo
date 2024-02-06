@@ -25,9 +25,9 @@ model InitSingleVSC
   parameter Types.Time Tlpf = 0.0033 "Time constant of low pass filter";
   parameter Types.PerUnit Kpp = 0.0333 "Proportional gain of the active power loop";
   parameter Types.PerUnit Kip = 10 "Integral gain of the active power loop";
-  parameter Types.Time T = 0.002 "Time constant in the active power control loop (Trlim in the stepss config file)";
-  parameter Types.Frequency didt_min = -999 "Minimum of ramp rate limiter in active power loop in [pu/s]";
-  parameter Types.Frequency didt_max = 10 "Maximum of ramp rate limiter in active power loop in [pu/s]";
+  parameter Types.Time Trlim = 0.002 "Time constant of Id limitting loop";
+  parameter Types.Frequency didt_min = -999 "Minimum of ramp rate limiter in Id limitting loop";
+  parameter Types.Frequency didt_max = 10 "Maximum of ramp rate limiter in Id limitting loop";
   parameter Types.PerUnit Kpv = 0.1667 "Proportional gain of the reactive power loop";
   parameter Types.PerUnit Kiv = 50 "Integral gain of the reactive power loop";
   parameter Types.Time Tpll = 0.1 "Time constant of PLL to calculate KpPLL and kiPLL (Tau)";
@@ -43,8 +43,8 @@ model InitSingleVSC
   /* Line Parameters */
   parameter Types.PerUnit RLinePu = 0 "Resistance in pu (base UNom, SnRef)";
   parameter Types.PerUnit XLinePu = 0.009375 "Reactance in pu (base UNom, SnRef)";
-  parameter Types.PerUnit BLinePu = 0 "Half-conductance in pu (base UNom, SnNom)";
-  parameter Types.PerUnit GLinePu = 0 "Half-susceptance in pu (base UNom, SnNom)";
+  parameter Types.PerUnit BLinePu = 0 "Half-conductance in pu (base UNom, SnRef)";
+  parameter Types.PerUnit GLinePu = 0 "Half-susceptance in pu (base UNom, SnRef)";
 //  parameter Types.PerUnit RLinePu = 0 "Resistance in pu (base UNom, SNom)";
 //  parameter Types.PerUnit XLinePu = 0.1125 "Reactance in pu (base UNom, SNom)";
   /* InfiniteBus Parameters */
@@ -61,6 +61,8 @@ model InitSingleVSC
   /* Infinite Bus
              Bus B: V= 1pu , theta = 0 rad, P=-1000 MW, Q= +47 Mvar */
   parameter Types.ComplexVoltagePu uInf0Pu = ComplexMath.fromPolar(1, 0) "Start value of complex voltage at Infinite Bus in pu (base UNom)";
+  //  parameter Types.ActivePowerPu PInf0Pu = -1000/SNom "Start value of infinite bus injected active power in pu (base SNom) (generator convention)";
+  //  parameter Types.ReactivePowerPu QInf0Pu = 47/SNom "Start value of infinite bus injected reactive power in pu (base SNom) (generator convention)";
   parameter Types.ActivePowerPu PInf0Pu = -1000/SnRef "Start value of infinite bus injected active power in pu (base SnRef) (generator convention)";
   parameter Types.ReactivePowerPu QInf0Pu = 47/SnRef "Start value of infinite bus injected reactive power in pu (base SnRef) (generator convention)";
 
@@ -71,7 +73,6 @@ model InitSingleVSC
   parameter Types.PerUnit IP0Pu = iPcc0Pu.re*ratioTr;
   parameter Types.ComplexVoltagePu uConv0Pu = (uPcc0Pu/ratioTr) + iPcc0Pu*ratioTr*Complex(R, Xc);
   parameter Types.PerUnit UConv0Pu = ComplexMath.'abs'(uConv0Pu);
-  //    parameter Types.PerUnit UConv0Pu =sqrt(udConv0Pu*udConv0Pu + uqConv0Pu*uqConv0Pu);
   parameter Types.PerUnit omegaPLL0Pu = 1;
   parameter Types.PerUnit thetaPLL0Pu = ComplexMath.arg(uPcc0Pu);
   parameter Types.PerUnit udPcc0Pu = cos(thetaPLL0Pu)*uPcc0Pu.re + sin(thetaPLL0Pu)*uPcc0Pu.im;

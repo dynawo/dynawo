@@ -14,4 +14,5 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="PGenRefPu" type="continuous" />
   <variable id="PGenPu" type="continuous" />
+  <variable id="iqConvPu" type="continuous" />
 </external_variables>

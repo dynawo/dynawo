@@ -8,7 +8,5 @@ DispatchableVirtualOscillatorControl
 ActivePowerLoop
 ReactivePowerLoop
 CurrentLoopGFL
-ActivePowerLoopWithLimiters
-ReactivePowerLoopWithLimiters
 ActiveCurrentLimiter
 ReactiveCurrentLimiter
