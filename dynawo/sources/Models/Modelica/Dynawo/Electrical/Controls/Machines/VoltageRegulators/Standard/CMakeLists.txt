@@ -45,8 +45,6 @@ set(MODEL_FILES
   IEEET1.mo
   IEEET1.extvar
   IEEET1_INIT.mo
-  IEEEX1.mo
-  IEEEX1.extvar
   IEEEX12.mo
   IEEEX12.extvar
   IEEEX2.mo
