@@ -113,7 +113,7 @@ class ModelerEntry {
   /**
    * @brief Default constructor
    */
-  ModelerEntry();
+  ModelerEntry() = default;
 
   /**
    * @brief Copy constructor
@@ -127,9 +127,6 @@ class ModelerEntry {
    * @returns reference to this
    */
   ModelerEntry& operator=(const ModelerEntry& other);
-
-  /// @brief Destructor
-  ~ModelerEntry();
 
  private:
   std::string compileDir_;                                            ///< Compiling directory for the simulation

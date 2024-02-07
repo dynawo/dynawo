@@ -32,7 +32,7 @@ class LostEquipment {
   /**
    * @brief Constructor
    */
-  LostEquipment() {}
+  LostEquipment() = default;
 
   /**
    * @brief Constructor

@@ -523,7 +523,7 @@
             "name": "(gdb) Launch unittest: SOLVERIDA",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build-code/build/dynawo/Debug/sources/VariableTimeStep/SolverIDA/test/SOLVERIDA_unittest",
+            "program": "${workspaceFolder}/build-code/build/dynawo/Debug/sources/Solvers/VariableTimeStep/SolverIDA/test/SOLVERIDA_unittest",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build-code/build/dynawo/Debug/sources/Solvers/VariableTimeStep/SolverIDA/test",

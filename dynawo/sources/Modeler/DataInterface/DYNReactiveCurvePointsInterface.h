@@ -53,7 +53,7 @@ class ReactiveCurvePointsInterface {
 
  public:
   /// @brief Destructor
-  virtual ~ReactiveCurvePointsInterface() {}
+  virtual ~ReactiveCurvePointsInterface() = default;
 
   /**
    * @brief Retrieve the list of reactive curve points, if any

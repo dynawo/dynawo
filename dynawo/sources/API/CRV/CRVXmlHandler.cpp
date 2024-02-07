@@ -73,8 +73,6 @@ CurveHandler::CurveHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&CurveHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-CurveHandler::~CurveHandler() {}
-
 void CurveHandler::create(attributes_type const & attributes) {
   curveRead_ = CurveFactory::newCurve();
   curveRead_->setModelName(attributes["model"]);

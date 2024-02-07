@@ -45,11 +45,6 @@ class CurveHandler : public xml::sax::parser::ComposableElementHandler {
   explicit CurveHandler(elementName_type const& root_element);
 
   /**
-   * @brief Destructor
-   */
-  ~CurveHandler();
-
-  /**
    * @brief return the curve read in xml file
    * @return curve object build thanks to infos read in xml file
    */

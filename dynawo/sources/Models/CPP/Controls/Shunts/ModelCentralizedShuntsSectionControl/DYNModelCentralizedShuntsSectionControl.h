@@ -36,15 +36,10 @@ class DataInterface;
 class ModelCentralizedShuntsSectionControlFactory : public SubModelFactory {
  public:
   /**
-   * @brief default constructor
-   *
-   */
-  ModelCentralizedShuntsSectionControlFactory() {}
-  /**
    * @brief default destructor
    *
    */
-  virtual ~ModelCentralizedShuntsSectionControlFactory() {}
+  virtual ~ModelCentralizedShuntsSectionControlFactory() = default;
   /**
    * @brief ModelCentralizedShuntsSectionControl getter
    *
@@ -69,7 +64,7 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
   /**
    * @brief destructor
    */
-  virtual ~ModelCentralizedShuntsSectionControl() {}
+  virtual ~ModelCentralizedShuntsSectionControl() = default;
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model

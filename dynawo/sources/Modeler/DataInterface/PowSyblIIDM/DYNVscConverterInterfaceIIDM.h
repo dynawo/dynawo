@@ -37,10 +37,6 @@ namespace DYN {
  */
 class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorInterfaceIIDM {
  public:
-  /**
-   * @brief Destructor
-   */
-  ~VscConverterInterfaceIIDM() {}
 
   /**
    * @brief Constructor

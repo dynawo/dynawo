@@ -38,11 +38,6 @@ class ModelRatioTapChanger : public ModelTapChanger {
   explicit ModelRatioTapChanger(const std::string& id, const std::string& side, int lowIndex);
 
   /**
-   * @brief destructor
-   */
-  inline ~ModelRatioTapChanger() {}
-
-  /**
    * @brief  evaluate the zero crossing functions
    *
    * @param t : time to use during the evaluation

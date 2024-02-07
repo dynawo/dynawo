@@ -64,8 +64,6 @@ void SolverFactories::add(const std::string& lib, const boost::function<deleteSo
   factoryMapDelete_.insert(std::make_pair(lib, deleteFactory));
 }
 
-SolverFactory::~SolverFactory() {}
-
 boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
   SolverFactories::SolverFactoryIterator iter = SolverFactories::getInstance().find(lib);
   Solver* solver;

@@ -22,10 +22,6 @@
 
 namespace job {
 
-ModelerEntry::ModelerEntry() {}
-
-ModelerEntry::~ModelerEntry() {}
-
 ModelerEntry::ModelerEntry(const ModelerEntry& other):
     compileDir_(other.compileDir_),
     preCompiledModelsDirEntry_(DYN::clone(other.preCompiledModelsDirEntry_)),

@@ -45,7 +45,7 @@ class SolverFactory {
   /**
    * @brief Destructor
    */
-  virtual ~SolverFactory();
+  virtual ~SolverFactory() = default;
 
   /**
    * @brief create a new instance of a solver

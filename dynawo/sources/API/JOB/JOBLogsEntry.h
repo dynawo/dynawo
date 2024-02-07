@@ -34,11 +34,8 @@ namespace job {
  */
 class LogsEntry {
  public:
-  /// @brief Destructor
-  ~LogsEntry();
-
   /// @brief Constructor
-  LogsEntry();
+  LogsEntry() = default;
 
   /**
    * @brief Copy constructor

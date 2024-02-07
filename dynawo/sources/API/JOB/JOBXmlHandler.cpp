@@ -71,9 +71,6 @@ jobHandler_(parser::ElementName(namespace_uri(), "job")) {
   jobHandler_.onEnd(lambda::bind(&XmlHandler::addJob, lambda::ref(*this)));
 }
 
-XmlHandler::~XmlHandler() {
-}
-
 void
 XmlHandler::addJob() {
   jobsCollection_->addJob(jobHandler_.get());
@@ -104,8 +101,6 @@ localInitHandler_(parser::ElementName(namespace_uri(), "localInit")) {
   outputsHandler_.onEnd(lambda::bind(&JobHandler::addOutputs, lambda::ref(*this)));
   localInitHandler_.onEnd(lambda::bind(&JobHandler::addLocalInit, lambda::ref(*this)));
 }
-
-JobHandler::~JobHandler() {}
 
 void
 JobHandler::addSolver() {
@@ -147,8 +142,6 @@ SolverHandler::SolverHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&SolverHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-SolverHandler::~SolverHandler() {}
-
 void
 SolverHandler::create(attributes_type const & attributes) {
   solver_ = shared_ptr<SolverEntry>(new SolverEntry());
@@ -182,8 +175,6 @@ modelicaModelsHandler_(parser::ElementName(namespace_uri(), "modelicaModels")) {
   preCompiledModelsHandler_.onEnd(lambda::bind(&ModelerHandler::addPreCompiledModels, lambda::ref(*this)));
   modelicaModelsHandler_.onEnd(lambda::bind(&ModelerHandler::addModelicaModel, lambda::ref(*this)));
 }
-
-ModelerHandler::~ModelerHandler() {}
 
 void
 ModelerHandler::addNetwork() {
@@ -225,8 +216,6 @@ CriteriaFileHandler::CriteriaFileHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&CriteriaFileHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-CriteriaFileHandler::~CriteriaFileHandler() {}
-
 void
 CriteriaFileHandler::create(attributes_type const& attributes) {
   criteriaFile_ = attributes["criteriaFile"].as_string();
@@ -244,8 +233,6 @@ criteriaFileHandler_(parser::ElementName(namespace_uri(), "criteria")) {
 
   criteriaFileHandler_.onEnd(lambda::bind(&SimulationHandler::addCriteriaFile, lambda::ref(*this)));
 }
-
-SimulationHandler::~SimulationHandler() {}
 
 void
 SimulationHandler::create(attributes_type const& attributes) {
@@ -306,8 +293,6 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   lostEquipmentsHandler_.onEnd(lambda::bind(&OutputsHandler::addLostEquipments, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
 }
-
-OutputsHandler::~OutputsHandler() {}
 
 void
 OutputsHandler::addInitValuesEntry() {
@@ -374,8 +359,6 @@ LocalInitHandler::LocalInitHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&LocalInitHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-LocalInitHandler::~LocalInitHandler() {}
-
 void
 LocalInitHandler::create(attributes_type const& attributes) {
   localInit_ = shared_ptr<LocalInitEntry>(new LocalInitEntry());
@@ -391,8 +374,6 @@ LocalInitHandler::get() const {
 InitValuesHandler::InitValuesHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&InitValuesHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-InitValuesHandler::~InitValuesHandler() {}
 
 void
 InitValuesHandler::create(attributes_type const& attributes) {
@@ -410,8 +391,6 @@ FinalValuesHandler::FinalValuesHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&FinalValuesHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-FinalValuesHandler::~FinalValuesHandler() {}
-
 void
 FinalValuesHandler::create(attributes_type const& /*attributes*/) {
   finalValuesEntry_ = shared_ptr<FinalValuesEntry>(new FinalValuesEntry());
@@ -427,8 +406,6 @@ ConstraintsHandler::ConstraintsHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&ConstraintsHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-ConstraintsHandler::~ConstraintsHandler() {}
-
 void
 ConstraintsHandler::create(attributes_type const& attributes) {
   constraints_ = shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
@@ -443,8 +420,6 @@ ConstraintsHandler::get() const {
 TimelineHandler::TimelineHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&TimelineHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-TimelineHandler::~TimelineHandler() {}
 
 void
 TimelineHandler::create(attributes_type const& attributes) {
@@ -467,8 +442,6 @@ TimetableHandler::TimetableHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&TimetableHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-TimetableHandler::~TimetableHandler() {}
-
 void
 TimetableHandler::create(attributes_type const& attributes) {
   timetable_ = shared_ptr<TimetableEntry>(new TimetableEntry());
@@ -483,8 +456,6 @@ TimetableHandler::get() const {
 FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&FinalStateHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-FinalStateHandler::~FinalStateHandler() {}
 
 void
 FinalStateHandler::create(attributes_type const& attributes) {
@@ -504,8 +475,6 @@ FinalStateHandler::get() const {
 CurvesHandler::CurvesHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&CurvesHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-CurvesHandler::~CurvesHandler() {}
 
 void
 CurvesHandler::create(attributes_type const& attributes) {
@@ -530,9 +499,6 @@ FinalStateValuesHandler::FinalStateValuesHandler(elementName_type const& root_el
                               lambda_args::arg2));
 }
 
-
-FinalStateValuesHandler::~FinalStateValuesHandler() {}
-
 void FinalStateValuesHandler::create(attributes_type const& attributes) {
   finalStateValues_ = shared_ptr<FinalStateValuesEntry>(new FinalStateValuesEntry());
   finalStateValues_->setInputFile(attributes["inputFile"]);
@@ -544,8 +510,6 @@ shared_ptr<FinalStateValuesEntry> FinalStateValuesHandler::get() const { return 
 LostEquipmentsHandler::LostEquipmentsHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&LostEquipmentsHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-LostEquipmentsHandler::~LostEquipmentsHandler() {}
 
 void
 LostEquipmentsHandler::create(attributes_type const& /*attributes*/) {
@@ -567,8 +531,6 @@ appenderHandler_(parser::ElementName(namespace_uri(), "appender")) {
   appenderHandler_.onEnd(lambda::bind(&LogsHandler::addAppender, lambda::ref(*this)));
 }
 
-LogsHandler::~LogsHandler() {}
-
 void
 LogsHandler::addAppender() {
   logs_->addAppenderEntry(appenderHandler_.get());
@@ -587,8 +549,6 @@ LogsHandler::get() const {
 AppenderHandler::AppenderHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&AppenderHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-AppenderHandler::~AppenderHandler() {}
 
 void
 AppenderHandler::create(attributes_type const& attributes) {
@@ -620,8 +580,6 @@ NetworkHandler::NetworkHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&NetworkHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-NetworkHandler::~NetworkHandler() {}
-
 void
 NetworkHandler::create(attributes_type const& attributes) {
   network_ = shared_ptr<NetworkEntry>(new NetworkEntry());
@@ -641,8 +599,6 @@ DynModelsHandler::DynModelsHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&DynModelsHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-DynModelsHandler::~DynModelsHandler() {}
-
 void
 DynModelsHandler::create(attributes_type const& attributes) {
   dynModels_ = shared_ptr<DynModelsEntry>(new DynModelsEntry());
@@ -657,8 +613,6 @@ DynModelsHandler::get() const {
 InitialStateHandler::InitialStateHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&InitialStateHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-InitialStateHandler::~InitialStateHandler() {}
 
 void
 InitialStateHandler::create(attributes_type const& attributes) {
@@ -679,8 +633,6 @@ directoryHandler_(parser::ElementName(namespace_uri(), "directory")) {
 
   directoryHandler_.onEnd(lambda::bind(&ModelsDirHandler::addDirectory, lambda::ref(*this)));
 }
-
-ModelsDirHandler::~ModelsDirHandler() {}
 
 void
 ModelsDirHandler::create(attributes_type const& attributes) {
@@ -705,8 +657,6 @@ DirectoryHandler::DirectoryHandler(elementName_type const& root_element) {
   dir_.isRecursive = false;
   onStartElement(root_element, lambda::bind(&DirectoryHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-DirectoryHandler::~DirectoryHandler() {}
 
 void
 DirectoryHandler::create(attributes_type const& attributes) {

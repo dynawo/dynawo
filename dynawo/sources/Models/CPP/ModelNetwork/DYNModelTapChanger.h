@@ -52,11 +52,6 @@ class ModelTapChanger {
         tNext_(10) {}
 
   /**
-   * @brief destructor
-   */
-  inline ~ModelTapChanger() {}
-
-  /**
    * @brief  return the name of the tap changer
    * @return name of the tap changer
    */

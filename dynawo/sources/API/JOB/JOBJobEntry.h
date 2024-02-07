@@ -113,10 +113,7 @@ class JobEntry {
   /**
    * @brief Default constructor
    */
-  JobEntry();
-
-  /// @brief Destructor
-  ~JobEntry();
+  JobEntry() = default;
 
   /**
    * @brief Copy assignment operator
