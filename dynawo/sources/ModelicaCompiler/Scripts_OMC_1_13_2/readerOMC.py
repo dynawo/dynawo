@@ -479,7 +479,7 @@ class ReaderOMC:
             print(prefix + "NODE TYPE: " + str(self.type))
             print(prefix + "NODE DIFF VAR: " + str(self.diff_var))
             print(prefix + "NODE EQ: " + self.eq)
-            print (prefix + "NODE noEvent: " + str(self.no_event))
+            print(prefix + "NODE noEvent: " + str(self.no_event))
             for child in self.children:
                 child.print_node(prefix + " " )
 
