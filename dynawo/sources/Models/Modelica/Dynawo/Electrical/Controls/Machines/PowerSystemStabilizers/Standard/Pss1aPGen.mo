@@ -15,8 +15,8 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 
 model Pss1aPGen "IEEE power system stabilizer type 1A, with active power input"
   extends Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.BaseClasses.BasePss1a(
-    derivative.x_start = Ks * PGen0Pu * SystemBase.SnRef / SNom,
-    firstOrder.y_start = PGen0Pu * SystemBase.SnRef / SNom);
+    firstOrder.y_start = PGen0Pu * SystemBase.SnRef / SNom,
+    washout.U0 = Ks * PGen0Pu * SystemBase.SnRef / SNom);
 
   //Generator parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";

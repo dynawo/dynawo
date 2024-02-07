@@ -45,10 +45,10 @@ set(MODEL_FILES
   IEEET1.mo
   IEEET1.extvar
   IEEET1_INIT.mo
-  IEEX2A.mo
-  IEEX2A.extvar
   IEEEX2.mo
   IEEEX2.extvar
+  IEEX2A.mo
+  IEEX2A.extvar
   MAXEX2.mo
   MAXEX2.extvar
   MAXEX2_INIT.mo

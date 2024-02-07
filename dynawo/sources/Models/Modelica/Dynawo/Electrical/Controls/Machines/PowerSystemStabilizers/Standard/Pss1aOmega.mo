@@ -15,8 +15,8 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 
 model Pss1aOmega "IEEE power system stabilizer type 1A, with angular frequency input"
   extends Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.BaseClasses.BasePss1a(
-    derivative.x_start = Ks * SystemBase.omega0Pu,
-    firstOrder.y_start = SystemBase.omega0Pu);
+    firstOrder.y_start = SystemBase.omega0Pu,
+    washout.U0 = Ks * SystemBase.omega0Pu);
 
   //Input variable
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
