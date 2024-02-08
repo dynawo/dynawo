@@ -213,11 +213,6 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   XmlHandler();
 
   /**
-   * @brief Destructor
-   */
-  ~XmlHandler();
-
-  /**
    * @brief Parsed criteria collection getter
    *
    * @return criteria collection parsed.

@@ -65,9 +65,6 @@ genCriteriaHandler_(parser::ElementName(namespace_uri(), "generatorCriteria")) {
   genCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addGenCriteria, lambda::ref(*this)));
 }
 
-XmlHandler::~XmlHandler() {
-}
-
 shared_ptr<CriteriaCollection>
 XmlHandler::getCriteriaCollection() {
   return criteriaCollection_;
