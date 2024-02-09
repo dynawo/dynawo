@@ -72,7 +72,7 @@ model SteamSCRXFrame "Model of a steam generator with a governor, a voltage regu
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Controls
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1 ieeeg1(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG11 ieeeg1(
     DerPMaxPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.DerPMaxPu],
     DerPMinPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.DerPMinPu],
     K = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K],
@@ -97,7 +97,7 @@ model SteamSCRXFrame "Model of a steam generator with a governor, a voltage regu
     t6 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t6],
     t7 = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.t7]) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX scrx(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX1 scrx(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     IRotor0Pu = generatorSynchronous.IRotor0Pu,
     K = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.K],
