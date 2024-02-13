@@ -16,9 +16,9 @@ within Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses;
 record ParametersIEEEG1 "Parameter sets for the IEEEG1 regulations of the RVS test system"
 
   type genFramePreset = enumeration(g10101, g20101, g30101, g40101, g10102, g20102, g30102, g40102, g10107, g20107, g30107, g10113, g20113, g30113, g10115, g20115, g30115, g40115, g50115, g60115, g10116, g10118, g10121, g10123, g20123, g30123) "Generator names";
-  type exciterParamNames = enumeration(K, t1, t2, t3, DerPMaxPu, DerPMinPu, PMaxPu, PMinPu, t4, K1, t5, K3, t6, K5, t7, K7, K2, K4, K6, K8, hasGov) "Parameter names";
+  type exciterParamNames = enumeration(K, t1, t2, t3, Uo, Uc, PMaxPu, PMinPu, t4, K1, t5, K3, t6, K5, t7, K7, K2, K4, K6, K8, hasGov) "Parameter names";
 
-  // K, t1, t2, t3, DerPMaxPu, DerPMinPu, PMaxPu, PMinPu, t4, K1, t5, K3, t6, K5, t7, K7, K2, K4, K6, K8, hasGov
+  // K, t1, t2, t3, Uo, Uc, PMaxPu, PMinPu, t4, K1, t5, K3, t6, K5, t7, K7, K2, K4, K6, K8, hasGov
   final constant Real[genFramePreset, exciterParamNames] exciterParams = {
     {20, 1e-5, 1e-5, 0.1, 0.1, -0.1, 0.903, 0, 0.4, 0.3, 9, 0.4, 0.5, 0.3, 1e-5, 0, 0, 0, 0, 0, 0}, // g10101 (no Gov)
     {20, 1e-5, 1e-5, 0.1, 0.1, -0.1, 0.903, 0, 0.4, 0.3, 9, 0.4, 0.5, 0.3, 1e-5, 0, 0, 0, 0, 0, 0}, // g20101 (no Gov)

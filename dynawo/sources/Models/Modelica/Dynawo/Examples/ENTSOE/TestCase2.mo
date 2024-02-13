@@ -89,15 +89,34 @@ model TestCase2 "Active power variation on the load"
    nd = 0,
    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.0090862 ) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(
+    EMax = 4,
+    EMin = 0,
+    Efd0Pu = generatorSynchronous.Efd0Pu,
+    K = 200,
+    Ta = 3,
+    Tb = 10,
+    Te = 0.05,
+    Upss0Pu = 0,
+    Us0Pu = 1,
+    UsRef0Pu = 1.0090862) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov1 governor(
+    Dt = 0,
+    Pm0Pu = generatorSynchronous.Pm0Pu,
+    R = 0.05,
+    t1 = 0.5,
+    t2 = 3,
+    t3 = 10,
+    VMax = 1,
+    VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = 1.0090862) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu);
+  Modelica.Blocks.Sources.Constant const2(k = 1);
+  Modelica.Blocks.Sources.Constant PmRefPu(k = governor.R * generatorSynchronous.Pm0Pu);
 
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
@@ -115,12 +134,14 @@ equation
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
+
   connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu);
+  connect(governor.omegaRefPu, const2.y);
   connect(governor.PmRefPu, PmRefPu.y);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -34}, {78, -34}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(

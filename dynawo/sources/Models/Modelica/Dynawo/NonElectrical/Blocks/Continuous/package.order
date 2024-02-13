@@ -24,4 +24,5 @@ RateLimFirstOrderFreeze
 SecondOrder
 SqrtNoEvent
 VarLimPIDFreeze
+Washout
 WeightedDifference

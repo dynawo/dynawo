@@ -17,7 +17,7 @@
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX_INIT"/>
     <dyn:unitDynamicModel id="overExcitationLimiter" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2_INIT"/>
-    <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>
+    <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2b" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Pss_INIT"/>
     <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="IRotor0Pu" id2="generator" var2="IRotor0Pu"/>
@@ -29,7 +29,7 @@
     <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
     <dyn:connect id1="voltageRegulator" var1="IRotorPu" id2="generator" var2="IRotorPu.value"/>
     <dyn:connect id1="voltageRegulator" var1="UOelPu" id2="overExcitationLimiter" var2="UOelPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="UPssPu"/>
+    <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="VPssPu"/>
     <dyn:connect id1="voltageRegulator" var1="UStatorPu" id2="generator" var2="UStatorPu.value"/>
     <dyn:connect id1="voltageRegulator" var1="UtPu" id2="generator" var2="UPu"/>
     <dyn:connect id1="overExcitationLimiter" var1="IfdPu" id2="generator" var2="IRotorPu.value"/>

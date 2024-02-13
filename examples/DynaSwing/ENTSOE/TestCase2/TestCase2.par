@@ -50,13 +50,13 @@
     <par type="DOUBLE" name="generator_Q0Pu" value="0"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>
     <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="governor_R" value="0.05"/>
-    <par type="DOUBLE" name="governor_Tg1" value="0.5"/>
-    <par type="DOUBLE" name="governor_Tg2" value="3"/>
-    <par type="DOUBLE" name="governor_Tg3" value="10"/>
     <par type="DOUBLE" name="governor_Dt" value="0"/>
-    <par type="DOUBLE" name="governor_VMin" value="0"/>
+    <par type="DOUBLE" name="governor_R" value="0.05"/>
+    <par type="DOUBLE" name="governor_t1" value="0.5"/>
+    <par type="DOUBLE" name="governor_t2" value="3"/>
+    <par type="DOUBLE" name="governor_t3" value="10"/>
     <par type="DOUBLE" name="governor_VMax" value="1"/>
+    <par type="DOUBLE" name="governor_VMin" value="0"/>
     <par type="DOUBLE" name="governor_Pm0Pu" value="0.8"/>
     <par type="DOUBLE" name="voltageRegulator_Ta" value="3"/>
     <par type="DOUBLE" name="voltageRegulator_Tb" value="10"/>
