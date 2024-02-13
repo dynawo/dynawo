@@ -147,7 +147,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaRestorativeLimitsRecalc.xml
   LoadAlphaBetaMotorFifthOrder.xml
   LoadAlphaBetaTwoMotorFifthOrder.xml
-  LoadAlphaBetaThreeMotorFifthOrder
+  LoadAlphaBetaThreeMotorFifthOrder.xml
   LoadAlphaBetaMotorSimplified.xml
   LoadAlphaBetaTwoMotorSimplified.xml
   LoadOneTransformer.xml
