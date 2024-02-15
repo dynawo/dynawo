@@ -52,13 +52,8 @@
 <!-- Infinite bus connected to an impedance (base SnRef) -->
 <!-- receptor convention -->
   <set id="InfBusWithImpedance">
-    <!-- p and q must be negative!!! -->
-    <!-- <reference name="infiniteBus_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
-    <reference name="infiniteBus_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-    <reference name="infiniteBus_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <reference name="infiniteBus_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
-    <par type="DOUBLE" name="infiniteBus_P0Pu" value="0.014978751"/>
-    <par type="DOUBLE" name="infiniteBus_Q0Pu" value="-0.001806372"/>
+    <par type="DOUBLE" name="infiniteBus_P0Pu" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_Q0Pu" value="0.000473"/>
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
     <par type="DOUBLE" name="infiniteBus_UPhase0" value="0.0"/>
     <par type="DOUBLE" name="infiniteBus_RPu" value="0.0"/>
@@ -68,10 +63,6 @@
 <!-- Converter with grid following control (base SNom) -->
 <!-- generator convention   -->
   <set id="WP1">
-    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
     <par type="DOUBLE" name="injectorGFL_U0Pu" value="1.047562"/>
     <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.18895444"/>
     <par type="DOUBLE" name="injectorGFL_P0Pu" value="0.829958333"/>
@@ -111,14 +102,10 @@
   </set>
 
   <set id="WP2">
-    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
     <par type="DOUBLE" name="injectorGFL_U0Pu" value="0.9997311"/>
-    <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.19815885"/>
+    <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.1964953"/>
     <par type="DOUBLE" name="injectorGFL_P0Pu" value="0.829875"/>
-    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0.074083333"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="-0.3263863"/>
 
     <par type="DOUBLE" name="injectorGFL_SNom" value="2400"/>
     <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
@@ -154,14 +141,10 @@
   </set>
 
   <set id="HVDC1">
-    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
     <par type="DOUBLE" name="injectorGFL_U0Pu" value="1.0075727"/>
     <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.041624702"/>
     <par type="DOUBLE" name="injectorGFL_P0Pu" value="-0.937666667"/>
-    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="-0.0849078"/>
 
     <par type="DOUBLE" name="injectorGFL_SNom" value="1200"/>
     <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
@@ -193,18 +176,14 @@
     <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
-    <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="10"/>
   </set>
 
   <set id="HVDC2">
-    <!-- <reference name="injectorGFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <reference name="injectorGFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/> -->
     <par type="DOUBLE" name="injectorGFL_U0Pu" value="1.0054174"/>
     <par type="DOUBLE" name="injectorGFL_UPhase0" value="0.036073673"/>
     <par type="DOUBLE" name="injectorGFL_P0Pu" value="-0.945588235"/>
-    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="injectorGFL_Q0Pu" value="0.2036389"/>
 
     <par type="DOUBLE" name="injectorGFL_SNom" value="1700"/>
     <par type="DOUBLE" name="injectorGFL_omegaNom" value="314.159"/>
@@ -236,7 +215,7 @@
     <par type="DOUBLE" name="controlGFL_InomPu" value="1"/>
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
-    <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+    <par type="DOUBLE" name="controlGFL_didt_max" value="10"/>
   </set>
 
   <!-- OmegaRef Set Point -->
@@ -247,49 +226,42 @@
   <!-- WP1 -->
   <!-- P Set Point -->
   <set id="PRef_WP1">
-    <par type="DOUBLE" name="setPoint_Value0" value="0.829958333"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="0.8299600"/>
   </set>
+
   <!-- U Set Point -->
   <set id="URef_WP1">
-    <par type="DOUBLE" name="setPoint_Value0" value="1.047562"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="1.048864"/>
   </set>
 
   <!-- WP2 -->
   <!-- P Set Point -->
   <set id="PRef_WP2">
     <par type="DOUBLE" name="setPoint_Value0" value="0.829875"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
   </set>
   <!-- U Set Point -->
   <set id="URef_WP2">
-    <par type="DOUBLE" name="setPoint_Value0" value="0.9997311"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="0.9700029"/>
   </set>
 
   <!-- HVDC1 -->
   <!-- P Set Point -->
   <set id="PRef_HVDC1">
-    <par type="DOUBLE" name="setPoint_Value0" value="-0.937666667"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.9376675"/>
   </set>
   <!-- U Set Point -->
   <set id="URef_HVDC1">
-    <par type="DOUBLE" name="setPoint_Value0" value="1.0075727"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="1.000011"/>
   </set>
 
   <!-- HVDC2 -->
   <!-- P Set Point -->
   <set id="PRef_HVDC2">
-    <par type="DOUBLE" name="setPoint_Value0" value="-0.945588235"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="p_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.9455882"/>
   </set>
   <!-- U Set Point -->
   <set id="URef_HVDC2">
-    <par type="DOUBLE" name="setPoint_Value0" value="1.0054174"/>
-    <!-- <reference name="setPoint_Value0" origData="IIDM" origName="v_pu" type="DOUBLE"/> -->
+    <par type="DOUBLE" name="setPoint_Value0" value="1.04084"/>
   </set>
 
   <!-- Events (dynamic library: EventQuadripoleDisconnection) -->

@@ -19,7 +19,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="20" precision="1e-05"/>
+    <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
     <dyn:outputs directory="outputs">
       <dyn:curves inputFile="4VSC.crv" exportMode="CSV"/>
       <dyn:logs>

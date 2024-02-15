@@ -20,4 +20,20 @@
   <curve model="NETWORK" variable="_BUS__C_TN_Upu_value"/>
   <curve model="NETWORK" variable="_BUS__E_TN_Upu_value"/>
   <curve model="NETWORK" variable="_BUS__F_TN_Upu_value"/>
+  <curve model="GFLVSC_WP1" variable="injectorGFL_PGenPu"/>
+  <curve model="GFLVSC_WP1" variable="injectorGFL_QGenPu"/>
+  <curve model="GFLVSC_WP1" variable="injectorGFL_UConvPu"/>
+  <curve model="GFLVSC_WP1" variable="injectorGFL_UPccPu"/>
+  <curve model="GFLVSC_WP2" variable="injectorGFL_PGenPu"/>
+  <curve model="GFLVSC_WP2" variable="injectorGFL_QGenPu"/>
+  <curve model="GFLVSC_WP2" variable="injectorGFL_UConvPu"/>
+  <curve model="GFLVSC_WP2" variable="injectorGFL_UPccPu"/>
+  <curve model="GFLVSC_HVDC1" variable="injectorGFL_PGenPu"/>
+  <curve model="GFLVSC_HVDC1" variable="injectorGFL_QGenPu"/>
+  <curve model="GFLVSC_HVDC1" variable="injectorGFL_UConvPu"/>
+  <curve model="GFLVSC_HVDC1" variable="injectorGFL_UPccPu"/>
+  <curve model="GFLVSC_HVDC2" variable="injectorGFL_PGenPu"/>
+  <curve model="GFLVSC_HVDC2" variable="injectorGFL_QGenPu"/>
+  <curve model="GFLVSC_HVDC2" variable="injectorGFL_UConvPu"/>
+  <curve model="GFLVSC_HVDC2" variable="injectorGFL_UPccPu"/>
 </curvesInput>
