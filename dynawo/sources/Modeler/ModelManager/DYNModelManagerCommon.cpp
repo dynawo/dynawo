@@ -310,6 +310,18 @@ computeDelay(ModelManager* manager, int exprNumber, double exprValue, double tim
   return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
 }
 
+#ifdef _ADEPT_
+adept::adouble
+computeDelayDerivative(ModelManager* manager, int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax) {
+  return manager->computeDelayDerivative(exprNumber, exprValue, time, delayTime, delayMax);
+}
+#else
+modelica_real
+computeDelayDerivative(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+  return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
+}
+#endif
+
 void
 addDelay(ModelManager* manager, int exprNumber, const double* time, const double* exprValue, double delayMax) {
   manager->addDelay(exprNumber, time, exprValue, delayMax);
