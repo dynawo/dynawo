@@ -42,14 +42,6 @@ model GoverNordic "Governor model for the Nordic 32 test system used for voltage
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division flowDivGateOpening annotation(
     Placement(visible = true, transformation(origin = {30, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {80, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = 5) annotation(
-    Placement(visible = true, transformation(origin = {130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 0.1) annotation(
-    Placement(visible = true, transformation(origin = {170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(outMax = 1, outMin = 0, y_start = Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {210, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add govOut annotation(
     Placement(visible = true, transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain govKp(k = Kp) annotation(
@@ -76,6 +68,8 @@ model GoverNordic "Governor model for the Nordic 32 test system used for voltage
     Placement(visible = true, transformation(origin = {-180, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain perUnitP(k = SystemBase.SnRef / PNom) annotation(
     Placement(visible = true, transformation(origin = {-250, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.LimRateLimFirstOrder limRateLimFirstOrder(DuMax = 0.1, Y0 = Pm0Pu, YMax = 1, YMin = 0, tS = 0.2) annotation(
+    Placement(visible = true, transformation(origin = {70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
 
@@ -88,16 +82,8 @@ equation
     Line(points = {{-19, 40}, {0, 40}, {0, 54}, {18, 54}}, color = {0, 0, 127}));
   connect(govKi.y, govInt.u) annotation(
     Line(points = {{-59, 40}, {-42, 40}}, color = {0, 0, 127}));
-  connect(limiter.y, limIntegrator.u) annotation(
-    Line(points = {{181, 60}, {198, 60}}, color = {0, 0, 127}));
-  connect(gain.y, limiter.u) annotation(
-    Line(points = {{141, 60}, {158, 60}}, color = {0, 0, 127}));
-  connect(limIntegrator.y, flowDivGateOpening.u2) annotation(
-    Line(points = {{221, 60}, {240, 60}, {240, 0}, {-20, 0}, {-20, -86}, {18, -86}}, color = {0, 0, 127}));
   connect(product.y, PmPu) annotation(
     Line(points = {{261, -100}, {290, -100}}, color = {0, 0, 127}));
-  connect(feedback.y, gain.u) annotation(
-    Line(points = {{89, 60}, {118, 60}}, color = {0, 0, 127}));
   connect(govKp.y, govOut.u1) annotation(
     Line(points = {{-39, 80}, {0, 80}, {0, 66}, {18, 66}}, color = {0, 0, 127}));
   connect(dOmegaPlusDroop.y, govKp.u) annotation(
@@ -118,10 +104,6 @@ equation
     Line(points = {{-199, -20}, {-180, -20}, {-180, 12}}, color = {0, 0, 127}));
   connect(dP.y, dOmegaPlusDroop.u2) annotation(
     Line(points = {{-171, 20}, {-160, 20}, {-160, 34}, {-142, 34}}, color = {0, 0, 127}));
-  connect(govOut.y, feedback.u1) annotation(
-    Line(points = {{42, 60}, {72, 60}}, color = {0, 0, 127}));
-  connect(limIntegrator.y, feedback.u2) annotation(
-    Line(points = {{221, 60}, {240, 60}, {240, 20}, {80, 20}, {80, 52}}, color = {0, 0, 127}));
   connect(dH.y, waterFlow.u) annotation(
     Line(points = {{149, -40}, {177, -40}}, color = {0, 0, 127}));
   connect(waterFlow.y, product.u1) annotation(
@@ -136,8 +118,13 @@ equation
     Line(points = {{-300, -20}, {-262, -20}}, color = {0, 0, 127}));
   connect(perUnitP.y, firstOrder1.u) annotation(
     Line(points = {{-238, -20}, {-222, -20}}, color = {0, 0, 127}));
+  connect(govOut.y, limRateLimFirstOrder.u) annotation(
+    Line(points = {{42, 60}, {58, 60}}, color = {0, 0, 127}));
+  connect(limRateLimFirstOrder.y, flowDivGateOpening.u2) annotation(
+    Line(points = {{82, 60}, {100, 60}, {100, 0}, {-20, 0}, {-20, -86}, {18, -86}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 120}, lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, extent = {{-60, 20}, {60, -20}}, textString = "%name"), Text(extent = {{-68, 66}, {68, -66}}, textString = "GOV")}, coordinateSystem(initialScale = 0.1)),
     Documentation(info = "<html><head></head><body>This model implements the speed control of the generator frames in the Nordic 32 test system used for voltage stability studies.<div>It consists of a turbine model (lower part) and a speed controller (upper part).&nbsp;</div></body></html>"),
     Diagram(coordinateSystem(extent = {{-280, -140}, {280, 140}})));
