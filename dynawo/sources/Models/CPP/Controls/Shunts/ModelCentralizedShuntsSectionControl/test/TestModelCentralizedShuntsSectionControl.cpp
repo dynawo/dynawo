@@ -192,6 +192,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(g[2], ROOT_DOWN);
     ASSERT_EQ(g[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntCond->evalZ(0));
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(g[0], ROOT_UP);
+    ASSERT_EQ(g[1], ROOT_DOWN);
+    ASSERT_EQ(g[2], ROOT_DOWN);
+    ASSERT_EQ(g[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntCond->evalG(10));
     ASSERT_EQ(g[0], ROOT_UP);
     ASSERT_EQ(g[1], ROOT_DOWN);
@@ -208,6 +214,17 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(g[1], ROOT_DOWN);
     ASSERT_EQ(g[2], ROOT_DOWN);
     ASSERT_EQ(g[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(g[0], ROOT_DOWN);
+    ASSERT_EQ(g[1], ROOT_DOWN);
+    ASSERT_EQ(g[2], ROOT_DOWN);
+    ASSERT_EQ(g[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalG(10));
+    ASSERT_EQ(g[0], ROOT_DOWN);
+    ASSERT_EQ(g[1], ROOT_DOWN);
+    ASSERT_EQ(g[2], ROOT_DOWN);
+    ASSERT_EQ(g[3], ROOT_DOWN);
     // Umonitored > Uref
     y[0] = 1.1;
     modelShuntCond->getY0();
@@ -217,6 +234,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(g[2], ROOT_DOWN);
     ASSERT_EQ(g[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntCond->evalZ(0));
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(g[0], ROOT_DOWN);
+    ASSERT_EQ(g[1], ROOT_UP);
+    ASSERT_EQ(g[2], ROOT_DOWN);
+    ASSERT_EQ(g[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntCond->evalG(10));
     ASSERT_EQ(g[0], ROOT_DOWN);
     ASSERT_EQ(g[1], ROOT_UP);
@@ -248,6 +271,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(gSelf[2], ROOT_DOWN);
     ASSERT_EQ(gSelf[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntSelf->evalZ(0));
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(gSelf[0], ROOT_UP);
+    ASSERT_EQ(gSelf[1], ROOT_DOWN);
+    ASSERT_EQ(gSelf[2], ROOT_DOWN);
+    ASSERT_EQ(gSelf[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntSelf->evalG(10));
     ASSERT_EQ(gSelf[0], ROOT_UP);
     ASSERT_EQ(gSelf[1], ROOT_DOWN);
@@ -263,6 +292,17 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(gSelf[1], ROOT_DOWN);
     ASSERT_EQ(gSelf[2], ROOT_DOWN);
     ASSERT_EQ(gSelf[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(gSelf[0], ROOT_DOWN);
+    ASSERT_EQ(gSelf[1], ROOT_DOWN);
+    ASSERT_EQ(gSelf[2], ROOT_DOWN);
+    ASSERT_EQ(gSelf[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalG(10));
+    ASSERT_EQ(gSelf[0], ROOT_DOWN);
+    ASSERT_EQ(gSelf[1], ROOT_DOWN);
+    ASSERT_EQ(gSelf[2], ROOT_DOWN);
+    ASSERT_EQ(gSelf[3], ROOT_DOWN);
     // Umonitored > Uref
     ySelf[0] = 1.1;
     modelShuntSelf->getY0();
@@ -272,6 +312,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(gSelf[2], ROOT_DOWN);
     ASSERT_EQ(gSelf[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntSelf->evalZ(0));
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(gSelf[0], ROOT_DOWN);
+    ASSERT_EQ(gSelf[1], ROOT_UP);
+    ASSERT_EQ(gSelf[2], ROOT_DOWN);
+    ASSERT_EQ(gSelf[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntSelf->evalG(10));
     ASSERT_EQ(gSelf[0], ROOT_DOWN);
     ASSERT_EQ(gSelf[1], ROOT_UP);
