@@ -34,11 +34,15 @@ namespace DYN {
 LoadInterfaceIIDM::~LoadInterfaceIIDM() {
 }
 
-LoadInterfaceIIDM::LoadInterfaceIIDM(Load& load) : InjectorInterfaceIIDM(load, load.getId()),
+LoadInterfaceIIDM::LoadInterfaceIIDM(Load& load) : LoadInterface(false),
+                                                   InjectorInterfaceIIDM(load, load.getId()),
                                                    loadIIDM_(load),
                                                    loadPUnderV_(0.),
                                                    v0_(0.),
                                                    vNom_(0.) {
+  if (hasQInjector() || hasPInjector()) {
+    hasInitialConditions(true);
+  }
   setType(ComponentInterface::LOAD);
   const bool neededForCriteriaCheck = true;
   stateVariables_.resize(3);

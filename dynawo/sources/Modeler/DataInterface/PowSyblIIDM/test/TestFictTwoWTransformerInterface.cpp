@@ -191,6 +191,8 @@ TEST(DataInterfaceTest, FictTwoWTransformer_1) {
   ASSERT_EQ(tfoInterface.getP2(), 0.);
   ASSERT_EQ(tfoInterface.getQ2(), 0.);
 
+  ASSERT_TRUE(tfoInterface.hasInitialConditions());
+
   ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }
 
@@ -297,6 +299,8 @@ TEST(DataInterfaceTest, FictTwoWTransformer_NoInitialConnections) {
   ASSERT_EQ(tfoInterface.getQ1(), 0.0);
   ASSERT_EQ(tfoInterface.getP2(), 0.0);
   ASSERT_EQ(tfoInterface.getQ2(), 0.0);
+
+  ASSERT_TRUE(tfoInterface.hasInitialConditions());
 
   ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }

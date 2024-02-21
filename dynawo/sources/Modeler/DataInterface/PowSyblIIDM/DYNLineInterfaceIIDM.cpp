@@ -34,7 +34,8 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-LineInterfaceIIDM::LineInterfaceIIDM(powsybl::iidm::Line& line) : lineIIDM_(line),
+LineInterfaceIIDM::LineInterfaceIIDM(powsybl::iidm::Line& line) : LineInterface(false),
+                                                                  lineIIDM_(line),
                                                                   initialConnected1_(boost::none),
                                                                   initialConnected2_(boost::none) {
   setType(ComponentInterface::LINE);
@@ -54,6 +55,10 @@ LineInterfaceIIDM::LineInterfaceIIDM(powsybl::iidm::Line& line) : lineIIDM_(line
   auto currentLimitsPerSeasonExtensionDef = IIDMExtensions::getExtension<CurrentLimitsPerSeasonIIDMExtension>(libPath.generic_string());
   currentLimitsPerSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(currentLimitsPerSeasonExtensionDef)(line);
   destroyCurrentLimitsPerSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(currentLimitsPerSeasonExtensionDef);
+  if (!std::isnan(lineIIDM_.getTerminal1().getP()) || !std::isnan(lineIIDM_.getTerminal1().getQ()) ||
+      !std::isnan(lineIIDM_.getTerminal2().getP()) || !std::isnan(lineIIDM_.getTerminal2().getQ())) {
+      hasInitialConditions(true);
+  }
 }
 
 LineInterfaceIIDM::~LineInterfaceIIDM() {

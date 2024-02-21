@@ -52,6 +52,12 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
     SOURCE_OTHER
   } EnergySource_t;
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit GeneratorInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Setter for the generator's bus interface
    * @param busInterface of the bus where the generator is connected
    */

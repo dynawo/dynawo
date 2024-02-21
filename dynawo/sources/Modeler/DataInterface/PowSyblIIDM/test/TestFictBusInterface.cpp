@@ -40,6 +40,7 @@ TEST(DataInterfaceTest, testFictBusInterface) {
   ASSERT_EQ(fictBus->getComponentVarIndex("v"), FictBusInterfaceIIDM::VAR_V);
   ASSERT_EQ(fictBus->getComponentVarIndex("angle"), FictBusInterfaceIIDM::VAR_ANGLE);
   ASSERT_TRUE(fictBus->isFictitious());
+  ASSERT_TRUE(fictBus->hasInitialConditions());
 }
 
 }  // namespace DYN

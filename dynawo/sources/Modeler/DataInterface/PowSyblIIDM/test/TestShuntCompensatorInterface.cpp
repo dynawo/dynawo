@@ -27,22 +27,17 @@
 
 #include "gtest_dynawo.h"
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::Network;
-using powsybl::iidm::ShuntCompensator;
-using powsybl::iidm::Substation;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::VoltageLevel;
-
-TEST(DataInterfaceTest, ShuntCompensator) {
+static Network
+CreateShuntCompensatorNetwork() {
   Network network("test", "test");
 
   Substation& substation = network.newSubstation()
                                .setId("S1")
                                .setName("S1_NAME")
-                               .setCountry(powsybl::iidm::Country::FR)
+                               .setCountry(Country::FR)
                                .setTso("TSO")
                                .add();
 
@@ -70,7 +65,20 @@ TEST(DataInterfaceTest, ShuntCompensator) {
       .setSectionCount(2UL)
       .add();
 
-  ShuntCompensator& shuntCompensator = network.getShuntCompensator("SHUNT1");
+  return network;
+}  // CreateShuntCompensatorNetwork
+}  // namespace iidm
+}  // namespace powsybl
+
+namespace DYN {
+using powsybl::iidm::CreateShuntCompensatorNetwork;
+
+TEST(DataInterfaceTest, ShuntCompensator_1) {
+  powsybl::iidm::Network network = CreateShuntCompensatorNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::ShuntCompensator& shuntCompensator = network.getShuntCompensator("SHUNT1");
+
   ShuntCompensatorInterfaceIIDM shuntCompensatorIfce(shuntCompensator);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   shuntCompensatorIfce.setVoltageLevelInterface(voltageLevelIfce);
@@ -119,6 +127,8 @@ TEST(DataInterfaceTest, ShuntCompensator) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getStaticParameterValue<double>("v_pu"), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getStaticParameterValue<double>("angle_pu"), 0.);
 
+  ASSERT_FALSE(shuntCompensatorIfce.hasInitialConditions());
+
   vl1.newShuntCompensator()
       .setId("SHUNT2")
       .setName("SHUNT2_NAME")
@@ -134,7 +144,7 @@ TEST(DataInterfaceTest, ShuntCompensator) {
       .add()
       .setSectionCount(2)
       .add();
-  ShuntCompensator& shuntCompensator_2 = network.getShuntCompensator("SHUNT2");
+  powsybl::iidm::ShuntCompensator& shuntCompensator_2 = network.getShuntCompensator("SHUNT2");
   ShuntCompensatorInterfaceIIDM shuntCompensatorIfce_2(shuntCompensator_2);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce_2(new VoltageLevelInterfaceIIDM(vl1));
   shuntCompensatorIfce_2.setVoltageLevelInterface(voltageLevelIfce_2);
@@ -142,6 +152,16 @@ TEST(DataInterfaceTest, ShuntCompensator) {
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(0), 0.);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(1), 11.);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(2), 24.);
-}  // TEST(DataInterfaceTest, ShuntCompensator)
+}  // TEST(DataInterfaceTest, ShuntCompensator_1)
 
+TEST(DataInterfaceTest, ShuntCompensator_2) {
+  powsybl::iidm::Network network = CreateShuntCompensatorNetwork();
+  powsybl::iidm::ShuntCompensator& shuntCompensator = network.getShuntCompensator("SHUNT1");
+
+  shuntCompensator.getTerminal().setQ(0.0);
+
+  ShuntCompensatorInterfaceIIDM shuntCompensatorIfce(shuntCompensator);
+
+  ASSERT_TRUE(shuntCompensatorIfce.hasInitialConditions());
+}  // TEST(DataInterfaceTest, ShuntCompensator_2)
 }  // namespace DYN

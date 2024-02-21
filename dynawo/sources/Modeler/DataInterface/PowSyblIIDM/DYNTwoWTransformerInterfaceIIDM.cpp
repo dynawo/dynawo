@@ -40,6 +40,7 @@ using std::vector;
 namespace DYN {
 
 TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWindingsTransformer& tfo) :
+    TwoWTransformerInterface(false),
     tfoIIDM_(tfo),
     initialConnected1_(boost::none),
     initialConnected2_(boost::none) {
@@ -60,6 +61,10 @@ TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWin
   auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
   activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(tfo);
   destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
+  if (!std::isnan(tfoIIDM_.getTerminal1().getP()) || !std::isnan(tfoIIDM_.getTerminal1().getQ()) ||
+      !std::isnan(tfoIIDM_.getTerminal2().getP()) || !std::isnan(tfoIIDM_.getTerminal2().getQ())) {
+      hasInitialConditions(true);
+  }
 }
 
 TwoWTransformerInterfaceIIDM::~TwoWTransformerInterfaceIIDM() {

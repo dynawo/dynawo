@@ -36,8 +36,12 @@ namespace DYN {
 LccConverterInterfaceIIDM::~LccConverterInterfaceIIDM() {
 }
 
-LccConverterInterfaceIIDM::LccConverterInterfaceIIDM(powsybl::iidm::LccConverterStation& lcc) : InjectorInterfaceIIDM(lcc, lcc.getId()),
+LccConverterInterfaceIIDM::LccConverterInterfaceIIDM(powsybl::iidm::LccConverterStation& lcc) : LccConverterInterface(false),
+                                                                                                InjectorInterfaceIIDM(lcc, lcc.getId()),
                                                                                                 lccConverterIIDM_(lcc) {
+  if (hasQInjector() || hasPInjector()) {
+    hasInitialConditions(true);
+  }
   setType(ComponentInterface::LCC_CONVERTER);
 }
 
