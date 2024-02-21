@@ -34,8 +34,12 @@ ShuntCompensatorInterfaceIIDM::~ShuntCompensatorInterfaceIIDM() {
 }
 
 ShuntCompensatorInterfaceIIDM::ShuntCompensatorInterfaceIIDM(powsybl::iidm::ShuntCompensator& shunt) :
+ShuntCompensatorInterface(false),
 InjectorInterfaceIIDM(shunt, shunt.getId()),
 shuntCompensatorIIDM_(shunt) {
+  if (hasQInjector()) {
+    hasInitialConditions(true);
+  }
   setType(ComponentInterface::SHUNT);
   stateVariables_.resize(3);
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q

@@ -30,22 +30,16 @@
 
 #include "gtest_dynawo.h"
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::Generator;
-using powsybl::iidm::Network;
-using powsybl::iidm::Substation;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::VoltageLevel;
-
-TEST(DataInterfaceTest, Generator_1) {
+static Network
+createGeneratorNetwork() {
   Network network("test", "test");
-
   Substation& substation = network.newSubstation()
                                   .setId("S1")
                                   .setName("S1_NAME")
-                                  .setCountry(powsybl::iidm::Country::FR)
+                                  .setCountry(Country::FR)
                                   .setTso("TSO")
                                   .add();
 
@@ -58,27 +52,41 @@ TEST(DataInterfaceTest, Generator_1) {
                                 .setHighVoltageLimit(420.0)
                                 .add();
 
-  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+  vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
 
-  Generator& gen = vl1.newGenerator()
-                      .setId("GEN1")
-                      .setName("GEN1_NAME")
-                      .setBus(bus1.getId())
-                      .setConnectableBus(bus1.getId())
-                      .setEnergySource(powsybl::iidm::EnergySource::WIND)
-                      .setMaxP(50.0)
-                      .setMinP(3.0)
-                      .setRatedS(4.0)
-                      .setTargetP(45.0)
-                      .setTargetQ(5.0)
-                      .setTargetV(24.0)
-                      .setVoltageRegulatorOn(true)
-                      .add();
+  return network;
+}
+}  // namespace iidm
+}  // namespace powsybl
+
+namespace DYN {
+using powsybl::iidm::createGeneratorNetwork;
+
+TEST(DataInterfaceTest, Generator_1) {
+  powsybl::iidm::Network network = createGeneratorNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Generator& gen =    vl1.newGenerator()
+     .setId("GEN1")
+     .setName("GEN1_NAME")
+     .setBus(bus1.getId())
+     .setConnectableBus(bus1.getId())
+     .setEnergySource(powsybl::iidm::EnergySource::WIND)
+     .setMaxP(50.0)
+     .setMinP(3.0)
+     .setRatedS(4.0)
+     .setTargetP(45.0)
+     .setTargetQ(5.0)
+     .setTargetV(24.0)
+     .setVoltageRegulatorOn(true)
+     .add();
 
   GeneratorInterfaceIIDM genItf(gen);
   const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
   genItf.setVoltageLevelInterface(vlItf);
   ASSERT_EQ(genItf.getID(), "GEN1");
+
+  ASSERT_FALSE(genItf.hasInitialConditions());
 
   ASSERT_EQ(genItf.getComponentVarIndex(std::string("p")), GeneratorInterfaceIIDM::VAR_P);
   ASSERT_EQ(genItf.getComponentVarIndex(std::string("q")), GeneratorInterfaceIIDM::VAR_Q);
@@ -220,24 +228,10 @@ TEST(DataInterfaceTest, Generator_1) {
 }  // TEST(DataInterfaceTest, Generator_1)
 
 TEST(DataInterfaceTest, Generator_2) {
-  Network network("test", "test");
-
-  Substation& substation = network.newSubstation()
-                                  .setId("S1")
-                                  .setName("S1_NAME")
-                                  .setCountry(powsybl::iidm::Country::FR)
-                                  .setTso("TSO")
-                                  .add();
-
-  VoltageLevel& vl1 = substation.newVoltageLevel()
-                                .setId("VL1")
-                                .setTopologyKind(TopologyKind::BUS_BREAKER)
-                                .setNominalV(380.0)
-                                .add();
-
-  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
-
-  Generator& gen = vl1.newGenerator()
+  powsybl::iidm::Network network = createGeneratorNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Generator& gen = vl1.newGenerator()
                       .setId("GEN1")
                       .setName("GEN1_NAME")
                       .setConnectableBus(bus1.getId())
@@ -262,4 +256,29 @@ TEST(DataInterfaceTest, Generator_2) {
   ASSERT_EQ(genItf.getTargetQ(), 0.0);
   genItf.importStaticParameters();
 }  // TEST(DataInterfaceTest, Generator_2)
+
+TEST(DataInterfaceTest, Generator_3) {
+  powsybl::iidm::Network network = createGeneratorNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Generator& gen =  vl1.newGenerator()
+     .setId("GEN1")
+     .setName("GEN1_NAME")
+     .setBus(bus1.getId())
+     .setConnectableBus(bus1.getId())
+     .setMaxP(50.0)
+     .setMinP(3.0)
+     .setTargetP(45.0)
+     .setTargetQ(5.0)
+     .setTargetV(24.0)
+     .setVoltageRegulatorOn(true)
+     .add();
+
+  gen.getTerminal().setP(0.0);
+  gen.getTerminal().setQ(0.0);
+
+  GeneratorInterfaceIIDM genItf(gen);
+
+  ASSERT_TRUE(genItf.hasInitialConditions());
+}  // TEST(DataInterfaceTest, Generator_3)
 }  // namespace DYN

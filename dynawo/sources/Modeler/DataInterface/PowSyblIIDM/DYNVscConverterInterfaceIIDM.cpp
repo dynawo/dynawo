@@ -34,8 +34,13 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-VscConverterInterfaceIIDM::VscConverterInterfaceIIDM(powsybl::iidm::VscConverterStation& vsc) : InjectorInterfaceIIDM(vsc, vsc.getId()),
+VscConverterInterfaceIIDM::VscConverterInterfaceIIDM(powsybl::iidm::VscConverterStation& vsc) : VscConverterInterface(false),
+                                                                                                InjectorInterfaceIIDM(vsc, vsc.getId()),
                                                                                                 vscConverterIIDM_(vsc) {
+  if (hasQInjector() || hasPInjector()) {
+    hasInitialConditions(true);
+  }
+
   setType(ComponentInterface::VSC_CONVERTER);
 }
 

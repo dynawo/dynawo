@@ -36,8 +36,12 @@ DanglingLineInterfaceIIDM::~DanglingLineInterfaceIIDM() {
 }
 
 DanglingLineInterfaceIIDM::DanglingLineInterfaceIIDM(powsybl::iidm::DanglingLine& danglingLine) :
+DanglingLineInterface(false),
 InjectorInterfaceIIDM(danglingLine, danglingLine.getId()),
 danglingLineIIDM_(danglingLine) {
+  if (hasQInjector() || hasPInjector()) {
+    hasInitialConditions(true);
+  }
   setType(ComponentInterface::DANGLING_LINE);
   stateVariables_.resize(3);
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
