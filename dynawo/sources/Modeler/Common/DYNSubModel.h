@@ -26,8 +26,8 @@
 #include <list>
 #include <fstream>
 #include <iostream>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
+#include <unordered_map>
+#include <unordered_set>
 
 #include <boost/shared_ptr.hpp>
 
@@ -816,7 +816,7 @@ class SubModel {
    *
    * @return a map associating one variable and its name
    */
-  const boost::unordered_map<std::string, boost::shared_ptr<Variable> >& getVariableByName() const {
+  const std::unordered_map<std::string, boost::shared_ptr<Variable> >& getVariableByName() const {
     return variablesByName_;
   }
 
@@ -863,7 +863,7 @@ class SubModel {
    */
   void instantiateNonUnitaryParameters(const bool isInitParam,
       const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
-      boost::unordered_set<std::string>& addedParameter);
+      std::unordered_set<std::string>& addedParameter);
 
   /**
    * @brief set a parameter value from a parameters set (API PAR) (only for unitary cardinality)
@@ -943,7 +943,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return submodel parameters
    */
-  inline const boost::unordered_map<std::string, ParameterModeler>& getParameters(const bool isInitParam) const {
+  inline const std::unordered_map<std::string, ParameterModeler>& getParameters(const bool isInitParam) const {
     return (isInitParam ? getParametersInit() : getParametersDynamic());
   }
 
@@ -952,14 +952,14 @@ class SubModel {
    *
    * @return submodel attribute parametersDynamic_
    */
-  const boost::unordered_map<std::string, ParameterModeler>& getParametersDynamic() const;
+  const std::unordered_map<std::string, ParameterModeler>& getParametersDynamic() const;
 
   /**
    * @brief Getter for attribute parametersInit_
    *
    * @return submodel attribute parametersInit_
    */
-  const boost::unordered_map<std::string, ParameterModeler>& getParametersInit() const;
+  const std::unordered_map<std::string, ParameterModeler>& getParametersInit() const;
 
   /**
    * @brief Add parameters
@@ -1168,7 +1168,7 @@ class SubModel {
    *
    * @return map (name, variable)
    */
-  inline const boost::unordered_map<std::string, boost::shared_ptr<Variable> >& variablesByNameInit() {
+  inline const std::unordered_map<std::string, boost::shared_ptr<Variable> >& variablesByNameInit() {
     return variablesByNameInit_;
   }
 
@@ -1510,14 +1510,14 @@ class SubModel {
   std::vector<double> fLocalInit_;  ///< local buffer used for the init model
 
   std::vector<double> calculatedVars_;  ///< local buffer to fill when calculating calculated variables
-  boost::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByName_;  ///< association between variables and its name for dynamic model
-  boost::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameInit_;  ///< association between variables and its name for init model
+  std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByName_;  ///< association between variables and its name for dynamic model
+  std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameInit_;  ///< association between variables and its name for init model
 
   propertyContinuousVar_t* yType_;  ///< local buffer to use when accessing each variable property (Algebraic / Differential / External)
   propertyF_t* fType_;  ///< local buffer to use when accessing each residual function property(Algebraic / Differential)
 
-  boost::unordered_map<std::string, ParameterModeler> parametersDynamic_;  ///< hashmap of sub-model parameters
-  boost::unordered_map<std::string, ParameterModeler> parametersInit_;  ///< hashmap of sub-model parameters
+  std::unordered_map<std::string, ParameterModeler> parametersDynamic_;  ///< hashmap of sub-model parameters
+  std::unordered_map<std::string, ParameterModeler> parametersInit_;  ///< hashmap of sub-model parameters
 
   // Index to access data inside global buffers
   // -------------------------------------------

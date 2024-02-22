@@ -22,7 +22,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 
 #include <boost/shared_ptr.hpp>
 
@@ -283,7 +283,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief network submodels parameters setter
    * @param params vector of parameters used to set network submodels parameters
    */
-  virtual void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) = 0;
+  virtual void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) = 0;
 
   /**
    * @brief get a parameter with a given name from a vector of parameters
@@ -291,7 +291,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params vector of parameters
    * @return parameter with the given name
    */
-  ParameterModeler findParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const;
+  ParameterModeler findParameter(const std::string& name, const std::unordered_map<std::string, ParameterModeler>& params) const;
 
   /**
    * @brief true if a parameter with a given name is present in a vector of parameters
@@ -299,7 +299,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params vector of parameters
    * @return true if the parameter with the given name has been found, false otherwise
    */
-  bool hasParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const;
+  bool hasParameter(const std::string& name, const std::unordered_map<std::string, ParameterModeler>& params) const;
 
   /**
    * @brief set equation's formula
@@ -419,7 +419,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param ids id of the parameters
    * @return value of the parameter
    */
-  template <typename T> T getParameterDynamic(const boost::unordered_map<std::string, ParameterModeler>& params,
+  template <typename T> T getParameterDynamic(const std::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, const std::vector<std::string>& ids) const;
 
   /**
@@ -430,7 +430,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param ids prefix of the parameters
    * @return value of the parameter if foundParam==true, a default value if foundParam==false
    */
-  template <typename T> T getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+  template <typename T> T getParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids = std::vector<std::string>()) const;
 
   /**
@@ -452,7 +452,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param ids prefix of the parameters
    * @param value value of the parameter
    */
-  template <typename T> void findParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+  template <typename T> void findParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids, T& value) const;
 
   /**

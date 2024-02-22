@@ -60,8 +60,8 @@ Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
 }
 
 void
-Graph::setEdgesWeight(const boost::unordered_map<string, float>& edgeWeights) {
-  for (boost::unordered_map<string, float>::const_iterator iter = edgeWeights.begin(); iter != edgeWeights.end(); ++iter) {
+Graph::setEdgesWeight(const std::unordered_map<string, float>& edgeWeights) {
+  for (std::unordered_map<string, float>::const_iterator iter = edgeWeights.begin(); iter != edgeWeights.end(); ++iter) {
     Edge edge = edges_[iter->first];
     put(boost::edge_weight_t(), internalGraph_, edge, iter->second);
   }
@@ -69,7 +69,7 @@ Graph::setEdgesWeight(const boost::unordered_map<string, float>& edgeWeights) {
 
 void
 Graph::dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
-    const boost::unordered_map<std::string, float>& edgeWeights,
+    const std::unordered_map<std::string, float>& edgeWeights,
     PathDescription& path) {
   if (vertexOrigin == vertexExtremity)
     return;
@@ -97,7 +97,7 @@ Graph::dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
 }
 
 bool
-Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const boost::unordered_map<string, float> & edgeWeights) {
+Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map<string, float> & edgeWeights) {
   if (vertexOrigin == vertexExtremity)
     return true;
   PathDescription path;
@@ -117,7 +117,7 @@ Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const boost::u
 
 void
 Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
-    const boost::unordered_map<string, float> & edgeWeights, PathDescription& path) {
+    const std::unordered_map<string, float> & edgeWeights, PathDescription& path) {
   if (vertexOrigin == vertexExtremity)
     return;
 
@@ -125,7 +125,7 @@ Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
 }
 
 std::pair<unsigned int, vector<unsigned int> >
-Graph::calculateComponents(const boost::unordered_map<string, float>& edgeWeights) {
+Graph::calculateComponents(const std::unordered_map<string, float>& edgeWeights) {
   setEdgesWeight(edgeWeights);
   positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
   FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);

@@ -627,7 +627,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
 
   mm->setSharedParametersDefaultValues();
   mm->setSharedParametersDefaultValuesInit();
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
+  for (std::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
       it != itEnd; ++it) {
     if (it->first == "MyParam")
       ASSERT_EQ(it->second.getValue<int>(), 2);
@@ -647,7 +647,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->defineNamesInit();
 
   mm->loadParameters(mapParameters["MyModelica-MyModelManager-parameters.bin"]);
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
+  for (std::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
       it != itEnd; ++it) {
     if (it->first == "MyParam")
       ASSERT_EQ(it->second.getValue<int>(), 0);
@@ -659,7 +659,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
 
   mm->initParams();
 
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
+  for (std::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
       it != itEnd; ++it) {
     if (it->first == "MyParam")
       ASSERT_EQ(it->second.getValue<int>(), 4);

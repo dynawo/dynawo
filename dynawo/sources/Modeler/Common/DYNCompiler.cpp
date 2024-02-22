@@ -22,12 +22,11 @@
 #include <list>
 #include <set>
 #include <memory>
+#include <unordered_set>
 #include <boost/algorithm/string/replace.hpp>
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 
 #include "DYNStaticRefInterface.h"
 #include "DYNConnectInterface.h"
@@ -74,8 +73,6 @@ using std::vector;
 using boost::dynamic_pointer_cast;
 using boost::lexical_cast;
 using boost::shared_ptr;
-using boost::unordered_map;
-using boost::unordered_set;
 
 namespace DYN {
 
@@ -626,8 +623,8 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
   // only keep external variables for which no internal connect has already been conducted
   shared_ptr<externalVariables::VariablesCollection> modelExternalvariables = externalVariables::VariablesCollectionFactory::newCollection();
   bool atLeastOneExternalVariable = false;
-  unordered_set<string> extvarIds;
-  unordered_map<string, shared_ptr<externalVariables::Variable> > connectedDiscreteExtVar;
+  std::unordered_set<std::string> extvarIds;
+  std::unordered_map<string, shared_ptr<externalVariables::Variable> > connectedDiscreteExtVar;
   for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel = unitDynamicModels.begin();
       itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
     string itUnitDynamicModelName = itUnitDynamicModel->first;
@@ -684,13 +681,13 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
     }
   }
   size_t index = 0;
-  unordered_map<string, DiscreteExtVar> varNameToConnIndex;
+  std::unordered_map<string, DiscreteExtVar> varNameToConnIndex;
   for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = internalConnects.begin();
       itInternConnect != internalConnects.end(); ++itInternConnect) {
     std::string firstVar = (*itInternConnect)->getFirstModelId()+"."+(*itInternConnect)->getFirstVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
+    std::unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
     std::string secondVar = (*itInternConnect)->getSecondModelId()+"."+(*itInternConnect)->getSecondVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
+    std::unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
     if (it != connectedDiscreteExtVar.end() && it2 != connectedDiscreteExtVar.end()) {
       string var1FullName = (*itInternConnect)->getFirstModelId()+"."+it->second->getId();
       string var2FullName = (*itInternConnect)->getSecondModelId()+"."+it2->second->getId();
@@ -703,7 +700,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
       } else if (firstVarFound && secondVarFound) {
         size_t indexToKeep = varNameToConnIndex[firstVar].connectionId;
         size_t indexToDrop = varNameToConnIndex[secondVar].connectionId;
-        for (unordered_map<string, DiscreteExtVar>::iterator itVarName = varNameToConnIndex.begin(), itVarNameEnd = varNameToConnIndex.end();
+        for (std::unordered_map<string, DiscreteExtVar>::iterator itVarName = varNameToConnIndex.begin(), itVarNameEnd = varNameToConnIndex.end();
             itVarName != itVarNameEnd; ++itVarName) {
           if (itVarName->second.connectionId == indexToDrop)
             itVarName->second.connectionId = indexToKeep;
@@ -719,9 +716,9 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
   for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = macroConnection.begin();
       itInternConnect != macroConnection.end(); ++itInternConnect) {
     std::string firstVar = (*itInternConnect)->getFirstModelId()+"."+(*itInternConnect)->getFirstVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
+    std::unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
     std::string secondVar = (*itInternConnect)->getSecondModelId()+"."+(*itInternConnect)->getSecondVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
+    std::unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
     if (it != connectedDiscreteExtVar.end() && it2 != connectedDiscreteExtVar.end()) {
       bool firstVarFound = (varNameToConnIndex.find(firstVar) != varNameToConnIndex.end());
       bool secondVarFound = (varNameToConnIndex.find(secondVar) != varNameToConnIndex.end());
@@ -734,7 +731,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
       } else if (firstVarFound && secondVarFound) {
         size_t indexToKeep = varNameToConnIndex[firstVar].connectionId;
         size_t indexToDrop = varNameToConnIndex[secondVar].connectionId;
-        for (unordered_map<string, DiscreteExtVar>::iterator itVarName = varNameToConnIndex.begin(), itVarNameEnd = varNameToConnIndex.end();
+        for (std::unordered_map<string, DiscreteExtVar>::iterator itVarName = varNameToConnIndex.begin(), itVarNameEnd = varNameToConnIndex.end();
             itVarName != itVarNameEnd; ++itVarName) {
           if (itVarName->second.connectionId == indexToDrop)
             itVarName->second.connectionId = indexToKeep;
@@ -749,7 +746,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
 
   for (size_t idx = 0; idx < index; ++idx) {
     vector<string> connectedDiscreteVarNames;
-    for (unordered_map<string, DiscreteExtVar>::const_iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
+    for (std::unordered_map<string, DiscreteExtVar>::const_iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
         it != itEnd; ++it) {
       if (it->second.connectionId == idx) {
         connectedDiscreteVarNames.push_back(it->first);

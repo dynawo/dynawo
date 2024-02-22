@@ -1142,7 +1142,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 
   std::vector<ParameterModeler> parameters;
   dl->defineParameters(parameters);
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   parameters[0].setValue<double>(10., PAR);
   parametersModels.insert(std::make_pair(parameters[0].getName(), parameters[0]));
   parameters[1].setValue<bool>(true, PAR);
@@ -1309,7 +1309,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   dl->defineNonGenericParameters(parameters);
   ASSERT_TRUE(parameters.empty());
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   dl->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 2);
   ASSERT_EQ(parameters[0].getName(), "line_currentLimit_maxTimeOperation");
