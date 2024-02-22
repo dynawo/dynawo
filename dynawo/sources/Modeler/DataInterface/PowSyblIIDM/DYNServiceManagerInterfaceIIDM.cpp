@@ -76,7 +76,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   buildGraph(graph, *vlIt);
 
   // Change weight of edges
-  boost::unordered_map<std::string, float> weights;
+  std::unordered_map<std::string, float> weights;
   for (const auto& sw : (*vlIt)->getSwitches()) {
     weights[sw->getID()] = sw->isOpen() ? 0 : 1;
   }
@@ -118,7 +118,7 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
   buildGraph(graph, *vlIt);
 
   // Change weight of edges
-  boost::unordered_map<std::string, float> weights;
+  std::unordered_map<std::string, float> weights;
   for (const auto& sw : (*vlIt)->getSwitches()) {
     weights[sw->getID()] = sw->isOpen() ? 0 : 1;
   }

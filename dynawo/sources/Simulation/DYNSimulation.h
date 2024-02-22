@@ -22,8 +22,8 @@
 
 #include <vector>
 #include <queue>
+#include <unordered_map>
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_map.hpp>
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
 
@@ -652,7 +652,7 @@ class Simulation {
   std::string networkParFile_;  ///< file containing all parameters for the network
   std::string networkParSet_;  ///< id of the set of parameters to use for the network
   std::string initialStateFile_;  ///< dump to load for each state variable
-  boost::unordered_map<std::string,
+  std::unordered_map<std::string,
           boost::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
 
   std::string outputsDirectory_;  ///< directory for simulation outputs

@@ -290,9 +290,9 @@ class ModelVoltageLevel : public NetworkComponent {
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
-   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::defineNonGenericParameters(std::vector<ParameterModeler>& parameters)
@@ -336,8 +336,8 @@ class ModelVoltageLevel : public NetworkComponent {
   void defineGraph();
 
   boost::optional<Graph> graph_;  ///< topology graph to find node connection
-  boost::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
-  boost::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > ClosestBBS_;  ///< node id -> closest bbs + shortest path
+  std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
+  std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > ClosestBBS_;  ///< node id -> closest bbs + shortest path
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
   std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
   std::map<int, boost::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index

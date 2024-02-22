@@ -400,9 +400,9 @@ TEST(CommonTest, testSparseMatrix) {
   remove("tmpMat");
 
   // erase
-  boost::unordered_set<int> rows;
+  std::unordered_set<int> rows;
   rows.insert(0);
-  boost::unordered_set<int> columns;
+  std::unordered_set<int> columns;
   columns.insert(1);
   SparseMatrix M;
   M.init(2, 2);
