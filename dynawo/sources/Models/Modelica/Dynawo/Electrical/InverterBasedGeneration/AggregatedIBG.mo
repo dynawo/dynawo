@@ -195,8 +195,8 @@ equation
     Line(points = {{-39, -280}, {48, -280}}, color = {0, 0, 127}));
   connect(iQLimiter.y, iQcmdFirstOrder.u) annotation(
     Line(points = {{71, -280}, {98, -280}}, color = {0, 0, 127}));
-  connect(PLLFreeze.omegaPLLPu, omegaFilter.u) annotation(
-    Line(points = {{61, -3}, {70, -3}, {70, 10}, {-160, 10}, {-160, -344}, {-102, -344}}, color = {0, 0, 127}));
+  connect(omegaRefPu, omegaFilter.u) annotation(
+    Line(points = {{8, 0}, {20, 0}, {20, 20}, {-160, 20}, {-160, -344}, {-102, -344}}, color = {0, 0, 127}));
   connect(PextPu, add2.u1) annotation(
     Line(points = {{-94, -140}, {-38, -140}}, color = {0, 0, 127}));
   connect(add2.y, division.u1) annotation(
