@@ -17,6 +17,8 @@
 #include "DYNInjectorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 
+#include "DYNCommon.h"
+
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/ShuntCompensator.hpp>
@@ -49,6 +51,7 @@ CreateShuntCompensatorNetwork() {
                           .add();
 
   Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+  bus1.setV(382.).setAngle(90);
 
   vl1.newShuntCompensator()
       .setId("SHUNT1")
@@ -110,6 +113,19 @@ TEST(DataInterfaceTest, ShuntCompensator_1) {
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(1), 12.);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(2), 24.);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(3), 36.);
+  shuntCompensatorIfce.importStaticParameters();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getStaticParameterValue<double>("v_pu"), 382.0/380.0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getStaticParameterValue<double>("angle_pu"), M_PI/2.0);
+  shuntCompensator.setTargetV(380.).setTargetDeadband(1.);
+  shuntCompensator.setVoltageRegulatorOn(false);
+  ASSERT_EQ(shuntCompensatorIfce.isVoltageRegulationOn(), false);
+  shuntCompensator.setVoltageRegulatorOn(true);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getTargetV(), 380.);
+  ASSERT_EQ(shuntCompensatorIfce.isVoltageRegulationOn(), true);
+  shuntCompensatorIfce.setBusInterface(nullptr);
+  shuntCompensatorIfce.importStaticParameters();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getStaticParameterValue<double>("v_pu"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntCompensatorIfce.getStaticParameterValue<double>("angle_pu"), 0.);
 
   ASSERT_FALSE(shuntCompensatorIfce.hasInitialConditions());
 

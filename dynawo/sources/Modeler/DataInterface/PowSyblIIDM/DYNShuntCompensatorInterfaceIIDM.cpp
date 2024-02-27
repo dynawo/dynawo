@@ -87,6 +87,16 @@ ShuntCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
   double B = shuntCompensatorIIDM_.getB();
   staticParameters_.insert(std::make_pair("isCapacitor", StaticParameter("isCapacitor", StaticParameter::BOOL).setValue(B > 0)));
+  if (getBusInterface()) {
+    double U0 = getBusInterface()->getV0();
+    double vNom = shuntCompensatorIIDM_.getTerminal().getVoltageLevel().getNominalV();
+    double angle = getBusInterface()->getAngle0();
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0/vNom)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(angle * M_PI / 180)));
+  } else {
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
+  }
 }
 
 void
