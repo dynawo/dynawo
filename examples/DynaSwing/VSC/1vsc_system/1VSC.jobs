@@ -11,12 +11,12 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 --><jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="Single GFL VSC">
+    <job name="Scenario 1 - Decrease P_set ">
 
         <solver lib="dynawo_SolverIDA" parFile="1VSC.par" parId="Solver"/>
 
-        <modeler compileDir="outputs/compilation">
-            <dynModels dydFile="1VSC.dyd"/>
+        <modeler compileDir="outputs/scenario_1/compilation">
+            <dynModels dydFile="1VSC_scenario_1.dyd"/>
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true">
               <directory path="." recursive="false"/>
@@ -25,11 +25,79 @@
 
         <simulation startTime="0" stopTime="2"/>
 
-        <outputs directory="outputs">
+        <outputs directory="outputs/scenario_1">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>
         </outputs>
     </job>
+
+
+    <job name="Scenario 2 - Increase P_set ">
+
+        <solver lib="dynawo_SolverIDA" parFile="1VSC.par" parId="Solver"/>
+
+        <modeler compileDir="outputs/scenario_2/compilation">
+            <dynModels dydFile="1VSC_scenario_2.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="2"/>
+
+        <outputs directory="outputs/scenario_2/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+    <job name="Scenario 3 - Increase U_set ">
+
+        <solver lib="dynawo_SolverIDA" parFile="1VSC.par" parId="Solver"/>
+
+        <modeler compileDir="outputs/scenario_3/compilation">
+            <dynModels dydFile="1VSC_scenario_3.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="2"/>
+
+        <outputs directory="outputs/scenario_3/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+    <job name="Scenario 4 - Decrease U_set ">
+
+        <solver lib="dynawo_SolverIDA" parFile="1VSC.par" parId="Solver"/>
+
+        <modeler compileDir="outputs/scenario_4/compilation">
+            <dynModels dydFile="1VSC_scenario_4.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="2"/>
+
+        <outputs directory="outputs/scenario_4/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
 </jobs>
