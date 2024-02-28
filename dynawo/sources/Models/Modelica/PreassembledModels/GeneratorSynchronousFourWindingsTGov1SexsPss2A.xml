@@ -17,7 +17,7 @@
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS_INIT"/>
     <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
-    <dyn:unitDynamicModel id="pss" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>
+    <dyn:unitDynamicModel id="pss" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A1" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>

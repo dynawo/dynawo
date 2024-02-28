@@ -39,6 +39,7 @@ set(MODEL_FILES
   SecondOrder.mo
   SqrtNoEvent.mo
   VarLimPIDFreeze.mo
+  Washout.mo
   WeightedDifference.mo
   WeightedDifference.extvar
   )
