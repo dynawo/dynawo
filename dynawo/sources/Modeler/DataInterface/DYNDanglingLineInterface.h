@@ -38,6 +38,12 @@ class CurrentLimitInterface;
 class DanglingLineInterface : public ComponentInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit DanglingLineInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
   virtual ~DanglingLineInterface() { }

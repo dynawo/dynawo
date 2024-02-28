@@ -27,32 +27,34 @@
 
 #include <limits.h>
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-TEST(DataInterfaceTest, Line) {
-  powsybl::iidm::Network network("test", "test");
-  powsybl::iidm::Substation& substation = network.newSubstation()
+static Network
+createLineNetwork() {
+  Network network("test", "test");
+  Substation& substation = network.newSubstation()
                                      .setId("S1")
                                      .setName("S1_NAME")
-                                     .setCountry(powsybl::iidm::Country::FR)
+                                     .setCountry(Country::FR)
                                      .setTso("TSO")
                                      .add();
 
-  powsybl::iidm::VoltageLevel& vl1 = substation.newVoltageLevel()
+  VoltageLevel& vl1 = substation.newVoltageLevel()
                                      .setId("VL1")
                                      .setName("VL1_NAME")
-                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setTopologyKind(TopologyKind::BUS_BREAKER)
                                      .setNominalV(380.0)
                                      .setLowVoltageLimit(340.0)
                                      .setHighVoltageLimit(420.0)
                                      .add();
 
-  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+  Bus& vl1Bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
 
-  powsybl::iidm::VoltageLevel& vl2 = substation.newVoltageLevel()
+  VoltageLevel& vl2 = substation.newVoltageLevel()
                                      .setId("VL2")
                                      .setName("VL2_NAME")
-                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setTopologyKind(TopologyKind::BUS_BREAKER)
                                      .setNominalV(225.0)
                                      .setLowVoltageLimit(200.0)
                                      .setHighVoltageLimit(260.0)
@@ -60,28 +62,28 @@ TEST(DataInterfaceTest, Line) {
 
   vl2.getBusBreakerView().newBus().setId("VL2_BUS1").add();
 
-  powsybl::iidm::Substation& substation2 = network.newSubstation()
+  Substation& substation2 = network.newSubstation()
                                      .setId("S2")
                                      .setName("S2_NAME")
-                                     .setCountry(powsybl::iidm::Country::FR)
+                                     .setCountry(Country::FR)
                                      .setTso("TSO")
                                      .add();
 
-  powsybl::iidm::VoltageLevel& vl3 = substation2.newVoltageLevel()
+  VoltageLevel& vl3 = substation2.newVoltageLevel()
                                      .setId("VL3")
                                      .setName("VL3_NAME")
-                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setTopologyKind(TopologyKind::BUS_BREAKER)
                                      .setNominalV(360.0)
                                      .setLowVoltageLimit(340.0)
                                      .setHighVoltageLimit(420.0)
                                      .add();
 
-  powsybl::iidm::Bus& vl3Bus1 = vl3.getBusBreakerView().newBus().setId("VL3_BUS1").add();
+  Bus& vl3Bus1 = vl3.getBusBreakerView().newBus().setId("VL3_BUS1").add();
 
-  powsybl::iidm::VoltageLevel& vl4 = substation2.newVoltageLevel()
+  VoltageLevel& vl4 = substation2.newVoltageLevel()
                                      .setId("VL4")
                                      .setName("VL4_NAME")
-                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setTopologyKind(TopologyKind::BUS_BREAKER)
                                      .setNominalV(225.0)
                                      .setLowVoltageLimit(200.0)
                                      .setHighVoltageLimit(260.0)
@@ -89,21 +91,36 @@ TEST(DataInterfaceTest, Line) {
 
   vl4.getBusBreakerView().newBus().setId("VL4_BUS1").add();
 
-  powsybl::iidm::Line& MyLine = network.newLine()
-                                    .setId("VL1_VL3")
-                                    .setVoltageLevel1(vl1.getId())
-                                    .setBus1(vl1Bus1.getId())
-                                    .setConnectableBus1(vl1Bus1.getId())
-                                    .setVoltageLevel2(vl3.getId())
-                                    .setBus2(vl3Bus1.getId())
-                                    .setConnectableBus2(vl3Bus1.getId())
-                                    .setR(3.0)
-                                    .setX(33.33)
-                                    .setG1(1.0)
-                                    .setB1(0.2)
-                                    .setG2(2.0)
-                                    .setB2(0.4)
-                                    .add();
+  network.newLine().setId("VL1_VL3")
+                    .setVoltageLevel1(vl1.getId())
+                    .setBus1(vl1Bus1.getId())
+                    .setConnectableBus1(vl1Bus1.getId())
+                    .setVoltageLevel2(vl3.getId())
+                    .setBus2(vl3Bus1.getId())
+                    .setConnectableBus2(vl3Bus1.getId())
+                    .setR(3.0)
+                    .setX(33.33)
+                    .setG1(1.0)
+                    .setB1(0.2)
+                    .setG2(2.0)
+                    .setB2(0.4)
+                    .add();
+  return network;
+}  // createLineNetwork
+}  // namespace iidm
+}  // namespace powsybl
+
+namespace DYN {
+
+using powsybl::iidm::createLineNetwork;
+
+TEST(DataInterfaceTest, Line_1) {
+  powsybl::iidm::Network network = createLineNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::VoltageLevel& vl3 = network.getVoltageLevel("VL3");
+  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Bus& vl3Bus1 = vl3.getBusBreakerView().getBus("VL3_BUS1");
+  powsybl::iidm::Line& MyLine = network.getLine("VL1_VL3");
 
   LineInterfaceIIDM li(MyLine);
   ASSERT_EQ(li.getID(), "VL1_VL3");
@@ -175,6 +192,8 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_DOUBLE_EQ(li.getP2(), 500.0);
   ASSERT_DOUBLE_EQ(li.getQ2(), 222.0);
 
+  ASSERT_FALSE(li.hasInitialConditions());
+
   ASSERT_EQ(li.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 0);
   const boost::shared_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
@@ -241,5 +260,19 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_DOUBLE_EQ(li2.getP2(), 0.0);
   ASSERT_DOUBLE_EQ(li2.getQ1(), 0.0);
   ASSERT_DOUBLE_EQ(li2.getQ2(), 0.0);
-}  // TEST(DataInterfaceTest, Line)
+}  // TEST(DataInterfaceTest, Line_1)
+
+TEST(DataInterfaceTest, Line_2) {
+  powsybl::iidm::Network network = createLineNetwork();
+  powsybl::iidm::Line& MyLine = network.getLine("VL1_VL3");
+
+  MyLine.getTerminal1().setP(0.0);
+  MyLine.getTerminal2().setP(0.0);
+  MyLine.getTerminal1().setQ(0.0);
+  MyLine.getTerminal2().setQ(0.0);
+
+  LineInterfaceIIDM li(MyLine);
+
+  ASSERT_TRUE(li.hasInitialConditions());
+}  // TEST(DataInterfaceTest, Line_2)
 }  // namespace DYN

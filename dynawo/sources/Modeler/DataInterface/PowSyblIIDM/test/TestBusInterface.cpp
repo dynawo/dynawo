@@ -77,6 +77,7 @@ TEST(DataInterfaceTest, testBusInterface) {
   ASSERT_EQ(bus.getCountry(), "");
   bus.setCountry("AF");
   ASSERT_EQ(bus.getCountry(), "AF");
+  ASSERT_TRUE(bus.hasInitialConditions());
 }
 
 TEST(DataInterfaceTest, testBusInterfaceCornerCases) {
@@ -101,6 +102,7 @@ TEST(DataInterfaceTest, testBusInterfaceCornerCases) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getAngle0(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVMax(), 480.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVMin(), 320.);
+  ASSERT_FALSE(bus.hasInitialConditions());
 }
 
 TEST(DataInterfaceTest, testCalculatedBusInterface) {
@@ -214,6 +216,7 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   ASSERT_EQ(bus.getNodes().size(), 1);
   ASSERT_TRUE(bus.hasNode(8));
   ASSERT_FALSE(bus.hasNode(2));
+  ASSERT_TRUE(bus.hasInitialConditions());
 }
 
 }  // namespace DYN

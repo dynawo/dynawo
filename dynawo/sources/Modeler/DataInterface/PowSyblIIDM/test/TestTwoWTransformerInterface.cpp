@@ -30,25 +30,16 @@
 #include "DYNRatioTapChangerInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::Load;
-using powsybl::iidm::LoadType;
-using powsybl::iidm::Network;
-using powsybl::iidm::PhaseTapChanger;
-using powsybl::iidm::Substation;
-using powsybl::iidm::Terminal;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::TwoWindingsTransformer;
-using powsybl::iidm::VoltageLevel;
-
-TEST(DataInterfaceTest, TwoWTransformer_1) {
+static Network
+CreateTwoWTransformerNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
       .setId("S1")
       .setName("S1_NAME")
-      .setCountry(powsybl::iidm::Country::FR)
+      .setCountry(Country::FR)
       .setTso("TSO")
       .add();
 
@@ -65,7 +56,7 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
       .setId("VL1_BUS1")
       .add();
 
-  Load& load1 = vl1.newLoad()
+  vl1.newLoad()
       .setId("LOAD1")
       .setName("LOAD1_NAME")
       .setBus(vl1Bus1.getId())
@@ -88,7 +79,7 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
       .setId("VL2_BUS1")
       .add();
 
-  Load& load2 = vl2.newLoad()
+  vl2.newLoad()
       .setId("LOAD2")
       .setName("LOAD2_NAME")
       .setBus(vl2Bus1.getId())
@@ -97,8 +88,24 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
       .setP0(60.0)
       .setQ0(70.0)
       .add();
+  return network;
+}  // CreateTwoWTransformerNetwork
+}  // namespace iidm
+}  // namespace powsybl
 
-  TwoWindingsTransformer& transformer = substation.newTwoWindingsTransformer()
+namespace DYN {
+using powsybl::iidm::CreateTwoWTransformerNetwork;
+
+TEST(DataInterfaceTest, TwoWTransformer_1) {
+  powsybl::iidm::Network network = CreateTwoWTransformerNetwork();
+  powsybl::iidm::Substation& substation = network.getSubstation("S1");
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::VoltageLevel& vl2 = network.getVoltageLevel("VL2");
+  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Bus& vl2Bus1 = vl2.getBusBreakerView().getBus("VL2_BUS1");
+  powsybl::iidm::Load& load1 = network.getLoad("LOAD1");
+  powsybl::iidm::Load& load2 = network.getLoad("LOAD2");
+  substation.newTwoWindingsTransformer()
       .setId("2WT_VL1_VL2")
       .setVoltageLevel1(vl1.getId())
       .setBus1(vl1Bus1.getId())
@@ -114,6 +121,7 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
       .setRatedU2(0.4)
       .setRatedS(3.0)
       .add();
+  powsybl::iidm::TwoWindingsTransformer& transformer = network.getTwoWindingsTransformer("2WT_VL1_VL2");
 
   TwoWTransformerInterfaceIIDM tfoInterface(transformer);
   ASSERT_EQ(tfoInterface.getID(), "2WT_VL1_VL2");
@@ -200,7 +208,7 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
     .endStep()
     .setLoadTapChangingCapabilities(true)
     .setRegulating(true)
-    .setRegulationTerminal(stdcxx::ref<Terminal>(load1.getTerminal()))
+    .setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(load1.getTerminal()))
     .setTargetV(25.0)
     .setTargetDeadband(1.0)
     .add();
@@ -247,9 +255,9 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
     .setRho(208.0)
     .setX(209.0)
     .endStep()
-    .setRegulationMode(PhaseTapChanger::RegulationMode::ACTIVE_POWER_CONTROL)
+    .setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::ACTIVE_POWER_CONTROL)
     .setRegulating(false)
-    .setRegulationTerminal(stdcxx::ref<Terminal>(load2.getTerminal()))
+    .setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(load2.getTerminal()))
     .setRegulationValue(250.0)
     .setTargetDeadband(2.0)
     .add();
@@ -278,46 +286,55 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
   transformer.getTerminal2().setQ(8.0);
   ASSERT_EQ(tfoInterface.getQ2(), 8.0);
 
+  ASSERT_FALSE(tfoInterface.hasInitialConditions());
+
   // TODO(TBA) tfoInterface.importStaticParameters();
   // TODO(TBA) tfoInterface.exportStateVariablesUnitComponent();
 }  // TEST(DataInterfaceTest, TwoWTransformer_1)
 
+TEST(DataInterfaceTest, TwoWTransformer_2) {
+  powsybl::iidm::Network network = CreateTwoWTransformerNetwork();
+  powsybl::iidm::Substation& substation = network.getSubstation("S1");
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::VoltageLevel& vl2 = network.getVoltageLevel("VL2");
+  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Bus& vl2Bus1 = vl2.getBusBreakerView().getBus("VL2_BUS1");
+  substation.newTwoWindingsTransformer()
+      .setId("2WT_VL1_VL2")
+      .setVoltageLevel1(vl1.getId())
+      .setBus1(vl1Bus1.getId())
+      .setConnectableBus1(vl1Bus1.getId())
+      .setVoltageLevel2(vl2.getId())
+      .setBus2(vl2Bus1.getId())
+      .setConnectableBus2(vl2Bus1.getId())
+      .setR(3.0)
+      .setX(33.0)
+      .setG(1.0)
+      .setB(0.2)
+      .setRatedU1(2.0)
+      .setRatedU2(0.4)
+      .setRatedS(3.0)
+      .add();
+  powsybl::iidm::TwoWindingsTransformer& transformer = network.getTwoWindingsTransformer("2WT_VL1_VL2");
+
+  transformer.getTerminal1().setP(0.0);
+  transformer.getTerminal1().setQ(0.0);
+  transformer.getTerminal2().setP(0.0);
+  transformer.getTerminal2().setQ(0.0);
+
+  TwoWTransformerInterfaceIIDM tfoInterface(transformer);
+
+  ASSERT_TRUE(tfoInterface.hasInitialConditions());
+}  // TEST(DataInterfaceTest, TwoWTransformer_2)
+
 TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
-  Network network("test", "test");
-  Substation& substation = network.newSubstation()
-      .setId("S1")
-      .setName("S1_NAME")
-      .setCountry(powsybl::iidm::Country::FR)
-      .setTso("TSO")
-      .add();
-
-  VoltageLevel& vl1 = substation.newVoltageLevel()
-      .setId("VL1")
-      .setName("VL1_NAME")
-      .setTopologyKind(TopologyKind::BUS_BREAKER)
-      .setNominalV(380.0)
-      .setLowVoltageLimit(340.0)
-      .setHighVoltageLimit(420.0)
-      .add();
-
-  Bus& vl1Bus1 = vl1.getBusBreakerView().newBus()
-      .setId("VL1_BUS1")
-      .add();
-
-  VoltageLevel& vl2 = substation.newVoltageLevel()
-      .setId("VL2")
-      .setName("VL2_NAME")
-      .setTopologyKind(TopologyKind::BUS_BREAKER)
-      .setNominalV(225.0)
-      .setLowVoltageLimit(200.0)
-      .setHighVoltageLimit(260.0)
-      .add();
-
-  Bus& vl2Bus1 = vl2.getBusBreakerView().newBus()
-      .setId("VL2_BUS1")
-      .add();
-
-  TwoWindingsTransformer& transformer = substation.newTwoWindingsTransformer()
+  powsybl::iidm::Network network = CreateTwoWTransformerNetwork();
+  powsybl::iidm::Substation& substation = network.getSubstation("S1");
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::VoltageLevel& vl2 = network.getVoltageLevel("VL2");
+  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Bus& vl2Bus1 = vl2.getBusBreakerView().getBus("VL2_BUS1");
+  substation.newTwoWindingsTransformer()
       .setId("2WT_VL1_VL2")
       .setVoltageLevel1(vl1.getId())
       .setConnectableBus1(vl1Bus1.getId())
@@ -331,6 +348,7 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
       .setRatedU2(0.4)
       .setRatedS(3.0)
       .add();
+  powsybl::iidm::TwoWindingsTransformer& transformer = network.getTwoWindingsTransformer("2WT_VL1_VL2");
 
   TwoWTransformerInterfaceIIDM tfoInterface(transformer);
   const boost::shared_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));

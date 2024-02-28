@@ -40,6 +40,12 @@ class VoltageLevelInterface;
 class TwoWTransformerInterface : public ComponentInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit TwoWTransformerInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
   virtual ~TwoWTransformerInterface() { }

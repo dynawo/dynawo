@@ -34,13 +34,18 @@ using std::string;
 namespace DYN {
 
 BusInterfaceIIDM::BusInterfaceIIDM(Bus& bus) :
+BusInterface(false),
 busIIDM_(bus),
 hasConnection_(false) {
   setType(ComponentInterface::BUS);
-  if (!std::isnan(busIIDM_.getV()))
+  if (!std::isnan(busIIDM_.getV())) {
+    hasInitialConditions(true);
     U0_ = busIIDM_.getV();
-  if (!std::isnan(busIIDM_.getAngle()))
+  }
+  if (!std::isnan(busIIDM_.getAngle())) {
+    hasInitialConditions(true);
     angle0_ = busIIDM_.getAngle();
+  }
 
   stateVariables_.resize(2);
   bool neededForCriteriaCheck = true;

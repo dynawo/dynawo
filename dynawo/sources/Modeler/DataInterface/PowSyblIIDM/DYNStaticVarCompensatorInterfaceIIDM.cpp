@@ -40,8 +40,13 @@ StaticVarCompensatorInterfaceIIDM::~StaticVarCompensatorInterfaceIIDM() {
 }
 
 StaticVarCompensatorInterfaceIIDM::StaticVarCompensatorInterfaceIIDM(StaticVarCompensator& svc) :
+StaticVarCompensatorInterface(false),
 InjectorInterfaceIIDM(svc, svc.getId()),
 staticVarCompensatorIIDM_(svc) {
+  if (hasQInjector() || hasPInjector()) {
+    hasInitialConditions(true);
+  }
+
   setType(ComponentInterface::SVC);
 
   auto libPath = IIDMExtensions::findLibraryPath();
