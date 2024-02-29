@@ -16,6 +16,7 @@ add_subdirectory(Standard St)
 set(MODEL_FILES
   package.mo
   package.order
+  Exciter_INIT.mo
   )
 
 #
