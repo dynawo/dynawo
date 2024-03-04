@@ -70,7 +70,7 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Controls
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.HYGOV hygov(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.HYGOV1 hygov(
     At = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.At],
     DTurb = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.DTurb],
     FlowNoLoad = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.FlowNoLoad],

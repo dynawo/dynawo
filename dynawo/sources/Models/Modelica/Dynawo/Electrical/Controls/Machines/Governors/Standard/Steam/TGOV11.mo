@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model TGOV1 "IEEE Governor type TGOV1"
+model TGOV11 "First implementation of IEEE governor type TGOV1"
 
   parameter Types.PerUnit R "Controller droop";
   parameter Types.Time Tg1 "Governor time constant in s";
@@ -79,4 +79,4 @@ equation
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
   Documentation(info = "<html><head></head><body>This model is a simple IEEE steam turbine-governor model type TGOV1 (<u>CIM name:</u>&nbsp;GovSteam0), implemented following the description done in the chapter 2.2 of the<span class=\"pl-c\">&nbsp;IEEE technical report PES-TR1 Jan 2013.&nbsp;</span></body></html>"));
-end TGOV1;
+end TGOV11;

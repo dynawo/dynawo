@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic;
 * of simulation tools for power systems.
 */
 
-model HYGOV
+model HYGOV1 "First implementation of governor type HYGOV"
 
   //Regulation parameters
   parameter Types.PerUnit At "Turbine gain";
@@ -164,4 +164,4 @@ equation
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-400, -200}, {400, 200}})),
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "HYGOV")}));
-end HYGOV;
+end HYGOV1;
