@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model PSS2A "IEEE Power System Stabilizer type 2A"
+model PSS2A1 "IEEE Power System Stabilizer type 2A"
 
   parameter Types.PerUnit Ks1 "PSS gain";
   parameter Types.PerUnit Ks2 "2nd signal transducer factor";
@@ -122,4 +122,4 @@ equation
     uses(Modelica(version = "3.2.3")),
   Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})),
   Documentation(info = "<html><head></head><body>This model is the IEEE PSS2A model, based on the chapter 8.2 of the&nbsp;<span class=\"pl-c\">IEEE Std 421.5-1992 documentation. It enables to represent a large variety of dual-input stabilizers.</span></body></html>"));
-end PSS2A;
+end PSS2A1;

@@ -15,6 +15,5 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers;
 package Standard "Standard power system stabilizers"
   extends Icons.Package;
 
-  annotation(preferredView = "info",
-    Documentation(info = "<html><head></head><body>This package contains standard power system stabilizer models:<div><ul><li><a href=\"modelica://Dynawo.Electrical.Controls.Machines.PowerSystemStabilizer.Standard.PSS2A\">PSS2A</a> model</li></ul><div><br></div></div></body></html>"));
+  annotation(preferredView = "text");
 end Standard;
