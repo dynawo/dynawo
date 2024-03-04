@@ -22,6 +22,8 @@ set(MODEL_FILES
   IEEET1.mo
   IEEET1.extvar
   IEEET1_INIT.mo
+  IEEEX2.mo
+  IEEEX2.extvar
   MAXEX2.mo
   MAXEX2.extvar
   MAXEX2_INIT.mo
