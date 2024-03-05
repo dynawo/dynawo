@@ -1,4 +1,6 @@
 BaseControls
+InnerControls
+OuterControls
 GridFormingControlDroopControl
 GridFormingControlMatchingControl
 GridFormingControlDispatchableVirtualOscillatorControl
