@@ -54,7 +54,7 @@ model GoverNordic "Governor model for the Nordic 32 test system used for voltage
     Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-250, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power headWater(N = 2) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Power headWater(N = 2, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
