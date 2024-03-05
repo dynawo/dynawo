@@ -11,6 +11,7 @@ distributions/
 nrt/data/**/outputs*/
 examples/**/outputs*/
 nrt/data/*/*/execution/
+nrt/data/SIMOrder1Prediction/compilation/
 dynawo/sources/Models/CPP/ModelNetwork/DYNModelNetwork.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp

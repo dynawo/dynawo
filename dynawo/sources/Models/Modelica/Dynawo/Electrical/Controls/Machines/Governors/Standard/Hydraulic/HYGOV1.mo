@@ -76,7 +76,7 @@ model HYGOV1 "First implementation of governor type HYGOV"
     Placement(visible = true, transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k1 = -KDroopPerm, k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-350, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = 2) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = 2, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {110, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = tR * VelMax, tS = 1e-3, Y0 = 0) annotation(
     Placement(visible = true, transformation(origin = {-250, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
