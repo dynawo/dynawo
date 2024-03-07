@@ -244,13 +244,31 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
       for (std::multimap<double, boost::shared_ptr<LoadInterface> >::const_reverse_iterator loadIt = loadToSourcesAddedIntoSumMap.crbegin();
             loadIt != loadToSourcesAddedIntoSumMap.crend();
             ++loadIt) {
+        const double activePowerSN = loadIt->second->getStateVarP() * SNREF;
         Trace::debug() << DYNLog(SourcePowerTakenIntoAccount, "load", loadIt->second->getID(), params_->getId(),
-            loadIt->second->getStateVarP() * SNREF, loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+          activePowerSN, loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+        if (timeline != nullptr && !doubleIsZero(activePowerSN)) {
+          MessageTimeline loadMessageTimeline = DYNTimeline(SourcePowerTakenIntoAccount,
+                                                            "load",
+                                                            loadIt->second->getID(),
+                                                            params_->getId(),
+                                                            activePowerSN,
+                                                            loadIt->second->getBusInterface()->getStateVarV());
+          timeline->addEvent(t,
+                              "Simulation",
+                              loadMessageTimeline.str(),
+                              loadMessageTimeline.priority(),
+                              loadMessageTimeline.getKey());
+        }
       }
 
       if (timeline != nullptr) {
-        MessageTimeline messageTimeline = DYNTimeline(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
-        timeline->addEvent(t, "Simulation", messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
+        MessageTimeline sourcePowerAboveMaxMsgTimeline = DYNTimeline(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
+        timeline->addEvent(t,
+                            "Simulation",
+                            sourcePowerAboveMaxMsgTimeline.str(),
+                            sourcePowerAboveMaxMsgTimeline.priority(),
+                            sourcePowerAboveMaxMsgTimeline.getKey());
       }
 
       Message messageLog = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
@@ -262,13 +280,31 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
       for (std::multimap<double, boost::shared_ptr<LoadInterface> >::const_iterator loadIt = loadToSourcesAddedIntoSumMap.cbegin();
             loadIt != loadToSourcesAddedIntoSumMap.cend();
             ++loadIt) {
+        const double activePowerSN = loadIt->second->getStateVarP() * SNREF;
         Trace::debug() << DYNLog(SourcePowerTakenIntoAccount, "load", loadIt->second->getID(), params_->getId(),
-            loadIt->second->getStateVarP() * SNREF, loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+          activePowerSN, loadIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+        if (timeline != nullptr && !doubleIsZero(activePowerSN)) {
+          MessageTimeline loadMessageTimeline = DYNTimeline(SourcePowerTakenIntoAccount,
+                                                            "load",
+                                                            loadIt->second->getID(),
+                                                            params_->getId(),
+                                                            activePowerSN,
+                                                            loadIt->second->getBusInterface()->getStateVarV());
+          timeline->addEvent(t,
+                              "Simulation",
+                              loadMessageTimeline.str(),
+                              loadMessageTimeline.priority(),
+                              loadMessageTimeline.getKey());
+        }
       }
 
       if (timeline != nullptr) {
-        MessageTimeline messageTimeline = DYNTimeline(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
-        timeline->addEvent(t, "Simulation", messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
+        MessageTimeline sourcePowerBelowMinMsgTimeline = DYNTimeline(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
+        timeline->addEvent(t,
+                            "Simulation",
+                            sourcePowerBelowMinMsgTimeline.str(),
+                            sourcePowerBelowMinMsgTimeline.priority(),
+                            sourcePowerBelowMinMsgTimeline.getKey());
       }
 
       Message messageLog = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
@@ -464,13 +500,31 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_p
       for (std::multimap<double, boost::shared_ptr<GeneratorInterface> >::const_reverse_iterator generatorIt = generatorToSourcesAddedIntoSumMap.crbegin();
             generatorIt != generatorToSourcesAddedIntoSumMap.crend();
             ++generatorIt) {
+        const double activePowerSN = -generatorIt->second->getStateVarP() * SNREF;
         Trace::info() << DYNLog(SourcePowerTakenIntoAccount, "generator", generatorIt->second->getID(), params_->getId(),
-          -generatorIt->second->getStateVarP() * SNREF, generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+          activePowerSN, generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+        if (timeline != nullptr && !doubleIsZero(activePowerSN)) {
+          MessageTimeline generatorMessageTimeline = DYNTimeline(SourcePowerTakenIntoAccount,
+                                                                  "generator",
+                                                                  generatorIt->second->getID(),
+                                                                  params_->getId(),
+                                                                  activePowerSN,
+                                                                  generatorIt->second->getBusInterface()->getStateVarV());
+          timeline->addEvent(t,
+                              "Simulation",
+                              generatorMessageTimeline.str(),
+                              generatorMessageTimeline.priority(),
+                              generatorMessageTimeline.getKey());
+        }
       }
 
       if (timeline != nullptr) {
-        MessageTimeline messageTimeline = DYNTimeline(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
-        timeline->addEvent(t, "Simulation", messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
+        MessageTimeline sourcePowerAboveMaxMsgTimeline = DYNTimeline(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
+        timeline->addEvent(t,
+                            "Simulation",
+                            sourcePowerAboveMaxMsgTimeline.str(),
+                            sourcePowerAboveMaxMsgTimeline.priority(),
+                            sourcePowerAboveMaxMsgTimeline.getKey());
       }
 
       Message messageLog = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
@@ -482,13 +536,31 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_p
       for (std::multimap<double, boost::shared_ptr<GeneratorInterface> >::const_iterator generatorIt = generatorToSourcesAddedIntoSumMap.cbegin();
             generatorIt != generatorToSourcesAddedIntoSumMap.cend();
             ++generatorIt) {
+        const double activePowerSN = -generatorIt->second->getStateVarP() * SNREF;
         Trace::debug() << DYNLog(SourcePowerTakenIntoAccount, "generator", generatorIt->second->getID(), params_->getId(),
-            -generatorIt->second->getStateVarP() * SNREF, generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+          activePowerSN, generatorIt->second->getBusInterface()->getStateVarV()) << Trace::endline;
+        if (timeline != nullptr && !doubleIsZero(activePowerSN)) {
+          MessageTimeline generatorMessageTimeline = DYNTimeline(SourcePowerTakenIntoAccount,
+                                                                  "generator",
+                                                                  generatorIt->second->getID(),
+                                                                  params_->getId(),
+                                                                  activePowerSN,
+                                                                  generatorIt->second->getBusInterface()->getStateVarV());
+          timeline->addEvent(t,
+                              "Simulation",
+                              generatorMessageTimeline.str(),
+                              generatorMessageTimeline.priority(),
+                              generatorMessageTimeline.getKey());
+        }
       }
 
       if (timeline != nullptr) {
-        MessageTimeline messageTimeline = DYNTimeline(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
-        timeline->addEvent(t, "Simulation", messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
+        MessageTimeline sourcePowerBelowMinMsgTimeline = DYNTimeline(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
+        timeline->addEvent(t,
+                            "Simulation",
+                            sourcePowerBelowMinMsgTimeline.str(),
+                            sourcePowerBelowMinMsgTimeline.priority(),
+                            sourcePowerBelowMinMsgTimeline.getKey());
       }
 
       Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
