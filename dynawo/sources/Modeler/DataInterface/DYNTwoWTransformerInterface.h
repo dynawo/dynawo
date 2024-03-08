@@ -207,13 +207,13 @@ class TwoWTransformerInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the resistance of the tfo
-   * @return The resistance of the tfo in ohms
+   * @return The resistance of the tfo in ohm
    */
   virtual double getR() const = 0;
 
   /**
    * @brief Getter for the reactance of the tfo
-   * @return The reactance of the tfo in ohms
+   * @return The reactance of the tfo in ohm
    */
   virtual double getX() const = 0;
 

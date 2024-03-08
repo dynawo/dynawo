@@ -109,13 +109,13 @@ class RatioTapChangerInterface {
 
   /**
    * @brief Getter for the current step's resistance of the ratio tap changer
-   * @return The current step's resistance of the ratio tap changer in ohms
+   * @return The current step's resistance of the ratio tap changer in ohm
    */
   virtual double getCurrentR() const = 0;
 
   /**
    * @brief Getter for the current step's reactance of the ratio tap changer
-   * @return The current step's reactance of the ratio tap changer in ohms
+   * @return The current step's reactance of the ratio tap changer in ohm
    */
   virtual double getCurrentX() const = 0;
 

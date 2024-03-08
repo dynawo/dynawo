@@ -97,13 +97,13 @@ class PhaseTapChangerInterface {
 
   /**
    * @brief Getter for the current step's resistance of the phase tap changer
-   * @return The current step's resistance of the phase tap changer in ohms
+   * @return The current step's resistance of the phase tap changer in ohm
    */
   virtual double getCurrentR() const = 0;
 
   /**
    * @brief Getter for the current step's reactance of the phase tap changer
-   * @return The current step's reactance of the phase tap changer in ohms
+   * @return The current step's reactance of the phase tap changer in ohm
    */
   virtual double getCurrentX() const = 0;
 
