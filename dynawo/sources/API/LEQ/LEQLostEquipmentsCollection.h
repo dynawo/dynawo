@@ -29,14 +29,23 @@
 
 namespace lostEquipments {
 
+/**
+ * @brief structure used to sort lostEquipment instances in a set
+ */
 struct LostEquipmentComparator {
+  /**
+   * @brief compare two LostEquipment instance IDs lexicographically for sorting
+   * @param lostEquipment1 first lost equipment to compare
+   * @param lostEquipment2 second lost equipment to compare
+   * @return @b true if the ID of lostEquipment1 is less than the ID of lostEquipment2, @b false otherwise
+   */
   bool operator()(const boost::shared_ptr<LostEquipment>& lostEquipment1,
                   const boost::shared_ptr<LostEquipment>& lostEquipment2) const {
     return lostEquipment1->getId() < lostEquipment2->getId();
   }
 };
 
-using LostEquipmentsSet = std::set<boost::shared_ptr<LostEquipment>, LostEquipmentComparator>;
+using LostEquipmentsSet = std::set<boost::shared_ptr<LostEquipment>, LostEquipmentComparator>;  ///< Alias for lost equipments set
 
 /**
  * @class LostEquipmentsCollection
