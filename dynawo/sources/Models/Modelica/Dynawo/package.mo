@@ -12,9 +12,9 @@ encapsulated package Dynawo "Dynawo models library"
   extends Icons.Package;
 
   annotation(
-    version = "1.0.1",
+    version = "1.6.0",
     Documentation(info = "<html><head></head><body>
-<p>Copyright (c) 2015-2019, RTE (<a href=\"http://www.rte-france.com/\">http://www.rte-france.com</a>)</p>
+<p>Copyright (c) 2015-2024, RTE (<a href=\"http://www.rte-france.com/\">http://www.rte-france.com</a>)</p>
 
 All rights reserved.<br>
 This Source Code Form is subject to the terms of the Mozilla Public
