@@ -12,6 +12,7 @@
 
 add_subdirectory(BaseClasses B)
 add_subdirectory(BaseClasses_INIT BI)
+add_subdirectory(Motors M)
 add_subdirectory(OmegaRef O)
 add_subdirectory(SignalN N)
 add_subdirectory(Simplified S)

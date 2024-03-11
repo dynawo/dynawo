@@ -9,25 +9,13 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-# Switch-off models
+# Base initialisation models of loads
 
 set(MODEL_FILES
   package.mo
   package.order
-  SwitchOffDCLine.mo
-  SwitchOffGenerator.mo
-  SwitchOffIdealSwitch.mo
-  SwitchOffInjector.mo
-  SwitchOffLine.mo
-  SwitchOffLoad.mo
-  SwitchOffLogic.mo
-  SwitchOffLogicSide1.mo
-  SwitchOffLogicSide2.mo
-  SwitchOffMotor.mo
-  SwitchOffProtection.mo
-  SwitchOffShunt.mo
-  SwitchOffTapChangerPhaseShifter.mo
-  SwitchOffTransformer.mo
+  BaseLoadMotorFifthOrder_INIT.mo
+  BaseLoadMotorSimplified_INIT.mo
   )
 
 #
