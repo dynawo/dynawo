@@ -18,8 +18,13 @@ set(MODEL_FILES
   GovSteam1_INIT.mo
   IEEEG1.mo
   IEEEG1.extvar
-  TGOV1.mo
-  TGOV1.extvar
+  TGOV11.mo
+  TGOV11.extvar
+  TGov1.mo
+  TGov1.extvar
+  TGov3.mo
+  TGov3.extvar
+  TGov3_INIT.mo
   )
 
 #
