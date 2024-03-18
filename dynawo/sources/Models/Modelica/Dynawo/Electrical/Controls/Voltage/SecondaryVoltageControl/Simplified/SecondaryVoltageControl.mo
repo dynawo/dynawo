@@ -22,7 +22,6 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   parameter Types.PerUnit DerLevelMaxPu "Level slope limitation in pu/min (base QNomAlt)";
   parameter Boolean FreezingActivated = false "If true, the freezing functionality is activated";
   parameter Integer NbMaxGen = 50 "Maximum number of generators that can participate in the secondary voltage control";
-  parameter Types.Time tSample = 10 "Sample time of the SVC in s";
 
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQDown(start = limUQDown0) "If true, the reactive power lower limits are reached (for each generator participating in the secondary voltage control)";
@@ -35,7 +34,6 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput level(start = Level0) "Level demand (between -1 and 1)" annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  discrete Real levelDiscrete(start = Level0) "Discrete level demand";
 
   //Blocks
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 1) annotation(
@@ -73,7 +71,6 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   parameter Boolean Frozen0 = false "Start value of the frozen status";
 
 protected
-  Types.Time tUpdate(start = 0) "Time when the SVC level is updated in s";
   Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "If true, all generators have reached their reactive power lower limits";
   Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "If true, all generators have reached their reactive power upper limits";
   Boolean frozen(start = Frozen0) "True if the integration is frozen";
@@ -88,19 +85,6 @@ equation
     Timeline.logEvent1 (TimelineKeys.VRUnfrozen);
   end when;
   switch1.u2 = frozen;
-
-  //level is sampled every tSample seconds to calculate levelDiscrete
-  if time >= tUpdate + tSample then
-    tUpdate = time;
-    levelDiscrete = level;
-  else
-    tUpdate = pre(tUpdate);
-    levelDiscrete = pre(levelDiscrete);
-  end if;
-
-  when (pre(levelDiscrete) <> levelDiscrete) and String(levelDiscrete, significantDigits = 2) <> String(pre(levelDiscrete), significantDigits = 2) then
-    Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete, significantDigits = 2));
-  end when;
 
   connect(limiter.y, level) annotation(
     Line(points = {{181, 0}, {230, 0}}, color = {0, 0, 127}));

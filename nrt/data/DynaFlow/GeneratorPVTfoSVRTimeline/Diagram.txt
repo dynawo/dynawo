@@ -1,8 +1,0 @@
-#1
-double tableqmin(2,2)
-    0    -2
-    2    -1
-double tableqmax(3,2)
-    0     2
-  1.5     2
-1.601     0

@@ -203,8 +203,8 @@ const char* modelica_integer_to_modelica_string_format(modelica_integer i, std::
   return memoryManagerChars::keep(ss.str());
 }
 
-const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer signDigits,
-        modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/) {
+const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/,
+                                              modelica_integer signDigits) {
   // @todo warning: no thread safe
   std::stringstream ss("");
   ss << std::setprecision(signDigits) << std::fixed << r;
