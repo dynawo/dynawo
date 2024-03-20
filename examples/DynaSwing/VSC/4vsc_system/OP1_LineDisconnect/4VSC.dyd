@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+
+<!-- Components -->
+<dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="4VSC.par" parId="OmegaRef"/>
+
+<dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithImpedance" parFile="4VSC.par" parId="InfBusWithImpedance" staticId="_LOAD__1"/>
+
+<dyn:blackBoxModel id="GFLVSC_WP1" lib="GridFollowingConverterPVControl" parFile="4VSC.par" parId="WP1" staticId="_GEN__4_WP1"/>
+<dyn:blackBoxModel id="PGenRefPu_WP1" lib="SetPoint" parFile="4VSC.par" parId="PRef_WP1"/>
+<dyn:blackBoxModel id="UConvRefPu_WP1" lib="SetPoint" parFile="4VSC.par" parId="URef_WP1"/>
+
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_omegaRefPu"/>
+<dyn:connect id1="PGenRefPu_WP1" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="UConvRefPu_WP1" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_UConvRefPu"/>
+
+<dyn:blackBoxModel id="GFLVSC_WP2" lib="GridFollowingConverterPVControl" parFile="4VSC.par" parId="WP2" staticId="_GEN__5_WP2"/>
+<dyn:blackBoxModel id="PGenRefPu_WP2" lib="SetPoint" parFile="4VSC.par" parId="PRef_WP2"/>
+<dyn:blackBoxModel id="UConvRefPu_WP2" lib="SetPoint" parFile="4VSC.par" parId="URef_WP2"/>
+
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_omegaRefPu"/>
+<dyn:connect id1="PGenRefPu_WP2" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="UConvRefPu_WP2" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_UConvRefPu"/>
+
+<dyn:blackBoxModel id="GFLVSC_HVDC1" lib="GridFollowingConverterPVControl" parFile="4VSC.par" parId="HVDC1" staticId="_GEN__1_HVDC"/>
+<dyn:blackBoxModel id="PGenRefPu_HVDC1" lib="SetPoint" parFile="4VSC.par" parId="PRef_HVDC1"/>
+<dyn:blackBoxModel id="UConvRefPu_HVDC1" lib="SetPoint" parFile="4VSC.par" parId="URef_HVDC1"/>
+
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_omegaRefPu"/>
+<dyn:connect id1="PGenRefPu_HVDC1" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="UConvRefPu_HVDC1" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_UConvRefPu"/>
+
+<dyn:blackBoxModel id="GFLVSC_HVDC2" lib="GridFollowingConverterPVControl" parFile="4VSC.par" parId="HVDC2" staticId="_GEN__2_HVDC"/>
+<dyn:blackBoxModel id="PGenRefPu_HVDC2" lib="SetPoint" parFile="4VSC.par" parId="PRef_HVDC2"/>
+<dyn:blackBoxModel id="UConvRefPu_HVDC2" lib="SetPoint" parFile="4VSC.par" parId="URef_HVDC2"/>
+
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_omegaRefPu"/>
+<dyn:connect id1="PGenRefPu_HVDC2" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="UConvRefPu_HVDC2" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_UConvRefPu"/>
+
+<!-- Network -->
+<dyn:macroConnector id="GFLToNetwork">
+    <dyn:connect var1="injectorGFL_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+</dyn:macroConnector>
+
+<dyn:macroConnector id="INFToNetwork">
+    <dyn:connect var1="infiniteBus_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+</dyn:macroConnector>
+
+<dyn:macroConnect connector="INFToNetwork" id1="InfBus" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_WP1" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_WP2" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_HVDC1" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_HVDC2" id2="NETWORK"/>
+
+<!-- Event -->
+<dyn:blackBoxModel id="DisconnectLine" lib="EventQuadripoleDisconnection" parFile="4VSC.par" parId="DisconnectLine"/>
+<dyn:connect id1="DisconnectLine" var1="event_state1_value" id2="NETWORK" var2="_Line2__BUS__A-_BUS__B_state_value"/>
+
+</dyn:dynamicModelsArchitecture>
