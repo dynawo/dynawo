@@ -161,7 +161,7 @@ TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsExistingFile) {
 TEST(CommonTest, testFileSystemUtilsSearchModelsFiles) {
   std::vector<std::string> fileExtensionsForbidden;
   std::map<std::string, std::string> filesFound;
-  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
+  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
   pathsToIgnore.insert(boost::filesystem::path("res/folder/folder3"));
   searchModelsFiles("res", ".mo", fileExtensionsForbidden, pathsToIgnore, true, true, false, filesFound);
   ASSERT_EQ(filesFound.size(), 3);

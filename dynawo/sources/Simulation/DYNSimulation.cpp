@@ -591,7 +591,7 @@ Simulation::compileModels() {
     string additionalHeaderList = getEnvVar("DYNAWO_HEADER_FILES_FOR_PREASSEMBLED");
     boost::split(additionalHeaderFiles, additionalHeaderList, boost::is_any_of(" "), boost::token_compress_on);
   }
-  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
+  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
   pathsToIgnore.insert(boost::filesystem::path(compileDir));
 
   const bool rmModels = true;

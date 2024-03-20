@@ -24,8 +24,23 @@
 #include <list>
 #include <map>
 #include <vector>
-#include <boost/unordered_set.hpp>
+#include <unordered_set>
 #include <boost/filesystem.hpp>
+
+/**
+ * @brief Hash structure for boost::filesystem::path
+ */
+struct PathHash {
+  /**
+   * @brief Operator to retrieve boost::filesystem::path hash value
+   *
+   * @param path the path to hash
+   * @returns the hash value
+   */
+  size_t operator()(const boost::filesystem::path& path) const {
+    return std::hash<std::string>()(path.generic_string());
+  }
+};
 
 /**
  * @struct UserDefinedDirectory
@@ -96,7 +111,7 @@ void searchFilesAccordingToExtension(const std::string & directoryToScan, const 
  * call searchModelsFilesRec
  */
 void searchModelsFiles(const std::string & directoryToScan, const std::string& fileExtension, const std::vector<std::string>& fileExtensionsForbidden,
-                       const boost::unordered_set<boost::filesystem::path>& pathsToIgnore, const bool searchInSubDirs,
+                       const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore, const bool searchInSubDirs,
                        const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                        std::map<std::string, std::string>& filesFound);  // search for models data in a given directory;
 
@@ -117,7 +132,7 @@ void searchModelsFiles(const std::string & directoryToScan, const std::string& f
  * throw an exception when the rootPath does not exist
  */
 void searchModelsFilesRec(const std::string& directoryToScan, const std::string& fileExtension, const std::vector<std::string> & fileExtensionsForbidden,
-                          const boost::unordered_set<boost::filesystem::path>& pathsToIgnore, const bool searchInSubDirs,
+                          const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore, const bool searchInSubDirs,
                           const bool isPackage, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                           const std::vector <std::string>& namespaces, std::map<std::string, std::string>& filesFound);
 
