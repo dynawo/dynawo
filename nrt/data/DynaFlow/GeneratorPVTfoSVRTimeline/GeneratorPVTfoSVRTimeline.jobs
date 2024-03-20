@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="GeneratorPVTfoSVRTimeline">
-    <dyn:solver lib="dynawo_SolverSIM" parFile="GeneratorPVTfoSVRTimeline.par" parId="Solver"/>
+    <dyn:solver lib="dynawo_SolverIDA" parFile="GeneratorPVTfoSVRTimeline.par" parId="Solver"/>
     <dyn:modeler compileDir="outputs/compilation">
       <dyn:dynModels dydFile="GeneratorPVTfoSVRTimeline.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
