@@ -35,7 +35,7 @@ class StaticRef {
   /**
    * @brief StaticRef constructor
    */
-  StaticRef() {}
+  StaticRef() = default;
   /**
    * @brief StaticRef constructor
    *

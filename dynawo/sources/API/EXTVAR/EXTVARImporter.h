@@ -41,7 +41,7 @@ class Importer {
   /**
    * @brief Destructor
    */
-  virtual ~Importer() {}
+  virtual ~Importer() = default;
 
   /**
    * @brief Import external (i.e. C++-connected) variables
