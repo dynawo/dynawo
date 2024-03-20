@@ -73,7 +73,7 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   parameter Boolean Frozen0 = false "Start value of the frozen status";
 
 protected
-  Types.Time tUpdate(start = 0) "Time when the SVC level is updated in s";
+  discrete Types.Time tUpdate(start = 0) "Time when the SVC level is updated in s";
   Boolean blockedDown(start = Modelica.Math.BooleanVectors.allTrue(limUQDown0)) "If true, all generators have reached their reactive power lower limits";
   Boolean blockedUp(start = Modelica.Math.BooleanVectors.allTrue(limUQUp0)) "If true, all generators have reached their reactive power upper limits";
   Boolean frozen(start = Frozen0) "True if the integration is frozen";
@@ -90,13 +90,10 @@ equation
   switch1.u2 = frozen;
 
   //level is sampled every tSample seconds to calculate levelDiscrete
-  if time >= tUpdate + tSample then
+   when (time > pre(tUpdate) + tSample) then
     tUpdate = time;
     levelDiscrete = level;
-  else
-    tUpdate = pre(tUpdate);
-    levelDiscrete = pre(levelDiscrete);
-  end if;
+   end when;
 
   when (pre(levelDiscrete) <> levelDiscrete) and String(levelDiscrete, significantDigits = 2) <> String(pre(levelDiscrete), significantDigits = 2) then
     Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete, significantDigits = 2));
