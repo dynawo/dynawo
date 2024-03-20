@@ -100,4 +100,26 @@
         </outputs>
     </job>
 
+      <job name="Scenario 5 - Fault Converter PCC">
+
+        <solver lib="dynawo_SolverIDA" parFile="1VSC.par" parId="Solver"/>
+
+        <modeler compileDir="outputs/scenario_5/compilation">
+            <dynModels dydFile="1VSC_scenario_5.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="2"/>
+
+        <outputs directory="outputs/scenario_5/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
 </jobs>

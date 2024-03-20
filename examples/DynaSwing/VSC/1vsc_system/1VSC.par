@@ -142,4 +142,26 @@
     <par type="DOUBLE" name="step_tStep" value="0.5"/>
   </set>
 
+
+  <!-- Scenario 5 - Fault Converter PCC -->
+  <!-- PRef step -->
+  <set id="PStep_scenario_5">
+    <par type="DOUBLE" name="step_Value0" value="0.833333"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+  </set>
+  <!-- URef step -->
+  <set id="UStep_scenario_5">
+    <par type="DOUBLE" name="step_Value0" value="0.99878"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+  </set>
+  <!-- Events (dynamic library: Fault) -->
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_tBegin" value="0.5"/>
+    <par type="DOUBLE" name="fault_tEnd" value="0.6"/>
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0"/>
+  </set>
+
 </parametersSet>
