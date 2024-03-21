@@ -34,6 +34,7 @@ using std::string;
 using std::vector;
 using std::map;
 using std::unordered_map;
+using std::unordered_set;
 using std::set;
 
 
@@ -79,7 +80,7 @@ struct dynawoDoubleLess : std::binary_function<double, vector<size_t>, bool> {
   }
 };
 void
-Timeline::filter(const unordered_map<string, std::unordered_set<string>>& oppositeEventDico) {
+Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEventDico) {
   map<double, vector<size_t>, dynawoDoubleLess> timeToEventIndexes;
   for (size_t i = 0, iEnd = events_.size(); i < iEnd; ++i) {
     timeToEventIndexes[events_[i]->getTime()].push_back(i);
@@ -89,7 +90,7 @@ Timeline::filter(const unordered_map<string, std::unordered_set<string>>& opposi
   set<size_t> indexesToRemove;
   for (const auto& it : timeToEventIndexes) {
     const auto& events = it.second;
-    std::unordered_set<string> eventFounds;
+    unordered_set<string> eventFounds;
     for (size_t i = 0, iEnd = events.size(); i < iEnd; ++i) {
       size_t index = events[events.size() -1 - i];
       if (indexesToRemove.find(index) != indexesToRemove.end()) {
