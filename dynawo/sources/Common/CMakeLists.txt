@@ -111,8 +111,7 @@ add_library(dynawo_Interface INTERFACE)
 target_compile_definitions(dynawo_Interface
   INTERFACE
     _OMC_${OPENMODELICA_VERSION}
-    $<$<BOOL:${USE_ADEPT}>:_ADEPT_>
-    $<$<CONFIG:Debug>:_DEBUG_>)
+    $<$<BOOL:${USE_ADEPT}>:_ADEPT_>)
 
 target_link_libraries(dynawo_Interface
   INTERFACE
