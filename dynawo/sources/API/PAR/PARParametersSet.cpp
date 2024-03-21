@@ -30,6 +30,7 @@ using std::set;
 using std::string;
 using std::vector;
 using std::stringstream;
+using std::unordered_map;
 
 using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
@@ -161,7 +162,7 @@ ParametersSet::getParameter(const string& name) const {
 
 const shared_ptr<Reference>
 ParametersSet::getReference(const string& name) const {
-  std::unordered_map<string, shared_ptr<Reference> >::const_iterator itRef = references_.find(name);
+  unordered_map<string, shared_ptr<Reference> >::const_iterator itRef = references_.find(name);
   if (itRef == references_.end())
     throw DYNError(DYN::Error::API, ReferenceNotFoundInSet, name, id_);
   return itRef->second;
@@ -221,7 +222,7 @@ vector<string>
 ParametersSet::getReferencesNames() const {
   vector<string> returnVector;
   set<string> orderedNames;
-  for (std::unordered_map<string, shared_ptr<Reference> >::const_iterator itRefs = references_.begin();
+  for (unordered_map<string, shared_ptr<Reference> >::const_iterator itRefs = references_.begin();
           itRefs != references_.end();
           ++itRefs) {
     orderedNames.insert(itRefs->first);
@@ -249,7 +250,7 @@ ParametersSet::getParameters() {
   return parameters_;
 }
 
-std::unordered_map<std::string, boost::shared_ptr<Reference> >&
+unordered_map<std::string, boost::shared_ptr<Reference> >&
 ParametersSet::getReferences() {
   return references_;
 }
