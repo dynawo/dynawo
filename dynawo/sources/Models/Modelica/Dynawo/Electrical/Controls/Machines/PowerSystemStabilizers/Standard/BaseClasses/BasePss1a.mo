@@ -34,9 +34,9 @@ model BasePss1a "IEEE power system stabilizer type 1A (base model)"
 
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t4, 1}, b = {t3, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {max(t4, 1e-5), 1}, b = {t3, 1}) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {t2, 1}, b = {t1, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {max(t2, 1e-5), 1}, b = {t1, 1}) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.SecondOrder secondOrder(A1 = A1, A2 = A2) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

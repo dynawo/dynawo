@@ -17,10 +17,10 @@ model Pss2a "IEEE power system stabilizer type 2A"
   extends Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2c(
     PPssOffPu = -1000,
     PPssOnPu = -999,
-    t10 = 1e-5,
-    t11 = 1e-5,
-    t12 = 1e-5,
-    t13 = 1e-5);
+    t10 = 0,
+    t11 = 0,
+    t12 = 0,
+    t13 = 0);
 
   annotation(preferredView = "diagram");
 end Pss2a;

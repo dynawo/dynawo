@@ -97,7 +97,7 @@ model St4c "IEEE exciter type ST4C model"
     Placement(visible = true, transformation(origin = {250, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
     Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = Kg, T = tG, y_start = Kg * Efd0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = Kg, T = max(tG, 1e-5), y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {250, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-210, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

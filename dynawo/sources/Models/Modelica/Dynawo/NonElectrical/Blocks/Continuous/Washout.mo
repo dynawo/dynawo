@@ -14,22 +14,17 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block Washout "Washout filter block, allowing for zero time constant"
-  extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Interfaces.SISO(u(start = U0));
 
   parameter Types.Time tW "Washout filter time constant in s";
 
-  Modelica.Blocks.Interfaces.RealInput u(start = U0) "Input signal connector" annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = 0) "Output signal connector" annotation(
-    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Continuous.Derivative derivative(k = tW, T = max(tW, 1e-5), x_start = U0) annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(k = tW, T = max(tW, 0.01), x_start = U0) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Real U0 = 0 "Initial value of input signal";
 
 equation
-  if tW > 0 then
+  if tW >= 0.01 then
     y = derivative.y;
   else
     y = u;

@@ -71,7 +71,7 @@ model St1c "IEEE excitation system type ST1C model"
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(k = Kf, T = tF, x_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {tB1, 1}, b = {tC1, 1}, x_scaled(start = {Efd0Pu / Ka}), x_start = {Efd0Pu / Ka}, y(start = Efd0Pu / Ka)) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {max(tB1, 1e-5), 1}, b = {tC1, 1}, x_scaled(start = {Efd0Pu / Ka}), x_start = {Efd0Pu / Ka}, y(start = Efd0Pu / Ka)) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = ViMaxPu, uMin = ViMinPu) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

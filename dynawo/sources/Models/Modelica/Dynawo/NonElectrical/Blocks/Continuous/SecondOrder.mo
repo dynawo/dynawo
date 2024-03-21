@@ -14,20 +14,15 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block SecondOrder "Second order filter block, allowing for zero coefficients"
-  extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real A1 "First order coefficient in s";
   parameter Real A2 "Second order coefficient in s ^ 2";
   parameter Real K = 1 "Gain";
 
   final parameter Real D = A1 * (w / 2) "Damping of second order filter";
-  final parameter Real tFo = if A2 > 0 then 1e-5 elseif A1 > 0 then A1 else 1e-5 "Time constant of first order filter in s";
+  final parameter Real tFo = if A2 <> 0 then 1e-5 elseif A1 <> 0 then A1 else 1e-5 "Time constant of first order filter in s";
   final parameter Real w = if A2 > 0 then 1 / sqrt(A2) else 1 "Angular frequency of second order filter in Hz";
-
-  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
-    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.SecondOrder secondOrder(D = D, k = K, w = w, y_start = Y0, yd_start = Yd0) annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,5 +52,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent = {{-100, -100},{100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}),   Line(origin = {-1.939,-1.816}, points = {{81.939, 36.056}, {65.362, 36.056}, {14.39, -26.199}, {-29.966, 113.485}, {-65.374, -61.217}, {-78.061, -78.184}}, color = {0,0,127}, smooth = Smooth.Bezier), Text(lineColor = {192, 192, 192}, extent = {{0, -70}, {60, -10}}, textString = "PT2"), Text(extent = {{-150, -150}, {150, -110}}, textString = "w=%w")}));
+    Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}),   Line(origin = {-1.939,-1.816}, points = {{81.939, 36.056}, {65.362, 36.056}, {14.39, -26.199}, {-29.966, 113.485}, {-65.374, -61.217}, {-78.061, -78.184}}, color = {0,0,127}, smooth = Smooth.Bezier), Text(lineColor = {192, 192, 192}, extent = {{0, -70}, {60, -10}}, textString = "PT2"), Text(extent = {{-150, -150}, {150, -110}}, textString = "w=%w")}));
 end SecondOrder;

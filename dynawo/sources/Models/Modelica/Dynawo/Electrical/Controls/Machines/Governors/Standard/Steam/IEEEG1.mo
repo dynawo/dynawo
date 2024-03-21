@@ -55,7 +55,7 @@ model IEEEG1 "Steam turbine governor"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t4, y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t5, y_start = PmRef0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = max(t5, 1e-5), y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = t6, y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -65,9 +65,9 @@ model IEEEG1 "Steam turbine governor"
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = Uo, uMin = Uc) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, y_start = PmRef0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = max(t7, 1e-5), y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t1, 1}, b = {t2, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {max(t1, 1e-5), 1}, b = {t2, 1}) annotation(
     Placement(visible = true, transformation(origin = {-230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(k = {K1, K3, K5, K7}, nin = 4) annotation(
     Placement(visible = true, transformation(origin = {250, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

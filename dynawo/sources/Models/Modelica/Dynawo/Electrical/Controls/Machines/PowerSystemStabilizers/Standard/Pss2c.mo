@@ -77,9 +77,9 @@ model Pss2c "IEEE power system stabilizer type 2C"
     Placement(visible = true, transformation(origin = {-210, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.Washout washout3(tW = tW4) annotation(
     Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t6) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = max(t6, 1e-5)) annotation(
     Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = t7, k = Ks2) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = Ks2, T = t7) annotation(
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RampTrackingFilter rampTrackingFilter(M = M, N = N, t1 = t8, t2 = t9) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -89,13 +89,13 @@ model Pss2c "IEEE power system stabilizer type 2C"
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Ks1) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t2, 1}, b = {t1, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {max(t2, 1e-5), 1}, b = {t1, 1}) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {t4, 1}, b = {t3, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {max(t4, 1e-5), 1}, b = {t3, 1}) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction2(a = {t11, 1}, b = {t10, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction2(a = {max(t11, 1e-5), 1}, b = {t10, 1}) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction3(a = {t13, 1}, b = {t12, 1}) annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction3(a = {max(t13, 1e-5), 1}, b = {t12, 1}) annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
     Placement(visible = true, transformation(origin = {270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

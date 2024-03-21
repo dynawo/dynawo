@@ -20,7 +20,7 @@ model St4b "IEEE exciter type ST4B model"
     PositionScl = 0,
     PositionUel = 1,
     Sw1 = true,
-    tG = 1e-5,
+    tG = 0,
     VgMaxPu = 999);
 
   annotation(preferredView = "diagram");
