@@ -15,9 +15,9 @@ model ReactiveCurrentLimiter
     Placement(transformation(origin = {119, -30}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = (InomPu^2 - idConv0Pu^2)^0.5) annotation(
     Placement(transformation(origin = {-95, 0}, extent = {{-45, -15}, {45, 15}})));
-  Modelica.Blocks.Interfaces.RealOutput Iqmax(start = (InomPu^2 - idConv0Pu^2)^0.5) annotation(
+  Modelica.Blocks.Interfaces.RealOutput Iqmax annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput Iqmin(start = -(InomPu^2 - idConv0Pu^2)^0.5) annotation(
+  Modelica.Blocks.Interfaces.RealOutput Iqmin annotation(
     Placement(transformation(origin = {150, -30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -51}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(gain1.y, Iqmin) annotation(

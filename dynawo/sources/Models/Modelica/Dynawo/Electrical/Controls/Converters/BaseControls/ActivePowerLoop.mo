@@ -24,7 +24,7 @@ model ActivePowerLoop
     Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+
   Modelica.Blocks.Interfaces.RealOutput idRefPu(start=idConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kpp)  annotation(
@@ -36,13 +36,21 @@ model ActivePowerLoop
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tlpf, k = 1, y_start = PGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqConvPu(start = iqConv0Pu) annotation(
-    Placement(transformation(origin = {-151, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-151, -59}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   ActiveCurrentLimiter activeCurrentLimiter(InomPu= InomPu, Trlim=Trlim, didt_min=didt_min, didt_max=didt_max, idConv0Pu = idConv0Pu, iqConv0Pu= iqConv0Pu)  annotation(
-    Placement(transformation(origin = {-80, -40}, extent = {{-28, -28}, {28, 28}})));
+    Placement(transformation(origin = {-80, -59}, extent = {{-28, -28}, {28, 28}})));
   NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(transformation(origin = {114, 80}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.Integrator integrator(k = Kip, y_start = idConv0Pu)  annotation(
-    Placement(transformation(origin = {0, 61}, extent = {{-10, -10}, {10, 10}})));
+  //  Modelica.Blocks.Continuous.Integrator integrator(k = Kip, y_start = idConv0Pu)  annotation(
+  //    Placement(transformation(origin = {-18, 61}, extent = {{-10, -10}, {10, 10}})));
+  //  NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter1 annotation(
+  //    Placement(transformation(origin = {20, 60}, extent = {{-10, -10}, {10, 10}})));
+  //  Modelica.Blocks.Math.Feedback feedback1 annotation(
+  //    Placement(transformation(origin = {-16, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  //  Modelica.Blocks.Math.Add add1 annotation(
+  //    Placement(transformation(origin = {-53, 34}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kip, outMax = InomPu, y_start = idConv0Pu) annotation(
+    Placement(transformation(origin = {-3, 64}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(gain.y, add.u1) annotation(
     Line(points = {{11, 100}, {40, 100}, {40, 86}, {60, 86}}, color = {0, 0, 127}));
@@ -55,19 +63,20 @@ equation
   connect(firstOrder.u, PGenPu) annotation(
     Line(points = {{-122, 40}, {-150, 40}}, color = {0, 0, 127}));
   connect(iqConvPu, activeCurrentLimiter.iqConvPu) annotation(
-    Line(points = {{-151, -40}, {-111, -40}}, color = {0, 0, 127}));
+    Line(points = {{-151, -59}, {-111, -59}}, color = {0, 0, 127}));
   connect(variableLimiter.y, idRefPu) annotation(
     Line(points = {{125, 80}, {150, 80}}, color = {0, 0, 127}));
   connect(add.y, variableLimiter.u) annotation(
     Line(points = {{83, 80}, {102, 80}}, color = {0, 0, 127}));
   connect(activeCurrentLimiter.Idmax, variableLimiter.limit1) annotation(
-    Line(points = {{-49, -26}, {90, -26}, {90, 88}, {102, 88}}, color = {0, 0, 127}));
+    Line(points = {{-49, -45}, {90, -45}, {90, 88}, {102, 88}}, color = {0, 0, 127}));
   connect(activeCurrentLimiter.Idmin, variableLimiter.limit2) annotation(
-    Line(points = {{-49, -54}, {23, -54}, {23, -55}, {94, -55}, {94, 72}, {102, 72}}, color = {0, 0, 127}));
-  connect(feedback.y, integrator.u) annotation(
-    Line(points = {{-81, 80}, {-50, 80}, {-50, 61}, {-12, 61}}, color = {0, 0, 127}));
-  connect(integrator.y, add.u2) annotation(
-    Line(points = {{11, 61}, {40, 61}, {40, 74}, {60, 74}}, color = {0, 0, 127}));
+    Line(points = {{-49, -73}, {94, -73}, {94, 72}, {102, 72}}, color = {0, 0, 127}));
+
+  connect(feedback.y, limIntegrator.u) annotation(
+    Line(points = {{-81, 80}, {-50, 80}, {-50, 64}, {-15, 64}}, color = {0, 0, 127}));
+  connect(limIntegrator.y, add.u2) annotation(
+    Line(points = {{8, 64}, {38, 64}, {38, 74}, {60, 74}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(grid = {1, 1})),
     preferredView = "diagram",
