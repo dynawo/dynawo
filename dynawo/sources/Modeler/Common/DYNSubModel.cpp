@@ -53,8 +53,6 @@ using std::stringstream;
 using std::vector;
 using std::map;
 using std::set;
-using boost::unordered_map;
-using boost::unordered_set;
 using std::string;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
@@ -325,7 +323,7 @@ SubModel::hasVariableInit(const string& nameVariable) const {
 
 shared_ptr <Variable>
 SubModel::getVariable(const string& variableName) const {
-  boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
+  std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
   if (iter == variablesByName_.end()) {
     throw DYNError(Error::MODELER, SubModelUnknownElement, variableName, name(), modelType());
   }
@@ -415,7 +413,7 @@ SubModel::getVariableValue(const string& nameVariable) const {
 
 bool
 SubModel::hasParameter(const string & nameParameter, const bool isInitParam) {
-  const unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
+  const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
   return (parameters.find(nameParameter) != parameters.end());
 }
 
@@ -434,7 +432,7 @@ SubModel::defineVariables() {
     if (variables_[i]->isAlias()) {
       shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (variables_[i]);
       if (!variable->referenceVariableSet()) {
-        boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
+        std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
         if (iter == variablesByName_.end()) {
           throw DYNError(Error::MODELER, AliasNotFound, name(), variable->getReferenceVariableName());
         } else {
@@ -452,7 +450,7 @@ SubModel::defineVariables() {
 void
 SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
     const std::map<string, ParameterModeler>& nonUnitaryParameters,
-    unordered_set<string>& addedParameter) {
+    std::unordered_set<string>& addedParameter) {
   typedef std::map<string, ParameterModeler>::const_iterator ParamIterator;
   stringstream ss;
   for (ParamIterator it = nonUnitaryParameters.begin(), itEnd = nonUnitaryParameters.end(); it != itEnd; ++it) {
@@ -529,9 +527,9 @@ SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<para
 
 void
 SubModel::setParametersFromPARFile(const bool isInitParam) {
-  typedef unordered_map<string, ParameterModeler>::iterator ParamIterator;
-  typedef unordered_set<string>::const_iterator ParamNameIterator;
-  unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+  typedef std::unordered_map<string, ParameterModeler>::iterator ParamIterator;
+  typedef std::unordered_set<string>::const_iterator ParamNameIterator;
+  std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
 
   std::map<string, ParameterModeler> nonUnitaryParameters;
   // Set values of parameters with unitary cardinality
@@ -550,7 +548,7 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
   // Example with OmegaRef:
   //    -name of multiple parameter: weight_gen
   //    -name in multiple parameter instances: weight_gen_0, weight_gen_1, ...weight_gen_nbGen,
-  unordered_set<string> addedParameter;
+  std::unordered_set<string> addedParameter;
   instantiateNonUnitaryParameters(isInitParam, nonUnitaryParameters, addedParameter);
 
   // set the unitary parameters coming from not-unitary parameters instantiation
@@ -573,8 +571,8 @@ SubModel::setParametersFromPARFile() {
 
 const ParameterModeler&
 SubModel::findParameter(const string& name, const bool isInitParam) const {
-  const unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
-  const unordered_map<string, ParameterModeler>::const_iterator indexIterator = parameters.find(name);
+  const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
+  const std::unordered_map<string, ParameterModeler>::const_iterator indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
@@ -585,8 +583,8 @@ SubModel::findParameter(const string& name, const bool isInitParam) const {
 ParameterModeler&
 SubModel::findParameterReference(const string& name, const bool isInitParam) {
   // Cannot use getParameters as we are not const here
-  unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
-  const unordered_map<string, ParameterModeler>::iterator indexIterator = parameters.find(name);
+  std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+  const std::unordered_map<string, ParameterModeler>::iterator indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
@@ -594,12 +592,12 @@ SubModel::findParameterReference(const string& name, const bool isInitParam) {
   return indexIterator->second;
 }
 
-const unordered_map<string, ParameterModeler>&
+const std::unordered_map<string, ParameterModeler>&
 SubModel::getParametersDynamic() const {
   return parametersDynamic_;
 }
 
-const unordered_map<string, ParameterModeler>&
+const std::unordered_map<string, ParameterModeler>&
 SubModel::getParametersInit() const {
   return parametersInit_;
 }
@@ -650,7 +648,7 @@ SubModel::defineVariablesInit() {
     if (variablesInit_[i]->isAlias()) {
       shared_ptr <VariableAlias> variableInit = dynamic_pointer_cast<VariableAlias> (variablesInit_[i]);
       if (!variableInit->referenceVariableSet()) {
-        boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByNameInit_.find(variableInit->getReferenceVariableName());
+        std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByNameInit_.find(variableInit->getReferenceVariableName());
         if (iter == variablesByNameInit_.end())
           throw DYNError(Error::MODELER, AliasNotFound, name(), variableInit->getReferenceVariableName());
         else
@@ -1030,9 +1028,9 @@ SubModel::addParameterCurve(shared_ptr<curves::Curve>& curve) {
 
 void
 SubModel::printLocalInitParametersValues() const {
-  const boost::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
+  const std::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
   set<string> sortedParams;
-  for (boost::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
+  for (std::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
       it != itEnd; ++it) {
     sortedParams.insert(it->first);
   }
@@ -1092,9 +1090,9 @@ SubModel::printLocalInitParametersValues() const {
 
 void
 SubModel::printParameterValues() const {
-  const boost::unordered_map<string, ParameterModeler>& initParams = getParametersInit();
+  const std::unordered_map<string, ParameterModeler>& initParams = getParametersInit();
   set<string> sortedInitParams;
-  for (boost::unordered_map<string, ParameterModeler>::const_iterator it = initParams.begin(), itEnd = initParams.end();
+  for (std::unordered_map<string, ParameterModeler>::const_iterator it = initParams.begin(), itEnd = initParams.end();
       it != itEnd; ++it) {
     sortedInitParams.insert(it->first);
   }
@@ -1144,9 +1142,9 @@ SubModel::printParameterValues() const {
     }
   }
 
-  const boost::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
+  const std::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
   set<string> sortedParams;
-  for (boost::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
+  for (std::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
       it != itEnd; ++it) {
     sortedParams.insert(it->first);
   }

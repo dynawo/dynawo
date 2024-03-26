@@ -406,7 +406,7 @@ ModelMulti::evalFMode(const double t, const double* y, const double* yp, double*
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     if (subModels_[i]->modeChange()) {
       subModels_[i]->evalFSub(t);
-      boost::unordered_map<size_t, std::vector<size_t > >::const_iterator it = subModelIdxToConnectorCalcVarsIdx_.find(i);
+      std::unordered_map<size_t, std::vector<size_t > >::const_iterator it = subModelIdxToConnectorCalcVarsIdx_.find(i);
       if (it != subModelIdxToConnectorCalcVarsIdx_.end()) {
         const std::vector<size_t >& connectorsIdx = it->second;
         for (size_t j = 0, jEnd = connectorsIdx.size(); j < jEnd; ++j) {
@@ -892,7 +892,7 @@ ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subMo
 
 boost::shared_ptr<SubModel>
 ModelMulti::findSubModelByName(const string& name) const {
-  boost::unordered_map<string, size_t >::const_iterator iter = subModelByName_.find(name);
+  std::unordered_map<string, size_t >::const_iterator iter = subModelByName_.find(name);
   if (iter == subModelByName_.end())
     return (shared_ptr<SubModel>());
   else
@@ -901,7 +901,7 @@ ModelMulti::findSubModelByName(const string& name) const {
 
 vector<boost::shared_ptr<SubModel> >
 ModelMulti::findSubModelByLib(const string& libName) {
-  boost::unordered_map<string, vector<shared_ptr<SubModel> > >::const_iterator iter = subModelByLib_.find(libName);
+  std::unordered_map<string, vector<shared_ptr<SubModel> > >::const_iterator iter = subModelByLib_.find(libName);
   if (iter == subModelByLib_.end())
     return (vector<shared_ptr<SubModel> >());
   else
@@ -933,7 +933,7 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
   if (globalFIndex >= connectorContainer_->getOffsetModel()) {
     connectorContainer_->getConnectorInfos(globalFIndex, subModelName, localFIndex, fEquation);
   } else {
-    boost::unordered_map<int, int>::const_iterator iter = mapAssociationF_.find(globalFIndex);
+    std::unordered_map<int, int>::const_iterator iter = mapAssociationF_.find(globalFIndex);
     if (iter != mapAssociationF_.end()) {
       subModelName = subModels_[iter->second]->name();
       localFIndex = globalFIndex - subModels_[iter->second]->fDeb();
@@ -944,7 +944,7 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
 
 void
 ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGIndex, string& gEquation) const {
-  boost::unordered_map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
+  std::unordered_map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
   if (iter != mapAssociationG_.end()) {
     subModelName = subModels_[iter->second]->name();
     localGIndex = globalGIndex - subModels_[iter->second]->gDeb();

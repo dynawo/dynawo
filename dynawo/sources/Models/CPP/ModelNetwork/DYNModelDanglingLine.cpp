@@ -854,7 +854,7 @@ ModelDanglingLine::evalState(const double& /*time*/) {
 }
 
 void
-ModelDanglingLine::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+ModelDanglingLine::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
   double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "dangling_line_currentLimit_maxTimeOperation", success);
   if (success && currentLimits_)

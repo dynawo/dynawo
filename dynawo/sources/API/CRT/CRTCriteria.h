@@ -17,7 +17,7 @@
 #include "CRTCriteriaParams.h"
 
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_set.hpp>
+#include <unordered_set>
 #include <string>
 #include <vector>
 
@@ -201,7 +201,7 @@ class Criteria {
  private:
   boost::shared_ptr<CriteriaParams> params_;              ///< parameters of this criteria
   std::vector<boost::shared_ptr<ComponentId> > compIds_;  ///< ids of the components
-  boost::unordered_set<std::string> countryIds_;          ///< ids of the countries
+  std::unordered_set<std::string> countryIds_;          ///< ids of the countries
 };
 
 }  // namespace criteria

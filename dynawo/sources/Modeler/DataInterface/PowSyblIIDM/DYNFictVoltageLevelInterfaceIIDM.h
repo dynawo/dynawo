@@ -24,8 +24,6 @@
 #include "DYNGraph.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
 
-#include <boost/unordered_map.hpp>
-
 
 namespace DYN {
 

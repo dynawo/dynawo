@@ -115,7 +115,7 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
 
 static void
 fillParameters(shared_ptr<ModelLoad> load, std::string& startingPoint) {
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
 
   {
     ParameterModeler param = ParameterModeler("load_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
