@@ -122,4 +122,26 @@
         </outputs>
     </job>
 
+    <job name="Scenario 6 - Fault Infinite Bus">
+
+        <solver lib="dynawo_SolverIDA" parFile="1VSC.par" parId="Solver"/>
+
+        <modeler compileDir="outputs/scenario_6/compilation">
+            <dynModels dydFile="1VSC_scenario_6.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="2"/>
+
+        <outputs directory="outputs/scenario_6/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
 </jobs>

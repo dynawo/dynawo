@@ -12,6 +12,8 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
+    <curve model="GFLVSC" variable="controlGFL_activePowerLoop_idRefPu"/>
+    <curve model="GFLVSC" variable="controlGFL_reactivePowerLoop_iqRefPu"/>
     <curve model="GFLVSC" variable="injectorGFL_PGenPu"/>
     <curve model="GFLVSC" variable="injectorGFL_QGenPu"/>
     <curve model="GFLVSC" variable="injectorGFL_UConvPu"/>
