@@ -45,7 +45,7 @@ class Exporter {
   /**
    * @brief Destructor
    */
-  virtual ~Exporter() {}
+  virtual ~Exporter() = default;
 
   /**
    * @brief Export method for this exporter

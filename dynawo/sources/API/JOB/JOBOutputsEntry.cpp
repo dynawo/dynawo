@@ -23,10 +23,6 @@
 
 namespace job {
 
-OutputsEntry::~OutputsEntry() {}
-
-OutputsEntry::OutputsEntry() {}
-
 OutputsEntry::OutputsEntry(const OutputsEntry& other) {
   copy(other);
 }

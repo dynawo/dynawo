@@ -23,10 +23,6 @@
 
 namespace job {
 
-LogsEntry::~LogsEntry() {}
-
-LogsEntry::LogsEntry() {}
-
 LogsEntry::LogsEntry(const LogsEntry& other) {
   copy(other);
 }

@@ -43,7 +43,7 @@ class Importer {
   /**
    * @brief Destructor
    */
-  virtual ~Importer() {}
+  virtual ~Importer() = default;
 
   /**
    * @brief Import criteria from file

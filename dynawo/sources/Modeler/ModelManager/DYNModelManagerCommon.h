@@ -607,7 +607,7 @@ void addLogEventRaw5_(ModelManager* model, const char* message1, const char* mes
  *
  * @return modelica string created
  */
-const char* modelica_real_to_modelica_string(modelica_real r, modelica_integer minLen, modelica_boolean leftJustified, modelica_integer signDigits);
+const char* modelica_real_to_modelica_string(modelica_real r, modelica_integer signDigits, modelica_integer minLen, modelica_boolean leftJustified);
 
 /**
  * @brief  conversion of a modelica integer number to modelica string
