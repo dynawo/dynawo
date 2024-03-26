@@ -49,8 +49,6 @@ namespace dynamicdata {
 
 ModelicaModel::ModelicaModel(const string& id) : Model(id, Model::MODELICA_MODEL), useAliasing_(true), generateCalculatedVariables_(true) {}
 
-ModelicaModel::~ModelicaModel() {}
-
 const string&
 ModelicaModel::getStaticId() const {
   return staticId_;

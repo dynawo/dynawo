@@ -44,7 +44,7 @@ class Importer {
   /**
    * @brief Destructor
    */
-  virtual ~Importer() {}
+  virtual ~Importer() = default;
 
   /**
    * @brief Import dynamic models collection from files

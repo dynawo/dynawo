@@ -27,8 +27,6 @@ namespace dynamicdata {
 
 BlackBoxModel::BlackBoxModel(const string& id) : Model(id, Model::BLACK_BOX_MODEL) {}
 
-BlackBoxModel::~BlackBoxModel() {}
-
 const std::string&
 BlackBoxModel::getLib() const {
   return lib_;
