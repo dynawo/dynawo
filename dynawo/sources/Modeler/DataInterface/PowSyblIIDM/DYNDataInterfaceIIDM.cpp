@@ -528,8 +528,8 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         danglingLine->addCurrentLimitInterface(cLimit);
       }
     }
@@ -583,8 +583,8 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         twoWTfo->addCurrentLimitInterface1(cLimit);
       }
     }
@@ -601,8 +601,8 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         twoWTfo->addCurrentLimitInterface2(cLimit);
       }
     }
@@ -678,9 +678,9 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
       }
       // temporary limit
       for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-        if (!currentLimit.get().isFictitious()) {
-          shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(),
-                                                    currentLimit.get().getAcceptableDuration()));
+        if (!currentLimit.isFictitious()) {
+          shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                    currentLimit.getAcceptableDuration()));
           fictTwoWTransf->addCurrentLimitInterface2(cLimit);
         }
       }
@@ -711,8 +711,8 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     }
     // temporary limit on side 1
     for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         line->addCurrentLimitInterface1(cLimit);
       }
     }
@@ -728,8 +728,8 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     }
     // temporary limit on side 12
     for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+      if (!currentLimit.isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
         line->addCurrentLimitInterface2(cLimit);
       }
     }

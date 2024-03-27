@@ -18,6 +18,4 @@ const char IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension>::name[
 const char IIDMExtensionTrait<ActiveSeasonIIDMExtension>::name[] = "ActiveSeasonIIDMExtension";
 const char IIDMExtensionTrait<CurrentLimitsPerSeasonIIDMExtension>::name[] = "CurrentLimitsPerSeasonIIDMExtension";
 const char IIDMExtensionTrait<GeneratorActivePowerControlIIDMExtension>::name[] = "GeneratorActivePowerControlIIDMExtension";
-const char IIDMExtensionTrait<HvdcAngleDroopActivePowerControlIIDMExtension>::name[] = "HvdcAngleDroopActivePowerControlIIDMExtension";
-const char IIDMExtensionTrait<HvdcOperatorActivePowerRangeIIDMExtension>::name[] = "HvdcOperatorActivePowerRangeIIDMExtension";
 }  // namespace DYN
