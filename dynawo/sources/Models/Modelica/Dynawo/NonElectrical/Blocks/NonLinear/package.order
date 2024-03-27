@@ -24,3 +24,5 @@ StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
+TripleSwitch
+FiveSwitch

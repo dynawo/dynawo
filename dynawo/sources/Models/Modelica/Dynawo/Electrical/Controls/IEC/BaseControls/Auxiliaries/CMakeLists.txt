@@ -13,9 +13,12 @@ set(MODEL_FILES
   package.mo
   package.order
   ElecMeasurements.mo
-  GridProtection.mo
+  GridProtection2015.mo
+  GridProtection2020.mo
   Measurements.mo
   PLL.mo
+  UfMeasurement.mo
+  PQCalculus.mo
   )
 
 #
