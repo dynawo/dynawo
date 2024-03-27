@@ -92,8 +92,6 @@ TraceStream& Trace::endline(TraceStream& os) {
   return eol(os);
 }
 
-Trace::Trace() {}
-
 Trace& Trace::instance() {
   static Trace instance;
   return instance;
