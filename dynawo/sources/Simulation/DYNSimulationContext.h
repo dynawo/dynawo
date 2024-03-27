@@ -32,11 +32,6 @@ namespace DYN {
 class SimulationContext {
  public:
   /**
-   * @brief destructor
-   */
-  ~SimulationContext();
-
-  /**
    * @brief set the working directory of the simulation
    * @param directory directory to use for creating output file
    */

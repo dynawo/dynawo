@@ -234,9 +234,6 @@ wasLoggingEnabled_(false) {
   configureCriteria();
 }
 
-Simulation::~Simulation() {
-}
-
 void
 Simulation::configureSimulationInputs() {
   //---- dydFile ----

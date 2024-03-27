@@ -65,7 +65,7 @@ class MessageTimeline : public Message {
   /**
    * @brief destructor
    */
-  ~MessageTimeline() { }
+  ~MessageTimeline() = default;
 
   /**
    * @brief Operator , overload for message

@@ -28,8 +28,6 @@ namespace DYN {
  */
 class DYNErrorQueue  : private boost::noncopyable{
  public:
-  ~DYNErrorQueue() {}
-
   /**
    * @brief get singleton
    *
@@ -57,7 +55,7 @@ class DYNErrorQueue  : private boost::noncopyable{
   size_t getMaxDisplayedError() const;
 
  private:
-  DYNErrorQueue() {}
+  DYNErrorQueue() = default;
 
  private:
   std::queue< DYN::Error > exceptionQueue_;  ///< error queue
