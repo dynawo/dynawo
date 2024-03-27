@@ -28,7 +28,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventQuadripoleDisconnection.xml
   EventSetPointBoolean.xml
   EventSetPointReal.xml
-  EventSetPointDouble.xml
   EventSetPointDoubleReal.xml
   GeneratorFictitious.xml
   GeneratorPQ.xml
