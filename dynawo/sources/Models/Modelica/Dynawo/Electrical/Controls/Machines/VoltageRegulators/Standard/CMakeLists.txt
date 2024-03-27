@@ -20,6 +20,19 @@ set(MODEL_FILES
   Ac1c.mo
   Ac1c.extvar
   Ac1c_INIT.mo
+  Ac6a.mo
+  Ac6a.extvar
+  Ac6c.mo
+  Ac6c.extvar
+  Ac7b.mo
+  Ac7b.extvar
+  Ac7c.mo
+  Ac7c.extvar
+  Ac8b.mo
+  Ac8b.extvar
+  Ac8c.mo
+  Ac8c.extvar
+  Ac78c_INIT.mo
   BbSex1.mo
   BbSex1.extvar
   Dc1a.mo
@@ -61,6 +74,16 @@ set(MODEL_FILES
   St4b_INIT.mo
   St4c.mo
   St4c.extvar
+  St6b.mo
+  St6b.extvar
+  St6c.mo
+  St6c.extvar
+  St7b.mo
+  St7b.extvar
+  St7c.mo
+  St7c.extvar
+  St9c.mo
+  St9c.extvar
   Stxc_INIT.mo
   VRKundur.mo
   VRKundur.extvar
