@@ -388,7 +388,7 @@ ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const in
   Timer timer("ModelManager::evalJ");
 #endif
 
-#if _ADEPT_
+#ifdef _ADEPT_
   evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
 #else
   // Assert when Adept wasn't used
@@ -1366,7 +1366,7 @@ ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) const {
 
 void
 ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
-#if _ADEPT_
+#ifdef _ADEPT_
   try {
     std::vector<int> indexes;
     getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
@@ -1442,9 +1442,45 @@ ModelManager::computeDelay(int exprNumber, double exprValue, double time, double
     return *initialValue;
   }
 
-  double value = delayManager_.getDelay(exprNumber, delayTime);
+  const auto values = delay.getLastRegisteredPoint();
+  const auto lastRegisteredTime = values.first;
+  const auto lastRegisteredValue = values.second;
 
-  return value;
+  if (time - delayTime < lastRegisteredTime || doubleEquals(time - delayTime, lastRegisteredTime)) {
+    return delayManager_.getDelay(exprNumber, delayTime);
+  } else {
+    return lastRegisteredValue + (exprValue - lastRegisteredValue) * (time - delayTime - lastRegisteredTime) / (time - lastRegisteredTime);
+  }
 }
+
+
+#ifdef _ADEPT_
+adept::adouble
+ModelManager::computeDelayDerivative(int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax) {
+  if (delayTime > delayMax || delayTime < 0.0) {
+    throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delayTime, time, delayMax);
+  }
+
+  if (doubleIsZero(time)) {
+    return 0;
+  }
+
+  const Delay& delay = delayManager_.getDelayById(exprNumber);
+
+  if (!delay.isTriggered()) {
+    return 0;
+  }
+
+  const auto values = delay.getLastRegisteredPoint();
+  const auto lastRegisteredTime = values.first;
+  const auto lastRegisteredValue = values.second;
+
+  if (time - delayTime.value() < lastRegisteredTime || doubleEquals(time - delayTime.value(), lastRegisteredTime)) {
+    return delayManager_.getDelay(exprNumber, delayTime.value());
+  } else {
+    return lastRegisteredValue + (exprValue - lastRegisteredValue) * (time - delayTime - lastRegisteredTime) / (time - lastRegisteredTime);
+  }
+}
+#endif
 
 }  // namespace DYN

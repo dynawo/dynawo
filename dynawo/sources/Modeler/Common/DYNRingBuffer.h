@@ -113,6 +113,16 @@ class RingBuffer {
    */
   void points(std::vector<std::pair<double, double> >& vec) const;
 
+
+  /**
+   * @brief Retrieves the last registered values (time, value) in the ring buffer
+   *
+   * @return the last registered values (time, value) in the ring buffer
+   */
+  std::pair<double, double> getLastRegisteredPoint() const {
+    return queue_.back();
+  }
+
  private:
   /**
    * @brief Performs linear interpolation between the two 2D points @p p1 and @p p2 in abcisse @p time
