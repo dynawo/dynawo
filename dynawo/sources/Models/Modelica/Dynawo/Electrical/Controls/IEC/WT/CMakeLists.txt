@@ -12,8 +12,10 @@
 set(MODEL_FILES
   package.mo
   package.order
-  Control4A.mo
-  Control4B.mo
+  Control4A2015.mo
+  Control4B2015.mo
+  Control4A2020.mo
+  Control4B2020.mo
   )
 
 #
