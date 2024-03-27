@@ -82,7 +82,8 @@ curvesOutput
 *.pyc
 *.toc
 *.zip
-!**/reference/
+!**/reference/**
+nrt/data/TrapezoidalTest/reference/**
 !documentation/resources/exampleErrors/dynawoBadType.log
 !documentation/resources/exampleErrors/dynawoMissingConnection.log
 !documentation/resources/exampleErrors/dynawoParameterNotFound.log

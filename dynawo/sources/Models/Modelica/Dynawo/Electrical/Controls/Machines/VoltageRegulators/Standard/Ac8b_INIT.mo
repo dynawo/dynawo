@@ -13,10 +13,12 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model St1c_INIT "IEEE excitation system type ST1C initialization model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT;
-
-  Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
+model Ac8b_INIT "IEEE excitation system type AC8B initialization model"
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac78c_INIT(
+    Kc1 = 0,
+    Ki = 0,
+    Thetap = 0,
+    XlPu = 0);
 
   annotation(preferredView = "text");
-end St1c_INIT;
+end Ac8b_INIT;

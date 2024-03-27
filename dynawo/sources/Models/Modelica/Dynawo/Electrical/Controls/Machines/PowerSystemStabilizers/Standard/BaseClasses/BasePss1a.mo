@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.BaseC
 
 model BasePss1a "IEEE power system stabilizer type 1A (base model)"
 
+  //Regulation parameters
   parameter Types.Time A1 "First coefficient of notch filter in s";
   parameter Types.PerUnit A2 "Second coefficient of notch filter in s ^ 2";
   parameter Types.PerUnit Ks "Gain of power system stabilizer";
