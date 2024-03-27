@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="SMIB_Fault_PmConst_Ac8b">
+      <dyn:solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="8"/>
+      <dyn:modeler compileDir="outputs/compilation">
+        <dyn:dynModels dydFile="SMIB.dyd"/>
+        <dyn:precompiledModels useStandardModels="true"/>
+        <dyn:modelicaModels useStandardModels="true">
+          <dyn:directory path="." recursive="false"/>
+        </dyn:modelicaModels>
+      </dyn:modeler>
+      <dyn:simulation startTime="0" stopTime="10"/>
+      <dyn:outputs directory="outputs">
+        <dyn:curves inputFile="SMIB.crv" exportMode="CSV"/>
+        <dyn:logs>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+        </dyn:logs>
+      </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>
