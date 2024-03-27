@@ -157,11 +157,6 @@ class Simulation {
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
-   * @brief destructor
-   */
-  ~Simulation();
-
-  /**
    * @brief initialize the simulation
    */
   void init();

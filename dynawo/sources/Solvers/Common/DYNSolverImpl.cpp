@@ -55,8 +55,6 @@ namespace conditions {
 static_assert(sizeof (double) == sizeof (realtype), "wrong size of sundials::realtype");
 }  // namespace conditions
 
-Solver::~Solver() {}
-
 Solver::Impl::Impl() :
 sundialsVectorY_(NULL),
 sundialsVectorYp_(NULL),

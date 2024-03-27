@@ -44,16 +44,6 @@ class SolverKINAlgRestoration;
 class SolverIDAFactory : public SolverFactory {
  public:
   /**
-   * @brief default constructor
-   */
-  SolverIDAFactory();
-
-  /**
-   * @brief destructor
-   */
-  ~SolverIDAFactory();
-
-  /**
    * @brief Create an instance of solver
    * @return the new instance of solver created by the factory
    */
