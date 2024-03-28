@@ -411,6 +411,8 @@ warning: return type of member DYN::SubModel::printValuesParameters is not docum
 warning: return type of member lostEquipments::Exporter::exportToFile is not documented
 warning: return type of member lostEquipments::Exporter::exportToStream is not documented
 warning: Member getParameterDynamicNoThrow(const std::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const (function) of class DYN::NetworkComponent is not documented.
+warning: Member getParameterDynamicNoThrow(const std::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const  (function) of class DYN::NetworkComponent is not documented.
+Warning: Member getParameterDynamicNoThrow(const std::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const  (function) of class DYN::NetworkComponent is not documented.
 warning: return type of member DYN::SolverCommonFixedTimeStep::computePrediction is not documented
 warning: return type of member DYN::Criteria::FailingCriteria::printOneFailingCriteriaIntoLog is not documented
 warning: return type of member DYN::Criteria::FailingCriteria::printOneFailingCriteriaIntoTimeline is not documented
