@@ -43,7 +43,6 @@
 #include "DYNSubModelFactory.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNElement.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNTimer.h"
 #include "DYNDataInterface.h"
@@ -107,9 +106,6 @@ isInitProcess_(false) {
   parametersDynamic_.clear();
   variablesInit_.clear();
   parametersInit_.clear();
-}
-
-SubModel::~SubModel() {
 }
 
 void

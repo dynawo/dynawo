@@ -50,7 +50,7 @@ class VariableNative : public Variable {
   /**
    * @brief Destructor
    */
-  ~VariableNative() { }
+  virtual ~VariableNative() = default;
 
   /**
    * @brief Setter for variable's index

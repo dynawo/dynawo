@@ -39,7 +39,7 @@ class SwitchInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~SwitchInterface() { }
+  virtual ~SwitchInterface() = default;
 
   /**
    * @brief Getter for the switch's state

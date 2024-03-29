@@ -40,11 +40,6 @@ class ModelLine : public NetworkComponent {
   explicit ModelLine(const boost::shared_ptr<LineInterface>& line);
 
   /**
-   * @brief destructor
-   */
-  ~ModelLine() { }
-
-  /**
    * @brief indicate which modelBus are known (case of line without modelBus at one side)
    */
   typedef enum {

@@ -37,11 +37,6 @@ class ModelAreaSheddingFactory : public SubModelFactory {
    *
    */
   ModelAreaSheddingFactory() { }
-  /**
-   * @brief default destructor
-   *
-   */
-  ~ModelAreaSheddingFactory() { }
 
   /**
    * @brief Model AreaShedding getter
@@ -73,12 +68,6 @@ class ModelAreaShedding : public ModelCPP {
    * @brief Default constructor
    */
   ModelAreaShedding();
-  /**
-   * @brief Default destructor
-   *
-   * Creates a new ModelAreaShedding instance.
-   */
-  ~ModelAreaShedding() { }
 
   // instantiate virtual methods of the Model class
 

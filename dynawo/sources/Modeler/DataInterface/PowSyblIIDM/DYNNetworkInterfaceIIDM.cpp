@@ -36,9 +36,6 @@ NetworkInterfaceIIDM::NetworkInterfaceIIDM(powsybl::iidm::Network& network) :
 networkIIDM_(network) {
 }
 
-NetworkInterfaceIIDM::~NetworkInterfaceIIDM() {
-}
-
 void
 NetworkInterfaceIIDM::addLine(const shared_ptr<LineInterface>& line) {
   lines_.push_back(line);

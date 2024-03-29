@@ -49,7 +49,7 @@ class ModelCPP : public SubModel {
   /**
    * @brief Destructor
    */
-  virtual ~ModelCPP() {}
+  virtual ~ModelCPP() = default;
 
  public:
   /**

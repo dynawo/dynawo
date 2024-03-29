@@ -460,7 +460,7 @@ class MyModelManager : public ModelManager {
     name("MyModelManager");
   }
 
-  virtual ~MyModelManager();
+  virtual ~MyModelManager() = default;
 
   void testSize() {
     ASSERT_EQ(dataInit_->nbF, 1);
@@ -521,8 +521,6 @@ class MyModelManager : public ModelManager {
     return true;
   }
 };
-
-MyModelManager::~MyModelManager() {}
 
 
 TEST(TestModelManager, TestModelManagerBasics) {

@@ -75,7 +75,7 @@ class ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~ComponentInterface();
+  virtual ~ComponentInterface() = default;
 
   /**
    * @brief Setter for the component's hasDynamicModel_ attribute

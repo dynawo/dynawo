@@ -40,11 +40,6 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   explicit ModelSwitch(const boost::shared_ptr<SwitchInterface>& sw);
 
   /**
-   * @brief destructor
-   */
-  ~ModelSwitch() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {

@@ -45,7 +45,7 @@ class LccConverterInterface : public ConverterInterface {
   /**
    * @brief Destructor
    */
-  virtual ~LccConverterInterface() { }
+  virtual ~LccConverterInterface() = default;
 
   /**
    * @brief Getter for the power factor of the lcc converter

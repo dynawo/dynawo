@@ -40,11 +40,6 @@ class ModelDanglingLine : public NetworkComponent {
   explicit ModelDanglingLine(const boost::shared_ptr<DanglingLineInterface>& line);
 
   /**
-   * @brief destructor
-   */
-  ~ModelDanglingLine() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {

@@ -40,11 +40,6 @@ class ModelLoad : public NetworkComponent {
   explicit ModelLoad(const boost::shared_ptr<LoadInterface>& load);
 
   /**
-   * @brief destructor
-   */
-  ~ModelLoad() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {

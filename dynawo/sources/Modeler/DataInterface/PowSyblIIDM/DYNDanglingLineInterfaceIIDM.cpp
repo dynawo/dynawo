@@ -32,9 +32,6 @@ using std::vector;
 
 namespace DYN {
 
-DanglingLineInterfaceIIDM::~DanglingLineInterfaceIIDM() {
-}
-
 DanglingLineInterfaceIIDM::DanglingLineInterfaceIIDM(powsybl::iidm::DanglingLine& danglingLine) :
 DanglingLineInterface(false),
 InjectorInterfaceIIDM(danglingLine, danglingLine.getId()),

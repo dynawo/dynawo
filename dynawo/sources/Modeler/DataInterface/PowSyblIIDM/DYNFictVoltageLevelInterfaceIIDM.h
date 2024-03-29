@@ -42,11 +42,6 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   explicit FictVoltageLevelInterfaceIIDM(const std::string& Id, const double& VNom, const std::string& country);
 
   /**
-   * @brief destructor
-   */
-  ~FictVoltageLevelInterfaceIIDM();
-
-  /**
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */

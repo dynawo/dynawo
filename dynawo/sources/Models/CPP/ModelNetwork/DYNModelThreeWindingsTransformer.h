@@ -39,11 +39,6 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   explicit ModelThreeWindingsTransformer(const boost::shared_ptr<ThreeWTransformerInterface>& tfo);
 
   /**
-   * @brief destructor
-   */
-  ~ModelThreeWindingsTransformer() { }
-
-  /**
    * @brief  calculated variables type
    */
   void init() { /* not needed */ }

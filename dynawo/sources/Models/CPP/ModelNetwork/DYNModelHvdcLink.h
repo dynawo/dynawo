@@ -44,11 +44,6 @@ class ModelHvdcLink : public NetworkComponent {
   explicit ModelHvdcLink(const boost::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
-   * @brief destructor
-   */
-  ~ModelHvdcLink() { }
-
-  /**
    * @brief list of calculated variables indexes
    */
   typedef enum {

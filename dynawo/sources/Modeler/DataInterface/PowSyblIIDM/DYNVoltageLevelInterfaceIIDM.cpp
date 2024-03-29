@@ -90,9 +90,6 @@ voltageLevelIIDM_(voltageLevel) {
   slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
 }
 
-VoltageLevelInterfaceIIDM::~VoltageLevelInterfaceIIDM() {
-}
-
 string
 VoltageLevelInterfaceIIDM::getID() const {
   return voltageLevelIIDM_.getId();

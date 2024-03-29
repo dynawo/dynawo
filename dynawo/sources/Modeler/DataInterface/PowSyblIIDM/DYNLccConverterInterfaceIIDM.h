@@ -40,11 +40,6 @@ namespace DYN {
 class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorInterfaceIIDM {
  public:
   /**
-   * @brief Destructor
-   */
-  ~LccConverterInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param lcc lcc converter iidm instance
    */
