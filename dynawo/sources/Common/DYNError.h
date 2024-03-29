@@ -91,7 +91,7 @@ class Error : public std::exception {
   /**
    * @brief destructor
    */
-  virtual ~Error() noexcept { }
+  virtual ~Error() = default;
 
   /**
    * @brief returns the error's type
@@ -174,7 +174,7 @@ class MessageError : public std::exception {
   /**
    * @brief destructor
    */
-  virtual ~MessageError() noexcept { }
+  virtual ~MessageError() = default;
 
   /**
    * @brief returns the error's message

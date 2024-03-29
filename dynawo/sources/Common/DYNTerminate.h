@@ -69,7 +69,7 @@ class Terminate : public std::exception {
    * @brief default destructor
    *
    */
-  virtual ~Terminate() noexcept { }
+  virtual ~Terminate() = default;
 
   /**
    * @brief Operator << overload for error

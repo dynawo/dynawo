@@ -472,11 +472,6 @@ class Trace {
   static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
   /**
-   * @brief Constructor
-   */
-  Trace();
-
-  /**
    * @brief Init function.
    *
    * Implementation of static function

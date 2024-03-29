@@ -13,11 +13,17 @@
 set(MODEL_FILES
   package.mo
   package.order
+  Gast.mo
+  Gast.extvar
   GovSteam1.mo
   GovSteam1.extvar
   GovSteam1_INIT.mo
   IEEEG1.mo
   IEEEG1.extvar
+  IEEEG11.mo
+  IEEEG11.extvar
+  IEEEG2.mo
+  IEEEG2.extvar
   TGOV11.mo
   TGOV11.extvar
   TGov1.mo

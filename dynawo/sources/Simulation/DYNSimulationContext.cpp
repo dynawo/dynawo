@@ -22,9 +22,6 @@
 
 namespace DYN {
 
-SimulationContext::~SimulationContext() {
-}
-
 void
 SimulationContext::setWorkingDirectory(const std::string& directory) {
   workingDirectory_ = directory;
