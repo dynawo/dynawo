@@ -86,9 +86,6 @@ namespace DYN {
 
 ModelAreaShedding::ModelAreaShedding() :
 ModelCPP("AreaShedding"),
-areShedPowersFullySet_(true),
-PShed_(0.),
-QShed_(0.),
 deltaTime_(0.),
 nbLoads_(0),
 started_(-1.),
@@ -194,14 +191,7 @@ ModelAreaShedding::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMat
 void
 ModelAreaShedding::evalZ(const double /*t*/) {
   if (gLocal_[0] == ROOT_UP && stateAreaShedding_ != STARTED) {  // load shedding starts
-    if (doubleIsZero(PShed_) && doubleIsZero(QShed_)) {
-      DYNAddTimelineEvent(this, name(), LoadSheddingStarted);
-    } else {
-      DYNAddTimelineEvent(this, name(), LoadSheddingStartedAndDisplay, PShed_, QShed_);
-      if (!areShedPowersFullySet_) {
-        Trace::warn() << DYNLog(LoadSheddingValueIncomplete) << Trace::endline;
-      }
-    }
+    DYNAddTimelineEvent(this, name(), LoadSheddingStarted);
     zLocal_[0] = STARTED;
     stateAreaShedding_ = STARTED;
   }
@@ -287,14 +277,10 @@ ModelAreaShedding::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("deltaTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
   parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
-  parameters.push_back(ParameterModeler("PShed", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
-  parameters.push_back(ParameterModeler("QShed", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
 }
 
 void
 ModelAreaShedding::setSubModelParameters() {
-  std::unique_ptr<const ParameterModeler> shedParameter;
-  const bool isInitParam = false;
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
 
@@ -311,26 +297,6 @@ ModelAreaShedding::setSubModelParameters() {
     deltaName.clear();
     deltaName << "deltaQ_" << k;
     deltaQ_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
-
-    deltaName.str("");
-    deltaName.clear();
-    deltaName << "PShed_" << k;
-    shedParameter.reset(new ParameterModeler(findParameter(deltaName.str(), isInitParam)));
-    if (shedParameter->hasValue()) {
-      PShed_ += shedParameter->getDoubleValue();
-    } else {
-      areShedPowersFullySet_ = false;
-    }
-
-    deltaName.str("");
-    deltaName.clear();
-    deltaName << "QShed_" << k;
-    shedParameter.reset(new ParameterModeler(findParameter(deltaName.str(), isInitParam)));
-    if (shedParameter->hasValue()) {
-      QShed_ += shedParameter->getDoubleValue();
-    } else {
-      areShedPowersFullySet_ = false;
-    }
   }
 }
 
