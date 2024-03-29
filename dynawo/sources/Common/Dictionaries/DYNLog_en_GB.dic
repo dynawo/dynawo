@@ -131,6 +131,8 @@ NoNetworkConnection           =             component %1% not imported : no netw
 PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01
 CriteriaDefinedButNoIIDM      =             a criteria file was defined without any IIDM file, it will be ignored
 //---------------------- OTHERS --------------------------------------
+// --> ModelAreaShedding
+LoadSheddingValueIncomplete   =             load shedding quantities are not fully provided in the AreaShedding model's paramters, use values in the timeline with cautious
 // --> ModelNetwork
 DanglingLineStateChange       =             state of the Dangling Line %1% change from %2% to %3%
 GeneratorStateChange          =             state of Generator %1% change from %2% to %3%
