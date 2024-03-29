@@ -33,9 +33,6 @@ CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM(double limit, unsigned long
     acceptableDuration_ = duration;
 }
 
-CurrentLimitInterfaceIIDM::~CurrentLimitInterfaceIIDM() {
-}
-
 double
 CurrentLimitInterfaceIIDM::getLimit() const {
   if (doubleEquals(limit_, std::numeric_limits<double>::max()))

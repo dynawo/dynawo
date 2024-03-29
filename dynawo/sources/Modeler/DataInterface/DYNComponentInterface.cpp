@@ -38,9 +38,6 @@ hasInitialConditions_(hasInitialConditions) {
 #endif
 }
 
-ComponentInterface::~ComponentInterface() {
-}
-
 void
 ComponentInterface::hasDynamicModel(bool hasDynamicModel) {
   hasDynamicModel_ = hasDynamicModel;

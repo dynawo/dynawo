@@ -46,7 +46,7 @@ class VscConverterInterface : public ConverterInterface, public ReactiveCurvePoi
   /**
    * @brief Destructor
    */
-  virtual ~VscConverterInterface() { }
+  virtual ~VscConverterInterface() = default;
 
   /**
    * @brief Getter for the boolean indicating if the converter regulates the voltage (otherwise it regulates the reactive power)

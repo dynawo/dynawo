@@ -42,11 +42,6 @@ class ModelStaticVarCompensator : public NetworkComponent {
   explicit ModelStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& svc);
 
   /**
-   * @brief destructor
-   */
-  ~ModelStaticVarCompensator() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {

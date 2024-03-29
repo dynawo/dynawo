@@ -36,7 +36,7 @@ class ConnectInterface {  ///< Generic class for connecting two dynamic models
   /**
    * @brief default destructor.
    */
-  virtual ~ConnectInterface() { }
+  virtual ~ConnectInterface() = default;
 
   /**
    * @brief set first model

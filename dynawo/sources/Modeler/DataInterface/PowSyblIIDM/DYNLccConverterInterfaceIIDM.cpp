@@ -33,9 +33,6 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-LccConverterInterfaceIIDM::~LccConverterInterfaceIIDM() {
-}
-
 LccConverterInterfaceIIDM::LccConverterInterfaceIIDM(powsybl::iidm::LccConverterStation& lcc) : LccConverterInterface(false),
                                                                                                 InjectorInterfaceIIDM(lcc, lcc.getId()),
                                                                                                 lccConverterIIDM_(lcc) {

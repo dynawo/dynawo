@@ -48,11 +48,6 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   explicit ModelBus(const boost::shared_ptr<BusInterface>& bus, bool isNodeBreaker);
 
   /**
-   * @brief destructor
-   */
-  ~ModelBus() { }
-
-  /**
    * @brief calculated variables type
    */
   typedef enum {
@@ -636,11 +631,6 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
   :num_(0) { }
 
   /**
-   * @brief destructor
-   */
-  ~SubNetwork() { }
-
-  /**
    * @brief constructor
    * @param num num
    */
@@ -714,11 +704,6 @@ class ModelBusContainer {
    * @brief default constructor
    */
   ModelBusContainer();
-
-  /**
-   * @brief destructor
-   */
-  ~ModelBusContainer() { }
 
   /**
    * @brief add bus

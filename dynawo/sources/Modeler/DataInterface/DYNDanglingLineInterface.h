@@ -46,7 +46,7 @@ class DanglingLineInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~DanglingLineInterface() { }
+  virtual ~DanglingLineInterface() = default;
 
   /**
    * @brief Add a curent limit interface
