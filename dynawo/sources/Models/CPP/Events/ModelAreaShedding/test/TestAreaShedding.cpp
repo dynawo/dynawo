@@ -46,10 +46,6 @@ static boost::shared_ptr<SubModel> initModelAreaShedding() {
   parametersSet->createParameter("deltaQ_0", 0.1);
   parametersSet->createParameter("deltaP_1", 0.15);
   parametersSet->createParameter("deltaQ_1", 0.2);
-  parametersSet->createParameter("PShed_0", 1.);
-  parametersSet->createParameter("QShed_0", 2.);
-  parametersSet->createParameter("PShed_1", 3.);
-  parametersSet->createParameter("QShed_1", 4.);
   modelAreaShedding->setPARParameters(parametersSet);
   modelAreaShedding->addParameters(parameters, false);
   modelAreaShedding->setParametersFromPARFile();
@@ -65,7 +61,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
 
   std::vector<ParameterModeler> parameters;
   modelAreaShedding->defineParameters(parameters);
-  ASSERT_EQ(parameters.size(), 6);
+  ASSERT_EQ(parameters.size(), 4);
 
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
@@ -74,15 +70,12 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   parametersSet->createParameter("deltaQ_0", 10.);
   parametersSet->createParameter("deltaP_1", 15.);
   parametersSet->createParameter("deltaQ_1", 20.);
-  parametersSet->createParameter("PShed_0", 1.);
-  parametersSet->createParameter("QShed_0", 2.);
-  parametersSet->createParameter("PShed_1", 3.);
-  parametersSet->createParameter("QShed_1", 4.);
   ASSERT_NO_THROW(modelAreaShedding->setPARParameters(parametersSet));
 
   modelAreaShedding->addParameters(parameters, false);
   ASSERT_NO_THROW(modelAreaShedding->setParametersFromPARFile());
   ASSERT_NO_THROW(modelAreaShedding->setSubModelParameters());
+
 
   std::vector<boost::shared_ptr<Variable> > variables;
   modelAreaShedding->defineVariables(variables);
