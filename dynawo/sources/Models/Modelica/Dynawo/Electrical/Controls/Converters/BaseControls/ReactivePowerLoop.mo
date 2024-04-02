@@ -31,7 +31,7 @@ model ReactivePowerLoop
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   ReactiveCurrentLimiter reactiveCurrentLimiter(InomPu= InomPu, idConv0Pu = idConv0Pu, iqConv0Pu= iqConv0Pu) annotation(
     Placement(transformation(origin = {-94, -102}, extent = {{-31, -31}, {31, 31}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = (InomPu^2 - idConv0Pu^2)^0.5, uMin = -(InomPu^2 - idConv0Pu^2)^0.5)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = InomPu, uMin = -InomPu)  annotation(
     Placement(transformation(origin = {91, 0}, extent = {{-10, -10}, {10, 10}})));
   //  Modelica.Blocks.Continuous.Integrator integrator(k = Kiv, y_start = iqConv0Pu) annotation(
   //    Placement(transformation(origin = {-10, -19}, extent = {{-10, -10}, {10, 10}})));
@@ -41,7 +41,7 @@ model ReactivePowerLoop
   //    Placement(transformation(origin = {-36, -40}, extent = {{-10, -10}, {10, 10}})));
   //  Modelica.Blocks.Math.Feedback feedback1 annotation(
   //    Placement(transformation(origin = {1, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kiv, outMax = (InomPu^2 - idConv0Pu^2)^0.5, y_start = iqConv0Pu) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kiv, outMax = InomPu, y_start = iqConv0Pu) annotation(
     Placement(transformation(origin = {2, -13}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(gain.y, add.u1) annotation(

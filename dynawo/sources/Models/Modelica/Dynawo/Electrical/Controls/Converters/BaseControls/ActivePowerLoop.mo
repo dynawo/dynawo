@@ -17,7 +17,7 @@ model ActivePowerLoop
   parameter Types.PerUnit didt_min "minimum of ramp rate limit of of Id_max limitting loop";
   parameter Types.PerUnit didt_max "maximum of ramp rate limit of of Id_max limitting loop";
   //Initial values
-//  parameter Types.PerUnit idConv0Pu;
+  //  parameter Types.PerUnit idConv0Pu;
   parameter Types.PerUnit iqConv0Pu;
 
   Modelica.Blocks.Interfaces.RealInput PGenRefPu(start = PGenRef0Pu) annotation(
@@ -41,14 +41,6 @@ model ActivePowerLoop
     Placement(transformation(origin = {-80, -59}, extent = {{-28, -28}, {28, 28}})));
   NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(transformation(origin = {114, 80}, extent = {{-10, -10}, {10, 10}})));
-  //  Modelica.Blocks.Continuous.Integrator integrator(k = Kip, y_start = idConv0Pu)  annotation(
-  //    Placement(transformation(origin = {-18, 61}, extent = {{-10, -10}, {10, 10}})));
-  //  NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter1 annotation(
-  //    Placement(transformation(origin = {20, 60}, extent = {{-10, -10}, {10, 10}})));
-  //  Modelica.Blocks.Math.Feedback feedback1 annotation(
-  //    Placement(transformation(origin = {-16, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  //  Modelica.Blocks.Math.Add add1 annotation(
-  //    Placement(transformation(origin = {-53, 34}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kip, outMax = InomPu, y_start = idConv0Pu) annotation(
     Placement(transformation(origin = {-3, 64}, extent = {{-10, -10}, {10, 10}})));
 equation
@@ -72,7 +64,6 @@ equation
     Line(points = {{-49, -45}, {90, -45}, {90, 88}, {102, 88}}, color = {0, 0, 127}));
   connect(activeCurrentLimiter.Idmin, variableLimiter.limit2) annotation(
     Line(points = {{-49, -73}, {94, -73}, {94, 72}, {102, 72}}, color = {0, 0, 127}));
-
   connect(feedback.y, limIntegrator.u) annotation(
     Line(points = {{-81, 80}, {-50, 80}, {-50, 64}, {-15, 64}}, color = {0, 0, 127}));
   connect(limIntegrator.y, add.u2) annotation(

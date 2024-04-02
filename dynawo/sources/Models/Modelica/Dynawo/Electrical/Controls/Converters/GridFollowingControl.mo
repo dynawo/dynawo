@@ -25,6 +25,8 @@ model GridFollowingControl
   parameter Types.PerUnit Kiv "Integral gain of the reactive power loop";
   parameter Types.PerUnit KpPLL;
   parameter Types.PerUnit KiPLL;
+  parameter Types.PerUnit Vpllb "PLL Hysteresis lower limit";
+  parameter Types.PerUnit Vpllu "PLL Hysteresis upper limit";
   parameter Types.PerUnit OmegaMaxPu;
   parameter Types.PerUnit OmegaMinPu;
   //Initial values
@@ -78,7 +80,7 @@ model GridFollowingControl
     Placement(visible = true, transformation(origin = {-130, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput iqConvPu(start = iqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {69, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  PLL.PLL pll(u0Pu = uPcc0Pu, Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu) annotation(
+  PLL.PLLGFL pll(u0Pu = uPcc0Pu, Ki = KiPLL, Kp = KpPLL, Vpllb= Vpllb, Vpllu= Vpllu, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu) annotation(
     Placement(transformation(origin = {-38.5, 111.5}, extent = {{-18.5, -18.5}, {18.5, 18.5}})));
   BaseControls.ActivePowerLoop activePowerLoop(Kip = Kip, Kpp = Kpp, PGen0Pu = PGen0Pu, PGenRef0Pu = PGen0Pu, Tlpf = Tlpf, InomPu = InomPu, Trlim = Trlim, didt_min = didt_min, didt_max = didt_max, idConv0Pu = idConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
     Placement(transformation(origin = {-60.5, 42.5}, extent = {{-26.5, -26.5}, {26.5, 26.5}})));

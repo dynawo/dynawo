@@ -39,6 +39,8 @@ model SingleVSC
   Kiv= SingleVSC_INIT.Kiv,
   KpPLL= SingleVSC_INIT.KpPLL ,
   KiPLL= SingleVSC_INIT.KiPLL ,
+  Vpllb = SingleVSC_INIT.Vpllb ,
+  Vpllu = SingleVSC_INIT.Vpllu ,
   OmegaMaxPu = SingleVSC_INIT.OmegaMaxPu,
   OmegaMinPu = SingleVSC_INIT.OmegaMinPu,
   uPcc0Pu= SingleVSC_INIT.uPcc0Pu ,

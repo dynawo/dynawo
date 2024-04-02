@@ -15,7 +15,7 @@ model ActiveCurrentLimiter
     Placement(transformation(origin = {-151, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain2(k = -1) annotation(
     Placement(transformation(origin = {122, -30}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = (InomPu - iqConvPu^2)^0.5) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = (InomPu^2 - iqConvPu^2)^0.5) annotation(
     Placement(transformation(origin = {-95, 0}, extent = {{-45, -15}, {45, 15}})));
   Modelica.Blocks.Interfaces.RealOutput Idmax annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
