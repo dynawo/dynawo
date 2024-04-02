@@ -259,7 +259,6 @@ class ModelAreaShedding : public ModelCPP {
   // parameters
   std::vector<double> deltaP_;  ///< deltas in % to apply to PRefs
   std::vector<double> deltaQ_;  ///< deltas in % to apply to QRefs
-  bool areShedPowersFullySet_;  ///< @b true if all the values of load sheddings (active in MW and reactive in MVAr) are provided as parameters
   double PShed_;  ///< total amount of active power shedding (in MW)
   double QShed_;  ///< total amount of reactive power shedding (in MVAr)
   double deltaTime_;  ///< time at which occurs the delta

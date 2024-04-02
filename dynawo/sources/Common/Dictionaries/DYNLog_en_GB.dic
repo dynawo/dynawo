@@ -132,7 +132,7 @@ PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 i
 CriteriaDefinedButNoIIDM      =             a criteria file was defined without any IIDM file, it will be ignored
 //---------------------- OTHERS --------------------------------------
 // --> ModelAreaShedding
-LoadSheddingValueIncomplete   =             load shedding quantities are not fully provided in the AreaShedding model's paramters, use values in the timeline with cautious
+LoadSheddingValueIncomplete   =             load shedding quantities are not fully provided in DYNAreaShedding model parameters: %1% is missing, using default (0.)
 // --> ModelNetwork
 DanglingLineStateChange       =             state of the Dangling Line %1% change from %2% to %3%
 GeneratorStateChange          =             state of Generator %1% change from %2% to %3%

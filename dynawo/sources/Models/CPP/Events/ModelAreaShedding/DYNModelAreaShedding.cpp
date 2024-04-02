@@ -86,7 +86,6 @@ namespace DYN {
 
 ModelAreaShedding::ModelAreaShedding() :
 ModelCPP("AreaShedding"),
-areShedPowersFullySet_(true),
 PShed_(0.),
 QShed_(0.),
 deltaTime_(0.),
@@ -198,9 +197,6 @@ ModelAreaShedding::evalZ(const double /*t*/) {
       DYNAddTimelineEvent(this, name(), LoadSheddingStarted);
     } else {
       DYNAddTimelineEvent(this, name(), LoadSheddingStartedAndDisplay, PShed_, QShed_);
-      if (!areShedPowersFullySet_) {
-        Trace::warn() << DYNLog(LoadSheddingValueIncomplete) << Trace::endline;
-      }
     }
     zLocal_[0] = STARTED;
     stateAreaShedding_ = STARTED;
@@ -294,6 +290,9 @@ ModelAreaShedding::defineParameters(vector<ParameterModeler>& parameters) {
 void
 ModelAreaShedding::setSubModelParameters() {
   std::unique_ptr<const ParameterModeler> shedParameter;
+  std::vector<std::string> missingPar;
+  bool shedPowersfullyset = true;
+  bool shedPowersPartiallyset = false;
   const bool isInitParam = false;
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
@@ -317,9 +316,11 @@ ModelAreaShedding::setSubModelParameters() {
     deltaName << "PShed_" << k;
     shedParameter.reset(new ParameterModeler(findParameter(deltaName.str(), isInitParam)));
     if (shedParameter->hasValue()) {
+      shedPowersPartiallyset = true;
       PShed_ += shedParameter->getDoubleValue();
     } else {
-      areShedPowersFullySet_ = false;
+      shedPowersfullyset = false;
+      missingPar.push_back(deltaName.str());
     }
 
     deltaName.str("");
@@ -327,9 +328,16 @@ ModelAreaShedding::setSubModelParameters() {
     deltaName << "QShed_" << k;
     shedParameter.reset(new ParameterModeler(findParameter(deltaName.str(), isInitParam)));
     if (shedParameter->hasValue()) {
+      shedPowersPartiallyset = true;
       QShed_ += shedParameter->getDoubleValue();
     } else {
-      areShedPowersFullySet_ = false;
+      shedPowersfullyset = false;
+      missingPar.push_back(deltaName.str());
+    }
+  }
+  if (!shedPowersfullyset && shedPowersPartiallyset) {
+    for (auto parName : missingPar) {
+      Trace::warn() << DYNLog(LoadSheddingValueIncomplete, parName) << Trace::endline;
     }
   }
 }
