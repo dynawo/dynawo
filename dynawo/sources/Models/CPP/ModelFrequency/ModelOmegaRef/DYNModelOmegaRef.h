@@ -40,12 +40,6 @@ class ModelOmegaRefFactory : public SubModelFactory {
    *
    */
   ModelOmegaRefFactory() { }
-
-  /**
-   * @brief default destructor
-   *
-   */
-  ~ModelOmegaRefFactory() { }
   /**
    * @brief ModelOmegaRef getter
    *
@@ -81,12 +75,6 @@ class ModelOmegaRef : public ModelCPP {
    */
   ModelOmegaRef();
 
-  /**
-   * @brief Reference frequency model default destructor
-   *
-   *
-   */
-  ~ModelOmegaRef() { }
   /**
    * @brief Reference frequency model initialization
    * @param t0 : initial time of the simulation

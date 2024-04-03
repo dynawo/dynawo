@@ -86,9 +86,6 @@ networkIIDM_(networkIIDM),
 serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
 }
 
-DataInterfaceIIDM::~DataInterfaceIIDM() {
-}
-
 void
 DataInterfaceIIDM::loadExtensions(const std::vector<std::string>& paths) {
   std::unique_lock<std::mutex> lock(loadExtensionMutex_);
@@ -173,7 +170,7 @@ DataInterfaceIIDM::getNetworkIIDM() const {
 
 std::string
 DataInterfaceIIDM::getBusName(const std::string& componentName, const std::string& labelNode) {
-  boost::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(componentName);
+  std::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(componentName);
   string busName = "";
   if (iter != components_.end()) {
     shared_ptr<ComponentInterface> component = iter->second;
@@ -780,7 +777,7 @@ DataInterfaceIIDM::findBusBreakerBusInterface(const powsybl::iidm::Bus& bus) con
   if (bus.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
     throw DYNError(Error::MODELER, UnknownBus, id);
   }
-  boost::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator iter = busComponents_.find(id);
+  std::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator iter = busComponents_.find(id);
   if (iter != busComponents_.end())
     return iter->second;
   else
@@ -793,7 +790,7 @@ DataInterfaceIIDM::findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel
   if (vl.getTopologyKind() == powsybl::iidm::TopologyKind::BUS_BREAKER) {
     throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId(), node);
   }
-  boost::unordered_map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(vl.getId());
+  std::unordered_map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(vl.getId());
   if (iter == calculatedBusComponents_.end())
     throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId());
 
@@ -807,7 +804,7 @@ DataInterfaceIIDM::findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel
 
 shared_ptr<VoltageLevelInterface>
 DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
-  boost::unordered_map<string, shared_ptr<VoltageLevelInterface> >::const_iterator iter = voltageLevels_.find(id);
+  std::unordered_map<string, shared_ptr<VoltageLevelInterface> >::const_iterator iter = voltageLevels_.find(id);
   if (iter != voltageLevels_.end())
     return iter->second;
   else
@@ -816,7 +813,7 @@ DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
 
 shared_ptr<BusInterface>
 DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, const string& bbsId) const {
-  boost::unordered_map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(voltageLevelId);
+  std::unordered_map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(voltageLevelId);
   if (iter != calculatedBusComponents_.end()) {
     vector<shared_ptr<CalculatedBusInterfaceIIDM> > buses = iter->second;
     for (unsigned int i = 0; i < buses.size(); ++i) {
@@ -829,7 +826,7 @@ DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, cons
 
 const shared_ptr<ComponentInterface>&
 DataInterfaceIIDM::findComponent(const std::string& id) const {
-  boost::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(id);
+  std::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(id);
   if (iter != components_.end())
     return iter->second;
   else
@@ -838,7 +835,7 @@ DataInterfaceIIDM::findComponent(const std::string& id) const {
 
 shared_ptr<ComponentInterface>&
 DataInterfaceIIDM::findComponent(const std::string& id) {
-  boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.find(id);
+  std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.find(id);
   if (iter != components_.end())
     return iter->second;
   else
@@ -865,7 +862,7 @@ DataInterfaceIIDM::setDynamicModel(const string& componentId, const shared_ptr<S
 
 void
 DataInterfaceIIDM::setModelNetwork(const shared_ptr<SubModel>& model) {
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->setModelDyn(model);
   }
@@ -905,7 +902,7 @@ DataInterfaceIIDM::mapConnections() {
 
 void
 DataInterfaceIIDM::importStaticParameters() {
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->importStaticParameters();
   }
@@ -913,7 +910,7 @@ DataInterfaceIIDM::importStaticParameters() {
 
 void
 DataInterfaceIIDM::getStateVariableReference() {
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->getStateVariableReference();
   }
@@ -921,7 +918,7 @@ DataInterfaceIIDM::getStateVariableReference() {
 
 void
 DataInterfaceIIDM::updateFromModel(bool filterForCriteriaCheck) {
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->updateFromModel(filterForCriteriaCheck);
   }
@@ -930,7 +927,7 @@ DataInterfaceIIDM::updateFromModel(bool filterForCriteriaCheck) {
 void
 DataInterfaceIIDM::exportStateVariables() {
   const bool filterForCriteriaCheck = false;
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->updateFromModel(filterForCriteriaCheck);
     (iter->second)->exportStateVariables();
@@ -939,7 +936,7 @@ DataInterfaceIIDM::exportStateVariables() {
   // loop to update switch state due to topology analysis
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
-  for (boost::unordered_map<string, shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
+  for (std::unordered_map<string, shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
       iterVLEnd = voltageLevels_.end(); iterVL != iterVLEnd; ++iterVL)
     (iterVL->second)->exportSwitchesState();
 }
@@ -947,7 +944,7 @@ DataInterfaceIIDM::exportStateVariables() {
 #ifdef _DEBUG_
 void
 DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->exportStateVariables();
   }
@@ -955,7 +952,7 @@ DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
   // loop to update switch state due to topology analysis
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
-  for (boost::unordered_map<string, shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
+  for (std::unordered_map<string, shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
       iterVLEnd = voltageLevels_.end(); iterVL != iterVLEnd; ++iterVL)
     (iterVL->second)->exportSwitchesState();
 }
@@ -1023,7 +1020,7 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
             continue;
           }
         } else {
-          boost::unordered_map<std::string, shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(cmpIt->getId());
+          std::unordered_map<std::string, shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(cmpIt->getId());
           if (busItfIter != components_.end()) {
             const shared_ptr<ComponentInterface> &cmp = busItfIter->second;
             if (cmp->getType() != ComponentInterface::BUS) {
@@ -1045,7 +1042,7 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
         dynCriteria->addBus(bus);
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
+      for (std::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
           cmpItEnd = busComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
         if (crit->hasCountryFilter()) {
@@ -1074,7 +1071,7 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(cmpIt->getId());
+        std::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(cmpIt->getId());
         if (loadItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
           if (cmp->getType() != ComponentInterface::LOAD) {
@@ -1094,7 +1091,7 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
         }
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> >::const_iterator cmpIt = loadComponents_.begin(),
+      for (std::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> >::const_iterator cmpIt = loadComponents_.begin(),
           cmpItEnd = loadComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
         if (crit->hasCountryFilter() && !cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
@@ -1120,7 +1117,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(cmpIt->getId());
+        std::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(cmpIt->getId());
         if (generatorItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
           if (cmp->getType() != ComponentInterface::GENERATOR) {
@@ -1140,7 +1137,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
         }
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
+      for (std::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
         boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
@@ -1164,7 +1161,7 @@ DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
   Timer timer("DataInterfaceIIDM::checkCriteria");
 #endif
 #ifdef _DEBUG_
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
     iter->second->enableCheckStateVariable();
   }
 #endif
@@ -1174,7 +1171,7 @@ DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
     criteriaOk &= (*it)->checkCriteria(t, finalStep, timeline_);
   }
 #ifdef _DEBUG_
-  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
+  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
     iter->second->disableCheckStateVariable();
   }
 #endif

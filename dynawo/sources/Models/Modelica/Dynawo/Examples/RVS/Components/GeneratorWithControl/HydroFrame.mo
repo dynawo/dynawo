@@ -87,7 +87,7 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
     tW = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.tW],
     VelMax = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.VelMax]) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX scrx(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX1 scrx(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     IRotor0Pu = generatorSynchronous.IRotor0Pu,
     K = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.K],

@@ -143,7 +143,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorInitialization) {
 
 static void
 fillParameters(shared_ptr<ModelShuntCompensator> shunt, std::string& startingPoint) {
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
     param.setValue<std::string>(startingPoint, PAR);
@@ -431,7 +431,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   capa->defineNonGenericParameters(parameters);
   ASSERT_EQ(parameters.size(), 1);
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   const std::string paramName = "capacitor_no_reclosing_delay";
   ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
   param.setValue<double>(10., PAR);

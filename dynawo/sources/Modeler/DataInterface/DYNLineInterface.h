@@ -49,7 +49,7 @@ class LineInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~LineInterface() { }
+  virtual ~LineInterface() = default;
 
   /**
    * @brief Add a curent limit interface for side 1

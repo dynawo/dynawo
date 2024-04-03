@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model IEEEX2 "IEEE excitation system type 2 model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseIEEEX(derivative.x_start = Va0Pu);
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseIEEEX;
 
   //Regulation parameters
   parameter Types.Time tF2 "Feedback lag time constant in s";

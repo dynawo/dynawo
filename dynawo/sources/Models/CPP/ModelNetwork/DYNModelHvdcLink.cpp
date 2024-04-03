@@ -741,7 +741,7 @@ ModelHvdcLink::defineNonGenericParameters(vector<ParameterModeler>& /*parameters
 }
 
 void
-ModelHvdcLink::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+ModelHvdcLink::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
   std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {

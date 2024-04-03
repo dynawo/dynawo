@@ -53,11 +53,6 @@ class ModelDescription {
   hasCompiledModel_(false) { }
 
   /**
-   * @brief default destructor.
-   */
-  ~ModelDescription() { }
-
-  /**
    * @brief add static reference interface
    * @param staticRefInterface static reference interface
    */

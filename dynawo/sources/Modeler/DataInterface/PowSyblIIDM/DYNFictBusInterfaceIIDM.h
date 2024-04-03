@@ -41,11 +41,6 @@ class FictBusInterfaceIIDM : public BusInterface {
   } indexVar_t;
 
   /**
-   * @brief Destructor
-   */
-  ~FictBusInterfaceIIDM();
-
-  /**
    * @brief Constructor
    *
    * @param Id : Id of bus' iidm instance

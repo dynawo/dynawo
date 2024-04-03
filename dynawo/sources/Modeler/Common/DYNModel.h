@@ -56,7 +56,7 @@ class Model {
   /**
    * @brief destructor
    */
-  virtual ~Model() { }
+  virtual ~Model() = default;
 
   /**
    * @brief evaluate the residual functions of the model

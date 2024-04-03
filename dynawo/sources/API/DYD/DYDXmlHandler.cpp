@@ -97,8 +97,6 @@ macroStaticReferenceHandler_(parser::ElementName(namespace_uri(), "macroStaticRe
   macroStaticReferenceHandler_.onEnd(lambda::bind(&XmlHandler::addMacroStaticReference, lambda::ref(*this)));
 }
 
-XmlHandler::~XmlHandler() {}
-
 boost::shared_ptr<DynamicModelsCollection>
 XmlHandler::getDynamicModelsCollection() {
   return dynamicModelsCollection_;
@@ -170,8 +168,6 @@ unitDynamicModelHandler_(parser::ElementName(namespace_uri(), "unitDynamicModel"
   macroStaticRefHandler_.onEnd(lambda::bind(&ModelicaModelHandler::addMacroStaticRef, lambda::ref(*this)));
   unitDynamicModelHandler_.onEnd(lambda::bind(&ModelicaModelHandler::addUnitDynamicModel, lambda::ref(*this)));
 }
-
-ModelicaModelHandler::~ModelicaModelHandler() {}
 
 void
 ModelicaModelHandler::create(attributes_type const& attributes) {
@@ -250,8 +246,6 @@ unitDynamicModelHandler_(parser::ElementName(namespace_uri(), "unitDynamicModel"
   unitDynamicModelHandler_.onEnd(lambda::bind(&ModelTemplateHandler::addUnitDynamicModel, lambda::ref(*this)));
 }
 
-ModelTemplateHandler::~ModelTemplateHandler() {}
-
 void
 ModelTemplateHandler::create(attributes_type const& attributes) {
   modelTemplate_ = ModelTemplateFactory::newModel(attributes["id"]);
@@ -314,8 +308,6 @@ macroStaticRefHandler_(parser::ElementName(namespace_uri(), "macroStaticRef")) {
   macroStaticRefHandler_.onEnd(lambda::bind(&BlackBoxModelHandler::addMacroStaticRef, lambda::ref(*this)));
 }
 
-BlackBoxModelHandler::~BlackBoxModelHandler() {}
-
 void
 BlackBoxModelHandler::create(attributes_type const& attributes) {
   blackBoxModel_ = BlackBoxModelFactory::newModel(attributes["id"]);
@@ -359,8 +351,6 @@ macroStaticRefHandler_(parser::ElementName(namespace_uri(), "macroStaticRef")) {
   macroStaticRefHandler_.onEnd(lambda::bind(&ModelTemplateExpansionHandler::addMacroStaticRef, lambda::ref(*this)));
 }
 
-ModelTemplateExpansionHandler::~ModelTemplateExpansionHandler() {}
-
 void
 ModelTemplateExpansionHandler::create(attributes_type const& attributes) {
   modelTemplateExpansion_ = ModelTemplateExpansionFactory::newModel(attributes["id"]);
@@ -396,8 +386,6 @@ ConnectHandler::ConnectHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&ConnectHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-ConnectHandler::~ConnectHandler() {}
-
 void
 ConnectHandler::create(attributes_type const& attributes) {
   connector_.id1 = attributes["id1"].as_string();
@@ -414,8 +402,6 @@ ConnectHandler::get() const {
 MacroConnectHandler::MacroConnectHandler(const elementName_type& root_element) {
   onStartElement(root_element, lambda::bind(&MacroConnectHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-MacroConnectHandler::~MacroConnectHandler() {}
 
 void
 MacroConnectHandler::create(attributes_type const& attributes) {
@@ -447,8 +433,6 @@ macroInitConnectionHandler_(parser::ElementName(namespace_uri(), "initConnect"))
   macroInitConnectionHandler_.onEnd(lambda::bind(&MacroConnectorHandler::addInitConnect, lambda::ref(*this)));
 }
 
-MacroConnectorHandler::~MacroConnectorHandler() {}
-
 void
 MacroConnectorHandler::create(attributes_type const & attributes) {
   macroConnector_ = MacroConnectorFactory::newMacroConnector(attributes["id"]);
@@ -475,8 +459,6 @@ MacroConnectionHandler::MacroConnectionHandler(elementName_type const& root_elem
   onStartElement(root_element, lambda::bind(&MacroConnectionHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-MacroConnectionHandler::~MacroConnectionHandler() {}
-
 void
 MacroConnectionHandler::create(attributes_type const& attributes) {
   macroConnection_.var1 = attributes["var1"].as_string();
@@ -492,8 +474,6 @@ StaticRefHandler::StaticRefHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&StaticRefHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-StaticRefHandler::~StaticRefHandler() {}
-
 void
 StaticRefHandler::create(attributes_type const& attributes) {
   staticRef_.var = attributes["var"].as_string();
@@ -508,8 +488,6 @@ StaticRefHandler::get() const {
 MacroStaticRefHandler::MacroStaticRefHandler(const elementName_type& root_element) {
   onStartElement(root_element, lambda::bind(&MacroStaticRefHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-MacroStaticRefHandler::~MacroStaticRefHandler() {}
 
 void
 MacroStaticRefHandler::create(attributes_type const& attributes) {
@@ -530,8 +508,6 @@ staticRefHandler_(parser::ElementName(namespace_uri(), "staticRef")) {
   staticRefHandler_.onEnd(lambda::bind(&MacroStaticReferenceHandler::addStaticRef, lambda::ref(*this)));
 }
 
-MacroStaticReferenceHandler::~MacroStaticReferenceHandler() {}
-
 void
 MacroStaticReferenceHandler::create(attributes_type const & attributes) {
   macroStaticReference_ = MacroStaticReferenceFactory::newMacroStaticReference(attributes["id"]);
@@ -551,8 +527,6 @@ MacroStaticReferenceHandler::get() const {
 UnitDynamicModelHandler::UnitDynamicModelHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&UnitDynamicModelHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-UnitDynamicModelHandler::~UnitDynamicModelHandler() {}
 
 void
 UnitDynamicModelHandler::create(attributes_type const& attributes) {

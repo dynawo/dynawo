@@ -98,6 +98,8 @@ OverspeedTripped          =              Overspeed protection tripped
 UnderspeedArming          =              Underspeed protection arming
 UnderspeedDisarming       =              Underspeed protection disarming
 UnderspeedTripped         =              Underspeed protection tripped
+// --> Secondary Voltage regulation
+SVRLevelNew               =             Secondary Voltage Regulation : new level %1%
 // --> CurrentLimit
 OverloadUp                =             Overload %1% : activation
 OverloadDown              =             Overload %1% : deactivation

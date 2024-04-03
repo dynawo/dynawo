@@ -45,7 +45,7 @@ class BusInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~BusInterface() { }
+  virtual ~BusInterface() = default;
 
   /**
    * @brief Getter for the voltage magnitude of the bus

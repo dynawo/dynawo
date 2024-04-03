@@ -20,16 +20,18 @@
 #ifndef MODELER_DATAINTERFACE_DYNCOMPONENTINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNCOMPONENTINTERFACE_H_
 
+#include "DYNStaticParameter.h"
+
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
+
 
 namespace DYN {
 
 class SubModel;
 class StateVariable;
-class StaticParameter;
 
 /**
  * class ComponentInterface
@@ -73,7 +75,7 @@ class ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~ComponentInterface();
+  virtual ~ComponentInterface() = default;
 
   /**
    * @brief Setter for the component's hasDynamicModel_ attribute
@@ -225,7 +227,7 @@ class ComponentInterface {
 
  protected:
   std::vector<StateVariable> stateVariables_;  ///< state variable
-  boost::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
+  std::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
   ComponentType_t type_;  ///< type of the interface
 
  private:

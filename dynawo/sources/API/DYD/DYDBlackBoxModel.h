@@ -46,7 +46,7 @@ class BlackBoxModel : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~BlackBoxModel();
+  virtual ~BlackBoxModel() = default;
 
   /**
    * @brief Model library getter

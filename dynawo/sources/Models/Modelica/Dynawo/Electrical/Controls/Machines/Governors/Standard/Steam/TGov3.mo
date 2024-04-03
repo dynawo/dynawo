@@ -32,8 +32,8 @@ model TGov3 "IEEE governor type TGOV3"
   parameter Types.Time tA "Time to close intercept valve in s";
   parameter Types.Time tB "Time until intercept valve starts to reopen in s";
   parameter Types.Time tC "Time until intercept valve is fully open in s";
-  parameter Types.PerUnit Uo "Maximum valve opening velocity in pu/s";
-  parameter Types.PerUnit Uc "Maximum valve closing velocity in pu/s";
+  parameter Types.PerUnit Uc "Maximum valve closing velocity in pu/s (base PNomTurb)";
+  parameter Types.PerUnit Uo "Maximum valve opening velocity in pu/s (base PNomTurb)";
 
   //Table parameters
   parameter String FValveTableName "Name of table in text file for flow rate as a function of pressure";

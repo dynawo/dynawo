@@ -170,7 +170,7 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
   if (topologyKind_ != VoltageLevelInterface::NODE_BREAKER)
     throw DYNError(Error::MODELER, VoltageLevelTopoError, id());
 
-  boost::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > >::const_iterator it = ClosestBBS_.find(node);
+  std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > >::const_iterator it = ClosestBBS_.find(node);
   if (it != ClosestBBS_.end()) {
     shortestPath = it->second.second;
     return it->second.first;
@@ -272,7 +272,7 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
     vector<shared_ptr<ModelBus> >::const_iterator itBBS;
     for (itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
       // define a weight for each switch inside the voltage level depending on their connection state
-      boost::unordered_map<string, float> weights;
+      std::unordered_map<string, float> weights;
       for (vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
         if (!(*itSwitch)->canBeClosed())
           continue;
@@ -587,7 +587,7 @@ ModelVoltageLevel::instantiateVariables(vector<shared_ptr<Variable> >& variables
 }
 
 void
-ModelVoltageLevel::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+ModelVoltageLevel::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->setSubModelParameters(params);

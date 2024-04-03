@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,12 +13,12 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model VRKundur_INIT "Initialization model for VRKundur"
-  extends AdditionalIcons.Init;
+model IEEX2A "IEEE excitation system type 2A model"
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseIEEEX(EfdMinPu = 0);
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+equation
+  connect(product.y, derivative.u) annotation(
+    Line(points = {{40, -80}, {20, -80}, {20, -60}, {-58, -60}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "text",
-    uses(Modelica(version = "3.2.3")));
-end VRKundur_INIT;
+  annotation(preferredView = "diagram");
+end IEEX2A;

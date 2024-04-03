@@ -39,7 +39,7 @@ class RatioTapChangerInterface {
   /**
    * @brief Destructor
    */
-  virtual ~RatioTapChangerInterface() { }
+  virtual ~RatioTapChangerInterface() = default;
 
   /**
    * @brief Getter for steps of the ratio tap changer

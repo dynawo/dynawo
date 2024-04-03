@@ -42,11 +42,6 @@ class ModelStaticVarCompensator : public NetworkComponent {
   explicit ModelStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& svc);
 
   /**
-   * @brief destructor
-   */
-  ~ModelStaticVarCompensator() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {
@@ -214,9 +209,9 @@ class ModelStaticVarCompensator : public NetworkComponent {
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )

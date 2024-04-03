@@ -37,16 +37,9 @@ class DataInterface;
 class ModelVoltageMeasurementsUtilitiesFactory : public SubModelFactory {
  public:
   /**
-   * @brief default constructor
-   *
-   */
-  ModelVoltageMeasurementsUtilitiesFactory() {}
-
-  /**
    * @brief default destructor
-   *
    */
-  virtual ~ModelVoltageMeasurementsUtilitiesFactory() {}
+  virtual ~ModelVoltageMeasurementsUtilitiesFactory() = default;
 
   /**
    * @brief ModelVoltageMeasurementsUtilitiesFactory getter
@@ -111,13 +104,6 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    */
   ModelVoltageMeasurementsUtilities();
-
-  /**
-   * @brief ModelVoltageMeasurementsUtilities model default destructor
-   *
-   *
-   */
-  ~ModelVoltageMeasurementsUtilities() { }
 
   /**
    * @brief ModelVoltageMeasurementsUtilities model initialization
