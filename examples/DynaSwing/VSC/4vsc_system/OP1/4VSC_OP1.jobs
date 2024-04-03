@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="4VSC - OP1 - Disconnect Line">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP1.par" parId="Solver"/>
+    <dyn:modeler compileDir="outputs/OP1_LineDisconnect/compilation">
+      <dyn:network iidmFile="4VSC_OP1.iidm" parFile="4VSC_OP1.par" parId="Network"/>
+      <dyn:dynModels dydFile="4VSC_OP1_LineDisconnect.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
+    <dyn:outputs directory="outputs/OP1_LineDisconnect">
+      <dyn:curves inputFile="4VSC_OP1.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+
+  <dyn:job name="4VSC - OP1 - Fault">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP1.par" parId="Solver"/>
+    <dyn:modeler compileDir="outputs/OP1_Fault/compilation">
+      <dyn:network iidmFile="4VSC_OP1.iidm" parFile="4VSC_OP1.par" parId="Network"/>
+      <dyn:dynModels dydFile="4VSC_OP1_Fault.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
+    <dyn:outputs directory="outputs/OP1_Fault">
+      <dyn:curves inputFile="4VSC_OP1.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>
