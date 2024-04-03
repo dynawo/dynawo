@@ -23,8 +23,6 @@ namespace DYN {
 Criteria::Criteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
         params_(params) {}
 
-Criteria::~Criteria() {}
-
 void
 Criteria::printAllFailingCriteriaIntoLog(std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToFailingCriteriaMap,
                                           const boost::shared_ptr<timeline::Timeline>& timeline,
@@ -55,8 +53,6 @@ Criteria::FailingCriteria::FailingCriteria(Bound bound, std::string nodeId, cons
 
 BusCriteria::BusCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
             Criteria(params) {}
-
-BusCriteria::~BusCriteria() {}
 
 bool
 BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline) {
@@ -189,8 +185,6 @@ BusCriteria::BusFailingCriteria::printOneFailingCriteriaIntoTimeline(const boost
 
 LoadCriteria::LoadCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
                 Criteria(params) {}
-
-LoadCriteria::~LoadCriteria() {}
 
 bool
 LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline) {
@@ -446,8 +440,6 @@ LoadCriteria::LoadFailingCriteria::printOneFailingCriteriaIntoTimeline(const boo
 
 GeneratorCriteria::GeneratorCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
                 Criteria(params) {}
-
-GeneratorCriteria::~GeneratorCriteria() {}
 
 bool
 GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline) {

@@ -46,11 +46,6 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   explicit VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel);
 
   /**
-   * @brief destructor
-   */
-  ~VoltageLevelInterfaceIIDM();
-
-  /**
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */

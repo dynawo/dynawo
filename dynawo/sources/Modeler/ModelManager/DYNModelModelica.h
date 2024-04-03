@@ -57,7 +57,7 @@ class ModelModelica {
   /**
    * @brief default destructor
    */
-  virtual ~ModelModelica() { }
+  virtual ~ModelModelica() = default;
 
  public:
   /**

@@ -39,7 +39,7 @@ class PhaseTapChangerInterface {
   /**
    * @brief Destructor
    */
-  virtual ~PhaseTapChangerInterface() { }
+  virtual ~PhaseTapChangerInterface() = default;
 
   /**
    * @brief Getter for steps of the phase tap changer

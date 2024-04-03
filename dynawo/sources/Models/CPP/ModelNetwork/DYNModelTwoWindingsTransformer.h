@@ -54,11 +54,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   explicit ModelTwoWindingsTransformer(const boost::shared_ptr<TwoWTransformerInterface>& tfo);
 
   /**
-   * @brief destructor
-   */
-  ~ModelTwoWindingsTransformer() { }
-
-  /**
    * @brief  indicate which modelBus are known (case of line without modelBus at one side)
    */
   typedef enum {

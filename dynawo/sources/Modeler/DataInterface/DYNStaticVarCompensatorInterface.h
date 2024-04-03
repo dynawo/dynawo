@@ -60,7 +60,7 @@ class StaticVarCompensatorInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~StaticVarCompensatorInterface() { }
+  virtual ~StaticVarCompensatorInterface() = default;
 
   /**
    * @brief Setter for the staticVarCompensator's bus interface

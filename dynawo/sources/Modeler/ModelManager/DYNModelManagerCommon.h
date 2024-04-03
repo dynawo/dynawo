@@ -424,11 +424,6 @@ class memoryManagerChars {
 
  public:
   /**
-   * @brief Default destructor
-   */
-  ~memoryManagerChars() { }
-
-  /**
    * @brief Keep track of a string
    * @param str the string to keep track of
    * @return the string as null-terminated const char pointer

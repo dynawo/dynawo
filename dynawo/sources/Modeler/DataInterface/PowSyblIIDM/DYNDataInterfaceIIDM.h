@@ -67,7 +67,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @brief Destructor
    */
-  ~DataInterfaceIIDM();
+  ~DataInterfaceIIDM() = default;
 
   /**
    * @brief init dataInterface from iidm network

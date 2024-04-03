@@ -39,11 +39,6 @@ class ConnectorCalculatedVariable : public SubModel {
   ConnectorCalculatedVariable();
 
   /**
-   * @brief default destructor
-   */
-  ~ConnectorCalculatedVariable() { }
-
-  /**
    * @copydoc SubModel::initializeStaticData()
    */
   void initializeStaticData() { /*no static data*/ }

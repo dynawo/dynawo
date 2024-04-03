@@ -30,9 +30,6 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-ShuntCompensatorInterfaceIIDM::~ShuntCompensatorInterfaceIIDM() {
-}
-
 ShuntCompensatorInterfaceIIDM::ShuntCompensatorInterfaceIIDM(powsybl::iidm::ShuntCompensator& shunt) :
 ShuntCompensatorInterface(false),
 InjectorInterfaceIIDM(shunt, shunt.getId()),

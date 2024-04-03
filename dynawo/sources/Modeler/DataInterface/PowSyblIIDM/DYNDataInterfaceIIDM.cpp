@@ -86,9 +86,6 @@ networkIIDM_(networkIIDM),
 serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
 }
 
-DataInterfaceIIDM::~DataInterfaceIIDM() {
-}
-
 void
 DataInterfaceIIDM::loadExtensions(const std::vector<std::string>& paths) {
   std::unique_lock<std::mutex> lock(loadExtensionMutex_);

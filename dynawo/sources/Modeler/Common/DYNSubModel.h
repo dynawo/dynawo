@@ -36,6 +36,8 @@
 #include "PARParametersSet.h"
 #include "CSTRConstraintsCollection.h"
 #include "DYNBitMask.h"
+#include "DYNElement.h"
+
 
 namespace parameters {
 class ParametersSet;
@@ -72,7 +74,7 @@ class SubModel {
   /**
    * @brief destructor
    */
-  virtual ~SubModel();
+  virtual ~SubModel() = default;
 
   /// @brief Default copy constructor
   SubModel(SubModel&&) = default;

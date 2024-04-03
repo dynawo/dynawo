@@ -47,11 +47,6 @@ class ModelVoltageLevel : public NetworkComponent {
   explicit ModelVoltageLevel(const boost::shared_ptr<VoltageLevelInterface>& voltageLevel);
 
   /**
-   * @brief destructor
-   */
-  ~ModelVoltageLevel() { }
-
-  /**
    * @brief list of calculated variables indexes
    */
   typedef enum {

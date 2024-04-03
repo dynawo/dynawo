@@ -40,11 +40,6 @@ class ModelShuntCompensator : public NetworkComponent {
   explicit ModelShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& shunt);
 
   /**
-   * @brief destructor
-   */
-  ~ModelShuntCompensator() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {

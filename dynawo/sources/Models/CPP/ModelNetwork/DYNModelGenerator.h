@@ -40,11 +40,6 @@ class ModelGenerator : public NetworkComponent {
   explicit ModelGenerator(const boost::shared_ptr<GeneratorInterface>& generator);
 
   /**
-   * @brief destructor
-   */
-  ~ModelGenerator() { }
-
-  /**
    * @brief  calculated variables type
    */
 
