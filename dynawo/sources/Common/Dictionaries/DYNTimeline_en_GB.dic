@@ -124,6 +124,8 @@ DCLineClosed              =             DC line closed
 LVRTTripped                =            LVRT generator tripped
 LVRTArming                 =            LVRT automaton for generator arming
 LVRTDisarming              =            LVRT automaton for generator disarming
+// --> Over voltage protection
+OverVoltageTripped         =            Over-voltage protection tripped
 // --> Aggregated IBG
 PartialTripping           =             Partial tripping ongoing
 // --> Distance protection

@@ -14,6 +14,9 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG;
 */
 
 model OverVoltageProtection
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   parameter Types.VoltageModulePu UMaxPu "Maximum voltage over which the unit is disconnected in pu (base UNom)";
 
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
@@ -24,6 +27,7 @@ model OverVoltageProtection
 equation
   when Um > UMaxPu then
     switchOffSignal.value = true;
+    Timeline.logEvent1(TimelineKeys.OverVoltageTripped);
   end when;
 
   annotation(preferredView = "text");
