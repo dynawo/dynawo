@@ -877,7 +877,6 @@ ModelLine::evalZ(const double& t) {
   {
     if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
       z_[0] = OPEN;
-      std::cout << "open" << std::endl;
     } else if (modelBus1_->getConnectionState() == OPEN) {
       z_[0] = CLOSED_2;
 
