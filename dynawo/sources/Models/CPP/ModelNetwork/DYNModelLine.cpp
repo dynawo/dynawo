@@ -1687,37 +1687,47 @@ ModelLine::getY0() {
         ir01_ = y_[0];
         ii01_ = y_[1];
       }
-      State tempoState = static_cast<State>(z_[0]);
-      //  z_[0] = getConnectionState();
+      State curState = static_cast<State>(z_[0]);
       setConnectionState(static_cast<State>(z_[0]));
       setCurrentLimitsDesactivate(z_[1]);
       switch (knownBus_) {
         case BUS1_BUS2:
         {
-          switch (tempoState) {
+          switch (curState) {
             case CLOSED:
             {
-              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-              modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+              if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == CLOSED))) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
               break;
             }
             case OPEN:
             {
-              topologyModified_ = true;
-              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == OPEN))) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
               break;
             }
             case CLOSED_1:
             {
-              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == OPEN))) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
               break;
             }
             case CLOSED_2:
             {
-              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-              modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+              if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == CLOSED))) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
               break;
             }
             case CLOSED_3:
@@ -1733,26 +1743,38 @@ ModelLine::getY0() {
         }
         case BUS1:
         {
-          switch (tempoState) {
+          switch (curState) {
             case CLOSED:
             {
-              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
               Trace::warn() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
               break;
             }
             case OPEN:
             {
-              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
               break;
             }
             case CLOSED_1:
             {
-              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
               break;
             }
             case CLOSED_2:
             {
-              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
               Trace::warn() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
               break;
             }
@@ -1769,37 +1791,49 @@ ModelLine::getY0() {
         }
         case BUS2:
         {
-          switch (tempoState) {
+          switch (curState) {
             case CLOSED:
-              {
+            {
+              if (modelBus2_->getConnectionState() != CLOSED) {
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-                Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
-                break;
+                topologyModified_ = true;
               }
-              case OPEN:
-              {
+              Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
+              break;
+            }
+            case OPEN:
+            {
+              if (modelBus2_->getConnectionState() != OPEN) {
                 modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-                break;
+                topologyModified_ = true;
               }
-              case CLOSED_2:
-              {
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-                break;
+                topologyModified_ = true;
               }
-              case CLOSED_1:
-              {
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
                 modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-                Trace::warn() << DYNLog(UnableToCloseLineSide1, id_) << Trace::endline;
-                break;
+                topologyModified_ = true;
               }
-              case CLOSED_3:
-              {
-                throw DYNError(Error::MODELER, NoThirdSide, id_);
-              }
-              case UNDEFINED_STATE:
-              {
-                throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-              }
+              Trace::warn() << DYNLog(UnableToCloseLineSide1, id_) << Trace::endline;
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
           }
           break;
         }
