@@ -46,6 +46,7 @@ initial algorithm
 equation
   connect(terminal20, init.terminal20);
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>This model implements a transformer with variable tap which is automatically initialized by an initialization model.<div>The parameters and the initial values of side 1 are passed to the initialization model, which in turn calculates the necessary initial tap, ratio and load flow.</div><div>The calculated values are then assigned to the respective transformer parameters in an initial algorithm section. This way, the transformer has appropriate parameters before the simulation starts. The model cannot use equations due to variability conflict (parameters and variables), therefore the assignment operator must be used. This is permissible, because the initial values do not change during simulation.</div></body></html>"));
 end InitializedTransformerVariableTap;

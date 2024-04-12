@@ -46,6 +46,7 @@ record TransformerParameters "Parameter sets for the transformers of the Nordic 
     {4000.0, 10, 31, 11, 1.0590066267}  // trafo_72_4072
   } "Matrix of transformer parameters";
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The TransformerParameters record keeps parameters for transformers and their LTCs in a parameter matrix. Values were taken from the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015.<div>The matrices are designed to be used with a preset system, where the parameters are automatically assigned to the transformer frame whose name is the preset.</div><div>To add a preset, append a vector to the matrices and add an entry in the transformer enumeration.</div></body></html>"));
 end TransformerParameters;

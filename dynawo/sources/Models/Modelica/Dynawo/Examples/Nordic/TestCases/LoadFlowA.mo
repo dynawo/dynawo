@@ -13,7 +13,7 @@ within Dynawo.Examples.Nordic.TestCases;
 * of simulation tools for power systems.
 */
 
-model LoadFlow "Model of load flow calculation for the Nordic 32 test system used for voltage stability studies"
+model LoadFlowA "Model of load flow calculation for the Nordic 32 test system used for voltage stability studies (operating point A)"
   extends Dynawo.Examples.Nordic.Grid.FullStaticModel(
     P0Pu_g01 = 6,
     P0Pu_g02 = 3,
@@ -118,8 +118,9 @@ equation
   check_g20_P = SystemBase.SnRef * ComplexMath.real(slackbus_g20.terminal.V * ComplexMath.conj(slackbus_g20.terminal.i));
   check_g20_Q = SystemBase.SnRef * ComplexMath.imag(slackbus_g20.terminal.V * ComplexMath.conj(slackbus_g20.terminal.i));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002), __OpenModelica_commandLineOptions = "--daemode", __OpenModelica_simulationFlags(lv = "LOG_STATS", noEquidistantTimeGrid = "()", s = "ida"),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body>The LoadFlow model extends the network with PQ loads model and adds nonregulated transformers and PQ generators. It could also extend the network with alpha-beta loads model.<div><br></div><div>The initial power values have been taken from the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. The initial voltage values are taken from the report, operating point A.</span><div><font face=\"MS Shell Dlg 2\"><br></font><div>The initial power and voltage values should produce steady state.</div></div></div></body></html>"));
-end LoadFlow;
+end LoadFlowA;
