@@ -93,6 +93,7 @@ record GeneratorParameters "Parameter sets for the generators of the Nordic 32 t
   {1.8991, 0, -11.0,  70.0, 10.0, 20.0, 4.0,   0.0,  1.0, 1.00, 1.000}  // g20
   } "Matrix of voltage regulator parameters";
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The GeneratorParameters record keeps parameters for generators and their controllers in a parameter matrix. Values were taken from the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015.<div>The matrices are designed to be used with a preset system, where the parameters are automatically assigned to the generator frame whose name is the preset.</div><div>To add a preset, append a vector to the matrices and add an entry in the generator enumeration.</div></body></html>"));
 end GeneratorParameters;
