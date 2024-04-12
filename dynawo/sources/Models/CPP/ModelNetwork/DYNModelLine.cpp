@@ -877,6 +877,7 @@ ModelLine::evalZ(const double& t) {
   {
     if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
       z_[0] = OPEN;
+      std::cout << "open" << std::endl;
     } else if (modelBus1_->getConnectionState() == OPEN) {
       z_[0] = CLOSED_2;
 
@@ -1670,16 +1671,140 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
 void
 ModelLine::getY0() {
   if (!network_->isInitModel()) {
-    if (isDynamic_) {
-      y_[0] = ir01_;
-      y_[1] = ii01_;
-      y_[2] = 1;
-      yp_[0] = 0;
-      yp_[1] = 0;
-      yp_[2] = 0;
+    if (!network_->isStartingFromDump()) {
+      if (isDynamic_) {
+        y_[0] = ir01_;
+        y_[1] = ii01_;
+        y_[2] = 1;
+        yp_[0] = 0;
+        yp_[1] = 0;
+        yp_[2] = 0;
+      }
+      z_[0] = getConnectionState();
+      z_[1] = getCurrentLimitsDesactivate();
+    }  else {
+      if (isDynamic_) {
+        ir01_ = y_[0];
+        ii01_ = y_[1];
+      }
+      State tempoState = static_cast<State>(z_[0]);
+      //  z_[0] = getConnectionState();
+      setConnectionState(static_cast<State>(z_[0]));
+      setCurrentLimitsDesactivate(z_[1]);
+      switch (knownBus_) {
+        case BUS1_BUS2:
+        {
+          switch (tempoState) {
+            case CLOSED:
+            {
+              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+              break;
+            }
+            case OPEN:
+            {
+              topologyModified_ = true;
+              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              break;
+            }
+            case CLOSED_1:
+            {
+              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              break;
+            }
+            case CLOSED_2:
+            {
+              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+        case BUS1:
+        {
+          switch (tempoState) {
+            case CLOSED:
+            {
+              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              Trace::warn() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
+              break;
+            }
+            case OPEN:
+            {
+              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+              break;
+            }
+            case CLOSED_1:
+            {
+              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              break;
+            }
+            case CLOSED_2:
+            {
+              modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+              Trace::warn() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+        case BUS2:
+        {
+          switch (tempoState) {
+            case CLOSED:
+              {
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
+                break;
+              }
+              case OPEN:
+              {
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                break;
+              }
+              case CLOSED_2:
+              {
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                break;
+              }
+              case CLOSED_1:
+              {
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                Trace::warn() << DYNLog(UnableToCloseLineSide1, id_) << Trace::endline;
+                break;
+              }
+              case CLOSED_3:
+              {
+                throw DYNError(Error::MODELER, NoThirdSide, id_);
+              }
+              case UNDEFINED_STATE:
+              {
+                throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+              }
+          }
+          break;
+        }
+      }
     }
-    z_[0] = getConnectionState();
-    z_[1] = getCurrentLimitsDesactivate();
   }
 }
 

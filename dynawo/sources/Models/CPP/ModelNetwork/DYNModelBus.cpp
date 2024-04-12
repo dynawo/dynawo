@@ -556,27 +556,35 @@ ModelBus::getY0() {
       y_[uiNum_] = ui0_;
     }
   } else {
-    if (getSwitchOff()) {
-      y_[urNum_] = 0.0;
-      y_[uiNum_] = 0.0;
+    if(!network_->isStartingFromDump()) {
+      if (getSwitchOff()) {
+        y_[urNum_] = 0.0;
+        y_[uiNum_] = 0.0;
+      } else {
+        y_[urNum_] = ur0_;
+        y_[uiNum_] = ui0_;
+      }
+
+      yp_[urNum_] = 0.0;
+      yp_[uiNum_] = 0.0;
+      if (hasConnection_ || hasShortCircuitCapabilities_) {
+        y_[irNum_] = ir0_;
+        y_[iiNum_] = ii0_;
+        yp_[irNum_] = 0.0;
+        yp_[iiNum_] = 0.0;
+      }
+
+      // We assume here that z_[numSubNetworkNum_] was already initialized!!
+      if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
+        z_[switchOffNum_] = fromNativeBool(false);
+      z_[connectionStateNum_] = connectionState_;
     } else {
-      y_[urNum_] = ur0_;
-      y_[uiNum_] = ui0_;
+      ur0_ = y_[urNum_];
+      ui0_ = y_[uiNum_];
+      ir0_ = y_[irNum_];
+      ii0_ = y_[iiNum_];
+      connectionState_ = static_cast<State>(z_[connectionStateNum_]);
     }
-
-    yp_[urNum_] = 0.0;
-    yp_[uiNum_] = 0.0;
-    if (hasConnection_ || hasShortCircuitCapabilities_) {
-      y_[irNum_] = ir0_;
-      y_[iiNum_] = ii0_;
-      yp_[irNum_] = 0.0;
-      yp_[iiNum_] = 0.0;
-    }
-
-    // We assume here that z_[numSubNetworkNum_] was already initialized!!
-    if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
-      z_[switchOffNum_] = fromNativeBool(false);
-    z_[connectionStateNum_] = connectionState_;
   }
 }
 
