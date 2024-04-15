@@ -26,3 +26,20 @@ set(DYNAWO_INCLUDE_HEADERS
 )
 
 install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+
+add_library(dynawo_Interface INTERFACE)
+
+target_compile_definitions(dynawo_Interface
+  INTERFACE
+    _OMC_${OPENMODELICA_VERSION}
+    $<$<BOOL:${USE_ADEPT}>:_ADEPT_>
+    $<$<OR:$<CONFIG:Debug>,$<STREQUAL:${RELEASE_WITH_DEBUG},YES>>:_DEBUG_>
+)
+
+target_link_libraries(dynawo_Interface
+  INTERFACE
+    $<$<CXX_COMPILER_ID:GNU>:rt>
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
+)
+
+install(TARGETS dynawo_Interface EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})

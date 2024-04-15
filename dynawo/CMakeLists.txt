@@ -113,10 +113,6 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-std-move-in-c++11")
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR RELEASE_WITH_DEBUG STREQUAL "YES")
-  add_compile_definitions(_DEBUG_)
-endif()
-
 if(DEFINED DYNAWO_THIRD_PARTY_DIR)
   get_filename_component(DYNAWO_THIRD_PARTY_DIR ${DYNAWO_THIRD_PARTY_DIR} ABSOLUTE)
   set(ADEPT_HOME ${DYNAWO_THIRD_PARTY_DIR}/adept CACHE PATH "Path where an Adept installation already exists")
