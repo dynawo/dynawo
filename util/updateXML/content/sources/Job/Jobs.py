@@ -276,7 +276,7 @@ class Jobs:
             if update_file.startswith(main_update_filename_without_extension) and \
                     update_file.endswith(PYTHON_FILE_EXTENSION) and \
                     update_file != main_update_filename:
-                if any(update_file == update_filename for update_filename in all_update_filenames_in_all_scripts_dirs):
+                if (update_file in all_update_filenames_in_all_scripts_dirs):
                     duplicate_update_file_names.add(update_file)
                 all_update_filenames_in_all_scripts_dirs.add(update_file)
                 update_module = os.path.splitext(update_file)[0]
