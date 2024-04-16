@@ -15,6 +15,9 @@ within Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries;
 model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-1)"
   extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
 
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   //Grid protection parameters
   parameter Types.AngularVelocityPu fOverPu "WT over frequency protection activation threshold in pu (base omegaNom)" annotation(
     Dialog(tab = "GridProtection"));
@@ -85,6 +88,18 @@ model GridProtection "Grid protection system for wind turbines (IEC N°61400-27-
     Dialog(tab = "Operating point"));
 
 equation
+  when greater.y then
+    Timeline.logEvent2(TimelineKeys.IECProtectionUOver, String(UOverPu));
+  elsewhen less.y then
+    Timeline.logEvent2(TimelineKeys.IECProtectionUUnder, String(UUnderPu));
+  end when;
+
+  when greater1.y then
+    Timeline.logEvent2(TimelineKeys.IECProtectionFOver, String(fOverPu));
+  elsewhen less1.y then
+    Timeline.logEvent2(TimelineKeys.IECProtectionFUnder, String(fUnderPu));
+  end when;
+
   connect(const2.y, lessEqual2.u1) annotation(
     Line(points = {{-118, -20}, {-62, -20}}, color = {0, 0, 127}));
   connect(omegaFiltPu, lessEqual2.u2) annotation(
