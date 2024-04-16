@@ -210,6 +210,7 @@ VoltageSetPointChangeStarted   =        Voltage set point change started
 VoltageSetPointChangeEnded     =        Voltage set point change ended
 // --> AreaShedding
 LoadSheddingStarted   =                 LOADS : shedding
+LoadSheddingStartedAndDisplay  =        LOADS : shedding (%1% MW, %2% MVAr)
 //-------------  Simulation process  --------------------------------------
 TerminateInModel          =             Simulation stopped : model %1% terminated simulation : %2%
 CriteriaNotChecked        =             Simulation stopped : one criteria is not respected
