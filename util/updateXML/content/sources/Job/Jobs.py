@@ -266,6 +266,8 @@ class Jobs:
             sorted_update_modules_list (list[str]) : list of all update scripts in the order of call
         """
         unsorted_update_modules_list = list()
+        all_update_filenames_in_all_scripts_dirs = set()
+        duplicate_update_file_names = set()
         invalid_update_files = list()
         main_update_filename = os.path.basename(self.__main_update_file_path)
         main_update_filename_without_extension = os.path.splitext(main_update_filename)[0]
@@ -274,6 +276,9 @@ class Jobs:
             if update_file.startswith(main_update_filename_without_extension) and \
                     update_file.endswith(PYTHON_FILE_EXTENSION) and \
                     update_file != main_update_filename:
+                if any(update_file == update_filename for update_filename in all_update_filenames_in_all_scripts_dirs):
+                    duplicate_update_file_names.add(update_file)
+                all_update_filenames_in_all_scripts_dirs.add(update_file)
                 update_module = os.path.splitext(update_file)[0]
                 module_version = update_module.split(main_update_filename_without_extension)[1]
                 if not re.match(r'^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$', module_version):
@@ -284,6 +289,10 @@ class Jobs:
                 if min_limit_version < tuple(map(int, module_version.split('.'))) < max_limit_version:
                     unsorted_update_modules_list.append(update_filepath)
 
+        if len(duplicate_update_file_names) != 0:
+            for duplicate_update_file_name in duplicate_update_file_names:
+                print("Error : " + duplicate_update_file_name + " is a duplicate")
+            sys.exit(1)
         if len(invalid_update_files) != 0:
             for invalid_update_file in invalid_update_files:
                 print("Error : Invalid update file : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.py'")
