@@ -43,6 +43,11 @@ class TestModelicaModel(unittest.TestCase):
         update_XML_script = os.path.join(test_dir_path, "change_unit_dynamic_model_connect_var_name.py")
         launch_test(self, test_dir_path, update_XML_script, test_dir_path)
 
+    def test_add_unit_dynamic_model_connect(self):
+        test_dir_path = os.path.join(parent_dir, "res/add_unit_dynamic_model_connect")
+        update_XML_script = os.path.join(test_dir_path, "add_unit_dynamic_model_connect.py")
+        launch_test(self, test_dir_path, update_XML_script, test_dir_path)
+
     def test_remove_unit_dynamic_model_connect(self):
         test_dir_path = os.path.join(parent_dir, "res/remove_unit_dynamic_model_connect")
         update_XML_script = os.path.join(test_dir_path, "remove_unit_dynamic_model_connect.py")

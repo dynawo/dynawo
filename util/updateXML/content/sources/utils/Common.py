@@ -25,10 +25,13 @@ XML_SIMPLE_INDENTATION = "\n  "
 XML_DOUBLE_INDENTATION = "\n    "
 
 # Dyd
+XML_DYNAMICMODELSARCHITECTURE = "dynamicModelsArchitecture"
 XML_BLACKBOXMODEL = 'blackBoxModel'
 XML_MODELICAMODEL = 'modelicaModel'
 XML_MODELTEMPLATE = "modelTemplate"
 XML_MODELTEMPLATEEXPANSION = "modelTemplateExpansion"
+XML_UNITDYNAMICMODEL = "unitDynamicModel"
+XML_INITCONNECT = "initConnect"
 XML_CONNECT = "connect"
 XML_MACROCONNECT = "macroConnect"
 XML_MACROCONNECTOR = "macroConnector"
