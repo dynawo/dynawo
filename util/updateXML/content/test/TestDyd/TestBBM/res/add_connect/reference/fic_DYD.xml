@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<!--Dynawo version 1.4.0-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="fic_PAR.xml" parId="1" staticId="_LOAD___2_EC"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="fic_PAR.xml" parId="2"/>
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="fic_PAR.xml" parId="3" staticId="_GEN____1_SM"/>
+  <dyn:connect id1="_LOAD___2_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____2_TN_ACPIN"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
+</dyn:dynamicModelsArchitecture>
