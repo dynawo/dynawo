@@ -16,4 +16,6 @@ def update(jobs):
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(lambda unit_dynamic_model: unit_dynamic_model.get_id() == "voltageRegulator")
         for unit_dynamic_model in unit_dynamic_models:
             unit_dynamic_model.init_connects.add_connect("Efd0PuLF", "generator", "Efd0Pu")
+            unit_dynamic_model.init_connects.add_connect("Us0Pu", "generator", "UStator0Pu")
             unit_dynamic_model.connects.add_connect("EfdPu", "generator", "efdPu.value")
+            unit_dynamic_model.connects.add_connect("UsPu", "generator", "UStatorPu.value")

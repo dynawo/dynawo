@@ -11,9 +11,13 @@
 
 
 def update(jobs):
-    loads = jobs.dyds.get_bbms(lambda bbm: bbm.get_id() == "_LOAD___2_EC")
-    for load in loads:
-        load.connects.add_connect("load_terminal", "NETWORK", "_BUS____2_TN_ACPIN")
+    loads1 = jobs.dyds.get_bbms(lambda bbm: bbm.get_id() == "_LOAD___2_EC")
+    for load1 in loads1:
+        load1.connects.add_connect("load_terminal", "NETWORK", "_BUS____2_TN_ACPIN")
+
+    loads2 = jobs.dyds.get_bbms(lambda bbm: bbm.get_id() == "_LOAD___3_EC")
+    for load2 in loads2:
+        load2.connects.add_connect("load_terminal", "NETWORK", "_BUS____3_TN_ACPIN")
 
     omega_refs = jobs.dyds.get_bbms(lambda bbm: bbm.get_id() == "OMEGA_REF")
     for omega_ref in omega_refs:
