@@ -333,6 +333,19 @@ class MissingAttributeError(Exception):
                 "' XML element in file " + self.__xml_file
 
 
+class InitConnectAlreadyExists(Exception):
+    def __init__(self, id1, var1, id2, var2, dyd_file):
+        self.__id1 = id1
+        self.__var1 = var1
+        self.__id2 = id2
+        self.__var2 = var2
+        self.__dyd_file = dyd_file
+
+    def __str__(self):
+        return '<dyn:initConnect id1="' + self.__id1 + '" var1="' + self.__var1 + '" id2="' + self.__id2 + \
+                '" var2="' + self.__var2 + '"/> already exists in Dyd file ' + self.__dyd_file
+
+
 class ConnectAlreadyExists(Exception):
     def __init__(self, id1, var1, id2, var2, dyd_file):
         self.__id1 = id1

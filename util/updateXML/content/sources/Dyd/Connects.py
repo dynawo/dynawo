@@ -105,10 +105,18 @@ class Connects:
                 raise UnknownDydElementError(self.__parent_xml_tree.tag)
 
         # check the connect we want to create doesn't exist
-        connect_xpath = './dyn:connect[@id1="' + self.__model_id  + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
-        connect = self.__parent_xml_tree.xpath(connect_xpath, namespaces=NAMESPACE_URI)
-        if len(connect) != 0:
-            raise ConnectAlreadyExists(self.__model_id, var1, id2, var2, self.__parent_xml_tree.base)
+        if self.__connect_type == ConnectType.initConnect:
+            init_connect_xpath = './dyn:initConnect[@id1="' + self.__model_id  + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
+            init_connect = self.__parent_xml_tree.xpath(init_connect_xpath, namespaces=NAMESPACE_URI)
+            if len(init_connect) != 0:
+                raise InitConnectAlreadyExists(self.__model_id, var1, id2, var2, self.__parent_xml_tree.base)
+        elif self.__connect_type == ConnectType.connect:
+            connect_xpath = './dyn:connect[@id1="' + self.__model_id  + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
+            connect = self.__parent_xml_tree.xpath(connect_xpath, namespaces=NAMESPACE_URI)
+            if len(connect) != 0:
+                raise ConnectAlreadyExists(self.__model_id, var1, id2, var2, self.__parent_xml_tree.base)
+        else:
+            raise UnknownConnectType(self.__connect_type)
 
         # add connect in dyd file
         if self.__connect_type == ConnectType.initConnect:
