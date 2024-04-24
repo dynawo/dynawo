@@ -13,6 +13,7 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
+  extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

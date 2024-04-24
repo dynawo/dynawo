@@ -627,6 +627,10 @@ Simulation::loadDynamicData() {
   data_->mapConnections();
 
   if (data_->instantiateNetwork()) {
+    string networkParFileName = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
+    if (networkParFileName.empty()) {
+        throw DYNError(Error::GENERAL, MissingParFile, jobEntry_->getName());
+    }
     networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
     if (!exists(networkParFile_)) {
       throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_, context_->getInputDirectory());
