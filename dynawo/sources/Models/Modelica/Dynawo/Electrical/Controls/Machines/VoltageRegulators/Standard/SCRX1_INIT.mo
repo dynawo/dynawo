@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model SCRX_INIT "Initialization model of SCRX"
+model SCRX1_INIT "Initialization model of SCRX1"
   extends AdditionalIcons.Init;
 
   Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -22,4 +22,4 @@ model SCRX_INIT "Initialization model of SCRX"
   Types.VoltageModulePu Ut0Pu "Generator terminal initial voltage in pu (base UNom)";
 
   annotation(preferredView = "text");
-end SCRX_INIT;
+end SCRX1_INIT;

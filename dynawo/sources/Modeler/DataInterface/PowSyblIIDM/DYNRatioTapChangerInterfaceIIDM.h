@@ -37,11 +37,6 @@ namespace DYN {
 class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
  public:
   /**
-   * @brief Destructor
-   */
-  ~RatioTapChangerInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param tapChanger ratioTapChanger's iidm instance
    * @param terminalRefSide terminal reference side

@@ -48,7 +48,7 @@ class ConverterInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~ConverterInterface() { }
+  virtual ~ConverterInterface() = default;
 
   /**
    * @brief Setter for the converter bus interface

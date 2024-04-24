@@ -424,7 +424,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   dl->defineNonGenericParameters(parameters);
   ASSERT_TRUE(parameters.empty());
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   const std::string paramName = "dangling_line_currentLimit_maxTimeOperation";
   ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
   param.setValue<double>(10., PAR);

@@ -90,9 +90,6 @@ voltageLevelIIDM_(voltageLevel) {
   slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
 }
 
-VoltageLevelInterfaceIIDM::~VoltageLevelInterfaceIIDM() {
-}
-
 string
 VoltageLevelInterfaceIIDM::getID() const {
   return voltageLevelIIDM_.getId();
@@ -264,9 +261,9 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   if (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::BUS_BREAKER)
     return;
   // weight to use for edge to analyse graph and find nodes on the same topological node (switch not open = closed,not retained)
-  boost::unordered_map<string, float> topologicalWeights;
+  std::unordered_map<string, float> topologicalWeights;
   // weight to use for edge to analyse graph and find nodes on the same electrical node (switch not open = closed)
-  boost::unordered_map<string, float> electricalWeights;
+  std::unordered_map<string, float> electricalWeights;
 
   for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained()) {
@@ -301,8 +298,8 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   }
 
   vector<unsigned int> component = topoComponents.second;
-  boost::unordered_map<unsigned int, unsigned int> componentIndexToNodeId;
-  boost::unordered_map<unsigned int, unsigned int> nodeIdToComponentIndex;
+  std::unordered_map<unsigned int, unsigned int> componentIndexToNodeId;
+  std::unordered_map<unsigned int, unsigned int> nodeIdToComponentIndex;
   unsigned int componentIndex = 0;
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     componentIndexToNodeId[componentIndex] = static_cast<unsigned int>(nodeId);
@@ -358,7 +355,7 @@ void
 VoltageLevelInterfaceIIDM::exportSwitchesState() {
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
-  for (boost::unordered_map<shared_ptr<SwitchInterface>, double >::const_iterator iter = switchState_.begin(),
+  for (std::unordered_map<shared_ptr<SwitchInterface>, double, SwitchInterfaceHash>::const_iterator iter = switchState_.begin(),
       iterEnd = switchState_.end(); iter != iterEnd; ++iter) {
     int state = static_cast<int>(iter->second);
     if (state == OPEN)
@@ -431,7 +428,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
   // open all paths to bus bar section
-  boost::unordered_map<string, float> weights;
+  std::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained()) {
       // Opened disconnectors are not in the graph
@@ -485,7 +482,7 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
   // Change weight of edges
-  boost::unordered_map<string, float> weights;
+  std::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained()) {
       // Opened disconnectors are not in the graph

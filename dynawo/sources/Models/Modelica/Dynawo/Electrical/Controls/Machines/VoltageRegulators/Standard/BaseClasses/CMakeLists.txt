@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  AcRotatingExciter.mo
   BaseIEEEX.mo
   PotentialCircuit.mo
   RectifierRegulationCharacteristic.mo

@@ -38,11 +38,6 @@ class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ElementWithIdHandler(elementName_type const& root_element);
 
   /**
-   * @brief Destructor
-   */
-  ~ElementWithIdHandler();
-
-  /**
    * @brief return the id read in xml file
    * @return id build thanks to infos read in xml file
    */
@@ -70,11 +65,6 @@ class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ComponentHandler(elementName_type const& root_element);
-
-  /**
-   * @brief Destructor
-   */
-  virtual ~ComponentHandler();
 
   /**
    * @brief return the id read in xml file
@@ -113,11 +103,6 @@ class CriteriaParamsVoltageLevelHandler : public xml::sax::parser::ComposableEle
   explicit CriteriaParamsVoltageLevelHandler(elementName_type const& root_element);
 
   /**
-   * @brief Destructor
-   */
-  ~CriteriaParamsVoltageLevelHandler();
-
-  /**
    * @brief return the criteria params voltage level read in xml file
    * @return criteria params voltage level object build thanks to infos read in xml file
    */
@@ -145,11 +130,6 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
    * @param root_element complete name of the element read by the handler
    */
   explicit CriteriaParamsHandler(elementName_type const& root_element);
-
-  /**
-   * @brief Destructor
-   */
-  ~CriteriaParamsHandler();
 
   /**
    * @brief return the criteria params read in xml file
@@ -185,11 +165,6 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit CriteriaHandler(elementName_type const& root_element);
-
-  /**
-   * @brief Destructor
-   */
-  ~CriteriaHandler();
 
   /**
    * @brief return the criteria read in xml file
@@ -236,11 +211,6 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief Default constructor
    */
   XmlHandler();
-
-  /**
-   * @brief Destructor
-   */
-  ~XmlHandler();
 
   /**
    * @brief Parsed criteria collection getter

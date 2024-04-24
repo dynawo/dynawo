@@ -60,11 +60,6 @@ class VariableAlias : public Variable {
   VariableAlias(const std::string& name, const boost::shared_ptr<VariableNative> refVar, const typeVar_t& type, bool negated);
 
   /**
-   * @brief Destructor
-   */
-  ~VariableAlias();
-
-  /**
    * @brief Setter for alias reference variable
    *
    * @param refVar the variable towards which to point

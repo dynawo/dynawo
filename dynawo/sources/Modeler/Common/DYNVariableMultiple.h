@@ -52,7 +52,7 @@ class VariableMultiple : public VariableNative {
   /**
    * @brief Destructor
    */
-  virtual ~VariableMultiple() { }
+  virtual ~VariableMultiple() = default;
 
   /**
    * @brief Getter for variable's cardinality parameter name

@@ -20,7 +20,7 @@
 #define MODELER_DATAINTERFACE_DYNCURRENTLIMITS_H_
 
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 #include <vector>
 
 namespace DYN {
@@ -50,7 +50,22 @@ struct CurrentLimit {
 };
 /// @brief Current limits
 struct CurrentLimits {
-  boost::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit> > currentLimits;  ///< current limits
+  /**
+ * @brief Hash structure for CurrentLimitSide
+ */
+  struct CurrentLimitSideHash {
+    /**
+   * @brief Operator to retrieve currentLimitSide hash value
+   *
+   * @param currentLimitSide the currentLimitSide to hash
+   * @returns the hash value
+   */
+    size_t operator()(CurrentLimitSide currentLimitSide) const {
+      return static_cast<size_t>(currentLimitSide);
+    }
+  };
+
+  std::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit>, CurrentLimitSideHash > currentLimits;  ///< current limits
 };
 }  // namespace DYN
 

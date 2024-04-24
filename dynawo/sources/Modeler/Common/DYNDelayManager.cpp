@@ -46,7 +46,7 @@ DelayManager::addDelay(size_t id, const double* time, const double* value, doubl
 
 void
 DelayManager::saveTimepoint() {
-  for (boost::unordered_map<size_t, Delay>::iterator it = delays_.begin(); it != delays_.end(); ++it) {
+  for (std::unordered_map<size_t, Delay>::iterator it = delays_.begin(); it != delays_.end(); ++it) {
     it->second.saveTimepoint();
   }
 }
@@ -70,7 +70,7 @@ DelayManager::dumpDelays() const {
   std::stringstream ss;
   std::vector<std::string> ret;
 
-  for (boost::unordered_map<size_t, Delay>::const_iterator it = delays_.begin(); it != delays_.end(); ++it) {
+  for (std::unordered_map<size_t, Delay>::const_iterator it = delays_.begin(); it != delays_.end(); ++it) {
     ss.str("");
     std::vector<std::pair<double, double> > values;
     it->second.points(values);
@@ -164,7 +164,7 @@ void
 DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time) {
   size_t index = offset;
 
-  boost::unordered_map<size_t, Delay>::iterator it;
+  std::unordered_map<size_t, Delay>::iterator it;
   for (it = delays_.begin(); it != delays_.end(); ++it, ++index) {
     double delayTime = it->second.getDelayTime();
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
@@ -177,7 +177,7 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time)
 
 modeChangeType_t
 DelayManager::evalMode(const double time) {
-  boost::unordered_map<size_t, Delay>::iterator it;
+  std::unordered_map<size_t, Delay>::iterator it;
   modeChangeType_t delay_mode = NO_MODE;
   for (it = delays_.begin(); it != delays_.end(); ++it) {
     double delayTime = it->second.getDelayTime();

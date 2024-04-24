@@ -46,11 +46,6 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
 
  public:
   /**
-   * @brief Destructor
-   */
-  ~ShuntCompensatorInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param shunt shunt compensator's iidm instance
    */

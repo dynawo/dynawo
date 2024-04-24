@@ -61,7 +61,7 @@ model BaseIEEEX "IEEE excitation system base model"
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = AEx) annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tF1, k = Kf) annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(T = tF1, k = Kf, x_start = Va0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

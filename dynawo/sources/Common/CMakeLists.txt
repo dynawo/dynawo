@@ -106,20 +106,6 @@ set(COMMON_INCLUDE_HEADERS
   DYNClone.hpp
   )
 
-add_library(dynawo_Interface INTERFACE)
-
-target_compile_definitions(dynawo_Interface
-  INTERFACE
-    _OMC_${OPENMODELICA_VERSION}
-    $<$<BOOL:${USE_ADEPT}>:_ADEPT_>
-    $<$<CONFIG:Debug>:_DEBUG_>)
-
-target_link_libraries(dynawo_Interface
-  INTERFACE
-    $<$<CXX_COMPILER_ID:GNU>:rt>
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
-  )
-
 add_library(dynawo_Common SHARED ${COMMON_SOURCES})
 
 add_dependencies(dynawo_Common create_keys_files)
@@ -152,7 +138,7 @@ set(PYTHON_SCRIPTS_COMMON
   Dictionaries/validateDictionaries.py
 )
 
-install(TARGETS dynawo_Interface dynawo_Common EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(TARGETS dynawo_Common EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${COMMON_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 install(FILES ${DYNAWO_DICTIONARIES} ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${SHAREDIR_NAME})
 install(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${SBINDIR_NAME})

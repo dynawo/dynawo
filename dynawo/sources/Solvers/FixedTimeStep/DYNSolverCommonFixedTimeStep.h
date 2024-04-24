@@ -58,8 +58,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @brief default destrcutor
    */
-  virtual ~SolverCommonFixedTimeStep() {
-  }
+  virtual ~SolverCommonFixedTimeStep() = default;
 
   /**
    * @brief Common initialization part of calculateIC function.

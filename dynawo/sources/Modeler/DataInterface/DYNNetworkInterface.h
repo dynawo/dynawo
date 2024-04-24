@@ -44,7 +44,7 @@ class NetworkInterface {
   /**
    * @brief Destructor
    */
-  virtual ~NetworkInterface() { }
+  virtual ~NetworkInterface() = default;
 
   /**
    * @brief Add a new instance of line interface to the network interface

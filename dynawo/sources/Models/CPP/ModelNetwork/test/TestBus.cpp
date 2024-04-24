@@ -79,7 +79,7 @@ createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& netwo
 
 static void
 fillParameters(shared_ptr<ModelBus> bus, std::string& startingPoint) {
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
     param.setValue<std::string>(startingPoint, PAR);
@@ -641,7 +641,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   bus->defineNonGenericParameters(parameters);
   ASSERT_EQ(parameters.size(), 1);
 
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   const std::string paramName = "bus_uMax";
   ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
   param.setValue<double>(10., PAR);

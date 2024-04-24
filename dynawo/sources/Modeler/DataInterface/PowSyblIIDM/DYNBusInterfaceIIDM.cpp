@@ -53,9 +53,6 @@ hasConnection_(false) {
   stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
 }
 
-BusInterfaceIIDM::~BusInterfaceIIDM() {
-}
-
 string
 BusInterfaceIIDM::getID() const {
   return busIIDM_.getId();

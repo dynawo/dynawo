@@ -12,7 +12,7 @@
 # of simulation tools for power systems.
 from content.Ticket import ticket
 
-# rename PSS2A as PSS2A1, HYGOV as HYGOV1, TGOV1 as TGOV11
+# rename PSS2A as PSS2A1, HYGOV as HYGOV1, TGOV1 as TGOV11, IEEEG1 as IEEEG11, SCRX as SCRX1
 @ticket(3091)
 def update(jobs):
     modelica_models = jobs.dyds.get_modelica_models(lambda _: True)
@@ -34,6 +34,18 @@ def update(jobs):
         )
         for unit_dynamic_model in unit_dynamic_models:
             unit_dynamic_model.set_name("Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV11")
+    for modelica_model in modelica_models:
+        unit_dynamic_models = modelica_model.get_unit_dynamic_models(
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1"
+        )
+        for unit_dynamic_model in unit_dynamic_models:
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG11")
+    for modelica_model in modelica_models:
+        unit_dynamic_models = modelica_model.get_unit_dynamic_models(
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX"
+        )
+        for unit_dynamic_model in unit_dynamic_models:
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX1")
 
     model_templates = jobs.dyds.get_model_templates(lambda _: True)
     for model_template in model_templates:
@@ -54,3 +66,15 @@ def update(jobs):
         )
         for unit_dynamic_model in unit_dynamic_models:
             unit_dynamic_model.set_name("Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV11")
+    for model_template in model_templates:
+        unit_dynamic_models = model_template.get_unit_dynamic_models(
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1"
+        )
+        for unit_dynamic_model in unit_dynamic_models:
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG11")
+    for model_template in model_templates:
+        unit_dynamic_models = model_template.get_unit_dynamic_models(
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX"
+        )
+        for unit_dynamic_model in unit_dynamic_models:
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX1")

@@ -39,11 +39,6 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   explicit ModelThreeWindingsTransformer(const boost::shared_ptr<ThreeWTransformerInterface>& tfo);
 
   /**
-   * @brief destructor
-   */
-  ~ModelThreeWindingsTransformer() { }
-
-  /**
    * @brief  calculated variables type
    */
   void init() { /* not needed */ }
@@ -222,9 +217,9 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   void getY0() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )

@@ -75,7 +75,7 @@ static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   }
 
   const bool rmModels = true;
-  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
+  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,
@@ -111,8 +111,6 @@ class SolverMock : public Solver::Impl {
  public:
   SolverMock() : Solver::Impl::Impl() {}
 
-  ~SolverMock();
-
   void defineSpecificParameters() {}
 
   std::string solverType() const { return "Mock"; }
@@ -143,8 +141,6 @@ class SolverMock : public Solver::Impl {
     return "SolverMock";
   }
 };
-
-SolverMock::~SolverMock() {}
 
 TEST(AlgebraicSolvers, testInit) {
   SUNContext sundialsContext;
