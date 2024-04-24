@@ -8,74 +8,77 @@ model ReactivePowerLoop
   parameter Types.PerUnit Kiv;
   parameter Types.Time Tlpf "Time constant of low pass filter";
   parameter Types.PerUnit InomPu;
+  parameter Boolean VQControlFlag;
   //Initial values
   parameter Types.PerUnit UConvRef0Pu;
   parameter Types.PerUnit UConv0Pu;
+  parameter Types.PerUnit QGenRef0Pu;
+  parameter Types.PerUnit QGen0Pu;
   parameter Types.PerUnit iqConv0Pu;
   parameter Types.PerUnit idConv0Pu;
-
   Modelica.Blocks.Interfaces.RealInput UConvPu(start = UConv0Pu) annotation(
-    Placement(transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-150, 90}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput UConvRefPu(start = UConvRef0Pu) annotation(
-    Placement(transformation(origin = {-150, -39}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = iqConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = Kpv) annotation(
-    Placement(visible = true, transformation(origin = {1, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-150, 51}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-72, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add annotation(
-    Placement(visible = true, transformation(origin = {43, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+    Placement(transformation(origin = {-71, 90}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tlpf, k = 1, y_start = UConv0Pu) annotation(
-    Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  ReactiveCurrentLimiter reactiveCurrentLimiter(InomPu= InomPu, idConv0Pu = idConv0Pu, iqConv0Pu= iqConv0Pu) annotation(
-    Placement(transformation(origin = {-94, -102}, extent = {{-31, -31}, {31, 31}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = InomPu, uMin = -InomPu)  annotation(
-    Placement(transformation(origin = {91, 0}, extent = {{-10, -10}, {10, 10}})));
-  //  Modelica.Blocks.Continuous.Integrator integrator(k = Kiv, y_start = iqConv0Pu) annotation(
-  //    Placement(transformation(origin = {-10, -19}, extent = {{-10, -10}, {10, 10}})));
-  //  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = (InomPu^2 - 0*idConv0Pu^2)^0.5) annotation(
-  //    Placement(transformation(origin = {19, -18}, extent = {{-10, -10}, {10, 10}})));
-  //  Modelica.Blocks.Math.Add add1 annotation(
-  //    Placement(transformation(origin = {-36, -40}, extent = {{-10, -10}, {10, 10}})));
-  //  Modelica.Blocks.Math.Feedback feedback1 annotation(
-  //    Placement(transformation(origin = {1, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(transformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}})));
+  ReactiveCurrentLimiter reactiveCurrentLimiter(InomPu = InomPu, idConv0Pu = idConv0Pu, iqConv0Pu = iqConv0Pu) annotation(
+    Placement(transformation(origin = {8, -102}, extent = {{-31, -31}, {31, 31}})));
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(transformation(origin = {-40, 30}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = InomPu, uMin = -InomPu) annotation(
+    Placement(transformation(origin = {101, 27}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Gain gain(k = Kpv) annotation(
+    Placement(transformation(origin = {11, 47}, extent = {{-10, 10}, {10, -10}})));
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = iqConv0Pu) annotation(
+    Placement(transformation(origin = {150, 27}, extent = {{-10, 10}, {10, -10}}), iconTransformation(origin = {110, -1}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kiv, outMax = InomPu, y_start = iqConv0Pu) annotation(
-    Placement(transformation(origin = {2, -13}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {12, 14}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Add add annotation(
+    Placement(transformation(origin = {54, 27}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput QGenRefPu(start = QGenRef0Pu) annotation(
+    Placement(transformation(origin = {-150, -50}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Feedback feedback1 annotation(
+    Placement(transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput QGenPu(start = QGen0Pu) annotation(
+    Placement(transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Tlpf, k = 1, y_start = QGen0Pu) annotation(
+    Placement(transformation(origin = {-109, -50}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.BooleanConstant VQswitch(k=VQControlFlag) annotation(
+    Placement(transformation(origin = {-87, 30}, extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(gain.y, add.u1) annotation(
-    Line(points = {{12, 20}, {21, 20}, {21, 6}, {31, 6}}, color = {0, 0, 127}));
-  connect(feedback.y, gain.u) annotation(
-    Line(points = {{-63, 0}, {-30, 0}, {-30, 20}, {-11, 20}}, color = {0, 0, 127}));
   connect(UConvPu, firstOrder.u) annotation(
-    Line(points = {{-150, 0}, {-122, 0}}, color = {0, 0, 127}));
+    Line(points = {{-150, 90}, {-122, 90}}, color = {0, 0, 127}));
   connect(firstOrder.y, feedback.u1) annotation(
-    Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 127}));
+    Line(points = {{-99, 90}, {-79, 90}}, color = {0, 0, 127}));
   connect(UConvRefPu, feedback.u2) annotation(
-    Line(points = {{-150, -39}, {-72, -39}, {-72, -8}}, color = {0, 0, 127}));
-  connect(add.y, limiter.u) annotation(
-    Line(points = {{54, 0}, {79, 0}}, color = {0, 0, 127}));
+    Line(points = {{-150, 51}, {-72, 51}, {-71, 82}}, color = {0, 0, 127}));
   connect(limiter.y, iqRefPu) annotation(
-    Line(points = {{102, 0}, {150, 0}}, color = {0, 0, 127}));
-//  connect(integrator.y, limiter1.u) annotation(
-//    Line(points = {{1, -19}, {7, -19}, {7, -18}}, color = {0, 0, 127}));
-//  connect(limiter1.y, add.u2) annotation(
-//    Line(points = {{30, -18}, {31, -18}, {31, -6}}, color = {0, 0, 127}));
-//  connect(feedback.y, add1.u1) annotation(
-//    Line(points = {{-63, 0}, {-57, 0}, {-57, -34}, {-48, -34}}, color = {0, 0, 127}));
-//  connect(feedback1.y, add1.u2) annotation(
-//    Line(points = {{-8, -56}, {-60, -56}, {-60, -46}, {-48, -46}}, color = {0, 0, 127}));
-//  connect(add1.y, integrator.u) annotation(
-//    Line(points = {{-25, -40}, {-22, -40}, {-22, -19}}, color = {0, 0, 127}));
-//  connect(integrator.y, feedback1.u2) annotation(
-//    Line(points = {{1, -19}, {1, -48}}, color = {0, 0, 127}));
-//  connect(limiter1.y, feedback1.u1) annotation(
-//    Line(points = {{30, -18}, {31, -18}, {31, -56}, {9, -56}}, color = {0, 0, 127}));
-  connect(feedback.y, limIntegrator.u) annotation(
-    Line(points = {{-63, 0}, {-30, 0}, {-30, -13}, {-10, -13}}, color = {0, 0, 127}));
+    Line(points = {{112, 27}, {150, 27}}, color = {0, 0, 127}));
   connect(limIntegrator.y, add.u2) annotation(
-    Line(points = {{13, -13}, {18, -13}, {18, -6}, {31, -6}}, color = {0, 0, 127}));
+    Line(points = {{23, 14}, {36, 14}, {36, 21}, {42, 21}}, color = {0, 0, 127}));
+  connect(gain.y, add.u1) annotation(
+    Line(points = {{22, 47}, {33, 47}, {33, 33}, {42, 33}}, color = {0, 0, 127}));
+  connect(add.y, limiter.u) annotation(
+    Line(points = {{65, 27}, {89, 27}}, color = {0, 0, 127}));
+  connect(switch1.y, gain.u) annotation(
+    Line(points = {{-29, 30}, {-20, 30}, {-20, 47}, {-1, 47}}, color = {0, 0, 127}));
+  connect(switch1.y, limIntegrator.u) annotation(
+    Line(points = {{-29, 30}, {-20, 30}, {-20, 14}, {0, 14}}, color = {0, 0, 127}));
+  connect(feedback.y, switch1.u1) annotation(
+    Line(points = {{-62, 90}, {-62, 91}, {-52, 91}, {-52, 38}}, color = {0, 0, 127}));
+  connect(feedback1.y, switch1.u3) annotation(
+    Line(points = {{-61, -20}, {-52, -20}, {-52, 22}}, color = {0, 0, 127}));
+  connect(firstOrder1.y, feedback1.u2) annotation(
+    Line(points = {{-98, -50}, {-70, -50}, {-70, -28}}, color = {0, 0, 127}));
+  connect(QGenPu, feedback1.u1) annotation(
+    Line(points = {{-150, -20}, {-78, -20}}, color = {0, 0, 127}));
+  connect(QGenRefPu, firstOrder1.u) annotation(
+    Line(points = {{-150, -50}, {-121, -50}}, color = {0, 0, 127}));
+  connect(VQswitch.y, switch1.u2) annotation(
+    Line(points = {{-76, 30}, {-52, 30}}, color = {255, 0, 255}));
   annotation(
     Icon(coordinateSystem(grid = {1, 1})),
     preferredView = "diagram",

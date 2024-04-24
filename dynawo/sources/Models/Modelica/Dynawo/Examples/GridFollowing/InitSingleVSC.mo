@@ -85,6 +85,8 @@ model InitSingleVSC
   parameter Types.PerUnit iqConv0Pu = -ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im;
   parameter Types.PerUnit udConvRef0Pu = udConv0Pu;
   parameter Types.PerUnit uqConvRef0Pu = uqConv0Pu;
+  parameter Types.PerUnit PConvPu = (udConv0Pu * idConv0Pu + uqConv0Pu * iqConv0Pu)*SNom;
+  parameter Types.PerUnit QConvPu = (uqConv0Pu * idConv0Pu - udConv0Pu * iqConv0Pu)*SNom;
   //  parameter Types.PerUnit udConvRef0Pu = udPcc0Pu/ratioTr + R*idPcc0Pu*ratioTr - omegaPLL0Pu*L*iqPcc0Pu*ratioTr;
   //  parameter Types.PerUnit uqConvRef0Pu = uqPcc0Pu/ratioTr + R*iqPcc0Pu*ratioTr + omegaPLL0Pu*L*idPcc0Pu*ratioTr;
   /* Infinite bus */

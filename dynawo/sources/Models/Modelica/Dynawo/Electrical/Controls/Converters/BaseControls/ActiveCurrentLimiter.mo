@@ -21,7 +21,7 @@ model ActiveCurrentLimiter
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput Idmin annotation(
     Placement(transformation(origin = {150, -30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -51}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1, outMax = InomPu, y_start = (InomPu - iqConv0Pu^2)^0.5) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1, outMax = InomPu, y_start = (InomPu^2 - iqConv0Pu^2)^0.5) annotation(
     Placement(transformation(origin = {85, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = didt_max, uMin = didt_min) annotation(
     Placement(transformation(origin = {47, 0}, extent = {{-10, -10}, {10, 10}})));

@@ -43,6 +43,7 @@ model SingleVSC
   Vpllu = SingleVSC_INIT.Vpllu ,
   OmegaMaxPu = SingleVSC_INIT.OmegaMaxPu,
   OmegaMinPu = SingleVSC_INIT.OmegaMinPu,
+  VQControlFlag= SingleVSC_INIT.VQControlFlag,
   uPcc0Pu= SingleVSC_INIT.uPcc0Pu ,
   iPcc0Pu= SingleVSC_INIT.iPcc0Pu ,
   omegaNom= SingleVSC_INIT.omegaNom,
@@ -68,15 +69,17 @@ model SingleVSC
   ) annotation(
     Placement(transformation(origin = {-62, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Sources.Step UConvRefPu(height = +0.2, offset = SingleVSC_INIT.UConvRef0Pu, startTime = 5) annotation(
-    Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-126, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SingleVSC_INIT.omegaRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-122, 54}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step PGenRefPu(height = +0.5, offset = SingleVSC_INIT.PGenRef0Pu, startTime = 5) annotation(
-    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-124, 22}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Sources.InjectorGFL InjectorGFL(SNom = SingleVSC_INIT.SNom, R = SingleVSC_INIT.R, L = SingleVSC_INIT.L, Rc = SingleVSC_INIT.Rc, Xc = SingleVSC_INIT.Xc, ratioTr = SingleVSC_INIT.ratioTr, omegaNom = SingleVSC_INIT.omegaNom, omegaPLL0Pu = SingleVSC_INIT.omegaPLL0Pu, thetaPLL0Pu = SingleVSC_INIT.thetaPLL0Pu, PGen0Pu = SingleVSC_INIT.PGen0Pu, QGen0Pu = SingleVSC_INIT.QGen0Pu, uPcc0Pu = SingleVSC_INIT.uPcc0Pu, iPcc0Pu = SingleVSC_INIT.iPcc0Pu, uConv0Pu = SingleVSC_INIT.uConv0Pu, UConv0Pu = SingleVSC_INIT.UConv0Pu, idPcc0Pu = SingleVSC_INIT.idPcc0Pu, iqPcc0Pu = SingleVSC_INIT.iqPcc0Pu, udPcc0Pu = SingleVSC_INIT.udPcc0Pu, uqPcc0Pu = SingleVSC_INIT.uqPcc0Pu, idConv0Pu = SingleVSC_INIT.idConv0Pu, iqConv0Pu = SingleVSC_INIT.iqConv0Pu, udConvRef0Pu = SingleVSC_INIT.udConvRef0Pu, uqConvRef0Pu = SingleVSC_INIT.uqConvRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-1.55431e-15, -1.55431e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0, tBegin = 0.5, tEnd = 0.6) annotation(
+  Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0, tBegin = 5, tEnd = 5.1) annotation(
     Placement(transformation(origin = {46, -62}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Step QGenRefPu(height = +0.05, offset = SingleVSC_INIT.QGenRef0Pu, startTime = 0.5) annotation(
+    Placement(transformation(origin = {-126, -60}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -85,10 +88,6 @@ equation
   InjectorGFL.switchOffSignal3.value = false;
   connect(line.terminal2, infiniteBusWithImpedance.terminal) annotation(
     Line(points = {{106, 0}, {126, 0}}, color = {0, 0, 255}));
-  connect(UConvRefPu.y, GridFollowingControl.UConvRefPu) annotation(
-    Line(points = {{-98, -60}, {-90, -60}, {-90, -14}, {-84, -14}}, color = {0, 0, 127}));
-  connect(PGenRefPu.y, GridFollowingControl.PGenRefPu) annotation(
-    Line(points = {{-98, 0}, {-84, 0}}, color = {0, 0, 127}));
   connect(GridFollowingControl.omegaPLLPu, InjectorGFL.omegaPLLPu) annotation(
     Line(points = {{-40, 16}, {-22, 16}}, color = {0, 0, 127}));
   connect(GridFollowingControl.thetaPLLPu, InjectorGFL.thetaPLLPu) annotation(
@@ -114,9 +113,17 @@ equation
   connect(InjectorGFL.terminal, line.terminal1) annotation(
     Line(points = {{22, 0}, {46, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, GridFollowingControl.omegaRefPu) annotation(
-    Line(points = {{-98, 56}, {-92, 56}, {-92, 14}, {-84, 14}}, color = {0, 0, 127}));
+    Line(points = {{-111, 54}, {-92, 54}, {-92, 14}, {-84, 14}}, color = {0, 0, 127}));
   connect(nodeFault.terminal, line.terminal1) annotation(
     Line(points = {{46, -62}, {46, 0}}, color = {0, 0, 255}));
+  connect(PGenRefPu.y, GridFollowingControl.PGenRefPu) annotation(
+    Line(points = {{-113, 22}, {-100.5, 22}, {-100.5, 6}, {-84, 6}}, color = {0, 0, 127}));
+  connect(UConvRefPu.y, GridFollowingControl.UConvRefPu) annotation(
+    Line(points = {{-115, -20}, {-100, -20}, {-100, -6}, {-84, -6}}, color = {0, 0, 127}));
+  connect(QGenRefPu.y, GridFollowingControl.QGenRefPu) annotation(
+    Line(points = {{-115, -60}, {-92, -60}, {-92, -14}, {-84, -14}}, color = {0, 0, 127}));
+  connect(InjectorGFL.QGenPu, GridFollowingControl.QGenPu) annotation(
+    Line(points = {{22, 8}, {34, 8}, {34, 28}, {-44, 28}, {-44, 22}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 end SingleVSC;

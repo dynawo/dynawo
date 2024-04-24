@@ -45,6 +45,7 @@
     <dyn:connect id1="injectorGFL" var1="udPccPu" id2="controlGFL" var2="udPccPu"/>
     <dyn:connect id1="injectorGFL" var1="uqPccPu" id2="controlGFL" var2="uqPccPu"/>
     <dyn:connect id1="injectorGFL" var1="PGenPu" id2="controlGFL" var2="PGenPu"/>
+    <dyn:connect id1="injectorGFL" var1="QGenPu" id2="controlGFL" var2="QGenPu"/>
     <dyn:connect id1="injectorGFL" var1="UConvPu" id2="controlGFL" var2="UConvPu"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
