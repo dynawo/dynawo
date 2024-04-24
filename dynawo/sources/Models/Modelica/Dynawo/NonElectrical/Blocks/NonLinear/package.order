@@ -24,3 +24,4 @@ StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
+MultiSwitchNoVector

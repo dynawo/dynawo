@@ -75,7 +75,7 @@ model GovCT2 "Governor type GovCT2"
   parameter Types.Time ValveMinPu = 0.175 "Minimum valve position limit in pu" annotation( Dialog(tab = "Turbine/engine"));
   parameter Types.Time WFnlPu = 0.187 "No load fuel flow in pu" annotation( Dialog(tab = "Turbine/engine"));
   parameter Boolean WFSpdBool = false "Switch for fuel source characteristic" annotation( Dialog(tab = "Turbine/engine")); 
-  //
+//
   // initialization helpers
   final parameter Real initCfe = WFnlPu + (if KTurbPu > 0 then initPMechNoLoss/KTurbPu else 0);
   final parameter Real initFsrt = (PLdRefPu/KTurbPu + WFnlPu - initTex)*KPLoadPu + initIntegratorKILoad;
@@ -116,7 +116,7 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Sources.Constant constZero(k = 0) annotation( Placement(visible = true, transformation(origin = {84, 202}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneDeltaOmegaDb(uMax = DeltaOmegaDbPu) annotation( Placement(visible = true, transformation(origin = {-132, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay delaytEngine(delayTime = tEngineSeconds) annotation( Placement(visible = true, transformation(origin = {256, 24}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.PowerExternalBase expOmegaToTheDm annotation( Placement(visible = true, transformation(origin = {214, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  PowerExternalBase expOmegaToTheDm annotation( Placement(visible = true, transformation(origin = {214, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuatorSeconds, UseRateLim = true, Y0 = initValve, y(fixed = true)) annotation( Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertFLoad(T = tFLoadSeconds, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = initTex) annotation( Placement(visible = true, transformation(origin = {34, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertPElec(T = tPElecSeconds, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-250, -182}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -125,7 +125,6 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Math.Gain gainKPGov(k = KPGovPu) annotation( Placement(visible = true, transformation(origin = {-48, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainKPLoad(k = KPLoadPu) annotation( Placement(visible = true, transformation(origin = {-102, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainKTurb(k = KTurbPu) annotation( Placement(visible = true, transformation(origin = {256, 74}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain gainMinusOne(k = -1) annotation( Placement(visible = true, transformation(origin = {187, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainOneOverKTurb(k = 1/KTurbPu) annotation( Placement(visible = true, transformation(origin = {-236, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainOneOverKTurb2(k = 1/KTurbPu) annotation( Placement(visible = true, transformation(origin = {140, -10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.Gain gainR(k = RPu) annotation( Placement(visible = true, transformation(origin = {-172, -124}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
@@ -140,7 +139,7 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Math.Min minDm annotation( Placement(visible = true, transformation(origin = {144, 158}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minLowValueSelect annotation( Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minLowValueSelect2 annotation( Placement(visible = true, transformation(origin = {69, -87}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchNoVector multiSwitchNoVector annotation( Placement(visible = true, transformation(origin = {-172, -156}, extent = {{5, 10}, {-5, -10}}, rotation = -90)));
+  MultiSwitchNoVector multiSwitchNoVector annotation( Placement(visible = true, transformation(origin = {-172, -156}, extent = {{5, 10}, {-5, -10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation( Placement(visible = true, transformation(origin = {-329, -19}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 190}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu3(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {341, -157}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
@@ -297,10 +296,6 @@ equation
     Line(points = {{-158, -168}, {-164, -168}, {-164, -162}}, color = {0, 0, 127}));
   connect(firstOrdertPElec.y, multiSwitchNoVector.u1) annotation(
     Line(points = {{-238, -182}, {-176, -182}, {-176, -162}}, color = {0, 0, 127}));
-  connect(minDm.y, gainMinusOne.u) annotation(
-    Line(points = {{156, 158}, {166, 158}, {166, 145}, {181, 145}}, color = {0, 0, 127}));
-  connect(gainMinusOne.y, expOmegaToTheDm.u2) annotation(
-    Line(points = {{192.5, 145}, {202, 145}, {202, 144}}, color = {0, 0, 127}));
   connect(addWfnlValvemax.y, limitValveMaxValveMin.limit1) annotation(
     Line(points = {{146, -48}, {146, -66}, {108, -66}, {108, -80}, {118, -80}}, color = {0, 0, 127}));
   connect(addWfnlValvemax.u2, constWFnl3.y) annotation(
@@ -333,10 +328,12 @@ equation
     Line(points = {{114, -152}, {104, -152}, {104, -180}, {-168, -180}, {-168, -162}}, color = {0, 0, 127}));
   connect(limitValveMaxValveMin.y, lastValue.u) annotation(
     Line(points = {{142, -88}, {150, -88}, {150, -152}, {136, -152}}, color = {0, 0, 127}));
+  connect(minDm.y, expOmegaToTheDm.u2) annotation(
+    Line(points = {{156, 158}, {174, 158}, {174, 144}, {202, 144}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
-    Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302 or the documentation on colib0.</body></html>"),
+    Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302.</body></html>"),
     Diagram(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {248, -35}, extent = {{-7, -3}, {7, 3}}, textString = "cfe"), Text(origin = {158, -84}, extent = {{-17, -4}, {17, 4}}, textString = "fsr"), Rectangle(origin = {157, 14}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-41, 68}, {41, -68}}), Text(origin = {174, 45}, lineColor = {0, 0, 255}, extent = {{-23, -21}, {23, 21}}, textString = "frequency-
 dependent
 limit"), Text(origin = {135, -194}, extent = {{-44, -4}, {44, 4}}, textString = "valve stroke"), Text(origin = {85, -184}, extent = {{-30, -4}, {30, 4}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 0, 255}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {-22, 120}, extent = {{-13, -4}, {13, 4}}, textString = "Texm"), Text(origin = {106, 125}, extent = {{-11, -3}, {11, 3}}, textString = "Tex"), Text(origin = {-70, 156}, extent = {{-13, -4}, {13, 4}}, textString = "tlim"), Text(origin = {73, 44}, lineColor = {0, 0, 255}, extent = {{-20, -18}, {20, 18}}, textString = "Low
