@@ -306,7 +306,7 @@ class Jobs:
                 print("Error : Invalid update file : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.py'")
             sys.exit(1)
         if len(unsorted_update_modules_list) == 0:
-            print("Error : Patch files not found")
+            print("Error : Patch files between version " + '.'.join(map(str, self.__dynawo_origin)) + "+ and " + '.'.join(map(str, self.__dynawo_version)) + " not found")
             sys.exit(1)
 
         sorted_update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
