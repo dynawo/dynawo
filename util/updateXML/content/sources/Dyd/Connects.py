@@ -106,14 +106,14 @@ class Connects:
 
         # check the connect we want to create doesn't exist, then add the connect in dyd file
         if self.__connect_type == ConnectType.initConnect:
-            init_connect_xpath = './dyn:initConnect[@id1="' + self.__model_id  + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
+            init_connect_xpath = './dyn:initConnect[@id1="' + self.__model_id + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
             init_connect = self.__parent_xml_tree.xpath(init_connect_xpath, namespaces=NAMESPACE_URI)
             if len(init_connect) == 0:
                 lxml.etree.SubElement(self.__parent_xml_tree,
                                         xmlns(XML_INITCONNECT),
                                         {'id1': self.__model_id, 'var1': var1, 'id2': id2, 'var2': var2})
         elif self.__connect_type == ConnectType.connect:
-            connect_xpath = './dyn:connect[@id1="' + self.__model_id  + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
+            connect_xpath = './dyn:connect[@id1="' + self.__model_id + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
             connect = self.__parent_xml_tree.xpath(connect_xpath, namespaces=NAMESPACE_URI)
             if len(connect) == 0:
                 lxml.etree.SubElement(self.__parent_xml_tree,
