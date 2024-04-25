@@ -150,6 +150,8 @@ class Jobs:
         number_of_jobs = 0
         jobs_element = self.__jobtree.getroot()
         for job_element in jobs_element:
+            if isinstance(job_element, lxml.etree._Comment):
+                continue
             if job_element.tag == xmlns('job'):
                 number_of_jobs += 1
                 job = JobData(job_element.attrib['name'],
