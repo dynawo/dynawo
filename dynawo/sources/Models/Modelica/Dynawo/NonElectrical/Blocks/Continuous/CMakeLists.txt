@@ -26,6 +26,7 @@ set(MODEL_FILES
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo
   IntegratorVariableLimits.mo
+  IntegratorVariableLimitsAntiWindup.mo
   LeadMOrderLag.mo
   LimitedPI.mo
   LimPIDFreeze.mo
