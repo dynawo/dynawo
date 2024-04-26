@@ -71,12 +71,12 @@ class Jobs:
         Parse the Job file
         """
         parser = OptionParser()
-        parser.add_option('--job', dest="job", help=u"job to update")
-        parser.add_option('--origin', dest="origin", help=u"dynawo origin version")
-        parser.add_option('--version', dest="version", help=u"dynawo version")
-        parser.add_option('--tickets', dest="tickets_to_update", help=u"selected tickets to update")
-        parser.add_option('-o', dest="outputs_path", help=u"outputs path")
-        parser.add_option('--scriptfolders', dest="scriptfolders", help=u"folders containing update scripts")
+        parser.add_option('--job', dest="job", type="string", help=u"job to update")
+        parser.add_option('--origin', dest="origin", type="string", help=u"dynawo origin version")
+        parser.add_option('--version', dest="version", type="string", help=u"dynawo version")
+        parser.add_option('--tickets', dest="tickets_to_update", type="string", help=u"selected tickets to update")
+        parser.add_option('-o', dest="outputs_path", type="string", help=u"outputs path")
+        parser.add_option('--scriptfolders', dest="scriptfolders", type="string", help=u"folders containing update scripts")
         parser.add_option('--log', action="store_true", dest="log", help=u"generate an applied_tickets.log file to list the numbers of applied tickets")
         parser.add_option('--add-dynawo-version', action="store_true", dest="add_dynawo_version", help=u"add dynawo version as a comment at the top of XML files")
         parser.add_option('--update-nrt', action="store_true", dest="update_nrt", help=u"generate output files without gathering them in an output folder to replace")
@@ -93,10 +93,8 @@ class Jobs:
                 print("Error : No outputs path (use -o option)")
             sys.exit(1)
 
-        dynawo_origin_str = str(options.origin)
-        dynawo_version_str = str(options.version)
-        self.__dynawo_origin = tuple(map(int, dynawo_origin_str.split('.')))
-        self.__dynawo_version = tuple(map(int, dynawo_version_str.split('.')))
+        self.__dynawo_origin = tuple(map(int, options.origin.split('.')))
+        self.__dynawo_version = tuple(map(int, options.version.split('.')))
 
         if len(self.__dynawo_origin) != 3 or len(self.__dynawo_version) != 3:
             if len(self.__dynawo_origin) != 3:
@@ -135,21 +133,9 @@ class Jobs:
             sys.exit(1)
 
         self.__outputs_path = os.path.abspath(options.outputs_path)
-
-        if options.log:
-            self.__does_print_logs = True
-        else:
-            self.__does_print_logs = False
-
-        if options.update_nrt:
-            self.__does_update_nrt = True
-        else:
-            self.__does_update_nrt = False
-
-        if options.add_dynawo_version:
-            self.__does_add_dynawo_version = True
-        else:
-            self.__does_add_dynawo_version = False
+        self.__does_print_logs = options.log
+        self.__does_update_nrt = options.update_nrt
+        self.__does_add_dynawo_version = options.add_dynawo_version
 
         self.__jobs_collection = list()
         self.__par_files_collection = dict()
