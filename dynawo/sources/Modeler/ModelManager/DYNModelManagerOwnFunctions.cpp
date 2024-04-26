@@ -879,17 +879,6 @@ void* generic_array_get(const base_array_t* src, size_t sze, ...) {
   return trgt;
 }
 
-/** function: real_array_create
- **
- ** sets all fields in a real_array, i.e. data, ndims and dim_size.
- **/
-void real_array_create(real_array_t *dest, modelica_real *data, int ndims, ...) {
-    va_list ap;
-    va_start(ap, ndims);
-    base_array_create(dest, data, ndims, ap);
-    va_end(ap);
-}
-
 size_t calc_base_index_va(const base_array_t *source, int ndims, va_list ap) {
   int i;
   size_t index;
@@ -952,18 +941,6 @@ void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
     }
     fprintf(stderr, ")\n"); fflush(stderr);
     */
-}
-
-
-/** function: integer_array_create
- **
- ** sets all fields in a integer_array, i.e. data, ndims and dim_size.
- **/
-void integer_array_create(integer_array_t *dest, modelica_integer *data, int ndims, ...) {
-    va_list ap;
-    va_start(ap, ndims);
-    base_array_create(dest, data, ndims, ap);
-    va_end(ap);
 }
 
 void alloc_integer_array_data(integer_array_t* a) {
@@ -1221,10 +1198,6 @@ void unpack_integer_array(integer_array_t *a) {
       integer_set(a, i, int_data[i]);
     }
   }
-}
-
-void alloc_integer_array_data(integer_array_t* a) {
-    a->data = integer_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
 }
 
 void copy_integer_array(const integer_array_t source, integer_array_t *dest) {

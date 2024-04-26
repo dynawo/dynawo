@@ -1354,7 +1354,7 @@ class Factory:
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
 
         for eq in self.list_int_equations:
-            relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
+            relations_found = re.findall(r'relationhysteresis\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
             for _ in relations_found:
                 self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
