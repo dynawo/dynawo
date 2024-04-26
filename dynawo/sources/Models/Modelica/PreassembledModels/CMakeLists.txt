@@ -13,6 +13,7 @@
 set(MODELICA_PREASSEMBLED_MODELS
   BooleanTable.xml
   Bus.xml
+  BusWithInit.xml
   CombiTimeTable.xml
   ConditionalForward.xml
   CurrentLimitAutomaton.xml
@@ -155,6 +156,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   Line.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
+  LoadAlphaBetaRestorativeNetwork.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
   LoadAlphaBetaMotor.xml
   LoadOneTransformer.xml
@@ -168,6 +170,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LVRT4Points.xml
   LVRT10Points.xml
   Measurements.xml
+  NetworkTransformer.xml
   NodeFault.xml
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml

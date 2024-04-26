@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator" variable="generator_UPu"/>
+  <curve model="Generator" variable="generator_PGen"/>
+  <curve model="Generator" variable="generator_QGen"/>
+  <curve model="Generator" variable="generator_PGenPu"/>
+  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="Load" variable="load_PPu"/>
+  <curve model="Load" variable="load_QPu"/>
+  <curve model="Transformer" variable="transformer_terminal1_V_re"/>
+  <curve model="Transformer" variable="transformer_terminal1_V_im"/>
+  <curve model="Transformer" variable="transformer_terminal2_V_re"/>
+  <curve model="Transformer" variable="transformer_terminal2_V_im"/>
+  <curve model="Transformer" variable="transformer_terminal1_i_re"/>
+  <curve model="Transformer" variable="transformer_terminal1_i_im"/>
+  <curve model="Transformer" variable="transformer_terminal2_i_re"/>
+  <curve model="Transformer" variable="transformer_terminal2_i_im"/>
+  <curve model="Transformer" variable="transformer_P1Pu"/>
+  <curve model="Transformer" variable="transformer_Q1Pu"/>
+  <curve model="Transformer" variable="transformer_P2Pu"/>
+  <curve model="Transformer" variable="transformer_Q2Pu"/>
+  <curve model="Transformer" variable="transformer_U1Pu"/>
+  <curve model="Transformer" variable="transformer_U2Pu"/>
+  <curve model="Bus1" variable="bus_U"/>
+  <curve model="Bus1" variable="bus_UPhase"/>
+  <curve model="Bus2" variable="bus_U"/>
+  <curve model="Bus2" variable="bus_UPhase"/>
+</curvesInput>

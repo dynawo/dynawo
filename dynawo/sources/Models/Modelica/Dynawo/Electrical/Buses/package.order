@@ -5,3 +5,5 @@ InfiniteBusFromTable_INIT
 InfiniteBusWithImpedance
 InfiniteBusWithImpedance_INIT
 InfiniteBusWithVariations
+BusWithInit
+Bus_INIT

@@ -1,0 +1,59 @@
+ ====== VARIABLES VALUES ======
+transformer_terminal1_V_im                        : y =  -0.0530422934 yp =   0.0000000000
+transformer_terminal1_V_re                        : y =   0.9818525656 yp =   0.0000000000
+transformer_terminal2_V_im                        : y =  -0.0000419824 yp =   0.0000000000
+transformer_terminal2_V_re                        : y =   0.9999925341 yp =   0.0000000000
+transformer_terminal1_i_im                        : y =   0.0150926856 yp =   0.0000000000
+transformer_terminal1_i_re                        : y =  -0.0908481096 yp =   0.0000000000
+transformer_terminal2_i_im                        : y =  -0.0150917568 yp =   0.0000000000
+transformer_terminal2_i_re                        : y =   0.0908491445 yp =   0.0000000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+transformer_I1Pu                                  : y =   0.0920932581
+transformer_I2Pu                                  : y =   0.0920941267
+transformer_ISide1                                : y =5317.0067326770
+transformer_ISide2                                : y =5317.0568865786
+transformer_P1Pu                                  : y =  -0.0900000002
+transformer_P2Pu                                  : y =   0.0908490998
+transformer_Q1Pu                                  : y =  -0.0100000000
+transformer_Q2Pu                                  : y =   0.0150878300
+transformer_U1Pu                                  : y =   0.9832842649
+transformer_U2Pu                                  : y =   0.9999925350
+ ====== INIT DISCRETE VARIABLES VALUES ======
+transformer_running_value                         : z =   1.0000000000
+transformer_switchOffSignal1_value                : z =  -1.0000000000
+transformer_switchOffSignal2_value                : z =  -1.0000000000
+transformer_state                                 : z =   2.0000000000
+ ====== PARAMETERS VALUES ======
+transformer_B                                      =   0.0001000000
+transformer_G                                      =   0.0001000000
+transformer_R                                      =   0.0010000000
+transformer_RatedU1                                =   1.0000000000
+transformer_RatedU2                                =   1.0000000000
+transformer_U1Nom                                  =   1.0000000000
+transformer_U2Nom                                  =   1.0000000000
+transformer_X                                      =   0.0060000000
+transformer_Y_im                                   =   0.0001000000
+transformer_Y_re                                   =   0.0001000000
+transformer_YPu_im                                 =   0.0000010000
+transformer_YPu_re                                 =   0.0000010000
+transformer_Z_im                                   =   0.0060000000
+transformer_Z_re                                   =   0.0010000000
+transformer_ZPu_im                                 =   0.6000000000
+transformer_ZPu_re                                 =   0.1000000000
+transformer_factorPuToASide1                       =57735.0269189626
+transformer_factorPuToASide2                       =57735.0269189626
+transformer_i10Pu_im                               =   0.0150886796
+transformer_i10Pu_re                               =  -0.0908480542
+transformer_i20Pu_im                               =  -0.0150877508
+transformer_i20Pu_re                               =   0.0908490891
+transformer_rTfoPu                                 =   1.0000000000
+transformer_u10Pu_im                               =  -0.0530006729
+transformer_u10Pu_re                               =   0.9818624142
+transformer_u20Pu_im                               =   0.0000000054
+transformer_u20Pu_re                               =   0.9999999736
+transformer_Running0                               =   1.0000000000
+transformer_SwitchOffSignal10                      =  -1.0000000000
+transformer_SwitchOffSignal20                      =  -1.0000000000
+transformer_SwitchOffSignal30                      =  -1.0000000000
+transformer_NbSwitchOffSignals                     =              2
+transformer_State0                                 =              2
