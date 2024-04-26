@@ -50,7 +50,8 @@ class TestDyd(unittest.TestCase):
                         "--job", input_job_file_path,
                         "--origin", "1.3.0",
                         "--version", "1.4.0",
-                        "-o", test_dir_path], env=project_env)
+                        "-o", test_dir_path,
+                        "--add-dynawo-version"], env=project_env)
         self.assertTrue(filecmp.cmp(output_dyd_file_1_path, ref_dyd_file_1_path))
         self.assertTrue(filecmp.cmp(output_dyd_file_2_path, ref_dyd_file_2_path))
         self.assertTrue(filecmp.cmp(output_par_file_path, ref_par_file_path))

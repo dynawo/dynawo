@@ -63,6 +63,8 @@ class Jobs:
     __does_update_nrt : bool
         if True, generate output files without gathering them in an output folder. The aim of this feature is to
         update Dynawo nrt input files.
+    __does_add_dynawo_version : bool
+        if True, add dynawo version as a comment at the top of XML files
     """
     def __init__(self):
         """
@@ -76,6 +78,7 @@ class Jobs:
         parser.add_option('-o', dest="outputs_path", help=u"outputs path")
         parser.add_option('--scriptfolders', dest="scriptfolders", help=u"folders containing update scripts")
         parser.add_option('--log', action="store_true", dest="log", help=u"generate an applied_tickets.log file to list the numbers of applied tickets")
+        parser.add_option('--add-dynawo-version', action="store_true", dest="add_dynawo_version", help=u"add dynawo version as a comment at the top of XML files")
         parser.add_option('--update-nrt', action="store_true", dest="update_nrt", help=u"generate output files without gathering them in an output folder to replace")
         options, _ = parser.parse_args()
 
@@ -120,6 +123,9 @@ class Jobs:
         self.__get_update_modules_to_execute()
 
         filepath = os.path.abspath(options.job)
+        if not os.path.isfile(filepath):
+            print("Error : " + filepath + " is not a file.")
+            sys.exit(1)
         self.__filename = os.path.basename(filepath)
         parent_directory = os.path.dirname(filepath)
         try:
@@ -140,6 +146,11 @@ class Jobs:
         else:
             self.__does_update_nrt = False
 
+        if options.add_dynawo_version:
+            self.__does_add_dynawo_version = True
+        else:
+            self.__does_add_dynawo_version = False
+
         self.__jobs_collection = list()
         self.__par_files_collection = dict()
         self.__curves_collection = dict()
@@ -149,6 +160,9 @@ class Jobs:
 
         number_of_jobs = 0
         jobs_element = self.__jobtree.getroot()
+        if jobs_element.tag != xmlns('jobs'):
+            print("Error : File " + filepath + " is not a jobs file.")
+            sys.exit(1)
         for job_element in jobs_element:
             if isinstance(job_element, lxml.etree._Comment):
                 continue
@@ -176,7 +190,8 @@ class Jobs:
         """
         Call update functions in every patch script of the directory
         """
-        self.__add_dynawo_version()
+        if self.__does_add_dynawo_version:
+            self.__add_dynawo_version()
 
         if self.__does_update_nrt:
             outputs_dir_path = self.__outputs_path
