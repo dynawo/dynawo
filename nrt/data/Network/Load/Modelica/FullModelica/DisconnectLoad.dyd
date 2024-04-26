@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="Generator" lib="GeneratorPQ" parFile="DisconnectLoad.par" parId="GeneratorPQ"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="DisconnectLoad.par" parId="Line"/>
+  <dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBus" parFile="DisconnectLoad.par" parId="InfiniteBus"/>
+  <dyn:blackBoxModel id="Load" lib="LoadAlphaBetaRestorativeNetwork" parFile="DisconnectLoad.par" parId="Load"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="DisconnectLoad.par" parId="OmegaRef"/>
+  <dyn:blackBoxModel id="Disconnect_Load" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load"/>
+  <dyn:blackBoxModel id="Connect_Load" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Connect_Load"/>
+  <dyn:blackBoxModel id="Disconnect2_Load" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect2_Load"/>
+  <dyn:blackBoxModel id="Connect2_Load" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Connect2_Load"/>
+  <dyn:blackBoxModel id="PLoad" lib="Step" parFile="DisconnectLoad.par" parId="PLoad"/>
+  <dyn:blackBoxModel id="QLoad" lib="Step" parFile="DisconnectLoad.par" parId="QLoad"/>
+  <dyn:connect id1="Line" var1="line_terminal1" id2="Generator" var2="generator_terminal"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="InfiniteBus" var2="infiniteBus_terminal"/>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="Load" var2="load_terminal"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="Generator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="Disconnect_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
+  <dyn:connect id1="Connect_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
+  <dyn:connect id1="Disconnect2_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
+  <dyn:connect id1="Connect2_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
+  <dyn:connect id1="PLoad" var1="step_step_value" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="QLoad" var1="step_step_value" id2="Load" var2="load_QRefPu"/>
+</dyn:dynamicModelsArchitecture>

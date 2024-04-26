@@ -1,0 +1,45 @@
+ ====== VARIABLES VALUES ======
+generator_deltaPmRefPu_value                      : y =       0.000000 yp =       0.000000
+generator_omegaRefPu_value                        : y =       1.000000 yp =       0.000000
+generator_terminal_V_im                           : y =       0.006832 yp =       0.000000
+generator_terminal_V_re                           : y =       1.068163 yp =       0.000000
+generator_PGenPu                                  : y =       0.080000 yp =       0.000000
+generator_PGenRawPu                               : y =       0.080000 yp =       0.000000
+generator_QGenPu                                  : y =       0.060000 yp =       0.000000
+generator_terminal_i_im                           : y =       0.055690 yp =       0.000000
+generator_terminal_i_re                           : y =      -0.075251 yp =       0.000000
+generator_SGenPu_im                               : alias of generator_QGenPu
+generator_SGenPu_re                               : alias of generator_PGenPu
+ ====== INIT CALCULATED VARIABLES VALUES ======
+generator_PGen                                    : y =       8.000000
+generator_UPu                                     : y =       1.068185
+generator_genState                                : y =       2.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+generator_running_value                           : z =       1.000000
+generator_switchOffSignal1_value                  : z =      -1.000000
+generator_switchOffSignal2_value                  : z =      -1.000000
+generator_switchOffSignal3_value                  : z =      -1.000000
+generator_converter_u                             : z =       2.000000
+generator_pStatus                                 : z =       1.000000
+generator_state                                   : z =       2.000000
+ ====== PARAMETERS VALUES ======
+generator_AlphaPu                                  =   10000.000000
+generator_AlphaPuPNom                              =     100.000000
+generator_PGen0Pu                                  =       0.080000
+generator_PMax                                     =   10000.000000
+generator_PMaxPu                                   =     100.000000
+generator_PMin                                     =       0.000000
+generator_PMinPu                                   =       0.000000
+generator_PNom                                     =   10000.000000
+generator_QGen0Pu                                  =       0.060000
+generator_U0Pu                                     =       1.068185
+generator_i0Pu_im                                  =       0.055690
+generator_i0Pu_re                                  =      -0.075251
+generator_u0Pu_im                                  =       0.006832
+generator_u0Pu_re                                  =       1.068163
+generator_Running0                                 =       1.000000
+generator_SwitchOffSignal10                        =      -1.000000
+generator_SwitchOffSignal20                        =      -1.000000
+generator_SwitchOffSignal30                        =      -1.000000
+generator_NbSwitchOffSignals                       =              3
+generator_State0                                   =              2

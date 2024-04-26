@@ -1,0 +1,143 @@
+2024-04-25 11:05:06 | INFO |  ============================================================ 
+2024-04-25 11:05:06 | INFO | DYNAWO VERSION  :     1.7.0
+2024-04-25 11:05:06 | INFO | DYNAWO REVISION :  master-18-cf2130ea6f
+2024-04-25 11:05:06 | INFO |  ============================================================ 
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | X variables init
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | 0 Generator | generator_i0Pu_im
+2024-04-25 11:05:07 | DEBUG | 1 Generator | generator_i0Pu_re
+2024-04-25 11:05:07 | DEBUG | 2 Load2 | load_i0Pu_im
+2024-04-25 11:05:07 | DEBUG | 3 Load2 | load_i0Pu_re
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | X calculated variables init
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | 0 Generator | generator_u0Pu_im
+2024-04-25 11:05:07 | DEBUG | 1 Generator | generator_u0Pu_re
+2024-04-25 11:05:07 | DEBUG | 2 Generator | generator_PGen0Pu
+2024-04-25 11:05:07 | DEBUG | 3 Generator | generator_QGen0Pu
+2024-04-25 11:05:07 | DEBUG | 4 Generator | generator_s0Pu_im
+2024-04-25 11:05:07 | DEBUG | 5 Generator | generator_s0Pu_re
+2024-04-25 11:05:07 | DEBUG | 6 Load2 | load_u0Pu_im
+2024-04-25 11:05:07 | DEBUG | 7 Load2 | load_u0Pu_re
+2024-04-25 11:05:07 | DEBUG | 8 Load2 | load_s0Pu_im
+2024-04-25 11:05:07 | DEBUG | 9 Load2 | load_s0Pu_re
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | Z variables init
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | X variables
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | 0 NETWORK | VL1_BUS1_ACPIN_V_re
+2024-04-25 11:05:07 | DEBUG | 1 NETWORK | VL1_BUS1_ACPIN_V_im
+2024-04-25 11:05:07 | DEBUG | 2 NETWORK | VL1_BUS1_ACPIN_i_re
+2024-04-25 11:05:07 | DEBUG | 3 NETWORK | VL1_BUS1_ACPIN_i_im
+2024-04-25 11:05:07 | DEBUG | 4 NETWORK | VL2_BUS1_ACPIN_V_re
+2024-04-25 11:05:07 | DEBUG | 5 NETWORK | VL2_BUS1_ACPIN_V_im
+2024-04-25 11:05:07 | DEBUG | 6 NETWORK | VL2_BUS1_ACPIN_i_re
+2024-04-25 11:05:07 | DEBUG | 7 NETWORK | VL2_BUS1_ACPIN_i_im
+2024-04-25 11:05:07 | DEBUG | 8 Generator | generator_deltaPmRefPu_value
+2024-04-25 11:05:07 | DEBUG | 9 Generator | generator_omegaRefPu_value
+2024-04-25 11:05:07 | DEBUG | 10 Generator | generator_terminal_V_im
+2024-04-25 11:05:07 | DEBUG | 11 Generator | generator_terminal_V_re
+2024-04-25 11:05:07 | DEBUG | 12 Generator | generator_PGenPu
+2024-04-25 11:05:07 | DEBUG | 13 Generator | generator_PGenRawPu
+2024-04-25 11:05:07 | DEBUG | 14 Generator | generator_QGenPu
+2024-04-25 11:05:07 | DEBUG | 15 Generator | generator_terminal_i_im
+2024-04-25 11:05:07 | DEBUG | 16 Generator | generator_terminal_i_re
+2024-04-25 11:05:07 | DEBUG | 17 InfiniteBus | infiniteBus_terminal_i_im
+2024-04-25 11:05:07 | DEBUG | 18 InfiniteBus | infiniteBus_terminal_i_re
+2024-04-25 11:05:07 | DEBUG | 19 Load2 | load_PRefPu
+2024-04-25 11:05:07 | DEBUG | 20 Load2 | load_QRefPu
+2024-04-25 11:05:07 | DEBUG | 21 Load2 | load_deltaP
+2024-04-25 11:05:07 | DEBUG | 22 Load2 | load_deltaQ
+2024-04-25 11:05:07 | DEBUG | 23 Load2 | load_terminal_V_im
+2024-04-25 11:05:07 | DEBUG | 24 Load2 | load_terminal_V_re
+2024-04-25 11:05:07 | DEBUG | 25 Load2 | load_zPRaw
+2024-04-25 11:05:07 | DEBUG | 26 Load2 | load_zQRaw
+2024-04-25 11:05:07 | DEBUG | 27 Load2 | load_PPu
+2024-04-25 11:05:07 | DEBUG | 28 Load2 | load_QPu
+2024-04-25 11:05:07 | DEBUG | 29 Load2 | load_terminal_i_im
+2024-04-25 11:05:07 | DEBUG | 30 Load2 | load_terminal_i_re
+2024-04-25 11:05:07 | DEBUG | 31 Load2 | load_zP
+2024-04-25 11:05:07 | DEBUG | 32 Load2 | load_zQ
+2024-04-25 11:05:07 | DEBUG | 33 OmegaRef_setPoint_setPoint_value | connector_OmegaRef_setPoint_setPoint_value
+2024-04-25 11:05:07 | DEBUG | 34 InfiniteBus_infiniteBus_terminal_V_im | connector_InfiniteBus_infiniteBus_terminal_V_im
+2024-04-25 11:05:07 | DEBUG | 35 InfiniteBus_infiniteBus_terminal_V_re | connector_InfiniteBus_infiniteBus_terminal_V_re
+2024-04-25 11:05:07 | DEBUG | Generator | generator_SGenPu_im is an alias of Generator | generator_QGenPu (negated: 0)
+2024-04-25 11:05:07 | DEBUG | Generator | generator_SGenPu_re is an alias of Generator | generator_PGenPu (negated: 0)
+2024-04-25 11:05:07 | DEBUG | Load2 | load_SPu_im is an alias of Load2 | load_QPu (negated: 0)
+2024-04-25 11:05:07 | DEBUG | Load2 | load_SPu_re is an alias of Load2 | load_PPu (negated: 0)
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | X calculated variables
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | 0 NETWORK | VL1_BUS1_Upu_value
+2024-04-25 11:05:07 | DEBUG | 1 NETWORK | VL1_BUS1_phipu_value
+2024-04-25 11:05:07 | DEBUG | 2 NETWORK | VL1_BUS1_U_value
+2024-04-25 11:05:07 | DEBUG | 3 NETWORK | VL1_BUS1_phi_value
+2024-04-25 11:05:07 | DEBUG | 4 NETWORK | VL2_BUS1_Upu_value
+2024-04-25 11:05:07 | DEBUG | 5 NETWORK | VL2_BUS1_phipu_value
+2024-04-25 11:05:07 | DEBUG | 6 NETWORK | VL2_BUS1_U_value
+2024-04-25 11:05:07 | DEBUG | 7 NETWORK | VL2_BUS1_phi_value
+2024-04-25 11:05:07 | DEBUG | 8 NETWORK | Load_P_value
+2024-04-25 11:05:07 | DEBUG | 9 NETWORK | Load_Q_value
+2024-04-25 11:05:07 | DEBUG | 10 NETWORK | Load_Pc_value
+2024-04-25 11:05:07 | DEBUG | 11 NETWORK | Load_Qc_value
+2024-04-25 11:05:07 | DEBUG | 12 NETWORK | Load_loadState_value
+2024-04-25 11:05:07 | DEBUG | 13 NETWORK | Load3_P_value
+2024-04-25 11:05:07 | DEBUG | 14 NETWORK | Load3_Q_value
+2024-04-25 11:05:07 | DEBUG | 15 NETWORK | Load3_Pc_value
+2024-04-25 11:05:07 | DEBUG | 16 NETWORK | Load3_Qc_value
+2024-04-25 11:05:07 | DEBUG | 17 NETWORK | Load3_loadState_value
+2024-04-25 11:05:07 | DEBUG | 18 NETWORK | line1_i1_value
+2024-04-25 11:05:07 | DEBUG | 19 NETWORK | line1_i2_value
+2024-04-25 11:05:07 | DEBUG | 20 NETWORK | line1_P1_value
+2024-04-25 11:05:07 | DEBUG | 21 NETWORK | line1_P2_value
+2024-04-25 11:05:07 | DEBUG | 22 NETWORK | line1_Q1_value
+2024-04-25 11:05:07 | DEBUG | 23 NETWORK | line1_Q2_value
+2024-04-25 11:05:07 | DEBUG | 24 NETWORK | line1_iS1ToS2Side1_value
+2024-04-25 11:05:07 | DEBUG | 25 NETWORK | line1_iS2ToS1Side1_value
+2024-04-25 11:05:07 | DEBUG | 26 NETWORK | line1_iS1ToS2Side2_value
+2024-04-25 11:05:07 | DEBUG | 27 NETWORK | line1_iS2ToS1Side2_value
+2024-04-25 11:05:07 | DEBUG | 28 NETWORK | line1_iSide1_value
+2024-04-25 11:05:07 | DEBUG | 29 NETWORK | line1_iSide2_value
+2024-04-25 11:05:07 | DEBUG | 30 NETWORK | line1_U1_value
+2024-04-25 11:05:07 | DEBUG | 31 NETWORK | line1_U2_value
+2024-04-25 11:05:07 | DEBUG | 32 NETWORK | line1_lineState_value
+2024-04-25 11:05:07 | DEBUG | 33 Generator | generator_PGen
+2024-04-25 11:05:07 | DEBUG | 34 Generator | generator_UPu
+2024-04-25 11:05:07 | DEBUG | 35 Generator | generator_genState
+2024-04-25 11:05:07 | DEBUG | 36 InfiniteBus | infiniteBus_U
+2024-04-25 11:05:07 | DEBUG | 37 InfiniteBus | infiniteBus_terminal_V_im
+2024-04-25 11:05:07 | DEBUG | 38 InfiniteBus | infiniteBus_terminal_V_re
+2024-04-25 11:05:07 | DEBUG | 39 InfiniteBus | infiniteBus_UPhaseVar
+2024-04-25 11:05:07 | DEBUG | 40 InfiniteBus | infiniteBus_UPuVar
+2024-04-25 11:05:07 | DEBUG | 41 Load2 | load_UPu_value
+2024-04-25 11:05:07 | DEBUG | 42 OmegaRef | setPoint_setPoint_value
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | Z variables
+2024-04-25 11:05:07 | DEBUG | ------------------------------
+2024-04-25 11:05:07 | DEBUG | 0 NETWORK | VL1_BUS1_numcc_value
+2024-04-25 11:05:07 | DEBUG | 1 NETWORK | VL1_BUS1_switchOff_value
+2024-04-25 11:05:07 | DEBUG | 2 NETWORK | VL1_BUS1_state_value
+2024-04-25 11:05:07 | DEBUG | 3 NETWORK | VL2_BUS1_numcc_value
+2024-04-25 11:05:07 | DEBUG | 4 NETWORK | VL2_BUS1_switchOff_value
+2024-04-25 11:05:07 | DEBUG | 5 NETWORK | VL2_BUS1_state_value
+2024-04-25 11:05:07 | DEBUG | 6 NETWORK | Load_state_value
+2024-04-25 11:05:07 | DEBUG | 7 NETWORK | Load3_state_value
+2024-04-25 11:05:07 | DEBUG | 8 NETWORK | line1_state_value
+2024-04-25 11:05:07 | DEBUG | 9 NETWORK | line1_desactivate_currentLimits_value
+2024-04-25 11:05:07 | DEBUG | 10 Connect_Load3 | event_state1_value
+2024-04-25 11:05:07 | DEBUG | 11 Disconnect_Load | event_state1_value
+2024-04-25 11:05:07 | DEBUG | 12 Disconnect_Load3 | event_state1_value
+2024-04-25 11:05:07 | DEBUG | 13 Generator | generator_running_value
+2024-04-25 11:05:07 | DEBUG | 14 Generator | generator_switchOffSignal1_value
+2024-04-25 11:05:07 | DEBUG | 15 Generator | generator_switchOffSignal2_value
+2024-04-25 11:05:07 | DEBUG | 16 Generator | generator_switchOffSignal3_value
+2024-04-25 11:05:07 | DEBUG | 17 Generator | generator_converter_u
+2024-04-25 11:05:07 | DEBUG | 18 Generator | generator_pStatus
+2024-04-25 11:05:07 | DEBUG | 19 Generator | generator_state
+2024-04-25 11:05:07 | DEBUG | 20 Load2 | load_running_value
+2024-04-25 11:05:07 | DEBUG | 21 Load2 | load_switchOffSignal1_value
+2024-04-25 11:05:07 | DEBUG | 22 Load2 | load_switchOffSignal2_value
+2024-04-25 11:05:07 | DEBUG | 23 Load2 | load_state

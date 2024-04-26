@@ -502,6 +502,8 @@ class ModelLoad : public NetworkComponent {
   double alpha_;  ///< active power exponential sensitivity to voltage
   double beta_;  ///< reactive power exponential sensitivity to voltage
   bool isRestorative_;  ///< whether the consumed energy remains constant
+  bool isPControllable_;  ///< whether the load can be controlled on P
+  bool isQControllable_;  ///< whether the load can be controlled on Q
   bool isControllable_;  ///< whether the load can be controlled
   double Tp_;  ///< time constant Tp
   bool TpIsZero_;  ///< true if Tp == 0
