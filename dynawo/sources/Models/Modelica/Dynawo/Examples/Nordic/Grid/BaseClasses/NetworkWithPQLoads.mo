@@ -542,7 +542,6 @@ equation
     Diagram(coordinateSystem(extent = {{-100, -150}, {100, 150}}, grid = {1, 1}, preserveAspectRatio = false, initialScale = 0.1)),
     Icon(coordinateSystem(extent = {{-100, -150}, {100, 150}}, grid = {1, 1}, preserveAspectRatio = false)),
     version = "",
-    uses(Dynawo(version = "1.0.1")),
     __OpenModelica_commandLineOptions = "",
     Documentation(info = "<html><head></head><body>This network model extends the base network. It adds PQLoads as well as shunts, as described in&nbsp;the&nbsp;<span style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>.</body></html>"));
 end NetworkWithPQLoads;

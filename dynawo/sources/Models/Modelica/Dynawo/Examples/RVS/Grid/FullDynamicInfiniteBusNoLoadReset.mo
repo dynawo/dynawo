@@ -466,8 +466,5 @@ equation
     Line(points = {{16, 124}, {-6, 124}}, color = {0, 0, 255}));
 
   annotation(preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-03, Interval = 0.1),
-    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"),
     Diagram(coordinateSystem(extent = {{-300, -340}, {300, 340}})));
 end FullDynamicInfiniteBusNoLoadReset;
