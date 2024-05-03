@@ -82,25 +82,28 @@ class Jobs:
         parser.add_option('--update-nrt', action="store_true", dest="update_nrt", help=u"generate output files without gathering them in an output folder to replace")
         options, _ = parser.parse_args()
 
-        if not options.job or \
-                not options.origin or \
-                not options.version or \
-                (not options.outputs_path and not options.update_nrt) or \
-                (options.outputs_path and options.update_nrt) or \
-                (options.log and options.update_nrt):
-            if not options.job:
-                print("Error : No input job file (use --job option)")
-            if not options.origin:
-                print("Error : No input dynawo origin (use --origin option)")
-            if not options.version:
-                print("Error : No input dynawo version (use --version option)")
-            if not options.outputs_path and not options.update_nrt:
-                print("Error : No outputs path (use -o option)")
-            if options.outputs_path and options.update_nrt:
-                print("Error : You can't use both -o and --update-nrt options at the same time")
-            if options.log and options.update_nrt:
-                print("Error : You can't use both --log and --update-nrt options at the same time")
-            sys.exit(1)
+        options_error = False
+        if not options.job:
+            options_error = True
+            print("Error : No input job file (use --job option)")
+        if not options.origin:
+            options_error = True
+            print("Error : No input dynawo origin (use --origin option)")
+        if not options.version:
+            options_error = True
+            print("Error : No input dynawo version (use --version option)")
+        if not options.outputs_path and not options.update_nrt:
+            options_error = True
+            print("Error : No outputs path (use -o option)")
+        if options.outputs_path and options.update_nrt:
+            options_error = True
+            print("Error : You can't use both -o and --update-nrt options at the same time")
+        if options.log and options.update_nrt:
+            options_error = True
+            print("Error : You can't use both --log and --update-nrt options at the same time")
+
+        if options_error:
+            sys.exit(1)  # if at least one error above occurred, exit the program
 
         self.__dynawo_origin = tuple(map(int, options.origin.split('.')))
         self.__dynawo_version = tuple(map(int, options.version.split('.')))
