@@ -17,10 +17,10 @@ partial model BaseGeneratorParameters_INIT "Base initialization model for simpli
   parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
+  parameter Modelica.Blocks.Interfaces.RealInput U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
 
-  Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+  Modelica.Blocks.Interfaces.RealInput PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";

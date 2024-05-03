@@ -25,7 +25,7 @@ model Ac1c_INIT "IEEE excitation system type AC1C initialization model"
   parameter Types.VoltageModulePu VfeMaxPu "Maximum exciter field current signal in pu (user-selected base voltage)";
 
   Types.VoltageModulePu Efe0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
-  Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealInput Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
   Types.VoltageModulePu Ve0Pu "Initial exciter output voltage in pu (user-selected base voltage)";
   Types.VoltageModulePu VeMax0Pu "Maximum exciter output voltage in pu (user-selected base voltage)";
 

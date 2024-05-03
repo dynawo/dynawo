@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 model MAXEX2_INIT "Initialization model of MAXEX2"
   extends AdditionalIcons.Init;
 
-  Types.CurrentModulePu Ifd0Pu "Initial generator field current in pu (base SNom, user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealInput Ifd0Pu "Initial generator field current in pu (base SNom, user-selected base voltage)";
 
   annotation(preferredView = "text");
 end MAXEX2_INIT;

@@ -59,8 +59,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVRemoteDiagramPQSignalN.xml
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
   GeneratorSynchronousFourWindings.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
+  #GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
+  #GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
   GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
@@ -98,7 +98,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
-  GenericAutomaton.xml
+  # GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
@@ -173,7 +173,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
-  Ramp.xml
   # PIAntiWindUpTable.xml
   Ramp.xml
   ShuntBWithSections.xml
@@ -223,7 +222,7 @@ foreach( FILE ${MODELICA_PREASSEMBLED_MODELS} )
   compile_preassembled_model(${FILE})
 endforeach( FILE )
 
-include(CMakeListsModelsTargets.txt)
+#include(CMakeListsModelsTargets.txt)
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)

@@ -14,7 +14,7 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses;
 */
 
 partial model BasePV "Base dynamic model for a voltage regulation"
-  input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 

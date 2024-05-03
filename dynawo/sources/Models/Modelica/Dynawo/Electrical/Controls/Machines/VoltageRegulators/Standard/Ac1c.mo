@@ -66,7 +66,7 @@ model Ac1c "IEEE excitation system type AC1C model"
     Placement(visible = true, transformation(origin = {-250, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tC, 1}, x_scaled(start = {Efe0Pu / Ka}), x_start = {Efe0Pu / Ka}, y(start = Efe0Pu / Ka)) annotation(
+ Dynawo.Electrical.Controls.Utilities.TransferFunction transferFunction(a = {tB, 1}, b = {tC, 1}, x_scaled(start = {Efe0Pu / Ka}), x_start = {Efe0Pu / Ka}, y(start = Efe0Pu / Ka)) annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

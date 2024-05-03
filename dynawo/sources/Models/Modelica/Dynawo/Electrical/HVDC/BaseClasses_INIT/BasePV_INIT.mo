@@ -14,14 +14,15 @@ within Dynawo.Electrical.HVDC.BaseClasses_INIT;
 */
 
 partial model BasePV_INIT "Base initialization model for PV HVDC"
+  import Modelica;
 
   parameter Types.ActivePowerPu P1RefSetPu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePower Q1Nom "Nominal reactive power in Mvar at terminal 1";
 
   parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
-  Types.ReactivePowerPu QInj10PuQNom "Reactive power at terminal 1 in pu (base Q1Nom) (generator convention)";
-  Types.VoltageModulePu U1Ref0PuVar "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
+  Modelica.Blocks.Interfaces.RealInput QInj10PuQNom "Reactive power at terminal 1 in pu (base Q1Nom) (generator convention)";
+  Modelica.Blocks.Interfaces.RealInput U1Ref0PuVar "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
 equation
   U1Ref0PuVar = U1Ref0Pu;

@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_IN
 model BasePss_INIT "Initialization base model for power system stabilizers"
   extends AdditionalIcons.Init;
 
-  Types.ActivePowerPu PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
+  Modelica.Blocks.Interfaces.RealInput PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
 
   annotation(preferredView = "text");
 end BasePss_INIT;

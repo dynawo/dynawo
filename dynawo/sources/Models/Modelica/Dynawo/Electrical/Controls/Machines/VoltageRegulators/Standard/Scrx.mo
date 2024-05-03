@@ -46,7 +46,7 @@ model Scrx "Bus-fed or solid-fed exciter model, with no excitation resistance"
 
   Modelica.Blocks.Math.Sum sum1(k = {1, 1, 1, 1, -1}, nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {tB , 1}, b = {tA , 1}, x_start = {Vr0Pu / K}, x_scaled(start = {Vr0Pu / K}), y(start = Vr0Pu / K)) annotation(
+  Dynawo.Electrical.Controls.Utilities.TransferFunction transferFunction(a = {tB , 1}, b = {tA , 1}, x_start = {Vr0Pu / K}, x_scaled(start = {Vr0Pu / K}), y(start = Vr0Pu / K)) annotation(
     Placement(visible = true, transformation(origin = {-70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = K, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu, tFilter = tE) annotation(
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

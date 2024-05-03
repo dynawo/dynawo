@@ -16,8 +16,8 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 model IEEET1_INIT "Initialization model of IEEET1"
   extends AdditionalIcons.Init;
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  Types.VoltageModulePu UStator0Pu "Initial stator voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealInput UStator0Pu "Initial stator voltage in pu (base UNom)";
 
   annotation(preferredView = "text");
 end IEEET1_INIT;
