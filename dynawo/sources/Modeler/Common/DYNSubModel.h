@@ -300,6 +300,14 @@ class SubModel {
   void printModelValues(const std::string& directory, const std::string& dumpFileName);
 
   /**
+   * @brief write values of the initialization model in a file
+   *
+   * @param directory directory where the file should be printed
+   * @param dumpFileName name of the file where to dump the values
+   */
+  void printInitModelValues(const std::string& directory, const std::string& dumpFileName);
+
+  /**
    * @brief define each variables of the model
    *
    * @param variables vector of variables to fullfill
@@ -1364,6 +1372,15 @@ class SubModel {
   virtual void getSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found);
 
   /**
+   * @brief retrieve the value of a parameter of the initialization model
+   *
+   * @param nameParameter name of a parameter to found
+   * @param value value of the parameter
+   * @param found @b true if the parameter exist, @b false else
+   */
+  virtual void getInitSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found);
+
+  /**
    * @brief get index of this submodel in the global continuous variable table
    * @return index of this submodel in the global continuous variable table
    */
@@ -1421,6 +1438,20 @@ class SubModel {
    * @param fstream the file to stream parameters to
    */
   virtual void printValuesParameters(std::ofstream& fstream);
+
+  /**
+   * @brief write variables values of the initialization model in a file
+   *
+   * @param fstream the file to stream variables to
+   */
+  void printInitValuesVariables(std::ofstream& fstream);
+
+  /**
+   * @brief write parameters of the initialization model in a file
+   *
+   * @param fstream the file to stream parameters to
+   */
+  virtual void printInitValuesParameters(std::ofstream& fstream);
 
   /**
    * @brief Determines if the sub model has a data check coherence operation (non-empty function)
@@ -1512,6 +1543,7 @@ class SubModel {
   std::vector<double> fLocalInit_;  ///< local buffer used for the init model
 
   std::vector<double> calculatedVars_;  ///< local buffer to fill when calculating calculated variables
+  std::vector<double> calculatedVarsInit_;  ///< local buffer to fill when calculating calculated variables for init model
   std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByName_;  ///< association between variables and its name for dynamic model
   std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameInit_;  ///< association between variables and its name for init model
 

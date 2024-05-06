@@ -380,10 +380,10 @@ The user can specify in the jobs file what outputs he wants to get from the simu
 
 Several outputs are available with \Dynawo:
 \begin{itemize}
-\item \textbf{Initialization}: the user can have access to the results of the initialization stages (local and/or global) by adding the item ``dumpInitValues'' in the jobs file.
+\item \textbf{Initialization}: the user can have access to the results of the initialization stages (local and/or global and/or initialization model values) by adding the item ``dumpInitValues'' in the jobs file.
 
 \begin{lstlisting}[language=XML, morekeywords={dumpInitValues},numbers=none]
-<dumpInitValues local="true" global="true"/>
+<dumpInitValues local="true" global="true" init="true"/>
 \end{lstlisting}
 
 \item \textbf{Final values}: the user can have access to all values of the variables and the parameters of the models at the end of the simulation by adding the item ``dumpFinalValues'' in the jobs file.
