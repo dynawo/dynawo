@@ -34,6 +34,7 @@ extern void *mmc_emptystring;
 extern void *mmc_strings_len1[256];
 
 #define real_array_copy_data(src, dst)               simple_array_copy_data(src, &dst, sizeof(modelica_real));
+#define integer_array_copy_data(src, dst)             simple_array_copy_data(src, &dst, sizeof(modelica_integer));
 #define real_array_get(src, ndims, ...)               (*reinterpret_cast<modelica_real*>(generic_array_get(&src, sizeof(modelica_real), __VA_ARGS__)))
 #define boolean_array_get(src, ndims, ...)            (*reinterpret_cast<modelica_boolean*>(generic_array_get(&src, sizeof(modelica_boolean), __VA_ARGS__)))
 /**
