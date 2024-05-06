@@ -1031,9 +1031,9 @@ ModelManager::solveParameters() {
 #endif
 
   // copy of computed values in the parameters
-  vector<double> calculatedVars(sizeCalculatedVar_, 0);
-  modelModelica()->evalCalculatedVars(calculatedVars);
-  setCalculatedParameters(yLocalInit_, zLocalInit_, calculatedVars);
+  calculatedVarsInit_.resize(sizeCalculatedVar_, 0);
+  modelModelica()->evalCalculatedVars(calculatedVarsInit_);
+  setCalculatedParameters(yLocalInit_, zLocalInit_, calculatedVarsInit_);
   solver.clean();
 
   Trace::debug() << DYNLog(SolveParametersOK, name()) << Trace::endline;
@@ -1287,6 +1287,41 @@ ModelManager::printValuesParameters(std::ofstream& fstream) {
   for (unsigned int i = 0; i < modelData()->nParametersString; ++i)
     fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
     << (simulationInfo()->stringParameter[i]) << "\n";
+}
+
+void
+ModelManager::printInitValuesParameters(std::ofstream& fstream) {
+  if (!hasInit())
+    return;
+  fstream << " ====== PARAMETERS VALUES ======\n";
+  const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersInit();
+  // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
+  vector<string> parameters(parametersMap.size(), "TMP");
+  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
+    const ParameterModeler& currentParameter = it->second;
+    parameters[currentParameter.getIndex()] = it->first;
+  }
+
+  // In Modelica models, parameters are ordered as follows : real, then boolean, integer and string
+  for (unsigned int i = 0; i < dataInit_->modelData->nParametersReal; ++i)
+    fstream << std::setw(50) << std::left << parameters[i] << std::right << " =" << std::setw(15)
+      << DYN::double2String(dataInit_->simulationInfo->realParameter[i]) << "\n";
+
+  int offset = static_cast<int>(dataInit_->modelData->nParametersReal);
+
+  for (unsigned int i = 0; i < dataInit_->modelData->nParametersBoolean; ++i)
+    fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
+    << std::boolalpha << static_cast<bool> (dataInit_->simulationInfo->booleanParameter[i]) << "\n";
+
+  offset += dataInit_->modelData->nParametersBoolean;
+  for (unsigned int i = 0; i < dataInit_->modelData->nParametersInteger; ++i)
+    fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
+    << (dataInit_->simulationInfo->integerParameter[i]) << "\n";
+
+  offset += dataInit_->modelData->nParametersInteger;
+  for (unsigned int i = 0; i < dataInit_->modelData->nParametersString; ++i)
+    fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
+    << (dataInit_->simulationInfo->stringParameter[i]) << "\n";
 }
 
 string ModelManager::modelType() const {

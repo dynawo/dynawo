@@ -350,6 +350,12 @@ ModelMulti::printModelValues(const string& directory, const string& dumpFileName
 }
 
 void
+ModelMulti::printInitModelValues(const string& directory, const string& dumpFileName) {
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->printInitModelValues(directory, dumpFileName);
+}
+
+void
 ModelMulti::copyContinuousVariables(const double* y, const double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
   std::copy(yp, yp + sizeY(), ypLocal_);

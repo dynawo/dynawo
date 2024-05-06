@@ -200,6 +200,7 @@ lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
 dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
+dumpInitModelValues_(false),
 dumpFinalValues_(false),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
@@ -291,6 +292,7 @@ Simulation::configureSimulationOutputs() {
     if (jobEntry_->getOutputsEntry()->getInitValuesEntry() != nullptr) {
       setDumpLocalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpLocalInitValues());
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
+      setDumpInitModelValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpInitModelValues());
     }
     if (jobEntry_->getOutputsEntry()->getFinalValuesEntry() != nullptr) {
       setDumpFinalValues(jobEntry_->getOutputsEntry()->getFinalValuesEntry()->getDumpFinalValues());
@@ -919,6 +921,13 @@ Simulation::calculateIC() {
   model_->printMessages();
   if (Trace::logExists(Trace::parameters(), DEBUG)) {
     model_->printLocalInitParametersValues();
+  }
+
+  if (dumpInitModelValues_) {
+    string localInitDir = createAbsolutePath("initValues/initModel", outputsDirectory_);
+    if (!exists(localInitDir))
+      create_directory(localInitDir);
+    model_->printInitModelValues(localInitDir, "dumpInitValues");
   }
 
   if (dumpLocalInitValues_) {

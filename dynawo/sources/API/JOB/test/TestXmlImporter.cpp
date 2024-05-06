@@ -88,7 +88,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "</dyn:modeler>"
     "<dyn:simulation startTime=\"10\" stopTime=\"200\"/>"
     "<dyn:outputs directory=\"outputs/dump\">"
-    "<dyn:dumpInitValues local=\"true\" global=\"false\"/>"
+    "<dyn:dumpInitValues local=\"true\" global=\"false\" init=\"true\"/>"
     "<dyn:dumpFinalValues/>"
     "<dyn:constraints exportMode=\"XML\"/>"
     "<dyn:timeline exportMode=\"TXT\" exportTime=\"true\"/>"
@@ -204,6 +204,7 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<InitValuesEntry> initValues = outputs->getInitValuesEntry();
   ASSERT_EQ(initValues->getDumpLocalInitValues(), true);
   ASSERT_EQ(initValues->getDumpGlobalInitValues(), false);
+  ASSERT_EQ(initValues->getDumpInitModelValues(), true);
 
   // ===== FinalValuesEntry =====
   ASSERT_NE(outputs->getFinalValuesEntry(), boost::shared_ptr<FinalValuesEntry>());
