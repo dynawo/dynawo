@@ -10,14 +10,19 @@
 # of simulation tools for power systems.
 
 set(MODEL_FILES
+  CurrentLimiter2015.mo
+  CurrentLimiter2020.mo
+  Mechanical.mo
   package.mo
   package.order
-  CurrentLimiter.mo
-  Mechanical.mo
-  PControl4A.mo
-  PControl4B.mo
-  QControl.mo
-  QLimiter.mo
+  PControl4A2015.mo
+  PControl4A2020.mo
+  PControl4B2015.mo
+  PControl4B2020.mo
+  QControl2015.mo
+  QControl2020.mo
+  QLimiter2015.mo
+  QLimiter2020.mo
   )
 
 #

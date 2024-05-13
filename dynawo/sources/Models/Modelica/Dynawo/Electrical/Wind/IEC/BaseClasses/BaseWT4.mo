@@ -43,34 +43,6 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   parameter Types.Time tG "Current generation time constant in s" annotation(
     Dialog(tab = "Control"));
 
-  //Measurement parameters for control
-  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-
-  //Measurement parameters for protection
-  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
     Dialog(tab = "PLL"));
@@ -81,10 +53,6 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
 
   //PControl parameters
   parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
     Dialog(tab = "PControl"));
 
   //Current limiter parameters
@@ -102,10 +70,6 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Dialog(tab = "CurrentLimiter"));
 
   //QControl parameters
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
@@ -122,11 +86,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Dialog(tab = "QControl"));
   parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
   parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1)" annotation(
     Dialog(tab = "QControl"));
   parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
     Dialog(tab = "QControl"));
@@ -136,15 +96,11 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Dialog(tab = "QControl"));
   parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom) (typically equal to UpquMaxPu)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
@@ -185,14 +141,8 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
 
   Dynawo.Electrical.Sources.IEC.WT4Injector wT4Injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, XesPu = XesPu, i0Pu = i0Pu, tG = tG, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.Measurements protectionMeasurements(DfMaxPu = DfpMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIpFilt, tPFilt = tPpFilt, tQFilt = tQpFilt, tS = tS, tUFilt = tUpFilt, tfFilt = tfpFilt, u0Pu = u0Pu) annotation(
-    Placement(visible = true, transformation(origin = {60, 80}, extent = {{20, 20}, {-20, -20}}, rotation = 90)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.Measurements controlMeasurements(DfMaxPu = DfcMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIcFilt, tPFilt = tPcFilt, tQFilt = tQcFilt, tS = tS, tUFilt = tUcFilt, tfFilt = tfcFilt, u0Pu = u0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-80, 80}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
-    Placement(visible = true, transformation(origin = {-20, 20}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.GridProtection gridProtection(U0Pu = U0Pu, UOverPu = UOverPu, UUnderPu = UUnderPu, fOverPu = fOverPu, fUnderPu = fUnderPu, TabletUoverUwtfilt11 = TabletUoverUwtfilt11, TabletUoverUwtfilt12 = TabletUoverUwtfilt12, TabletUoverUwtfilt21 = TabletUoverUwtfilt21, TabletUoverUwtfilt22 = TabletUoverUwtfilt22, TabletUoverUwtfilt31 = TabletUoverUwtfilt31, TabletUoverUwtfilt32 = TabletUoverUwtfilt32, TabletUoverUwtfilt = TabletUoverUwtfilt, TabletUunderUwtfilt11 = TabletUunderUwtfilt11, TabletUunderUwtfilt12 = TabletUunderUwtfilt12, TabletUunderUwtfilt21 = TabletUunderUwtfilt21, TabletUunderUwtfilt22 = TabletUunderUwtfilt22, TabletUunderUwtfilt31 = TabletUunderUwtfilt31, TabletUunderUwtfilt32 = TabletUunderUwtfilt32, TabletUunderUwtfilt = TabletUunderUwtfilt, Tabletfoverfwtfilt11 = Tabletfoverfwtfilt11, Tabletfoverfwtfilt12 = Tabletfoverfwtfilt12, Tabletfoverfwtfilt21 = Tabletfoverfwtfilt21, Tabletfoverfwtfilt22 = Tabletfoverfwtfilt22, Tabletfoverfwtfilt31 = Tabletfoverfwtfilt31, Tabletfoverfwtfilt32 = Tabletfoverfwtfilt32, Tabletfoverfwtfilt = Tabletfoverfwtfilt, Tabletfunderfwtfilt11 = Tabletfunderfwtfilt11, Tabletfunderfwtfilt12 = Tabletfunderfwtfilt12, Tabletfunderfwtfilt21 = Tabletfunderfwtfilt21, Tabletfunderfwtfilt22 = Tabletfunderfwtfilt22, Tabletfunderfwtfilt31 = Tabletfunderfwtfilt31, Tabletfunderfwtfilt32 = Tabletfunderfwtfilt32, Tabletfunderfwtfilt = Tabletfunderfwtfilt) annotation(
-    Placement(visible = true, transformation(origin = {60, 20}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -233,31 +183,8 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
 equation
   connect(wT4Injector.terminal, terminal) annotation(
     Line(points = {{42, -40}, {130, -40}}, color = {0, 0, 255}));
-  connect(gridProtection.fOCB, wT4Injector.fOCB) annotation(
-    Line(points = {{60, -2}, {60, -10}, {20, -10}, {20, -18}}, color = {255, 0, 255}));
   connect(pll.thetaPll, wT4Injector.theta) annotation(
-    Line(points = {{-20, -2}, {-20, -10}, {8, -10}, {8, -18}}, color = {0, 0, 127}));
-  connect(omegaRefPu, protectionMeasurements.omegaRefPu) annotation(
-    Line(points = {{0, 130}, {0, 116}, {48, 116}, {48, 102}}, color = {0, 0, 127}));
-  connect(omegaRefPu, controlMeasurements.omegaRefPu) annotation(
-    Line(points = {{0, 130}, {0, 116}, {-68, 116}, {-68, 102}}, color = {0, 0, 127}));
-  connect(protectionMeasurements.omegaFiltPu, gridProtection.omegaFiltPu) annotation(
-    Line(points = {{44, 58}, {44, 50}, {52, 50}, {52, 42}}, color = {0, 0, 127}));
-  connect(protectionMeasurements.UFiltPu, gridProtection.UWTPFiltPu) annotation(
-    Line(points = {{56, 58}, {56, 50}, {68, 50}, {68, 42}}, color = {0, 0, 127}));
-  connect(controlMeasurements.theta, pll.theta) annotation(
-    Line(points = {{-68, 58}, {-68, 50}, {-12, 50}, {-12, 42}}, color = {0, 0, 127}));
-  connect(wT4Injector.iWtPu, controlMeasurements.iPu) annotation(
-    Line(points = {{42, -24}, {100, -24}, {100, 106}, {-80, 106}, {-80, 102}}, color = {85, 170, 255}));
-  connect(wT4Injector.iWtPu, protectionMeasurements.iPu) annotation(
-    Line(points = {{42, -24}, {100, -24}, {100, 106}, {60, 106}, {60, 102}}, color = {85, 170, 255}));
-  connect(wT4Injector.uWtPu, controlMeasurements.uPu) annotation(
-    Line(points = {{42, -28}, {104, -28}, {104, 110}, {-92, 110}, {-92, 102}}, color = {85, 170, 255}));
-  connect(wT4Injector.uWtPu, protectionMeasurements.uPu) annotation(
-    Line(points = {{42, -28}, {104, -28}, {104, 110}, {72, 110}, {72, 102}}, color = {85, 170, 255}));
-  connect(controlMeasurements.UPu, pll.UWTPu) annotation(
-    Line(points = {{-80, 58}, {-80, 48}, {-28, 48}, {-28, 42}}, color = {0, 0, 127}));
-
+    Line(points = {{-20, 54}, {-20, 0}, {8, 0}, {8, -18}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT4")}),

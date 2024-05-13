@@ -10,10 +10,12 @@
 # of simulation tools for power systems.
 
 set(MODEL_FILES
+  Control4A2015.mo
+  Control4A2020.mo
+  Control4B2015.mo
+  Control4B2020.mo
   package.mo
   package.order
-  Control4A.mo
-  Control4B.mo
   )
 
 #
