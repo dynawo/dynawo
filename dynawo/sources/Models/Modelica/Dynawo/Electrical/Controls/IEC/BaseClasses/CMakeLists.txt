@@ -15,6 +15,10 @@ set(MODEL_FILES
   BaseControl4.mo
   BasePControl4.mo
   VDrop.mo
+  BaseQControl.mo
+  BaseCurrentLimiter.mo
+  BaseQLimiter.mo
+  BaseGridProtection.mo
   )
 
 #

@@ -142,8 +142,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscEmulation.xml
   IECWPP4ACurrentSource.xml
   IECWPP4BCurrentSource.xml
-  IECWT4ACurrentSource.xml
-  IECWT4BCurrentSource.xml
+  IECWT4ACurrentSource2015.xml
+  IECWT4ACurrentSource2020.xml
+  IECWT4BCurrentSource2015.xml
+  IECWT4BCurrentSource2020.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml
