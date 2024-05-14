@@ -65,12 +65,10 @@ def main():
                 sys.path.remove(case_path)  # remove from path because all files share the same name
 
                 for case_name, _, job_file, _, _, _ in cases.test_cases:
-                    job_dir = os.path.dirname(job_file)
                     cmd_to_execute = [python_cmd, update_xml_script,
                                         "--job", job_file,
                                         "--origin", dynawo_origin_str,
                                         "--version", dynawo_version_str,
-                                        "-o", job_dir,
                                         "--update-nrt"]
                     if options.tickets_to_update:
                         cmd_to_execute.extend(["--tickets", options.tickets_to_update])

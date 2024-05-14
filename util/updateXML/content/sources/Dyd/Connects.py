@@ -9,6 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+import lxml.etree
 
 from enum import Enum, auto
 
@@ -74,6 +75,52 @@ class Connects:
                 connect_to_modify.clear()
             else:
                 raise DuplicateConnectorsError(self.__model_id, current_var, self.__parent_xml_tree.base)
+
+    def add_connect(self, var1, id2, var2):
+        """
+        Add a connect/initConnect
+
+        Parameters:
+            var1 (str): var1 attribute of the connector
+            id2 (str): id2 attribute of the connector
+            var2 (str): var2 attribute of the connector
+        """
+        # check the black box model we want to connect exists
+        if id2 != NETWORK_ID:
+            if self.__parent_xml_tree.tag == xmlns(XML_DYNAMICMODELSARCHITECTURE):
+                connected_bbm_xpath = './dyn:blackBoxModel[@id="' + id2 + '"]'
+                connected_bbm = self.__parent_xml_tree.xpath(connected_bbm_xpath, namespaces=NAMESPACE_URI)
+                connected_modelica_model_xpath = './dyn:modelicaModel[@id="' + id2 + '"]'
+                connected_modelica_model = self.__parent_xml_tree.xpath(connected_modelica_model_xpath, namespaces=NAMESPACE_URI)
+                connected_model_template_expansion_xpath = './dyn:modelTemplateExpansion[@id="' + id2 + '"]'
+                connected_model_template_expansion = self.__parent_xml_tree.xpath(connected_model_template_expansion_xpath, namespaces=NAMESPACE_URI)
+                if len(connected_bbm) == 0 and len(connected_modelica_model) == 0 and len(connected_model_template_expansion) == 0:
+                    raise ModelNotFoundError(id2, self.__parent_xml_tree.base)
+            elif self.__parent_xml_tree.tag == xmlns(XML_MODELICAMODEL):
+                connected_udm_xpath = './dyn:unitDynamicModel[@id="' + id2 + '"]'
+                connected_udm = self.__parent_xml_tree.xpath(connected_udm_xpath, namespaces=NAMESPACE_URI)
+                if len(connected_udm) == 0:
+                    raise ModelNotFoundError(id2, self.__parent_xml_tree.base)
+            else:
+                raise UnknownDydElementError(self.__parent_xml_tree.tag)
+
+        # check the connect we want to create doesn't exist, then add the connect in dyd file
+        if self.__connect_type == ConnectType.initConnect:
+            init_connect_xpath = './dyn:initConnect[@id1="' + self.__model_id + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
+            init_connect = self.__parent_xml_tree.xpath(init_connect_xpath, namespaces=NAMESPACE_URI)
+            if len(init_connect) == 0:
+                lxml.etree.SubElement(self.__parent_xml_tree,
+                                        xmlns(XML_INITCONNECT),
+                                        {'id1': self.__model_id, 'var1': var1, 'id2': id2, 'var2': var2})
+        elif self.__connect_type == ConnectType.connect:
+            connect_xpath = './dyn:connect[@id1="' + self.__model_id + '" and @var1="' + var1 + '" and @id2="' + id2 + '" and @var2="' + var2 + '"]'
+            connect = self.__parent_xml_tree.xpath(connect_xpath, namespaces=NAMESPACE_URI)
+            if len(connect) == 0:
+                lxml.etree.SubElement(self.__parent_xml_tree,
+                                        xmlns(XML_CONNECT),
+                                        {'id1': self.__model_id, 'var1': var1, 'id2': id2, 'var2': var2})
+        else:
+            raise UnknownConnectType(self.__connect_type)
 
     def remove_connect(self, var):
         """

@@ -33,7 +33,8 @@ def launch_test(test_job, test_dir_path, update_XML_script, outputs_path, test_c
                     "--job", input_job_file_path,
                     "--origin", "1.3.0",
                     "--version", "1.4.0",
-                    "-o", outputs_path], check=True, env=project_env)
+                    "-o", outputs_path,
+                    "--add-dynawo-version"], check=True, env=project_env)
 
     test_job.assertTrue(filecmp.cmp(output_job_file_path, ref_job_file_path))
     test_job.assertTrue(filecmp.cmp(output_dyd_file_path, ref_dyd_file_path))

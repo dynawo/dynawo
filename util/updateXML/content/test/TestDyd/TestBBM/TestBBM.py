@@ -38,6 +38,11 @@ class TestBBM(unittest.TestCase):
         update_XML_script = os.path.join(test_dir_path, "change_connect_var_name.py")
         launch_test(self, test_dir_path, update_XML_script, test_dir_path)
 
+    def test_add_connect(self):
+        test_dir_path = os.path.join(parent_dir, "res/add_connect")
+        update_XML_script = os.path.join(test_dir_path, "add_connect.py")
+        launch_test(self, test_dir_path, update_XML_script, test_dir_path)
+
     def test_remove_connect(self):
         test_dir_path = os.path.join(parent_dir, "res/remove_connect")
         update_XML_script = os.path.join(test_dir_path, "remove_connect.py")
