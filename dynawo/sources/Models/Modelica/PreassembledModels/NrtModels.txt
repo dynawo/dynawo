@@ -98,6 +98,8 @@ Step
 TapChangerAutomaton
 TapChangerBlockingAutomaton1
 TransformerFixedRatio
+TransformerPhaseTapChanger
+TransformerRatioTapChanger
 UFLS10Steps
 UnderVoltageAutomaton
 VRRemote

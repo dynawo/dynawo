@@ -220,6 +220,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerBlockingAutomaton4.xml
   TapChangerBlockingAutomaton5.xml
   TransformerFixedRatio.xml
+  TransformerFixedRatioAndPhase.xml
+  TransformerPhaseTapChanger.xml
+  TransformerRatioTapChanger.xml
   UFLS3Steps.xml
   UFLS10Steps.xml
   UnderVoltageAutomaton.xml

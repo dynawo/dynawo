@@ -14,6 +14,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseTransformer.mo
   BaseTransformerVariableTap.mo
   TransformerParameters.mo
   )
