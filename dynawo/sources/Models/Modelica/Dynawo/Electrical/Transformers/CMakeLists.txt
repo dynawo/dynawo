@@ -34,6 +34,12 @@ set(MODEL_FILES
   NetworkTransformer.extvar
   NetworkTransformer.mo
   NetworkTransformer_INIT.mo
+  TransformerPhaseTapChanger.mo
+  TransformerPhaseTapChanger.extvar
+  TransformerRatioTapChanger.mo
+  TransformerRatioTapChanger.extvar
+  TransformerFixedRatioAndPhase.mo
+  TransformerFixedRatioAndPhase.extvar
   )
 
 #
