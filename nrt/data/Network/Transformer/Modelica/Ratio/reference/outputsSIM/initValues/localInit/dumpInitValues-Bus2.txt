@@ -4,7 +4,7 @@ bus_terminal_V_re                                 : y =   1.0000000000 yp =   0.
  ====== INIT CALCULATED VARIABLES VALUES ======
 bus_U                                             : y =   1.0000000000
 bus_UPhase                                        : y =   0.0000000000
-bus_UPhasePu                                      : y =   0.0000000000
+bus_UPhaseDeg                                     : y =   0.0000000000
 bus_UPu                                           : y =   1.0000000000
 bus_terminal_i_im                                 : y =   0.0000000000
 bus_terminal_i_re                                 : y =   0.0000000000

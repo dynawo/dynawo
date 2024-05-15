@@ -3,8 +3,8 @@ bus_terminal_V_im                                 : y =  -0.0530006729 yp =   0.
 bus_terminal_V_re                                 : y =   0.9818624142 yp =   0.0000000000
  ====== INIT CALCULATED VARIABLES VALUES ======
 bus_U                                             : y =   0.9832918549
-bus_UPhase                                        : y =  -3.0898122787
-bus_UPhasePu                                      : y =  -0.0539273975
+bus_UPhase                                        : y =  -0.0539273975
+bus_UPhaseDeg                                     : y =  -3.0898122787
 bus_UPu                                           : y =   0.9832918549
 bus_terminal_i_im                                 : y =   0.0000000000
 bus_terminal_i_re                                 : y =   0.0000000000

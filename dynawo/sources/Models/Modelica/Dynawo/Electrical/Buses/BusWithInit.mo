@@ -21,18 +21,18 @@ model BusWithInit "Bus with init"
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = 0.), im(start = 0.)));
 
-  Types.VoltageModulePu UPu (start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at terminal in pu (base UNom)";
+  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at terminal in pu (base UNom)";
   Types.VoltageModule U "Voltage amplitude at terminal in kV";
-  Types.PerUnit UPhasePu (start = ComplexMath.arg(u0Pu))"Voltage angle at terminal in pu";
-  Types.Angle UPhase (start = ComplexMath.arg(u0Pu) * 180.0 / Constants.pi)"Voltage angle at terminal in rad";
+  Types.Angle UPhase(start = ComplexMath.arg(u0Pu)) "Voltage angle at terminal in rad";
+  Types.Angle UPhaseDeg(start = ComplexMath.arg(u0Pu) * 180.0 / Constants.pi) "Voltage angle at terminal in degree";
 
-  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal (base U1Nom)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal (base UNom)";
 
 equation
   terminal.i = Complex(0);
   UPu = ComplexMath.'abs'(terminal.V);
-  UPhasePu = ComplexMath.arg(terminal.V);
-  UPhase = UPhasePu * 180.0 / Constants.pi;
+  UPhase = ComplexMath.arg(terminal.V);
+  UPhaseDeg = UPhase * 180.0 / Constants.pi;
   U = UPu * UNom;
 
   annotation(preferredView = "text");
