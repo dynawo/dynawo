@@ -455,8 +455,9 @@ class Model {
 
    /**
    * @brief Print all variables names.
+   * @param withVariableType add the type of the variables (algebraic or differential)
    */
-  virtual void printVariableNames() = 0;
+  virtual void printVariableNames(bool withVariableType) = 0;
 
   /**
    * @brief Print all equations.

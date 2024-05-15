@@ -156,6 +156,15 @@ class Delay {
     return delayMax_;
   }
 
+  /**
+   * @brief Retrieves the last registered values (time, value) in the ring buffer
+   *
+   * @return the last registered values (time, value) in the ring buffer
+   */
+  std::pair<double, double> getLastRegisteredPoint() const {
+    return buffer_.getLastRegisteredPoint();
+  }
+
  private:
   const double* time_;                    ///< pointer to time to use for timepoint and delay computation
   const double* value_;                   ///< pointer to value to use for timepoint
