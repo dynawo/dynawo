@@ -40,11 +40,11 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
   Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
   Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
-  Types.CurrentModulePu I1Pu "Current on side 1 in pu";
-  Types.CurrentModulePu I2Pu "Current on side 2 in pu";
+  Types.CurrentModulePu I1Pu "Current on side 1 in pu (base U1Nom, SnRef) (receptor convention)";
+  Types.CurrentModulePu I2Pu "Current on side 2 in pu (base U2Nom, SnRef) (receptor convention)";
 
-  Real ISide1 "Current on side 1 in A";
-  Real ISide2 "Current on side 2 in A";
+  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
+  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
 
   // Transformer start values
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
@@ -59,13 +59,13 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
 
   final parameter Types.PerUnit rTfoPu = RatedU2 / RatedU1 * U1Nom / U2Nom "Transformation ratio in pu: U2/U1 in no load conditions";
 
-  parameter Types.PerUnit R "Resistance of the transformer";
-  parameter Types.PerUnit X "Reactance of the transformer";
-  parameter Types.PerUnit G "Conductance of the transformer";
-  parameter Types.PerUnit B "Susceptance of the transformer";
+  parameter Modelica.SIunits.Resistance R "Resistance of the transformer in Ohm";
+  parameter Modelica.SIunits.Reactance X "Reactance of the transformer in Ohm";
+  parameter Modelica.SIunits.Conductance G "Conductance of the transformer in S";
+  parameter Modelica.SIunits.Susceptance B "Susceptance of the transformer in S";
 
-  final parameter Types.ComplexImpedancePu Z = Complex(R, X) "Impedance";
-  final parameter Types.ComplexAdmittancePu Y = Complex(G, B) "Admittance";
+  final parameter Modelica.SIunits.ComplexImpedance Z = Complex(R, X) "Impedance of the transformer";
+  final parameter Modelica.SIunits.ComplexAdmittance Y = Complex(G, B) "Admittance of the transformer";
 
   final parameter Types.ComplexImpedancePu ZPu = Complex(R / (U2Nom * U2Nom / SystemBase.SnRef), X / (U2Nom * U2Nom / SystemBase.SnRef)) "Impedance in pu (base U2Nom, SnRef)";
   final parameter Types.ComplexAdmittancePu YPu = Complex(G * (U2Nom * U2Nom / SystemBase.SnRef), B * (U2Nom * U2Nom / SystemBase.SnRef)) "Admittance in pu (base U2Nom, SnRef)";

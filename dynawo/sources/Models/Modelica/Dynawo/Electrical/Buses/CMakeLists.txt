@@ -14,6 +14,9 @@ set(MODEL_FILES
   package.order
   Bus.mo
   Bus.extvar
+  BusWithInit.extvar
+  BusWithInit.mo
+  Bus_INIT.mo
   InfiniteBus.mo
   InfiniteBus.extvar
   InfiniteBusFromTable.mo
@@ -24,9 +27,6 @@ set(MODEL_FILES
   InfiniteBusWithImpedance_INIT.mo
   InfiniteBusWithVariations.mo
   InfiniteBusWithVariations.extvar
-  BusWithInit.extvar
-  BusWithInit.mo
-  Bus_INIT.mo
   )
 
 #

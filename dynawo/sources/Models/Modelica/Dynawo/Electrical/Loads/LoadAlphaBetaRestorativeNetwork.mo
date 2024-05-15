@@ -19,8 +19,8 @@ model LoadAlphaBetaRestorativeNetwork "Generic model of a restorative Alpha-Beta
 
   parameter Types.Time Tp "Time constant for integration of active power setpoint change, in s";
   parameter Types.Time Tq "Time constant for integration of reactive power setpoint change, in s";
-  parameter Types.ActivePower zPMax "Max speed of active power variation in pu/s";
-  parameter Types.ReactivePower zQMax "Max speed of reactive power variation in pu/s";
+  parameter Types.ActivePowerPu zPMax "Max speed of active power variation in pu/s (base SnRef)";
+  parameter Types.ReactivePowerPu zQMax "Max speed of reactive power variation in pu/s (base SnRef)";
   parameter Real alpha "Active load sensitivity to voltage";
   parameter Real beta "Reactive load sensitivity to voltage";
   parameter Real alphaLong "Active load exponential sensitivity to voltage (long term behaviour)";

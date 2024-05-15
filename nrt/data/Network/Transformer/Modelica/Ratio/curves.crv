@@ -40,7 +40,7 @@
   <curve model="Transformer" variable="transformer_U1Pu"/>
   <curve model="Transformer" variable="transformer_U2Pu"/>
   <curve model="Bus1" variable="bus_U"/>
-  <curve model="Bus1" variable="bus_UPhase"/>
+  <curve model="Bus1" variable="bus_UPhaseDeg"/>
   <curve model="Bus2" variable="bus_U"/>
-  <curve model="Bus2" variable="bus_UPhase"/>
+  <curve model="Bus2" variable="bus_UPhaseDeg"/>
 </curvesInput>
