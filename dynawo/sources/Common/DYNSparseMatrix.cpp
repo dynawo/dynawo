@@ -27,6 +27,8 @@
 #include <cassert>
 #include <cmath>
 
+#include <boost/filesystem.hpp>
+
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
 #include "DYNFileSystemUtils.h"
@@ -38,6 +40,8 @@ using std::map;
 using std::set;
 using std::vector;
 using std::stringstream;
+
+namespace fs = boost::filesystem;
 
 namespace DYN {
 
@@ -154,14 +158,14 @@ SparseMatrix::free() {
 }
 
 void SparseMatrix::printToFile(bool sparse) const {
-  static std::string folder = "tmpMat";
-  static std::string base = folder + "/mat-";
+  static fs::path folder = "tmpMat";
+  static fs::path base = folder / "mat-";
   static int nbPrint = 0;
   stringstream fileName;
-  fileName << base << nbPrint << ".txt";
+  fileName << base.string() << nbPrint << ".txt";
 
-  if (!exists(folder)) {
-    create_directory(folder);
+  if (!exists(folder.string())) {
+    create_directory(folder.string());
   }
 
   std::ofstream file;
