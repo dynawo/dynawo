@@ -18,11 +18,11 @@ model Ac6c "IEEE excitation system type AC6C model"
   //Regulation parameters
   parameter Types.PerUnit AEx "Gain of saturation function";
   parameter Types.PerUnit BEx "Exponential coefficient of saturation function";
-  parameter Types.VoltageModulePu EfeMaxPu "Maximum output voltage of voltage regulator in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu EfeMinPu "Minimum output voltage of voltage regulator in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu EfeMaxPu "Maximum exciter field voltage in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu EfeMinPu "Minimum exciter field voltage in pu (user-selected base voltage)";
   parameter Types.PerUnit Ka "Voltage regulator gain";
   parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance";
-  parameter Types.PerUnit Kd "Exciter internal reactance";
+  parameter Types.PerUnit Kd "Demagnetizing factor, function of exciter alternator reactances";
   parameter Types.PerUnit Ke "Exciter field resistance constant";
   parameter Types.PerUnit Kh "Exciter field current feedback gain";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR output";

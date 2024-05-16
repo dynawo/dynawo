@@ -29,6 +29,8 @@ set(MODEL_FILES
     Pss2c.extvar
     Pss3b.mo
     Pss3b.extvar
+    Pss3c.mo
+    Pss3c.extvar
     Pss6c.mo
     Pss6c.extvar
     PssIEEE2B.mo

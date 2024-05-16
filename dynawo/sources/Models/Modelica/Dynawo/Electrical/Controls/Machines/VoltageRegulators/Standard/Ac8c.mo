@@ -21,7 +21,7 @@ model Ac8c "IEEE exciter type AC8C model"
   parameter Types.PerUnit Ka "Voltage regulator gain";
   parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance";
   parameter Types.PerUnit Kc1 "Rectifier loading factor proportional to commutating reactance (exciter)";
-  parameter Types.PerUnit Kd "Exciter internal reactance";
+  parameter Types.PerUnit Kd "Demagnetizing factor, function of exciter alternator reactances";
   parameter Types.PerUnit Kdr "Regulator derivative gain";
   parameter Types.PerUnit Ke "Exciter field resistance constant";
   parameter Types.PerUnit Ki "Potential circuit (current) gain coefficient";
@@ -61,7 +61,7 @@ model Ac8c "IEEE exciter type AC8C model"
     Placement(visible = true, transformation(origin = {-380, -180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Control voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Reference stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput utPu(re(start = ut0Pu.re), im(start = ut0Pu.im)) "Complex stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
