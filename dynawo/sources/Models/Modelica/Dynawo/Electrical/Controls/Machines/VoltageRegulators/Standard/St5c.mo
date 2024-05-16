@@ -92,10 +92,6 @@ model St5c "IEEE excitation system type ST5C model"
     Placement(visible = true, transformation(origin = {-50, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedLeadLag limitedLeadLag(t1 = tC1, t2 = tB1, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch annotation(
-    Placement(visible = true, transformation(origin = {170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch1 annotation(
-    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedLeadLag limitedLeadLag1(t1 = tUC1, t2 = tUB1, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {tUB2, 1}, b = {tUC2, 1}, x_scaled(start = {Vr0Pu}), x_start = {Vr0Pu}, y(start = Vr0Pu)) annotation(
@@ -104,10 +100,6 @@ model St5c "IEEE excitation system type ST5C model"
     Placement(visible = true, transformation(origin = {10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedLeadLag limitedLeadLag2(t1 = tOC1, t2 = tOB1, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
-    Placement(visible = true, transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual1 annotation(
-    Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -160,6 +152,14 @@ equation
     min1.u[3] = min1.u[1];
   end if;
 
+  if PositionOel == 2 and min1.yMin < sum1.y then
+    limiter.u = limitedLeadLag2.y;
+  elseif PositionUel == 2 and max1.yMax > sum1.y then
+    limiter.u = limitedLeadLag1.y;
+  else
+    limiter.u = limitedLeadLag.y;
+  end if;
+
   connect(UsPu, firstOrder.u) annotation(
     Line(points = {{-440, -20}, {-382, -20}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gain.y, feedback1.u2) annotation(
@@ -206,32 +206,10 @@ equation
     Line(points = {{22, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(transferFunction2.y, limitedLeadLag2.u) annotation(
     Line(points = {{21, -80}, {37, -80}}, color = {0, 0, 127}));
-  connect(limitedLeadLag.y, switch1.u1) annotation(
-    Line(points = {{61, 80}, {80, 80}, {80, 48}, {98, 48}}, color = {0, 0, 127}));
-  connect(limitedLeadLag1.y, switch1.u3) annotation(
-    Line(points = {{62, 0}, {80, 0}, {80, 32}, {98, 32}}, color = {0, 0, 127}));
-  connect(switch1.y, switch.u1) annotation(
-    Line(points = {{122, 40}, {140, 40}, {140, -32}, {158, -32}}, color = {0, 0, 127}));
-  connect(limitedLeadLag2.y, switch.u3) annotation(
-    Line(points = {{61, -80}, {140, -80}, {140, -48}, {158, -48}}, color = {0, 0, 127}));
-  connect(switch.y, limiter.u) annotation(
-    Line(points = {{182, -40}, {200, -40}, {200, 0}, {218, 0}}, color = {0, 0, 127}));
   connect(gain1.y, variableLimiter.limit1) annotation(
     Line(points = {{341, 120}, {360, 120}, {360, 8}, {378, 8}}, color = {0, 0, 127}));
   connect(IrPu, gain.u) annotation(
     Line(points = {{-440, 200}, {218, 200}}, color = {0, 0, 127}));
-  connect(sum1.y, greaterEqual.u1) annotation(
-    Line(points = {{-258, 0}, {-240, 0}, {-240, 40}, {-162, 40}}, color = {0, 0, 127}));
-  connect(max1.yMax, greaterEqual.u2) annotation(
-    Line(points = {{-198, 6}, {-180, 6}, {-180, 32}, {-162, 32}}, color = {0, 0, 127}));
-  connect(min1.yMin, greaterEqual1.u1) annotation(
-    Line(points = {{-138, 0}, {-120, 0}, {-120, -40}, {-102, -40}}, color = {0, 0, 127}));
-  connect(max1.yMax, greaterEqual1.u2) annotation(
-    Line(points = {{-198, 6}, {-180, 6}, {-180, -48}, {-102, -48}}, color = {0, 0, 127}));
-  connect(greaterEqual.y, switch1.u2) annotation(
-    Line(points = {{-138, 40}, {98, 40}}, color = {255, 0, 255}));
-  connect(greaterEqual1.y, switch.u2) annotation(
-    Line(points = {{-78, -40}, {158, -40}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

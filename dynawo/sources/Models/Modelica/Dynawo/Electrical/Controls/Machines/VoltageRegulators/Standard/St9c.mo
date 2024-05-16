@@ -21,6 +21,7 @@ model St9c "IEEE exciter type ST9C model"
   parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance";
   parameter Types.PerUnit Ki "Potential circuit (current) gain coefficient";
   parameter Types.PerUnit Kp "Potential circuit gain";
+  parameter Types.PerUnit Ku "Gain associated with activation of takeover UEL";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over";
   parameter Integer PositionScl "Input location : (0) none, (1) voltage error summation, (2) take-over";
   parameter Integer PositionUel "Input location : (0) none, (1) voltage error summation, (2) take-over";
@@ -53,7 +54,7 @@ model St9c "IEEE exciter type ST9C model"
     Placement(visible = true, transformation(origin = {-340, -180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Control voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Reference stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput utPu(re(start = ut0Pu.re), im(start = ut0Pu.im)) "Complex stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
@@ -114,12 +115,16 @@ model St9c "IEEE exciter type ST9C model"
     Placement(visible = true, transformation(origin = {110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {50, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const3(k = 1 / tAUel) annotation(
-    Placement(visible = true, transformation(origin = {110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch1 annotation(
+  Modelica.Blocks.Math.Gain gain1(k = Ku) annotation(
+    Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = 1, uMin = 0) annotation(
+    Placement(visible = true, transformation(origin = {70, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain3(k = 1 / tAUel - 1 / tA) annotation(
+    Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y = if PositionUel == 2 then max1.yMax > gain.y else false) annotation(
-    Placement(visible = true, transformation(origin = {-2.13163e-14, -140}, extent = {{-120, -10}, {120, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression realExpression(y = if PositionUel == 2 then max1.yMax - gain.y else 0) annotation(
+    Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-110, -10}, {110, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -244,14 +249,18 @@ equation
     Line(points = {{61, 100}, {80, 100}, {80, 134}, {98, 134}}, color = {0, 0, 127}));
   connect(min2.y, product.u1) annotation(
     Line(points = {{121, 140}, {260, 140}, {260, 86}, {278, 86}}, color = {0, 0, 127}));
-  connect(const3.y, switch1.u1) annotation(
-    Line(points = {{121, -100}, {140, -100}, {140, -132}, {157, -132}}, color = {0, 0, 127}));
-  connect(const.y, switch1.u3) annotation(
-    Line(points = {{121, -180}, {140, -180}, {140, -148}, {157, -148}}, color = {0, 0, 127}));
-  connect(switch1.y, product1.u2) annotation(
+  connect(gain1.y, limiter1.u) annotation(
+    Line(points = {{41, -120}, {57, -120}}, color = {0, 0, 127}));
+  connect(limiter1.y, gain3.u) annotation(
+    Line(points = {{81, -120}, {97, -120}}, color = {0, 0, 127}));
+  connect(gain3.y, add1.u1) annotation(
+    Line(points = {{121, -120}, {140, -120}, {140, -134}, {157, -134}}, color = {0, 0, 127}));
+  connect(const.y, add1.u2) annotation(
+    Line(points = {{121, -180}, {140, -180}, {140, -146}, {157, -146}}, color = {0, 0, 127}));
+  connect(add1.y, product1.u2) annotation(
     Line(points = {{181, -140}, {200, -140}, {200, -66}, {182, -66}}, color = {0, 0, 127}));
-  connect(booleanExpression.y, switch1.u2) annotation(
-    Line(points = {{132, -140}, {158, -140}}, color = {255, 0, 255}));
+  connect(realExpression.y, gain1.u) annotation(
+    Line(points = {{-8, -120}, {18, -120}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

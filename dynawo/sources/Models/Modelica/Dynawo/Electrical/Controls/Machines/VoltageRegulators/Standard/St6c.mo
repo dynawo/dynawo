@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 model St6c "IEEE exciter type ST6C model"
 
   //Regulation parameters
-  parameter Types.CurrentModulePu IlrPu "Rotor current threshold of field current limiter in pu (base SNom, user-selected base voltage)";
+  parameter Types.CurrentModulePu IlrPu "Exciter output current limit reference in pu (base SNom, user-selected base voltage)";
   parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance";
   parameter Types.PerUnit Kcl "Field current limiter conversion factor";
   parameter Types.PerUnit Kff "Feedforward gain of inner loop field regulator";
@@ -34,7 +34,6 @@ model St6c "IEEE exciter type ST6C model"
   parameter Types.Time tA "Voltage regulator time constant in s";
   parameter Types.Time tG "Feedback time constant of inner loop field regulator in s";
   parameter Types.Angle Thetap "Potential circuit phase angle in rad";
-  parameter Types.Time tLimMax "Time constant of filter for field current upper limit, in s";
   parameter Types.Time tR "Stator voltage filter time constant in s";
   parameter Types.VoltageModulePu VaMaxPu "Maximum output voltage of PI in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu VaMinPu "Minimum output voltage of PI in pu (user-selected base voltage)";
@@ -60,7 +59,7 @@ model St6c "IEEE exciter type ST6C model"
     Placement(visible = true, transformation(origin = {-460, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-460, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Control voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Reference stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-460, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput utPu(re(start = ut0Pu.re), im(start = ut0Pu.im)) "Complex stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-460, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
@@ -110,15 +109,15 @@ model St6c "IEEE exciter type ST6C model"
   Modelica.Blocks.Sources.Constant const1(k = IlrPu * Kcl) annotation(
     Placement(visible = true, transformation(origin = {-330, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Klr) annotation(
-    Placement(visible = true, transformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max3 annotation(
-    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VrMinPu) annotation(
-    Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-230, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min3 annotation(
-    Placement(visible = true, transformation(origin = {-50, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const3(k = VaMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const4(k = VaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-110, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 4) annotation(
@@ -139,8 +138,6 @@ model St6c "IEEE exciter type ST6C model"
     Placement(visible = true, transformation(origin = {-390, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-390, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tLimMax, y_start = IlrPu * Kcl - Ir0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -299,11 +296,11 @@ equation
   connect(const1.y, feedback1.u1) annotation(
     Line(points = {{-319, 20}, {-288, 20}}, color = {0, 0, 127}));
   connect(max3.y, min4.u1) annotation(
-    Line(points = {{-99, 40}, {240, 40}, {240, -14}, {258, -14}}, color = {0, 0, 127}));
+    Line(points = {{-159, 40}, {240, 40}, {240, -14}, {258, -14}}, color = {0, 0, 127}));
   connect(max3.y, min3.u1) annotation(
-    Line(points = {{-99, 40}, {-80, 40}, {-80, 26}, {-62, 26}}, color = {0, 0, 127}));
+    Line(points = {{-159, 40}, {-140, 40}, {-140, 26}, {-122, 26}}, color = {0, 0, 127}));
   connect(const3.y, min3.u2) annotation(
-    Line(points = {{-99, 0}, {-80, 0}, {-80, 14}, {-62, 14}}, color = {0, 0, 127}));
+    Line(points = {{-159, 0}, {-140, 0}, {-140, 14}, {-122, 14}}, color = {0, 0, 127}));
   connect(const4.y, limPI1.limitMin) annotation(
     Line(points = {{-99, -200}, {-80, -200}, {-80, -106}, {-62, -106}}, color = {0, 0, 127}));
   connect(UPssPu, sum2.u[2]) annotation(
@@ -325,7 +322,7 @@ equation
   connect(min2.yMax, min4.u2) annotation(
     Line(points = {{222, -68}, {240, -68}, {240, -26}, {258, -26}}, color = {0, 0, 127}));
   connect(const2.y, max3.u1) annotation(
-    Line(points = {{-159, 60}, {-140, 60}, {-140, 46}, {-123, 46}}, color = {0, 0, 127}));
+    Line(points = {{-219, 60}, {-200, 60}, {-200, 46}, {-183, 46}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, switch.u1) annotation(
     Line(points = {{-378, 140}, {-360, 140}, {-360, 108}, {-342, 108}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
@@ -337,13 +334,11 @@ equation
   connect(switch.y, product1.u2) annotation(
     Line(points = {{-318, 100}, {-100, 100}, {-100, 134}, {-82, 134}}, color = {0, 0, 127}));
   connect(min3.y, limPI1.limitMax) annotation(
-    Line(points = {{-39, 20}, {-20, 20}, {-20, -60}, {-80, -60}, {-80, -94}, {-62, -94}}, color = {0, 0, 127}));
-  connect(feedback1.y, firstOrder2.u) annotation(
+    Line(points = {{-99, 20}, {-80, 20}, {-80, -94}, {-62, -94}}, color = {0, 0, 127}));
+  connect(feedback1.y, gain.u) annotation(
     Line(points = {{-270, 20}, {-242, 20}}, color = {0, 0, 127}));
-  connect(firstOrder2.y, gain.u) annotation(
-    Line(points = {{-218, 20}, {-182, 20}}, color = {0, 0, 127}));
   connect(gain.y, max3.u2) annotation(
-    Line(points = {{-158, 20}, {-140, 20}, {-140, 34}, {-122, 34}}, color = {0, 0, 127}));
+    Line(points = {{-219, 20}, {-200, 20}, {-200, 34}, {-183, 34}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -21,6 +21,7 @@ model Ac8b "IEEE exciter type AC8B model"
     PositionPss = 1,
     PositionScl = 0,
     PositionUel = 0,
+    Sw1 = false,
     Thetap = 0,
     VbMaxPu = 999,
     XlPu = 0);

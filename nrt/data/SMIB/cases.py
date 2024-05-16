@@ -174,7 +174,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 ###############################################################
 
 case_name = "SMIB - Fault - PmConst - Ac8b"
-case_description = "SMIB test case with a fault using Ac8b regulations"
+case_description = "SMIB test case with a fault using Ac8b regulation"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstAc8b", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
