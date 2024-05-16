@@ -1661,6 +1661,8 @@ class Equation(EquationBase):
                 continue
 
             line_tmp = sub_division_sim(line_tmp)
+            if "delayImpl" in line_tmp:
+                line_tmp = line_tmp.replace("delayImpl", "derDelayImpl")
             if re.search(self.ptrn_residual_var, line_tmp) is not None:
                 text_to_return.append( line_tmp )
                 text_to_return.append( self.ptrn_residual_var.sub(r'  res[%d] = $DAEres\g<1>;' % self.get_num_dyn(), line) )

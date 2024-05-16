@@ -82,16 +82,28 @@ class Jobs:
         parser.add_option('--update-nrt', action="store_true", dest="update_nrt", help=u"generate output files without gathering them in an output folder to replace")
         options, _ = parser.parse_args()
 
-        if not options.job or not options.origin or not options.version or not options.outputs_path:
-            if not options.job:
-                print("Error : No input job file (use --job option)")
-            if not options.origin:
-                print("Error : No input dynawo origin (use --origin option)")
-            if not options.version:
-                print("Error : No input dynawo version (use --version option)")
-            if not options.outputs_path:
-                print("Error : No outputs path (use -o option)")
-            sys.exit(1)
+        options_error = False
+        if not options.job:
+            options_error = True
+            print("Error : No input job file (use --job option)")
+        if not options.origin:
+            options_error = True
+            print("Error : No input dynawo origin (use --origin option)")
+        if not options.version:
+            options_error = True
+            print("Error : No input dynawo version (use --version option)")
+        if not options.outputs_path and not options.update_nrt:
+            options_error = True
+            print("Error : No outputs path (use -o option)")
+        if options.outputs_path and options.update_nrt:
+            options_error = True
+            print("Error : You can't use both -o and --update-nrt options at the same time")
+        if options.log and options.update_nrt:
+            options_error = True
+            print("Error : You can't use both --log and --update-nrt options at the same time")
+
+        if options_error:
+            sys.exit(1)  # if at least one error above occurred, exit the program
 
         self.__dynawo_origin = tuple(map(int, options.origin.split('.')))
         self.__dynawo_version = tuple(map(int, options.version.split('.')))
@@ -132,7 +144,11 @@ class Jobs:
             print("Error : File " + filepath + " doesn't exist.")
             sys.exit(1)
 
-        self.__outputs_path = os.path.abspath(options.outputs_path)
+        if options.outputs_path:
+            self.__outputs_path = os.path.abspath(options.outputs_path)
+        else:
+            self.__outputs_path = None
+
         self.__does_print_logs = options.log
         self.__does_update_nrt = options.update_nrt
         self.__does_add_dynawo_version = options.add_dynawo_version
@@ -179,15 +195,6 @@ class Jobs:
         if self.__does_add_dynawo_version:
             self.__add_dynawo_version()
 
-        if self.__does_update_nrt:
-            outputs_dir_path = self.__outputs_path
-        else:
-            dynawo_version_str = '.'.join(map(str, self.__dynawo_version))
-            outputs_dir_name = "outputs" + dynawo_version_str
-            outputs_dir_path = os.path.join(self.__outputs_path, outputs_dir_name)
-        if not os.path.exists(outputs_dir_path):
-            os.makedirs(outputs_dir_path)
-
         for update_module_path in self.__update_modules_filepath_list:
             update_module_filename = os.path.basename(update_module_path)
             update_module_filename_without_extension = update_module_filename.split('.')[0]
@@ -197,11 +204,12 @@ class Jobs:
             if self.__does_print_logs:
                 pid = os.getpid()
                 log_filename = "applied_tickets.log." + str(pid)
+                outputs_dir_path = self.__create_output_dir()
                 log_filepath = os.path.join(outputs_dir_path, log_filename)
                 with open(log_filepath, 'a') as logfile:
                     print(update_module.update.ticket_number, file=logfile)
             update_module.update(self)
-        self.__generate_configuration_files(outputs_dir_path)
+        self.__generate_configuration_files()
 
     # ---------------------------------------------------------------
     #   USER METHODS
@@ -301,7 +309,7 @@ class Jobs:
                 print("Error : Invalid update file : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.py'")
             sys.exit(1)
         if len(unsorted_update_modules_list) == 0:
-            print("Error : Patch files not found")
+            print("Error : Patch files between version " + '.'.join(map(str, self.__dynawo_origin)) + "+ and " + '.'.join(map(str, self.__dynawo_version)) + " not found")
             sys.exit(1)
 
         sorted_update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
@@ -344,49 +352,128 @@ class Jobs:
 
         return filtered_update_modules_filepath_list
 
-    def __generate_configuration_files(self, outputs_dir_path):
+    def __generate_configuration_files(self):
         """
         Generate configuration files
         """
-        generated_job_file_path = os.path.join(outputs_dir_path, self.__filename)
-        self.__jobtree.write(generated_job_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        if self.__outputs_path:
 
-        # WARNING : If several Dyd files have the same name, some files won't be generated properly.
-        #           This is because when two files have the exact same name, the write method will erase the previous
-        #           generated Dyd file to generate the new one with the same name
+            self.__check_duplicate_xml_filenames()
+            outputs_dir_path = self.__create_output_dir()
+
+            # Update Jobs file
+            generated_job_file_path = os.path.join(outputs_dir_path, self.__filename)
+            self.__jobtree.write(generated_job_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update Dyd files
+            for dyd in self.dyds._dyds_collection.values():
+                generated_dyd_file_path = os.path.join(outputs_dir_path, dyd._filename)
+                format_xml_tree(dyd._dydtree.getroot())
+                dyd._dydtree.write(generated_dyd_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update Par files
+            for par in self.__par_files_collection.values():
+                generated_par_file_path = os.path.join(outputs_dir_path, par._filename)
+                format_xml_tree(par._partree.getroot())
+                par._partree.write(generated_par_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update curves files
+            for curves_tree in self.__curves_collection.values():
+                curves_file_name = os.path.basename(curves_tree.docinfo.URL)
+                generated_curves_file_path = os.path.join(outputs_dir_path, curves_file_name)
+                format_xml_tree(curves_tree.getroot())
+                curves_tree.write(generated_curves_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update final state values files
+            for final_state_values_tree in self.__final_state_values_collection.values():
+                final_state_values_name = os.path.basename(final_state_values_tree.docinfo.URL)
+                generated_final_state_values_file_path = os.path.join(outputs_dir_path, final_state_values_name)
+                format_xml_tree(final_state_values_tree.getroot())
+                final_state_values_tree.write(generated_final_state_values_file_path,
+                                                                        pretty_print=True,
+                                                                        xml_declaration=True,
+                                                                        encoding="utf-8")
+        elif self.__does_update_nrt:
+            # Update Jobs file
+            self.__jobtree.write(self.__jobtree.docinfo.URL, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update Dyd files
+            for dyd in self.dyds._dyds_collection.values():
+                format_xml_tree(dyd._dydtree.getroot())
+                dyd._dydtree.write(dyd._dydtree.docinfo.URL, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update Par files
+            for par in self.__par_files_collection.values():
+                format_xml_tree(par._partree.getroot())
+                par._partree.write(par._partree.docinfo.URL, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update curves files
+            for curves_tree in self.__curves_collection.values():
+                format_xml_tree(curves_tree.getroot())
+                curves_tree.write(curves_tree.docinfo.URL, pretty_print=True, xml_declaration=True, encoding="utf-8")
+
+            # Update final state values files
+            for final_state_values_tree in self.__final_state_values_collection.values():
+                format_xml_tree(final_state_values_tree.getroot())
+                final_state_values_tree.write(final_state_values_tree.docinfo.URL,
+                                                                        pretty_print=True,
+                                                                        xml_declaration=True,
+                                                                        encoding="utf-8")
+        else:
+            print("Error : No outputs path (-o option) and no --update-nrt option")
+            print("This should not happen.")
+            sys.exit(1)
+
+    def __check_duplicate_xml_filenames(self):
+        """
+        Check no file will have the same name in the output directory
+        """
+        duplicate_file_names = set()
+        xml_filenames = set()
+
+        xml_filenames.add(self.__filename)
+
         for dyd in self.dyds._dyds_collection.values():
-            generated_dyd_file_path = os.path.join(outputs_dir_path, dyd._filename)
-            format_xml_tree(dyd._dydtree.getroot())
-            dyd._dydtree.write(generated_dyd_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+            if dyd._filename in xml_filenames:
+                duplicate_file_names.add(dyd._filename)
+            xml_filenames.add(dyd._filename)
 
-        # WARNING : If several Par files have the same name, some files won't be generated properly.
-        #           This is because when two files have the exact same name, the write method will erase the previous
-        #           generated Par file to generate the new one with the same name
         for par in self.__par_files_collection.values():
-            generated_par_file_path = os.path.join(outputs_dir_path, par._filename)
-            format_xml_tree(par._partree.getroot())
-            par._partree.write(generated_par_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+            if par._filename in xml_filenames:
+                duplicate_file_names.add(par._filename)
+            xml_filenames.add(par._filename)
 
-        # WARNING : If several curves files have the same name, some files won't be generated properly.
-        #           This is because when two files have the exact same name, the write method will erase the previous
-        #           generated CRV file to generate the new one with the same name
         for curves_tree in self.__curves_collection.values():
             curves_file_name = os.path.basename(curves_tree.docinfo.URL)
-            generated_curves_file_path = os.path.join(outputs_dir_path, curves_file_name)
-            format_xml_tree(curves_tree.getroot())
-            curves_tree.write(generated_curves_file_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+            if curves_file_name in xml_filenames:
+                duplicate_file_names.add(curves_file_name)
+            xml_filenames.add(curves_file_name)
 
-        # WARNING : If several final state values files have the same name, some files won't be generated properly.
-        #           This is because when two files have the exact same name, the write method will erase the previous
-        #           generated FSV file to generate the new one with the same name
         for final_state_values_tree in self.__final_state_values_collection.values():
             final_state_values_name = os.path.basename(final_state_values_tree.docinfo.URL)
-            generated_final_state_values_file_path = os.path.join(outputs_dir_path, final_state_values_name)
-            format_xml_tree(final_state_values_tree.getroot())
-            final_state_values_tree.write(generated_final_state_values_file_path,
-                                                                    pretty_print=True,
-                                                                    xml_declaration=True,
-                                                                    encoding="utf-8")
+            if final_state_values_name in xml_filenames:
+                duplicate_file_names.add(final_state_values_name)
+            xml_filenames.add(final_state_values_name)
+
+        if len(duplicate_file_names) != 0:
+            print("Error while generating output XML files. You can't generate output files with the same name in the same output directory :")
+            for duplicate_file_name in duplicate_file_names:
+                print("    '" + duplicate_file_name + "' file name is a duplicate")
+            sys.exit(1)
+
+    def __create_output_dir(self):
+        """
+        Create the output directory
+
+        Returns:
+            outputs_dir_path (str): output directory path
+        """
+        dynawo_version_str = '.'.join(map(str, self.__dynawo_version))
+        outputs_dir_name = "outputs" + dynawo_version_str
+        outputs_dir_path = os.path.join(self.__outputs_path, outputs_dir_name)
+        if not os.path.exists(outputs_dir_path):
+            os.makedirs(outputs_dir_path)
+        return outputs_dir_path
 
     def __add_dynawo_version(self):
         """

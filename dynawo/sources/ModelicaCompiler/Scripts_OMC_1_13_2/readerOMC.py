@@ -2097,6 +2097,19 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
         self.list_omc_functions.append(func)
 
+        # Add in hard the derDelayImpl signature
+        func = RawOmcFunctions()
+        func.set_name("derDelayImpl")
+        func.set_signature("modelica_real derDelayImpl(DATA* data, int exprNumber, modelica_real exprValue, modelica_real time, modelica_real delayTime, modelica_real delayMax)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("data", "DATA*", 0, True))
+        func.add_params(OmcFunctionParameter("exprNumber", "int", 1, True))
+        func.add_params(OmcFunctionParameter("exprValue", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("time", "modelica_real", 3, True))
+        func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 4, True))
+        func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
+        self.list_omc_functions.append(func)
+
         func = RawOmcFunctions()
         func.set_name("array_alloc_scalar_real_array")
         func.set_signature("void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real first, ...)")

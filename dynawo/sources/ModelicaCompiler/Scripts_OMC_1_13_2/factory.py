@@ -2289,7 +2289,7 @@ class Factory:
         while len(functions_to_dump) > 0:
             func = functions_to_dump[0]
             functions_to_dump.remove(func)
-            if not is_adept_func(func, self.list_adept_structs) : continue
+            if not is_adept_func(func, self.list_adept_structs) or func.get_name() == "derDelayImpl": continue
             if func in functions_dumped: continue
             functions_dumped.append(func)
             func_body = []
@@ -2461,7 +2461,10 @@ class Factory:
                     # - the main function has an adept equivalent if this function is called as a parameter
                     # if this is the first function is the stack, set the flag main_func_is_adept
                     if (len(stack_func_called) == 1 or main_func_is_adept) and is_adept_func(called_func[function_found], self.list_adept_structs):
-                        call_line += l.replace(function_found, get_adept_function_name(called_func[function_found]))
+                        if function_found != "derDelayImpl":
+                            call_line += l.replace(function_found, get_adept_function_name(called_func[function_found]))
+                        else:
+                            call_line += l
                         if len(stack_func_called) == 1:
                             main_func_is_adept = True
                     else:
