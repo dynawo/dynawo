@@ -28,7 +28,7 @@
       <dyn:curves inputFile="curves_VoltageVariation.crv" exportMode="CSV"/>
       <dyn:finalStateValues inputFile="DisconnectLoad.fsv"/>
       <dyn:logs>
-        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>
