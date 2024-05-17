@@ -109,6 +109,9 @@ SolverKINSubModel::init(SubModel* subModel,
   initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN, sundialsVectorY_);
 
   vectorYSubModel_.assign(yBuffer, yBuffer + numF_);
+
+  smj_.init(numF_, numF_);
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
 }
 
 int
@@ -180,6 +183,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*> (data);
   SubModel* subModel = solver->getSubModel();
+  SparseMatrix& smj = solver->getMatrix();
 
   realtype *iyy = NV_DATA_S(yy);
   std::size_t yL = NV_LENGTH_S(yy);
@@ -187,14 +191,13 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
 
   // Sparse matrix
   // -------------
-  SparseMatrix smj;
   const int size = subModel->sizeY();
   smj.init(size, size);
 
   // Arbitrary value for cj
   const double cj = 1.;
   subModel->evalJt(solver->t0_, cj, smj, 0);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, false);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solver->lastRowVals_, solver->linearSolver_, false);
 
   return 0;
 }
