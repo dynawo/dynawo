@@ -59,6 +59,7 @@ where [option] can be:"
         build-dynawo-target                   build a specific Dynawo target (use help to see all cmake targets)
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
+        build-dynawaltz-models                build Dynawaltz preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
         build-all                             call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
         build-tests ([args])                  build and launch Dynawo's unittest (launch all tests if [args] is empty)
@@ -915,6 +916,18 @@ build_dynawo_models() {
     make -j $DYNAWO_NB_PROCESSORS_USED models || error_exit "Error during make models."
   else
     cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target models --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
+  fi
+}
+
+build_dynawaltz_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED DYNAWALTZ_MODELS || error_exit "Error during make models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target DYNAWALTZ_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
   fi
 }
 
@@ -2253,6 +2266,10 @@ case $MODE in
 
   build-dynawo-models)
     build_dynawo_models || error_exit "Failed to build Dynawo models"
+    ;;
+
+  build-dynawaltz-models)
+    build_dynawaltz_models || error_exit "Failed to build Dynawaltz models"
     ;;
 
   build-dynawo-models-cpp)
