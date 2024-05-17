@@ -94,13 +94,13 @@ maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
 flagInit_(false),
-nbLastTimeSimulated_(0),
-lastRowVals_(NULL) {
+nbLastTimeSimulated_(0) {
 }
 
 void
 SolverIDA::cleanIDA() {
   if (sundialsMatrix_ != NULL) {
+    SolverCommon::cleanSUNMatrix(sundialsMatrix_);
     SUNMatDestroy(sundialsMatrix_);
     sundialsMatrix_ = NULL;
   }
@@ -111,10 +111,6 @@ SolverIDA::cleanIDA() {
   if (IDAMem_ != NULL) {
     IDAFree(&IDAMem_);
     IDAMem_ = NULL;
-  }
-  if (lastRowVals_ != NULL) {
-    free(lastRowVals_);
-    lastRowVals_ = NULL;
   }
   if (sundialsVectorYType_ != NULL) {
     N_VDestroy_Serial(sundialsVectorYType_);
@@ -253,10 +249,12 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
   // (8) Solver choice
   // -------------------
-  sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 10., CSR_MAT, sundialsContext_);
+  sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 0, CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNSparseMatrix");
-
+  SolverCommon::freeSUNMatrix(sundialsMatrix_);
+  smj_.init(model->sizeY(), model->sizeY());
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
   /* Create KLU SUNLinearSolver object */
   linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
   if (linearSolver_ == NULL)
@@ -582,16 +580,16 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 #endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
+  SparseMatrix& smj = solver->getMatrix();
 
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
 
-  SparseMatrix smj;
   const int size = model.sizeY();
   smj.init(size, size);
   model.copyContinuousVariables(iyy, iyp);
   model.evalJt(tt, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }

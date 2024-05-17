@@ -180,7 +180,7 @@ void SparseMatrix::printToFile(bool sparse) const {
 
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
+        int iRow = static_cast<int>(Ai_[ind]);
         double val = Ax_[ind];
         matrix[iRow][iCol] = val;
       }
@@ -200,7 +200,7 @@ void SparseMatrix::printToFile(bool sparse) const {
     stringstream val;
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
+        int iRow = static_cast<int>(Ai_[ind]);
         val.str("");
         val.clear();
         val << std::setprecision(16) << Ax_[ind];
