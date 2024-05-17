@@ -87,24 +87,15 @@ TEST(SimulationCommonTest, testSolverCommon) {
   SUNMatrix JJ = SUNSparseMatrix(3, 3, 2, CSC_MAT, sundialsContext);
   assert(JJ != NULL);
 
+  SolverCommon::freeSUNMatrix(JJ);
+
   int row = 0;
   int col = 0;
   smj.getRowColIndicesFromPosition(2, row, col);
   ASSERT_EQ(row, 2);
   ASSERT_EQ(col, 1);
 
-  SM_INDEXPTRS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(3 * sizeof (sunindextype)));
-  SM_INDEXVALS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(SM_NNZ_S(JJ) * sizeof (sunindextype)));
-  SM_DATA_S(JJ) = reinterpret_cast<realtype*> (malloc(SM_NNZ_S(JJ) * sizeof (realtype)));
-  for (unsigned i = 0; i < 3; ++i) {
-    SM_INDEXPTRS_S(JJ)[i] = i;
-  }
-  SM_INDEXVALS_S(JJ)[0] = 0;
-  SM_INDEXVALS_S(JJ)[1] = 1;
-  SM_DATA_S(JJ)[0] = 1;
-  SM_DATA_S(JJ)[1] = 2;
-
-  ASSERT_EQ(SolverCommon::copySparseToKINSOL(smj, JJ, 3, NULL), true);
+  ASSERT_EQ(SolverCommon::copySparseToKINSOL(smj, JJ, std::vector<sunindextype>()), true);
   ASSERT_EQ(SM_NNZ_S(JJ), 4);
   ASSERT_EQ(SM_INDEXPTRS_S(JJ)[0], 0);
   ASSERT_EQ(SM_INDEXPTRS_S(JJ)[1], 1);
@@ -121,6 +112,9 @@ TEST(SimulationCommonTest, testSolverCommon) {
   ASSERT_EQ(SM_DATA_S(JJ)[2], 3);
   ASSERT_EQ(SM_DATA_S(JJ)[3], 4);
   ASSERT_EQ(SM_NNZ_S(JJ), 4);
+
+  SolverCommon::cleanSUNMatrix(JJ);
+
   SUNMatDestroy_Sparse(JJ);
   SUNContext_Free(&sundialsContext);
 }
