@@ -60,10 +60,14 @@ where [option] can be:"
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
         build-dynawaltz-models                build Dynawaltz preassembled models
+        build-nrt-models                      build nrt preassembled models
+        build-nrt-extend-models               build nrt extend preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
         build-all                             call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
+        build-nrt                             build dynawo to run nrt
         build-tests ([args])                  build and launch Dynawo's unittest (launch all tests if [args] is empty)
         build-tests-coverage ([args])         build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
+        build-minimal                         build Dynawo and install cpp models (core, cpp models and solvers), no preassembled models
 
         =========== Clean
         clean-3rd-party                       remove all 3rd party softwares objects
@@ -931,6 +935,30 @@ build_dynawaltz_models() {
   fi
 }
 
+build_nrt_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED NRT_MODELS || error_exit "Error during make nrt models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target NRT_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build nrt models."
+  fi
+}
+
+build_nrt_extend_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED NRT_EXTEND_MODELS || error_exit "Error during make nrt extend models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target NRT_EXTEND_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build nrt extend models."
+  fi
+}
+
 build_dynawo_solvers() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
@@ -983,12 +1011,25 @@ build_user() {
   install_launcher || error_exit "Error during Dynawo installation."
 }
 
+build_minimal() {
+  build_3rd_party || error_exit "Error during build_3rd_party."
+  config_dynawo || error_exit "Error during config_dynawo."
+  build_dynawo_core || error_exit "Error during build_dynawo_core."
+  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
+  build_dynawo_solvers || error_exit "Error during build_dynawo_solvers."
+}
+
 # Compile Dynawo and its dependencies
 build_all() {
   build_3rd_party || error_exit "Error during build_3rd_party."
   config_dynawo || error_exit "Error during config_dynawo."
   build_dynawo || error_exit "Error during build_dynawo."
   build_test_doxygen_doc || error_exit "Error during build_test_doxygen_doc."
+}
+
+build_nrt() {
+  build_minimal || error_exit "Error during build_minimal."
+  build_nrt_models || error_exit "Error during build_nrt_models."
 }
 
 build_tests() {
@@ -2280,8 +2321,24 @@ case $MODE in
     build_dynawo_solvers || error_exit "Failed to build Dynawo solvers"
     ;;
 
+  build-minimal)
+    build_minimal || error_exit "Failed to build Dynawo minimal"
+    ;;
+
+  build-nrt)
+    build_nrt || error_exit "Error during the build of Dynawo for nrt run"
+    ;;
+
   build-nrt-doc)
     build_nrt_doc || error_exit "Error during the build of Dynawo nrt documentation"
+    ;;
+
+  build-nrt-models)
+    build_nrt_models || error_exit "Failed to build Dynawaltz nrt models"
+    ;;
+
+  build-nrt-extend-models)
+    build_nrt_extend_models || error_exit "Failed to build Dynawaltz nrt models"
     ;;
 
   build-omcDynawo)
