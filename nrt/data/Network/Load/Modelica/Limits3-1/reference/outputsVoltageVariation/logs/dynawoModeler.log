@@ -1,0 +1,113 @@
+2024-04-18 12:34:54 | INFO |  ============================================================ 
+2024-04-18 12:34:54 | INFO | DYNAWO VERSION  :     1.7.0
+2024-04-18 12:34:54 | INFO | DYNAWO REVISION :  master-18-cf2130ea6f
+2024-04-18 12:34:54 | INFO |  ============================================================ 
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | connection list
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | connecting Connect_Load3_event_state1_value with NETWORK_Load3_state_value
+2024-04-18 12:34:54 | DEBUG | connecting Disconnect_Load2_event_state1_value with NETWORK_Load2_state_value
+2024-04-18 12:34:54 | DEBUG | connecting Disconnect_Load3_event_state1_value with NETWORK_Load3_state_value
+2024-04-18 12:34:54 | DEBUG | connecting Disconnect_Load_event_state1 with Load_load_switchOffSignal2
+2024-04-18 12:34:54 | DEBUG | connecting OmegaRef_setPoint_setPoint with Generator_generator_omegaRefPu
+2024-04-18 12:34:54 | DEBUG | connecting Generator_generator_terminal with NETWORK_VL2_BUS1_ACPIN
+2024-04-18 12:34:54 | DEBUG | connecting InfiniteBus_infiniteBus_terminal with NETWORK_VL1_BUS1_ACPIN
+2024-04-18 12:34:54 | DEBUG | connecting Load_load_terminal with NETWORK_VL2_BUS1_ACPIN
+2024-04-18 12:34:54 | DEBUG | connecting SetPointVariation_step_step_value with NETWORK_Load2_DeltaPc_value
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | model :NETWORK                  =>NETWORK
+2024-04-18 12:34:54 | DEBUG |          Y : [     0 ;      9[
+2024-04-18 12:34:54 | DEBUG |            VL1    Y[     0 ;      4[
+2024-04-18 12:34:54 | DEBUG |            VL2    Y[     4 ;      9[
+2024-04-18 12:34:54 | DEBUG |          F : [     0 ;      4[
+2024-04-18 12:34:54 | DEBUG |            VL1    F[     0 ;      2[
+2024-04-18 12:34:54 | DEBUG |            VL2    F[     2 ;      4[
+2024-04-18 12:34:54 | DEBUG |          Z : [     0 ;     10[
+2024-04-18 12:34:54 | DEBUG |       mode : [     0 ;      4[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :EventConnectedStatus     =>Connect_Load3
+2024-04-18 12:34:54 | DEBUG |          Y : [     9 ;      9[
+2024-04-18 12:34:54 | DEBUG |          F : [     4 ;      4[
+2024-04-18 12:34:54 | DEBUG |          Z : [    10 ;     11[
+2024-04-18 12:34:54 | DEBUG |          G : [     0 ;      1[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :EventSetPointBoolean     =>Disconnect_Load
+2024-04-18 12:34:54 | DEBUG |          Y : [     9 ;      9[
+2024-04-18 12:34:54 | DEBUG |          F : [     4 ;      4[
+2024-04-18 12:34:54 | DEBUG |          Z : [    11 ;     12[
+2024-04-18 12:34:54 | DEBUG |          G : [     1 ;      2[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :EventConnectedStatus     =>Disconnect_Load2
+2024-04-18 12:34:54 | DEBUG |          Y : [     9 ;      9[
+2024-04-18 12:34:54 | DEBUG |          F : [     4 ;      4[
+2024-04-18 12:34:54 | DEBUG |          Z : [    12 ;     13[
+2024-04-18 12:34:54 | DEBUG |          G : [     2 ;      3[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :EventConnectedStatus     =>Disconnect_Load3
+2024-04-18 12:34:54 | DEBUG |          Y : [     9 ;      9[
+2024-04-18 12:34:54 | DEBUG |          F : [     4 ;      4[
+2024-04-18 12:34:54 | DEBUG |          Z : [    13 ;     14[
+2024-04-18 12:34:54 | DEBUG |          G : [     3 ;      4[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :GeneratorPQ              =>Generator
+2024-04-18 12:34:54 | DEBUG |          Y : [     9 ;     18[
+2024-04-18 12:34:54 | DEBUG |          F : [     4 ;      9[
+2024-04-18 12:34:54 | DEBUG |          Z : [    14 ;     21[
+2024-04-18 12:34:54 | DEBUG |       mode : [     4 ;      6[
+2024-04-18 12:34:54 | DEBUG |          G : [     4 ;     12[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :InfiniteBus              =>InfiniteBus
+2024-04-18 12:34:54 | DEBUG |          Y : [    18 ;     20[
+2024-04-18 12:34:54 | DEBUG |          F : [     9 ;      9[
+2024-04-18 12:34:54 | DEBUG |       mode : [     6 ;      8[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :LoadAlphaBetaRestorativeNetwork=>Load
+2024-04-18 12:34:54 | DEBUG |          Y : [    20 ;     34[
+2024-04-18 12:34:54 | DEBUG |          F : [     9 ;     17[
+2024-04-18 12:34:54 | DEBUG |          Z : [    21 ;     25[
+2024-04-18 12:34:54 | DEBUG |       mode : [     8 ;     13[
+2024-04-18 12:34:54 | DEBUG |          G : [    12 ;     20[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :SetPoint                 =>OmegaRef
+2024-04-18 12:34:54 | DEBUG |          Y : [    34 ;     34[
+2024-04-18 12:34:54 | DEBUG |          F : [    17 ;     17[
+2024-04-18 12:34:54 | DEBUG |       mode : [    13 ;     14[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :Step                     =>SetPointVariation
+2024-04-18 12:34:54 | DEBUG |          Y : [    34 ;     35[
+2024-04-18 12:34:54 | DEBUG |          F : [    17 ;     18[
+2024-04-18 12:34:54 | DEBUG |       mode : [    14 ;     15[
+2024-04-18 12:34:54 | DEBUG |          G : [    20 ;     21[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :ConnectorCalculatedVariable=>OmegaRef_setPoint_setPoint_value
+2024-04-18 12:34:54 | DEBUG |          Y : [    35 ;     36[
+2024-04-18 12:34:54 | DEBUG |          F : [    18 ;     19[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :ConnectorCalculatedVariable=>InfiniteBus_infiniteBus_terminal_V_im
+2024-04-18 12:34:54 | DEBUG |          Y : [    36 ;     37[
+2024-04-18 12:34:54 | DEBUG |          F : [    19 ;     20[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model :ConnectorCalculatedVariable=>InfiniteBus_infiniteBus_terminal_V_re
+2024-04-18 12:34:54 | DEBUG |          Y : [    37 ;     38[
+2024-04-18 12:34:54 | DEBUG |          F : [    20 ;     21[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG | model connectors (Y,Flow) NB = 12
+2024-04-18 12:34:54 | DEBUG |          F : [    21 ;     33[
+2024-04-18 12:34:54 | DEBUG | 
+2024-04-18 12:34:54 | DEBUG |  ====== connectors list ===== 
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[    35] = Y[    10]      F = F[    21] / model OmegaRef_setPoint_setPoint_value to model Generator
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[     5] = Y[    11]      F = F[    22] / model NETWORK to model Generator
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[    24] = Y[    11]      F = F[    23] / model Load to model Generator
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[     4] = Y[    12]      F = F[    24] / model NETWORK to model Generator
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[    25] = Y[    12]      F = F[    25] / model Load to model Generator
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[    36] = Y[     1]      F = F[    26] / model InfiniteBus_infiniteBus_terminal_V_im to model NETWORK
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[    37] = Y[     0]      F = F[    27] / model InfiniteBus_infiniteBus_terminal_V_re to model NETWORK
+2024-04-18 12:34:54 | DEBUG |          Yconnector Y[     8] = Y[    34]      F = F[    28] / model NETWORK to model SetPointVariation
+2024-04-18 12:34:54 | DEBUG |          flowConnector : Y[    16] +Y[     7] +Y[    30]  = 0      F = F[    27]
+2024-04-18 12:34:54 | DEBUG |          flowConnector : Y[    17] +Y[     6] +Y[    31]  = 0      F = F[    28]
+2024-04-18 12:34:54 | DEBUG |          flowConnector : Y[    18] +Y[     3]  = 0      F = F[    29]
+2024-04-18 12:34:54 | DEBUG |          flowConnector : Y[    19] +Y[     2]  = 0      F = F[    30]
+2024-04-18 12:34:54 | DEBUG |          Zconnector Z[     7] = Z[    10] / model NETWORK to model Connect_Load3
+2024-04-18 12:34:54 | DEBUG |          Zconnector Z[    13] = Z[    10] / model Disconnect_Load3 to model Connect_Load3
+2024-04-18 12:34:54 | DEBUG |          Zconnector Z[     6] = Z[    12] / model NETWORK to model Disconnect_Load2
+2024-04-18 12:34:54 | DEBUG |          Zconnector Z[    23] = Z[    11] / model Load to model Disconnect_Load

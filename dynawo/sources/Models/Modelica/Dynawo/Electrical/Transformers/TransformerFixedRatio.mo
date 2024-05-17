@@ -40,6 +40,9 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
+  Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
+  Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
+
 equation
   if (running.value) then
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
@@ -53,6 +56,14 @@ equation
   Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
+
+  if (running.value) then
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
+  else
+    U1Pu = 0;
+    U2Pu = 0;
+  end if;
 
   annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>

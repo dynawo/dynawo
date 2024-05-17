@@ -10,3 +10,4 @@ LoadConnect_INIT
 LoadAuxiliaries_INIT
 LoadAlphaBetaMotor
 LoadAlphaBetaMotor_INIT
+LoadAlphaBetaRestorativeNetwork
