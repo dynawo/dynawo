@@ -46,7 +46,7 @@ class SolverCommon {
   static bool copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix, const std::vector<sunindextype>& lastRowVals);
 
   /**
-  * @brief Copy underlying vectors of SparseMatrix to SUNMatrix
+  * @brief Associate underlying vectors of SparseMatrix to SUNMatrix
   *
   * @param smj Sparse matrix to copy to the KINSOL structure
   * @param sundialsMatrix KINSOL structure where to copy the matrix
@@ -55,12 +55,12 @@ class SolverCommon {
   static void copySparseMatrixToSUNMatrix(SparseMatrix& smj, SUNMatrix& sundialsMatrix);
 
   /**
-  * @brief Allocate SUNMatrix underlying structure
+  * @brief Clean SUNMatrix underlying structure
   *
   * @param sundialsMatrix KINSOL matrix
   *
   */
-  static void allocateSUNMatrix(SparseMatrix& smj, SUNMatrix& sundialsMatrix);
+  static void cleanSUNMatrix(SUNMatrix& sundialsMatrix);
 
   /**
   * @brief Free SUNMatrix underlying structure

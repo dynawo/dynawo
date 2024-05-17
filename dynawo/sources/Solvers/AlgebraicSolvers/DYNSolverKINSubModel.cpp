@@ -109,6 +109,7 @@ SolverKINSubModel::init(SubModel* subModel,
   vectorYSubModel_.assign(yBuffer, yBuffer + numF_);
 
   smj_.init(numF_, numF_);
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
 }
 
 int

@@ -60,6 +60,7 @@ SolverKINCommon::~SolverKINCommon() {
 
 void SolverKINCommon::clean() {
   if (sundialsMatrix_ != NULL) {
+    SolverCommon::cleanSUNMatrix(sundialsMatrix_);
     SUNMatDestroy(sundialsMatrix_);
     sundialsMatrix_ = NULL;
   }
@@ -133,6 +134,8 @@ SolverKINCommon::initCommon(const double fnormtol, const double initialaddtol, c
   sundialsMatrix_ = SUNSparseMatrix(numF_, numF_, nnz, CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
+  // We release any memory allocated by Sundials as underlying arrays will never be used
+  SolverCommon::freeSUNMatrix(sundialsMatrix_);
   linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
   if (linearSolver_ == NULL)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_KLU");
