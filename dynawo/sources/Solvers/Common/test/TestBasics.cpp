@@ -87,6 +87,8 @@ TEST(SimulationCommonTest, testSolverCommon) {
   SUNMatrix JJ = SUNSparseMatrix(3, 3, 2, CSC_MAT, sundialsContext);
   assert(JJ != NULL);
 
+  SolverCommon::freeSUNMatrix(JJ);
+
   int row = 0;
   int col = 0;
   smj.getRowColIndicesFromPosition(2, row, col);
@@ -110,6 +112,9 @@ TEST(SimulationCommonTest, testSolverCommon) {
   ASSERT_EQ(SM_DATA_S(JJ)[2], 3);
   ASSERT_EQ(SM_DATA_S(JJ)[3], 4);
   ASSERT_EQ(SM_NNZ_S(JJ), 4);
+
+  SolverCommon::cleanSUNMatrix(JJ);
+
   SUNMatDestroy_Sparse(JJ);
   SUNContext_Free(&sundialsContext);
 }
