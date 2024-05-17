@@ -69,6 +69,7 @@ SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolv
   initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
 
   smj_.init(numF_, numF_);
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
 }
 
 int

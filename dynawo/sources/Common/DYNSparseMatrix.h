@@ -217,7 +217,7 @@ class SparseMatrix {
    * @brief get vector Ap ie for each column, first non null element index in Ai and Ax
    * @return vector Ap
    */
-  inline const std::vector<unsigned int>& getAp() const {
+  inline const std::vector<int64_t>& getAp() const {
     return Ap_;
   }
 
@@ -225,7 +225,7 @@ class SparseMatrix {
    * @brief get vector Ai ie row index for each non null element
    * @return vector Ai
    */
-  inline const std::vector<unsigned int>& getAi() const {
+  inline const std::vector<int64_t>& getAi() const {
     return Ai_;
   }
 
@@ -241,16 +241,16 @@ class SparseMatrix {
    * @brief get non const vector Ap ie non null element value
    * @return vector Ap
    */
-  inline std::vector<unsigned int>& getNonCstAp() {
-    return const_cast<std::vector<unsigned int>&>(getAp());
+  inline std::vector<int64_t>& getNonCstAp() {
+    return const_cast<std::vector<int64_t>&>(getAp());
   }
 
   /**
    * @brief get non const vector Ai ie non null element value
    * @return vector Ai
    */
-  inline std::vector<unsigned int>& getNonCstAi() {
-    return const_cast<std::vector<unsigned int>&>(getAi());
+  inline std::vector<int64_t>& getNonCstAi() {
+    return const_cast<std::vector<int64_t>&>(getAi());
   }
 
   /**
@@ -303,8 +303,8 @@ class SparseMatrix {
   int nbTerm_;  ///< current number of values stored in the matrix
   int currentMaxTerm_;  ///< current maximum number of term that could be stored in the matrix without increasing the size of arrays
 
-  std::vector<unsigned int> Ap_;  ///< for each column, first non-null element index in Ai and Ax
-  std::vector<unsigned int> Ai_;  ///< row index for each non-null element
+  std::vector<int64_t> Ap_;  ///< for each column, first non-null element index in Ai and Ax
+  std::vector<int64_t> Ai_;  ///< row index for each non-null element
   std::vector<double> Ax_;  ///< non-null element value;
 };
 
