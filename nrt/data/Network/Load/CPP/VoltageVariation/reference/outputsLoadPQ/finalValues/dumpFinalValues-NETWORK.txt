@@ -1,0 +1,69 @@
+ ====== VARIABLES VALUES ======
+VL1_BUS1_ACPIN_V_re                               : y =       1.000000 yp =       0.000000
+VL1_BUS1_ACPIN_V_im                               : y =       0.000000 yp =       0.000000
+VL1_BUS1_ACPIN_i_re                               : y =      -0.005992 yp =       0.000000
+VL1_BUS1_ACPIN_i_im                               : y =       0.001921 yp =       0.000000
+VL2_BUS1_ACPIN_V_re                               : y =       1.005040 yp =       0.000000
+VL2_BUS1_ACPIN_V_im                               : y =       0.011600 yp =       0.000000
+VL2_BUS1_ACPIN_i_re                               : y =       0.007993 yp =       0.000000
+VL2_BUS1_ACPIN_i_im                               : y =      -0.002893 yp =       0.000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+VL1_BUS1_Upu_value                                : y =       1.000000
+VL1_BUS1_phipu_value                              : y =       0.000000
+VL1_BUS1_U_value                                  : y =       1.000000
+VL1_BUS1_phi_value                                : y =       0.000000
+VL2_BUS1_Upu_value                                : y =       1.005107
+VL2_BUS1_phipu_value                              : y =       0.011541
+VL2_BUS1_U_value                                  : y =       1.005107
+VL2_BUS1_phi_value                                : y =       0.661269
+Load_P_value                                      : y =       0.000000
+Load_Q_value                                      : y =       0.000000
+Load_Pc_value                                     : y =       0.000000
+Load_Qc_value                                     : y =       0.000000
+Load_loadState_value                              : y =       1.000000
+Load2_P_value                                     : y =       0.002000
+Load2_Q_value                                     : y =       0.001000
+Load2_Pc_value                                    : y =       0.002000
+Load2_Qc_value                                    : y =       0.001000
+Load2_loadState_value                             : y =       2.000000
+line1_i1_value                                    : y =       0.006292
+line1_i2_value                                    : y =       0.006292
+line1_P1_value                                    : y =      -0.005992
+line1_P2_value                                    : y =       0.006000
+line1_Q1_value                                    : y =      -0.001921
+line1_Q2_value                                    : y =       0.002000
+line1_iS1ToS2Side1_value                          : y =    -363.293044
+line1_iS2ToS1Side1_value                          : y =     363.293044
+line1_iS1ToS2Side2_value                          : y =    -363.293044
+line1_iS2ToS1Side2_value                          : y =     363.293044
+line1_iSide1_value                                : y =     363.293044
+line1_iSide2_value                                : y =     363.293044
+line1_U1_value                                    : y =       1.000000
+line1_U2_value                                    : y =       1.005107
+line1_lineState_value                             : y =       2.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+VL1_BUS1_numcc_value                              : z =       0.000000
+VL1_BUS1_switchOff_value                          : z =      -1.000000
+VL1_BUS1_state_value                              : z =       2.000000
+VL2_BUS1_numcc_value                              : z =       0.000000
+VL2_BUS1_switchOff_value                          : z =      -1.000000
+VL2_BUS1_state_value                              : z =       2.000000
+Load_state_value                                  : z =       1.000000
+Load2_state_value                                 : z =       2.000000
+line1_state_value                                 : z =       2.000000
+line1_desactivate_currentLimits_value             : z =       0.000000
+ ====== PARAMETERS VALUES ======
+capacitor_no_reclosing_delay                       =     300.000000
+dangling_line_currentLimit_maxTimeOperation        =      90.000000
+line_currentLimit_maxTimeOperation                 =      90.000000
+load_alpha                                         =       0.000000
+load_beta                                          =       0.000000
+load_isControllable                                =      -1.000000
+load_isRestorative                                 =      -1.000000
+reactance_no_reclosing_delay                       =       0.000000
+transformer_currentLimit_maxTimeOperation          =      90.000000
+transformer_t1st_HT                                =      60.000000
+transformer_t1st_THT                               =      30.000000
+transformer_tNext_HT                               =      10.000000
+transformer_tNext_THT                              =      10.000000
+transformer_tolV                                   =       0.015000

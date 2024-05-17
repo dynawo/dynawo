@@ -82,6 +82,8 @@ class JobData:
                 if number_of_modelers >= 2:
                     raise MoreThanOneModelerGivenError
                 for modeler_element in job_subelement:
+                    if isinstance(modeler_element, lxml.etree._Comment):
+                        continue
                     if modeler_element.tag == xmlns('network'):
                         number_of_networks += 1
                         if number_of_networks >= 2:

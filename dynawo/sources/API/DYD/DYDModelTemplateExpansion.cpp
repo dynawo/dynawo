@@ -29,8 +29,6 @@ namespace dynamicdata {
 
 ModelTemplateExpansion::ModelTemplateExpansion(const string& id) : Model(id, Model::MODEL_TEMPLATE_EXPANSION) {}
 
-ModelTemplateExpansion::~ModelTemplateExpansion() {}
-
 const std::string&
 ModelTemplateExpansion::getTemplateId() const {
   return templateId_;

@@ -31,6 +31,9 @@ set(MODEL_FILES
   IdealTransformerVariableTap.extvar
   IdealTransformerVariableTapPQ_INIT.mo
   IdealTransformerVariableTapI_INIT.mo
+  NetworkTransformer.extvar
+  NetworkTransformer.mo
+  NetworkTransformer_INIT.mo
   )
 
 #

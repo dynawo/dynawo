@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="1"/>
+    <par type="DOUBLE" name="minStep" value="1"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+  <macroParameterSet id="macro_generator">
+    <par type="DOUBLE" name="generator_QMin" value="-200"/>
+    <par type="DOUBLE" name="generator_QMax" value="62"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_generator_diagram">
+    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
+    <par type="DOUBLE" name="generator_QMax0" value="200"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfoSVRTimeline/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfoSVRTimeline/Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
+    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_qnomalt">
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_tfo">
+    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
+    <par type="DOUBLE" name="generator_SNom" value="200"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_rpcl">
+    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMaxPu" value="1.08"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_UStatorRefMinPu" value="0.85"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_svc">
+    <!-- Generator 1 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
+    <!-- Generator 2 parameters -->
+    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_2_" value="-1.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-0.5"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_2_" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_SNom_2_" value="200"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="280"/>
+    <!-- SVC parameters -->
+    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_svc_tfo">
+    <!-- Generator 1 parameters -->
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
+    <!-- Generator 2 parameters -->
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.1"/>
+  </macroParameterSet>
+  <set id="Generator1">
+    <macroParSet id="macro_generator"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl"/>
+  </set>
+  <set id="Generator2">
+    <macroParSet id="macro_generator_diagram"/>
+    <macroParSet id="macro_tfo"/>
+    <macroParSet id="macro_qnomalt"/>
+    <macroParSet id="macro_rpcl"/>
+  </set>
+  <set id="SVC">
+    <macroParSet id="macro_svc"/>
+    <macroParSet id="macro_svc_tfo"/>
+    <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_tSample" value="10"/>
+  </set>
+  <set id="Line">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.045044"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="SignalN">
+    <par type="DOUBLE" name="step_Height" value="0.1"/>
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="70"/>
+  </set>
+  <set id="InfiniteBus1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.0305614"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+  </set>
+</parametersSet>

@@ -48,9 +48,6 @@ referenceVariable_(refVar) {
     checkTypeCompatibility();
 }
 
-VariableAlias::~VariableAlias() {
-}
-
 void
 VariableAlias::setReferenceVariable(const shared_ptr<VariableNative> refVar) {
   // an alias has to point towards a native variable

@@ -15,13 +15,14 @@
 #define MODELER_DATAINTERFACE_DYNCRITERIA_H_
 
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_set.hpp>
 #include "CRTCriteriaParams.h"
 #include "DYNBusInterface.h"
 #include "DYNLoadInterface.h"
 #include "DYNGeneratorInterface.h"
 #include "TLTimeline.h"
+
 #include <map>
+#include <unordered_set>
 
 namespace DYN {
 
@@ -44,7 +45,7 @@ class Criteria {
   /**
    * @brief Destructor
    */
-  virtual ~Criteria();
+  virtual ~Criteria() = default;
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
@@ -143,11 +144,6 @@ class BusCriteria : public Criteria {
   explicit BusCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
-   * @brief Destructor
-   */
-  ~BusCriteria();
-
-  /**
    * @brief check that this criteria can be applied to buses
    * @param params parameters of the criteria
    * @return true if this criteria is compatible with buses
@@ -242,11 +238,6 @@ class LoadCriteria : public Criteria {
    * @param params parameters of the criteria
    */
   explicit LoadCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
-
-  /**
-   * @brief Destructor
-   */
-  ~LoadCriteria();
 
   /**
    * @brief check that this criteria can be applied to loads
@@ -358,11 +349,6 @@ class GeneratorCriteria : public Criteria {
    * @param params parameters of the criteria
    */
   explicit GeneratorCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
-
-  /**
-   * @brief Destructor
-   */
-  ~GeneratorCriteria();
 
   /**
    * @brief check that this criteria can be applied to generators

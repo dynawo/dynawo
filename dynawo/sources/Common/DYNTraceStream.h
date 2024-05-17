@@ -102,7 +102,7 @@ class TraceStream {
    *
    * Destruct the TraceStream object.
    */
-  ~TraceStream();
+  ~TraceStream() = default;
 
   /**
    * @brief Operator<< overload for C strings

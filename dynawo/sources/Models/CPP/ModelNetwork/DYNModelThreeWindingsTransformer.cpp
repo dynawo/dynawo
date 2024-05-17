@@ -147,7 +147,7 @@ ModelThreeWindingsTransformer::init(int& /*yNum*/) {
 }
 
 void
-ModelThreeWindingsTransformer::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
+ModelThreeWindingsTransformer::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& /*params*/) {
   // not needed
 }
 

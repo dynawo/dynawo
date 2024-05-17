@@ -25,9 +25,27 @@
 
 #include <boost/shared_ptr.hpp>
 #include <string>
-#include <vector>
+#include <set>
 
 namespace lostEquipments {
+
+/**
+ * @brief structure used to sort lostEquipment instances in a set
+ */
+struct LostEquipmentComparator {
+  /**
+   * @brief compare two LostEquipment instance IDs lexicographically for sorting
+   * @param lostEquipment1 first lost equipment to compare
+   * @param lostEquipment2 second lost equipment to compare
+   * @return @b true if the ID of lostEquipment1 is less than the ID of lostEquipment2, @b false otherwise
+   */
+  bool operator()(const boost::shared_ptr<LostEquipment>& lostEquipment1,
+                  const boost::shared_ptr<LostEquipment>& lostEquipment2) const {
+    return lostEquipment1->getId() < lostEquipment2->getId();
+  }
+};
+
+using LostEquipmentsSet = std::set<boost::shared_ptr<LostEquipment>, LostEquipmentComparator>;  ///< Alias for lost equipments set
 
 /**
  * @class LostEquipmentsCollection
@@ -126,7 +144,7 @@ class LostEquipmentsCollection {
     const boost::shared_ptr<LostEquipment>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<LostEquipment> >::const_iterator current_;  ///< current vector const iterator
+    LostEquipmentsSet::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
@@ -142,7 +160,7 @@ class LostEquipmentsCollection {
   LostEquipmentsCollectionConstIterator cend() const;
 
  private:
-  std::vector<boost::shared_ptr<LostEquipment> > lostEquipments_;  ///< Vector of the lost equipment objects
+  LostEquipmentsSet lostEquipments_;  ///< set of the lost equipment objects
 };
 
 }  // end of namespace lostEquipments

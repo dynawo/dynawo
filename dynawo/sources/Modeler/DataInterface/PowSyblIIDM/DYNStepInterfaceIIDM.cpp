@@ -24,9 +24,6 @@
 
 namespace DYN {
 
-StepInterfaceIIDM::~StepInterfaceIIDM() {
-}
-
 StepInterfaceIIDM::StepInterfaceIIDM(const powsybl::iidm::PhaseTapChangerStep& step) : phaseStep_(step),
                                                                                        isPhaseStep_(true) {
 }

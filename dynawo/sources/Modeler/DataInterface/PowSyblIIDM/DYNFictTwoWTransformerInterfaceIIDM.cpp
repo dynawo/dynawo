@@ -68,9 +68,6 @@ namespace DYN {
     }
   }
 
-  FictTwoWTransformerInterfaceIIDM::~FictTwoWTransformerInterfaceIIDM() {
-  }
-
   void
   FictTwoWTransformerInterfaceIIDM::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {
     /* not needed */

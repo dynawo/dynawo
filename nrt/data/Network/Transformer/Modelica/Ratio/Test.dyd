@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!--<dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBus" parFile="Test.par" parId="InfiniteBus" staticId="InfiniteBus"/>
+  <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>-->
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="Test.par" parId="GeneratorSynchronousThreeWindingsProportionalRegulations" staticId="Generator">-->
+  <dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsGoverPropVRPropInt" parFile="Test.par" parId="GeneratorSynchronousThreeWindingsGoverPropVRPropInt" staticId="Generator">
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPQ" parFile="Test.par" parId="GeneratorPQ" staticId="Generator">-->
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPV" parFile="Test.par" parId="GeneratorPV" staticId="Generator">-->
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPVFixed" parFile="Test.par" parId="GeneratorPVFixed" staticId="Generator">-->
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="Bus2" var2="bus_terminal"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="Test.par" parId="OmegaRef"/>
+  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+
+  <dyn:blackBoxModel id="Disconnect_Load4" lib="EventSetPointBoolean" parFile="Test.par" parId="Disconnect_Load4"/>
+  <dyn:connect id1="Disconnect_Load4" var1="event_state1" id2="Load4" var2="load_switchOffSignal2"/>
+  <dyn:blackBoxModel id="Connect_Load4" lib="EventSetPointBoolean" parFile="Test.par" parId="Connect_Load4"/>
+  <dyn:connect id1="Connect_Load4" var1="event_state1" id2="Load4" var2="load_switchOffSignal2"/>
+
+  <dyn:blackBoxModel id="Disconnect_Load1" lib="EventSetPointBoolean" parFile="Test.par" parId="Disconnect_Load1"/>
+  <dyn:connect id1="Disconnect_Load1" var1="event_state1" id2="Load1" var2="load_switchOffSignal2"/>
+
+  <dyn:blackBoxModel id="Bus1" lib="BusWithInit" staticId="VL1_BUS1" parFile="Test.par" parId="Bus1"/>
+  <dyn:blackBoxModel id="Bus2" lib="BusWithInit" staticId="VL2_BUS1" parFile="Test.par" parId="Bus2"/>
+
+  <dyn:blackBoxModel id="Transformer" lib="NetworkTransformer" parFile="Test.par" parId="Transformer" staticId="Transformer"/>
+
+  <dyn:blackBoxModel id="Load1" lib="LoadAlphaBeta" parFile="Test.par" parId="LoadAlphaBeta" staticId="Load1"/>
+  <dyn:blackBoxModel id="Load2" lib="LoadAlphaBeta" parFile="Test.par" parId="LoadAlphaBeta" staticId="Load2"/>
+  <dyn:blackBoxModel id="Load3" lib="LoadAlphaBeta" parFile="Test.par" parId="LoadAlphaBeta" staticId="Load3"/>
+  <dyn:blackBoxModel id="Load4" lib="LoadAlphaBeta" parFile="Test.par" parId="LoadAlphaBeta" staticId="Load4"/>
+
+  <dyn:connect id1="Load1" var1="load_terminal" id2="Bus1" var2="bus_terminal"/>
+  <dyn:connect id1="Load2" var1="load_terminal" id2="Bus1" var2="bus_terminal"/>
+  <dyn:connect id1="Load3" var1="load_terminal" id2="Bus2" var2="bus_terminal"/>
+  <dyn:connect id1="Load4" var1="load_terminal" id2="Bus2" var2="bus_terminal"/>
+
+  <dyn:connect id1="Bus1" var1="bus_terminal" id2="Transformer" var2="transformer_terminal1"/>
+  <dyn:connect id1="Transformer" var1="transformer_terminal2" id2="Bus2" var2="bus_terminal"/>
+
+</dyn:dynamicModelsArchitecture>

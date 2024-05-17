@@ -271,7 +271,7 @@ ModelShuntCompensator::isAvailable() const {
 }
 
 void
-ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+ModelShuntCompensator::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
   std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {
@@ -421,7 +421,7 @@ ModelShuntCompensator::setFequations(std::map<int, std::string>& /*fEquationInde
 
 void
 ModelShuntCompensator::setGequations(std::map<int, std::string>& gEquationIndex) {
-  gEquationIndex[0] = "Time out reached for reclosing delay";
+  gEquationIndex[0] = "ModelShuntCompensator " + id() + " : Time out reached for reclosing delay";
 
   assert(gEquationIndex.size() == static_cast<size_t>(sizeG()) && "Shunt compensator model: gEquationIndex.size() != gLocal_.size()");
 }

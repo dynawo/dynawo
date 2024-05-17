@@ -37,11 +37,6 @@ class ModelVariationAreaFactory : public SubModelFactory {
    *
    */
   ModelVariationAreaFactory() { }
-  /**
-   * @brief default destructor
-   *
-   */
-  ~ModelVariationAreaFactory() { }
 
   /**
    * @brief Model VariationArea getter
@@ -75,10 +70,6 @@ class ModelVariationArea : public ModelCPP {
    * Creates a new ModelVariationArea instance.
    */
   ModelVariationArea();
-  /**
-   * @brief Default destructor
-   */
-  ~ModelVariationArea() { }
 
   // instantiate virtual methods of the Model class
 

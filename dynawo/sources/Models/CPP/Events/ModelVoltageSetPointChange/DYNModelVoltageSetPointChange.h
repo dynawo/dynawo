@@ -37,11 +37,6 @@ class ModelVoltageSetPointChangeFactory : public SubModelFactory {
    *
    */
   ModelVoltageSetPointChangeFactory() { }
-  /**
-   * @brief default destructor
-   *
-   */
-  ~ModelVoltageSetPointChangeFactory() { }
 
   /**
    * @brief Model VoltageSetPointChange getter
@@ -75,12 +70,6 @@ class ModelVoltageSetPointChange : public ModelCPP {
    * Creates a new ModelVoltageSetPointChange instance.
    */
   ModelVoltageSetPointChange();
-  /**
-   * @brief Default destructor
-   *
-   * Creates a new ModelVoltageSetPointChange instance.
-   */
-  ~ModelVoltageSetPointChange() { }
 
   /**
    * @brief  VoltageSetPointChange model initialization routine
@@ -277,7 +266,7 @@ class ModelVoltageSetPointChange : public ModelCPP {
   double stopTime_;  ///< stop time
   double voltageSetPointChange_;  ///< value of the voltage change point change
   int numLoads_;  ///< number of loads
-  bool startTimelineAdded_; ///< true if the timeline indicating the start of the voltage set point was added
+  bool startTimelineAdded_;  ///< true if the timeline indicating the start of the voltage set point was added
   bool endTimelineAdded_;  ///< true if the timeline indicating the end of the voltage set point was added
 };
 

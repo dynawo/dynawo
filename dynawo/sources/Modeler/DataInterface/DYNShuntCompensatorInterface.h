@@ -37,9 +37,15 @@ class VoltageLevelInterface;
 class ShuntCompensatorInterface : public ComponentInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit ShuntCompensatorInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
-  virtual ~ShuntCompensatorInterface() { }
+  virtual ~ShuntCompensatorInterface() = default;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()

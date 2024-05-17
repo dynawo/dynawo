@@ -38,9 +38,15 @@ class ModelLoad;
 class LoadInterface : public ComponentInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit LoadInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
-  virtual ~LoadInterface() { }
+  virtual ~LoadInterface() = default;
 
   /**
    * @brief Setter for the load's bus interface

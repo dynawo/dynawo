@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!--<dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBus" parFile="Test.par" parId="InfiniteBus" staticId="InfiniteBus"/>
+  <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>-->
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="Test.par" parId="GeneratorSynchronousThreeWindingsProportionalRegulations" staticId="Generator">-->
+  <dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsGoverPropVRPropInt" parFile="Test.par" parId="GeneratorSynchronousThreeWindingsGoverPropVRPropInt" staticId="Generator">
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPQ" parFile="Test.par" parId="GeneratorPQ" staticId="Generator">-->
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPV" parFile="Test.par" parId="GeneratorPV" staticId="Generator">-->
+  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPVFixed" parFile="Test.par" parId="GeneratorPVFixed" staticId="Generator">-->
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@Generator@@NODE@_ACPIN"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="Test.par" parId="OmegaRef"/>
+  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+</dyn:dynamicModelsArchitecture>

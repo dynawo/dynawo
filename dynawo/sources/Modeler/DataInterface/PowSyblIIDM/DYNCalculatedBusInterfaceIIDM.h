@@ -41,11 +41,6 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   } indexVar_t;
 
   /**
-   * @brief destructor
-   */
-  ~CalculatedBusInterfaceIIDM();
-
-  /**
    * @brief constructor
    *
    * @param voltageLevel IIDM voltageLevel instance

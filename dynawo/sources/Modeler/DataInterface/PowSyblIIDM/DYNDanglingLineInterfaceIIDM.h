@@ -46,11 +46,6 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
 
  public:
   /**
-   * @brief Destructor
-   */
-  ~DanglingLineInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param danglingLine :  dangling line's iidm instance
    */

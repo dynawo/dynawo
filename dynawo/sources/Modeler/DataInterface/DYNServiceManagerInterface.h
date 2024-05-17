@@ -38,7 +38,7 @@ struct ServiceManagerInterface {
   /**
    * @brief Destructor
    */
-  virtual ~ServiceManagerInterface() {}
+  virtual ~ServiceManagerInterface() = default;
 
   /// @brief Default constructor
   ServiceManagerInterface() = default;

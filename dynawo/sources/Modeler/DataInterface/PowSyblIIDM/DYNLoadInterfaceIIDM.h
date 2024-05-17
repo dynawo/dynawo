@@ -49,11 +49,6 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
 
  public:
   /**
-   * @brief Destructor
-   */
-  ~LoadInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param load : the load's iidm instance
    */

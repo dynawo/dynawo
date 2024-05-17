@@ -1,0 +1,39 @@
+2024-04-18 12:34:54 | INFO |  ============================================================ 
+2024-04-18 12:34:54 | INFO | DYNAWO VERSION  :     1.7.0
+2024-04-18 12:34:54 | INFO | DYNAWO REVISION :  master-18-cf2130ea6f
+2024-04-18 12:34:54 | INFO |  ============================================================ 
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | Network initialization
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | adding voltage level VL1 to the Network
+2024-04-18 12:34:54 | DEBUG | adding bus VL1_BUS1 to the Network.
+2024-04-18 12:34:54 | DEBUG | generator InfiniteBus using an external dynamic modelisation : not added to the Network.
+2024-04-18 12:34:54 | DEBUG | adding voltage level VL2 to the Network
+2024-04-18 12:34:54 | DEBUG | adding bus VL2_BUS1 to the Network.
+2024-04-18 12:34:54 | DEBUG | load Load using an external dynamic modelisation : not added to the Network.
+2024-04-18 12:34:54 | DEBUG | adding load Load2 to the Network.
+2024-04-18 12:34:54 | DEBUG | adding load Load3 to the Network.
+2024-04-18 12:34:54 | DEBUG | generator Generator using an external dynamic modelisation : not added to the Network.
+2024-04-18 12:34:54 | DEBUG | adding Line line1 to the Network.
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | network statistics:
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | number of voltage levels              : 2
+2024-04-18 12:34:54 | DEBUG | number of buses                       : 2 (static: 2, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of switches                    : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of loads                       : 3 (static: 2, dynamic: 1)
+2024-04-18 12:34:54 | DEBUG | number of generator                   : 2 (static: 0, dynamic: 2)
+2024-04-18 12:34:54 | DEBUG | number of shunt compensators          : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of SVCs                        : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of dangling lines              : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of lines                       : 1 (static: 1, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of two windings transformers   : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of three windings transformers : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | number of HVDCs                       : 0 (static: 0, dynamic: 0)
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | SubNetworks at time 0
+2024-04-18 12:34:54 | DEBUG | ------------------------------
+2024-04-18 12:34:54 | DEBUG | nbSubNetwork = 1
+2024-04-18 12:34:54 | DEBUG | subNetwork[0] nbBus = 2
+2024-04-18 12:34:54 | DEBUG |                 VL1_BUS1 (subNetwork 0)
+2024-04-18 12:34:54 | DEBUG |                 VL2_BUS1 (subNetwork 0)

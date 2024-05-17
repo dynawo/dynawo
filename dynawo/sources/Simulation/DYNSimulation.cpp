@@ -24,7 +24,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
-#include <boost/unordered_map.hpp>
 #ifdef _MSC_VER
 #include <process.h>
 #endif
@@ -151,6 +150,26 @@ using parameters::ParametersSetCollection;
 
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
 
+
+/**
+ * @brief Hash structure for std::pair<std::string, std::string>
+ */
+struct StringPairHash {
+  /**
+   * @brief Operator to retrieve stringPair hash value
+   *
+   * @param stringPair the stringPair to hash
+   * @returns the hash value
+   */
+  size_t operator()(const std::pair<std::string, std::string>& stringPair) const {
+    size_t seed = 0;
+    boost::hash_combine(seed, stringPair.first);
+    boost::hash_combine(seed, stringPair.second);
+    return seed;
+  }
+};
+
+
 namespace DYN {
 
 Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
@@ -213,9 +232,6 @@ wasLoggingEnabled_(false) {
   setSolver();
   configureSimulationInputs();
   configureCriteria();
-}
-
-Simulation::~Simulation() {
 }
 
 void
@@ -572,7 +588,7 @@ Simulation::compileModels() {
     string additionalHeaderList = getEnvVar("DYNAWO_HEADER_FILES_FOR_PREASSEMBLED");
     boost::split(additionalHeaderFiles, additionalHeaderList, boost::is_any_of(" "), boost::token_compress_on);
   }
-  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
+  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
   pathsToIgnore.insert(boost::filesystem::path(compileDir));
 
   const bool rmModels = true;
@@ -736,7 +752,7 @@ Simulation::importFinalStateValuesRequest() {
 
   // A map for existing Curves is built so we can locate them fast and update them from the Final State Values
   // A Curve is identified by the pair model name, variable name
-  typedef boost::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve> > CurvesMap;
+  typedef std::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
   CurvesMap curvesMap;
   for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
     curvesMap.insert(std::make_pair(std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve));
@@ -821,7 +837,8 @@ Simulation::init() {
   if (Trace::logExists(Trace::modeler(), DEBUG))
     model_->printModel();
   if (Trace::logExists(Trace::variables(), DEBUG)) {
-    model_->printVariableNames();
+    bool withVariableType = false;  // At this point dynamic types are not known, the log is present to have infos in case calculateIC fails.
+    model_->printVariableNames(withVariableType);
   }
 
   if (Trace::logExists(Trace::equations(), DEBUG)) {
@@ -863,6 +880,11 @@ Simulation::init() {
   // therefore a calculateIC() is always necessary.
   zCurrent_.assign(model_->sizeZ(), 0.);
   calculateIC();
+
+  if (Trace::logExists(Trace::variables(), DEBUG)) {
+    bool withVariableType = true;  // We rewrite the file with types this time
+    model_->printVariableNames(withVariableType);
+  }
 
   // Initialize curves
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;

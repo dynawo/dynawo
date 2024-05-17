@@ -27,16 +27,11 @@
 
 #include "gtest_dynawo.h"
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::StaticVarCompensator;
-using powsybl::iidm::Network;
-using powsybl::iidm::Substation;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::VoltageLevel;
-
-TEST(DataInterfaceTest, SVarC_1) {
+static Network
+CreateStaticVarCompensatorNetwork() {
   Network network("test", "test");
 
   Substation& substation = network.newSubstation()
@@ -71,7 +66,21 @@ TEST(DataInterfaceTest, SVarC_1) {
     .setRegulationMode(StaticVarCompensator::RegulationMode::OFF)
     .add();
 
-  StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
+  return network;
+}  // CreateStaticVarCompensatorNetwork
+}  // namespace iidm
+}  // namespace powsybl
+
+namespace DYN {
+
+using powsybl::iidm::CreateStaticVarCompensatorNetwork;
+
+TEST(DataInterfaceTest, SVarC_1) {
+  powsybl::iidm::Network network = CreateStaticVarCompensatorNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
+
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   svcInterface.setVoltageLevelInterface(voltageLevelIfce);
@@ -128,6 +137,8 @@ TEST(DataInterfaceTest, SVarC_1) {
   ASSERT_TRUE(svcInterface.hasPInjector());
   ASSERT_DOUBLE_EQ(svcInterface.getPInjector(), 1.0);
 
+  ASSERT_FALSE(svcInterface.hasInitialConditions());
+
   ASSERT_EQ(svcInterface.getRegulationMode(), StaticVarCompensatorInterface::OFF);
   svc.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE);
   ASSERT_EQ(svcInterface.getRegulationMode(), StaticVarCompensatorInterface::RUNNING_V);
@@ -136,39 +147,10 @@ TEST(DataInterfaceTest, SVarC_1) {
 }  // TEST(DataInterfaceTest, SVarC_1)
 
 TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == false
-  Network network("test", "test");
+  powsybl::iidm::Network network = CreateStaticVarCompensatorNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
 
-  Substation& substation = network.newSubstation()
-                               .setId("S1")
-                               .setName("S1_NAME")
-                               .setCountry(powsybl::iidm::Country::FR)
-                               .setTso("TSO")
-                               .add();
-
-  VoltageLevel& vl1 = substation.newVoltageLevel()
-                          .setId("VL1")
-                          .setName("VL1_NAME")
-                          .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalV(380.0)
-                          .setLowVoltageLimit(340.0)
-                          .setHighVoltageLimit(420.0)
-                          .add();
-
-  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
-
-  vl1.newStaticVarCompensator()
-    .setId("SVC1")
-    .setName("SVC1_NAME")
-    .setBus(bus1.getId())
-    .setConnectableBus(bus1.getId())
-    .setBmin(-0.01)
-    .setBmax(0.02)
-    .setVoltageSetpoint(380.0)
-    .setReactivePowerSetpoint(90.0)
-    .setRegulationMode(StaticVarCompensator::RegulationMode::OFF)
-    .add();
-
-  StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
   svc.newExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControlAdder>().withSlope(0.1).add();
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
@@ -184,5 +166,18 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
   ASSERT_DOUBLE_EQ(svcInterface.getQ(), 0.0);
   ASSERT_TRUE(svcInterface.hasVoltagePerReactivePowerControl());
   ASSERT_DOUBLE_EQ(svcInterface.getSlope(), 0.1);
+  ASSERT_FALSE(svcInterface.hasInitialConditions());
 }  // TEST(DataInterfaceTest, SVarC_2)
+
+TEST(DataInterfaceTest, SVarC_3) {
+  powsybl::iidm::Network network = CreateStaticVarCompensatorNetwork();
+  powsybl::iidm::StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
+
+  svc.getTerminal().setP(0.0);
+  svc.getTerminal().setQ(0.0);
+
+  StaticVarCompensatorInterfaceIIDM svcInterface(svc);
+
+  ASSERT_TRUE(svcInterface.hasInitialConditions());
+}  // TEST(DataInterfaceTest, SVarC_3)
 }  // namespace DYN

@@ -242,20 +242,20 @@ namespace DYN {
   ModelCentralizedShuntsSectionControl::evalZ(const double t) {
     if (changingShunt >= 0) {
       if (isSelf_[changingShunt]) {
-        if (gLocal_[0] == ROOT_UP) {
+        if ((gLocal_[0] == ROOT_UP && doubleEquals(whenDown_, VALDEF)) ||
+            (gLocal_[0] == ROOT_UP && gLocal_[2] == ROOT_UP)) {
           whenUp_ = VALDEF;
           whenDown_ = t;
-        } else if (gLocal_[1] == ROOT_UP) {
+        } else if ((gLocal_[1] == ROOT_UP && doubleEquals(whenUp_, VALDEF)) ||
+                   (gLocal_[1] == ROOT_UP && gLocal_[3] == ROOT_UP)) {
           whenUp_ = t;
           whenDown_ = VALDEF;
         }
-        if (gLocal_[2] == ROOT_UP) {
-          if (doubleNotEquals(lastTime_, t)) {
-            zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
-            sections0_[changingShunt] -= 1;
-            changingShunt = -1;
-            lastTime_ = t;
-          }
+        if (gLocal_[2] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
+          zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
+          sections0_[changingShunt] -= 1;
+          changingShunt = -1;
+          lastTime_ = t;
         } else if (gLocal_[3] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
           zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
           sections0_[changingShunt] += 1;
@@ -263,20 +263,20 @@ namespace DYN {
           lastTime_ = t;
         }
       } else {
-        if (gLocal_[0] == ROOT_UP) {
+        if ((gLocal_[0] == ROOT_UP && doubleEquals(whenUp_, VALDEF)) ||
+            (gLocal_[0] == ROOT_UP && gLocal_[2] == ROOT_UP)) {
           whenUp_ = t;
           whenDown_ = VALDEF;
-        } else if (gLocal_[1] == ROOT_UP) {
+        } else if ((gLocal_[1] == ROOT_UP && doubleEquals(whenDown_, VALDEF)) ||
+                   (gLocal_[1] == ROOT_UP && gLocal_[3] == ROOT_UP)) {
           whenUp_ = VALDEF;
           whenDown_ = t;
         }
-        if (gLocal_[2] == ROOT_UP) {
-          if (doubleNotEquals(lastTime_, t)) {
-            zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
-            sections0_[changingShunt] += 1;
-            changingShunt = -1;
-            lastTime_ = t;
-          }
+        if (gLocal_[2] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
+          zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
+          sections0_[changingShunt] += 1;
+          changingShunt = -1;
+          lastTime_ = t;
         } else if (gLocal_[3] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
           zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
           sections0_[changingShunt] -= 1;

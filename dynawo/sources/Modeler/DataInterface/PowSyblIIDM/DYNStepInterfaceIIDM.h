@@ -35,11 +35,6 @@ namespace DYN {
 class StepInterfaceIIDM : public StepInterface {
  public:
   /**
-   * @brief Destructor
-   */
-  ~StepInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param step phase tap changer step's iidm instance
    */

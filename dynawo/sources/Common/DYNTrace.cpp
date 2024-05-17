@@ -92,8 +92,6 @@ TraceStream& Trace::endline(TraceStream& os) {
   return eol(os);
 }
 
-Trace::Trace() {}
-
 Trace& Trace::instance() {
   static Trace instance;
   return instance;
@@ -198,7 +196,12 @@ void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
 
   {
     boost::lock_guard<boost::mutex> lock(mutex_);
-    sinks_.insert_or_assign(currentId, traceSink);
+
+    if (sinks_.find(currentId) != sinks_.end()) {
+      sinks_.at(currentId) = traceSink;
+    } else {
+      sinks_.insert(std::make_pair(currentId, traceSink));
+    }
   }
 
   logging::add_common_attributes();

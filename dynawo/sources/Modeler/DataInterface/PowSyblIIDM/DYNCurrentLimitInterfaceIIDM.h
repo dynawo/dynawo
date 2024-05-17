@@ -31,11 +31,6 @@ namespace DYN {
 class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
  public:
   /**
-   * @brief Destructor
-   */
-  ~CurrentLimitInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param limit limit of the current limit
    * @param duration authorized duration over the limit (Nan if unset)

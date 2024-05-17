@@ -56,11 +56,6 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   ModelCurrentLimits();
 
   /**
-   * @brief destructor
-   */
-  ~ModelCurrentLimits();
-
-  /**
    * @brief compute the local root function
    *
    * @param t current time

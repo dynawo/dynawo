@@ -64,7 +64,7 @@ class DydData:
         self.__model_templates = list()
         self.__model_template_expansions = list()
 
-        root_element =  self._dydtree.getroot()
+        root_element = self._dydtree.getroot()
         for dyd_element in root_element:
             if isinstance(dyd_element, lxml.etree._Comment):
                 continue

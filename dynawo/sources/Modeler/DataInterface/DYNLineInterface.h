@@ -41,9 +41,15 @@ class VoltageLevelInterface;
 class LineInterface : public ComponentInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit LineInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
-  virtual ~LineInterface() { }
+  virtual ~LineInterface() = default;
 
   /**
    * @brief Add a curent limit interface for side 1

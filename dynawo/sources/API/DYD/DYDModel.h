@@ -54,7 +54,7 @@ class Model {
   /**
    * @brief Destructor
    */
-  virtual ~Model();
+  virtual ~Model() = default;
 
   /**
    * @brief Model id getter

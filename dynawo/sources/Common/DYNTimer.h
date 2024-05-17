@@ -55,11 +55,6 @@ class Timers : private boost::noncopyable {
 
  private:
   /**
-   * @brief default constructor
-   */
-  Timers();
-
-  /**
    * @brief destructor
    */
   ~Timers();

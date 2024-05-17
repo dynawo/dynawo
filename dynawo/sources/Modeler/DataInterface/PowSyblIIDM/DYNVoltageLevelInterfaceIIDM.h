@@ -23,11 +23,12 @@
 #include "DYNVoltageLevelInterface.h"
 #include "DYNGraph.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
+#include "DYNSwitchInterface.h"
 
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/extensions/SlackTerminal.hpp>
 
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 #include <boost/optional.hpp>
 
 namespace DYN {
@@ -43,11 +44,6 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @param voltageLevel : voltageLevel's iidm instance
    */
   explicit VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel);
-
-  /**
-   * @brief destructor
-   */
-  ~VoltageLevelInterfaceIIDM();
 
   /**
    * @brief Getter for the voltageLevel's id
@@ -236,10 +232,10 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
  private:
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
-  boost::unordered_map<boost::shared_ptr<SwitchInterface>, double > switchState_;  ///< state to apply to switch (due to topology change)
+  std::unordered_map<boost::shared_ptr<SwitchInterface>, double, SwitchInterfaceHash> switchState_;  ///< state to apply to switch (due to topology change)
   std::map< std::string, boost::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
   Graph graph_;  ///< topology graph to find node connection
-  boost::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
+  std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< bus interface created
   std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
   std::vector<boost::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created

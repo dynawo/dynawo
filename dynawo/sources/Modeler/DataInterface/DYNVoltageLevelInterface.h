@@ -49,7 +49,7 @@ class VoltageLevelInterface {
   /**
    * @brief destructor
    */
-  virtual ~VoltageLevelInterface() { }
+  virtual ~VoltageLevelInterface() = default;
 
   /**
    * @brief Definition of the voltage level topology

@@ -508,7 +508,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   sw->defineNonGenericParameters(parameters);
   ASSERT_TRUE(parameters.empty());
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   ASSERT_NO_THROW(sw->setSubModelParameters(parametersModels));
 }
 

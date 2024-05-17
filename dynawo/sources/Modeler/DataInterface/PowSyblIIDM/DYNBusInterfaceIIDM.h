@@ -43,11 +43,6 @@ class BusInterfaceIIDM : public BusInterface {
   } indexVar_t;
 
   /**
-   * @brief Destructor
-   */
-  ~BusInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param bus : bus' iidm instance
    */

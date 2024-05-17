@@ -46,7 +46,7 @@ class DataInterface {
   /**
    * @brief Destructor
    */
-  virtual ~DataInterface() { }
+  virtual ~DataInterface() = default;
 
   /**
    * @brief Determines if variant management is supported

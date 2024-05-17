@@ -248,7 +248,7 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
 
 static void
 fillParameters(shared_ptr<ModelHvdcLink> hvdc, std::string& startingPoint) {
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
     param.setValue<std::string>(startingPoint, PAR);
@@ -642,7 +642,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   hvdc->defineNonGenericParameters(parameters);
   ASSERT_TRUE(parameters.empty());
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   ASSERT_NO_THROW(hvdc->setSubModelParameters(parametersModels));
 }
 

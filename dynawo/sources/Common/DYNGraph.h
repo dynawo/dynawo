@@ -21,6 +21,7 @@
 #define COMMON_DYNGRAPH_H_
 
 #include <utility>
+#include <unordered_map>
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/adjacency_iterator.hpp>
@@ -31,8 +32,6 @@
 #include <boost/graph/iteration_macros.hpp>
 #include <boost/graph/properties.hpp>
 #include <boost/graph/connected_components.hpp>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 
 
 // definitions of typedef alias to hide boost types
@@ -120,7 +119,7 @@ class Graph {
    * @param edgeWeights weights/masks of each edge to filter the graph
    * @return @b true if a path exists, @b false otherwise
    */
-  bool pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const boost::unordered_map<std::string, float>& edgeWeights);
+  bool pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map<std::string, float>& edgeWeights);
 
   /**
    * @brief find the shortest path between two vertices
@@ -132,7 +131,7 @@ class Graph {
    * this list is empty if there is no path or if the vertexOrigin and extremity are the same
    */
   void shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
-      const boost::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
+      const std::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
 
   /**
    * @brief calculate connected components of a graph
@@ -140,7 +139,7 @@ class Graph {
    * @param edgeWeights weights/masks of each edge to filter the graph
    * @return number of components and component per vertices
    */
-  std::pair<unsigned int, std::vector<unsigned int> > calculateComponents(const boost::unordered_map<std::string, float>& edgeWeights);
+  std::pair<unsigned int, std::vector<unsigned int> > calculateComponents(const std::unordered_map<std::string, float>& edgeWeights);
 
  private:
   /**
@@ -148,7 +147,7 @@ class Graph {
    *
    * @param weights weight to associate to each edge
    */
-  void setEdgesWeight(const boost::unordered_map<std::string, float>& weights);
+  void setEdgesWeight(const std::unordered_map<std::string, float>& weights);
 
   /**
    * @brief find the shortest path between two vertices
@@ -160,14 +159,14 @@ class Graph {
    * this list is empty if there is no path or if the vertexOrigin and extremity are the same
    */
   void dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
-      const boost::unordered_map<std::string, float>& edgeWeights,
+      const std::unordered_map<std::string, float>& edgeWeights,
       PathDescription& path);
 
  private:
   BoostGraph internalGraph_;  ///< graph description
-  boost::unordered_map<unsigned int, Vertex> vertices_;  ///< association between vertices and their id
+  std::unordered_map<unsigned int, Vertex> vertices_;  ///< association between vertices and their id
   std::vector<unsigned int> verticesIds_;  ///< Vertices ids to link to an index
-  boost::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
+  std::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
 };
 
 }  // namespace DYN

@@ -72,7 +72,7 @@ model SteamIEEET1Frame "Model of a steam generator with a governor, a voltage re
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Controls
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG1 ieeeg1(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.IEEEG11 ieeeg1(
     DerPMaxPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.DerPMaxPu],
     DerPMinPu = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.DerPMinPu],
     K = ParametersIEEEG1.exciterParams[ieeeg1Preset, ParametersIEEEG1.exciterParamNames.K],

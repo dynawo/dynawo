@@ -25,9 +25,6 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-SwitchInterfaceIIDM::~SwitchInterfaceIIDM() {
-}
-
 SwitchInterfaceIIDM::SwitchInterfaceIIDM(powsybl::iidm::Switch& sw) : switchIIDM_(sw) {
   setType(ComponentInterface::SWITCH);
   stateVariables_.resize(1);

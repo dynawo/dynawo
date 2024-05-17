@@ -203,8 +203,8 @@ const char* modelica_integer_to_modelica_string_format(modelica_integer i, std::
   return memoryManagerChars::keep(ss.str());
 }
 
-const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/,
-                                              modelica_integer signDigits) {
+const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer signDigits,
+        modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/) {
   // @todo warning: no thread safe
   std::stringstream ss("");
   ss << std::setprecision(signDigits) << std::fixed << r;
@@ -309,6 +309,18 @@ modelica_real
 computeDelay(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
   return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
 }
+
+#ifdef _ADEPT_
+adept::adouble
+computeDelayDerivative(ModelManager* manager, int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax) {
+  return manager->computeDelayDerivative(exprNumber, exprValue, time, delayTime, delayMax);
+}
+#else
+modelica_real
+computeDelayDerivative(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+  return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
+}
+#endif
 
 void
 addDelay(ModelManager* manager, int exprNumber, const double* time, const double* exprValue, double delayMax) {

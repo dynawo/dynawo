@@ -37,7 +37,7 @@ class StepInterface {
   /**
    * @brief Destructor
    */
-  virtual ~StepInterface() { }
+  virtual ~StepInterface() = default;
 
   /**
    * @brief Getter for the resistance of the step

@@ -34,9 +34,6 @@ nbTemporaryLimits_(0) {
   maxTimeOperation_ = VALDEF;
 }
 
-ModelCurrentLimits::~ModelCurrentLimits() {
-}
-
 int
 ModelCurrentLimits::sizeG() const {
   return static_cast<int>(2 * limits_.size());

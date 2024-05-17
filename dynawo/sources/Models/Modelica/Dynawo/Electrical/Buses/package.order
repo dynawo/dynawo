@@ -1,4 +1,6 @@
 Bus
+BusWithInit
+Bus_INIT
 InfiniteBus
 InfiniteBusFromTable
 InfiniteBusFromTable_INIT

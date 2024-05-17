@@ -320,7 +320,7 @@ ModelBus::uip() const {
 }
 
 void
-ModelBus::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+ModelBus::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
   double value = getParameterDynamicNoThrow<double>(params, "bus_uMax", success);
   if (success)

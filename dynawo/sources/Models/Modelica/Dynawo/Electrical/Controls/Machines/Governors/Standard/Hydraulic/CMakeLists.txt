@@ -14,8 +14,10 @@
 set(MODEL_FILES
   package.mo
   package.order
-  HYGOV.mo
-  HYGOV.extvar
+  HyGov.mo
+  HyGov.extvar
+  HYGOV1.mo
+  HYGOV1.extvar
   )
 
 #

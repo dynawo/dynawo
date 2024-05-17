@@ -24,8 +24,6 @@
 #include "DYNGraph.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
 
-#include <boost/unordered_map.hpp>
-
 
 namespace DYN {
 
@@ -42,11 +40,6 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @param country : country of fictious voltage
    */
   explicit FictVoltageLevelInterfaceIIDM(const std::string& Id, const double& VNom, const std::string& country);
-
-  /**
-   * @brief destructor
-   */
-  ~FictVoltageLevelInterfaceIIDM();
 
   /**
    * @brief Getter for the voltageLevel's id

@@ -1,0 +1,15 @@
+ ====== VARIABLES VALUES ======
+bus_terminal_V_im                                 : y =  -0.0405067625 yp =   0.0000000000
+bus_terminal_V_re                                 : y =   0.9820415405 yp =   0.0000000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+bus_U                                             : y =   0.9828765869
+bus_UPhase                                        : y =  -0.0412241358
+bus_UPhaseDeg                                     : y =  -2.3619689941
+bus_UPu                                           : y =   0.9828765869
+bus_terminal_i_im                                 : y =   0.0000000000
+bus_terminal_i_re                                 : y =   0.0000000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+bus_UNom                                           =   1.0000000000
+bus_u0Pu_im                                        =  -0.0405067625
+bus_u0Pu_re                                        =   0.9820415405

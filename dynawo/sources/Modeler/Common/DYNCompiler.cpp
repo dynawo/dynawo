@@ -22,12 +22,11 @@
 #include <list>
 #include <set>
 #include <memory>
+#include <unordered_set>
 #include <boost/algorithm/string/replace.hpp>
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 
 #include "DYNStaticRefInterface.h"
 #include "DYNConnectInterface.h"
@@ -74,8 +73,8 @@ using std::vector;
 using boost::dynamic_pointer_cast;
 using boost::lexical_cast;
 using boost::shared_ptr;
-using boost::unordered_map;
-using boost::unordered_set;
+using std::unordered_map;
+using std::unordered_set;
 
 namespace DYN {
 

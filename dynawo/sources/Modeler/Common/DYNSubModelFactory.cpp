@@ -32,11 +32,6 @@ using std::string;
 namespace DYN {
 typedef SubModelFactory* getSubModelFactory_t();
 
-SubModelFactory::~SubModelFactory() {}
-
-SubModelFactories::SubModelFactories() {
-}
-
 SubModelFactories::~SubModelFactories() {
   for (SubmodelFactoryIterator iter = factoryMap_.begin(); iter != factoryMap_.end(); ++iter) {
     boost::function<deleteSubModelFactory_t>& deleteFactory = factoryMapDelete_.find(iter->first)->second;

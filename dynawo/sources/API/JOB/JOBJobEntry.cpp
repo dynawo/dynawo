@@ -21,10 +21,6 @@
 
 namespace job {
 
-JobEntry::JobEntry() {}
-
-JobEntry::~JobEntry() {}
-
 JobEntry::JobEntry(const JobEntry& other) :
     modelerEntry_(DYN::clone(other.modelerEntry_)),
     solverEntry_(DYN::clone(other.solverEntry_)),

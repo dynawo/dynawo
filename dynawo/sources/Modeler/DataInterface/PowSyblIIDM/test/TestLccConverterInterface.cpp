@@ -126,6 +126,8 @@ TEST(DataInterfaceTest, LccConverter) {
   ASSERT_TRUE(Ifce.hasQ());
   ASSERT_DOUBLE_EQ(Ifce.getQ(), 499.0);
 
+  ASSERT_FALSE(Ifce.hasInitialConditions());
+
   ASSERT_EQ(Ifce.getLccIIDM().getHvdcLine().get().getId(), "HVDC1");
   Ifce.importStaticParameters();
 
@@ -141,4 +143,16 @@ TEST(DataInterfaceTest, LccConverter) {
   ASSERT_FALSE(Ifce.isConnected());
   ASSERT_TRUE(Ifce.getInitialConnected());
 }  // TEST(DataInterfaceTest, LccConverter)
+
+TEST(DataInterfaceTest, LccConverter_2) {
+  powsybl::iidm::Network network = createHvdcLccConverterStationNetwork();
+  powsybl::iidm::LccConverterStation& lcc = network.getLccConverterStation("LCC1");
+
+  lcc.getTerminal().setP(0.0);
+  lcc.getTerminal().setQ(0.0);
+
+  DYN::LccConverterInterfaceIIDM Ifce(lcc);
+
+  ASSERT_TRUE(Ifce.hasInitialConditions());
+}  // TEST(DataInterfaceTest, LccConverter_2)
 }  // namespace DYN

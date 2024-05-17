@@ -48,7 +48,7 @@ class SubModelFactory : private boost::noncopyable {
   /**
    * @brief Destructor
    */
-  virtual ~SubModelFactory();
+  virtual ~SubModelFactory() = default;
 
   /**
    * @brief create a new instance of a submodel
@@ -90,7 +90,7 @@ class SubModelFactories : private boost::noncopyable {
   /**
    * @brief Constructor
    */
-  SubModelFactories();
+  SubModelFactories() = default;
 
   /**
    * @brief destructor

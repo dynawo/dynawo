@@ -37,9 +37,6 @@ FictBusInterfaceIIDM::FictBusInterfaceIIDM(const string& Id, double VNom, const 
   stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
 }
 
-FictBusInterfaceIIDM::~FictBusInterfaceIIDM() {
-}
-
 double
 FictBusInterfaceIIDM::getV0() const {
   return U0_;

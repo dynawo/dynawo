@@ -26,18 +26,12 @@
 
 #include "gtest_dynawo.h"
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::DanglingLine;
-using powsybl::iidm::Network;
-using powsybl::iidm::Substation;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::VoltageLevel;
-
-TEST(DataInterfaceTest, DanglingLine) {
+static Network
+createDanglingLineNetwork() {
   Network network("test", "test");
-
   Substation& substation = network.newSubstation()
                                .setId("S1")
                                .setName("S1_NAME")
@@ -54,7 +48,21 @@ TEST(DataInterfaceTest, DanglingLine) {
                           .setHighVoltageLimit(420.0)
                           .add();
 
-  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+  vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+
+  return network;
+}
+}  // namespace iidm
+}  // namespace powsybl
+
+namespace DYN {
+
+using powsybl::iidm::createDanglingLineNetwork;
+
+TEST(DataInterfaceTest, DanglingLine_1) {
+  powsybl::iidm::Network network = createDanglingLineNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
 
   vl1.newDanglingLine()
        .setId("DANGLING_LINE1")
@@ -70,7 +78,7 @@ TEST(DataInterfaceTest, DanglingLine) {
        .setUcteXnodeCode("ucteXnodeCodeTest")
        .add();
 
-  DanglingLine& danglingLine = network.getDanglingLine("DANGLING_LINE1");
+  powsybl::iidm::DanglingLine& danglingLine = network.getDanglingLine("DANGLING_LINE1");
   DanglingLineInterfaceIIDM danglingLineIfce(danglingLine);
   const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
   danglingLineIfce.setVoltageLevelInterface(vlItf);
@@ -94,6 +102,8 @@ TEST(DataInterfaceTest, DanglingLine) {
   const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
   danglingLineIfce.setBusInterface(busIfce);
   ASSERT_EQ(danglingLineIfce.getBusInterface().get()->getID(), "VL1_BUS1");
+
+  ASSERT_FALSE(danglingLineIfce.hasInitialConditions());
 
   ASSERT_DOUBLE_EQ(danglingLineIfce.getP0(), 3.0);
   ASSERT_DOUBLE_EQ(danglingLineIfce.getP(), 0.0);
@@ -131,10 +141,39 @@ TEST(DataInterfaceTest, DanglingLine) {
        .setX(0.0)
        .setUcteXnodeCode("ucteXnodeCodeTest")
        .add();
-  DanglingLine& danglingLine2 = network.getDanglingLine("DANGLING_LINE2");
+  powsybl::iidm::DanglingLine& danglingLine2 = network.getDanglingLine("DANGLING_LINE2");
+  danglingLine2.getTerminal().setP(10.0);
+  danglingLine2.getTerminal().setQ(40);
   DanglingLineInterfaceIIDM danglingLineIfce2(danglingLine2);
   danglingLineIfce2.setVoltageLevelInterface(vlItf);
   ASSERT_DOUBLE_EQ(danglingLineIfce2.getX(), 0.01);
-}  // TEST(DataInterfaceTest, DanglingLine)
+}  // TEST(DataInterfaceTest, DanglingLine_1)
 
+TEST(DataInterfaceTest, DanglingLine_2) {
+  powsybl::iidm::Network network = createDanglingLineNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+
+  vl1.newDanglingLine()
+       .setId("DANGLING_LINE1")
+       .setBus("VL1_BUS1")
+       .setConnectableBus("VL1_BUS1")
+       .setName("DANGLING_LINE1_NAME")
+       .setB(1.0)
+       .setG(2.0)
+       .setP0(3.0)
+       .setQ0(4.0)
+       .setR(5.0)
+       .setX(6.0)
+       .setUcteXnodeCode("ucteXnodeCodeTest")
+       .add();
+
+  powsybl::iidm::DanglingLine& danglingLine = network.getDanglingLine("DANGLING_LINE1");
+
+  danglingLine.getTerminal().setP(0.0);
+  danglingLine.getTerminal().setQ(0);
+
+  DanglingLineInterfaceIIDM danglingLineIfce(danglingLine);
+
+  ASSERT_TRUE(danglingLineIfce.hasInitialConditions());
+}  // TEST(DataInterfaceTest, DanglingLine_2)
 }  // namespace DYN

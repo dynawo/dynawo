@@ -67,7 +67,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3"), Dynawo(version = "1.0.1")),
+    uses(Modelica(version = "3.2.3")),
     experiment(StartTime = 0, StopTime = 3, Tolerance = 1e-06, Interval = 0.006),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",

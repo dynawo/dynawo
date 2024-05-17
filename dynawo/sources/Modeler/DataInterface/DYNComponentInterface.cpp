@@ -29,15 +29,13 @@ using std::map;
 
 namespace DYN {
 
-ComponentInterface::ComponentInterface() :
+ComponentInterface::ComponentInterface(bool hasInitialConditions) :
 type_(UNKNOWN),
-hasDynamicModel_(false) {
+hasDynamicModel_(false),
+hasInitialConditions_(hasInitialConditions) {
 #ifdef _DEBUG_
   checkStateVariableAreUpdatedBeforeCriteriaCheck_ = false;
 #endif
-}
-
-ComponentInterface::~ComponentInterface() {
 }
 
 void
@@ -48,6 +46,16 @@ ComponentInterface::hasDynamicModel(bool hasDynamicModel) {
 bool
 ComponentInterface::hasDynamicModel() const {
   return hasDynamicModel_;
+}
+
+void
+ComponentInterface::hasInitialConditions(bool hasInitialConditions) {
+  hasInitialConditions_ = hasInitialConditions;
+}
+
+bool
+ComponentInterface::hasInitialConditions() const {
+  return hasInitialConditions_;
 }
 
 void

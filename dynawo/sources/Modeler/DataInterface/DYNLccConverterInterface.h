@@ -37,9 +37,15 @@ namespace DYN {
 class LccConverterInterface : public ConverterInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit LccConverterInterface(bool hasInitialConditions = true) : ConverterInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
-  virtual ~LccConverterInterface() { }
+  virtual ~LccConverterInterface() = default;
 
   /**
    * @brief Getter for the power factor of the lcc converter

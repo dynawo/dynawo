@@ -42,7 +42,7 @@ class Importer {
   /**
    * @brief Destructor
    */
-  virtual ~Importer() {}
+  virtual ~Importer() = default;
 
   /**
    * @brief Import parameters' set collection from file

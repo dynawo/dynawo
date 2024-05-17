@@ -592,7 +592,6 @@ equation
     Diagram(coordinateSystem(extent = {{-100, -150}, {100, 150}}, grid = {1, 1}, preserveAspectRatio = false, initialScale = 0.1)),
     Icon(coordinateSystem(extent = {{-100, -150}, {100, 150}}, grid = {1, 1}, preserveAspectRatio = false)),
     version = "",
-    uses(Dynawo(version = "1.0.1")),
     __OpenModelica_commandLineOptions = "",
     Documentation(info = "<html><head></head><body>This model represents the static network of the Nordic 32 test system. It consists of 74 buses, 52 lines and 11 shunts. Data for the lines have been taken from the&nbsp;<span style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>.<div><br><div>The model forms the basis for the Nordic 32 test system. It can be extended to add specific transformers, loads or generators.</div></div></body></html>"));
 end Network;

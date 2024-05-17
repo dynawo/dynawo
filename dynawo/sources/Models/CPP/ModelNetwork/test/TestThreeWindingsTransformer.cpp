@@ -198,7 +198,7 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   std::vector<ParameterModeler> parameters;
   tw3->defineNonGenericParameters(parameters);
   ASSERT_TRUE(parameters.empty());
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
   ASSERT_NO_THROW(tw3->setSubModelParameters(parametersModels));
 
   shared_ptr<ModelThreeWindingsTransformer> tw3Init = createModelThreeWindingsTransformer(false, true).first;

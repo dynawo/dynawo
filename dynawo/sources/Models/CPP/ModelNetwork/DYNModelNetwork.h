@@ -51,11 +51,6 @@ class ModelNetworkFactory : public SubModelFactory {
   ModelNetworkFactory() { }
 
   /**
-   * @brief default destructor
-   */
-  ~ModelNetworkFactory() { }
-
-  /**
    * @brief ModelNetwork getter
    * @return A pointer to a new instance of Model Network
    */

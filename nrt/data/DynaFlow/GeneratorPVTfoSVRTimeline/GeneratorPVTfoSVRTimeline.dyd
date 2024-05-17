@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="SignalN" lib="Step" parFile="GeneratorPVTfoSVRTimeline.par" parId="SignalN"/>
+  <!-- System 1 with transformers and a secondary voltage control -->
+  <dyn:blackBoxModel id="Generator1" lib="GeneratorPVTfoRpclSignalN" parFile="GeneratorPVTfoSVRTimeline.par" parId="Generator1"/>
+  <dyn:blackBoxModel id="Generator2" lib="GeneratorPVTfoDiagramPQRpclSignalN" parFile="GeneratorPVTfoSVRTimeline.par" parId="Generator2"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="GeneratorPVTfoSVRTimeline.par" parId="Line"/>
+  <dyn:blackBoxModel id="Line1Bis" lib="Line" parFile="GeneratorPVTfoSVRTimeline.par" parId="Line"/>
+  <dyn:blackBoxModel id="InfiniteBus1" lib="InfiniteBus" parFile="GeneratorPVTfoSVRTimeline.par" parId="InfiniteBus1"/>
+  <dyn:blackBoxModel id="SVC" lib="SecondaryVoltageControlSimp" parFile="GeneratorPVTfoSVRTimeline.par" parId="SVC"/>
+  <dyn:connect id1="Generator1" var1="generator_terminal" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="Generator2" var1="generator_terminal" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="InfiniteBus1" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal2"/>
+  <dyn:connect id1="Generator1" var1="generator_terminal" id2="Line1Bis" var2="line_terminal1"/>
+  <dyn:connect id1="Generator2" var1="generator_terminal" id2="Line1Bis" var2="line_terminal1"/>
+  <dyn:connect id1="InfiniteBus1" var1="infiniteBus_terminal" id2="Line1Bis" var2="line_terminal2"/>
+  <dyn:connect id1="Generator1" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator2" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator1" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
+  <dyn:connect id1="Generator2" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_UpPu" id2="Generator1" var2="generator_UPu"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_1_" id2="Generator1" var2="generator_limUQUp"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_1_" id2="Generator1" var2="generator_limUQDown"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_2_" id2="Generator2" var2="generator_limUQUp"/>
+  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_2_" id2="Generator2" var2="generator_limUQDown"/>
+</dyn:dynamicModelsArchitecture>

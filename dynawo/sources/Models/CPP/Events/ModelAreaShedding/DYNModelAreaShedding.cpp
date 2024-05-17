@@ -86,6 +86,8 @@ namespace DYN {
 
 ModelAreaShedding::ModelAreaShedding() :
 ModelCPP("AreaShedding"),
+PShed_(0.),
+QShed_(0.),
 deltaTime_(0.),
 nbLoads_(0),
 started_(-1.),
@@ -191,7 +193,11 @@ ModelAreaShedding::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMat
 void
 ModelAreaShedding::evalZ(const double /*t*/) {
   if (gLocal_[0] == ROOT_UP && stateAreaShedding_ != STARTED) {  // load shedding starts
-    DYNAddTimelineEvent(this, name(), LoadSheddingStarted);
+    if (doubleIsZero(PShed_) && doubleIsZero(QShed_)) {
+      DYNAddTimelineEvent(this, name(), LoadSheddingStarted);
+    } else {
+      DYNAddTimelineEvent(this, name(), LoadSheddingStartedAndDisplay, PShed_, QShed_);
+    }
     zLocal_[0] = STARTED;
     stateAreaShedding_ = STARTED;
   }
@@ -277,12 +283,32 @@ ModelAreaShedding::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("deltaTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
   parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
+  parameters.push_back(ParameterModeler("PShed", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("QShed", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
 ModelAreaShedding::setSubModelParameters() {
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
+
+  const bool isInitParam = false;
+  bool shedPowersSet = true;
+  const ParameterModeler& PShedParameter = findParameter("PShed", isInitParam);
+  if (PShedParameter.hasValue()) {
+    PShed_ = PShedParameter.getDoubleValue();
+  } else {
+    shedPowersSet = false;
+  }
+  const ParameterModeler& QShedparameter = findParameter("QShed", isInitParam);
+  if (QShedparameter.hasValue()) {
+    QShed_ = QShedparameter.getDoubleValue();
+  } else {
+    shedPowersSet = false;
+  }
+  if (!shedPowersSet) {
+    Trace::warn() << DYNLog(LoadSheddingValueIncomplete, name()) << Trace::endline;
+  }
 
   deltaP_.clear();
   deltaQ_.clear();

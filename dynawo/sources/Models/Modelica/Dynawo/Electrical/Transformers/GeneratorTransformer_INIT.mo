@@ -31,6 +31,9 @@ equation
   // Transformer equations
   i10Pu = rTfoPu * (YPu * u20Pu - i20Pu);
   rTfoPu * rTfoPu * u10Pu = rTfoPu * u20Pu + ZPu * i10Pu;
+  // Equations could also be written with the following
+  // i10Pu = rTfoPu * rTfoPu * u10Pu / ZPu - rTfoPu * u20Pu / ZPu;
+  // i20Pu = - rTfoPu * u10Pu / ZPu + (1 / ZPu + YPu) * u20Pu;
 
   annotation(preferredView = "text");
 end GeneratorTransformer_INIT;

@@ -43,7 +43,7 @@ class ModelLoadRestorativeWithLimitsFactory : public SubModelFactory {
   * @brief default destructor
   *
   */
-  virtual ~ModelLoadRestorativeWithLimitsFactory() { }
+  virtual ~ModelLoadRestorativeWithLimitsFactory() = default;
   /**
   * @brief ModelLoadRestorativeWithLimits getter
   *
@@ -68,7 +68,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   /**
   * @brief destructor
   */
-  virtual ~ModelLoadRestorativeWithLimits() { }
+  virtual ~ModelLoadRestorativeWithLimits() = default;
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model

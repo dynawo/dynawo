@@ -26,9 +26,6 @@
 
 namespace DYN {
 
-Timers::Timers() {
-}
-
 Timers::~Timers() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   std::map<std::string, double>::const_iterator itT;

@@ -26,7 +26,7 @@
 
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 #include <map>
 #include <string>
 #include <vector>
@@ -312,7 +312,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    *
    * @returns Reference to the map of references
    */
-  boost::unordered_map<std::string, boost::shared_ptr<Reference> >& getReferences();
+  std::unordered_map<std::string, boost::shared_ptr<Reference> >& getReferences();
 
  public:
   /**
@@ -476,7 +476,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
     const boost::shared_ptr<Reference>* operator->() const;
 
    private:
-    boost::unordered_map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
+    std::unordered_map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -609,7 +609,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
   std::string id_;                                                              /**< Parameters' set id */
   std::string filepath_;                                                        /**< Parameters' set filepath */
   std::map<std::string, boost::shared_ptr<Parameter> > parameters_;             /**< Map of the parameters */
-  boost::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
+  std::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
   std::map<std::string, boost::shared_ptr<MacroParSet> > macroParSets_;         ///< Map of the macroParSet
 };
 

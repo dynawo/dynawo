@@ -1,0 +1,63 @@
+ ====== VARIABLES VALUES ======
+VL1_BUS1_ACPIN_V_re                               : y =   0.2721176039 yp =   0.0000000000
+VL1_BUS1_ACPIN_V_im                               : y =  -0.9448886259 yp =   0.0000000000
+VL2_BUS1_ACPIN_V_re                               : y =   0.3281352578 yp =   0.0000000000
+VL2_BUS1_ACPIN_V_im                               : y =  -0.9446305286 yp =   0.0000000000
+VL2_BUS1_ACPIN_i_re                               : y =   0.0155584426 yp =   0.0000000000
+VL2_BUS1_ACPIN_i_im                               : y =  -0.0907696827 yp =   0.0000000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+VL1_BUS1_Upu_value                                : y =   0.9832916687
+VL1_BUS1_phipu_value                              : y =  -1.2903948243
+VL1_BUS1_U_value                                  : y =   0.9832916687
+VL1_BUS1_phi_value                                : y = -73.9341773362
+Load_P_value                                      : y =   0.0900000000
+Load_Q_value                                      : y =   0.0100000000
+Load_Pc_value                                     : y =   0.0900000000
+Load_Qc_value                                     : y =   0.0100000000
+Load_loadState_value                              : y =   2.0000000000
+VL2_BUS1_Upu_value                                : y =   0.9999997915
+VL2_BUS1_phipu_value                              : y =  -1.2364674013
+VL2_BUS1_U_value                                  : y =   0.9999997915
+VL2_BUS1_phi_value                                : y = -70.8443636015
+Transformer_i1_value                              : y =   0.0920925644
+Transformer_i2_value                              : y =   0.0920934331
+Transformer_P1_value                              : y =  -0.0900000000
+Transformer_P2_value                              : y =   0.0908490869
+Transformer_Q1_value                              : y =  -0.0100000000
+Transformer_Q2_value                              : y =   0.0150877534
+Transformer_iS1ToS2Side1_value                    : y =-5316.9666860110
+Transformer_iS2ToS1Side1_value                    : y =5316.9666860110
+Transformer_iS1ToS2Side2_value                    : y =-5317.0168402902
+Transformer_iS2ToS1Side2_value                    : y =5317.0168402902
+Transformer_iSide1_value                          : y =5316.9666860110
+Transformer_iSide2_value                          : y =-5317.0168402902
+Transformer_twtState_value                        : y =   2.0000000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+VL1_BUS1_numcc_value                              : z =   0.0000000000
+VL1_BUS1_switchOff_value                          : z =  -1.0000000000
+VL1_BUS1_state_value                              : z =   2.0000000000
+Load_state_value                                  : z =   2.0000000000
+VL2_BUS1_numcc_value                              : z =   0.0000000000
+VL2_BUS1_switchOff_value                          : z =  -1.0000000000
+VL2_BUS1_state_value                              : z =   2.0000000000
+Transformer_state_value                           : z =   2.0000000000
+Transformer_step_value                            : z =   0.0000000000
+Transformer_desactivate_currentLimits_value       : z =   0.0000000000
+Transformer_disable_internal_tapChanger_value     : z =   0.0000000000
+Transformer_TAP_CHANGER_locked_value              : z =   0.0000000000
+Transformer_TAP_CHANGER_deltaUTarget_value        : z =   0.0000000000
+ ====== PARAMETERS VALUES ======
+capacitor_no_reclosing_delay                       = 300.0000000000
+dangling_line_currentLimit_maxTimeOperation        =  90.0000000000
+line_currentLimit_maxTimeOperation                 =  90.0000000000
+load_alpha                                         =   0.0000000000
+load_beta                                          =   0.0000000000
+load_isControllable                                =  -1.0000000000
+load_isRestorative                                 =  -1.0000000000
+reactance_no_reclosing_delay                       =   0.0000000000
+transformer_currentLimit_maxTimeOperation          =  90.0000000000
+transformer_t1st_HT                                =  60.0000000000
+transformer_t1st_THT                               =  30.0000000000
+transformer_tNext_HT                               =  10.0000000000
+transformer_tNext_THT                              =  10.0000000000
+transformer_tolV                                   =   0.0150000000

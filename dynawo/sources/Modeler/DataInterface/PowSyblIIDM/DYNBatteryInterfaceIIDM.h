@@ -49,11 +49,6 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
 
  public:
   /**
-   * @brief Destructor
-   */
-  ~BatteryInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param battery battery iidm instance
    */

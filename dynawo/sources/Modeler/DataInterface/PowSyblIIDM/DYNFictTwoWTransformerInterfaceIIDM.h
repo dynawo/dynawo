@@ -47,11 +47,6 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
 
  public:
   /**
-   * @brief Destructor
-   */
-  ~FictTwoWTransformerInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param Id Id two windings fictitous transformer's iidm instance
    * @param leg reference to original three winding transformer leg

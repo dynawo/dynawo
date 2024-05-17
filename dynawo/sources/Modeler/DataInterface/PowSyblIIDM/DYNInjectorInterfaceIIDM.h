@@ -50,7 +50,7 @@ class InjectorInterfaceIIDM {
   /**
    * @brief Destructor
    */
-  virtual ~InjectorInterfaceIIDM() {}
+  virtual ~InjectorInterfaceIIDM() = default;
 
   /**
    * @brief Constructor

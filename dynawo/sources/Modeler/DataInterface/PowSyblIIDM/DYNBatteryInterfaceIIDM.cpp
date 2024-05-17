@@ -31,9 +31,6 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-BatteryInterfaceIIDM::~BatteryInterfaceIIDM() {
-}
-
 BatteryInterfaceIIDM::BatteryInterfaceIIDM(powsybl::iidm::Battery& battery) :
 InjectorInterfaceIIDM(battery, battery.getId()),
 batteryIIDM_(battery) {

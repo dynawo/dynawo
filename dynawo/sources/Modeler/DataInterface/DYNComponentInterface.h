@@ -20,16 +20,18 @@
 #ifndef MODELER_DATAINTERFACE_DYNCOMPONENTINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNCOMPONENTINTERFACE_H_
 
+#include "DYNStaticParameter.h"
+
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
+
 
 namespace DYN {
 
 class SubModel;
 class StateVariable;
-class StaticParameter;
 
 /**
  * class ComponentInterface
@@ -66,17 +68,18 @@ class ComponentInterface {
  public:
   /**
    * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
    */
-  ComponentInterface();
+  explicit ComponentInterface(bool hasInitialConditions = true);
 
   /**
-   * @brief Constructor
+   * @brief Destructor
    */
-  virtual ~ComponentInterface();
+  virtual ~ComponentInterface() = default;
 
   /**
    * @brief Setter for the component's hasDynamicModel_ attribute
-   * @param hasDynamicModel @b true is component has a dynamic model (other than c++ one), @b false else
+   * @param hasDynamicModel @b true if component has a dynamic model (other than c++ one), @b false else
    */
   void hasDynamicModel(bool hasDynamicModel);
 
@@ -96,7 +99,7 @@ class ComponentInterface {
 
   /**
    * @brief Getter for the component's hasDynamicModel_ attribute
-   * @return  @b true is component has a dynamic model (other than c++ one), @b false else
+   * @return  @b true if component has a dynamic model (other than c++ one), @b false else
    */
   bool hasDynamicModel() const;
 
@@ -170,6 +173,12 @@ class ComponentInterface {
    */
   virtual int getComponentVarIndex(const std::string& varName) const = 0;
 
+  /**
+   * @brief Getter for the component's hasInitialConditions_ attribute
+   * @return  @b true if component has initial conditions set, @b false else
+   */
+  bool hasInitialConditions() const;
+
 #ifdef _DEBUG_
   /**
    * @brief enable check criteria sanity check
@@ -210,14 +219,21 @@ class ComponentInterface {
    */
   template<typename T> T getValue(const int index) const;
 
+  /**
+   * @brief Setter for the component's hasInitialConditions_ attribute
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  void hasInitialConditions(bool hasInitialConditions);
+
  protected:
   std::vector<StateVariable> stateVariables_;  ///< state variable
-  boost::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
+  std::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
   ComponentType_t type_;  ///< type of the interface
 
  private:
-  bool hasDynamicModel_;  ///< @b true is component has a dynamic model (other than c++ one), @b false else
+  bool hasDynamicModel_;  ///< @b true if component has a dynamic model (other than c++ one), @b false else
   boost::shared_ptr<SubModel> modelDyn_;  ///< dynamic model of the component
+  bool hasInitialConditions_;  ///< @b true if component has initial conditions set, @b false else
 #ifdef _DEBUG_
   bool checkStateVariableAreUpdatedBeforeCriteriaCheck_;  ///< true if we want to check that all state variable used in check criteria are properly updated
 #endif

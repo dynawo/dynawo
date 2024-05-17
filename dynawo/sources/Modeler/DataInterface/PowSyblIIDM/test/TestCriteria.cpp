@@ -18,6 +18,8 @@
  */
 
 #include "gtest_dynawo.h"
+#include "DYNIoDico.h"
+#include "DYNExecUtils.h"
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSubModel.h"
@@ -986,8 +988,8 @@ TEST(DataInterfaceIIDMTest, Timeline) {
 
   for (criteria::CriteriaParams::CriteriaScope_t criteriaScope : criteriaScopeArray) {
     boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
-    criteriaParams->setPMax(200);
-    criteriaParams->setPMin(150);
+    criteriaParams->setPMax(825);
+    criteriaParams->setPMin(120);
     criteriaParams->setType(CriteriaParams::SUM);
     criteriaParams->setScope(criteriaScope);
     criteria::CriteriaParamsVoltageLevel voltageLevel;
@@ -995,88 +997,108 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     voltageLevel.setUMaxPu(1.01);
     criteriaParams->addVoltageLevel(voltageLevel);
 
-    constexpr int numberOfNodes = 10;
-    LoadCriteria loadCriteria(criteriaParams);
-    std::vector<boost::shared_ptr<DataInterface> > loadDataInterfaceArray;
-    const std::array<std::pair<int, int>, numberOfNodes> loadPowers = {{{190, 250},
-                                                                        {190, 240},
-                                                                        {190, 230},
-                                                                        {190, 220},
-                                                                        {190, 210},
-                                                                        {190, 145},
-                                                                        {190, 135},
-                                                                        {190, 125},
-                                                                        {190, 115},
-                                                                        {190, 105}}};
-    for (int loadPowerIndex = 0; loadPowerIndex < numberOfNodes; ++loadPowerIndex) {
-      boost::shared_ptr<powsybl::iidm::Network> loadNetwork = createBusBreakerNetworkWithLoads(loadPowers[loadPowerIndex].first,
-                                                                                                loadPowers[loadPowerIndex].first,
-                                                                                                loadPowers[loadPowerIndex].second,
-                                                                                                loadPowers[loadPowerIndex].second);
-      boost::shared_ptr<DataInterface> loadData = createDataItfFromNetworkCriteria(loadNetwork);
-      exportStates(loadData);
-      loadDataInterfaceArray.push_back(loadData);
-    }
-    for (int loadDataIndex = 0; loadDataIndex < numberOfNodes; ++loadDataIndex) {
-      std::vector<boost::shared_ptr<LoadInterface> > loads = loadDataInterfaceArray[loadDataIndex]->getNetwork()->getVoltageLevels()[0]->getLoads();
-      for (size_t loadsIdx = 0; loadsIdx < loads.size(); ++loadsIdx) {
-        loadCriteria.addLoad(loads[loadsIdx]);
+    enum class TestCriteriaBound {
+      MAX = 0,
+      MIN
+    };
+
+    std::map<TestCriteriaBound, std::vector<double> > loadPowersLists;
+    const std::vector<double> maxLoadPowers = {211, 145, 0, 105, 250, 1e-6, 115};
+    const std::vector<double> minLoadPowers = {50, 29, 0, 1e-5, 40};
+    loadPowersLists.insert({TestCriteriaBound::MAX, maxLoadPowers});
+    loadPowersLists.insert({TestCriteriaBound::MIN, minLoadPowers});
+
+    for (const std::pair<TestCriteriaBound, std::vector<double> >& loadPowers : loadPowersLists) {
+      boost::shared_ptr<powsybl::iidm::Network> loadNetwork = createNetworkWithCustomisableNumberOfLoadsAndGenerators(400, 400, loadPowers.second);
+      boost::shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(loadNetwork);
+      exportStates(data);
+
+      LoadCriteria loadCriteria(criteriaParams);
+      std::vector<boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+      for (const boost::shared_ptr<LoadInterface>& load : loads) {
+        loadCriteria.addLoad(load);
+      }
+
+      boost::shared_ptr<timeline::Timeline> loadTimeline = timeline::TimelineFactory::newInstance("TestLoadCriteria");
+      switch (criteriaScope) {
+        case CriteriaParams::DYNAMIC:
+          loadCriteria.checkCriteria(0, false, loadTimeline);
+          break;
+        case CriteriaParams::FINAL:
+          loadCriteria.checkCriteria(0, true, loadTimeline);
+          break;
+        case CriteriaParams::UNDEFINED_SCOPE:
+          GTEST_FAIL();
+      }
+
+      switch (loadPowers.first) {
+        case TestCriteriaBound::MAX: {
+          ASSERT_EQ(loadTimeline->getSizeEvents(), 7);
+          timeline::Timeline::event_const_iterator maxItLoadEvent = loadTimeline->cbeginEvent();
+          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad5  250 400");
+          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad1  211 400");
+          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad2  145 400");
+          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad7  115 400");
+          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad4  105 400");
+          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad6  1e-06 400");
+          ASSERT_EQ((*maxItLoadEvent)->getMessage(), "SourcePowerAboveMax 826 825 ");
+          break;
+        }
+        case TestCriteriaBound::MIN: {
+          ASSERT_EQ(loadTimeline->getSizeEvents(), 5);
+          timeline::Timeline::event_const_iterator minItLoadEvent = loadTimeline->cbeginEvent();
+          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad4  1e-05 400");
+          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad2  29 400");
+          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad5  40 400");
+          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad1  50 400");
+          ASSERT_EQ((*minItLoadEvent)->getMessage(), "SourcePowerBelowMin 119 120 ");
+          break;
+        }
+      }
+
+      GeneratorCriteria generatorCriteria(criteriaParams);
+      std::vector<boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+      for (const boost::shared_ptr<GeneratorInterface>& generator : generators) {
+        generatorCriteria.addGenerator(generator);
+      }
+
+      boost::shared_ptr<timeline::Timeline> generatorTimeline = timeline::TimelineFactory::newInstance("TestGeneratorCriteria");
+      switch (criteriaScope) {
+        case CriteriaParams::DYNAMIC:
+          generatorCriteria.checkCriteria(0, false, generatorTimeline);
+          break;
+        case CriteriaParams::FINAL:
+          generatorCriteria.checkCriteria(0, true, generatorTimeline);
+          break;
+        case CriteriaParams::UNDEFINED_SCOPE:
+          GTEST_FAIL();
+      }
+
+      switch (loadPowers.first) {
+        case TestCriteriaBound::MAX: {
+          ASSERT_EQ(generatorTimeline->getSizeEvents(), 7);
+          timeline::Timeline::event_const_iterator maxItGeneratorEvent = generatorTimeline->cbeginEvent();
+          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen5  250 400");
+          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen1  211 400");
+          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen2  145 400");
+          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen7  115 400");
+          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen4  105 400");
+          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen6  1e-06 400");
+          ASSERT_EQ((*maxItGeneratorEvent)->getMessage(), "SourcePowerAboveMax 826 825 ");
+          break;
+        }
+        case TestCriteriaBound::MIN: {
+          ASSERT_EQ(generatorTimeline->getSizeEvents(), 5);
+          timeline::Timeline::event_const_iterator minItGeneratorEvent = generatorTimeline->cbeginEvent();
+          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen4  1e-05 400");
+          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen2  29 400");
+          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen5  40 400");
+          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen1  50 400");
+          ASSERT_EQ((*minItGeneratorEvent)->getMessage(), "SourcePowerBelowMin 119 120 ");
+          break;
+        }
       }
     }
-
-    boost::shared_ptr<timeline::Timeline> loadTimeline = timeline::TimelineFactory::newInstance("TestLoadCriteria");
-    switch (criteriaScope) {
-      case CriteriaParams::DYNAMIC:
-        loadCriteria.checkCriteria(0, false, loadTimeline);
-        break;
-      case CriteriaParams::FINAL:
-        loadCriteria.checkCriteria(0, true, loadTimeline);
-        break;
-      case CriteriaParams::UNDEFINED_SCOPE:
-        GTEST_FAIL();
-    }
-    ASSERT_EQ(loadTimeline->getSizeEvents(), 1);  // timeline contains only one event
-    GeneratorCriteria generatorCriteria(criteriaParams);
-    std::vector<boost::shared_ptr<DataInterface> > generatorDataInterfaceArray;
-    const std::array<std::pair<int, int>, numberOfNodes> generatorPowers = {{{190, 250},
-                                                                              {190, 240},
-                                                                              {190, 230},
-                                                                              {190, 220},
-                                                                              {190, 210},
-                                                                              {190, 145},
-                                                                              {190, 135},
-                                                                              {190, 125},
-                                                                              {190, 115},
-                                                                              {190, 105}}};
-    for (int generatorPowerIndex = 0; generatorPowerIndex < numberOfNodes; ++generatorPowerIndex) {
-      boost::shared_ptr<powsybl::iidm::Network> generatorNetwork = createBusBreakerNetworkWithGenerators(generatorPowers[generatorPowerIndex].first,
-                                                                                                          generatorPowers[generatorPowerIndex].first,
-                                                                                                          generatorPowers[generatorPowerIndex].second,
-                                                                                                          generatorPowers[generatorPowerIndex].second);
-      boost::shared_ptr<DataInterface> generatorData = createDataItfFromNetworkCriteria(generatorNetwork);
-      exportStates(generatorData);
-      generatorDataInterfaceArray.push_back(generatorData);
-    }
-    for (int generatorDataIndex = 0; generatorDataIndex < numberOfNodes; ++generatorDataIndex) {
-      std::vector< boost::shared_ptr<GeneratorInterface> > generators =
-                                                    generatorDataInterfaceArray[generatorDataIndex]->getNetwork()->getVoltageLevels()[0]->getGenerators();
-      for (size_t generatorsIdx = 0; generatorsIdx < generators.size(); ++generatorsIdx) {
-        generatorCriteria.addGenerator(generators[generatorsIdx]);
-      }
-    }
-
-    boost::shared_ptr<timeline::Timeline> generatorTimeline = timeline::TimelineFactory::newInstance("TestGeneratorCriteria");
-    switch (criteriaScope) {
-      case CriteriaParams::DYNAMIC:
-        generatorCriteria.checkCriteria(0, false, generatorTimeline);
-        break;
-      case CriteriaParams::FINAL:
-        generatorCriteria.checkCriteria(0, true, generatorTimeline);
-        break;
-      case CriteriaParams::UNDEFINED_SCOPE:
-        GTEST_FAIL();
-    }
-    ASSERT_EQ(generatorTimeline->getSizeEvents(), 1);  // timeline contains only one event
   }
 }
 

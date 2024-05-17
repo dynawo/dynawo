@@ -55,7 +55,7 @@ class ModelicaModel:
         self.final_state_values = FinalStateValues(final_state_values_collection, self.get_id())
         self.__unit_dynamic_models = list()
 
-        unit_dynamic_model_xml_elements = self.__xml_element.findall(xmlns("unitDynamicModel"))
+        unit_dynamic_model_xml_elements = self.__xml_element.findall(xmlns(XML_UNITDYNAMICMODEL))
         for unit_dynamic_model_xml_element in unit_dynamic_model_xml_elements:
             unit_dynamic_model_parset = None
             if 'parFile' in unit_dynamic_model_xml_element.attrib and 'parId' in unit_dynamic_model_xml_element.attrib:

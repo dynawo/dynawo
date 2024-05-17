@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="69.999986" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
+  <event time="69.999986" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
+  <event time="69.999986" modelName="SVC" message="Entering in frozen mode"/>
+  <event time="70.000056" modelName="SVC" message="Secondary Voltage Regulation : new level 0.23"/>
+  <event time="78.111399" modelName="Generator1" message="Generator : back to voltage / reactive power regulation"/>
+  <event time="78.111399" modelName="SVC" message="Leaving frozen mode"/>
+  <event time="100.000110" modelName="SVC" message="Secondary Voltage Regulation : new level 0.24"/>
+  <event time="130.000182" modelName="SVC" message="Secondary Voltage Regulation : new level 0.25"/>
+  <event time="170.000306" modelName="SVC" message="Secondary Voltage Regulation : new level 0.26"/>
+  <event time="210.000462" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
+  <event time="245.901793" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
+  <event time="245.901793" modelName="SVC" message="Entering in frozen mode"/>
+</timeline>

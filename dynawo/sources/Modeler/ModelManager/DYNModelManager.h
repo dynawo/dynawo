@@ -336,6 +336,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   double computeDelay(int exprNumber, double exprValue, double time, double delayTime, double delayMax);
 
+#ifdef _ADEPT_
+  adept::adouble computeDelayDerivative(int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax);
+#endif
+
   /**
    * @brief Add new delay struture
    *
@@ -505,7 +509,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param parameters the parameters from which to extract the values
    * @param parametersSet the parameters' set to fill
    */
-  void createParametersValueSet(const boost::unordered_map<std::string, ParameterModeler>& parameters,
+  void createParametersValueSet(const std::unordered_map<std::string, ParameterModeler>& parameters,
       boost::shared_ptr<parameters::ParametersSet>& parametersSet);
 
  protected:
@@ -612,7 +616,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @brief Used to iterate over parameters
    */
-  typedef boost::unordered_map<std::string, ParameterModeler>::const_iterator ParamIterator;
+  typedef std::unordered_map<std::string, ParameterModeler>::const_iterator ParamIterator;
   bool modelInitUsed_;  ///< whether init model is used
 };
 

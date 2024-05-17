@@ -36,11 +36,6 @@ namespace DYN {
 class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
  public:
   /**
-   * @brief Destructor
-   */
-  ~PhaseTapChangerInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param tapChanger phaseTapChanger's iidm instance
    */

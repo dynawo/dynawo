@@ -60,7 +60,7 @@ class ParameterCommon {
   /**
    * @brief Destructor
    */
-  virtual ~ParameterCommon();
+  virtual ~ParameterCommon() = default;
 
   /**
    * @brief Getter for parameter's name

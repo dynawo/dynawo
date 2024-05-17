@@ -146,7 +146,7 @@ ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& /*para
 }
 
 void
-ModelGenerator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+ModelGenerator::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
   std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {

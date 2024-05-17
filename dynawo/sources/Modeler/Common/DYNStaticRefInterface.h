@@ -36,7 +36,7 @@ class StaticRefInterface {
   /**
    * @brief default destructor.
    */
-  virtual ~StaticRefInterface() { }
+  virtual ~StaticRefInterface() = default;
 
   /**
    * @brief set model id

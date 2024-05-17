@@ -37,11 +37,6 @@ class ModelAreaSheddingFactory : public SubModelFactory {
    *
    */
   ModelAreaSheddingFactory() { }
-  /**
-   * @brief default destructor
-   *
-   */
-  ~ModelAreaSheddingFactory() { }
 
   /**
    * @brief Model AreaShedding getter
@@ -73,12 +68,6 @@ class ModelAreaShedding : public ModelCPP {
    * @brief Default constructor
    */
   ModelAreaShedding();
-  /**
-   * @brief Default destructor
-   *
-   * Creates a new ModelAreaShedding instance.
-   */
-  ~ModelAreaShedding() { }
 
   // instantiate virtual methods of the Model class
 
@@ -270,6 +259,8 @@ class ModelAreaShedding : public ModelCPP {
   // parameters
   std::vector<double> deltaP_;  ///< deltas in % to apply to PRefs
   std::vector<double> deltaQ_;  ///< deltas in % to apply to QRefs
+  double PShed_;  ///< total amount of active power shedding (in MW)
+  double QShed_;  ///< total amount of reactive power shedding (in MVAr)
   double deltaTime_;  ///< time at which occurs the delta
   int nbLoads_;  ///< number of loads
   double started_;  ///< time when the mode change indicating the start of the shedding has been done

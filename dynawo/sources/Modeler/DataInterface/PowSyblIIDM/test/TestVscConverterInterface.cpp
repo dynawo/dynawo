@@ -88,12 +88,12 @@ namespace DYN {
 
 using powsybl::iidm::createHvdcConverterStationNetwork;
 
-TEST(DataInterfaceTest, VscConverter) {
+TEST(DataInterfaceTest, VscConverter_1) {
   powsybl::iidm::Network network = createHvdcConverterStationNetwork();
   powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
   powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC1");
 
-  DYN::VscConverterInterfaceIIDM Ifce(vsc);
+  VscConverterInterfaceIIDM Ifce(vsc);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   Ifce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(Ifce.getID(), "VSC1");
@@ -128,11 +128,13 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_TRUE(Ifce.hasQ());
   ASSERT_DOUBLE_EQ(Ifce.getQ(), 499.0);
 
+  ASSERT_FALSE(Ifce.hasInitialConditions());
+
   ASSERT_TRUE(Ifce.getVoltageRegulatorOn());
   ASSERT_DOUBLE_EQ(Ifce.getVoltageSetpoint(), 4.0);
   ASSERT_DOUBLE_EQ(Ifce.getReactivePowerSetpoint(), 5.0);
   powsybl::iidm::VscConverterStation& vsc2 = network.getVscConverterStation("VSC2");
-  DYN::VscConverterInterfaceIIDM Ifce2(vsc2);
+  VscConverterInterfaceIIDM Ifce2(vsc2);
   ASSERT_FALSE(Ifce2.getVoltageRegulatorOn());
   ASSERT_DOUBLE_EQ(Ifce2.getVoltageSetpoint(), -4.0);
   ASSERT_DOUBLE_EQ(Ifce2.getReactivePowerSetpoint(), -5.0);
@@ -181,5 +183,17 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_EQ(points.at(2).p, 2000);
   ASSERT_EQ(points.at(2).qmax, 10);
   ASSERT_EQ(points.at(2).qmin, 10);
-}  // TEST(DataInterfaceTest, VscConverter)
+}  // TEST(DataInterfaceTest, VscConverter_1)
+
+TEST(DataInterfaceTest, VscConverter_2) {
+  powsybl::iidm::Network network = createHvdcConverterStationNetwork();
+  powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC1");
+
+  vsc.getTerminal().setP(0.0);
+  vsc.getTerminal().setQ(0.0);
+
+  VscConverterInterfaceIIDM Ifce(vsc);
+
+  ASSERT_TRUE(Ifce.hasInitialConditions());
+}  // TEST(DataInterfaceTest, VscConverter_2)
 }  // namespace DYN

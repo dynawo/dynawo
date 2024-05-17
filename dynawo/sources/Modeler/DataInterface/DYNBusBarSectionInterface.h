@@ -39,7 +39,7 @@ class BusBarSectionInterface {
   /**
    * @brief destructor
    */
-  virtual ~BusBarSectionInterface() { }
+  virtual ~BusBarSectionInterface() = default;
 
   /**
    * @brief getter for the id of the bus bar section

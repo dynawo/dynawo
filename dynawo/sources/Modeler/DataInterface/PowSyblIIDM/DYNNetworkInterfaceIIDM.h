@@ -35,11 +35,6 @@ namespace DYN {
 class NetworkInterfaceIIDM : public NetworkInterface {
  public:
   /**
-   * @brief Destructor
-   */
-  ~NetworkInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param network the network's iidm instance
    */

@@ -46,9 +46,6 @@ FictVoltageLevelInterfaceIIDM::FictVoltageLevelInterfaceIIDM(const std::string& 
                                                             Id_(Id), VNom_(VNom), country_(country) {
 }
 
-FictVoltageLevelInterfaceIIDM::~FictVoltageLevelInterfaceIIDM() {
-}
-
 std::string
 FictVoltageLevelInterfaceIIDM::getID() const {
     return Id_;

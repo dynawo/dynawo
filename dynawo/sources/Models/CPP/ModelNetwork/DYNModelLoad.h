@@ -40,11 +40,6 @@ class ModelLoad : public NetworkComponent {
   explicit ModelLoad(const boost::shared_ptr<LoadInterface>& load);
 
   /**
-   * @brief destructor
-   */
-  ~ModelLoad() { }
-
-  /**
    * @brief  calculated variables type
    */
   typedef enum {
@@ -216,9 +211,9 @@ class ModelLoad : public NetworkComponent {
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
@@ -507,6 +502,8 @@ class ModelLoad : public NetworkComponent {
   double alpha_;  ///< active power exponential sensitivity to voltage
   double beta_;  ///< reactive power exponential sensitivity to voltage
   bool isRestorative_;  ///< whether the consumed energy remains constant
+  bool isPControllable_;  ///< whether the load can be controlled on P
+  bool isQControllable_;  ///< whether the load can be controlled on Q
   bool isControllable_;  ///< whether the load can be controlled
   double Tp_;  ///< time constant Tp
   bool TpIsZero_;  ///< true if Tp == 0

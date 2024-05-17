@@ -36,7 +36,7 @@ class Variable {
   /**
    * @brief Destructor
    */
-  virtual ~Variable();
+  virtual ~Variable() = default;
 
   /**
    * @brief Getter for variable's name

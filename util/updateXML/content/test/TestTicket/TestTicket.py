@@ -35,5 +35,6 @@ class TestTicket(unittest.TestCase):
                         "--origin", "1.3.0",
                         "--version", "1.4.0",
                         "--tickets", "11,33,66",
-                        "-o", test_dir_path], stdout=subprocess.DEVNULL, env=project_env)
+                        "-o", test_dir_path,
+                        "--add-dynawo-version"], stdout=subprocess.DEVNULL, env=project_env)
         self.assertTrue(filecmp.cmp(output_dyd_file_path, ref_dyd_file_path))

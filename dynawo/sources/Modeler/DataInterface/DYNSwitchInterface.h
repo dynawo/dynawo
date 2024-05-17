@@ -39,7 +39,7 @@ class SwitchInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~SwitchInterface() { }
+  virtual ~SwitchInterface() = default;
 
   /**
    * @brief Getter for the switch's state
@@ -97,6 +97,22 @@ class SwitchInterface : public ComponentInterface {
    * @return true if this switch is retained
    */
   virtual bool isRetained() const = 0;
+};
+
+/**
+ * @brief Hash structure for SwitchInterface
+ */
+struct SwitchInterfaceHash {
+  /**
+   * @brief Operator to retrieve SwitchInterface hash value
+   *
+   * @param switchInterface the SwitchInterface to hash
+   * @returns the hash value
+   */
+  size_t operator()(const boost::shared_ptr<SwitchInterface>& switchInterface) const {
+    const std::string id = switchInterface->getID();
+    return std::hash<std::string>()(id);
+  }
 };
 
 #ifdef __clang__

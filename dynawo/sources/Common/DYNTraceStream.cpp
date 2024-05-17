@@ -56,9 +56,6 @@ TraceStream::operator=(const TraceStream& ts) {
   return *this;
 }
 
-TraceStream::~TraceStream() {
-}
-
 TraceStream&
 TraceStream::operator<<(const char* t) {
   if (buffer_) {

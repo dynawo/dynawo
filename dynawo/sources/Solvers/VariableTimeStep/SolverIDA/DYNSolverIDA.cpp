@@ -97,12 +97,6 @@ extern "C" void DYN::SolverIDAFactory::destroy(DYN::Solver* solver) const {
 
 namespace DYN {
 
-SolverIDAFactory::SolverIDAFactory() {
-}
-
-SolverIDAFactory::~SolverIDAFactory() {
-}
-
 SolverIDA::SolverIDA() :
 IDAMem_(NULL),
 linearSolver_(NULL),

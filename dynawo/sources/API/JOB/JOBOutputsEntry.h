@@ -43,10 +43,10 @@ namespace job {
 class OutputsEntry {
  public:
   /// @brief Destructor
-  ~OutputsEntry();
+  ~OutputsEntry() = default;
 
   /// @brief Default constructor
-  OutputsEntry();
+  OutputsEntry() = default;
 
   /**
    * @brief Copy constructor

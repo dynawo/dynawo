@@ -26,8 +26,6 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-RatioTapChangerInterfaceIIDM::~RatioTapChangerInterfaceIIDM() {}
-
 RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& terminalRefSide) :
   tapChangerIIDM_(tapChanger),
   terminalRefSide_(terminalRefSide) {

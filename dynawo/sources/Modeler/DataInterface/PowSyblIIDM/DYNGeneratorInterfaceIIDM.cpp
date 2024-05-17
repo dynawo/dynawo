@@ -35,8 +35,12 @@ GeneratorInterfaceIIDM::~GeneratorInterfaceIIDM() {
 }
 
 GeneratorInterfaceIIDM::GeneratorInterfaceIIDM(powsybl::iidm::Generator& generator) :
+GeneratorInterface(false),
 InjectorInterfaceIIDM(generator, generator.getId()),
 generatorIIDM_(generator) {
+  if (hasQInjector() || hasPInjector()) {
+    hasInitialConditions(true);
+  }
   setType(ComponentInterface::GENERATOR);
   const bool neededForCriteriaCheck = true;
   stateVariables_.resize(3);

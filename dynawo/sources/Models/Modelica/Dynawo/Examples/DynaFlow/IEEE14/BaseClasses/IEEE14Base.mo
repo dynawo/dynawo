@@ -271,8 +271,5 @@ equation
     Line(points = {{-70, 200}, {-70, 120}, {-60, 120}}, color = {0, 0, 255}));
 
   annotation(preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 2000, Tolerance = 1e-06, Interval = 10),
-    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
-    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
     Diagram(coordinateSystem(extent = {{-180, 240}, {180, -220}})));
 end IEEE14Base;

@@ -146,10 +146,10 @@ int main(int argc, char ** argv) {
   model->defineVariables();
   model->defineNames();
   model->setSharedParametersDefaultValues();
-  const boost::unordered_map<std::string, DYN::ParameterModeler>& parametersInit = model->getParametersInit();
-  const boost::unordered_map<std::string, DYN::ParameterModeler>& parametersDynamic = model->getParametersDynamic();
+  const std::unordered_map<std::string, DYN::ParameterModeler>& parametersInit = model->getParametersInit();
+  const std::unordered_map<std::string, DYN::ParameterModeler>& parametersDynamic = model->getParametersDynamic();
   std::map<std::string, AttributeList> parametersAttributes;  // map between parameter name and attributes (alphabetically sort parameters)
-  boost::unordered_map<std::string, boost::shared_ptr<DYN::Variable> > mapVariable = model->getVariableByName();
+  std::unordered_map<std::string, boost::shared_ptr<DYN::Variable> > mapVariable = model->getVariableByName();
 
   std::fstream file;
   file.open(outputFileName.c_str(), std::fstream::out);
@@ -171,7 +171,7 @@ int main(int argc, char ** argv) {
   formatter->startElement("parameters", attrs);
 
   // add initial parameters
-  boost::unordered_map<std::string, DYN::ParameterModeler>::const_iterator parameterIterator;
+  std::unordered_map<std::string, DYN::ParameterModeler>::const_iterator parameterIterator;
   for (parameterIterator = parametersInit.begin(); parameterIterator != parametersInit.end(); ++parameterIterator) {
     const DYN::ParameterModeler& parameterInit = parameterIterator->second;
     // only keep parameters
@@ -215,7 +215,7 @@ int main(int argc, char ** argv) {
   attrs.clear();
   formatter->startElement("variables", attrs);
   std::set<std::string> sortedVar;
-  for (boost::unordered_map<std::string, boost::shared_ptr<DYN::Variable> >::const_iterator itVar = mapVariable.begin(); itVar != mapVariable.end(); ++itVar) {
+  for (std::unordered_map<std::string, boost::shared_ptr<DYN::Variable> >::const_iterator itVar = mapVariable.begin(); itVar != mapVariable.end(); ++itVar) {
     sortedVar.insert(itVar->first);
   }
   for (std::set<std::string>::const_iterator itVar = sortedVar.begin(); itVar != sortedVar.end(); ++itVar) {

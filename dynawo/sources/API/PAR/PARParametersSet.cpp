@@ -30,10 +30,10 @@ using std::set;
 using std::string;
 using std::vector;
 using std::stringstream;
+using std::unordered_map;
 
 using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
-using boost::unordered_map;
 
 namespace parameters {
 
@@ -250,7 +250,7 @@ ParametersSet::getParameters() {
   return parameters_;
 }
 
-boost::unordered_map<std::string, boost::shared_ptr<Reference> >&
+unordered_map<std::string, boost::shared_ptr<Reference> >&
 ParametersSet::getReferences() {
   return references_;
 }

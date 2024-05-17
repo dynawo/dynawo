@@ -56,9 +56,6 @@ curveHandler_(parser::ElementName(namespace_uri(), "curve")) {
   curveHandler_.onEnd(lambda::bind(&XmlHandler::addCurve, lambda::ref(*this)));
 }
 
-XmlHandler::~XmlHandler() {
-}
-
 shared_ptr<CurvesCollection>
 XmlHandler::getCurvesCollection() {
   return curvesCollection_;
@@ -72,8 +69,6 @@ XmlHandler::addCurve() {
 CurveHandler::CurveHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&CurveHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
-
-CurveHandler::~CurveHandler() {}
 
 void CurveHandler::create(attributes_type const & attributes) {
   curveRead_ = CurveFactory::newCurve();

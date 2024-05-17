@@ -39,9 +39,6 @@ PhaseTapChangerInterfaceIIDM::PhaseTapChangerInterfaceIIDM(powsybl::iidm::PhaseT
   tapChanger.setTapPosition(oldTapPosition);
 }
 
-PhaseTapChangerInterfaceIIDM::~PhaseTapChangerInterfaceIIDM() {
-}
-
 void
 PhaseTapChangerInterfaceIIDM::addStep(const shared_ptr<StepInterface>& step) {
   steps_.push_back(step);

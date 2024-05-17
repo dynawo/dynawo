@@ -38,9 +38,15 @@ namespace DYN {
 class VscConverterInterface : public ConverterInterface, public ReactiveCurvePointsInterface {
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit VscConverterInterface(bool hasInitialConditions = true) : ConverterInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
-  virtual ~VscConverterInterface() { }
+  virtual ~VscConverterInterface() = default;
 
   /**
    * @brief Getter for the boolean indicating if the converter regulates the voltage (otherwise it regulates the reactive power)

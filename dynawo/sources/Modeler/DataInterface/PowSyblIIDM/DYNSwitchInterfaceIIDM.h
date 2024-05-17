@@ -40,11 +40,6 @@ class SwitchInterfaceIIDM : public SwitchInterface {
   } indexVar_t;
 
   /**
-   * @brief Destructor
-   */
-  ~SwitchInterfaceIIDM();
-
-  /**
    * @brief Constructor
    * @param sw the switch's iidm instance
    */

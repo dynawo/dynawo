@@ -132,6 +132,15 @@ class ParameterNotFoundError(Exception):
         return "Parameter " + self.__par_name + " in parset " + self.__par_id + " not found in Par file " + self.__par_file
 
 
+class ModelNotFoundError(Exception):
+    def __init__(self, model_name, dyd_file):
+        self.__model_name = model_name
+        self.__dyd_file = dyd_file
+
+    def __str__(self):
+        return "Model " + self.__model_name + " not found in dyd file " + self.__dyd_file
+
+
 class IncorrectlySpecifiedTypeError(Exception):
     def __init__(self, param_name, parset, par_file, param_type, param_value):
         self.__param_name = param_name
@@ -322,3 +331,11 @@ class MissingAttributeError(Exception):
     def __str__(self):
         return "The '" + self.__missing_attribute + "' attribute is missing in '" + self.__element + \
                 "' XML element in file " + self.__xml_file
+
+
+class UnknownConnectType(Exception):
+    def __init__(self, connect_type):
+        self.__connect_type = connect_type
+
+    def __str__(self):
+        return "Unknown connect type : '" + self.__connect_type + "'"

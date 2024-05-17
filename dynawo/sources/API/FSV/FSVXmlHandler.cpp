@@ -56,9 +56,6 @@ XmlHandler::XmlHandler() :
   finalStateValueHandler_.onEnd(lambda::bind(&XmlHandler::addFinalStateValue, lambda::ref(*this)));
 }
 
-XmlHandler::~XmlHandler() {
-}
-
 shared_ptr<FinalStateValuesCollection>
 XmlHandler::getFinalStateValuesCollection() {
   return finalStateValuesCollection_;
@@ -71,9 +68,6 @@ XmlHandler::addFinalStateValue() {
 
 FinalStateValueHandler::FinalStateValueHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&FinalStateValueHandler::create, lambda::ref(*this), lambda_args::arg2));
-}
-
-FinalStateValueHandler::~FinalStateValueHandler() {
 }
 
 void

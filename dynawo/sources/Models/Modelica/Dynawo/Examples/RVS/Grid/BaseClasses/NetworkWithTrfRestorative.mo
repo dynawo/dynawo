@@ -513,8 +513,5 @@ equation
     Line(points = {{216, -204}, {216, -194}, {236, -194}, {236, -174}}, color = {0, 0, 255}));
 
   annotation(preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.001),
-    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"),
     Diagram(coordinateSystem(extent = {{-300, -340}, {300, 340}})));
 end NetworkWithTrfRestorative;

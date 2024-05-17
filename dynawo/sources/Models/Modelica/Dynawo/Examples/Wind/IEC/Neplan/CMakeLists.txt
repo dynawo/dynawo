@@ -16,10 +16,14 @@ set(MODEL_FILES
   WPP4ACurrentSourceFOCB.mo
   WPP4BCurrentSource.mo
   WPP4BCurrentSourceFOCB.mo
-  WT4ACurrentSource.mo
-  WT4ACurrentSourceFOCB.mo
-  WT4BCurrentSource.mo
-  WT4BCurrentSourceFOCB.mo
+  WT4ACurrentSource2015.mo
+  WT4ACurrentSource2015FOCB.mo
+  WT4ACurrentSource2020.mo
+  WT4ACurrentSource2020FOCB.mo
+  WT4BCurrentSource2015.mo
+  WT4BCurrentSource2015FOCB.mo
+  WT4BCurrentSource2020.mo
+  WT4BCurrentSource2020FOCB.mo
   )
 
 #

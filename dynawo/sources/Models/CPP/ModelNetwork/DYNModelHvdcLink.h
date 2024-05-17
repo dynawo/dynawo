@@ -44,11 +44,6 @@ class ModelHvdcLink : public NetworkComponent {
   explicit ModelHvdcLink(const boost::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
-   * @brief destructor
-   */
-  ~ModelHvdcLink() { }
-
-  /**
    * @brief list of calculated variables indexes
    */
   typedef enum {
@@ -238,9 +233,9 @@ class ModelHvdcLink : public NetworkComponent {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @brief addBusNeighbors

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_4" id="test" caseDate="2022-06-02T10:09:24.686+02:00" forecastDistance="0" sourceFormat="test">
+    <iidm:substation id="S1" name="S1_NAME" country="FR" tso="TSO">
+        <iidm:voltageLevel id="VL1" name="VL1_NAME" nominalV="2.0" lowVoltageLimit="1.8" highVoltageLimit="2.2" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="VL1_BUS1" v="1.965753173828125" angle="-2.361968994140625"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="Load1" loadType="UNDEFINED" p0="3.0" q0="1.0" bus="VL1_BUS1" connectableBus="VL1_BUS1" p="3.0" q="1.0"/>
+            <iidm:load id="Load2" loadType="UNDEFINED" p0="4.0" q0="0.5" bus="VL1_BUS1" connectableBus="VL1_BUS1" p="4.0" q="0.5"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="VL2" name="VL2_NAME" nominalV="1.0" lowVoltageLimit="0.8" highVoltageLimit="1.2" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="VL2_BUS1" v="1.0" angle="0.0"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="Generator" energySource="NUCLEAR" minP="0.0" maxP="20.0" voltageRegulatorOn="true" targetP="10.0" targetV="1.0" targetQ="-3.0" bus="VL2_BUS1" connectableBus="VL2_BUS1" p="-9.05263900756836" q="-2.3174076080322266">
+                <iidm:minMaxReactiveLimits minQ="-1.7976931348623157E308" maxQ="1.7976931348623157E308"/>
+            </iidm:generator>
+            <iidm:load id="Load3" loadType="UNDEFINED" p0="2.0" q0="0.5" bus="VL2_BUS1" connectableBus="VL2_BUS1" p="2.0" q="0.5"/>
+            <iidm:load id="Load4" loadType="UNDEFINED" p0="1.0" q0="0.5" bus="VL2_BUS1" connectableBus="VL2_BUS1" p="1.0" q="0.5"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="Transformer" r="0.001" x="0.005" g="0.001" b="0.001" ratedU1="2.0" ratedU2="1.0" voltageLevelId1="VL1" bus1="VL1_BUS1" connectableBus1="VL1_BUS1" voltageLevelId2="VL2" bus2="VL2_BUS1" connectableBus2="VL2_BUS1" p1="-7.0" q1="-1.5" p2="7.054028511047363" q2="1.8174076080322266"/>
+    </iidm:substation>
+</iidm:network>

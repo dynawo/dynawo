@@ -40,9 +40,15 @@ class ConverterInterface : public ComponentInterface {
 
  public:
   /**
+   * @brief Constructor
+   * @param hasInitialConditions @b true if component has initial conditions set, @b false else
+   */
+  explicit ConverterInterface(bool hasInitialConditions = true) : ComponentInterface(hasInitialConditions) {}
+
+  /**
    * @brief Destructor
    */
-  virtual ~ConverterInterface() { }
+  virtual ~ConverterInterface() = default;
 
   /**
    * @brief Setter for the converter bus interface

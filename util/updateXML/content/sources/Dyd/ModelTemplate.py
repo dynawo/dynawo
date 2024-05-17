@@ -27,7 +27,11 @@ class ModelTemplate:
     __xml_element : lxml.etree._Element
         modelTemplate XML element
     __unit_dynamic_models : list[UnitDynamicModel]
-        list of unitDynamicModels contained in the modelTemplateExpansion XML element
+        list of unitDynamicModels contained in the modelTemplate XML element
+    static_refs : StaticRefs
+        list of staticRefs contained in the modelTemplate XML element
+    macro_static_refs : MacroStaticRefs
+        list of macroStaticReferences contained in the modelTemplate XML element
     """
     def __init__(self, xml_element):
         self.__xml_element = xml_element
@@ -35,7 +39,7 @@ class ModelTemplate:
         self.macro_static_refs = MacroStaticRefs(self.__xml_element)
 
         self.__unit_dynamic_models = list()
-        unit_dynamic_model_xml_elements = self.__xml_element.findall(xmlns("unitDynamicModel"))
+        unit_dynamic_model_xml_elements = self.__xml_element.findall(xmlns(XML_UNITDYNAMICMODEL))
         for unit_dynamic_model_xml_element in unit_dynamic_model_xml_elements:
             unit_dynamic_model = UnitDynamicModel(unit_dynamic_model_xml_element)
             self.__unit_dynamic_models.append(unit_dynamic_model)

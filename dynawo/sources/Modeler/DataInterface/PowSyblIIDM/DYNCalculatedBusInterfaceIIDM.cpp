@@ -47,9 +47,6 @@ hasConnection_(false) {
   stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
 }
 
-CalculatedBusInterfaceIIDM::~CalculatedBusInterfaceIIDM() {
-}
-
 void
 CalculatedBusInterfaceIIDM::addBusBarSection(const string& bbs) {
   bbsIdentifiers_.push_back(bbs);

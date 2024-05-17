@@ -13,10 +13,14 @@ set(MODEL_FILES
   package.mo
   package.order
   WT4CurrentSource_INIT.mo
-  WT4ACurrentSource.mo
-  WT4ACurrentSource.extvar
-  WT4BCurrentSource.mo
-  WT4BCurrentSource.extvar
+  WT4ACurrentSource2015.mo
+  WT4ACurrentSource2015.extvar
+  WT4ACurrentSource2020.mo
+  WT4ACurrentSource2020.extvar
+  WT4BCurrentSource2015.mo
+  WT4BCurrentSource2015.extvar
+  WT4BCurrentSource2020.mo
+  WT4BCurrentSource2020.extvar
   )
 
 #

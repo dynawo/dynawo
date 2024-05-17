@@ -40,6 +40,7 @@ using std::vector;
 namespace DYN {
 
 TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWindingsTransformer& tfo) :
+    TwoWTransformerInterface(false),
     tfoIIDM_(tfo),
     initialConnected1_(boost::none),
     initialConnected2_(boost::none) {
@@ -60,6 +61,10 @@ TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWin
   auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
   activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(tfo);
   destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
+  if (!std::isnan(tfoIIDM_.getTerminal1().getP()) || !std::isnan(tfoIIDM_.getTerminal1().getQ()) ||
+      !std::isnan(tfoIIDM_.getTerminal2().getP()) || !std::isnan(tfoIIDM_.getTerminal2().getQ())) {
+      hasInitialConditions(true);
+  }
 }
 
 TwoWTransformerInterfaceIIDM::~TwoWTransformerInterfaceIIDM() {
@@ -351,6 +356,45 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("p2", StaticParameter("p2", StaticParameter::DOUBLE).setValue(P2)));
   staticParameters_.insert(std::make_pair("q1", StaticParameter("q1", StaticParameter::DOUBLE).setValue(Q1)));
   staticParameters_.insert(std::make_pair("q2", StaticParameter("q2", StaticParameter::DOUBLE).setValue(Q2)));
+
+  staticParameters_.insert(std::make_pair("ratedU1", StaticParameter("ratedU1", StaticParameter::DOUBLE).setValue(getRatedU1())));
+  staticParameters_.insert(std::make_pair("ratedU2", StaticParameter("ratedU2", StaticParameter::DOUBLE).setValue(getRatedU2())));
+
+  if (busInterface1_) {
+    double v10 = busInterface1_->getV0();
+    double vNom1 = getVNom1();
+
+    double theta1 = busInterface1_->getAngle0();
+    staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(v10 / vNom1)));
+    staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(theta1 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(v10)));
+    staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(theta1)));
+    staticParameters_.insert(std::make_pair("v1Nom", StaticParameter("v1Nom", StaticParameter::DOUBLE).setValue(vNom1)));
+  } else {
+    staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v1Nom", StaticParameter("v1Nom", StaticParameter::DOUBLE).setValue(1.)));
+  }
+
+  if (busInterface2_) {
+    double v20 = busInterface2_->getV0();
+    double vNom2 = getVNom2();
+
+    double theta2 = busInterface2_->getAngle0();
+    staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(v20 / vNom2)));
+    staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle2_pu", StaticParameter::DOUBLE).setValue(theta2 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(v20)));
+    staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(theta2)));
+    staticParameters_.insert(std::make_pair("v2Nom", StaticParameter("v2Nom", StaticParameter::DOUBLE).setValue(vNom2)));
+  } else {
+    staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle_pu2", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v2Nom", StaticParameter("v2Nom", StaticParameter::DOUBLE).setValue(1.)));
+  }
 
   double i1 = 0;
   if (getInitialConnected1() && !doubleIsZero(busInterface1_->getV0())) {

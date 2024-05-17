@@ -30,7 +30,7 @@ namespace lostEquipments {
 void
 LostEquipmentsCollection::addLostEquipment(const string& id, const string& type) {
   shared_ptr<LostEquipment> lostEquipment = LostEquipmentFactory::newLostEquipment(id, type);
-  lostEquipments_.push_back(lostEquipment);
+  lostEquipments_.insert(lostEquipment);
 }
 
 LostEquipmentsCollection::LostEquipmentsCollectionConstIterator

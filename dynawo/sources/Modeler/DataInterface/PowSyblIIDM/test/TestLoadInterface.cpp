@@ -25,17 +25,11 @@
 
 #include "gtest_dynawo.h"
 
-namespace DYN {
+namespace powsybl {
+namespace iidm {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::Load;
-using powsybl::iidm::LoadType;
-using powsybl::iidm::Network;
-using powsybl::iidm::Substation;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::VoltageLevel;
-
-TEST(DataInterfaceTest, Load_1) {
+static Network
+CreateLoadNetwork() {
   Network network("test", "test");
 
   Substation& substation = network.newSubstation()
@@ -54,20 +48,32 @@ TEST(DataInterfaceTest, Load_1) {
                           .setHighVoltageLimit(420.0)
                           .add();
 
-  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+  vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
 
+  return network;
+}  // CreateLoadNetwork
+}  // namespace iidm
+}  // namespace powsybl
+
+namespace DYN {
+using powsybl::iidm::CreateLoadNetwork;
+
+TEST(DataInterfaceTest, Load_1) {
+  powsybl::iidm::Network network = CreateLoadNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::Bus& bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
   vl1.newLoad()
       .setId("LOAD1")
       .setBus("VL1_BUS1")
       .setConnectableBus("VL1_BUS1")
       .setName("LOAD1_NAME")
-      .setLoadType(LoadType::UNDEFINED)
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
       .setFictitious(true)
       .setP0(50.0)
       .setQ0(40.0)
       .add();
+  powsybl::iidm::Load& load = network.getLoad("LOAD1");
 
-  Load& load = network.getLoad("LOAD1");
   LoadInterfaceIIDM loadIfce(load);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   loadIfce.setVoltageLevelInterface(voltageLevelIfce);
@@ -109,6 +115,8 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_TRUE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 499.0);
 
+  ASSERT_FALSE(loadIfce.hasInitialConditions());
+
   ASSERT_TRUE(loadIfce.isFictitious());
 
   loadIfce.importStaticParameters();
@@ -128,38 +136,20 @@ TEST(DataInterfaceTest, Load_1) {
 }  // TEST(DataInterfaceTest, Load_1)
 
 TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == false
-  Network network("test", "test");
-
-  Substation& substation = network.newSubstation()
-                               .setId("S1")
-                               .setName("S1_NAME")
-                               .setCountry(powsybl::iidm::Country::FR)
-                               .setTso("TSO")
-                               .add();
-
-  VoltageLevel& vl1 = substation.newVoltageLevel()
-                          .setId("VL1")
-                          .setName("VL1_NAME")
-                          .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalV(380.0)
-                          .setLowVoltageLimit(340.0)
-                          .setHighVoltageLimit(420.0)
-                          .add();
-
-  vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
-
+  powsybl::iidm::Network network = CreateLoadNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
   vl1.newLoad()
       .setId("LOAD")
       .setBus("VL1_BUS1")
       .setConnectableBus("VL1_BUS1")
       .setName("LOAD1_NAME")
-      .setLoadType(LoadType::FICTITIOUS)
+      .setLoadType(powsybl::iidm::LoadType::FICTITIOUS)
       .setFictitious(false)
       .setP0(5000.0)
       .setQ0(4000.0)
       .add();
+  powsybl::iidm::Load& load = network.getLoad("LOAD");
 
-  Load& load = network.getLoad("LOAD");
   LoadInterfaceIIDM loadIfce(load);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   loadIfce.setVoltageLevelInterface(voltageLevelIfce);
@@ -173,5 +163,28 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 0.0);
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 0.0);
   ASSERT_TRUE(loadIfce.isFictitious());
+  ASSERT_FALSE(loadIfce.hasInitialConditions());
 }  // TEST(DataInterfaceTest, Load_2)
+
+TEST(DataInterfaceTest, Load_3) {
+  powsybl::iidm::Network network = CreateLoadNetwork();
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  vl1.newLoad()
+      .setId("LOAD1")
+      .setBus("VL1_BUS1")
+      .setConnectableBus("VL1_BUS1")
+      .setName("LOAD1_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setFictitious(true)
+      .setP0(50.0)
+      .setQ0(40.0)
+      .add();
+  powsybl::iidm::Load& load = network.getLoad("LOAD1");
+
+  load.getTerminal().setP(0.);
+  load.getTerminal().setQ(0.);
+  LoadInterfaceIIDM loadIfce(load);
+
+  ASSERT_TRUE(loadIfce.hasInitialConditions());
+}  // TEST(DataInterfaceTest, Load_3)
 }  // namespace DYN

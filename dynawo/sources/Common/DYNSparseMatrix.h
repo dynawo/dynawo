@@ -22,7 +22,7 @@
 
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_set.hpp>
+#include <unordered_set>
 
 namespace DYN {
 class Model;
@@ -151,7 +151,7 @@ class SparseMatrix {
    * @param columns columns to erase
    * @param M new matrix allocated
    */
-  void erase(const boost::unordered_set<int>& rows, const boost::unordered_set<int>& columns, SparseMatrix& M);
+  void erase(const std::unordered_set<int>& rows, const std::unordered_set<int>& columns, SparseMatrix& M);
 
   /**
    * @brief Get the row and colum indices from a position in the data array
