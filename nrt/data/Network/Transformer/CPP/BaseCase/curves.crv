@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator" variable="generator_UPu"/>
+  <curve model="Generator" variable="generator_PGen"/>
+  <curve model="Generator" variable="generator_QGen"/>
+  <curve model="Generator" variable="generator_PGenPu"/>
+  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="NETWORK" variable="Load_P"/>
+  <curve model="NETWORK" variable="Load_Q"/>
+  <curve model="NETWORK" variable="Transformer_i1_value"/>
+  <curve model="NETWORK" variable="Transformer_i2_value"/>
+  <curve model="NETWORK" variable="Transformer_P1_value"/>
+  <curve model="NETWORK" variable="Transformer_P2_value"/>
+  <curve model="NETWORK" variable="Transformer_Q1_value"/>
+  <curve model="NETWORK" variable="Transformer_Q2_value"/>
+  <curve model="NETWORK" variable="Transformer_iS1ToS2Side1_value"/>
+  <curve model="NETWORK" variable="Transformer_iS2ToS1Side1_value"/>
+  <curve model="NETWORK" variable="Transformer_iS1ToS2Side2_value"/>
+  <curve model="NETWORK" variable="Transformer_iS2ToS1Side2_value"/>
+  <curve model="NETWORK" variable="Transformer_iSide1_value"/>
+  <curve model="NETWORK" variable="Transformer_iSide2_value"/>
+  <curve model="NETWORK" variable="Generator_P_value"/>
+  <curve model="NETWORK" variable="Generator_Q_value"/>
+  <curve model="NETWORK" variable="VL1_BUS1_U"/>
+  <curve model="NETWORK" variable="VL1_BUS1_phi"/>
+  <curve model="NETWORK" variable="VL2_BUS1_U"/>
+  <curve model="NETWORK" variable="VL2_BUS1_phi"/>
+</curvesInput>

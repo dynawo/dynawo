@@ -1,0 +1,5 @@
+model;variable;value;
+Generator;generator_UPu;1.005107;
+Generator;generator_QGenPu;0.003000;
+Generator;generator_PGenPu;0.008000;
+Generator;generator_PGen;0.800000;

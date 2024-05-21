@@ -10,3 +10,5 @@ GeneratorTransformer_INIT
 IdealTransformerVariableTap
 IdealTransformerVariableTapPQ_INIT
 IdealTransformerVariableTapI_INIT
+NetworkTransformer
+NetworkTransformer_INIT
