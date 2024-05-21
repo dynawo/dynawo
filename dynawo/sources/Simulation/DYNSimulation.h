@@ -369,7 +369,7 @@ class Simulation {
 
   /**
    * @brief setter for init model values dump mode
-   * @param dumpLocalInitValues @b true if init model values should be dumped
+   * @param dumpInitModelValues @b true if init model values should be dumped
    */
   inline void setDumpInitModelValues(const bool dumpInitModelValues) {
     dumpInitModelValues_ = dumpInitModelValues;

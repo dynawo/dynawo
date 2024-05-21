@@ -59,9 +59,9 @@ class InitValuesEntry {
 
   /**
    * @brief whether to write values of the initialization model setter
-   * @param dumpLocalInitValues : whether to dump values of the initialization model for the job
+   * @param dumpInitModelValues : whether to dump values of the initialization model for the job
    */
-  void setDumpInitModelValues(const bool dumpLocalInitValues);
+  void setDumpInitModelValues(const bool dumpInitModelValues);
 
   /**
    * @brief whether to write values of the initialization model getter

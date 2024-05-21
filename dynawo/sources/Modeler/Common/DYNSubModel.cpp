@@ -711,7 +711,7 @@ SubModel::printValuesParameters(std::ofstream& fstream) {
 void
 SubModel::printInitValuesParameters(std::ofstream& fstream) {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersInit_.begin(), parametersInit_.end());
-  fstream << " ====== PARAMETERS VALUES ======\n";
+  fstream << " ====== INIT PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
     bool found = false;
     std::string value;
@@ -1386,7 +1386,7 @@ SubModel::printValuesVariables(std::ofstream& fstream) {
 
 void
 SubModel::printInitValuesVariables(std::ofstream& fstream) {
-  fstream << " ====== VARIABLES VALUES ======\n";
+  fstream << " ====== INIT VARIABLES VALUES ======\n";
   const vector<string>& xNames = (*this).xNamesInit();
   for (unsigned int i = 0; i < yLocalInit_.size(); ++i)
     fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocalInit_[i])

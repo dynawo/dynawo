@@ -43,8 +43,8 @@ InitValuesEntry::getDumpGlobalInitValues() const {
 }
 
 void
-InitValuesEntry::setDumpInitModelValues(const bool dumpGlobalInitValues) {
-  dumpInitModelValues_ = dumpGlobalInitValues;
+InitValuesEntry::setDumpInitModelValues(const bool dumpInitModelValues) {
+  dumpInitModelValues_ = dumpInitModelValues;
 }
 
 bool
