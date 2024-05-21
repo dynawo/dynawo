@@ -81,3 +81,24 @@ foreach(item IN LISTS Basics Bus DynaSwingGenerators Events Fault Line Loads Gri
   get_filename_component(name ${item} NAME_WE)
   add_dependencies(DYNASWING_MODELS ${name})
 endforeach()
+
+## DynaWaltz
+add_custom_target(DYNAWALTZ_MODELS)
+file(STRINGS "DynaWaltzModels.txt" DYNAWALTZ_MODELS_LIST)
+foreach(dynawaltz_model IN LISTS DYNAWALTZ_MODELS_LIST)
+  add_dependencies(DYNAWALTZ_MODELS ${dynawaltz_model})
+endforeach()
+
+## Nrt models
+add_custom_target(NRT_MODELS)
+file(STRINGS "NrtModels.txt" NRT_MODELS_LIST)
+foreach(nrt_model IN LISTS NRT_MODELS_LIST)
+  add_dependencies(NRT_MODELS ${nrt_model})
+endforeach()
+
+## Nrt-extend models
+add_custom_target(NRT_EXTEND_MODELS)
+file(STRINGS "NrtExtendModels.txt" NRT_EXTEND_MODELS_LIST)
+foreach(nrt_extend_model IN LISTS NRT_EXTEND_MODELS_LIST)
+  add_dependencies(NRT_EXTEND_MODELS ${nrt_extend_model})
+endforeach()

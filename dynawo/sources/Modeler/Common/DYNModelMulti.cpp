@@ -1120,7 +1120,7 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
   }
 }
 
-void ModelMulti::printVariableNames() {
+void ModelMulti::printVariableNames(bool withVariableType) {
   int nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables init" << Trace::endline;
@@ -1156,13 +1156,21 @@ void ModelMulti::printVariableNames() {
   }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::variables()) << "X variables" << Trace::endline;
+  Trace::debug(Trace::variables()) << "X variables";
+  if (withVariableType)
+    Trace::debug(Trace::variables()) << " (with initial type)";
+  Trace::debug(Trace::variables()) << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  const std::vector<propertyContinuousVar_t>& modelYType = getYType();
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->xNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
       std::string varName = (*it)->name() + " | " + xNames[j];
-      Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+      if (withVariableType) {
+        Trace::debug(Trace::variables()) << nVar << " " << varName << " | " << propertyVar2Str(modelYType[nVar]) << Trace::endline;
+      } else {
+        Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+      }
       ++nVar;
     }
   }

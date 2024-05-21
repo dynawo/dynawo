@@ -433,7 +433,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::printVariableNames()
    */
-  void printVariableNames();
+  void printVariableNames(bool withVariableType);
 
   /**
    * @copydoc Model::printEquations()

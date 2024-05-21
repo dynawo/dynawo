@@ -1366,7 +1366,7 @@ SubModel::printValuesVariables(std::ofstream& fstream) {
 
   if (sizeCalculatedVar() > 0) {
     evalCalculatedVars();
-    fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
+    fstream << " ====== CALCULATED VARIABLES VALUES ======\n";
     const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
     for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
       fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
@@ -1374,7 +1374,7 @@ SubModel::printValuesVariables(std::ofstream& fstream) {
   }
 
   const vector<string>& zNames = (*this).zNames();
-  fstream << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
+  fstream << " ====== DISCRETE VARIABLES VALUES ======\n";
   for (unsigned int i = 0; i < sizeZ(); ++i)
     fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
 

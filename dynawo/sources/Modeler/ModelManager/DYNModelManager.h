@@ -341,6 +341,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   double computeDelay(int exprNumber, double exprValue, double time, double delayTime, double delayMax);
 
+#ifdef _ADEPT_
+  adept::adouble computeDelayDerivative(int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax);
+#endif
+
   /**
    * @brief Add new delay struture
    *
