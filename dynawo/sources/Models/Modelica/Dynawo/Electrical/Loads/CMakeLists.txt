@@ -19,6 +19,8 @@ set(MODEL_FILES
   LoadAlphaBeta.extvar
   LoadAlphaBetaRestorative.mo
   LoadAlphaBetaRestorative.extvar
+  LoadAlphaBetaRestorativeNetwork.mo
+  LoadAlphaBetaRestorativeNetwork.extvar
   LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
   LoadAlphaBetaRestorativeReset.mo
   LoadAlphaBetaRestorativeReset.extvar

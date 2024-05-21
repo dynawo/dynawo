@@ -1,0 +1,11 @@
+model;variable;value;
+Generator;generator_UPu;1.005090;
+Generator;generator_QGenPu;0.003000;
+Generator;generator_PGenPu;0.008000;
+NETWORK;Load_P;0.000000;
+NETWORK;Load_Q;0.000000;
+NETWORK;Load_state;1.000000;
+NETWORK;Load2_P;0.002008;
+NETWORK;Load2_Q;0.001008;
+NETWORK;Load2_state;2.000000;
+Generator;generator_PGen;0.800000;

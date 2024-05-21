@@ -114,7 +114,7 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
 }
 
 static void
-fillParameters(shared_ptr<ModelLoad> load, std::string& startingPoint) {
+fillParameters(shared_ptr<ModelLoad> load, std::string& startingPoint, bool loadIsPControllable = false, bool loadIsQControllable = false) {
   std::unordered_map<std::string, ParameterModeler> parametersModels;
 
   {
@@ -132,9 +132,23 @@ fillParameters(shared_ptr<ModelLoad> load, std::string& startingPoint) {
     param.setValue<bool>(true, PAR);
     parametersModels.insert(std::make_pair(param.getName(), param));
   }
+  if (loadIsPControllable) {
+    ParameterModeler param = ParameterModeler("load_isPControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(true, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  if (loadIsQControllable) {
+    ParameterModeler param = ParameterModeler("load_isQControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(true, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
   {
     ParameterModeler param = ParameterModeler("load_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
-    param.setValue<bool>(true, PAR);
+    if (loadIsPControllable || loadIsQControllable) {
+      param.setValue<bool>(false, PAR);
+    } else {
+      param.setValue<bool>(true, PAR);
+    }
     parametersModels.insert(std::make_pair(param.getName(), param));
   }
   {
@@ -532,6 +546,45 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   delete[] zConnected;
 }
 
+TEST(ModelsModelNetwork, ModelNetworkLoadPControllable) {
+  powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  int yNum = 0;
+  std::string startingPoint = "warm";
+  bool loadIsPControllable = true;
+  fillParameters(load, startingPoint, loadIsPControllable);
+  load->initSize();
+  load->init(yNum);
+  unsigned nbY = 3;
+  unsigned nbF = 2;
+  ASSERT_EQ(load->sizeY(), nbY);
+  ASSERT_EQ(load->sizeF(), nbF);
+}
+
+TEST(ModelsModelNetwork, ModelNetworkLoadQControllable) {
+  powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  int yNum = 0;
+  std::string startingPoint = "warm";
+  bool loadIsPControllable = false;
+  bool loadIsQControllable = true;
+  fillParameters(load, startingPoint, loadIsPControllable, loadIsQControllable);
+  load->initSize();
+  load->init(yNum);
+  unsigned nbY = 3;
+  unsigned nbF = 2;
+  ASSERT_EQ(load->sizeY(), nbY);
+  ASSERT_EQ(load->sizeF(), nbF);
+}
+
 TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<shared_ptr<ModelLoad>,
@@ -563,7 +616,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
   load->defineParameters(genericParameters);
 
 
-  ASSERT_EQ(parameters.size(), 10);
+  ASSERT_EQ(parameters.size(), 12);
   for (size_t i = 0, iEnd = parameters.size(); i < iEnd; ++i) {
     std::string var = genericParameters[i].getName();
     boost::replace_all(var, "load", load->id());

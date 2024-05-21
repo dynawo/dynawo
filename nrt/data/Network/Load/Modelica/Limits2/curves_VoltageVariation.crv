@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator" variable="generator_UPu"/>
+  <curve model="Generator" variable="generator_running"/>
+  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="Generator" variable="generator_PGenPu"/>
+  <curve model="Generator" variable="generator_omegaRefPu"/>
+  <curve model="NETWORK" variable="Load_P"/>
+  <curve model="NETWORK" variable="Load_Q"/>
+  <curve model="Load2" variable="load_PPu"/>
+  <curve model="Load2" variable="load_QPu"/>
+  <curve model="Load2" variable="load_zP"/>
+  <curve model="Load2" variable="load_zQ"/>
+  <curve model="Load2" variable="load_zPRaw"/>
+  <curve model="Load2" variable="load_zQRaw"/>
+  <curve model="NETWORK" variable="Load2_P"/>
+  <curve model="NETWORK" variable="Load2_Q"/>
+  <curve model="NETWORK" variable="line1_P1"/>
+  <curve model="NETWORK" variable="line1_Q1"/>
+  <curve model="NETWORK" variable="line1_P2"/>
+  <curve model="NETWORK" variable="line1_Q2"/>
+  <curve model="NETWORK" variable="VL1_BUS1_U"/>
+  <curve model="NETWORK" variable="VL1_BUS1_phi"/>
+  <curve model="NETWORK" variable="VL2_BUS1_U"/>
+  <curve model="NETWORK" variable="VL2_BUS1_phi"/>
+  <curve model="NETWORK" variable="Load3_P"/>
+  <curve model="NETWORK" variable="Load3_Q"/>
+  <curve model="NETWORK" variable="Load3_state"/>
+</curvesInput>

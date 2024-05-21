@@ -20,7 +20,7 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
   Equivalent circuit and conventions:
 
                I1  r                I2
-    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
+    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2 ------ Generator
   (terminal1)                   |      (terminal2)
                                G+jB
                                 |
@@ -97,7 +97,7 @@ equation
 The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2 ------- Generator</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">  (terminal1)                   |      (terminal2)</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               G+jB</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                                |</span></pre>
