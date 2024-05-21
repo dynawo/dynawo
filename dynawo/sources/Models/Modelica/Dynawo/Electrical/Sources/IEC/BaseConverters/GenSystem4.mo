@@ -78,13 +78,13 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression uGs(y = terminal.V) annotation(
-    Placement(visible = true, transformation(origin = {10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-10, -80}, extent = {{-30, -10}, {30, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.Product product(useConjugateInput2 = true) annotation(
     Placement(visible = true, transformation(origin = {70, -60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {113, -39}, extent = {{53, -9}, {-53, 9}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -129,7 +129,7 @@ equation
   connect(const.y, absLimRateLimFirstOrderAntiWindup.yMin) annotation(
     Line(points = {{-139.5, 40}, {-120, 40}, {-120, 54}, {-102, 54}}, color = {0, 0, 127}));
   connect(uGs.y, product.u1) annotation(
-    Line(points = {{22, -80}, {40, -80}, {40, -66}, {58, -66}}, color = {85, 170, 255}));
+    Line(points = {{23, -80}, {40, -80}, {40, -66}, {58, -66}}, color = {85, 170, 255}));
   connect(product.y, complexToReal.u) annotation(
     Line(points = {{82, -60}, {98, -60}}, color = {85, 170, 255}));
   connect(complexToReal.re, PAgPu) annotation(
@@ -147,7 +147,7 @@ equation
   connect(iqMinPu, absLimRateLimFirstOrderAntiWindup1.yMin) annotation(
     Line(points = {{-150, -20}, {-120, -20}, {-120, -6}, {-102, -6}}, color = {0, 0, 127}));
   connect(iGs.y, product.u2) annotation(
-    Line(points = {{60, -40}, {40, -40}, {40, -54}, {58, -54}}, color = {85, 170, 255}));
+    Line(points = {{55, -39}, {40, -39}, {40, -54}, {58, -54}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

@@ -25,10 +25,10 @@ partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1(TimelineKeys.IdealSwitchSwitchOff);
+//    Timeline.logEvent1(TimelineKeys.IdealSwitchSwitchOff);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1(TimelineKeys.IdealSwitchSwitchOn);
+   // Timeline.logEvent1(TimelineKeys.IdealSwitchSwitchOn);
     state = Constants.state.Closed;
   end when;
 

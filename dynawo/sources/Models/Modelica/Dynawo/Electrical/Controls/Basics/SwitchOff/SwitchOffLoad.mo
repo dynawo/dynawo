@@ -26,10 +26,10 @@ partial model SwitchOffLoad "Switch-off model for a load"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1(TimelineKeys.LoadDisconnected);
+//    Timeline.logEvent1(TimelineKeys.LoadDisconnected);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1(TimelineKeys.LoadConnected);
+ //   Timeline.logEvent1(TimelineKeys.LoadConnected);
     state = Constants.state.Closed;
   end when;
 

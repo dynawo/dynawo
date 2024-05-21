@@ -33,10 +33,10 @@ protected
 
 equation
   when time >= tEnd then
-    Timeline.logEvent1(TimelineKeys.NodeFaultEnd);
+//    Timeline.logEvent1(TimelineKeys.NodeFaultEnd);
     nodeFault.value = false;
   elsewhen time >= tBegin then
-    Timeline.logEvent1(TimelineKeys.NodeFaultBegin);
+ //   Timeline.logEvent1(TimelineKeys.NodeFaultBegin);
     nodeFault.value = true;
   end when;
 

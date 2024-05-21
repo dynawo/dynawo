@@ -57,7 +57,7 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
   Modelica.Blocks.Math.Gain GainCfd(k = CFilter) annotation(
     Placement(visible = true, transformation(origin = {-10, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain GainCfq(k = CFilter) annotation(
-    Placement(visible = true, transformation(origin = {-10, -25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-7, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addd1 annotation(
     Placement(visible = true, transformation(origin = {-20, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addq1 annotation(
@@ -94,7 +94,7 @@ equation
   connect(GainCfd.u, product.y) annotation(
     Line(points = {{-22, 25}, {-79, 25}}, color = {0, 0, 127}));
   connect(GainCfq.u, product1.y) annotation(
-    Line(points = {{-22, -25}, {-79, -25}}, color = {0, 0, 127}));
+    Line(points = {{-19, -19}, {-54.5, -19}, {-54.5, -25}, {-79, -25}}, color = {0, 0, 127}));
   connect(addd1.u2, gaind.y) annotation(
     Line(points = {{-32, 80}, {-49, 80}}, color = {0, 0, 127}));
   connect(addq1.u1, gainq.y) annotation(
@@ -126,7 +126,7 @@ equation
   connect(addd1.y, feedbackCwq.u1) annotation(
     Line(points = {{-9, 86}, {38, 86}}, color = {0, 0, 127}));
   connect(GainCfq.y, feedbackCwq.u2) annotation(
-    Line(points = {{1, -25}, {10, -25}, {10, 74}, {38, 74}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{4, -19}, {4, 31}, {38, 31}, {38, 74}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(GainCfd.y, feedbackCwd.u1) annotation(
     Line(points = {{1, 25}, {10, 25}, {10, -74}, {38, -74}}, color = {0, 0, 127}));
   connect(feedbackCwq.y, addd2.u2) annotation(

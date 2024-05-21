@@ -65,7 +65,7 @@ model DroopControl "Droop control for grid forming converters"
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k = 1, y_start = QFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kff) annotation(
-    Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-69, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = -Kff) annotation(
     Placement(visible = true, transformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = 1 / Wff, k = 1, y_start = Kff * IdPcc0Pu) annotation(
@@ -116,11 +116,11 @@ equation
   connect(integrator.y, theta) annotation(
     Line(points = {{111, 94}, {130, 94}}, color = {0, 0, 127}));
   connect(gain1.u, idPccPu) annotation(
-    Line(points = {{-62, -70}, {-130, -70}}, color = {0, 0, 127}));
+    Line(points = {{-81, -70}, {-130, -70}}, color = {0, 0, 127}));
   connect(gain2.u, iqPccPu) annotation(
     Line(points = {{-62, -110}, {-130, -110}}, color = {0, 0, 127}));
   connect(gain1.y, firstOrder2.u) annotation(
-    Line(points = {{-39, -70}, {-32, -70}}, color = {0, 0, 127}));
+    Line(points = {{-58, -70}, {-32, -70}}, color = {0, 0, 127}));
   connect(gain2.y, firstOrder3.u) annotation(
     Line(points = {{-39, -110}, {-32, -110}}, color = {0, 0, 127}));
   connect(feedback3.u1, QRefPu) annotation(

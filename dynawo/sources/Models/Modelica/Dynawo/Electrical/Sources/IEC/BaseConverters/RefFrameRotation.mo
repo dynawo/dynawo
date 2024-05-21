@@ -50,5 +50,5 @@ equation
 
   annotation(
     preferredView = "text",
-    Icon(coordinateSystem(extent = {{-30, -100}, {30, 100}}, initialScale = 0.1), graphics = {Rectangle(origin = {1, 1}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-31, 99}, {29, -101}}), Text(origin = {52, 58}, rotation = 90, extent = {{-141, 127}, {38, -33}}, textString = "Reference Frame Rotation")}));
+    Icon(coordinateSystem(extent = {{-30, -100}, {30, 100}}, initialScale = 0.1), graphics = {Rectangle(origin = {1, 1}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-31, 99}, {29, -101}}), Text(origin = {46, 50}, rotation = 90, extent = {{-141, 127}, {38, -33}}, textString = "Reference Frame Rotation")}));
 end RefFrameRotation;

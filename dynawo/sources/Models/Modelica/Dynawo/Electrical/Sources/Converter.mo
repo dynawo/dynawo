@@ -26,11 +26,19 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
 ----------------------|__________|---------------------------------------------------------------------
 
 */
-  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
+  import Modelica;
+  import Dynawo.Types;
+  import Dynawo.Connectors;
+  import Dynawo.Electrical.SystemBase;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the converter to the grid" annotation(
+  extends SwitchOff.SwitchOffGenerator;
+
+  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the converter to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {0, -105}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
+  parameter Real Tfilter "Temps for the input DC source filter";
+  parameter Real m "Modulating of the dc source";
   parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LFilter "Filter inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit CFilter "Filter capacitance in pu (base UNom, SNom)";
@@ -82,6 +90,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
   Types.Angle UPhase(start = UPhase0) "Voltage angle at terminal in rad";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage module at terminal in pu (base UNom)";
 
+
   parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
   parameter Types.PerUnit UdPcc0Pu "Start value of the d-axis voltage at the PCC in pu (base UNom)";
@@ -120,17 +129,18 @@ equation
     LFilter / SystemBase.omegaNom * der(iqConvPu) = uqConvPu - RFilter * iqConvPu - omegaPu * LFilter * idConvPu - uqFilterPu;
     CFilter / SystemBase.omegaNom * der(udFilterPu) = idConvPu + omegaPu * CFilter * uqFilterPu - idPccPu;
     CFilter / SystemBase.omegaNom * der(uqFilterPu) = iqConvPu - omegaPu * CFilter * udFilterPu - iqPccPu;
-    IConvPu = sqrt(idConvPu * idConvPu + iqConvPu * iqConvPu);
+    IConvPu = sqrt (idConvPu * idConvPu + iqConvPu * iqConvPu);
 
     /* DC Side */
     Cdc * der(UdcSourcePu) = IdcSourcePu - IdcPu;
 
     /* AC Voltage Source */
-    udConvPu = udConvRefPu * UdcSourcePu / UdcSourceRefPu;
-    uqConvPu = uqConvRefPu * UdcSourcePu / UdcSourceRefPu;
+   udConvPu = udConvRefPu * UdcSourcePu / UdcSourceRefPu;
+   uqConvPu = uqConvRefPu * UdcSourcePu / UdcSourceRefPu;
+  
 
     /* Power Conservation */
-    udConvPu * idConvPu + uqConvPu * iqConvPu = UdcSourcePu * IdcPu;
+   udConvPu * idConvPu + uqConvPu * iqConvPu = UdcSourcePu * IdcPu;
 
     /* Power Calculation */
     PGenPu = (udPccPu * idPccPu + uqPccPu * iqPccPu) * SNom / SystemBase.SnRef;

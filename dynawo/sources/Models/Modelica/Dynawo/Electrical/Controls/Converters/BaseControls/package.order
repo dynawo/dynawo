@@ -5,3 +5,6 @@ VirtualImpedance
 DroopControl
 MatchingControl
 DispatchableVirtualOscillatorControl
+BridgeInverterRLC
+RLConnection
+MeasurementPcc

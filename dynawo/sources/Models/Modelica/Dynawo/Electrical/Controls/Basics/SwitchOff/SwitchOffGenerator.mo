@@ -30,10 +30,10 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
 
 equation
   when not(running.value) then
-    Timeline.logEvent1(TimelineKeys.GeneratorDisconnected);
+//    Timeline.logEvent1(TimelineKeys.GeneratorDisconnected);
     state = Constants.state.Open;
   elsewhen running.value and not(pre(running.value)) then
-    Timeline.logEvent1(TimelineKeys.GeneratorConnected);
+ //   Timeline.logEvent1(TimelineKeys.GeneratorConnected);
     state = Constants.state.Closed;
   end when;
 

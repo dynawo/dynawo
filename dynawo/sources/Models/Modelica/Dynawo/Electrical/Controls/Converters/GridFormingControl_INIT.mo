@@ -64,5 +64,6 @@ equation
   DeltaVVId0 = IdConv0Pu * RVI0 - IqConv0Pu * XVI0;
   DeltaVVIq0 = IqConv0Pu * RVI0 + IdConv0Pu * XVI0;
 
-  annotation(preferredView = "text");
+  annotation(preferredView = "text",
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
 end GridFormingControl_INIT;

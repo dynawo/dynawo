@@ -85,7 +85,7 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
   Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
-    Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-63, -7}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(T = tfFilt / 20, k = 1 / SystemBase.omegaNom, x_start = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -128,15 +128,15 @@ equation
   connect(iPu, complexToPolar.u) annotation(
     Line(points = {{-160, 80}, {-120, 80}, {-120, 40}, {-22, 40}}, color = {85, 170, 255}));
   connect(uPu, complexToPolar1.u) annotation(
-    Line(points = {{-160, 0}, {-82, 0}}, color = {85, 170, 255}));
+    Line(points = {{-160, 0}, {-121, 0}, {-121, -7}, {-83, -7}}, color = {85, 170, 255}));
   connect(complexToPolar1.len, UPu) annotation(
-    Line(points = {{-58, 6}, {40, 6}, {40, 0}, {150, 0}}, color = {0, 0, 127}));
+    Line(points = {{-43, 3}, {40, 3}, {40, 0}, {150, 0}}, color = {0, 0, 127}));
   connect(complexToPolar1.len, firstOrder3.u) annotation(
-    Line(points = {{-58, 6}, {40, 6}, {40, -40}, {78, -40}}, color = {0, 0, 127}));
+    Line(points = {{-43, 3}, {40, 3}, {40, -40}, {78, -40}}, color = {0, 0, 127}));
   connect(firstOrder3.y, UFiltPu) annotation(
     Line(points = {{102, -40}, {150, -40}}, color = {0, 0, 127}));
   connect(complexToPolar1.phi, theta) annotation(
-    Line(points = {{-58, -6}, {20, -6}, {20, -80}, {150, -80}}, color = {0, 0, 127}));
+    Line(points = {{-43, -17}, {20, -17}, {20, -80}, {150, -80}}, color = {0, 0, 127}));
   connect(omegaRefPu, add.u2) annotation(
     Line(points = {{-160, -120}, {-120, -120}, {-120, -126}, {78, -126}}, color = {0, 0, 127}));
   connect(add.y, omegaFiltPu) annotation(
@@ -152,8 +152,7 @@ equation
   connect(derivative.y, rampLimiter.u) annotation(
     Line(points = {{-38, -100}, {-22, -100}}, color = {0, 0, 127}));
   connect(complexToPolar1.phi, derivative.u) annotation(
-    Line(points = {{-58, -6}, {-40, -6}, {-40, -60}, {-80, -60}, {-80, -100}, {-62, -100}}, color = {0, 0, 127}));
-
+    Line(points = {{-43, -17}, {-40, -17}, {-40, -60}, {-80, -60}, {-80, -100}, {-62, -100}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})),
