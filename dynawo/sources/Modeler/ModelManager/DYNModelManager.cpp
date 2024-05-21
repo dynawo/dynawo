@@ -1293,7 +1293,7 @@ void
 ModelManager::printInitValuesParameters(std::ofstream& fstream) {
   if (!hasInit())
     return;
-  fstream << " ====== PARAMETERS VALUES ======\n";
+  fstream << " ====== INIT PARAMETERS VALUES ======\n";
   const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersInit();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parameters(parametersMap.size(), "TMP");

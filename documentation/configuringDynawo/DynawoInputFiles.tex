@@ -381,6 +381,7 @@ The user can specify in the jobs file what outputs he wants to get from the simu
 Several outputs are available with \Dynawo:
 \begin{itemize}
 \item \textbf{Initialization}: the user can have access to the results of the initialization stages (local and/or global and/or initialization model values) by adding the item ``dumpInitValues'' in the jobs file.
+\item the init attribute is optional. It is disabled by default.
 
 \begin{lstlisting}[language=XML, morekeywords={dumpInitValues},numbers=none]
 <dumpInitValues local="true" global="true" init="true"/>

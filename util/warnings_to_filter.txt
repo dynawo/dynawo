@@ -421,3 +421,6 @@ warning: return type of member DYN::Model::setLocalInitParameters is not documen
 warning: return type of member finalStateValues::Exporter::exportToFile is not documented
 warning: return type of member finalStateValues::Exporter::exportToStream is not documented
 warning: return type of member DYN::SubModel::defineNamesImpl is not documented
+warning: return type of member DYN::Model::printInitModelValues is not documented
+warning: return type of member DYN::SubModel::getInitSubModelParameterValue is not documented
+warning: return type of member DYN::SubModel::printInitValuesParameters is not documented
