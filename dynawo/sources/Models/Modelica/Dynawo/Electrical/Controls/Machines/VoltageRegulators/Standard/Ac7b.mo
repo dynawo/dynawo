@@ -22,7 +22,7 @@ model Ac7b "IEEE exciter type AC7B model"
     PositionPss = 1,
     PositionScl = 0,
     PositionUel = 1,
-    Sw1 = true,
+    Sw1 = false,
     Sw2 = true,
     Thetap = 0,
     VbMaxPu = 999,
