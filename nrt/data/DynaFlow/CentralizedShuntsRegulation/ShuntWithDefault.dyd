@@ -26,6 +26,7 @@
   <dyn:blackBoxModel id="Condenser" lib="ShuntBWithSections" parFile="Shunt.par" parId="Condenser"/>
   <dyn:blackBoxModel id="Self" lib="ShuntBWithSections" parFile="Shunt.par" parId="Self"/>
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="Shunt.par" parId="5"/>
+  <dyn:blackBoxModel id="Disconnect_Condenser" lib="EventSetPointBoolean" parFile="Shunt.par" parId="7"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
   <dyn:connect id1="Generator___1" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
@@ -40,4 +41,5 @@
   <dyn:connect id1="ShuntRegulation" var1="section_1_value" id2="Self" var2="shunt_section_value"/>
   <dyn:connect id1="ShuntRegulation" var1="running_1_value" id2="Self" var2="shunt_running_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="Self" var2="shunt_terminal"/>
+  <dyn:connect id1="Disconnect_Condenser" var1="event_state1_value" id2="Condenser" var2="shunt_switchOffSignal1_value"/>
 </dyn:dynamicModelsArchitecture>
