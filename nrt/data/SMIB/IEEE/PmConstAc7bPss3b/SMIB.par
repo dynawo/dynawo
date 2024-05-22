@@ -106,13 +106,13 @@
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="-3.2"/>
     <!-- Power system stabilizer parameters -->
     <par type="DOUBLE" name="powerSystemStabilizer_A1" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A2" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A2" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_A3" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A4" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A4" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_A5" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A6" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A6" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_A7" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A8" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A8" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks1" value="0.1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks2" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_t1" value="0.02"/>

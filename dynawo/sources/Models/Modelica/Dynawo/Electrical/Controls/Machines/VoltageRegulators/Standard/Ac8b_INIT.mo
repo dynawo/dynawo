@@ -17,7 +17,9 @@ model Ac8b_INIT "IEEE excitation system type AC8B initialization model"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac78c_INIT(
     Kc1 = 0,
     Ki = 0,
+    Sw1 = false,
     Thetap = 0,
+    VbMaxPu = 999,
     XlPu = 0);
 
   annotation(preferredView = "text");
