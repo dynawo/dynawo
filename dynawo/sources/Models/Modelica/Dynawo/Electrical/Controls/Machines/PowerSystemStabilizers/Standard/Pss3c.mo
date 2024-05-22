@@ -55,9 +55,9 @@ model Pss3c "IEEE power system stabilizer type 3C"
 
   Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Washout washout1( U0 = Ks1 *PGen0Pu * SystemBase.SnRef / SNom,tW = tW1) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Washout washout1(U0 = Ks1 * PGen0Pu * SystemBase.SnRef / SNom, tW = tW1) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Washout washout( U0 = Ks2 * (KOmega * SystemBase.omega0Pu + KOmegaRef * SystemBase.omegaRef0Pu),tW = tW2) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Washout washout(U0 = Ks2 * (KOmega * SystemBase.omega0Pu + KOmegaRef * SystemBase.omegaRef0Pu), tW = tW2) annotation(
     Placement(visible = true, transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t2, k = Ks2, y_start = Ks2 * (KOmega * SystemBase.omega0Pu + KOmegaRef * SystemBase.omegaRef0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -65,9 +65,9 @@ model Pss3c "IEEE power system stabilizer type 3C"
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {A4, A3, 1}, b = {A2, A1, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {A4, A3, 1}, b = {A2, A1, 1}) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {A8, A7, 1}, b = {A6, A5, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {A8, A7, 1}, b = {A6, A5, 1}) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

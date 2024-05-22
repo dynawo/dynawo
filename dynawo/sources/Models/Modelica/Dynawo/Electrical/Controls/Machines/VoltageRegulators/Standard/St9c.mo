@@ -42,7 +42,7 @@ model St9c "IEEE exciter type ST9C model"
   //Input variables
   Modelica.Blocks.Interfaces.RealInput IrPu(start = Ir0Pu) "Rotor current in pu (base SNom, user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {-340, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput UOelPu(start = UOel0Pu) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -123,8 +123,8 @@ model St9c "IEEE exciter type ST9C model"
     Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = if PositionUel == 2 then max1.yMax - gain.y else 0) annotation(
-    Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-110, -10}, {110, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression realExpression(y = if (PositionUel == 2 or PositionScl == 2) then max1.yMax - gain.y else 0) annotation(
+    Placement(visible = true, transformation(origin = {-160, -120}, extent = {{-140, -10}, {140, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -260,7 +260,7 @@ equation
   connect(add1.y, product1.u2) annotation(
     Line(points = {{181, -140}, {200, -140}, {200, -66}, {182, -66}}, color = {0, 0, 127}));
   connect(realExpression.y, gain1.u) annotation(
-    Line(points = {{-8, -120}, {18, -120}}, color = {0, 0, 127}));
+    Line(points = {{-6, -120}, {18, -120}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

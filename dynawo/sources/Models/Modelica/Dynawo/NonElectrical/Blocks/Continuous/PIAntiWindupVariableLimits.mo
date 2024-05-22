@@ -20,7 +20,7 @@ block PIAntiWindupVariableLimits "Anti-windup proportional integral controller w
   Modelica.Blocks.Interfaces.RealInput limitMin "Minimum output of controller" annotation(
     Placement(visible = true, transformation(origin = {-160, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

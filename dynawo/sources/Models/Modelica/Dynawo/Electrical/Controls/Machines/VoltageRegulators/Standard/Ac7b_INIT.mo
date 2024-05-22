@@ -19,6 +19,7 @@ model Ac7b_INIT "IEEE excitation system type AC7B initialization model"
     Ki = 0,
     Sw1 = true,
     Thetap = 0,
+    VbMaxPu = 999,
     XlPu = 0);
 
   annotation(preferredView = "text");

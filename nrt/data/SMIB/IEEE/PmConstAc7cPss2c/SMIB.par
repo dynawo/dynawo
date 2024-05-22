@@ -100,7 +100,7 @@
     <par type="INT" name="voltageRegulator_PositionPss" value="1"/>
     <par type="INT" name="voltageRegulator_PositionScl" value="0"/>
     <par type="INT" name="voltageRegulator_PositionUel" value="0"/>
-    <par type="BOOL" name="voltageRegulator_Sw1" value="true"/><!--false-->
+    <par type="BOOL" name="voltageRegulator_Sw1" value="false"/>
     <par type="BOOL" name="voltageRegulator_Sw2" value="true"/>
     <par type="DOUBLE" name="voltageRegulator_tDr" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_tE" value="1.2"/>
@@ -157,7 +157,7 @@
   <!-- Fault -->
   <set id="7">
     <par type="DOUBLE" name="fault_tBegin" value="1"/>
-    <par type="DOUBLE" name="fault_tEnd" value="1.055"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.307"/>
     <par type="DOUBLE" name="fault_RPu" value="0"/>
     <par type="DOUBLE" name="fault_XPu" value="0"/>
   </set>

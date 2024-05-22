@@ -21,7 +21,7 @@
           <dyn:directory path="." recursive="false"/>
         </dyn:modelicaModels>
       </dyn:modeler>
-      <dyn:simulation startTime="0" stopTime="10"/>
+      <dyn:simulation startTime="0" stopTime="15"/>
       <dyn:outputs directory="outputs">
         <dyn:curves inputFile="SMIB.crv" exportMode="CSV"/>
         <dyn:logs>

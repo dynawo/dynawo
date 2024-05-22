@@ -38,6 +38,7 @@ set(MODEL_FILES
   RateLimFirstOrderFreeze.mo
   SecondOrder.mo
   SqrtNoEvent.mo
+  TransferFunction.mo
   VarLimPIDFreeze.mo
   Washout.mo
   WeightedDifference.mo

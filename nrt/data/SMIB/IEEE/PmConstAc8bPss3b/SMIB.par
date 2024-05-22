@@ -88,7 +88,6 @@
     <par type="DOUBLE" name="voltageRegulator_Kir" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_Kp" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Kpr" value="80"/>
-    <par type="BOOL" name="voltageRegulator_Sw1" value="true"/>
     <par type="DOUBLE" name="voltageRegulator_tA" value="0.01"/>
     <par type="DOUBLE" name="voltageRegulator_tDr" value="0.02"/>
     <par type="DOUBLE" name="voltageRegulator_tE" value="1.2"/>
@@ -100,13 +99,13 @@
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="0"/>
     <!-- Power system stabilizer parameters -->
     <par type="DOUBLE" name="powerSystemStabilizer_A1" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A2" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A2" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_A3" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A4" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A4" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_A5" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A6" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A6" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_A7" value="0"/>
-    <par type="DOUBLE" name="powerSystemStabilizer_A8" value="1e-5"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_A8" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks1" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks2" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_t1" value="0.02"/>
@@ -126,7 +125,7 @@
   <!-- Fault -->
   <set id="7">
     <par type="DOUBLE" name="fault_tBegin" value="1"/>
-    <par type="DOUBLE" name="fault_tEnd" value="1.311"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.317"/>
     <par type="DOUBLE" name="fault_RPu" value="0"/>
     <par type="DOUBLE" name="fault_XPu" value="0"/>
   </set>
