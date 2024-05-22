@@ -29,7 +29,7 @@ namespace DYN {
    *
    * This function is for debug purposes but can be used release mode
    *
-   * To use it you need to add #include "DYNModelUtil.h" in DYNSolverIDA.cpp
+   * To use it you need to add \#include "DYNModelUtil.h" in DYNSolverIDA.cpp
    * and add dynawo_ModelerCommon to the target_link_libraries of dynawo_SolverIDA.
    * Then in evalJ you can use printStructureToFile(model, smj);
    *

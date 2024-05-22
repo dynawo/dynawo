@@ -57,7 +57,20 @@ class InitValuesEntry {
    */
   bool getDumpGlobalInitValues() const;
 
+  /**
+   * @brief whether to write values of the initialization model setter
+   * @param dumpInitModelValues : whether to dump values of the initialization model for the job
+   */
+  void setDumpInitModelValues(const bool dumpInitModelValues);
+
+  /**
+   * @brief whether to write values of the initialization model getter
+   * @return whether to dump values of the initialization model for the job
+   */
+  bool getDumpInitModelValues() const;
+
  private:
+  bool dumpInitModelValues_;   ///< boolean indicating whether to write the values of the initialization model in the outputs directory
   bool dumpLocalInitValues_;   ///< boolean indicating whether to write the local init values in the outputs directory
   bool dumpGlobalInitValues_;  ///< boolean indicating whether to write the global init values in the outputs directory
 };

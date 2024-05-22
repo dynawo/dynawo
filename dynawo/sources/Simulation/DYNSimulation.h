@@ -368,6 +368,14 @@ class Simulation {
   }
 
   /**
+   * @brief setter for init model values dump mode
+   * @param dumpInitModelValues @b true if init model values should be dumped
+   */
+  inline void setDumpInitModelValues(const bool dumpInitModelValues) {
+    dumpInitModelValues_ = dumpInitModelValues;
+  }
+
+  /**
    * @brief setter for global init values dump mode
    * @param dumpGlobalInitValues  @b true if global init values should be dumped
    * global init values are the values calculated by the init algorithm for each models, all models at the same time
@@ -687,6 +695,7 @@ class Simulation {
   int  criteriaStep_;  ///< if activated, this number will be the number of iterations between two criteria checks
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
+  bool dumpInitModelValues_;  ///< whether to export the results from the initialisation model
   bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
 

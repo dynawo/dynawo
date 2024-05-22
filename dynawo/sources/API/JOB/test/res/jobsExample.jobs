@@ -33,7 +33,7 @@
       <dyn:criteria criteriaFile="myCriteriaFile2.crt"/>
     </dyn:simulation>
     <dyn:outputs directory="outputs1">
-      <dyn:dumpInitValues local="true" global="false"/>
+      <dyn:dumpInitValues local="true" global="false" init="true"/>
       <dyn:dumpFinalValues/>
       <dyn:constraints exportMode="XML"/>
       <dyn:timeline exportMode="TXT" exportTime="true" maxPriority="2" filter="true"/>

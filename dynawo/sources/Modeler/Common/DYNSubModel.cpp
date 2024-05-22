@@ -682,6 +682,19 @@ SubModel::printModelValues(const std::string& directory, const std::string& dump
 }
 
 void
+SubModel::printInitModelValues(const std::string& directory, const std::string& dumpFileName) {
+  const string& fileName = absolute(dumpFileName + "-" + name() + ".txt", directory);
+
+  std::ofstream file;
+  file.open(fileName.c_str());
+
+  printInitValuesVariables(file);
+  printInitValuesParameters(file);
+
+  file.close();
+}
+
+void
 SubModel::printValuesParameters(std::ofstream& fstream) {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
@@ -689,6 +702,20 @@ SubModel::printValuesParameters(std::ofstream& fstream) {
     bool found = false;
     std::string value;
     getSubModelParameterValue(it->first, value, found);
+    if (found) {
+      fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << value << std::endl;
+    }
+  }
+}
+
+void
+SubModel::printInitValuesParameters(std::ofstream& fstream) {
+  std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersInit_.begin(), parametersInit_.end());
+  fstream << " ====== INIT PARAMETERS VALUES ======\n";
+  for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
+    bool found = false;
+    std::string value;
+    getInitSubModelParameterValue(it->first, value, found);
     if (found) {
       fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << value << std::endl;
     }
@@ -1310,6 +1337,21 @@ SubModel::getSubModelParameterValue(const string& nameParameter, std::string& va
 }
 
 void
+SubModel::getInitSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
+  const bool isInitParam = true;
+  const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
+  if (!parameter.hasValue()) {
+    found = false;
+  } else {
+    found = true;
+    if (parameter.getValueType() == VAR_TYPE_STRING)
+      value = parameter.getValue<std::string>();
+    else
+      value = DYN::double2String(parameter.getDoubleValue());
+  }
+}
+
+void
 SubModel::printValuesVariables(std::ofstream& fstream) {
   fstream << " ====== VARIABLES VALUES ======\n";
   const vector<string>& xNames = (*this).xNames();
@@ -1341,6 +1383,29 @@ SubModel::printValuesVariables(std::ofstream& fstream) {
     fstream << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
     ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
 }
+
+void
+SubModel::printInitValuesVariables(std::ofstream& fstream) {
+  fstream << " ====== INIT VARIABLES VALUES ======\n";
+  const vector<string>& xNames = (*this).xNamesInit();
+  for (unsigned int i = 0; i < yLocalInit_.size(); ++i)
+    fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocalInit_[i])
+      << " yp =" << std::setw(15) << DYN::double2String(ypLocalInit_[i]) << "\n";
+
+  if (calculatedVarsInit_.size() > 0) {
+    fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
+    const vector<string>& calculatedVarNames = (*this).getCalculatedVarNamesInit();
+    for (unsigned int i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
+      fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
+        << std::setw(15) << DYN::double2String(calculatedVarsInit_[i]) << "\n";
+  }
+
+  const vector<string>& zNames = (*this).zNamesInit();
+  fstream << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
+  for (unsigned int i = 0; i < zLocalInit_.size(); ++i)
+    fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocalInit_[i]) << "\n";
+}
+
 
 void
 SubModel::checkDataCoherence(const double) {

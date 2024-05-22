@@ -20,7 +20,7 @@
 
 namespace job {
 
-InitValuesEntry::InitValuesEntry() : dumpLocalInitValues_(false), dumpGlobalInitValues_(false) {}
+InitValuesEntry::InitValuesEntry() : dumpInitModelValues_(false), dumpLocalInitValues_(false), dumpGlobalInitValues_(false) {}
 
 void
 InitValuesEntry::setDumpLocalInitValues(const bool dumpLocalInitValues) {
@@ -40,6 +40,16 @@ InitValuesEntry::setDumpGlobalInitValues(const bool dumpGlobalInitValues) {
 bool
 InitValuesEntry::getDumpGlobalInitValues() const {
   return dumpGlobalInitValues_;
+}
+
+void
+InitValuesEntry::setDumpInitModelValues(const bool dumpInitModelValues) {
+  dumpInitModelValues_ = dumpInitModelValues;
+}
+
+bool
+InitValuesEntry::getDumpInitModelValues() const {
+  return dumpInitModelValues_;
 }
 
 }  // namespace job
