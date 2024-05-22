@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.WECC;
+within Dynawo.Electrical.Controls.WECC.REEC;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model ElectricalControlPV "WECC PV Electrical Control REEC"
-  extends Dynawo.Electrical.Controls.WECC.BaseControls.ElectricalControlCommon;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.ElectricalControlCommon;
 
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationPV currentLimitsCalculation1(IMaxPu = IMaxPu, PPriority = PPriority) annotation(
     Placement(visible = true, transformation(origin = {410, 29}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -80,7 +80,8 @@ equation
   connect(variableLimiter.y, firstOrder2.u) annotation(
     Line(points = {{468, -20}, {480, -20}, {480, 9}, {462, 9}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html>
     <p> This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
 <p> Following control modes can be activated:
@@ -90,5 +91,5 @@ equation
 <p> The block calculates the idCmdPu and iqCmdPu setpoint values for the generator control based on the selected control algorithm.
 </ul> </p></html>"),
     Diagram(coordinateSystem(initialScale = 0.2)),
-  Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {137, 79}, extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu")}, coordinateSystem(initialScale = 0.1, preserveAspectRatio = false)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {137, 79}, extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu")}, coordinateSystem(initialScale = 0.1, preserveAspectRatio = false)));
 end ElectricalControlPV;

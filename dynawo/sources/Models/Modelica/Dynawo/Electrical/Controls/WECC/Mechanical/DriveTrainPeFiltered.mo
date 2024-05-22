@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.WECC;
+within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model DriveTrainPeFiltered "Drive train control with a mechanical power derived from filtered electrical power"
-  extends BaseControls.BaseDriveTrain;
+  extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseDriveTrain;
 
   parameter Types.Time tP "Filter time constant for mechanical power calculation in seconds (typical:0.01..0.02)";
 

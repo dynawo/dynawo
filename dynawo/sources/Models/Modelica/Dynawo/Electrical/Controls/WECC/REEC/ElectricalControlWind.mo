@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.WECC;
+within Dynawo.Electrical.Controls.WECC.REEC;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model ElectricalControlWind "WECC Wind Electrical Control REEC"
-  extends Dynawo.Electrical.Controls.WECC.BaseControls.ElectricalControlCommon;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.ElectricalControlCommon;
 
   parameter Types.VoltageComponent VDLIp11;
   parameter Types.VoltageComponent VDLIp12;
@@ -31,15 +31,16 @@ model ElectricalControlWind "WECC Wind Electrical Control REEC"
   parameter Types.VoltageComponent VDLIq32;
   parameter Types.VoltageComponent VDLIq41;
   parameter Types.VoltageComponent VDLIq42;
-  parameter Types.VoltageComponent VDLIpPoints[:, :] = [VDLIp11, VDLIp12 ; VDLIp21, VDLIp22 ; VDLIp31, VDLIp32 ; VDLIp41, VDLIp42] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]";
-  parameter Types.VoltageComponent VDLIqPoints[:, :] = [VDLIq11, VDLIq12 ; VDLIq21, VDLIq22 ; VDLIq31, VDLIq32 ; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]";
+  parameter Types.VoltageComponent VDLIpPoints[:, :] = [VDLIp11, VDLIp12; VDLIp21, VDLIp22; VDLIp31, VDLIp32; VDLIp41, VDLIp42] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]";
+  parameter Types.VoltageComponent VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]";
   parameter Types.PerUnit VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)";
   parameter Types.Time HoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s";
   parameter Types.Time HoldIq "Absolute value of HoldIq defines seconds to hold current injection after voltage dip ended. HoldIq > 0 for constant, 0 for no injection after voltage dip, HoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)";
   parameter Types.PerUnit IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)";
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)";
 
-  Modelica.Blocks.Interfaces.RealInput omegaGPu(start= SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
+  // Input
+  Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-269, 134}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
@@ -148,7 +149,8 @@ equation
   connect(add2.y, switch.u3) annotation(
     Line(points = {{-28, -50}, {-20, -50}, {-20, -26}, {-2, -26}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px;\">This block contains the electrical inverter control of the generic WECC Wind model according to (in case page cannot be found, copy link in browser):<br><a href=\"https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf\">https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf</a></p>
   <p style=\"font-size: 12px;\">
   Following control modes can be activated:</p>
@@ -158,5 +160,5 @@ equation
   <li style=\"font-size: 12px;\"> Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1 </li>
     <p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></body></html>"),
     Diagram(coordinateSystem(extent = {{-260, -130}, {540, 250}}, grid = {1, 1})),
-  Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
 end ElectricalControlWind;
