@@ -28,7 +28,7 @@ model St6c "IEEE exciter type ST6C model"
   parameter Types.PerUnit Kp "Potential circuit gain";
   parameter Types.PerUnit Kpa "Proportional gain of PI";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
-  parameter Integer PositionScl = 0 "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
+  parameter Integer PositionScl "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
   parameter Integer PositionUel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
   parameter Boolean Sw1 "If true, power source derived from terminal voltage, if false, independent from terminal voltage";
   parameter Types.Time tA "Voltage regulator time constant in s";

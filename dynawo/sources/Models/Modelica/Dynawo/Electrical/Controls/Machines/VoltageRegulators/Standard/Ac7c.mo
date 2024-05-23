@@ -36,7 +36,8 @@ model Ac7c "IEEE exciter type AC7C model"
   parameter Types.PerUnit Kr "Field voltage feedback gain";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output, (4) take-over at inner loop regulator output";
   parameter Integer PositionPss "Input location : (0) none, (1) voltage error summation, (2) after take-over UEL";
-  parameter Integer PositionScl = 0 "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
+  parameter Integer PositionScl "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
+//  parameter Integer PositionScl = 0 "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
   parameter Integer PositionUel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
   parameter Boolean Sw1 "If true, power source derived from terminal voltage, if false, independent from terminal voltage";
   parameter Boolean Sw2 "If true, power source derived from available exciter field voltage, if false, from rotating exciter output voltage";
