@@ -20,6 +20,8 @@
  */
 //======================================================================
 
+#include "DYNCommon.h"
+
 #include "DYNHvdcLineInterfaceIIDM.h"
 
 #include <powsybl/iidm/HvdcLine.hpp>
@@ -53,20 +55,11 @@ HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM(powsybl::iidm::HvdcLine& hvdcLine,
   stateVariables_[VAR_STATE1] = StateVariable("state1", StateVariable::INT);  // connectionState1
   stateVariables_[VAR_STATE2] = StateVariable("state2", StateVariable::INT);  // connectionState2
 
-  auto libPath = IIDMExtensions::findLibraryPath();
-
-  auto hvdcActivePowerControlDef = IIDMExtensions::getExtension<HvdcAngleDroopActivePowerControlIIDMExtension>(libPath.generic_string());
-  hvdcActivePowerControl_ = std::get<IIDMExtensions::CREATE_FUNCTION>(hvdcActivePowerControlDef)(hvdcLine);
-  destroyHvdcActivePowerControl_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(hvdcActivePowerControlDef);
-
-  auto hvdcActivePowerRangeDef = IIDMExtensions::getExtension<HvdcOperatorActivePowerRangeIIDMExtension>(libPath.generic_string());
-  hvdcActivePowerRange_ = std::get<IIDMExtensions::CREATE_FUNCTION>(hvdcActivePowerRangeDef)(hvdcLine);
-  destroyHvdcActivePowerRange_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(hvdcActivePowerRangeDef);
+  hvdcActivePowerControl_ = hvdcLine.findExtension<powsybl::iidm::extensions::iidm::HvdcAngleDroopActivePowerControl>();
+  hvdcActivePowerRange_ = hvdcLine.findExtension<powsybl::iidm::extensions::iidm::HvdcOperatorActivePowerRange>();
 }
 
 HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
-  destroyHvdcActivePowerControl_(hvdcActivePowerControl_);
-  destroyHvdcActivePowerRange_(hvdcActivePowerRange_);
 }
 
 void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
@@ -194,10 +187,10 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
 void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
 
-  bool isACEmulationEnabled = hvdcActivePowerControl_ && hvdcActivePowerControl_->isEnabled() && hvdcActivePowerControl_->isEnabled().get();
+  bool isACEmulationEnabled = hvdcActivePowerControl_ && hvdcActivePowerControl_.get().isEnabled();
   double p0ACEmulationPu = 0;
   if (isACEmulationEnabled) {
-    double p0ACEmulation = hvdcActivePowerControl_->getP0().get();
+    double p0ACEmulation = hvdcActivePowerControl_.get().getP0();
     p0ACEmulationPu = p0ACEmulation / SNREF;
   }
   staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
@@ -325,27 +318,27 @@ HvdcLineInterfaceIIDM::getConverter2() const {
 
 boost::optional<double>
 HvdcLineInterfaceIIDM::getDroop() const {
-  return hvdcActivePowerControl_ ? hvdcActivePowerControl_->getDroop() : boost::optional<double>();
+  return hvdcActivePowerControl_ ? hvdcActivePowerControl_.get().getDroop() : boost::optional<double>();
 }
 
 boost::optional<double>
 HvdcLineInterfaceIIDM::getP0() const {
-  return hvdcActivePowerControl_ ? hvdcActivePowerControl_->getP0() : boost::optional<double>();
+  return hvdcActivePowerControl_ ? hvdcActivePowerControl_.get().getP0() : boost::optional<double>();
 }
 
 boost::optional<bool>
 HvdcLineInterfaceIIDM::isActivePowerControlEnabled() const {
-  return hvdcActivePowerControl_ ? hvdcActivePowerControl_->isEnabled() : boost::optional<bool>();
+  return hvdcActivePowerControl_ ? hvdcActivePowerControl_.get().isEnabled() : boost::optional<bool>();
 }
 
 boost::optional<double>
 HvdcLineInterfaceIIDM::getOprFromCS1toCS2() const {
-  return hvdcActivePowerRange_ ? hvdcActivePowerRange_->getOprFromCS1toCS2() : boost::optional<double>();
+  return hvdcActivePowerRange_ ? hvdcActivePowerRange_.get().getOprFromCS1toCS2() : boost::optional<double>();
 }
 
 boost::optional<double>
 HvdcLineInterfaceIIDM::getOprFromCS2toCS1() const {
-  return hvdcActivePowerRange_ ? hvdcActivePowerRange_->getOprFromCS2toCS1() : boost::optional<double>();
+  return hvdcActivePowerRange_ ? hvdcActivePowerRange_.get().getOprFromCS2toCS1() : boost::optional<double>();
 }
 
 

@@ -24,11 +24,10 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNHVDCLINEINTERFACEIIDM_H_
 
 #include "DYNHvdcLineInterface.h"
-#include "DYNHvdcAngleDroopActivePowerControlIIDMExtension.h"
-#include "DYNHvdcOperatorActivePowerRangeIIDMExtension.h"
-#include "DYNIIDMExtensions.hpp"
 
 #include <powsybl/iidm/HvdcLine.hpp>
+#include <powsybl/iidm/extensions/iidm/HvdcAngleDroopActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/HvdcOperatorActivePowerRange.hpp>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
@@ -170,12 +169,8 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyabl
   powsybl::iidm::HvdcLine& hvdcLineIIDM_;        ///< reference to the iidm line instance
   boost::shared_ptr<ConverterInterface> conv1_;  ///< conv1
   boost::shared_ptr<ConverterInterface> conv2_;  ///< conv2
-  HvdcAngleDroopActivePowerControlIIDMExtension* hvdcActivePowerControl_;  ///< HVDC active power control extension
-  IIDMExtensions::DestroyFunction<HvdcAngleDroopActivePowerControlIIDMExtension>
-    destroyHvdcActivePowerControl_;  ///< Function to destroy hvdc active power control extension
-  HvdcOperatorActivePowerRangeIIDMExtension* hvdcActivePowerRange_;                                         ///< HVDC active power range extension
-  IIDMExtensions::DestroyFunction<HvdcOperatorActivePowerRangeIIDMExtension>
-    destroyHvdcActivePowerRange_;  ///< Function to destroy actice power range extension
+  stdcxx::Reference<powsybl::iidm::extensions::iidm::HvdcAngleDroopActivePowerControl> hvdcActivePowerControl_;  ///< HVDC active power control extension
+  stdcxx::Reference<powsybl::iidm::extensions::iidm::HvdcOperatorActivePowerRange> hvdcActivePowerRange_;        ///< HVDC active power range extension
 };                                               ///< Interface class for Hvdc Line model
 
 }  // namespace DYN

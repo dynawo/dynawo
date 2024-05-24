@@ -38,13 +38,14 @@ jobs:
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-doxygen-doc
+          [ ! -d "./install/gcc8/master/Debug/shared/dynawo/doxygen/html" ] && { echo "Doxygen directory does no exist"; exit 1; }
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./install/gcc8/HEAD/Debug/shared/dynawo/doxygen/html
+          publish_dir: ./install/gcc8/master/Debug/shared/dynawo/doxygen/html
 
       - name: NRT
         if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt

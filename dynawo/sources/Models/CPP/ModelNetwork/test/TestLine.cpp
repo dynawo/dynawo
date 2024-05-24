@@ -20,6 +20,7 @@
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/Line.hpp>
 #include <powsybl/iidm/LineAdder.hpp>
+#include <powsybl/iidm/CurrentLimitsAdder.hpp>
 
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -121,9 +122,9 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     dlItfIIDM->addCurrentLimitInterface1(cLimit);
   }
   for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
-    if (!currentLimit.get().isFictitious()) {
+    if (!currentLimit.isFictitious()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(
-          new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+          new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
       dlItfIIDM->addCurrentLimitInterface1(cLimit);
     }
   }
@@ -133,9 +134,9 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     dlItfIIDM->addCurrentLimitInterface1(cLimit);
   }
   for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
-    if (!currentLimit.get().isFictitious()) {
+    if (!currentLimit.isFictitious()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(
-          new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+          new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
       dlItfIIDM->addCurrentLimitInterface1(cLimit);
     }
   }
