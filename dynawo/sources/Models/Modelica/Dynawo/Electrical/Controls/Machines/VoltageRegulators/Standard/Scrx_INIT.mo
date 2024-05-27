@@ -14,11 +14,10 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model Scrx_INIT "Initialization model of Scrx"
-  extends AdditionalIcons.Init;
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT;
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
   Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+  Types.VoltageModulePu U0Pu "Initial voltage amplitude at terminal in pu (base UNom)";
 
   annotation(preferredView = "text");
 end Scrx_INIT;
