@@ -1,0 +1,11 @@
+<map id="DYN::BusInterfaceIIDM" name="DYN::BusInterfaceIIDM">
+<area shape="rect" id="node1" title="Specialization of BusInterface class for IIDM." alt="" coords="1523,32,1693,59"/>
+<area shape="rect" id="node2" href="$d5/dd8/a03083.html" title="Bus interface." alt="" coords="1333,59,1473,85"/>
+<area shape="rect" id="node3" href="$dc/dc0/a03087.html" title="Class describing a component of the network." alt="" coords="1093,63,1284,89"/>
+<area shape="rect" id="node4" title=" " alt="" coords="677,63,923,89"/>
+<area shape="rect" id="node5" href="$db/d4b/a03207.html" title="State variable description class." alt="" coords="409,63,556,89"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="193,93,280,120"/>
+<area shape="rect" id="node8" title=" " alt="" coords="724,113,876,169"/>
+<area shape="rect" id="node9" href="$d5/ddf/a03211.html" title="Static parameter description class." alt="" coords="401,176,564,203"/>
+<area shape="rect" id="node7" title="STL class." alt="" coords="5,86,144,127"/>
+</map>

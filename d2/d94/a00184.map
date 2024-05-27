@@ -1,0 +1,13 @@
+<map id="DYDUnitDynamicModel.h" name="DYDUnitDynamicModel.h">
+<area shape="rect" id="node1" title="Modelica models description : interface file." alt="" coords="348,5,535,32"/>
+<area shape="rect" id="node2" href="$db/ddf/a00164.html" title="model template description : interface file" alt="" coords="301,80,464,107"/>
+<area shape="rect" id="node3" href="$dc/d57/a00194.html" title="Handler for dynamic models collection file : header file." alt="" coords="8,155,147,181"/>
+<area shape="rect" id="node7" href="$d9/dd0/a00191.html" title="Dynawo dynamic models collection XML exporter : header file." alt="" coords="310,155,453,181"/>
+<area shape="rect" id="node8" href="$d6/db8/a00158.html" title="Modelica model description : interface file." alt="" coords="115,80,277,107"/>
+<area shape="rect" id="node10" href="$de/df3/a00185.html" title="Modelica model factory : header file." alt="" coords="539,80,773,107"/>
+<area shape="rect" id="node11" href="$da/d15/a00188_source.html" title=" " alt="" coords="797,80,1021,107"/>
+<area shape="rect" id="node6" href="$d7/d3f/a00173.html" title="model template factory : header file" alt="" coords="477,155,685,181"/>
+<area shape="rect" id="node4" href="$df/d6a/a00119.html" title="Dynawo dynamic models collection importer : interface file." alt="" coords="18,229,137,256"/>
+<area shape="rect" id="node5" href="$de/db1/a00197.html" title="Dynawo dynamic models collection XML importer : header file." alt="" coords="5,304,149,331"/>
+<area shape="rect" id="node9" href="$d7/db1/a00590.html" title="Modeler header : creates all submodels and connectors between them." alt="" coords="171,155,285,181"/>
+</map>

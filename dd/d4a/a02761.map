@@ -1,0 +1,9 @@
+<map id="parameters::ParTableHandler" name="parameters::ParTableHandler">
+<area shape="rect" id="node1" title="Handler used to parse parTable element." alt="" coords="1099,69,1309,96"/>
+<area shape="rect" id="node2" title=" " alt="" coords="377,5,585,32"/>
+<area shape="rect" id="node3" href="$da/d8e/a02759.html" title="Handler used to parse a par element inside a table element." alt="" coords="699,43,921,69"/>
+<area shape="rect" id="node4" href="$df/d02/a02755.html" title="structure defining a parameter element inside a table" alt="" coords="378,101,585,128"/>
+<area shape="rect" id="node7" title=" " alt="" coords="719,94,901,135"/>
+<area shape="rect" id="node5" title="STL class." alt="" coords="193,140,280,167"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="5,133,144,174"/>
+</map>

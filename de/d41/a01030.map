@@ -1,0 +1,5 @@
+<map id="DYNSolverCommonFixedTimeStep.h" name="DYNSolverCommonFixedTimeStep.h">
+<area shape="rect" id="node1" title="Intermediary class that regroup both SIM and TRAP solver. These last two inherist from this class." alt="" coords="38,5,254,47"/>
+<area shape="rect" id="node2" href="$d6/dcf/a01031.html" title="Solver based on backward Euler integration method using KINSOL to solve each step." alt="" coords="5,95,132,121"/>
+<area shape="rect" id="node3" href="$de/d91/a01034.html" title="Solver based on trapezoidal method integration method using KINSOL to solve each step." alt="" coords="156,95,291,121"/>
+</map>

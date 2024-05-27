@@ -1,0 +1,9 @@
+<map id="dynamicdata::ModelTemplateExpansionHandler" name="dynamicdata::ModelTemplateExpansionHandler">
+<area shape="rect" id="node1" title="Handler used to parse model template expansion element." alt="" coords="1152,25,1367,66"/>
+<area shape="rect" id="node2" title=" " alt="" coords="391,27,599,53"/>
+<area shape="rect" id="node3" href="$df/d71/a02247.html" title="Handler used to parse MacroStaticRef element." alt="" coords="733,25,925,66"/>
+<area shape="rect" id="node4" href="$d6/dd2/a02243.html" title="Handler used to parse StaticRef element." alt="" coords="716,91,941,117"/>
+<area shape="rect" id="node5" href="$d7/da1/a02231.html" title="structure defining a staticRef element" alt="" coords="391,95,598,121"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="193,95,280,121"/>
+<area shape="rect" id="node7" title="STL class." alt="" coords="5,87,144,129"/>
+</map>

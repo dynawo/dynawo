@@ -1,0 +1,107 @@
+<map id="DYNMessageTimeline.hpp" name="DYNMessageTimeline.hpp">
+<area shape="rect" id="node1" title="DYNMessageTimeline header to implement template operator ,." alt="" coords="2080,5,2272,32"/>
+<area shape="rect" id="node2" href="$d4/dfb/a00512.html" title="DYNMessageTimeline header." alt="" coords="2088,80,2264,107"/>
+<area shape="rect" id="node3" href="$d4/de5/a00503_source.html" title=" " alt="" coords="2870,155,3037,181"/>
+<area shape="rect" id="node5" href="$d0/d82/a00857.html" title="declaration of useful/utilitaries methods" alt="" coords="696,379,915,405"/>
+<area shape="rect" id="node4" href="$d5/dee/a00518_source.html" title=" " alt="" coords="1762,229,1921,256"/>
+<area shape="rect" id="node8" href="$d9/d24/a00524.html" title="Implementation of template methods." alt="" coords="2975,229,3121,256"/>
+<area shape="rect" id="node31" href="$d7/d80/a00614.html" title="Implementation of template methods." alt="" coords="2063,453,2206,480"/>
+<area shape="rect" id="node47" href="$db/d23/a01025.html" title="Implementation of template methods." alt="" coords="6503,535,6651,562"/>
+<area shape="rect" id="node52" href="$d5/d0a/a00602.html" title="Implementation of template methods." alt="" coords="2171,229,2370,256"/>
+<area shape="rect" id="node53" href="$d8/db9/a00725.html" title="Implementation of template methods." alt="" coords="2767,229,2950,256"/>
+<area shape="rect" id="node56" href="$dc/df2/a00656.html" title="Implementation of template methods." alt="" coords="3849,453,4060,480"/>
+<area shape="rect" id="node99" href="$dd/dd8/a00719.html" title="Implementation of template methods." alt="" coords="3511,229,3678,256"/>
+<area shape="rect" id="node101" href="$da/db8/a00797.html" title="File for external IIDM extensions management." alt="" coords="2316,625,2495,651"/>
+<area shape="rect" id="node102" href="$db/d40/a00959.html" title="Model of tap changer : header file." alt="" coords="3216,229,3395,256"/>
+<area shape="rect" id="node105" href="$d0/d2b/a01010.html" title="Implementation of template methods." alt="" coords="3752,304,3939,331"/>
+<area shape="rect" id="node6" href="$d6/d2f/a00854.html" title="Class of Model Manager : interface between a modelica model and a subModel." alt="" coords="238,625,397,651"/>
+<area shape="rect" id="node7" href="$dd/db2/a00866.html" title="Generic class for native Modelica models." alt="" coords="53,625,214,651"/>
+<area shape="rect" id="node9" href="$d7/def/a00521.html" title="Dynawo Parameter: header file." alt="" coords="2987,304,3117,331"/>
+<area shape="rect" id="node10" href="$d5/d8a/a00599.html" title="Dynawo Modeler Parameter: header file." alt="" coords="2179,379,2362,405"/>
+<area shape="rect" id="node45" href="$d6/d8d/a01007.html" title="Dynawo Solver Parameter: header file." alt="" coords="3787,379,3957,405"/>
+<area shape="rect" id="node11" href="$dd/dc0/a00611.html" title="Class Interface to describe a subModel : header file." alt="" coords="746,535,873,562"/>
+<area shape="rect" id="node32" href="$df/dce/a00974.html" title=" " alt="" coords="2717,535,2909,562"/>
+<area shape="rect" id="node12" href="$dc/dae/a00563.html" title="This class builds a connector submodel related to a discrete calculated variable." alt="" coords="421,617,659,659"/>
+<area shape="rect" id="node13" href="$d0/d3e/a00566.html" title="Connector to use when connecting to a calculated variable." alt="" coords="684,625,935,651"/>
+<area shape="rect" id="node14" href="$d3/db2/a00869.html" title="Class Interface to describe a c++ model : header file." alt="" coords="959,625,1084,651"/>
+<area shape="rect" id="node15" href="$dc/d17/a00872.html" title="Load restorative with limits model header." alt="" coords="203,707,429,748"/>
+<area shape="rect" id="node17" href="$d5/d69/a00878.html" title="centralized model for shunt section control header" alt="" coords="455,707,663,748"/>
+<area shape="rect" id="node19" href="$dd/d08/a00884.html" title="model for aggregating voltage values on a local subnetworks" alt="" coords="691,707,928,748"/>
+<area shape="rect" id="node21" href="$d7/d46/a00890.html" title=" " alt="" coords="953,714,1145,741"/>
+<area shape="rect" id="node23" href="$da/dd6/a00896.html" title=" " alt="" coords="1178,714,1369,741"/>
+<area shape="rect" id="node25" href="$d5/dd3/a00902.html" title="Model to handle a voltage set point change on loads." alt="" coords="1406,714,1661,741"/>
+<area shape="rect" id="node27" href="$d0/d85/a00908.html" title="Reference frequency model header." alt="" coords="1700,714,1871,741"/>
+<area shape="rect" id="node29" href="$d5/d54/a00938.html" title="Model Network header." alt="" coords="17,714,175,741"/>
+<area shape="rect" id="node16" href="$d1/d93/a00875_source.html" title=" " alt="" coords="203,796,429,837"/>
+<area shape="rect" id="node18" href="$df/d41/a00881_source.html" title=" " alt="" coords="453,796,661,837"/>
+<area shape="rect" id="node20" href="$d7/d92/a00887_source.html" title=" " alt="" coords="685,796,923,837"/>
+<area shape="rect" id="node22" href="$dc/d2c/a00893_source.html" title=" " alt="" coords="947,803,1155,830"/>
+<area shape="rect" id="node24" href="$d3/d8a/a00899_source.html" title=" " alt="" coords="1179,803,1386,830"/>
+<area shape="rect" id="node26" href="$da/d5b/a00905_source.html" title=" " alt="" coords="1410,803,1681,830"/>
+<area shape="rect" id="node28" href="$d7/d12/a00911_source.html" title=" " alt="" coords="1705,803,1892,830"/>
+<area shape="rect" id="node30" href="$d6/dad/a00941_source.html" title=" " alt="" coords="5,803,179,830"/>
+<area shape="rect" id="node33" href="$d4/ddc/a00917.html" title=" " alt="" coords="3074,625,3201,651"/>
+<area shape="rect" id="node34" href="$d8/d19/a00935.html" title=" " alt="" coords="2165,714,2299,741"/>
+<area shape="rect" id="node35" href="$d3/de5/a00956.html" title=" " alt="" coords="2807,714,2953,741"/>
+<area shape="rect" id="node36" href="$df/de9/a00923.html" title="Dangling line model : header file." alt="" coords="2519,625,2705,651"/>
+<area shape="rect" id="node37" href="$d8/d38/a00926.html" title=" " alt="" coords="2730,625,2897,651"/>
+<area shape="rect" id="node38" href="$dc/d92/a00929.html" title="HVDC link simple model where the converters act like PQ injectors." alt="" coords="3276,625,3439,651"/>
+<area shape="rect" id="node39" href="$d8/dbb/a00932.html" title=" " alt="" coords="2921,625,3050,651"/>
+<area shape="rect" id="node40" href="$df/d39/a00950.html" title="Shunt compensator model : header file." alt="" coords="1159,625,1385,651"/>
+<area shape="rect" id="node41" href="$d5/da3/a00953.html" title="Static var compensator model : header file." alt="" coords="3463,625,3711,651"/>
+<area shape="rect" id="node42" href="$d3/dcd/a00965.html" title=" " alt="" coords="1410,625,1689,651"/>
+<area shape="rect" id="node43" href="$d7/dd4/a00968.html" title="Model used for two windings transformer : header file." alt="" coords="1713,625,1980,651"/>
+<area shape="rect" id="node44" href="$d0/d3c/a00971.html" title="ModelVoltageLevel header." alt="" coords="2004,625,2191,651"/>
+<area shape="rect" id="node46" href="$d1/dd8/a01022.html" title="Dynawo solvers : header file." alt="" coords="6254,453,6386,480"/>
+<area shape="rect" id="node48" href="$db/d08/a01028.html" title="Intermediary class that regroup both SIM and TRAP solver. These last two inherist from this class." alt="" coords="6212,528,6428,569"/>
+<area shape="rect" id="node49" href="$d6/dcf/a01031.html" title="Solver based on backward Euler integration method using KINSOL to solve each step." alt="" coords="6253,625,6379,651"/>
+<area shape="rect" id="node50" href="$de/d91/a01034.html" title="Solver based on trapezoidal method integration method using KINSOL to solve each step." alt="" coords="6403,625,6538,651"/>
+<area shape="rect" id="node51" href="$d2/d41/a01037.html" title="Solver based on sundials/IDA solver : variable step, order one or two." alt="" coords="6061,535,6187,562"/>
+<area shape="rect" id="node54" href="$db/d7c/a00722.html" title="Static parameter description : header file." alt="" coords="2795,304,2962,331"/>
+<area shape="rect" id="node55" href="$de/ddd/a00653.html" title="Component data interface : header file." alt="" coords="2803,379,2997,405"/>
+<area shape="rect" id="node57" href="$d3/d8e/a00647.html" title="Bus data interface : interface file." alt="" coords="5159,535,5303,562"/>
+<area shape="rect" id="node80" href="$dc/d91/a00659_source.html" title=" " alt="" coords="4109,535,4293,562"/>
+<area shape="rect" id="node83" href="$d5/d5b/a00695.html" title="Load data interface : interface file." alt="" coords="4991,625,5142,651"/>
+<area shape="rect" id="node84" href="$db/d77/a00683.html" title="Generator data interface : interface file." alt="" coords="4559,625,4745,651"/>
+<area shape="rect" id="node85" href="$d8/d13/a00671.html" title="Dangling line data interface : interface file." alt="" coords="5357,535,5563,562"/>
+<area shape="rect" id="node86" href="$df/d9e/a00686.html" title="Hvdc Line data interface : interface file." alt="" coords="3267,535,3447,562"/>
+<area shape="rect" id="node88" href="$d0/db6/a00692.html" title="Line data interface : interface file." alt="" coords="3936,535,4083,562"/>
+<area shape="rect" id="node90" href="$d1/d04/a00713.html" title="Shunt compensator interface : header file." alt="" coords="5618,535,5862,562"/>
+<area shape="rect" id="node91" href="$df/d3b/a00728.html" title="static var compensator interface : header file" alt="" coords="3595,535,3861,562"/>
+<area shape="rect" id="node92" href="$d6/dc0/a00734.html" title="Switch data interface : interface file." alt="" coords="6065,625,6228,651"/>
+<area shape="rect" id="node94" href="$dd/db2/a00737.html" title="Three windings transformer data interface : interface file." alt="" coords="2443,535,2693,562"/>
+<area shape="rect" id="node96" href="$dc/dce/a00740.html" title="Two windings transformer data interface : interface file." alt="" coords="3735,625,3972,651"/>
+<area shape="rect" id="node58" href="$dc/df1/a00662_source.html" title=" " alt="" coords="5082,714,5193,741"/>
+<area shape="rect" id="node60" href="$d4/deb/a00710.html" title="Service manager interface file." alt="" coords="5489,625,5714,651"/>
+<area shape="rect" id="node66" href="$d5/d72/a00803.html" title="Injector interface : header file for IIDM interface." alt="" coords="4769,625,4967,651"/>
+<area shape="rect" id="node75" href="$d2/ddd/a00755.html" title="Bus data interface : header file for IIDM interface." alt="" coords="4791,803,4966,830"/>
+<area shape="rect" id="node76" href="$d2/d4a/a00758_source.html" title=" " alt="" coords="5839,617,6041,659"/>
+<area shape="rect" id="node79" href="$d8/dba/a00773.html" title="Fictitious Bus : header file to create bus from scratch." alt="" coords="5269,625,5465,651"/>
+<area shape="rect" id="node59" href="$d0/d7e/a00770.html" title="Data interface : header file of IIDM implementation." alt="" coords="4587,885,4768,912"/>
+<area shape="rect" id="node61" href="$d8/d73/a00674.html" title="Data interface : interface file." alt="" coords="5269,714,5419,741"/>
+<area shape="rect" id="node65" href="$d8/d1c/a00824.html" title="Service manager IIDM implementation file." alt="" coords="5968,796,6181,837"/>
+<area shape="rect" id="node62" href="$dc/de4/a00677_source.html" title=" " alt="" coords="5147,803,5344,830"/>
+<area shape="rect" id="node63" href="$d4/d9b/a00680.html" title="Data interface util implementation file." alt="" coords="5369,803,5549,830"/>
+<area shape="rect" id="node64" href="$d3/d7b/a00986.html" title="Simulation header." alt="" coords="4990,803,5122,830"/>
+<area shape="rect" id="node67" href="$dd/d5c/a00752.html" title="Battery data interface : header file for IIDM interface." alt="" coords="4653,714,4851,741"/>
+<area shape="rect" id="node68" href="$d5/dae/a00767.html" title="Dangling line data interface : header file for IIDM implementation." alt="" coords="5443,707,5637,748"/>
+<area shape="rect" id="node69" href="$dc/d1b/a00827.html" title="Shunt compensator interface : header file for IIDM implementation." alt="" coords="5661,707,5893,748"/>
+<area shape="rect" id="node70" href="$d9/daf/a00830.html" title="Static var compensator interface : header file for IIDM implementation." alt="" coords="3698,707,3953,748"/>
+<area shape="rect" id="node71" href="$df/d4c/a00851.html" title="Vsc converter interface : header file for IIDM implementation." alt="" coords="4216,707,4411,748"/>
+<area shape="rect" id="node72" href="$d0/dad/a00806.html" title="Lcc converter interface : header file for IIDM implementation." alt="" coords="4435,707,4629,748"/>
+<area shape="rect" id="node73" href="$d8/db7/a00812.html" title="Load data interface: header file for IIDM implementation." alt="" coords="4876,714,5057,741"/>
+<area shape="rect" id="node74" href="$d3/d00/a00785.html" title="Generator data interface : header file for IIDM interface." alt="" coords="3977,714,4191,741"/>
+<area shape="rect" id="node77" href="$d9/d30/a00848.html" title="VoltageLevel data interface : header file for IIDM interface." alt="" coords="6258,707,6451,748"/>
+<area shape="rect" id="node78" href="$d3/d95/a00779.html" title="Fictitious Voltage Level : header file to create VoltageLevel from scratch." alt="" coords="6019,707,6234,748"/>
+<area shape="rect" id="node81" href="$d1/d87/a00689.html" title="line&#45;commutated converter interface : header file" alt="" coords="4329,625,4535,651"/>
+<area shape="rect" id="node82" href="$d4/dfa/a00746.html" title="voltage source converter interface : header file" alt="" coords="4098,625,4305,651"/>
+<area shape="rect" id="node87" href="$d4/d45/a00791.html" title="Hvdc Line data interface : header file for IIDM interface." alt="" coords="2323,714,2533,741"/>
+<area shape="rect" id="node89" href="$dd/d7e/a00809.html" title="Line data interface : header file for IIDM interface." alt="" coords="3226,714,3403,741"/>
+<area shape="rect" id="node93" href="$df/de8/a00839.html" title="Switch data interface : header file for IIDM implementation." alt="" coords="6299,803,6493,830"/>
+<area shape="rect" id="node95" href="$d0/d11/a00842.html" title="Three windings transformer data interface : header file for IIDM implementation." alt="" coords="1904,707,2141,748"/>
+<area shape="rect" id="node97" href="$d7/dcf/a00845.html" title="Two windings transformer data interface : header file for IIDM implementation." alt="" coords="2977,707,3202,748"/>
+<area shape="rect" id="node98" href="$d9/dd4/a00776.html" title="Fictitious Two windings transformer: header file to create of TwoWindingTransformer from ThreeWinding..." alt="" coords="3427,707,3674,748"/>
+<area shape="rect" id="node100" href="$d2/d94/a00716.html" title="State variable description : header file." alt="" coords="3611,379,3762,405"/>
+<area shape="rect" id="node103" href="$d9/dce/a00944.html" title="Model of phase tap changer : header file." alt="" coords="3197,304,3414,331"/>
+<area shape="rect" id="node104" href="$d3/d29/a00947.html" title="Model of ratio tap changer : header file." alt="" coords="3438,304,3650,331"/>
+</map>

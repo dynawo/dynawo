@@ -1,0 +1,5 @@
+<map id="DYNModel.h" name="DYNModel.h">
+<area shape="rect" id="node1" title="Model header (defines all methods which should be declared in each models)" alt="" coords="99,5,201,32"/>
+<area shape="rect" id="node2" href="$d2/da3/a00593.html" title="class of model multi (contains all subModels and connectors between them)" alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node3" href="$dc/d25/a00596.html" title="Model util to print the matrix structure associated to a model into a file." alt="" coords="165,80,290,107"/>
+</map>

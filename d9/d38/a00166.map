@@ -1,0 +1,8 @@
+<map id="DYDModelTemplate.h" name="DYDModelTemplate.h">
+<area shape="rect" id="node1" title="model template description : interface file" alt="" coords="193,5,356,32"/>
+<area shape="rect" id="node2" href="$dc/d57/a00194.html" title="Handler for dynamic models collection file : header file." alt="" coords="8,80,147,107"/>
+<area shape="rect" id="node5" href="$d7/d3f/a00173.html" title="model template factory : header file" alt="" coords="171,80,379,107"/>
+<area shape="rect" id="node6" href="$d9/dd0/a00191.html" title="Dynawo dynamic models collection XML exporter : header file." alt="" coords="403,80,546,107"/>
+<area shape="rect" id="node3" href="$df/d6a/a00119.html" title="Dynawo dynamic models collection importer : interface file." alt="" coords="18,155,137,181"/>
+<area shape="rect" id="node4" href="$de/db1/a00197.html" title="Dynawo dynamic models collection XML importer : header file." alt="" coords="5,229,149,256"/>
+</map>

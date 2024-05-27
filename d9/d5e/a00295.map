@@ -1,0 +1,14 @@
+<map id="JOBInitialStateEntry.h" name="JOBInitialStateEntry.h">
+<area shape="rect" id="node1" title="Initial state entries description : interface file." alt="" coords="745,5,905,32"/>
+<area shape="rect" id="node2" href="$dd/d4e/a00329.html" title="Modeler entries description : interface file." alt="" coords="554,80,697,107"/>
+<area shape="rect" id="node9" href="$d6/d80/a00371.html" title="Handler for jobs file header." alt="" coords="453,379,587,405"/>
+<area shape="rect" id="node12" href="$db/d7b/a00296.html" title="Dynawo initial state entry factory : header file." alt="" coords="863,80,1071,107"/>
+<area shape="rect" id="node3" href="$d3/d07/a00305.html" title="Job entries description : interface file A job contains all the needed informations and data to defin..." alt="" coords="272,155,381,181"/>
+<area shape="rect" id="node11" href="$dc/d50/a00332.html" title="Dynawo dynamic model entry factory : header file." alt="" coords="597,155,787,181"/>
+<area shape="rect" id="node4" href="$d0/d61/a00302.html" title="Iterators for JOB API : header file." alt="" coords="127,229,239,256"/>
+<area shape="rect" id="node5" href="$d1/d5d/a00311.html" title="jobs collection description : interface file" alt="" coords="140,304,289,331"/>
+<area shape="rect" id="node10" href="$d5/d0f/a00308.html" title="Dynawo dynamic model entry factory : header file." alt="" coords="364,229,521,256"/>
+<area shape="rect" id="node6" href="$de/d25/a00290.html" title="job collection importer : interface file" alt="" coords="18,379,131,405"/>
+<area shape="rect" id="node8" href="$d0/d39/a00314.html" title="Dynawo jobs collection factory : header file." alt="" coords="156,379,351,405"/>
+<area shape="rect" id="node7" href="$d5/db5/a00374.html" title="Job collection XML importer : header file." alt="" coords="5,453,144,480"/>
+</map>

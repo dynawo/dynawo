@@ -1,0 +1,9 @@
+<map id="DYN::DYNErrorQueue" name="DYN::DYNErrorQueue">
+<area shape="rect" id="node1" title="class to register multiple errors before failing" alt="" coords="5,364,164,391"/>
+<area shape="rect" id="node2" title=" " alt="" coords="11,275,116,301"/>
+<area shape="rect" id="node3" title=" " alt="" coords="141,275,327,301"/>
+<area shape="rect" id="node4" href="$d0/d45/a02843.html" title="Generic error handler for Dynawo." alt="" coords="189,185,279,212"/>
+<area shape="rect" id="node5" title="STL class." alt="" coords="155,96,270,123"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="295,96,381,123"/>
+<area shape="rect" id="node7" title="STL class." alt="" coords="269,5,407,47"/>
+</map>

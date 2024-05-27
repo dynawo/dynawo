@@ -1,0 +1,10 @@
+<map id="LEQLostEquipmentsCollection.h" name="LEQLostEquipmentsCollection.h">
+<area shape="rect" id="node1" title="Dynawo lost equipments collection : interface file." alt="" coords="165,5,393,32"/>
+<area shape="rect" id="node2" href="$d4/d13/a00377.html" title="Dynawo lost equipments exporter : interface class." alt="" coords="143,80,258,107"/>
+<area shape="rect" id="node4" href="$d8/d73/a00674.html" title="Data interface : interface file." alt="" coords="300,80,451,107"/>
+<area shape="rect" id="node3" href="$d4/d27/a00392.html" title="Dynawo lost equipments xml exporter : header file." alt="" coords="5,155,145,181"/>
+<area shape="rect" id="node5" href="$dc/de4/a00677_source.html" title=" " alt="" coords="170,155,367,181"/>
+<area shape="rect" id="node6" href="$d4/d9b/a00680.html" title="Data interface util implementation file." alt="" coords="392,155,572,181"/>
+<area shape="rect" id="node8" href="$d3/d7b/a00986.html" title="Simulation header." alt="" coords="596,155,728,181"/>
+<area shape="rect" id="node7" href="$d0/d7e/a00770.html" title="Data interface : header file of IIDM implementation." alt="" coords="391,229,573,256"/>
+</map>

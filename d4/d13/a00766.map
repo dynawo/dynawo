@@ -1,0 +1,12 @@
+<map id="DYNCurrentLimitsPerSeasonIIDMExtension.h" name="DYNCurrentLimitsPerSeasonIIDMExtension.h">
+<area shape="rect" id="node1" title="IIDM extension for current limit per season interface file." alt="" coords="1024,5,1231,47"/>
+<area shape="rect" id="node2" href="$df/d0e/a00800.html" title="Traits for IIDM extensions interfaces." alt="" coords="948,95,1163,121"/>
+<area shape="rect" id="node9" href="$dd/d7e/a00809.html" title="Line data interface : header file for IIDM interface." alt="" coords="1268,251,1445,278"/>
+<area shape="rect" id="node3" href="$da/db8/a00797.html" title="File for external IIDM extensions management." alt="" coords="810,169,989,196"/>
+<area shape="rect" id="node4" href="$d9/daf/a00830.html" title="Static var compensator interface : header file for IIDM implementation." alt="" coords="5,244,260,285"/>
+<area shape="rect" id="node6" href="$d7/dcf/a00845.html" title="Two windings transformer data interface : header file for IIDM implementation." alt="" coords="284,244,509,285"/>
+<area shape="rect" id="node7" href="$d0/d11/a00842.html" title="Three windings transformer data interface : header file for IIDM implementation." alt="" coords="533,244,770,285"/>
+<area shape="rect" id="node8" href="$d4/d45/a00791.html" title="Hvdc Line data interface : header file for IIDM interface." alt="" coords="794,251,1005,278"/>
+<area shape="rect" id="node10" href="$d3/d00/a00785.html" title="Generator data interface : header file for IIDM interface." alt="" coords="1029,251,1244,278"/>
+<area shape="rect" id="node5" href="$d0/d7e/a00770.html" title="Data interface : header file of IIDM implementation." alt="" coords="685,333,866,360"/>
+</map>

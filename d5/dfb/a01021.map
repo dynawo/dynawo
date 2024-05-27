@@ -1,0 +1,7 @@
+<map id="DYNSolverFactory.h" name="DYNSolverFactory.h">
+<area shape="rect" id="node1" title="Solver factory header." alt="" coords="143,5,293,32"/>
+<area shape="rect" id="node2" href="$db/d08/a01028.html" title="Intermediary class that regroup both SIM and TRAP solver. These last two inherist from this class." alt="" coords="38,80,254,121"/>
+<area shape="rect" id="node3" href="$d6/dcf/a01031.html" title="Solver based on backward Euler integration method using KINSOL to solve each step." alt="" coords="5,169,132,196"/>
+<area shape="rect" id="node4" href="$de/d91/a01034.html" title="Solver based on trapezoidal method integration method using KINSOL to solve each step." alt="" coords="189,169,324,196"/>
+<area shape="rect" id="node5" href="$d2/d41/a01037.html" title="Solver based on sundials/IDA solver : variable step, order one or two." alt="" coords="329,87,456,114"/>
+</map>

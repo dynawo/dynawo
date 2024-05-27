@@ -1,0 +1,10 @@
+<map id="PARParametersSetCollection.h" name="PARParametersSetCollection.h">
+<area shape="rect" id="node1" title="Dynawo parameters set collection : interface file." alt="" coords="312,5,533,32"/>
+<area shape="rect" id="node2" href="$db/dbc/a00395.html" title="Dynawo parameters collection exporter : interface file." alt="" coords="32,87,147,114"/>
+<area shape="rect" id="node4" href="$d9/dd1/a00398.html" title="Dynawo parameters collection importer : interface file." alt="" coords="178,87,294,114"/>
+<area shape="rect" id="node6" href="$d3/d29/a00419.html" title="Dynawo parameters set collection factory : header file." alt="" coords="318,80,527,121"/>
+<area shape="rect" id="node7" href="$df/d70/a00431.html" title="Handler for parameters collection file : header file." alt="" coords="551,87,689,114"/>
+<area shape="rect" id="node8" href="$d3/d7b/a00986.html" title="Simulation header." alt="" coords="713,87,845,114"/>
+<area shape="rect" id="node3" href="$d4/dd3/a00428.html" title="Dynawo parameters collection XML exporter : header file." alt="" coords="5,169,147,196"/>
+<area shape="rect" id="node5" href="$d1/d7e/a00434.html" title="Dynawo parameters collection XML importer : header file." alt="" coords="171,169,314,196"/>
+</map>

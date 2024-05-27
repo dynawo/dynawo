@@ -1,0 +1,6 @@
+<map id="DYN::memoryManagerChars" name="DYN::memoryManagerChars">
+<area shape="rect" id="node1" title="Keep track of chars created and which should be deleted at the end of the execution." alt="" coords="5,275,212,301"/>
+<area shape="rect" id="node2" title=" " alt="" coords="26,185,191,212"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="65,96,152,123"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="39,5,178,47"/>
+</map>

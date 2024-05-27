@@ -1,0 +1,7 @@
+<map id="DYNModelManagerOwnTypes.h" name="DYNModelManagerOwnTypes.h">
+<area shape="rect" id="node1" title="declaration of structure/type needed by dynawo (specific declaration)" alt="" coords="64,5,289,32"/>
+<area shape="rect" id="node2" href="$d0/d82/a00857.html" title="declaration of useful/utilitaries methods" alt="" coords="67,155,286,181"/>
+<area shape="rect" id="node5" href="$d2/d5e/a00860.html" title="declaration of functions needed by dynawo (specific declaration)" alt="" coords="133,80,383,107"/>
+<area shape="rect" id="node3" href="$d6/d2f/a00854.html" title="Class of Model Manager : interface between a modelica model and a subModel." alt="" coords="5,229,164,256"/>
+<area shape="rect" id="node4" href="$dd/db2/a00866.html" title="Generic class for native Modelica models." alt="" coords="188,229,349,256"/>
+</map>

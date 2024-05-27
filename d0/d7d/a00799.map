@@ -1,0 +1,10 @@
+<map id="DYNIIDMExtensions.hpp" name="DYNIIDMExtensions.hpp">
+<area shape="rect" id="node1" title="File for external IIDM extensions management." alt="" coords="686,5,865,32"/>
+<area shape="rect" id="node2" href="$d9/daf/a00830.html" title="Static var compensator interface : header file for IIDM implementation." alt="" coords="5,80,260,121"/>
+<area shape="rect" id="node4" href="$d7/dcf/a00845.html" title="Two windings transformer data interface : header file for IIDM implementation." alt="" coords="284,80,509,121"/>
+<area shape="rect" id="node5" href="$d0/d11/a00842.html" title="Three windings transformer data interface : header file for IIDM implementation." alt="" coords="533,80,770,121"/>
+<area shape="rect" id="node6" href="$d4/d45/a00791.html" title="Hvdc Line data interface : header file for IIDM interface." alt="" coords="794,87,1005,114"/>
+<area shape="rect" id="node7" href="$dd/d7e/a00809.html" title="Line data interface : header file for IIDM interface." alt="" coords="1029,87,1207,114"/>
+<area shape="rect" id="node8" href="$d3/d00/a00785.html" title="Generator data interface : header file for IIDM interface." alt="" coords="1231,87,1445,114"/>
+<area shape="rect" id="node3" href="$d0/d7e/a00770.html" title="Data interface : header file of IIDM implementation." alt="" coords="685,169,866,196"/>
+</map>

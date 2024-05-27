@@ -1,0 +1,15 @@
+<map id="DYN::SubModel" name="DYN::SubModel">
+<area shape="rect" id="node1" title="SubModel Class." alt="" coords="5,184,128,211"/>
+<area shape="rect" id="node2" href="$d1/d24/a02975.html" title="this class builds a connector submodel related to a discrete calculated variable" alt="" coords="176,82,369,123"/>
+<area shape="rect" id="node3" href="$d4/d2b/a02979.html" title=" " alt="" coords="176,147,369,189"/>
+<area shape="rect" id="node4" href="$d3/da7/a03427.html" title="CPP model." alt="" coords="211,213,334,240"/>
+<area shape="rect" id="node13" href="$d3/d74/a03411.html" title=" " alt="" coords="195,264,350,291"/>
+<area shape="rect" id="node5" href="$d4/d63/a03459.html" title=" " alt="" coords="446,5,634,32"/>
+<area shape="rect" id="node6" href="$d8/df8/a03443.html" title="ModelCentralizedShuntsSectionControl class." alt="" coords="432,57,648,98"/>
+<area shape="rect" id="node7" href="$d0/db9/a03435.html" title="ModelLoadRestorativeWithLimits class." alt="" coords="438,122,642,163"/>
+<area shape="rect" id="node8" href="$d3/d52/a03535.html" title="Generic class for the standard AC network (described using C++ models)" alt="" coords="463,188,617,215"/>
+<area shape="rect" id="node9" href="$dc/d5c/a03483.html" title="Reference frequency model class." alt="" coords="457,239,623,265"/>
+<area shape="rect" id="node10" href="$d7/db0/a03467.html" title=" " alt="" coords="447,289,633,316"/>
+<area shape="rect" id="node11" href="$d7/d76/a03451.html" title="Voltage measurement utilities model class." alt="" coords="417,341,663,382"/>
+<area shape="rect" id="node12" href="$d1/def/a03475.html" title=" " alt="" coords="439,406,641,447"/>
+</map>

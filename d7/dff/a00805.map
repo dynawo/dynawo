@@ -1,0 +1,12 @@
+<map id="DYNInjectorInterfaceIIDM.h" name="DYNInjectorInterfaceIIDM.h">
+<area shape="rect" id="node1" title="Injector interface : header file for IIDM interface." alt="" coords="855,5,1053,32"/>
+<area shape="rect" id="node2" href="$dd/d5c/a00752.html" title="Battery data interface : header file for IIDM interface." alt="" coords="5,87,204,114"/>
+<area shape="rect" id="node4" href="$d5/dae/a00767.html" title="Dangling line data interface : header file for IIDM implementation." alt="" coords="228,80,421,121"/>
+<area shape="rect" id="node5" href="$dc/d1b/a00827.html" title="Shunt compensator interface : header file for IIDM implementation." alt="" coords="446,80,678,121"/>
+<area shape="rect" id="node6" href="$d9/daf/a00830.html" title="Static var compensator interface : header file for IIDM implementation." alt="" coords="703,80,957,121"/>
+<area shape="rect" id="node7" href="$df/d4c/a00851.html" title="Vsc converter interface : header file for IIDM implementation." alt="" coords="982,80,1177,121"/>
+<area shape="rect" id="node8" href="$d0/dad/a00806.html" title="Lcc converter interface : header file for IIDM implementation." alt="" coords="1201,80,1395,121"/>
+<area shape="rect" id="node9" href="$d8/db7/a00812.html" title="Load data interface: header file for IIDM implementation." alt="" coords="1419,87,1601,114"/>
+<area shape="rect" id="node10" href="$d3/d00/a00785.html" title="Generator data interface : header file for IIDM interface." alt="" coords="1625,87,1840,114"/>
+<area shape="rect" id="node3" href="$d0/d7e/a00770.html" title="Data interface : header file of IIDM implementation." alt="" coords="863,169,1045,196"/>
+</map>
