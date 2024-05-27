@@ -1,8 +1,0 @@
-<map id="DYDModelicaModel.h" name="DYDModelicaModel.h">
-<area shape="rect" id="node1" title="Modelica model description : interface file." alt="" coords="162,5,323,32"/>
-<area shape="rect" id="node2" href="$dc/d57/a00194.html" title="Handler for dynamic models collection file : header file." alt="" coords="8,80,147,107"/>
-<area shape="rect" id="node5" href="$d9/dd0/a00191.html" title="Dynawo dynamic models collection XML exporter : header file." alt="" coords="171,80,314,107"/>
-<area shape="rect" id="node6" href="$d7/db1/a00590.html" title="Modeler header : creates all submodels and connectors between them." alt="" coords="339,80,453,107"/>
-<area shape="rect" id="node3" href="$df/d6a/a00119.html" title="Dynawo dynamic models collection importer : interface file." alt="" coords="18,155,137,181"/>
-<area shape="rect" id="node4" href="$de/db1/a00197.html" title="Dynawo dynamic models collection XML importer : header file." alt="" coords="5,229,149,256"/>
-</map>

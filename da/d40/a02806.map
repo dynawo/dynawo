@@ -1,6 +1,0 @@
-<map id="timeline::Exporter" name="timeline::Exporter">
-<area shape="rect" id="node1" title="Exporter interface class." alt="" coords="203,5,341,32"/>
-<area shape="rect" id="node2" href="$de/d05/a02795.html" title="CSV exporter interface class." alt="" coords="5,80,168,107"/>
-<area shape="rect" id="node3" href="$df/d37/a02823.html" title="TXT exporter interface class." alt="" coords="192,80,352,107"/>
-<area shape="rect" id="node4" href="$d3/df5/a02827.html" title="XML exporter interface class." alt="" coords="376,80,541,107"/>
-</map>

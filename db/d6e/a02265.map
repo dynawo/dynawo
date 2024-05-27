@@ -1,8 +1,0 @@
-<map id="dynamicdata::MacroConnectorHandler" name="dynamicdata::MacroConnectorHandler">
-<area shape="rect" id="node1" title="Handler used to parse MacroConnector element." alt="" coords="20,423,241,464"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,200,213,227"/>
-<area shape="rect" id="node3" href="$d4/d4a/a02263.html" title="Handler used to parse macroConnection element." alt="" coords="147,289,375,331"/>
-<area shape="rect" id="node4" href="$d5/d5b/a02235.html" title="structure defining a macroConnection element" alt="" coords="237,200,499,227"/>
-<area shape="rect" id="node5" title="STL class." alt="" coords="325,96,411,123"/>
-<area shape="rect" id="node6" title="STL class." alt="" coords="299,5,437,47"/>
-</map>

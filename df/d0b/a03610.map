@@ -1,5 +1,0 @@
-<map id="DYN::SolverKINSubModel" name="DYN::SolverKINSubModel">
-<area shape="rect" id="node1" title="Sub model for solver KIN." alt="" coords="87,80,273,107"/>
-<area shape="rect" id="node2" href="$d3/d97/a03603.html" title="class SolverKINCommon: common part of all the KINSOL&#45;based solvers Generic class for KINSOL&#45;based sol..." alt="" coords="5,5,187,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="211,5,317,32"/>
-</map>

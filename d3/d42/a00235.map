@@ -1,6 +1,0 @@
-<map id="FSVExporter.h" name="FSVExporter.h">
-<area shape="rect" id="node1" title="Dynawo final state values exporter: interface file." alt="" coords="179,5,293,32"/>
-<area shape="rect" id="node2" href="$d1/da8/a00230.html" title="Dynawo final state values collection CSV exporter : header file." alt="" coords="5,80,144,107"/>
-<area shape="rect" id="node3" href="$dd/dd7/a00248.html" title="Dynawo final state values collection TXT exporter : header file." alt="" coords="169,80,303,107"/>
-<area shape="rect" id="node4" href="$d3/d1a/a00251.html" title="Dynawo final state values collection XML exporter as final state values: header file." alt="" coords="327,80,467,107"/>
-</map>

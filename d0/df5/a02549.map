@@ -1,7 +1,0 @@
-<map id="job::DirectoryHandler" name="job::DirectoryHandler">
-<area shape="rect" id="node1" title="Handler used to parse directory element." alt="" coords="91,275,253,301"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,185,213,212"/>
-<area shape="rect" id="node3" href="$d9/d8b/a02863.html" title="Structure containing a directory and a boolean indicating whether to recursively scan sub&#45;directories..." alt="" coords="237,185,400,212"/>
-<area shape="rect" id="node4" title="STL class." alt="" coords="275,96,362,123"/>
-<area shape="rect" id="node5" title="STL class." alt="" coords="249,5,388,47"/>
-</map>

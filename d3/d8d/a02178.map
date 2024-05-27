@@ -1,7 +1,0 @@
-<map id="dynamicdata::Model" name="dynamicdata::Model">
-<area shape="rect" id="node1" title="Model interface class." alt="" coords="5,81,160,108"/>
-<area shape="rect" id="node2" href="$dc/d05/a02043.html" title="Blackbox model interface class." alt="" coords="208,5,424,32"/>
-<area shape="rect" id="node3" href="$df/d14/a02183.html" title="Modelica model interface class." alt="" coords="209,56,423,83"/>
-<area shape="rect" id="node4" href="$dd/daf/a02191.html" title="Model template interface class." alt="" coords="209,107,423,133"/>
-<area shape="rect" id="node5" href="$df/d0e/a02195.html" title="Blackbox model interface class." alt="" coords="209,158,423,199"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="DYDBlackBoxModel.h" name="DYDBlackBoxModel.h">
-<area shape="rect" id="node1" title="Blackbox model description : interface file." alt="" coords="310,5,473,32"/>
-<area shape="rect" id="node2" href="$d9/d77/a00095.html" title="Blackbox model factory : header file." alt="" coords="5,80,215,107"/>
-<area shape="rect" id="node3" href="$dc/d57/a00194.html" title="Handler for dynamic models collection file : header file." alt="" coords="239,80,378,107"/>
-<area shape="rect" id="node6" href="$d9/dd0/a00191.html" title="Dynawo dynamic models collection XML exporter : header file." alt="" coords="403,80,545,107"/>
-<area shape="rect" id="node7" href="$d9/d42/a00575.html" title="Dynawo data structure header file." alt="" coords="569,80,720,107"/>
-<area shape="rect" id="node4" href="$df/d6a/a00119.html" title="Dynawo dynamic models collection importer : interface file." alt="" coords="249,155,368,181"/>
-<area shape="rect" id="node5" href="$de/db1/a00197.html" title="Dynawo dynamic models collection XML importer : header file." alt="" coords="237,229,381,256"/>
-</map>

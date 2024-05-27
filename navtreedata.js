@@ -1,17 +1,18 @@
 /*
-@licstart  The following is the entire license notice for the
+@ @licstart  The following is the entire license notice for the
 JavaScript code in this file.
 
-Copyright (C) 1997-2019 by Dimitri van Heesch
+Copyright (C) 1997-2017 by Dimitri van Heesch
 
 This program is free software; you can redistribute it and/or modify
-it under the terms of version 2 of the GNU General Public License as published by
-the Free Software Foundation
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
@@ -23,7 +24,7 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Dynawo", "index.html", [
-    [ "Todo List", "db/d14/a01040.html", null ],
+    [ "Todo List", "de/d91/a01034.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -53,42 +54,42 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"d0/d79/a03379.html#a67e7018f452f610debcedcf335f52787",
-"d0/db8/a03559.html#ab5a8072674f3a2a1928ec9b65630c999",
-"d0/de4/a02851.html#acfce33066451c48351076e31bd5b4ecea7571a2391335b5dfcaacc7ba3eca1380",
-"d1/d13/a03339.html#a539cb1bc7c3c29c5926ad4ab0145308f",
-"d1/df9/a03555.html#a16ee51f8d7623e51a239ad007202d2a6",
-"d2/dd0/a03283.html#a2821ae53671886ac3793b9611d1b1021",
-"d3/d52/a03535.html#adcf7c294de4e281b377d1d38ad357e62",
-"d3/da4/a03571.html#a097d6b1c333750714d9be12417716643",
-"d3/dbd/a03575.html#a6e6159e48631696f6f96b53d47537f74",
-"d4/d32/a02951.html#ae7df8c032e4d11eef89546aac34d3ee7",
-"d4/dbc/a03159.html#aa052388528c1a46e9c7ad35de6232493",
-"d4/de4/a03031.html#a2ff7fe075c6114d5df93ef8bddab5dfa",
-"d5/d04/a03303.html#a98d560056be2710ccbfc886f1d75ccd2",
-"d5/d8f/a03255.html#a798f1a270eec0f2b04bca9e1f0eae12e",
-"d6/d19/a01947.html#a0e5d8fd2d34749211d3239b66739d19da228cffb38c9dcaf9d423784e1821d1ae",
-"d6/d1a/a02895.html#a963225344a251150ba0ad6d5264f567fac420bfe17d48dc7b22c6215884137a78",
-"d6/d4b/a03579.html#ab067ace2562da72e4017d1c2cca12867a5ef4288dbd5c34876b29ab5917ee7033",
-"d6/da4/a03663.html#a645e919c6752dc734b0ce0fac04abf84",
-"d6/df9/a02923.html#a9294fd85b78754e1a11fec544395ad51af781c6cef3ebcec2a37700777d304b84",
-"d7/d76/a03451.html#a889677654276edf9e99be00429ee5744",
-"d8/d4a/a02703.html",
-"d8/ddf/a01951.html#ab540558acdd8d349e16c2b36c6408389",
-"d9/d25/a03511.html#ade62a627a95907e7b364293c75073c5d",
-"d9/dce/a00944.html",
-"da/d72/a03527.html#adea1200ebe3412ae34399ff1a57f97e5",
-"db/d39/a02575.html#aa4db44773217f03d9a9546f4b72214dc",
-"db/dd5/a02199.html#a9c5b145e0626a1fdd58033dc4b4cde8e",
-"dc/d5e/a02891.html#a3e5ffd6ec5156552d8899d716fd00161",
-"dc/dc0/a03087.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68",
-"dd/d4e/a02971.html#a21660ae8e4bb7a65813dcf55064e2bae",
-"dd/d6c/a03495.html#ad6d989dd85bb2f5ca0c7a360fd9eb914",
-"dd/da8/a03523.html#aa8243ab42d7b765ff4c677a34b57922c",
-"de/d3d/a03515.html#aa808555d71c869874c77440051056eca",
-"df/d06/a02403.html#a3290057d00bab60eafbbbfd6a29fb5f7",
-"df/d38/a03587.html#ad1228882d16728afcea528b8970bc295",
-"df/dea/a03391.html#af07f25073b41252f5929fd22deb1baee"
+"d0/d78/a01745.html#a1955a14d395747a90016e1f4193f932d",
+"d0/d9d/a03289.html#a9de44061487a1d84b3b0a3dbb9c0c7f8",
+"d0/df8/a02717.html#a7b3bdafd4d8ac0234becf71aa1eefc5c",
+"d1/d94/a02505.html#a437103d96a05e5a1143108950e946e5d",
+"d1/df1/a03217.html#a90a6e3177f5748a32bffe02f466c450b",
+"d2/d76/a03021.html#ade0d9df4fb6d5674e0e291518de9ed8d",
+"d2/dfa/a03285.html#a5d80e0b4af021777ec5be2a7048feeb7",
+"d3/d85/a02813.html#a8089dfd2e85bdc3fc21030715c846872",
+"d4/d39/a02965.html#ae59825bbca0abc23592e53230de03ef8",
+"d4/ddf/a00488.html#aabeca097df4bc0136b0a6f7867bf3f4b",
+"d5/da4/a03225.html#ac9fd60e22d8f47f0fb9d7911f7a4836d",
+"d5/dcb/a03121.html#af57a4e9a052a2348cf9de66525946f90",
+"d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567faaef61fa8c2430427f08f04dea6062d14",
+"d6/d8d/a01007.html#ae48eb449c5ebb36d96867a60dbda3a1dac9db5d3942e95291b0aba717f2e863a6",
+"d7/d10/a01785.html#ac4de5ada071a1a49deeebdcf42a71d1a",
+"d7/d5e/a00467.html#a395d53feecd9c318b7b409cdbdd7b4db",
+"d7/dee/a03205.html#a12aa48a3616c04d3bd3bfdf8e9e833a6a663b6a5f6612497e7de32eb27f3685a9",
+"d8/d5d/a03329.html#a124d6cfc35ae95fbc5b5b2068676d8e8",
+"d8/dde/a03313.html#a12faa39683e5bc908d83e6bfa544e397",
+"d9/d65/a01905.html#a746d2836b2fbc2a8a31569353e53ea69",
+"d9/da5/a02757.html#a8b4a440e4a001e0da6890058e853a960",
+"d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a67470943016a43b5589cdf9f160aaf5b",
+"da/d03/a02577.html#acfce33066451c48351076e31bd5b4ecea8129819296f864f96a19c903274d7d01",
+"da/d0a/a03297.html#add6f6caa3b592fd1943a1b1160e41336a861ac3baf594a74abe8e62fcfbd07542",
+"da/d34/a03237.html#a5e6d2d4c2c5a9a6e11cc498e7daf7d65",
+"da/dd2/a02701.html#a6cf80192f0a8a3dc4c75095a7d7ab7f6",
+"db/d6a/a02613.html#a5b52a886c13f0ce540f0c9ec4bd9e249",
+"dc/d09/a02429.html",
+"dc/da3/a02853.html",
+"dc/df1/a03261.html#a3a0fc1daa9d66bec227d1963eda6abeb",
+"dd/d07/a03233.html#a897a0118cf481be827bdacc47044f613",
+"dd/d75/a02377.html#a2265a0784e0ca978664dcf4e6bdabc56",
+"de/d76/a02417.html#a6c5da1ed658a4a95b89d58a3618b633d",
+"df/d2e/a01737.html#a87e3ba59310abcdd725d3a4888f1863b",
+"df/d62/a03257.html#a49103e27928e11389b05565d1501a418",
+"df/de4/a02241.html#aa3da0747ff9d1dde9b2db19fd3045d8b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,7 +1,0 @@
-<map id="DYN::SolverSIM" name="DYN::SolverSIM">
-<area shape="rect" id="node1" title="class Solver SIM : simplified solver" alt="" coords="71,229,193,256"/>
-<area shape="rect" id="node2" href="$d4/dc4/a03647.html" title="class SolverCommonFixedTimeStep : Common class between SIM and TRAP." alt="" coords="5,155,259,181"/>
-<area shape="rect" id="node3" href="$d6/d38/a03643.html" title="Solver implemented class." alt="" coords="64,80,200,107"/>
-<area shape="rect" id="node4" href="$d8/d16/a03619.html" title="Solver interface class." alt="" coords="9,5,108,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="132,5,281,32"/>
-</map>

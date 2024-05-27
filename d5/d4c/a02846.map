@@ -1,4 +1,0 @@
-<map id="DYN::MessageError" name="DYN::MessageError">
-<area shape="rect" id="node1" title="Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized." alt="" coords="5,80,152,107"/>
-<area shape="rect" id="node2" title="STL class." alt="" coords="21,5,136,32"/>
-</map>

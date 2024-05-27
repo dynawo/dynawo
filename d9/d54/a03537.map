@@ -1,8 +1,0 @@
-<map id="DYN::ModelPhaseTapChanger" name="DYN::ModelPhaseTapChanger">
-<area shape="rect" id="node1" title="ModelPhaseTapChanger class." alt="" coords="96,289,309,316"/>
-<area shape="rect" id="node2" href="$d0/db8/a03559.html" title="Generic tap&#45;changer model." alt="" coords="115,213,290,240"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,109,224,151"/>
-<area shape="rect" id="node4" href="$d4/dbd/a03563.html" title="Management of tap changer steps." alt="" coords="33,13,196,39"/>
-<area shape="rect" id="node5" title="STL class." alt="" coords="249,117,335,143"/>
-<area shape="rect" id="node6" title="STL class." alt="" coords="223,5,361,47"/>
-</map>

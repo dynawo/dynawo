@@ -1,6 +1,0 @@
-<map id="DYNSolverKINCommon.h" name="DYNSolverKINCommon.h">
-<area shape="rect" id="node1" title="Common class for all algebraic solvers based on sundials/KINSOL." alt="" coords="239,5,424,32"/>
-<area shape="rect" id="node2" href="$dd/d48/a00995.html" title="Solver based on sundials/KINSOL solver : solve f(u) = 0. Used for algebraic equations restoration and..." alt="" coords="5,80,228,107"/>
-<area shape="rect" id="node3" href="$df/d59/a01001.html" title="Solver euler file header." alt="" coords="252,80,411,107"/>
-<area shape="rect" id="node4" href="$df/dbc/a01004.html" title="Class of the solver used to calculate the initial values of the model This solver is based on sundial..." alt="" coords="435,80,625,107"/>
-</map>

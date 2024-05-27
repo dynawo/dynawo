@@ -1,6 +1,0 @@
-<map id="parameters::MacroParameterSetHandler" name="parameters::MacroParameterSetHandler">
-<area shape="rect" id="node1" title="Handler used to parse a set of macroParameterSet element." alt="" coords="5,171,219,212"/>
-<area shape="rect" id="node2" title=" " alt="" coords="8,5,216,32"/>
-<area shape="rect" id="node3" href="$d0/dbd/a02771.html" title="Handler used to parse reference element." alt="" coords="23,81,201,108"/>
-<area shape="rect" id="node4" href="$dc/d40/a02767.html" title="Handler used to parse parameter element." alt="" coords="226,81,403,108"/>
-</map>

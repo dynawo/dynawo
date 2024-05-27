@@ -1,6 +1,0 @@
-<map id="DYN::SolverKINCommon" name="DYN::SolverKINCommon">
-<area shape="rect" id="node1" title="class SolverKINCommon: common part of all the KINSOL&#45;based solvers Generic class for KINSOL&#45;based sol..." alt="" coords="235,5,416,32"/>
-<area shape="rect" id="node2" href="$d4/dd9/a03599.html" title="class Solver KINSOL for algebraic equations restoration and initialization Generic class for KINSOL s..." alt="" coords="5,80,224,107"/>
-<area shape="rect" id="node3" href="$da/d93/a03607.html" title="Solver euler class." alt="" coords="248,80,403,107"/>
-<area shape="rect" id="node4" href="$d0/d50/a03611.html" title="Sub model for solver KIN." alt="" coords="427,80,613,107"/>
-</map>

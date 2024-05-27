@@ -1,9 +1,0 @@
-<map id="DYDDynamicModelsCollection.h" name="DYDDynamicModelsCollection.h">
-<area shape="rect" id="node1" title="Dynamic models collection description : interface file." alt="" coords="289,5,521,32"/>
-<area shape="rect" id="node2" href="$df/d98/a00107.html" title="Dynamic models collection factory : header file." alt="" coords="5,80,225,121"/>
-<area shape="rect" id="node3" href="$d4/d81/a00110.html" title="Dynawo dynamic models collection exporter : interface file." alt="" coords="250,87,367,114"/>
-<area shape="rect" id="node4" href="$d9/dd0/a00191.html" title="Dynawo dynamic models collection XML exporter : header file." alt="" coords="285,169,428,196"/>
-<area shape="rect" id="node5" href="$df/d6a/a00119.html" title="Dynawo dynamic models collection importer : interface file." alt="" coords="477,169,596,196"/>
-<area shape="rect" id="node7" href="$dc/d57/a00194.html" title="Handler for dynamic models collection file : header file." alt="" coords="493,87,631,114"/>
-<area shape="rect" id="node6" href="$de/db1/a00197.html" title="Dynawo dynamic models collection XML importer : header file." alt="" coords="465,244,609,271"/>
-</map>

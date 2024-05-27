@@ -1,7 +1,0 @@
-<map id="DYN::BusInterface" name="DYN::BusInterface">
-<area shape="rect" id="node1" title="Bus interface." alt="" coords="250,80,390,107"/>
-<area shape="rect" id="node3" href="$d5/d8f/a03255.html" title="Specialization of BusInterface class for IIDM." alt="" coords="5,155,176,181"/>
-<area shape="rect" id="node4" href="$d6/d38/a03259.html" title="Specialisation of BusInterface class for calculated bus." alt="" coords="201,155,439,181"/>
-<area shape="rect" id="node5" href="$d0/de5/a03279.html" title="Specialization of BusInterface class for IIDM." alt="" coords="464,155,656,181"/>
-<area shape="rect" id="node2" href="$dc/dc0/a03087.html" title="Class describing a component of the network." alt="" coords="225,5,415,32"/>
-</map>

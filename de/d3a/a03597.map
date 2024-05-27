@@ -1,8 +1,0 @@
-<map id="DYN::SolverKINAlgRestoration" name="DYN::SolverKINAlgRestoration">
-<area shape="rect" id="node1" title="class Solver KINSOL for algebraic equations restoration and initialization Generic class for KINSOL s..." alt="" coords="605,159,824,185"/>
-<area shape="rect" id="node2" href="$d3/d97/a03603.html" title="class SolverKINCommon: common part of all the KINSOL&#45;based solvers Generic class for KINSOL&#45;based sol..." alt="" coords="315,108,496,135"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,77,171,104"/>
-<area shape="rect" id="node4" title=" " alt="" coords="353,159,458,185"/>
-<area shape="rect" id="node5" title=" " alt="" coords="334,210,477,251"/>
-<area shape="rect" id="node6" title=" " alt="" coords="336,276,475,303"/>
-</map>

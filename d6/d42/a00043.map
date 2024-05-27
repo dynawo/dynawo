@@ -1,9 +1,0 @@
-<map id="CRVCurvesCollection.h" name="CRVCurvesCollection.h">
-<area shape="rect" id="node1" title="Curves collection description : interface file." alt="" coords="263,5,434,32"/>
-<area shape="rect" id="node2" href="$d6/d2d/a00047.html" title="Dynawo curves exporter: interface file." alt="" coords="100,80,216,107"/>
-<area shape="rect" id="node5" href="$d5/df9/a00044.html" title="Dynawo Curves collection factory : header file." alt="" coords="240,80,457,107"/>
-<area shape="rect" id="node6" href="$d5/de0/a00050.html" title="Curves collection importer : interface file." alt="" coords="482,80,599,107"/>
-<area shape="rect" id="node3" href="$dc/d87/a00032.html" title="Dynawo curves collection CSV exporter : header file." alt="" coords="5,155,145,181"/>
-<area shape="rect" id="node4" href="$d3/d8b/a00059.html" title="Dynawo curves collection XML exporter: header file." alt="" coords="169,155,312,181"/>
-<area shape="rect" id="node7" href="$de/de1/a00065.html" title="Curves collection XML importer : header file." alt="" coords="469,155,612,181"/>
-</map>

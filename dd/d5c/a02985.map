@@ -1,7 +1,0 @@
-<map id="DYN::DelayManager" name="DYN::DelayManager">
-<area shape="rect" id="node1" title="Manager for delay variables." alt="" coords="15,392,168,419"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,288,177,329"/>
-<area shape="rect" id="node3" href="$dd/d2f/a02983.html" title="Structure to store delay variables." alt="" coords="43,199,139,225"/>
-<area shape="rect" id="node4" href="$d9/df8/a03023.html" title="Ring buffer for delay." alt="" coords="28,109,155,136"/>
-<area shape="rect" id="node5" title=" " alt="" coords="10,5,173,47"/>
-</map>

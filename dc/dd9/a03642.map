@@ -1,9 +1,0 @@
-<map id="DYN::Solver::Impl" name="DYN::Solver::Impl">
-<area shape="rect" id="node1" title="Solver implemented class." alt="" coords="180,80,316,107"/>
-<area shape="rect" id="node4" href="$d4/dc4/a03647.html" title="class SolverCommonFixedTimeStep : Common class between SIM and TRAP." alt="" coords="16,155,269,181"/>
-<area shape="rect" id="node7" href="$d0/ded/a03671.html" title="class Solver IDA" alt="" coords="293,155,416,181"/>
-<area shape="rect" id="node2" href="$d8/d16/a03619.html" title="Solver interface class." alt="" coords="125,5,224,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="248,5,397,32"/>
-<area shape="rect" id="node5" href="$de/de4/a03655.html" title="class Solver SIM : simplified solver" alt="" coords="5,229,128,256"/>
-<area shape="rect" id="node6" href="$d6/da4/a03663.html" title="class Solver TRAP : trapezoidal solver" alt="" coords="152,229,285,256"/>
-</map>
