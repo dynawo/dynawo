@@ -50,13 +50,13 @@
     <par type="DOUBLE" name="generator_Q0Pu" value="0"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>
     <par type="DOUBLE" name="generator_UPhase0" value="0"/>
-    <par type="DOUBLE" name="governor_R" value="0.05"/>
-    <par type="DOUBLE" name="governor_Tg1" value="0.5"/>
-    <par type="DOUBLE" name="governor_Tg2" value="3"/>
-    <par type="DOUBLE" name="governor_Tg3" value="10"/>
     <par type="DOUBLE" name="governor_Dt" value="0"/>
-    <par type="DOUBLE" name="governor_VMin" value="0"/>
+    <par type="DOUBLE" name="governor_R" value="0.05"/>
+    <par type="DOUBLE" name="governor_t1" value="0.5"/>
+    <par type="DOUBLE" name="governor_t2" value="3"/>
+    <par type="DOUBLE" name="governor_t3" value="10"/>
     <par type="DOUBLE" name="governor_VMax" value="1"/>
+    <par type="DOUBLE" name="governor_VMin" value="0"/>
     <par type="DOUBLE" name="governor_Pm0Pu" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EMax" value="4"/>
     <par type="DOUBLE" name="voltageRegulator_EMin" value="0"/>
@@ -66,28 +66,31 @@
     <par type="DOUBLE" name="voltageRegulator_Te" value="0.05"/>
     <par type="DOUBLE" name="voltageRegulator_Efd0Pu" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Us0Pu" value="1"/>
-    <par type="DOUBLE" name="pss_Tw1" value="2"/>
-    <par type="DOUBLE" name="pss_Tw2" value="2"/>
-    <par type="DOUBLE" name="pss_Tw3" value="2"/>
-    <par type="DOUBLE" name="pss_Tw4" value="0.00001"/>
-    <par type="DOUBLE" name="pss_T1" value="0.25"/>
-    <par type="DOUBLE" name="pss_T2" value="0.03"/>
-    <par type="DOUBLE" name="pss_T3" value="0.15"/>
-    <par type="DOUBLE" name="pss_T4" value="0.015"/>
-    <par type="DOUBLE" name="pss_T6" value="0.00001"/>
-    <par type="DOUBLE" name="pss_T7" value="2"/>
-    <par type="DOUBLE" name="pss_T8" value="0.5"/>
-    <par type="DOUBLE" name="pss_T9" value="0.1"/>
     <par type="DOUBLE" name="pss_Ks1" value="10"/>
     <par type="DOUBLE" name="pss_Ks2" value="0.1564"/>
     <par type="DOUBLE" name="pss_Ks3" value="1"/>
-    <par type="DOUBLE" name="pss_VstMin" value="-0.1"/>
-    <par type="DOUBLE" name="pss_VstMax" value="0.1"/>
-    <par type="DOUBLE" name="pss_IC1" value="1"/>
-    <par type="DOUBLE" name="pss_IC2" value="3"/>
-    <par type="DOUBLE" name="pss_Upss0Pu" value="0"/>
+    <par type="INT" name="pss_M" value="1"/>
+    <par type="INT" name="pss_N" value="0"/>
+    <par type="DOUBLE" name="pss_OmegaMaxPu" value="999"/>
+    <par type="DOUBLE" name="pss_OmegaMinPu" value="-999"/>
+    <par type="DOUBLE" name="pss_PGenMaxPu" value="999"/>
+    <par type="DOUBLE" name="pss_PGenMinPu" value="-999"/>
+    <par type="DOUBLE" name="pss_SNom" value="500"/>
+    <par type="DOUBLE" name="pss_t1" value="0.25"/>
+    <par type="DOUBLE" name="pss_t2" value="0.03"/>
+    <par type="DOUBLE" name="pss_t3" value="0.15"/>
+    <par type="DOUBLE" name="pss_t4" value="0.015"/>
+    <par type="DOUBLE" name="pss_t6" value="0.00001"/>
+    <par type="DOUBLE" name="pss_t7" value="2"/>
+    <par type="DOUBLE" name="pss_t8" value="0.5"/>
+    <par type="DOUBLE" name="pss_t9" value="0.1"/>
+    <par type="DOUBLE" name="pss_tW1" value="2"/>
+    <par type="DOUBLE" name="pss_tW2" value="2"/>
+    <par type="DOUBLE" name="pss_tW3" value="2"/>
+    <par type="DOUBLE" name="pss_tW4" value="0.00001"/>
+    <par type="DOUBLE" name="pss_VPssMaxPu" value="0.1"/>
+    <par type="DOUBLE" name="pss_VPssMinPu" value="-0.1"/>
     <par type="DOUBLE" name="pss_PGen0Pu" value="0"/>
-    <par type="DOUBLE" name="pss_PNomAlt" value="475"/>
   </set>
   <!-- URef step -->
   <set id="URef">

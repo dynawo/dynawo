@@ -83,7 +83,7 @@ model IEEEG1 "Steam turbine governor"
   //Generator initial parameter
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNomTurb)";
 
-  final parameter Types.ActivePowerPu PmRef0Pu = Pm0Pu / (K1 + K2 + K3 + K4 + K5 + K6 + K7 + K8) "Initial reference mechanical power in pu (base PNomTurb)";
+  final parameter Types.ActivePowerPu PmRef0Pu = if K1 + K2 + K3 + K4 + K5 + K6 + K7 + K8 > 0 then Pm0Pu / (K1 + K2 + K3 + K4 + K5 + K6 + K7 + K8) + K * (SystemBase.omega0Pu - SystemBase.omegaRef0Pu) else 0 "Initial reference mechanical power in pu (base PNomTurb)";
 
 equation
   connect(limiter.y, limitedIntegrator.u) annotation(

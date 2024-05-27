@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 /*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* Copyright (c) 2023, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,10 +13,10 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model Scrx_INIT "Initialization model of Scrx"
+model ExAc1_INIT "Initialization model of ExAc1"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT;
 
   Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
 
-  annotation(preferredView = "text");
-end Scrx_INIT;
+  annotation(preferredView = "true");
+end ExAc1_INIT;

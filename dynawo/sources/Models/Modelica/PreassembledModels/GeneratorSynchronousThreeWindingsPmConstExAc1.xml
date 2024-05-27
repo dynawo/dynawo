@@ -12,22 +12,22 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
- <!-- Machine with three windings, constant mechanical power and a voltage regulator, used for the RVS test system. -->
- <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1a">
+  <!-- Machine with three windings, constant mechanical power and a voltage regulator, used for the RVS test system. -->
+  <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsPmConstExAc1">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
-    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEAC1A" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEAC1A_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExAc1" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExAc1_INIT"/>
     <dyn:unitDynamicModel id="overExcitationLimiter" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2_INIT"/>
-    <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>
+    <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2b" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Pss_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
-    <dyn:initConnect id1="voltageRegulator" var1="IRotor0Pu" id2="generator" var2="IRotor0Pu"/>
-    <dyn:initConnect id1="voltageRegulator" var1="UStator0Pu" id2="generator" var2="UStator0Pu"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Ir0Pu" id2="generator" var2="IRotor0Pu"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="overExcitationLimiter" var1="Ifd0Pu" id2="generator" var2="IRotor0Pu"/>
     <dyn:initConnect id1="powerSystemStabilizer" var1="PGen0Pu" id2="generator" var2="PGen0Pu"/>
     <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
-    <dyn:connect id1="voltageRegulator" var1="IRotorPu" id2="generator" var2="IRotorPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="IrPu" id2="generator" var2="IRotorPu.value"/>
     <dyn:connect id1="voltageRegulator" var1="UOelPu" id2="overExcitationLimiter" var2="UOelPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="UPssPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UStatorPu" id2="generator" var2="UStatorPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="VPssPu"/>
+    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu.value"/>
     <dyn:connect id1="overExcitationLimiter" var1="IfdPu" id2="generator" var2="IRotorPu.value"/>
     <dyn:connect id1="powerSystemStabilizer" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
     <dyn:connect id1="powerSystemStabilizer" var1="PGenPu" id2="generator" var2="PGenPu"/>

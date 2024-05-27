@@ -34,15 +34,15 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
   final parameter Types.PerUnit Sq = if (EfdHighPu > 0 and EfdSatHighPu > 0) then sqrt(EfdLowPu * EfdSatLowPu / (EfdHighPu * EfdSatHighPu)) else 0 "Ratio of staturation characteristic";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput UOelPu(start = 0) "OEL output voltage correction in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UOelPu(start = 0) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "PSS output voltage correction in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Reference stator voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-200, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UStatorPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UUelPu(start = 0) "UEL output voltage correction in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "Reference stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-200, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UUelPu(start = 0) "Underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
@@ -70,10 +70,10 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
   final parameter Types.VoltageModulePu EfdRaw0Pu = Ke * Efd0Pu + (if Efd0Pu > EfdThresholdPu then Bsq * (Efd0Pu - EfdThresholdPu) ^ 2 else 0) "Initial non-saturated excitation voltage in pu (user-selected base voltage)";
-  final parameter Types.VoltageModulePu URef0Pu = if Ka > 0 then Us0Pu + EfdRaw0Pu / Ka else 0 "Initial reference stator voltage in pu (base UNom)";
+  final parameter Types.VoltageModulePu UsRef0Pu = if Ka > 0 then Us0Pu + EfdRaw0Pu / Ka else 0 "Initial reference stator voltage in pu (base UNom)";
 
 equation
-  connect(UStatorPu, firstOrder.u) annotation(
+  connect(UsPu, firstOrder.u) annotation(
     Line(points = {{-200, -80}, {-162, -80}}, color = {0, 0, 127}));
   connect(feedback.y, limitedFirstOrder.u) annotation(
     Line(points = {{-11, 0}, {17, 0}}, color = {0, 0, 127}));
@@ -85,7 +85,7 @@ equation
     Line(points = {{-200, 40}, {-100, 40}, {-100, 0}, {-82, 0}}, color = {0, 0, 127}));
   connect(UPssPu, sum1.u[3]) annotation(
     Line(points = {{-200, 0}, {-82, 0}}, color = {0, 0, 127}));
-  connect(URefPu, sum1.u[4]) annotation(
+  connect(UsRefPu, sum1.u[4]) annotation(
     Line(points = {{-200, -40}, {-100, -40}, {-100, 0}, {-82, 0}}, color = {0, 0, 127}));
   connect(firstOrder.y, sum1.u[5]) annotation(
     Line(points = {{-138, -80}, {-100, -80}, {-100, 0}, {-82, 0}}, color = {0, 0, 127}));
@@ -106,7 +106,8 @@ equation
   connect(integrator.y, add3.u3) annotation(
     Line(points = {{142, 0}, {160, 0}, {160, -40}, {60, -40}, {60, -8}, {78, -8}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})),
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Rectangle(extent = {{-138, 100}, {-138, 100}}), Text(extent = {{-100, 60}, {100, -60}}, textString = "IEEET1")}),
     Documentation(info = "<html><head></head><body>This model implements the IEEE Type 1 Exciter as shown in the&nbsp;<!--StartFragment-->I. C. Report, \"Computer representation of excitation systems,\" in <em>IEEE Transactions on Power Apparatus and Systems</em>, vol. PAS-87, no. 6, pp. 1460-1464, June 1968, doi: 10.1109/TPAS.1968.292114.<!--EndFragment--></body></html>"));

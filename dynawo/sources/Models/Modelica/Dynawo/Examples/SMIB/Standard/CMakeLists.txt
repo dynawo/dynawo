@@ -12,9 +12,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  GovSteam1ExcIEEEST4BPssIEEE2B1.mo
-  GovSteam1ExcIEEEST4BPssIEEE2B2.mo
-  GovSteam1ExcIEEEST4BPssIEEE2B3.mo
+  GovSteam1St4bPss2b1.mo
+  GovSteam1St4b2.mo
+  GovSteam1St4bPss2b3.mo
   )
 
 #
