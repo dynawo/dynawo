@@ -52,7 +52,7 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add3 addI(k2 = -1) annotation(
     Placement(transformation(extent = {{-80, -60}, {-60, -40}})));
-  Modelica.Blocks.Math.Add addSat(k1 = 1, k2 = -1) annotation(
+  Modelica.Blocks.Math.Add addSat(k2 = -1) annotation(
     Placement(transformation(origin = {80, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
   Modelica.Blocks.Math.Gain gainTrack(k = 1 / (K * Ni)) annotation(
     Placement(transformation(extent = {{0, -80}, {-20, -60}})));
@@ -60,7 +60,7 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
     Placement(transformation(extent = {{70, -10}, {90, 10}})));
   Modelica.Blocks.Sources.Constant FFzero(k = 0) if not WithFeedForward annotation(
     Placement(transformation(extent = {{30, -35}, {40, -25}})));
-  Modelica.Blocks.Math.Add addFF(k1 = 1, k2 = Kff) annotation(
+  Modelica.Blocks.Math.Add addFF(k2 = Kff) annotation(
     Placement(transformation(extent = {{48, -6}, {60, 6}})));
   IntegratorSetFreeze I(K = unitTime / Ti, UseFreeze = true, Y0 = Xi0) annotation(
     Placement(visible = true, transformation(origin = {-38, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

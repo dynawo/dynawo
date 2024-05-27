@@ -208,7 +208,7 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-132, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay delaytEngine(delayTime = tEngine) annotation(
     Placement(visible = true, transformation(origin = {256, 24}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.Derivative derivativetA(T = tA, k = 1) annotation(
+  Modelica.Blocks.Continuous.Derivative derivativetA(T = tA) annotation(
     Placement(visible = true, transformation(origin = {-130, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivativeKDGovTDGov(T = tDGov, initType = Modelica.Blocks.Types.Init.InitialState, k = KDGov) annotation(
     Placement(visible = true, transformation(origin = {-50, -128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

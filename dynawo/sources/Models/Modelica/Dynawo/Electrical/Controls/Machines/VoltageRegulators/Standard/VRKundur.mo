@@ -32,9 +32,9 @@ model VRKundur "Proportional voltage regulator based on Kundur's book"
   Modelica.Blocks.Interfaces.RealOutput efdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder transducer(k = 1, T = tR, y_start = Us0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder transducer(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add3 error(k1 = 1, k2 = -1, k3 = 1) annotation(
+  Modelica.Blocks.Math.Add3 error(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain exciter(k = Ka) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

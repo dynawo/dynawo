@@ -169,16 +169,16 @@ equation
   connect(step.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {70, 60}, {70, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{102, -30}, {110, -30}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{101, -40}, {110, -40}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
+    Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 2, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-    Documentation(info = "<html><head></head><body><span style=\"left: 118.2px; top: 569.49px; font-family: sans-serif;\">The purpose of the first test case is to compare the dynamic behaviour</span><span style=\"left: 698.591px; top: 569.49px; font-family: sans-serif;\">r of the model for the </span><span style=\"left: 118.2px; top: 594.09px; font-family: sans-serif;\">synchronous </span><span style=\"left: 234.194px; top: 594.09px; font-family: sans-serif;\">machine </span><span style=\"left: 315.393px; top: 594.09px; font-family: sans-serif;\">and </span><span style=\"left: 357.989px; top: 594.09px; font-family: sans-serif;\">its AVR</span><span style=\"left: 425.977px; top: 594.09px; font-family: sans-serif;\"> by </span><span style=\"left: 469.18px; top: 594.09px; font-family: sans-serif;\">analysing</span><span style=\"left: 546.773px; top: 594.09px; font-family: sans-serif;\"> the terminal voltage</span><span style=\"left: 794.4px; top: 594.09px; font-family: sans-serif;\">&nbsp;and the </span><span style=\"left: 118.2px; top: 622.886px; font-family: sans-serif;\">excitation voltage </span><span style=\"left: 306.2px; top: 622.89px; font-family: sans-serif;\">inside</span><span style=\"left: 363.994px; top: 622.89px; font-family: sans-serif;\"> the </span><span style=\"left: 409.387px; top: 622.89px; font-family: sans-serif;\">machine</span><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\">.&nbsp;</span><div><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\">The test consists of a no-load operation with a step on the voltage reference value (+ 0.05 pu) done at t = 0.1 s.</span></div><div><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\"><br></span></div><div><span style=\"left: 478.59px; top: 622.89px; font-family: sans-serif;\">The results obtained perfectly match the results presented in the ENTSO-E report.</span></div>
+    Documentation(info = "<html><head></head><body>The purpose of the first test case is to compare the dynamic behaviour of the model for the synchronous machine and its AVR by analysing the terminal voltage and the excitation voltage inside the machine.<div><br></div>The test consists of a no-load operation with a step on the voltage reference value (+ 0.05 pu) done at t = 0.1 s.<div><br></div>The results obtained perfectly match the results presented in the ENTSO-E report.
 
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/EfdPuTestCase1.png\">

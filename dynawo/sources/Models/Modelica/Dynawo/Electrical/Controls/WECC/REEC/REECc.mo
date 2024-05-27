@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECc "WECC Electrical Control type C"
-extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
 
   // REEC-C parameters
   parameter Types.PerUnit SOCMaxPu "Maximum allowable state of charge in pu (base SNom) (typical: 0.8..1)" annotation(
@@ -77,7 +77,7 @@ extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
     Placement(visible = true, transformation(origin = {400, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {311, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tBattery, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tBattery) annotation(
     Placement(visible = true, transformation(origin = {270, -250}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {320, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

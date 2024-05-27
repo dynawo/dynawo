@@ -137,13 +137,13 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {10, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneOmega(uMax = DeltaOmegaDbPu) annotation(
     Placement(visible = true, transformation(origin = {168, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivativetDPctPc(T = tFp, initType = Modelica.Blocks.Types.Init.InitialState, k = tDp, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Derivative derivativetDPctPc(T = tFp, initType = Modelica.Blocks.Types.Init.InitialState, k = tDp) annotation(
     Placement(visible = true, transformation(origin = {204, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertEn(T = tEn, initType = Modelica.Blocks.Types.Init.InitialState, y_start = initPcPu) annotation(
     Placement(visible = true, transformation(origin = {304, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertfT(T = tF, initType = Modelica.Blocks.Types.Init.InitialState, y_start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-64, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrdertHp(T = tHp, initType = Modelica.Blocks.Types.Init.InitialState, k = 1, y_start = Pm0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrdertHp(T = tHp, initType = Modelica.Blocks.Types.Init.InitialState, y_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {214, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertLp(T = tLp, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KLp, y_start = Pm0Pu * KLp) annotation(
     Placement(visible = true, transformation(origin = {428, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -167,9 +167,9 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {214, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integratortB(initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / tB, y_start = initBPu) annotation(
     Placement(visible = true, transformation(origin = {108, -158}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegratorCv(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, limitsAtInit = true, outMax = HHpMaxPu, outMin = 0, y_start = Pm0Pu / initBPu) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegratorCv(initType = Modelica.Blocks.Types.Init.InitialState, outMax = HHpMaxPu, outMin = 0, y_start = Pm0Pu / initBPu) annotation(
     Placement(visible = true, transformation(origin = {124, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegratorIv(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, outMax = 1, outMin = 0, y_start = 1) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegratorIv(initType = Modelica.Blocks.Types.Init.InitialState, outMax = 1, outMin = 0, y_start = 1) annotation(
     Placement(visible = true, transformation(origin = {124, -294}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegratorPID(initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / tIp, outMax = PMaxPu, outMin = 0, y_start = initPcPu) annotation(
     Placement(visible = true, transformation(origin = {206, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

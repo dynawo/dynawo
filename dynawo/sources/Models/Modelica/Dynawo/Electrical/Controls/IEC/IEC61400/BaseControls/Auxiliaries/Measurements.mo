@@ -13,8 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 */
 
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
-
-extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ;
 
   //Nominal parameters
   parameter Types.Time tS "Integration time step in s";
@@ -67,7 +66,7 @@ extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measure
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {90, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tfFilt, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tfFilt) annotation(
     Placement(visible = true, transformation(origin = {30, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, Y0 = 0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
