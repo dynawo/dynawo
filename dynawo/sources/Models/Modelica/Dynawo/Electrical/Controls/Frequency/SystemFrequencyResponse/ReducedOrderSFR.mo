@@ -35,7 +35,7 @@ model ReducedOrderSFR "Reduced order system frequency response model, based on t
     Placement(visible = true, transformation(origin = {-93, 25}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k1 = -1, k2 = +1, k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {45, 19}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / (2 * H), y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / (2 * H)) annotation(
     Placement(visible = true, transformation(origin = {77, 19}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Km) annotation(
     Placement(visible = true, transformation(origin = {9, 19}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));

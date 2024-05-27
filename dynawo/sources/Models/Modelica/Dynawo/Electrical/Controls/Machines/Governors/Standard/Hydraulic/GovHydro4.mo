@@ -105,7 +105,7 @@ model GovHydro4 "Governor type GovHydro4"
     Placement(visible = true, transformation(origin = {50, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator intTw(k = 1 / tW, y_start = Pm0Pu / (ATurb * HDam) + QNl) annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder lagTp(T = tP, y(fixed = true), y_start = 0) annotation(
+  Modelica.Blocks.Continuous.FirstOrder lagTp(T = tP, y(fixed = true)) annotation(
     Placement(visible = true, transformation(origin = {-70, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limitU(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UO, uMin = UC) annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -117,7 +117,7 @@ model GovHydro4 "Governor type GovHydro4"
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds tableGvPgv(table = Lookuptab) annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative tfRTemp(T = tR, initType = Modelica.Blocks.Types.Init.InitialState, k = RTemp * tR, x_start = InitSet, y(start = 0)) annotation(
+  Modelica.Blocks.Continuous.Derivative tfRTemp(T = tR, initType = Modelica.Blocks.Types.Init.InitialState, k = RTemp * tR, x_start = InitSet) annotation(
     Placement(visible = true, transformation(origin = {10, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initial parameters

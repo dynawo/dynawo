@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 */
 
 model QControl2015 "Reactive power control module for wind turbines (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.deadZoneAtInit = true, deadZone.uMax = Udb2Pu, deadZone.uMin = Udb1Pu);
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.uMax = Udb2Pu, deadZone.uMin = Udb1Pu);
 
   //Q control parameters
   parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(
