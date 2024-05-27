@@ -40,7 +40,7 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
 
   Modelica.Blocks.Math.Gain gaind(k = Kpv) annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratord(k = Kiv, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator integratord(k = Kiv) annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackd annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -48,7 +48,7 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
     Placement(visible = true, transformation(origin = {-120, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainq(k = Kpv) annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorq(k = Kiv, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorq(k = Kiv) annotation(
     Placement(visible = true, transformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-90, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -126,7 +126,7 @@ equation
   connect(addd1.y, feedbackCwq.u1) annotation(
     Line(points = {{-9, 86}, {38, 86}}, color = {0, 0, 127}));
   connect(GainCfq.y, feedbackCwq.u2) annotation(
-    Line(points = {{1, -25}, {10, -25}, {10, 74}, {38, 74}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{1, -25}, {20, -25}, {20, 74}, {38, 74}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(GainCfd.y, feedbackCwd.u1) annotation(
     Line(points = {{1, 25}, {10, 25}, {10, -74}, {38, -74}}, color = {0, 0, 127}));
   connect(feedbackCwq.y, addd2.u2) annotation(

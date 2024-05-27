@@ -37,11 +37,11 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
   Modelica.Blocks.Interfaces.RealOutput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Reference active power communicated to PD in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {240, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltP, k = 1, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltP, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tWPfFiltP, k = 1, y_start = SystemBase.omegaRef0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tWPfFiltP, y_start = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-136, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false) annotation(
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

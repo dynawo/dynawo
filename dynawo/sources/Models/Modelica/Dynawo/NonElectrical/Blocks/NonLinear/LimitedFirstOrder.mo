@@ -26,7 +26,7 @@ block LimitedFirstOrder "First-order filter with non-windup limiter"
     Placement(visible = true, transformation(origin = {-56, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain G(k = 1 / tFilter) annotation(
     Placement(visible = true, transformation(origin = {-24, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator I(k = 1, y_start = Y0) annotation(
+  Modelica.Blocks.Continuous.Integrator I(y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {16, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain Gk(k = K) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

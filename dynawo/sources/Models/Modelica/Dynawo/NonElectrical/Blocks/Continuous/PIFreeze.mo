@@ -26,7 +26,7 @@ block PIFreeze "Proportional-integrator controller with freezing of the state"
 
   Modelica.Blocks.Math.Add add(k1 = Gain, k2 = Gain / tIntegral) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1, y_start = Y0 * tIntegral / Gain) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0 * tIntegral / Gain) annotation(
     Placement(visible = true, transformation(origin = {10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

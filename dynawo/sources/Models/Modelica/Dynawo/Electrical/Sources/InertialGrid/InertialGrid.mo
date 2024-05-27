@@ -22,7 +22,7 @@ model InertialGrid
 
   Dynawo.Electrical.Controls.Frequency.SystemFrequencyResponse.ReducedOrderSFR reducedOrderSFR(DPu = DPu, Fh = Fh, H = H, Km = Km, Pe0Pu = P0Pu * SystemBase.SnRef / SNom, R = R, Tr = Tr) annotation(
     Placement(visible = true, transformation(origin = {-73, 1}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {-26, -4}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Math.PolarToRectangular polarToRectangular annotation(
     Placement(visible = true, transformation(origin = {46, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
