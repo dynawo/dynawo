@@ -17,7 +17,7 @@
   <dyn:blackBoxModel id="Line1" lib="Line" parFile="TestCase3.par" parId="Line1"/>
   <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="TestCase3.par" parId="Load"/>
   <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="TestCase3.par" parId="Fault"/>
-  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2A" parFile="TestCase3.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2a" parFile="TestCase3.par" parId="SynchronousGenerator"/>
   <dyn:blackBoxModel id="setPointOmega" lib="SetPoint" parFile="TestCase3.par" parId="SetPoint"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="Transformer" var2="transformer_terminal1"/>
   <dyn:connect id1="Line1" var1="line_terminal1" id2="InfiniteBus" var2="infiniteBus_terminal"/>

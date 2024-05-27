@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model SCRX1 "Bus-fed or solid-fed exciter model"
+model SCRX "Bus-fed or solid-fed exciter model"
 
   parameter Boolean CSwitch = false "If true, exciter is solid-fed, if false, exciter is bus-fed";
   parameter Types.PerUnit K "Voltage regulator gain";
@@ -124,4 +124,4 @@ equation
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-220, -140}, {240, 140}})),
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "SCRX")}));
-end SCRX1;
+end SCRX;

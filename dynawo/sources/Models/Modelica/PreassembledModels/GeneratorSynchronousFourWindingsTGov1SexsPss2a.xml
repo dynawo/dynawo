@@ -8,16 +8,16 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
-
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Machine with four windings and standard IEEE regulations - TGOV1, SEXS and PSS2A-->
-  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsTGov1SexsPss2A">
+  <!-- Machine with four windings and standard IEEE regulations (TGov1, SEXS and Pss2a). -->
+  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsTGov1SexsPss2a">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT"/>
-    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV11" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
-    <dyn:unitDynamicModel id="pss" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A1" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT.BasePss_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov1" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
+    <dyn:unitDynamicModel id="pss" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Pss_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>
@@ -28,6 +28,6 @@
     <dyn:connect id1="generator" var1="omegaPu.value" id2="pss" var2="omegaPu"/>
     <dyn:connect id1="generator" var1="UStatorPu.value" id2="voltageRegulator" var2="UsPu"/>
     <dyn:connect id1="generator" var1="efdPu.value" id2="voltageRegulator" var2="EfdPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UpssPu" id2="pss" var2="UpssPu"/>
+    <dyn:connect id1="voltageRegulator" var1="UpssPu" id2="pss" var2="VPssPu"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

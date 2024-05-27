@@ -41,12 +41,9 @@ set(MODEL_FILES
   Dc1a.extvar
   Dc1c.mo
   Dc1c.extvar
-  ExcIEEEAC1A.mo
-  ExcIEEEAC1A.extvar
-  ExcIEEEAC1A_INIT.mo
-  ExcIEEEST4B.mo
-  ExcIEEEST4B.extvar
-  ExcIEEEST4B_INIT.mo
+  ExAc1.mo
+  ExAc1.extvar
+  ExAc1_INIT.mo
   IEEET1.mo
   IEEET1.extvar
   IEEEX2.mo
@@ -56,12 +53,9 @@ set(MODEL_FILES
   MAXEX2.mo
   MAXEX2.extvar
   MAXEX2_INIT.mo
-  Scrx.mo
-  Scrx.extvar
-  Scrx_INIT.mo
-  SCRX1.mo
-  SCRX1.extvar
-  SCRX1_INIT.mo
+  SCRX.mo
+  SCRX.extvar
+  SCRX_INIT.mo
   SEXS.mo
   SEXS.extvar
   St1a.mo
