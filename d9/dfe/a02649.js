@@ -66,6 +66,8 @@ var a02649 =
       [ "LoadSheddingStartedAndDisplay", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51ab67a91a099dd6459070c531b71d7461a", null ],
       [ "LossOfSynchronismArming", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51aee2123433fb9bba01e9ebbccf1f6442f", null ],
       [ "LossOfSynchronismTripped", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a1897e924f649a9b16d7a7120f28c7ab5", null ],
+      [ "MotorConnected", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a463bea4df40d76b6898128a11681ed78", null ],
+      [ "MotorDisconnected", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a4ba7ed7f06f930ca42a3d21b88ee366d", null ],
       [ "NodeFaultBegin", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51ad1d263de7b652318c13c1e7007ad3e1e", null ],
       [ "NodeFaultEnd", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51ab6473944acee9fdf27b7cd42027f1148", null ],
       [ "NodeOff", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51aee4da1fedf4d5bc8d4aab248a9b90eee", null ],

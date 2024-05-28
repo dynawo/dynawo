@@ -264,6 +264,8 @@ var searchData=
   ['modelvoltagesetpointchangefactory',['ModelVoltageSetPointChangeFactory',['../d7/daf/a03181.html',1,'DYN::ModelVoltageSetPointChangeFactory'],['../d7/daf/a03181.html#a39228d1148836161ae2016d29233af64',1,'DYN::ModelVoltageSetPointChangeFactory::ModelVoltageSetPointChangeFactory()']]],
   ['mofilesall_5f',['moFilesAll_',['../d4/d9d/a02681.html#ac133591c79ca8f98d6970ea1b95913c7',1,'DYN::Compiler']]],
   ['mofilescompilation_5f',['moFilesCompilation_',['../d4/d9d/a02681.html#a776e20996e3da5e99294d5bf4f3bbca8',1,'DYN::Compiler']]],
+  ['motorconnected',['MotorConnected',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a463bea4df40d76b6898128a11681ed78',1,'DYN::KeyTimeline_t']]],
+  ['motordisconnected',['MotorDisconnected',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a4ba7ed7f06f930ca42a3d21b88ee366d',1,'DYN::KeyTimeline_t']]],
   ['movedown_5f',['moveDown_',['../d6/d24/a03249.html#a7419c2b9c443fb687ca1ebae55056538',1,'DYN::ModelPhaseTapChanger::moveDown_()'],['../d9/d56/a03253.html#ab4cea6c7e284c677e904d7ef8950194a',1,'DYN::ModelRatioTapChanger::moveDown_()']]],
   ['moveup_5f',['moveUp_',['../d6/d24/a03249.html#af96af982d2c7fbddb55ca9c2cd9f4a38',1,'DYN::ModelPhaseTapChanger::moveUp_()'],['../d9/d56/a03253.html#a0517294048c94a59f17396f3e6db7fb4',1,'DYN::ModelRatioTapChanger::moveUp_()']]],
   ['msbset_5f',['msbset_',['../d3/dfd/a03357.html#a556d092d79dfd8e30d4c6499e22c6096',1,'DYN::SolverCommonFixedTimeStep']]],

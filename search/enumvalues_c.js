@@ -53,6 +53,8 @@ var searchData=
   ['modelmultiparamnotfound',['ModelMultiParamNotFound',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fae22dade0aaf132e6f5f749f1fc61fe4f',1,'DYN::KeyLog_t']]],
   ['modelname',['ModelName',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fae859e842662901b0e1d705b2689aedf8',1,'DYN::KeyLog_t']]],
   ['modeltemplateexpansioncompiled',['ModelTemplateExpansionCompiled',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fab16790451edd4f735937a6330b1d21b7',1,'DYN::KeyLog_t']]],
+  ['motorconnected',['MotorConnected',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a463bea4df40d76b6898128a11681ed78',1,'DYN::KeyTimeline_t']]],
+  ['motordisconnected',['MotorDisconnected',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a4ba7ed7f06f930ca42a3d21b88ee366d',1,'DYN::KeyTimeline_t']]],
   ['multiincorrectconnection',['MultiIncorrectConnection',['../da/d03/a02577.html#acfce33066451c48351076e31bd5b4ecea44e4da60599f19caad6737f32959164a',1,'DYN::KeyError_t']]],
   ['multiincorrectsize',['MultiIncorrectSize',['../da/d03/a02577.html#acfce33066451c48351076e31bd5b4ecea5cf5528e7675b3bb74d33749302d30d5',1,'DYN::KeyError_t']]],
   ['multipleandhiddenerrors',['MultipleAndHiddenErrors',['../da/d03/a02577.html#acfce33066451c48351076e31bd5b4ecea32350c5257f18ad7f5606e4dfaabf827',1,'DYN::KeyError_t']]],
