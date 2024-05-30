@@ -12,18 +12,24 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Machine with constant mechanical power, a voltage regulator (St7b) and a power system stabilizer (Pss2a). -->
-  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsPmConstSt7bPss2a">
+  <!-- Machine with constant mechanical power, a voltage regulator (St7b), a power system stabilizer (Pss2a) and an underexcitation limiter (Uel1). -->
+  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel1">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St7b" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St7c_INIT"/>
     <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Pss_INIT"/>
+    <dyn:unitDynamicModel id="underExcitationLimiter" name="Dynawo.Electrical.Controls.Machines.UnderExcitationLimiters.Standard.Uel1" initName="Dynawo.Electrical.Controls.Machines.UnderExcitationLimiters.Standard.Uel1_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="powerSystemStabilizer" var1="PGen0Pu" id2="generator" var2="PGen0Pu"/>
+    <dyn:initConnect id1="underExcitationLimiter" var1="it0Pu" id2="generator" var2="i0Pu"/>
+    <dyn:initConnect id1="underExcitationLimiter" var1="ut0Pu" id2="generator" var2="u0Pu"/>
     <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
     <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="VPssPu"/>
     <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu.value"/>
     <dyn:connect id1="powerSystemStabilizer" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
     <dyn:connect id1="powerSystemStabilizer" var1="PGenPu" id2="generator" var2="PGenPu"/>
+    <dyn:connect id1="underExcitationLimiter" var1="itPu" id2="generator" var2="iStatorPu"/>
+    <dyn:connect id1="underExcitationLimiter" var1="utPu" id2="generator" var2="uPu"/>
+    <dyn:connect id1="underExcitationLimiter" var1="UUelPu" id2="voltageRegulator" var2="UUelPu"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
