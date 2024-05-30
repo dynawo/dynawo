@@ -52,7 +52,7 @@
     <par type="BOOL" name="event_open" value="true"/>
   </set>
   <set id="Disconnect_Load2">
-    <par type="DOUBLE" name="event_tEvent" value="1000"/>
+    <par type="DOUBLE" name="event_tEvent" value="400"/>
     <par type="BOOL" name="event_open" value="true"/>
   </set>
   <set id="Disconnect_Load">

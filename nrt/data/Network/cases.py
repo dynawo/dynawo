@@ -102,8 +102,8 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #           FullModelica2              #
 ########################################
 
-case_name = "Base case in full Modelica Network Load"
-case_description = "Second test the basic behavior of the Modelica Network Load"
+case_name = "Base case in full Modelica Network Load variant"
+case_description = "Second test the basic behavior of the Modelica Network Load variant"
 job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "FullModelica2", "DisconnectLoadFullModelica.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
@@ -139,21 +139,11 @@ job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "Limits3"
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ########################################
-#           Limits3 Modelica           #
-########################################
-
-case_name = "Modelica Network Load with voltage variation and limit reached"
-case_description = "Test the basic behavior of the Modelica Restorative Network Load to a voltage variation"
-job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "Limits3", "DisconnectLoad_VoltageVariation.jobs")
-
-test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
-
-########################################
 #           Limits3-1 Modelica         #
 ########################################
 
-case_name = "Modelica Network Load with voltage variation and limit reached"
-case_description = "Test the basic behavior of the Modelica Restorative Network Load to a voltage variation"
+case_name = "Modelica Network Load with voltage variation and limit reached variant 1"
+case_description = "Test the basic behavior of the Modelica Restorative Network Load to a voltage variation variant 1"
 job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "Limits3-1", "DisconnectLoad_VoltageVariation.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
@@ -162,8 +152,8 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #           Limits3-2 Modelica         #
 ########################################
 
-case_name = "Modelica Network Load with voltage variation and limit reached"
-case_description = "Test the basic behavior of the Modelica Restorative Network Load to a voltage variation"
+case_name = "Modelica Network Load with voltage variation and limit reached variant 2"
+case_description = "Test the basic behavior of the Modelica Restorative Network Load to a voltage variation variant 2"
 job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "Limits3-2", "DisconnectLoad_VoltageVariation.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
