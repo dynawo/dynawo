@@ -67,7 +67,7 @@ class AppenderHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~AppenderHandler();
+  virtual ~AppenderHandler();
 
   /**
    * @brief return the appender read in xml file
@@ -101,7 +101,7 @@ class DirectoryHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~DirectoryHandler();
+  virtual ~DirectoryHandler();
 
   /**
    * @brief return the directory read in xml file
@@ -135,7 +135,7 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~ModelsDirHandler();
+  virtual ~ModelsDirHandler();
 
   /**
    * @brief add a directory to the list of directory
@@ -175,7 +175,7 @@ class InitialStateHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~InitialStateHandler();
+  virtual ~InitialStateHandler();
 
   /**
    * @brief get the initial state element read in xml file
@@ -209,7 +209,7 @@ class DynModelsHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~DynModelsHandler();
+  virtual ~DynModelsHandler();
 
   /**
    * @brief get the dynModels objects read in xml file
@@ -243,7 +243,7 @@ class NetworkHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~NetworkHandler();
+  virtual ~NetworkHandler();
 
   /**
    * @brief return the network entry element read in xml file
@@ -277,7 +277,7 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~InitValuesHandler();
+  virtual ~InitValuesHandler();
 
   /**
    * @brief return the init values entry read in xml file
@@ -311,7 +311,7 @@ class FinalValuesHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~FinalValuesHandler();
+  virtual ~FinalValuesHandler();
 
   /**
    * @brief return the final values entry read in xml file
@@ -345,7 +345,7 @@ class ConstraintsHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~ConstraintsHandler();
+  virtual ~ConstraintsHandler();
 
   /**
    * @brief return the constraints entry read in xml file
@@ -379,7 +379,7 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~TimelineHandler();
+  virtual ~TimelineHandler();
 
   /**
    * @brief return the timeline entry read in xml file
@@ -413,7 +413,7 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~TimetableHandler();
+  virtual ~TimetableHandler();
 
   /**
    * @brief return the timetable entry read in xml file
@@ -447,7 +447,7 @@ class FinalStateHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~FinalStateHandler();
+  virtual ~FinalStateHandler();
 
   /**
    * @brief return the final state entry read in xml file
@@ -481,7 +481,7 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~CurvesHandler();
+  virtual ~CurvesHandler();
 
   /**
    * @brief return the curves entry read in xml file
@@ -515,7 +515,7 @@ class FinalStateValuesHandler : public xml::sax::parser::ComposableElementHandle
   /**
    * @brief default destructor
    */
-  ~FinalStateValuesHandler();
+  virtual ~FinalStateValuesHandler();
 
   /**
    * @brief return the final state values entry read in xml file
@@ -549,7 +549,7 @@ class LostEquipmentsHandler : public xml::sax::parser::ComposableElementHandler 
   /**
    * @brief Destructor
    */
-  ~LostEquipmentsHandler();
+  virtual ~LostEquipmentsHandler();
 
   /**
    * @brief return the lostEquipments entry read in xml file
@@ -583,7 +583,7 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~LogsHandler();
+  virtual ~LogsHandler();
 
   /**
    * @brief return the logs entry read in xml file
@@ -623,7 +623,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~OutputsHandler();
+  virtual ~OutputsHandler();
 
   /**
    * @brief return the outputs entry read in xml file
@@ -717,7 +717,7 @@ class CriteriaFileHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~CriteriaFileHandler();
+  virtual ~CriteriaFileHandler();
 
   /**
    * @brief return the simulation entry read in xml file
@@ -751,7 +751,7 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~SimulationHandler();
+  virtual ~SimulationHandler();
 
   /**
    * @brief return the simulation entry read in xml file
@@ -791,7 +791,7 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~ModelerHandler();
+  virtual ~ModelerHandler();
 
   /**
    * @brief return the modeler entry read in xml file
@@ -855,7 +855,7 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~SolverHandler();
+  virtual ~SolverHandler();
 
   /**
    * @brief return the solver entry read in xml file
@@ -889,7 +889,7 @@ class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~LocalInitHandler();
+  virtual ~LocalInitHandler();
 
   /**
    * @brief return the local init entry read in xml file
@@ -923,7 +923,7 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~JobHandler();
+  virtual ~JobHandler();
 
   /**
    * @brief return the job read in xml file
@@ -989,7 +989,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  ~XmlHandler();
+  virtual ~XmlHandler();
 
   /**
    * @brief add a job to the jobs list

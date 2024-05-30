@@ -43,7 +43,7 @@ class VariableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~VariableHandler();
+  virtual ~VariableHandler();
 
   /**
    * @brief Variable getter
@@ -78,7 +78,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  ~XmlHandler();
+  virtual ~XmlHandler();
 
   /**
    * @brief Parsed parameters set collection getter

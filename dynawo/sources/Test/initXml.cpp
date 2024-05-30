@@ -16,7 +16,7 @@
 
 class XmlEnvironment : public testing::Environment {
  public:
-  ~XmlEnvironment();
+  virtual ~XmlEnvironment();
 
   // Override this to define how to set up the environment.
   void SetUp() {

@@ -59,7 +59,7 @@ class ParInTableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~ParInTableHandler();
+  virtual ~ParInTableHandler();
 
   /**
    * @brief return the parameter in xml file
@@ -93,7 +93,7 @@ class ParTableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~ParTableHandler();
+  virtual ~ParTableHandler();
 
   /**
    * @brief get the type of the current parTable
@@ -167,7 +167,7 @@ class ParHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~ParHandler();
+  virtual ~ParHandler();
 
   /**
    * @brief return the parameter read in xml file
@@ -201,7 +201,7 @@ class RefHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~RefHandler();
+  virtual ~RefHandler();
 
   /**
    * @brief return the reference read in xml file
@@ -235,7 +235,7 @@ class MacroParSetHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~MacroParSetHandler();
+  virtual ~MacroParSetHandler();
 
   /**
    * @brief return the macroParSet read in xml file
@@ -269,7 +269,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  ~SetHandler();
+  virtual ~SetHandler();
 
   /**
    * @brief return the set of parameters read in xml file
@@ -327,7 +327,7 @@ class MacroParameterSetHandler : public xml::sax::parser::ComposableElementHandl
   /**
    * @brief Destructor
    */
-  ~MacroParameterSetHandler();
+  virtual ~MacroParameterSetHandler();
 
   /**
    * @brief return the macroParameterSet read in xml file
@@ -376,7 +376,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  ~XmlHandler();
+  virtual ~XmlHandler();
 
   /**
    * @brief Parsed parameters set collection getter
