@@ -411,6 +411,13 @@ class NetworkComponent {  ///< Base class for network component models
    */
   static startingPointMode_t getStartingPointMode(const std::string& startingPointMode);
 
+  /**
+  * @brief write initial values internal parameters of a model in a file
+  *
+  * @param fstream the file to stream parameters to
+  */
+  virtual void printInternalParameters(std::ofstream& fstream) const;
+
  protected:
   /**
    * @brief get the value of a given parameter.  Will throw a ParameterNotReadInPARFile exception if not found.
