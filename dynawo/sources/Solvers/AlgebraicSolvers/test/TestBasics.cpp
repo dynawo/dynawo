@@ -111,6 +111,8 @@ class SolverMock : public Solver::Impl {
  public:
   SolverMock() : Solver::Impl::Impl() {}
 
+  ~SolverMock();
+
   void defineSpecificParameters() {}
 
   std::string solverType() const { return "Mock"; }
@@ -141,6 +143,8 @@ class SolverMock : public Solver::Impl {
     return "SolverMock";
   }
 };
+
+SolverMock::~SolverMock() {}
 
 TEST(AlgebraicSolvers, testInit) {
   SUNContext sundialsContext;

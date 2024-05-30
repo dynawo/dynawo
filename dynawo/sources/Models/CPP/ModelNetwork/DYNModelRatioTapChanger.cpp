@@ -41,6 +41,8 @@ ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
       uMinState_(false),
       uTargetState_(true) {}
 
+ModelRatioTapChanger::~ModelRatioTapChanger() {}
+
 bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
   // decide whether we should increase/decrease tap
   bool increaseRate = false;

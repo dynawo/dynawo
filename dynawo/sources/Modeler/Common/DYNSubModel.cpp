@@ -1395,7 +1395,7 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
   if (calculatedVarsInit_.size() > 0) {
     fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
     const vector<string>& calculatedVarNames = (*this).getCalculatedVarNamesInit();
-    for (unsigned int i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
+    for (size_t i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
       fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
         << std::setw(15) << DYN::double2String(calculatedVarsInit_[i]) << "\n";
   }
