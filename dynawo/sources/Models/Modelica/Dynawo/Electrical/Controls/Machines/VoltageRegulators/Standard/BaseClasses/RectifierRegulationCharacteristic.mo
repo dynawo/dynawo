@@ -20,17 +20,11 @@ block RectifierRegulationCharacteristic "Characteristic function of rectifier re
   final parameter Real ULow = sqrt(3) / 4 "Lower limit of non-linear mode";
 
 equation
-  if u <= 0 then
-    y = 1;
-  elseif u > 0 and u <= ULow then
-    y = 1 - u / sqrt(3);
-  elseif u > ULow and u < UHigh then
-    y = sqrt(UHigh - u ^ 2);
-  elseif u >= UHigh and u <= 1 then
-    y = sqrt(3) * (1 - u);
-  else
-    y = 0;
-  end if;
+  y = noEvent(if u <= 0 then 1
+              elseif u > 0 and u <= ULow then 1 - u / sqrt(3)
+              elseif u > ULow and u < UHigh then sqrt(UHigh - u ^ 2)
+              elseif u >= UHigh and u <= 1 then sqrt(3) * (1 - u)
+              else 0);
 
   annotation(
     preferredView = "text",
