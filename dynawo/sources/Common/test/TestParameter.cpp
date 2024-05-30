@@ -26,6 +26,8 @@ class ParameterCommonMock : public ParameterCommon {
  public:
   ParameterCommonMock(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
+  ~ParameterCommonMock();
+
   boost::any getAnyValue() const {
     // unused
     return boost::any();
@@ -44,6 +46,8 @@ class ParameterCommonMock : public ParameterCommon {
 
 ParameterCommonMock::ParameterCommonMock(const std::string& name, const typeVarC_t& valueType, bool mandatory) : ParameterCommon(name, valueType, mandatory) {
 }
+
+ParameterCommonMock::~ParameterCommonMock() {}
 
 TEST(CommonTest, testClassParameter) {
   ParameterCommonMock parameter("Parameter1", VAR_TYPE_DOUBLE, true);

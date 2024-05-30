@@ -56,6 +56,8 @@ namespace dynamicdata {
 
 ModelTemplate::ModelTemplate(const string& id) : Model(id, Model::MODEL_TEMPLATE), useAliasing_(true), generateCalculatedVariables_(true) {}
 
+ModelTemplate::~ModelTemplate() {}
+
 void
 ModelTemplate::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables) {
   useAliasing_ = useAliasing;

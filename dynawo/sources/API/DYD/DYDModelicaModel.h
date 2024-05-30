@@ -54,7 +54,7 @@ class ModelicaModel : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~ModelicaModel() = default;
+  virtual ~ModelicaModel();
 
   /**
    * @brief Network Identifiable device modeled getter
