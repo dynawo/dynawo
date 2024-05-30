@@ -83,7 +83,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  ~XmlHandler();
+  virtual ~XmlHandler();
 
   /**
    * @brief Parsed final state values collection getter

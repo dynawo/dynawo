@@ -111,7 +111,7 @@ class SolverMock : public Solver::Impl {
  public:
   SolverMock() : Solver::Impl::Impl() {}
 
-  ~SolverMock();
+  virtual ~SolverMock();
 
   void defineSpecificParameters() {}
 
