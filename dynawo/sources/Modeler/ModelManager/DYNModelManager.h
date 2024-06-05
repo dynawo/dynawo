@@ -189,8 +189,12 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void writeParametersFinalValues();
 
   /**
-   * @copydoc SubModel::getSubModelParameterValue(const std::string & nameParameter, std::string& value, bool & found)
-   */
+  * @brief retrieve the value of a parameter
+  *
+  * @param nameParameter name of a parameter to found
+  * @param value value of the parameter
+  * @param found @b true if the parameter exist, @b false else
+  */
   void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found);
 
   /**
@@ -209,14 +213,14 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void initParams();
 
   /**
-   * @copydoc SubModel::printValuesParameters(std::ofstream& fstream)
+   * @copydoc SubModel::printValuesParameters(std::ofstream& fstream) const
    */
-  void printValuesParameters(std::ofstream& fstream);
+  void printValuesParameters(std::ofstream& fstream) const;
 
   /**
-   * @copydoc SubModel::printInitValuesParameters(std::ofstream& fstream)
+   * @copydoc SubModel::printInitValuesParameters(std::ofstream& fstream) const
    */
-  void printInitValuesParameters(std::ofstream& fstream);
+  void printInitValuesParameters(std::ofstream& fstream) const;
 
   /**
    * @copydoc SubModel::modelType() const
