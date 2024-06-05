@@ -378,8 +378,10 @@ InitValuesHandler::InitValuesHandler(elementName_type const& root_element) {
 void
 InitValuesHandler::create(attributes_type const& attributes) {
   initValuesEntry_ = shared_ptr<InitValuesEntry>(new InitValuesEntry());
-  initValuesEntry_->setDumpLocalInitValues(attributes["local"]);
-  initValuesEntry_->setDumpGlobalInitValues(attributes["global"]);
+  if (attributes.has("local"))
+    initValuesEntry_->setDumpLocalInitValues(attributes["local"]);
+  if (attributes.has("global"))
+    initValuesEntry_->setDumpGlobalInitValues(attributes["global"]);
   if (attributes.has("init"))
     initValuesEntry_->setDumpInitModelValues(attributes["init"]);
 }
