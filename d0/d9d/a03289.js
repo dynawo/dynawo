@@ -53,6 +53,7 @@ var a03289 =
     [ "initSize", "d0/d9d/a03289.html#a3e4265493f633b63baa9e35c5f60d7b6", null ],
     [ "instantiateVariables", "d0/d9d/a03289.html#abbb794da72db30212193d8066a79a80d", null ],
     [ "operator=", "d0/d9d/a03289.html#a6a960348ec031bcf8627c80cc04e7224", null ],
+    [ "printInternalParameters", "d0/d9d/a03289.html#a08d23177a6d7155236bd1b04ee179055", null ],
     [ "setBufferFType", "d0/d9d/a03289.html#ad8a6d5cb73ff78609d5460545af5fcd8", null ],
     [ "setBufferYType", "d0/d9d/a03289.html#ad2bf156c60db6074b56a860d3a34b5cc", null ],
     [ "setFequations", "d0/d9d/a03289.html#a872f3bda456f6e08229d53d3a8289103", null ],

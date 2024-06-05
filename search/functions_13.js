@@ -357,7 +357,7 @@ var searchData=
   ['stringfrommode',['stringFromMode',['../d8/d1e/a03309.html#abbbe53e8781551d96d93ce2e20e92727',1,'DYN::SolverKINAlgRestoration']]],
   ['stringfromseveritylevel',['stringFromSeverityLevel',['../d8/d69/a02661.html#af47b277a2efdd794a442b758f0f52b92',1,'DYN::Trace']]],
   ['subelementsnum',['subElementsNum',['../db/d8f/a02721.html#ab23f857d8520d7b1cb3f8f13eae486a8',1,'DYN::Element::subElementsNum() const'],['../db/d8f/a02721.html#a451110369d8a4c6014ba05041ec3c312',1,'DYN::Element::subElementsNum()']]],
-  ['submodel',['SubModel',['../d9/da5/a02757.html#ad74b53a071129766d2bb9cf432d221f1',1,'DYN::SubModel::SubModel()'],['../d9/da5/a02757.html#a8b4a440e4a001e0da6890058e853a960',1,'DYN::SubModel::SubModel(SubModel &amp;&amp;)=default'],['../df/dff/a02689.html#af213dca085f01293cb0920adc32164c5',1,'DYN::connectedSubModel::subModel()']]],
+  ['submodel',['subModel',['../df/dff/a02689.html#af213dca085f01293cb0920adc32164c5',1,'DYN::connectedSubModel::subModel()'],['../d9/da5/a02757.html#ad74b53a071129766d2bb9cf432d221f1',1,'DYN::SubModel::SubModel()'],['../d9/da5/a02757.html#a8b4a440e4a001e0da6890058e853a960',1,'DYN::SubModel::SubModel(SubModel &amp;&amp;)=default']]],
   ['submodeldelete',['SubModelDelete',['../db/de5/a02773.html#a610c93c25c5ddf888e6a66a9754af621',1,'DYN::SubModelDelete']]],
   ['submodelfactories',['SubModelFactories',['../d1/da5/a02769.html#a188c0345b44a4a67e1a0fd843645c6f6',1,'DYN::SubModelFactories']]],
   ['submodelfactory',['SubModelFactory',['../da/d73/a02765.html#a1bb6496935dc2d52e0c560aeefe28aa8',1,'DYN::SubModelFactory']]],

@@ -327,6 +327,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a42450d2dcb98fd850ffa90e8bf451d4c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d84/a03281.html#a42450d2dcb98fd850ffa90e8bf451d4c">getSide</a> () const</td></tr>
 <tr class="memdesc:a42450d2dcb98fd850ffa90e8bf451d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get side of the terminal where the voltage is measured  <a href="#a42450d2dcb98fd850ffa90e8bf451d4c">More...</a><br /></td></tr>
 <tr class="separator:a42450d2dcb98fd850ffa90e8bf451d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa43fa2eb1e055ff2ace980bc0548e9e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d84/a03281.html#aa43fa2eb1e055ff2ace980bc0548e9e0">printInternalParameters</a> (std::ofstream &amp;fstream) const override</td></tr>
+<tr class="memdesc:aa43fa2eb1e055ff2ace980bc0548e9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial values internal parameters of a model in a file  <a href="#aa43fa2eb1e055ff2ace980bc0548e9e0">More...</a><br /></td></tr>
+<tr class="separator:aa43fa2eb1e055ff2ace980bc0548e9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a03289"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03289')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d0/d9d/a03289.html">DYN::NetworkComponent</a></td></tr>
 <tr class="memitem:a58a8a76064424f68a62b9b0ef4d0a3d5 inherit pub_methods_a03289"><td class="memItemLeft" align="right" valign="top"><a id="a58a8a76064424f68a62b9b0ef4d0a3d5"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a03289.html#a58a8a76064424f68a62b9b0ef4d0a3d5">~NetworkComponent</a> ()</td></tr>
@@ -3061,6 +3064,42 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="aa43fa2eb1e055ff2ace980bc0548e9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa43fa2eb1e055ff2ace980bc0548e9e0">&#9670;&nbsp;</a></span>printInternalParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelTwoWindingsTransformer::printInternalParameters </td>
+          <td>(</td>
+          <td class="paramtype">std::ofstream &amp;&#160;</td>
+          <td class="paramname"><em>fstream</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>write initial values internal parameters of a model in a file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fstream</td><td>the file to stream parameters to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../d0/d9d/a03289.html#a08d23177a6d7155236bd1b04ee179055">DYN::NetworkComponent</a>.</p>
+
+</div>
+</div>
 <a id="a6eefe074e3ab00ba93ef0765da65a482"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6eefe074e3ab00ba93ef0765da65a482">&#9670;&nbsp;</a></span>setBusMonitored()</h2>
 
@@ -3607,7 +3646,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/d84/a03281.html">ModelTwoWindingsTransformer</a></li>
-    <li class="footer">Generated on Fri May 31 2024 09:23:15 for Dynawo by
+    <li class="footer">Generated on Wed Jun 5 2024 14:11:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
