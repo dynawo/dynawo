@@ -306,8 +306,8 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNoInactiveRootWarn");
 
   Solver::Impl::resetStats();
-  g0_.assign(model_->sizeG(), NO_ROOT);
-  g1_.assign(model_->sizeG(), NO_ROOT);
+  g0_.assign(model_->sizeG(), ROOT_DOWN);
+  g1_.assign(model_->sizeG(), ROOT_DOWN);
 
   Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
 
