@@ -327,7 +327,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief get the network components depending on the model used (init or not)
    * @return the vector of network component modeled
    */
-  inline std::vector<boost::shared_ptr<NetworkComponent> >& getComponents() {
+  inline const std::vector<boost::shared_ptr<NetworkComponent> >& getComponents() const {
     return isInitModel_ ?  initComponents_ : components_;
   }
 
@@ -335,7 +335,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief get the voltage levels depending on the model used (init or not)
    * @return the vector of voltage levels modeled
    */
-  inline std::vector<boost::shared_ptr<ModelVoltageLevel> >& getVoltageLevels() {
+  inline const std::vector<boost::shared_ptr<ModelVoltageLevel> >& getVoltageLevels() const {
     return isInitModel_ ?  vLevelInitComponents_ : vLevelComponents_;
   }
 
@@ -352,6 +352,13 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @param nbDynamic number of components with dynamic model
    */
   void printComponentStats(KeyLog_t::value message, unsigned nbStatic, unsigned nbDynamic) const;
+
+  /**
+  * @brief write initial values internal parameters of a model in a file
+  *
+  * @param fstream the file to stream parameters to
+  */
+  void printInternalParameters(std::ofstream& fstream) const override;
 
  private:
   double * calculatedVarBuffer_;  ///< calculated variable buffer
