@@ -37,6 +37,8 @@ MessageTimeline::MessageTimeline(const string& dicoName, const string& key) : Me
   initialize(key);
 }
 
+MessageTimeline::~MessageTimeline() {}
+
 void
 MessageTimeline::initialize(const string& key) {
   priority_ = boost::none;

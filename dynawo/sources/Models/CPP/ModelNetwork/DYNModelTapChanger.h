@@ -54,7 +54,7 @@ class ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelTapChanger() = default;
+  virtual ~ModelTapChanger();
 
   /**
    * @brief  return the name of the tap changer

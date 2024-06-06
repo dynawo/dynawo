@@ -1257,7 +1257,7 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
 }
 
 void
-ModelManager::printValuesParameters(std::ofstream& fstream) {
+ModelManager::printValuesParameters(std::ofstream& fstream) const {
   fstream << " ====== PARAMETERS VALUES ======\n";
   const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
@@ -1290,7 +1290,7 @@ ModelManager::printValuesParameters(std::ofstream& fstream) {
 }
 
 void
-ModelManager::printInitValuesParameters(std::ofstream& fstream) {
+ModelManager::printInitValuesParameters(std::ofstream& fstream) const {
   if (!hasInit())
     return;
   fstream << " ====== INIT PARAMETERS VALUES ======\n";
