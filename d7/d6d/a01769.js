@@ -1,7 +1,7 @@
 var a01769 =
 [
     [ "BlackBoxModel", "d7/d6d/a01769.html#afff7696fa0ad1ce4d5a9e2877a132c28", null ],
-    [ "~BlackBoxModel", "d7/d6d/a01769.html#af116d0c8f440bfd30315fa9ddebfce41", null ],
+    [ "~BlackBoxModel", "d7/d6d/a01769.html#aa486937fd33916e6327c80e8fc07bc28", null ],
     [ "getLib", "d7/d6d/a01769.html#a796b3bbf282fc2d0ec490a9643e326ae", null ],
     [ "getParFile", "d7/d6d/a01769.html#a76f3e249c13c07fdb7fdd9af5e29aad6", null ],
     [ "getParId", "d7/d6d/a01769.html#ae75913a7e6648744d1ba847426d42184", null ],

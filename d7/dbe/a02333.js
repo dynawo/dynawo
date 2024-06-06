@@ -1,6 +1,7 @@
 var a02333 =
 [
     [ "LogsHandler", "d7/dbe/a02333.html#a37fddf995673e734257184f95bee187b", null ],
+    [ "~LogsHandler", "d7/dbe/a02333.html#a16a06c6c2400a383f79c51e368570f83", null ],
     [ "addAppender", "d7/dbe/a02333.html#a4f4da273a06638a4663a4e257af493f8", null ],
     [ "create", "d7/dbe/a02333.html#a54e0942b195d4809ddbb6b9a941d3edb", null ],
     [ "get", "d7/dbe/a02333.html#afdbdec0bc6e59ba57da58f21e34efd63", null ],

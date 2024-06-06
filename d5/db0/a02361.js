@@ -1,6 +1,7 @@
 var a02361 =
 [
     [ "JobHandler", "d5/db0/a02361.html#a37a7ec50ec6f919e8b09bda54cdb5099", null ],
+    [ "~JobHandler", "d5/db0/a02361.html#a1b162a86c367e61bee62e075d0bde567", null ],
     [ "addLocalInit", "d5/db0/a02361.html#a7acfc63ebe8f723e01ac6b853684e942", null ],
     [ "addModeler", "d5/db0/a02361.html#afd182bf9d7ff4e6f7386edaf83496193", null ],
     [ "addOutputs", "d5/db0/a02361.html#ac034de271756da440d232416b92d6215", null ],

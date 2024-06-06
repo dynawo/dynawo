@@ -1,6 +1,7 @@
 var a02009 =
 [
     [ "ModelTemplateExpansionHandler", "d8/d98/a02009.html#ad2b415ac12bdb6839bea2fb20ea3cfe1", null ],
+    [ "~ModelTemplateExpansionHandler", "d8/d98/a02009.html#ae84685c8df4fb58d628028cc09cf6c64", null ],
     [ "addMacroStaticRef", "d8/d98/a02009.html#a8c6b645f983a3849a484c3c3576f8843", null ],
     [ "addStaticRef", "d8/d98/a02009.html#a07a3cfa1a537a78530ae1e1ce6483604", null ],
     [ "create", "d8/d98/a02009.html#ab0f8594252bf779e648641909e8d3cd7", null ],

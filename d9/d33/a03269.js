@@ -1,7 +1,7 @@
 var a03269 =
 [
     [ "ModelTapChanger", "d9/d33/a03269.html#ae208e87157defb8e8bd9c1158cba1628", null ],
-    [ "~ModelTapChanger", "d9/d33/a03269.html#a0d7e5f03fd86890c2c5753387b98ba52", null ],
+    [ "~ModelTapChanger", "d9/d33/a03269.html#addd42e94b6604e3bffe42ee3f56dba5b", null ],
     [ "addStep", "d9/d33/a03269.html#a22430dcda9674cd26e81e9dbfdb3fbc1", null ],
     [ "getCurrentStep", "d9/d33/a03269.html#ac07ace8368a49428c5cd12ee361d7ee3", null ],
     [ "getCurrentStepIndex", "d9/d33/a03269.html#a60ee4d8687660b182654fc81eaddf75d", null ],

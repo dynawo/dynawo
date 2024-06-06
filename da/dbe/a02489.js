@@ -1,6 +1,7 @@
 var a02489 =
 [
     [ "ParTableHandler", "da/dbe/a02489.html#a571a023d5671b4b78b54303a6a2f83cc", null ],
+    [ "~ParTableHandler", "da/dbe/a02489.html#ad3f45f11b299fa1b1fd32adb39bffee3", null ],
     [ "addPar", "da/dbe/a02489.html#a20a1f88b67c51ed59dd4d30939c8aa38", null ],
     [ "create", "da/dbe/a02489.html#a577cc6e62f0e4129f8aa707e23bf8128", null ],
     [ "getName", "da/dbe/a02489.html#adb80b476c204a65155184a1aaaf7d639", null ],

@@ -1,6 +1,7 @@
 var a02513 =
 [
     [ "XmlHandler", "dc/de1/a02513.html#af5138e6395b1a27591412f342fe46a74", null ],
+    [ "~XmlHandler", "dc/de1/a02513.html#aa6bb6e6fb0404d5e0052f2d800ffebf9", null ],
     [ "addMacroParameterSet", "dc/de1/a02513.html#a02741ec63595c52e587b76a21fb15480", null ],
     [ "addSet", "dc/de1/a02513.html#a7f1f242fc9bf4570d51eb248e31cf02e", null ],
     [ "getParametersSetCollection", "dc/de1/a02513.html#aa960711cd446a83b461a026eb6b96563", null ],

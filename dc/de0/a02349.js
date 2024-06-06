@@ -1,6 +1,7 @@
 var a02349 =
 [
     [ "ModelerHandler", "dc/de0/a02349.html#a93e3e6e8f248fe61f6d840cc220170d5", null ],
+    [ "~ModelerHandler", "dc/de0/a02349.html#a44f96f61b56eda5841448f96d6252c65", null ],
     [ "addDynModel", "dc/de0/a02349.html#aabf1bc3bfc11b459e25d799d8bc77cdc", null ],
     [ "addInitialState", "dc/de0/a02349.html#ac6659864887a5652e7edaf5953f9ca67", null ],
     [ "addModelicaModel", "dc/de0/a02349.html#ab68cdf3d119ed15dbc22215f4c9fb86c", null ],

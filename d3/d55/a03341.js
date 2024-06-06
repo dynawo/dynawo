@@ -1,6 +1,7 @@
 var a03341 =
 [
     [ "SolverFactoryIterator", "d3/d55/a03341.html#ac843e856916aff0102b87b77ac0f74e1", null ],
+    [ "SolverFactories", "d3/d55/a03341.html#a0cdb5a6199f004eadcde7fe4654e2d14", null ],
     [ "~SolverFactories", "d3/d55/a03341.html#a64d31ce6a9fbdb5a5dc317f2969de1cc", null ],
     [ "add", "d3/d55/a03341.html#a125134c2033a3ca852d9703d234497da", null ],
     [ "add", "d3/d55/a03341.html#acb5aac937bbc6688a090c975c96f5af1", null ],

@@ -1,6 +1,7 @@
 var a02505 =
 [
     [ "SetHandler", "d1/d94/a02505.html#a3a55fd0ea54a7ae881f45ec31153acba", null ],
+    [ "~SetHandler", "d1/d94/a02505.html#a68131a5dc7470a309526d970339c8a1b", null ],
     [ "addMacroParSet", "d1/d94/a02505.html#ada4ed852059f17414dfc1ff8738d47a3", null ],
     [ "addPar", "d1/d94/a02505.html#a9abfe34752cf3a77f04edd5c5d669331", null ],
     [ "addReference", "d1/d94/a02505.html#a28cab91b33b0981d55fdba7bb9be029c", null ],

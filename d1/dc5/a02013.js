@@ -1,6 +1,7 @@
 var a02013 =
 [
     [ "XmlHandler", "d1/dc5/a02013.html#a931cf19b79ab7161eec37b34e44dcf9e", null ],
+    [ "~XmlHandler", "d1/dc5/a02013.html#aed796d0a3b0c22b969f2ba0f2ec2f703", null ],
     [ "addBlackBoxModel", "d1/dc5/a02013.html#ac9008d070bf5a6b96924777707673a46", null ],
     [ "addConnect", "d1/dc5/a02013.html#a7acf78e4c5ad42aee627fe9c9dc34119", null ],
     [ "addMacroConnect", "d1/dc5/a02013.html#a018d26ff247365302ac0f022bb7a9489", null ],

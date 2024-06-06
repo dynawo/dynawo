@@ -1,6 +1,7 @@
 var a02001 =
 [
     [ "ModelTemplateHandler", "d8/d24/a02001.html#afaf2a68d8c69821178c310aad11d1137", null ],
+    [ "~ModelTemplateHandler", "d8/d24/a02001.html#a06c04b4b92359ce81a717a0e34fcc9f8", null ],
     [ "addConnect", "d8/d24/a02001.html#aa95537e2acd61c5c65cee188b58438fa", null ],
     [ "addInitConnect", "d8/d24/a02001.html#ac00827c5c20f3fc830c71606bc63ea86", null ],
     [ "addMacroConnect", "d8/d24/a02001.html#a3b6ba86f4cf70b4eb08750d4da8c0255", null ],

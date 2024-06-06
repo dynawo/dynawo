@@ -1,6 +1,7 @@
 var a01997 =
 [
     [ "ModelicaModelHandler", "d0/d2b/a01997.html#a5fa857b1fb92fdf593ada268e4d8d008", null ],
+    [ "~ModelicaModelHandler", "d0/d2b/a01997.html#a96a078419e5ef795fd71f7ea2757db93", null ],
     [ "addConnect", "d0/d2b/a01997.html#ad63eea06e32c5808a03f7f9ea9647210", null ],
     [ "addInitConnect", "d0/d2b/a01997.html#a65c601cbe39cf27021655812ab19d586", null ],
     [ "addMacroConnect", "d0/d2b/a01997.html#a720fb918636a6b835682da7f761d4f49", null ],

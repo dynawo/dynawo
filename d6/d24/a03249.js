@@ -1,6 +1,7 @@
 var a03249 =
 [
     [ "ModelPhaseTapChanger", "d6/d24/a03249.html#ae2884c6ffa913078f7d30827a89ec96f", null ],
+    [ "~ModelPhaseTapChanger", "d6/d24/a03249.html#a0bada648a98ba402e1dc0534c2d6fc71", null ],
     [ "evalG", "d6/d24/a03249.html#abf7051fcfea20f1576249f3a250928e4", null ],
     [ "evalZ", "d6/d24/a03249.html#a913d40d0735663c67aaf0a0cb220e9f8", null ],
     [ "getIncreaseTap", "d6/d24/a03249.html#a87d4d2154b37158761d63c38ce63b39c", null ],

@@ -97,7 +97,7 @@ var searchData=
   ['iiload_5fdui',['iiLoad_dUi',['../d1/da3/a03221.html#a70d94d40b2eef59ff1656ea287eec7c5',1,'DYN::ModelDanglingLine']]],
   ['iiload_5fdur',['iiLoad_dUr',['../d1/da3/a03221.html#a2a3022384ae1ae99a0308c2f9a602296',1,'DYN::ModelDanglingLine']]],
   ['iiynum',['iiYNum',['../d8/d81/a03265.html#ad0c29b34ed1148c67fb8f40544f89931',1,'DYN::ModelSwitch']]],
-  ['iiynum_5f',['IiYNum_',['../dd/d02/a03145.html#a9ed401efcb5c4cc9f99dee40efe4afce',1,'DYN::ModelLoadRestorativeWithLimits::IiYNum_()'],['../d7/dee/a03205.html#a96b7e9baf008100e0472894851b8a10f',1,'DYN::ModelBus::iiYNum_()'],['../d8/d81/a03265.html#a8d2387e5cd5db3ae67b00ad23f53de23',1,'DYN::ModelSwitch::iiYNum_()']]],
+  ['iiynum_5f',['iiYNum_',['../d7/dee/a03205.html#a96b7e9baf008100e0472894851b8a10f',1,'DYN::ModelBus::iiYNum_()'],['../d8/d81/a03265.html#a8d2387e5cd5db3ae67b00ad23f53de23',1,'DYN::ModelSwitch::iiYNum_()'],['../dd/d02/a03145.html#a9ed401efcb5c4cc9f99dee40efe4afce',1,'DYN::ModelLoadRestorativeWithLimits::IiYNum_()']]],
   ['impl',['Impl',['../d1/d3a/a03353.html',1,'DYN::Solver::Impl'],['../d1/d3a/a03353.html#a8392e81fc51e2ee580b1a892913af4ec',1,'DYN::Solver::Impl::Impl()']]],
   ['import',['import',['../d7/d5e/a00467.html#a87a1d8b4fa3e22a45463656c16a2b9f9',1,'DYN']]],
   ['importbattery',['importBattery',['../d0/db8/a03001.html#a2bcf3d6eaa76f59f5cb6c4ed9048b471',1,'DYN::DataInterfaceIIDM']]],

@@ -1,6 +1,7 @@
 var a01993 =
 [
     [ "MacroConnectorHandler", "d0/dc1/a01993.html#a8938dd26c40991107257c1e031c12540", null ],
+    [ "~MacroConnectorHandler", "d0/dc1/a01993.html#af4df100dc9c2c304647c5558406f0b69", null ],
     [ "addConnect", "d0/dc1/a01993.html#ad3738b62abd68b09743df206c99af1f2", null ],
     [ "addInitConnect", "d0/dc1/a01993.html#a051b8737a4b853c9879e6620afa1834e", null ],
     [ "create", "d0/dc1/a01993.html#a2721e5d9a6fe1602c20f20d933e6b1bb", null ],

@@ -1,6 +1,7 @@
 var a03253 =
 [
     [ "ModelRatioTapChanger", "d9/d56/a03253.html#aa36990e1447f4747275544727a125d45", null ],
+    [ "~ModelRatioTapChanger", "d9/d56/a03253.html#a8a2767f3bc8da8e2a3b0b88338b6d7ec", null ],
     [ "evalG", "d9/d56/a03253.html#a7757329752ffe1b3467ec0dfd8c0fa37", null ],
     [ "evalZ", "d9/d56/a03253.html#a125d558edc3bd82be0e0b3d1206456ee", null ],
     [ "getTolV", "d9/d56/a03253.html#ae0b50ae961f8601ca534dafbeb76f8e1", null ],

@@ -1,6 +1,7 @@
 var a01657 =
 [
     [ "CriteriaHandler", "d3/d21/a01657.html#abc95c828b674c092dcce4bcbf1351844", null ],
+    [ "~CriteriaHandler", "d3/d21/a01657.html#a96227deab7212e509926492d596c1d85", null ],
     [ "addComponent", "d3/d21/a01657.html#aaaad1f1af344eb8cb7fd822764c3b864", null ],
     [ "addCountry", "d3/d21/a01657.html#a64e7af7c2faea99435ed954e8dad06e8", null ],
     [ "addCriteriaParams", "d3/d21/a01657.html#aa69dcdcaa4a694cd9e3790dec82fa0a0", null ],
