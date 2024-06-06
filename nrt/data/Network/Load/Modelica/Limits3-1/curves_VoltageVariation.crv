@@ -14,7 +14,6 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="Generator" variable="generator_UPu"/>
   <curve model="Generator" variable="generator_running"/>
-  <curve model="Generator" variable="generator_QGenPu"/>
   <curve model="Generator" variable="generator_PGenPu"/>
   <curve model="Generator" variable="generator_omegaRefPu"/>
   <curve model="Load" variable="load_PPu"/>

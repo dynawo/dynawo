@@ -1,5 +1,5 @@
  ====== VARIABLES VALUES ======
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 event_state1_value                                : z =       2.000000
  ====== PARAMETERS VALUES ======
 event_tEvent                                       =     200.000000

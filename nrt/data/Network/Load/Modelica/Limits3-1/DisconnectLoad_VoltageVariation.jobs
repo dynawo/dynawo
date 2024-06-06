@@ -20,7 +20,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="2000"/>
+    <dyn:simulation startTime="0" stopTime="600"/>
     <dyn:outputs directory="outputsVoltageVariation">
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:dumpFinalValues/>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="NGEN_Upu_value"/>
+  <curve model="NETWORK" variable="NLOAD_Upu_value"/>
+  <curve model="GEN" variable="generator_omegaPu"/>
+  <curve model="GEN" variable="generator_PGen"/>
+  <curve model="GEN" variable="generator_QGen"/>
+  <curve model="GEN" variable="generator_UStatorPu"/>
+  <curve model="GEN" variable="voltageRegulator_EfdPu"/>
+  <curve model="LOAD" variable="load_PPu"/>
+  <curve model="LOAD" variable="load_QPu"/>
+  <curve model="LOAD" variable="load_motors_0__PPu"/>
+  <curve model="LOAD" variable="load_motors_0__QPu"/>
+  <curve model="LOAD" variable="load_motors_0__cePu"/>
+  <curve model="LOAD" variable="load_motors_0__clPu"/>
+  <curve model="LOAD" variable="load_motors_0__omegaRPu"/>
+  <curve model="LOAD" variable="load_motors_0__s"/>
+  <curve model="LOAD" variable="load_motors_0__UdPu"/>
+  <curve model="LOAD" variable="load_motors_0__UqPu"/>
+  <curve model="LOAD" variable="load_motors_0__EdPPu"/>
+  <curve model="LOAD" variable="load_motors_0__EqPPu"/>
+  <curve model="LOAD" variable="load_motors_0__EdPPPu"/>
+  <curve model="LOAD" variable="load_motors_0__EqPPPu"/>
+  <curve model="LOAD" variable="load_motors_0__idPu"/>
+  <curve model="LOAD" variable="load_motors_0__iqPu"/>
+  <curve model="LOAD" variable="load_motors_1__PPu"/>
+  <curve model="LOAD" variable="load_motors_1__QPu"/>
+  <curve model="LOAD" variable="load_motors_1__cePu"/>
+  <curve model="LOAD" variable="load_motors_1__clPu"/>
+  <curve model="LOAD" variable="load_motors_1__omegaRPu"/>
+  <curve model="LOAD" variable="load_motors_1__s"/>
+  <curve model="LOAD" variable="load_motors_1__UdPu"/>
+  <curve model="LOAD" variable="load_motors_1__UqPu"/>
+  <curve model="LOAD" variable="load_motors_1__EdPPu"/>
+  <curve model="LOAD" variable="load_motors_1__EqPPu"/>
+  <curve model="LOAD" variable="load_motors_1__EdPPPu"/>
+  <curve model="LOAD" variable="load_motors_1__EqPPPu"/>
+  <curve model="LOAD" variable="load_motors_1__idPu"/>
+  <curve model="LOAD" variable="load_motors_1__iqPu"/>
+</curvesInput>

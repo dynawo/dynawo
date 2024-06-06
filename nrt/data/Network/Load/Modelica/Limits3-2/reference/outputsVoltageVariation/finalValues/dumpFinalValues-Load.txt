@@ -3,21 +3,21 @@ load_PRefPu                                       : y =       0.525088 yp =     
 load_QRefPu                                       : y =       0.165436 yp =       0.000000
 load_deltaP                                       : y =       0.000000 yp =       0.000000
 load_deltaQ                                       : y =       0.000000 yp =       0.000000
-load_terminal_V_im                                : y =       0.366815 yp =       0.000000
-load_terminal_V_re                                : y =       1.494743 yp =       0.000000
-load_zPRaw                                        : y =       0.886643 yp =       0.000000
-load_zQRaw                                        : y =       0.786066 yp =       0.000000
-load_PPu                                          : y =       0.525138 yp =       0.000000
-load_QPu                                          : y =       0.165453 yp =       0.000000
-load_terminal_i_im                                : y =      -0.023084 yp =       0.000000
-load_terminal_i_re                                : y =       0.356988 yp =       0.000000
-load_zP                                           : y =       0.886643 yp =       0.000000
-load_zQ                                           : y =       0.786066 yp =       0.000000
+load_terminal_V_im                                : y =       0.364294 yp =       0.000000
+load_terminal_V_re                                : y =       1.494964 yp =       0.000000
+load_zPRaw                                        : y =       0.889090 yp =      -0.000029
+load_zQRaw                                        : y =       0.789183 yp =      -0.000040
+load_PPu                                          : y =       0.526455 yp =       0.000000
+load_QPu                                          : y =       0.166025 yp =       0.000000
+load_terminal_i_im                                : y =      -0.023828 yp =       0.000000
+load_terminal_i_re                                : y =       0.357960 yp =       0.000000
+load_zP                                           : y =       0.889090 yp =       0.000000
+load_zQ                                           : y =       0.789183 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
- ====== INIT CALCULATED VARIABLES VALUES ======
-load_UPu_value                                    : y =       1.539094
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
+load_UPu_value                                    : y =       1.538709
+ ====== DISCRETE VARIABLES VALUES ======
 load_running_value                                : z =       1.000000
 load_switchOffSignal1_value                       : z =      -1.000000
 load_switchOffSignal2_value                       : z =      -1.000000
