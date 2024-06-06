@@ -213,13 +213,17 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void initParams();
 
   /**
-   * @copydoc SubModel::printValuesParameters(std::ofstream& fstream) const
-   */
+  * @brief write initial values parameters of a model in a file
+  *
+  * @param fstream the file to stream parameters to
+  */
   void printValuesParameters(std::ofstream& fstream) const;
 
   /**
-   * @copydoc SubModel::printInitValuesParameters(std::ofstream& fstream) const
-   */
+  * @brief write parameters of the initialization model in a file
+  *
+  * @param fstream the file to stream parameters to
+  */
   void printInitValuesParameters(std::ofstream& fstream) const;
 
   /**

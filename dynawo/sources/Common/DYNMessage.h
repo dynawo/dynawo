@@ -84,7 +84,7 @@ class Message {
   /**
    * @brief destructor
    */
-  virtual ~Message() = default;
+  virtual ~Message();
 
   /**
    * @brief Operator , overload for message

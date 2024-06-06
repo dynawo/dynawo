@@ -47,7 +47,7 @@ class ModelTemplateExpansion : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~ModelTemplateExpansion() = default;
+  virtual ~ModelTemplateExpansion();
 
   /**
    * @brief Template Model getter
