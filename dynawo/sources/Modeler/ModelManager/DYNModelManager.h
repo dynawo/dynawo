@@ -195,7 +195,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   * @param value value of the parameter
   * @param found @b true if the parameter exist, @b false else
   */
-  void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found);
+  void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found) override;
 
   /**
    * @copydoc SubModel::loadParameters(const std::string & parameters)
@@ -217,7 +217,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   *
   * @param fstream the file to stream parameters to
   */
-  void printValuesParameters(std::ofstream& fstream) const;
+  void printValuesParameters(std::ofstream& fstream) override;
 
   /**
   * @brief write parameters of the initialization model in a file
