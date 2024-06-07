@@ -1369,7 +1369,7 @@ class SubModel {
    * @param value value of the parameter
    * @param found @b true if the parameter exist, @b false else
    */
-  virtual void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found) const;
+  virtual void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found);
 
   /**
    * @brief retrieve the value of a parameter of the initialization model
@@ -1437,7 +1437,7 @@ class SubModel {
    *
    * @param fstream the file to stream parameters to
    */
-  virtual void printValuesParameters(std::ofstream& fstream) const;
+  virtual void printValuesParameters(std::ofstream& fstream);
 
   /**
    * @brief write variables values of the initialization model in a file

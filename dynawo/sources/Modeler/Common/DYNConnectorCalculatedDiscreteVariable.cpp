@@ -170,7 +170,7 @@ ConnectorCalculatedDiscreteVariable::dumpParameters(map<string, string >& /*mapP
 }
 
 void
-ConnectorCalculatedDiscreteVariable::getSubModelParameterValue(const string& /*nameParameter*/, std::string& /*value*/, bool& /*found*/) const {
+ConnectorCalculatedDiscreteVariable::getSubModelParameterValue(const string& /*nameParameter*/, std::string& /*value*/, bool& /*found*/) {
   /* not needed */
 }
 
