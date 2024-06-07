@@ -215,10 +215,10 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   SparseMatrix smj;
   int size = modelLoad->sizeY();
   smj.init(size, size);
-  ASSERT_NO_THROW(modelLoad->evalJt(0, 0, smj, 0));
+  ASSERT_NO_THROW(modelLoad->evalJt(0, 0, 0, smj));
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
-  ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, smjPrim, 0));
+  ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, 0, smjPrim));
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(0));
   ASSERT_DOUBLE_EQUALS_DYNAWO(modelLoad->evalCalculatedVarI(0), 1.681792830507);
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(1));
@@ -269,10 +269,10 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalMode(1));
   SparseMatrix smj2;
   smj2.init(size, size);
-  ASSERT_NO_THROW(modelLoad->evalJt(1, 0, smj2, 0));
+  ASSERT_NO_THROW(modelLoad->evalJt(1, 0, 0, smj2));
   SparseMatrix smjPrim2;
   smjPrim2.init(size, size);
-  ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, smjPrim2, 0));
+  ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, 0, smjPrim2));
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(2));
   // case switchOff1 is true, switchOff2 is false, running is true -> at the end the load should be disconnected
   z[0] = 1;

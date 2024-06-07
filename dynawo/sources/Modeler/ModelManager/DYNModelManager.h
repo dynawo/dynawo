@@ -89,17 +89,18 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::evalMode(const double t) override;
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
 
   /**
-   * @copydoc SubModel::evalJt(const double t,const double cj, SparseMatrix& Jt, const int rowOffset) override
+   * @copydoc SubModel::evalJt(double t, double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc SubModel::evalJtPrim(const double t,const double cj, SparseMatrix& Jt, const int rowOffset) override
+   * @copydoc SubModel::evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
+
   /**
    * @brief copy Z to local data
    *
@@ -108,9 +109,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalZ(std::vector<double>& z);
 
   /**
-   * @copydoc SubModel::checkDataCoherence (const double t) override
+   * @copydoc SubModel::checkDataCoherence(double t) override
    */
-  void checkDataCoherence(const double t) override;
+  void checkDataCoherence(double t) override;
 
   /**
    * @copydoc SubModel::checkParametersCoherence() const override
@@ -229,7 +230,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::modelType() const override
    */
-  std::string modelType() const override;
+  const std::string& modelType() const override;
 
   /**
    * @copydoc SubModel::rotateBuffers() override
@@ -311,7 +312,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param isInit whether to set the values for the init or dynamic model
    * @param origin the origin from which the default value comes (MO)
    */
-  void setSharedParametersDefaultValues(const bool isInit, const parameterOrigin_t& origin);
+  void setSharedParametersDefaultValues(bool isInit, const parameterOrigin_t& origin);
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValues() override
@@ -379,7 +380,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  void evalF(const double t, const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp, std::vector<adept::adouble>& f);
+  void evalF(double t, const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp, std::vector<adept::adouble>& f);
 
   /**
    * @brief evaluate the jacobian with adept values
@@ -392,7 +393,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param rowOffset offset to use when filling the jacobian structure
    * @param complete @b true if \f$( J=@F/@x + cj * @F/@x')\f$ else \f$( J = @F/@x')\f$
    */
-  void evalJtAdept(const double t, double *y, double* yp, const double cj, SparseMatrix& Jt, const int rowOffset, bool complete = true);
+  void evalJtAdept(double t, double *y, double* yp, double cj, SparseMatrix& Jt, int rowOffset, bool complete = true);
 #endif
 
   /**
@@ -405,7 +406,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @brief set the current time
    * @param st time to set
    */
-  void setManagerTime(const double st);
+  void setManagerTime(double st);
 
   /**
    * @brief calculate the values of the parameters

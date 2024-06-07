@@ -115,24 +115,24 @@ ModelMulti::~ModelMulti() {
 
 void
 ModelMulti::setTimeline(const shared_ptr<Timeline>& timeline) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setTimeline(timeline);
+  for (const auto& subModel : subModels_)
+    subModel->setTimeline(timeline);
 }
 
 void
 ModelMulti::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setConstraints(constraints);
+  for (const auto& subModel : subModels_)
+    subModel->setConstraints(constraints);
 }
 
 void
 ModelMulti::setWorkingDirectory(const string& workingDirectory) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setWorkingDirectory(workingDirectory);
+  for (const auto& subModel : subModels_)
+    subModel->setWorkingDirectory(workingDirectory);
 }
 
 void
-ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
+ModelMulti::addSubModel(const shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineVariablesInit();
   sub->defineParametersInit();  // only for modelica models
   sub->defineNamesInit();
@@ -150,7 +150,7 @@ ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineElements();
 
   subModelByName_[sub->name()] = subModels_.size();
-  if (libName != "") {
+  if (!libName.empty()) {
     subModelByLib_[libName].push_back(sub);
   }
   subModels_.push_back(sub);
@@ -432,60 +432,59 @@ ModelMulti::evalG(double t, vector<state_g>& g) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
 #endif
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->evalGSub(t);
+  for (const auto& subModel : subModels_)
+    subModel->evalGSub(t);
 
   std::copy(gLocal_, gLocal_ + sizeG_, g.begin());
 }
 
 void
-ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
+ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalJt");
 #endif
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtSub(t, cj, Jt, rowOffset);
-    if (!Jt.withoutNan() || !Jt.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtSub(t, cj, rowOffset, jt);
+    if (!jt.withoutNan() || !jt.withoutInf()) {
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
-  connectorContainer_->evalJtConnector(Jt);
+  connectorContainer_->evalJtConnector(jt);
 
   // add Jacobian for optional variables X = 0
-  for (set<int>::const_iterator it = numVarsOptional_.begin();
-       it != numVarsOptional_.end(); ++it) {
-    Jt.changeCol();
-    Jt.addTerm(*it, +1);  // d(f)/d(Y) = +1;
+  for (const auto numVarOptional : numVarsOptional_) {
+    jt.changeCol();
+    jt.addTerm(numVarOptional, +1);  // d(f)/d(Y) = +1;
   }
 }
 
 void
-ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
+ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim) {
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtPrimSub(t, cj, JtPrim, rowOffset);
-    if (!JtPrim.withoutNan() || !JtPrim.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtPrimSub(t, cj, rowOffset, jtPrim);
+    if (!jtPrim.withoutNan() || !jtPrim.withoutInf()) {
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
-  connectorContainer_->evalJtPrimConnector(JtPrim);
+  connectorContainer_->evalJtPrimConnector(jtPrim);
 
-  for (unsigned int i =0; i < numVarsOptional_.size(); ++i)
-    JtPrim.changeCol();
+  for (unsigned int i = 0; i < numVarsOptional_.size(); ++i)
+    jtPrim.changeCol();
 }
 
 void
-ModelMulti::evalZ(double t) {
+ModelMulti::evalZ(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalZ");
 #endif
   if (sizeZ() == 0) return;
   // calculate Z by model
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->evalZSub(t);
+  for (const auto& subModel : subModels_)
+    subModel->evalZSub(t);
 
   // propagation of z changes to connected variables
   if (zSave_.size() != static_cast<size_t>(sizeZ()))
@@ -545,7 +544,7 @@ ModelMulti::propagateZModif() {
 }
 
 void
-ModelMulti::evalMode(double t) {
+ModelMulti::evalMode(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalMode");
 #endif

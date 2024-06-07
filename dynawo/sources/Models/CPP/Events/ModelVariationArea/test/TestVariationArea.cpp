@@ -267,7 +267,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   SparseMatrix smj;
   int size = modelVariationArea->sizeF();
   smj.init(size, size);
-  modelVariationArea->evalJt(0, 0, smj, 0);
+  modelVariationArea->evalJt(0, 0, 0, smj);
   ASSERT_EQ(smj.nbElem(), 4);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 1);
@@ -294,7 +294,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
 
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
-  modelVariationArea->evalJtPrim(0, 0, smjPrim, 0);
+  modelVariationArea->evalJtPrim(0, 0, 0, smjPrim);
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelVariationArea->evalMode(1);
   ASSERT_EQ(mode, DIFFERENTIAL_MODE);

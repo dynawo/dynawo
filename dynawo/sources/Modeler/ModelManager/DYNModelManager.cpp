@@ -383,7 +383,7 @@ ModelManager::evalG(const double t) {
 }
 
 void
-ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) {
+ModelManager::evalJt(const double t, const double cj, const int rowOffset, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJ");
 #endif
@@ -397,13 +397,13 @@ ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const in
 }
 
 void
-ModelManager::evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) {
+ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, SparseMatrix& jtPrim) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJPrim");
 #endif
 
 #ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, false);
+  evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
 #else
   // Assert when Adept wasn't used
   assert(0 && "evalJt : Adept not used");
@@ -1324,7 +1324,7 @@ ModelManager::printInitValuesParameters(std::ofstream& fstream) const {
     << (dataInit_->simulationInfo->stringParameter[i]) << "\n";
 }
 
-string ModelManager::modelType() const {
+const string& ModelManager::modelType() const {
   return modelType_;
 }
 

@@ -123,7 +123,7 @@ ModelVariationArea::getSize() {
 // evaluation of F(t,y,y') function
 
 void
-ModelVariationArea::evalF(double t, propertyF_t type) {
+ModelVariationArea::evalF(const double t, const propertyF_t type) {
   if (type == DIFFERENTIAL_EQ)
     return;
   if (stateVariationArea_ == NOT_STARTED) {  // load increase not started
@@ -133,8 +133,8 @@ ModelVariationArea::evalF(double t, propertyF_t type) {
     }
   } else if (stateVariationArea_ == ON_GOING) {  // load increase in progress
     for (int i = 0; i < nbLoads_; ++i) {
-      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_[i] / (stopTime_ - startTime_)*(t - startTime_);
-      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_[i] / (stopTime_ - startTime_)*(t - startTime_);
+      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_[i] / (stopTime_ - startTime_) * (t - startTime_);
+      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_[i] / (stopTime_ - startTime_) * (t - startTime_);
     }
   } else if (stateVariationArea_ == FINISHED) {  // load increase completed
     for (int i = 0; i < nbLoads_; ++i) {
@@ -177,7 +177,7 @@ ModelVariationArea::setGequations() {
 // evaluation of the transpose Jacobian Jt - sparse matrix
 
 void
-ModelVariationArea::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
+ModelVariationArea::evalJt(const double /*t*/, const double /*cj*/, const int rowOffset,  SparseMatrix& jt) {
   static double dPOne = 1;
   // whatever the state of the automaton, same Jacobian
   for (int i = 0; i < nbLoads_; ++i) {  // 2 equations by loads
@@ -191,11 +191,11 @@ ModelVariationArea::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix
 // evaluation of the transpose Jacobian Jt - sparse matrix
 
 void
-ModelVariationArea::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
+ModelVariationArea::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/,  SparseMatrix& jtPrim) {
   // no differential equations
   for (int i = 0; i < nbLoads_; ++i) {  // 2 equations by loads
-    jt.changeCol();
-    jt.changeCol();
+    jtPrim.changeCol();
+    jtPrim.changeCol();
   }
 }
 

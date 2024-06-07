@@ -54,7 +54,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setConstraints(constraints);
   network.setTimeline(timeline::TimelineFactory::newInstance("Test"));
 
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 3)
       ASSERT_EQ(states[i], NO_ROOT);
@@ -62,7 +62,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
   current = 9.;
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0)
       ASSERT_EQ(states[i], ROOT_UP);
@@ -71,10 +71,10 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
   current = 11.;
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2) {
       ASSERT_EQ(states[i], ROOT_UP);
@@ -82,7 +82,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], NO_ROOT);
     }
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
   unsigned n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -108,7 +108,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(n, 2);
   current = 4.;
   t = 5.1;
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2)
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -118,7 +118,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_UP);
   }
   network.setCurrentTime(5.1);
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
   n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),

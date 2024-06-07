@@ -44,7 +44,7 @@ class ModelCPP : public SubModel {
    * @brief constructor
    * @param modelType model's type
    */
-  explicit ModelCPP(std::string modelType);
+  explicit ModelCPP(const std::string& modelType);
 
   /**
    * @brief Destructor
@@ -56,7 +56,7 @@ class ModelCPP : public SubModel {
    * @brief initialize all the data for a sub model
    * @param t0 initial time of the simulation
    */
-  virtual void init(const double t0) = 0;
+  virtual void init(double t0) = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -113,7 +113,7 @@ class ModelCPP : public SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  virtual void evalG(const double t) = 0;
+  virtual void evalG(double t) = 0;
 
   /**
    * @brief  CPP Model discrete variables evaluation
@@ -124,7 +124,7 @@ class ModelCPP : public SubModel {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  virtual void evalZ(const double t) = 0;
+  virtual void evalZ(double t) = 0;
 
   /**
    * @brief  CPP Model transposed jacobian evaluation
@@ -132,25 +132,25 @@ class ModelCPP : public SubModel {
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
+   * @param[in] rowOffset offset to use to identify the row where data should be added
    * @param jt jacobian matrix to fullfill
-   * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
+  virtual void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) = 0;
 
   /**
    * @brief calculate jacobien prime matrix
    *
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
-   * @param rowOffset offset to use to identify the row where data should be added
+   * @param[in] rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
+  virtual void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) = 0;
 
   /**
-   * @copydoc SubModel::evalMode(const double t)
+   * @copydoc SubModel::evalMode(double t)
    */
-  virtual modeChangeType_t evalMode(const double t) = 0;
+  virtual modeChangeType_t evalMode(double t) = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation
@@ -244,22 +244,22 @@ class ModelCPP : public SubModel {
   /**
    * @copydoc SubModel::setFequationsInit()
    */
-  virtual void setFequationsInit() { /* no init model for most of CPP models */ }
+  void setFequationsInit() override { /* no init model for most of CPP models */ }
 
   /**
    * @copydoc SubModel::setGequationsInit()
    */
-  void setGequationsInit() { /* no init model for CPP models */ }
+  void setGequationsInit() override { /* no init model for CPP models */ }
 
   /**
    * @copydoc SubModel::initSubBuffers()
    */
-  virtual void initSubBuffers() { /* no internal buffers for CPP models excepted the network model */ }
+  void initSubBuffers() override { /* no internal buffers for CPP models excepted the network model */ }
 
   /**
    * @copydoc SubModel::notifyTimeStep()
    */
-  void notifyTimeStep() {
+  void notifyTimeStep() override {
     // do nothing
   }
 
@@ -267,7 +267,7 @@ class ModelCPP : public SubModel {
    * @brief get model type
    * @return model type
    */
-  inline std::string modelType() const {
+  inline const std::string& modelType() const override {
     return modelType_;
   }
 
@@ -275,33 +275,33 @@ class ModelCPP : public SubModel {
    * @brief load the variables values from a previous dump
    * @param variables : stream of values where the variables were dumped
    */
-  void loadVariables(const std::string& variables);
+  void loadVariables(const std::string& variables) override;
 
   /**
    * @brief load the parameters values from a previous dump
    * @param parameters : stream of values where the parameters were dumped
    */
-  void loadParameters(const std::string& parameters);
+  void loadParameters(const std::string& parameters) override;
 
   /**
    * @copydoc SubModel::checkParametersCoherence() const
    */
-  void checkParametersCoherence() const;
+  void checkParametersCoherence() const override;
 
   /**
    * @brief rotate buffers
    */
-  void rotateBuffers() { /* not needed */ }
+  void rotateBuffers() override { /* not needed */ }
 
   /**
    * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
    */
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
    */
-  void defineParametersInit(std::vector<ParameterModeler>& parameters);
+  void defineParametersInit(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define the indexes and names of all parameters and variables of a dynamic sub-model
@@ -312,7 +312,7 @@ class ModelCPP : public SubModel {
    * @param calculatedVarNames vector linking calculated variables with names
    */
   void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
-                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
+                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames) override;
 
   /**
    * @brief get whether the model is starting from dumped values

@@ -172,8 +172,8 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_NO_THROW(modelShuntCond->collectSilentZ(silentZ));
     ASSERT_NO_THROW(modelShuntCond->evalF(0, UNDEFINED_EQ));
     SparseMatrix smj;
-    ASSERT_NO_THROW(modelShuntCond->evalJt(0, 0, smj, 0));
-    ASSERT_NO_THROW(modelShuntCond->evalJtPrim(0, 0, smj, 0));
+    ASSERT_NO_THROW(modelShuntCond->evalJt(0, 0, 0, smj));
+    ASSERT_NO_THROW(modelShuntCond->evalJtPrim(0, 0,  0, smj));
     ASSERT_NO_THROW(modelShuntCond->evalMode(0));
     ASSERT_NO_THROW(modelShuntCond->evalCalculatedVarI(0));
     std::vector<int> indexes;
@@ -348,8 +348,8 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_NO_THROW(modelShuntCond->collectSilentZ(silentZ));
     ASSERT_NO_THROW(modelShuntCond->evalF(0, UNDEFINED_EQ));
     SparseMatrix smj;
-    ASSERT_NO_THROW(modelShuntCond->evalJt(0, 0, smj, 0));
-    ASSERT_NO_THROW(modelShuntCond->evalJtPrim(0, 0, smj, 0));
+    ASSERT_NO_THROW(modelShuntCond->evalJt(0, 0, 0, smj));
+    ASSERT_NO_THROW(modelShuntCond->evalJtPrim(0, 0, 0, smj));
     ASSERT_NO_THROW(modelShuntCond->evalMode(0));
     ASSERT_NO_THROW(modelShuntCond->evalCalculatedVarI(0));
     std::vector<int> indexes;

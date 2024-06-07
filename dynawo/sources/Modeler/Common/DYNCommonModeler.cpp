@@ -36,12 +36,12 @@ addElement(const string& name, const Element::typeElement& type, vector<Element>
 
 void
 addSubElement(const string& name, const string& elementName, const Element::typeElement& type,
-    const std::string parentName, const std::string& parentType, vector<Element>& elements, map<string, int>& mapElement) {
+    const std::string& parentName, const std::string& parentType, vector<Element>& elements, map<string, int>& mapElement) {
   string subName = elementName + "_" + name;
   Element subElement(name, subName, type);
   elements.push_back(subElement);
   mapElement[subName] = static_cast<int>(elements.size()) - 1;
-  map<string, int>::iterator iter = mapElement.find(elementName);
+  const auto& iter = mapElement.find(elementName);
   if (iter != mapElement.end()) {
     elements[iter->second].subElementsNum().push_back(static_cast<int>(elements.size()) - 1);
   } else {

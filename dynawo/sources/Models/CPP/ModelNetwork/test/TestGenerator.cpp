@@ -462,12 +462,12 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorJt) {
   SparseMatrix smj;
   int size = gen->sizeY();
   smj.init(size, size);
-  gen->evalJt(smj, 1., 0);
+  gen->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  gen->evalJtPrim(smjPrime, 0);
+  gen->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 }
 

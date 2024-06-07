@@ -465,12 +465,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {
   SparseMatrix smj;
   int size = capa->sizeY();
   smj.init(size, size);
-  capa->evalJt(smj, 1., 0);
+  capa->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  capa->evalJtPrim(smjPrime, 0);
+  capa->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 
   powsybl::iidm::Network networkIIDM2("test", "test");
@@ -480,7 +480,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {
   capaInit->init(yOffSet);
   SparseMatrix smjInit;
   smjInit.init(capaInit->sizeY(), capaInit->sizeY());
-  ASSERT_NO_THROW(capaInit->evalJt(smjInit, 1., 0));
+  ASSERT_NO_THROW(capaInit->evalJt(1., 0, smjInit));
   ASSERT_EQ(smjInit.nbElem(), 0);
 }
 

@@ -711,7 +711,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   SparseMatrix smj;
   int size = bus->sizeY();
   smj.init(size, size);
-  bus->evalJt(smj, 1., 0);
+  bus->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
   ASSERT_EQ(smj.Ap_[0], 0);
   ASSERT_EQ(smj.Ap_[1], 0);
@@ -725,7 +725,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   SparseMatrix smj2;
   size = bus->sizeY();
   smj2.init(size, size);
-  bus->evalJt(smj2, 1., 0);
+  bus->evalJt(1., 0, smj2);
   smj2.changeCol();
   smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 2);
@@ -739,7 +739,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   SparseMatrix smj3;
   size = bus->sizeY();
   smj3.init(size, size);
-  bus->evalJt(smj3, 1., 0);
+  bus->evalJt(1., 0, smj3);
   smj3.changeCol();
   smj3.changeCol();
   ASSERT_EQ(smj3.nbElem(), 2);
@@ -750,7 +750,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  bus->evalJtPrim(smjPrime, 0);
+  bus->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
   delete[] zConnected;
 }
@@ -901,7 +901,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   SparseMatrix smj;
   int size = bus1->sizeY()+ bus2->sizeY() + bus3->sizeY();
   smj.init(size, size);
-  container.evalJt(smj, 1., 0);
+  container.evalJt(1., 0, smj);
   smj.changeCol();
   smj.changeCol();
   smj.changeCol();
@@ -925,12 +925,12 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   container.initDerivatives();
   SparseMatrix smj2;
   smj2.init(size, size);
-  container.evalJt(smj2, 1., 0);
+  container.evalJt(1., 0, smj2);
   ASSERT_EQ(smj2.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  container.evalJtPrim(smjPrime, 0);
+  container.evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 
 

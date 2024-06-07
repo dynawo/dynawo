@@ -89,14 +89,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalMode(double t);
 
   /**
-   * @copydoc Model::evalJt(const double t, const double cj, SparseMatrix& Jt)
+   * @copydoc Model::evalJt(double t, double cj, SparseMatrix& jt)
    */
-  void evalJt(const double t, const double cj, SparseMatrix& Jt);
+  void evalJt(double t, double cj, SparseMatrix& jt);
 
   /**
-   * @copydoc Model::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim)
+   * @copydoc Model::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim);
+  void evalJtPrim(double t, double cj, SparseMatrix& jtPrim);
 
   /**
    * @copydoc Model::checkDataCoherence(const double t)
@@ -374,7 +374,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param sub sub model to add
    * @param libName name of the library used to create the subModel
    */
-  void addSubModel(boost::shared_ptr<SubModel>& sub, const std::string& libName);
+  void addSubModel(const boost::shared_ptr<SubModel>& sub, const std::string& libName);
 
   /**
    * @brief connect a variable of subModel1 to a variable of subModel2

@@ -130,25 +130,25 @@ class Model {
    *
    * @param t time to use for the evaluation
    * @param cj Jacobian prime coefficient
-   * @param Jt jacobian matrix to fullfill
+   * @param jt jacobian matrix to fullfill
    */
-  virtual void evalJt(const double t, const double cj, SparseMatrix& Jt) = 0;
+  virtual void evalJt(double t, double cj, SparseMatrix& jt) = 0;
 
   /**
    * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$  based on the variable values contained in the model
    *
    * @param t time to use for the evaluation
    * @param cj Jacobian prime coefficient
-   * @param JtPrim jacobian matrix to fullfill
+   * @param jtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) = 0;
+  virtual void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) = 0;
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
    *
    * @param t time to use for the evaluation
    */
-  virtual void checkDataCoherence(const double t) = 0;
+  virtual void checkDataCoherence(double t) = 0;
 
   /**
    * @brief Coherence check on parameters (min/max values, sanity checks)
@@ -174,7 +174,7 @@ class Model {
    * @param y0 initial values of the variables
    * @param yp0 initial values of the derivatives of the variables
    */
-  virtual void getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0) = 0;
+  virtual void getY0(double t0, std::vector<double>& y0, std::vector<double>& yp0) = 0;
 
   /**
    * @brief retrieve mode change information

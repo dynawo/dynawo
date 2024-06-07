@@ -120,7 +120,7 @@ class TwoWTransformerInterface : public ComponentInterface {
    * @brief Getter for the tfo's id
    * @return The id of the tfo
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the initial connection state of the tfo's side 1

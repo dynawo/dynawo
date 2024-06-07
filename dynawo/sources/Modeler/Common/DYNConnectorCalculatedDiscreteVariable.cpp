@@ -74,12 +74,12 @@ ConnectorCalculatedDiscreteVariable::evalG(const double /*t*/) {
 }
 
 void
-ConnectorCalculatedDiscreteVariable::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*Jt*/, const int /*rowOffset*/) {
+ConnectorCalculatedDiscreteVariable::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   /* not needed*/
 }
 
 void
-ConnectorCalculatedDiscreteVariable::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*Jt*/, const int /*rowOffset*/) {
+ConnectorCalculatedDiscreteVariable::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   /* not needed*/
 }
 

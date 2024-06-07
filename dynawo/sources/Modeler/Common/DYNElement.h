@@ -55,7 +55,7 @@ class Element {
    * @param id element's id
    * @param type element's type
    */
-  Element(const std::string& name, const std::string& id, typeElement type)
+  Element(const std::string& name, const std::string& id, const typeElement type)
   : type_(type)
   , name_(name)
   , id_(id) { }
