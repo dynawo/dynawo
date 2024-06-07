@@ -154,9 +154,13 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   void dumpParameters(std::map<std::string, std::string >& mapParameters);
 
   /**
-   * @copydoc SubModel::getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found)
-   */
-  void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found);
+  * @brief retrieve the value of a parameter
+  *
+  * @param nameParameter name of a parameter to found
+  * @param value value of the parameter
+  * @param found @b true if the parameter exist, @b false else
+  */
+  void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found) const;
 
   /**
    * @copydoc SubModel::dumpVariables(std::map<std::string, std::string >& mapVariables)

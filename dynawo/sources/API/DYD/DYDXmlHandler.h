@@ -83,6 +83,11 @@ class UnitDynamicModelHandler : public xml::sax::parser::ComposableElementHandle
   explicit UnitDynamicModelHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~UnitDynamicModelHandler();
+
+  /**
    * @brief return the unit dynamic model read in xml file
    * @return unit dynamic model object build thanks to infos read in xml file
    */
@@ -110,6 +115,11 @@ class StaticRefHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit StaticRefHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~StaticRefHandler();
 
   /**
    * @brief return the static ref read in xml file
@@ -141,6 +151,11 @@ class MacroStaticRefHandler : public xml::sax::parser::ComposableElementHandler 
   explicit MacroStaticRefHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroStaticRefHandler();
+
+  /**
    * return the macroStaticRef read in xml file
    * @return the MacroStaticRef object build thanks to infos read in xml file
    */
@@ -168,6 +183,11 @@ class MacroStaticReferenceHandler : public xml::sax::parser::ComposableElementHa
    * @param root_element complete name of the element read by the handler
    */
   explicit MacroStaticReferenceHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~MacroStaticReferenceHandler();
 
   /**
    * return the macroStaticReference read in xml file
@@ -205,6 +225,11 @@ class ConnectHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ConnectHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ConnectHandler();
+
+  /**
    * @brief return the connector read in xml file
    * @return connector object build thanks to infos read in xml file
    */
@@ -233,6 +258,11 @@ class MacroConnectHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit MacroConnectHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~MacroConnectHandler();
 
   /**
    * return the macro connect read in xml file
@@ -264,6 +294,11 @@ class MacroConnectionHandler : public xml::sax::parser::ComposableElementHandler
   explicit MacroConnectionHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroConnectionHandler();
+
+  /**
    * return the macro connection read in xml file
    * @return macro connection object build thanks to infos read in xml file
    */
@@ -291,6 +326,11 @@ class MacroConnectorHandler : public xml::sax::parser::ComposableElementHandler 
    * @param root_element complete name of the element read by the handler
    */
   explicit MacroConnectorHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~MacroConnectorHandler();
 
   /**
    * return the macro connector read in xml file
@@ -332,6 +372,11 @@ class ModelicaModelHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ModelicaModelHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ModelicaModelHandler();
 
   /**
    * @brief return the modelica model read in xml file
@@ -399,6 +444,11 @@ class ModelTemplateHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ModelTemplateHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelTemplateHandler();
+
+  /**
    * @brief return the model template read in xml file
    * @return model template object build thanks to infos read in xml file
    */
@@ -464,6 +514,11 @@ class BlackBoxModelHandler : public xml::sax::parser::ComposableElementHandler {
   explicit BlackBoxModelHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~BlackBoxModelHandler();
+
+  /**
    * @brief add a static reference to the black box model
    */
   void addStaticRef();
@@ -503,6 +558,11 @@ class ModelTemplateExpansionHandler : public xml::sax::parser::ComposableElement
    * @param root_element complete name of the element read by the handler
    */
   explicit ModelTemplateExpansionHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ModelTemplateExpansionHandler();
 
   /**
    * @brief add a static reference to the model template expansion
@@ -546,6 +606,11 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief Default constructor
    */
   XmlHandler();
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~XmlHandler();
 
   /**
    * @brief Parsed parameters set collection getter

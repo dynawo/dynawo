@@ -26,11 +26,6 @@
 
 namespace DYN {
 
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wweak-vtables"
-#endif  // __clang__
-
 /**
  * @brief Criteria class: handle the check of criteria
  */
@@ -45,7 +40,7 @@ class Criteria {
   /**
    * @brief Destructor
    */
-  virtual ~Criteria() = default;
+  virtual ~Criteria();
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
@@ -88,7 +83,7 @@ class Criteria {
     /**
      * @brief Destructor
      */
-    virtual ~FailingCriteria() = default;
+    virtual ~FailingCriteria();
 
     /**
      * @brief return the distance between the current value tested and the threshold

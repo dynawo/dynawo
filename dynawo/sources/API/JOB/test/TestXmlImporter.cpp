@@ -88,7 +88,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "</dyn:modeler>"
     "<dyn:simulation startTime=\"10\" stopTime=\"200\"/>"
     "<dyn:outputs directory=\"outputs/dump\">"
-    "<dyn:dumpInitValues local=\"true\" global=\"false\" init=\"true\"/>"
+    "<dyn:dumpInitValues local=\"true\" init=\"true\"/>"
     "<dyn:dumpFinalValues/>"
     "<dyn:constraints exportMode=\"XML\"/>"
     "<dyn:timeline exportMode=\"TXT\" exportTime=\"true\"/>"

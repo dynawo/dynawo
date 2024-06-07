@@ -408,7 +408,7 @@ SubModel::getVariableValue(const string& nameVariable) const {
 }
 
 bool
-SubModel::hasParameter(const string & nameParameter, const bool isInitParam) {
+SubModel::hasParameter(const string & nameParameter, const bool isInitParam) const {
   const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
   return (parameters.find(nameParameter) != parameters.end());
 }
@@ -695,7 +695,7 @@ SubModel::printInitModelValues(const std::string& directory, const std::string& 
 }
 
 void
-SubModel::printValuesParameters(std::ofstream& fstream) {
+SubModel::printValuesParameters(std::ofstream& fstream) const {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
@@ -706,10 +706,12 @@ SubModel::printValuesParameters(std::ofstream& fstream) {
       fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << value << std::endl;
     }
   }
+  fstream << " ====== INTERNAL PARAMETERS VALUES ======\n";
+  printInternalParameters(fstream);
 }
 
 void
-SubModel::printInitValuesParameters(std::ofstream& fstream) {
+SubModel::printInitValuesParameters(std::ofstream& fstream) const {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersInit_.begin(), parametersInit_.end());
   fstream << " ====== INIT PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
@@ -1322,7 +1324,7 @@ SubModel::gEquationIndex() {
 }
 
 void
-SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
+SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
   const bool isInitParam = false;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
@@ -1337,7 +1339,7 @@ SubModel::getSubModelParameterValue(const string& nameParameter, std::string& va
 }
 
 void
-SubModel::getInitSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
+SubModel::getInitSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
   const bool isInitParam = true;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
@@ -1395,7 +1397,7 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
   if (calculatedVarsInit_.size() > 0) {
     fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
     const vector<string>& calculatedVarNames = (*this).getCalculatedVarNamesInit();
-    for (unsigned int i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
+    for (size_t i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
       fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
         << std::setw(15) << DYN::double2String(calculatedVarsInit_[i]) << "\n";
   }
@@ -1410,6 +1412,10 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
 void
 SubModel::checkDataCoherence(const double) {
   // Does nothing, by compliance with default implementation of hasDataCheckCoherence
+}
+
+void
+SubModel::printInternalParameters(std::ofstream& /*fstream*/) const {
 }
 
 }  // namespace DYN
