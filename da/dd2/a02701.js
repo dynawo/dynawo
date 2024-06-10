@@ -25,7 +25,7 @@ var a02701 =
     [ "evalZ", "da/dd2/a02701.html#a1c692ac6ef522feaaae90fe4e09b3fb1", null ],
     [ "getIndexesOfVariablesUsedForCalculatedVarI", "da/dd2/a02701.html#a970b8620a24533e4ed496cdae42506b4", null ],
     [ "getSize", "da/dd2/a02701.html#ad8ce0d83beab3721b76dc90bb46fb13b", null ],
-    [ "getSubModelParameterValue", "da/dd2/a02701.html#a06a931d3a486f3724071bb6be7a4854c", null ],
+    [ "getSubModelParameterValue", "da/dd2/a02701.html#a6e9d7648e585a330971c9e6a66c47476", null ],
     [ "getY0", "da/dd2/a02701.html#a9f97a6ccf2c6050664b98f4122263e63", null ],
     [ "init", "da/dd2/a02701.html#a8f8bb8c56867fda22f9eae7f5996a82f", null ],
     [ "initializeFromData", "da/dd2/a02701.html#ac4de35b10ddfa56e0f852a1e5808bf90", null ],
