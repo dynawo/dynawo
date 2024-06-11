@@ -17,6 +17,7 @@
   <dyn:blackBoxModel id="Line" lib="Line" parFile="1VSC.par" parId="Line"/>
   <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="1VSC.par" parId="OmegaSetPoint"/>
   <dyn:blackBoxModel id="PRef" lib="Step" parFile="1VSC.par" parId="PStep_scenario_2"/>
+  <dyn:blackBoxModel id="QRef" lib="Step" parFile="1VSC.par" parId="QStep_scenario_2"/>
   <dyn:blackBoxModel id="URef" lib="Step" parFile="1VSC.par" parId="UStep_scenario_2"/>
 
   <!-- injector - line - infinite bus-->
@@ -26,6 +27,7 @@
   <!-- setpoints/steps - control -->
   <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC" var2="controlGFL_omegaRefPu"/>
   <dyn:connect id1="PRef" var1="step_step_value" id2="GFLVSC" var2="controlGFL_PGenRefPu" />
+  <dyn:connect id1="QRef" var1="step_step_value" id2="GFLVSC" var2="controlGFL_QGenRefPu" />
   <dyn:connect id1="URef" var1="step_step_value" id2="GFLVSC" var2="controlGFL_UConvRefPu" />
 
 </dyn:dynamicModelsArchitecture>

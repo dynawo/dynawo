@@ -81,6 +81,7 @@
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.000002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
     <par type="DOUBLE" name="controlGFL_didt_max" value="10"/>
+    <par type="BOOL" name="controlGFL_VQControlFlag" value="true"/>
   </set>
 
   <!-- OmegaRef Set Point -->
@@ -93,7 +94,13 @@
   <set id="PStep_scenario_1">
     <par type="DOUBLE" name="step_Value0" value="0.833333"/>
     <par type="DOUBLE" name="step_Height" value="-0.05"/>
-    <par type="DOUBLE" name="step_tStep" value="0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="3"/>
+  </set>
+  <!-- QRef step -->
+  <set id="QStep_scenario_1">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
   </set>
   <!-- URef step -->
   <set id="UStep_scenario_1">
@@ -107,7 +114,13 @@
   <set id="PStep_scenario_2">
     <par type="DOUBLE" name="step_Value0" value="0.833333"/>
     <par type="DOUBLE" name="step_Height" value="0.5"/>
-    <par type="DOUBLE" name="step_tStep" value="0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="3"/>
+  </set>
+  <!-- QRef step -->
+  <set id="QStep_scenario_2">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
   </set>
   <!-- URef step -->
   <set id="UStep_scenario_2">
@@ -123,11 +136,17 @@
     <par type="DOUBLE" name="step_Height" value="0"/>
     <par type="DOUBLE" name="step_tStep" value="0"/>
   </set>
+  <!-- QRef step -->
+  <set id="QStep_scenario_3">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+  </set>
   <!-- URef step -->
   <set id="UStep_scenario_3">
     <par type="DOUBLE" name="step_Value0" value="0.99878"/>
     <par type="DOUBLE" name="step_Height" value="0.02"/>
-    <par type="DOUBLE" name="step_tStep" value="0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="3"/>
   </set>
 
   <!-- Scenario 4 - Decrease U_set -->
@@ -137,11 +156,17 @@
     <par type="DOUBLE" name="step_Height" value="0"/>
     <par type="DOUBLE" name="step_tStep" value="0"/>
   </set>
+  <!-- QRef step -->
+  <set id="QStep_scenario_4">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+  </set>
   <!-- URef step -->
   <set id="UStep_scenario_4">
     <par type="DOUBLE" name="step_Value0" value="0.99878"/>
     <par type="DOUBLE" name="step_Height" value="0.2"/>
-    <par type="DOUBLE" name="step_tStep" value="0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="3"/>
   </set>
 
 
@@ -149,6 +174,12 @@
   <!-- PRef step -->
   <set id="PStep_scenario_5">
     <par type="DOUBLE" name="step_Value0" value="0.833333"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+  </set>
+  <!-- QRef step -->
+  <set id="QStep_scenario_5">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
     <par type="DOUBLE" name="step_Height" value="0"/>
     <par type="DOUBLE" name="step_tStep" value="0"/>
   </set>
@@ -160,8 +191,8 @@
   </set>
   <!-- Events (dynamic library: Fault) -->
   <set id="Fault">
-    <par type="DOUBLE" name="fault_tBegin" value="0.5"/>
-    <par type="DOUBLE" name="fault_tEnd" value="0.6"/>
+    <par type="DOUBLE" name="fault_tBegin" value="3"/>
+    <par type="DOUBLE" name="fault_tEnd" value="3.1"/>
     <par type="DOUBLE" name="fault_RPu" value="0"/>
     <par type="DOUBLE" name="fault_XPu" value="0.000001"/>
   </set>

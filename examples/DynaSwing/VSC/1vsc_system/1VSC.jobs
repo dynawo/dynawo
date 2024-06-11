@@ -23,7 +23,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="2"/>
+        <simulation startTime="0" stopTime="8"/>
 
         <outputs directory="outputs/scenario_1">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>
@@ -46,7 +46,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="2"/>
+        <simulation startTime="0" stopTime="8"/>
 
         <outputs directory="outputs/scenario_2/">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>
@@ -68,7 +68,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="2"/>
+        <simulation startTime="0" stopTime="8"/>
 
         <outputs directory="outputs/scenario_3/">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>
@@ -90,7 +90,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="2"/>
+        <simulation startTime="0" stopTime="8"/>
 
         <outputs directory="outputs/scenario_4/">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>
@@ -112,7 +112,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="2"/>
+        <simulation startTime="0" stopTime="8"/>
 
         <outputs directory="outputs/scenario_5/">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>
@@ -134,7 +134,7 @@
             </modelicaModels>
         </modeler>
 
-        <simulation startTime="0" stopTime="2"/>
+        <simulation startTime="0" stopTime="8"/>
 
         <outputs directory="outputs/scenario_6/">
             <curves inputFile="1VSC.crv" exportMode="CSV"/>

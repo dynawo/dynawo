@@ -20,34 +20,42 @@
 
 <dyn:blackBoxModel id="GFLVSC_WP1" lib="GridFollowingConverterPVControl" parFile="4VSC_OP2.par" parId="WP1" staticId="_GEN__4_WP1"/>
 <dyn:blackBoxModel id="PGenRefPu_WP1" lib="SetPoint" parFile="4VSC_OP2.par" parId="PRef_WP1"/>
+<dyn:blackBoxModel id="QGenRefPu_WP1" lib="SetPoint" parFile="4VSC_OP2.par" parId="QRef_WP1"/>
 <dyn:blackBoxModel id="UConvRefPu_WP1" lib="SetPoint" parFile="4VSC_OP2.par" parId="URef_WP1"/>
 
 <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_omegaRefPu"/>
 <dyn:connect id1="PGenRefPu_WP1" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="QGenRefPu_WP1" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_QGenRefPu"/>
 <dyn:connect id1="UConvRefPu_WP1" var1="setPoint_setPoint_value" id2="GFLVSC_WP1" var2="controlGFL_UConvRefPu"/>
 
 <dyn:blackBoxModel id="GFLVSC_WP2" lib="GridFollowingConverterPVControl" parFile="4VSC_OP2.par" parId="WP2" staticId="_GEN__5_WP2"/>
 <dyn:blackBoxModel id="PGenRefPu_WP2" lib="SetPoint" parFile="4VSC_OP2.par" parId="PRef_WP2"/>
+<dyn:blackBoxModel id="QGenRefPu_WP2" lib="SetPoint" parFile="4VSC_OP2.par" parId="QRef_WP2"/>
 <dyn:blackBoxModel id="UConvRefPu_WP2" lib="SetPoint" parFile="4VSC_OP2.par" parId="URef_WP2"/>
 
 <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_omegaRefPu"/>
 <dyn:connect id1="PGenRefPu_WP2" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="QGenRefPu_WP2" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_QGenRefPu"/>
 <dyn:connect id1="UConvRefPu_WP2" var1="setPoint_setPoint_value" id2="GFLVSC_WP2" var2="controlGFL_UConvRefPu"/>
 
 <dyn:blackBoxModel id="GFLVSC_HVDC1" lib="GridFollowingConverterPVControl" parFile="4VSC_OP2.par" parId="HVDC1" staticId="_GEN__1_HVDC"/>
 <dyn:blackBoxModel id="PGenRefPu_HVDC1" lib="SetPoint" parFile="4VSC_OP2.par" parId="PRef_HVDC1"/>
+<dyn:blackBoxModel id="QGenRefPu_HVDC1" lib="SetPoint" parFile="4VSC_OP2.par" parId="QRef_HVDC1"/>
 <dyn:blackBoxModel id="UConvRefPu_HVDC1" lib="SetPoint" parFile="4VSC_OP2.par" parId="URef_HVDC1"/>
 
 <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_omegaRefPu"/>
 <dyn:connect id1="PGenRefPu_HVDC1" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="QGenRefPu_HVDC1" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_QGenRefPu"/>
 <dyn:connect id1="UConvRefPu_HVDC1" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC1" var2="controlGFL_UConvRefPu"/>
 
 <dyn:blackBoxModel id="GFLVSC_HVDC2" lib="GridFollowingConverterPVControl" parFile="4VSC_OP2.par" parId="HVDC2" staticId="_GEN__2_HVDC"/>
 <dyn:blackBoxModel id="PGenRefPu_HVDC2" lib="SetPoint" parFile="4VSC_OP2.par" parId="PRef_HVDC2"/>
+<dyn:blackBoxModel id="QGenRefPu_HVDC2" lib="SetPoint" parFile="4VSC_OP2.par" parId="QRef_HVDC2"/>
 <dyn:blackBoxModel id="UConvRefPu_HVDC2" lib="SetPoint" parFile="4VSC_OP2.par" parId="URef_HVDC2"/>
 
 <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_omegaRefPu"/>
 <dyn:connect id1="PGenRefPu_HVDC2" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_PGenRefPu"/>
+<dyn:connect id1="QGenRefPu_HVDC2" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_QGenRefPu"/>
 <dyn:connect id1="UConvRefPu_HVDC2" var1="setPoint_setPoint_value" id2="GFLVSC_HVDC2" var2="controlGFL_UConvRefPu"/>
 
 <!-- Network -->

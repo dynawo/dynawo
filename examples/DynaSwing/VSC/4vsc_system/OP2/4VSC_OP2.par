@@ -100,6 +100,7 @@
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.000002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
     <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+    <par type="BOOL" name="controlGFL_VQControlFlag" value="true"/>
   </set>
 
   <set id="WP2">
@@ -141,6 +142,7 @@
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.000002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
     <par type="DOUBLE" name="controlGFL_didt_max" value="0.5"/>
+    <par type="BOOL" name="controlGFL_VQControlFlag" value="true"/>
   </set>
 
   <set id="HVDC1">
@@ -182,6 +184,7 @@
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.000002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
     <par type="DOUBLE" name="controlGFL_didt_max" value="10"/>
+    <par type="BOOL" name="controlGFL_VQControlFlag" value="true"/>
   </set>
 
   <set id="HVDC2">
@@ -223,6 +226,7 @@
     <par type="DOUBLE" name="controlGFL_Trlim" value="0.000002"/>
     <par type="DOUBLE" name="controlGFL_didt_min" value="-999"/>
     <par type="DOUBLE" name="controlGFL_didt_max" value="10"/>
+    <par type="BOOL" name="controlGFL_VQControlFlag" value="true"/>
   </set>
 
   <!-- OmegaRef Set Point -->
@@ -235,7 +239,10 @@
   <set id="PRef_WP1">
     <par type="DOUBLE" name="setPoint_Value0" value="0.8299600"/>
   </set>
-
+  <!-- Q Set Point -->
+  <set id="QRef_WP1">
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.0610853"/>
+  </set>
   <!-- U Set Point -->
   <set id="URef_WP1">
     <par type="DOUBLE" name="setPoint_Value0" value="1.048864"/>
@@ -245,6 +252,10 @@
   <!-- P Set Point -->
   <set id="PRef_WP2">
     <par type="DOUBLE" name="setPoint_Value0" value="0.829875"/>
+  </set>
+  <!-- Q Set Point -->
+  <set id="QRef_WP2">
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.3263863"/>
   </set>
   <!-- U Set Point -->
   <set id="URef_WP2">
@@ -256,6 +267,10 @@
   <set id="PRef_HVDC1">
     <par type="DOUBLE" name="setPoint_Value0" value="-0.9376675"/>
   </set>
+  <!-- Q Set Point -->
+  <set id="QRef_HVDC1">
+    <par type="DOUBLE" name="setPoint_Value0" value="-0.0849078"/>
+  </set>
   <!-- U Set Point -->
   <set id="URef_HVDC1">
     <par type="DOUBLE" name="setPoint_Value0" value="1.000011"/>
@@ -265,6 +280,10 @@
   <!-- P Set Point -->
   <set id="PRef_HVDC2">
     <par type="DOUBLE" name="setPoint_Value0" value="-0.9455882"/>
+  </set>
+  <!-- Q Set Point -->
+  <set id="QRef_HVDC2">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.2036389"/>
   </set>
   <!-- U Set Point -->
   <set id="URef_HVDC2">
