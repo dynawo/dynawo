@@ -12,15 +12,15 @@
     simulation tool for power systems.
 --><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="4VSC - OP1 - Disconnect Line">
-    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP1.par" parId="Solver"/>
-    <dyn:modeler compileDir="outputs/OP1_LineDisconnect/compilation">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP1.par" parId="SolverIDA"/>
+    <dyn:modeler compileDir="outputs/SolverIDA/OP1_LineDisconnect/compilation">
       <dyn:network iidmFile="4VSC_OP1.iidm" parFile="4VSC_OP1.par" parId="Network"/>
       <dyn:dynModels dydFile="4VSC_OP1_LineDisconnect.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
-    <dyn:outputs directory="outputs/OP1_LineDisconnect">
+    <dyn:outputs directory="outputs/SolverIDA/OP1_LineDisconnect">
       <dyn:curves inputFile="4VSC_OP1.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
@@ -29,15 +29,15 @@
   </dyn:job>
 
   <dyn:job name="4VSC - OP1 - Fault">
-    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP1.par" parId="Solver"/>
-    <dyn:modeler compileDir="outputs/OP1_Fault/compilation">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP1.par" parId="SolverIDA"/>
+    <dyn:modeler compileDir="outputs/SolverIDA/OP1_Fault/compilation">
       <dyn:network iidmFile="4VSC_OP1.iidm" parFile="4VSC_OP1.par" parId="Network"/>
       <dyn:dynModels dydFile="4VSC_OP1_Fault.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
-    <dyn:outputs directory="outputs/OP1_Fault">
+    <dyn:outputs directory="outputs/SolverIDA/OP1_Fault">
       <dyn:curves inputFile="4VSC_OP1.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
