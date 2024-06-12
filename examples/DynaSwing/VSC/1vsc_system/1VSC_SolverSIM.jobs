@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+--><jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="Scenario 1 - Decrease P_set ">
+
+        <solver lib="dynawo_SolverSIM" parFile="1VSC.par" parId="SolverSIM"/>
+
+        <modeler compileDir="outputs/SolverSIM/scenario_1/compilation">
+            <dynModels dydFile="1VSC_scenario_1.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="8"/>
+
+        <outputs directory="outputs/SolverSIM/scenario_1">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+
+    <job name="Scenario 2 - Increase P_set ">
+
+        <solver lib="dynawo_SolverSIM" parFile="1VSC.par" parId="SolverSIM"/>
+
+        <modeler compileDir="outputs/SolverSIM/scenario_2/compilation">
+            <dynModels dydFile="1VSC_scenario_2.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="8"/>
+
+        <outputs directory="outputs/SolverSIM/scenario_2/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+    <job name="Scenario 3 - Increase U_set ">
+
+        <solver lib="dynawo_SolverSIM" parFile="1VSC.par" parId="SolverSIM"/>
+
+        <modeler compileDir="outputs/SolverSIM/scenario_3/compilation">
+            <dynModels dydFile="1VSC_scenario_3.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="8"/>
+
+        <outputs directory="outputs/SolverSIM/scenario_3/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+    <job name="Scenario 4 - Decrease U_set ">
+
+        <solver lib="dynawo_SolverSIM" parFile="1VSC.par" parId="SolverSIM"/>
+
+        <modeler compileDir="outputs/SolverSIM/scenario_4/compilation">
+            <dynModels dydFile="1VSC_scenario_4.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="8"/>
+
+        <outputs directory="outputs/SolverSIM/scenario_4/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+      <job name="Scenario 5 - Fault Converter PCC">
+
+        <solver lib="dynawo_SolverSIM" parFile="1VSC.par" parId="SolverSIM"/>
+
+        <modeler compileDir="outputs/SolverSIM/scenario_5/compilation">
+            <dynModels dydFile="1VSC_scenario_5.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="8"/>
+
+        <outputs directory="outputs/SolverSIM/scenario_5/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+    <job name="Scenario 6 - Fault Infinite Bus">
+
+        <solver lib="dynawo_SolverSIM" parFile="1VSC.par" parId="SolverSIM"/>
+
+        <modeler compileDir="outputs/SolverSIM/scenario_6/compilation">
+            <dynModels dydFile="1VSC_scenario_6.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+
+        <simulation startTime="0" stopTime="8"/>
+
+        <outputs directory="outputs/SolverSIM/scenario_6/">
+            <curves inputFile="1VSC.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
+        </outputs>
+    </job>
+
+</jobs>

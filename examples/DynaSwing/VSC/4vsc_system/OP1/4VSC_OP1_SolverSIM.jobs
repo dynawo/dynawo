@@ -10,36 +10,35 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:job name="4VSC - OP2 - Disconnect Line">
-    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP2.par" parId="Solver"/>
-    <dyn:modeler compileDir="outputs/OP2_LineDisconnect/compilation">
-      <dyn:network iidmFile="4VSC_OP2.iidm" parFile="4VSC_OP2.par" parId="Network"/>
-      <dyn:dynModels dydFile="4VSC_OP2_LineDisconnect.dyd"/>
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="4VSC - OP1 - Disconnect Line">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="4VSC_OP1.par" parId="SolverSIM"/>
+    <dyn:modeler compileDir="outputs/SolverSIM/OP1_LineDisconnect/compilation">
+      <dyn:network iidmFile="4VSC_OP1.iidm" parFile="4VSC_OP1.par" parId="Network"/>
+      <dyn:dynModels dydFile="4VSC_OP1_LineDisconnect.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
-    <dyn:outputs directory="outputs/OP2_LineDisconnect">
-      <dyn:curves inputFile="4VSC_OP2.crv" exportMode="CSV"/>
+    <dyn:outputs directory="outputs/SolverSIM/OP1_LineDisconnect">
+      <dyn:curves inputFile="4VSC_OP1.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>
 
-  <dyn:job name="4VSC - OP2 - Fault">
-    <dyn:solver lib="dynawo_SolverIDA" parFile="4VSC_OP2.par" parId="Solver"/>
-    <dyn:modeler compileDir="outputs/OP2_Fault/compilation">
-      <dyn:network iidmFile="4VSC_OP2.iidm" parFile="4VSC_OP2.par" parId="Network"/>
-      <dyn:dynModels dydFile="4VSC_OP2_Fault.dyd"/>
+  <dyn:job name="4VSC - OP1 - Fault">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="4VSC_OP1.par" parId="SolverSIM"/>
+    <dyn:modeler compileDir="outputs/SolverSIM/OP1_Fault/compilation">
+      <dyn:network iidmFile="4VSC_OP1.iidm" parFile="4VSC_OP1.par" parId="Network"/>
+      <dyn:dynModels dydFile="4VSC_OP1_Fault.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="10" precision="1e-05"/>
-    <dyn:outputs directory="outputs/OP2_Fault">
-      <dyn:curves inputFile="4VSC_OP2.crv" exportMode="CSV"/>
+    <dyn:outputs directory="outputs/SolverSIM/OP1_Fault">
+      <dyn:curves inputFile="4VSC_OP1.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
