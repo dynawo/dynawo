@@ -695,7 +695,7 @@ SubModel::printInitModelValues(const std::string& directory, const std::string& 
 }
 
 void
-SubModel::printValuesParameters(std::ofstream& fstream) const {
+SubModel::printValuesParameters(std::ofstream& fstream) {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
@@ -1324,7 +1324,7 @@ SubModel::gEquationIndex() {
 }
 
 void
-SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
+SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
   const bool isInitParam = false;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
