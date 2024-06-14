@@ -14,7 +14,7 @@ set(MODEL_FILES
   package.mo
   package.order
   GovCT2.mo
-  GovCT2.extvar
+  GovCT2_INIT.mo
   )
 
 #
