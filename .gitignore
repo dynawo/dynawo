@@ -112,3 +112,5 @@ curvesOutput
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
 myEnvDynawo.sh
+b/
+b-3-p/
