@@ -16,16 +16,18 @@ model GovCT2_INIT "Initialisation model for GovCT2 generic governor"
   extends AdditionalIcons.Init;
 
   //Parameters (use the same names as in the simulation model)
-  //parameter Boolean ValveOn "Nonlinear valve characteristic. true = nonlinear valve characteristic is used. false = nonlinear valve characteristic is not used. Typical value = true";
-
+    parameter Types.PerUnit RPu "Permanent droop in pu";
 
   //Input parameter (use the same name as the corresponding **parameter** in the simulation model)
   Modelica.Blocks.Interfaces.RealInput PMech0Pu "Initial mechanical power in pu (base PNom)";
 
   //Output parameter (use the same name as the corresponding **parameter** in the simulation model)
   Modelica.Blocks.Interfaces.RealOutput PRef0Pu "Initial reference mechanical power in pu (base PNom)";
-
+  
+  
 equation
-
+  
+  PRef0Pu = PMech0Pu * RPu;
+  
   annotation(preferredView = "text");
 end GovCT2_INIT;
