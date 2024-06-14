@@ -288,7 +288,7 @@ var searchData=
   ['irload_5fdui',['irLoad_dUi',['../d1/da3/a03221.html#a5cddd862666dff759d37ad363a13cc4f',1,'DYN::ModelDanglingLine']]],
   ['irload_5fdur',['irLoad_dUr',['../d1/da3/a03221.html#ac9dc55fb299933d19de1636618c0b0d6',1,'DYN::ModelDanglingLine']]],
   ['irynum',['irYNum',['../d8/d81/a03265.html#a8566f917c853cda4ac9531b59daef8b2',1,'DYN::ModelSwitch']]],
-  ['irynum_5f',['IrYNum_',['../dd/d02/a03145.html#a29e30a87569aaf28a08469045088fe3b',1,'DYN::ModelLoadRestorativeWithLimits::IrYNum_()'],['../d7/dee/a03205.html#a8a82bf3dc1cbca7ce4bc6c2d5419b4c8',1,'DYN::ModelBus::irYNum_()'],['../d8/d81/a03265.html#abf2558caff750b5f388018084f40696b',1,'DYN::ModelSwitch::irYNum_()']]],
+  ['irynum_5f',['irYNum_',['../d7/dee/a03205.html#a8a82bf3dc1cbca7ce4bc6c2d5419b4c8',1,'DYN::ModelBus::irYNum_()'],['../d8/d81/a03265.html#abf2558caff750b5f388018084f40696b',1,'DYN::ModelSwitch::irYNum_()'],['../dd/d02/a03145.html#a29e30a87569aaf28a08469045088fe3b',1,'DYN::ModelLoadRestorativeWithLimits::IrYNum_()']]],
   ['is_5fdirectory',['is_directory',['../d4/ddf/a00488.html#ab58803882a0a1f0cbff6f148b037cd94',1,'DYNFileSystemUtils.h']]],
   ['isabsolutepath',['isAbsolutePath',['../d4/ddf/a00488.html#aaf065d3afa72b6dcdea35f8f3b0d7149',1,'DYNFileSystemUtils.h']]],
   ['isactive_5f',['isActive_',['../d0/d04/a03161.html#aeafcd823c4670b11310470eb2dac74f7',1,'DYN::ModelVoltageMeasurementsUtilities']]],

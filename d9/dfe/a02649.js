@@ -5,6 +5,8 @@ var a02649 =
       [ "ActivatePMIN", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a1579797f7625ad0a60b4cf886cc6d876", null ],
       [ "BusAboveVoltage", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51ab461400856b8780d7edcd8d74a6ef813", null ],
       [ "BusUnderVoltage", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a2e6f22970e928f3abb63222a4190c477", null ],
+      [ "CSSCSectionDown", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51ae4c4aee0637aa65c82d77fdb29de427a", null ],
+      [ "CSSCSectionUp", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a215d23dcbaa9c0e2bc184097f2e7a60a", null ],
       [ "ComponentConnected", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51aa13d5bc6933e1049adc7b1d62d80ced7", null ],
       [ "ComponentDisconnected", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a67470943016a43b5589cdf9f160aaf5b", null ],
       [ "Converter1Connected", "d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51a765b55227c72c0eb62100df936ef4d57", null ],
