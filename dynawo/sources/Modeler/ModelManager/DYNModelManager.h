@@ -64,7 +64,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @brief initialization of the model
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
 
   /**
    * @copydoc SubModel::getSize() override
@@ -79,12 +79,12 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::evalG(const double t) override
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
 
   /**
    * @copydoc SubModel::evalZ(const double t) override
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
   /**
    * @copydoc SubModel::evalMode(const double t) override;
@@ -512,7 +512,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc ModelManager::setLoadedParameter (const std::string& name, const double& value)
    */
-  inline void setLoadedParameter(const std::string& name, const std::string value) {
+  inline void setLoadedParameter(const std::string& name, const std::string& value) {
     setParameterValue(name, LOADED_DUMP, value, false);
   }
 
@@ -524,7 +524,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param parametersSet the parameters' set to fill
    */
   void createParametersValueSet(const std::unordered_map<std::string, ParameterModeler>& parameters,
-      boost::shared_ptr<parameters::ParametersSet>& parametersSet);
+      const boost::shared_ptr<parameters::ParametersSet>& parametersSet) const;
 
  protected:
   /**
@@ -627,10 +627,6 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void setInitialCalculatedParameters();
 
  private:
-  /**
-   * @brief Used to iterate over parameters
-   */
-  typedef std::unordered_map<std::string, ParameterModeler>::const_iterator ParamIterator;
   bool modelInitUsed_;  ///< whether init model is used
 };
 

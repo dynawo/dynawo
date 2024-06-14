@@ -431,9 +431,9 @@ SubModel::defineVariables() {
         } else {
           variableAlias->setReferenceVariable(dynamic_pointer_cast<VariableNative> (iter->second));
           if (iter->second->isState() && (iter->second->getType() == DISCRETE || iter->second->getType() == BOOLEAN))
-            zAliasesNames_.push_back(std::make_pair(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated())));
+            zAliasesNames_.emplace_back(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated()));
           else if (iter->second->isState() && (iter->second->getType() == CONTINUOUS || iter->second->getType() == FLOW))
-            xAliasesNames_.push_back(std::make_pair(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated())));
+            xAliasesNames_.emplace_back(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated()));
         }
       }
     }
@@ -763,7 +763,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
           break;
         }
         case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables
-          integerVariables.push_back(make_pair(name, i));
+          integerVariables.emplace_back(name, i);
           break;
         }
         case UNDEFINED_TYPE:
@@ -975,9 +975,9 @@ SubModel::getY0Sub() {
 void
 SubModel::getY0Values(vector<double>& y0, vector<double>& yp0, vector<double>& z0) {
   getY0Sub();
-  std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
-  std::copy(ypLocal_, ypLocal_ + sizeY_, yp0.begin());
-  std::copy(zLocal_, zLocal_ + sizeZ_, z0.begin());
+  std::copy_n(yLocal_, sizeY_, y0.begin());
+  std::copy_n(ypLocal_, sizeY_, yp0.begin());
+  std::copy_n(zLocal_, sizeZ_, z0.begin());
 }
 
 void

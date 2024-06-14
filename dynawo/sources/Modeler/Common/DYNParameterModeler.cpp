@@ -55,7 +55,7 @@ nonUnitaryParameterInstance_(false) {
 }
 
 void
-ParameterModeler::writeChecks(const parameterOrigin_t& origin) const {
+ParameterModeler::writeChecks(const parameterOrigin_t origin) const {
   if (!isUnitary())
     throw DYNError(Error::MODELER, ParameterNotUnitary, getName());
 
@@ -102,13 +102,13 @@ ParameterModeler::getOrigin() const {
 }
 
 void
-ParameterModeler::updateOrigin(const parameterOrigin_t& origin) {
+ParameterModeler::updateOrigin(const parameterOrigin_t origin) {
   if ((!originSet()) || (getOrigin() < origin))
     setOrigin(origin);
 }
 
 bool
-ParameterModeler::hasOrigin(const parameterOrigin_t& origin) const {
+ParameterModeler::hasOrigin(const parameterOrigin_t origin) const {
   return (values_.find(origin) != values_.end());
 }
 

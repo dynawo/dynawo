@@ -124,9 +124,9 @@ class ModelHvdcLink : public NetworkComponent {
   void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jt)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(int rowOffset, SparseMatrix& jt) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @copydoc NetworkComponent::evalZ()

@@ -134,9 +134,9 @@ ConnectorCalculatedDiscreteVariable::getY0() {
 
 void
 ConnectorCalculatedDiscreteVariable::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
-  typeVar_t type = model_->getVariable(variableName_)->getType();
+  const typeVar_t type = model_->getVariable(variableName_)->getType();
   assert(type == DISCRETE || type == INTEGER);
-  variables.push_back(VariableNativeFactory::createState("connector_" + name(), type));
+  variables.emplace_back(VariableNativeFactory::createState("connector_" + name(), type));
 }
 
 void

@@ -45,7 +45,7 @@ class VariableMultipleFactory {
    * @param[in] negated @b whether the variable is negated
    * @returns Shared pointer to a new @p VariableMultiple with given name, type, and negated attributes
    */
-  static boost::shared_ptr<VariableMultiple> create(const std::string& name, const std::string& cardinalityName, const typeVar_t& type,
+  static boost::shared_ptr<VariableMultiple> create(const std::string& name, const std::string& cardinalityName, typeVar_t type,
                                                     bool isState, bool negated = false);
 
   /**
@@ -58,7 +58,7 @@ class VariableMultipleFactory {
    * @returns Shared pointer to a new @p VariableMultiple with given name, type, and negated attributes
    */
   inline static boost::shared_ptr<VariableMultiple> createState(const std::string& name, const std::string& cardinalityName,
-                                                                const typeVar_t& type, bool negated = false) {
+                                                                const typeVar_t type, const bool negated = false) {
     return create(name, cardinalityName, type, true, negated);
   }
 
@@ -71,8 +71,8 @@ class VariableMultipleFactory {
    * @param[in] negated @b whether the variable is negated
    * @returns Shared pointer to a new @p VariableMultiple with given name, type, and negated attributes
    */
-  inline static boost::shared_ptr<VariableMultiple> createCalculated(const std::string& name, const std::string& cardinalityName, const typeVar_t& type,
-                                                                     bool negated = false) {
+  inline static boost::shared_ptr<VariableMultiple> createCalculated(const std::string& name, const std::string& cardinalityName, const typeVar_t type,
+                                                                     const bool negated = false) {
     return create(name, cardinalityName, type, false, negated);
   }
 };

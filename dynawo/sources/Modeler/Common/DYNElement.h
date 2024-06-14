@@ -88,7 +88,7 @@ class Element {
    * @brief get list of sub elements number
    * @return list of sub elements number
    */
-  inline const std::vector<int> & subElementsNum() const {
+  inline const std::vector<int>& subElementsNum() const {
     return subElementsNum_;
   }
 
@@ -96,7 +96,7 @@ class Element {
    * @brief get list of sub elements number
    * @return list of sub elements number
    */
-  inline std::vector<int> & subElementsNum() {
+  inline std::vector<int>& subElementsNum() {
     return subElementsNum_;
   }
 

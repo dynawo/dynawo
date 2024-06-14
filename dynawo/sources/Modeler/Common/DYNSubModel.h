@@ -277,7 +277,7 @@ class SubModel {
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
-  virtual void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) = 0;
+  virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
 
   /**
    * @brief initialize static data of the model
@@ -1328,7 +1328,7 @@ class SubModel {
    *
    * @param isInitProcess @b true if the initial model is used
    */
-  inline void setIsInitProcess(bool isInitProcess) {
+  inline void setIsInitProcess(const bool isInitProcess) {
     isInitProcess_ = isInitProcess;
   }
 
@@ -1386,7 +1386,7 @@ class SubModel {
    * @brief get index of this submodel in the global continuous variable table
    * @return index of this submodel in the global continuous variable table
    */
-  int getOffsetY() const {return offsetY_;}
+  int getOffsetY() const { return offsetY_; }
 
  protected:
   /**

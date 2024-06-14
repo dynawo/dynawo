@@ -145,7 +145,7 @@ class ModelDescription {
    * @brief Get the set of parameters associated to the model
    * @return the set of parameters associated to the model
    */
-  inline boost::shared_ptr<parameters::ParametersSet> getParametersSet() const {
+  inline const boost::shared_ptr<parameters::ParametersSet>& getParametersSet() const {
     return parameters_;
   }
 

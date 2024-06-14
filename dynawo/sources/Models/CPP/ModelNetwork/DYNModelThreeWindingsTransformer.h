@@ -232,7 +232,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
-   * @copydoc NetworkComponent::evalState(const double& time);
+   * @copydoc NetworkComponent::evalState(double time);
    */
   NetworkComponent::StateChange_t evalState(double time) override;
 

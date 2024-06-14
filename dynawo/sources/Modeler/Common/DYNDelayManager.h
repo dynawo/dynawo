@@ -111,29 +111,29 @@ class DelayManager {
    * @brief Load delays from their formatted version
    *
    * @param values the delays definition, formatted according to the format defined by dumpDelays
-   * @param time of the restart
+   * @param restartTime of the restart
    *
    * @returns false if an parsing error occurs, true if not
    */
-  bool loadDelays(const std::vector<std::string>& values, double time);
+  bool loadDelays(const std::vector<std::string>& values, double restartTime);
 
   /**
    * @brief calculates the roots of the model for delays
    *
    * @param p_glocal local buffer to fill
    * @param offset offset to start in p_glocal array for delays
-   * @param t local time
+   * @param time local time
    */
-  void setGomc(state_g* const p_glocal, size_t offset, const double t);
+  void setGomc(state_g* p_glocal, size_t offset, double time) const;
 
   /**
   * @brief evaluate modes for delays
   *
-  * @param t local time
+  * @param time local time
   *
   * @return mode change type value
   */
-  modeChangeType_t evalMode(double t);
+  modeChangeType_t evalMode(double time);
 
   /**
    * @brief Trigger delay
@@ -142,7 +142,7 @@ class DelayManager {
    *
    * @param id the delay id
    */
-  void triggerDelay(size_t id) {
+  void triggerDelay(const size_t id) {
     delays_.at(id).trigger();
   }
 
@@ -164,7 +164,7 @@ class DelayManager {
    * @param id the id to use
    * @param delayTime the time of the delay
    */
-  void setDelayTime(size_t id, double delayTime) {
+  void setDelayTime(const size_t id, const double delayTime) {
     delays_.at(id).setDelayTime(delayTime);
   }
 

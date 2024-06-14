@@ -88,7 +88,7 @@ class ModelGenerator : public NetworkComponent {
   void evalF(propertyF_t type) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
   void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 

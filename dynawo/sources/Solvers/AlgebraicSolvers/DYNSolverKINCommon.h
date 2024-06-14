@@ -109,7 +109,7 @@ class SolverKINCommon {
    *
    * @param flag flag to analyze
    */
-  void analyseFlag(const int flag);
+  static void analyseFlag(int flag);
 
   /**
    * @brief set if solver is in first iteration step or not
@@ -123,7 +123,7 @@ class SolverKINCommon {
    * @brief set if solver is in first iteration step or not
    * @param firstIteration @b true if first iteration, @b false otherwise
    */
-  inline void setFirstIteration(bool firstIteration) {
+  inline void setFirstIteration(const bool firstIteration) {
     firstIteration_ = firstIteration;
   }
 
@@ -134,7 +134,7 @@ class SolverKINCommon {
    * @param nre residual functions call number
    * @param nje Jacobian call number
    */
-  void updateStatistics(long int& nni, long int& nre, long int& nje);
+  void updateStatistics(long int& nni, long int& nre, long int& nje) const;
 
  protected:
   SUNContext sundialsContext_;  ///< context of sundials structure

@@ -1136,8 +1136,8 @@ TEST(ModelerCommonTest, ConnectionCalculatedVars) {
 
   std::vector<double> y, yp;
   modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  ASSERT_NO_THROW(modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
-                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value"));
+  modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
+                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value");
   std::string name = subModel1_->name() + "_MyDiscreteVarCalculated_value";
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name));
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->getSize());

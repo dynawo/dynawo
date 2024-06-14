@@ -85,9 +85,8 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
   unsigned n = 0;
-  for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
-      itEnd = constraints->cend(); it != itEnd; ++it) {
-    boost::shared_ptr<constraints::Constraint> constraint = (*it);
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    const auto& constraint = constraintPair.second;
     if (n == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "PATL 2");
@@ -121,9 +120,8 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
   n = 0;
-  for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
-      itEnd = constraints->cend(); it != itEnd; ++it) {
-    boost::shared_ptr<constraints::Constraint> constraint = (*it);
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    boost::shared_ptr<constraints::Constraint> constraint = constraintPair.second;
     if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5 2");

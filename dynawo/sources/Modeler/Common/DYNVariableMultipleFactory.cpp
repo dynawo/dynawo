@@ -16,6 +16,7 @@
  *
  * @brief Dynawo Multiple variable : factory file
  */
+#include <boost/make_shared.hpp>
 #include "DYNVariableMultipleFactory.h"
 #include "DYNVariableMultiple.h"
 
@@ -25,8 +26,8 @@ using boost::shared_ptr;
 namespace DYN {
 
 shared_ptr<VariableMultiple>
-VariableMultipleFactory::create(const string& name, const string& cardinalityName, const typeVar_t& type, bool isState, bool negated) {
-  return shared_ptr<VariableMultiple> (new VariableMultiple(name, cardinalityName, type, isState, negated));
+VariableMultipleFactory::create(const string& name, const string& cardinalityName, const typeVar_t type, const bool isState, const bool negated) {
+  return boost::make_shared<VariableMultiple>(name, cardinalityName, type, isState, negated);
 }
 
 }  // namespace DYN

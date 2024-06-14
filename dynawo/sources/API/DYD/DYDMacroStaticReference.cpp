@@ -19,7 +19,6 @@
 
 #include "DYDMacroStaticReference.h"
 
-#include "DYDIterators.h"
 #include "DYDStaticRef.h"
 #include "DYDStaticRefFactory.h"
 #include "DYNMacrosMessage.h"
@@ -46,26 +45,6 @@ MacroStaticReference::addStaticRef(const string& var, const string& staticVar) {
   ret = staticRefs_.emplace(key, shared_ptr<StaticRef>(StaticRefFactory::newStaticRef(var, staticVar)));
   if (!ret.second)
     throw DYNError(DYN::Error::API, StaticRefNotUniqueInMacro, id_, var, staticVar);
-}
-
-staticRef_const_iterator
-MacroStaticReference::cbeginStaticRef() const {
-  return staticRef_const_iterator(this, true);
-}
-
-staticRef_const_iterator
-MacroStaticReference::cendStaticRef() const {
-  return staticRef_const_iterator(this, false);
-}
-
-staticRef_iterator
-MacroStaticReference::beginStaticRef() {
-  return staticRef_iterator(this, true);
-}
-
-staticRef_iterator
-MacroStaticReference::endStaticRef() {
-  return staticRef_iterator(this, false);
 }
 
 const shared_ptr<StaticRef>&

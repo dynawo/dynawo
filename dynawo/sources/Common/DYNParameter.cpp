@@ -24,7 +24,7 @@ using std::string;
 
 namespace DYN {
 
-ParameterCommon::ParameterCommon(const string& name, const typeVarC_t& valueType, bool mandatory) :
+ParameterCommon::ParameterCommon(const string& name, const typeVarC_t valueType, const bool mandatory) :
 name_(name),
 valueType_(valueType),
 mandatory_(mandatory) {
@@ -33,7 +33,7 @@ mandatory_(mandatory) {
 ParameterCommon::~ParameterCommon() {}
 
 void
-ParameterCommon::setIndex(const unsigned int& index) {
+ParameterCommon::setIndex(const unsigned int index) {
   if (indexSet())
     throw DYNError(Error::MODELER, ParameterIndexAlreadySet, getName());
 
@@ -48,7 +48,7 @@ ParameterCommon::getIndex() const {
   return index_.value();
 }
 
-string origin2Str(const parameterOrigin_t& origin) {
+string origin2Str(const parameterOrigin_t origin) {
   switch (origin) {
     case MO:
       return "modelica file";

@@ -153,7 +153,7 @@ class Simulation {
    * @param context context of the simulation (configuration, directories, locale, etc...)
    * @param data data interface to use for the simulation (NULL if we build it inside simulation)
    */
-  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
+  Simulation(const boost::shared_ptr<job::JobEntry>& jobEntry, const boost::shared_ptr<SimulationContext>& context,
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
@@ -169,7 +169,7 @@ class Simulation {
   /**
    * @brief initialize the buffers uses by the model
    */
-  void initStructure();
+  void initStructure() const;
 
   /**
    * @brief initialize the whole system with respect to the input "static/dynamic" data
@@ -266,7 +266,7 @@ class Simulation {
    * @brief setter for the export mode of the timeline
    * @param mode timeline's mode export
    */
-  inline void setTimelineExportMode(const exportTimelineMode_t& mode) {
+  inline void setTimelineExportMode(const exportTimelineMode_t mode) {
     exportTimelineMode_ = mode;
   }
 
@@ -274,7 +274,7 @@ class Simulation {
    * @brief setter for the export mode of curves
    * @param mode curves' export mode
    */
-  inline void setCurvesExportMode(const exportCurvesMode_t& mode) {
+  inline void setCurvesExportMode(const exportCurvesMode_t mode) {
     exportCurvesMode_ = mode;
   }
 
@@ -298,7 +298,7 @@ class Simulation {
    * @brief setter for the export mode of final state values
    * @param mode final state values' export mode
    */
-  inline void setFinalStateValuesExportMode(const exportFinalStateValuesMode_t& mode) {
+  inline void setFinalStateValuesExportMode(const exportFinalStateValuesMode_t mode) {
     exportFinalStateValuesMode_ = mode;
   }
 
@@ -330,7 +330,7 @@ class Simulation {
    * @brief setter for the constraints' export mode
    * @param mode constraints' export mode
    */
-  inline void setConstraintsExportMode(const exportConstraintsMode_t& mode) {
+  inline void setConstraintsExportMode(const exportConstraintsMode_t mode) {
     exportConstraintsMode_ = mode;
   }
 
@@ -346,7 +346,7 @@ class Simulation {
    * @brief setter for the lost equipments' export mode
    * @param mode lost equipments' export mode
    */
-  inline void setLostEquipmentsExportMode(const exportLostEquipmentsMode_t& mode) {
+  inline void setLostEquipmentsExportMode(const exportLostEquipmentsMode_t mode) {
     exportLostEquipmentsMode_ = mode;
   }
 
@@ -398,7 +398,7 @@ class Simulation {
    * @return @b true if current time >= stop time, @b false otherwise
    */
   inline bool end() const {
-    return (tCurrent_ >= tStop_);
+    return tCurrent_ >= tStop_;
   }
 
   /**
@@ -421,7 +421,7 @@ class Simulation {
    * @brief setter for activating the checking of criteria (minimal voltage, etc..)
    * @param activate @b true if checking of criteria should be activated during simulation
    */
-  inline void setActivateCriteria(bool activate) {
+  inline void setActivateCriteria(const bool activate) {
     activateCriteria_ = activate;
   }
 
@@ -429,7 +429,7 @@ class Simulation {
    * @brief setter for criteria step
    * @param step number of iterations between 2 criteria check
    */
-  void setCriteriaStep(const int step);
+  void setCriteriaStep(int step);
 
   /**
    * @brief getter for the start time of the simulation
@@ -523,12 +523,6 @@ class Simulation {
   void printConstraints(std::ostream& stream) const;
 
   /**
-   * @brief print finalState output of the simulation in the given stream
-   * @param stream stream where the finalState output should be printed
-   */
-  void printFinalState(std::ostream& stream) const;
-
-  /**
    * @brief print lost equipments output of the simulation in the given stream
    * @param stream stream where the lost equipments output should be printed
    */
@@ -545,7 +539,7 @@ class Simulation {
 
  * @return model used in simulation
  */
-  boost::shared_ptr<Model> getModel() {
+  const boost::shared_ptr<Model>& getModel() {
     return model_;
   }
 
@@ -556,6 +550,7 @@ class Simulation {
    * @param path path of the file
    */
   void openFileStream(std::ofstream& stream, const std::string& path);
+
   /**
    * @brief check if criteria are fullfilled
    *

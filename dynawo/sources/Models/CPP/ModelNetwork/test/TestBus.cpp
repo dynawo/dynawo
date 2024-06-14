@@ -338,9 +338,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   bus->evalZ(0.);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   unsigned i = 0;
-  for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
-      itEnd = constraints->cend(); it != itEnd; ++it) {
-    boost::shared_ptr<constraints::Constraint> constraint = (*it);
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    const auto& constraint = constraintPair.second;
     if (i == 0) {
       ASSERT_EQ(constraint->getModelName(), "MyBus1");
       ASSERT_EQ(constraint->getDescription(), "UInfUmin");
@@ -361,11 +360,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   g[1] = ROOT_DOWN;
   bus->evalZ(10.);
   network->setCurrentTime(10);
-  for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
-      itEnd = constraints->cend(); it != itEnd; ++it) {
-    boost::shared_ptr<constraints::Constraint> constraint = (*it);
-    assert(0);
-  }
 
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), OPEN);

@@ -107,7 +107,7 @@ class Solver {
    * @brief get the type of the solver
    * @return the type of the solver
    */
-  virtual std::string solverType() const = 0;
+  virtual const std::string& solverType() const = 0;
 
   /**
    * @brief check whether the parameter is available within the solver
@@ -221,7 +221,7 @@ class Solver {
   * @brief name of the solver
   * @return name of the solver
   */
-  virtual std::string getName() = 0;
+  virtual const std::string& getName() = 0;
 
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e. solution)
