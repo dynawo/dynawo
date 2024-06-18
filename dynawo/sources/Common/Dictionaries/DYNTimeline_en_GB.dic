@@ -159,10 +159,10 @@ UFLS10Activated            =              UFLS step 10 activated
 VRFrozen                   =             Entering in frozen mode
 VRUnfrozen                 =             Leaving frozen mode
 // --> IEC Model
-IECProtectionFOver         =              IEC WT disconnected due to overfrequency protection (maximum allowed frequency : %1% p.u)
-IECProtectionFUnder        =              IEC WT disconnected due to underfrequency protection (minimum allowed frequency : %1% p.u)
-IECProtectionUOver         =              IEC WT disconnected due to overvoltage protection (maximum allowed voltage : %1% p.u)
-IECProtectionUUnder        =              IEC WT disconnected due to undervoltage protection (minimum allowed voltage : %1% p.u)
+IECProtectionFOver         =              IEC WT disconnected due to overfrequency protection (maximum allowed frequency : %1% pu)
+IECProtectionFUnder        =              IEC WT disconnected due to underfrequency protection (minimum allowed frequency : %1% pu)
+IECProtectionUOver         =              IEC WT disconnected due to overvoltage protection (maximum allowed voltage : %1% pu)
+IECProtectionUUnder        =              IEC WT disconnected due to undervoltage protection (minimum allowed voltage : %1% pu)
 // --> Motor
 MotorConnected             =             Motor : connecting
 MotorDisconnected          =             Motor : disconnecting

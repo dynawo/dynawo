@@ -62,7 +62,7 @@ where [option] can be:"
         build-dynawo-models                   build Dynawo preassembled models
         build-dynaflow-models                 build DynaFlow preassembled models
         build-dynaswing-models                build DynaSwing preassembled models
-        build-dynawaltz-models                build Dynawaltz preassembled models
+        build-dynawaltz-models                build DynaWaltz preassembled models
         build-nrt-models                      build nrt preassembled models
         build-nrt-extend-models               build nrt extend preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
@@ -2379,11 +2379,11 @@ case $MODE in
     ;;
 
   build-nrt-models)
-    build_nrt_models || error_exit "Failed to build Dynawaltz nrt models"
+    build_nrt_models || error_exit "Failed to build DynaWaltz nrt models"
     ;;
 
   build-nrt-extend-models)
-    build_nrt_extend_models || error_exit "Failed to build Dynawaltz nrt models"
+    build_nrt_extend_models || error_exit "Failed to build DynaWaltz nrt models"
     ;;
 
   build-omcDynawo)

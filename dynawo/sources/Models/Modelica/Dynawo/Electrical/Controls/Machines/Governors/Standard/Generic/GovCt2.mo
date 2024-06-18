@@ -150,7 +150,7 @@ model GovCt2 "Governor type GovCT2"
   // Output
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power output in pu (base PBaseMw) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  
+
   // Blocks
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-244, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -214,7 +214,7 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-50, -128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuator, UseRateLim = true, Y0 = initValvePu, y(fixed = true)) annotation(
     Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power expOmegaToTheDm(N = initDmExponent, NInteger = false)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Power expOmegaToTheDm(N = initDmExponent, NInteger = false) annotation(
     Placement(visible = true, transformation(origin = {204, 152}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertFLoad(T = tFLoad, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = initTexPu) annotation(
     Placement(visible = true, transformation(origin = {34, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -240,7 +240,7 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-172, -124}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.Integrator integratorKIGov(initType = Modelica.Blocks.Types.Init.InitialState, k = KIGov, y_start = initValvePu) annotation(
     Placement(visible = true, transformation(origin = {-50, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorKILoad( initType = Modelica.Blocks.Types.Init.InitialOutput,k = KILoad, y_start = initIntegratorKILoadPu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorKILoad(initType = Modelica.Blocks.Types.Init.InitialOutput, k = KILoad, y_start = initIntegratorKILoadPu) annotation(
     Placement(visible = true, transformation(origin = {-104, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator integratorKIMw(K = KIMw, YMax = 1.1 * RDroop, YMin = -1.1 * RDroop) annotation(
     Placement(visible = true, transformation(origin = {-238, -120}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
@@ -463,7 +463,7 @@ equation
     Line(points = {{209, 198}, {226, 198}}, color = {0, 0, 127}));
   connect(PGenPu, gainChangeBaseIn.u) annotation(
     Line(points = {{-333, -181}, {-308, -181}, {-308, -182}}, color = {0, 0, 127}));
-  
+
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
