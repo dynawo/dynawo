@@ -13,8 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 */
 
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
-
-extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ;
 
   //Nominal parameters
   parameter Types.Time tS "Integration time step in s";

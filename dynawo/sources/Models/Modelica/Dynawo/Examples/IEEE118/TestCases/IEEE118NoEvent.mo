@@ -12,12 +12,13 @@ within Dynawo.Examples.IEEE118.TestCases;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
+
 model IEEE118NoEvent "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers , 177 lines and 99 loads."
-    extends Dynawo.Examples.IEEE118.BaseClasses.IEEE118Base;
-    extends Icons.Example;
+  extends Dynawo.Examples.IEEE118.BaseClasses.IEEE118Base;
+  extends Icons.Example;
 
 equation
-     //Switchoffs
+    //Switchoffs
     B1_L1.switchOffSignal1.value = false;
     B1_L1.switchOffSignal2.value = false;
     B2_L1.switchOffSignal1.value = false;
@@ -779,7 +780,7 @@ equation
     B110_SH1.switchOffSignal1.value = false;
     B110_SH1.switchOffSignal2.value = false;
 
-     //Loads inputs
+    //Loads inputs
     B1_L1.PRefPu = 0.51;
     B1_L1.QRefPu = 0.27;
     B1_L1.deltaP = 0;
@@ -1177,7 +1178,7 @@ equation
     B118_L1.deltaP = 0;
     B118_L1.deltaQ = 0;
 
-     //Generators optional variables
+    //Generators optional variables
     B1_G1.UStatorRefPu = B1_G1.UStatorRef0Pu;
     B1_G1.PRefPu = B1_G1.PRef0Pu;
     B4_G1.UStatorRefPu = B4_G1.UStatorRef0Pu;
@@ -1287,9 +1288,9 @@ equation
     B116_G1.UStatorRefPu = B116_G1.UStatorRef0Pu;
     B116_G1.PRefPu = B116_G1.PRef0Pu;
 
-     //Annotations and calculation parameters
-annotation(preferredView = "text",
-experiment(StartTime = 0, StopTime = 500, Tolerance = 1e-06, Interval = 10),
- __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
-__OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));
+  annotation(
+    preferredView = "text",
+    experiment(StartTime = 0, StopTime = 500, Tolerance = 1e-06, Interval = 10),
+    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
+    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));
 end IEEE118NoEvent;

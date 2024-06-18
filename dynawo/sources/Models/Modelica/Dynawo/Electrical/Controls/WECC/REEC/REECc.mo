@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECc "WECC Electrical Control type C"
-extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
 
   // REEC-C parameters
   parameter Types.PerUnit SOCMaxPu "Maximum allowable state of charge in pu (base SNom) (typical: 0.8..1)" annotation(
