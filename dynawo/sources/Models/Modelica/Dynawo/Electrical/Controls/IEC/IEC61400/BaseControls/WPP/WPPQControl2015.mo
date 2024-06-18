@@ -46,17 +46,17 @@ model WPPQControl2015 "Reactive power control module for wind power plants (IEC 
   Modelica.Blocks.Interfaces.RealOutput xWTRefPu(start = XWT0Pu) "Reference reactive power or voltage communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {360, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltQ, k = 1, y_start = -P0Pu * SystemBase.SnRef / SNom)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltQ, k = 1, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-290, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tWPQFiltQ, k = 1, y_start = -Q0Pu * SystemBase.SnRef / SNom)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tWPQFiltQ, k = 1, y_start = -Q0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-290, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tWPUFiltQ, k = 1, y_start = U0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tWPUFiltQ, k = 1, y_start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-290, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection1(DyMax = DXRefMaxPu, DyMin = DXRefMinPu, U0 = XWT0Pu, Y0 = XWT0Pu, YMax = XRefMaxPu, YMin = XRefMinPu, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection1(DyMax = DXRefMaxPu, DyMin = DXRefMinPu, U0 = XWT0Pu, Y0 = XWT0Pu, YMax = XRefMaxPu, YMin = XRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {326, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {txfv, 1}, b = {txft, 1}, x_start = {XWT0Pu}, y_start = XWT0Pu)  annotation(
+  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {txfv, 1}, b = {txft, 1}, x_start = {XWT0Pu}, y_start = XWT0Pu) annotation(
     Placement(visible = true, transformation(origin = {296, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false) annotation(
     Placement(visible = true, transformation(origin = {260, 138}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
 equation

@@ -39,15 +39,15 @@ model QControl2015 "Reactive power control module for wind turbines (IEC N°6140
   Modelica.Blocks.Interfaces.IntegerOutput fUvrt(start = 0) "Fault status (0: Normal operation, 1: During fault, 2: Post-fault)" annotation(
     Placement(visible = true, transformation(origin = {310, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFiltQ, y_start = U0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFiltQ, y_start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, -82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tPFiltQ, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-286, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.IntegerConstant integerConstant2(k = MqUvrt) annotation(
     Placement(visible = true, transformation(origin = {150, -160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch2(nu= 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {90, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu= 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {126, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
