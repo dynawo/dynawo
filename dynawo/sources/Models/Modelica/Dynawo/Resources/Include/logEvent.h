@@ -14,10 +14,10 @@
 #include "ModelicaUtilities.h"
 
 extern void addLogEvent1(int key){};
-extern void addLogEvent2(int key, const char * arg1, const char * arg2){};
-extern void addLogEvent3(int key, const char * arg1, const char * arg2, const char * arg3){};
-extern void addLogEvent4(int key, const char * arg1, const char * arg2, const char * arg3, const char * arg4){};
-extern void addLogEvent5(int key, const char * arg1, const char * arg2, const char * arg3, const char * arg4, const char * arg5){};
+extern void addLogEvent2(int key, const char * arg1){};
+extern void addLogEvent3(int key, const char * arg1, const char * arg2){};
+extern void addLogEvent4(int key, const char * arg1, const char * arg2, const char * arg3){};
+extern void addLogEvent5(int key, const char * arg1, const char * arg2, const char * arg3, const char * arg4){};
 
 extern void addLogEventRaw1(const char * key1){ModelicaMessage(key1);};
 extern void addLogEventRaw2(const char * key1,const char * key2){ModelicaMessage(key1);ModelicaMessage(key2);};
