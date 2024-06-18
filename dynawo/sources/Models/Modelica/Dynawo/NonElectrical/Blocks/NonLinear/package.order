@@ -24,6 +24,8 @@ Min2
 Min3
 MinThresholdSwitch
 MultiSwitch
+MultiSwitchFixed
+MultiSwitchVariable
 PIAntiWindUpTable
 PulseFixedDuration
 PulseMinimumDuration
