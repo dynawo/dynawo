@@ -137,6 +137,7 @@ equation
   connect(pre1.y, or1.u[5]) annotation(
     Line(points = {{120, -40}, {110, -40}, {110, 0}, {120, 0}}, color = {255, 0, 255}));
 
-annotation(
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -160}, {160, 160}})));
 end BaseGridProtection;
