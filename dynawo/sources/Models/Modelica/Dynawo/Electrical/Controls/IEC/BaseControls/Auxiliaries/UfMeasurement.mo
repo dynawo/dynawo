@@ -43,11 +43,11 @@ model UfMeasurement "Measurement module for grid protection (IEC N°61400-27-1:2
     Placement(visible = true, transformation(origin = {-18, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {134, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, DuMin = -DfMaxPu, Y0 = 0, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, DuMin = -DfMaxPu, Y0 = 0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {20, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tfFilt, y_start = 0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tfFilt, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {56, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, y_start = U0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, y_start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-18, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
