@@ -67,7 +67,7 @@ function(add_test_coverage_common test-target)
   add_custom_target(${test-target}-coverage
     COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE}
     DEPENDS ${test-target}-launch)
-  add_dependencies(tests-coverage ${test-target}-launch)
+  add_dependencies(tests-coverage-run ${test-target}-launch)
 endfunction()
 
 function(add_test_coverage test-target extract_patterns)
@@ -97,8 +97,8 @@ add_custom_target(reset-coverage
   COMMAND rm -f ${LCOV_OUTPUT_FILE}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${GENHTML_OUTPUT_DIR})
 
-add_custom_target(tests-coverage
-  COMMENT "launch each unit test")
+add_custom_target(tests-coverage-run
+  COMMENT "launch each unit test for coverage")
 
 add_custom_target(export-coverage
   COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE} )
