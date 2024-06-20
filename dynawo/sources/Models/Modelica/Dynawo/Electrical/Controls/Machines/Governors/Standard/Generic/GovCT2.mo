@@ -79,9 +79,9 @@ model GovCT2 "Governor type GovCT2"
 //
   // initialization helpers
   final parameter Real initCfe = WFnlPu + (if KTurbPu > 0 then initPMechNoLoss/KTurbPu else 0);
-  final parameter Real initFsrt = (PLdRefPu/KTurbPu + WFnlPu - initTex)*KPLoadPu + initIntegratorKILoad;
+  final parameter Types.PerUnit initFsrt = (PLdRefPu/KTurbPu + WFnlPu - initTex)*KPLoadPu + initIntegratorKILoad;
   final parameter Real initIntegratorKILoad = 1;
-  final parameter Real initPMechNoLoss = if DmPu>0.0 then PMech0Pu + omega0Pu*DmPu else PMech0Pu;
+  final parameter Types.PerUnit initPMechNoLoss = if DmPu>0.0 then PMech0Pu + omega0Pu*DmPu else PMech0Pu;
   final parameter Real initTex = initCfe * (if DmPu<0 then omega0Pu^(-DmPu) else 1);
   final parameter Real initValve = if WFSpdBool then initCfe/omega0Pu else initCfe;
   //
@@ -145,8 +145,8 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu3(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {341, -157}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu4(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {149, 227}, extent = {{-13, -9}, {13, 9}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PElecPu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-345, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput PMechPu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PePu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-345, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput PmPu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PMwSetPu(start = 0) annotation( Placement(visible = true, transformation(origin = {-333, -139}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -70}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 68}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Math.Product prodCfe annotation( Placement(visible = true, transformation(origin = {252, -54}, extent = {{8, -8}, {-8, 8}}, rotation = -90)));
@@ -165,7 +165,7 @@ equation
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
   connect(gainOneOverKTurb.y, addWFnlPldRef.u2) annotation(
     Line(points = {{-225, 144}, {-154, 144}}, color = {0, 0, 127}));
-  connect(addPDmPTurbine.y, PMechPu) annotation(
+  connect(addPDmPTurbine.y, PmPu) annotation(
     Line(points = {{287, 132}, {330, 132}}, color = {0, 0, 127}));
   connect(transferFunctCtB.y, addPDmPTurbine.u2) annotation(
     Line(points = {{254, 117}, {254, 126}, {264, 126}}, color = {0, 0, 127}));
@@ -225,7 +225,7 @@ equation
     Line(points = {{-238, -109}, {-238, -98}, {-228, -98}}, color = {0, 0, 127}));
   connect(addPmwsetPefilt.y, integratorKIMw.u) annotation(
     Line(points = {{-238, -137}, {-238, -132}}, color = {0, 0, 127}));
-  connect(PElecPu, firstOrdertPElec.u) annotation(
+  connect(PePu, firstOrdertPElec.u) annotation(
     Line(points = {{-335, -183}, {-289, -183}, {-289, -182}, {-262, -182}}, color = {0, 0, 127}));
   connect(firstOrdertPElec.y, addPmwsetPefilt.u1) annotation(
     Line(points = {{-239, -182}, {-218, -182}, {-218, -165}, {-232, -165}, {-232, -160}}, color = {0, 0, 127}));
