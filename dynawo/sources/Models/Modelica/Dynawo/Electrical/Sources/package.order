@@ -6,3 +6,5 @@ InjectorBG_INIT
 InjectorIDQ
 InjectorIDQ_INIT
 InjectorURI
+ConverterCurrentSourceIEC63406
+ConverterVoltageSourceIEC63406
