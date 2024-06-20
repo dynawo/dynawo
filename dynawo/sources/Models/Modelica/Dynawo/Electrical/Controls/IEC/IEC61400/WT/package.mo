@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC;
+within Dynawo.Electrical.Controls.IEC.IEC61400;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls.IEC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package Parameters "Parameters of lookup tables for variable dependencies in the context of IEC N°61400-27-1"
+package WT "Control models for IEC N°61400-27-1 standard WT converters"
   extends Icons.Package;
-end Parameters;
+end WT;

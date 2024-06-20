@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC;
+within Dynawo.Electrical.Controls.IEC.IEC61400;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)

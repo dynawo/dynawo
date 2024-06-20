@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC.BaseClasses;
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.BaseClasses;
 */
 
 partial model BaseGridProtection "Grid protection base system for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
 
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;

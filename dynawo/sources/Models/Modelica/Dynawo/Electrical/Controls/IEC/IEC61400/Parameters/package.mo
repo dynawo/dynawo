@@ -1,7 +1,7 @@
-within Dynawo.Electrical.Controls.IEC;
+within Dynawo.Electrical.Controls.IEC.IEC61400;
 
 /*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls.IEC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package BaseClasses
+package Parameters "Parameters of lookup tables for variable dependencies in the context of IEC N°61400-27-1"
   extends Icons.Package;
-end BaseClasses;
+end Parameters;
