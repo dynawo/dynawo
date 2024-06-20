@@ -13,7 +13,7 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
-  extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -269,9 +269,9 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.WPP.WPPControl wPPControl(DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DPwpRefMaxPu = DPwpRefMaxPu, DPwpRefMinPu = DPwpRefMinPu, DXRefMaxPu = DXRefMaxPu, DXRefMinPu = DXRefMinPu, DfMaxPu = DfMaxPu, Kiwpp = Kiwpp, Kiwpx = Kiwpx, Kpwpp = Kpwpp, Kpwpx = Kpwpx, KwppRef = KwppRef, KwpqRef = KwpqRef, Kwpqu = Kwpqu, MwpqMode = MwpqMode, P0Pu = P0Pu, PErrMaxPu = PErrMaxPu, PErrMinPu = PErrMinPu, PKiwppMaxPu = PKiwppMaxPu, PKiwppMinPu = PKiwppMinPu, PRefMaxPu = PRefMaxPu, PRefMinPu = PRefMinPu, Q0Pu = Q0Pu, RwpDropPu = RwpDropPu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, UwpqDipPu = UwpqDipPu, UwpqRisePu = UwpqRisePu, X0Pu = X0Pu, XErrMaxPu = XErrMaxPu, XErrMinPu = XErrMinPu, XKiwpxMaxPu = XKiwpxMaxPu, XKiwpxMinPu = XKiwpxMinPu, XRefMaxPu = XRefMaxPu, XRefMinPu = XRefMinPu, XWT0Pu = XWT0Pu, XwpDropPu = XwpDropPu, i0Pu = i0Pu, tIFilt = tIFilt, tLag = tLag, tLead = tLead, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tUqFilt = tUqFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.WPP.WPPControl wPPControl(DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DPwpRefMaxPu = DPwpRefMaxPu, DPwpRefMinPu = DPwpRefMinPu, DXRefMaxPu = DXRefMaxPu, DXRefMinPu = DXRefMinPu, DfMaxPu = DfMaxPu, Kiwpp = Kiwpp, Kiwpx = Kiwpx, Kpwpp = Kpwpp, Kpwpx = Kpwpx, KwppRef = KwppRef, KwpqRef = KwpqRef, Kwpqu = Kwpqu, MwpqMode = MwpqMode, P0Pu = P0Pu, PErrMaxPu = PErrMaxPu, PErrMinPu = PErrMinPu, PKiwppMaxPu = PKiwppMaxPu, PKiwppMinPu = PKiwppMinPu, PRefMaxPu = PRefMaxPu, PRefMinPu = PRefMinPu, Q0Pu = Q0Pu, RwpDropPu = RwpDropPu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, UwpqDipPu = UwpqDipPu, UwpqRisePu = UwpqRisePu, X0Pu = X0Pu, XErrMaxPu = XErrMaxPu, XErrMinPu = XErrMinPu, XKiwpxMaxPu = XKiwpxMaxPu, XKiwpxMinPu = XKiwpxMinPu, XRefMaxPu = XRefMaxPu, XRefMinPu = XRefMinPu, XWT0Pu = XWT0Pu, XwpDropPu = XwpDropPu, i0Pu = i0Pu, tIFilt = tIFilt, tLag = tLag, tLead = tLead, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tUqFilt = tUqFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.ElecMeasurements elecMeasurements(SNom = SNom) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.ElecMeasurements elecMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Initial parameters

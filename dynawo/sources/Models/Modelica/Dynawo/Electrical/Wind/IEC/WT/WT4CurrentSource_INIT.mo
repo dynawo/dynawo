@@ -14,8 +14,8 @@ within Dynawo.Electrical.Wind.IEC.WT;
 
 model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 standard : initialization model"
   extends AdditionalIcons.Init;
-  extends Dynawo.Electrical.Controls.IEC.Parameters.QLimitParameters;
-  extends Dynawo.Electrical.Controls.IEC.Parameters.CurrentLimitParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

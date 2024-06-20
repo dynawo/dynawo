@@ -13,7 +13,7 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 standard"
-  extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -141,7 +141,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
 
   Dynawo.Electrical.Sources.IEC.WT4Injector wT4Injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, XesPu = XesPu, i0Pu = i0Pu, tG = tG, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
   //Initial parameters

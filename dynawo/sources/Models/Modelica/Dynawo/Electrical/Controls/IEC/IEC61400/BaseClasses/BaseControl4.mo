@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC.BaseClasses;
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 /*
 * Copyright (c) 2023, RTE (http://www.rte-france.com)
@@ -17,11 +17,9 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
-
   //PControl parameters
   parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
     Dialog(tab = "PControl"));
-
   //Current limiter parameters
   parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));

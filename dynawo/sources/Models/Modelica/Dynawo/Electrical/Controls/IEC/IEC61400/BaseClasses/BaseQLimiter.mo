@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC.BaseClasses;
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.BaseClasses;
 */
 
 partial model BaseQLimiter "Reactive power limitation base module for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.Parameters.QLimitParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

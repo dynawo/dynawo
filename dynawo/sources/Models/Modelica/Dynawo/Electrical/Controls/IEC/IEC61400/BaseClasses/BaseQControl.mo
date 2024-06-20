@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC.BaseClasses;
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -92,7 +92,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {230, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kpu) annotation(
     Placement(visible = true, transformation(origin = {110, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.BaseClasses.VDrop vDrop(P0Pu = P0Pu * SystemBase.SnRef / SNom, Q0Pu = Q0Pu * SystemBase.SnRef / SNom, RDropPu = RDropPu, U0Pu = U0Pu, XDropPu = XDropPu) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.VDrop vDrop(P0Pu = P0Pu * SystemBase.SnRef / SNom, Q0Pu = Q0Pu * SystemBase.SnRef / SNom, RDropPu = RDropPu, U0Pu = U0Pu, XDropPu = XDropPu) annotation(
     Placement(visible = true, transformation(origin = {-160, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Math.Division division2 annotation(
     Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -152,7 +152,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-286, 14}, extent = {{-6, 6}, {6, -6}}, rotation = 90)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UqDipPu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5) annotation(
     Placement(visible = true, transformation(origin = {-24, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

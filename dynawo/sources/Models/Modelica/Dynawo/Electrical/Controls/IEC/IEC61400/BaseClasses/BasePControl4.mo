@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.IEC.BaseClasses;
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -29,7 +29,7 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom ) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable
@@ -76,5 +76,5 @@ equation
   annotation(
     preferredView = "diagram",
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Text(origin = {-16, 31}, extent = {{-76, -18}, {92, 28}}, textString = "IEC WT 4"), Text(origin = {-12, -79}, extent = {{-77, -16}, {100, 30}}, textString = "PControl")}),
-  Diagram(coordinateSystem(extent = {{-160, -160}, {160, 160}})));
+    Diagram(coordinateSystem(extent = {{-160, -160}, {160, 160}})));
 end BasePControl4;
