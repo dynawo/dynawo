@@ -1,6 +1,6 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
-block MultiSwitchNoVector "Switch between N Real signals"
+block MultiSwitchNoVector "Switch between 5 Real signals"
   /*
   * Copyright (c) 2022, RTE (http://www.rte-france.com)
   * See AUTHORS.txt

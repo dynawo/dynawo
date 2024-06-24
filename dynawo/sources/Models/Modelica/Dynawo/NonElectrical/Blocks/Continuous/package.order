@@ -19,6 +19,7 @@ PIAntiWindup
 PIAntiWindupVariableLimits
 PIFreeze
 Power
+PowerExternalBase
 RampTrackingFilter
 RateLimFirstOrderFreeze
 SecondOrder
@@ -26,4 +27,3 @@ SqrtNoEvent
 VarLimPIDFreeze
 Washout
 WeightedDifference
-PowerExternalBase
