@@ -12,6 +12,15 @@ model GovCT2 "Governor type GovCT2"
                   *
                   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
                   */
+  //
+  // Inputs, Outputs
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation( Placement(visible = true, transformation(origin = {-329, -19}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 100}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) annotation(Placement(visible = true, transformation(origin = {-333, 23}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, 181}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PePu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PMwSetPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -139}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -80}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-346, 10}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+  //
+  // Parameters
   parameter Types.PerUnit aSetPu = 10 "Acceleration limiter setpoint in pu/s" annotation( Dialog(tab = "Acceleration limiter"));
   parameter Types.PerUnit DeltaOmegaDbPu = 0 "Speed governor deadband in PU speed." annotation( Dialog(tab = "Main control path"));
   parameter Types.PerUnit DeltaOmegaMaxPu = 1 "Maximum value for speed error signal in pu" annotation( Dialog(tab = "Main control path"));
@@ -140,17 +149,10 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Math.Min minLowValueSelect annotation( Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minLowValueSelect2 annotation( Placement(visible = true, transformation(origin = {69, -87}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchNoVector multiSwitchNoVector annotation( Placement(visible = true, transformation(origin = {-172, -156}, extent = {{5, 10}, {-5, -10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation( Placement(visible = true, transformation(origin = {-329, -19}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 100}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-333, 23}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, 181}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu3(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {341, -157}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu4(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {149, 227}, extent = {{-13, -9}, {13, 9}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PePu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PMwSetPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -139}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -80}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-346, 10}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Math.Product prodCfe annotation( Placement(visible = true, transformation(origin = {252, -54}, extent = {{8, -8}, {-8, 8}}, rotation = -90)));
   Modelica.Blocks.Math.Product prodOmegaCfe annotation( Placement(visible = true, transformation(origin = {184, 114}, extent = {{-8, -8}, {8, 8}}, rotation = -180)));
   Modelica.Blocks.Math.Product prodOmegaDm annotation( Placement(visible = true, transformation(origin = {236, 180}, extent = {{8, -8}, {-8, 8}}, rotation = 180)));
@@ -162,6 +164,7 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Continuous.TransferFunction transferFunctA(a = {tASeconds, 1}, b = {1, 0}) annotation( Placement(visible = true, transformation(origin = {-142, -18}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tBSeconds, 1}, b = {tCSeconds, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {initPMechNoLoss}, y_start = initPMechNoLoss) annotation( Placement(visible = true, transformation(origin = {254, 106}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSBSeconds, 1}, b = {tSASeconds, 1}, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = initTex) annotation( Placement(visible = true, transformation(origin = {80, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  
   equation
   connect(constPLdRef.y, gainOneOverKTurb.u) annotation(
     Line(points = {{-287, 144}, {-248, 144}}, color = {0, 0, 127}));
