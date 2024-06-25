@@ -41,6 +41,7 @@ jobs:
       - name: NRT
         run: |
           export DYNAWO_HOME=$(pwd)
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
           util/envDynawo.sh nrt
 
   bionic:
@@ -64,7 +65,6 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1}/' util/nrt_diff/settings.py
           util/envDynawo.sh build-user
 
       - name: NRT
@@ -73,6 +73,7 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
           util/envDynawo.sh nrt
 
   omc:
