@@ -16,7 +16,7 @@ model GovCT2 "Governor type GovCT2"
   // Inputs, Outputs
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation( Placement(visible = true, transformation(origin = {-329, -19}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, 100}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) annotation(Placement(visible = true, transformation(origin = {-333, 23}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, 181}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PePu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PePu(start = Pm0Pu) annotation( Placement(visible = true, transformation(origin = {-335, -183}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PMwSetPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -139}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -80}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) annotation( Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-346, 10}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
   //
@@ -46,7 +46,7 @@ model GovCT2 "Governor type GovCT2"
   parameter Types.PerUnit KPGovPu = 4 "Governor proportional gain in pu" annotation( Dialog(tab = "Main control path"));
   parameter Types.PerUnit KPLoadPu = 1 "Load limiter proportional gain for PI controller in pu" annotation( Dialog(tab = "Load limit controller"));
   parameter Types.PerUnit KTurbPu = 1.9168 "Turbine gain in pu" annotation( Dialog(tab = "Turbine/engine"));
-  parameter Types.PerUnit omega0Pu = Dynawo.Electrical.SystemBase.omega0Pu "Initial rotor speed";
+  parameter Types.PerUnit omega0Pu = SystemBase.omega0Pu "Initial rotor speed";
   parameter Types.ActivePower PBaseMw "Base for power values (> 0) in MW";
   parameter Types.ActivePowerPu PLdRefPu = 1 "Load limiter reference value in pu (base PBaseMw)" annotation( Dialog(tab = "Load limit controller"));
   parameter Types.ActivePowerPu PLim10Pu = 0.8325 "Power limit 10 in pu (base PBaseMw)" annotation( Dialog(tab = "Frequency dependent valve limit"));
@@ -60,9 +60,9 @@ model GovCT2 "Governor type GovCT2"
   parameter Types.ActivePowerPu PLim8Pu = 0.8325 "Power limit 8 in pu (base PBaseMw)" annotation( Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.ActivePowerPu PLim9Pu = 0.8325 "Power Limit 9 in pu (base PBaseMw)" annotation( Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim10Hz-0.000001, PLim10Pu; fLim10Hz, PLim10Pu; fLim9Hz, PLim9Pu; fLim8Hz, PLim8Pu; fLim7Hz, PLim7Pu; fLim6Hz, PLim6Pu; fLim5Hz, PLim5Pu; fLim4Hz, PLim4Pu; fLim3Hz, PLim3Pu; fLim2Hz, PLim2Pu; fLim1Hz, PLim1Pu; fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu; fLim1Hz + 1, (ValveMaxPu - WFnlPu)*KTurbPu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation( Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.PerUnit PMech0Pu "Initial value of mechanical power";
+  parameter Types.PerUnit Pm0Pu "Initial value of mechanical power";
   parameter Types.PerUnit PRatePu = 0.017 "Ramp rate for frequency-dependent power limit" annotation( Dialog(tab = "Frequency dependent valve limit"));
-  parameter Types.PerUnit PRef0Pu = PMech0Pu*RPu "Initial value of reference power";
+  final parameter Types.PerUnit PRef0Pu = Pm0Pu*RPu "Initial value of reference power";
   parameter Types.PerUnit RClosePu = -99 "Minimum valve closing rate in pu/s" annotation( Dialog(tab = "Turbine/engine"));
   parameter Types.PerUnit RDownPu = -99 "Maximum rate of load limit decrease in pu" annotation( Dialog(tab = "Load limit controller"));
   parameter Types.PerUnit ROpenPu = 99 "Maximum valve opening rate in pu/s" annotation( Dialog(tab = "Turbine/engine"));
@@ -90,7 +90,7 @@ model GovCT2 "Governor type GovCT2"
   final parameter Real initCfe = WFnlPu + (if KTurbPu > 0 then initPMechNoLoss/KTurbPu else 0);
   final parameter Types.PerUnit initFsrt = (PLdRefPu/KTurbPu + WFnlPu - initTex)*KPLoadPu + initIntegratorKILoad;
   final parameter Real initIntegratorKILoad = 1;
-  final parameter Types.PerUnit initPMechNoLoss = if DmPu>0.0 then PMech0Pu + omega0Pu*DmPu else PMech0Pu;
+  final parameter Types.PerUnit initPMechNoLoss = if DmPu>0.0 then Pm0Pu + omega0Pu*DmPu else Pm0Pu;
   final parameter Real initTex = initCfe * (if DmPu<0 then omega0Pu^(-DmPu) else 1);
   final parameter Real initValve = if WFSpdBool then initCfe/omega0Pu else initCfe;
   //
@@ -128,7 +128,7 @@ model GovCT2 "Governor type GovCT2"
   Dynawo.NonElectrical.Blocks.Continuous.PowerExternalBase expOmegaToTheDm annotation( Placement(visible = true, transformation(origin = {214, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuatorSeconds, UseRateLim = true, Y0 = initValve, y(fixed = true)) annotation( Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertFLoad(T = tFLoadSeconds, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = initTex) annotation( Placement(visible = true, transformation(origin = {34, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrdertPElec(T = tPElecSeconds, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {-250, -182}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrdertPElec(T = tPElecSeconds, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Pm0Pu) annotation( Placement(visible = true, transformation(origin = {-250, -182}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainfNom(k(unit = "") = fNomHz) annotation( Placement(visible = true, transformation(origin = {138, 66}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Gain gainKADeltat(k(unit = "") = KAPu*DeltaTSeconds) annotation( Placement(visible = true, transformation(origin = {-20, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainKPGov(k = KPGovPu) annotation( Placement(visible = true, transformation(origin = {-48, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -152,7 +152,7 @@ model GovCT2 "Governor type GovCT2"
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu3(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {341, -157}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression omegaPu4(y = omegaPu) annotation( Placement(visible = true, transformation(origin = {149, 227}, extent = {{-13, -9}, {13, 9}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput PmPu(start = PMech0Pu) annotation( Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) annotation( Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   Modelica.Blocks.Math.Product prodCfe annotation( Placement(visible = true, transformation(origin = {252, -54}, extent = {{8, -8}, {-8, 8}}, rotation = -90)));
   Modelica.Blocks.Math.Product prodOmegaCfe annotation( Placement(visible = true, transformation(origin = {184, 114}, extent = {{-8, -8}, {8, 8}}, rotation = -180)));
   Modelica.Blocks.Math.Product prodOmegaDm annotation( Placement(visible = true, transformation(origin = {236, 180}, extent = {{8, -8}, {-8, 8}}, rotation = 180)));
