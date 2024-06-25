@@ -15,6 +15,6 @@
   <variable id="omegaPu" type="continuous"/>
   <variable id="PePu" type="continuous"/>
   <variable id="omegaRefPu" type="continuous" optional="true"/>
-  <variable id="PmRefPu" type="continuous" optional="true"/>
+  <variable id="PRefPu" type="continuous" optional="true"/>
   <variable id="PMwSetPu" type="continuous" optional="true"/>
 </external_variables>
