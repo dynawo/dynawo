@@ -2,6 +2,7 @@ SystemBase
 Constants
 Buses
 HVDC
+InverterBasedGeneration
 Lines
 Transformers
 Loads

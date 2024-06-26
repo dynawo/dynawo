@@ -11,6 +11,7 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  AggregatedIBG.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
@@ -18,6 +19,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   ConditionalForward.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
+  der_a.xml
+  der_a_AggregatedLVRT.xml
+  der_a_GenericLVRT.xml
   DiscreteIntegrator.xml
   DistanceProtectionLineFourZones.xml
   DistanceProtectionLineFourZonesWithBlinder.xml
@@ -111,6 +115,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
+  GenericIBG.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
