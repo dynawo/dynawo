@@ -136,6 +136,12 @@ namespace DYN {
       sectionName << "section_" << s << "_value";
       variables.push_back(VariableNativeFactory::createState(sectionName.str(), DISCRETE));
     }
+    for (int s = 0; s < nbShunts_; ++s) {
+      sectionName.str(std::string());
+      sectionName.clear();
+      sectionName << "running_" << s << "_value";
+      variables.push_back(VariableNativeFactory::createState(sectionName.str(), BOOLEAN));
+    }
   }
 
   void
@@ -154,7 +160,8 @@ namespace DYN {
   ModelCentralizedShuntsSectionControl::getSize() {
     sizeF_ = 0;
     sizeY_ = 1;  // UMonitoredPu
-    sizeZ_ = nbShunts_ + 1;  // URefPu value is stored at index 0, sections are stored at [1, nbShunts[
+    sizeZ_ = 2*nbShunts_ + 1;  // URefPu value is stored at index 0,
+    //  sections are stored at [1, nbShunts[, running status of shunts are stored at [nbShunts, 2*nbShunts [
     sizeG_ = 4;
     sizeMode_ = 0;
     calculatedVars_.assign(nbCalculatedVariables_, 0);
@@ -182,6 +189,14 @@ namespace DYN {
     double minValue;
     double maxValue;
     for (int s = 0; s < nbShunts_; ++s) {
+      if (zLocal_[nbShunts_ + s + 1] <= 0) {
+        gLocal_[0] = ROOT_DOWN;
+        gLocal_[1] = ROOT_DOWN;
+        gLocal_[2] = ROOT_DOWN;
+        gLocal_[3] = ROOT_DOWN;
+        changingShunt = -1;
+        continue;
+      }
       minValue = URefPu - deadBandsUPu_[s];
       maxValue = URefPu + deadBandsUPu_[s];
       if (isSelf_[s]) {
@@ -208,6 +223,7 @@ namespace DYN {
             gLocal_[1] = ROOT_DOWN;
             gLocal_[2] = ROOT_DOWN;
             gLocal_[3] = ROOT_DOWN;
+            changingShunt = -1;
           }
       } else {
           if (doubleNotEquals(UMonitoredPu, minValue) &&
@@ -233,6 +249,7 @@ namespace DYN {
             gLocal_[1] = ROOT_DOWN;
             gLocal_[2] = ROOT_DOWN;
             gLocal_[3] = ROOT_DOWN;
+            changingShunt = -1;
           }
       }
     }
@@ -254,11 +271,13 @@ namespace DYN {
         if (gLocal_[2] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
           zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
           sections0_[changingShunt] -= 1;
+          DYNAddTimelineEvent(this, name(), CSSCSectionDown, changingShunt);
           changingShunt = -1;
           lastTime_ = t;
         } else if (gLocal_[3] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
           zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
           sections0_[changingShunt] += 1;
+          DYNAddTimelineEvent(this, name(), CSSCSectionUp, changingShunt);
           changingShunt = -1;
           lastTime_ = t;
         }
@@ -275,11 +294,13 @@ namespace DYN {
         if (gLocal_[2] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
           zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
           sections0_[changingShunt] += 1;
+          DYNAddTimelineEvent(this, name(), CSSCSectionUp, changingShunt);
           changingShunt = -1;
           lastTime_ = t;
         } else if (gLocal_[3] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
           zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
           sections0_[changingShunt] -= 1;
+          DYNAddTimelineEvent(this, name(), CSSCSectionDown, changingShunt);
           changingShunt = -1;
           lastTime_ = t;
         }
@@ -303,6 +324,9 @@ namespace DYN {
     zLocal_[0] = URef0Pu_;
     for (int s = 0; s < nbShunts_; ++s) {
       zLocal_[s + 1] = sections0_[s];
+    }
+    for (int s = 0; s < nbShunts_; ++s) {
+      zLocal_[nbShunts_ + s + 1] = 1.;
     }
   }
 
@@ -347,6 +371,12 @@ namespace DYN {
       sectionName.str(std::string());
       sectionName.clear();
       sectionName << "section_" << s;
+      addElement(sectionName.str(), Element::STRUCTURE, elements, mapElement);
+      addSubElement("value", sectionName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+
+      sectionName.str(std::string());
+      sectionName.clear();
+      sectionName << "running_" << s;
       addElement(sectionName.str(), Element::STRUCTURE, elements, mapElement);
       addSubElement("value", sectionName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
     }

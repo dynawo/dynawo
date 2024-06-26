@@ -1041,7 +1041,7 @@ build_tests() {
 
   tests=$@
   if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests --config Debug
+    cmake --build $DYNAWO_BUILD_DIR --target tests-run --config Debug
   else
     cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Debug
   fi
@@ -1105,7 +1105,7 @@ build_tests_coverage() {
 
   cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config Debug || error_exit "Error during make reset-coverage."
   if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage --config Debug || error_exit "Error during make tests-coverage."
+    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage-run --config Debug || error_exit "Error during make tests-coverage."
   else
     for test in ${tests}; do
       cmake --build $DYNAWO_BUILD_DIR --target ${test}-coverage --config Debug || error_exit "Error during make ${test}-coverage."

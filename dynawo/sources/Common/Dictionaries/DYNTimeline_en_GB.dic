@@ -162,6 +162,9 @@ IECProtectionUUnder        =              IEC WT disconnected due to undervoltag
 // --> Motor
 MotorConnected             =             Motor : connecting
 MotorDisconnected          =             Motor : disconnecting
+// --> DYNCentralizedShuntsSectionControl Model
+CSSCSectionUp              =               Section of shunt %1% +1
+CSSCSectionDown            =               Section of shunt %1% -1
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off

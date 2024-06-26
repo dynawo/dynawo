@@ -59,5 +59,5 @@ if(BUILD_TESTS_COVERAGE)
 endif()
 
 if(BUILD_TESTS)
-  add_test(${MODULE_NAME}-tests)
+  add_test_run(${MODULE_NAME}-tests)
 endif()
