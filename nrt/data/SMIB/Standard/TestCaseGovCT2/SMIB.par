@@ -80,7 +80,7 @@
     <!-- <par type="DOUBLE" name="governor_PMin" value="0"/> -->
     <!-- <par type="DOUBLE" name="governor_PMax" value="2200"/> -->
     <par type="DOUBLE" name="governor_PBaseMw" value="2200"/>
-    <par type="INT" name="governor_RSelectInt" value="2"/>
+    <!-- <par type="INT" name="governor_RSelectInt" value="2"/> -->
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
