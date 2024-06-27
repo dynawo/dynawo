@@ -17,8 +17,13 @@ model GovCT2_INIT "Initialisation model for GovCT2 generic governor"
 
   //Parameters (use the same names as in the simulation model)
     parameter Types.PerUnit RPu "Permanent droop in pu";
+    parameter Types.PerUnit DmPu;
+    parameter Types.PerUnit KTurbPu;
     parameter Integer RSelectInt "Feedback signal for droop";
-    parameter Real initValve;
+    parameter Types.Time WFnlPu;
+    parameter Types.ActivePowerPu PLdRefPu;
+    parameter Types.PerUnit KPLoadPu;
+
     
   //Input parameter (use the same name as the corresponding **parameter** in the simulation model)
   Modelica.Blocks.Interfaces.RealInput Pm0Pu "Initial mechanical power in pu (base PNom)";
@@ -26,6 +31,10 @@ model GovCT2_INIT "Initialisation model for GovCT2 generic governor"
   //Output parameter (use the same name as the corresponding **parameter** in the simulation model)
   Modelica.Blocks.Interfaces.RealOutput PRef0Pu "Initial reference mechanical power in pu (base PNom)";
   
+  final parameter Real initCfe_INIT = WFnlPu + (if KTurbPu > 0 then initPMechNoLoss_INIT/KTurbPu else 0);
+  final parameter Types.PerUnit initPMechNoLoss_INIT = if DmPu>0.0 then Pm0Pu + omega0Pu*DmPu else Pm0Pu;
+  final parameter Real initValve_INIT = if WFSpdBool then initCfe_INIT/omega0Pu else initCfe_INIT;
+  //
   
 equation
   if RSelectInt == 0 then
