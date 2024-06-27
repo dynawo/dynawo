@@ -20,11 +20,7 @@ model GeneratorPVFixed "Generator with fixed active power and voltage"
     i0Pu = Complex(-PGen0Pu / U0Pu, 0));
   extends AdditionalIcons.Machine;
 
-  Types.Angle UPhase "Voltage angle at terminal in rad";
-
 equation
-  UPhase = ComplexMath.arg(terminal.V);
-
   if running.value then
     PGenPu = PGen0Pu;
     UPu = U0Pu;
