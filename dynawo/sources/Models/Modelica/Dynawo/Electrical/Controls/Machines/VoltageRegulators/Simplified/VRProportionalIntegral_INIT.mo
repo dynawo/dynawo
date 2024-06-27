@@ -13,15 +13,13 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportionalIntegral_INIT "Proportional integral voltage regulator initialization model"
-  extends AdditionalIcons.Init;
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT;
 
   parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed exciter field voltage in pu (user-selected base voltage)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum allowed exciter field voltage in pu (user-selected base voltage)";
   parameter Types.PerUnit Gain "Control gain";
 
-  Types.VoltageModulePu Efd0Pu "Initial exciter field voltage, i.e. Efd0PuLF if compliant with saturations, in pu (user-selected base voltage)";
   Types.VoltageModulePu Efd0PuLF "Initial exciter field voltage from LoadFlow in pu (user-selected base voltage)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
   Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
   Types.VoltageModulePu yIntegrator0 "Initial integrator output in pu (user-selected base voltage)";
 
