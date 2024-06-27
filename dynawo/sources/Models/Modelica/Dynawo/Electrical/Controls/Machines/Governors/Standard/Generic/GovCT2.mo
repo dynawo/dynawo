@@ -62,7 +62,6 @@ model GovCT2 "Governor type GovCT2"
   parameter Types.ActivePowerPu PLimFromfPoints[:, :] = [fLim10Hz-0.000001, PLim10Pu; fLim10Hz, PLim10Pu; fLim9Hz, PLim9Pu; fLim8Hz, PLim8Pu; fLim7Hz, PLim7Pu; fLim6Hz, PLim6Pu; fLim5Hz, PLim5Pu; fLim4Hz, PLim4Pu; fLim3Hz, PLim3Pu; fLim2Hz, PLim2Pu; fLim1Hz, PLim1Pu; fLim1Hz + 0.000001, (ValveMaxPu - WFnlPu)*KTurbPu; fLim1Hz + 1, (ValveMaxPu - WFnlPu)*KTurbPu] "Pair of points for frequency-dependent active power limit piecewise linear curve [u1,y1; u2,y2;...] (above fLim1Hz, jump to power associated with ValveMaxPu)" annotation( Dialog(tab = "Frequency dependent valve limit"));
   parameter Types.PerUnit Pm0Pu "Initial value of mechanical power";
   parameter Types.PerUnit PRatePu = 0.017 "Ramp rate for frequency-dependent power limit" annotation( Dialog(tab = "Frequency dependent valve limit"));
-  final parameter Types.PerUnit PRef0Pu = RPu*(if RSelectInt == 0 then 0 else if RSelectInt == 1 then Pm0Pu else initValve) "Initial value of reference power";
   parameter Types.PerUnit RClosePu = -99 "Minimum valve closing rate in pu/s" annotation( Dialog(tab = "Turbine/engine"));
   parameter Types.PerUnit RDownPu = -99 "Maximum rate of load limit decrease in pu" annotation( Dialog(tab = "Load limit controller"));
   parameter Types.PerUnit ROpenPu = 99 "Maximum valve opening rate in pu/s" annotation( Dialog(tab = "Turbine/engine"));
@@ -93,6 +92,7 @@ model GovCT2 "Governor type GovCT2"
   final parameter Types.PerUnit initPMechNoLoss = if DmPu>0.0 then Pm0Pu + omega0Pu*DmPu else Pm0Pu;
   final parameter Real initTex = initCfe * (if DmPu<0 then omega0Pu^(-DmPu) else 1);
   final parameter Real initValve = if WFSpdBool then initCfe/omega0Pu else initCfe;
+  final parameter Types.PerUnit PRef0Pu = RPu*(if RSelectInt == 0 then 0 else if RSelectInt == 1 then Pm0Pu else initValve) "Initial value of reference power";
   //
   // blocks
   Modelica.Blocks.Math.Add add(k1 = -1) annotation( Placement(visible = true, transformation(origin = {-244, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
