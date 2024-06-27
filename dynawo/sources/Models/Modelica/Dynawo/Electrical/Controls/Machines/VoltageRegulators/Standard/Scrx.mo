@@ -30,15 +30,17 @@ model Scrx "Bus-fed or solid-fed exciter model, with no excitation resistance"
   Modelica.Blocks.Interfaces.RealInput IrPu(start = Ir0Pu) "Rotor current in pu (base SNom, user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {-180, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UOelPu(start = 0) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-180, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-180, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-180, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 80}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-180, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "Reference stator voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-180, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UUelPu(start = 0) "Underexcitation limitation output voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
@@ -70,22 +72,23 @@ model Scrx "Bus-fed or solid-fed exciter model, with no excitation resistance"
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
   parameter Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at terminal in pu (base UNom)";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
-  final parameter Types.VoltageModulePu UsRef0Pu = Us0Pu + Vr0Pu / K "Initial reference stator voltage in pu (base UNom)";
-  final parameter Types.VoltageModulePu Vr0Pu = if CSwitch then Efd0Pu else Efd0Pu / Us0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
+  final parameter Types.VoltageModulePu UsRef0Pu = U0Pu + Vr0Pu / K "Initial reference stator voltage in pu (base UNom)";
+  final parameter Types.VoltageModulePu Vr0Pu = if CSwitch then Efd0Pu else Efd0Pu / U0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
 
 equation
   connect(UOelPu, sum1.u[1]) annotation(
-    Line(points = {{-180, 40}, {-140, 40}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
+    Line(points = {{-180, 80}, {-140, 80}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
   connect(UUelPu, sum1.u[2]) annotation(
-    Line(points = {{-180, 0}, {-140, 0}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
+    Line(points = {{-180, 40}, {-140, 40}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
   connect(UPssPu, sum1.u[3]) annotation(
-    Line(points = {{-180, -40}, {-122, -40}}, color = {0, 0, 127}));
+    Line(points = {{-180, 0}, {-140, 0}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
   connect(UsRefPu, sum1.u[4]) annotation(
-    Line(points = {{-180, -80}, {-140, -80}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
+    Line(points = {{-180, -40}, {-122, -40}}, color = {0, 0, 127}));
   connect(UsPu, sum1.u[5]) annotation(
-    Line(points = {{-180, -120}, {-140, -120}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
+    Line(points = {{-180, -80}, {-140, -80}, {-140, -40}, {-122, -40}}, color = {0, 0, 127}));
   connect(sum1.y, transferFunction.u) annotation(
     Line(points = {{-99, -40}, {-83, -40}}, color = {0, 0, 127}));
   connect(transferFunction.y, limitedFirstOrder.u) annotation(
@@ -108,14 +111,14 @@ equation
     Line(points = {{102, 120}, {120, 120}, {120, 68}, {138, 68}}, color = {0, 0, 127}));
   connect(IrPu, gain.u) annotation(
     Line(points = {{-180, 120}, {78, 120}}, color = {0, 0, 127}));
-  connect(UsPu, product.u2) annotation(
-    Line(points = {{-180, -120}, {0, -120}, {0, -86}, {18, -86}}, color = {0, 0, 127}));
   connect(lessThreshold.y, and1.u1) annotation(
     Line(points = {{42, 60}, {78, 60}}, color = {255, 0, 255}));
   connect(booleanConstant1.y, and1.u2) annotation(
     Line(points = {{42, 20}, {60, 20}, {60, 52}, {78, 52}}, color = {255, 0, 255}));
   connect(and1.y, switch.u2) annotation(
     Line(points = {{102, 60}, {138, 60}}, color = {255, 0, 255}));
+  connect(UPu, product.u2) annotation(
+    Line(points = {{-180, -120}, {0, -120}, {0, -86}, {18, -86}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

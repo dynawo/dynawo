@@ -112,7 +112,7 @@ model SteamIEEET1Frame "Model of a steam generator with a governor, a voltage re
     tE = ParametersIEEET1.exciterParams[ieeet1Preset, ParametersIEEET1.exciterParamNames.tE],
     tF = ParametersIEEET1.exciterParams[ieeet1Preset, ParametersIEEET1.exciterParamNames.tF],
     tR = ParametersIEEET1.exciterParams[ieeet1Preset, ParametersIEEET1.exciterParamNames.tR],
-    UStator0Pu = generatorSynchronous.UStator0Pu) annotation(
+    Us0Pu = generatorSynchronous.UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssIEEE2B pssIEEE2B(
     KOmega = -1,

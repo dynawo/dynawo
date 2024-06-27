@@ -40,7 +40,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
     Placement(visible = true, transformation(origin = {-200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Reference stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UStatorPu(start = UStator0Pu) "Stator voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UStatorPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UUelPu(start = 0) "UEL output voltage correction in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -51,7 +51,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
 
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(Asq = EfdThresholdPu, Bsq = Bsq, Sq = Sq, UHigh = EfdHighPu, ULow = EfdLowPu, YHigh = EfdSatHighPu, YLow = EfdSatLowPu) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, T = tR, y_start = UStator0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, tFilter = tA, Y0 = EfdRaw0Pu, YMax = EfdRawMaxPu, YMin = EfdRawMinPu) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -67,10 +67,10 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu UStator0Pu "Initial stator voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
   final parameter Types.VoltageModulePu EfdRaw0Pu = Ke * Efd0Pu + (if Efd0Pu > EfdThresholdPu then Bsq * (Efd0Pu - EfdThresholdPu) ^ 2 else 0) "Initial non-saturated excitation voltage in pu (user-selected base voltage)";
-  final parameter Types.VoltageModulePu URef0Pu = if Ka > 0 then UStator0Pu + EfdRaw0Pu / Ka else 0 "Initial reference stator voltage in pu (base UNom)";
+  final parameter Types.VoltageModulePu URef0Pu = if Ka > 0 then Us0Pu + EfdRaw0Pu / Ka else 0 "Initial reference stator voltage in pu (base UNom)";
 
 equation
   connect(UStatorPu, firstOrder.u) annotation(
