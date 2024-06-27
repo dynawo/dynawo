@@ -11,10 +11,14 @@
 # Models of electrical loads
 
 add_subdirectory(BaseClasses B)
+add_subdirectory(BaseClasses_INIT BI)
 
 set(MODEL_FILES
   package.mo
   package.order
+  ElectronicLoad.mo
+  ElectronicLoad.extvar
+  Load_INIT.mo
   LoadAlphaBeta.mo
   LoadAlphaBeta.extvar
   LoadAlphaBetaRestorative.mo
@@ -24,16 +28,28 @@ set(MODEL_FILES
   LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
   LoadAlphaBetaRestorativeReset.mo
   LoadAlphaBetaRestorativeReset.extvar
-  LoadAlphaBetaMotor.mo
-  LoadAlphaBetaMotor.extvar
-  LoadAlphaBetaMotor_INIT.mo
+  LoadAlphaBetaMotorFifthOrder.mo
+  LoadAlphaBetaMotorFifthOrder.extvar
+  LoadAlphaBetaMotorFifthOrder_INIT.mo
+  LoadAlphaBetaThreeMotorFifthOrder.mo
+  LoadAlphaBetaThreeMotorFifthOrder.extvar
+  LoadAlphaBetaThreeMotorFifthOrder_INIT.mo
+  LoadAlphaBetaTwoMotorFifthOrder.mo
+  LoadAlphaBetaTwoMotorFifthOrder.extvar
+  LoadAlphaBetaTwoMotorFifthOrder_INIT.mo
+  LoadAlphaBetaMotorSimplified.mo
+  LoadAlphaBetaMotorSimplified.extvar
+  LoadAlphaBetaMotorSimplified_INIT.mo
+  LoadAlphaBetaTwoMotorSimplified.mo
+  LoadAlphaBetaTwoMotorSimplified.extvar
+  LoadAlphaBetaTwoMotorSimplified_INIT.mo
+  LoadAuxiliaries_INIT.mo
+  LoadConnect_INIT.mo
+  LoadPF_INIT.mo
   LoadPQ.mo
   LoadPQ.extvar
   LoadZIP.mo
   LoadZIP.extvar
-  Load_INIT.mo
-  LoadConnect_INIT.mo
-  LoadAuxiliaries_INIT.mo
   SwitchOffLoad.extvar
   )
 
@@ -43,3 +59,4 @@ set(MODEL_FILES
 foreach(MODEL_FILE ${MODEL_FILES})
   install_model_file(${MODEL_FILE})
 endforeach(MODEL_FILE)
+

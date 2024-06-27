@@ -11,6 +11,7 @@ distributions/
 nrt/data/**/outputs*/
 examples/**/outputs*/
 nrt/data/*/*/execution/
+nrt/data/SIMOrder1Prediction/compilation/
 dynawo/sources/Models/CPP/ModelNetwork/DYNModelNetwork.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
@@ -82,7 +83,8 @@ curvesOutput
 *.pyc
 *.toc
 *.zip
-!**/reference/
+!**/reference/**
+nrt/data/TrapezoidalTest/reference/**
 !documentation/resources/exampleErrors/dynawoBadType.log
 !documentation/resources/exampleErrors/dynawoMissingConnection.log
 !documentation/resources/exampleErrors/dynawoParameterNotFound.log

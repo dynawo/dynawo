@@ -28,7 +28,6 @@
   <curve model="NETWORK" variable="Load2_zP"/>
   <curve model="NETWORK" variable="Load2_zQ"/>
   <curve model="NETWORK" variable="Load2_DeltaPc"/>
-  <curve model="NETWORK" variable="Load2_DeltaQc"/>
   <curve model="NETWORK" variable="line1_P1"/>
   <curve model="NETWORK" variable="line1_Q1"/>
   <curve model="NETWORK" variable="line1_P2"/>

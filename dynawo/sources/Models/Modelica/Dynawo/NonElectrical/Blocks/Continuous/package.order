@@ -24,6 +24,7 @@ RampTrackingFilter
 RateLimFirstOrderFreeze
 SecondOrder
 SqrtNoEvent
+TransferFunction
 VarLimPIDFreeze
 Washout
 WeightedDifference

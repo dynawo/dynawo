@@ -191,4 +191,9 @@ NetworkComponent::getStartingPointMode(const std::string& startingPointMode) {
   }
 }
 
+void
+NetworkComponent::printInternalParameters(std::ofstream& /*fstream*/) const {
+  // not needed
+}
+
 }  // namespace DYN

@@ -21,6 +21,24 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="300"/>
     <dyn:outputs directory="outputs">
+      <dyn:timeline exportMode="TXT"/>
+      <dyn:curves inputFile="Shunt.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+  <dyn:job name="Shunt with default">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
+    <dyn:modeler compileDir="outputsDefault/compilation">
+      <dyn:network iidmFile="Shunt.iidm" parFile="Shunt.par" parId="6"/>
+      <dyn:dynModels dydFile="ShuntWithDefault.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="300"/>
+    <dyn:outputs directory="outputsDefault">
+      <dyn:timeline exportMode="TXT"/>
       <dyn:curves inputFile="Shunt.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>

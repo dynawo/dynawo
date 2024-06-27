@@ -28,8 +28,8 @@ model AcRotatingExciter_INIT "Rotating exciter initialization model for IEEE reg
   parameter Real UHigh = 0.75 "Upper limit of non-linear mode";
   parameter Real ULow = sqrt(3) / 4 "Lower limit of non-linear mode";
 
-  final parameter Real A1 = (1 - sqrt(UHigh - ULow ^ 2)) / ULow "Characteristic coefficient of first linear mode";
-  final parameter Real A2 = sqrt(UHigh / (1 - UHigh)) "Characteristic coefficient of second linear mode";
+  final parameter Real A1 = if ULow == 0 then 0 else (1 - sqrt(UHigh - ULow ^ 2)) / ULow "Characteristic coefficient of first linear mode";
+  final parameter Real A2 = if UHigh == 1 then 0 else sqrt(UHigh / (1 - UHigh)) "Characteristic coefficient of second linear mode";
 
   Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
   Types.VoltageModulePu Efe0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";

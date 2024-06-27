@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 model IEEEX2 "IEEE excitation system type 2 model"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseIEEEX;
 
-  //Regulation parameters
+  //Regulation parameter
   parameter Types.Time tF2 "Feedback lag time constant in s";
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tF2, y_start = Va0Pu) annotation(

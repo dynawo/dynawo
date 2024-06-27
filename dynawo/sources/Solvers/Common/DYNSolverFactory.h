@@ -45,7 +45,7 @@ class SolverFactory {
   /**
    * @brief Destructor
    */
-  virtual ~SolverFactory() = default;
+  virtual ~SolverFactory();
 
   /**
    * @brief create a new instance of a solver
@@ -84,6 +84,11 @@ typedef void deleteSolverFactory_t(SolverFactory*);
  */
 class SolverFactories : private boost::noncopyable {
  public:
+  /**
+   * @brief Constructor
+   */
+  SolverFactories();
+
   /**
    * @brief destructor
    */

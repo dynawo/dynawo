@@ -70,6 +70,74 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 
 \section{Changes from previous versions}
 
+\subsection{Changes from v1.6.0}
+
+\underline{new testcases:}
+
+\begin{itemize}
+\item Modelica: IEEE 30 Bus System
+\item Modelica: IEEE 118 bus system
+\item Modelica: PhaseShifterPSign
+\item Modelica: generator and IEEE14 DynaFlow Modelica testcase
+\item Dynawo: Nordic Test System
+\end{itemize}
+
+\underline{Models:}
+
+\begin{itemize}
+\item Improved Modelica library and examples for usage in external tools
+\item Harmonize C++ and Modelica table parameters and variables: table indexes now always start at 0
+\item Add versioning in Dynawo Modelica library
+\item Add the possibility to modify grid protection parameters of IEC WT model
+\item Add a ramp blackbox model
+\item New Modelica block combining rate limiter and limited first order
+\item VRRemote model does not regulate voltage with a hvdc not regulating (moduU1/2 =false)
+\item Update the IEC and WECC models to use the noEvent keyword
+\item Add a parameter to SwitchOff model to allow elements to be initially disconnected
+\item Add simple protection blackboxes and Modelica models: DistanceProtectionLineFourZones, DistanceProtectionLineFourZonesWithBlinder, DistanceProtectionLineTwoZones, DistanceProtectionLineTwoZonesWithBlinder, LossOfSynchronismProtection, LVRT4Points, LVRT10Points, SpeedProtection, UFLS3Steps, UFLS10Steps
+\item Improvement of HVDC standard model: refactorization and addition of limitation function and PI anti windup with input
+\item Add MachineInfiniteBus Modelica models
+\item State signals are now integers
+\item Change DiscretePI model to purely integrator
+\item RVS package
+\item HVDC with Rpcl2 and synchronous compensator for DynaFlow
+\item GenericAutomaton: added discrete outputs
+\end{itemize}
+
+\underline{Support of Modelica:}
+
+\begin{itemize}
+\item Fixed delay keyword implementation to be complient with IDA solver
+\item Added the support of noEvent keyword
+\end{itemize}
+
+\underline{Inputs/Outputs:}
+
+\begin{itemize}
+\item Par file: Added the possibility to use the same value of another parameter in the same set or another one
+\item create possibility to dump all values of all variables at the end of the compilation (dumpFinalValues)
+\item fixed non determinism in lostEquipment output file
+\item Improve the error message when the network parameters are not found but required
+\item when a hvdc is disconnected, dump no value of p,q in output iidm (used to dump p=q=0)
+\item Stops the simulation with an error if one of the discrete variables is a NaN
+\item Added a new system to migrate existing dynawo project to the latest version. See https://github.com/dynawo/dynawo/tree/master/util/updateXML/content to know more
+\end{itemize}
+
+\underline{3rd party:}
+
+\begin{itemize}
+\item Use Sundials 6.3.0 and SuiteSparse 5.10.1
+\end{itemize}
+
+\underline{Bug fixes:}
+
+\begin{itemize}
+\item OmegaRef model was reading inputs values from iidm instead of using initialState when provided, sometimes leading to wrong variables values
+\item Solver: Fix differential and algebraic indices when equation change type
+\item NodeFault now working with a nodeBreaker topology
+\item Open network components when neighbord bus are disconnected
+\end{itemize}
+
 \subsection{Changes from v1.5.0}
 
 \underline{Models:}

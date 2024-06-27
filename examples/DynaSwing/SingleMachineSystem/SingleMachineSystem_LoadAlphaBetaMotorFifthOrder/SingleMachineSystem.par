@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Network">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+    <par type="BOOL" name="NHV2_hasShortCircuitCapabilities" value="true"/>
+  </set>
+  <set id="LOAD">
+    <par type="DOUBLE" name="load_Alpha" value="2"/>
+    <par type="DOUBLE" name="load_Beta" value="2"/>
+    <par type="DOUBLE" name="load_ActiveMotorShare_0_" value="0.2"/>
+    <par type="DOUBLE" name="load_RsPu_0_" value="0.04"/>
+    <par type="DOUBLE" name="load_LsPu_0_" value="1.8"/>
+    <par type="DOUBLE" name="load_LPPu_0_" value="0.12"/>
+    <par type="DOUBLE" name="load_LPPPu_0_" value="0.104"/>
+    <par type="DOUBLE" name="load_tP0_0_" value="0.095"/>
+    <par type="DOUBLE" name="load_tPP0_0_" value="0.0021"/>
+    <par type="DOUBLE" name="load_H_0_" value="0.1"/>
+    <par type="DOUBLE" name="load_torqueExponent_0_" value="0"/>
+    <par type="DOUBLE" name="load_Utrip1Pu_0_" value="0.65"/>
+    <par type="DOUBLE" name="load_tTrip1Pu_0_" value="0.1"/>
+    <par type="DOUBLE" name="load_shareTrip1Pu_0_" value="0.2"/>
+    <par type="DOUBLE" name="load_Ureconnect1Pu_0_" value="0.1"/>
+    <par type="DOUBLE" name="load_tReconnect1Pu_0_" value="9999"/>
+    <par type="DOUBLE" name="load_Utrip2Pu_0_" value="0.5"/>
+    <par type="DOUBLE" name="load_tTrip2Pu_0_" value="0.02"/>
+    <par type="DOUBLE" name="load_shareTrip2Pu_0_" value="0.75"/>
+    <par type="DOUBLE" name="load_Ureconnect2Pu_0_" value="0.65"/>
+    <par type="DOUBLE" name="load_tReconnect2Pu_0_" value="0.1"/>
+    <par type="DOUBLE" name="load_ActiveMotorShare_1_" value="0.2"/>
+    <par type="DOUBLE" name="load_RsPu_1_" value="0.03"/>
+    <par type="DOUBLE" name="load_LsPu_1_" value="1.8"/>
+    <par type="DOUBLE" name="load_LPPu_1_" value="0.19"/>
+    <par type="DOUBLE" name="load_LPPPu_1_" value="0.14"/>
+    <par type="DOUBLE" name="load_tP0_1_" value="0.2"/>
+    <par type="DOUBLE" name="load_tPP0_1_" value="0.0026"/>
+    <par type="DOUBLE" name="load_H_1_" value="0.5"/>
+    <par type="DOUBLE" name="load_torqueExponent_1_" value="2"/>
+    <par type="DOUBLE" name="load_Utrip1Pu_1_" value="0.55"/>
+    <par type="DOUBLE" name="load_tTrip1Pu_1_" value="0.02"/>
+    <par type="DOUBLE" name="load_shareTrip1Pu_1_" value="0.3"/>
+    <par type="DOUBLE" name="load_Ureconnect1Pu_1_" value="0.65"/>
+    <par type="DOUBLE" name="load_tReconnect1Pu_1_" value="0.05"/>
+    <par type="DOUBLE" name="load_Utrip2Pu_1_" value="0.5"/>
+    <par type="DOUBLE" name="load_tTrip2Pu_1_" value="0.025"/>
+    <par type="DOUBLE" name="load_shareTrip2Pu_1_" value="0.3"/>
+    <par type="DOUBLE" name="load_Ureconnect2Pu_1_" value="0.60"/>
+    <par type="DOUBLE" name="load_tReconnect2Pu_1_" value="0.05"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="Generator1">
+    <par type="BOOL" name="generator_UseApproximation" value="false"/>
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.215"/>
+    <par type="DOUBLE" name="generator_mq" value="0.215"/>
+    <par type="DOUBLE" name="generator_nd" value="6.995"/>
+    <par type="DOUBLE" name="generator_nq" value="6.995"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="generator_DPu" value="0"/>
+    <par type="DOUBLE" name="generator_H" value="60.3"/>
+    <par type="DOUBLE" name="generator_RaPu" value="0.004"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.219"/>
+    <par type="DOUBLE" name="generator_XdPu" value="2.57"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.422"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.3"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="7.695"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.061"/>
+    <par type="DOUBLE" name="generator_XqPu" value="2.57"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.662"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.301"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="0.643"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.095"/>
+    <par type="DOUBLE" name="generator_UNom" value="24"/>
+    <par type="DOUBLE" name="generator_SNom" value="1150"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="1000"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="1100"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="1300"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="400"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="24"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="400"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="24"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0.0024"/>
+    <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
+    <par type="DOUBLE" name="voltageRegulator_LagEfdMax" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
+    <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+    <par type="DOUBLE" name="governor_PMin" value="0"/>
+    <par type="DOUBLE" name="governor_PMax" value="1000"/>
+    <par type="DOUBLE" name="governor_PNom" value="1000"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="omegaRefMin" value="0.95"/>
+    <par type="DOUBLE" name="omegaRefMax" value="1.05"/>
+    <par type="INT" name="nbGen" value="1"/>
+    <par type="DOUBLE" name="weight_gen_0" value="6539.4"/>
+  </set>
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_RPu" value="0.02"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.0001"/>
+    <par type="DOUBLE" name="fault_tBegin" value="1"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.1"/>
+  </set>
+  <set id="IDAOrder2">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.000001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+</parametersSet>

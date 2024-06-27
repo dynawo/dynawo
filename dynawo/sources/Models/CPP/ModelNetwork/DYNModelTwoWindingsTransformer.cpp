@@ -31,6 +31,9 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelTwoWindingsTransformer.h"
+
+#include <iomanip>
+
 #include "DYNCommon.h"
 #include "DYNModelRatioTapChanger.h"
 #include "DYNModelPhaseTapChanger.h"
@@ -1767,6 +1770,20 @@ ModelTwoWindingsTransformer::defineParameters(vector<ParameterModeler>& paramete
   parameters.push_back(ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+}
+
+void
+ModelTwoWindingsTransformer::printInternalParameters(std::ofstream& fstream) const {
+  std::string paramName = id() + "_" + "R";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getR() << std::endl;
+  paramName = id() + "_" + "X";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getX() << std::endl;
+  paramName = id() + "_" + "B";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getB() << std::endl;
+  paramName = id() + "_" + "G";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getG() << std::endl;
+  paramName = id() + "_" + "rho";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getRho() << std::endl;
 }
 
 }  // namespace DYN

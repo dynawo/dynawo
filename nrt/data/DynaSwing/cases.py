@@ -395,3 +395,23 @@ case_description = "Bolted three-phase short circuit at the high-level side of t
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "DynaSwing", "EntsoeTestCase3PlayBack", "TestCase3.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################
+#  Single machine system with electronic load #
+###############################################
+
+case_name = "DynaSwing - Single machine system with electronic load - Fault"
+case_description = "Single machine system with electronic load - Fault"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "SingleMachineSystem", "SingleMachineSystem_ElectronicLoad", "SingleMachineSystem.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#  Single machine system with fifth order motor load #
+######################################################
+
+case_name = "DynaSwing - Single machine system with fifth order motor load - Fault"
+case_description = "Single machine system with fifth order motor load - Fault"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "SingleMachineSystem", "SingleMachineSystem_LoadAlphaBetaMotorFifthOrder", "SingleMachineSystem.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

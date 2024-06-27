@@ -1448,4 +1448,11 @@ ModelNetwork::setGequations() {
   }
 }
 
+void
+ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
+  for (const auto& component : getComponents()) {
+    component->printInternalParameters(fstream);
+  }
+}
+
 }  // namespace DYN

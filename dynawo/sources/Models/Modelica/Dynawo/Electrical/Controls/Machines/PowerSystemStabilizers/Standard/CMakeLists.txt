@@ -23,8 +23,16 @@ set(MODEL_FILES
     PSS2A1.extvar
     Pss2a.mo
     Pss2a.extvar
+    Pss2b.mo
+    Pss2b.extvar
     Pss2c.mo
     Pss2c.extvar
+    Pss3b.mo
+    Pss3b.extvar
+    Pss3c.mo
+    Pss3c.extvar
+    Pss6c.mo
+    Pss6c.extvar
     PssIEEE2B.mo
     PssIEEE2B.extvar
     PssKundur.mo

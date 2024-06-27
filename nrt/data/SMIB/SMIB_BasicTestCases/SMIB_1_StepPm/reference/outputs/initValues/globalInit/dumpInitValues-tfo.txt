@@ -7,12 +7,14 @@ transformer_terminal1_i_im                        : y =      -0.961526 yp =     
 transformer_terminal1_i_re                        : y =     -22.178985 yp =       0.000000
 transformer_terminal2_i_im                        : y =       0.961526 yp =       0.000000
 transformer_terminal2_i_re                        : y =      22.178985 yp =       0.000000
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 transformer_P1Pu                                  : y =     -19.979052
 transformer_P2Pu                                  : y =      19.979052
 transformer_Q1Pu                                  : y =      -6.352388
 transformer_Q2Pu                                  : y =       9.679003
- ====== INIT DISCRETE VARIABLES VALUES ======
+transformer_U1Pu                                  : y =       0.944360
+transformer_U2Pu                                  : y =       1.000014
+ ====== DISCRETE VARIABLES VALUES ======
 transformer_running_value                         : z =       1.000000
 transformer_switchOffSignal1_value                : z =      -1.000000
 transformer_switchOffSignal2_value                : z =      -1.000000

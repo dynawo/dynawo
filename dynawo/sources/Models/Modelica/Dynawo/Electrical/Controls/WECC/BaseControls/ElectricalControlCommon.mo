@@ -65,7 +65,7 @@ partial model ElectricalControlCommon "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {280, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {180, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(Ti = Kqp / Kqi, K = Kqp, Xi0 = UInj0Pu / Kvp, YMax = VMaxPu, YMin = VMinPu, Y0 = UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(Ti = Kqp / Kqi, K = Kqp, Xi0 = UInj0Pu / Kqp, YMax = VMaxPu, YMin = VMinPu, Y0 = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = UMinPu, UMaxPu = UMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

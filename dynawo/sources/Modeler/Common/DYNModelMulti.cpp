@@ -350,6 +350,12 @@ ModelMulti::printModelValues(const string& directory, const string& dumpFileName
 }
 
 void
+ModelMulti::printInitModelValues(const string& directory, const string& dumpFileName) {
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->printInitModelValues(directory, dumpFileName);
+}
+
+void
 ModelMulti::copyContinuousVariables(const double* y, const double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
   std::copy(yp, yp + sizeY(), ypLocal_);
@@ -1150,10 +1156,10 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::variables()) << "X variables";
   if (withVariableType)
-    Trace::debug(Trace::variables()) << " (with initial type)";
-  Trace::debug(Trace::variables()) << Trace::endline;
+    Trace::debug(Trace::variables()) << "X variables (with initial type)" << Trace::endline;
+  else
+    Trace::debug(Trace::variables()) << "X variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   const std::vector<propertyContinuousVar_t>& modelYType = getYType();
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {

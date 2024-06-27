@@ -125,6 +125,14 @@ equation
   end when;
 end DYNSolverTestSilentZNotUsedInContinuous2;
 
+// DYNSolverTestPrediction
+// Test prediction
+model DYNSolverTestPrediction
+  Real y (start = 1);
+equation
+  der(y) = -y;
+end DYNSolverTestPrediction;
+
 connector ZPin "connector for propagating discrete values (and events)"
   public
     discrete Real value;

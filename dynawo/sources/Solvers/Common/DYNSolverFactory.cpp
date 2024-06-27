@@ -31,6 +31,8 @@ namespace DYN {
  */
 typedef SolverFactory* getFactory_t();
 
+SolverFactories::SolverFactories() {}
+
 SolverFactories::~SolverFactories() {
   SolverFactoryIterator iter = factoryMap_.begin();
   for (; iter != factoryMap_.end(); ++iter) {
@@ -61,6 +63,8 @@ SolverFactories::add(const std::string& lib, SolverFactory* factory) {
 void SolverFactories::add(const std::string& lib, const boost::function<deleteSolverFactory_t>& deleteFactory) {
   factoryMapDelete_.insert(std::make_pair(lib, deleteFactory));
 }
+
+SolverFactory::~SolverFactory() {}
 
 boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
   SolverFactories::SolverFactoryIterator iter = SolverFactories::getInstance().find(lib);

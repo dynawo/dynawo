@@ -82,6 +82,12 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   virtual void computePrediction() = 0;
 
   /**
+  * @brief the solver uses a prediction-correction scheme
+  * @return the solver has a prediction scheme
+  */
+  virtual bool hasPrediction() const = 0;
+
+  /**
    * @brief Common part of the function init. Used to factorize.
    *
    * @param model model associated to the solver
@@ -94,12 +100,12 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
    */
-  void defineSpecificParameters();
+  void defineSpecificParametersCommon();
 
   /**
    * @copydoc Solver::Impl::setSolverSpecificParameters()
    */
-  void setSolverSpecificParameters();
+  void setSolverSpecificParametersCommon();
 
   /**
    * @copydoc Solver::reinit()
@@ -124,7 +130,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @brief save the initial values of y before the time step
    */
-  void saveContinuousVariables();
+  virtual void saveContinuousVariables() = 0;
 
   /**
    * @brief increment the counter of NR tries and stop the simulation if it is higher than a threshold
@@ -171,7 +177,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @brief restore y to their initial values
    */
-  void restoreContinuousVariables();
+  virtual void restoreContinuousVariables() = 0;
 
   /**
    * @brief update the solver attributes and strategy following a convergence
@@ -226,9 +232,17 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   */
   void setDifferentialVariablesIndices();
 
+  /**
+   * @brief call the algebraic solver to find the solution of f(x) = 0
+   *
+   * @return the flag associated to the call to the algebraic solver
+   */
+  SolverKINAlgRestoration& getSolverKINYPrim() { assert(!(!solverKINYPrim_)); assert(hasPrediction()); return *solverKINYPrim_; }
+
  protected:
   boost::shared_ptr<SolverKINEuler> solverKINEuler_;  ///< Backward Euler solver
   boost::shared_ptr<SolverKINAlgRestoration> solverKINAlgRestoration_;  ///< Newton Raphson solver for the algebraic variables restoration
+  boost::shared_ptr<SolverKINAlgRestoration> solverKINYPrim_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
 
   // Generic and alterable parameters
   double hMin_;  ///< minimum time-step
@@ -245,7 +259,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
 
   // Parameters for the algebraic resolution at each time step
   double fnormtol_;  ///< stopping tolerance on L2-norm of residual function
-  double initialaddtol_;  ///< stopping tolerance at initialization of residual function
+  double initialaddtol_;  ///< at the first newton iteration tol = initialaddtol_ * fnormtol_
   double scsteptol_;  ///< scaled step length tolerance
   double mxnewtstep_;  ///< maximum allowable scaled step length
   int msbset_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
@@ -254,7 +268,8 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
 
   bool skipNextNR_;  ///< indicates if the next algebraic resolution could be skipped
 
-  std::vector<double> ySave_;  ///< values of state variables before step
+  std::vector<double> vectorYSave_;  ///< values of state variables before step
+  std::vector<double> vectorYpSave_;  ///< values of previous derivative functions evaluated
   std::vector<int> differentialVariablesIndices_;  ///< index of each differential variables
   bool skipAlgebraicResidualsEvaluation_;  ///< flag used to skip algebraic residuals evaluation after a convergence or a mode
   bool optimizeAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals

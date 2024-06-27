@@ -51,7 +51,7 @@ class ModelTemplate : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~ModelTemplate() = default;
+  virtual ~ModelTemplate();
 
   /**
    * @brief Set compilation options

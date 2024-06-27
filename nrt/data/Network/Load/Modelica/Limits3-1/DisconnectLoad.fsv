@@ -14,15 +14,10 @@
 <finalStateValuesInput xmlns="http://www.rte-france.com/dynawo">
   <finalStateValue model="Generator" variable="generator_UPu"/>
   <finalStateValue model="Generator" variable="generator_PGen"/>
-  <finalStateValue model="Generator" variable="generator_QGen"/>
   <finalStateValue model="Generator" variable="generator_PGenPu"/>
   <finalStateValue model="Generator" variable="generator_QGenPu"/>
-  <finalStateValue model="NETWORK" variable="Load_P"/>
-  <finalStateValue model="NETWORK" variable="Load_Q"/>
   <finalStateValue model="NETWORK" variable="Load2_P"/>
   <finalStateValue model="NETWORK" variable="Load2_Q"/>
-  <finalStateValue model="NETWORK" variable="Load2_zP"/>
-  <finalStateValue model="NETWORK" variable="Load2_zQ"/>
   <finalStateValue model="NETWORK" variable="line1_P1"/>
   <finalStateValue model="NETWORK" variable="line1_Q1"/>
   <finalStateValue model="NETWORK" variable="line1_P2"/>

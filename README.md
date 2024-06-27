@@ -85,13 +85,13 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 ## Getting started!
 
 To get started with Dyna&omega;o you have different possibilities, depending on your background and what you want to do:
-- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.5.0/Dynawo_Modelica_library_v1.5.0.zip) in OpenModelica for example.
+- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.6.0/Dynawo_Modelica_library_v1.6.0.zip) in OpenModelica for example.
 - If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution) and the examples directory.
 - If you want to checkout the repository and build it yourself to be able to modify the tool, please follow the build instructions available [here](#build)
 
-**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.5.0/Dynawo_Modelica_library_v1.5.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
+**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.6.0/Dynawo_Modelica_library_v1.6.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
 
-**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.5.0/DynawoDocumentation.zip).**
+**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.6.0/DynawoDocumentation.zip).**
 
 <a name="installation"></a>
 ## Installation
@@ -99,8 +99,8 @@ To get started with Dyna&omega;o you have different possibilities, depending on 
 ### Dyna&omega;o Distribution
 
 You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **Windows**:
-- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.5.0/Dynawo_Linux_v1.5.0.zip)
-- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.5.0/Dynawo_Windows_v1.5.0.zip)
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.6.0/Dynawo_Linux_v1.6.0.zip)
+- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.6.0/Dynawo_Windows_v1.6.0.zip)
 
 If you are on **MacOS** you can use [Docker](#docker).
 
@@ -384,7 +384,7 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 ## Dyna&omega;o Documentation
 You can download Dyna&omega;o documentation here :
 - [Nightly version](https://github.com/dynawo/dynawo/releases/download/nightly/DynawoDocumentation.pdf)
-- [Release version](https://github.com/dynawo/dynawo/releases/download/v1.5.0/DynawoDocumentation.zip)
+- [Release version](https://github.com/dynawo/dynawo/releases/download/v1.6.0/DynawoDocumentation.zip)
 
 <a name="doxygen"></a>
 ### Doxygen
@@ -410,7 +410,7 @@ Dyna&omega;o is using some external libraries to run simulations:
 * [Adept](http://www.met.reading.ac.uk/clouds/adept/), an automatic differentiation library that has been developed and maintained at the University of Reading by R.J. Hogan distributed under Apache-2.0. It is the version 2.1.1 that is integrated into Dyna&omega;o.
 * [Xerces-C++](http://xerces.apache.org/xerces-c/) a validating XML parser written in a portable subset of C++ and distributed under the Apache Software License, Version 2.0. The current version used is 3.2.2.
 * [Libxml2](http://xmlsoft.org/), a XML C parser and toolkit distributed under the MIT License. The current version used is 2.9.4.
-* [PowSyBl - iidm4cpp](https://www.powsybl.org/pages/documentation/developer/repositories/powsybl-iidm4cpp.html), a C++ implementation of the IIDM grid model and distributed under the MPL License, Version 2.0. The current version used is 1.4.0.
+* [PowSyBl - iidm4cpp](https://www.powsybl.org/pages/documentation/developer/repositories/powsybl-iidm4cpp.html), a C++ implementation of the IIDM grid model and distributed under the MPL License, Version 2.0. The current version used is 1.5.0.
 * [jQuery](https://jquery.com/) that is distributed into Dyna&omega;o to display results into a minimalistic GUI after the simulation. The current version used is the 1.3.4 distributed under both a MIT and a GPL license.
 * [cpplint](https://github.com/google/styleguide/tree/gh-pages/cpplint), a tool used during Dyna&omega;o compilation process to ensure that the C++ files follow the Google's C++ style. It is distributed under a CC-By 3.0 License.
 

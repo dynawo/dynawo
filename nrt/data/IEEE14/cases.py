@@ -214,6 +214,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE1
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
+#   IEEE14 - PhaseShifterP (Modelica)   #
+#########################################
+
+case_name = "IEEE14 - Phase Shifter P (Modelica)"
+case_description = "IEEE14 with a phase shifter P monitoring bus5-bus6 transformer's active power (Modelica)"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_PhaseShifterP_Modelica", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
 #           IEEE14 - CLA                #
 #########################################
 
@@ -230,6 +240,16 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 case_name = "IEEE14 - Tap Changer (Modelica)"
 case_description = "IEEE14 with load 3 behind a transformer with a tap changer"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_TapChanger", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#    IEEE14 - Tap Changer (Modelica 2)  #
+#########################################
+
+case_name = "IEEE14 - Tap Changer (Modelica 2)"
+case_description = "IEEE14 with a tap changer on transformer 5-6 (Modelica)"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_TapChanger_Modelica", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 

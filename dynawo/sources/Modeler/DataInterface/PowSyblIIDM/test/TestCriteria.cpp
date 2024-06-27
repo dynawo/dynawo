@@ -1008,7 +1008,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     loadPowersLists.insert({TestCriteriaBound::MAX, maxLoadPowers});
     loadPowersLists.insert({TestCriteriaBound::MIN, minLoadPowers});
 
-    for (const std::pair<TestCriteriaBound, std::vector<double> >& loadPowers : loadPowersLists) {
+    for (const auto& loadPowers : loadPowersLists) {
       boost::shared_ptr<powsybl::iidm::Network> loadNetwork = createNetworkWithCustomisableNumberOfLoadsAndGenerators(400, 400, loadPowers.second);
       boost::shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(loadNetwork);
       exportStates(data);

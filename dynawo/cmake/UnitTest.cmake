@@ -20,9 +20,9 @@ else()
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
 endif()
 
-function(add_test test-target)
-  add_dependencies(tests ${test-target})
+function(add_test_run test-target)
+  add_dependencies(tests-run ${test-target})
 endfunction()
 
-add_custom_target(tests
+add_custom_target(tests-run
   COMMENT "launch each unit test")

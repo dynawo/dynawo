@@ -62,11 +62,11 @@ add_custom_target(${MODULE_NAME}-pre-tests
   )
 
 if(BUILD_TESTS_COVERAGE)
-  set(EXTRACT_PATTERNS "'*/sources/Solvers/SolverSIM/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Solvers/FixedTimeStep/SolverTRAP/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
 if(BUILD_TESTS)
-  add_test(${MODULE_NAME}-tests)
+  add_test_run(${MODULE_NAME}-tests)
 endif()

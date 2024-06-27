@@ -72,6 +72,16 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   void init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
+   * @copydoc Solver::Impl::defineSpecificParameters()
+   */
+  void defineSpecificParameters();
+
+  /**
+   * @copydoc Solver::Impl::setSolverSpecificParameters()
+   */
+  void setSolverSpecificParameters();
+
+  /**
    * @copydoc Solver::calculateIC()
   */
   void calculateIC(double tEnd);
@@ -90,7 +100,12 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   * @brief TRAP version of computePrediction. We just compute the
   * first Yp.
   */
-  void computePrediction();
+  void computePrediction() {}
+
+  /**
+  * @copydoc SolverCommonFixedTimeStep::hasPrediction()
+  */
+  bool hasPrediction() const { return false; }
 
   /**
   * @brief name of the solver
@@ -114,9 +129,18 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
    */
   void solveStep(double tAim, double &tNxt);
 
+  /**
+  * @copydoc SolverCommonFixedTimeStep::saveContinuousVariables()
+  */
+  void saveContinuousVariables();
+
+  /**
+  * @copydoc SolverCommonFixedTimeStep::restoreContinuousVariables()
+  */
+  void restoreContinuousVariables();
+
  private:
-  boost::shared_ptr<SolverKINAlgRestoration> solverKINYPrim_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
-  std::vector<double> velocitySave_;  ///< values of previous derivative functions evaluated
+  boost::shared_ptr<SolverKINAlgRestoration> solverKINYPrimInit_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
 };
 
 }  // end of namespace DYN

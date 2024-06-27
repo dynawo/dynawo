@@ -63,6 +63,13 @@ if (NOT LCOV_PATH)
   message(FATAL_ERROR "lcov not found")
 endif()
 
+function(add_test_coverage_common test-target)
+  add_custom_target(${test-target}-coverage
+    COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE}
+    DEPENDS ${test-target}-launch)
+  add_dependencies(tests-coverage-run ${test-target}-launch)
+endfunction()
+
 function(add_test_coverage test-target extract_patterns)
    ## report generation for test
    add_custom_target(${test-target}-launch
@@ -70,20 +77,28 @@ function(add_test_coverage test-target extract_patterns)
      COMMAND ${LCOV_PATH} --extract ${LCOV_OUTPUT_FILE}.${test-target} ${extract_patterns} --output-file ${LCOV_OUTPUT_FILE}.${test-target}.filtered
      COMMAND cat ${LCOV_OUTPUT_FILE}.${test-target}.filtered >> ${LCOV_OUTPUT_FILE}
      DEPENDS ${test-target})
-   add_custom_target(${test-target}-coverage
-     COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE}
-     DEPENDS ${test-target}-launch)
-   add_dependencies(tests-coverage ${test-target}-launch)
+   add_test_coverage_common(${test-target})
 endfunction()
 
+# Special function to handle solver fixed time step case with two directories added to the coverage
+function(add_test_coverage_two_directories test-target extract_patterns)
+  ## report generation for test
+  add_custom_target(${test-target}-launch
+    COMMAND ${LCOV_PATH} --directory ${CMAKE_CURRENT_BINARY_DIR}/../ --gcov-tool ${GCOV_TOOL} --capture --output-file ${LCOV_OUTPUT_FILE}.${test-target}
+    COMMAND ${LCOV_PATH} --directory ${CMAKE_CURRENT_BINARY_DIR}/../../ --gcov-tool ${GCOV_TOOL} --capture --output-file ${LCOV_OUTPUT_FILE}.${test-target}
+    COMMAND ${LCOV_PATH} --extract ${LCOV_OUTPUT_FILE}.${test-target} ${extract_patterns} --output-file ${LCOV_OUTPUT_FILE}.${test-target}.filtered
+    COMMAND cat ${LCOV_OUTPUT_FILE}.${test-target}.filtered >> ${LCOV_OUTPUT_FILE}
+    DEPENDS ${test-target})
+  add_test_coverage_common(${test-target})
+endfunction()
 
 add_custom_target(reset-coverage
   COMMAND ${LCOV_PATH} --directory ${CMAKE_BINARY_DIR} --zerocounters
   COMMAND rm -f ${LCOV_OUTPUT_FILE}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${GENHTML_OUTPUT_DIR})
 
-add_custom_target(tests-coverage
-  COMMENT "launch each unit test")
+add_custom_target(tests-coverage-run
+  COMMENT "launch each unit test for coverage")
 
 add_custom_target(export-coverage
   COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE} )

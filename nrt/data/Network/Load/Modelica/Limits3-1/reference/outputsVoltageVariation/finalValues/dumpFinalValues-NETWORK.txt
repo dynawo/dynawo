@@ -1,22 +1,22 @@
  ====== VARIABLES VALUES ======
 VL1_BUS1_ACPIN_V_re                               : y =       1.000000 yp =       0.000000
 VL1_BUS1_ACPIN_V_im                               : y =       0.000000 yp =       0.000000
-VL1_BUS1_ACPIN_i_re                               : y =      -0.206084 yp =       0.000000
-VL1_BUS1_ACPIN_i_im                               : y =       0.226763 yp =       0.000000
-VL2_BUS1_ACPIN_V_re                               : y =       1.494743 yp =       0.000000
-VL2_BUS1_ACPIN_V_im                               : y =       0.366815 yp =       0.000000
-VL2_BUS1_ACPIN_i_re                               : y =       0.240731 yp =       0.000000
-VL2_BUS1_ACPIN_i_im                               : y =      -0.231641 yp =       0.000000
+VL1_BUS1_ACPIN_i_re                               : y =      -0.202799 yp =       0.000000
+VL1_BUS1_ACPIN_i_im                               : y =       0.227301 yp =       0.000000
+VL2_BUS1_ACPIN_V_re                               : y =       1.495162 yp =       0.000000
+VL2_BUS1_ACPIN_V_im                               : y =       0.360138 yp =       0.000000
+VL2_BUS1_ACPIN_i_re                               : y =       0.237453 yp =       0.000000
+VL2_BUS1_ACPIN_i_im                               : y =      -0.232329 yp =       0.000000
 Load2_DeltaPc_value                               : y =       1.000000 yp =       0.000000
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 VL1_BUS1_Upu_value                                : y =       1.000000
 VL1_BUS1_phipu_value                              : y =       0.000000
 VL1_BUS1_U_value                                  : y =       1.000000
 VL1_BUS1_phi_value                                : y =       0.000000
-VL2_BUS1_Upu_value                                : y =       1.539094
-VL2_BUS1_phipu_value                              : y =       0.240648
-VL2_BUS1_U_value                                  : y =       1.539094
-VL2_BUS1_phi_value                                : y =      13.788099
+VL2_BUS1_Upu_value                                : y =       1.537923
+VL2_BUS1_phipu_value                              : y =       0.236366
+VL2_BUS1_U_value                                  : y =       1.537923
+VL2_BUS1_phi_value                                : y =      13.542783
 Load2_P_value                                     : y =       0.000000
 Load2_Q_value                                     : y =       0.000000
 Load2_Pc_value                                    : y =       0.000000
@@ -27,22 +27,22 @@ Load3_Q_value                                     : y =       0.020000
 Load3_Pc_value                                    : y =       0.050000
 Load3_Qc_value                                    : y =       0.020000
 Load3_loadState_value                             : y =       2.000000
-line1_i1_value                                    : y =       0.306418
-line1_i2_value                                    : y =       0.306418
-line1_P1_value                                    : y =      -0.206084
-line1_P2_value                                    : y =       0.224862
-line1_Q1_value                                    : y =      -0.226763
-line1_Q2_value                                    : y =       0.414548
-line1_iS1ToS2Side1_value                          : y =  -17691.065222
-line1_iS2ToS1Side1_value                          : y =   17691.065222
-line1_iS1ToS2Side2_value                          : y =  -17691.065222
-line1_iS2ToS1Side2_value                          : y =   17691.065222
-line1_iSide1_value                                : y =   17691.065222
-line1_iSide2_value                                : y =   17691.065222
+line1_i1_value                                    : y =       0.304620
+line1_i2_value                                    : y =       0.304620
+line1_P1_value                                    : y =      -0.202799
+line1_P2_value                                    : y =       0.221358
+line1_Q1_value                                    : y =      -0.227301
+line1_Q2_value                                    : y =       0.412888
+line1_iS1ToS2Side1_value                          : y =  -17587.231369
+line1_iS2ToS1Side1_value                          : y =   17587.231369
+line1_iS1ToS2Side2_value                          : y =  -17587.231369
+line1_iS2ToS1Side2_value                          : y =   17587.231369
+line1_iSide1_value                                : y =   17587.231369
+line1_iSide2_value                                : y =   17587.231369
 line1_U1_value                                    : y =       1.000000
-line1_U2_value                                    : y =       1.539094
+line1_U2_value                                    : y =       1.537923
 line1_lineState_value                             : y =       2.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 VL1_BUS1_numcc_value                              : z =       0.000000
 VL1_BUS1_switchOff_value                          : z =      -1.000000
 VL1_BUS1_state_value                              : z =       2.000000

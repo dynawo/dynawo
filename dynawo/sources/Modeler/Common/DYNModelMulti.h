@@ -301,6 +301,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printModelValues(const std::string& directory, const std::string& dumpFileName);
 
   /**
+   * @copydoc Model::printInitModelValues(const std::string & directory, const std::string& dumpFileName)
+   */
+  void printInitModelValues(const std::string& directory, const std::string& dumpFileName);
+
+  /**
    * @copydoc Model::evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp,const std::vector<double>& z)
    */
   void evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z);

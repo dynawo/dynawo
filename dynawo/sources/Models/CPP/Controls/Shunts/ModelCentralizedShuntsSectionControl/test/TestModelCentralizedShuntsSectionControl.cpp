@@ -91,12 +91,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   ASSERT_NO_THROW(modelShunt->setSubModelParameters());
   std::vector<boost::shared_ptr<Variable> > variables;
   modelShunt->defineVariables(variables);
-  ASSERT_EQ(variables.size(), 3);
+  ASSERT_EQ(variables.size(), 4);
   std::vector<Element> elements;
   std::map<std::string, int> mapElements;
   modelShunt->defineElements(elements, mapElements);
   ASSERT_EQ(elements.size(), mapElements.size());
-  ASSERT_EQ(elements.size(), 6);
+  ASSERT_EQ(elements.size(), 8);
 
   boost::shared_ptr<SubModel> modelShunt_missingPar =
   SubModelFactory::createSubModelFromLib("../DYNModelCentralizedShuntsSectionControl" + std::string(sharedLibraryExtension()));
@@ -118,7 +118,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     boost::shared_ptr<SubModel> modelShunt = initModelShunt(nbShunts);
     unsigned nbY = 1;
     unsigned nbF = 0;
-    unsigned nbZ = nbShunts + 1;
+    unsigned nbZ = 2*nbShunts + 1;
     unsigned nbG = 4;
     unsigned nbMode = 0;
     std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -325,5 +325,66 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(gSelf[3], ROOT_UP);
     ASSERT_NO_THROW(modelShuntSelf->evalZ(20));
     ASSERT_EQ(zSelf[1], 1);
+  }
+
+
+
+  TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControlContinuousAndDiscreteMethodsDisabledShunt) {
+    // isSelf = false
+    int nbShunts = 2;
+    boost::shared_ptr<SubModel> modelShuntCond = initModelShunt(nbShunts, 1);
+    std::vector<double> y(modelShuntCond->sizeY(), 0);
+    std::vector<double> yp(modelShuntCond->sizeY(), 0);
+    modelShuntCond->setBufferY(&y[0], &yp[0], 0.);
+    std::vector<double> z(modelShuntCond->sizeZ(), 0);
+    bool* zConnected = new bool[modelShuntCond->sizeZ()];
+    for (size_t i = 0; i < modelShuntCond->sizeZ(); ++i)
+      zConnected[i] = true;
+    modelShuntCond->setBufferZ(&z[0], zConnected, 0);
+    BitMask* silentZ = new BitMask[modelShuntCond->sizeZ()];
+    ASSERT_NO_THROW(modelShuntCond->init(0));
+    ASSERT_NO_THROW(modelShuntCond->getY0());
+    ASSERT_NO_THROW(modelShuntCond->setFequations());
+    ASSERT_NO_THROW(modelShuntCond->collectSilentZ(silentZ));
+    ASSERT_NO_THROW(modelShuntCond->evalF(0, UNDEFINED_EQ));
+    SparseMatrix smj;
+    ASSERT_NO_THROW(modelShuntCond->evalJt(0, 0, smj, 0));
+    ASSERT_NO_THROW(modelShuntCond->evalJtPrim(0, 0, smj, 0));
+    ASSERT_NO_THROW(modelShuntCond->evalMode(0));
+    ASSERT_NO_THROW(modelShuntCond->evalCalculatedVarI(0));
+    std::vector<int> indexes;
+    ASSERT_NO_THROW(modelShuntCond->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+    std::vector<double> res;
+    ASSERT_NO_THROW(modelShuntCond->evalJCalculatedVarI(0, res));
+    ASSERT_NO_THROW(modelShuntCond->evalCalculatedVars());
+    std::vector<state_g> g(modelShuntCond->sizeG(), ROOT_DOWN);
+    modelShuntCond->setBufferG(&g[0], 0);
+    ASSERT_NO_THROW(modelShuntCond->setGequations());
+
+    // Disable a shunt
+    z[3] = -1;
+
+    // UMonitored < URef
+    y[0] = 0.8;
+    ASSERT_NO_THROW(modelShuntCond->evalG(0));
+    ASSERT_EQ(g[0], ROOT_UP);
+    ASSERT_EQ(g[1], ROOT_DOWN);
+    ASSERT_EQ(g[2], ROOT_DOWN);
+    ASSERT_EQ(g[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalZ(0));
+    ASSERT_NO_THROW(modelShuntCond->evalZ(5));
+    ASSERT_NO_THROW(modelShuntCond->evalG(5));
+    ASSERT_EQ(g[0], ROOT_UP);
+    ASSERT_EQ(g[1], ROOT_DOWN);
+    ASSERT_EQ(g[2], ROOT_DOWN);
+    ASSERT_EQ(g[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalG(10));
+    ASSERT_EQ(g[0], ROOT_UP);
+    ASSERT_EQ(g[1], ROOT_DOWN);
+    ASSERT_EQ(g[2], ROOT_UP);
+    ASSERT_EQ(g[3], ROOT_DOWN);
+    ASSERT_NO_THROW(modelShuntCond->evalZ(10));
+    ASSERT_EQ(z[1], 1);
+    ASSERT_EQ(z[2], 2);
   }
 }  // namespace DYN

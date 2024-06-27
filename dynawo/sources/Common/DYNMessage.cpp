@@ -58,6 +58,8 @@ Message::Message(const std::string& dicoName, const std::string& key) {
   initialize(dicoName, key);
 }
 
+Message::~Message() {}
+
 void
 Message::initialize(const std::string& dicoName, const std::string& key) {
   key_ = key;

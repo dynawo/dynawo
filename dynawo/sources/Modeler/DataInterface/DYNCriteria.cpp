@@ -23,6 +23,8 @@ namespace DYN {
 Criteria::Criteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
         params_(params) {}
 
+Criteria::~Criteria() {}
+
 void
 Criteria::printAllFailingCriteriaIntoLog(std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToFailingCriteriaMap,
                                           const boost::shared_ptr<timeline::Timeline>& timeline,
@@ -50,6 +52,8 @@ Criteria::FailingCriteria::FailingCriteria(Bound bound, std::string nodeId, cons
   bound_(bound),
   nodeId_(nodeId),
   criteriaId_(criteriaId) {}
+
+Criteria::FailingCriteria::~FailingCriteria() {}
 
 BusCriteria::BusCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
             Criteria(params) {}

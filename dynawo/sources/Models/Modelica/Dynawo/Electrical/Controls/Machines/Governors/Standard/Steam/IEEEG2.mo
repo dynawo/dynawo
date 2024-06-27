@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 
 model IEEEG2 "IEEE governor type IEEEG2"
 
+  //Regulation parameters
   parameter Types.PerUnit K "Governor gain (reciprocal of droop)";
   parameter Types.ActivePowerPu PMaxPu "Maximum mechanical power in pu (base PNomTurb)";
   parameter Types.ActivePowerPu PMinPu "Minimum mechanical power in pu (base PNomTurb)";
@@ -31,7 +32,7 @@ model IEEEG2 "IEEE governor type IEEEG2"
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base PNomTurb)" annotation(
     Placement(visible = true, transformation(origin = {-180, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  //Output variables
+  //Output variable
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -48,6 +49,7 @@ model IEEEG2 "IEEE governor type IEEEG2"
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t1) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  //Generator initial parameter
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNomTurb)";
 
 equation

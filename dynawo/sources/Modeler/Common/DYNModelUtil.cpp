@@ -21,31 +21,36 @@
 #include <fstream>
 #include <sstream>
 
+#include <boost/filesystem.hpp>
+
 #include "DYNModelUtil.h"
 #include "DYNFileSystemUtils.h"
 
 using std::stringstream;
 
+namespace fs = boost::filesystem;
+
 namespace DYN {
 
-void printStructureToFile(const boost::shared_ptr<Model>& model, const SparseMatrix& matrix) {
-  static std::string base = "tmpMatStruct/mat-struct-";
+void printStructureToFile(Model& model, const SparseMatrix& matrix) {
+  static fs::path folder = "tmpMatStruct";
+  static fs::path base = folder / "mat-struct-";
   static int nbPrintStruct = 0;
-  stringstream nomFichier;
-  nomFichier << base << nbPrintStruct << ".txt";
+  stringstream fileName;
+  fileName << base.string() << nbPrintStruct << ".txt";
 
   // If not in debug the infos on equations are not set.
 #ifndef _DEBUG_
   if (nbPrintStruct == 0)
-    model->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
+    model.setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
 #endif
 
-  if (!exists("tmpMatStruct")) {
-    create_directory("tmpMatStruct");
+  if (!exists(folder.string())) {
+    create_directory(folder.string());
   }
 
   std::ofstream file;
-  file.open(nomFichier.str().c_str(), std::ofstream::out);
+  file.open(fileName.str().c_str(), std::ofstream::out);
   std::string subModelName("");
   std::string fEquation("");
   int subModelIndexF = 0;
@@ -53,10 +58,10 @@ void printStructureToFile(const boost::shared_ptr<Model>& model, const SparseMat
   for (int jCol = 0; jCol < matrix.nbCol(); ++jCol) {
     for (unsigned ind = matrix.Ap_[jCol]; ind < matrix.Ap_[jCol + 1]; ++ind) {
       unsigned iRow = matrix.Ai_[ind];
-      model->getFInfos(jCol, subModelName, subModelIndexF, fEquation);
+      model.getFInfos(jCol, subModelName, subModelIndexF, fEquation);
       file << "(" << iRow << ", " << jCol << ") ";
       file << "F[" << jCol << "]" << " model:" << subModelName << " index: " << subModelIndexF << " equation: " << fEquation;
-      file << " | Y[" << iRow << "] " << model->getVariableName(iRow) << "\n";
+      file << " | Y[" << iRow << "] " << model.getVariableName(iRow) << "\n";
     }
   }
 

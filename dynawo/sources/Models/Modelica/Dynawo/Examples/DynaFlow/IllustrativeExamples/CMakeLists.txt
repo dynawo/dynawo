@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   CoordinatedVControl.mo
   CoordinatedVControl_INIT.mo
+  PhaseShifterTransformer.mo
   )
 
 #

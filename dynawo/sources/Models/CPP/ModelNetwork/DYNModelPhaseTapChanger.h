@@ -38,6 +38,11 @@ class ModelPhaseTapChanger : public ModelTapChanger {
   explicit ModelPhaseTapChanger(const std::string& id, int lowIndex);
 
   /**
+   * @brief destructor
+   */
+  virtual ~ModelPhaseTapChanger();
+
+  /**
    * @brief  evaluate the zero crossing functions
    *
    * @param t : time to use during the evaluation

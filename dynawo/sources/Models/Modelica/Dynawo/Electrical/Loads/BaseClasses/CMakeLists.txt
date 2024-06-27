@@ -15,6 +15,8 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseLoad.mo
+  BaseLoadMotorFifthOrder.mo
+  BaseLoadMotorSimplified.mo
   )
 
 #

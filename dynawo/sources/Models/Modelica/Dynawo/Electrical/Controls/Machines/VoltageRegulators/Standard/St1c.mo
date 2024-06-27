@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 model St1c "IEEE excitation system type ST1C model"
 
   //Regulation parameters
-  parameter Types.CurrentModulePu IlrPu "Rotor current threshold of field current limiter in pu (base SNom, user-selected base voltage)";
+  parameter Types.CurrentModulePu IlrPu "Exciter output current limit reference in pu (base SNom, user-selected base voltage)";
   parameter Types.PerUnit Ka "Voltage regulator gain";
   parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance";
   parameter Types.PerUnit Kf "Exciter rate feedback gain";

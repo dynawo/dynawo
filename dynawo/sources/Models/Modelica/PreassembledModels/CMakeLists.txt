@@ -24,6 +24,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
   EventQuadripoleDisconnection.xml
@@ -67,8 +68,18 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
   GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
   GeneratorSynchronousFourWindingsIEEEG1IEEX2A.xml
+  GeneratorSynchronousFourWindingsPmConstAc6aPss3b.xml
+  GeneratorSynchronousFourWindingsPmConstAc7bPss3b.xml
+  GeneratorSynchronousFourWindingsPmConstAc7cPss2c.xml
+  GeneratorSynchronousFourWindingsPmConstAc8b.xml
+  GeneratorSynchronousFourWindingsPmConstAc8bPss3b.xml
   GeneratorSynchronousFourWindingsPmConstDc1a.xml
   GeneratorSynchronousFourWindingsPmConstIEEX2A.xml
+  GeneratorSynchronousFourWindingsPmConstSt5bPss2b.xml
+  GeneratorSynchronousFourWindingsPmConstSt6bPss3b.xml
+  GeneratorSynchronousFourWindingsPmConstSt6cPss6c.xml
+  GeneratorSynchronousFourWindingsPmConstSt7bPss2a.xml
+  GeneratorSynchronousFourWindingsPmConstSt9cPss2c.xml
   GeneratorSynchronousFourWindingsPmConstVRNordic.xml
   GeneratorSynchronousFourWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousFourWindingsProportionalRegulations.xml
@@ -159,7 +170,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeNetwork.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
-  LoadAlphaBetaMotor.xml
+  LoadAlphaBetaMotorFifthOrder.xml
+  LoadAlphaBetaTwoMotorFifthOrder.xml
+  LoadAlphaBetaThreeMotorFifthOrder.xml
+  LoadAlphaBetaMotorSimplified.xml
+  LoadAlphaBetaTwoMotorSimplified.xml
   LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
@@ -206,6 +221,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerBlockingAutomaton4.xml
   TapChangerBlockingAutomaton5.xml
   TransformerFixedRatio.xml
+  TransformerFixedRatioAndPhase.xml
+  TransformerPhaseTapChanger.xml
+  TransformerRatioTapChanger.xml
   UFLS3Steps.xml
   UFLS10Steps.xml
   UnderVoltageAutomaton.xml
