@@ -77,17 +77,74 @@
     <par type="DOUBLE" name="generator_Q0Pu" value="-9.68"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>
     <par type="DOUBLE" name="generator_UPhase0" value="0.494451"/>
-    <!-- <par type="DOUBLE" name="governor_PMin" value="0"/> -->
-    <!-- <par type="DOUBLE" name="governor_PMax" value="2200"/> -->
     <par type="DOUBLE" name="governor_PBaseMw" value="2200"/>
-    <!-- <par type="INT" name="governor_RSelectInt" value="2"/> -->
-    <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
-    <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
-    <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
-    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
-    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
-    <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
-    <par type="DOUBLE" name="voltageRegulator_LagEfdMax" value="0"/>
+    <par type="DOUBLE" name="governor_aSetPu" value="10"/>
+    <par type="DOUBLE" name="governor_DeltaOmegaDbPu" value="0"/>
+    <par type="DOUBLE" name="governor_DeltaOmegaMaxPu" value="1"/>
+    <par type="DOUBLE" name="governor_DeltaOmegaMinPu" value="-1"/>
+    <par type="DOUBLE" name="governor_DeltaTSeconds" value="1"/>
+    <par type="DOUBLE" name="governor_DmPu" value="0"/>
+    <par type="DOUBLE" name="governor_fLim1Hz" value="49"/>
+    <par type="DOUBLE" name="governor_fLim2Hz" value="8"/>
+    <par type="DOUBLE" name="governor_fLim3Hz" value="7"/>
+    <par type="DOUBLE" name="governor_fLim4Hz" value="6"/>
+    <par type="DOUBLE" name="governor_fLim5Hz" value="5"/>
+    <par type="DOUBLE" name="governor_fLim6Hz" value="4"/>
+    <par type="DOUBLE" name="governor_fLim7Hz" value="3"/>
+    <par type="DOUBLE" name="governor_fLim8Hz" value="2"/>
+    <par type="DOUBLE" name="governor_fLim9Hz" value="1"/>
+    <par type="DOUBLE" name="governor_fLim10Hz" value="0"/>
+    <par type="DOUBLE" name="governor_fNomHz" value="50"/>
+    <par type="DOUBLE" name="governor_KAPu" value="10"/>
+    <par type="DOUBLE" name="governor_KDGovPu" value="0"/>
+    <par type="DOUBLE" name="governor_KIGovPu" value="0.45"/>
+    <par type="DOUBLE" name="governor_KILoadPu" value="1"/>
+    <par type="DOUBLE" name="governor_KIMwPu" value="0"/>
+    <par type="DOUBLE" name="governor_KPGovPu" value="4"/>
+    <par type="DOUBLE" name="governor_KPLoadPu" value="1"/>
+    <par type="DOUBLE" name="governor_KTurbPu" value="1.9168"/>
+    <par type="DOUBLE" name="governor_PLdRefPu" value="1"/>
+    <par type="DOUBLE" name="governor_PLim1Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim2Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim3Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim4Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim5Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim6Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim7Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim8Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim9Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim10Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_Pm0Pu" value="Pm0Pu"/>
+    <par type="DOUBLE" name="governor_PRatePu" value="0.017"/>
+    <par type="DOUBLE" name="governor_RClosePu" value="-99"/>
+    <par type="DOUBLE" name="governor_RDownPu" value="-99"/>
+    <par type="DOUBLE" name="governor_ROpenPu" value="99"/>
+    <par type="DOUBLE" name="governor_RPu" value="0.05"/>
+    <par type="INT"    name="governor_RSelectInt" value="RSelectInt"/>
+    <par type="DOUBLE" name="governor_RUpPu" value="99"/>
+    <par type="DOUBLE" name="governor_tActuatorSeconds" value="0.4"/>
+    <par type="DOUBLE" name="governor_tASeconds" value="1"/>
+    <par type="DOUBLE" name="governor_tBSeconds" value="0.1"/>
+    <par type="DOUBLE" name="governor_tCSeconds" value="0"/>
+    <par type="DOUBLE" name="governor_tDGovSeconds" value="1"/>
+    <par type="DOUBLE" name="governor_tDRatelimSeconds" value="0.001"/>
+    <par type="DOUBLE" name="governor_tEngineSeconds" value="0"/>
+    <par type="DOUBLE" name="governor_tFLoadSeconds" value="3"/>
+    <par type="DOUBLE" name="governor_tLastValueSeconds" value="1e-9"/>
+    <par type="DOUBLE" name="governor_tPElecSeconds" value="2.5"/>
+    <par type="DOUBLE" name="governor_tSASeconds" value="1e-6"/>
+    <par type="DOUBLE" name="governor_tSBSeconds" value="50"/>
+    <par type="DOUBLE" name="governor_ValveMaxPu" value="1"/>
+    <par type="DOUBLE" name="governor_ValveMinPu" value="0.175"/>
+    <par type="DOUBLE" name="governor_WFnlPu" value="0.187"/>
+    <par type="BOOL"   name="governor_WFSpdBool" value="false"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_Gain" value="20"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_EfdMinPu" value="-5"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_UsRefMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_LagEfdMin" value="0"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_LagEfdMax" value="0"/>
   </set>
   <!-- OmegaRef -->
   <set id="6">
