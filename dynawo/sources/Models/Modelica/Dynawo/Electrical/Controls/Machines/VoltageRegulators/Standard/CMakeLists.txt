@@ -49,7 +49,6 @@ set(MODEL_FILES
   ExcIEEEST4B_INIT.mo
   IEEET1.mo
   IEEET1.extvar
-  IEEET1_INIT.mo
   IEEEX2.mo
   IEEEX2.extvar
   IEEX2A.mo
@@ -65,7 +64,6 @@ set(MODEL_FILES
   SCRX1_INIT.mo
   SEXS.mo
   SEXS.extvar
-  SEXS_INIT.mo
   St1a.mo
   St1a.extvar
   St1c.mo
