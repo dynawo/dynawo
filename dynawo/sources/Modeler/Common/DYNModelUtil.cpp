@@ -56,8 +56,8 @@ void printStructureToFile(Model& model, const SparseMatrix& matrix) {
   int subModelIndexF = 0;
 
   for (int jCol = 0; jCol < matrix.nbCol(); ++jCol) {
-    for (unsigned ind = matrix.Ap_[jCol]; ind < matrix.Ap_[jCol + 1]; ++ind) {
-      unsigned iRow = matrix.Ai_[ind];
+    for (unsigned ind = matrix.getAp()[jCol]; ind < matrix.getAp()[jCol + 1]; ++ind) {
+      unsigned iRow = matrix.getAi()[ind];
       model.getFInfos(jCol, subModelName, subModelIndexF, fEquation);
       file << "(" << iRow << ", " << jCol << ") ";
       file << "F[" << jCol << "]" << " model:" << subModelName << " index: " << subModelIndexF << " equation: " << fEquation;
