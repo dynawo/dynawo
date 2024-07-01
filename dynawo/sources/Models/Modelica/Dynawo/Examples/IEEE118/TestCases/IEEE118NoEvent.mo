@@ -779,7 +779,7 @@ equation
     B110_SH1.switchOffSignal1.value = false;
     B110_SH1.switchOffSignal2.value = false;
 
-     //Loads optional variables
+     //Loads inputs
     B1_L1.PRefPu = 0.51;
     B1_L1.QRefPu = 0.27;
     B1_L1.deltaP = 0;
