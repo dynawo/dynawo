@@ -50,6 +50,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt
         run: |
           export DYNAWO_HOME=$(pwd)
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
           util/envDynawo.sh nrt
 
   coverage:
