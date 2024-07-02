@@ -25,13 +25,13 @@ using std::string;
 
 namespace DYN {
 
-VariableMultiple::VariableMultiple(const string& name, const string& cardinalityName, const typeVar_t& type, bool isState, bool negated) :
+VariableMultiple::VariableMultiple(const string& name, const string& cardinalityName, const typeVar_t type, const bool isState, const bool negated) :
 VariableNative(name, type, isState, negated),
 cardinalityName_(cardinalityName) {
 }
 
 void
-VariableMultiple::setCardinality(const unsigned int& cardinality) {
+VariableMultiple::setCardinality(const unsigned int cardinality) {
   cardinality_ = cardinality;
 }
 

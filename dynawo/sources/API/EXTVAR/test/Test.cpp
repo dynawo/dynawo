@@ -23,8 +23,8 @@
 #include "EXTVARXmlExporter.h"
 #include "EXTVARVariablesCollectionFactory.h"
 #include "EXTVARVariableFactory.h"
-#include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
+#include "EXTVARVariablesCollection.h"
 
 INIT_XML_DYNAWO;
 
@@ -67,33 +67,12 @@ TEST(APIEXTVARTest, ExternalContinuousVariable) {
   ASSERT_TRUE(variable->getOptional());
 
 
-  for (variable_iterator itVariable = collection->endVariable(); itVariable == collection->beginVariable(); --itVariable) {
-    ASSERT_EQ((*itVariable)->getId(), variable->getId());
-    ASSERT_EQ((*itVariable)->getType(), variable->getType());
-    ASSERT_EQ((*itVariable)->hasDefaultValue(), variable->hasDefaultValue());
-    ASSERT_EQ((*itVariable)->getDefaultValue(), variable->getDefaultValue());
-  }
-
-  for (variable_iterator itVariable = collection->endVariable(); itVariable == collection->beginVariable(); itVariable--) {
-    ASSERT_EQ((*itVariable)->getId(), variable->getId());
-    ASSERT_EQ((*itVariable)->getType(), variable->getType());
-    ASSERT_EQ((*itVariable)->hasDefaultValue(), variable->hasDefaultValue());
-    ASSERT_EQ((*itVariable)->getDefaultValue(), variable->getDefaultValue());
-  }
-
-  for (variable_iterator itVariable = collection->endVariable(); itVariable == collection->beginVariable(); ++itVariable) {
-    ASSERT_EQ((*itVariable)->getId(), variable->getId());
-    ASSERT_EQ((*itVariable)->getType(), variable->getType());
-    ASSERT_EQ((*itVariable)->hasDefaultValue(), variable->hasDefaultValue());
-    ASSERT_EQ((*itVariable)->getDefaultValue(), variable->getDefaultValue());
-  }
-
-  for (variable_iterator itVariable = collection->beginVariable(); itVariable != collection->endVariable(); ++itVariable) {
-    boost::shared_ptr<Variable> currentVar = *itVariable;
-    ASSERT_EQ((*itVariable)->getId(), variable->getId());
-    ASSERT_EQ((*itVariable)->getType(), variable->getType());
-    ASSERT_EQ((*itVariable)->hasDefaultValue(), variable->hasDefaultValue());
-    ASSERT_EQ((*itVariable)->getDefaultValue(), variable->getDefaultValue());
+  for (const auto& variablePair : collection->getVariables()) {
+    const auto& currentVar = variablePair.second;
+    ASSERT_EQ(currentVar->getId(), variable->getId());
+    ASSERT_EQ(currentVar->getType(), variable->getType());
+    ASSERT_EQ(currentVar->hasDefaultValue(), variable->hasDefaultValue());
+    ASSERT_EQ(currentVar->getDefaultValue(), variable->getDefaultValue());
   }
 }
 
@@ -334,8 +313,8 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   boost::shared_ptr<VariablesCollection> collection1;
   ASSERT_NO_THROW(collection1 = importer.importFromFile(fileName));
 
-  for (variable_iterator itVariable = collection1->beginVariable(); itVariable != collection1->endVariable(); ++itVariable) {
-    const boost::shared_ptr<Variable> variable = *itVariable;
+  for (const auto& variablePair : collection->getVariables()) {
+    const boost::shared_ptr<Variable>& variable = variablePair.second;
     if (variable->getType() == Variable::Type::CONTINUOUS) {
       ASSERT_EQ(variable->getId(), varId2);
       ASSERT_EQ(variable->hasDefaultValue(), false);
@@ -364,25 +343,6 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
       ASSERT_EQ(variable->getSize(), 10);
     }
   }
-
-  // alphabetical order in the internal map of the collection is 5 3 2 4 1
-  variable_iterator itVariable(collection->beginVariable());
-  ASSERT_EQ(itVariable->get()->getId(), variable5->getId());
-  ASSERT_EQ((++itVariable)->get()->getId(), variable3->getId());
-  ASSERT_EQ((--itVariable)->get()->getId(), variable5->getId());
-  ASSERT_EQ((itVariable++)->get()->getId(), variable5->getId());
-  ASSERT_EQ((itVariable--)->get()->getId(), variable3->getId());
-  ASSERT_EQ(itVariable->get()->getId(), variable5->getId());
-
-  itVariable = collection->endVariable();
-  itVariable--;
-  ASSERT_EQ(itVariable->get()->getId(), variable1->getId());
-  ASSERT_EQ((--itVariable)->get()->getId(), variable4->getId());
-  ASSERT_EQ((++itVariable)->get()->getId(), variable1->getId());
-  ASSERT_EQ((itVariable--)->get()->getId(), variable1->getId());
-  ASSERT_EQ((itVariable++)->get()->getId(), variable4->getId());
-  ASSERT_EQ(itVariable->get()->getId(), variable1->getId());
-  ASSERT_TRUE(++itVariable == collection->endVariable());
 }
 
 }  // namespace externalVariables

@@ -41,7 +41,7 @@ SwitchInterfaceIIDM::isConnected() const {
   return !isOpen();
 }
 
-std::string
+const std::string&
 SwitchInterfaceIIDM::getID() const {
   return switchIIDM_.getId();
 }

@@ -45,7 +45,7 @@ MessageTimeline::initialize(const string& key) {
   static const string dicoName = "TIMELINE_PRIORITY";
   if (IoDicos::hasIoDico(dicoName)) {
     try {
-      string priority = IoDicos::getIoDico(dicoName)->msg(key);
+      const string priority = IoDicos::getIoDico(dicoName)->msg(key);
       priority_ = std::stoi(priority);
     } catch (const MessageError&) {
       std::cerr << "Could not load the message associated to key " << key << std::endl;

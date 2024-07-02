@@ -31,17 +31,17 @@
  *
  * @return the canonical path
  */
-std::string prettyPath(const std::string & path);
+std::string prettyPath(const std::string& path);
 
 /**
  * @brief execute a command
  *
  * @param command command to execute
  * @param ss log from the executed command
- * @param start_dir optional starting directory (current dir by default)
+ * @param startDir optional starting directory (current dir by default)
  * @return return code
  */
-int executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir = "");
+int executeCommand(const std::string& command, std::stringstream& ss, const std::string& startDir = "");
 
 /**
  * @brief retrieve a given environment variable
@@ -59,7 +59,7 @@ std::string getEnvVar(std::string const& key);
  *
  * @return value of the mandatory environment variable
  */
-std::string getMandatoryEnvVar(std::string const& key);
+std::string getMandatoryEnvVar(const std::string& key);
 
 /**
  * @brief check whether a given environment variable exists
@@ -68,6 +68,6 @@ std::string getMandatoryEnvVar(std::string const& key);
  *
  * @return @b true if the variable exists
  */
-bool hasEnvVar(std::string const& key);
+bool hasEnvVar(const std::string& key);
 
 #endif  // COMMON_DYNEXECUTILS_H_

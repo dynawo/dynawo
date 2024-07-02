@@ -126,7 +126,7 @@ LccConverterInterfaceIIDM::getQ() {
   return getQInjector();
 }
 
-std::string
+const std::string&
 LccConverterInterfaceIIDM::getID() const {
   return lccConverterIIDM_.getId();
 }

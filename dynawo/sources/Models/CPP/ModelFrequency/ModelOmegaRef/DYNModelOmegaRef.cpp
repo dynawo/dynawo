@@ -110,9 +110,9 @@ ModelOmegaRef::init(const double /*t0*/) {
   runningGrp_.assign(nbGen_, 0);
   nbCC_ = 0;
 
-  ModelOmegaRef::col1stOmegaRef_ = 0;
-  ModelOmegaRef::col1stOmega_ = ModelOmegaRef::col1stOmegaRef_ + nbMaxCC;
-  col1stOmegaRefGrp_ = ModelOmegaRef::col1stOmega_ + nbOmega_;
+  col1stOmegaRef_ = 0;
+  col1stOmega_ = col1stOmegaRef_ + nbMaxCC;
+  col1stOmegaRefGrp_ = col1stOmega_ + nbOmega_;
 }
 
 void
@@ -144,7 +144,7 @@ ModelOmegaRef::calculateInitialState() {
 }
 
 void
-ModelOmegaRef::evalF(double /*t*/, propertyF_t type) {
+ModelOmegaRef::evalF(double /*t*/, const propertyF_t type) {
   if (type == DIFFERENTIAL_EQ)
     return;
   if (firstState_) {
@@ -189,7 +189,7 @@ ModelOmegaRef::evalG(const double /*t*/) {
 }
 
 void
-ModelOmegaRef::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
+ModelOmegaRef::evalJt(const double /*t*/, const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
   // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
@@ -233,7 +233,7 @@ ModelOmegaRef::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt,
 }
 
 void
-ModelOmegaRef::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
+ModelOmegaRef::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jtPrim) {
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
   // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
@@ -245,11 +245,11 @@ ModelOmegaRef::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix&
 
   // equation 0 to nbMaxCC : no differential variable
   for (int i = 0; i < nbMaxCC; ++i)
-    jt.changeCol();
+    jtPrim.changeCol();
 
   // equation nbMaxCC to nbGen + nbMaxCC : no differential variable
   for (int i = 0; i < nbGen_; ++i)
-    jt.changeCol();
+    jtPrim.changeCol();
 }
 
 void
@@ -459,7 +459,7 @@ ModelOmegaRef::setSubModelParameters() {
   omegaRef0_.assign(nbMaxCC, 1.);
 
   // Get omegaRefMin and omegaRefMax parameters from the par file if they exist
-  const bool isInitParam = false;
+  constexpr bool isInitParam = false;
   const ParameterModeler& parameter = findParameter("omegaRefMin", isInitParam);
   if (parameter.hasValue()) {
     omegaRefMin_ = parameter.getDoubleValue();

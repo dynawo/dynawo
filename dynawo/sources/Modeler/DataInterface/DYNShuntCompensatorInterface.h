@@ -97,7 +97,7 @@ class ShuntCompensatorInterface : public ComponentInterface {
    * @brief Getter for the shunt compensator's id
    * @return The id of the shunt compensator
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the shuntCompensator's current number of connected sections

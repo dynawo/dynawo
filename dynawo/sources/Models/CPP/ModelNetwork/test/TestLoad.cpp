@@ -81,18 +81,17 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
   vlItfIIDM->addBus(bus1ItfIIDM);
   vlItfIIDM->addLoad(loadItfIIDM);
 
-  shared_ptr<ModelLoad> load = shared_ptr<ModelLoad>(new ModelLoad(loadItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  load->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
-  vl->addComponent(load);
   vl->addBus(bus1);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  load->setModelBus(bus1);
+  shared_ptr<ModelLoad> load = shared_ptr<ModelLoad>(new ModelLoad(*loadItfIIDM, *bus1));
+  load->setNetwork(network);
+  vl->addComponent(load);
   bus1->initSize();
   // There is a memory leak here, but whatever ...
   double* y1 = new double[bus1->sizeY()];
@@ -510,7 +509,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   }
 
   // test getY0 (bus switchoff)
-  load->getModelBus()->switchOff();
+  load->getNonCstModelBus().switchOff();
   load->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaPcIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaQcIdx], 0);
@@ -660,7 +659,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   SparseMatrix smj;
   int size = load->sizeY();
   smj.init(size, size);
-  load->evalJt(smj, 1., 0);
+  load->evalJt(1., 0, smj);
   smj.changeCol();
   smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 6);
@@ -674,10 +673,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_EQ(smj.Ap_[1], 3);
   ASSERT_EQ(smj.Ap_[2], 6);
 
-  load->getModelBus()->switchOff();
+  load->getNonCstModelBus().switchOff();
   SparseMatrix smj2;
   smj2.init(size, size);
-  load->evalJt(smj2, 1., 0);
+  load->evalJt(1., 0, smj2);
   smj2.changeCol();
   smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 2);
@@ -686,10 +685,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_EQ(smj2.Ap_[0], 0);
   ASSERT_EQ(smj2.Ap_[1], 1);
 
-  load->getModelBus()->switchOn();
+  load->getNonCstModelBus().switchOn();
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  load->evalJtPrim(smjPrime, 0);
+  load->evalJtPrim(0, smjPrime);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[1], 4);
   ASSERT_EQ(smjPrime.Ap_[0], 0);
@@ -701,7 +700,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   loadInit->initSize();
   SparseMatrix smjInit;
   smjInit.init(loadInit->sizeY(), loadInit->sizeY());
-  ASSERT_NO_THROW(loadInit->evalJt(smjInit, 1., 0));
+  ASSERT_NO_THROW(loadInit->evalJt(1., 0, smjInit));
   ASSERT_EQ(smjInit.nbElem(), 0);
   delete[] zConnected;
 }

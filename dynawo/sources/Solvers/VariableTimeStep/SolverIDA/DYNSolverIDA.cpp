@@ -163,9 +163,10 @@ SolverIDA::setSolverSpecificParameters() {
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
 }
 
-std::string
+const std::string&
 SolverIDA::solverType() const {
-  return "IDASolver";
+  static std::string solverType = "IDASolver";
+  return solverType;
 }
 
 void

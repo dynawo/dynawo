@@ -61,7 +61,7 @@ class SwitchInterface : public ComponentInterface {
    * @brief Getter for the switch's id
    * @return The id of the switch
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Setter for the switch's bus interface side 1

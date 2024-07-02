@@ -165,7 +165,7 @@ void SparseMatrix::printToFile(bool sparse) const {
   fileName << base.string() << nbPrint << ".txt";
 
   if (!exists(folder.string())) {
-    create_directory(folder.string());
+    createDirectory(folder.string());
   }
 
   std::ofstream file;
@@ -187,12 +187,11 @@ void SparseMatrix::printToFile(bool sparse) const {
     }
 
     stringstream val;
-    for (unsigned int i = 0; i < matrix.size(); ++i) {
-      std::vector<double> row = matrix[i];
-      for (unsigned int j = 0; j < row.size(); ++j) {
+    for (const auto& row : matrix) {
+      for (const auto value : row) {
         val.str("");
         val.clear();
-        val << std::setprecision(5) << row[j];
+        val << std::setprecision(5) << value;
         file << val.str() << ";";
       }
       file << "\n";
@@ -224,7 +223,7 @@ void SparseMatrix::print() const {
 }
 
 void
-SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_set<int>& columns, SparseMatrix& M) {
+SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_set<int>& columns, SparseMatrix& M) const {
   // Modifying the rows and columns numbers in the matrixes
   // However, the size allocated by KINSOL isn't modified
   M.nbRow_ = nbRow_ - static_cast<int>(rows.size());
@@ -234,7 +233,7 @@ SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_se
   map<int, int> correspondance;
   int num = 0;
   for (int i = 0; i < nbRow_; ++i) {
-    std::unordered_set<int>::const_iterator itL = rows.find(i);
+    auto itL = rows.find(i);
     if (itL != rows.end()) {
       correspondance[i] = -1;  // Won't serve later on
     } else {
@@ -248,8 +247,8 @@ SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_se
   M.iAp_ = 0;
   M.iAi_ = 0;
   M.iAx_ = 0;
-  std::unordered_set<int>::const_iterator itC = columns.end();
-  std::unordered_set<int>::const_iterator itL = rows.end();
+  auto itC = columns.end();
+  auto itL = rows.end();
   for (int iCol = 0; iCol < nbCol_; ++iCol) {
     itC = columns.find(iCol);
     if (itC == columns.end()) {
@@ -260,14 +259,13 @@ SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_se
 
         if (itL == rows.end()) {
           // New line number
-          int rowNum = correspondance[iRow];
+          const int rowNum = correspondance[iRow];
           // Copy of the value
           M.addTerm(rowNum, Ax_[ind]);
         }
       }
     }
   }
-  return;
 }
 
 double SparseMatrix::frobeniusNorm() const {
@@ -310,11 +308,11 @@ double SparseMatrix::infinityNorm() const {
   return infNorm;
 }
 
-void SparseMatrix::getRowColIndicesFromPosition(unsigned int position, int& iRow, int& jCol) const {
+void SparseMatrix::getRowColIndicesFromPosition(const unsigned int position, int& iRow, int& jCol) const {
   assert(position < static_cast<unsigned int>(nbTerm_) && "Position must be lower than number of terms");
-  std::vector<unsigned>::const_iterator lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
+  const auto lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
   iRow = Ai_[position];
-  jCol = static_cast<int>(lower-Ap_.begin()) - 1;
+  jCol = static_cast<int>(lower - Ap_.begin()) - 1;
 }
 
 SparseMatrix::CheckError

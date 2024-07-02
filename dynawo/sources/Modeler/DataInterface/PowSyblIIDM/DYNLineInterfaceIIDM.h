@@ -145,7 +145,7 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @copydoc LineInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @brief Setter for the line's voltageLevel interface side 1

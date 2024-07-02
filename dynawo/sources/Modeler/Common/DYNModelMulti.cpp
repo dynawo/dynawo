@@ -115,24 +115,24 @@ ModelMulti::~ModelMulti() {
 
 void
 ModelMulti::setTimeline(const shared_ptr<Timeline>& timeline) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setTimeline(timeline);
+  for (const auto& subModel : subModels_)
+    subModel->setTimeline(timeline);
 }
 
 void
 ModelMulti::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setConstraints(constraints);
+  for (const auto& subModel : subModels_)
+    subModel->setConstraints(constraints);
 }
 
 void
 ModelMulti::setWorkingDirectory(const string& workingDirectory) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setWorkingDirectory(workingDirectory);
+  for (const auto& subModel : subModels_)
+    subModel->setWorkingDirectory(workingDirectory);
 }
 
 void
-ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
+ModelMulti::addSubModel(const shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineVariablesInit();
   sub->defineParametersInit();  // only for modelica models
   sub->defineNamesInit();
@@ -150,7 +150,7 @@ ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineElements();
 
   subModelByName_[sub->name()] = subModels_.size();
-  if (libName != "") {
+  if (!libName.empty()) {
     subModelByLib_[libName].push_back(sub);
   }
   subModels_.push_back(sub);
@@ -160,8 +160,8 @@ void
 ModelMulti::initBuffers() {
   // (1) Get size of each sub models
   // -------------------------------
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
+  for (const auto& subModel : subModels_)
+    subModel->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
 
   connectorContainer_->setOffsetModel(sizeF_);
@@ -205,30 +205,31 @@ ModelMulti::initBuffers() {
   int offsetY = 0;
   int offsetZ = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    int sizeY = subModels_[i]->sizeY();
+    const auto& subModel = subModels_[i];
+    const int sizeY = subModel->sizeY();
     if (sizeY > 0)
-      subModels_[i]->setBufferY(yLocal_, ypLocal_, offsetY);
+      subModel->setBufferY(yLocal_, ypLocal_, offsetY);
     offsetY += sizeY;
 
-    int sizeF = subModels_[i]->sizeF();
+    const int sizeF = subModel->sizeF();
     if (sizeF > 0) {
-      subModels_[i]->setBufferF(fLocal_, offsetF);
+      subModel->setBufferF(fLocal_, offsetF);
       for (int j = offsetF; j < offsetF + sizeF; ++j)
         mapAssociationF_[j] = i;
 
       offsetF += sizeF;
     }
 
-    int sizeG = subModels_[i]->sizeG();
+    const int sizeG = subModel->sizeG();
     if (sizeG > 0) {
-      subModels_[i]->setBufferG(gLocal_, offsetG);
+      subModel->setBufferG(gLocal_, offsetG);
       for (int j = offsetG; j < offsetG + sizeG; ++j)
         mapAssociationG_[j] = i;
 
       offsetG += sizeG;
     }
 
-    int sizeZ = subModels_[i]->sizeZ();
+    const int sizeZ = subModel->sizeZ();
     if (sizeZ > 0)
       subModels_[i]->setBufferZ(zLocal_, zConnectedLocal_, offsetZ);
     offsetZ += sizeZ;
@@ -241,9 +242,9 @@ ModelMulti::initBuffers() {
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->initSubBuffers();
-    (*it)->releaseElements();
+  for (const auto& subModel : subModels_) {
+    subModel->initSubBuffers();
+    subModel->releaseElements();
   }
 }
 
@@ -257,8 +258,8 @@ ModelMulti::init(const double t0) {
 
   // (1) initialising each sub-model
   //----------------------------------------
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->initSub(t0, localInitParameters_);
+  for (const auto& subModel : subModels_)
+    subModel->initSub(t0, localInitParameters_);
 
   // Detect if some discrete variable were modified during the initialization (e.g. subnetwork detection)
   vector<int> indicesDiff;
@@ -288,14 +289,14 @@ ModelMulti::init(const double t0) {
     zSave_.assign(zLocal_, zLocal_ + sizeZ());
     rotateBuffers();
 
-    for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-      (*it)->evalZSub(t0);
+    for (const auto& subModel : subModels_)
+      subModel->evalZSub(t0);
 
     for (unsigned j = 0; j < 10 && propagateZModif(); ++j) {
-      for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-        (*it)->evalGSub(t0);
-      for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-        (*it)->evalZSub(t0);
+      for (const auto& subModel : subModels_)
+        subModel->evalGSub(t0);
+      for (const auto& subModel : subModels_)
+        subModel->evalZSub(t0);
     }
     rotateBuffers();
   }
@@ -307,8 +308,8 @@ ModelMulti::printModel() const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::printModel");
 #endif
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->printModel();
+  for (const auto& subModel : subModels_)
+    subModel->printModel();
 
   connectorContainer_->printConnectors();
 }
@@ -327,32 +328,32 @@ ModelMulti::printParameterValues() const {
       "  -- \"IIDM\"           -> value read from iidm file"<< Trace::endline <<
       "  -- \"loaded dump\"    -> value read from initial state file"<< Trace::endline <<
       "  -- \"initialization\" -> value computed by local initialization"<< Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->printParameterValues();
+  for (const auto& subModel : subModels_)
+    subModel->printParameterValues();
 }
 
 void
 ModelMulti::rotateBuffers() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->rotateBuffers();
+  for (const auto& subModel : subModels_)
+    subModel->rotateBuffers();
 }
 
 void
 ModelMulti::printMessages() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->printMessages();
+  for (const auto& subModel : subModels_)
+    subModel->printMessages();
 }
 
 void
 ModelMulti::printModelValues(const string& directory, const string& dumpFileName) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->printModelValues(directory, dumpFileName);
+  for (const auto& subModel : subModels_)
+    subModel->printModelValues(directory, dumpFileName);
 }
 
 void
 ModelMulti::printInitModelValues(const string& directory, const string& dumpFileName) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->printInitModelValues(directory, dumpFileName);
+  for (const auto& subModel : subModels_)
+    subModel->printInitModelValues(directory, dumpFileName);
 }
 
 void
@@ -376,9 +377,9 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    if ((*it)->sizeF() != 0)
-      (*it)->evalFSub(t);
+  for (const auto& subModel : subModels_) {
+    if (subModel->sizeF() != 0)
+      subModel->evalFSub(t);
   }
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer2;
@@ -396,9 +397,9 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
 #endif
   copyContinuousVariables(y, yp);
 
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-      (*it)->evalFDiffSub(t);
-  }
+  for (const auto& subModel : subModels_)
+    subModel->evalFDiffSub(t);
+
   std::copy(fLocal_, fLocal_ + sizeF_, f);
 }
 
@@ -410,13 +411,14 @@ ModelMulti::evalFMode(const double t, const double* y, const double* yp, double*
   copyContinuousVariables(y, yp);
 
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    if (subModels_[i]->modeChange()) {
-      subModels_[i]->evalFSub(t);
-      std::unordered_map<size_t, std::vector<size_t > >::const_iterator it = subModelIdxToConnectorCalcVarsIdx_.find(i);
+    const auto& subModel = subModels_[i];
+    if (subModel->modeChange()) {
+      subModel->evalFSub(t);
+      const auto it = subModelIdxToConnectorCalcVarsIdx_.find(i);
       if (it != subModelIdxToConnectorCalcVarsIdx_.end()) {
         const std::vector<size_t >& connectorsIdx = it->second;
-        for (size_t j = 0, jEnd = connectorsIdx.size(); j < jEnd; ++j) {
-          subModels_[connectorsIdx[j]]->evalFSub(t);
+        for (const auto connectorIdx : connectorsIdx) {
+          subModels_[connectorIdx]->evalFSub(t);
         }
       }
     }
@@ -428,64 +430,63 @@ ModelMulti::evalFMode(const double t, const double* y, const double* yp, double*
 }
 
 void
-ModelMulti::evalG(double t, vector<state_g>& g) {
+ModelMulti::evalG(const double t, vector<state_g>& g) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
 #endif
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->evalGSub(t);
+  for (const auto& subModel : subModels_)
+    subModel->evalGSub(t);
 
   std::copy(gLocal_, gLocal_ + sizeG_, g.begin());
 }
 
 void
-ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
+ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalJt");
 #endif
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtSub(t, cj, Jt, rowOffset);
-    if (!Jt.withoutNan() || !Jt.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtSub(t, cj, rowOffset, jt);
+    if (!jt.withoutNan() || !jt.withoutInf()) {
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
-  connectorContainer_->evalJtConnector(Jt);
+  connectorContainer_->evalJtConnector(jt);
 
   // add Jacobian for optional variables X = 0
-  for (set<int>::const_iterator it = numVarsOptional_.begin();
-       it != numVarsOptional_.end(); ++it) {
-    Jt.changeCol();
-    Jt.addTerm(*it, +1);  // d(f)/d(Y) = +1;
+  for (const auto numVarOptional : numVarsOptional_) {
+    jt.changeCol();
+    jt.addTerm(numVarOptional, +1);  // d(f)/d(Y) = +1;
   }
 }
 
 void
-ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
+ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim) {
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtPrimSub(t, cj, JtPrim, rowOffset);
-    if (!JtPrim.withoutNan() || !JtPrim.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtPrimSub(t, cj, rowOffset, jtPrim);
+    if (!jtPrim.withoutNan() || !jtPrim.withoutInf()) {
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
-  connectorContainer_->evalJtPrimConnector(JtPrim);
+  connectorContainer_->evalJtPrimConnector(jtPrim);
 
-  for (unsigned int i =0; i < numVarsOptional_.size(); ++i)
-    JtPrim.changeCol();
+  for (unsigned int i = 0; i < numVarsOptional_.size(); ++i)
+    jtPrim.changeCol();
 }
 
 void
-ModelMulti::evalZ(double t) {
+ModelMulti::evalZ(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalZ");
 #endif
   if (sizeZ() == 0) return;
   // calculate Z by model
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->evalZSub(t);
+  for (const auto& subModel : subModels_)
+    subModel->evalZSub(t);
 
   // propagation of z changes to connected variables
   if (zSave_.size() != static_cast<size_t>(sizeZ()))
@@ -498,28 +499,28 @@ zChangeType_t
 ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
   zChangeType_t zChangeType = NO_Z_CHANGE;
-  for (std::size_t i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
-    if (!std::isnan(zLocal_[nonSilentZIndexes_[i]]) && !std::isnan(zSave_[nonSilentZIndexes_[i]])) {
-      if (doubleNotEquals(zLocal_[nonSilentZIndexes_[i]], zSave_[nonSilentZIndexes_[i]])) {
-        indicesDiff.push_back(static_cast<int>(nonSilentZIndexes_[i]));
+  for (const auto nonSilentZIndex : nonSilentZIndexes_) {
+    if (!std::isnan(zLocal_[nonSilentZIndex]) && !std::isnan(zSave_[nonSilentZIndex])) {
+      if (doubleNotEquals(zLocal_[nonSilentZIndex], zSave_[nonSilentZIndex])) {
+        indicesDiff.push_back(static_cast<int>(nonSilentZIndex));
         zChangeType = NOT_SILENT_Z_CHANGE;
       }
     } else {
-      throw DYNError(Error::MODELER, ZValueIsNaN, nonSilentZIndexes_[i]);
+      throw DYNError(Error::MODELER, ZValueIsNaN, nonSilentZIndex);
     }
   }
   // test values of discrete variables that are not used to compute continuous equations
   // and raise the flag NotUsedInContinuousEquations if at least one has changed
   // If at least one non silent Z has changed then the flag is never raised
-  for (std::size_t i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
-    if (!std::isnan(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]]) && !std::isnan(zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
-      if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]], zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
-        indicesDiff.push_back(static_cast<int>(notUsedInContinuousEqSilentZIndexes_[i]));
+  for (const auto notUsedInContinuousEqSilentZIndex : notUsedInContinuousEqSilentZIndexes_) {
+    if (!std::isnan(zLocal_[notUsedInContinuousEqSilentZIndex]) && !std::isnan(zSave_[notUsedInContinuousEqSilentZIndex])) {
+      if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndex], zSave_[notUsedInContinuousEqSilentZIndex])) {
+        indicesDiff.push_back(static_cast<int>(notUsedInContinuousEqSilentZIndex));
         if (zChangeType != NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE && zChangeType != NOT_SILENT_Z_CHANGE)
           zChangeType = NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE;
       }
     } else {
-      throw DYNError(Error::MODELER, ZValueIsNaN, notUsedInContinuousEqSilentZIndexes_[i]);
+      throw DYNError(Error::MODELER, ZValueIsNaN, notUsedInContinuousEqSilentZIndex);
     }
   }
   if (!indicesDiff.empty()) {
@@ -530,14 +531,14 @@ ModelMulti::propagateZModif() {
   } else {
     // if only discrete variables that are used only in continuous equations then we just raise the NotUsedInDiscreteEquations flag
     // no need to propagate
-    for (std::size_t i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
-      if (!std::isnan(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]]) && !std::isnan(zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
-        if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
+    for (const auto notUsedInDiscreteEqSilentZIndex : notUsedInDiscreteEqSilentZIndexes_) {
+      if (!std::isnan(zLocal_[notUsedInDiscreteEqSilentZIndex]) && !std::isnan(zSave_[notUsedInDiscreteEqSilentZIndex])) {
+        if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndex], zSave_[notUsedInDiscreteEqSilentZIndex])) {
           std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
           return NOT_USED_IN_DISCRETE_EQ_Z_CHANGE;
         }
       } else {
-        throw DYNError(Error::MODELER, ZValueIsNaN, notUsedInDiscreteEqSilentZIndexes_[i]);
+        throw DYNError(Error::MODELER, ZValueIsNaN, notUsedInDiscreteEqSilentZIndex);
       }
     }
   }
@@ -545,7 +546,7 @@ ModelMulti::propagateZModif() {
 }
 
 void
-ModelMulti::evalMode(double t) {
+ModelMulti::evalMode(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalMode");
 #endif
@@ -560,11 +561,11 @@ ModelMulti::evalMode(double t) {
 #endif
   modeChange_ = false;
   modeChangeType_t modeChangeType = NO_MODE;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    modeChangeType_t modeChangeTypeSub = (*it)->evalModeSub(t);
+  for (const auto& subModel : subModels_) {
+    modeChangeType_t modeChangeTypeSub = subModel->evalModeSub(t);
     if (modeChangeTypeSub > modeChangeType)
       modeChangeType = modeChangeTypeSub;
-    if ((*it)->modeChange()) {
+    if (subModel->modeChange()) {
       modeChange_ = true;
     }
   }
@@ -583,17 +584,16 @@ ModelMulti::evalMode(double t) {
 void
 ModelMulti::reinitMode() {
   modeChangeType_ = NO_MODE;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->modeChange(false);
-    (*it)->setModeChangeType(NO_MODE);
+  for (const auto& subModel : subModels_) {
+    subModel->modeChange(false);
+    subModel->setModeChangeType(NO_MODE);
   }
 }
 
 void
 ModelMulti::notifyTimeStep() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->notifyTimeStep();
-  }
+  for (const auto& subModel : subModels_)
+    subModel->notifyTimeStep();
 }
 
 void
@@ -605,14 +605,14 @@ ModelMulti::evalCalculatedVariables(const double t, const vector<double>& y, con
   std::copy(yp.begin(), yp.end(), ypLocal_);
   std::copy(z.begin(), z.end(), zLocal_);
 
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->evalCalculatedVariablesSub(t);
+  for (const auto& subModel : subModels_)
+    subModel->evalCalculatedVariablesSub(t);
 }
 
 void
 ModelMulti::checkParametersCoherence() const {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->checkParametersCoherence();
+  for (const auto& subModel : subModels_)
+    subModel->checkParametersCoherence();
 }
 
 void
@@ -621,24 +621,24 @@ ModelMulti::checkDataCoherence(const double t) {
   Timer timer("ModelMulti::checkDataCoherence");
 #endif
 
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->checkDataCoherenceSub(t);
+  for (const auto& subModel : subModels_)
+    subModel->checkDataCoherenceSub(t);
 }
 
 void
 ModelMulti::setFequationsModel() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setFequationsSub();
+  for (const auto& subModel : subModels_)
+    subModel->setFequationsSub();
 }
 
 void
 ModelMulti::setGequationsModel() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setGequationsSub();
+  for (const auto& subModel : subModels_)
+    subModel->setGequationsSub();
 }
 
 void
-ModelMulti::initSilentZ(bool enableSilentZ) {
+ModelMulti::initSilentZ(const bool enableSilentZ) {
   if (!silentZInitialized_ && !subModels_.empty()) {
     silentZInitialized_ = true;
     if (enableSilentZ) {
@@ -656,9 +656,9 @@ ModelMulti::initSilentZ(bool enableSilentZ) {
 
 void
 ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->getY0Sub();
-    (*it)->evalCalculatedVariablesSub(t0);
+  for (const auto& subModel : subModels_) {
+    subModel->getY0Sub();
+    subModel->evalCalculatedVariablesSub(t0);
   }
   connectorContainer_->getY0Connector();
 
@@ -670,11 +670,11 @@ void
 ModelMulti::evalStaticYType() {
   yType_.resize(sizeY_);
   int offsetYType = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    int sizeYType = (*it)->sizeY();
+  for (const auto& subModel : subModels_) {
+    const int sizeYType = subModel->sizeY();
     if (sizeYType > 0) {
-      (*it)->setBufferYType(&yType_[0], offsetYType);
-      (*it)->evalStaticYType();
+      subModel->setBufferYType(&yType_[0], offsetYType);
+      subModel->evalStaticYType();
       offsetYType += sizeYType;
     }
   }
@@ -682,10 +682,10 @@ ModelMulti::evalStaticYType() {
 
 void
 ModelMulti::evalDynamicYType() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    int sizeYType = (*it)->sizeY();
+  for (const auto& subModel : subModels_) {
+    const int sizeYType = subModel->sizeY();
     if (sizeYType > 0)
-      (*it)->evalDynamicYType();
+      subModel->evalDynamicYType();
   }
 }
 
@@ -693,11 +693,11 @@ void
 ModelMulti::evalStaticFType() {
   fType_.resize(sizeF_);
   int offsetFType = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    int sizeFType = (*it)->sizeF();
+  for (const auto& subModel : subModels_) {
+    const int sizeFType = subModel->sizeF();
     if (sizeFType > 0) {
-      (*it)->setBufferFType(&fType_[0], offsetFType);
-      (*it)->evalStaticFType();
+      subModel->setBufferFType(fType_.data(), offsetFType);
+      subModel->evalStaticFType();
       offsetFType += sizeFType;
     }
   }
@@ -708,29 +708,29 @@ ModelMulti::evalStaticFType() {
 
 void
 ModelMulti::evalDynamicFType() {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    int sizeFType = (*it)->sizeF();
+  for (const auto& subModel : subModels_) {
+    const int sizeFType = subModel->sizeF();
     if (sizeFType > 0)
-      (*it)->evalDynamicFType();
+      subModel->evalDynamicFType();
   }
   // connectors equations (A = B) can't change during the simulation so we don't need to update them.
 }
 
 void
 ModelMulti::dumpParameters(std::map< string, string >& mapParameters) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->dumpParameters(mapParameters);
+  for (const auto& subModel : subModels_)
+    subModel->dumpParameters(mapParameters);
 }
 
 void
 ModelMulti::dumpVariables(std::map< string, string >& mapVariables) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->dumpVariables(mapVariables);
+  for (const auto& subModel : subModels_)
+    subModel->dumpVariables(mapVariables);
 }
 
 void
 ModelMulti::getModelParameterValue(const string& curveModelName, const string& curveVariable, double& value, bool& found) {
-  shared_ptr<SubModel> subModel = findSubModelByName(curveModelName);
+  const shared_ptr<SubModel>& subModel = findSubModelByName(curveModelName);
   if (subModel) {
     std::string strValue;
     subModel->getSubModelParameterValue(curveVariable, strValue, found);
@@ -740,29 +740,28 @@ ModelMulti::getModelParameterValue(const string& curveModelName, const string& c
     }
   }
   Trace::warn() << DYNLog(ModelMultiParamNotFound, curveModelName, curveVariable) << Trace::endline;
-  return;
 }
 
 void
 ModelMulti::loadParameters(const std::map< string, string >& mapParameters) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->loadParameters(mapParameters);
+  for (const auto& subModel : subModels_)
+    subModel->loadParameters(mapParameters);
 }
 
 void
 ModelMulti::loadVariables(const std::map< string, string >& mapVariables) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->loadVariables(mapVariables);
+  for (const auto& subModel : subModels_)
+    subModel->loadVariables(mapVariables);
 }
 
 void
 ModelMulti::connectElements(const shared_ptr<SubModel>& subModel1, const string& name1, const shared_ptr<SubModel>& subModel2, const string& name2) {
   vector<std::pair<string, string> > variablesToConnect;
   findVariablesConnectedBy(subModel1, name1, subModel2, name2, variablesToConnect);
-  for (size_t i = 0, iEnd = variablesToConnect.size(); i < iEnd; ++i) {
-    const bool forceConnection = false;
-    const bool throwIfCalculatedVarConn = false;
-    createConnection(subModel1, variablesToConnect[i].first, subModel2, variablesToConnect[i].second, forceConnection, throwIfCalculatedVarConn);
+  for (const auto& variableToConnectpPair : variablesToConnect) {
+    constexpr bool forceConnection = false;
+    constexpr bool throwIfCalculatedVarConn = false;
+    createConnection(subModel1, variableToConnectpPair.first, subModel2, variableToConnectpPair.second, forceConnection, throwIfCalculatedVarConn);
   }
 }
 
@@ -779,8 +778,8 @@ ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel>& subModel
     throw DYNError(Error::MODELER, MultiIncorrectConnection, msg.str());
   }
 
-  for (unsigned int i = 0; i < elements1.size(); ++i) {
-    Element element = elements1[i];
+  for (const auto& element1 : elements1) {
+    Element element = element1;
     string id1 = element.id();
     string nameElt1 = id1.erase(0, name1.size());  // only keep name of sub-structure
 
@@ -799,13 +798,13 @@ ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel>& subModel
       msg << DYNLog(ImpossibleConnection, element.id(), name1, subModel2->name(), subModel2->modelType(), name2);
       throw DYNError(Error::MODELER, MultiIncorrectConnection, msg.str());
     }
-    variables.push_back(std::make_pair(element.id(), elements2[j].id()));
+    variables.emplace_back(element.id(), elements2[j].id());
   }
 }
 
 void
 ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string& name1, const shared_ptr<SubModel>& subModel2, const string& name2,
-                             bool forceConnection, bool throwIfCalculatedVarConn) {
+                             const bool forceConnection, const bool throwIfCalculatedVarConn) {
   const shared_ptr<Variable>& variable1 = subModel1->getVariable(name1);
   const shared_ptr<Variable>& variable2 = subModel2->getVariable(name2);
 
@@ -817,10 +816,10 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
   // Use local type as the connection was made with the aliased variable that might have a different type from the reference variable
   if (variable2->isAlias())
     typeVar2 = dynamic_pointer_cast<VariableAlias> (variable2)->getLocalType();
-  bool negated1 = variable1->getNegated();
-  bool negated2 = variable2->getNegated();
-  bool isState1 = variable1->isState();
-  bool isState2 = variable2->isState();
+  const bool negated1 = variable1->getNegated();
+  const bool negated2 = variable2->getNegated();
+  const bool isState1 = variable1->isState();
+  const bool isState2 = variable2->isState();
 
   if (forceConnection) {  // force the connection to YConnector, specific to the computed variable connector model
     typeVar1 = CONTINUOUS;
@@ -830,7 +829,7 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
   // connection to a calculated variable
   // at least one of the connected variables should be a state variable
   // (a calculated variable is a non-state variable)
-  if ((!isState1) && (!isState2)) {
+  if (!isState1 && !isState2) {
     if (throwIfCalculatedVarConn)
       throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
     else
@@ -850,7 +849,7 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
 
-    boost::shared_ptr<Connector> connector(new Connector());
+    const auto connector = boost::make_shared<Connector>();
     connector->addConnectedSubModel(subModel1, variable1, negated1);
     connector->addConnectedSubModel(subModel2, variable2, negated2);
     switch (typeVar1) {
@@ -879,16 +878,16 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
 void
 ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const shared_ptr<Variable>& variable1,
     const shared_ptr<SubModel>& subModel2, const shared_ptr<Variable>& variable2) {
-  string calculatedVarName1 = variable1->getName();
-  string name = subModel1->name()+"_"+calculatedVarName1;
+  const string& calculatedVarName1 = variable1->getName();
+  string name = subModel1->name() + "_" + calculatedVarName1;
   if (variable1->isAlias())
-    name = subModel1->name()+"_"+subModel1->getCalculatedVarName(variable1->getIndex());
+    name = subModel1->name() + "_" + subModel1->getCalculatedVarName(variable1->getIndex());
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
-    subModelConnector = (variable1->getType() == DISCRETE ||  variable1->getType() == INTEGER)?
-                    setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()), name, subModel1, variable1) :
-                    setConnector(shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable()), name, subModel1, variable1);
+    subModelConnector = (variable1->getType() == DISCRETE || variable1->getType() == INTEGER) ?
+                    setConnector(boost::make_shared<ConnectorCalculatedDiscreteVariable>(), name, subModel1, variable1) :
+                    setConnector(boost::make_shared<ConnectorCalculatedVariable>(), name, subModel1, variable1);
     addSubModel(subModelConnector, "");  // no library for connectors
     subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }
@@ -898,7 +897,7 @@ ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subMo
 
 boost::shared_ptr<SubModel>
 ModelMulti::findSubModelByName(const string& name) const {
-  std::unordered_map<string, size_t >::const_iterator iter = subModelByName_.find(name);
+  const auto iter = subModelByName_.find(name);
   if (iter == subModelByName_.end())
     return (shared_ptr<SubModel>());
   else
@@ -907,7 +906,7 @@ ModelMulti::findSubModelByName(const string& name) const {
 
 vector<boost::shared_ptr<SubModel> >
 ModelMulti::findSubModelByLib(const string& libName) {
-  std::unordered_map<string, vector<shared_ptr<SubModel> > >::const_iterator iter = subModelByLib_.find(libName);
+  const auto iter = subModelByLib_.find(libName);
   if (iter == subModelByLib_.end())
     return (vector<shared_ptr<SubModel> >());
   else
@@ -917,14 +916,14 @@ ModelMulti::findSubModelByLib(const string& libName) {
 bool
 ModelMulti::checkConnects() {
   bool connectOk = true;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const vector<string>& names = (*it)->xNames();
-    const int yDeb = (*it)->yDeb();
-    for (unsigned int j = 0; j < (*it)->sizeY(); ++j) {
+  for (const auto& subModel : subModels_) {
+    const vector<string>& names = subModel->xNames();
+    const int yDeb = subModel->yDeb();
+    for (unsigned int j = 0; j < subModel->sizeY(); ++j) {
       if (yType_[yDeb + j] == EXTERNAL) {
         const bool isConnected = connectorContainer_->isConnected(yDeb + j);
         if (!isConnected) {
-          Trace::info() << DYNLog(SubModelExtVar, (*it)->name(), names[j]) << Trace::endline;
+          Trace::info() << DYNLog(SubModelExtVar, subModel->name(), names[j]) << Trace::endline;
           connectOk = false;
           break;
         }
@@ -939,22 +938,24 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
   if (globalFIndex >= connectorContainer_->getOffsetModel()) {
     connectorContainer_->getConnectorInfos(globalFIndex, subModelName, localFIndex, fEquation);
   } else {
-    std::unordered_map<int, int>::const_iterator iter = mapAssociationF_.find(globalFIndex);
+    const auto iter = mapAssociationF_.find(globalFIndex);
     if (iter != mapAssociationF_.end()) {
-      subModelName = subModels_[iter->second]->name();
-      localFIndex = globalFIndex - subModels_[iter->second]->fDeb();
-      fEquation = subModels_[iter->second]->getFequationByLocalIndex(localFIndex);
+      const auto index = iter->second;
+      subModelName = subModels_[index]->name();
+      localFIndex = globalFIndex - subModels_[index]->fDeb();
+      fEquation = subModels_[index]->getFequationByLocalIndex(localFIndex);
     }
   }
 }
 
 void
 ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGIndex, string& gEquation) const {
-  std::unordered_map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
+  const auto iter = mapAssociationG_.find(globalGIndex);
   if (iter != mapAssociationG_.end()) {
-    subModelName = subModels_[iter->second]->name();
-    localGIndex = globalGIndex - subModels_[iter->second]->gDeb();
-    gEquation = subModels_[iter->second]->getGequationByLocalIndex(localGIndex);
+    const auto index = iter->second;
+    subModelName = subModels_[index]->name();
+    localGIndex = globalGIndex - subModels_[index]->gDeb();
+    gEquation = subModels_[index]->getGequationByLocalIndex(localGIndex);
   }
 }
 
@@ -964,29 +965,29 @@ ModelMulti::setIsInitProcess(bool isInitProcess) {
   Timer timer("ModelMulti::setIsInitProcess");
 #endif
 
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setIsInitProcess(isInitProcess);
+  for (const auto& subModel : subModels_)
+    subModel->setIsInitProcess(isInitProcess);
 }
 
 void
 ModelMulti::setInitialTime(const double t0) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->setCurrentTime(t0);
+  for (const auto& subModel : subModels_)
+    subModel->setCurrentTime(t0);
 }
 
 ModelMulti::findSubModelFromVarName_t
-ModelMulti::findSubModel(const string& modelName, const string& variable) const {
-  const string variableNameBis = variable + "_value";
+ModelMulti::findSubModel(const string& modelName, const string& varName) const {
+  const string variableNameBis = varName + "_value";
 
   // Search in for the device in Composed Model...
-  shared_ptr<SubModel> subModel = findSubModelByName(modelName);
+  const shared_ptr<SubModel> subModel = findSubModelByName(modelName);
   if (subModel) {   // found model's ID in the composed models.
-    const bool isNetwork = false;
+    constexpr bool isNetwork = false;
     // case 1: curve's variable is a variable in submodel
-    if (subModel->hasVariable(variable)) {   // found exact curve name
-      return findSubModelFromVarName_t(subModel, isNetwork, false, variable);
-    } else if (subModel->hasParameterDynamic(variable)) {   // case 2: curve's variable curve is a parameter in submodel
-      return findSubModelFromVarName_t(subModel, isNetwork, true, variable);
+    if (subModel->hasVariable(varName)) {   // found exact curve name
+      return findSubModelFromVarName_t(subModel, isNetwork, false, varName);
+    } else if (subModel->hasParameterDynamic(varName)) {   // case 2: curve's variable curve is a parameter in submodel
+      return findSubModelFromVarName_t(subModel, isNetwork, true, varName);
     } else {   // BEGIN search :Some names of "variables" type are ended by "_value". This might change in the future, then this block could be neglected.
       if (subModel->hasVariable(variableNameBis)) {   // find variableNameBis = name_value
         return findSubModelFromVarName_t(subModel, isNetwork, false, variableNameBis);
@@ -998,12 +999,12 @@ ModelMulti::findSubModel(const string& modelName, const string& variable) const 
     // in the future when Network becomes a proper modelica model in dyd file like the others, this block could be neglected.)
     shared_ptr<SubModel> modelNetwork = findSubModelByName("NETWORK");
     if (modelNetwork) {
-      const bool isNetwork = true;
-      string name = modelName + "_" + variable;
+      constexpr bool isNetwork = true;
+      const string name = modelName + "_" + varName;
       if (modelNetwork->hasVariable(name)) {
         return findSubModelFromVarName_t(modelNetwork, isNetwork, false, name);
       } else {
-        string name2 = name + "_value";
+        const string name2 = name + "_value";
         if (modelNetwork->hasVariable(name2)) {   // find name2 = name_value
           return findSubModelFromVarName_t(modelNetwork, isNetwork, false, name2);
         }
@@ -1020,10 +1021,10 @@ ModelMulti::collectSilentZ() {
   notUsedInDiscreteEqSilentZIndexes_.clear();
   nonSilentZIndexes_.clear();
   unsigned offsetZ = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    int sizeZ = (*it)->sizeZ();
+  for (const auto& subModel : subModels_) {
+    const int sizeZ = subModel->sizeZ();
     if (sizeZ > 0)
-      (*it)->collectSilentZ(&silentZ_[offsetZ]);
+      subModel->collectSilentZ(&silentZ_[offsetZ]);
     offsetZ += sizeZ;
   }
   // a discrete variable is not silent if it is connected somewhere
@@ -1045,13 +1046,13 @@ ModelMulti::collectSilentZ() {
 }
 
 bool
-ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
-  const string modelName = curve->getModelName();
-  const string variable = curve->getVariable();
+ModelMulti::initCurves(const shared_ptr<curves::Curve>& curve) {
+  const string& modelName = curve->getModelName();
+  const string& variable = curve->getVariable();
   const string variableNameBis = variable + "_value";
 
-  const findSubModelFromVarName_t& props = findSubModel(modelName, variable);
-  shared_ptr<SubModel> subModel = props.subModel_;
+  const findSubModelFromVarName_t props = findSubModel(modelName, variable);
+  const shared_ptr<SubModel>& subModel = props.subModel_;
 
   curve->setAvailable(false);
 
@@ -1080,7 +1081,7 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
       }
     } else {
       // BEGIN SEARCH IN NETWORK
-      shared_ptr<SubModel> modelNetwork = subModel;
+      const shared_ptr<SubModel> modelNetwork = subModel;
       string name = modelName + "_" + variable;
       if (props.variableNameInSubModel_ == name) {
         Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, name) << Trace::endline;
@@ -1106,13 +1107,11 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
+ModelMulti::updateCalculatedVarForCurves(const boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::updateCurves");
 #endif
-  for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
-      itCurve != itCurveEnd; ++itCurve) {
-    boost::shared_ptr<Curve> curve = *itCurve;
+  for (const auto& curve : curvesCollection->getCurves()) {
     shared_ptr<SubModel> subModel = findSubModel(curve->getModelName(), curve->getVariable()).subModel_;
     if (subModel) {
       subModel->updateCalculatedVarForCurve(curve);
@@ -1120,15 +1119,14 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
   }
 }
 
-void ModelMulti::printVariableNames(bool withVariableType) {
+void ModelMulti::printVariableNames(const bool withVariableType) {
   int nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::string>& xNames = (*it)->xNamesInit();
-    for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (const auto& xNameInit : subModel->xNamesInit()) {
+       Trace::debug(Trace::variables()) << nVar << " " << subModel->name() << " | " << xNameInit << Trace::endline;
        ++nVar;
     }
   }
@@ -1136,10 +1134,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::string>& xNames = (*it)->getCalculatedVarNamesInit();
-    for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (const auto& xCalculatedVarNameInit : subModel->getCalculatedVarNamesInit()) {
+       Trace::debug(Trace::variables()) << nVar << " " << subModel->name() << " | " << xCalculatedVarNameInit << Trace::endline;
        ++nVar;
     }
   }
@@ -1147,10 +1144,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::string>& zNames = (*it)->zNamesInit();
-    for (unsigned int j = 0; j < zNames.size(); ++j) {
-      Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (const auto& zNameInit : subModel->zNamesInit()) {
+      Trace::debug(Trace::variables()) << nVar << " " << subModel->name() << " | " << zNameInit << Trace::endline;
       ++nVar;
     }
   }
@@ -1162,10 +1158,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
     Trace::debug(Trace::variables()) << "X variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   const std::vector<propertyContinuousVar_t>& modelYType = getYType();
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::string>& xNames = (*it)->xNames();
-    for (unsigned int j = 0; j < xNames.size(); ++j) {
-      std::string varName = (*it)->name() + " | " + xNames[j];
+  for (const auto& subModel : subModels_) {
+    for (const auto& xName : subModel->xNames()) {
+      const std::string varName = subModel->name() + " | " + xName;
       if (withVariableType) {
         Trace::debug(Trace::variables()) << nVar << " " << varName << " | " << propertyVar2Str(modelYType[nVar]) << Trace::endline;
       } else {
@@ -1174,21 +1169,19 @@ void ModelMulti::printVariableNames(bool withVariableType) {
       ++nVar;
     }
   }
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& xAlias = (*it)->xAliasesNames();
-    for (unsigned int j = 0; j < xAlias.size(); ++j) {
-      Trace::debug(Trace::variables()) << (*it)->name() << " | " << xAlias[j].first << " is an alias of " <<
-          (*it)->name() << " | " << xAlias[j].second.first << " (negated: " << xAlias[j].second.second << ")" << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (const auto& xAliasNamePair : subModel->xAliasesNames()) {
+      Trace::debug(Trace::variables()) << subModel->name() << " | " << xAliasNamePair.first << " is an alias of " <<
+          subModel->name() << " | " << xAliasNamePair.second.first << " (negated: " << xAliasNamePair.second.second << ")" << Trace::endline;
     }
   }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::string>& xNames = (*it)->getCalculatedVarNames();
-    for (unsigned int j = 0; j < xNames.size(); ++j) {
-      std::string varName = (*it)->name() + " | " + xNames[j];
+  for (const auto& subModel : subModels_) {
+    for (const auto& calculatedVarName : subModel->getCalculatedVarNames()) {
+      std::string varName = subModel->name() + " | " + calculatedVarName;
       Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
       ++nVar;
     }
@@ -1197,33 +1190,31 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::string>& zNames = (*it)->zNames();
-    for (unsigned int j = 0; j < zNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (const auto& zName : subModel->zNames()) {
+       Trace::debug(Trace::variables()) << nVar << " " << subModel->name() << " | " << zName << Trace::endline;
        ++nVar;
     }
   }
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& zAlias = (*it)->zAliasesNames();
-    for (unsigned int j = 0; j < zAlias.size(); ++j) {
-      Trace::debug(Trace::variables()) << (*it)->name() << " | " << zAlias[j].first << " is an alias of "
-          << (*it)->name() << "_" << zAlias[j].second.first << " (negated: " << zAlias[j].second.second << ")" << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (const auto& zAliasNamePair : subModel->zAliasesNames()) {
+      Trace::debug(Trace::variables()) << subModel->name() << " | " << zAliasNamePair.first << " is an alias of "
+          << subModel->name() << "_" << zAliasNamePair.second.first << " (negated: " << zAliasNamePair.second.second << ")" << Trace::endline;
     }
   }
 }
 
 void ModelMulti::printEquations() {
-  bool isInitProcessBefore = subModels_[0]->getIsInitProcess();
+  const bool isInitProcessBefore = subModels_[0]->getIsInitProcess();
   setIsInitProcess(true);
   int nVar = 0;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Equations init" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    for (unsigned int j = 0 ; j < (*it)->sizeFInit() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getFequationByLocalIndex(j) <<
-          " model: " << (*it)->name() <<  Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (unsigned int j = 0 ; j < subModel->sizeFInit() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << subModel->getFequationByLocalIndex(j) <<
+          " model: " << subModel->name() <<  Trace::endline;
       ++nVar;
     }
   }
@@ -1232,10 +1223,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Equations" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    for (unsigned int j = 0 ; j < (*it)->sizeF() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getFequationByLocalIndex(j) <<
-          " model: " << (*it)->name() << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << subModel->getFequationByLocalIndex(j) <<
+          " model: " << subModel->name() << Trace::endline;
       ++nVar;
     }
   }
@@ -1246,10 +1237,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Roots init" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    for (unsigned int j = 0 ; j < (*it)->sizeGInit() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getGequationByLocalIndex(j) <<
-          " model: " << (*it)->name() <<  Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (unsigned int j = 0 ; j < subModel->sizeGInit() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << subModel->getGequationByLocalIndex(j) <<
+          " model: " << subModel->name() <<  Trace::endline;
       ++nVar;
     }
   }
@@ -1258,10 +1249,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Roots" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    for (unsigned int j = 0 ; j < (*it)->sizeG() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getGequationByLocalIndex(j) <<
-          " model: " << (*it)->name() << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (unsigned int j = 0 ; j < subModel->sizeG() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << subModel->getGequationByLocalIndex(j) <<
+          " model: " << subModel->name() << Trace::endline;
       ++nVar;
     }
   }
@@ -1269,19 +1260,16 @@ void ModelMulti::printEquations() {
 }
 
 void ModelMulti::printLocalInitParametersValues() const {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->printLocalInitParametersValues();
-  }
+  for (const auto& subModel : subModels_)
+    subModel->printLocalInitParametersValues();
 }
 
-std::string ModelMulti::getVariableName(int index) {
+std::string ModelMulti::getVariableName(const int index) {
   // At the first call we construct the association
   if (yNames_.empty()) {
-    std::string varName;
-    for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-      const std::vector<std::string>& xNames = (*it)->xNames();
-      for (unsigned int j = 0; j < xNames.size(); ++j) {
-        varName = (*it)->name() + "_" + xNames[j];
+    for (const auto& subModel : subModels_) {
+      for (const auto& xName : subModel->xNames()) {
+        std::string varName = subModel->name() + "_" + xName;
         yNames_.push_back(varName);
       }
     }
@@ -1299,7 +1287,7 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
   std::copy(z.begin(), z.end(), zLocal_);
 }
 
-void ModelMulti::setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
+void ModelMulti::setLocalInitParameters(const boost::shared_ptr<parameters::ParametersSet>& localInitParameters) {
   localInitParameters_ = localInitParameters;
 }
 

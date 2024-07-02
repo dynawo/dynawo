@@ -46,12 +46,12 @@ class ModelVoltageMeasurementsUtilitiesFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of ModelVoltageMeasurementsUtilitiesFactory
    */
-  SubModel *create() const;
+  SubModel* create() const override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilitiesFactory destroy
    */
-  void destroy(SubModel *) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -109,7 +109,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @brief ModelVoltageMeasurementsUtilities model initialization
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0);
+  void init(double t0) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities model's sizes getter
@@ -118,7 +118,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * ModelVoltageMeasurementsUtilities instance. Used by @p ModelMulti to generate right size matrices
    * and vector for the solver.
    */
-  void getSize();
+  void getSize() override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities F(t,y,y') function evaluation
@@ -129,7 +129,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @param t Simulation instant
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(double t, propertyF_t type);
+  void evalF(double t, propertyF_t type) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities G(t,y,y') function evaluation
@@ -138,7 +138,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalG(const double t);
+  void evalG(double t) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities discrete variables evaluation
@@ -148,18 +148,18 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalZ(const double t);
+  void evalZ(double t) override;
 
   /**
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
-   * @copydoc ModelCPP::evalMode(const double t)
+   * @copydoc ModelCPP::evalMode(double t)
    */
-  modeChangeType_t evalMode(const double t);
+  modeChangeType_t evalMode(double t) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities transposed jacobian evaluation
@@ -168,10 +168,10 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief  ModelVoltageMeasurementsUtilities transposed jacobian evaluation
@@ -180,40 +180,40 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief calculate calculated variables
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @copydoc ModelCPP::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc ModelCPP::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */}
+  void evalDynamicFType() override { /* not needed */}
 
   /**
    * @copydoc ModelCPP::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc ModelCPP::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */}
+  void evalDynamicYType() override { /* not needed */}
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
@@ -221,7 +221,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -229,7 +229,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res)const;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -238,12 +238,12 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const;
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities parameters setter
    */
-  void setSubModelParameters();
+  void setSubModelParameters() override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities elements initializer
@@ -253,12 +253,12 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @param elements  Reference to elements' vector
    * @param mapElement Map associating each element index in the elements vector to its name
    */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */
-  void dumpUserReadableElementList(const std::string& nameElement) const;
+  void dumpUserReadableElementList(const std::string& nameElement) const override;
 
   /**
    * @brief initialize variables of the model
@@ -266,49 +266,49 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * A variable is a structure which contains all information needed to interact with the model
    * @param variables vector to fill with each variables
    */
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
    * @param parameters vector to fill with each parameters
    */
-  void defineParameters(std::vector<ParameterModeler>& parameters);
+  void defineParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model
    */
-  std::string getCheckSum() const;
+  std::string getCheckSum() const override;
 
   /**
    * @copydoc ModelCPP::initializeStaticData()
    */
-  void initializeStaticData() { /* not needed */ }
+  void initializeStaticData() override { /* not needed */ }
 
   /**
    * @copydoc ModelCPP::initializeFromData(const boost::shared_ptr<DataInterface> &data)
    */
-  void initializeFromData(const boost::shared_ptr<DataInterface>& data);
+  void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
 
   /**
    * @copydoc ModelCPP::setFequations()
    */
-  void setFequations();
+  void setFequations() override;
 
   /**
    * @copydoc ModelCPP::setGequations()
    */
-  void setGequations();
+  void setGequations() override;
 
   /**
    * @copydoc ModelCPP::initParams()
    */
-  void initParams() { /* not needed */ }
+  void initParams() override { /* not needed */ }
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence(const double t)
+   * @copydoc ModelCPP::checkDataCoherence(double t)
    */
-  void checkDataCoherence(const double t);
+  void checkDataCoherence(double t) override;
 
   /**
    * @copydoc SubModel::hasDataCheckCoherence() const
@@ -321,21 +321,21 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
     * @param minIdx (inout parameter) index achieving the minimum value
     * @return the minimum voltage value among the running inputs
     */
-  double computeMin(unsigned int &minIdx) const;
+  double computeMin(unsigned int& minIdx) const;
 
   /**
    * @brief gets the maximum value of the (connected and active) input voltages
    * @param maxIdx (inout parameter) index achieving the maximum value
    * @return the maximum voltage value among the running inputs
    */
-  double computeMax(unsigned int &maxIdx) const;
+  double computeMax(unsigned int& maxIdx) const;
 
   /**
    * @brief gets the average value of the (connected and active) input voltages
    * @param nbActive (inout parameter) number of running variables
    * @return the average voltage value among the running inputs
    */
-  double computeAverage(unsigned int &nbActive) const;
+  double computeAverage(unsigned int& nbActive) const;
 
   /**
    * @brief returns whether or not an input is running

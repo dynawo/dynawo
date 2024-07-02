@@ -43,7 +43,7 @@ class ParameterSolver : public ParameterCommon {
    * @param valueType type of the parameter (bool, int, string, double)
    * @param mandatory whether the parameter is mandatory or optional
    */
-  ParameterSolver(const std::string& name, const typeVarC_t& valueType, bool mandatory);
+  ParameterSolver(const std::string& name, typeVarC_t valueType, bool mandatory);
 
   /**
    * @brief Default copy Constructor
@@ -59,7 +59,7 @@ class ParameterSolver : public ParameterCommon {
     * @brief check whether the parameter's value is set
     * @return whether the parameter's value is set
     */
-  inline bool hasValue() const {
+  inline bool hasValue() const override {
     return value_ != boost::none;
   }
 
@@ -73,7 +73,7 @@ class ParameterSolver : public ParameterCommon {
    * @brief parameter's value intermediary getter
    * @return parameter's value
    */
-  boost::any getAnyValue() const;
+  boost::any getAnyValue() const override;
 
   /**
    * @brief parameter's value getter (converting the value to double)
@@ -85,7 +85,7 @@ class ParameterSolver : public ParameterCommon {
    * @brief TypeError getter
    * @return TypeError getter
    */
-  Error::TypeError_t getTypeError() const;
+  Error::TypeError_t getTypeError() const override;
 
  private:
   ParameterSolver() = delete;  ///< default constructor

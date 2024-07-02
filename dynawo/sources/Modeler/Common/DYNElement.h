@@ -55,7 +55,7 @@ class Element {
    * @param id element's id
    * @param type element's type
    */
-  Element(const std::string& name, const std::string& id, typeElement type)
+  Element(const std::string& name, const std::string& id, const typeElement type)
   : type_(type)
   , name_(name)
   , id_(id) { }
@@ -88,7 +88,7 @@ class Element {
    * @brief get list of sub elements number
    * @return list of sub elements number
    */
-  inline const std::vector<int> & subElementsNum() const {
+  inline const std::vector<int>& subElementsNum() const {
     return subElementsNum_;
   }
 
@@ -96,7 +96,7 @@ class Element {
    * @brief get list of sub elements number
    * @return list of sub elements number
    */
-  inline std::vector<int> & subElementsNum() {
+  inline std::vector<int>& subElementsNum() {
     return subElementsNum_;
   }
 

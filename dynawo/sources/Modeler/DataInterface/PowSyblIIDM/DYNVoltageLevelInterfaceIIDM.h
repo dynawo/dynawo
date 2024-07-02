@@ -49,7 +49,7 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getVNom() const

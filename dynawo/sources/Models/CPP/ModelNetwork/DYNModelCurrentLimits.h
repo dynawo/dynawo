@@ -60,10 +60,10 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    *
    * @param t current time
    * @param current current inside the component
-   * @param g value of the root function
    * @param desactivate @b true if the current limits is off
+   * @param g value of the root function
    */
-  void evalG(const double& t, const double& current, state_g* g, const double& desactivate);
+  void evalG(double t, double current, double desactivate, state_g* g);
 
   /**
    * @brief compute the state of the current limits
@@ -71,27 +71,27 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param componentName name of the component for which the current limits is
    * @param t current time
    * @param g buffer of the roots
-   * @param network model of network
    * @param desactivate @b true if the current limits is off
    * @param modelType type of the model
+   * @param network model of network
    *
    * @return the state of the current limits
    */
-  state_t evalZ(const std::string& componentName, const double& t, state_g * g, ModelNetwork* network,
-                const double& desactivate, const std::string& modelType);  // compute the local Z function
+  state_t evalZ(const std::string& componentName, double t, const state_g* g, double desactivate,
+    const std::string& modelType, ModelNetwork* network);  // compute the local Z function
 
   /**
    * @brief add a new current limit (pu base UNom, base SNRef)
    * @param limit new current limit
    * @param acceptableDuration acceptable duration
    */
-  void addLimit(const double& limit, const int& acceptableDuration);
+  void addLimit(double limit, int acceptableDuration);
 
   /**
    * @brief set side
    * @param side side
    */
-  void setSide(const side_t side);
+  void setSide(side_t side);
 
   /**
    * @brief set factor to convert from pu to Amperes
@@ -103,7 +103,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief set the max time operation
    * @param maxTimeOperation max time operation
    */
-  void setMaxTimeOperation(const double& maxTimeOperation);
+  void setMaxTimeOperation(double maxTimeOperation);
 
   /**
    * @brief get G size
@@ -114,7 +114,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief get size of Z
    * @return size of Z
    */
-  int sizeZ() const;
+  static int sizeZ();
 
  private:
   /**

@@ -11,6 +11,7 @@
 // simulation tool for power systems.
 //
 
+#include <boost/make_shared.hpp>
 #include "CRTCriteria.h"
 
 namespace criteria {
@@ -27,22 +28,12 @@ Criteria::getParams() const {
 
 void
 Criteria::addComponentId(const std::string& id, const std::string& voltageLevelId) {
-  compIds_.push_back(boost::shared_ptr<ComponentId>(new ComponentId(id, voltageLevelId)));
+  compIds_.push_back(boost::make_shared<ComponentId>(id, voltageLevelId));
 }
 
 void
 Criteria::addCountry(const std::string& id) {
   countryIds_.insert(id);
-}
-
-Criteria::component_id_const_iterator
-Criteria::begin() const {
-  return Criteria::component_id_const_iterator(this, true);
-}
-
-Criteria::component_id_const_iterator
-Criteria::end() const {
-  return Criteria::component_id_const_iterator(this, false);
 }
 
 bool
@@ -54,8 +45,6 @@ bool
 Criteria::hasCountryFilter() const {
   return !countryIds_.empty();
 }
-
-/////////////////////////////////////////////////
 
 Criteria::ComponentId::ComponentId(const std::string& id, const std::string& voltageLevelId) :
     id_(id),
@@ -69,57 +58,6 @@ Criteria::ComponentId::getId() const {
 const std::string&
 Criteria::ComponentId::getVoltageLevelId() const {
   return voltageLevelId_;
-}
-
-/////////////////////////////////////////////////
-
-Criteria::component_id_const_iterator::component_id_const_iterator(const Criteria* iterated, bool begin) :
-current_((begin ? iterated->compIds_.begin() : iterated->compIds_.end())) { }
-
-Criteria::component_id_const_iterator&
-Criteria::component_id_const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-Criteria::component_id_const_iterator
-Criteria::component_id_const_iterator::operator++(int) {
-  Criteria::component_id_const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-Criteria::component_id_const_iterator&
-Criteria::component_id_const_iterator::operator--() {
-  --current_;
-  return *this;
-}
-
-Criteria::component_id_const_iterator
-Criteria::component_id_const_iterator::operator--(int) {
-  Criteria::component_id_const_iterator previous = *this;
-  current_--;
-  return previous;
-}
-
-bool
-Criteria::component_id_const_iterator::operator==(const Criteria::component_id_const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-Criteria::component_id_const_iterator::operator!=(const Criteria::component_id_const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const Criteria::ComponentId&
-Criteria::component_id_const_iterator::operator*() const {
-  return **current_;
-}
-
-const Criteria::ComponentId*
-Criteria::component_id_const_iterator::operator->() const {
-  return &(**current_);
 }
 
 }  // namespace criteria

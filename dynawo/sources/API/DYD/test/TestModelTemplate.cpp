@@ -31,7 +31,6 @@
 #include "DYDMacroConnect.h"
 #include "DYDXmlImporter.h"
 #include "DYDXmlExporter.h"
-#include "DYDIterators.h"
 #include "DYDMacroStaticRefFactory.h"
 #include "DYDStaticRef.h"
 #include "DYDMacroStaticRef.h"
@@ -169,13 +168,13 @@ TEST(APIDYDTest, ModelTemplateRefIterators) {
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
-  for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<StaticRef> ref = *it;
+  for (const auto& staticrefPair : model->getStaticRefs()) {
+    const boost::shared_ptr<StaticRef>& ref = staticrefPair.second;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
-  for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<MacroStaticRef> ref = *it;
+  for (const auto& macroStaticrefPair : model->getMacroStaticRefs()) {
+    const boost::shared_ptr<MacroStaticRef>& ref = macroStaticrefPair.second;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }

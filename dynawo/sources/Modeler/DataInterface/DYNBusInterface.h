@@ -95,7 +95,7 @@ class BusInterface : public ComponentInterface {
    * @brief Getter for the bus' id
    * @return The id of the bus
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the bus index

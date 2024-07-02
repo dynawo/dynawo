@@ -99,7 +99,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief set the connection state (open, closed on one side, ...)
    * @param state connection state
    */
-  void setConnectionState(State state) {
+  void setConnectionState(const State state) {
     connectionState_ = state;
   }  // set the connection state (open, closed on one side, ...)
 
@@ -107,7 +107,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief set the tap-changer model used along with the transformer
    * @param model tap-changer model
    */
-  void setModelTapChanger(boost::shared_ptr<ModelTapChanger> model) {
+  void setModelTapChanger(const boost::shared_ptr<ModelTapChanger>& model) {
     modelTapChanger_ = model;
   }  // set the tap-changer model used along with the transformer
 
@@ -221,32 +221,32 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalF()
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief define variables
@@ -258,7 +258,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -270,37 +270,37 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
-   * @copydoc NetworkComponent::evalZ(const double& t)
+   * @copydoc NetworkComponent::evalZ(double t)
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);  // compute the Z function
+  NetworkComponent::StateChange_t evalZ(double t) override;  // compute the Z function
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);  // compute the G function
+  void evalG(double t) override;  // compute the G function
 
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars();  // compute calculated variables (for outputs)
+  void evalCalculatedVars() override;  // compute calculated variables (for outputs)
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar : index of the calculated variable
    * @param numVars : index of variables used to define the jacobian associated to the calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -308,7 +308,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -317,80 +317,80 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType() { /* not needed */ }
+  void evalStaticYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */ }
+  void evalDynamicYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType() { /* not needed */ }
+  void evalStaticFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */ }
+  void evalDynamicFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @brief evaluate the term of the jacobian
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    * @brief init
    * @param yNum yNum
    */
-  void init(int& yNum);
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors();
+  void addBusNeighbors() override;
 
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @brief  get the current tap-changer tap index
@@ -470,7 +470,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief  set the index of the tap used
    * @param stepIndex index of the tap used
    */
-  void setCurrentStepIndex(const int& stepIndex);
+  void setCurrentStepIndex(int stepIndex);
 
   /**
    * @brief  get the current value of the active power at side 1
@@ -480,7 +480,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the value of the active power at side 1
    */
-  double P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double P1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief  get the current value of the active power at side 2
@@ -490,7 +490,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the value of the active power at side 2
    */
-  double P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double P2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute value
@@ -596,7 +596,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
-  double ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -606,7 +606,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
-  double ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the real part of the current on side 2
@@ -616,7 +616,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
-  double ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -626,7 +626,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
-  double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 1
@@ -636,7 +636,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return value of the current
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 2
@@ -646,7 +646,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return value of the current
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
    /**
    * @brief get the real part of the voltage at side 1

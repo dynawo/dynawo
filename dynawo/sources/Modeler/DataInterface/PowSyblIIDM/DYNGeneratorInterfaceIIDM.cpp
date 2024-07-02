@@ -304,7 +304,7 @@ GeneratorInterfaceIIDM::getTargetV() {
 }
 
 
-string
+const std::string&
 GeneratorInterfaceIIDM::getID() const {
   return generatorIIDM_.getId();
 }

@@ -44,7 +44,7 @@ class VariableNativeFactory {
    * @param[in] negated @b whether the variable is negated
    * @returns Shared pointer to a new @p VariableNative with given name, type, and negated attributes
    */
-  static boost::shared_ptr<VariableNative> create(const std::string& name, const typeVar_t& type, bool isState, bool negated = false);
+  static boost::shared_ptr<VariableNative> create(const std::string& name, typeVar_t type, bool isState, bool negated = false);
 
   /**
    * @brief Create new (state) VariableNative instance
@@ -54,7 +54,7 @@ class VariableNativeFactory {
    * @param[in] negated @b whether the variable is negated
    * @returns Shared pointer to a new @p VariableNative with given name, type, and negated attributes
    */
-  inline static boost::shared_ptr<VariableNative> createState(const std::string& name, const typeVar_t& type, bool negated = false) {
+  inline static boost::shared_ptr<VariableNative> createState(const std::string& name, const typeVar_t type, const bool negated = false) {
     return create(name, type, true, negated);
   }
 
@@ -66,7 +66,7 @@ class VariableNativeFactory {
    * @param[in] negated @b whether the variable is negated
    * @returns Shared pointer to a new @p VariableNative with given name, type, and negated attributes
    */
-  inline static boost::shared_ptr<VariableNative> createCalculated(const std::string& name, const typeVar_t& type, bool negated = false) {
+  inline static boost::shared_ptr<VariableNative> createCalculated(const std::string& name, const typeVar_t type, const bool negated = false) {
     return create(name, type, false, negated);
   }
 };

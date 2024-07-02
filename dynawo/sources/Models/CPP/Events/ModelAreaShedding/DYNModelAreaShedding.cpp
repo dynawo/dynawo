@@ -123,7 +123,7 @@ ModelAreaShedding::getSize() {
 // evaluation of F(t,y,y') function
 
 void
-ModelAreaShedding::evalF(double /*t*/, propertyF_t type) {
+ModelAreaShedding::evalF(double /*t*/, const propertyF_t type) {
   if (type == DIFFERENTIAL_EQ)
     return;
   if (stateAreaShedding_ == NOT_STARTED) {  // shedding not started
@@ -168,7 +168,7 @@ ModelAreaShedding::setGequations() {
 }
 
 void
-ModelAreaShedding::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
+ModelAreaShedding::evalJt(const double /*t*/, const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   static double dPOne = 1;
   // whatever the state of the automaton, same Jacobian
   for (int i = 0; i < nbLoads_; ++i) {  // 2 equations by loads
@@ -180,11 +180,11 @@ ModelAreaShedding::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix&
 }
 
 void
-ModelAreaShedding::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
+ModelAreaShedding::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jtPrim) {
   // no differential equations
   for (int i = 0; i < nbLoads_; ++i) {  // 2 equations by loads
-    jt.changeCol();
-    jt.changeCol();
+    jtPrim.changeCol();
+    jtPrim.changeCol();
   }
 }
 
@@ -292,7 +292,7 @@ ModelAreaShedding::setSubModelParameters() {
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
 
-  const bool isInitParam = false;
+  constexpr bool isInitParam = false;
   bool shedPowersSet = true;
   const ParameterModeler& PShedParameter = findParameter("PShed", isInitParam);
   if (PShedParameter.hasValue()) {

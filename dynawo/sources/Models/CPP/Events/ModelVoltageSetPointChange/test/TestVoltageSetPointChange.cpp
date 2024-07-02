@@ -192,7 +192,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeContinuousAndDi
   SparseMatrix smj;
   int size = modelVoltageSetPointChange->sizeF();
   smj.init(size, size);
-  modelVoltageSetPointChange->evalJt(0, 0, smj, 0);
+  modelVoltageSetPointChange->evalJt(0, 0, 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   modelVoltageSetPointChange->evalG(2.);
@@ -209,7 +209,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeContinuousAndDi
 
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
-  modelVoltageSetPointChange->evalJtPrim(0, 0, smjPrim, 0);
+  modelVoltageSetPointChange->evalJtPrim(0, 0, 0, smjPrim);
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelVoltageSetPointChange->evalMode(1);
   ASSERT_EQ(mode, NO_MODE);

@@ -73,7 +73,7 @@ class SwitchInterfaceIIDM : public SwitchInterface {
   /**
    * @copydoc SwitchInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc ComponentInterface::isConnected()

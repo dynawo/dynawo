@@ -43,8 +43,8 @@ class TapChangerStep {
    * @param g step conductance
    * @param b step susceptance
    */
-  inline TapChangerStep(double rho, double alpha, double r, double x, double g,
-                        double b)
+  inline TapChangerStep(const double rho, const double alpha, const double r, const double x, const double g,
+                        const double b)
       : rho_(rho), alpha_(alpha), r_(r), x_(x), g_(g), b_(b) {}
 
   /**

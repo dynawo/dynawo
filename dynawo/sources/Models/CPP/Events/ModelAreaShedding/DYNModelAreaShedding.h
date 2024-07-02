@@ -43,12 +43,12 @@ class ModelAreaSheddingFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of Model AreaShedding
    */
-  SubModel* create() const;
+  SubModel* create() const override;
 
   /**
    * @brief Model AreaShedding destroy
    */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -75,7 +75,7 @@ class ModelAreaShedding : public ModelCPP {
    * @brief  ModelAreaShedding model initialization routine
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0);
+  void init(double t0) override;
 
   /**
    * @brief  ModelAreaShedding model's sizes getter
@@ -84,7 +84,7 @@ class ModelAreaShedding : public ModelCPP {
    * Model AreaShedding instance. Used by @p ModelMulti to generate right size matrixs
    * and vector for the solver.
    */
-  void getSize();
+  void getSize() override;
 
   /**
    * @brief  ModelAreaShedding F(t,y,y') function evaluation
@@ -94,14 +94,16 @@ class ModelAreaShedding : public ModelCPP {
    * @param[in] t Simulation instant
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(double t, propertyF_t type);
+  void evalF(double t, propertyF_t type) override;
+
   /**
    * @brief  ModelAreaShedding G(t,y,y') function evaluation
    *
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double t);
+  void evalG(double t) override;
+
   /**
    * @brief  ModelAreaShedding discrete variables evaluation
    *
@@ -109,21 +111,22 @@ class ModelAreaShedding : public ModelCPP {
    * current state variables values.
    * @param[in] t Simulation instant
    */
-  void evalZ(const double t);
+  void evalZ(double t) override;
 
   /**
    * @copydoc SubModel::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc ModelCPP::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double t);
+  modeChangeType_t evalMode(double t) override;
+
   /**
    * @brief calculate calculated variables
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief  ModelAreaShedding transposed jacobian evaluation
@@ -131,44 +134,45 @@ class ModelAreaShedding : public ModelCPP {
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
+
   /**
    * @brief calculate jacobien prime matrix
    *
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @copydoc ModelCPP::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc ModelCPP::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */}
+  void evalDynamicFType() override { /* not needed */}
 
   /**
    * @copydoc ModelCPP::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc ModelCPP::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */}
+  void evalDynamicYType() override { /* not needed */}
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
@@ -176,7 +180,7 @@ class ModelAreaShedding : public ModelCPP {
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -184,7 +188,7 @@ class ModelAreaShedding : public ModelCPP {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res)const;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -192,12 +196,12 @@ class ModelAreaShedding : public ModelCPP {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const;
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
 
   /**
    * @brief  ModelAreaShedding parameters setter
    */
-  void setSubModelParameters();
+  void setSubModelParameters() override;
 
   /**
    * @brief  ModelAreaShedding elements initializer
@@ -207,53 +211,53 @@ class ModelAreaShedding : public ModelCPP {
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
   //---------------------------------------------------------------------
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */
-  void dumpUserReadableElementList(const std::string& nameElement) const;
+  void dumpUserReadableElementList(const std::string& nameElement) const override;
 
   /**
    * @copydoc ModelCPP::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
    */
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @copydoc ModelCPP::defineParameters(std::vector<ParameterModeler>& parameters)
    */
-  void defineParameters(std::vector<ParameterModeler>& parameters);
+  void defineParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief get check sum number
    * @return checksum string
    */
-  std::string getCheckSum() const;
+  std::string getCheckSum() const override;
 
   /**
    * @copydoc ModelCPP::initializeStaticData()
    */
-  void initializeStaticData();
+  void initializeStaticData() override;
 
   /**
    * @copydoc ModelCPP::initializeFromData(const boost::shared_ptr<DataInterface> &data)
    */
-  void initializeFromData(const boost::shared_ptr<DataInterface>& data);
+  void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
 
   /**
    * @copydoc ModelCPP::setFequations()
    */
-  void setFequations();
+  void setFequations() override;
 
   /**
    * @copydoc ModelCPP::setGequations()
    */
-  void setGequations();
+  void setGequations() override;
 
   /**
    * @copydoc ModelCPP::initParams()
    */
-  void initParams() { /* not needed */ }
+  void initParams() override { /* not needed */ }
 
  private:
   // parameters

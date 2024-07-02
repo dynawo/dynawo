@@ -49,7 +49,7 @@ namespace DYN {
    * @param mapElement : map associating name of element and element where the new sub element should be store
    */
   void addSubElement(const std::string& name, const std::string& elementName, const Element::typeElement& type,
-      const std::string parentName, const std::string& parentType,
+      const std::string& parentName, const std::string& parentType,
       std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**

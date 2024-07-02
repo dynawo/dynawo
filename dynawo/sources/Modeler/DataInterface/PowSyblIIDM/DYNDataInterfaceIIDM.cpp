@@ -19,6 +19,8 @@
  */
 #include "DYNDataInterfaceIIDM.h"
 
+#include <DYNClone.hpp>
+
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNBatteryInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
@@ -1002,55 +1004,49 @@ DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& crite
 
 void
 DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::BUS),
-      itEnd = criteria->end(CriteriaCollection::BUS);
-      it != itEnd; ++it) {
-    shared_ptr<criteria::Criteria> crit = *it;
-    if (!BusCriteria::criteriaEligibleForBus(crit->getParams())) continue;
-    shared_ptr<BusCriteria> dynCriteria = shared_ptr<BusCriteria>(new BusCriteria(crit->getParams()));
-    if (crit->begin() != crit->end()) {
-      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-          cmpItEnd = crit->end();
-          cmpIt != cmpItEnd; ++cmpIt) {
+  for (const auto& busCriteria : criteria->getBusCriteria()) {
+    if (!BusCriteria::criteriaEligibleForBus(busCriteria->getParams())) continue;
+    shared_ptr<BusCriteria> dynCriteria = boost::make_shared<BusCriteria>(busCriteria->getParams());
+    const auto& componentIds = busCriteria->getComponentId();
+    if (!componentIds.empty()) {
+      for (const auto& componentId : componentIds) {
         shared_ptr<BusInterface> bus;
-        if (!cmpIt->getVoltageLevelId().empty()) {
-          bus = findCalculatedBusInterface(cmpIt->getVoltageLevelId(), cmpIt->getId());
+        if (!componentId->getVoltageLevelId().empty()) {
+          bus = findCalculatedBusInterface(componentId->getVoltageLevelId(), componentId->getId());
           if (!bus) {
-            Trace::warn() << DYNLog(CalculatedBusNotFound, cmpIt->getVoltageLevelId(), cmpIt->getId()) << Trace::endline;
+            Trace::warn() << DYNLog(CalculatedBusNotFound, componentId->getVoltageLevelId(), componentId->getId()) << Trace::endline;
             continue;
           }
         } else {
-          std::unordered_map<std::string, shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(cmpIt->getId());
+          std::unordered_map<std::string, shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(componentId->getId());
           if (busItfIter != components_.end()) {
             const shared_ptr<ComponentInterface> &cmp = busItfIter->second;
             if (cmp->getType() != ComponentInterface::BUS) {
-              Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "bus") << Trace::endline;
+              Trace::warn() << DYNLog(WrongComponentType, componentId->getId(), "bus") << Trace::endline;
               continue;
             }
             bus = dynamic_pointer_cast<BusInterface>(cmp);
             assert(bus);
           } else {
-            Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+            Trace::warn() << DYNLog(ComponentNotFound, componentId->getId()) << Trace::endline;
             continue;
           }
         }
-        if (crit->hasCountryFilter()) {
-          shared_ptr<BusInterfaceIIDM> busIIDM = dynamic_pointer_cast<BusInterfaceIIDM>(bus);
-          if (busIIDM && !busIIDM->getCountry().empty() && !crit->containsCountry(busIIDM->getCountry()))
+        if (busCriteria->hasCountryFilter()) {
+          const shared_ptr<BusInterfaceIIDM> busIIDM = dynamic_pointer_cast<BusInterfaceIIDM>(bus);
+          if (busIIDM && !busIIDM->getCountry().empty() && !busCriteria->containsCountry(busIIDM->getCountry()))
             continue;
         }
         dynCriteria->addBus(bus);
       }
     } else {
-      for (std::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
-          cmpItEnd = busComponents_.end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmpIt->second);
-          if (!bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
+      for (const auto& busComponent : busComponents_) {
+        if (busCriteria->hasCountryFilter()) {
+          const boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(busComponent.second);
+          if (!bus->getCountry().empty() && !busCriteria->containsCountry(bus->getCountry()))
             continue;
         }
-        dynCriteria->addBus(cmpIt->second);
+        dynCriteria->addBus(busComponent.second);
       }
     }
     if (!dynCriteria->empty()) {
@@ -1061,42 +1057,37 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
 
 void
 DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::LOAD),
-      itEnd = criteria->end(CriteriaCollection::LOAD);
-      it != itEnd; ++it) {
-    shared_ptr<criteria::Criteria> crit = *it;
-    if (!LoadCriteria::criteriaEligibleForLoad(crit->getParams())) continue;
-    shared_ptr<LoadCriteria> dynCriteria = shared_ptr<LoadCriteria>(new LoadCriteria(crit->getParams()));
-    if (crit->begin() != crit->end()) {
-      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-          cmpItEnd = crit->end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        std::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(cmpIt->getId());
+  for (const auto& loadCriteria : criteria->getLoadCriteria()) {
+    if (!LoadCriteria::criteriaEligibleForLoad(loadCriteria->getParams())) continue;
+    shared_ptr<LoadCriteria> dynCriteria = boost::make_shared<LoadCriteria>(loadCriteria->getParams());
+    const auto& componentIds = loadCriteria->getComponentId();
+    if (!componentIds.empty()) {
+      for (const auto& componentId : componentIds) {
+        const auto loadItfIter = components_.find(componentId->getId());
         if (loadItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
           if (cmp->getType() != ComponentInterface::LOAD) {
-            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "load") << Trace::endline;
+            Trace::warn() << DYNLog(WrongComponentType, componentId->getId(), "load") << Trace::endline;
             continue;
           }
-          if (crit->hasCountryFilter()) {
-            boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
-            if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
+          if (loadCriteria->hasCountryFilter()) {
+            const boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
+            if (!load->getCountry().empty() && !loadCriteria->containsCountry(load->getCountry()))
               continue;
           }
           boost::shared_ptr<LoadInterface> load = dynamic_pointer_cast<LoadInterface>(cmp);
           assert(load);
           dynCriteria->addLoad(load);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, componentId->getId()) << Trace::endline;
         }
       }
     } else {
-      for (std::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> >::const_iterator cmpIt = loadComponents_.begin(),
-          cmpItEnd = loadComponents_.end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter() && !cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
+      for (const auto& loadComponentPair : loadComponents_) {
+        const auto& loadComponent = loadComponentPair.second;
+        if (loadCriteria->hasCountryFilter() && !loadComponent->getCountry().empty() && !loadCriteria->containsCountry(loadComponent->getCountry()))
             continue;
-        dynCriteria->addLoad(cmpIt->second);
+        dynCriteria->addLoad(loadComponent);
       }
     }
     if (!dynCriteria->empty()) {
@@ -1107,46 +1098,41 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
 
 void
 DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
-      itEnd = criteria->end(CriteriaCollection::GENERATOR);
-      it != itEnd; ++it) {
-    shared_ptr<criteria::Criteria> crit = *it;
-    if (!GeneratorCriteria::criteriaEligibleForGenerator(crit->getParams())) continue;
-    shared_ptr<GeneratorCriteria> dynCriteria = shared_ptr<GeneratorCriteria>(new GeneratorCriteria(crit->getParams()));
-    if (crit->begin() != crit->end()) {
-      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-          cmpItEnd = crit->end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        std::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(cmpIt->getId());
+  for (const auto& generatorCriteria : criteria->getGeneratorCriteria()) {
+    if (!GeneratorCriteria::criteriaEligibleForGenerator(generatorCriteria->getParams())) continue;
+    shared_ptr<GeneratorCriteria> dynCriteria = boost::make_shared<GeneratorCriteria>(generatorCriteria->getParams());
+    const auto& componentIds = generatorCriteria->getComponentId();
+    if (!componentIds.empty()) {
+      for (const auto& componentId : componentIds) {
+        const auto generatorItfIter = components_.find(componentId->getId());
         if (generatorItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
           if (cmp->getType() != ComponentInterface::GENERATOR) {
-            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "generator") << Trace::endline;
+            Trace::warn() << DYNLog(WrongComponentType, componentId->getId(), "generator") << Trace::endline;
             continue;
           }
-          if (crit->hasCountryFilter()) {
-            boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
-            if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+          if (generatorCriteria->hasCountryFilter()) {
+            const boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
+            if (!gen->getCountry().empty() && !generatorCriteria->containsCountry(gen->getCountry()))
               continue;
           }
-          boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
+          const boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
           assert(gen);
           dynCriteria->addGenerator(gen);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, componentId->getId()) << Trace::endline;
         }
       }
     } else {
-      for (std::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
-          cmpItEnd = generatorComponents_.end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
-        boost::shared_ptr<BatteryInterfaceIIDM> bat = dynamic_pointer_cast<BatteryInterfaceIIDM>(cmpIt->second);
-        if (gen && crit->hasCountryFilter() && !gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+      for (const auto& generatorComponentPair : generatorComponents_) {
+        const auto& generatorComponent = generatorComponentPair.second;
+        const boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(generatorComponent);
+        const boost::shared_ptr<BatteryInterfaceIIDM> bat = dynamic_pointer_cast<BatteryInterfaceIIDM>(generatorComponent);
+        if (gen && generatorCriteria->hasCountryFilter() && !gen->getCountry().empty() && !generatorCriteria->containsCountry(gen->getCountry()))
             continue;
-        if (bat && crit->hasCountryFilter() && !bat->getCountry().empty() && !crit->containsCountry(bat->getCountry()))
+        if (bat && generatorCriteria->hasCountryFilter() && !bat->getCountry().empty() && !generatorCriteria->containsCountry(bat->getCountry()))
             continue;
-        dynCriteria->addGenerator(cmpIt->second);
+        dynCriteria->addGenerator(generatorComponent);
       }
     }
     if (!dynCriteria->empty()) {
@@ -1156,33 +1142,31 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
 }
 
 bool
-DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
+DataInterfaceIIDM::checkCriteria(const double t, const bool finalStep) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("DataInterfaceIIDM::checkCriteria");
 #endif
 #ifdef _DEBUG_
-  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
-    iter->second->enableCheckStateVariable();
-  }
+  for (const auto& component : components_)
+    component.second->enableCheckStateVariable();
+
 #endif
   bool criteriaOk = true;
-  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
-      it != itEnd; ++it) {
-    criteriaOk &= (*it)->checkCriteria(t, finalStep, timeline_);
-  }
+  for (const auto& criteria : criteria_)
+    criteriaOk &= criteria->checkCriteria(t, finalStep, timeline_);
+
 #ifdef _DEBUG_
-  for (std::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
-    iter->second->disableCheckStateVariable();
-  }
+  for (const auto& component : components_)
+    component.second->disableCheckStateVariable();
+
 #endif
   return criteriaOk;
 }
 
 void
 DataInterfaceIIDM::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
-  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
-      it != itEnd; ++it) {
-    const std::vector<std::pair<double, std::string> >& ids = (*it)->getFailingCriteria();
+  for (const auto& criteria : criteria_) {
+    const std::vector<std::pair<double, std::string> >& ids = criteria->getFailingCriteria();
     failingCriteria.insert(failingCriteria.end(), ids.begin(), ids.end());
   }
 }

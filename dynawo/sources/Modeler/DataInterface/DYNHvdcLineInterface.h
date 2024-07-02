@@ -68,7 +68,7 @@ class HvdcLineInterface : public ComponentInterface {
    * @brief Getter for the hvdc line id
    * @return The id of the hvdc line
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the dc resistance of the hvdc line
