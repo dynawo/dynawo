@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="TransformerPhaseTapChanger">
-    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformerPhaseTapChanger"/>
+    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformerPhaseTapChanger" initName="Dynawo.Electrical.Transformers.TransformerPhaseTapChanger_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
