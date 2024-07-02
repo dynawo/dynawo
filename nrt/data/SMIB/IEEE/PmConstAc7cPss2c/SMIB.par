@@ -108,7 +108,6 @@
     <par type="DOUBLE" name="voltageRegulator_Thetap" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_TolLi" value="0.01"/>
     <par type="DOUBLE" name="voltageRegulator_tR" value="1e-5"/>
-    <par type="DOUBLE" name="voltageRegulator_UOel0Pu" value="-999"/>
     <par type="DOUBLE" name="voltageRegulator_VaMaxPu" value="65.2"/>
     <par type="DOUBLE" name="voltageRegulator_VaMinPu" value="-54"/>
     <par type="DOUBLE" name="voltageRegulator_VbMaxPu" value="999"/>
