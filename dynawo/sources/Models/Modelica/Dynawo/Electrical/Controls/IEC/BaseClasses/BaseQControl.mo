@@ -152,7 +152,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-286, 14}, extent = {{-6, 6}, {6, -6}}, rotation = 90)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UqDipPu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5) annotation(
     Placement(visible = true, transformation(origin = {-24, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
