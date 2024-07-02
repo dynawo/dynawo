@@ -1,4 +1,4 @@
-time;NETWORK__BUS____9-BUS___10-1_AC_P1;NETWORK__BUS____5_TN_Upu_value;NETWORK__BUS____6_TN_Upu_value;TfoTest_transformer_P1Pu;TfoTest_transformer_tap;TfoTest_transformer_thetaTfo;PhaseShifter_phaseShifter_state;PhaseShifter_phaseShifter_valueMax;PhaseShifter_phaseShifter_valueMin;PhaseShifter_phaseShifter_PMonitored;
+time;NETWORK__BUS____9-BUS___10-1_AC_P1;NETWORK__BUS____5_TN_Upu_value;NETWORK__BUS____6_TN_Upu_value;TfoTest_transformer_P1Pu;TfoTest_transformer_tap;TfoTest_transformer_alphaTfo;PhaseShifter_phaseShifter_state;PhaseShifter_phaseShifter_valueMax;PhaseShifter_phaseShifter_valueMin;PhaseShifter_phaseShifter_PMonitored;
 0.000000;0.052228;1.019553;1.070148;0.440857;6.000000;0.000000;4.000000;0.445000;0.435000;0.440857;
 0.000001;0.052227;1.019553;1.070149;0.440857;6.000000;0.000000;4.000000;0.445000;0.435000;0.440857;
 0.000002;0.052227;1.019553;1.070149;0.440857;6.000000;0.000000;4.000000;0.445000;0.435000;0.440857;

@@ -5,3 +5,6 @@ BasePControl4
 BaseQControl
 BaseQLimiter
 VDrop
+BaseWPPControl
+BaseWPPPControl
+BaseWPPQControl

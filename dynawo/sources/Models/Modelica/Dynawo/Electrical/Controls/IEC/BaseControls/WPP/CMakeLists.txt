@@ -13,8 +13,10 @@ set(MODEL_FILES
   package.mo
   package.order
   LinearCommunication.mo
-  PControl.mo
-  QControl.mo
+  WPPPControl2015.mo
+  WPPPControl2020.mo
+  WPPQControl2015.mo
+  WPPQControl2020.mo
   )
 
 #

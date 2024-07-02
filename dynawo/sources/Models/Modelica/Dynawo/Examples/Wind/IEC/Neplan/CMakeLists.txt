@@ -12,10 +12,11 @@
 set(MODEL_FILES
   package.mo
   package.order
-  WPP4ACurrentSource.mo
-  WPP4ACurrentSourceFOCB.mo
-  WPP4BCurrentSource.mo
-  WPP4BCurrentSourceFOCB.mo
+  WPP4ACurrentSource2015.mo
+  WPP4ACurrentSource2020.mo
+  WPP4ACurrentSource2020FOCB.mo
+  WPP4BCurrentSource2020.mo
+  WPP4BCurrentSource2020FOCB.mo
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015FOCB.mo
   WT4ACurrentSource2020.mo

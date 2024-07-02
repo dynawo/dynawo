@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="IECWPP4ACurrentSource2020">
+    <dyn:unitDynamicModel id="WPP" name="Dynawo.Electrical.Wind.IEC.WPP.WPP4ACurrentSource2020" initName="Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource_INIT"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

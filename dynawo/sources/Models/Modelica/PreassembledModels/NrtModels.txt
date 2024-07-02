@@ -62,8 +62,10 @@ HvdcPVEmulation
 HvdcPVEmulationVariableK
 HvdcPVRpcl2Side1
 HvdcVsc
-IECWPP4ACurrentSource
-IECWPP4BCurrentSource
+IECWPP4ACurrentSource2015
+IECWPP4ACurrentSource2020
+IECWPP4BCurrentSource2015
+IECWPP4BCurrentSource2020
 IECWT4ACurrentSource2015
 IECWT4ACurrentSource2020
 IECWT4BCurrentSource2015

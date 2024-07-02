@@ -152,8 +152,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
-  IECWPP4ACurrentSource.xml
-  IECWPP4BCurrentSource.xml
+  IECWPP4ACurrentSource2015.xml
+  IECWPP4ACurrentSource2020.xml
+  IECWPP4BCurrentSource2015.xml
+  IECWPP4BCurrentSource2020.xml
   IECWT4ACurrentSource2015.xml
   IECWT4ACurrentSource2020.xml
   IECWT4BCurrentSource2015.xml
