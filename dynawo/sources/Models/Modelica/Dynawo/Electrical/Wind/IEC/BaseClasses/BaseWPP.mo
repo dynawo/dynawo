@@ -14,6 +14,8 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
+  extends Dynawo.Electrical.Controls.IEC.Parameters.PControlParameters;
+  extends Dynawo.Electrical.Controls.IEC.Parameters.QControlParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -43,48 +45,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.Time tG "Current generation time constant in s" annotation(
     Dialog(tab = "Control"));
 
-  //WP Measurement parameters
-  parameter Types.PerUnit DfMaxPu "Maximum frequency ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-
-  //Measurement parameters for control
-  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-
-  //Measurement parameters for protection
-  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
     Dialog(tab = "PLL"));
@@ -93,12 +53,8 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically)" annotation(
     Dialog(tab = "PLL"));
 
-  //PControl parameters
+  //WT PControl parameters
   parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
     Dialog(tab = "PControl"));
 
   //Current limiter parameters
@@ -115,11 +71,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
 
-  //QControl parameters
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
+  //WT QControl parameters
   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
@@ -136,11 +88,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "QControl"));
   parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
   parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1)" annotation(
     Dialog(tab = "QControl"));
   parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
     Dialog(tab = "QControl"));
@@ -150,15 +98,11 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "QControl"));
   parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
@@ -183,13 +127,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
     Dialog(tab = "GridProtection"));
 
-  //Linear communication parameters
-  parameter Types.Time tLag "Communication lag time constant in s" annotation(
-    Dialog(tab = "LinearCommunication"));
-  parameter Types.Time tLead "Communication lead time constant in s" annotation(
-    Dialog(tab = "LinearCommunication"));
-
-  //WP PControl parameters
+  //WPP PControl parameters
   parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
   parameter Types.PerUnit DPRefMinPu "Minimum negative ramp rate for PD power reference in pu/s (base SNom)" annotation(
@@ -204,10 +142,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "PControlWP"));
   parameter Types.PerUnit KwppRef "Power reference gain in pu (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PErrMaxPu "Maximum control error for power PI controller in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PErrMinPu "Minimum negative control error for power PI controller in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
   parameter Types.ActivePowerPu PKiwppMaxPu "Maximum active power reference from integration in pu (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
   parameter Types.ActivePowerPu PKiwppMinPu "Minimum active power reference from integration in pu (base SNom)" annotation(
@@ -217,7 +151,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.ActivePowerPu PRefMinPu "Minimum PD power reference in pu (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
 
-  //WP QControl parameters
+  //WPP QControl parameters
   parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "QControlWP"));
   parameter Types.PerUnit DXRefMinPu "Minimum negative ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(
@@ -232,27 +166,17 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "QControlWP"));
   parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)" annotation(
     Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
   parameter Types.Time tUqFilt "Time constant for the UQ static mode in s" annotation(
     Dialog(tab = "QControlWP"));
   parameter Types.VoltageModulePu UwpqDipPu "Voltage threshold for UVRT detection in pu (base UNom)" annotation(
     Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(
+  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integretion in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integretion in pu (base SNom or UNom) (generator convention)" annotation(
+  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "QControlWP"));
   parameter Types.PerUnit XRefMaxPu "Maximum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "QControlWP"));
   parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControlWP"));
 
   //Interface
@@ -266,11 +190,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.WPP.WPPControl wPPControl(DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DPwpRefMaxPu = DPwpRefMaxPu, DPwpRefMinPu = DPwpRefMinPu, DXRefMaxPu = DXRefMaxPu, DXRefMinPu = DXRefMinPu, DfMaxPu = DfMaxPu, Kiwpp = Kiwpp, Kiwpx = Kiwpx, Kpwpp = Kpwpp, Kpwpx = Kpwpx, KwppRef = KwppRef, KwpqRef = KwpqRef, Kwpqu = Kwpqu, MwpqMode = MwpqMode, P0Pu = P0Pu, PErrMaxPu = PErrMaxPu, PErrMinPu = PErrMinPu, PKiwppMaxPu = PKiwppMaxPu, PKiwppMinPu = PKiwppMinPu, PRefMaxPu = PRefMaxPu, PRefMinPu = PRefMinPu, Q0Pu = Q0Pu, RwpDropPu = RwpDropPu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, UwpqDipPu = UwpqDipPu, UwpqRisePu = UwpqRisePu, X0Pu = X0Pu, XErrMaxPu = XErrMaxPu, XErrMinPu = XErrMinPu, XKiwpxMaxPu = XKiwpxMaxPu, XKiwpxMinPu = XKiwpxMinPu, XRefMaxPu = XRefMaxPu, XRefMinPu = XRefMinPu, XWT0Pu = XWT0Pu, XwpDropPu = XwpDropPu, i0Pu = i0Pu, tIFilt = tIFilt, tLag = tLag, tLead = tLead, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tUqFilt = tUqFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.ElecMeasurements elecMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
@@ -315,16 +235,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
 equation
   connect(elecMeasurements.terminal2, terminal) annotation(
     Line(points = {{102, 0}, {130, 0}}, color = {0, 0, 255}));
-  connect(omegaRefPu, wPPControl.omegaRefPu) annotation(
-    Line(points = {{-140, -40}, {-100, -40}, {-100, -16}, {-82, -16}}, color = {0, 0, 127}));
-  connect(xWPRefPu, wPPControl.xWPRefPu) annotation(
-    Line(points = {{-140, 0}, {-100, 0}, {-100, 8}, {-82, 8}}, color = {0, 0, 127}));
-  connect(PWPRefPu, wPPControl.PWPRefPu) annotation(
-    Line(points = {{-140, 40}, {-100, 40}, {-100, 16}, {-82, 16}}, color = {0, 0, 127}));
-  connect(elecMeasurements.iPu, wPPControl.iPu) annotation(
-    Line(points = {{72, -22}, {72, -30}, {-90, -30}, {-90, -8}, {-82, -8}}, color = {85, 170, 255}));
-  connect(elecMeasurements.uPu, wPPControl.uPu) annotation(
-    Line(points = {{88, -22}, {88, -34}, {-94, -34}, {-94, 0}, {-82, 0}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

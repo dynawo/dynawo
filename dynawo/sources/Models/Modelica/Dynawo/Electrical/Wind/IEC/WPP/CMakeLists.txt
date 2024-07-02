@@ -12,10 +12,14 @@
 set(MODEL_FILES
   package.mo
   package.order
-  WPP4ACurrentSource.mo
-  WPP4ACurrentSource.extvar
-  WPP4BCurrentSource.mo
-  WPP4BCurrentSource.extvar
+  WPP4ACurrentSource2015.mo
+  WPP4ACurrentSource2015.extvar
+  WPP4ACurrentSource2020.mo
+  WPP4ACurrentSource2020.extvar
+  WPP4BCurrentSource2015.mo
+  WPP4BCurrentSource2015.extvar
+  WPP4BCurrentSource2020.mo
+  WPP4BCurrentSource2020.extvar
   WPP4CurrentSource_INIT.mo
   )
 
