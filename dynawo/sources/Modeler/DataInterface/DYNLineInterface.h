@@ -113,13 +113,13 @@ class LineInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the resistance of the line
-   * @return The resistance of the line in ohms
+   * @return The resistance of the line in ohm
    */
   virtual double getR() const = 0;
 
   /**
    * @brief Getter for the reactance of the line
-   * @return The reactance of the line in ohms
+   * @return The reactance of the line in ohm
    */
   virtual double getX() const = 0;
 

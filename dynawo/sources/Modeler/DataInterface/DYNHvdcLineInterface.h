@@ -72,7 +72,7 @@ class HvdcLineInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the dc resistance of the hvdc line
-   * @return The dc resistance of the hvdc line in Ohm
+   * @return The dc resistance of the hvdc line in ohm
    */
   virtual double getResistanceDC() const = 0;
 

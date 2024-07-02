@@ -12,39 +12,13 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. This value will initialize the limiter's input variable, but since it could be out the saturation bounds, the initial value kept for y is y0 which is min(max(y0LF, UMin), UMax)"
-  import Modelica.Constants;
-
-  extends AdditionalIcons.Init;
-
-  parameter Real UMin "Minimum allowed u";
-  parameter Real UMax "Maximum allowed u";
-
-  Real y0LF "Initial y from loadflow";
-  Real u0 "Initial input";
-  Real y0 "Initial output, =y0LF if compliant with saturations";
-  discrete Types.Time tUMinReached0(start = Constants.inf) "Initial time when u went below UMin";
-  discrete Types.Time tUMaxReached0(start = Constants.inf) "Initial time when u went above UMax";
+model LimiterWithLag_INIT "Initialization model of LimiterWithLag"
+  extends Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses.BaseLimiterWithLag_INIT;
 
 equation
-  u0 = y0LF;
-  y0 = if (u0 < UMin) then UMin
-         else if (u0 > UMax) then UMax
-         else u0;
+  y0 = if u0 < UMin then UMin elseif u0 > UMax then UMax else u0;
 
-  // Lower Excitation Limit
-  when u0 < UMin then
-    tUMinReached0 = -Constants.inf;
-  elsewhen u0 >= UMin then
-    tUMinReached0 = Constants.inf;
-  end when;
-
-  // Upper Excitation Limit
-  when u0 > UMax then
-    tUMaxReached0 = -Constants.inf; // Init in steadystate, UMax has been reached for a long time
-  elsewhen u0 <= UMax then
-    tUMaxReached0 = Constants.inf;
-  end when;
-
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>In this model, <i>y0</i> complies with both <b>UMax</b> and <b>UMin</b>.</body></html>"));
 end LimiterWithLag_INIT;
