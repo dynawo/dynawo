@@ -48,6 +48,12 @@ def kill_subprocess(proc_pid):
         proc.kill()
     process.kill()
 
+CLEANR = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+
+def cleanHtml(raw_html):
+    cleantext = re.sub(CLEANR, '', raw_html)
+    return cleantext
+
 if os.getenv("DYNAWO_NRT_DIR") is None:
     print("environment variable DYNAWO_NRT_DIR needs to be defined")
     sys.exit(1)
@@ -683,6 +689,19 @@ def main():
             logFile.write("NRT NOK\n")
             logFile.write("Run on " + datetime.datetime.now().strftime("%Y-%m-%d at %Hh%M") + "\n")
             logFile.write(" Nb nok case : " + str(NRT.number_of_nok_cases_) + "\n")
+            logFile.write("\n")
+            for test_case in NRT.test_cases_:
+                if not test_case.ok_ or test_case.diff_ in nrtDiff.diff_error_statuses(True):
+                    logFile.write(test_case.command_ + "\n")
+                    logFile.write("---- Console Output\n")
+                    logFile.write(test_case.errors_.decode("utf-8"))
+                    if test_case.diff_messages_ is not None:
+                        logFile.write("---- Diff Status\n")
+                        logFile.write(nrtDiff.toString(test_case.diff_, True) + "\n")
+                        for message in test_case.diff_messages_:
+                            logFile.write(cleanHtml(message) + "\n")
+                    logFile.write("----\n")
+                    logFile.write("\n")
             logFile.close()
 
         sys.exit(NRT.number_of_nok_cases_)
