@@ -68,49 +68,16 @@ silentZChange_(NO_Z_CHANGE),
 modeChange_(false),
 modeChangeType_(NO_MODE),
 offsetFOptional_(0),
-fLocal_(NULL),
-gLocal_(NULL),
-yLocal_(NULL),
-ypLocal_(NULL),
-zLocal_(NULL),
-zConnectedLocal_(NULL),
-silentZ_(NULL),
+zConnectedLocal_(nullptr),
 silentZInitialized_(false) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
-void
-ModelMulti::cleanBuffers() {
-  sizeF_ = 0;
-  sizeY_ = 0;
-  sizeZ_ = 0;
-  sizeG_ = 0;
-  sizeMode_ = 0;
-
-  if (fLocal_ != NULL)
-    delete[] fLocal_;
-
-  if (yLocal_ != NULL)
-    delete[] yLocal_;
-
-  if (ypLocal_ != NULL)
-    delete[] ypLocal_;
-
-  if (gLocal_ != NULL)
-    delete[] gLocal_;
-
-  if (zLocal_ != NULL)
-    delete[] zLocal_;
-
-  if (zConnectedLocal_ != NULL)
-    delete[] zConnectedLocal_;
-
-  if (silentZ_ != NULL)
-    delete[] silentZ_;
-}
-
 ModelMulti::~ModelMulti() {
-  cleanBuffers();
+  if (zConnectedLocal_ != nullptr) {
+    delete[] zConnectedLocal_;
+    zConnectedLocal_ = nullptr;
+  }
 }
 
 void
@@ -163,7 +130,6 @@ ModelMulti::initBuffers() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
-
   connectorContainer_->setOffsetModel(sizeF_);
   connectorContainer_->setSizeY(sizeY_);
   connectorContainer_->mergeConnectors();
@@ -187,15 +153,14 @@ ModelMulti::initBuffers() {
 
   // (2) Initialize buffers that would be used during the simulation (avoid copy)
   // ----------------------------------------------------------------------------
-  fLocal_ = new double[sizeF_]();
-  gLocal_ = new state_g[sizeG_]();
-  std::fill_n(gLocal_, sizeG_, ROOT_DOWN);
-  yLocal_ = new double[sizeY_]();
-  ypLocal_ = new double[sizeY_]();
-  zLocal_ = new double[sizeZ_]();
+  fLocal_ = std::vector<double>(sizeF_);
+  gLocal_ = std::vector<state_g>(sizeG_, ROOT_DOWN);
+  yLocal_ = std::vector<double>(sizeY_);
+  ypLocal_ = std::vector<double>(sizeY_);
+  zLocal_ = std::vector<double>(sizeZ_);
   zConnectedLocal_ = new bool[sizeZ_];
-  silentZ_ = new BitMask[sizeZ_];
   std::fill_n(zConnectedLocal_, sizeZ_, false);
+  silentZ_ = std::vector<BitMask>(sizeZ_);
   for (int i = 0; i < sizeZ_; ++i) {
     silentZ_[i].setFlags(NotSilent);
   }
@@ -207,12 +172,12 @@ ModelMulti::initBuffers() {
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeY = subModels_[i]->sizeY();
     if (sizeY > 0)
-      subModels_[i]->setBufferY(yLocal_, ypLocal_, offsetY);
+      subModels_[i]->setBufferY(yLocal_.data(), ypLocal_.data(), offsetY);
     offsetY += sizeY;
 
     int sizeF = subModels_[i]->sizeF();
     if (sizeF > 0) {
-      subModels_[i]->setBufferF(fLocal_, offsetF);
+      subModels_[i]->setBufferF(fLocal_.data(), offsetF);
       for (int j = offsetF; j < offsetF + sizeF; ++j)
         mapAssociationF_[j] = i;
 
@@ -221,7 +186,7 @@ ModelMulti::initBuffers() {
 
     int sizeG = subModels_[i]->sizeG();
     if (sizeG > 0) {
-      subModels_[i]->setBufferG(gLocal_, offsetG);
+      subModels_[i]->setBufferG(gLocal_.data(), offsetG);
       for (int j = offsetG; j < offsetG + sizeG; ++j)
         mapAssociationG_[j] = i;
 
@@ -230,14 +195,14 @@ ModelMulti::initBuffers() {
 
     int sizeZ = subModels_[i]->sizeZ();
     if (sizeZ > 0)
-      subModels_[i]->setBufferZ(zLocal_, zConnectedLocal_, offsetZ);
+      subModels_[i]->setBufferZ(zLocal_.data(), zConnectedLocal_, offsetZ);
     offsetZ += sizeZ;
   }
-  connectorContainer_->setBufferF(fLocal_, offsetF);
-  connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
-  connectorContainer_->setBufferZ(zLocal_, zConnectedLocal_);  // connectors access to the whole z buffer
+  connectorContainer_->setBufferF(fLocal_.data(), offsetF);
+  connectorContainer_->setBufferY(yLocal_.data(), ypLocal_.data());  // connectors access to the whole y Buffer
+  connectorContainer_->setBufferZ(zLocal_.data(), zConnectedLocal_);  // connectors access to the whole z buffer
   connectorContainer_->propagateZConnectionInfoToModel();
-  std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
+  std::fill(fLocal_.begin() + offsetFOptional_, fLocal_.begin() + sizeF_, 0.);
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections
@@ -253,7 +218,7 @@ ModelMulti::init(const double t0) {
   Timer timer1("ModelMulti::init");
 #endif
 
-  zSave_.assign(zLocal_, zLocal_ + sizeZ());
+  zSave_.assign(zLocal_.begin(), zLocal_.end());
 
   // (1) initialising each sub-model
   //----------------------------------------
@@ -283,9 +248,9 @@ ModelMulti::init(const double t0) {
       zLocal_[indicesDiff[i]] = valuesModified[i];
     }
 
-    connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
+    connectorContainer_->propagateZDiff(indicesDiff, zLocal_.data());
 
-    zSave_.assign(zLocal_, zLocal_ + sizeZ());
+    zSave_.assign(zLocal_.begin(), zLocal_.end());
     rotateBuffers();
 
     for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
@@ -299,7 +264,7 @@ ModelMulti::init(const double t0) {
     }
     rotateBuffers();
   }
-  zSave_.assign(zLocal_, zLocal_ + sizeZ());
+  zSave_.assign(zLocal_.begin(), zLocal_.end());
 }
 
 void
@@ -357,13 +322,13 @@ ModelMulti::printInitModelValues(const string& directory, const string& dumpFile
 
 void
 ModelMulti::copyContinuousVariables(const double* y, const double* yp) {
-  std::copy(y, y + sizeY() , yLocal_);
-  std::copy(yp, yp + sizeY(), ypLocal_);
+  yLocal_.assign(y, y + sizeY());
+  ypLocal_.assign(yp, yp + sizeY());
 }
 
 void
 ModelMulti::copyDiscreteVariables(const double* z) {
-  std::copy(z, z + sizeZ(), zLocal_);
+  yLocal_.assign(z, z + sizeZ());
 }
 
 void
@@ -374,7 +339,7 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
   copyContinuousVariables(y, yp);
 
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
+  Timer* timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     if ((*it)->sizeF() != 0)
@@ -386,7 +351,7 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 
   connectorContainer_->evalFConnector(t);
 
-  std::copy(fLocal_, fLocal_ + sizeF_, f);
+  std::copy(fLocal_.begin(), fLocal_.end(), f);
 }
 
 void
@@ -399,7 +364,7 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
       (*it)->evalFDiffSub(t);
   }
-  std::copy(fLocal_, fLocal_ + sizeF_, f);
+  std::copy(fLocal_.begin(), fLocal_.end(), f);
 }
 
 void
@@ -424,7 +389,7 @@ ModelMulti::evalFMode(const double t, const double* y, const double* yp, double*
 
   connectorContainer_->evalFConnector(t);
 
-  std::copy(fLocal_, fLocal_ + sizeF_, f);
+  std::copy(fLocal_.begin(), fLocal_.end(), f);
 }
 
 void
@@ -435,7 +400,7 @@ ModelMulti::evalG(double t, vector<state_g>& g) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->evalGSub(t);
 
-  std::copy(gLocal_, gLocal_ + sizeG_, g.begin());
+  std::copy(gLocal_.begin(), gLocal_.end(), g.begin());
 }
 
 void
@@ -524,8 +489,8 @@ ModelMulti::propagateZModif() {
   }
   if (!indicesDiff.empty()) {
     // if at least one discrete variable that is used in discrete equations has changed then we propagate the modification
-    connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
-    std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+    connectorContainer_->propagateZDiff(indicesDiff, zLocal_.data());
+    std::copy(zLocal_.begin(), zLocal_.end(), zSave_.begin());
     return zChangeType;
   } else {
     // if only discrete variables that are used only in continuous equations then we just raise the NotUsedInDiscreteEquations flag
@@ -533,7 +498,7 @@ ModelMulti::propagateZModif() {
     for (std::size_t i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
       if (!std::isnan(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]]) && !std::isnan(zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
         if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
-          std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+          std::copy(zLocal_.begin(), zLocal_.end(), zSave_.begin());
           return NOT_USED_IN_DISCRETE_EQ_Z_CHANGE;
         }
       } else {
@@ -555,8 +520,7 @@ ModelMulti::evalMode(double t) {
    *   -> it is reinitialized by the solvers at the end of the time step
   */
 #ifdef _DEBUG_
-  std::vector<double> z(sizeZ());
-  std::copy(zLocal_, zLocal_ + sizeZ(), z.begin());
+  const std::vector<double> z(zLocal_);
 #endif
   modeChange_ = false;
   modeChangeType_t modeChangeType = NO_MODE;
@@ -601,9 +565,9 @@ ModelMulti::evalCalculatedVariables(const double t, const vector<double>& y, con
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalCalculatedVariables");
 #endif
-  std::copy(y.begin(), y.end(), yLocal_);
-  std::copy(yp.begin(), yp.end(), ypLocal_);
-  std::copy(z.begin(), z.end(), zLocal_);
+  yLocal_.assign(y.begin(), y.end());
+  ypLocal_.assign(yp.begin(), yp.end());
+  zLocal_.assign(z.begin(), z.end());
 
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->evalCalculatedVariablesSub(t);
@@ -662,8 +626,8 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
   }
   connectorContainer_->getY0Connector();
 
-  std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
-  std::copy(ypLocal_, ypLocal_ + sizeY_, yp0.begin());
+  std::copy(yLocal_.begin(), yLocal_.end(), y0.begin());
+  std::copy(ypLocal_.begin(), ypLocal_.end(), yp0.begin());
 }
 
 void
@@ -673,7 +637,7 @@ ModelMulti::evalStaticYType() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     int sizeYType = (*it)->sizeY();
     if (sizeYType > 0) {
-      (*it)->setBufferYType(&yType_[0], offsetYType);
+      (*it)->setBufferYType(yType_.data(), offsetYType);
       (*it)->evalStaticYType();
       offsetYType += sizeYType;
     }
@@ -696,12 +660,12 @@ ModelMulti::evalStaticFType() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     int sizeFType = (*it)->sizeF();
     if (sizeFType > 0) {
-      (*it)->setBufferFType(&fType_[0], offsetFType);
+      (*it)->setBufferFType(fType_.data(), offsetFType);
       (*it)->evalStaticFType();
       offsetFType += sizeFType;
     }
   }
-  connectorContainer_->setBufferFType(&fType_[0], offsetFType);
+  connectorContainer_->setBufferFType(fType_.data(), offsetFType);
   connectorContainer_->evalStaticFType();
   std::fill(fType_.begin() + offsetFOptional_, fType_.begin() + sizeF_, ALGEBRAIC_EQ);
 }
@@ -1291,12 +1255,12 @@ std::string ModelMulti::getVariableName(int index) {
 }
 
 void ModelMulti::getCurrentZ(vector<double>& z) const {
-  z.assign(zLocal_, zLocal_ + sizeZ());
+  z.assign(zLocal_.begin(), zLocal_.end());
 }
 
 void ModelMulti::setCurrentZ(const vector<double>& z) {
   assert(z.size() == static_cast<size_t>(sizeZ()));
-  std::copy(z.begin(), z.end(), zLocal_);
+  std::copy(z.begin(), z.end(), zLocal_.begin());
 }
 
 void ModelMulti::setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) {

@@ -569,12 +569,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   void collectSilentZ();
 
  private:
-  /**
-   * @brief delete all informations about the local buffers (size, buffers, etc...)
-   *
-   */
-  void cleanBuffers();
-
   std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
   std::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
@@ -600,13 +594,13 @@ class ModelMulti : public Model, private boost::noncopyable {
   unsigned int offsetFOptional_;  ///< offset in whole F buffer for optional equations
   std::set<int> numVarsOptional_;  ///< index of optional variables
 
-  double* fLocal_;  ///< local buffer to fill with the residual values
-  state_g* gLocal_;  ///< local buffer to fill with the roots values
-  double* yLocal_;  ///< local buffer to use when accessing continuous variables
-  double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
-  double* zLocal_;  ///< local buffer to use when accessing discrete variables
+  std::vector<double> fLocal_;  ///< local buffer to fill with the residual values
+  std::vector<state_g> gLocal_;  ///< local buffer to fill with the roots values
+  std::vector<double> yLocal_;  ///< local buffer to use when accessing continuous variables
+  std::vector<double> ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
+  std::vector<double> zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discrete variables connection status
-  BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
+  std::vector<BitMask> silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
   bool silentZInitialized_;  ///< true if silentZ were collected
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations

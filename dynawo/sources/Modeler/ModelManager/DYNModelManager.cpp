@@ -198,11 +198,11 @@ ModelManager::associateBuffers() {
     dataInit_->localData[0]->discreteVars = static_cast<modelica_real*>(0);
 
     if (!yLocalInit_.empty())
-      dataInit_->localData[0]->realVars = &(yLocalInit_[0]);
+      dataInit_->localData[0]->realVars = yLocalInit_.data();
     if (!ypLocalInit_.empty())
-      dataInit_->localData[0]->derivativesVars = &(ypLocalInit_[0]);
+      dataInit_->localData[0]->derivativesVars =ypLocalInit_.data();
     if (!zLocalInit_.empty())
-      dataInit_->localData[0]->discreteVars = &(zLocalInit_[0]);
+      dataInit_->localData[0]->discreteVars = zLocalInit_.data();
 
     if (dataInit_->modelData->nVariablesInteger > 0) {
       int offset = dataInit_->nbZ;
