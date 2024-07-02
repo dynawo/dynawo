@@ -269,9 +269,9 @@ model Network "Nordic test grid with buses and lines"
   Dynawo.Electrical.Lines.Line line_4071_4072b(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-79, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
-  final parameter Modelica.SIunits.Impedance XBase_130 = 130 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance XBase_220 = 220 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance XBase_400 = 400 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance XBase_130 = 130 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance XBase_220 = 220 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.SIunits.Impedance XBase_400 = 400 ^ 2 / SystemBase.SnRef;
 
 equation
   line_1011_1013a.switchOffSignal1.value = false;
@@ -588,10 +588,9 @@ equation
   connect(line_4071_4072a.terminal2, bus_4072.terminal) annotation(
     Line(points = {{-84, 100}, {-84, 81}, {-82, 81}}, color = {0, 0, 255}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-100, -150}, {100, 150}}, grid = {1, 1}, preserveAspectRatio = false, initialScale = 0.1)),
     Icon(coordinateSystem(extent = {{-100, -150}, {100, 150}}, grid = {1, 1}, preserveAspectRatio = false)),
-    version = "",
-    __OpenModelica_commandLineOptions = "",
     Documentation(info = "<html><head></head><body>This model represents the static network of the Nordic 32 test system. It consists of 74 buses, 52 lines and 11 shunts. Data for the lines have been taken from the&nbsp;<span style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015</span>.<div><br><div>The model forms the basis for the Nordic 32 test system. It can be extended to add specific transformers, loads or generators.</div></div></body></html>"));
 end Network;
