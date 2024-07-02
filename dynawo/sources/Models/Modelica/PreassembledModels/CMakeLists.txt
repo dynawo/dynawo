@@ -61,8 +61,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVRemoteDiagramPQSignalN.xml
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
   GeneratorSynchronousFourWindings.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
   GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
@@ -85,7 +85,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsTGov1Dc1a.xml
   GeneratorSynchronousFourWindingsTGov1Scrx.xml
   GeneratorSynchronousFourWindingsTGov1Sexs.xml
-  GeneratorSynchronousFourWindingsTGov1SexsPss2A.xml
+  GeneratorSynchronousFourWindingsTGov1SexsPss2a.xml
   GeneratorSynchronousFourWindingsTGov3IEEX2A.xml
   GeneratorSynchronousFourWindingsVRKundur.xml
   GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
@@ -103,8 +103,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
   GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
   GeneratorSynchronousThreeWindingsIEEEG2BbSex1.xml
-  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1a.xml
-  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1aTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstExAc1.xml
+  GeneratorSynchronousThreeWindingsPmConstExAc1Tfo.xml
   GeneratorSynchronousThreeWindingsPmConstScrx.xml
   GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
   GeneratorSynchronousThreeWindingsPmConstVRNordic.xml

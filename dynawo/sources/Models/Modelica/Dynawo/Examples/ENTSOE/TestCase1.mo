@@ -17,88 +17,130 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-   Ce0Pu = 0,
-   Cm0Pu = 0,
-   Cos2Eta0 = 1,
-   DPu = 0,
-   Efd0Pu = 1,
-   ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
-   H = 4,
-   IRotor0Pu = 1,
-   IStator0Pu = 0,
-   Id0Pu = 0,
-   If0Pu = 0.540541,
-   Iq0Pu = 0,
-   LDPPu = 0.19063,
-   LQ1PPu = 0.51659,
-   LQ2PPu = 0.24243,
-   LambdaAD0Pu = 1,
-   LambdaAQ0Pu = 0,
-   LambdaAirGap0Pu = 1,
-   LambdaD0Pu = 1,
-   LambdaQ10Pu = 0,
-   LambdaQ20Pu = 0,
-   Lambdad0Pu = 1,
-   Lambdaf0Pu = 1.121189,
-   Lambdaq0Pu = 0,
-   LdPPu = 0.15,
-   LfPPu = 0.2242,
-   LqPPu = 0.15,
-   MdPPu = 1.85,
-   MdSat0PPu = 1.85,
-   Mds0Pu = 1.85,
-   Mi0Pu = 1.85,
-   MqPPu = 1.65,
-   MqSat0PPu = 1.65,
-   Mqs0Pu = 1.65,
-   MrcPPu = 0,
-   MsalPu = 0.2,
-   P0Pu = 0,
-   PGen0Pu = 0,
-   PNomAlt = 475,
-   PNomTurb = 475,
-   Pm0Pu = 0,
-   Q0Pu = 0,
-   QGen0Pu = 0,
-   QStator0Pu = 0,
-   RDPPu = 0.02933,
-   RQ1PPu = 0.0035,
-   RQ2PPu = 0.02227,
-   RTfPu = 0,
-   RaPPu = 0,
-   RfPPu = 0.00128,
-   SNom = 500,
-   Sin2Eta0 = 0,
-   SnTfo = 500,
-   Theta0 = 0,
-   ThetaInternal0 = 0,
-   U0Pu = 1,
-   UBaseHV = 400,
-   UBaseLV = 21,
-   UNom = 21,
-   UNomHV = 400,
-   UNomLV = 21,
-   UPhase0 = 0,
-   UStator0Pu = 1,
-   Ud0Pu = 0,
-   Uf0Pu = 0.000691892,
-   Uq0Pu = 1,
-   XTfPu = 0,
-   md = 0,
-   mq = 0,
-   nd = 0,
-   nq = 0) annotation(
+    Ce0Pu = 0,
+    Cm0Pu = 0,
+    Cos2Eta0 = 1,
+    DPu = 0,
+    Efd0Pu = 1,
+    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
+    H = 4,
+    IRotor0Pu = 1,
+    IStator0Pu = 0,
+    Id0Pu = 0,
+    If0Pu = 0.540541,
+    Iq0Pu = 0,
+    LDPPu = 0.19063,
+    LQ1PPu = 0.51659,
+    LQ2PPu = 0.24243,
+    LambdaAD0Pu = 1,
+    LambdaAQ0Pu = 0,
+    LambdaAirGap0Pu = 1,
+    LambdaD0Pu = 1,
+    LambdaQ10Pu = 0,
+    LambdaQ20Pu = 0,
+    Lambdad0Pu = 1,
+    Lambdaf0Pu = 1.121189,
+    Lambdaq0Pu = 0,
+    LdPPu = 0.15,
+    LfPPu = 0.2242,
+    LqPPu = 0.15,
+    MdPPu = 1.85,
+    MdSat0PPu = 1.85,
+    Mds0Pu = 1.85,
+    Mi0Pu = 1.85,
+    MqPPu = 1.65,
+    MqSat0PPu = 1.65,
+    Mqs0Pu = 1.65,
+    MrcPPu = 0,
+    MsalPu = 0.2,
+    P0Pu = 0,
+    PGen0Pu = 0,
+    PNomAlt = 475,
+    PNomTurb = 475,
+    Pm0Pu = 0,
+    Q0Pu = 0,
+    QGen0Pu = 0,
+    QStator0Pu = 0,
+    RDPPu = 0.02933,
+    RQ1PPu = 0.0035,
+    RQ2PPu = 0.02227,
+    RTfPu = 0,
+    RaPPu = 0,
+    RfPPu = 0.00128,
+    SNom = 500,
+    Sin2Eta0 = 0,
+    SnTfo = 500,
+    Theta0 = 0,
+    ThetaInternal0 = 0,
+    U0Pu = 1,
+    UBaseHV = 400,
+    UBaseLV = 21,
+    UNom = 21,
+    UNomHV = 400,
+    UNomLV = 21,
+    UPhase0 = 0,
+    UStator0Pu = 1,
+    Ud0Pu = 0,
+    Uf0Pu = 0.000691892,
+    Uq0Pu = 1,
+    XTfPu = 0,
+    md = 0,
+    mq = 0,
+    nd = 0,
+    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.005) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(
+    Efd0Pu = generatorSynchronous.Efd0Pu,
+    EMax = 4,
+    EMin = 0,
+    K = 200,
+    Ta = 3,
+    Tb = 10,
+    Te = 0.05,
+    Us0Pu = 1) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A1 pss(IC1 = 1, IC2 = 3, Ks1 = 10, Ks2 = 0.1564, Ks3 = 1, PGen0Pu = -generatorSynchronous.P0Pu, PNomAlt = generatorSynchronous.PNomAlt, T1 = 0.25, T2 = 0.03, T3 = 0.15, T4 = 0.015, T6 = 1e-5, T7 = 2, T8 = 0.5, T9 = 0.1, Tw1 = 2, Tw2 = 2, Tw3 = 2, Tw4 = 1e-5, Upss0Pu = 0, VstMax = 0.1, VstMin = -0.1) annotation(
-    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV11 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
+  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a pss(
+    Ks1 = 10,
+    Ks2 = 0.1564,
+    Ks3 = 1,
+    M = 1,
+    N = 0,
+    OmegaMaxPu = 999,
+    OmegaMinPu = -2,
+    PGen0Pu = -generatorSynchronous.P0Pu,
+    PGenMaxPu = 999,
+    PGenMinPu = -999,
+    SNom = generatorSynchronous.PNomAlt,
+    t1 = 0.25,
+    t2 = 0.03,
+    t3 = 0.15,
+    t4 = 0.015,
+    t6 = 1e-5,
+    t7 = 2,
+    t8 = 0.5,
+    t9 = 0.1,
+    tW1 = 2,
+    tW2 = 2,
+    tW3 = 2,
+    tW4 = 1e-5,
+    VPssMaxPu = 0.1,
+    VPssMinPu = -0.1) annotation(
+    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov1 governor(
+    Dt = 0,
+    Pm0Pu = generatorSynchronous.Pm0Pu,
+    R = 0.05,
+    t1 = 0.5,
+    t2 = 3,
+    t3 = 10,
+    VMax = 1,
+    VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step step(height = 0.05, offset = 1.005, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu);
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu);
+  Modelica.Blocks.Sources.Constant PmRefPu(k = governor.R * generatorSynchronous.Pm0Pu);
 
   // Bus
   Dynawo.Electrical.Buses.Bus currentBus annotation(
@@ -108,17 +150,20 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
-  connect(governor.PmRefPu, PmRefPu.y);
+
+  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(omegaRefPu.y, pss.omegaRefPu);
+  connect(omegaRefPu.y, governor.omegaRefPu);
+  connect(PmRefPu.y, governor.PmRefPu);
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -34}, {78, -34}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
-    Line(points = {{38, 10}, {70, 10}, {70, 6}, {78, 6}}, color = {0, 0, 127}));
+    Line(points = {{38, 10}, {60, 10}, {60, 6}, {78, 6}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, pss.omegaPu) annotation(
-    Line(points = {{38, -6}, {78, -6}}, color = {0, 0, 127}));
-  connect(pss.UpssPu, avr.UpssPu) annotation(
+    Line(points = {{38, -6}, {60, -6}, {60, 0}, {78, 0}}, color = {0, 0, 127}));
+  connect(pss.VPssPu, avr.UpssPu) annotation(
     Line(points = {{101, 0}, {110, 0}, {110, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));

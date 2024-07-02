@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 /*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,11 +13,15 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model IEEET1_INIT "Initialization model of IEEET1"
-  extends AdditionalIcons.Init;
+model ExAc1 "IEEE exciter type EXAC1 model"
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac1c(
+    EfeMaxPu = 999,
+    EfeMinPu = -999,
+    PositionOel = 1,
+    PositionScl = 0,
+    PositionUel = 1,
+    VeMinPu = 0,
+    VfeMaxPu = 999);
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  Types.VoltageModulePu UStator0Pu "Initial stator voltage in pu (base UNom)";
-
-  annotation(preferredView = "text");
-end IEEET1_INIT;
+  annotation(preferredView = "diagram");
+end ExAc1;

@@ -16,7 +16,6 @@ set(MODEL_FILES
   BaseIEEEX.mo
   PotentialCircuit.mo
   RectifierRegulationCharacteristic.mo
-  SatChar.mo
   )
 
 #

@@ -14,24 +14,23 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation system)"
 
+  parameter Types.VoltageModulePu EMax "Controller maximum output in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu EMin "Controller minimum output in pu (user-selected base voltage)";
   parameter Types.PerUnit K "Controller gain";
   parameter Types.Time Ta "Filter derivative time constant in s";
   parameter Types.Time Tb "Filter delay time constant in s";
   parameter Types.Time Te "Exciter time constant in s";
-  parameter Types.VoltageModulePu EMin "Controller minimum output in pu (base UNom)";
-  parameter Types.VoltageModulePu EMax "Controller maximum output in pu (base UNom)";
-  parameter Types.VoltageModulePu Upss0Pu = 0 "Initial PSS output voltage in pu (base UNom)";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "Control voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-114, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UpssPu(start = 0) "PSS output voltage (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-114, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -62}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-114, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UpssPu(start = Upss0Pu) "PSS output voltage (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-114, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -62}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "Control voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-114, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) " Voltage output un pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Voltage output in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(tFilter = Te, K = K, YMax = EMax, YMin = EMin, Y0 = Efd0Pu) annotation(
@@ -43,7 +42,8 @@ model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation sy
 
   parameter Types.VoltageModulePu Efd0Pu "Initial voltage output in pu (base UNom)";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage in pu (base UNom)";
+
+  final parameter Types.VoltageModulePu UsRef0Pu = Us0Pu + Efd0Pu / K "Initial control voltage in pu (base UNom)";
 
 equation
   connect(UpssPu, add3.u3) annotation(
@@ -61,6 +61,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3")),
-  Documentation(info = "<html><head></head><body>The simplified excitation system SEXS (<u>CIM name</u>: ExcSEXS) is a simplified version of the IEEE AC4A excitation system, defined in the IEEE Std 421.5-2005 \"IEEE Recommended Practice for Excitation System Models for Power System Stabilities\" document in the chapter 6.4.&nbsp;</body></html>"));
+    Documentation(info = "<html><head></head><body>The simplified excitation system SEXS (<u>CIM name</u>: ExcSEXS) is a simplified version of the IEEE AC4A excitation system, defined in the IEEE Std 421.5-2005 \"IEEE Recommended Practice for Excitation System Models for Power System Stabilities\" document in the chapter 6.4.&nbsp;</body></html>"));
 end SEXS;
