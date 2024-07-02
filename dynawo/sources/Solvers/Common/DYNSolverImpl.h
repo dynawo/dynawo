@@ -78,7 +78,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @brief Destructor
    */
-  virtual ~Impl();
+  ~Impl() override;
 
   /**
    * @copydoc Solver::getState()
@@ -105,12 +105,12 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::defineSpecificParameters()
    */
-  virtual void defineSpecificParameters() = 0;
+  void defineSpecificParameters() override = 0;
 
   /**
    * @copydoc Solver::solverType()
    */
-  virtual const std::string& solverType() const = 0;
+  const std::string& solverType() const override = 0;
 
   /**
    * @copydoc Solver::hasParameter(const std::string &nameParameter)
@@ -120,7 +120,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::getParametersMap()
    */
-  const std::map<std::string, ParameterSolver>& getParametersMap() const;
+  const std::map<std::string, ParameterSolver>& getParametersMap() const override;
 
   /**
    * @copydoc Solver::checkUnusedParameters()
@@ -163,17 +163,17 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::setSolverSpecificParameters()
    */
-  virtual void setSolverSpecificParameters() = 0;
+  void setSolverSpecificParameters() override = 0;
 
   /**
    * @copydoc Solver::init(const boost::shared_ptr<Model>& model, double t0, double tEnd)
    */
-  virtual void init(const boost::shared_ptr<Model>& model, double t0, double tEnd) = 0;
+  void init(const boost::shared_ptr<Model>& model, double t0, double tEnd) override = 0;
 
   /**
    * @copydoc Solver::calculateIC()
    */
-  virtual void calculateIC(double tEnd) = 0;
+  void calculateIC(double tEnd) override = 0;
 
   /**
    * @copydoc Solver::solve(double tAim, double &tNxt)
@@ -183,12 +183,12 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::reinit()
    */
-  virtual void reinit() = 0;
+  void reinit() override = 0;
 
   /**
   * @brief compute time scheme related derivatives
   */
-  virtual void computeYP(const double* /*yy*/) { /* not needed */ }
+  void computeYP(const double* /*yy*/) override { /* not needed */ }
 
   /**
    * @copydoc Solver::printSolve() const
@@ -313,7 +313,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   *
   * @return is solver starting from dump
   */
-  virtual bool startFromDump() const override {
+  bool startFromDump() const override {
     return startFromDump_;
   }
 
@@ -329,7 +329,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  virtual bool setupNewAlgRestoration(modeChangeType_t modeChangeType) = 0;
+  bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override = 0;
 
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   boost::shared_ptr<Model> model_;  ///< model currently simulated

@@ -121,7 +121,7 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   * @brief name of the solver
   * @return name of the solver
   */
-  inline const std::string& getName() {
+  inline const std::string& getName() override {
     static std::string name = "SIM";
     return name;
   }

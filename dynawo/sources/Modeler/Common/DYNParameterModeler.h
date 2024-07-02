@@ -227,7 +227,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief TypeError getter
    * @return TypeError getter
    */
-  Error::TypeError_t getTypeError() const;
+  Error::TypeError_t getTypeError() const override;
 
  private:
   ParameterModeler() = delete;  ///< default constructor

@@ -56,7 +56,7 @@ class ModelCPP : public SubModel {
    * @brief initialize all the data for a sub model
    * @param t0 initial time of the simulation
    */
-  virtual void init(double t0) = 0;
+  void init(double t0) override = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -65,7 +65,7 @@ class ModelCPP : public SubModel {
    * @param indexes vector to fill with the indexes
    *
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -73,7 +73,7 @@ class ModelCPP : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -81,21 +81,21 @@ class ModelCPP : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override = 0;
 
   /**
    * @brief export the parameters of the sub model for dump
    *
    * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
    */
-  void dumpParameters(std::map< std::string, std::string >& mapParameters);
+  void dumpParameters(std::map< std::string, std::string >& mapParameters) override;
 
   /**
    * @brief export the variables values of the sub model for dump
    *
    * @param mapVariables : map associating the file where values should be dumped with the stream of values
    */
-  void dumpVariables(std::map< std::string, std::string >& mapVariables);
+  void dumpVariables(std::map< std::string, std::string >& mapVariables) override;
 
   /**
    * @brief  CPP Model F(t,y,y') function evaluation
@@ -105,7 +105,7 @@ class ModelCPP : public SubModel {
    * @param[in] t Simulation instant
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  virtual void evalF(double t, propertyF_t type) = 0;
+  void evalF(double t, propertyF_t type) override = 0;
 
   /**
    * @brief  CPP Model G(t,y,y') function evaluation
@@ -113,7 +113,7 @@ class ModelCPP : public SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  virtual void evalG(double t) = 0;
+  void evalG(double t) override = 0;
 
   /**
    * @brief  CPP Model discrete variables evaluation
@@ -124,7 +124,7 @@ class ModelCPP : public SubModel {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  virtual void evalZ(double t) = 0;
+  void evalZ(double t) override = 0;
 
   /**
    * @brief  CPP Model transposed jacobian evaluation
@@ -135,7 +135,7 @@ class ModelCPP : public SubModel {
    * @param[in] rowOffset offset to use to identify the row where data should be added
    * @param jt jacobian matrix to fullfill
    */
-  virtual void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) = 0;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override = 0;
 
   /**
    * @brief calculate jacobien prime matrix
@@ -145,12 +145,12 @@ class ModelCPP : public SubModel {
    * @param[in] rowOffset offset to use to identify the row where data should be added
    * @param jtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) = 0;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override = 0;
 
   /**
    * @copydoc SubModel::evalMode(double t)
    */
-  virtual modeChangeType_t evalMode(double t) = 0;
+  modeChangeType_t evalMode(double t) override = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation
@@ -158,42 +158,42 @@ class ModelCPP : public SubModel {
    * Set the initial value of model's state variables, state variables derivatives
    * and discrete variables.
    */
-  virtual void getY0() = 0;
+  void getY0() override = 0;
 
   /**
    * @brief calculate calculated variables
    */
-  virtual void evalCalculatedVars() = 0;
+  void evalCalculatedVars() override = 0;
 
   /**
    * @brief evaluate the properties of the variables that won't change during simulation
    * (algebraic, differential, external or external optional variables)
    *
    */
-  virtual void evalStaticYType() = 0;
+  void evalStaticYType() override = 0;
 
   /**
    * @brief update during the simulation the properties of the variables that depends on others variables values
    *
    */
-  virtual void evalDynamicYType() = 0;
+  void evalDynamicYType() override = 0;
 
   /**
    * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
    *
    */
-  virtual void evalStaticFType() = 0;
+  void evalStaticFType() override = 0;
 
   /**
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  virtual void collectSilentZ(BitMask* silentZTable) = 0;
+  void collectSilentZ(BitMask* silentZTable) override = 0;
 
   /**
    * @brief update during the simulation the properties of the residual functions that depends on others variables values
    */
-  virtual void evalDynamicFType() = 0;
+  void evalDynamicFType() override = 0;
 
   /**
    * @brief  CPP Model model's sizes getter
@@ -202,22 +202,22 @@ class ModelCPP : public SubModel {
    * Model CPP Model instance. Used by @p ModelMulti to generate right size matrixes
    * and vector for the solver.
    */
-  virtual void getSize() = 0;
+  void getSize() override = 0;
 
   /**
    * @copydoc SubModel::setSubModelParameters()
    */
-  virtual void setSubModelParameters() = 0;
+  void setSubModelParameters() override = 0;
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValues()
    */
-  virtual void setSharedParametersDefaultValues() { /* no parameter */ }
+  void setSharedParametersDefaultValues() override { /* no parameter */ }
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValuesInit()
    */
-  virtual void setSharedParametersDefaultValuesInit() { /* no parameter */ }
+  void setSharedParametersDefaultValuesInit() override { /* no parameter */ }
 
   /**
    * @brief  CPP Model elements initializer
@@ -226,7 +226,7 @@ class ModelCPP : public SubModel {
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
-  virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) override = 0;
 
   /**
    * @brief get checksum
@@ -238,8 +238,7 @@ class ModelCPP : public SubModel {
    * @brief initialze static data
    *
    */
-  virtual void initializeStaticData() = 0;
-
+  void initializeStaticData() override = 0;
 
   /**
    * @copydoc SubModel::setFequationsInit()
