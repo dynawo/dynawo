@@ -19,6 +19,9 @@ set(MODEL_FILES
   BaseCurrentLimiter.mo
   BaseQLimiter.mo
   BaseGridProtection.mo
+  BaseWPPControl.mo
+  BaseWPPPControl.mo
+  BaseWPPQControl.mo
   )
 
 #
