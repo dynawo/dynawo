@@ -57,49 +57,49 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @brief default destructor
    */
-  ~ModelManager();
+  ~ModelManager() override;
 
   // instantiate the virtual methods of the Model class
   /**
    * @brief initialization of the model
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0);
+  void init(const double t0) override;
 
   /**
-   * @copydoc SubModel::getSize()
+   * @copydoc SubModel::getSize() override
    */
-  void getSize();
+  void getSize() override;
 
   /**
-   * @copydoc SubModel::evalF(double t, propertyF_t type)
+   * @copydoc SubModel::evalF(double t, propertyF_t type) override
    */
-  void evalF(double t, propertyF_t type);
+  void evalF(double t, propertyF_t type) override;
 
   /**
-   * @copydoc SubModel::evalG(const double t)
+   * @copydoc SubModel::evalG(const double t) override
    */
-  void evalG(const double t);
+  void evalG(const double t) override;
 
   /**
-   * @copydoc SubModel::evalZ(const double t)
+   * @copydoc SubModel::evalZ(const double t) override
    */
-  void evalZ(const double t);
+  void evalZ(const double t) override;
 
   /**
-   * @copydoc SubModel::evalMode(const double t);
+   * @copydoc SubModel::evalMode(const double t) override;
    */
-  modeChangeType_t evalMode(const double t);
+  modeChangeType_t evalMode(const double t) override;
 
   /**
-   * @copydoc SubModel::evalJt(const double t,const double cj, SparseMatrix& Jt, const int rowOffset)
+   * @copydoc SubModel::evalJt(const double t,const double cj, SparseMatrix& Jt, const int rowOffset) override
    */
-  void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) override;
 
   /**
-   * @copydoc SubModel::evalJtPrim(const double t,const double cj, SparseMatrix& Jt, const int rowOffset)
+   * @copydoc SubModel::evalJtPrim(const double t,const double cj, SparseMatrix& Jt, const int rowOffset) override
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) override;
   /**
    * @brief copy Z to local data
    *
@@ -108,79 +108,79 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalZ(std::vector<double>& z);
 
   /**
-   * @copydoc SubModel::checkDataCoherence (const double t)
+   * @copydoc SubModel::checkDataCoherence (const double t) override
    */
-  void checkDataCoherence(const double t);
+  void checkDataCoherence(const double t) override;
 
   /**
-   * @copydoc SubModel::checkParametersCoherence() const
+   * @copydoc SubModel::checkParametersCoherence() const override
    */
-  void checkParametersCoherence() const;
+  void checkParametersCoherence() const override;
 
   /**
-   * @copydoc SubModel::setFequations()
+   * @copydoc SubModel::setFequations() override
    */
-  void setFequations();
+  void setFequations() override;
 
   /**
-   * @copydoc SubModel::setGequations()
+   * @copydoc SubModel::setGequations() override
    */
-  void setGequations();
+  void setGequations() override;
 
   /**
-   * @copydoc SubModel::setFequationsInit()
+   * @copydoc SubModel::setFequationsInit() override
    */
-  void setFequationsInit();
+  void setFequationsInit() override;
 
   /**
-   * @copydoc SubModel::setGequationsInit()
+   * @copydoc SubModel::setGequationsInit() override
    */
-  void setGequationsInit();
+  void setGequationsInit() override;
 
   /**
-   * @copydoc SubModel::evalCalculatedVars()
+   * @copydoc SubModel::evalCalculatedVars() override
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
-   * @copydoc SubModel::evalStaticFType()
+   * @copydoc SubModel::evalStaticFType() override
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc SubModel::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
-   * @copydoc SubModel::evalDynamicFType()
+   * @copydoc SubModel::evalDynamicFType() override
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
-   * @copydoc SubModel::getY0()
+   * @copydoc SubModel::getY0() override
    */
-  void getY0();
+  void getY0() override;
 
   /**
-   * @copydoc SubModel::evalStaticYType()
+   * @copydoc SubModel::evalStaticYType() override
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
-   * @copydoc SubModel::evalDynamicYType()
+   * @copydoc SubModel::evalDynamicYType() override
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
-   * @copydoc SubModel::dumpParameters(std::map< std::string, std::string > & mapParameters)
+   * @copydoc SubModel::dumpParameters(std::map< std::string, std::string > & mapParameters) override
    */
-  void dumpParameters(std::map< std::string, std::string >& mapParameters);
+  void dumpParameters(std::map< std::string, std::string >& mapParameters) override;
 
   /**
-   * @copydoc SubModel::dumpVariables(std::map< std::string, std::string > & mapVariables)
+   * @copydoc SubModel::dumpVariables(std::map< std::string, std::string > & mapVariables) override
    */
-  void dumpVariables(std::map< std::string, std::string >& mapVariables);
+  void dumpVariables(std::map< std::string, std::string >& mapVariables) override;
 
   /**
    * @brief write the final parameters values (relying on low level Modelica data structures)
@@ -198,19 +198,19 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void getSubModelParameterValue(const std::string& nameParameter, std::string& value, bool& found) override;
 
   /**
-   * @copydoc SubModel::loadParameters(const std::string & parameters)
+   * @copydoc SubModel::loadParameters(const std::string & parameters) override
    */
-  void loadParameters(const std::string& parameters);
+  void loadParameters(const std::string& parameters) override;
 
   /**
-   * @copydoc SubModel::loadVariables(const std::string & variables)
+   * @copydoc SubModel::loadVariables(const std::string & variables) override
    */
-  void loadVariables(const std::string& variables);
+  void loadVariables(const std::string& variables) override;
 
   /**
-   * @copydoc SubModel::initParams();
+   * @copydoc SubModel::initParams() override;
    */
-  void initParams();
+  void initParams() override;
 
   /**
   * @brief write initial values parameters of a model in a file
@@ -224,27 +224,27 @@ class ModelManager : public SubModel, private boost::noncopyable {
   *
   * @param fstream the file to stream parameters to
   */
-  void printInitValuesParameters(std::ofstream& fstream) const;
+  void printInitValuesParameters(std::ofstream& fstream) const override;
 
   /**
-   * @copydoc SubModel::modelType() const
+   * @copydoc SubModel::modelType() const override
    */
-  std::string modelType() const;
+  std::string modelType() const override;
 
   /**
-   * @copydoc SubModel::rotateBuffers()
+   * @copydoc SubModel::rotateBuffers() override
    */
-  void rotateBuffers();
+  void rotateBuffers() override;
 
   /**
-   * @copydoc SubModel::notifyTimeStep()
+   * @copydoc SubModel::notifyTimeStep() override
    */
-  void notifyTimeStep();
+  void notifyTimeStep() override;
 
   /**
-   * @copydoc SubModel::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement)
+   * @copydoc SubModel::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -252,7 +252,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const;
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -260,7 +260,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -269,42 +269,42 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param indexes vector to fill with the indexes
    *
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
 
   /**
-   * @copydoc SubModel::initializeStaticData()
+   * @copydoc SubModel::initializeStaticData() override
    */
-  void initializeStaticData();
+  void initializeStaticData() override;
 
   /**
-   * @copydoc SubModel::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
+   * @copydoc SubModel::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override
    */
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
-   * @copydoc SubModel::defineParameters(std::vector<ParameterModeler>& parameters)
+   * @copydoc SubModel::defineParameters(std::vector<ParameterModeler>& parameters) override
    */
-  void defineParameters(std::vector<ParameterModeler>& parameters);
+  void defineParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
-   * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
+   * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) override
    */
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
-   * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
+   * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters) override
    */
-  void defineParametersInit(std::vector<ParameterModeler>& parameters);
+  void defineParametersInit(std::vector<ParameterModeler>& parameters) override;
 
   /**
-   * @copydoc SubModel::initializeFromData(const boost::shared_ptr<DataInterface> &data)
+   * @copydoc SubModel::initializeFromData(const boost::shared_ptr<DataInterface> &data) override
    */
-  void initializeFromData(const boost::shared_ptr<DataInterface>& data);
+  void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
 
   /**
-   * @copydoc SubModel::setSubModelParameters()
+   * @copydoc SubModel::setSubModelParameters() override
    */
-  void setSubModelParameters();
+  void setSubModelParameters() override;
 
   /**
    * @brief set the submodel shared parameters value
@@ -314,23 +314,23 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void setSharedParametersDefaultValues(const bool isInit, const parameterOrigin_t& origin);
 
   /**
-   * @copydoc SubModel::setSharedParametersDefaultValues()
+   * @copydoc SubModel::setSharedParametersDefaultValues() override
    */
-  inline void setSharedParametersDefaultValues() {
+  inline void setSharedParametersDefaultValues() override {
     setSharedParametersDefaultValues(false, MO);
   }
 
   /**
-   * @copydoc SubModel::setSharedParametersDefaultValuesInit()
+   * @copydoc SubModel::setSharedParametersDefaultValuesInit() override
    */
-  inline void setSharedParametersDefaultValuesInit() {
+  inline void setSharedParametersDefaultValuesInit() override {
     if (hasInit()) setSharedParametersDefaultValues(true, MO);
   }
 
   /**
-   * @copydoc SubModel::initSubBuffers()
+   * @copydoc SubModel::initSubBuffers() override
    */
-  void initSubBuffers();
+  void initSubBuffers() override;
 
   /**
    * @brief Computes the delayed value
@@ -364,9 +364,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void addDelay(int exprNumber, const double* time, const double* exprValue, double delayMax);
 
   /**
-   * @copydoc SubModel::hasDataCheckCoherence() const
+   * @copydoc SubModel::hasDataCheckCoherence() const override
    */
-  bool hasDataCheckCoherence() const;
+  bool hasDataCheckCoherence() const override;
 
  private:
 #ifdef _ADEPT_
