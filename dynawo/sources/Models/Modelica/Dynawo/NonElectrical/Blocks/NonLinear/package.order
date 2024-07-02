@@ -16,6 +16,7 @@ LimRateLimFirstOrder
 MaxThresholdSwitch
 MinThresholdSwitch
 MultiSwitch
+MultiSwitchNoVector
 PIAntiWindUpTable
 PulseFixedDuration
 PulseMinimumDuration
@@ -24,3 +25,4 @@ StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
+

@@ -8,15 +8,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-# Standard governor models
-
-add_subdirectory(Hydraulic H)
-add_subdirectory(Steam S)
-add_subdirectory(Generic G)
+# Standard generic governor models
 
 set(MODEL_FILES
   package.mo
   package.order
+  GovCT2.mo
+  GovCT2_INIT.mo
+  GovCT2.extvar
   )
 
 #

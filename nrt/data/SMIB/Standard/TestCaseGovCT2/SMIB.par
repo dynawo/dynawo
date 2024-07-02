@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="0.90081"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+  </set>
+  <!-- line 1 -->
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.022522"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <!-- line 2 -->
+  <set id="3">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.04189"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+  </set>
+  <!-- tfo -->
+  <set id="4">
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.00675"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0.0"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0.0"/>
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+  </set>
+  <!-- Generator -->
+  <set id="5">
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_md" value="0.1"/>
+    <par type="DOUBLE" name="generator_mq" value="0.1"/>
+    <par type="DOUBLE" name="generator_nd" value="6"/>
+    <par type="DOUBLE" name="generator_nq" value="6"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="generator_H" value="3.5"/>
+    <par type="DOUBLE" name="generator_DPu" value="0.0"/>
+    <par type="DOUBLE" name="generator_RaPu" value="0.003"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.15"/>
+    <par type="DOUBLE" name="generator_XdPu" value="1.81"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.30"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.23"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="8"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.03"/>
+    <par type="DOUBLE" name="generator_XqPu" value="1.76"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.65"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.25"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="1"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.07"/>
+    <par type="DOUBLE" name="generator_UNom" value="24"/>
+    <par type="DOUBLE" name="generator_SNom" value="2220"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="2220"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="2200"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="2220"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="400"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="24"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="400"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="24"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfPu" value="0"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-19.98"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-9.68"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0.494451"/>
+    <par type="DOUBLE" name="governor_PBaseMw" value="2200"/>
+    <par type="DOUBLE" name="governor_aSetPu" value="10"/>
+    <par type="DOUBLE" name="governor_DeltaOmegaDbPu" value="0"/>
+    <par type="DOUBLE" name="governor_DeltaOmegaMaxPu" value="1"/>
+    <par type="DOUBLE" name="governor_DeltaOmegaMinPu" value="-1"/>
+    <par type="DOUBLE" name="governor_DeltaTSeconds" value="1"/>
+    <par type="DOUBLE" name="governor_DmPu" value="0"/>
+    <par type="DOUBLE" name="governor_fLim1Hz" value="49"/>
+    <par type="DOUBLE" name="governor_fLim2Hz" value="8"/>
+    <par type="DOUBLE" name="governor_fLim3Hz" value="7"/>
+    <par type="DOUBLE" name="governor_fLim4Hz" value="6"/>
+    <par type="DOUBLE" name="governor_fLim5Hz" value="5"/>
+    <par type="DOUBLE" name="governor_fLim6Hz" value="4"/>
+    <par type="DOUBLE" name="governor_fLim7Hz" value="3"/>
+    <par type="DOUBLE" name="governor_fLim8Hz" value="2"/>
+    <par type="DOUBLE" name="governor_fLim9Hz" value="1"/>
+    <par type="DOUBLE" name="governor_fLim10Hz" value="0"/>
+    <par type="DOUBLE" name="governor_fNomHz" value="50"/>
+    <par type="DOUBLE" name="governor_KAPu" value="10"/>
+    <par type="DOUBLE" name="governor_KDGovPu" value="0"/>
+    <par type="DOUBLE" name="governor_KIGovPu" value="0.45"/>
+    <par type="DOUBLE" name="governor_KILoadPu" value="1"/>
+    <par type="DOUBLE" name="governor_KIMwPu" value="0"/>
+    <par type="DOUBLE" name="governor_KPGovPu" value="4"/>
+    <par type="DOUBLE" name="governor_KPLoadPu" value="1"/>
+    <par type="DOUBLE" name="governor_KTurbPu" value="1.9168"/>
+    <par type="DOUBLE" name="governor_PLdRefPu" value="1"/>
+    <par type="DOUBLE" name="governor_PLim1Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim2Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim3Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim4Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim5Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim6Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim7Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim8Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim9Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_PLim10Pu" value="0.8325"/>
+    <par type="DOUBLE" name="governor_Pm0Pu" value="Pm0Pu"/>
+    <par type="DOUBLE" name="governor_PRatePu" value="0.017"/>
+    <par type="DOUBLE" name="governor_RClosePu" value="-99"/>
+    <par type="DOUBLE" name="governor_RDownPu" value="-99"/>
+    <par type="DOUBLE" name="governor_ROpenPu" value="99"/>
+    <par type="DOUBLE" name="governor_RPu" value="0.05"/>
+    <par type="INT"    name="governor_RSelectInt" value="RSelectInt"/>
+    <par type="DOUBLE" name="governor_RUpPu" value="99"/>
+    <par type="DOUBLE" name="governor_tActuatorSeconds" value="0.4"/>
+    <par type="DOUBLE" name="governor_tASeconds" value="1"/>
+    <par type="DOUBLE" name="governor_tBSeconds" value="0.1"/>
+    <par type="DOUBLE" name="governor_tCSeconds" value="0"/>
+    <par type="DOUBLE" name="governor_tDGovSeconds" value="1"/>
+    <par type="DOUBLE" name="governor_tDRatelimSeconds" value="0.001"/>
+    <par type="DOUBLE" name="governor_tEngineSeconds" value="0"/>
+    <par type="DOUBLE" name="governor_tFLoadSeconds" value="3"/>
+    <par type="DOUBLE" name="governor_tLastValueSeconds" value="1e-9"/>
+    <par type="DOUBLE" name="governor_tPElecSeconds" value="2.5"/>
+    <par type="DOUBLE" name="governor_tSASeconds" value="1e-6"/>
+    <par type="DOUBLE" name="governor_tSBSeconds" value="50"/>
+    <par type="DOUBLE" name="governor_ValveMaxPu" value="1"/>
+    <par type="DOUBLE" name="governor_ValveMinPu" value="0.175"/>
+    <par type="DOUBLE" name="governor_WFnlPu" value="0.187"/>
+    <par type="BOOL"   name="governor_WFSpdBool" value="false"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_Gain" value="20"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_EfdMinPu" value="-5"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_UsRefMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_LagEfdMin" value="0"/>
+    <par type="DOUBLE" name="governor_voltageRegulator_LagEfdMax" value="0"/>
+  </set>
+  <!-- OmegaRef -->
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <!-- Fault -->
+  <set id="7">
+    <par type="DOUBLE" name="fault_tBegin" value="1"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.07"/>
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0"/>
+  </set>
+</parametersSet>
