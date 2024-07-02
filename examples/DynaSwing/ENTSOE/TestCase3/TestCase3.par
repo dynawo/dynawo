@@ -57,15 +57,14 @@
     <par type="DOUBLE" name="governor_Dt" value="0"/>
     <par type="DOUBLE" name="governor_VMin" value="0"/>
     <par type="DOUBLE" name="governor_VMax" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_EMax" value="4"/>
+    <par type="DOUBLE" name="voltageRegulator_EMin" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_K" value="200"/>
     <par type="DOUBLE" name="voltageRegulator_Ta" value="3"/>
     <par type="DOUBLE" name="voltageRegulator_Tb" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_Te" value="0.05"/>
-    <par type="DOUBLE" name="voltageRegulator_EMin" value="0"/>
-    <par type="DOUBLE" name="voltageRegulator_EMax" value="4"/>
-    <par type="DOUBLE" name="voltageRegulator_K" value="200"/>
-    <par type="DOUBLE" name="voltageRegulator_Upss0Pu" value="0"/>
-    <par type="DOUBLE" name="voltageRegulator_Us0Pu" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Efd0Pu" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_Us0Pu" value="1"/>
     <par type="DOUBLE" name="pss_Tw1" value="2"/>
     <par type="DOUBLE" name="pss_Tw2" value="2"/>
     <par type="DOUBLE" name="pss_Tw3" value="2"/>
