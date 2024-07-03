@@ -1306,6 +1306,7 @@ generate_preassembled() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1315,6 +1316,7 @@ generate_preassembled_gdb() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled-gdb $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
