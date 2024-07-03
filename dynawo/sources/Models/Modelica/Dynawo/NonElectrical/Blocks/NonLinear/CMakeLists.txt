@@ -23,6 +23,8 @@ set(MODEL_FILES
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
   LimitedLeadLag.mo
+  LimiterAtCurrentValueWithLag.mo
+  LimiterAtCurrentValueWithLag_INIT.mo
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
   LimRateLimFirstOrder.mo

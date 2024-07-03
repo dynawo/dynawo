@@ -10,6 +10,8 @@ IntegratorOrFirstOrder
 LimitedFirstOrder
 LimitedIntegrator
 LimitedLeadLag
+LimiterAtCurrentValueWithLag
+LimiterAtCurrentValueWithLag_INIT
 LimiterWithLag
 LimiterWithLag_INIT
 LimRateLimFirstOrder

@@ -1,4 +1,4 @@
-# Copyright (c) 2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,10 +11,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  BaseLimiterWithLag.mo
-  BaseLimiterWithLag_INIT.mo
-  BasePulse.mo
-  BaseRSFlipFlop.mo
+  IEEE118NoEvent.mo
   )
 
 #
