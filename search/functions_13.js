@@ -169,7 +169,7 @@ var searchData=
   ['setmodelerentry',['setModelerEntry',['../dd/d02/a02185.html#a6966ff32edd1a307fdefeceb43399e51',1,'job::JobEntry']]],
   ['setmodelextension',['setModelExtension',['../d4/dc0/a02225.html#a9477a46d7d6b7668feca1c985148a5bb',1,'job::ModelsDirEntry']]],
   ['setmodelicamodelsdirentry',['setModelicaModelsDirEntry',['../da/da2/a02217.html#aeb2044432674ed647ad552edb2cb1240',1,'job::ModelerEntry']]],
-  ['setmodelid',['setModelId',['../df/d5c/a02933.html#a931008751291d5db825b8fdcd43d1a91',1,'DYN::StateVariable::setModelId()'],['../d9/d93/a02753.html#a869f557cbbee5f0e6d522acb02bb0e5b',1,'DYN::StaticRefInterface::setModelID()']]],
+  ['setmodelid',['setModelID',['../d9/d93/a02753.html#a869f557cbbee5f0e6d522acb02bb0e5b',1,'DYN::StaticRefInterface::setModelID()'],['../df/d5c/a02933.html#a931008751291d5db825b8fdcd43d1a91',1,'DYN::StateVariable::setModelId()']]],
   ['setmodelmanager',['setModelManager',['../d0/d2a/a03133.html#a48c544aa12999c45f7533bba81c47add',1,'DYN::ModelModelica']]],
   ['setmodelname',['setModelName',['../d9/df5/a01673.html#aeb16a6cad74bcffee034254b251aa2a3',1,'curves::Curve::setModelName()'],['../df/d2e/a01737.html#ac492b4ac8ece934f9dbb1d499098e429',1,'constraints::Constraint::setModelName()'],['../db/dac/a02077.html#a0d88f3e8b07f3ea2783afeb73b2c28a6',1,'finalStateValues::FinalStateValue::setModelName()'],['../db/de8/a02525.html#a62735f847a63c2a139c19502b2120c1e',1,'timeline::Event::setModelName()']]],
   ['setmodelnetwork',['setModelNetwork',['../d7/d13/a02873.html#a2f16859a4c2e1ae667a7a86c34f57d91',1,'DYN::DataInterface::setModelNetwork()'],['../d0/db8/a03001.html#a1bc31e4cd9bad970c0099fa014ca9d95',1,'DYN::DataInterfaceIIDM::setModelNetwork()']]],

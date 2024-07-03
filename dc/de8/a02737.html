@@ -373,10 +373,6 @@ Private Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#ae4c8ee1f8f18046f515eb5a5ee50e358">collectSilentZ</a> ()</td></tr>
 <tr class="memdesc:ae4c8ee1f8f18046f515eb5a5ee50e358"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the silent flag for discrete variables <br /></td></tr>
 <tr class="separator:ae4c8ee1f8f18046f515eb5a5ee50e358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75994cf308d21126c35bf917500413d4"><td class="memItemLeft" align="right" valign="top"><a id="a75994cf308d21126c35bf917500413d4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a75994cf308d21126c35bf917500413d4">cleanBuffers</a> ()</td></tr>
-<tr class="memdesc:a75994cf308d21126c35bf917500413d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete all informations about the local buffers (size, buffers, etc...) <br /></td></tr>
-<tr class="separator:a75994cf308d21126c35bf917500413d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -464,34 +460,34 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 std::set&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a4942266b61be55bcb113d17e64e99896">numVarsOptional_</a></td></tr>
 <tr class="memdesc:a4942266b61be55bcb113d17e64e99896"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of optional variables <br /></td></tr>
 <tr class="separator:a4942266b61be55bcb113d17e64e99896"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea0179636b5960cd4269b0f5e12d1dd2"><td class="memItemLeft" align="right" valign="top"><a id="aea0179636b5960cd4269b0f5e12d1dd2"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#aea0179636b5960cd4269b0f5e12d1dd2">fLocal_</a></td></tr>
-<tr class="memdesc:aea0179636b5960cd4269b0f5e12d1dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to fill with the residual values <br /></td></tr>
-<tr class="separator:aea0179636b5960cd4269b0f5e12d1dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd766cf9b08b1ab597482fac6588b392"><td class="memItemLeft" align="right" valign="top"><a id="abd766cf9b08b1ab597482fac6588b392"></a>
-<a class="el" href="../../dc/d8e/a00473.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#abd766cf9b08b1ab597482fac6588b392">gLocal_</a></td></tr>
-<tr class="memdesc:abd766cf9b08b1ab597482fac6588b392"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to fill with the roots values <br /></td></tr>
-<tr class="separator:abd766cf9b08b1ab597482fac6588b392"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c4156ed6278aabb15a070b5dd3ca657"><td class="memItemLeft" align="right" valign="top"><a id="a1c4156ed6278aabb15a070b5dd3ca657"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a1c4156ed6278aabb15a070b5dd3ca657">yLocal_</a></td></tr>
-<tr class="memdesc:a1c4156ed6278aabb15a070b5dd3ca657"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing continuous variables <br /></td></tr>
-<tr class="separator:a1c4156ed6278aabb15a070b5dd3ca657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba3d6d9595956cb86e7f1200e3803324"><td class="memItemLeft" align="right" valign="top"><a id="aba3d6d9595956cb86e7f1200e3803324"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#aba3d6d9595956cb86e7f1200e3803324">ypLocal_</a></td></tr>
-<tr class="memdesc:aba3d6d9595956cb86e7f1200e3803324"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing derivatives of continuous variables <br /></td></tr>
-<tr class="separator:aba3d6d9595956cb86e7f1200e3803324"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98ee626b4fdb783d283f919a6675fb82"><td class="memItemLeft" align="right" valign="top"><a id="a98ee626b4fdb783d283f919a6675fb82"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a98ee626b4fdb783d283f919a6675fb82">zLocal_</a></td></tr>
-<tr class="memdesc:a98ee626b4fdb783d283f919a6675fb82"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing discrete variables <br /></td></tr>
-<tr class="separator:a98ee626b4fdb783d283f919a6675fb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aa8b70a2adb2de7494eddf0bc54948e"><td class="memItemLeft" align="right" valign="top"><a id="a7aa8b70a2adb2de7494eddf0bc54948e"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a7aa8b70a2adb2de7494eddf0bc54948e">fLocal_</a></td></tr>
+<tr class="memdesc:a7aa8b70a2adb2de7494eddf0bc54948e"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to fill with the residual values <br /></td></tr>
+<tr class="separator:a7aa8b70a2adb2de7494eddf0bc54948e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae43c20abde7e72c0de56067fff209fb4"><td class="memItemLeft" align="right" valign="top"><a id="ae43c20abde7e72c0de56067fff209fb4"></a>
+std::vector&lt; <a class="el" href="../../dc/d8e/a00473.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#ae43c20abde7e72c0de56067fff209fb4">gLocal_</a></td></tr>
+<tr class="memdesc:ae43c20abde7e72c0de56067fff209fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to fill with the roots values <br /></td></tr>
+<tr class="separator:ae43c20abde7e72c0de56067fff209fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab77e8ae6483d6d264ada4d1fc65757aa"><td class="memItemLeft" align="right" valign="top"><a id="ab77e8ae6483d6d264ada4d1fc65757aa"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#ab77e8ae6483d6d264ada4d1fc65757aa">yLocal_</a></td></tr>
+<tr class="memdesc:ab77e8ae6483d6d264ada4d1fc65757aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing continuous variables <br /></td></tr>
+<tr class="separator:ab77e8ae6483d6d264ada4d1fc65757aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a7af49017f7bb6b17c8816019ea8a4c"><td class="memItemLeft" align="right" valign="top"><a id="a4a7af49017f7bb6b17c8816019ea8a4c"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a4a7af49017f7bb6b17c8816019ea8a4c">ypLocal_</a></td></tr>
+<tr class="memdesc:a4a7af49017f7bb6b17c8816019ea8a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing derivatives of continuous variables <br /></td></tr>
+<tr class="separator:a4a7af49017f7bb6b17c8816019ea8a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33a828a456ba499ba954ef0f1c7981c1"><td class="memItemLeft" align="right" valign="top"><a id="a33a828a456ba499ba954ef0f1c7981c1"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a33a828a456ba499ba954ef0f1c7981c1">zLocal_</a></td></tr>
+<tr class="memdesc:a33a828a456ba499ba954ef0f1c7981c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing discrete variables <br /></td></tr>
+<tr class="separator:a33a828a456ba499ba954ef0f1c7981c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32f655a6ae783fa4c6272b3acab1b269"><td class="memItemLeft" align="right" valign="top"><a id="a32f655a6ae783fa4c6272b3acab1b269"></a>
 bool *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a32f655a6ae783fa4c6272b3acab1b269">zConnectedLocal_</a></td></tr>
 <tr class="memdesc:a32f655a6ae783fa4c6272b3acab1b269"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing discrete variables connection status <br /></td></tr>
 <tr class="separator:a32f655a6ae783fa4c6272b3acab1b269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada81e0637aa05cb54a7b5b4ba82113cf"><td class="memItemLeft" align="right" valign="top"><a id="ada81e0637aa05cb54a7b5b4ba82113cf"></a>
-<a class="el" href="../../dd/d98/a02557.html">BitMask</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#ada81e0637aa05cb54a7b5b4ba82113cf">silentZ_</a></td></tr>
-<tr class="memdesc:ada81e0637aa05cb54a7b5b4ba82113cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer indicating if the corresponding discrete variable is silent <br /></td></tr>
-<tr class="separator:ada81e0637aa05cb54a7b5b4ba82113cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0536d504ba4a5982a867673d162f5a59"><td class="memItemLeft" align="right" valign="top"><a id="a0536d504ba4a5982a867673d162f5a59"></a>
+std::vector&lt; <a class="el" href="../../dd/d98/a02557.html">BitMask</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a0536d504ba4a5982a867673d162f5a59">silentZ_</a></td></tr>
+<tr class="memdesc:a0536d504ba4a5982a867673d162f5a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer indicating if the corresponding discrete variable is silent <br /></td></tr>
+<tr class="separator:a0536d504ba4a5982a867673d162f5a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b8760b9668fb983c9fd903c8cd72a29"><td class="memItemLeft" align="right" valign="top"><a id="a6b8760b9668fb983c9fd903c8cd72a29"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/a02737.html#a6b8760b9668fb983c9fd903c8cd72a29">silentZInitialized_</a></td></tr>
 <tr class="memdesc:a6b8760b9668fb983c9fd903c8cd72a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if silentZ were collected <br /></td></tr>
@@ -3424,7 +3420,7 @@ template&lt;class T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/de8/a02737.html">ModelMulti</a></li>
-    <li class="footer">Generated on Tue Jul 2 2024 15:59:40 for Dynawo by
+    <li class="footer">Generated on Wed Jul 3 2024 08:29:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

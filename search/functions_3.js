@@ -62,7 +62,6 @@ var searchData=
   ['checkunusedparameters',['checkUnusedParameters',['../d8/d5d/a03329.html#ac7d8afe55ffac1468bff120f8d7d36b1',1,'DYN::Solver::checkUnusedParameters()'],['../d1/d3a/a03353.html#a988b7d450c6a1914b1ceda113804cc85',1,'DYN::Solver::Impl::checkUnusedParameters()']]],
   ['clean',['clean',['../da/d0a/a03297.html#a690a3dfc38c3468b5aecce993cc4f1d2',1,'DYN::Simulation::clean()'],['../d8/dde/a03313.html#a7f17551e466f66189dff3d1c0b4423f7',1,'DYN::SolverKINCommon::clean()'],['../d1/d3a/a03353.html#a06d34c6022a7faae9b3eef6fb64af600',1,'DYN::Solver::Impl::clean()']]],
   ['cleanalgebraicvectors',['cleanAlgebraicVectors',['../d8/d1e/a03309.html#a0f93bad60bee65915af230a6010adde1',1,'DYN::SolverKINAlgRestoration']]],
-  ['cleanbuffers',['cleanBuffers',['../dc/de8/a02737.html#a75994cf308d21126c35bf917500413d4',1,'DYN::ModelMulti']]],
   ['cleanida',['cleanIDA',['../d3/d0c/a03381.html#a09f8f6e5eb1b58b78fb1f0536684854e',1,'DYN::SolverIDA']]],
   ['cleardirectories',['clearDirectories',['../d4/dc0/a02225.html#a9a180359777bda7f87a05ae3df51b30c',1,'job::ModelsDirEntry']]],
   ['clearneighbors',['clearNeighbors',['../d7/dee/a03205.html#a10a559d6fd2930637fa99889ad882749',1,'DYN::ModelBus']]],
