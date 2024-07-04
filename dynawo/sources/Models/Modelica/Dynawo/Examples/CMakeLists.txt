@@ -10,6 +10,7 @@
 
 add_subdirectory(BaseClasses B)
 add_subdirectory(SMIB S)
+add_subdirectory(BESS BS)
 add_subdirectory(ENTSOE E)
 add_subdirectory(GridForming G)
 add_subdirectory(IEEE14 I14)

@@ -14,10 +14,14 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsDriveTrain
-  parameter Types.Time Ht "Turbine Inertia in s (typical: 5 s)";
-  parameter Types.Time Hg "Generator Inertia in s (typical: 1 s)";
-  parameter Types.PerUnit Dshaft "Damping coefficient in pu (typical: 1.5 pu, base SNom, omegaNom)";
-  parameter Types.PerUnit Kshaft "Spring constant in pu (typical: 200 pu, base SNom, omegaNom)";
+  parameter Types.Time Ht "Turbine Inertia in s (typical: 5 s)" annotation(
+  Dialog(tab="Mechanical"));
+  parameter Types.Time Hg "Generator Inertia in s (typical: 1 s)" annotation(
+  Dialog(tab="Mechanical"));
+  parameter Types.PerUnit Dshaft "Damping coefficient in pu (typical: 1.5 pu, base SNom, omegaNom)" annotation(
+  Dialog(tab="Mechanical"));
+  parameter Types.PerUnit Kshaft "Spring constant in pu (typical: 200 pu, base SNom, omegaNom)" annotation(
+  Dialog(tab="Mechanical"));
 
   annotation(preferredView = text);
 end ParamsDriveTrain;

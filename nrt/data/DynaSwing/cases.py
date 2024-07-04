@@ -416,6 +416,17 @@ case_description = "WECC - Wind 4B Type - Current Source"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4BCurrentSource", "WECCWTG4B.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#########################################################################################
+#     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-B Current Source   #
+#########################################################################################
+
+case_name = "DynaSwing - WECC - BESScb - Current source"
+case_description = "WECC - BESScb - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESScbCurrentSource", "WECCBESScb.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ###############################################
 #     ENTSO-E Test Case 1                     #
 ###############################################

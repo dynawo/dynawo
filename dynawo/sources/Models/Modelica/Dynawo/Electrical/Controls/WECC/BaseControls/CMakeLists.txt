@@ -11,8 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  CurrentLimitsCalculationPV.mo
-  CurrentLimitsCalculationWind.mo
+  CurrentLimitsCalculationA.mo
+  CurrentLimitsCalculationB.mo
+  CurrentLimitsCalculationC.mo
   IqInjectionLogic.mo
   LineDropCompensation.mo
   UdqRef.mo
