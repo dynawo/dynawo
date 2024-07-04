@@ -462,6 +462,7 @@ set_environment() {
   export_var_env_force DYNAWO_MODELICA_LIB=3.2.3
   export_var_env DYNAWO_SRC_OPENMODELICA=UNDEFINED
   export_var_env DYNAWO_INSTALL_OPENMODELICA=UNDEFINED
+  export OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
 
   # JQuery config
   export_var_env DYNAWO_JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
@@ -827,6 +828,7 @@ config_dynawo() {
     -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR \
     -DUSE_ADEPT:BOOL=$DYNAWO_USE_ADEPT \
     -DINSTALL_OPENMODELICA:PATH=$DYNAWO_INSTALL_OPENMODELICA \
+    -DOPENMODELICAHOME=$OPENMODELICAHOME \
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
@@ -1306,7 +1308,6 @@ generate_preassembled() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  export OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1316,7 +1317,6 @@ generate_preassembled_gdb() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  export OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled-gdb $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
