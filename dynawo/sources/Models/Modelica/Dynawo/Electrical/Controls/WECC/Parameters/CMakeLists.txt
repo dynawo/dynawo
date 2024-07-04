@@ -15,9 +15,9 @@ set(MODEL_FILES
   package.mo
   package.order
   ParamsDriveTrain.mo
-  ParamsElectricalControl.mo
-  ParamsGeneratorControl.mo
-  ParamsPlantControl.mo
+  ParamsREEC.mo
+  ParamsREGC.mo
+  ParamsREPC.mo
   ParamsVSourceRef.mo
   )
 

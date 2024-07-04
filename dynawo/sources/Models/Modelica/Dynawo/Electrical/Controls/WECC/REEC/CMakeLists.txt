@@ -14,8 +14,9 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  ElectricalControlPV.mo
-  ElectricalControlWind.mo
+  REECa.mo
+  REECb.mo
+  REECc.mo
   )
 
 #
