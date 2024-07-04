@@ -21,7 +21,7 @@ on:
         description: Create assets for Windows
         type: boolean
         default: true
-        
+
 jobs:
   distribution-cxx11:
     if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-cxx11
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         env:
@@ -80,7 +80,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         env:
@@ -116,7 +116,7 @@ jobs:
         run: git config --global core.autocrlf input
 
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git move to keep path as short as possible
         shell: cmd
@@ -163,7 +163,7 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           call util\windows\deploy.cmd ..\d-i ..\d-3-p \OpenModelica\dynawo\OpenModelica || exit /b 1
-          move /y *.zip ${{ github.workspace }} 
+          move /y *.zip ${{ github.workspace }}
 
       - name: Upload Dynawo distribution
         uses: actions/github-script@v6
