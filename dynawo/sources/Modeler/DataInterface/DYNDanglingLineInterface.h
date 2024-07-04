@@ -110,13 +110,13 @@ class DanglingLineInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the resistance of the dangling line
-   * @return The resistance of the dangling line in ohms
+   * @return The resistance of the dangling line in ohm
    */
   virtual double getR() const = 0;
 
   /**
    * @brief Getter for the reactance of the dangling line
-   * @return The reactance of the dangling line in ohms
+   * @return The reactance of the dangling line in ohm
    */
   virtual double getX() const = 0;
 

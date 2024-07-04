@@ -492,7 +492,7 @@ class ModelHvdcLink : public NetworkComponent {
 
   HvdcLineInterface::ConverterMode_t converterMode_;  ///< mode of converters (rectifier or inverter)
 
-  double rdc_;  ///< resistance of the dc line in Ohm
+  double rdc_;  ///< resistance of the dc line in ohm
 
   State connectionState1_;  ///< "internal" link connection status at point of common coupling 1
   State connectionState2_;  ///< "internal" link connection status at point of common coupling 2
