@@ -26,7 +26,7 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         run: |
@@ -87,7 +87,7 @@ jobs:
           tar xzf openjdk-17.0.2_linux-x64_bin.tar.gz
 
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # In a PR use pre-built 3rd parties to optimize the duration of the job
       - name: Build branch PR
@@ -125,7 +125,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git move
         shell: cmd

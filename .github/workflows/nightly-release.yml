@@ -35,7 +35,7 @@ jobs:
     name: Prepare nightly tag and release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           sparse-checkout: .github/release.js
           sparse-checkout-cone-mode: false
@@ -45,7 +45,7 @@ jobs:
         env:
           body: |
             Dynawo's nightly release. Compiled on *release* settings.
-            
+
             **Don't use it for production**
           draft: false
           prerelease: true
@@ -73,7 +73,7 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         run: |
@@ -132,7 +132,7 @@ jobs:
         run: git config --global core.autocrlf input
 
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git move to keep path as short as possible
         shell: cmd
@@ -196,7 +196,7 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           call util\windows\deploy.cmd ..\d-i ..\d-3-p \OpenModelica\dynawo\OpenModelica || exit /b 1
-          move /y *.zip ${{ github.workspace }} 
+          move /y *.zip ${{ github.workspace }}
 
       - name: Upload OpenModelica, 3rd parties and dynawo distribution
         uses: actions/github-script@v6
