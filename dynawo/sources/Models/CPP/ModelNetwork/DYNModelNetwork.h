@@ -76,14 +76,14 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   /**
    * @brief destructor
    */
-  ~ModelNetwork();
+  ~ModelNetwork() override;
 
  public:
   /**
    * @brief initialize the network model
    * @param t0 initial time of the simulation
    */
-  void init(const double t0);
+  void init(const double t0) override;
 
   /**
    * @brief get the index of variables used to define the Jacobian associated to a calculated variable
@@ -91,7 +91,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
 
   /**
    * @brief evaluate the Jacobian associated to a calculated variable
@@ -99,7 +99,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the Jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -108,100 +108,100 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const;
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
 
   /**
    * @brief evaluation F
    * @param[in] t Simulation instant
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(double t, propertyF_t type);
+  void evalF(double t, propertyF_t type) override;
 
   /**
    * @brief evaluation G
    * @param t : time to use
    */
-  void evalG(const double t);
+  void evalG(const double t) override;
 
   /**
    * @brief evaluation Z
    * @param t : time to use
    */
-  void evalZ(const double t);
+  void evalZ(const double t) override;
 
   /**
    * @copydoc ModelCPP::evalJt (const double t,const double cj, SparseMatrix& jt, const int rowOffset)
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
 
   /**
    * @copydoc ModelCPP::evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset)
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
 
   /**
    * @copydoc ModelCPP::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double t);
+  modeChangeType_t evalMode(const double t) override;
 
   /**
    * @copydoc ModelCPP::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc ModelCPP::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc ModelCPP::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc ModelCPP::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc ModelCPP::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @brief retrieve the size of the network
    *
    */
-  void getSize();
+  void getSize() override;
 
   /**
    * @brief network submodels parameters setter
    */
-  void setSubModelParameters();
+  void setSubModelParameters() override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluation of the calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief define variables
    * @param variables variables
    */
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief fill calculated variable and index for one component
@@ -213,39 +213,39 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief define parameters
    * @param parameters parameters
    */
-  void defineParameters(std::vector<ParameterModeler>& parameters);
+  void defineParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief get check sum number
    * @return checksum string
    */
-  std::string getCheckSum() const;
+  std::string getCheckSum() const override;
 
   /**
    * @brief initialize the static (IIDM) data
    */
-  void initializeStaticData();
+  void initializeStaticData() override;
 
   /**
    * @brief init from data
    * @param data data
    */
-  void initializeFromData(const boost::shared_ptr<DataInterface>& data);
+  void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
 
   /**
    * @copydoc ModelCPP::setFequations()
    */
-  void setFequations();
+  void setFequations() override;
 
    /**
    * @copydoc ModelCPP::setFequationsInit()
    */
-  void setFequationsInit();
+  void setFequationsInit() override;
 
   /**
    * @copydoc ModelCPP::setGequations()
    */
-  void setGequations();
+  void setGequations() override;
 
   /**
    * @brief get whether the current process is the initialization process
@@ -274,23 +274,23 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   /**
    * @copydoc ModelCPP::initParams()
    */
-  void initParams();
+  void initParams() override;
 
    /**
    * @copydoc ModelCPP::initSubBuffers()
    */
-  void initSubBuffers();
+  void initSubBuffers() override;
 
   /**
    * @copydoc SubModel::printModel() const
    */
-  void printModel() const;
+  void printModel() const override;
 
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()
   */
-  void dumpUserReadableElementList(const std::string& nameElement) const;
+  void dumpUserReadableElementList(const std::string& nameElement) const override;
 
   // Specific methods for ModelNetwork class
   // ---------------------------------------------

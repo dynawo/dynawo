@@ -49,14 +49,14 @@ class ModelCPP : public SubModel {
   /**
    * @brief Destructor
    */
-  virtual ~ModelCPP() = default;
+  ~ModelCPP() override = default;
 
  public:
   /**
    * @brief initialize all the data for a sub model
    * @param t0 initial time of the simulation
    */
-  virtual void init(const double t0) = 0;
+  void init(const double t0) override = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -65,7 +65,7 @@ class ModelCPP : public SubModel {
    * @param indexes vector to fill with the indexes
    *
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -73,7 +73,7 @@ class ModelCPP : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -81,21 +81,21 @@ class ModelCPP : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override = 0;
 
   /**
    * @brief export the parameters of the sub model for dump
    *
    * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
    */
-  void dumpParameters(std::map< std::string, std::string >& mapParameters);
+  void dumpParameters(std::map< std::string, std::string >& mapParameters) override;
 
   /**
    * @brief export the variables values of the sub model for dump
    *
    * @param mapVariables : map associating the file where values should be dumped with the stream of values
    */
-  void dumpVariables(std::map< std::string, std::string >& mapVariables);
+  void dumpVariables(std::map< std::string, std::string >& mapVariables) override;
 
   /**
    * @brief  CPP Model F(t,y,y') function evaluation
@@ -105,7 +105,7 @@ class ModelCPP : public SubModel {
    * @param[in] t Simulation instant
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  virtual void evalF(double t, propertyF_t type) = 0;
+  void evalF(double t, propertyF_t type) override = 0;
 
   /**
    * @brief  CPP Model G(t,y,y') function evaluation
@@ -113,7 +113,7 @@ class ModelCPP : public SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  virtual void evalG(const double t) = 0;
+  void evalG(const double t) override = 0;
 
   /**
    * @brief  CPP Model discrete variables evaluation
@@ -124,7 +124,7 @@ class ModelCPP : public SubModel {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  virtual void evalZ(const double t) = 0;
+  void evalZ(const double t) override = 0;
 
   /**
    * @brief  CPP Model transposed jacobian evaluation
@@ -135,7 +135,7 @@ class ModelCPP : public SubModel {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override = 0;
 
   /**
    * @brief calculate jacobien prime matrix
@@ -145,12 +145,12 @@ class ModelCPP : public SubModel {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override = 0;
 
   /**
    * @copydoc SubModel::evalMode(const double t)
    */
-  virtual modeChangeType_t evalMode(const double t) = 0;
+  modeChangeType_t evalMode(const double t) override = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation
@@ -158,42 +158,42 @@ class ModelCPP : public SubModel {
    * Set the initial value of model's state variables, state variables derivatives
    * and discrete variables.
    */
-  virtual void getY0() = 0;
+  void getY0() override = 0;
 
   /**
    * @brief calculate calculated variables
    */
-  virtual void evalCalculatedVars() = 0;
+  void evalCalculatedVars() override = 0;
 
   /**
    * @brief evaluate the properties of the variables that won't change during simulation
    * (algebraic, differential, external or external optional variables)
    *
    */
-  virtual void evalStaticYType() = 0;
+  void evalStaticYType() override = 0;
 
   /**
    * @brief update during the simulation the properties of the variables that depends on others variables values
    *
    */
-  virtual void evalDynamicYType() = 0;
+  void evalDynamicYType() override = 0;
 
   /**
    * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
    *
    */
-  virtual void evalStaticFType() = 0;
+  void evalStaticFType() override = 0;
 
   /**
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  virtual void collectSilentZ(BitMask* silentZTable) = 0;
+  void collectSilentZ(BitMask* silentZTable) override = 0;
 
   /**
    * @brief update during the simulation the properties of the residual functions that depends on others variables values
    */
-  virtual void evalDynamicFType() = 0;
+  void evalDynamicFType() override = 0;
 
   /**
    * @brief  CPP Model model's sizes getter
@@ -202,22 +202,22 @@ class ModelCPP : public SubModel {
    * Model CPP Model instance. Used by @p ModelMulti to generate right size matrixes
    * and vector for the solver.
    */
-  virtual void getSize() = 0;
+  void getSize() override = 0;
 
   /**
    * @copydoc SubModel::setSubModelParameters()
    */
-  virtual void setSubModelParameters() = 0;
+  void setSubModelParameters() override = 0;
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValues()
    */
-  virtual void setSharedParametersDefaultValues() { /* no parameter */ }
+  void setSharedParametersDefaultValues() override { /* no parameter */ }
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValuesInit()
    */
-  virtual void setSharedParametersDefaultValuesInit() { /* no parameter */ }
+  void setSharedParametersDefaultValuesInit() override { /* no parameter */ }
 
   /**
    * @brief  CPP Model elements initializer
@@ -226,7 +226,7 @@ class ModelCPP : public SubModel {
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
-  virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) override = 0;
 
   /**
    * @brief get checksum
@@ -238,28 +238,28 @@ class ModelCPP : public SubModel {
    * @brief initialze static data
    *
    */
-  virtual void initializeStaticData() = 0;
+  void initializeStaticData() override = 0;
 
 
   /**
    * @copydoc SubModel::setFequationsInit()
    */
-  virtual void setFequationsInit() { /* no init model for most of CPP models */ }
+  void setFequationsInit() override { /* no init model for most of CPP models */ }
 
   /**
    * @copydoc SubModel::setGequationsInit()
    */
-  void setGequationsInit() { /* no init model for CPP models */ }
+  void setGequationsInit() override { /* no init model for CPP models */ }
 
   /**
    * @copydoc SubModel::initSubBuffers()
    */
-  virtual void initSubBuffers() { /* no internal buffers for CPP models excepted the network model */ }
+  void initSubBuffers() override { /* no internal buffers for CPP models excepted the network model */ }
 
   /**
    * @copydoc SubModel::notifyTimeStep()
    */
-  void notifyTimeStep() {
+  void notifyTimeStep() override {
     // do nothing
   }
 
@@ -267,7 +267,7 @@ class ModelCPP : public SubModel {
    * @brief get model type
    * @return model type
    */
-  inline std::string modelType() const {
+  inline std::string modelType() const override {
     return modelType_;
   }
 
@@ -275,33 +275,33 @@ class ModelCPP : public SubModel {
    * @brief load the variables values from a previous dump
    * @param variables : stream of values where the variables were dumped
    */
-  void loadVariables(const std::string& variables);
+  void loadVariables(const std::string& variables) override;
 
   /**
    * @brief load the parameters values from a previous dump
    * @param parameters : stream of values where the parameters were dumped
    */
-  void loadParameters(const std::string& parameters);
+  void loadParameters(const std::string& parameters) override;
 
   /**
    * @copydoc SubModel::checkParametersCoherence() const
    */
-  void checkParametersCoherence() const;
+  void checkParametersCoherence() const override;
 
   /**
    * @brief rotate buffers
    */
-  void rotateBuffers() { /* not needed */ }
+  void rotateBuffers() override { /* not needed */ }
 
   /**
    * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
    */
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
    */
-  void defineParametersInit(std::vector<ParameterModeler>& parameters);
+  void defineParametersInit(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define the indexes and names of all parameters and variables of a dynamic sub-model
@@ -312,7 +312,7 @@ class ModelCPP : public SubModel {
    * @param calculatedVarNames vector linking calculated variables with names
    */
   void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
-                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
+                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames) override;
 
   /**
    * @brief get whether the model is starting from dumped values
