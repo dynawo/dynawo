@@ -23,7 +23,6 @@ env:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci:latest
     env:
       DYNAWO_BUILD_TYPE: ${{ github.event_name == 'workflow_dispatch' && inputs.perform-nrt && 'Release' || 'Debug' }}
       DYNAWO_COMPILER: GCC
@@ -55,6 +54,7 @@ jobs:
             await release({github, context, core, glob})
 
       - name: Build for master distrib
+        uses: docker://dynawo/dynawo-ci:latest
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
@@ -63,10 +63,12 @@ jobs:
           util/envDynawo.sh distrib-omc
 
       - name: INFO. Files created in distributions folder
+        uses: docker://dynawo/dynawo-ci:latest
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: du -hs distributions/*
 
       - name: Upload assets for release
+        uses: docker://dynawo/dynawo-ci:latest
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: actions/github-script@v6
         env:
@@ -82,11 +84,13 @@ jobs:
             await release({github, context, core, glob})
 
       - name: Build all
+        uses: docker://dynawo/dynawo-ci:latest
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
       - name: Doxygen build
+        uses: docker://dynawo/dynawo-ci:latest
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
@@ -94,12 +98,14 @@ jobs:
           dnf install -y rsync
 
       - name: Deploy to GitHub Pages
+        uses: docker://dynawo/dynawo-ci:latest
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: ./install/gcc8/master/Debug/shared/dynawo/doxygen/html
 
       - name: NRT
+        uses: docker://dynawo/dynawo-ci:latest
         if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt
         run: |
           export DYNAWO_HOME=$(pwd)
