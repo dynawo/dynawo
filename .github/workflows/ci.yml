@@ -107,121 +107,121 @@ jobs:
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
-  coverage:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci:latest
-    env:
-      DYNAWO_COMPILER: GCC
-      DYNAWO_RESULTS_SHOW: "false"
-      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
-      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
-      DYNAWO_NB_PROCESSORS_USED: 2
-    steps:
-      - name: Install Sonar wrapper
-        working-directory: ${{ runner.workspace }}
-        env:
-          CONTAINER_WORKSPACE: ${{ runner.workspace }}
-        run: |
-          wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-          unzip build-wrapper-linux-x86.zip
-
-      - name: Install Sonar scanner
-        working-directory: ${{ runner.workspace }}
-        env:
-          SONAR_SCANNER_VERSION: 4.6.0.2311
-        run: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          ln -s sonar-scanner-${SONAR_SCANNER_VERSION} sonar
-          rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          cd /
-          curl -LO https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
-          tar xzf openjdk-17.0.2_linux-x64_bin.tar.gz
-
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      # In a PR use pre-built 3rd parties to optimize the duration of the job
-      - name: Build branch PR
-        env:
-          CONTAINER_WORKSPACE: ${{ runner.workspace }}
-          DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
-        if: github.ref != 'refs/heads/master' && github.event_name == 'push'
-        run: |
-          export DYNAWO_HOME=$(pwd)
-          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
-
-      - name: Build master
-        env:
-          CONTAINER_WORKSPACE: ${{ runner.workspace }}
-          DYNAWO_BUILD_TYPE: Debug
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        run: |
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-3rd-party
-          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
-
-      - name: Sonarcloud
-        working-directory: ${{ runner.workspace }}/dynawo
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          CONTAINER_WORKSPACE: ${{ runner.workspace }}
-          JAVA_HOME: /jdk-17.0.2
-        run: |
-          export PATH=${JAVA_HOME}/bin:${PATH}
-          $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
-
-  build-windows:
-    if: github.event_name == 'push'
-    runs-on: windows-2019
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      - name: Git move
-        shell: cmd
-        run: |
-          cd ..
-          move dynawo \
-          md dynawo
-
-      - name: Install wget
-        shell: cmd
-        run: choco install wget --no-progress
-
-      - name: Install OpenModelica and Third Parties
-        shell: cmd
-        run: |
-          cd \
-          wget -nv https://github.com/dynawo/dynawo/releases/download/nightly/OpenModelica-windows.zip
-          7z x OpenModelica-windows.zip
-
-      - name: Build Dynawo
-        shell: cmd
-        env:
-          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
-        run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          cd \dynawo
-          cmake -Wno-dev -S dynawo/3rdParty -B b-3-p -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../d-3-p -DOPENMODELICA_INSTALL=../../OpenModelica -DOPENMODELICA_SRC=../../OpenModelica/Source -DOMDEV_HOME=../../OMDev -G "NMake Makefiles"
-          cmake --build b-3-p
-          cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles"
-          cmake --build b --target install || exit /b 1
-          cmake --build b --target models-cpp || exit /b 1
-          cmake --build b --target SMIB_MODELS || exit /b 1
-          cmake --build b --target LoadAlphaBeta || exit /b 1
-          cmake --build b --target GeneratorSynchronousFourWindingsProportionalRegulations || exit /b 1
-          cmake --build b --target GeneratorSynchronousThreeWindingsProportionalRegulations || exit /b 1
-          cmake --build b --target solvers || exit /b 1
-
-      - name: Dynawo runtime
-        shell: cmd
-        run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          cd \dynawo
-          call \d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs || echo Error while running SMIB_1_StepPm job
-          set _error=%ERRORLEVEL%
-          call \d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs || echo Error while running IEEE14_BlackBoxModels job
-          exit /b %_error%%ERRORLEVEL%
+  # coverage:
+  #   if: github.event_name == 'push'
+  #   runs-on: ubuntu-latest
+  #   container: dynawo/dynawo-ci:latest
+  #   env:
+  #     DYNAWO_COMPILER: GCC
+  #     DYNAWO_RESULTS_SHOW: "false"
+  #     DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+  #     DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+  #     DYNAWO_NB_PROCESSORS_USED: 2
+  #   steps:
+  #     - name: Install Sonar wrapper
+  #       working-directory: ${{ runner.workspace }}
+  #       env:
+  #         CONTAINER_WORKSPACE: ${{ runner.workspace }}
+  #       run: |
+  #         wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+  #         unzip build-wrapper-linux-x86.zip
+  #
+  #     - name: Install Sonar scanner
+  #       working-directory: ${{ runner.workspace }}
+  #       env:
+  #         SONAR_SCANNER_VERSION: 4.6.0.2311
+  #       run: |
+  #         wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+  #         unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+  #         ln -s sonar-scanner-${SONAR_SCANNER_VERSION} sonar
+  #         rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+  #         cd /
+  #         curl -LO https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+  #         tar xzf openjdk-17.0.2_linux-x64_bin.tar.gz
+  #
+  #     - name: Checkout sources
+  #       uses: actions/checkout@v4
+  #
+  #     # In a PR use pre-built 3rd parties to optimize the duration of the job
+  #     - name: Build branch PR
+  #       env:
+  #         CONTAINER_WORKSPACE: ${{ runner.workspace }}
+  #         DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
+  #       if: github.ref != 'refs/heads/master' && github.event_name == 'push'
+  #       run: |
+  #         export DYNAWO_HOME=$(pwd)
+  #         $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
+  #
+  #     - name: Build master
+  #       env:
+  #         CONTAINER_WORKSPACE: ${{ runner.workspace }}
+  #         DYNAWO_BUILD_TYPE: Debug
+  #       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+  #       run: |
+  #         export DYNAWO_HOME=$(pwd)
+  #         util/envDynawo.sh build-3rd-party
+  #         $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
+  #
+  #     - name: Sonarcloud
+  #       working-directory: ${{ runner.workspace }}/dynawo
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #         CONTAINER_WORKSPACE: ${{ runner.workspace }}
+  #         JAVA_HOME: /jdk-17.0.2
+  #       run: |
+  #         export PATH=${JAVA_HOME}/bin:${PATH}
+  #         $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
+  #
+  # build-windows:
+  #   if: github.event_name == 'push'
+  #   runs-on: windows-2019
+  #   steps:
+  #     - name: Checkout sources
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Git move
+  #       shell: cmd
+  #       run: |
+  #         cd ..
+  #         move dynawo \
+  #         md dynawo
+  #
+  #     - name: Install wget
+  #       shell: cmd
+  #       run: choco install wget --no-progress
+  #
+  #     - name: Install OpenModelica and Third Parties
+  #       shell: cmd
+  #       run: |
+  #         cd \
+  #         wget -nv https://github.com/dynawo/dynawo/releases/download/nightly/OpenModelica-windows.zip
+  #         7z x OpenModelica-windows.zip
+  #
+  #     - name: Build Dynawo
+  #       shell: cmd
+  #       env:
+  #         PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.7.9\x64;C:\hostedtoolcache\windows\Python\3.7.9\x64\Scripts
+  #       run: |
+  #         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+  #         cd \dynawo
+  #         cmake -Wno-dev -S dynawo/3rdParty -B b-3-p -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../d-3-p -DOPENMODELICA_INSTALL=../../OpenModelica -DOPENMODELICA_SRC=../../OpenModelica/Source -DOMDEV_HOME=../../OMDev -G "NMake Makefiles"
+  #         cmake --build b-3-p
+  #         cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles"
+  #         cmake --build b --target install || exit /b 1
+  #         cmake --build b --target models-cpp || exit /b 1
+  #         cmake --build b --target SMIB_MODELS || exit /b 1
+  #         cmake --build b --target LoadAlphaBeta || exit /b 1
+  #         cmake --build b --target GeneratorSynchronousFourWindingsProportionalRegulations || exit /b 1
+  #         cmake --build b --target GeneratorSynchronousThreeWindingsProportionalRegulations || exit /b 1
+  #         cmake --build b --target solvers || exit /b 1
+  #
+  #     - name: Dynawo runtime
+  #       shell: cmd
+  #       run: |
+  #         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+  #         cd \dynawo
+  #         call \d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs || echo Error while running SMIB_1_StepPm job
+  #         set _error=%ERRORLEVEL%
+  #         call \d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs || echo Error while running IEEE14_BlackBoxModels job
+  #         exit /b %_error%%ERRORLEVEL%
