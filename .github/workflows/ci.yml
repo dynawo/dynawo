@@ -7,11 +7,18 @@ on:
         description: Run NRT on Linux
         type: boolean
         default: true
+      perform-master-tag:
+        description: Prepare master tag and release
+        type: boolean
+        default: true
   push:
 
 defaults:
   run:
     shell: bash
+
+env:
+  DYNAWO_TAG: vMaster
 
 jobs:
   build-linux:
@@ -28,7 +35,53 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Build
+      - name: Create master tag and release if necessary
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push' && (github.event_name != 'workflow_dispatch' || inputs.perform-master-tag)
+        uses: actions/github-script@v6
+        env:
+          body: |
+            Dynawo's master release. Compiled on *debug* settings.
+
+            **Don't use it for production or tests. Only intended to be used in CI.**
+          draft: false
+          prerelease: true
+          release_name: Master
+          tag_name: ${{ env.DYNAWO_TAG }}
+          target_commitish: heads/master
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+      - name: Build for master distrib
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-minimal
+          util/envDynawo.sh build-dynawo-target MODEL_FILES_INSTALL
+          util/envDynawo.sh distrib-omc
+
+      - name: INFO. Files created in distributions folder
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: du -hs distributions/*
+
+      - name: Upload assets for release
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: actions/github-script@v6
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            distributions/Dynawo_omc*.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+      - name: Build all
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
