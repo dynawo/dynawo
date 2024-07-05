@@ -1395,9 +1395,13 @@ install_jquery() {
 
 jobs_with_curves() {
   install_jquery
-  launch_jobs $@ || error_exit "Dynawo job failed."
+  launch_jobs $@
+  RETURN_CODE=$?
   echo "Generating curves visualization pages"
   curves_visu $@ || error_exit "Error during curves visualisation page generation"
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    error_exit "Dynawo job failed."
+  fi
   echo "End of generating curves visualization pages"
 }
 
