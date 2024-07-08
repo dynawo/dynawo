@@ -73,27 +73,33 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        run: |
+          git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
+          cd dynawo
+          git checkout ${GITHUB_SHA}
 
       - name: Build
         run: |
+          cd dynawo
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
       - name: Build documentation
         run: |
+          cd dynawo
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-doc
 
       - name: Prepare files for distribution
         run: |
+          cd dynawo
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh distrib
           util/envDynawo.sh distrib-omc
           util/envDynawo.sh distrib-headers
 
       - name: INFO. Files created in distributions folder
-        run: du -hs distributions/*
+        run: du -hs dynawo/distributions/*
 
       - name: Upload assets for release
         uses: actions/github-script@v6
@@ -102,8 +108,8 @@ jobs:
           draft: false
           prerelease: true
           files: |
-            distributions/*.zip
-            documentation/dynawoDocumentation/DynawoDocumentation.pdf
+            dynawo/distributions/*.zip
+            dynawo/documentation/dynawoDocumentation/DynawoDocumentation.pdf
         with:
           retries: 3
           script: |
