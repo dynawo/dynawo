@@ -84,6 +84,10 @@ VRLimitationUsRefMax      =             Voltage regulator : upper limit reached 
 // --> Protection
 ProtectionDisconnected    =              Protection disconnected
 ProtectionConnected       =              Protection connected
+// --> Over-voltage automaton
+OVATripped                =              Over-voltage generator tripped
+OVAArming                 =              Over-voltage automaton for generator arming
+OVADisarming              =              Over-voltage automaton for generator disarming
 // --> Under-voltage automaton
 UVATripped                =              Under-voltage generator tripped
 UVAArming                 =              Under-voltage automaton for generator arming
