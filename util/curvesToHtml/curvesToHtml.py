@@ -168,10 +168,11 @@ def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser, plotRef)
     allCurves = ""
     for ht in htmlFileList:
         allCurves+=""+ht+" "
-    if(platform.system()== 'Windows'):
-        os.system(htmlBrowser + " " + allCurves +" 2> null &")
-    else:
-        os.system(htmlBrowser + " " + allCurves +" 2> /dev/null &")
+    if len(htmlFileList) != 0:
+        if(platform.system()== 'Windows'):
+            os.system(htmlBrowser + " " + allCurves +" 2> null &")
+        else:
+            os.system(htmlBrowser + " " + allCurves +" 2> /dev/null &")
 
 
 def main():
