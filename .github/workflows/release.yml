@@ -36,14 +36,18 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
 
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
+      - name: Checkout
+        run: |
+          git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
+          cd dynawo
+          git checkout ${GITHUB_SHA}
 
       - name: Build
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
+          cd dynawo
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
           util/envDynawo.sh build-doc
@@ -59,8 +63,8 @@ jobs:
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
-            distributions/*.zip
-            documentation/dynawoDocumentation/DynawoDocumentation.pdf
+            dynawo/distributions/*.zip
+            dynawo/documentation/dynawoDocumentation/DynawoDocumentation.pdf
         with:
           retries: 3
           script: |
@@ -79,14 +83,18 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
 
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
+      - name: Checkout
+        run: |
+          git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
+          cd dynawo
+          git checkout ${GITHUB_SHA}
 
       - name: Build
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
+          cd dynawo
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
           util/envDynawo.sh distrib-omc
@@ -97,7 +105,7 @@ jobs:
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
-            distributions/Dynawo_Linux_*.zip
+            dynawo/distributions/Dynawo_Linux_*.zip
         with:
           retries: 3
           script: |
