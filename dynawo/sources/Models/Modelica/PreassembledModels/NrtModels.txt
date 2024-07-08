@@ -90,6 +90,7 @@ LoadTwoTransformersTapChangers
 LossOfSynchronismProtection
 NetworkTransformer
 NodeFault
+OverVoltageAutomaton
 PhaseShifterBlockingI
 PhaseShifterI
 PhaseShifterP

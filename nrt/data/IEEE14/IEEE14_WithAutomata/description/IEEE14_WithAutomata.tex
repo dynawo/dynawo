@@ -31,6 +31,7 @@ For each test presented in this document, one or more automata have been added t
 The tested automaton are;
 \begin{itemize}
 \item the under-voltage automaton [\ref{UnderVoltageAutomaton}];
+\item the over-voltage automaton [\ref{OverVoltageAutomaton}];
 \item the phase-shifter I automaton [\ref{PhaseShifterIAutomaton}];
 \item the phase-shifter P automaton [\ref{PhaseShifterPAutomaton}];
 \item the current limit automaton [\ref{CurrentLimitAutomaton}];
@@ -115,6 +116,78 @@ The simulated load variations make the network voltage decrease at node 3, until
 \caption{Behavior of the under voltage automaton}
 \end{figure}
 
+
+\newpage
+\section{Over voltage automaton}
+\label{OverVoltageAutomaton}
+
+The over voltage automaton disconnects a generator from the grid if its voltage is above a certain threshold for a certain amount of time.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE 14-bus basic test cases.
+
+\subsection{Models}
+
+An over voltage automaton is added on the generator number 3. The role of the automaton is to disconnect the generator if its voltage gets higher than the threshold.
+Also an under voltage automaton is added in this model to test if there are any undesired interactions between the two protections. The generators regulations are removed for this test case.\\
+
+The over voltage automaton measures the generator voltage (in this test at its network connection point) and sends the disconnection order when the voltage has spent more than $t_{Action}$ seconds above $U_{Max}$.\\
+
+The over voltage automaton parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $U_{Max_{Pu}}= 1.05\ pu$ & $t_{Action}=5s$  \\
+\end{tabular}
+\end{center}
+
+\subsection{Scenario}
+At $t=20s$, the following load variations are simulated:
+\begin{itemize}
+\item{the reactive power of load 2 is changed from $Q=12.7\ Mvar$ to $Q=-37.3\ Mvar$}
+\item{the reactive power of load 3 is changed from $Q=19\ Mvar$ to $Q=-31\ Mvar$}
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+The simulated load variations make the network voltage increase at node 3, until achieving the maximum threshold of the automaton. The generator is disconnected 5 seconds later, which corresponds to the action time.\\
+
+\begin{figure}[H]
+\subfigure[Generator 3 stator voltage (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
+        {../IEEE14_OverVoltageAutomaton/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{OVA_overVoltageAutomaton_UMaxPu}]
+        {../IEEE14_OverVoltageAutomaton/reference/outputs/curves/curves.csv};
+        \legend{$U_{Stator_{Pu}}$, $U_{Max_{Pu}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 3 running status]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____3_SM_generator_running}]
+        {../IEEE14_OverVoltageAutomaton/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the over voltage automaton}
+\end{figure}
 
 \newpage
 \section{Phase Shifter I}
