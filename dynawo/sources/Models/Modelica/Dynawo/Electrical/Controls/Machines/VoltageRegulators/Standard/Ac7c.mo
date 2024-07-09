@@ -36,7 +36,7 @@ model Ac7c "IEEE exciter type AC7C model"
   parameter Types.PerUnit Kr "Field voltage feedback gain";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output, (4) take-over at inner loop regulator output";
   parameter Integer PositionPss "Input location : (0) none, (1) voltage error summation, (2) after take-over UEL";
-  parameter Integer PositionScl = 0 "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
+  parameter Integer PositionScl "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
   parameter Integer PositionUel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at AVR output";
   parameter Boolean Sw1 "If true, power source derived from terminal voltage, if false, independent from terminal voltage";
   parameter Boolean Sw2 "If true, power source derived from available exciter field voltage, if false, from rotating exciter output voltage";
@@ -160,15 +160,15 @@ model Ac7c "IEEE exciter type AC7C model"
     Placement(visible = true, transformation(origin = {390, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-330, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax max1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax min1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-110, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax max2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax min2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {50, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min3 annotation(
     Placement(visible = true, transformation(origin = {210, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -206,73 +206,57 @@ equation
 
   if PositionOel == 1 then
     sum1.u[3] = UOelPu;
-    min1.u[2] = min1.u[1];
-    min2.u[2] = min2.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min2.u[2] = if PositionScl == 3 then USclOelPu else min2.u[1];
     min3.u1 = min3.u2;
   elseif PositionOel == 2 then
     sum1.u[3] = 0;
-    min1.u[2] = UOelPu;
-    min2.u[2] = min2.u[1];
+    min1.u[2] = if PositionScl == 2 then min(UOelPu, USclOelPu) else UOelPu;
+    min2.u[2] = if PositionScl == 3 then USclOelPu else min2.u[1];
     min3.u1 = min3.u2;
   elseif PositionOel == 3 then
     sum1.u[3] = 0;
-    min1.u[2] = min1.u[1];
-    min2.u[2] = UOelPu;
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min2.u[2] = if PositionScl == 3 then min(UOelPu, USclOelPu) else UOelPu;
     min3.u1 = min3.u2;
   elseif PositionOel == 4 then
     sum1.u[3] = 0;
-    min1.u[2] = min1.u[1];
-    min2.u[2] = min2.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min2.u[2] = if PositionScl == 3 then USclOelPu else min2.u[1];
     min3.u1 = UOelPu;
   else
     sum1.u[3] = 0;
-    min1.u[2] = min1.u[1];
-    min2.u[2] = min2.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min2.u[2] = if PositionScl == 3 then USclOelPu else min2.u[1];
     min3.u1 = min3.u2;
   end if;
 
   if PositionUel == 1 then
     sum1.u[4] = UUelPu;
-    max1.u[2] = max1.u[1];
-    max2.u[2] = max2.u[1];
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max2.u[2] = if PositionScl == 3 then USclUelPu else max2.u[1];
   elseif PositionUel == 2 then
     sum1.u[4] = 0;
-    max1.u[2] = UUelPu;
-    max2.u[2] = max2.u[1];
+    max1.u[2] = if PositionScl == 2 then max(UUelPu, USclUelPu) else UUelPu;
+    max2.u[2] = if PositionScl == 3 then USclUelPu else max2.u[1];
   elseif PositionUel == 3 then
     sum1.u[4] = 0;
-    max1.u[2] = max1.u[1];
-    max2.u[2] = UUelPu;
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max2.u[2] = if PositionScl == 3 then max(UUelPu, USclUelPu) else UUelPu;
   else
     sum1.u[4] = 0;
-    max1.u[2] = max1.u[1];
-    max2.u[2] = max2.u[1];
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max2.u[2] = if PositionScl == 3 then USclUelPu else max2.u[1];
   end if;
 
   if PositionScl == 1 then
     sum1.u[5] = USclOelPu + USclUelPu;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   elseif PositionScl == 2 then
     sum1.u[5] = 0;
-    max1.u[3] = USclUelPu;
-    min1.u[3] = USclOelPu;
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   elseif PositionScl == 3 then
     sum1.u[5] = 0;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
-    max2.u[3] = USclUelPu;
-    min2.u[3] = USclOelPu;
   else
     sum1.u[5] = 0;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   end if;
 
   connect(product.y, variableLimiter.u) annotation(

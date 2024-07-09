@@ -12,13 +12,16 @@ add_subdirectory(BaseClasses B)
 add_subdirectory(SMIB S)
 add_subdirectory(ENTSOE E)
 add_subdirectory(GridForming G)
+add_subdirectory(IEEE14 I14)
+add_subdirectory(IEEE57 I57)
+add_subdirectory(IllustrativeExamples IE)
 add_subdirectory(HVDC H)
+add_subdirectory(IEEE118 I118)
 add_subdirectory(Nordic N)
 add_subdirectory(RVS R)
 add_subdirectory(SVarC SV)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
-add_subdirectory(DynaFlow DF)
 
 set(MODEL_FILES
   package.mo

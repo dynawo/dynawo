@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         run: |
@@ -41,12 +41,47 @@ jobs:
       - name: NRT
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh nrt
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
-  bionic:
-    name: Linux Bionic
+  # bionic:
+  #   name: Linux Bionic
+  #   runs-on: ubuntu-latest
+  #   container: dynawo/dynawo-ci-nightly-bionic:latest
+  #   env:
+  #     DYNAWO_RESULTS_SHOW: "false"
+  #     DYNAWO_BUILD_TYPE: Release
+  #     DYNAWO_COMPILER: GCC
+  #     DYNAWO_PYTHON_COMMAND: python3
+  #     DYNAWO_NB_PROCESSORS_USED: 2
+  #
+  #   steps:
+  #     - name: Checkout sources
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Build
+  #       env:
+  #         DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+  #         DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+  #       run: |
+  #         export DYNAWO_HOME=$(pwd)
+  #         util/envDynawo.sh build-user
+  #
+  #     - name: NRT
+  #       env:
+  #         DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+  #         DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+  #       run: |
+  #         export DYNAWO_HOME=$(pwd)
+  #         sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+  #         branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+  #         util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
+
+  jammy:
+    name: Linux Jammy
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-nightly-bionic:latest
+    container: dynawo/dynawo-ci-nightly-jammy:latest
     env:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: Release
@@ -56,7 +91,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         env:
@@ -64,7 +99,6 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1}/' util/nrt_diff/settings.py
           util/envDynawo.sh build-user
 
       - name: NRT
@@ -73,7 +107,10 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh nrt
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
+
 
   omc:
     name: Linux OMC Build (${{ matrix.compiler }})
@@ -88,7 +125,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         env:

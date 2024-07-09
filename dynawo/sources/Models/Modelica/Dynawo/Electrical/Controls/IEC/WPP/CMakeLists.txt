@@ -12,7 +12,8 @@
 set(MODEL_FILES
   package.mo
   package.order
-  WPPControl.mo
+  WPPControl2015.mo
+  WPPControl2020.mo
   )
 
 #

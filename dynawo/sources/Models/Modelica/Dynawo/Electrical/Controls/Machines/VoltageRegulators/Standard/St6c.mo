@@ -28,7 +28,7 @@ model St6c "IEEE exciter type ST6C model"
   parameter Types.PerUnit Kp "Potential circuit gain";
   parameter Types.PerUnit Kpa "Proportional gain of PI";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
-  parameter Integer PositionScl = 0 "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
+  parameter Integer PositionScl "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
   parameter Integer PositionUel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) AVR input summation, (4) take-over at AVR output";
   parameter Boolean Sw1 "If true, power source derived from terminal voltage, if false, independent from terminal voltage";
   parameter Types.Time tA "Voltage regulator time constant in s";
@@ -124,13 +124,13 @@ model St6c "IEEE exciter type ST6C model"
     Placement(visible = true, transformation(origin = {-290, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum2(nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax max1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax min1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-170, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax max2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
+  Modelica.Blocks.Math.MinMax min2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {210, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-330, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -160,93 +160,73 @@ model St6c "IEEE exciter type ST6C model"
 equation
   if PositionOel == 1 then
     sum1.u[2] = UOelPu;
-    min1.u[2] = min1.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
     sum2.u[3] = 0;
-    min2.u[2] = min2.u[1];
+    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
   elseif PositionOel == 2 then
     sum1.u[2] = 0;
-    min1.u[2] = UOelPu;
+    min1.u[2] = if PositionScl == 2 then min(UOelPu, USclOelPu) else UOelPu;
     sum2.u[3] = 0;
-    min2.u[2] = min2.u[1];
+    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
   elseif PositionOel == 3 then
     sum1.u[2] = 0;
-    min1.u[2] = min1.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
     sum2.u[3] = UOelPu;
-    min2.u[2] = min2.u[1];
+    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
   elseif PositionOel == 4 then
     sum1.u[2] = 0;
-    min1.u[2] = min1.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
     sum2.u[3] = 0;
-    min2.u[2] = UOelPu;
+    min2.u[2] = if PositionScl == 4 then min(UOelPu, USclOelPu) else UOelPu;
   else
     sum1.u[2] = 0;
-    min1.u[2] = min1.u[1];
+    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
     sum2.u[3] = 0;
-    min2.u[2] = min2.u[1];
+    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
   end if;
 
   if PositionUel == 1 then
     sum1.u[3] = UUelPu;
-    max1.u[2] = max1.u[1];
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
     sum2.u[4] = 0;
-    max2.u[2] = max2.u[1];
+    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
   elseif PositionUel == 2 then
     sum1.u[3] = 0;
-    max1.u[2] = UUelPu;
+    max1.u[2] = if PositionScl == 2 then max(UUelPu, USclUelPu) else UUelPu;
     sum2.u[4] = 0;
-    max2.u[2] = max2.u[1];
+    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
   elseif PositionUel == 3 then
     sum1.u[3] = 0;
-    max1.u[2] = max1.u[1];
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
     sum2.u[4] = UUelPu;
-    max2.u[2] = max2.u[1];
+    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
   elseif PositionUel == 4 then
     sum1.u[3] = 0;
-    max1.u[2] = max1.u[1];
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
     sum2.u[4] = 0;
-    max2.u[2] = UUelPu;
+    max2.u[2] = if PositionScl == 4 then max(UUelPu, USclUelPu) else UUelPu;
   else
     sum1.u[3] = 0;
-    max1.u[2] = max1.u[1];
+    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
     sum2.u[4] = 0;
-    max2.u[2] = max2.u[1];
+    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
   end if;
 
   if PositionScl == 1 then
     sum1.u[4] = USclOelPu + USclUelPu;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
     sum2.u[5] = 0;
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   elseif PositionScl == 2 then
     sum1.u[4] = 0;
-    max1.u[3] = USclUelPu;
-    min1.u[3] = USclOelPu;
     sum2.u[5] = 0;
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   elseif PositionScl == 3 then
     sum1.u[4] = 0;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
     sum2.u[5] = USclOelPu + USclUelPu;
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   elseif PositionScl == 4 then
     sum1.u[4] = 0;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
     sum2.u[5] = 0;
-    max2.u[3] = USclUelPu;
-    min2.u[3] = USclOelPu;
   else
     sum1.u[4] = 0;
-    max1.u[3] = max1.u[1];
-    min1.u[3] = min1.u[1];
     sum2.u[5] = 0;
-    max2.u[3] = max2.u[1];
-    min2.u[3] = min2.u[1];
   end if;
 
   connect(const.y, min5.u1) annotation(

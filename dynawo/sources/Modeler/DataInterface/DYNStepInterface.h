@@ -41,13 +41,13 @@ class StepInterface {
 
   /**
    * @brief Getter for the resistance of the step
-   * @return The resistance of the step in ohms
+   * @return The resistance of the step in ohm
    */
   virtual double getR() const = 0;
 
   /**
    * @brief Getter for the reactance of the step
-   * @return The reactance of the step in ohms
+   * @return The reactance of the step in ohm
    */
   virtual double getX() const = 0;
 

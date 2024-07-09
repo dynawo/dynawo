@@ -18,7 +18,7 @@ model TransformerFixedRatioAndPhase "Two winding transformer with fixed transfor
 
 /* Equivalent circuit and conventions:
 
-               I1  r,theta         I2
+               I1  r,alpha         I2
     U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
   (terminal1)                   |      (terminal2)
                                G+jB
@@ -28,23 +28,19 @@ model TransformerFixedRatioAndPhase "Two winding transformer with fixed transfor
   extends Dynawo.AdditionalIcons.Transformer;
   extends Dynawo.Electrical.Transformers.BaseClasses.BaseTransformer;
 
-  // transformation ratio
-  parameter Types.PerUnit RatioTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
+  // Transformation ratio
+  parameter Types.PerUnit RatioTfoPu = RatioTfo0Pu "Transformation ratio in pu: U2/U1 in no load conditions";
 
-  // transformation phase shift
-  parameter Types.Angle ThetaTfo "Transformation phase shift in rad";
-
-  // initial parameters
-  redeclare parameter Types.PerUnit RatioTfo0Pu = RatioTfoPu "Start value of transformation ratio in pu: U2/U1 in no load conditions";
-  redeclare parameter Types.Angle ThetaTfo0 = ThetaTfo "Start value of transformation phase shift in rad";
+  // Transformation phase shift
+  parameter Types.Angle AlphaTfo = AlphaTfo0 "Transformation phase shift in rad";
 
 equation
-  rTfoPu = ComplexMath.fromPolar(RatioTfoPu, ThetaTfo);
+  rTfoPu = ComplexMath.fromPolar(RatioTfoPu, AlphaTfo);
 
   annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r,theta                I2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r,alpha          I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">  (terminal1)                   |      (terminal2)</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               G+jB</span></pre>
