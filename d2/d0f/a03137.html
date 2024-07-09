@@ -131,134 +131,134 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ab4096df55395b14b32ea402da654e5ca">ModelCPP</a> ()</td></tr>
 <tr class="memdesc:ab4096df55395b14b32ea402da654e5ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
 <tr class="separator:ab4096df55395b14b32ea402da654e5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b812826f57433a9360da93af24a110f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a8b812826f57433a9360da93af24a110f">ModelCPP</a> (std::string <a class="el" href="../../d2/d0f/a03137.html#a71479701123028b038c313a8d3a5fd9a">modelType</a>)</td></tr>
+<tr class="memitem:a8b812826f57433a9360da93af24a110f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a8b812826f57433a9360da93af24a110f">ModelCPP</a> (std::string <a class="el" href="../../d2/d0f/a03137.html#afc8c3f03f682e7f62f7d3c7e55a6472b">modelType</a>)</td></tr>
 <tr class="memdesc:a8b812826f57433a9360da93af24a110f"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#a8b812826f57433a9360da93af24a110f">More...</a><br /></td></tr>
 <tr class="separator:a8b812826f57433a9360da93af24a110f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9057a4a5989f5c4412c148228dc1cad"><td class="memItemLeft" align="right" valign="top"><a id="ab9057a4a5989f5c4412c148228dc1cad"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ab9057a4a5989f5c4412c148228dc1cad">~ModelCPP</a> ()=default</td></tr>
-<tr class="memdesc:ab9057a4a5989f5c4412c148228dc1cad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ab9057a4a5989f5c4412c148228dc1cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc54f197a38a1b8a9e6459f544d443ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#acc54f197a38a1b8a9e6459f544d443ca">init</a> (const double t0)=0</td></tr>
-<tr class="memdesc:acc54f197a38a1b8a9e6459f544d443ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize all the data for a sub model  <a href="#acc54f197a38a1b8a9e6459f544d443ca">More...</a><br /></td></tr>
-<tr class="separator:acc54f197a38a1b8a9e6459f544d443ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f392adeebf2f41733b34d550e5fc375"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a4f392adeebf2f41733b34d550e5fc375">getIndexesOfVariablesUsedForCalculatedVarI</a> (unsigned iCalculatedVar, std::vector&lt; int &gt; &amp;indexes) const =0</td></tr>
-<tr class="memdesc:a4f392adeebf2f41733b34d550e5fc375"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the global indexes of the variables used to compute a calculated variable  <a href="#a4f392adeebf2f41733b34d550e5fc375">More...</a><br /></td></tr>
-<tr class="separator:a4f392adeebf2f41733b34d550e5fc375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66699de9d6794b351451667d9b32737c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a66699de9d6794b351451667d9b32737c">evalJCalculatedVarI</a> (unsigned iCalculatedVar, std::vector&lt; double &gt; &amp;res) const =0</td></tr>
-<tr class="memdesc:a66699de9d6794b351451667d9b32737c"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the jacobian associated to a calculated variable based on the current values of continuous variables  <a href="#a66699de9d6794b351451667d9b32737c">More...</a><br /></td></tr>
-<tr class="separator:a66699de9d6794b351451667d9b32737c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6523f88e37c2eb292686cf0eac7a7dba"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a6523f88e37c2eb292686cf0eac7a7dba">evalCalculatedVarI</a> (unsigned iCalculatedVar) const =0</td></tr>
-<tr class="memdesc:a6523f88e37c2eb292686cf0eac7a7dba"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the value of a calculated variable  <a href="#a6523f88e37c2eb292686cf0eac7a7dba">More...</a><br /></td></tr>
-<tr class="separator:a6523f88e37c2eb292686cf0eac7a7dba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e15c417a90e03c063dd5daf19dceeee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a3e15c417a90e03c063dd5daf19dceeee">dumpParameters</a> (std::map&lt; std::string, std::string &gt; &amp;mapParameters)</td></tr>
-<tr class="memdesc:a3e15c417a90e03c063dd5daf19dceeee"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the parameters of the sub model for dump  <a href="#a3e15c417a90e03c063dd5daf19dceeee">More...</a><br /></td></tr>
-<tr class="separator:a3e15c417a90e03c063dd5daf19dceeee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06e34f39dc3aa1322286db69c579bc92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a06e34f39dc3aa1322286db69c579bc92">dumpVariables</a> (std::map&lt; std::string, std::string &gt; &amp;mapVariables)</td></tr>
-<tr class="memdesc:a06e34f39dc3aa1322286db69c579bc92"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables values of the sub model for dump  <a href="#a06e34f39dc3aa1322286db69c579bc92">More...</a><br /></td></tr>
-<tr class="separator:a06e34f39dc3aa1322286db69c579bc92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a180e7554cbf376f6dee2b98207c832a6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a180e7554cbf376f6dee2b98207c832a6">evalF</a> (double t, <a class="el" href="../../dc/d8e/a00473.html#a8b1ac858a7be39680e8c19dc9e860dd2">propertyF_t</a> type)=0</td></tr>
-<tr class="memdesc:a180e7554cbf376f6dee2b98207c832a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> F(t,y,y') function evaluation.  <a href="#a180e7554cbf376f6dee2b98207c832a6">More...</a><br /></td></tr>
-<tr class="separator:a180e7554cbf376f6dee2b98207c832a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb2df2824762104c270f92c17629ddbb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#afb2df2824762104c270f92c17629ddbb">evalG</a> (const double t)=0</td></tr>
-<tr class="memdesc:afb2df2824762104c270f92c17629ddbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> G(t,y,y') function evaluation.  <a href="#afb2df2824762104c270f92c17629ddbb">More...</a><br /></td></tr>
-<tr class="separator:afb2df2824762104c270f92c17629ddbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5269bfac73762560466af1e24c2ceda8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a5269bfac73762560466af1e24c2ceda8">evalZ</a> (const double t)=0</td></tr>
-<tr class="memdesc:a5269bfac73762560466af1e24c2ceda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> discrete variables evaluation.  <a href="#a5269bfac73762560466af1e24c2ceda8">More...</a><br /></td></tr>
-<tr class="separator:a5269bfac73762560466af1e24c2ceda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad19b3990dbd7a9b6e519779e214f6639"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ad19b3990dbd7a9b6e519779e214f6639">evalJt</a> (const double t, const double cj, <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;jt, const int rowOffset)=0</td></tr>
-<tr class="memdesc:ad19b3990dbd7a9b6e519779e214f6639"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> transposed jacobian evaluation.  <a href="#ad19b3990dbd7a9b6e519779e214f6639">More...</a><br /></td></tr>
-<tr class="separator:ad19b3990dbd7a9b6e519779e214f6639"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81f53384663e7be78ee78ac38fc4f4b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a81f53384663e7be78ee78ac38fc4f4b6">evalJtPrim</a> (const double t, const double cj, <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;jt, const int rowOffset)=0</td></tr>
-<tr class="memdesc:a81f53384663e7be78ee78ac38fc4f4b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate jacobien prime matrix  <a href="#a81f53384663e7be78ee78ac38fc4f4b6">More...</a><br /></td></tr>
-<tr class="separator:a81f53384663e7be78ee78ac38fc4f4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adabd8d548d6dc1d840e568fbbcb3ce06"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#adabd8d548d6dc1d840e568fbbcb3ce06">evalMode</a> (const double t)=0</td></tr>
-<tr class="memdesc:adabd8d548d6dc1d840e568fbbcb3ce06"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> mode change type evaluation.  <a href="#adabd8d548d6dc1d840e568fbbcb3ce06">More...</a><br /></td></tr>
-<tr class="separator:adabd8d548d6dc1d840e568fbbcb3ce06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd01dd250ef0c3b6cdaa7eebef3b76ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#abd01dd250ef0c3b6cdaa7eebef3b76ce">getY0</a> ()=0</td></tr>
-<tr class="memdesc:abd01dd250ef0c3b6cdaa7eebef3b76ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> initial state variables' evaluation.  <a href="#abd01dd250ef0c3b6cdaa7eebef3b76ce">More...</a><br /></td></tr>
-<tr class="separator:abd01dd250ef0c3b6cdaa7eebef3b76ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b8b75e7a4accf1ae26923ba14f67182"><td class="memItemLeft" align="right" valign="top"><a id="a7b8b75e7a4accf1ae26923ba14f67182"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a7b8b75e7a4accf1ae26923ba14f67182">evalCalculatedVars</a> ()=0</td></tr>
-<tr class="memdesc:a7b8b75e7a4accf1ae26923ba14f67182"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate calculated variables <br /></td></tr>
-<tr class="separator:a7b8b75e7a4accf1ae26923ba14f67182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefa1cb0b765819aebabcfaaaf9e6c917"><td class="memItemLeft" align="right" valign="top"><a id="aefa1cb0b765819aebabcfaaaf9e6c917"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#aefa1cb0b765819aebabcfaaaf9e6c917">evalStaticYType</a> ()=0</td></tr>
-<tr class="memdesc:aefa1cb0b765819aebabcfaaaf9e6c917"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the properties of the variables that won't change during simulation (algebraic, differential, external or external optional variables) <br /></td></tr>
-<tr class="separator:aefa1cb0b765819aebabcfaaaf9e6c917"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54d935a894cf748a57e3600de5ea0d80"><td class="memItemLeft" align="right" valign="top"><a id="a54d935a894cf748a57e3600de5ea0d80"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a54d935a894cf748a57e3600de5ea0d80">evalDynamicYType</a> ()=0</td></tr>
-<tr class="memdesc:a54d935a894cf748a57e3600de5ea0d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">update during the simulation the properties of the variables that depends on others variables values <br /></td></tr>
-<tr class="separator:a54d935a894cf748a57e3600de5ea0d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a4aa59b57a76184f97df9f02c601a9f"><td class="memItemLeft" align="right" valign="top"><a id="a7a4aa59b57a76184f97df9f02c601a9f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a7a4aa59b57a76184f97df9f02c601a9f">evalStaticFType</a> ()=0</td></tr>
-<tr class="memdesc:a7a4aa59b57a76184f97df9f02c601a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the properties of the residual function that won't change during simulation (algebraic or differential equation) <br /></td></tr>
-<tr class="separator:a7a4aa59b57a76184f97df9f02c601a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbf83480056a1f3310beae4bd785005d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#afbf83480056a1f3310beae4bd785005d">collectSilentZ</a> (<a class="el" href="../../dd/d98/a02557.html">BitMask</a> *silentZTable)=0</td></tr>
-<tr class="memdesc:afbf83480056a1f3310beae4bd785005d"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the silent flag for discrete variables  <a href="#afbf83480056a1f3310beae4bd785005d">More...</a><br /></td></tr>
-<tr class="separator:afbf83480056a1f3310beae4bd785005d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a773809c30cd0d7b55f3f0e351d597dfd"><td class="memItemLeft" align="right" valign="top"><a id="a773809c30cd0d7b55f3f0e351d597dfd"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a773809c30cd0d7b55f3f0e351d597dfd">evalDynamicFType</a> ()=0</td></tr>
-<tr class="memdesc:a773809c30cd0d7b55f3f0e351d597dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">update during the simulation the properties of the residual functions that depends on others variables values <br /></td></tr>
-<tr class="separator:a773809c30cd0d7b55f3f0e351d597dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada9edcfd1e28ed10ccd1b76bf7c5c72b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ada9edcfd1e28ed10ccd1b76bf7c5c72b">getSize</a> ()=0</td></tr>
-<tr class="memdesc:ada9edcfd1e28ed10ccd1b76bf7c5c72b"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> model's sizes getter.  <a href="#ada9edcfd1e28ed10ccd1b76bf7c5c72b">More...</a><br /></td></tr>
-<tr class="separator:ada9edcfd1e28ed10ccd1b76bf7c5c72b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43e5a5f92e1019783b63a6b523d36370"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a43e5a5f92e1019783b63a6b523d36370">setSubModelParameters</a> ()=0</td></tr>
-<tr class="memdesc:a43e5a5f92e1019783b63a6b523d36370"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the submodel parameters value  <a href="#a43e5a5f92e1019783b63a6b523d36370">More...</a><br /></td></tr>
-<tr class="separator:a43e5a5f92e1019783b63a6b523d36370"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf57fcadb060ff3744429250283b2a68"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#aaf57fcadb060ff3744429250283b2a68">setSharedParametersDefaultValues</a> ()</td></tr>
-<tr class="memdesc:aaf57fcadb060ff3744429250283b2a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the submodel shared dynamic parameters value  <a href="#aaf57fcadb060ff3744429250283b2a68">More...</a><br /></td></tr>
-<tr class="separator:aaf57fcadb060ff3744429250283b2a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e402faab61c82a81a9933ac09b70409"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0e402faab61c82a81a9933ac09b70409">setSharedParametersDefaultValuesInit</a> ()</td></tr>
-<tr class="memdesc:a0e402faab61c82a81a9933ac09b70409"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the submodel shared init parameters value  <a href="#a0e402faab61c82a81a9933ac09b70409">More...</a><br /></td></tr>
-<tr class="separator:a0e402faab61c82a81a9933ac09b70409"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47dc11084c388b0625d76ec5793844cf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a47dc11084c388b0625d76ec5793844cf">defineElements</a> (std::vector&lt; <a class="el" href="../../db/d8f/a02721.html">Element</a> &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement)=0</td></tr>
-<tr class="memdesc:a47dc11084c388b0625d76ec5793844cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> elements initializer.  <a href="#a47dc11084c388b0625d76ec5793844cf">More...</a><br /></td></tr>
-<tr class="separator:a47dc11084c388b0625d76ec5793844cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ad0f822c27f250cad7f8cf376ef3524"><td class="memItemLeft" align="right" valign="top"><a id="a2ad0f822c27f250cad7f8cf376ef3524"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a2ad0f822c27f250cad7f8cf376ef3524">~ModelCPP</a> () override=default</td></tr>
+<tr class="memdesc:a2ad0f822c27f250cad7f8cf376ef3524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a2ad0f822c27f250cad7f8cf376ef3524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27049900be1ad844bd8224a741a1bae1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a27049900be1ad844bd8224a741a1bae1">init</a> (const double t0) override=0</td></tr>
+<tr class="memdesc:a27049900be1ad844bd8224a741a1bae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize all the data for a sub model  <a href="#a27049900be1ad844bd8224a741a1bae1">More...</a><br /></td></tr>
+<tr class="separator:a27049900be1ad844bd8224a741a1bae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0db6230cf5cdaf3fc14c499624495dc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0db6230cf5cdaf3fc14c499624495dc4">getIndexesOfVariablesUsedForCalculatedVarI</a> (unsigned iCalculatedVar, std::vector&lt; int &gt; &amp;indexes) const override=0</td></tr>
+<tr class="memdesc:a0db6230cf5cdaf3fc14c499624495dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the global indexes of the variables used to compute a calculated variable  <a href="#a0db6230cf5cdaf3fc14c499624495dc4">More...</a><br /></td></tr>
+<tr class="separator:a0db6230cf5cdaf3fc14c499624495dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0102dc348f2f77965a77f39bd5238643"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0102dc348f2f77965a77f39bd5238643">evalJCalculatedVarI</a> (unsigned iCalculatedVar, std::vector&lt; double &gt; &amp;res) const override=0</td></tr>
+<tr class="memdesc:a0102dc348f2f77965a77f39bd5238643"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the jacobian associated to a calculated variable based on the current values of continuous variables  <a href="#a0102dc348f2f77965a77f39bd5238643">More...</a><br /></td></tr>
+<tr class="separator:a0102dc348f2f77965a77f39bd5238643"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0026f2a8c2fc1091592a641284ed0f94"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0026f2a8c2fc1091592a641284ed0f94">evalCalculatedVarI</a> (unsigned iCalculatedVar) const override=0</td></tr>
+<tr class="memdesc:a0026f2a8c2fc1091592a641284ed0f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the value of a calculated variable  <a href="#a0026f2a8c2fc1091592a641284ed0f94">More...</a><br /></td></tr>
+<tr class="separator:a0026f2a8c2fc1091592a641284ed0f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adae8d63dac96f590a164a3aab6168ba6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#adae8d63dac96f590a164a3aab6168ba6">dumpParameters</a> (std::map&lt; std::string, std::string &gt; &amp;mapParameters) override</td></tr>
+<tr class="memdesc:adae8d63dac96f590a164a3aab6168ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the parameters of the sub model for dump  <a href="#adae8d63dac96f590a164a3aab6168ba6">More...</a><br /></td></tr>
+<tr class="separator:adae8d63dac96f590a164a3aab6168ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af33ccbe3835f6aae5431e3af9b110327"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#af33ccbe3835f6aae5431e3af9b110327">dumpVariables</a> (std::map&lt; std::string, std::string &gt; &amp;mapVariables) override</td></tr>
+<tr class="memdesc:af33ccbe3835f6aae5431e3af9b110327"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables values of the sub model for dump  <a href="#af33ccbe3835f6aae5431e3af9b110327">More...</a><br /></td></tr>
+<tr class="separator:af33ccbe3835f6aae5431e3af9b110327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0886b3ed91b9d0702100a7f6f00c8ad8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0886b3ed91b9d0702100a7f6f00c8ad8">evalF</a> (double t, <a class="el" href="../../dc/d8e/a00473.html#a8b1ac858a7be39680e8c19dc9e860dd2">propertyF_t</a> type) override=0</td></tr>
+<tr class="memdesc:a0886b3ed91b9d0702100a7f6f00c8ad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> F(t,y,y') function evaluation.  <a href="#a0886b3ed91b9d0702100a7f6f00c8ad8">More...</a><br /></td></tr>
+<tr class="separator:a0886b3ed91b9d0702100a7f6f00c8ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d0804640bf8533c59ef3861ae5fe225"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a7d0804640bf8533c59ef3861ae5fe225">evalG</a> (const double t) override=0</td></tr>
+<tr class="memdesc:a7d0804640bf8533c59ef3861ae5fe225"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> G(t,y,y') function evaluation.  <a href="#a7d0804640bf8533c59ef3861ae5fe225">More...</a><br /></td></tr>
+<tr class="separator:a7d0804640bf8533c59ef3861ae5fe225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6921c84ad7be7be47bb1bdf6f6d17376"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a6921c84ad7be7be47bb1bdf6f6d17376">evalZ</a> (const double t) override=0</td></tr>
+<tr class="memdesc:a6921c84ad7be7be47bb1bdf6f6d17376"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> discrete variables evaluation.  <a href="#a6921c84ad7be7be47bb1bdf6f6d17376">More...</a><br /></td></tr>
+<tr class="separator:a6921c84ad7be7be47bb1bdf6f6d17376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58437c5212fbcfad7d271443b03b7d23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a58437c5212fbcfad7d271443b03b7d23">evalJt</a> (const double t, const double cj, <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;jt, const int rowOffset) override=0</td></tr>
+<tr class="memdesc:a58437c5212fbcfad7d271443b03b7d23"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> transposed jacobian evaluation.  <a href="#a58437c5212fbcfad7d271443b03b7d23">More...</a><br /></td></tr>
+<tr class="separator:a58437c5212fbcfad7d271443b03b7d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af27670b86f3cb0171807eb2e81858e1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#af27670b86f3cb0171807eb2e81858e1c">evalJtPrim</a> (const double t, const double cj, <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;jt, const int rowOffset) override=0</td></tr>
+<tr class="memdesc:af27670b86f3cb0171807eb2e81858e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate jacobien prime matrix  <a href="#af27670b86f3cb0171807eb2e81858e1c">More...</a><br /></td></tr>
+<tr class="separator:af27670b86f3cb0171807eb2e81858e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a93365a7a887271047eb48b2b458b63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a4a93365a7a887271047eb48b2b458b63">evalMode</a> (const double t) override=0</td></tr>
+<tr class="memdesc:a4a93365a7a887271047eb48b2b458b63"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> mode change type evaluation.  <a href="#a4a93365a7a887271047eb48b2b458b63">More...</a><br /></td></tr>
+<tr class="separator:a4a93365a7a887271047eb48b2b458b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a991072dea5a149a29be0590d98395ce0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a991072dea5a149a29be0590d98395ce0">getY0</a> () override=0</td></tr>
+<tr class="memdesc:a991072dea5a149a29be0590d98395ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> initial state variables' evaluation.  <a href="#a991072dea5a149a29be0590d98395ce0">More...</a><br /></td></tr>
+<tr class="separator:a991072dea5a149a29be0590d98395ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2201698d23b4107f0e1c90ef3bdb34b1"><td class="memItemLeft" align="right" valign="top"><a id="a2201698d23b4107f0e1c90ef3bdb34b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a2201698d23b4107f0e1c90ef3bdb34b1">evalCalculatedVars</a> () override=0</td></tr>
+<tr class="memdesc:a2201698d23b4107f0e1c90ef3bdb34b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate calculated variables <br /></td></tr>
+<tr class="separator:a2201698d23b4107f0e1c90ef3bdb34b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a102dfd7fe6659b3c351cbbc4a0561379"><td class="memItemLeft" align="right" valign="top"><a id="a102dfd7fe6659b3c351cbbc4a0561379"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a102dfd7fe6659b3c351cbbc4a0561379">evalStaticYType</a> () override=0</td></tr>
+<tr class="memdesc:a102dfd7fe6659b3c351cbbc4a0561379"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the properties of the variables that won't change during simulation (algebraic, differential, external or external optional variables) <br /></td></tr>
+<tr class="separator:a102dfd7fe6659b3c351cbbc4a0561379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9743c7500f0ebc80cf314270f68bec37"><td class="memItemLeft" align="right" valign="top"><a id="a9743c7500f0ebc80cf314270f68bec37"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a9743c7500f0ebc80cf314270f68bec37">evalDynamicYType</a> () override=0</td></tr>
+<tr class="memdesc:a9743c7500f0ebc80cf314270f68bec37"><td class="mdescLeft">&#160;</td><td class="mdescRight">update during the simulation the properties of the variables that depends on others variables values <br /></td></tr>
+<tr class="separator:a9743c7500f0ebc80cf314270f68bec37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee92d24fbf9006c7389809de130e3ad"><td class="memItemLeft" align="right" valign="top"><a id="aaee92d24fbf9006c7389809de130e3ad"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#aaee92d24fbf9006c7389809de130e3ad">evalStaticFType</a> () override=0</td></tr>
+<tr class="memdesc:aaee92d24fbf9006c7389809de130e3ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the properties of the residual function that won't change during simulation (algebraic or differential equation) <br /></td></tr>
+<tr class="separator:aaee92d24fbf9006c7389809de130e3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7344a30e971744226e1fb29cfb002e87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a7344a30e971744226e1fb29cfb002e87">collectSilentZ</a> (<a class="el" href="../../dd/d98/a02557.html">BitMask</a> *silentZTable) override=0</td></tr>
+<tr class="memdesc:a7344a30e971744226e1fb29cfb002e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the silent flag for discrete variables  <a href="#a7344a30e971744226e1fb29cfb002e87">More...</a><br /></td></tr>
+<tr class="separator:a7344a30e971744226e1fb29cfb002e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eff8fab8d1777c5af6d5c42822d8cf9"><td class="memItemLeft" align="right" valign="top"><a id="a4eff8fab8d1777c5af6d5c42822d8cf9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a4eff8fab8d1777c5af6d5c42822d8cf9">evalDynamicFType</a> () override=0</td></tr>
+<tr class="memdesc:a4eff8fab8d1777c5af6d5c42822d8cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">update during the simulation the properties of the residual functions that depends on others variables values <br /></td></tr>
+<tr class="separator:a4eff8fab8d1777c5af6d5c42822d8cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71ea888f9efe8ea6d8a708963b15f28e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a71ea888f9efe8ea6d8a708963b15f28e">getSize</a> () override=0</td></tr>
+<tr class="memdesc:a71ea888f9efe8ea6d8a708963b15f28e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> model's sizes getter.  <a href="#a71ea888f9efe8ea6d8a708963b15f28e">More...</a><br /></td></tr>
+<tr class="separator:a71ea888f9efe8ea6d8a708963b15f28e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31983ebbece6cdbe97cb39b0978ed9fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a31983ebbece6cdbe97cb39b0978ed9fb">setSubModelParameters</a> () override=0</td></tr>
+<tr class="memdesc:a31983ebbece6cdbe97cb39b0978ed9fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the submodel parameters value  <a href="#a31983ebbece6cdbe97cb39b0978ed9fb">More...</a><br /></td></tr>
+<tr class="separator:a31983ebbece6cdbe97cb39b0978ed9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aae336632d189189317267ada0e907d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a3aae336632d189189317267ada0e907d">setSharedParametersDefaultValues</a> () override</td></tr>
+<tr class="memdesc:a3aae336632d189189317267ada0e907d"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the submodel shared dynamic parameters value  <a href="#a3aae336632d189189317267ada0e907d">More...</a><br /></td></tr>
+<tr class="separator:a3aae336632d189189317267ada0e907d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bd537b5b7896f0e0aeed60f0e5d31dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0bd537b5b7896f0e0aeed60f0e5d31dc">setSharedParametersDefaultValuesInit</a> () override</td></tr>
+<tr class="memdesc:a0bd537b5b7896f0e0aeed60f0e5d31dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the submodel shared init parameters value  <a href="#a0bd537b5b7896f0e0aeed60f0e5d31dc">More...</a><br /></td></tr>
+<tr class="separator:a0bd537b5b7896f0e0aeed60f0e5d31dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a539cdee7b87ee243b5a42249e1922642"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a539cdee7b87ee243b5a42249e1922642">defineElements</a> (std::vector&lt; <a class="el" href="../../db/d8f/a02721.html">Element</a> &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement) override=0</td></tr>
+<tr class="memdesc:a539cdee7b87ee243b5a42249e1922642"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a> elements initializer.  <a href="#a539cdee7b87ee243b5a42249e1922642">More...</a><br /></td></tr>
+<tr class="separator:a539cdee7b87ee243b5a42249e1922642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3732610992373bd026031c13198f0e76"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a3732610992373bd026031c13198f0e76">getCheckSum</a> () const =0</td></tr>
 <tr class="memdesc:a3732610992373bd026031c13198f0e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">get checksum  <a href="#a3732610992373bd026031c13198f0e76">More...</a><br /></td></tr>
 <tr class="separator:a3732610992373bd026031c13198f0e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62e56c6b6bfc23789003890edfa2c433"><td class="memItemLeft" align="right" valign="top"><a id="a62e56c6b6bfc23789003890edfa2c433"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a62e56c6b6bfc23789003890edfa2c433">initializeStaticData</a> ()=0</td></tr>
-<tr class="memdesc:a62e56c6b6bfc23789003890edfa2c433"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialze static data <br /></td></tr>
-<tr class="separator:a62e56c6b6bfc23789003890edfa2c433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac00f3ba47fc51fc1570df02fe1ea7bbf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ac00f3ba47fc51fc1570df02fe1ea7bbf">setFequationsInit</a> ()</td></tr>
-<tr class="memdesc:ac00f3ba47fc51fc1570df02fe1ea7bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' equation for init model  <a href="#ac00f3ba47fc51fc1570df02fe1ea7bbf">More...</a><br /></td></tr>
-<tr class="separator:ac00f3ba47fc51fc1570df02fe1ea7bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aee2bab1bfcfc1c9919b13f9d7aa016"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a4aee2bab1bfcfc1c9919b13f9d7aa016">setGequationsInit</a> ()</td></tr>
-<tr class="memdesc:a4aee2bab1bfcfc1c9919b13f9d7aa016"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' root equation for init model  <a href="#a4aee2bab1bfcfc1c9919b13f9d7aa016">More...</a><br /></td></tr>
-<tr class="separator:a4aee2bab1bfcfc1c9919b13f9d7aa016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3252c26da754b50a449af22b053bcd7a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a3252c26da754b50a449af22b053bcd7a">initSubBuffers</a> ()</td></tr>
-<tr class="memdesc:a3252c26da754b50a449af22b053bcd7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">init sub buffers  <a href="#a3252c26da754b50a449af22b053bcd7a">More...</a><br /></td></tr>
-<tr class="separator:a3252c26da754b50a449af22b053bcd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa098b6d92dc71a12b2bb0478b7088902"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#aa098b6d92dc71a12b2bb0478b7088902">notifyTimeStep</a> ()</td></tr>
-<tr class="memdesc:aa098b6d92dc71a12b2bb0478b7088902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify that time step has been performed in the simulation.  <a href="#aa098b6d92dc71a12b2bb0478b7088902">More...</a><br /></td></tr>
-<tr class="separator:aa098b6d92dc71a12b2bb0478b7088902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71479701123028b038c313a8d3a5fd9a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a71479701123028b038c313a8d3a5fd9a">modelType</a> () const</td></tr>
-<tr class="memdesc:a71479701123028b038c313a8d3a5fd9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model type  <a href="#a71479701123028b038c313a8d3a5fd9a">More...</a><br /></td></tr>
-<tr class="separator:a71479701123028b038c313a8d3a5fd9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36f882beefc76806cfa3b2e9f20fb22d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a36f882beefc76806cfa3b2e9f20fb22d">loadVariables</a> (const std::string &amp;variables)</td></tr>
-<tr class="memdesc:a36f882beefc76806cfa3b2e9f20fb22d"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the variables values from a previous dump  <a href="#a36f882beefc76806cfa3b2e9f20fb22d">More...</a><br /></td></tr>
-<tr class="separator:a36f882beefc76806cfa3b2e9f20fb22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fb589d46586640ebc1f3b6c3d329c86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a6fb589d46586640ebc1f3b6c3d329c86">loadParameters</a> (const std::string &amp;parameters)</td></tr>
-<tr class="memdesc:a6fb589d46586640ebc1f3b6c3d329c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the parameters values from a previous dump  <a href="#a6fb589d46586640ebc1f3b6c3d329c86">More...</a><br /></td></tr>
-<tr class="separator:a6fb589d46586640ebc1f3b6c3d329c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64e411197c5ed61258a52796235d1c79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a64e411197c5ed61258a52796235d1c79">checkParametersCoherence</a> () const</td></tr>
-<tr class="memdesc:a64e411197c5ed61258a52796235d1c79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coherence check on parameters (min/max values, sanity checks)  <a href="#a64e411197c5ed61258a52796235d1c79">More...</a><br /></td></tr>
-<tr class="separator:a64e411197c5ed61258a52796235d1c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89ec0b79c053576934b4113b27a9d0dd"><td class="memItemLeft" align="right" valign="top"><a id="a89ec0b79c053576934b4113b27a9d0dd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a89ec0b79c053576934b4113b27a9d0dd">rotateBuffers</a> ()</td></tr>
-<tr class="memdesc:a89ec0b79c053576934b4113b27a9d0dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">rotate buffers <br /></td></tr>
-<tr class="separator:a89ec0b79c053576934b4113b27a9d0dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2745735af41ddb70d5238fe8f90f2ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#af2745735af41ddb70d5238fe8f90f2ad">defineVariablesInit</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/db0/a02777.html">Variable</a> &gt; &gt; &amp;variables)</td></tr>
-<tr class="memdesc:af2745735af41ddb70d5238fe8f90f2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each variables of the init model  <a href="#af2745735af41ddb70d5238fe8f90f2ad">More...</a><br /></td></tr>
-<tr class="separator:af2745735af41ddb70d5238fe8f90f2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89bbb4d6e12b7f5de336f702bc100585"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a89bbb4d6e12b7f5de336f702bc100585">defineParametersInit</a> (std::vector&lt; <a class="el" href="../../db/d00/a02745.html">ParameterModeler</a> &gt; &amp;parameters)</td></tr>
-<tr class="memdesc:a89bbb4d6e12b7f5de336f702bc100585"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each parameters of the init model  <a href="#a89bbb4d6e12b7f5de336f702bc100585">More...</a><br /></td></tr>
-<tr class="separator:a89bbb4d6e12b7f5de336f702bc100585"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a031433df0020286012ac04a74bb0312d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a031433df0020286012ac04a74bb0312d">defineNamesImpl</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/db0/a02777.html">Variable</a> &gt; &gt; &amp;variables, std::vector&lt; std::string &gt; &amp;<a class="el" href="../../d9/da5/a02757.html#a837516a82adc0c016f45490f578fb051">zNames</a>, std::vector&lt; std::string &gt; &amp;<a class="el" href="../../d9/da5/a02757.html#a2a9551afe323ccccfb6a12897257e12a">xNames</a>, std::vector&lt; std::string &gt; &amp;calculatedVarNames)</td></tr>
-<tr class="memdesc:a031433df0020286012ac04a74bb0312d"><td class="mdescLeft">&#160;</td><td class="mdescRight">define the indexes and names of all parameters and variables of a dynamic sub-model  <a href="#a031433df0020286012ac04a74bb0312d">More...</a><br /></td></tr>
-<tr class="separator:a031433df0020286012ac04a74bb0312d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1b6313d35dd5bf77c065bda7ebcbc5d"><td class="memItemLeft" align="right" valign="top"><a id="ab1b6313d35dd5bf77c065bda7ebcbc5d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ab1b6313d35dd5bf77c065bda7ebcbc5d">initializeStaticData</a> () override=0</td></tr>
+<tr class="memdesc:ab1b6313d35dd5bf77c065bda7ebcbc5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialze static data <br /></td></tr>
+<tr class="separator:ab1b6313d35dd5bf77c065bda7ebcbc5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add3f95a3f40f956ab258b85b9a37efd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#add3f95a3f40f956ab258b85b9a37efd1">setFequationsInit</a> () override</td></tr>
+<tr class="memdesc:add3f95a3f40f956ab258b85b9a37efd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' equation for init model  <a href="#add3f95a3f40f956ab258b85b9a37efd1">More...</a><br /></td></tr>
+<tr class="separator:add3f95a3f40f956ab258b85b9a37efd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af70b69603ca3bd0113d3650ea4d408f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#af70b69603ca3bd0113d3650ea4d408f0">setGequationsInit</a> () override</td></tr>
+<tr class="memdesc:af70b69603ca3bd0113d3650ea4d408f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' root equation for init model  <a href="#af70b69603ca3bd0113d3650ea4d408f0">More...</a><br /></td></tr>
+<tr class="separator:af70b69603ca3bd0113d3650ea4d408f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e21e9de9182d50201404242b1cb42da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a7e21e9de9182d50201404242b1cb42da">initSubBuffers</a> () override</td></tr>
+<tr class="memdesc:a7e21e9de9182d50201404242b1cb42da"><td class="mdescLeft">&#160;</td><td class="mdescRight">init sub buffers  <a href="#a7e21e9de9182d50201404242b1cb42da">More...</a><br /></td></tr>
+<tr class="separator:a7e21e9de9182d50201404242b1cb42da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d3e847806ea23de017ca840fb7c9879"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a9d3e847806ea23de017ca840fb7c9879">notifyTimeStep</a> () override</td></tr>
+<tr class="memdesc:a9d3e847806ea23de017ca840fb7c9879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify that time step has been performed in the simulation.  <a href="#a9d3e847806ea23de017ca840fb7c9879">More...</a><br /></td></tr>
+<tr class="separator:a9d3e847806ea23de017ca840fb7c9879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc8c3f03f682e7f62f7d3c7e55a6472b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#afc8c3f03f682e7f62f7d3c7e55a6472b">modelType</a> () const override</td></tr>
+<tr class="memdesc:afc8c3f03f682e7f62f7d3c7e55a6472b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model type  <a href="#afc8c3f03f682e7f62f7d3c7e55a6472b">More...</a><br /></td></tr>
+<tr class="separator:afc8c3f03f682e7f62f7d3c7e55a6472b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32bee854ddf053cf041efeca1ef5914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ab32bee854ddf053cf041efeca1ef5914">loadVariables</a> (const std::string &amp;variables) override</td></tr>
+<tr class="memdesc:ab32bee854ddf053cf041efeca1ef5914"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the variables values from a previous dump  <a href="#ab32bee854ddf053cf041efeca1ef5914">More...</a><br /></td></tr>
+<tr class="separator:ab32bee854ddf053cf041efeca1ef5914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b9790dad578c79f3a4a966aebe99288"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a3b9790dad578c79f3a4a966aebe99288">loadParameters</a> (const std::string &amp;parameters) override</td></tr>
+<tr class="memdesc:a3b9790dad578c79f3a4a966aebe99288"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the parameters values from a previous dump  <a href="#a3b9790dad578c79f3a4a966aebe99288">More...</a><br /></td></tr>
+<tr class="separator:a3b9790dad578c79f3a4a966aebe99288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa308ddb8ddc022727b8b15e8fa29099a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#aa308ddb8ddc022727b8b15e8fa29099a">checkParametersCoherence</a> () const override</td></tr>
+<tr class="memdesc:aa308ddb8ddc022727b8b15e8fa29099a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coherence check on parameters (min/max values, sanity checks)  <a href="#aa308ddb8ddc022727b8b15e8fa29099a">More...</a><br /></td></tr>
+<tr class="separator:aa308ddb8ddc022727b8b15e8fa29099a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f2ece638e8fe78f76e86ef81b6aa1c8"><td class="memItemLeft" align="right" valign="top"><a id="a0f2ece638e8fe78f76e86ef81b6aa1c8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a0f2ece638e8fe78f76e86ef81b6aa1c8">rotateBuffers</a> () override</td></tr>
+<tr class="memdesc:a0f2ece638e8fe78f76e86ef81b6aa1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">rotate buffers <br /></td></tr>
+<tr class="separator:a0f2ece638e8fe78f76e86ef81b6aa1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a403c066215afc62e1d8fe113472adbe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a403c066215afc62e1d8fe113472adbe9">defineVariablesInit</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/db0/a02777.html">Variable</a> &gt; &gt; &amp;variables) override</td></tr>
+<tr class="memdesc:a403c066215afc62e1d8fe113472adbe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each variables of the init model  <a href="#a403c066215afc62e1d8fe113472adbe9">More...</a><br /></td></tr>
+<tr class="separator:a403c066215afc62e1d8fe113472adbe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e1ee1e3b1052228db89ab38a89a54c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a49e1ee1e3b1052228db89ab38a89a54c">defineParametersInit</a> (std::vector&lt; <a class="el" href="../../db/d00/a02745.html">ParameterModeler</a> &gt; &amp;parameters) override</td></tr>
+<tr class="memdesc:a49e1ee1e3b1052228db89ab38a89a54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each parameters of the init model  <a href="#a49e1ee1e3b1052228db89ab38a89a54c">More...</a><br /></td></tr>
+<tr class="separator:a49e1ee1e3b1052228db89ab38a89a54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac28254e8f419caf9ff4ef4032c43531d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ac28254e8f419caf9ff4ef4032c43531d">defineNamesImpl</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/db0/a02777.html">Variable</a> &gt; &gt; &amp;variables, std::vector&lt; std::string &gt; &amp;<a class="el" href="../../d9/da5/a02757.html#a837516a82adc0c016f45490f578fb051">zNames</a>, std::vector&lt; std::string &gt; &amp;<a class="el" href="../../d9/da5/a02757.html#a2a9551afe323ccccfb6a12897257e12a">xNames</a>, std::vector&lt; std::string &gt; &amp;calculatedVarNames) override</td></tr>
+<tr class="memdesc:ac28254e8f419caf9ff4ef4032c43531d"><td class="mdescLeft">&#160;</td><td class="mdescRight">define the indexes and names of all parameters and variables of a dynamic sub-model  <a href="#ac28254e8f419caf9ff4ef4032c43531d">More...</a><br /></td></tr>
+<tr class="separator:ac28254e8f419caf9ff4ef4032c43531d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab535104320ef1f24aebae595ae4e8f1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ab535104320ef1f24aebae595ae4e8f1b">isStartingFromDump</a> () const</td></tr>
 <tr class="memdesc:ab535104320ef1f24aebae595ae4e8f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get whether the model is starting from dumped values  <a href="#ab535104320ef1f24aebae595ae4e8f1b">More...</a><br /></td></tr>
 <tr class="separator:ab535104320ef1f24aebae595ae4e8f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -912,8 +912,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a64e411197c5ed61258a52796235d1c79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64e411197c5ed61258a52796235d1c79">&#9670;&nbsp;</a></span>checkParametersCoherence()</h2>
+<a id="aa308ddb8ddc022727b8b15e8fa29099a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa308ddb8ddc022727b8b15e8fa29099a">&#9670;&nbsp;</a></span>checkParametersCoherence()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -930,7 +930,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -941,8 +941,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="afbf83480056a1f3310beae4bd785005d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbf83480056a1f3310beae4bd785005d">&#9670;&nbsp;</a></span>collectSilentZ()</h2>
+<a id="a7344a30e971744226e1fb29cfb002e87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7344a30e971744226e1fb29cfb002e87">&#9670;&nbsp;</a></span>collectSilentZ()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -951,7 +951,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::collectSilentZ </td>
+          <td class="memname">void DYN::ModelCPP::collectSilentZ </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dd/d98/a02557.html">BitMask</a> *&#160;</td>
           <td class="paramname"><em>silentZTable</em></td><td>)</td>
@@ -960,7 +960,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -975,12 +975,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a2c3e1275ac6459e9c43b4e477fe7ac7b">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d2/daf/a03245.html#a5de3ec13570b54523d41f85174ae68fa">DYN::ModelNetwork</a>, <a class="el" href="../../d0/d04/a03161.html#a3b6478812458c15820a03a229fbf676c">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#af3c2674ec593ca6ed6946f7e6735db7b">DYN::ModelOmegaRef</a>, <a class="el" href="../../dd/d02/a03145.html#ab56382fa34c1acef635ac20bbfb7a571">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d1/d30/a03185.html#aa34a127b4a39db01d2e2cc3105a7a32b">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a1d60707bbb21a947270b40f33ac19ad3">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#aaeec5b6f071c30f0116734392120a8a7">DYN::ModelAreaShedding</a>, and <a class="el" href="../../db/d44/a03153.html#a202dcf7cea5cbe49657218887e251172">DYN::ModelCentralizedShuntsSectionControl</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/daf/a03245.html#a2c7c480c86207c0156b8d7c22429f6cd">DYN::ModelNetwork</a>, <a class="el" href="../../d0/d04/a03161.html#a9a7359d8d4e8d8832a1f709935a3d17c">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#af31e6479907fef279e23d73d03471332">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a42c5711820f4b2a5309aa555ef74e59c">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../dd/d02/a03145.html#a43a8850c6b4ffb984f62b1434f879c98">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d7/d90/a03177.html#a3a831231fa04de3dd0c3a1e57195e2b9">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a4b08d650559c68b99bfccc44eefd9e8c">DYN::ModelAreaShedding</a>, and <a class="el" href="../../db/d44/a03153.html#a3167adc1f8b7c5f1b24fba49bbf94960">DYN::ModelCentralizedShuntsSectionControl</a>.</p>
 
 </div>
 </div>
-<a id="a47dc11084c388b0625d76ec5793844cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47dc11084c388b0625d76ec5793844cf">&#9670;&nbsp;</a></span>defineElements()</h2>
+<a id="a539cdee7b87ee243b5a42249e1922642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539cdee7b87ee243b5a42249e1922642">&#9670;&nbsp;</a></span>defineElements()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -989,7 +989,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::defineElements </td>
+          <td class="memname">void DYN::ModelCPP::defineElements </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="../../db/d8f/a02721.html">Element</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>elements</em>, </td>
@@ -1008,7 +1008,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1024,12 +1024,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a962a4f3be6720e8120d939a5a3e9da5d">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#ad520beb9180a112fc8fe6634fbd90aad">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#aa3ca554893f719b54876a1ce86124110">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#a6170010c8eee43ef8838d2300b2adb20">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#aadba7dd011ed31948e734fae22c8e0a0">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#aa0879097594f19a5760cb330b51246ca">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a1ef3f58fb66d507cf63d79bf9d53f034">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a8e2d7679d70ed9116d90668d3dc3ea48">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#a6eb81e68cbc109e268ad913f9c3f85f6">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#ad161016e1157dbef6426acbff97dd5a4">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a3e2ff9ce4b97ae6b88a66aa611c5b5b2">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#a03a881bc1b234c3dc58b0ef6aa48de5e">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#a1b20aabc3d28cf1e05efc5ecf228f840">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#aafd6b4b72c668b424b7778611f841a96">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#ac31d503a2dae3d1064be8d00157cc3aa">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#aa97470a0c25012bc51cfe9429069f219">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#a7b3558375e12403c2a35c82da205c8b7">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="a031433df0020286012ac04a74bb0312d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a031433df0020286012ac04a74bb0312d">&#9670;&nbsp;</a></span>defineNamesImpl()</h2>
+<a id="ac28254e8f419caf9ff4ef4032c43531d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28254e8f419caf9ff4ef4032c43531d">&#9670;&nbsp;</a></span>defineNamesImpl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1069,7 +1069,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1089,8 +1089,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a89bbb4d6e12b7f5de336f702bc100585"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89bbb4d6e12b7f5de336f702bc100585">&#9670;&nbsp;</a></span>defineParametersInit()</h2>
+<a id="a49e1ee1e3b1052228db89ab38a89a54c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e1ee1e3b1052228db89ab38a89a54c">&#9670;&nbsp;</a></span>defineParametersInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1108,7 +1108,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1125,8 +1125,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="af2745735af41ddb70d5238fe8f90f2ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2745735af41ddb70d5238fe8f90f2ad">&#9670;&nbsp;</a></span>defineVariablesInit()</h2>
+<a id="a403c066215afc62e1d8fe113472adbe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403c066215afc62e1d8fe113472adbe9">&#9670;&nbsp;</a></span>defineVariablesInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1144,7 +1144,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1161,8 +1161,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a3e15c417a90e03c063dd5daf19dceeee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e15c417a90e03c063dd5daf19dceeee">&#9670;&nbsp;</a></span>dumpParameters()</h2>
+<a id="adae8d63dac96f590a164a3aab6168ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adae8d63dac96f590a164a3aab6168ba6">&#9670;&nbsp;</a></span>dumpParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1180,7 +1180,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1197,8 +1197,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a06e34f39dc3aa1322286db69c579bc92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06e34f39dc3aa1322286db69c579bc92">&#9670;&nbsp;</a></span>dumpVariables()</h2>
+<a id="af33ccbe3835f6aae5431e3af9b110327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af33ccbe3835f6aae5431e3af9b110327">&#9670;&nbsp;</a></span>dumpVariables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1216,7 +1216,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1233,8 +1233,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a6523f88e37c2eb292686cf0eac7a7dba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6523f88e37c2eb292686cf0eac7a7dba">&#9670;&nbsp;</a></span>evalCalculatedVarI()</h2>
+<a id="a0026f2a8c2fc1091592a641284ed0f94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0026f2a8c2fc1091592a641284ed0f94">&#9670;&nbsp;</a></span>evalCalculatedVarI()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1243,7 +1243,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::ModelCPP::evalCalculatedVarI </td>
+          <td class="memname">double DYN::ModelCPP::evalCalculatedVarI </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>iCalculatedVar</em></td><td>)</td>
@@ -1252,7 +1252,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1268,12 +1268,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a964fff4c493766d6e79d7f6c9daebb51">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../db/d44/a03153.html#a4a7955c4fecce7b5fd0050289260aa3b">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#a34448372e31f2d53cfb20cf7e58bbdd0">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../dd/d02/a03145.html#a02aac1a2aada30395fa98c272bfefab8">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d6/d04/a03193.html#aca33c52dc822a41d03b7432dd2ecb95d">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a8d9c6fc994c5aba0cd3ec05a27eeb773">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a7599341f4ca41e2f04294d3cfb8ecb23">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a8c2aa93f290122981e4ee7e1618c6429">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#ad87289207aca7a418936d11b0bbee417">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#a09c267ae61b499a1dc433593a3018c2f">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#ad76fa3ff7b0f5f2ce5c9a9ddc9cf18b2">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../dd/d02/a03145.html#a7aa774b5564245d916b6070d9939426b">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d6/d04/a03193.html#a49d7108b792213e867b3959760f0f14e">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a106b93c7d94e5db46a611fbc8fe8ad6b">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a2ca479580efd9120f23645816be5605b">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a201c5e83a40d813df87ee38a033c1f8d">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#aba04ff6939530dc724730322ea52aa53">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="a180e7554cbf376f6dee2b98207c832a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a180e7554cbf376f6dee2b98207c832a6">&#9670;&nbsp;</a></span>evalF()</h2>
+<a id="a0886b3ed91b9d0702100a7f6f00c8ad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0886b3ed91b9d0702100a7f6f00c8ad8">&#9670;&nbsp;</a></span>evalF()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1282,7 +1282,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::evalF </td>
+          <td class="memname">void DYN::ModelCPP::evalF </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>t</em>, </td>
@@ -1301,7 +1301,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1317,12 +1317,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a6ce0dbed0354f0f07f0b9953993df8ce">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#a2cc12688dea0880ab5f34a48d0f0899b">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#a438fd652fac52e4d8bf2c19b39df0988">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#a04e31d2860449caf016fc834f5f1b0a3">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#ab67ee7b4c1941df0d18b8183eb2b378b">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a147472beb54ceaa07952ef425f33e620">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a90d56c5a336138a0337de48491711302">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a6bc09d6bbeb1de3e8b7a4a3e1046d27d">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d1/d30/a03185.html#a10e38953eb78442797414cf0444b224a">DYN::ModelVoltageSetPointChange</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#a25f7f9e20c26bfc0b23e28733934fcec">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#a9137ac82c23b82902c7429d37a14d55e">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#ab47e70b058e6d6ec074bdd0506000219">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#afa80d702fdd3989ff0ce7b38d3202ea7">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a122eaf8608e7835193bf2a7544c84d75">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#ad73abec87c4a08e52e4962ca0a0cccf6">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a0a40d5f2973a572f8a3a4557e628009f">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d1/d30/a03185.html#a54017f855bd18103d971c20b86527006">DYN::ModelVoltageSetPointChange</a>.</p>
 
 </div>
 </div>
-<a id="afb2df2824762104c270f92c17629ddbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb2df2824762104c270f92c17629ddbb">&#9670;&nbsp;</a></span>evalG()</h2>
+<a id="a7d0804640bf8533c59ef3861ae5fe225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d0804640bf8533c59ef3861ae5fe225">&#9670;&nbsp;</a></span>evalG()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1331,7 +1331,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::evalG </td>
+          <td class="memname">void DYN::ModelCPP::evalG </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>t</em></td><td>)</td>
@@ -1340,7 +1340,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1355,12 +1355,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a3d5e091d9b05f1fd1c5706fddeaeac11">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#a44e27e0405400e77c27c1e9e534e0fd0">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#aac54a952cfe7e56be1b137aeea8252a9">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#abb0517a2d2f18493dbc750d0f7650fc8">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#adcf7c294de4e281b377d1d38ad357e62">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#aa6b12ab82eb05d250b4b169060d5589d">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a7774d131e35b635bf38ac11d2a1cf9d6">DYN::ModelVariationArea</a>, <a class="el" href="../../d1/d30/a03185.html#a37ff422b042dd5c490f488914851e5cf">DYN::ModelVoltageSetPointChange</a>, and <a class="el" href="../../dc/d10/a03169.html#a9fbaac7ec173bf06978ed5f42b4825b1">DYN::ModelAreaShedding</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#add75dd9b34937a296b7efcb22c31e8b7">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#ae31d37fec40c3ff00f7aa48eae9da56a">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#a49794fc331c2b8bb49365dbde2570579">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#a35875cc9d3bb091cf37a6a2d6892fdc2">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a304de7644442a8740589c7d43450465a">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a1d3d884a94f10590a20b197a230700ae">DYN::ModelVariationArea</a>, <a class="el" href="../../d1/d30/a03185.html#a2239a18028787d45be716371f9ae7a2c">DYN::ModelVoltageSetPointChange</a>, and <a class="el" href="../../dc/d10/a03169.html#abc1a6c0dbe52e2787fc0e09aabbb72ad">DYN::ModelAreaShedding</a>.</p>
 
 </div>
 </div>
-<a id="a66699de9d6794b351451667d9b32737c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66699de9d6794b351451667d9b32737c">&#9670;&nbsp;</a></span>evalJCalculatedVarI()</h2>
+<a id="a0102dc348f2f77965a77f39bd5238643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0102dc348f2f77965a77f39bd5238643">&#9670;&nbsp;</a></span>evalJCalculatedVarI()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1369,7 +1369,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::evalJCalculatedVarI </td>
+          <td class="memname">void DYN::ModelCPP::evalJCalculatedVarI </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>iCalculatedVar</em>, </td>
@@ -1388,7 +1388,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1404,12 +1404,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a6713b3b7ed280063c4cf745ce9187e75">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#abdafea40d29a6b2ee4329469c230ead7">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#aff2271d99d2ba1fc806e961df57c1f07">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#a9e1daa6f71cb85e2ac3113b8a3699745">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#a27c618e9af92f3449791887509ec4a1f">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#af0937e35120b8826f3dcdaa619ebebd3">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#af29e53606af01f6040077ca9c35c3127">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a2add1cca393e04d2fcedf2b188ff7159">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#ac93b4ba99b7bbec8ab9014b738a6ae85">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#a31005f2146b8ae2c53591d157fa45a1c">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a7f5ba06c0043fd8867d72df42c1c85c2">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#a76ac41add92122ebf5f6c51dbdcd272f">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#a52012d2c6998cc01a13983aafd3c7d42">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a75a2b1cecbc4b637718528385ab62f34">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a1bce06ce3392bf3f8bc25726dfb6de00">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#af0ca7cade7dbc167ad1a943100bd551a">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#aac21542d2e3aac0d35aedd7a8bba2043">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="ad19b3990dbd7a9b6e519779e214f6639"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad19b3990dbd7a9b6e519779e214f6639">&#9670;&nbsp;</a></span>evalJt()</h2>
+<a id="a58437c5212fbcfad7d271443b03b7d23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58437c5212fbcfad7d271443b03b7d23">&#9670;&nbsp;</a></span>evalJt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1418,7 +1418,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::evalJt </td>
+          <td class="memname">void DYN::ModelCPP::evalJt </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>t</em>, </td>
@@ -1449,7 +1449,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1467,12 +1467,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#aa758adb0fe62f41b7a420f0b689591d8">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#a6aee16f518762c3b18302aac32591773">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a01a39042d7374d6d53be2726792a65b4">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#af2a262877a6788c55462f816dc90be78">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d1/d30/a03185.html#aeab5601e64ffb3a517e44caafc20e08b">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d6/d04/a03193.html#aee027264bd26b3f4f612696d01b502d4">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#ab0516dd2712d3982c30bc320b105644f">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#afcf67d30813a708733ceee25bd9e4f3b">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#a8af631fd0cca9ff3c7362f5e84dcfe07">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#aac85f3138f1b5fc3ce12126852138639">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#ac138f003bfedb3dccd84da96c173b25a">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#af74058fc450322c57137f1708839f295">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d1/d30/a03185.html#ab8a59693ecbfd3450c6a947ea4211463">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d6/d04/a03193.html#ae10e147c15a4108e11f3aee9c1721576">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a65fcd75e2a7218004fe91aee45a0f7fb">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#aa315eb05a766c71731f75cbd7e7783e2">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#aa491ecd686435cb8ca8aea47992abb4a">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="a81f53384663e7be78ee78ac38fc4f4b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81f53384663e7be78ee78ac38fc4f4b6">&#9670;&nbsp;</a></span>evalJtPrim()</h2>
+<a id="af27670b86f3cb0171807eb2e81858e1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af27670b86f3cb0171807eb2e81858e1c">&#9670;&nbsp;</a></span>evalJtPrim()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1481,7 +1481,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::evalJtPrim </td>
+          <td class="memname">void DYN::ModelCPP::evalJtPrim </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>t</em>, </td>
@@ -1512,7 +1512,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1530,12 +1530,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a374a4b1699651d68f28c76c0f53a829f">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../db/d44/a03153.html#ae00fcb12e552f65786f489a6f6526245">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../dd/d02/a03145.html#a011967264ece95d6efac491e6c95247e">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a4b676b48f616767ae92af8eb45222d51">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d1/d30/a03185.html#ac9b00ab2e9937b0548cee129067616ff">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d6/d04/a03193.html#ab6c181d222d5438bc6aad4ef60b408f1">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a3db591076e87357b5f122cc4cc5b4569">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a23e7498558852de3799efe6c83539734">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#a7a35d01fd3f00278d99ff3bcd0232dda">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../db/d44/a03153.html#a546202fbce2b318aac3dfbbb22e2b993">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../dd/d02/a03145.html#a4e802bbd38bdfea1d55508f993d13a8c">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#ace42410e6d649dc7412cbc72da56892a">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d1/d30/a03185.html#aed3f04c9df0f0121e7869b0a2e7eaa0f">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d6/d04/a03193.html#ac2ff1dd010a0c113d34d8bff33a6572c">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a3ee4a608d81783556f82c9fcb1bec603">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#ab8047ae2b1045171214d03bcc9b63de8">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#ae8249e2353375f8346235443e8a45a6e">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="adabd8d548d6dc1d840e568fbbcb3ce06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adabd8d548d6dc1d840e568fbbcb3ce06">&#9670;&nbsp;</a></span>evalMode()</h2>
+<a id="a4a93365a7a887271047eb48b2b458b63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a93365a7a887271047eb48b2b458b63">&#9670;&nbsp;</a></span>evalMode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1544,7 +1544,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> DYN::ModelCPP::evalMode </td>
+          <td class="memname"><a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> DYN::ModelCPP::evalMode </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>t</em></td><td>)</td>
@@ -1553,7 +1553,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1569,12 +1569,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a79d81cb26e180f838dac2af8f4279507">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../db/d44/a03153.html#abd06158c3e9072308ad0a7180dd87977">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../dd/d02/a03145.html#ad0cd4c5ed68714308bbefd6d695d03af">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a43e7abf8b69aa4770448b3f012249465">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#a9433f985f84d454b207ca7ab9e1a12a8">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a983b0b6163d4bc2ac4939b4844b22fe3">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a1413bab503d464a35205caeb02159232">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a3921a3784036125e189afac9f6604eb2">DYN::ModelVariationArea</a>, and <a class="el" href="../../dc/d10/a03169.html#abe93f53363739a254ff2abda1609a61b">DYN::ModelAreaShedding</a>.</p>
+<p>Implemented in <a class="el" href="../../db/d44/a03153.html#aee699227b16c259b3544021961da8e42">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../dd/d02/a03145.html#ab05f75dd880a649f8da5d0e5c11a3ced">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a07dd242646363bd75d0c936987f967e2">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#a08f4f69ef483a3d947c50c686f748d6e">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#aadfa5acfddf33d608bf21e7a765150c6">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#ab5ccce3a1c2b864e6bb68b9d21c949b5">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a9651fab0cce68facaa4110d2840f0d34">DYN::ModelVariationArea</a>, and <a class="el" href="../../dc/d10/a03169.html#a6ed96360a43a6122d8209aa984635439">DYN::ModelAreaShedding</a>.</p>
 
 </div>
 </div>
-<a id="a5269bfac73762560466af1e24c2ceda8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5269bfac73762560466af1e24c2ceda8">&#9670;&nbsp;</a></span>evalZ()</h2>
+<a id="a6921c84ad7be7be47bb1bdf6f6d17376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6921c84ad7be7be47bb1bdf6f6d17376">&#9670;&nbsp;</a></span>evalZ()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1583,7 +1583,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::evalZ </td>
+          <td class="memname">void DYN::ModelCPP::evalZ </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>t</em></td><td>)</td>
@@ -1592,7 +1592,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1613,7 +1613,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a609cec3463fdd3bb8927e15baadabe66">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#ab801f8355e88a4467f43bd838906742c">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#a229454b78d1df9ee298d425e32e2e16e">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#af126f133b5215e757a77f2d2e03ab3a3">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#a53c04dc7f83b55fed2bab588328326cd">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a027d0731f1530922c165a986cff5e4a8">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a66ffca673591b38ea51a9f2583b519c4">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a8113bd77097d7e251592926f3d5c09e1">DYN::ModelVariationArea</a>, and <a class="el" href="../../dc/d10/a03169.html#ab76c6de17cab77cd394b9ab58cde1abd">DYN::ModelAreaShedding</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#ad6b4b0bb2769806aafc8dccc394e97fd">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#af394c4b20e9cc55bdd4a2c86778efb75">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#a81ca3ed04519a321ea3a1b6b3940a4f4">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d2/daf/a03245.html#a029f5a27ef9abb4bd060a511ddd89399">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#aa410bf3ea2465bb90f762c9954eaf804">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a7af050f8aefcd4230837bd4d677fce81">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a10b5969c30729d95639b8e8e46e33f98">DYN::ModelVariationArea</a>, and <a class="el" href="../../dc/d10/a03169.html#a9fd006a4f1d451ee8cfda315af132ea4">DYN::ModelAreaShedding</a>.</p>
 
 </div>
 </div>
@@ -1643,12 +1643,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 <p>get checksum </p>
 <dl class="section return"><dt>Returns</dt><dd>checksum string </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#a4f384f9f22c85a622c731b5d562f77ae">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#a84a0b2942adc98455cc15a5752f65c66">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#aa9b8c48125b5969da9af27a94bcf896c">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a37acab5091ab6f748450fa4f60ca15a6">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#aa99d70da580909d218bb175ccb7ac81f">DYN::ModelAreaShedding</a>, <a class="el" href="../../d2/daf/a03245.html#a1af82aeca7e8779917143813fa80eca8">DYN::ModelNetwork</a>, <a class="el" href="../../dd/d02/a03145.html#ae766415d84cb3fd859487fd426bf1189">DYN::ModelLoadRestorativeWithLimits</a>, and <a class="el" href="../../db/d44/a03153.html#a3ddbf5276672f5e59ce69a197b30655c">DYN::ModelCentralizedShuntsSectionControl</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#ace9e4a9ee3f5566b8424aad62115fcde">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#a5637375030002463a4dd08227b0a575b">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#ad4f2b5246b6580cddf8166a82be8fe7e">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a59c0730e67d6bfa52f267fdb530688af">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#aad9cad9a6abb389ea5d88620b3170f67">DYN::ModelAreaShedding</a>, <a class="el" href="../../d2/daf/a03245.html#a7d5287ecb8b24ece83e3f21160bb9142">DYN::ModelNetwork</a>, <a class="el" href="../../dd/d02/a03145.html#a5ed76006c4684dee695ef4b4c78aee47">DYN::ModelLoadRestorativeWithLimits</a>, and <a class="el" href="../../db/d44/a03153.html#a435d29c57a05f74a196123d8405cbd41">DYN::ModelCentralizedShuntsSectionControl</a>.</p>
 
 </div>
 </div>
-<a id="a4f392adeebf2f41733b34d550e5fc375"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f392adeebf2f41733b34d550e5fc375">&#9670;&nbsp;</a></span>getIndexesOfVariablesUsedForCalculatedVarI()</h2>
+<a id="a0db6230cf5cdaf3fc14c499624495dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0db6230cf5cdaf3fc14c499624495dc4">&#9670;&nbsp;</a></span>getIndexesOfVariablesUsedForCalculatedVarI()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1657,7 +1657,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI </td>
+          <td class="memname">void DYN::ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>iCalculatedVar</em>, </td>
@@ -1676,7 +1676,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1692,12 +1692,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a0b91e073618101bbcad033525d765d0b">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#af702f53c308c254ff03f8cb32409f83d">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#a6bc76cbefb1100e5a8df50a8a4955a4d">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#a05f30be5bc05bc9e91bd319df3b95010">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#aeee555b2343f6ee6ca3e98ec717c6940">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a5900d13af6e736f19931ad54941521da">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#aed2fa23aa22b26c10581e1c269f87c71">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a5d7a799dc0eca954ffe5fd646e771dd5">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#a8354e82ba21aec4f36550b5890ab5c80">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#abe1c93ec5ad497da125aaa3e4dd42d59">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#af205480e25876b6761b7a01a28e2e9e5">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d0/d04/a03161.html#ab94d3688eeb23af491de09b50951b82b">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#ab9180a25e4d664e6dfe90e8e96f01c9f">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a5b3aa6303eacda168b64e2121c9938bd">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a4a484bd0b2b429e841f8b917f795ed8e">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a7f410fded094ecd759137600a057d7b7">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#aa252ef2436ec73baf703d4d0a40377a8">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="ada9edcfd1e28ed10ccd1b76bf7c5c72b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada9edcfd1e28ed10ccd1b76bf7c5c72b">&#9670;&nbsp;</a></span>getSize()</h2>
+<a id="a71ea888f9efe8ea6d8a708963b15f28e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71ea888f9efe8ea6d8a708963b15f28e">&#9670;&nbsp;</a></span>getSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1706,7 +1706,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::getSize </td>
+          <td class="memname">void DYN::ModelCPP::getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1714,7 +1714,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1724,12 +1724,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a4052431a5692ff9862a9b18040bc96ba">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d2/daf/a03245.html#a4b7a40375a5701b6e00b596627cc7d79">DYN::ModelNetwork</a>, <a class="el" href="../../dd/d02/a03145.html#ac91c976576c391ca6401cdbfe692010a">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a22c8c0fdca78cfccf0150c08df821fab">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#aa69aa32fb49360b732fb296527293a01">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#afd280b2cd7b0ca362d6f844960205e2d">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a54619869194d3279dcac917d51673695">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#ab7726b666c788606507b33cf236de173">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d1/d30/a03185.html#ad3a094b8a603c53cf867577c2f2605bd">DYN::ModelVoltageSetPointChange</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/daf/a03245.html#a0eb54940ec9096be0679a0882a0c2f9e">DYN::ModelNetwork</a>, <a class="el" href="../../dd/d02/a03145.html#a0b4721b1af635560078da426225920f8">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a5c181f2ac22b76fed374c381dd45a2c0">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#aebbf7782212faf7ea5fa65c7902c283b">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#a19f2dcacd59ed1117d6d747a52955b94">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a935e7a4cb3627f4cd6b290bdd9b9e48d">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#ae62aa75e955693a47b1b026152bde7e8">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d1/d30/a03185.html#a03f9b1cc971edd5c30a166c327ccee10">DYN::ModelVoltageSetPointChange</a>.</p>
 
 </div>
 </div>
-<a id="abd01dd250ef0c3b6cdaa7eebef3b76ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd01dd250ef0c3b6cdaa7eebef3b76ce">&#9670;&nbsp;</a></span>getY0()</h2>
+<a id="a991072dea5a149a29be0590d98395ce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a991072dea5a149a29be0590d98395ce0">&#9670;&nbsp;</a></span>getY0()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1738,7 +1738,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::getY0 </td>
+          <td class="memname">void DYN::ModelCPP::getY0 </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1746,7 +1746,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1756,12 +1756,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a16e40fa3b7d39beaba5b146a29e899bc">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#a9401dade843c7b2a243e0258e99acdf5">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#a1ecc9114ba510cfca8b494bdb85f3a05">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#a02cfe8da144a526bcda38feb49dce464">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#a84edba4b38f9cccf78a2356f8a34caf1">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a598e4e047a54262a03ec4efaaa9faae8">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#ae36ba7967ffcfa7546e06c299e0bf995">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#ac6cf6a32af2cf14b1fcd8ddb8e2596cf">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#a044974f027b3a92eae4a012b7fa5fede">DYN::ModelNetwork</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d02/a03145.html#aa1687ccaba5ad586660f6e8c535227e1">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../d0/d04/a03161.html#acf4e54b35982e6e9aa39a2b0d576c462">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../db/d44/a03153.html#ad9b4168fef53e99698074d83e6670dbd">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d6/d04/a03193.html#a7b181cbe9209ee2e903986ee9229cde9">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a690d097b750bee153d7c18612a320d2a">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a7c41e0e18d4d9c1e8d90a9cdd94139fa">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a31519aff150c6d8009a7eade59d9f084">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d2/daf/a03245.html#aaafc8ff9eaf308eab8d93b135af6e172">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="acc54f197a38a1b8a9e6459f544d443ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc54f197a38a1b8a9e6459f544d443ca">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a27049900be1ad844bd8224a741a1bae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27049900be1ad844bd8224a741a1bae1">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1770,7 +1770,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::init </td>
+          <td class="memname">void DYN::ModelCPP::init </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>t0</em></td><td>)</td>
@@ -1779,7 +1779,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1794,12 +1794,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a108ac9c550ba2e9349ccfbcd8c4bf770">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#a2af0d2729b1872cdf9b691488e8db84f">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../dd/d02/a03145.html#a9c3339ec7d87657d111d62a73fe6ee9a">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#aaea8593d78e274fa169c173668623d8e">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d2/daf/a03245.html#ab4a21fb95a79fe2f42ce9f0eb846f6b5">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a847c32f27c924a3f3278d8dec6e73dfd">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#a8cfba364d8f4e8d2680f5746aec2a96b">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a1660a1cccfc5fd12a42a4097c5b11553">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d1/d30/a03185.html#a7745518084816c06138576b2c8fc5b2c">DYN::ModelVoltageSetPointChange</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#a50a4a01741f23f74936d9d729e39023c">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../dd/d02/a03145.html#a003c5be8cd52d60eca7a12e832c661ca">DYN::ModelLoadRestorativeWithLimits</a>, <a class="el" href="../../db/d44/a03153.html#a02308229f1a4a4f405d475fb6c2e0487">DYN::ModelCentralizedShuntsSectionControl</a>, <a class="el" href="../../d2/daf/a03245.html#ac842b9b356c7f688de15d48507bac5b9">DYN::ModelNetwork</a>, <a class="el" href="../../d6/d04/a03193.html#a9795b39bf41dda6c76c5b41f02908a94">DYN::ModelOmegaRef</a>, <a class="el" href="../../d7/d90/a03177.html#ae7f678ef1c30a006d44bfc127b90f00f">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a1ed5bd989938f307d40f86c9b4baec6b">DYN::ModelAreaShedding</a>, and <a class="el" href="../../d1/d30/a03185.html#ac6effebb606510e4a851267ad3ec8c4a">DYN::ModelVoltageSetPointChange</a>.</p>
 
 </div>
 </div>
-<a id="a3252c26da754b50a449af22b053bcd7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3252c26da754b50a449af22b053bcd7a">&#9670;&nbsp;</a></span>initSubBuffers()</h2>
+<a id="a7e21e9de9182d50201404242b1cb42da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e21e9de9182d50201404242b1cb42da">&#9670;&nbsp;</a></span>initSubBuffers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1808,7 +1808,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::initSubBuffers </td>
+          <td class="memname">void DYN::ModelCPP::initSubBuffers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1816,7 +1816,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1825,7 +1825,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a3841e9b5ff862cfcf2c7d9aa12a7e9bb">DYN::SubModel</a>.</p>
 
-<p>Reimplemented in <a class="el" href="../../d2/daf/a03245.html#adc944c2134fb310f24c9f3591147f782">DYN::ModelNetwork</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d2/daf/a03245.html#ab77aa50a9b0aa5294d3387b0270f715e">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
@@ -1857,8 +1857,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a6fb589d46586640ebc1f3b6c3d329c86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fb589d46586640ebc1f3b6c3d329c86">&#9670;&nbsp;</a></span>loadParameters()</h2>
+<a id="a3b9790dad578c79f3a4a966aebe99288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b9790dad578c79f3a4a966aebe99288">&#9670;&nbsp;</a></span>loadParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1876,7 +1876,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1893,8 +1893,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a36f882beefc76806cfa3b2e9f20fb22d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36f882beefc76806cfa3b2e9f20fb22d">&#9670;&nbsp;</a></span>loadVariables()</h2>
+<a id="ab32bee854ddf053cf041efeca1ef5914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab32bee854ddf053cf041efeca1ef5914">&#9670;&nbsp;</a></span>loadVariables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1912,7 +1912,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1929,8 +1929,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a71479701123028b038c313a8d3a5fd9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71479701123028b038c313a8d3a5fd9a">&#9670;&nbsp;</a></span>modelType()</h2>
+<a id="afc8c3f03f682e7f62f7d3c7e55a6472b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc8c3f03f682e7f62f7d3c7e55a6472b">&#9670;&nbsp;</a></span>modelType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1947,7 +1947,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1959,8 +1959,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="aa098b6d92dc71a12b2bb0478b7088902"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa098b6d92dc71a12b2bb0478b7088902">&#9670;&nbsp;</a></span>notifyTimeStep()</h2>
+<a id="a9d3e847806ea23de017ca840fb7c9879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d3e847806ea23de017ca840fb7c9879">&#9670;&nbsp;</a></span>notifyTimeStep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1977,7 +1977,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1988,8 +1988,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="ac00f3ba47fc51fc1570df02fe1ea7bbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac00f3ba47fc51fc1570df02fe1ea7bbf">&#9670;&nbsp;</a></span>setFequationsInit()</h2>
+<a id="add3f95a3f40f956ab258b85b9a37efd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add3f95a3f40f956ab258b85b9a37efd1">&#9670;&nbsp;</a></span>setFequationsInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1998,7 +1998,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::setFequationsInit </td>
+          <td class="memname">void DYN::ModelCPP::setFequationsInit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -2006,7 +2006,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2015,12 +2015,12 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#afaef53eb84b40146f44cfd74c0c4c3b1">DYN::SubModel</a>.</p>
 
-<p>Reimplemented in <a class="el" href="../../d2/daf/a03245.html#a9334bd98604f49ab8622f0ee3033c595">DYN::ModelNetwork</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d2/daf/a03245.html#a0f649f6bf5d794a7f5767ef36a8d27b8">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
-<a id="a4aee2bab1bfcfc1c9919b13f9d7aa016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aee2bab1bfcfc1c9919b13f9d7aa016">&#9670;&nbsp;</a></span>setGequationsInit()</h2>
+<a id="af70b69603ca3bd0113d3650ea4d408f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af70b69603ca3bd0113d3650ea4d408f0">&#9670;&nbsp;</a></span>setGequationsInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2037,7 +2037,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2048,8 +2048,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="aaf57fcadb060ff3744429250283b2a68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf57fcadb060ff3744429250283b2a68">&#9670;&nbsp;</a></span>setSharedParametersDefaultValues()</h2>
+<a id="a3aae336632d189189317267ada0e907d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aae336632d189189317267ada0e907d">&#9670;&nbsp;</a></span>setSharedParametersDefaultValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2058,7 +2058,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::setSharedParametersDefaultValues </td>
+          <td class="memname">void DYN::ModelCPP::setSharedParametersDefaultValues </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -2066,7 +2066,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2077,8 +2077,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a0e402faab61c82a81a9933ac09b70409"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e402faab61c82a81a9933ac09b70409">&#9670;&nbsp;</a></span>setSharedParametersDefaultValuesInit()</h2>
+<a id="a0bd537b5b7896f0e0aeed60f0e5d31dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd537b5b7896f0e0aeed60f0e5d31dc">&#9670;&nbsp;</a></span>setSharedParametersDefaultValuesInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2087,7 +2087,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::setSharedParametersDefaultValuesInit </td>
+          <td class="memname">void DYN::ModelCPP::setSharedParametersDefaultValuesInit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -2095,7 +2095,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2106,8 +2106,8 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
-<a id="a43e5a5f92e1019783b63a6b523d36370"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43e5a5f92e1019783b63a6b523d36370">&#9670;&nbsp;</a></span>setSubModelParameters()</h2>
+<a id="a31983ebbece6cdbe97cb39b0978ed9fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31983ebbece6cdbe97cb39b0978ed9fb">&#9670;&nbsp;</a></span>setSubModelParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2116,7 +2116,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ModelCPP::setSubModelParameters </td>
+          <td class="memname">void DYN::ModelCPP::setSubModelParameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -2124,7 +2124,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2133,7 +2133,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a9d3b2d3e35655befcd58544815dff789">DYN::SubModel</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#a1a0942f45cac7b9edf85e6df104355b2">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#a1ae28111fd136d292811928a01228d1a">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a4d4e6d3e5965955cfeb941c800616c0b">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#abf35b807342b4bb3e096f7285745350c">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a8c8aa0910cc8426e4ac07154a6c7fd8a">DYN::ModelAreaShedding</a>, <a class="el" href="../../d2/daf/a03245.html#a9d5e3c7f541e787ba41e051ded56497f">DYN::ModelNetwork</a>, <a class="el" href="../../dd/d02/a03145.html#a2a665f7d04b8946f7d77d85ecf1a3e53">DYN::ModelLoadRestorativeWithLimits</a>, and <a class="el" href="../../db/d44/a03153.html#a8181885c154e92de0e4b2e267000937d">DYN::ModelCentralizedShuntsSectionControl</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/d04/a03161.html#ac50771389859a62e4b0bb1e35c34f979">DYN::ModelVoltageMeasurementsUtilities</a>, <a class="el" href="../../d6/d04/a03193.html#a664727734e4147eeee61aa614ef55ea1">DYN::ModelOmegaRef</a>, <a class="el" href="../../d1/d30/a03185.html#a4d47e0874bddfd32366ce10cb8cf6a68">DYN::ModelVoltageSetPointChange</a>, <a class="el" href="../../d7/d90/a03177.html#a2851ab8ec28baddc8865c2df7ee1f8c7">DYN::ModelVariationArea</a>, <a class="el" href="../../dc/d10/a03169.html#a1b088fc76c3ab16bd64f4c15ac750866">DYN::ModelAreaShedding</a>, <a class="el" href="../../d2/daf/a03245.html#ae25014c99e6b254242e3112a88815107">DYN::ModelNetwork</a>, <a class="el" href="../../dd/d02/a03145.html#a930c0431c585a3abe14874f96d959baf">DYN::ModelLoadRestorativeWithLimits</a>, and <a class="el" href="../../db/d44/a03153.html#ab69beb89504316b17ebadad019d1771f">DYN::ModelCentralizedShuntsSectionControl</a>.</p>
 
 </div>
 </div>
@@ -2157,7 +2157,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d0f/a03137.html">ModelCPP</a></li>
-    <li class="footer">Generated on Mon Jul 8 2024 12:51:17 for Dynawo by
+    <li class="footer">Generated on Tue Jul 9 2024 12:31:15 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

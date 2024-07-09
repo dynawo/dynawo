@@ -75,7 +75,7 @@ var searchData=
   ['vhv_5fthreshold',['VHV_THRESHOLD',['../d7/d21/a00584.html#a6456be69bcc83ce0341e21262a0e1411',1,'DYN']]],
   ['vlevelcomponents_5f',['vLevelComponents_',['../d2/daf/a03245.html#ae36a3a026e7a5f4e480c4f34c8b78a23',1,'DYN::ModelNetwork']]],
   ['vlevelinitcomponents_5f',['vLevelInitComponents_',['../d2/daf/a03245.html#a2f7ca0e7ebbef3418c74c5c673e12020',1,'DYN::ModelNetwork']]],
-  ['vnom1_5f',['vNom1_',['../d0/d84/a03281.html#a640ebe2a5873b225e43ddcc184dc2220',1,'DYN::ModelTwoWindingsTransformer::vNom1_()'],['../db/dc5/a03009.html#a70a7b8cb4178a0331e27924e65ae9731',1,'DYN::FictTwoWTransformerInterfaceIIDM::VNom1_()']]],
+  ['vnom1_5f',['VNom1_',['../db/dc5/a03009.html#a70a7b8cb4178a0331e27924e65ae9731',1,'DYN::FictTwoWTransformerInterfaceIIDM::VNom1_()'],['../d0/d84/a03281.html#a640ebe2a5873b225e43ddcc184dc2220',1,'DYN::ModelTwoWindingsTransformer::vNom1_()']]],
   ['vnom2_5f',['vNom2_',['../d0/d84/a03281.html#a2b900500a9dba8fc0afb73d7846a8f69',1,'DYN::ModelTwoWindingsTransformer']]],
   ['vnom_5f',['VNom_',['../d1/db3/a03013.html#a19c37f9637b50434b9924e3720c29d01',1,'DYN::FictVoltageLevelInterfaceIIDM::VNom_()'],['../d4/d44/a03065.html#a0f202ed56ec5afa1b68da47324509182',1,'DYN::LoadInterfaceIIDM::vNom_()'],['../df/d62/a03257.html#a19580c22e8ba069f208039e04f34ceff',1,'DYN::ModelShuntCompensator::vNom_()'],['../de/da4/a03005.html#a53cf102f2c7906f79131701ea6d625a7',1,'DYN::FictBusInterfaceIIDM::Vnom_()']]],
   ['voltagelevel_5f',['voltageLevel_',['../dd/d5c/a02985.html#a962f7043ab2feb0bc4f4c03b61841042',1,'DYN::CalculatedBusInterfaceIIDM']]],
