@@ -45,6 +45,7 @@ jobs:
 
   bionic:
     name: Linux Bionic
+
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-nightly-bionic:latest
     env:
