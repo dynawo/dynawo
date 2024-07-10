@@ -62,7 +62,7 @@ jobs:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux)
     name: Linux Fedora (Release, GCC, cxx11)
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-distribution-cxx11:latest
+    container: dynawo/dynawo-ci-nightly-fedora:latest
     needs: nightly
     env:
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
