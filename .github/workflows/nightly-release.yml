@@ -11,6 +11,10 @@ on:
         description: Build Linux release
         type: boolean
         default: true
+      perform-linux-gcc11:
+        description: Build Linux gcc11 release
+        type: boolean
+        default: true
       perform-windows:
         description: Build Windows release
         type: boolean
@@ -62,7 +66,7 @@ jobs:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux)
     name: Linux Fedora (Release, GCC, cxx11)
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-distribution-cxx11:latest
+    container: dynawo/dynawo-ci-nightly-fedora:latest
     needs: nightly
     env:
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
@@ -118,6 +122,55 @@ jobs:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
             await github.rest.repos.createDispatchEvent({ owner: context.repo.owner, repo: "dynawo-algorithms", event_type: "nightly-linux" });
+
+  distribution-gcc11:
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux-gcc11)
+    name: Linux GCC11 (Release, GCC11)
+    runs-on: ubuntu-latest
+    container: dynawo/dynawo-distribution-gcc11:latest
+    needs: nightly
+    env:
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_FORCE_CXX11_ABI: "true"
+      DYNAWO_NB_PROCESSORS_USED: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Prepare files for distribution
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh distrib
+          util/envDynawo.sh distrib-omc
+          util/envDynawo.sh distrib-headers
+          for file in distributions/Dynawo_v*.zip ; do mv $file ${file//_/_gcc11_} ; done
+          for file in distributions/Dynawo_headers_v*.zip ; do mv $file ${file//_headers_/_headers_gcc11_} ; done
+          for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_omc_gcc11_} ; done
+
+      - name: INFO. Files created in distributions folder
+        run: du -hs distributions/*
+
+      - name: Upload assets for release
+        uses: actions/github-script@v6
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            distributions/*.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
 
   windows:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-windows)

@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.WECC;
+within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 model DriveTrainPmConstant "Drive train control with constant mechanical power equal to initial electrical power"
-  extends BaseControls.BaseDriveTrain;
+  extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseDriveTrain;
 
   Modelica.Blocks.Sources.Constant PMech0Pu(k = PInj0Pu) "Initial value of the mechanical Power " annotation(
     Placement(visible = true, transformation(origin = {-190, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
