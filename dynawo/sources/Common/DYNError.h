@@ -89,11 +89,6 @@ class Error : public std::exception {
   virtual const char * what() const noexcept;
 
   /**
-   * @brief destructor
-   */
-  virtual ~Error() = default;
-
-  /**
    * @brief returns the error's type
    *
    * @return error's type
@@ -170,11 +165,6 @@ class MessageError : public std::exception {
    * @return error's description
    */
   virtual const char * what() const noexcept;
-
-  /**
-   * @brief destructor
-   */
-  virtual ~MessageError() = default;
 
   /**
    * @brief returns the error's message

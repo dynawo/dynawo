@@ -42,9 +42,6 @@ namespace job {
  */
 class OutputsEntry {
  public:
-  /// @brief Destructor
-  ~OutputsEntry() = default;
-
   /// @brief Default constructor
   OutputsEntry() = default;
 
