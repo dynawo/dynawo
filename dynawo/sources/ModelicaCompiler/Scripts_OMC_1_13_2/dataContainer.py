@@ -12,7 +12,6 @@
 # simulation tool for power systems.
 
 import re
-import sys
 import copy
 
 from utils import *
