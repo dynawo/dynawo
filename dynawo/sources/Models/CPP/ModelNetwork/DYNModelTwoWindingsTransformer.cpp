@@ -1012,10 +1012,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case p1Num_: {
       if (closed1) {
-        res[0] = Ir1 + ur1 * ir1_dUr1_ + ui1*ii1_dUr1_;   // dP1/dUr1
-        res[1] = ur1 * ir1_dUi1_ + Ii1 + ui1*ii1_dUi1_;   // dP1/dUi1
-        res[2] = ur1 * ir1_dUr2_ + ui1*ii1_dUr2_;   // dP1/dUr2
-        res[3] = ur1 * ir1_dUi2_ + ui1*ii1_dUi2_;   // dP1/dUi2
+        res[0] = Ir1 + ur1 * ir1_dUr1_ + ui1 * ii1_dUr1_;   // dP1/dUr1
+        res[1] = ur1 * ir1_dUi1_ + Ii1 + ui1 * ii1_dUi1_;   // dP1/dUi1
+        res[2] = ur1 * ir1_dUr2_ + ui1 * ii1_dUr2_;   // dP1/dUr2
+        res[3] = ur1 * ir1_dUi2_ + ui1 * ii1_dUi2_;   // dP1/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1026,10 +1026,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case p2Num_: {
       if (closed2) {
-        res[0] = ur2 * ir2_dUr1_ + ui2*ii2_dUr1_;   // dP2/dUr1
-        res[1] = ur2 * ir2_dUi1_ + ui2*ii2_dUi1_;   // dP2/dUi1
-        res[2] = Ir2 + ur2 * ir2_dUr2_ + ui2*ii2_dUr2_;   // dP2/dUr2
-        res[3] = ur2 * ir2_dUi2_ + Ii2 + ui2*ii2_dUi2_;   // dP2/dUi2
+        res[0] = ur2 * ir2_dUr1_ + ui2 * ii2_dUr1_;   // dP2/dUr1
+        res[1] = ur2 * ir2_dUi1_ + ui2 * ii2_dUi1_;   // dP2/dUi1
+        res[2] = Ir2 + ur2 * ir2_dUr2_ + ui2 * ii2_dUr2_;   // dP2/dUr2
+        res[3] = ur2 * ir2_dUi2_ + Ii2 + ui2 * ii2_dUi2_;   // dP2/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1040,10 +1040,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case q1Num_: {
       if (closed1) {
-        res[0] = ui1 * ir1_dUr1_ - Ii1 - ur1*ii1_dUr1_;   // dQ1/dUr1
-        res[1] = Ir1 + ui1 * ir1_dUi1_ - ur1*ii1_dUi1_;   // dQ1/dUi1
-        res[2] = ui1 * ir1_dUr2_ - ur1*ii1_dUr2_;   // dQ1/dUr2
-        res[3] = ui1 * ir1_dUi2_ - ur1*ii1_dUi2_;   // dQ1/dUi2
+        res[0] = ui1 * ir1_dUr1_ - Ii1 - ur1 * ii1_dUr1_;   // dQ1/dUr1
+        res[1] = Ir1 + ui1 * ir1_dUi1_ - ur1 * ii1_dUi1_;   // dQ1/dUi1
+        res[2] = ui1 * ir1_dUr2_ - ur1 * ii1_dUr2_;   // dQ1/dUr2
+        res[3] = ui1 * ir1_dUi2_ - ur1 * ii1_dUi2_;   // dQ1/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1054,10 +1054,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case q2Num_: {
       if (closed2) {
-        res[0] = ui2 * ir2_dUr1_ - ur2*ii2_dUr1_;   // dQ2/dUr1
-        res[1] = ui2 * ir2_dUi1_ - ur2*ii2_dUi1_;   // dQ2/dUi1
-        res[2] = ui2 * ir2_dUr2_ - Ii2 - ur2*ii2_dUr2_;   // dQ2/dUr2
-        res[3] = Ir2 + ui2 * ir2_dUi2_ - ur2*ii2_dUi2_;   // dQ2/dUi2
+        res[0] = ui2 * ir2_dUr1_ - ur2 * ii2_dUr1_;   // dQ2/dUr1
+        res[1] = ui2 * ir2_dUi1_ - ur2 * ii2_dUi1_;   // dQ2/dUi1
+        res[2] = ui2 * ir2_dUr2_ - Ii2 - ur2 * ii2_dUr2_;   // dQ2/dUr2
+        res[3] = Ir2 + ui2 * ir2_dUi2_ - ur2 * ii2_dUi2_;   // dQ2/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1186,10 +1186,19 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
       z_[0] = OPEN;
     } else if (modelBus1_->getConnectionState() == OPEN) {
-      z_[0] = CLOSED_2;
-
+      if (getConnectionState() == CLOSED_1)
+        z_[0] = OPEN;
+      else if (getConnectionState() == OPEN)
+        z_[0] = OPEN;
+      else if (getConnectionState() == CLOSED_2 || getConnectionState() == CLOSED)
+        z_[0] = CLOSED_2;
     } else if (modelBus2_->getConnectionState() == OPEN) {
-      z_[0] = CLOSED_1;
+      if (getConnectionState() == CLOSED_2)
+        z_[0] = OPEN;
+      else if (getConnectionState() == OPEN)
+        z_[0] = OPEN;
+      else if (getConnectionState() == CLOSED_1 || getConnectionState() == CLOSED)
+        z_[0] = CLOSED_1;
     }
     break;
   }
