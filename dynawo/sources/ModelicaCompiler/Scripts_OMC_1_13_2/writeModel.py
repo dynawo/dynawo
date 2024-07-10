@@ -76,7 +76,7 @@ if __name__ == '__main__':
     input_dir = options.inputDir
     if options.outputDir is not None: output_dir = options.outputDir
     mod_name = options.modName
-    mod_name_init =  mod_name + "_INIT"
+    mod_name_init = mod_name + "_INIT"
     init_pb = options.init_pb
     disable_generate_calc_vars = options.disable_generate_calc_vars
     additional_header_files = []
