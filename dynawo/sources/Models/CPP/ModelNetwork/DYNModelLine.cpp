@@ -878,10 +878,19 @@ ModelLine::evalZ(const double& t) {
     if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
       z_[0] = OPEN;
     } else if (modelBus1_->getConnectionState() == OPEN) {
-      z_[0] = CLOSED_2;
-
+      if (getConnectionState() == CLOSED_1)
+        z_[0] = OPEN;
+      else if (getConnectionState() == OPEN)
+        z_[0] = OPEN;
+      else if (getConnectionState() == CLOSED_2 || getConnectionState() == CLOSED)
+        z_[0] = CLOSED_2;
     } else if (modelBus2_->getConnectionState() == OPEN) {
-      z_[0] = CLOSED_1;
+      if (getConnectionState() == CLOSED_2)
+        z_[0] = OPEN;
+      else if (getConnectionState() == OPEN)
+        z_[0] = OPEN;
+      else if (getConnectionState() == CLOSED_1 || getConnectionState() == CLOSED)
+        z_[0] = CLOSED_1;
     }
     break;
   }
