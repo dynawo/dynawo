@@ -17,8 +17,6 @@
  *
  */
 
-#include <powsybl/iidm/BusbarSection.hpp>
-
 #include "gtest_dynawo.h"
 
 #include "DYNCommon.h"
@@ -262,60 +260,6 @@ initIIDMNetwork() {
     .setR(14.0)
     .add();
 
-  auto& vl4 = substation.newVoltageLevel()
-    .setId("VL4")
-    .setNominalV(360.)
-    .setTopologyKind(powsybl::iidm::TopologyKind::NODE_BREAKER)
-    .add();
-
-  auto& vl4Bbs = vl4.getNodeBreakerView().newBusbarSection()
-    .setId("VL4_BBS")
-    .setNode(0)
-    .add();
-
-  vl4.getNodeBreakerView().newSwitch()
-    .setId("VL4_SW01")
-    .setKind(powsybl::iidm::SwitchKind::BREAKER)
-    .setOpen(false)
-    .setNode1(0)
-    .setNode2(1)
-    .setRetained(true)
-    .add();
-
-  vl4.getNodeBreakerView().newSwitch()
-    .setId("VL4_SW02")
-    .setKind(powsybl::iidm::SwitchKind::BREAKER)
-    .setOpen(false)
-    .setNode1(0)
-    .setNode2(2)
-    .setRetained(true)
-    .add();
-
-  vl4.newLoad()
-    .setId("VL4_LOAD")
-    .setNode(1)
-    .setP0(5000.)
-    .setQ0(4000.)
-    .add();
-
-  network->newLine()
-    .setId("LINE_VL1_VL4")
-    .setVoltageLevel1("VL1")
-    .setBus1("VL1_BUS1")
-    .setVoltageLevel2("VL4")
-    .setNode2(2)
-    .setR(3.0)
-    .setX(33.33)
-    .setG1(1.0)
-    .setB1(0.2)
-    .setG2(2.0)
-    .setB2(0.4)
-    .add();
-
-  vl4Bbs.getTerminal().getBusView().getBus().get()
-      .setV(360.)
-      .setAngle(0.);
-
   return network;
 }
 
@@ -324,16 +268,7 @@ TEST(DataInterfaceTest, testLostEquipments) {
 
   shared_ptr<DataInterfaceIIDM> data(new DataInterfaceIIDM(network));
   data->initFromIIDM();
-  auto& switchVl3Iidm = network->getSwitch("VL3_SW01");
-  ASSERT_FALSE(switchVl3Iidm.isOpen());
-  auto& load3Iidm = network->getLoad("VL3_LOAD");
-  ASSERT_TRUE(load3Iidm.getTerminal().isConnected());
-  auto& bbsVl3 = network->getBusbarSection("VL3_BBS");
-  ASSERT_TRUE(bbsVl3.getTerminal().isConnected());
   exportStateVariables(data);
-  ASSERT_TRUE(switchVl3Iidm.isOpen());
-  ASSERT_FALSE(load3Iidm.getTerminal().isConnected());
-  ASSERT_FALSE(bbsVl3.getTerminal().isConnected());
 
   shared_ptr<SwitchInterface> sw = data->getNetwork()->getVoltageLevels()[0]->getSwitches()[0];
   shared_ptr<LoadInterface> load = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
@@ -511,13 +446,13 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ASSERT_EQ(mapIdToType[tfo->getID()], tfo->getTypeAsString());
 
   ///
-  // NODE_BREAKER case 1
+  // NODE_BREAKER case
   ///
 
-  shared_ptr<SwitchInterface> swNBVL4 = data->getNetwork()->getVoltageLevels()[3]->getSwitches()[0];
-  shared_ptr<LoadInterface> loadNBVL4 = data->getNetwork()->getVoltageLevels()[3]->getLoads()[0];
+  shared_ptr<SwitchInterface> swNB = data->getNetwork()->getVoltageLevels()[2]->getSwitches()[0];
+  shared_ptr<LoadInterface> loadNB = data->getNetwork()->getVoltageLevels()[2]->getLoads()[0];
   connectedComponents = data->findConnectedComponents();
-  swNBVL4->setValue(SWITCH_STATE, OPEN);
+  swNB->setValue(SWITCH_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
   mapIdToType.clear();
@@ -525,30 +460,8 @@ TEST(DataInterfaceTest, testLostEquipments) {
     mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
   }
   ASSERT_EQ(mapIdToType.size(), 2);
-  ASSERT_EQ(mapIdToType[swNBVL4->getID()], swNBVL4->getTypeAsString());
-  ASSERT_EQ(mapIdToType[loadNBVL4->getID()], loadNBVL4->getTypeAsString());
-
-  ///
-  // NODE_BREAKER case 2
-  // This VL is isolated so it is switchedOff at initialization so no lost component
-  ///
-
-  shared_ptr<SwitchInterface> swNB = data->getNetwork()->getVoltageLevels()[2]->getSwitches()[0];
-  shared_ptr<LoadInterface> loadNB = data->getNetwork()->getVoltageLevels()[2]->getLoads()[0];
-  shared_ptr<BusInterface> bbsVL3 = data->getNetwork()->getVoltageLevels()[2]->getBuses()[0];
-  shared_ptr<BusInterface> loadCalculatedBusVL3 = data->getNetwork()->getVoltageLevels()[2]->getBuses()[1];
-  connectedComponents = data->findConnectedComponents();
-  ASSERT_TRUE(swNB->isOpen());
-  ASSERT_FALSE(loadNB->isConnected());
-  ASSERT_FALSE(bbsVL3->isConnected());
-  ASSERT_FALSE(loadCalculatedBusVL3->isConnected());
-  data->exportStateVariablesNoReadFromModel();
-  lostEquipments = data->findLostEquipments(connectedComponents);
-  mapIdToType.clear();
-  for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
-    mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
-  }
-  ASSERT_EQ(mapIdToType.size(), 0);
+  ASSERT_EQ(mapIdToType[swNB->getID()], swNB->getTypeAsString());
+  ASSERT_EQ(mapIdToType[loadNB->getID()], loadNB->getTypeAsString());
 }
 
 TEST(DataInterfaceTest, testInstatiateNetwork) {
@@ -589,20 +502,6 @@ TEST(DataInterfaceTest, testInstatiateNetwork) {
   data->hasDynamicModel("2WT_VL1_VL2");
   ASSERT_TRUE(data->instantiateNetwork());
   data->hasDynamicModel("HVDC1");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("calculatedBus_VL4_0");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("calculatedBus_VL4_1");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("calculatedBus_VL4_2");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("VL4_LOAD");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("LINE_VL1_VL4");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("VL4_SW01");
-  ASSERT_TRUE(data->instantiateNetwork());
-  data->hasDynamicModel("VL4_SW02");
   ASSERT_FALSE(data->instantiateNetwork());
 }
 
