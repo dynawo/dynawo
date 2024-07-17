@@ -136,6 +136,7 @@ jobs:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_PYTHON_COMMAND: python3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
