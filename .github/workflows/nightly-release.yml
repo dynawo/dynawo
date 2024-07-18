@@ -147,6 +147,7 @@ jobs:
           util/envDynawo.sh build-user
 
       - name: Prepare files for distribution
+        shell: bash
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh distrib
