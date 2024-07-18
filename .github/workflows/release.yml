@@ -47,6 +47,7 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        shell: bash
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
@@ -131,6 +132,7 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        shell: bash
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
