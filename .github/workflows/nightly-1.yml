@@ -1,0 +1,69 @@
+name: Nightly 1
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 2-6'
+
+jobs:
+  fedora:
+    name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    container: dynawo/dynawo-ci-nightly-fedora:latest
+    strategy:
+      matrix:
+        build-type: [Release, Debug]
+        compiler: [GCC, CLANG]
+      fail-fast: false
+    env:
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: ${{ matrix.build-type }}
+      DYNAWO_COMPILER: ${{ matrix.compiler }}
+      DYNAWO_NB_PROCESSORS_USED: 2
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Tests
+        if: ${{ matrix.build-type == 'Debug' }}
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-tests
+
+      - name: NRT
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
+
+  omc:
+    name: Linux OMC Build (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    container: dynawo/dynawo-ci-nightly-fedora:latest
+    strategy:
+      matrix:
+        compiler: [GCC, CLANG]
+    env:
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_COMPILER: ${{ matrix.compiler }}
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-omcDynawo
