@@ -596,7 +596,7 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 
 NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double& /*t*/) {
-  if (modelBus_->getConnectionState() == OPEN)
+  if (modelBus_->getSwitchOff())
     z_[0] = OPEN;
 
   State currState = static_cast<State>(static_cast<int>(z_[0]));
@@ -608,6 +608,8 @@ ModelLoad::evalZ(const double& /*t*/) {
     } else {
       DYNAddTimelineEvent(network_, id_, LoadConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+      if (modelBus_->getSwitchOff())
+        modelBus_->switchOn();
     }
     stateModified_ = true;
     setConnected(currState);

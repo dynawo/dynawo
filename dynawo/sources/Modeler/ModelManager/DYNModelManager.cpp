@@ -200,7 +200,7 @@ ModelManager::associateBuffers() {
     if (!yLocalInit_.empty())
       dataInit_->localData[0]->realVars = yLocalInit_.data();
     if (!ypLocalInit_.empty())
-      dataInit_->localData[0]->derivativesVars =ypLocalInit_.data();
+      dataInit_->localData[0]->derivativesVars = ypLocalInit_.data();
     if (!zLocalInit_.empty())
       dataInit_->localData[0]->discreteVars = zLocalInit_.data();
 

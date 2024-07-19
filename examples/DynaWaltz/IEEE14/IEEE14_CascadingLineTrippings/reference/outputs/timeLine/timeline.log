@@ -34,6 +34,7 @@
 162.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
 172.000000 | _BUS____2-BUS____4-1_AC | LINE : opening both sides
 172.000000 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
+172.000000 | _BUS____1-BUS____2-1_AC | LINE : opening both sides
 172.000000 | CLA_2_4 | CLA : order to change topology
 172.000000 | CLA_2_5 | CLA : order to change topology
 172.000000 | GEN____1_SM | GENERATOR : disconnecting
