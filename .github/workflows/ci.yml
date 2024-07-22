@@ -17,6 +17,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  DYNAWO_TAG: vMaster
+
 jobs:
   build-linux:
     runs-on: ubuntu-latest
