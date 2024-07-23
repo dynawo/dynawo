@@ -284,11 +284,9 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @brief import and create a voltage level interface thanls to the IIDM instance
    *
    * @param voltageLevelIIDM IIDM instance to use to create voltageLevelInterface
-   * @param country country of the parent substation
    * @return the instance VoltageLevelInterface created
    */
-  boost::shared_ptr<VoltageLevelInterfaceIIDM> importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelIIDM,
-      const stdcxx::optional<powsybl::iidm::Country>& country);
+  boost::shared_ptr<VoltageLevelInterfaceIIDM> importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelIIDM);
 
   /**
    * @brief import and create a switch interface thanks to the IIDM instance
