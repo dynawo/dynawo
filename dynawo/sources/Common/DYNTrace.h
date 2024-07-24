@@ -262,15 +262,6 @@ class Trace {
   };
 
   /**
-   * @brief Stucture containing a trace appender, a pointer to the related sink and a thread id
-   */
-  struct SinkConfiguration {
-    TraceAppender traceAppender;                                  ///< related trace appender
-    boost::shared_ptr<FileSink> sink;                             ///< sink to configure
-    logging::attributes::current_thread_id::value_type threadId;  ///< thread id related to the sink
-  };
-
-  /**
    * @brief Init function.
    *
    * Configure the appenders/sinks. Traces generated before any call to
@@ -575,7 +566,6 @@ class Trace {
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  std::unordered_map<std::string, SinkConfiguration> tagToSinkConfigurationMap_;  ///< map each appender tag to its corresponding boost sink configuration
   std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init

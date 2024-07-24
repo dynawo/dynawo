@@ -165,8 +165,6 @@ void Trace::configureSink(const std::vector<TraceAppender>& appenders,
     boost::shared_ptr<FileSink> sink(new FileSink(
       keywords::file_name = appenders[i].getFilePath(),
       keywords::open_mode = appenders[i].getOpenMode()));
-    SinkConfiguration sinkConfiguration = {appenders[i], sink, currentId};
-    tagToSinkConfigurationMap_.insert(std::make_pair(appenders[i].getTag(), sinkConfiguration));
 
     // build format for each appenders depending on its attributes
     string separator = appenders[i].getSeparator();
@@ -266,8 +264,6 @@ void Trace::resetCustomAppenders() {
 
 void Trace::resetCustomAppenders_() {
   boost::lock_guard<boost::mutex> lock(mutex_);
-
-  tagToSinkConfigurationMap_.clear();
 
   vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
   for (itOSinks = originalSinks_.begin(); itOSinks != originalSinks_.end(); ++itOSinks) {
@@ -403,10 +399,7 @@ Trace::clearVariablesLogFile() {
 
 void
 Trace::clearVariablesLogFile_() {
-  SinkConfiguration variablesSinkConfiguration = tagToSinkConfigurationMap_.at(Trace::variables());
-  // remove the VARIABLES log file sink to clear the VARIABLES log file next time we open it in trunc mode
-  logging::core::get()->remove_sink(variablesSinkConfiguration.sink);
-  tagToSinkConfigurationMap_.erase(Trace::variables());
+  resetPersistantCustomAppender(variables());
   variablesSinkConfiguration.traceAppender.setOpenMode(std::ios_base::out | std::ios_base::trunc);
 
   std::vector<TraceAppender> variablesAppenderVec;
