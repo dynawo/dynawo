@@ -1,7 +1,7 @@
-within Dynawo.Electrical.Controls;
+within Dynawo.Electrical.Controls.IEC;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package IEC "Converter-control models from IEC standards"
+package IEC61400 "Wind converter-control models from IEC N°61400-27-1 standard"
   extends Icons.Package;
-end IEC;
+end IEC61400;
