@@ -35,6 +35,8 @@
 #include <boost/thread/mutex.hpp>
 #include <unordered_map>
 
+namespace logging = boost::log;
+
 namespace DYN {
 
 /**
@@ -98,7 +100,7 @@ class Trace {
       separator_(),
       showTimeStamp_(false),
       timeStampFormat_(),
-      append_(false),
+      openMode_(std::ios_base::out),
       persistant_(false) { }
 
     /**
@@ -158,11 +160,11 @@ class Trace {
     }
 
     /**
-     * @brief Determines if log is appended to existing file
-     * @returns whether the log must appended to existing log file
+     * @brief Get the openmode of the log file
+     * @returns the openmode of the log file
      */
-    bool doesAppend() const {
-      return append_;
+    std::ios_base::openmode getOpenMode() const {
+      return openMode_;
     }
 
     /**
@@ -230,12 +232,12 @@ class Trace {
     }
 
     /**
-     * @brief Set the append attribute
+     * @brief Set the openmode of the log file
      *
-     * @param append determines if the log must appended to existing file
+     * @param openMode openMode of the log file
      */
-    void setAppend(bool append) {
-      append_ = append;
+    void setOpenMode(std::ios_base::openmode openMode) {
+      openMode_ = openMode;
     }
 
     /**
@@ -255,8 +257,17 @@ class Trace {
     std::string separator_;  ///< separator used between each log information date severity log
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
-    bool append_;  ///< Append to existing file instead of erasing
+    std::ios_base::openmode openMode_;  ///< openmode of the log file
     bool persistant_;  ///< Do not remove this appender when resetting
+  };
+
+  /**
+   * @brief Stucture containing a trace appender, a pointer to the related sink and a thread id
+   */
+  struct SinkConfiguration {
+    TraceAppender traceAppender;                                  ///< related trace appender
+    boost::shared_ptr<FileSink> sink;                             ///< sink to configure
+    logging::attributes::current_thread_id::value_type threadId;  ///< thread id related to the sink
   };
 
   /**
@@ -447,6 +458,18 @@ class Trace {
     return slv >= defaultLevel_;
   }
 
+  /**
+   * @brief Print Dynawo log header in the log file corresponding to input tag
+   *
+   * @param tag tag to print the Dynawo log header in the right log file
+   */
+  static void printDynawoLogHeader(const std::string& tag);
+
+  /**
+   * @brief Clear the log file which has tag VARIABLES
+   */
+  static void clearVariablesLogFile();
+
  private:
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
@@ -486,6 +509,15 @@ class Trace {
    * @param[in] appenders : Appenders to add
    */
   void addAppenders_(const std::vector<TraceAppender>& appenders);
+
+  /**
+   * @brief  configure a sink to add it to the logging core singleton
+   *
+   * @param appenders appenders containing the data to configure the sink
+   * @param currentId current thread id
+   */
+  void configureSink(const std::vector<TraceAppender>& appenders,
+                      logging::attributes::current_thread_id::value_type currentId);
 
   /**
    * @brief Reset non-persistant custom appenders of trace system
@@ -533,9 +565,17 @@ class Trace {
    */
   void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
 
+  /**
+   * @brief Clear the log file which has tag VARIABLES
+   *
+   * Implementation of static function
+   */
+  void clearVariablesLogFile_();
+
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
+  std::unordered_map<std::string, SinkConfiguration> tagToSinkConfigurationMap_;  ///< map each appender tag to its corresponding boost sink configuration
   std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init

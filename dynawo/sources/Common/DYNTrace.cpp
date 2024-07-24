@@ -48,6 +48,8 @@
 
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
+#include "config.h"
+#include "gitversion.h"
 
 using std::string;
 using std::vector;
@@ -144,23 +146,27 @@ void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
 void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
-
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+  configureSink(appenders, currentId);
+  logging::add_common_attributes();
+}
 
+void Trace::configureSink(const std::vector<TraceAppender>& appenders,
+                                    logging::attributes::current_thread_id::value_type currentId) {
   TraceSinks traceSink;
   if (sinks_.find(currentId) != sinks_.end()) {
     TraceSinks& traceSinkOld = sinks_.at(currentId);
     traceSink.persistantSinks = traceSinkOld.persistantSinks;
   }
 
-  std::stringstream s;
   // Add appender
   for (unsigned int i = 0; i < appenders.size(); ++i) {
-    const std::ios_base::openmode mode = appenders[i].doesAppend() ? std::ios_base::app : std::ios_base::out;
-    boost::shared_ptr< FileSink > sink(new FileSink(
+    boost::shared_ptr<FileSink> sink(new FileSink(
       keywords::file_name = appenders[i].getFilePath(),
-      keywords::open_mode = mode));
+      keywords::open_mode = appenders[i].getOpenMode()));
+    SinkConfiguration sinkConfiguration = {appenders[i], sink, currentId};
+    tagToSinkConfigurationMap_.insert(std::make_pair(appenders[i].getTag(), sinkConfiguration));
 
     // build format for each appenders depending on its attributes
     string separator = appenders[i].getSeparator();
@@ -203,8 +209,6 @@ void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
       sinks_.insert(std::make_pair(currentId, traceSink));
     }
   }
-
-  logging::add_common_attributes();
 }
 
 void Trace::resetPersistantCustomAppenders() {
@@ -262,6 +266,8 @@ void Trace::resetCustomAppenders() {
 
 void Trace::resetCustomAppenders_() {
   boost::lock_guard<boost::mutex> lock(mutex_);
+
+  tagToSinkConfigurationMap_.clear();
 
   vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
   for (itOSinks = originalSinks_.begin(); itOSinks != originalSinks_.end(); ++itOSinks) {
@@ -380,6 +386,32 @@ Trace::logExists_(const std::string& tag, SeverityLevel slv) {
       return true;
   }
   return false;
+}
+
+void
+Trace::printDynawoLogHeader(const std::string& tag) {
+  info(tag) << " ============================================================ " << endline;
+  info(tag) << DYNLog(DynawoVersion) << "  " << std::setw(8) << DYNAWO_VERSION_STRING << endline;
+  info(tag) << DYNLog(DynawoRevision) << "  " << std::setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << endline;
+  info(tag) << " ============================================================ " << endline;
+}
+
+void
+Trace::clearVariablesLogFile() {
+  return instance().clearVariablesLogFile_();
+}
+
+void
+Trace::clearVariablesLogFile_() {
+  SinkConfiguration variablesSinkConfiguration = tagToSinkConfigurationMap_.at(Trace::variables());
+  // remove the VARIABLES log file sink to clear the VARIABLES log file next time we open it in trunc mode
+  logging::core::get()->remove_sink(variablesSinkConfiguration.sink);
+  tagToSinkConfigurationMap_.erase(Trace::variables());
+  variablesSinkConfiguration.traceAppender.setOpenMode(std::ios_base::out | std::ios_base::trunc);
+
+  std::vector<TraceAppender> variablesAppenderVec;
+  variablesAppenderVec.push_back(variablesSinkConfiguration.traceAppender);
+  configureSink(variablesAppenderVec, variablesSinkConfiguration.threadId);
 }
 
 SeverityLevel
