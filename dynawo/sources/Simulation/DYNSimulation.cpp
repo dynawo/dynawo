@@ -97,9 +97,6 @@
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
 
-#include "gitversion.h"
-#include "config.h"
-
 #include "DYNCompiler.h"
 #include "DYNDynamicData.h"
 #include "DYNModel.h"
@@ -724,10 +721,7 @@ Simulation::configureLogs() {
       itApp = appendersEntry.begin();
       for (; itApp != appendersEntry.end(); ++itApp) {
         string tag = (*itApp)->getTag();
-        Trace::info(tag) << " ============================================================ " << Trace::endline;
-        Trace::info(tag) << DYNLog(DynawoVersion) << "  " << setw(8) << DYNAWO_VERSION_STRING << Trace::endline;
-        Trace::info(tag) << DYNLog(DynawoRevision) << "  " << setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << Trace::endline;
-        Trace::info(tag) << " ============================================================ " << Trace::endline;
+        Trace::printDynawoLogHeader(tag);
       }
     }
   } else {
