@@ -139,15 +139,26 @@ bool Trace::isLoggingEnabled() {
   return logging::core::get()->get_logging_enabled();
 }
 
-void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
+void Trace::addAppenders(std::vector<TraceAppender>& appenders) {
   instance().addAppenders_(appenders);
 }
 
-void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
+void Trace::addAppenders_(std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
+
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+
+  for (TraceAppender& appender : appenders) {
+    if (appender.getTag() == Trace::variables()) {
+      appender.setOpenMode(std::ios_base::out | std::ios_base::trunc);
+      appender.setPersistant(true);
+      variablesAppenderAndThreadId_ = std::make_pair(appender, currentId);
+      break;
+    }
+  }
+
   configureSink(appenders, currentId);
   logging::add_common_attributes();
 }
@@ -399,12 +410,13 @@ Trace::clearVariablesLogFile() {
 
 void
 Trace::clearVariablesLogFile_() {
-  resetPersistantCustomAppender(variables());
-  variablesSinkConfiguration.traceAppender.setOpenMode(std::ios_base::out | std::ios_base::trunc);
-
+  resetPersistantCustomAppender(Trace::variables(), DEBUG);
+  if (!variablesAppenderAndThreadId_.is_initialized()) {
+    throw DYNError(Error::MODELER, OverwrittingVARIABLESLogFile);
+  }
   std::vector<TraceAppender> variablesAppenderVec;
-  variablesAppenderVec.push_back(variablesSinkConfiguration.traceAppender);
-  configureSink(variablesAppenderVec, variablesSinkConfiguration.threadId);
+  variablesAppenderVec.push_back(variablesAppenderAndThreadId_.get().first);
+  configureSink(variablesAppenderVec, variablesAppenderAndThreadId_.get().second);
 }
 
 SeverityLevel

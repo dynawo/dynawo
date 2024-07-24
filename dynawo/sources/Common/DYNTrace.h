@@ -33,9 +33,8 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/thread/mutex.hpp>
+#include <boost/optional.hpp>
 #include <unordered_map>
-
-namespace logging = boost::log;
 
 namespace DYN {
 
@@ -294,7 +293,7 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders : Appenders to add
    */
-  static void addAppenders(const std::vector<TraceAppender>& appenders);
+  static void addAppenders(std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset non-persistant custom appenders of trace system
@@ -499,7 +498,7 @@ class Trace {
    *
    * @param[in] appenders : Appenders to add
    */
-  void addAppenders_(const std::vector<TraceAppender>& appenders);
+  void addAppenders_(std::vector<TraceAppender>& appenders);
 
   /**
    * @brief  configure a sink to add it to the logging core singleton
@@ -508,7 +507,7 @@ class Trace {
    * @param currentId current thread id
    */
   void configureSink(const std::vector<TraceAppender>& appenders,
-                      logging::attributes::current_thread_id::value_type currentId);
+                      boost::log::attributes::current_thread_id::value_type currentId);
 
   /**
    * @brief Reset non-persistant custom appenders of trace system
@@ -569,6 +568,7 @@ class Trace {
   std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
+  boost::optional<std::pair<TraceAppender, boost::log::attributes::current_thread_id::value_type> > variablesAppenderAndThreadId_;
 };
 
 }  // namespace DYN
