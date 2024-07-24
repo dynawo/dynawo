@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls;
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package IEC "Converter-control models from IEC standards"
+package WT "Base control models for IEC N°61400-27-1 standard WT converters"
   extends Icons.Package;
-end IEC;
+end WT;
