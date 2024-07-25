@@ -158,102 +158,86 @@ model FullStaticModel "Nordic test grid with buses, lines, shunts, loads, transf
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed g19(PGen0Pu = P0Pu_g19, U0Pu = U0Pu_g19) annotation(
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
 
-  // g01 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // Generator initial parameters
+  // P0Pu in pu (base SnRef) (generator convention)
+
+  // g01
   parameter Types.ActivePowerPu P0Pu_g01;
   parameter Types.VoltageModulePu U0Pu_g01;
 
-  // g02 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g02
   parameter Types.ActivePowerPu P0Pu_g02;
   parameter Types.VoltageModulePu U0Pu_g02;
 
-  // g03 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g03
   parameter Types.ActivePowerPu P0Pu_g03;
   parameter Types.VoltageModulePu U0Pu_g03;
 
-  // g04 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g04
   parameter Types.ActivePowerPu P0Pu_g04;
   parameter Types.VoltageModulePu U0Pu_g04;
 
-  // g05 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g05
   parameter Types.ActivePowerPu P0Pu_g05;
   parameter Types.VoltageModulePu U0Pu_g05;
 
-  // g06 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g06
   parameter Types.ActivePowerPu P0Pu_g06;
   parameter Types.VoltageModulePu U0Pu_g06;
 
-  // g07 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g07
   parameter Types.ActivePowerPu P0Pu_g07;
   parameter Types.VoltageModulePu U0Pu_g07;
 
-  // g08 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g08
   parameter Types.ActivePowerPu P0Pu_g08;
   parameter Types.VoltageModulePu U0Pu_g08;
 
-  // g09 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g09
   parameter Types.ActivePowerPu P0Pu_g09;
   parameter Types.VoltageModulePu U0Pu_g09;
 
-  // g10 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g10
   parameter Types.ActivePowerPu P0Pu_g10;
   parameter Types.VoltageModulePu U0Pu_g10;
 
-  // g11 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g11
   parameter Types.ActivePowerPu P0Pu_g11;
   parameter Types.VoltageModulePu U0Pu_g11;
 
-  // g12 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g12
   parameter Types.ActivePowerPu P0Pu_g12;
   parameter Types.VoltageModulePu U0Pu_g12;
 
-  // g13 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g13
   parameter Types.ActivePowerPu P0Pu_g13;
   parameter Types.VoltageModulePu U0Pu_g13;
 
-  // g14 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g14
   parameter Types.ActivePowerPu P0Pu_g14;
   parameter Types.VoltageModulePu U0Pu_g14;
 
-  // g15 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g15
   parameter Types.ActivePowerPu P0Pu_g15;
   parameter Types.VoltageModulePu U0Pu_g15;
 
-  // g16 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g16
   parameter Types.ActivePowerPu P0Pu_g16;
   parameter Types.VoltageModulePu U0Pu_g16;
 
-  // g17 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g17
   parameter Types.ActivePowerPu P0Pu_g17;
   parameter Types.VoltageModulePu U0Pu_g17;
 
-  // g18 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g18
   parameter Types.ActivePowerPu P0Pu_g18;
   parameter Types.VoltageModulePu U0Pu_g18;
 
-  // g19 init values:
-  // P0Pu, Q0Pu in SnRef, generator convention
+  // g19
   parameter Types.ActivePowerPu P0Pu_g19;
   parameter Types.VoltageModulePu U0Pu_g19;
 
-  // g20 init value:
+  // g20
   parameter Types.VoltageModulePu U0Pu_g20;
 
 equation
@@ -658,7 +642,8 @@ equation
   connect(g19.terminal, bus_BG19.terminal) annotation(
     Line(points = {{-75, 151}, {-75, 145}}, color = {0, 0, 255}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</body></html>"));
