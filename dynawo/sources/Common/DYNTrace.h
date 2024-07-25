@@ -293,12 +293,20 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders : Appenders to add
    */
-  static void addAppenders(std::vector<TraceAppender>& appenders);
+  static void addAppenders(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset non-persistant custom appenders of trace system
    */
   static void resetCustomAppenders();
+
+  /**
+   * @brief Reset a specific non-persistant custom appender of trace system
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   */
+  static void resetCustomAppender(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief Reset persistant custom appenders of trace system
@@ -498,7 +506,7 @@ class Trace {
    *
    * @param[in] appenders : Appenders to add
    */
-  void addAppenders_(std::vector<TraceAppender>& appenders);
+  void addAppenders_(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief  configure a sink to add it to the logging core singleton
@@ -515,6 +523,16 @@ class Trace {
    * Implementation of static function
    */
   void resetCustomAppenders_();
+
+  /**
+   * @brief Reset a specific non-persistant custom appender of trace system
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   *
+   * Implementation of static function
+   */
+  void resetCustomAppender_(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief Reset persistant custom appenders of trace system

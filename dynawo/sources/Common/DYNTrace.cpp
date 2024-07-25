@@ -139,23 +139,22 @@ bool Trace::isLoggingEnabled() {
   return logging::core::get()->get_logging_enabled();
 }
 
-void Trace::addAppenders(std::vector<TraceAppender>& appenders) {
+void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
   instance().addAppenders_(appenders);
 }
 
-void Trace::addAppenders_(std::vector<TraceAppender>& appenders) {
+void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
 
-  for (TraceAppender& appender : appenders) {
+  for (const TraceAppender& appender : appenders) {
     if (appender.getTag() == Trace::variables()) {
-      // set VARIABLES tagged appender to overwrite the VARIABLES log file
-      appender.setOpenMode(std::ios_base::out | std::ios_base::trunc);
-      appender.setPersistant(true);
       variablesAppenderAndThreadId_ = std::make_pair(appender, currentId);
+      // set VARIABLES tagged appender to overwrite the VARIABLES log file
+      variablesAppenderAndThreadId_.get().first.setOpenMode(std::ios_base::out | std::ios_base::trunc);
       break;
     }
   }
@@ -295,6 +294,34 @@ void Trace::resetCustomAppenders_() {
   traceSink.sinks.clear();
 }
 
+void Trace::resetCustomAppender(const std::string& tag, SeverityLevel slv) {
+  instance().resetCustomAppender_(tag, slv);
+}
+
+void Trace::resetCustomAppender_(const std::string& tag, SeverityLevel slv) {
+  boost::lock_guard<boost::mutex> lock(mutex_);
+
+  logging::attributes::current_thread_id::value_type currentId =
+    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+  if (sinks_.find(currentId) == sinks_.end()) {
+    return;
+  }
+
+  boost::log::attribute_value_set set;
+  set.insert("Severity",  attrs::make_attribute_value(slv));
+  if (tag != "")
+    set.insert("Tag",  attrs::make_attribute_value(tag));
+  set.insert("Thread", attrs::make_attribute_value(currentId));
+
+  TraceSinks& traceSink = sinks_.at(currentId);
+  for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.sinks.begin();
+    itSinks != traceSink.sinks.end(); ++itSinks) {
+    if ((*itSinks)->will_consume(set))
+      logging::core::get()->remove_sink(*itSinks);
+  }
+  traceSink.sinks.clear();
+}
+
 TraceStream
 Trace::debug(const std::string& tag) {
   return TraceStream(DEBUG, tag);
@@ -411,7 +438,7 @@ Trace::clearVariablesLogFile() {
 
 void
 Trace::clearVariablesLogFile_() {
-  resetPersistantCustomAppender(Trace::variables(), DEBUG);
+  resetCustomAppender(Trace::variables(), DEBUG);
   if (!variablesAppenderAndThreadId_.is_initialized()) {
     throw DYNError(Error::MODELER, OverwrittingVARIABLESLogFile);
   }
