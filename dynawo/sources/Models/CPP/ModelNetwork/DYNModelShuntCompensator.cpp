@@ -211,10 +211,10 @@ ModelShuntCompensator::evalZ(const double& t) {
   z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
 
-  if (modelBus_->getConnectionState() == OPEN)
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+  if (modelBus_->getSwitchOff() && currState == CLOSED && getConnected() != OPEN)
     z_[connectionStateNum_] = OPEN;
 
-  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     stateModified_ = true;
     Trace::info() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
@@ -229,10 +229,12 @@ ModelShuntCompensator::evalZ(const double& t) {
       currentSection_ = maximumSection_;
       suscepPu_ = suscepAtMaximumSec_ * vNom_ * vNom_ / SNREF;
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+      if (modelBus_->getSwitchOff())
+        modelBus_->switchOn();
     }
     setConnected(currState);
   }
-  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_ ? NetworkComponent::STATE_CHANGE : NetworkComponent::NO_CHANGE;
 }
 
 void

@@ -1180,43 +1180,46 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   switch (knownBus_) {
-  case BUS1_BUS2:
-  {
-    if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
-      z_[0] = OPEN;
-    } else if (modelBus1_->getConnectionState() == OPEN) {
-      if (getConnectionState() == CLOSED_1)
-        z_[0] = OPEN;
-      else if (getConnectionState() == OPEN)
-        z_[0] = OPEN;
-      else if (getConnectionState() == CLOSED_2 || getConnectionState() == CLOSED)
-        z_[0] = CLOSED_2;
-    } else if (modelBus2_->getConnectionState() == OPEN) {
-      if (getConnectionState() == CLOSED_2)
-        z_[0] = OPEN;
-      else if (getConnectionState() == OPEN)
-        z_[0] = OPEN;
-      else if (getConnectionState() == CLOSED_1 || getConnectionState() == CLOSED)
-        z_[0] = CLOSED_1;
+    case BUS1_BUS2:
+    {
+      if (modelBus1_->getSwitchOff() && modelBus2_->getSwitchOff()) {
+        z_[connectionStateNum_] = OPEN;
+      } else if (modelBus1_->getSwitchOff()) {
+        if (currState == CLOSED_1)
+          z_[connectionStateNum_] = OPEN;
+        else if (currState == OPEN)
+          z_[connectionStateNum_] = OPEN;
+        else if (currState == CLOSED_2 || currState == CLOSED)
+          z_[connectionStateNum_] = CLOSED_2;
+      } else if (modelBus2_->getSwitchOff()) {
+        if (currState == CLOSED_2)
+          z_[connectionStateNum_] = OPEN;
+        else if (currState == OPEN)
+          z_[connectionStateNum_] = OPEN;
+        else if (currState == CLOSED_1 || currState == CLOSED)
+          z_[connectionStateNum_] = CLOSED_1;
+      }
+      break;
     }
-    break;
-  }
-  case BUS1:
-  {
-    if (modelBus1_->getConnectionState() == OPEN)
-      z_[0] = OPEN;
-    break;
-  }
-  case BUS2:
-  {
-    if (modelBus2_->getConnectionState() == OPEN)
-      z_[0] = OPEN;
-    break;
-  }
+    case BUS1:
+    {
+      if (modelBus1_->getSwitchOff())
+        if (currState == CLOSED_1)
+          z_[connectionStateNum_] = OPEN;
+      break;
+    }
+    case BUS2:
+    {
+      if (modelBus2_->getSwitchOff())
+        if (currState == CLOSED_2)
+          z_[connectionStateNum_] = OPEN;
+      break;
+    }
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+  currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::warn() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
@@ -1263,16 +1266,24 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
             DYNAddTimelineEvent(network_, id_, TwoWTFOClosed);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            if (modelBus1_->getSwitchOff())
+              modelBus1_->switchOn();
+            if (modelBus2_->getSwitchOff())
+              modelBus2_->switchOn();
             break;
           case CLOSED:
             break;
           case CLOSED_1:
             DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide2);
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            if (modelBus2_->getSwitchOff())
+              modelBus2_->switchOn();
             break;
           case CLOSED_2:
             DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide1);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+            if (modelBus1_->getSwitchOff())
+              modelBus1_->switchOn();
             break;
           case CLOSED_3:
             throw DYNError(Error::MODELER, NoThirdSide, id_);
@@ -1285,6 +1296,8 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
             case OPEN:
               DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide1);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              if (modelBus1_->getSwitchOff())
+                modelBus1_->switchOn();
               break;
             case CLOSED:
               DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide2);
@@ -1297,6 +1310,8 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
               DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide2);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              if (modelBus1_->getSwitchOff())
+                modelBus1_->switchOn();
               break;
             case CLOSED_3:
               throw DYNError(Error::MODELER, NoThirdSide, id_);
@@ -1309,6 +1324,8 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
               case OPEN:
                 DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide2);
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (modelBus2_->getSwitchOff())
+                  modelBus2_->switchOn();
                 break;
               case CLOSED:
                 DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide1);
@@ -1319,6 +1336,8 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
                 DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (modelBus2_->getSwitchOff())
+                  modelBus2_->switchOn();
                 break;
               case CLOSED_2:
                 break;
