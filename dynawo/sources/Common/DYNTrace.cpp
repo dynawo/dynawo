@@ -152,6 +152,7 @@ void Trace::addAppenders_(std::vector<TraceAppender>& appenders) {
 
   for (TraceAppender& appender : appenders) {
     if (appender.getTag() == Trace::variables()) {
+      // set VARIABLES tagged appender to overwrite the VARIABLES log file
       appender.setOpenMode(std::ios_base::out | std::ios_base::trunc);
       appender.setPersistant(true);
       variablesAppenderAndThreadId_ = std::make_pair(appender, currentId);
