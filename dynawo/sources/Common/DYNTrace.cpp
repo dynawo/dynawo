@@ -153,8 +153,6 @@ void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   for (const TraceAppender& appender : appenders) {
     if (appender.getTag() == Trace::variables()) {
       variablesAppenderAndThreadId_ = std::make_pair(appender, currentId);
-      // set VARIABLES tagged appender to overwrite the VARIABLES log file
-      variablesAppenderAndThreadId_.get().first.setOpenMode(std::ios_base::out | std::ios_base::trunc);
       break;
     }
   }
@@ -175,7 +173,7 @@ void Trace::configureSink(const std::vector<TraceAppender>& appenders,
   for (unsigned int i = 0; i < appenders.size(); ++i) {
     boost::shared_ptr<FileSink> sink(new FileSink(
       keywords::file_name = appenders[i].getFilePath(),
-      keywords::open_mode = appenders[i].getOpenMode()));
+      keywords::open_mode = std::ios_base::out));
 
     // build format for each appenders depending on its attributes
     string separator = appenders[i].getSeparator();

@@ -99,7 +99,6 @@ class Trace {
       separator_(),
       showTimeStamp_(false),
       timeStampFormat_(),
-      openMode_(std::ios_base::out),
       persistant_(false) { }
 
     /**
@@ -156,14 +155,6 @@ class Trace {
      */
     const std::string& getTimeStampFormat() const {
       return timeStampFormat_;
-    }
-
-    /**
-     * @brief Get the openmode of the log file
-     * @returns the openmode of the log file
-     */
-    std::ios_base::openmode getOpenMode() const {
-      return openMode_;
     }
 
     /**
@@ -231,15 +222,6 @@ class Trace {
     }
 
     /**
-     * @brief Set the openmode of the log file
-     *
-     * @param openMode openMode of the log file
-     */
-    void setOpenMode(std::ios_base::openmode openMode) {
-      openMode_ = openMode;
-    }
-
-    /**
      * @brief Set the persistant attribute
      *
      * @param persistant determines if the log must be kept when reseting
@@ -256,7 +238,6 @@ class Trace {
     std::string separator_;  ///< separator used between each log information date severity log
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
-    std::ios_base::openmode openMode_;  ///< openmode of the log file
     bool persistant_;  ///< Do not remove this appender when resetting
   };
 
