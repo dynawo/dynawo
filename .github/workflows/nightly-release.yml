@@ -66,35 +66,32 @@ jobs:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux)
     name: Linux Fedora (Release, GCC, cxx11)
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-nightly-fedora:latest
     needs: nightly
-    env:
-      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
-      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
-      DYNAWO_RESULTS_SHOW: "false"
-      DYNAWO_BUILD_TYPE: Release
-      DYNAWO_FORCE_CXX11_ABI: "true"
-      DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build
-        run: |
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-user
-
-      - name: Build documentation
-        run: |
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-doc
-
-      - name: Prepare files for distribution
-        run: |
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh distrib
-          util/envDynawo.sh distrib-omc
-          util/envDynawo.sh distrib-headers
+      - name: Build, Build doc, Build distributions
+        uses: addnab/docker-run-action@v3
+        with:
+          image: dynawo/dynawo-distribution-cxx11:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_FORCE_CXX11_ABI -e DYNAWO_NB_PROCESSORS_USED
+          shell: bash
+          run: |
+            cd /dynawo
+            export DYNAWO_HOME=$(pwd)
+            util/envDynawo.sh build-user
+            util/envDynawo.sh build-doc
+            util/envDynawo.sh distrib
+            util/envDynawo.sh distrib-omc
+            util/envDynawo.sh distrib-headers
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+          DYNAWO_RESULTS_SHOW: "false"
+          DYNAWO_BUILD_TYPE: Release
+          DYNAWO_FORCE_CXX11_ABI: "true"
+          DYNAWO_NB_PROCESSORS_USED: 2
 
       - name: INFO. Files created in distributions folder
         run: du -hs distributions/*
