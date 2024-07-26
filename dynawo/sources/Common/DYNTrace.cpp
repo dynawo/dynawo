@@ -437,9 +437,7 @@ Trace::clearVariablesLogFile() {
 void
 Trace::clearVariablesLogFile_() {
   resetCustomAppender(Trace::variables(), DEBUG);
-  if (!variablesAppenderAndThreadId_.is_initialized()) {
-    throw DYNError(Error::MODELER, OverwrittingVARIABLESLogFile);
-  }
+  assert(variablesAppenderAndThreadId_.is_initialized());
   std::vector<TraceAppender> variablesAppenderVec;
   variablesAppenderVec.push_back(variablesAppenderAndThreadId_.get().first);
   configureSink(variablesAppenderVec, variablesAppenderAndThreadId_.get().second);
