@@ -11,10 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  InertialGrid.mo
-  InertialGrid.extvar
   ReducedOrderSFR.mo
   SimplifiedSFR.mo
+  SFRParameters.mo
   )
 
 #
