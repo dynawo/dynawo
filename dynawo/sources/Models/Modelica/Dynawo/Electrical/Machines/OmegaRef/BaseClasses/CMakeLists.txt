@@ -16,6 +16,7 @@ set(MODEL_FILES
   package.order
   BaseGeneratorSimplifiedPFBehavior.mo
   BaseGeneratorSynchronous.mo
+  BaseGeneratorSynchronousKundur6thOrder.mo
   GeneratorSynchronousParameters.mo
   )
 
