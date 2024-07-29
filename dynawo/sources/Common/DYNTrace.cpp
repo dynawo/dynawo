@@ -147,22 +147,18 @@ void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
-  logging::attributes::current_thread_id::value_type currentId =
-    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
-
   for (const TraceAppender& appender : appenders) {
-    if (appender.getTag() == Trace::variables()) {
-      variablesAppenderAndThreadId_ = std::make_pair(appender, currentId);
-      break;
-    }
+    traceAppenders_.insert(std::make_pair(appender.getTag(), appender));
   }
 
-  configureSink(appenders, currentId);
+  configureSink(appenders);
   logging::add_common_attributes();
 }
 
-void Trace::configureSink(const std::vector<TraceAppender>& appenders,
-                                    logging::attributes::current_thread_id::value_type currentId) {
+void Trace::configureSink(const std::vector<TraceAppender>& appenders) {
+  logging::attributes::current_thread_id::value_type currentId =
+    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+
   TraceSinks traceSink;
   if (sinks_.find(currentId) != sinks_.end()) {
     TraceSinks& traceSinkOld = sinks_.at(currentId);
@@ -437,10 +433,11 @@ Trace::clearVariablesLogFile() {
 void
 Trace::clearVariablesLogFile_() {
   resetCustomAppender(Trace::variables(), DEBUG);
-  assert(variablesAppenderAndThreadId_.is_initialized());
+  auto variablesAppender = traceAppenders_.find(Trace::variables());
+  assert(variablesAppender != traceAppenders_.end());
   std::vector<TraceAppender> variablesAppenderVec;
-  variablesAppenderVec.push_back(variablesAppenderAndThreadId_.get().first);
-  configureSink(variablesAppenderVec, variablesAppenderAndThreadId_.get().second);
+  variablesAppenderVec.push_back(variablesAppender->second);
+  configureSink(variablesAppenderVec);
 }
 
 SeverityLevel

@@ -493,10 +493,8 @@ class Trace {
    * @brief  configure a sink to add it to the logging core singleton
    *
    * @param appenders appenders containing the data to configure the sink
-   * @param currentId current thread id
    */
-  void configureSink(const std::vector<TraceAppender>& appenders,
-                      boost::log::attributes::current_thread_id::value_type currentId);
+  void configureSink(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset non-persistant custom appenders of trace system
@@ -564,10 +562,10 @@ class Trace {
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
+  std::unordered_map<std::string, TraceAppender> traceAppenders_;  ///< map each appender tag to its corresponding boost sink configuration
   std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
-  boost::optional<std::pair<TraceAppender, boost::log::attributes::current_thread_id::value_type> > variablesAppenderAndThreadId_;  ///< VARIABLES tagged appender and its corresponding thread id
 };
 
 }  // namespace DYN
