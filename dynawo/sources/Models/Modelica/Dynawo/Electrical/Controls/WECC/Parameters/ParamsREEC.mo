@@ -43,9 +43,9 @@ record ParamsREEC
   Dialog(tab="Electrical Control"));
   parameter Types.PerUnit Kqv "K-Factor, reactive current injection gain (typical: 0..10)" annotation(
   Dialog(tab="Electrical Control"));
-  parameter Types.PerUnit Kvi "Integrator gain local Voltage PI controller" annotation(
+  parameter Types.PerUnit Kvi "Integrator gain local voltage PI controller" annotation(
   Dialog(tab="Electrical Control"));
-  parameter Types.PerUnit Kvp "Proportional gain local Voltage PI controller" annotation(
+  parameter Types.PerUnit Kvp "Proportional gain local voltage PI controller" annotation(
   Dialog(tab="Electrical Control"));
   parameter Types.ActivePowerPu PMaxPu "Active power upper limit in pu (base SNom) (typical: 1)" annotation(
   Dialog(tab="Electrical Control"));

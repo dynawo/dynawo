@@ -29,7 +29,7 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant PFaRef(k = 0.37988) annotation(
+  Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation

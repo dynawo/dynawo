@@ -25,7 +25,7 @@ model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant control
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant PFaRef(k = 0) annotation(
+  Modelica.Blocks.Sources.Constant PFaRef(k = acos(BESScb.PF0)) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
