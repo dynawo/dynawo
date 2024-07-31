@@ -25,7 +25,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QInjRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant PFaRef(k = 0.37988) annotation(
+  Modelica.Blocks.Sources.Constant PFaRef(k = acos(WT4B.PF0)) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation

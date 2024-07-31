@@ -19,7 +19,7 @@ extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit SOCMinPu "Minimum allowable state of charge in pu (base SNom) (typical: 0..0.2)" annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Types.Time tBattery "Time it takes for the battery to discharge when putting out 1 pu power, in s (typically set to 9999 since most batteries are large as compared to the typical simulation time in a transient stability study)" annotation(
+  parameter Types.Time tBattery "Time it takes for the battery to discharge when putting out 1 pu power, in s (typically set to 9999 since most batteries are large as compared to the typical simulation time in a stability study)" annotation(
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp11 annotation(
     Dialog(tab = "Electrical Control"));
