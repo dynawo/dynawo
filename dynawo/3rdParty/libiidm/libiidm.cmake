@@ -20,7 +20,6 @@ set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
 set(package_RequiredVersion 1.5.1)
-#set(package_RequiredVersionName "1.5.1")
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
