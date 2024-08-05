@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,16 +8,12 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-add_subdirectory(SystemFrequencyResponse SFR)
-
 set(MODEL_FILES
-  # Frequency control models
   package.mo
   package.order
-  SignalN.mo
-  SignalN.extvar
-  SecondaryFrequencyRegulation.mo
-  SecondaryFrequencyRegulation.extvar
+  ReducedOrderSFR.mo
+  SimplifiedSFR.mo
+  SFRParameters.mo
   )
 
 #
