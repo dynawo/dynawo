@@ -1518,9 +1518,15 @@ ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
           break;
       }
       if (closed1) {
-        double invU1 = 1. / sqrt(ur1 * ur1 + ui1 * ui1);
-        res[0] = ur1 * invU1;  // dU1/dUr1
-        res[1] = ui1 * invU1;  // dU1/dUi1
+        const double U = sqrt(ur1 * ur1 + ui1 * ui1);
+        if (!doubleIsZero(U)) {
+          double invU1 = 1. / U;
+          res[0] = ur1 * invU1;  // dU1/dUr1
+          res[1] = ui1 * invU1;  // dU1/dUi1
+        } else {
+          res[0] = 0.;  // dU1/dUr1
+          res[1] = 0.;  // dU1/dUi1
+        }
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1538,9 +1544,15 @@ ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
           break;
       }
       if (closed2) {
-        double invU2 = 1. / sqrt(ur2 * ur2 + ui2 * ui2);
-        res[0] = ur2 * invU2;  // dU2/dUr2
-        res[1] = ui2 * invU2;  // dU2/dUi2
+        const double U = sqrt(ur2 * ur2 + ui2 * ui2);
+        if (!doubleIsZero(U)) {
+          double invU2 = 1. / U;
+          res[0] = ur2 * invU2;  // dU2/dUr2
+          res[1] = ui2 * invU2;  // dU2/dUi2
+        } else {
+          res[0] = 0.;  // dU2/dUr2
+          res[1] = 0.;  // dU2/dUi2
+        }
       } else {
         res[0] = 0.;
         res[1] = 0.;
