@@ -66,12 +66,6 @@ class Terminate : public std::exception {
   virtual const char* what() const noexcept;
 
   /**
-   * @brief default destructor
-   *
-   */
-  virtual ~Terminate() = default;
-
-  /**
    * @brief Operator << overload for error
    *
    *
