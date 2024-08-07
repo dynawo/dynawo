@@ -58,8 +58,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-minimal
-          util/envDynawo.sh build-dynawo-target MODEL_FILES_INSTALL
+          util/envDynawo.sh build-dynawaltz
           util/envDynawo.sh distrib-omc
 
       - name: INFO. Files created in distributions folder
@@ -102,6 +101,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt
         run: |
           export DYNAWO_HOME=$(pwd)
+          export DYNAWO_NB_PROCESSORS_USED=1
           sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
