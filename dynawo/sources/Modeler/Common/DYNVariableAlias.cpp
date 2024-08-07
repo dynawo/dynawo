@@ -28,14 +28,14 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-VariableAlias::VariableAlias(const string& name, const string& refName, const typeVar_t& type, bool negated) :
+VariableAlias::VariableAlias(const string& name, const string& refName, const typeVar_t type, const bool negated) :
 Variable(name, true),
 referenceName_(refName),
 negated_(negated),
 type_(type) {
 }
 
-VariableAlias::VariableAlias(const string& name, const shared_ptr<VariableNative> refVar, const typeVar_t& type, bool negated) :
+VariableAlias::VariableAlias(const string& name, const shared_ptr<VariableNative>& refVar, const typeVar_t type, const bool negated) :
 Variable(name, true),
 referenceName_(refVar->getName()),
 negated_(negated),
@@ -51,7 +51,7 @@ referenceVariable_(refVar) {
 VariableAlias::~VariableAlias() {}
 
 void
-VariableAlias::setReferenceVariable(const shared_ptr<VariableNative> refVar) {
+VariableAlias::setReferenceVariable(const shared_ptr<VariableNative>& refVar) {
   // an alias has to point towards a native variable
   if (refVar->isAlias()) {
     throw DYNError(Error::MODELER, VariableAliasRefNotNative, getName(), refVar->getName());
@@ -80,7 +80,7 @@ VariableAlias::getLocalType() const {
 
 bool
 VariableAlias::getNegated() const {
-  return (!(negated_ == getReferenceVariable()->getNegated()));
+  return !(negated_ == getReferenceVariable()->getNegated());
 }
 
 bool
@@ -112,7 +112,7 @@ VariableAlias::getReferenceVariable() const {
 
 void
 VariableAlias::checkTypeCompatibility() const {
-  typeVar_t refType = getReferenceVariable()->getType();
+  const typeVar_t refType = getReferenceVariable()->getType();
   if (referenceVariableSet() && type_ != refType) {
     if ((type_ == FLOW && refType != CONTINUOUS) || (type_ == CONTINUOUS && refType != FLOW))
       throw DYNError(Error::MODELER, VariableAliasIncoherentType, getName(), typeVar2Str(type_), getReferenceVariableName(), typeVar2Str(refType));

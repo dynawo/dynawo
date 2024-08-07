@@ -22,7 +22,6 @@
 #include "DYDMacroStaticReferenceFactory.h"
 #include "DYDMacroStaticReference.h"
 #include "DYDStaticRef.h"
-#include "DYDIterators.h"
 
 namespace dynamicdata {
 
@@ -38,20 +37,7 @@ TEST(APIDYDTest, MacroStaticReference) {
 
   ASSERT_EQ(macroStaticReference->getId(), "macroStaticReference");
 
-  int nbStaticRefs = 0;
-  for (staticRef_const_iterator itSR = macroStaticReference->cbeginStaticRef();
-          itSR != macroStaticReference->cendStaticRef();
-          ++itSR) {
-    ++nbStaticRefs;
-  }
-  ASSERT_EQ(nbStaticRefs, 2);
-
-  nbStaticRefs = 0;
-  for (staticRef_iterator itSR = macroStaticReference->beginStaticRef();
-      itSR != macroStaticReference->endStaticRef();
-      ++itSR) {
-    ++nbStaticRefs;
-  }
+  const auto nbStaticRefs = macroStaticReference->getStaticReferences().size();
   ASSERT_EQ(nbStaticRefs, 2);
 
   ASSERT_NO_THROW(macroStaticReference->findStaticRef("var1_staticVar1"));

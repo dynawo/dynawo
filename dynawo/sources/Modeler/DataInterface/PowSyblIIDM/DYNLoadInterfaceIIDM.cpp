@@ -164,7 +164,7 @@ LoadInterfaceIIDM::getP() {
 }
 
 double
-LoadInterfaceIIDM::getStateVarP() {
+LoadInterfaceIIDM::getStateVarP() const {
   return getValue<double>(VAR_P);
 }
 
@@ -174,12 +174,12 @@ LoadInterfaceIIDM::getQ() {
 }
 
 double
-LoadInterfaceIIDM::getP0() {
+LoadInterfaceIIDM::getP0() const {
   return loadIIDM_.getP0();
 }
 
 double
-LoadInterfaceIIDM::getQ0() {
+LoadInterfaceIIDM::getQ0() const {
   return loadIIDM_.getQ0();
 }
 

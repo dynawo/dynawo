@@ -429,3 +429,6 @@ warning: return type of member DYN::SolverCommonFixedTimeStep::saveContinuousVar
 warning: return type of member DYN::SolverCommonFixedTimeStep::restoreContinuousVariables is not documented
 warning: return type of member DYN::NetworkComponent::printInternalParameters is not documented
 warning: return type of member DYN::SubModel::printInternalParameters is not documented
+warning: return type of member DYN::SolverKINCommon::analyseFlag is not documented
+warning: return type of member DYN::SubModel::addParameterCurve is not documented
+warning: return type of member DYN::SubModel::setParameterFromSet is not documented

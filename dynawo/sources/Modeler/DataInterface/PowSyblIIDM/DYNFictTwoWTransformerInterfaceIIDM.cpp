@@ -113,7 +113,7 @@ namespace DYN {
     return busInterface2_;
   }
 
-  string
+  const std::string&
   FictTwoWTransformerInterfaceIIDM::getID() const {
     return Id_;
   }

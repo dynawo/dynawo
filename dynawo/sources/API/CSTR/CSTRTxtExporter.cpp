@@ -48,21 +48,20 @@ TxtExporter::exportToFile(const boost::shared_ptr<ConstraintsCollection>& constr
 void
 TxtExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
   const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< separator in txt file
-  for (ConstraintsCollection::const_iterator itConstraint = constraints->cbegin();
-          itConstraint != constraints->cend();
-          ++itConstraint) {
-    stream << (*itConstraint)->getModelName()
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    const auto& constraint = constraintPair.second;
+    stream << constraint->getModelName()
             << TXTEXPORTER_SEPARATOR
-            << (*itConstraint)->getTime()
+            << constraint->getTime()
             << TXTEXPORTER_SEPARATOR
-            << (*itConstraint)->getDescription();
-    if ((*itConstraint)->hasModelType())
+            << constraint->getDescription();
+    if (constraint->hasModelType())
       stream << TXTEXPORTER_SEPARATOR
-             << (*itConstraint)->getModelType();
+             << constraint->getModelType();
 
-    const boost::optional<ConstraintData>& data = (*itConstraint)->getData();
+    const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {
-      switch ((*data).kind) {
+      switch (data->kind) {
         case ConstraintData::OverloadOpen:
           stream << TXTEXPORTER_SEPARATOR
                  << "OverloadOpen";
@@ -85,15 +84,15 @@ TxtExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& cons
           break;
       }
       stream << TXTEXPORTER_SEPARATOR
-             << (*data).limit;
+             << data->limit;
       stream << TXTEXPORTER_SEPARATOR
-             << (*data).value;
-      boost::optional<int> side = (*data).side;
+             << data->value;
+      boost::optional<int> side = data->side;
       if (side) {
         stream << TXTEXPORTER_SEPARATOR
                << side.value();
       }
-      boost::optional<double> acceptableDuration = (*data).acceptableDuration;
+      boost::optional<double> acceptableDuration = data->acceptableDuration;
       if (acceptableDuration) {
         stream << TXTEXPORTER_SEPARATOR
                << acceptableDuration.value();

@@ -32,7 +32,7 @@ namespace DYN {
 DelayManager::DelayManager() : delays_() {}
 
 void
-DelayManager::addDelay(size_t id, const double* time, const double* value, double delayMax) {
+DelayManager::addDelay(size_t id, const double* time, const double* value, const double delayMax) {
   Delay new_delay(time, value, delayMax);
 
   if (delays_.count(id) > 0) {
@@ -46,20 +46,19 @@ DelayManager::addDelay(size_t id, const double* time, const double* value, doubl
 
 void
 DelayManager::saveTimepoint() {
-  for (std::unordered_map<size_t, Delay>::iterator it = delays_.begin(); it != delays_.end(); ++it) {
-    it->second.saveTimepoint();
-  }
+  for (auto& delayPair : delays_)
+    delayPair.second.saveTimepoint();
 }
 
 double
-DelayManager::getDelay(size_t id, double delayValue) const {
+DelayManager::getDelay(const size_t id, const double delayValue) const {
   const Delay& delay = getDelayById(id);
 
   return delay.getDelay(delayValue);
 }
 
 const boost::optional<double>&
-DelayManager::getInitialValue(size_t id) const {
+DelayManager::getInitialValue(const size_t id) const {
   const Delay& delay = getDelayById(id);
 
   return delay.initialValue();
@@ -70,15 +69,16 @@ DelayManager::dumpDelays() const {
   std::stringstream ss;
   std::vector<std::string> ret;
 
-  for (std::unordered_map<size_t, Delay>::const_iterator it = delays_.begin(); it != delays_.end(); ++it) {
+  for (const auto& delayPair : delays_) {
+    const auto& delay = delayPair.second;
     ss.str("");
     std::vector<std::pair<double, double> > values;
-    it->second.points(values);
+    delay.points(values);
 
-    ss << it->first << ":";
-    ss << it->second.getDelayMax() << ":";
-    for (std::vector<std::pair<double, double> >::const_iterator itvec = values.begin(); itvec != values.end(); ++itvec) {
-      ss << DYN::double2String(itvec->first) << "," << DYN::double2String(itvec->second) << ";";
+    ss << delayPair.first << ":";
+    ss << delay.getDelayMax() << ":";
+    for (const auto& value : values) {
+      ss << double2String(value.first) << "," << double2String(value.second) << ";";
     }
     ret.push_back(ss.str());
   }
@@ -87,9 +87,9 @@ DelayManager::dumpDelays() const {
 }
 
 bool
-DelayManager::loadDelays(const std::vector<std::string>& values, double restartTime) {
-  for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it) {
-    std::istringstream is(*it);
+DelayManager::loadDelays(const std::vector<std::string>& values, const double restartTime) {
+  for (const auto& valueStr : values) {
+    std::istringstream is(valueStr);
     size_t id;
     is >> id;
     char c;
@@ -145,7 +145,7 @@ DelayManager::loadDelays(const std::vector<std::string>& values, double restartT
       }
 
       is >> value;
-      items.push_back(std::make_pair(time, value));
+      items.emplace_back(time, value);
 
       is >> c;
       if (c != ';') {
@@ -161,28 +161,29 @@ DelayManager::loadDelays(const std::vector<std::string>& values, double restartT
 }
 
 void
-DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time) {
+DelayManager::setGomc(state_g* p_glocal, const size_t offset, const double time) const {
   size_t index = offset;
 
-  std::unordered_map<size_t, Delay>::iterator it;
-  for (it = delays_.begin(); it != delays_.end(); ++it, ++index) {
-    double delayTime = it->second.getDelayTime();
-    if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
+  for (const auto& delayPair : delays_) {
+    const auto& delay = delayPair.second;
+    const double delayTime = delay.getDelayTime();
+    if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
       p_glocal[index] = ROOT_UP;
     } else {
       p_glocal[index] = ROOT_DOWN;
     }
+    ++index;
   }
 }
 
 modeChangeType_t
 DelayManager::evalMode(const double time) {
-  std::unordered_map<size_t, Delay>::iterator it;
   modeChangeType_t delay_mode = NO_MODE;
-  for (it = delays_.begin(); it != delays_.end(); ++it) {
-    double delayTime = it->second.getDelayTime();
-    if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
-      it->second.trigger();
+  for (auto& delayPair : delays_) {
+    auto& delay = delayPair.second;
+    double delayTime = delay.getDelayTime();
+    if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
+      delay.trigger();
       delay_mode = ALGEBRAIC_J_UPDATE_MODE;
     }
   }

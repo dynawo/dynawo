@@ -45,26 +45,26 @@ class VariableNative : public Variable {
    * @param isState @b whether the variable is a state variable
    * @param negated @b if the variable is negated
    */
-  VariableNative(const std::string& name, const typeVar_t& type, bool isState, bool negated);
+  VariableNative(const std::string& name, typeVar_t type, bool isState, bool negated);
 
   /**
    * @brief Destructor
    */
-  virtual ~VariableNative() = default;
+  ~VariableNative() override = default;
 
   /**
    * @brief Setter for variable's index
    *
    * @param index index of the variable
    */
-  void setIndex(const int& index);
+  void setIndex(int index);
 
   /**
    * @brief Getter for variable's type
    *
    * @return variable's type
    */
-  inline typeVar_t getType() const {
+  inline typeVar_t getType() const override {
     return type_;
   }
 
@@ -73,7 +73,7 @@ class VariableNative : public Variable {
    *
    * @return @b true is the variable is negated, @b false else
    */
-  inline bool getNegated() const {
+  inline bool getNegated() const override {
     return negated_;
   }
 
@@ -89,14 +89,14 @@ class VariableNative : public Variable {
    *
    * @return variable index
    */
-  virtual int getIndex() const;
+  int getIndex() const override;
 
   /**
    * @brief Getter for whether the variable is a state variable
    *
    * @return @b whether it is a state variable
    */
-  bool isState() const;
+  bool isState() const override;
 
  private:
   VariableNative();  ///< Private default constructor

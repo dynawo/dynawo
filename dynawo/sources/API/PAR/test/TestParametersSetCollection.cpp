@@ -99,20 +99,8 @@ TEST(APIPARTest, CollectionIterator) {
   collection->addParametersSet(parametersSet3);
 
   // Test const iterator
-  int nbParametersSets = 0;
-  for (ParametersSetCollection::parametersSet_const_iterator itParamSet = collection->cbeginParametersSet();
-      itParamSet != collection->cendParametersSet();
-      ++itParamSet) {
-    ++nbParametersSets;
-    ASSERT_TRUE(itParamSet == itParamSet);
-  }
+  auto nbParametersSets = collection->getParametersSets().size();
   ASSERT_EQ(nbParametersSets, 3);
-
-  ParametersSetCollection::parametersSet_const_iterator itVariablec(collection->cbeginParametersSet());
-  ASSERT_EQ((++itVariablec)->get()->getId(), "parameters2");
-  ASSERT_EQ((--itVariablec)->get()->getId(), "parameters1");
-  ASSERT_EQ((itVariablec++)->get()->getId(), "parameters1");
-  ASSERT_EQ((itVariablec--)->get()->getId(), "parameters2");
 }
 
 TEST(APIPARTest, MacroParameterSetTest) {
@@ -132,14 +120,6 @@ TEST(APIPARTest, MacroParameterSetTest) {
   collection->addParametersSet(parametersSet1);
   ASSERT_NO_THROW(shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
   ASSERT_NO_THROW(collection->getParametersFromMacroParameter());
-  ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
-  ASSERT_NO_THROW(itMacroParameterSet++);
-  ASSERT_NO_THROW(itMacroParameterSet--);
-  ASSERT_NO_THROW(++itMacroParameterSet);
-  ASSERT_NO_THROW(--itMacroParameterSet);
-  ASSERT_TRUE(itMacroParameterSet == itMacroParameterSet);
-  ASSERT_NO_THROW(itMacroParameterSet->get()->getId());
-  ASSERT_NO_THROW((*itMacroParameterSet)->getId());
 }
 
 }  // namespace parameters

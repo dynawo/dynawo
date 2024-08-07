@@ -145,9 +145,9 @@ class Graph {
   /**
    * @brief set the weight/mask of each edge
    *
-   * @param weights weight to associate to each edge
+   * @param edgeWeights weight to associate to each edge
    */
-  void setEdgesWeight(const std::unordered_map<std::string, float>& weights);
+  void setEdgesWeight(const std::unordered_map<std::string, float>& edgeWeights);
 
   /**
    * @brief find the shortest path between two vertices

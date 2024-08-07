@@ -50,7 +50,6 @@ class Error : public std::exception {
     API = 8 /**< error localised in Dynawo API */
   } TypeError_t;
 
-
  public:
   /**
    * @brief Copy constructor. Creates a new Error with same attributes as the object given
@@ -70,7 +69,7 @@ class Error : public std::exception {
    * @param line  line where the error occurs
    * @param m     message of the error
    */
-  Error(const TypeError_t type, const int& key, const std::string& file, const int& line, const Message& m);
+  Error(TypeError_t type, int key, const std::string& file, int line, const Message& m);
 
   /**
    * @brief Assignement operator.
@@ -86,7 +85,7 @@ class Error : public std::exception {
    *
    * @return error's description
    */
-  virtual const char * what() const noexcept;
+  virtual const char* what() const noexcept;
 
   /**
    * @brief destructor
@@ -116,7 +115,7 @@ class Error : public std::exception {
    * @return reference to the stream instance
    *
    */
-  friend std::ostream & operator<<(std::ostream & os, const Error & e) {
+  friend std::ostream & operator<<(std::ostream& os, const Error& e) {
     os << e.msgToReturn_;
     return os;
   }
@@ -162,14 +161,14 @@ class MessageError : public std::exception {
    *
    * @return an error with same value as e
    */
-  MessageError& operator=(const MessageError & e);
+  MessageError& operator=(const MessageError& e);
 
   /**
    * @brief Returns a pointer to the error description
    *
    * @return error's description
    */
-  virtual const char * what() const noexcept;
+  virtual const char* what() const noexcept;
 
   /**
    * @brief destructor
@@ -192,7 +191,7 @@ class MessageError : public std::exception {
    * @return reference to the stream instance
    *
    */
-  friend std::ostream & operator<<(std::ostream & os, const MessageError & e) {
+  friend std::ostream & operator<<(std::ostream& os, const MessageError& e) {
     os << e.msgToReturn_;
     return os;
   }

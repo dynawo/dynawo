@@ -39,17 +39,19 @@ class ModelCentralizedShuntsSectionControlFactory : public SubModelFactory {
    * @brief default destructor
    *
    */
-  virtual ~ModelCentralizedShuntsSectionControlFactory() = default;
+  ~ModelCentralizedShuntsSectionControlFactory() override = default;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl getter
    *
    * @return A pointer to a new instance of ModelCentralizedShuntsSectionControl
    */
-  SubModel *create() const;
+  SubModel* create() const override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl destroy
    */
-  void destroy(SubModel *) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -61,26 +63,31 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    * @brief default constructor
    */
   ModelCentralizedShuntsSectionControl();
+
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model
    */
   std::string getCheckSum() const override;
+
   /**
    * @brief  calculated variables type
    */
   typedef enum {
     nbCalculatedVariables_ = 0
   } CalculatedVars_t;
+
   /**
    * @brief define parameters
    * @param parameters vector to fill with the generic parameters
    */
   void defineParameters(std::vector<ParameterModeler> &parameters) override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl parameters setter
    */
   void setSubModelParameters() override;
+
   /**
    * @brief initialize variables of the model
    *
@@ -89,16 +96,19 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    * @param variables vector to fill with each variables
    */
   void defineVariables(std::vector<boost::shared_ptr<Variable> > &variables) override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl model initialization
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
+
   /**
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
   void collectSilentZ(BitMask *silentZTable) override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl model's sizes getter
    *
@@ -107,22 +117,27 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    * right size matrices and vector for the solver.
    */
   void getSize() override;
+
   /**
    * @copydoc ModelCPP::evalStaticYType()
    */
   void evalStaticYType() override;
+
   /**
    * @copydoc ModelCPP::evalDynamicYType()
    */
   void evalDynamicYType() override { /* not needed */ }
+
   /**
    * @copydoc ModelCPP::evalStaticFType()
    */
   void evalStaticFType() override { /* not needed */ }
+
   /**
    * @copydoc ModelCPP::evalDynamicFType()
    */
   void evalDynamicFType() override { /* not needed */ }
+
   /**
    * @brief ModelCentralizedShuntsSectionControl F(t,y,y') function evaluation
    *
@@ -134,10 +149,12 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    * both)
    */
   void evalF(double t, propertyF_t type) override;
+
   /**
    * @copydoc ModelCPP::setFequations()
    */
   void setFequations() override { /* not need */ }
+
   /**
    * @brief ModelCentralizedShuntsSectionControl transposed jacobian evaluation
    *
@@ -145,11 +162,12 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be
    * added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix &jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl G(t,y,y') function evaluation
    *
@@ -157,7 +175,8 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl discrete variables evaluation
    *
@@ -166,36 +185,43 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
+
   /**
    * @copydoc ModelCPP::getY0()
    */
   void getY0() override;
+
   /**
    * @copydoc ModelCPP::initParams()
    */
   void initParams() override { /* not needed */ }
+
   /**
    * @brief initialize the model from data interface
    *
    * @param data data interface to use to initialize the model
    */
-  void initializeFromData(const boost::shared_ptr<DataInterface> &data) override;
+  void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
+
   /**
    * @copydoc ModelCPP::initializeStaticData()
    */
   void initializeStaticData() override { /* not needed */ }
+
   /**
    * @brief calculate calculated variables
    */
   void evalCalculatedVars() override { /* not need */ }
+
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double> &res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+
   /**
    * @brief  ModelCentralizedShuntsSectionControl transposed jacobian evaluation
    *
@@ -203,11 +229,12 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be
    * added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix &jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
+
   /**
    * @brief Model mode change type evaluation
    *
@@ -216,7 +243,8 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    * @param[in] t Simulation instant
    * @return mode change type value
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
+
   /**
    * @brief get the global indexes of the variables used to compute a calculated
    * variable
@@ -226,10 +254,12 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    *
    */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int> &indexes) const override;
+
   /**
    * @copydoc ModelCPP::setGequations()
    */
   void setGequations() override;
+
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -238,6 +268,7 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    * @return value of the calculated variable
    */
   double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+
   /**
    * @brief ModelCentralizedShuntsSectionControl elements initializer
    *
