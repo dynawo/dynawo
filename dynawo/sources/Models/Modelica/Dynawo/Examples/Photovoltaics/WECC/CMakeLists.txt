@@ -11,8 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
-  PVCurrentSource.mo
-  PVVoltageSource.mo
+  PVCurrentSourceB.mo
+  PVVoltageSourceB.mo
   )
 
 #

@@ -1,5 +1,6 @@
-CurrentLimitsCalculationPV
-CurrentLimitsCalculationWind
+CurrentLimitsCalculationA
+CurrentLimitsCalculationB
+CurrentLimitsCalculationC
 IqInjectionLogic
 LineDropCompensation
 UdqRef

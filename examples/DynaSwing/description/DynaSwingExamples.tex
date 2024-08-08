@@ -537,17 +537,21 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
 }
 \caption{Generator 2 response to the three-phase fault}
 \end{figure}
+
+\newpage
+
 \chapter{WECC}
 
-This chapter presents four test cases simulating four models of renewable energies generators :
+This chapter presents five test cases simulating five models of renewable energies generators :
 \begin{itemize}
 \item A PV plant with the injector represented as a current source (WECCPVCurrentSource).
 \item A PV plant with the injector represented as a voltage source (WECCPVVoltageSource).
 \item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource).
 \item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource).
+\item A battery energy storage system (BESS) with the injector represented as current source (WECCBESScbCurrentSource)
 \end{itemize}
 
-All four models are taken from the WECC standard and can be found here:
+All five models are taken from the WECC standard and can be found here:
 \begin{itemize}
 \item PV:
 
@@ -556,9 +560,16 @@ All four models are taken from the WECC standard and can be found here:
 \item Wind:
 
 \url{https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf}
+
+
+\item BESS :
+
+\url{https://www.epri.com/research/products/000000003002014083}
 \end{itemize}
 
-The implementation of these models in Modelica has lead to the following publication in the 14th Modelica conference:\\
+
+\section{PV and Wind}
+The implementation of the first four models in Modelica has lead to the following publication in the 14th Modelica conference:\\
 
 M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation of the Generic WECC Photovoltaics and Wind Turbine Generator Models in Modelica", 2021.\\
 
@@ -566,7 +577,7 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 
 \url{https://ecp.ep.liu.se/index.php/modelica/article/view/242/202}
 
-\section{Test case description}
+\subsection{Test case description}
 
 \par The four test cases are similar. The Wind turbine (or PV plant) is connected to an infinite bus through a line.
 
@@ -575,15 +586,15 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
   \caption{Test case diagram}
 \end{figure}
 
-\subsection{Initial Conditions}
+\subsubsection{Initial Conditions}
 
 \par At t=0, the power plant is injecting 0.7 pu of active power and 0.2pu of reactive power into the grid. The voltage module at its terminal is 1pu and the voltage angle is equal to 0rad.
 
-\subsection{Models}
+\subsubsection{Models}
 
 \par The models used for the PV plant and the Wind turbine are fully described in the \Dynawo library.
 
-\subsection{Solver}
+\subsubsection{Solver}
 
 \par The solver used is the variable time step solver IDA with the following parameters:
 \begin{itemize}
@@ -592,11 +603,11 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 \item $Accuracy_{Abs}$=$10^{-4}$.
 \end{itemize}
 
-\subsection{Scenario}
+\subsubsection{Scenario}
 
 \par The same scenario is simulated in the four cases. First the infinite bus voltage is reduced from 1pu to 0.5pu from t=1s to t=2s. Then its frequency is increased to 1.01pu (from 1pu) from t=6s to t=6.5s.
 
-\section{Results}
+\subsection{Results}
 
 \par The obtained results match the ones presented in the WECC reports.
 
@@ -607,6 +618,120 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
   \caption{Active and reactive powers in pu}
 \end{figure}
 
+\section{BESS}
+
+\subsection{Test Case Description}
+The BESS is connected to an infinite bus through a line.
+
+\begin{figure}[H]
+\center
+  \includegraphics[width=0.55\textwidth]{BESS.png}
+  \caption{Test case diagram}
+\end{figure}
+
+
+\subsubsection{Initial Conditions and parameters}
+The data of the test case were compared to the one of the article
+[P. Pourbeik and J. K. Petter, “Modeling and validation of battery energy storage systems
+using simple generic models for power system stability studies”, CIGRE Science and
+Engineering, October 2017, pp. 63-72.]
+
+The base used in the article is in $SNom =6\ MVA$
+The initial values of P0Pu and Q0Pu are in base SnRef and in receptor convention.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+ P0Pu & Q0PU & U0Pu & $\Theta$ (rad) & RPu & XPu\\
+  \hline
+ -0.03 & 0 & 1 & 0.00000144621 & 0 & 0\\
+  \hline
+\end{tabular}
+\end{center}
+
+RPu and XPu are set to 0 in the article, considering that we are controling the output at the injector level (not after the line of BESS).
+Numerically, XPu causes simulation failure at initialization, it is thus set to $10^{-6}$.
+
+All the parameters' values are taken from the article. The REGC-A parameters are adapted to the available model in the library REGC-B Current Source.
+
+\subsubsection{Models}
+
+The BESS (Battery Energy Storage System) is implemented with the combination of the plant control type A (REPC-A) the Generator/converter type B(REGC-B current source) followed by an injector and the electrical control type C (REEC-C) presented in \url{https://www.wecc.org/Reliability/REEC\_C\_031815\_rev3\%2520Model\%2520Spec.pdf}.
+These models are fully described in the Dyna$\omega$o library.
+
+\subsubsection{Solver}
+
+\par The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-5}$;
+\item $Accuracy_{Abs}$=$10^{-3}$.
+\end{itemize}
+
+\subsubsection{Results}
+The obtained results match the ones presented in the article for "a 3-phase to ground fault on the high-side of the step-up transformer". In the model, we applied a fault at the infinite bus level (no step-up transformer) with a voltage dip at 0.55 pu.
+
+
+At initial time, the active power demanded by the battery is 0.5 pu (base SNom = 6MVA) and the reactive power is 0 pu (base SNom = 6MVA).
+
+The BESS is able to discharge since the initial state of charge SOC0Pu = 0.5 is between the accepted range [SOCMinPu = 0.2 , SOCMaxPu = 0.8]. Since the simulation is only for 3 s, and the discharge time is considered much longer, the state of charge SOCPu is considered constant all along the simulation time.
+
+At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the BESS starts injecting reactive power until the fault is cleared at t = 1.5 s.
+\begin{figure}[H]
+\subfigure[Voltage at terminal in pu (base UNom)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{BESScb_BESScb_injector_UPu}
+        ]
+        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+  }
+\subfigure[Active power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{BESScb_BESScb_injector_PInjPuSn}]
+        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{BESScb_BESScb_injector_QInjPuSn}]
+        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[d-axis current command in pu (base UNom, SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{BESScb_BESScb_reecC_idCmdPu}]
+        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[q-axis current command in pu (base UNom, SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{BESScb_BESScb_reecC_iqCmdPu}]
+        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\newpage
 
 \chapter{Grid Forming - Grid Following}
 
