@@ -24,13 +24,6 @@ model AcRotatingExciter_INIT "Rotating exciter initialization model for IEEE reg
   parameter Types.PerUnit Ke "Exciter field resistance constant";
   parameter Types.VoltageModulePu VfeMaxPu "Maximum exciter field current signal in pu (user-selected base voltage)";
 
-  //Rectifier regulation characteristic parameters
-  parameter Real UHigh = 0.75 "Upper limit of non-linear mode";
-  parameter Real ULow = sqrt(3) / 4 "Lower limit of non-linear mode";
-
-  final parameter Real A1 = if ULow == 0 then 0 else (1 - sqrt(UHigh - ULow ^ 2)) / ULow "Characteristic coefficient of first linear mode";
-  final parameter Real A2 = if UHigh == 1 then 0 else sqrt(UHigh / (1 - UHigh)) "Characteristic coefficient of second linear mode";
-
   Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
   Types.VoltageModulePu Efe0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
   Types.CurrentModulePu Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
@@ -43,18 +36,18 @@ model AcRotatingExciter_INIT "Rotating exciter initialization model for IEEE reg
 
 equation
   U01 = Kc * Ir0Pu / Efd0Pu;
-  U02 = Kc * Ir0Pu / (Efd0Pu + A1 * Kc * Ir0Pu);
-  U03 = Kc * Ir0Pu * sqrt(UHigh / (Efd0Pu ^ 2 + (Kc * Ir0Pu) ^ 2));
-  U04 = Kc * Ir0Pu / (Efd0Pu / A2 + Kc * Ir0Pu);
+  U02 = Kc * Ir0Pu / (Efd0Pu + Kc * Ir0Pu / sqrt(3));
+  U03 = Kc * Ir0Pu * sqrt(3) / (2 * sqrt(Efd0Pu ^ 2 + (Kc * Ir0Pu) ^ 2));
+  U04 = Kc * Ir0Pu / (Efd0Pu / sqrt(3) + Kc * Ir0Pu);
 
   if U01 <= 0 then
     Y0 = 1;
-  elseif U02 > 0 and U02 <= ULow then
-    Y0 = 1 - A1 * U02;
-  elseif U03 > ULow and U03 < UHigh then
-    Y0 = sqrt(UHigh - U03 ^ 2);
-  elseif U04 >= UHigh and U04 <= 1 then
-    Y0 = A2 * (1 - U04);
+  elseif U02 > 0 and U02 <= sqrt(3) / 4 then
+    Y0 = 1 - U02 / sqrt(3);
+  elseif U03 > sqrt(3) / 4 and U03 < 0.75 then
+    Y0 = sqrt(0.75 - U03 ^ 2);
+  elseif U04 >= 0.75 and U04 < 1 then
+    Y0 = sqrt(3) * (1 - U04);
   else
     Y0 = 0;
   end if;
