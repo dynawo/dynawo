@@ -31,4 +31,13 @@
  */
 void launchSimu(const std::string& jobsFileName);
 
+/**
+ * @brief launch an interractive simulation thanks to a description contains in jobsFileName
+ *
+ *
+ * @param jobsFileName file describing the job(s) to launch
+ */
+void launchSimuInterractive(const std::string& jobsFileName);
+
+
 #endif  // SIMULATION_DYNSIMULATIONLAUNCHER_H_
