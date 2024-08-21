@@ -18,6 +18,7 @@
 #include "DYNMessageTimeline.h"
 #include "DYNError.h"
 #include "DYNTerminate.h"
+#include "DYNInterception.h"
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -107,6 +108,19 @@
  * @return a Terminate
  */
 #define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
+
+
+/**
+ * @brief Macro description to have a shortcut.
+ *  Thanks to this macro, user can only call a terminate with the key to access
+ *  to the message (+ optional arguments if the message need)
+ *
+ * @param key  key of the message description
+ *
+ * @return a Terminate
+ */
+#define DYNInterception(key, ...) DYN::Interception((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
+
 
 #ifdef __clang__
 #pragma clang diagnostic pop

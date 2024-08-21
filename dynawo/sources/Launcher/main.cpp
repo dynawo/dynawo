@@ -69,6 +69,7 @@ int main(int argc, char ** argv) {
   desc.add_options()
     ("help,h", "produce help message")
     ("version,v", "print dynawo version");
+    ("interractive,i", "experimental interractive simulator");
 
   po::options_description hidden("Hidden options");
   hidden.add_options() ("jobs-file", po::value<string>(&jobsFileName), "set job file");
@@ -118,7 +119,12 @@ int main(int argc, char ** argv) {
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") != "true")
       cout << "[INFO] xsd validation will not be used" << endl;
 
-    launchSimu(jobsFileName);
+    if (vm.count("interractive")) {
+      cout << ".... <WARNING> Interractive experiment <WARNING>...." << endl;
+      launchSimuInterractive(jobsFileName);
+    } else {
+      launchSimu(jobsFileName);
+    }
   } catch (const DYN::Error& e) {
     std::cerr << "DYN Error: " << e.what() << std::endl;
     return e.type();
