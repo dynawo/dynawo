@@ -1083,6 +1083,17 @@ Simulation::simulate() {
         }
         intermediateStates_.pop();
       }
+    // Interception mecanism -------------------------
+    Trace::info() << "TITI tCurrent_: " << tCurrent_ << Trace::endline;
+    bool intercept = tCurrent_ == 100;
+    if (intercept) {
+      Trace::info() << "!! INTERCEPT !!" << Trace::endline;
+      string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
+      // terminate();
+      // setInitialStateFile(finalValuesDir);
+      dumpState();
+    }
+    // -----------------------------------------------
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
@@ -1263,6 +1274,7 @@ Simulation::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
+  Trace::info() << "TITI IN terminate()"<< Trace::endline;
   updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
@@ -1482,6 +1494,7 @@ Simulation::dumpState() {
   }
 }
 
+
 void
 Simulation::dumpState(const boost::filesystem::path& dumpFile) {
   if (!model_) return;
@@ -1534,6 +1547,7 @@ Simulation::loadState(const string& fileName) {
   is >> timeStep;
   // loading information
   tCurrent_ = tCurrent;
+  std::cout << "tCurrent = " << tCurrent << std::endl;
 
   model_->setInitialTime(tCurrent_);
   if (solver_->getName() == solverName) {
