@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
