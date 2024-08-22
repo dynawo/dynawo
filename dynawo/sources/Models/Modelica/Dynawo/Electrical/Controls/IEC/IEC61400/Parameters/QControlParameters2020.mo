@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.Parameters;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-record QControlParameters
+record QControlParameters2020
   parameter Real TableQwpMaxPwpFiltCom11 = 0 annotation(
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpMaxPwpFiltCom12 = 0.33 annotation(
@@ -60,4 +60,4 @@ record QControlParameters
 
   annotation(
     preferredView = "text");
-end QControlParameters;
+end QControlParameters2020;
