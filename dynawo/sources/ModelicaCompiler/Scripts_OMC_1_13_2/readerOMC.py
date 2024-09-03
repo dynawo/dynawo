@@ -20,12 +20,37 @@ import sys
 import itertools
 import re
 import json
-import pprint
-from xml.dom import minidom
+
+try:
+  from lxml import etree
+  print("running with lxml.etree")
+except ImportError:
+  try:
+    # Python 2.5
+    import xml.etree.cElementTree as etree
+    print("running with cElementTree on Python 2.5+")
+  except ImportError:
+    try:
+      # Python 2.5
+      import xml.etree.ElementTree as etree
+      print("running with ElementTree on Python 2.5+")
+    except ImportError:
+      try:
+        # normal cElementTree install
+        import cElementTree as etree
+        print("running with cElementTree")
+      except ImportError:
+        try:
+          # normal ElementTree install
+          import elementtree.ElementTree as etree
+          print("running with ElementTree")
+        except ImportError:
+          print("Failed to import ElementTree from any known place")
 
 import scriptVarExt
 from dataContainer import *
 from utils import *
+from modelicaScriptsExceptions import *
 
 
 # ##################################
@@ -70,80 +95,80 @@ class ReaderOMC:
         # File to read
         # -------------------
         ## Full name of the _info.xml file
-        # self.infoXmlFile = os.path.join (input_dir, self.mod_name + "_info.xml")
+        # self.infoXmlFile = os.path.join(input_dir, self.mod_name + "_info.xml")
         # exist_file(self.infoXmlFile)
 
         ## Full name of the _info.json file
-        self.info_json_file = os.path.join (input_dir, self.mod_name + "_info.json")
+        self.info_json_file = os.path.join(input_dir, self.mod_name + "_info.json")
         exist_file(self.info_json_file)
 
         ## Full name of the _init.xml file
-        self.init_xml_file = os.path.join (input_dir, self.mod_name + "_init.xml")
+        self.init_xml_file = os.path.join(input_dir, self.mod_name + "_init.xml")
         exist_file(self.init_xml_file)
 
         ## Full name of the _model.h file
-        self.model_header = os.path.join (input_dir, self.mod_name + "_model.h")
+        self.model_header = os.path.join(input_dir, self.mod_name + "_model.h")
         exist_file(self.model_header)
 
         ## Full name of the .c file
-        self.main_c_file = os.path.join (input_dir, self.mod_name + ".c")
+        self.main_c_file = os.path.join(input_dir, self.mod_name + ".c")
         exist_file(self.main_c_file)
 
         ## Full name of the _08bnd.c file
         self._08bnd_c_file = []
-        file_name = os.path.join (input_dir, self.mod_name + "_08bnd.c")
+        file_name = os.path.join(input_dir, self.mod_name + "_08bnd.c")
         exist_file(file_name)
         self._08bnd_c_file.append(file_name)
         idx = 0
-        file_name = os.path.join (input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
+        file_name = os.path.join(input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
         while os.path.isfile(file_name):
             self._08bnd_c_file.append(file_name)
             idx +=1
-            file_name = os.path.join (input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
+            file_name = os.path.join(input_dir, self.mod_name + "_08bnd_part"+str(idx)+".c")
 
         ## Full name of the _06inz.c file
         self._06inz_c_file = []
-        file_name = os.path.join (input_dir, self.mod_name + "_06inz.c")
+        file_name = os.path.join(input_dir, self.mod_name + "_06inz.c")
         exist_file(file_name)
         self._06inz_c_file.append(file_name)
         idx = 0
-        file_name = os.path.join (input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
+        file_name = os.path.join(input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
         while os.path.isfile(file_name):
             self._06inz_c_file.append(file_name)
             idx +=1
-            file_name = os.path.join (input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
+            file_name = os.path.join(input_dir, self.mod_name + "_06inz_part"+str(idx)+".c")
 
         ## Full name of the _05evt.c file
-        self._05evt_c_file = os.path.join (input_dir, self.mod_name + "_05evt.c")
+        self._05evt_c_file = os.path.join(input_dir, self.mod_name + "_05evt.c")
         exist_file(self._05evt_c_file)
 
         ## Full name of the _16dae.c file
-        self._16dae_c_file = os.path.join (input_dir, self.mod_name + "_16dae.c")
+        self._16dae_c_file = os.path.join(input_dir, self.mod_name + "_16dae.c")
         exist_file(self._16dae_c_file)
         ## Full name of the _16dae.h file
-        self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
+        self._16dae_h_file = os.path.join(input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
 
         ## Delay file
-        self._07dly_c_file = os.path.join (input_dir, self.mod_name + "_07dly.c")
+        self._07dly_c_file = os.path.join(input_dir, self.mod_name + "_07dly.c")
 
         ## Full name of xml containing fictitious equations description
-        self.eq_fictive_xml_file = os.path.join (input_dir, self.mod_name + ".extvar")
+        self.eq_fictive_xml_file = os.path.join(input_dir, self.mod_name + ".extvar")
 
         ## Full name of the _structure.xml file
-        self.struct_xml_file = os.path.join (input_dir, self.mod_name + "_structure.xml")
+        self.struct_xml_file = os.path.join(input_dir, self.mod_name + "_structure.xml")
         if not is_init_pb : exist_file(self.struct_xml_file)
 
         ## Full name of the _functions.h file
-        self._functions_header = os.path.join (input_dir, self.mod_name + "_functions.h")
+        self._functions_header = os.path.join(input_dir, self.mod_name + "_functions.h")
         ## Full name of the _functions.c file
-        self._functions_c_file  = os.path.join (input_dir, self.mod_name + "_functions.c")
+        self._functions_c_file  = os.path.join(input_dir, self.mod_name + "_functions.c")
         ## Full name of the _literals.h file
-        self._literals_file = os.path.join (input_dir, self.mod_name + "_literals.h")
+        self._literals_file = os.path.join(input_dir, self.mod_name + "_literals.h")
         ## List of constant strings literal names
         self.list_of_stringconstants = []
         ## Full name of the _literals.h file
-        self._variables_file = os.path.join (input_dir, self.mod_name + "_variables.txt")
+        self._variables_file = os.path.join(input_dir, self.mod_name + "_variables.txt")
 
         ## Regular expression to identify functions
         self.regular_expr_function_name = r'%s[ ]+%s\(.*\)[^;]$'
@@ -396,7 +421,7 @@ class ReaderOMC:
         nb_equations = len(data["equations"])
         for i in range(nb_equations):
             equation = data["equations"][i]
-            keys =  equation.keys()
+            keys = equation.keys()
             type_eq = ""
             if "section" in keys:
                 type_eq = equation["section"]
@@ -450,11 +475,11 @@ class ReaderOMC:
             self.no_event = False
 
         def print_node(self, prefix):
-            print (prefix + "NODE : ")
-            print (prefix + "NODE TYPE: " + str(self.type))
-            print (prefix + "NODE DIFF VAR: " + str(self.diff_var))
-            print (prefix + "NODE EQ: " + self.eq)
-            print (prefix + "NODE noEvent: " + str(self.no_event))
+            print(prefix + "NODE : ")
+            print(prefix + "NODE TYPE: " + str(self.type))
+            print(prefix + "NODE DIFF VAR: " + str(self.diff_var))
+            print(prefix + "NODE EQ: " + self.eq)
+            print(prefix + "NODE noEvent: " + str(self.no_event))
             for child in self.children:
                 child.print_node(prefix + " " )
 
@@ -802,88 +827,73 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def read_init_xml(self):
-        doc = minidom.parse(self.init_xml_file)
-        root = doc.documentElement
-        list_vars_xml = root.getElementsByTagName('ScalarVariable')
-        for node in list_vars_xml:
-            var = Variable()
-            var.set_name(node.getAttribute('name'))
-            var.set_variability(node.getAttribute('variability')) # "continuous", "discrete"
-            var.set_causality(node.getAttribute('causality')) # "output" or "internal"
+        xml_parser = etree.XMLParser(remove_comments=True, resolve_entities=False)
+        xml_tree = etree.parse(self.init_xml_file, xml_parser)
 
-            class_type = node.getAttribute('classType')
-            var.set_type(class_type)
+        root_element = xml_tree.getroot()
+        if root_element.tag != "fmiModelDescription":
+            raise FmiModelDescriptionElementNotFound(root_element.tag)
 
-            # Vars represented by an output var have an attribute
-            # 'aliasVariable', which is the name of the output var
-            if node.getAttribute('alias') == "alias":
-                var.set_alias_name( node.getAttribute('aliasVariable'), False)
-            if node.getAttribute('alias') == "negatedAlias":
-                var.set_alias_name( node.getAttribute('aliasVariable'), True)
+        for fmi_model_description_element in root_element:
+            if fmi_model_description_element.tag == "ModelVariables":
+                self.parse_scalar_variables(fmi_model_description_element)
+            elif fmi_model_description_element.tag == "DefaultExperiment":
+                pass # nothing to do
+            else:
+                raise UnknownFmiModelDescriptionElement(fmi_model_description_element.tag)
 
+    ##
+    # Parse every ScalarVariable elements contained in ModelVariables element
+    # @param self : object pointer
+    # @param model_variables_elements : ModelVariables etree element
+    # @return
+    def parse_scalar_variables(self, model_variables_elements):
+        for scalar_variable_element in model_variables_elements:
+            if scalar_variable_element.tag == "ScalarVariable":
+                var = Variable()
+                var.set_name(scalar_variable_element.attrib['name'])
+                var.set_variability(scalar_variable_element.attrib['variability'])  # "continuous", "discrete"
+                var.set_causality(scalar_variable_element.attrib['causality'])  # "output" or "internal"
+                var.set_type(scalar_variable_element.attrib['classType'])
 
-            # 'Start' attribute: this attribute is only assigned for real vars
-            if var.get_type()[0] == "r":
-                list_real = node.getElementsByTagName('Real')
-                if len(list_real) != 1:
-                    list_real = node.getElementsByTagName('Boolean')
-                    if len(list_real) != 1:
-                        print ("pb : read_init_xml real on variable " + var.get_name())
+                # Vars represented by an output var have an attribute
+                # 'aliasVariable', which is the name of the output var
+                if scalar_variable_element.attrib['alias'] == "alias":
+                    var.set_alias_name(scalar_variable_element.attrib['aliasVariable'], False)
+                if scalar_variable_element.attrib['alias'] == "negatedAlias":
+                    var.set_alias_name(scalar_variable_element.attrib['aliasVariable'], True)
+
+                # 'Start' attribute: this attribute is only assigned for real vars
+                if var.get_type()[0] == "r":
+                    if len(scalar_variable_element) != 1:
+                        print("pb : read_init_xml real on variable " + var.get_name())
                         sys.exit()
-                start = list_real[0].getAttribute('start')
-                fixed = list_real[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
-                if start != '':
-                    var.set_start_text( [start] )
-                    var.set_use_start(list_real[0].getAttribute('useStart'))
-                else:
-                    var.set_use_start("false")
-            # 'Start' attribute for integer vars
-            elif var.get_type()[0] == "i":
-                list_integer = node.getElementsByTagName('Integer')
-                if len(list_integer) != 1:
-                    print ("pb: read_init_xml int on variable " + var.get_name())
-                    sys.exit()
-                start = list_integer[0].getAttribute('start')
-                fixed = list_integer[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
-                if start != '':
-                    var.set_start_text( [start] )
-                    var.set_use_start(list_integer[0].getAttribute('useStart'))
-                else:
-                    var.set_use_start("false")
-            # 'Start' attribute for boolean vars
-            elif var.get_type()[0] =="b":
-                list_boolean = node.getElementsByTagName('Boolean')
-                if len(list_boolean) != 1:
-                    print ("pb : read_init_xml bool on variable " + var.get_name())
-                    sys.exit()
-                start = list_boolean[0].getAttribute('start')
-                fixed = list_boolean[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
-                if start != '':
-                    var.set_start_text( [start] )
-                    var.set_use_start(list_boolean[0].getAttribute('useStart'))
-                else:
-                    var.set_use_start("false")
-            # 'Start' attribute for string vars
-            elif var.get_type()[0] =="s":
-                list_string = node.getElementsByTagName('String')
-                if len(list_string) != 1:
-                    print ("pb : read_init_xml string on variable " + var.get_name())
-                    sys.exit()
-                start = list_string[0].getAttribute('start')
-                fixed = list_string[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
-                if start != '':
-                    var.set_start_text( [start] )
-                    var.set_use_start(list_string[0].getAttribute('useStart'))
-                else:
-                    var.set_use_start("false")
-
-            # Vars after the read of *_init.xml
-            self.list_vars.append(var)
-            self.dic_vars[var.get_name()] = len(self.list_vars) - 1
+                    real_scalar_variable_element = scalar_variable_element[0]
+                    if real_scalar_variable_element.tag == 'Real' or real_scalar_variable_element.tag == 'Boolean':
+                        start = real_scalar_variable_element.attrib.get('start', '')
+                        fixed = real_scalar_variable_element.attrib['fixed']
+                        var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
+                        if start != '':
+                            var.set_start_text([start])
+                            var.set_use_start(real_scalar_variable_element.attrib.get('useStart', ''))
+                        else:
+                            var.set_use_start("false")
+                    else:
+                        raise UnexpectedScalarVariableElement(real_scalar_variable_element.tag, "Real/Boolean")
+                # 'Start' attribute for integer vars
+                elif var.get_type()[0] == "i":
+                    self.get_scalar_variable_type(scalar_variable_element, var, 'Integer')
+                # 'Start' attribute for boolean vars
+                elif var.get_type()[0] =="b":
+                    self.get_scalar_variable_type(scalar_variable_element, var, 'Boolean')
+                # 'Start' attribute for string vars
+                elif var.get_type()[0] =="s":
+                    self.get_scalar_variable_type(scalar_variable_element, var, 'String')
+                # Vars after the read of *_init.xml
+                self.list_vars.append(var)
+                self.dic_vars[var.get_name()] = len(self.list_vars) - 1
+            else:
+                raise UnknownModelVariablesElement(scalar_variable_element.tag)
 
         ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
         modified = True
@@ -895,13 +905,37 @@ class ReaderOMC:
                     assert(alias_var != None)
                     if alias_var.is_fixed() and not var.is_fixed():
                         var.set_fixed(True)
-                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
+                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name() + ").")
                         modified = True
                     if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
                         error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
                             " to the discrete real variable " + var.get_name() +\
                             " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
                         error_exit(error_msg)
+
+    ##
+    # Get ScalarVariable information in Real/Integer/Boolean/String subelement
+    # @param self : object pointer
+    # @param scalar_variable_element : ScalarVariable etree element
+    # @param var : Variable
+    # @param var_type : Variable type (Real/Integer/Boolean/String)
+    # @return
+    def get_scalar_variable_type(self, scalar_variable_element, var, var_type):
+        if len(scalar_variable_element) != 1:
+                print("pb : read_init_xml " + var_type + " on variable " + var.get_name())
+                sys.exit()
+        scalar_variable_type_elem = scalar_variable_element[0]
+        if scalar_variable_type_elem.tag == var_type:
+            start = scalar_variable_type_elem.attrib.get('start', '')
+            fixed = scalar_variable_type_elem.attrib['fixed']
+            var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
+            if start != '':
+                var.set_start_text([start])
+                var.set_use_start(scalar_variable_type_elem.attrib.get('useStart', ''))
+            else:
+                var.set_use_start("false")
+        else:
+            raise UnexpectedScalarVariableElement(scalar_variable_type_elem.tag, var_type)
 
     ##
     # Read the *.extvar defining the fictitious equations
@@ -1320,95 +1354,187 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def read_struct_xml_file(self):
-        doc = minidom.parse(self.struct_xml_file)
-        root = doc.documentElement
-        # read file structures
-        elements = root.getElementsByTagName('elements')
+        xml_tree = etree.parse(self.struct_xml_file)
+        root_element = xml_tree.getroot()
+        if root_element.tag != "model":
+            raise ModelElementNotFound(root_element.tag)
 
-        # list of structures/terminals encountered during reading
         list_struct = []
-        self.list_elements=[]
-        if(len(elements) > 0 ):
-            for node_element in elements:
-                # reading structures
-                nodes_struct = node_element.getElementsByTagName('struct')
-                for node in nodes_struct:
-                    struct_name = node.getElementsByTagName('name')[0].firstChild.nodeValue
-                    node_terminal = node.getElementsByTagName('terminal')[0]
-                    name_terminal = node_terminal.getElementsByTagName('name')[0].firstChild.nodeValue
-                    connector_node =  node_terminal.getElementsByTagName('connector')[0]
-                    type_connector = str(connector_node.getAttribute('type'))
-                    compo_name=struct_name + "."+name_terminal
+        self.list_elements = []
 
-                    # we store all this in an object
-                    structure = Element(True,struct_name,len(self.list_elements))
-                    if struct_name not in list_struct:
-                        list_struct.append(struct_name)
-                        self.list_elements.append(structure)
-                        self.map_struct_name_struct_obj[struct_name] = structure
+        for model_element in root_element:
+            if model_element.tag == "name":
+                pass  # nothing to do
+            elif model_element.tag == "elements":
+                # parse all structs first and then parse terminals
+                for elements_struct_element in model_element:
+                    if elements_struct_element.tag == "struct":
+                        self.parse_struct(list_struct, elements_struct_element)
+                    elif elements_struct_element.tag == "terminal":
+                        pass  # will be parsed later
                     else:
-                        structure =  self.map_struct_name_struct_obj[struct_name]
+                        raise UnknownElementsElement(elements_struct_element.tag)
+                for elements_terminal_element in model_element:
+                    if elements_terminal_element.tag == "terminal":
+                        self.parse_terminal(list_struct, elements_terminal_element)
+                    elif elements_terminal_element.tag == "struct":
+                        pass  # already parsed
+                    else:
+                        raise UnknownElementsElement(elements_terminal_element.tag)
+            else:
+               raise UnknownModelElement(model_element.tag)
 
-                    # terminal name can be composed of a sub-structure (or several) and the actual name of the terminal
-                    split_name = name_terminal.split('.')
-                    struct_name1 = struct_name
-                    structure1 = structure
-                    if(len(split_name)>1): #terminal is composed of substructure:
-                        list_of_structure=split_name[0:len(split_name)-1]
-                        for struct in list_of_structure:
-                            struct_name1=struct_name1+"."+struct
-                            if struct_name1 not in list_struct:
-                                s =  Element(True, struct_name1, len(self.list_elements));
-                                list_struct.append(struct_name1)
-                                self.list_elements.append(s)
-                                self.map_struct_name_struct_obj[struct_name1] = s
-                                structure1.list_elements.append(s)
-                                structure1=s
-                            else:
-                                structure1 = self.map_struct_name_struct_obj[struct_name1]
+    ##
+    # parse struct etree element
+    # @param self : object pointer
+    # @param list_struct : structs list
+    # @param struct_elements : struct etree element
+    # @return
+    def parse_struct(self, list_struct, struct_elements):
+        number_of_struct_names = 0
+        for struct_subelem in struct_elements:
+            if struct_subelem.tag == "name":
+                number_of_struct_names += 1
+                if number_of_struct_names >= 2:
+                    raise StructHasMoreThanOneName
+                struct_name = struct_subelem.text
+            elif struct_subelem.tag == "subnodes":
+                for subnodes_element in struct_subelem:
+                    if subnodes_element.tag == "terminal":
+                        self.parse_struct_terminal(list_struct, subnodes_element, struct_name)
+                    else:
+                        raise UnknownSubnodesElement(subnodes_element.tag)
+            else:
+                raise UnknownStructElement(struct_subelem.tag)
 
-                    terminal = Element(False, compo_name, len(self.list_elements))
-                    self.list_elements.append(terminal)
-                    structure1.list_elements.append(terminal)
+    ##
+    # parse terminal etree element contained in struct etree element
+    # @param self : object pointer
+    # @param list_struct : structs list
+    # @param struct_terminal_element : terminal etree element contained in struct etree element
+    # @param struct_name : struct name
+    # @return
+    def parse_struct_terminal(self, list_struct, struct_terminal_element, struct_name):
+        number_of_struct_terminal_names = 0
+        number_of_struct_terminal_connectors = 0
+        for struct_terminal_subelem in struct_terminal_element:
+            if struct_terminal_subelem.tag == "name":
+                number_of_struct_terminal_names += 1
+                if number_of_struct_terminal_names >= 2:
+                    raise TerminalHasMoreThanOneName
+                name_terminal = struct_terminal_subelem.text
+            elif struct_terminal_subelem.tag == "connector":
+                number_of_struct_terminal_connectors += 1
+                if number_of_struct_terminal_connectors >= 2:
+                    raise TerminalHasMoreThanOneConnector
+                type_connector = struct_terminal_subelem.attrib.get('type', '')
+            elif struct_terminal_subelem.tag == "kind" or \
+                    struct_terminal_subelem.tag == "number" or \
+                    struct_terminal_subelem.tag == "id" or \
+                    struct_terminal_subelem.tag == "type" or \
+                    struct_terminal_subelem.tag == "direction" or \
+                    struct_terminal_subelem.tag == "fixed" or \
+                    struct_terminal_subelem.tag == "comment":
+                pass  # nothing to do
+            else:
+                raise UnknownTerminalElement(struct_terminal_subelem.tag)
 
-                    #Find vars that are "flow"
-                    if type_connector == "Flow" :  self.list_flow_vars.append(compo_name)
+        compo_name = struct_name + "." + name_terminal
 
-                # reading terminals
-                for child in node_element.childNodes:
-                    if child.nodeType== child.ELEMENT_NODE and child.localName=='terminal':
-                        name = child.getElementsByTagName('name')[0].firstChild.nodeValue
-                        connector_node =  child.getElementsByTagName('connector')[0]
-                        type_connector = str(connector_node.getAttribute('type'))
+        # we store all this in an object
+        structure = Element(True, struct_name, len(self.list_elements))
+        if struct_name not in list_struct:
+            list_struct.append(struct_name)
+            self.list_elements.append(structure)
+            self.map_struct_name_struct_obj[struct_name] = structure
+        else:
+            structure = self.map_struct_name_struct_obj[struct_name]
 
-                        split_name = name.split('.')
-                        name_terminal=name
-                        struct_name1 =""
-                        structure1 = Element(True,"")
-                        if (len(split_name)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
-                            list_of_structure=split_name[0:len(split_name)-1]
-                            for struct in list_of_structure:
-                                if struct_name1 != "":
-                                    struct_name1=struct_name1+"."+struct
-                                else:
-                                    struct_name1 = struct
-                                if struct_name1 not in list_struct:
-                                    s =  Element(True,struct_name1,len(self.list_elements));
-                                    list_struct.append(struct_name1)
-                                    self.list_elements.append(s)
-                                    self.map_struct_name_struct_obj[struct_name1] = s
-                                    structure1.list_elements.append(s)
-                                    structure1=s
-                                else:
-                                    structure1 = self.map_struct_name_struct_obj[struct_name1]
+        # terminal name can be composed of a sub-structure (or several) and the actual name of the terminal
+        split_name = name_terminal.split('.')
+        struct_name1 = struct_name
+        structure1 = structure
+        if(len(split_name) > 1):  # terminal is composed of substructure:
+            list_of_structure = split_name[0:len(split_name) - 1]
+            for struct in list_of_structure:
+                struct_name1 = struct_name1 + "." + struct
+                if struct_name1 not in list_struct:
+                    s = Element(True, struct_name1, len(self.list_elements))
+                    list_struct.append(struct_name1)
+                    self.list_elements.append(s)
+                    self.map_struct_name_struct_obj[struct_name1] = s
+                    structure1.list_elements.append(s)
+                    structure1 = s
+                else:
+                    structure1 = self.map_struct_name_struct_obj[struct_name1]
 
-                        terminal = Element(False,name_terminal,len(self.list_elements))
-                        self.list_elements.append(terminal)
-                        structure1.list_elements.append(terminal)
+        terminal = Element(False, compo_name, len(self.list_elements))
+        self.list_elements.append(terminal)
+        structure1.list_elements.append(terminal)
 
-                        #Find vars that are "flow"
-                        if type_connector == "Flow" :  self.list_flow_vars.append(name)
+        # Find vars that are "flow"
+        if type_connector == "Flow" :
+            self.list_flow_vars.append(compo_name)
 
+    ##
+    # parse terminal etree element contained in elements etree element
+    # @param self : object pointer
+    # @param list_struct : structs list
+    # @param terminal_element : terminal etree element contained in elements etree element
+    # @return
+    def parse_terminal(self, list_struct, terminal_element):
+        number_of_terminal_names = 0
+        number_of_terminal_connector = 0
+        for elements_terminal_element in terminal_element:
+            if elements_terminal_element.tag == "name":
+                number_of_terminal_names += 1
+                if number_of_terminal_names >= 2:
+                    raise TerminalHasMoreThanOneName
+                name = elements_terminal_element.text
+            elif elements_terminal_element.tag == "connector":
+                number_of_terminal_connector += 1
+                if number_of_terminal_connector >= 2:
+                    raise TerminalHasMoreThanOneConnector
+                type_connector = elements_terminal_element.attrib.get('type', '')
+            elif elements_terminal_element.tag == "kind" or \
+                    elements_terminal_element.tag == "number" or \
+                    elements_terminal_element.tag == "id" or \
+                    elements_terminal_element.tag == "type" or \
+                    elements_terminal_element.tag == "direction" or \
+                    elements_terminal_element.tag == "fixed" or \
+                    elements_terminal_element.tag == "comment":
+                pass  # nothing to do
+            else:
+                raise UnknownTerminalElement(elements_terminal_element.tag)
+
+        split_name = name.split('.')
+        name_terminal = name
+        struct_name1 = ""
+        structure1 = Element(True, "")
+        if (len(split_name) > 1):  # component name: terminal name: last in the list, the rest is a composite of structures
+            list_of_structure = split_name[0:len(split_name) - 1]
+            for struct in list_of_structure:
+                if struct_name1 != "":
+                    struct_name1 = struct_name1 + "." + struct
+                else:
+                    struct_name1 = struct
+                if struct_name1 not in list_struct:
+                    s = Element(True, struct_name1, len(self.list_elements))
+                    list_struct.append(struct_name1)
+                    self.list_elements.append(s)
+                    self.map_struct_name_struct_obj[struct_name1] = s
+                    structure1.list_elements.append(s)
+                    structure1 = s
+                else:
+                    structure1 = self.map_struct_name_struct_obj[struct_name1]
+
+        terminal = Element(False, name_terminal, len(self.list_elements))
+        self.list_elements.append(terminal)
+        structure1.list_elements.append(terminal)
+
+        # Find vars that are "flow"
+        if type_connector == "Flow":
+            self.list_flow_vars.append(name)
 
     ##
     # Read _functions.h file and store internal/external functions declaration
@@ -1582,7 +1708,7 @@ class ReaderOMC:
                 elif var_type == "extObjVars":
                     set_param_address(name,  "data->simulationInfo->extObjs["+str(index_extobjs)+"]")
                     index_extobjs+=1
-                    ext = Variable();
+                    ext = Variable()
                     ext.set_name(name)
                     self.external_objects.append(ext)
                 test_param_address(name)
