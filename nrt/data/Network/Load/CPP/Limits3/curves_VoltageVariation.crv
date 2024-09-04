@@ -12,29 +12,8 @@
     of simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="Generator" variable="generator_UPu"/>
-  <curve model="Generator" variable="generator_running"/>
-  <curve model="Generator" variable="generator_QGenPu"/>
-  <curve model="Generator" variable="generator_PGenPu"/>
-  <curve model="Generator" variable="generator_omegaRefPu"/>
   <curve model="NETWORK" variable="Load_P"/>
   <curve model="NETWORK" variable="Load_Q"/>
   <curve model="NETWORK" variable="Load_zP"/>
   <curve model="NETWORK" variable="Load_zQ"/>
-  <curve model="NETWORK" variable="Load2_P"/>
-  <curve model="NETWORK" variable="Load2_Q"/>
-  <curve model="NETWORK" variable="Load2_zP"/>
-  <curve model="NETWORK" variable="Load2_zQ"/>
-  <curve model="NETWORK" variable="Load2_DeltaPc"/>
-  <curve model="NETWORK" variable="line1_P1"/>
-  <curve model="NETWORK" variable="line1_Q1"/>
-  <curve model="NETWORK" variable="line1_P2"/>
-  <curve model="NETWORK" variable="line1_Q2"/>
-  <curve model="NETWORK" variable="VL1_BUS1_U"/>
-  <curve model="NETWORK" variable="VL1_BUS1_phi"/>
-  <curve model="NETWORK" variable="VL2_BUS1_U"/>
-  <curve model="NETWORK" variable="VL2_BUS1_phi"/>
-  <curve model="NETWORK" variable="Load3_P"/>
-  <curve model="NETWORK" variable="Load3_Q"/>
-  <curve model="NETWORK" variable="Load3_state"/>
 </curvesInput>
