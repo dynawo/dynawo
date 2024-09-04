@@ -2330,6 +2330,10 @@ case $MODE in
     build_dynaswing || error_exit "Error while building DynaSwing"
     ;;
 
+  build-dynawaltz)
+    build_dynawaltz || error_exit "Error while building DynaWaltz"
+    ;;
+
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
