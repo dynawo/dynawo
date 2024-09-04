@@ -58,6 +58,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-3rd-party
           util/envDynawo.sh build-dynawaltz
           util/envDynawo.sh distrib-omc
 
