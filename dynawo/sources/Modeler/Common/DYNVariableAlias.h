@@ -47,7 +47,7 @@ class VariableAlias : public Variable {
    * @param type Type of the variable
    * @param negated @b if the alias is negated
    */
-  VariableAlias(const std::string& name, const std::string& refName, const typeVar_t& type, bool negated);
+  VariableAlias(const std::string& name, const std::string& refName, typeVar_t type, bool negated);
 
   /**
    * @brief Constructor
@@ -57,26 +57,26 @@ class VariableAlias : public Variable {
    * @param type Type of the variable
    * @param negated @b if the alias is negated
    */
-  VariableAlias(const std::string& name, const boost::shared_ptr<VariableNative> refVar, const typeVar_t& type, bool negated);
+  VariableAlias(const std::string& name, const boost::shared_ptr<VariableNative>& refVar, typeVar_t type, bool negated);
 
   /**
    * @brief Destructor
    */
-  virtual ~VariableAlias();
+  ~VariableAlias() override;
 
   /**
    * @brief Setter for alias reference variable
    *
    * @param refVar the variable towards which to point
    */
-  void setReferenceVariable(const boost::shared_ptr<VariableNative> refVar);
+  void setReferenceVariable(const boost::shared_ptr<VariableNative>& refVar);
 
   /**
    * @brief Getter for variable's type
    *
    * @return variable's type
    */
-  typeVar_t getType() const;
+  typeVar_t getType() const override;
 
   /**
    * @brief Getter for variable's local type (type the variable would have if it was not an alias)
@@ -90,21 +90,21 @@ class VariableAlias : public Variable {
    *
    * @return @b if the variable is negated
    */
-  bool getNegated() const;
+  bool getNegated() const override;
 
   /**
    * @brief Getter for variable's index
    *
    * @return variable index
    */
-  int getIndex() const;
+  int getIndex() const override;
 
   /**
    * @brief Getter for whether the variable is a state variable
    *
    * @return @b whether it is a state variable
    */
-  bool isState() const;
+  bool isState() const override;
 
   /**
    * @brief Check whether the alias reference variable is already set

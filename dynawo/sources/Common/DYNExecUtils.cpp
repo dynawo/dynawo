@@ -36,7 +36,7 @@ using std::stringstream;
 namespace fs = boost::filesystem;
 
 string
-prettyPath(const std::string & path) {
+prettyPath(const std::string& path) {
   string prettyPath = "";
   try {
     // only works if the file or the path exists !!!
@@ -69,14 +69,14 @@ getShellTool() {
 }
 
 int
-executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir) {
+executeCommand(const std::string& command, std::stringstream & ss, const std::string& startDir) {
   ss << "Executing command : " << command << std::endl;
 
-  std::string prefix = getOptionPrefix();
+  const std::string prefix = getOptionPrefix();
   std::string tool = getShellTool();
-  std::vector<std::string> args { prefix+"c", command };
+  std::vector<std::string> args { prefix + "c", command };
   ps::ipstream ips;
-  ps::child child(ps::search_path(tool), args, ps::shell, ps::start_dir(start_dir == "" ? "." : start_dir), (ps::std_out & ps::std_err) > ips);
+  ps::child child(ps::search_path(tool), args, ps::shell, ps::start_dir(startDir.empty() ? "." : startDir), (ps::std_out & ps::std_err) > ips);
 
   string line;
   while (ips && std::getline(ips, line))
@@ -91,12 +91,12 @@ bool hasEnvVar(std::string const& key) {
   return (val != NULL);
 }
 
-std::string getEnvVar(std::string const& key) {
+std::string getEnvVar(const std::string& key) {
   char const* val = getenv(key.c_str());
   return val == NULL ? std::string() : std::string(val);
 }
 
-std::string getMandatoryEnvVar(std::string const& key) {
+std::string getMandatoryEnvVar(const std::string& key) {
   if (!hasEnvVar(key))
     throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, key);
   return getEnvVar(key);

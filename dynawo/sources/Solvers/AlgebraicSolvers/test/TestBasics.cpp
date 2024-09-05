@@ -115,7 +115,10 @@ class SolverMock : public Solver::Impl {
 
   void defineSpecificParameters() {}
 
-  std::string solverType() const { return "Mock"; }
+  const std::string& solverType() const {
+    static std::string type = "Mock";
+    return type;
+  }
 
   void setSolverSpecificParameters() {}
 
@@ -139,8 +142,9 @@ class SolverMock : public Solver::Impl {
 
   inline void setInitStep(double /*initStep*/) {}
 
-  inline std::string getName() {
-    return "SolverMock";
+  inline const std::string& getName() {
+    static std::string name = "SolverMock";
+    return name;
   }
 };
 

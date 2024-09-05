@@ -43,12 +43,12 @@ class ModelVoltageSetPointChangeFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of Model VoltageSetPointChange
    */
-  SubModel* create() const;
+  SubModel* create() const override;
 
   /**
    * @brief Model VoltageSetPointChange destroy
    */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -75,7 +75,7 @@ class ModelVoltageSetPointChange : public ModelCPP {
    * @brief  VoltageSetPointChange model initialization routine
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
 
   /**
    * @brief  VoltageSetPointChange model's sizes getter
@@ -102,7 +102,7 @@ class ModelVoltageSetPointChange : public ModelCPP {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
 
   /**
    * @brief  VoltageSetPointChange discrete variables evaluation
@@ -113,7 +113,7 @@ class ModelVoltageSetPointChange : public ModelCPP {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
   /**
    * @copydoc SubModel::collectSilentZ()
@@ -123,7 +123,7 @@ class ModelVoltageSetPointChange : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
 
   /**
    * @brief calculate calculated variables
@@ -136,20 +136,20 @@ class ModelVoltageSetPointChange : public ModelCPP {
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief calculate jacobien prime matrix
    *
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @copydoc ModelCPP::evalStaticFType()

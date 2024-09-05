@@ -57,14 +57,14 @@ struct UserDefinedDirectory {
 /**
  * @brief Search for a file within a directory
  *
- * @param[in] name : the path to the file relative to the root name (or one of the root subdirectories)
- * @param[in] rootDir : the path to the root directory from which to start looking
+ * @param[in] pathFromDirectory : the path to the file relative to the root name (or one of the root subdirectories)
+ * @param[in] rootPath : the path to the root directory from which to start looking
  * @param[in] searchInSubDirs : whether to search in subdirectories, or to only search in the root directory
  *
  * @return the file path ("" when the file was not found)
  * throw an exception when the rootPath does not exist
  */
-std::string searchFile(const std::string & name, const std::string & rootDir, const bool searchInSubDirs);
+std::string searchFile(const std::string& pathFromDirectory, const std::string& rootPath, bool searchInSubDirs);
 
 /**
  * @brief Search for a files which have a given file extension within a directory
@@ -77,9 +77,9 @@ std::string searchFile(const std::string & name, const std::string & rootDir, co
  *
  * throw an exception when the rootPath does not exist
  */
-void searchFilesAccordingToExtensions(const std::string & directoryToScan, const std::vector <std::string> & fileExtensionsAllowed,
-                                      const std::vector <std::string> & fileExtensionsForbidden, const bool searchInSubDirs,
-                                      std::vector <std::string> & filesFound);
+void searchFilesAccordingToExtensions(const std::string& directoryToScan, const std::vector<std::string>& fileExtensionsAllowed,
+                                      const std::vector<std::string>& fileExtensionsForbidden, bool searchInSubDirs,
+                                      std::vector<std::string>& filesFound);
 
 /**
  * @brief Search for a files which have a given file extension within a directory
@@ -92,9 +92,9 @@ void searchFilesAccordingToExtensions(const std::string & directoryToScan, const
  *
  * throw an exception when the rootPath does not exist
  */
-void searchFilesAccordingToExtension(const std::string & directoryToScan, const std::string fileExtensionAllowed,
-                                     const std::vector <std::string> & fileExtensionsForbidden, const bool searchInSubDirs,
-                                     std::vector <std::string> & filesFound);
+void searchFilesAccordingToExtension(const std::string& directoryToScan, const std::string& fileExtensionAllowed,
+                                     const std::vector<std::string>& fileExtensionsForbidden, bool searchInSubDirs,
+                                     std::vector<std::string> & filesFound);
 
 /**
  * @brief Search for models within a directory
@@ -110,9 +110,9 @@ void searchFilesAccordingToExtension(const std::string & directoryToScan, const 
  *
  * call searchModelsFilesRec
  */
-void searchModelsFiles(const std::string & directoryToScan, const std::string& fileExtension, const std::vector<std::string>& fileExtensionsForbidden,
-                       const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore, const bool searchInSubDirs,
-                       const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
+void searchModelsFiles(const std::string& directoryToScan, const std::string& fileExtension, const std::vector<std::string>& fileExtensionsForbidden,
+                       const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore, bool searchInSubDirs,
+                       bool packageForcesSubDirsSearch, bool stopWhenSeePackage,
                        std::map<std::string, std::string>& filesFound);  // search for models data in a given directory;
 
 /**
@@ -132,8 +132,8 @@ void searchModelsFiles(const std::string & directoryToScan, const std::string& f
  * throw an exception when the rootPath does not exist
  */
 void searchModelsFilesRec(const std::string& directoryToScan, const std::string& fileExtension, const std::vector<std::string> & fileExtensionsForbidden,
-                          const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore, const bool searchInSubDirs,
-                          const bool isPackage, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
+                          const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore, bool searchInSubDirs,
+                          bool isPackage, bool packageForcesSubDirsSearch, bool stopWhenSeePackage,
                           const std::vector <std::string>& namespaces, std::map<std::string, std::string>& filesFound);
 
 /**
@@ -150,19 +150,19 @@ void searchModelsFilesRec(const std::string& directoryToScan, const std::string&
  *
  * throw an exception when the rootPath does not exist
  */
-void searchModelicaModels(const std::string& directoryToScan, const std::string& fileExtension, const bool searchInSubDirs,
+void searchModelicaModels(const std::string& directoryToScan, const std::string& fileExtension, bool searchInSubDirs,
                           std::vector<std::string>& filesFound);
 
 /**
  * @brief Concatenate two paths
  *
- * @param[in] name : the path relative to the root path (may be a file name)
- * @param[in] rootName : the path to the root directory
+ * @param[in] childPath : the path relative to the root path (may be a file name)
+ * @param[in] rootPath : the path to the root directory
  *
  * @return the concatenated file path
  * throw an exception when the path does not exist
  */
-std::string canonical(const std::string & name, const std::string & rootName = ".");
+std::string canonical(const std::string& childPath, const std::string& rootPath = ".");
 
 /**
  * @brief Concatenate two paths
@@ -219,7 +219,7 @@ void copy(const std::string & oldPath, const std::string & newPath);
  *
  * @return the current path as a string (equivalent of cd or pwd)
  */
-std::string current_path();
+std::string currentPath();
 
 /**
  * @brief Set the current file path
@@ -228,7 +228,7 @@ std::string current_path();
  * @param[in] path : the current path as a string
 
  */
-void current_path(const std::string & path);
+void currentPath(const std::string& path);
 
 /**
  * @brief replace the file extension from a file path
@@ -238,7 +238,7 @@ void current_path(const std::string & path);
  * @return the updated path as a string
 
  */
-std::string replace_extension(const std::string & path, const std::string & ext);
+std::string replaceExtension(const std::string& path, const std::string& ext);
 
 /**
  * @brief Check whether a path points toward a directory
@@ -247,13 +247,13 @@ std::string replace_extension(const std::string & path, const std::string & ext)
  * @return whether the path points toward a directory
 
  */
-bool is_directory(const std::string & path);
+bool isDirectory(const std::string& path);
 
 /**
  * @brief Create all relevant directories in order to make a path relevant
- * @param[in] path : the path from which to create directories
+ * @param[in] inputPath : the path from which to create directories
  */
-void create_directory(const std::string & path);
+void createDirectory(const std::string& inputPath);
 
 /**
  * @brief Retrieve the file extension from a file path
@@ -262,7 +262,7 @@ void create_directory(const std::string & path);
  * @return the file extension (or an empty string when no extension was found)
  * Warning : extension ("file.txt.tmp") will return ".tmp"
  */
-std::string extension(const std::string & path);
+std::string extension(const std::string& path);
 
 /**
  * @brief Check whether given extensions are found in a directory
@@ -270,7 +270,7 @@ std::string extension(const std::string & path);
  * @param[in] extensionList : list of extensions to search in the directory
  * @return whether given extensions are found in directory
  */
-bool extensionFound(const std::string directoryToScan, const std::vector <std::string> & extensionList);
+bool extensionFound(const std::string& directoryToScan, const std::vector <std::string>& extensionList);
 
 /**
  * @brief Check whether file path ends with a given extension
@@ -279,7 +279,7 @@ bool extensionFound(const std::string directoryToScan, const std::vector <std::s
  * @return whether they are equals
  * Warning : extensionEquals ("file.TXT.TMP", ".txt.tmp") will return false
  */
-bool extensionEquals(const std::string path, const std::string extension);
+bool extensionEquals(const std::string& path, const std::string& extension);
 
 /**
  * @brief Retrieve the file list in a directory
@@ -287,7 +287,7 @@ bool extensionEquals(const std::string path, const std::string extension);
  * @param path : the path from which to extract the directories list
  * @return the directories list in the path
  */
-std::list<std::string> list_directory(const std::string & path);
+std::list<std::string> listDirectory(const std::string& path);
 
 /**
  * @brief Retrieve the file name from a file path
@@ -296,7 +296,7 @@ std::list<std::string> list_directory(const std::string & path);
  * @return the file name (or an empty string when it fails)
 
  */
-std::string file_name(const std::string & path);
+std::string fileNameFromPath(const std::string& path);
 
 /**
  * @brief Remove the file name from a file path
@@ -304,7 +304,7 @@ std::string file_name(const std::string & path);
  *
  * @return the file path without the file name
  */
-std::string remove_file_name(const std::string & path);
+std::string removeFileName(const std::string& path);
 
 /**
  * @brief Delete all contents in a directory
@@ -312,17 +312,17 @@ std::string remove_file_name(const std::string & path);
  *
  * @param[in] directory : the directory where all contents are deleted
  */
-void remove_all_in_directory(const std::string & directory);
+void removeAllInDirectory(const std::string& directory);
 
 /**
  * @brief Generate the parent directory from a given path
  *
- * @param[in] name : the path from which to find the parent path
+ * @param[in] childPath : the path from which to find the parent path
  *
  * @return the parent file path (return the input path when it is not possible to find the parent directory)
  * parentDirectory (/users/test/model/alpha.mo) = /users/test/model
  */
-std::string parentDirectory(const std::string name);
+std::string parentDirectory(const std::string& childPath);
 
 /**
  * @brief Generate the last directory from a given path
@@ -333,7 +333,7 @@ std::string parentDirectory(const std::string name);
  * lastParentDirectory (/users/test/model/alpha.mo) = model
  * lastParentDirectory (/users/test/model) = model
  */
-std::string lastParentDirectory(const std::string childPath);
+std::string lastParentDirectory(const std::string& childPath);
 
 /**
  * @brief Check whether a given path is absolute or relative
@@ -341,6 +341,6 @@ std::string lastParentDirectory(const std::string childPath);
  *
  * @return whether the path is absolute
  */
-bool isAbsolutePath(const std::string path);
+bool isAbsolutePath(const std::string& path);
 
 #endif  // COMMON_DYNFILESYSTEMUTILS_H_

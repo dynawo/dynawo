@@ -38,8 +38,8 @@ DYNErrorQueue::push(const DYN::Error& exception) {
 
 void
 DYNErrorQueue::flush() {
-  size_t maxDisplayedError = getMaxDisplayedError();
-  size_t nbErrors = exceptionQueue_.size();
+  const size_t maxDisplayedError = getMaxDisplayedError();
+  const size_t nbErrors = exceptionQueue_.size();
   if (nbErrors == 1) {
     const DYN::Error e = exceptionQueue_.front();
     exceptionQueue_.pop();

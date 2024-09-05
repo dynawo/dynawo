@@ -248,7 +248,7 @@ HvdcLineInterfaceIIDM::isPartiallyConnected() const {
   return conv1_->isConnected() || conv2_->isConnected();
 }
 
-string
+const std::string&
 HvdcLineInterfaceIIDM::getID() const {
   return hvdcLineIIDM_.getId();
 }

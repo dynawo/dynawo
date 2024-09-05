@@ -47,7 +47,7 @@ static const char extension[] = ".so";
 }
 
 static double MAXIMUM_VALUE_FIXED = 1000000;  ///< maximum precision
-std::string double2String(const double& value) {
+std::string double2String(const double value) {
   std::stringstream ss("");
   if (value > MAXIMUM_VALUE_FIXED)
     ss << std::setprecision(getPrecisionAsNbDecimal()) << std::scientific << value;
@@ -56,7 +56,7 @@ std::string double2String(const double& value) {
   return ss.str();
 }
 
-string typeVarC2Str(const typeVarC_t& type) {
+string typeVarC2Str(const typeVarC_t type) {
   string typeVarC;
   switch (type) {
     case VAR_TYPE_STRING:
@@ -88,7 +88,7 @@ typeVarC_t str2TypeVarC(const std::string& typeStr) {
     throw DYNError(Error::MODELER, TypeVarCUnableToConvert, typeStr);
 }
 
-int sign(const double& value) {
+int sign(const double value) {
   return (value < 0.) ? -1 : 1;
 }
 
@@ -98,7 +98,7 @@ static int MAXIMUM_PRECISION_AS_NB_DECIMAL = 6;  ///< maximum precision
 double getCurrentPrecision() {
   return MAXIMUM_PRECISION;
 }
-void setCurrentPrecision(double precision) {
+void setCurrentPrecision(const double precision) {
   MAXIMUM_PRECISION = std::abs(precision);
   MAXIMUM_PRECISION_AS_NB_DECIMAL = static_cast<int>(-std::log10(MAXIMUM_PRECISION));
   MAXIMUM_VALUE_FIXED = std::pow(10, MAXIMUM_PRECISION_AS_NB_DECIMAL);
@@ -132,9 +132,9 @@ getLibraryPathFromName(const std::string& libName) {
 
 size_t
 LevensteinDistance(const std::string& s1, const std::string& s2,
-    size_t insertCost,
-    size_t deleteCost,
-    size_t replaceCost) {
+    const size_t insertCost,
+    const size_t deleteCost,
+    const size_t replaceCost) {
   if (s1.size() > s2.size()) {
     return LevensteinDistance(s2, s1, deleteCost, insertCost, replaceCost);
   }

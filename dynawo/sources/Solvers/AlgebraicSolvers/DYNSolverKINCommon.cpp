@@ -87,8 +87,8 @@ void SolverKINCommon::clean() {
 }
 
 void
-SolverKINCommon::initCommon(double fnormtol, double initialaddtol, double scsteptol,
-                     double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY) {
+SolverKINCommon::initCommon(const double fnormtol, const double initialaddtol, const double scsteptol, const double mxnewtstep,
+  const int msbset, const int mxiter, const int printfl, const KINSysFn evalF, const KINLsJacFn evalJ, const N_Vector sundialsVectorY) {
   sundialsVectorY_ = sundialsVectorY;
 
   // (1) Problem size
@@ -184,7 +184,7 @@ SolverKINCommon::initCommon(double fnormtol, double initialaddtol, double scstep
 
 int
 SolverKINCommon::solveCommon() {
-  int flag = KINSol(KINMem_, sundialsVectorY_, KIN_NONE, sundialsVectorYScale_, sundialsVectorFScale_);
+  const int flag = KINSol(KINMem_, sundialsVectorY_, KIN_NONE, sundialsVectorYScale_, sundialsVectorFScale_);
   analyseFlag(flag);
 
   return flag;
@@ -275,7 +275,7 @@ SolverKINCommon::infoHandlerFn(const char* module, const char* function,
 }
 
 void
-SolverKINCommon::updateStatistics(long int& nni, long int& nre, long int& nje) {
+SolverKINCommon::updateStatistics(long int& nni, long int& nre, long int& nje) const {
   if (KINMem_ == NULL)
     return;
 

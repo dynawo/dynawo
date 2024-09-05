@@ -151,7 +151,7 @@ class SparseMatrix {
    * @param columns columns to erase
    * @param M new matrix allocated
    */
-  void erase(const std::unordered_set<int>& rows, const std::unordered_set<int>& columns, SparseMatrix& M);
+  void erase(const std::unordered_set<int>& rows, const std::unordered_set<int>& columns, SparseMatrix& M) const;
 
   /**
    * @brief Get the row and colum indices from a position in the data array

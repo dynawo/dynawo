@@ -87,7 +87,7 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc BusInterface::hasConnection(bool hasConnection)

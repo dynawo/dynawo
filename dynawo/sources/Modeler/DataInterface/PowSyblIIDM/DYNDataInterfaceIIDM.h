@@ -156,7 +156,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @brief export values from static variables directly into the IIDM model without updating them
    */
-  void exportStateVariablesNoReadFromModel();
+  void exportStateVariablesNoReadFromModel() const;
 #endif
 
   /**
@@ -299,7 +299,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @return the instance of switchInterface created
    */
   boost::shared_ptr<SwitchInterfaceIIDM> importSwitch(powsybl::iidm::Switch& switchIIDM, const boost::shared_ptr<BusInterface>& bus1
-      , const boost::shared_ptr<BusInterface>& bus2);
+      , const boost::shared_ptr<BusInterface>& bus2) const;
 
   /**
    * @brief import and create a generator interface thanks to the IIDM instance
@@ -308,7 +308,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param country country of the parent substation
    * @return the instance of GeneratorInterface created
    */
-  boost::shared_ptr<GeneratorInterfaceIIDM> importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country);
+  boost::shared_ptr<GeneratorInterfaceIIDM> importGenerator(powsybl::iidm::Generator& generatorIIDM, const std::string& country) const;
 
   /**
    * @brief import and create a generator interface thanks to the IIDM instance
@@ -317,7 +317,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param country country of the parent substation
    * @return the instance of GeneratorInterface created
    */
-  boost::shared_ptr<BatteryInterfaceIIDM> importBattery(powsybl::iidm::Battery & batteryIIDM, const std::string& country);
+  boost::shared_ptr<BatteryInterfaceIIDM> importBattery(powsybl::iidm::Battery& batteryIIDM, const std::string& country) const;
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance
@@ -326,7 +326,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param country country of the parent substation
    * @return the instance of loadInterface created
    */
-  boost::shared_ptr<LoadInterfaceIIDM> importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country);
+  boost::shared_ptr<LoadInterfaceIIDM> importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country) const;
 
   /**
    * @brief import and create a shunt interface thanks to the IIDM instance
@@ -334,7 +334,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param shuntIIDM IIDM instance to use to create shuntInterface
    * @return the instance of shuntCompensatorInterface created
    */
-  boost::shared_ptr<ShuntCompensatorInterfaceIIDM> importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM);
+  boost::shared_ptr<ShuntCompensatorInterfaceIIDM> importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM) const;
 
   /**
    * @brief import and create a danglingLine interface thanks to the IIDM instance
@@ -342,7 +342,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param danglingLineIIDM IIDM instance to use to create danglingLineInterface
    * @return the instance of danglingLineInterface created
    */
-  boost::shared_ptr<DanglingLineInterfaceIIDM> importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM);
+  boost::shared_ptr<DanglingLineInterfaceIIDM> importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM) const;
 
   /**
    * @brief import and create a svc interface thanks to the IIDM instance
@@ -350,7 +350,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param svcIIDM IIDM instance to use to create svcInterface
    * @return the instance of staticVarCompensatorInterface created
    */
-  boost::shared_ptr<StaticVarCompensatorInterfaceIIDM> importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM);
+  boost::shared_ptr<StaticVarCompensatorInterfaceIIDM> importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) const;
 
   /**
    * @brief import and create a two windings transformer interface thanks to the IIDM instance
@@ -358,14 +358,14 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param twoWTfo IIDM instance to use to create twoWindingsTransformer Interface
    * @return the instance of TwoWTransformerInterface created
    */
-  boost::shared_ptr<TwoWTransformerInterfaceIIDM> importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer & twoWTfo);
+  boost::shared_ptr<TwoWTransformerInterfaceIIDM> importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer& twoWTfo) const;
 
   /**
    * @brief conversion of three windings transformer IIDM instance into three two windings transformers interfaces
    *
    * @param threeWTfo IIDM instance to use to create threeWindingsTransformer Interface
    */
-  void convertThreeWindingsTransformers(powsybl::iidm::ThreeWindingsTransformer & threeWTfo);
+  void convertThreeWindingsTransformers(powsybl::iidm::ThreeWindingsTransformer& threeWTfo);
 
    /**
    * @brief import and create a line interface thanks to the IIDM instance
@@ -373,7 +373,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param lineIIDM IIDM instance to use to create line Interface
    * @return the instance of LineInterface created
    */
-  boost::shared_ptr<LineInterfaceIIDM>  importLine(powsybl::iidm::Line& lineIIDM);
+  boost::shared_ptr<LineInterfaceIIDM>  importLine(powsybl::iidm::Line& lineIIDM) const;
 
   /**
    * @brief import and create a vsc converter interface thanks to the IIDM instance
@@ -381,7 +381,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param vscIIDM IIDM instance to use to create vsc converter interface
    * @return the instance of vscConverterInterface created
    */
-  boost::shared_ptr<VscConverterInterfaceIIDM> importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM);
+  boost::shared_ptr<VscConverterInterfaceIIDM> importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM) const;
 
   /**
    * @brief import and create a lcc converter interface thanks to the IIDM instance
@@ -389,7 +389,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param lccIIDM IIDM instance to use to create lcc converter interface
    * @return the instance of lccConverterInterface created
    */
-  boost::shared_ptr<LccConverterInterfaceIIDM> importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM);
+  boost::shared_ptr<LccConverterInterfaceIIDM> importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM) const;
 
    /**
    * @brief import and create a hvdc line interface thanks to the IIDM instance
@@ -397,7 +397,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param hvdcLineIIDM IIDM instance to use to create hvdc line Interface
    * @return the instance of HvdcLineInterface created
    */
-  boost::shared_ptr<HvdcLineInterfaceIIDM> importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM);
+  boost::shared_ptr<HvdcLineInterfaceIIDM> importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM) const;
 
   /**
    * @brief configure the bus criteria

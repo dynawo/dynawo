@@ -117,9 +117,9 @@ ModelManager::initializeStaticData() {
 }
 
 void
-ModelManager::createParametersValueSet(const std::unordered_map<string, ParameterModeler>& parameters, shared_ptr<ParametersSet>& parametersSet) {
-  for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = it->second;
+ModelManager::createParametersValueSet(const std::unordered_map<string, ParameterModeler>& parameters, const shared_ptr<ParametersSet>& parametersSet) const {
+  for (const auto& parameterPair : parameters) {
+    const ParameterModeler& parameter = parameterPair.second;
     const string& parameterName = parameter.getName();
 
     if (parameter.hasValue()) {
@@ -168,7 +168,7 @@ ModelManager::init(const double t0) {
 
 void ModelManager::setSubModelParameters() {
   if (modelModelica()->isDataStructInitialized()) {
-    shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
+    const auto mergedParametersSet = boost::make_shared<ParametersSet>("merged_" + name());
 
     const std::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
 
@@ -205,7 +205,7 @@ ModelManager::associateBuffers() {
       dataInit_->localData[0]->discreteVars = zLocalInit_.data();
 
     if (dataInit_->modelData->nVariablesInteger > 0) {
-      int offset = dataInit_->nbZ;
+      const int offset = dataInit_->nbZ;
       dataInit_->localData[0]->integerDoubleVars = &(zLocalInit_[offset]);
     }
   } else {
@@ -215,7 +215,7 @@ ModelManager::associateBuffers() {
     dataDyn_->localData[0]->discreteVars = &(zLocal_[0]);
 
     if (dataDyn_->modelData->nVariablesInteger > 0) {
-      int offset = dataDyn_->nbZ;
+      const int offset = dataDyn_->nbZ;
       dataDyn_->localData[0]->integerDoubleVars = &(zLocal_[offset]);
     }
   }
@@ -300,7 +300,7 @@ ModelManager::evalF(const double t, const vector<adept::adouble>& y,
   modelModelica()->evalFAdept(y, yp, f);
 #ifdef _DEBUG_
   for (unsigned int i = 0; i < sizeF(); i++) {
-    double term = f[i].value();
+    const double term = f[i].value();
     if (isnan(term) || isinf(term)) {
        throw DYNError(Error::MODELER, ResidualWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i));  // i is local index
     }
@@ -309,7 +309,7 @@ ModelManager::evalF(const double t, const vector<adept::adouble>& y,
 }
 
 void
-ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt, const int rowOffset, bool complete) {
+ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt, const int rowOffset, const bool complete) {
   if (sizeY() == 0)
     return;
 
@@ -334,7 +334,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     stack.independent(&xp[0], static_cast<adept::uIndex>(xp.size()));
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer * timer1 = new Timer("zzz reading");
+    Timer* timer1 = new Timer("zzz reading");
 #endif
     stack.jacobian(&jac[0]);
     stack.pause_recording();
@@ -342,16 +342,16 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     delete timer1;
 #endif
 
-    int offsetJPrim = sizeY() * sizeY();
+    const int offsetJPrim = sizeY() * sizeY();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer * timer3 = new Timer("zzz filling");
+    Timer* timer3 = new Timer("zzz filling");
 #endif
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
       for (unsigned int j = 0; j < sizeY(); ++j) {
-        int indice = i + j * sizeY();
-        double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
+        const int indice = i + j * sizeY();
+        const double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
@@ -383,7 +383,7 @@ ModelManager::evalG(const double t) {
 }
 
 void
-ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) {
+ModelManager::evalJt(const double t, const double cj, const int rowOffset, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJ");
 #endif
@@ -397,13 +397,13 @@ ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const in
 }
 
 void
-ModelManager::evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) {
+ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, SparseMatrix& jtPrim) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJPrim");
 #endif
 
 #ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, false);
+  evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
 #else
   // Assert when Adept wasn't used
   assert(0 && "evalJt : Adept not used");
@@ -471,8 +471,8 @@ ModelManager::setSharedParametersDefaultValues(const bool isInit, const paramete
   const shared_ptr<parameters::ParametersSet> sharedParametersInitialValues = model->setSharedParametersDefaultValues();
   const std::unordered_map<string, ParameterModeler>& parameters = isInit ? getParametersInit() : getParametersDynamic();
 
-  for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
+  for (const auto& parameterPair : parameters) {
+    const ParameterModeler& currentParameter = parameterPair.second;
     const string& paramName = currentParameter.getName();
 
     if (currentParameter.isUnitary() && sharedParametersInitialValues->hasParameter(paramName)) {
@@ -606,9 +606,9 @@ void ModelManager::writeParametersFinalValues() {
   const unsigned int nbParamsReal = static_cast<unsigned int>(modelData()->nParametersReal);
   const unsigned int nbParamsBool = static_cast<unsigned int>(modelData()->nParametersBoolean);
   const unsigned int nbParamsInt = static_cast<unsigned int>(modelData()->nParametersInteger);
-  for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    unsigned int i = currentParameter.getIndex();
+  for (const auto& parameterPair : parameters) {
+    const ParameterModeler& currentParameter = parameterPair.second;
+    const unsigned int i = currentParameter.getIndex();
     const string& currentParameterName = currentParameter.getName();
     if (i < nbParamsReal) {
       const unsigned int localRealIndex = i;
@@ -841,9 +841,9 @@ ModelManager::loadParameters(const string& parameters) {
   const std::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parametersList(parametersMap.size(), "TMP");
-  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    parametersList[currentParameter.getIndex()] = it->first;
+  for (const auto& parameterPair : parametersMap) {
+    const ParameterModeler& currentParameter = parameterPair.second;
+    parametersList[currentParameter.getIndex()] = parameterPair.first;
   }
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i) {
     const ParameterModeler& currentParameter = parametersMap.at(parametersList[i]);
@@ -1160,9 +1160,9 @@ ModelManager::setInitialCalculatedParameters() {
   const std::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parametersInitial(parametersMap.size(), "TMP");
-  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    parametersInitial[currentParameter.getIndex()] = it->first;
+  for (const auto& parameterPair : parametersMap) {
+    const ParameterModeler& currentParameter = parameterPair.second;
+    parametersInitial[currentParameter.getIndex()] = parameterPair.first;
   }
   // Copy init parameters
   assert(parametersInitial.size() == static_cast<size_t>(modelData()->nParametersReal + modelData()->nParametersBoolean
@@ -1262,9 +1262,9 @@ ModelManager::printValuesParameters(std::ofstream& fstream) {
   const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parameters(parametersMap.size(), "TMP");
-  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    parameters[currentParameter.getIndex()] = it->first;
+  for (const auto& parameterPair : parametersMap) {
+    const ParameterModeler& currentParameter = parameterPair.second;
+    parameters[currentParameter.getIndex()] = parameterPair.first;
   }
 
   // In Modelica models, parameters are ordered as follows : real, then boolean, integer and string
@@ -1294,12 +1294,12 @@ ModelManager::printInitValuesParameters(std::ofstream& fstream) const {
   if (!hasInit())
     return;
   fstream << " ====== INIT PARAMETERS VALUES ======\n";
-  const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersInit();
+  const std::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parameters(parametersMap.size(), "TMP");
-  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    parameters[currentParameter.getIndex()] = it->first;
+  for (const auto& parameterPair : parametersMap) {
+    const ParameterModeler& currentParameter = parameterPair.second;
+    parameters[currentParameter.getIndex()] = parameterPair.first;
   }
 
   // In Modelica models, parameters are ordered as follows : real, then boolean, integer and string
@@ -1324,7 +1324,7 @@ ModelManager::printInitValuesParameters(std::ofstream& fstream) const {
     << (dataInit_->simulationInfo->stringParameter[i]) << "\n";
 }
 
-string ModelManager::modelType() const {
+const string& ModelManager::modelType() const {
   return modelType_;
 }
 
@@ -1455,7 +1455,7 @@ ModelManager::addDelay(int exprNumber, const double* time, const double* exprVal
 }
 
 double
-ModelManager::computeDelay(int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+ModelManager::computeDelay(const int exprNumber, const double exprValue, const double time, const double delayTime, const double delayMax) {
   if (delayTime > delayMax || delayTime < 0.0) {
     throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delayTime, time, delayMax);
   }
@@ -1491,7 +1491,7 @@ ModelManager::computeDelay(int exprNumber, double exprValue, double time, double
 
 #ifdef _ADEPT_
 adept::adouble
-ModelManager::computeDelayDerivative(int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax) {
+ModelManager::computeDelayDerivative(const int exprNumber, adept::adouble exprValue, const double time, adept::adouble delayTime, const double delayMax) {
   if (delayTime > delayMax || delayTime < 0.0) {
     throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delayTime, time, delayMax);
   }

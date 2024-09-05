@@ -21,7 +21,6 @@
 
 #include "DYDIdentifiable.h"
 #include "DYDIdentifiableFactory.h"
-#include "DYDIterators.h"
 #include "DYDMacroStaticRef.h"
 #include "DYDStaticRef.h"
 #include "DYDStaticRefFactory.h"
@@ -35,7 +34,7 @@ using boost::shared_ptr;
 
 namespace dynamicdata {
 
-Model::Model(const string& id, ModelType type) : id_(IdentifiableFactory::newIdentifiable(id)), type_(type) {}
+Model::Model(const string& id, const ModelType type) : id_(IdentifiableFactory::newIdentifiable(id)), type_(type) {}
 
 Model::~Model() {}
 
@@ -68,46 +67,6 @@ Model::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef
   ret = macroStaticRefs_.emplace(id, macroStaticRef);
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroStaticRefNotUnique, getId(), id);
-}
-
-staticRef_const_iterator
-Model::cbeginStaticRef() const {
-  return staticRef_const_iterator(this, true);
-}
-
-staticRef_const_iterator
-Model::cendStaticRef() const {
-  return staticRef_const_iterator(this, false);
-}
-
-macroStaticRef_const_iterator
-Model::cbeginMacroStaticRef() const {
-  return macroStaticRef_const_iterator(this, true);
-}
-
-macroStaticRef_const_iterator
-Model::cendMacroStaticRef() const {
-  return macroStaticRef_const_iterator(this, false);
-}
-
-staticRef_iterator
-Model::beginStaticRef() {
-  return staticRef_iterator(this, true);
-}
-
-staticRef_iterator
-Model::endStaticRef() {
-  return staticRef_iterator(this, false);
-}
-
-macroStaticRef_iterator
-Model::beginMacroStaticRef() {
-  return macroStaticRef_iterator(this, true);
-}
-
-macroStaticRef_iterator
-Model::endMacroStaticRef() {
-  return macroStaticRef_iterator(this, false);
 }
 
 const shared_ptr<StaticRef>&

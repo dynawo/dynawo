@@ -25,7 +25,7 @@ using std::string;
 
 namespace DYN {
 
-VariableNative::VariableNative(const string& name, const typeVar_t& type, bool isState, bool negated) :
+VariableNative::VariableNative(const string& name, const typeVar_t type, const bool isState, const bool negated) :
 Variable(name, false),
 type_(type),
 isState_(isState),
@@ -33,7 +33,7 @@ negated_(negated) {
 }
 
 void
-VariableNative::setIndex(const int& index) {
+VariableNative::setIndex(const int index) {
   if (indexSet()) {
     throw DYNError(Error::MODELER, VariableNativeIndexAlreadySet, getName());
   }

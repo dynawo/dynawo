@@ -78,7 +78,7 @@ class ConverterInterface : public ComponentInterface {
    * @brief Getter for the converter id
    * @return The id of the converter
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the nominal voltage of the bus where the converter is connected

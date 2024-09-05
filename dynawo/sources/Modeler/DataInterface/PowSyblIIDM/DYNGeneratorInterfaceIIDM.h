@@ -155,7 +155,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   /**
    * @copydoc GeneratorInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()

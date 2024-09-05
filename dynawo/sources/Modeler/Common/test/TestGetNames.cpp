@@ -39,9 +39,10 @@ class SubModelMock0 : public SubModel {
     // Dummy class used for testing
   }
 
-  std::string modelType() const {
+  const std::string& modelType() const {
     // Dummy class used for testing
-    return "";
+    static std::string type = "";
+    return type;
   }
 
   void dumpParameters(std::map<std::string, std::string>&) {
@@ -80,11 +81,11 @@ class SubModelMock0 : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalJt(const double, const double, SparseMatrix&, const int) {
+  void evalJt(const double, const double, const int, SparseMatrix&) {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
+  void evalJtPrim(const double, const double, const int, SparseMatrix&) {
     // Dummy class used for testing
   }
 

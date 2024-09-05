@@ -69,7 +69,7 @@ CalculatedBusInterfaceIIDM::addNode(const int node) {
   nodes_.insert(node);
 }
 
-string
+const std::string&
 CalculatedBusInterfaceIIDM::getID() const {
   return name_;
 }

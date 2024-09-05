@@ -396,12 +396,12 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   SparseMatrix smj;
   int size = svc->sizeY();
   smj.init(size, size);
-  svc->evalJt(smj, 1., 0);
+  svc->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  svc->evalJtPrim(smjPrime, 0);
+  svc->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
   delete[] zConnected;
 }

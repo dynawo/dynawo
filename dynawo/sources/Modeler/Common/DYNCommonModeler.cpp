@@ -29,19 +29,17 @@ namespace DYN {
 
 void
 addElement(const string& name, const Element::typeElement& type, vector<Element>& elements, map<string, int >& mapElement) {
-  Element element(name, name, type);
-  elements.push_back(element);
+  elements.emplace_back(name, name, type);
   mapElement[name] = static_cast<int>(elements.size()) - 1;
 }
 
 void
 addSubElement(const string& name, const string& elementName, const Element::typeElement& type,
-    const std::string parentName, const std::string& parentType, vector<Element>& elements, map<string, int>& mapElement) {
-  string subName = elementName + "_" + name;
-  Element subElement(name, subName, type);
-  elements.push_back(subElement);
+    const std::string& parentName, const std::string& parentType, vector<Element>& elements, map<string, int>& mapElement) {
+  const string subName = elementName + "_" + name;
+  elements.emplace_back(name, subName, type);
   mapElement[subName] = static_cast<int>(elements.size()) - 1;
-  map<string, int>::iterator iter = mapElement.find(elementName);
+  const auto& iter = mapElement.find(elementName);
   if (iter != mapElement.end()) {
     elements[iter->second].subElementsNum().push_back(static_cast<int>(elements.size()) - 1);
   } else {
@@ -57,7 +55,7 @@ replaceMacroInVariableId(const string& index, const string& name,
   // replace @INDEX@ in variableId
   size_t pos = variableId.find(indexLabel);
   if (pos != string::npos) {
-    if (index == "")
+    if (index.empty())
       throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index");
     variableId.replace(pos, indexLabel.size(), index);
   }
@@ -65,7 +63,7 @@ replaceMacroInVariableId(const string& index, const string& name,
   // replace @NAME@ in variableId
   pos = variableId.find(nameLabel);
   if (pos != string::npos) {
-    if (name == "")
+    if (name.empty())
       throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name");
     variableId.replace(pos, nameLabel.size(), name);
   }

@@ -37,7 +37,6 @@ namespace DYN {
  */
 class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorInterfaceIIDM {
  public:
-
   /**
    * @brief Constructor
    * @param vsc vsc converter iidm instance
@@ -122,7 +121,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   /**
    * @copydoc VscConverterInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc VscConverterInterface::getLossFactor() const
