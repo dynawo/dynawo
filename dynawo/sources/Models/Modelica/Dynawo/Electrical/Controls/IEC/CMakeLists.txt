@@ -9,11 +9,8 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(BaseClasses B)
-add_subdirectory(BaseControls C)
-add_subdirectory(Parameters P)
-add_subdirectory(WPP W)
-add_subdirectory(WT T)
+add_subdirectory(IEC61400 I)
+
 
 set(MODEL_FILES
   package.mo

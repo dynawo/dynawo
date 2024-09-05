@@ -1,13 +1,13 @@
 model;variable;value;
-Generator;generator_UPu;1.097544;
-Generator;generator_QGenPu;0.060000;
-Generator;generator_PGenPu;0.080000;
 NETWORK;Load_P;0.000000;
 NETWORK;Load_Q;0.000000;
+Generator;generator_UPu;1.097544;
+Generator;generator_PGen;8.000000;
+Generator;generator_PGenPu;0.080000;
+Generator;generator_QGenPu;0.060000;
 NETWORK;line1_P1;-0.059493;
 NETWORK;line1_Q1;-0.040010;
 NETWORK;line1_P2;0.060521;
 NETWORK;line1_Q2;0.050290;
 NETWORK;VL2_BUS1_U;1.097544;
 NETWORK;VL2_BUS1_phi;5.803675;
-Generator;generator_PGen;8.000000;

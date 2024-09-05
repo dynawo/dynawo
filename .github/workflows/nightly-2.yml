@@ -9,40 +9,32 @@ jobs:
   bionic:
     name: Linux Bionic
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-nightly-bionic:latest
     env:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: Release
-      DYNAWO_COMPILER: GCC
       DYNAWO_PYTHON_COMMAND: python3
-      DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_NB_PROCESSORS_USED: 1
 
     steps:
-      - name: Checkout
-        run: |
-          git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
-          cd dynawo
-          git checkout ${GITHUB_SHA}
+      - name: Checkout sources
+        uses: actions/checkout@v4
 
-      - name: Build
+      - name: Build and nrt
+        uses: addnab/docker-run-action@v3
+        with:
+          image: dynawo/dynawo-ci-nightly-bionic:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
+          shell: bash
+          run: |
+            cd /dynawo
+            export DYNAWO_HOME=$(pwd)
+            util/envDynawo.sh build-user
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+            branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+            util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        run: |
-          cd dynawo
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-user
-
-      - name: NRT
-        env:
-          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        run: |
-          cd dynawo
-          export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
-          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
-          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
 
   jammy:
     name: Linux Jammy
@@ -53,7 +45,7 @@ jobs:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_COMPILER: GCC
       DYNAWO_PYTHON_COMMAND: python3
-      DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_NB_PROCESSORS_USED: 1
 
     steps:
       - name: Checkout sources
@@ -80,71 +72,27 @@ jobs:
   centos7:
     name: Linux Centos7
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-distribution-centos7:latest
     env:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: Release
-      DYNAWO_COMPILER: GCC
-      DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_NB_PROCESSORS_USED: 1
 
     steps:
-      - name: Checkout
-        run: |
-          git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
-          cd dynawo
-          git checkout ${GITHUB_SHA}
+      - name: Checkout sources
+        uses: actions/checkout@v4
 
-      - name: Build
+      - name: Build and nrt
+        uses: addnab/docker-run-action@v3
+        with:
+          image: dynawo/dynawo-distribution-centos7:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED
+          shell: bash
+          run: |
+            cd /dynawo
+            export DYNAWO_HOME=$(pwd)
+            util/envDynawo.sh build-user
+            branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+            util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        run: |
-          cd dynawo
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-user
-
-      - name: NRT
-        env:
-          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        run: |
-          cd dynawo
-          export DYNAWO_HOME=$(pwd)
-          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
-          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
-
-  fedora-gcc5:
-    name: Linux CXX11 Fedora 22 GCC5
-    runs-on: ubuntu-latest
-    container: dynawo/dynawo-distribution-cxx11:latest
-    env:
-      DYNAWO_RESULTS_SHOW: "false"
-      DYNAWO_BUILD_TYPE: Release
-      DYNAWO_COMPILER: GCC
-      DYNAWO_NB_PROCESSORS_USED: 2
-
-    steps:
-      - name: Checkout
-        run: |
-          git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
-          cd dynawo
-          git checkout ${GITHUB_SHA}
-
-      - name: Build
-        env:
-          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        run: |
-          cd dynawo
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-user
-
-      - name: NRT
-        env:
-          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        run: |
-          cd dynawo
-          export DYNAWO_HOME=$(pwd)
-          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
-          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }

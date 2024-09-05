@@ -19,8 +19,6 @@ set(MODEL_FILES
     Pss1aOmega.extvar
     Pss1aPGen.mo
     Pss1aPGen.extvar
-    PSS2A1.mo
-    PSS2A1.extvar
     Pss2a.mo
     Pss2a.extvar
     Pss2b.mo
@@ -33,8 +31,6 @@ set(MODEL_FILES
     Pss3c.extvar
     Pss6c.mo
     Pss6c.extvar
-    PssIEEE2B.mo
-    PssIEEE2B.extvar
     PssKundur.mo
     PssKundur.extvar
     )

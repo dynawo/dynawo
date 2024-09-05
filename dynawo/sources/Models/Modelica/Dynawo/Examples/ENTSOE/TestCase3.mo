@@ -90,9 +90,42 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV11 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov1 governor(
+    Dt = 0,
+    Pm0Pu = generatorSynchronous.Pm0Pu,
+    R = 0.05,
+    t1 = 0.5,
+    t2 = 3,
+    t3 = 10,
+    VMax = 1,
+    VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A1 pss(IC1 = 1, IC2 = 3, Ks1 = 10, Ks2 = 0.1564, Ks3 = 1, PGen0Pu = generatorSynchronous.P0Pu, PNomAlt = generatorSynchronous.PNomAlt, T1 = 0.25, T2 = 0.03, T3 = 0.15, T4 = 0.015, T6 = 1e-5, T7 = 2, T8 = 0.5, T9 = 0.1, Tw1 = 2, Tw2 = 2, Tw3 = 2, Tw4 = 1e-5, Upss0Pu = 0, VstMax = 0.1, VstMin = -0.1) annotation(
+  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a pss(
+    Ks1 = 10,
+    Ks2 = 0.1564,
+    Ks3 = 1,
+    M = 1,
+    N = 0,
+    OmegaMaxPu = 999,
+    OmegaMinPu = -999,
+    PGen0Pu = -generatorSynchronous.P0Pu,
+    PGenMaxPu = 999,
+    PGenMinPu = -999,
+    SNom = generatorSynchronous.PNomAlt,
+    t1 = 0.25,
+    t2 = 0.03,
+    t3 = 0.15,
+    t4 = 0.015,
+    t6 = 1e-5,
+    t7 = 2,
+    t8 = 0.5,
+    t9 = 0.1,
+    tW1 = 2,
+    tW2 = 2,
+    tW3 = 2,
+    tW4 = 1e-5,
+    VPssMaxPu = 0.1,
+    VPssMinPu = -0.1) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(
     Efd0Pu = generatorSynchronous.Efd0Pu,
@@ -106,9 +139,9 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 1.00453945) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu);
+  Modelica.Blocks.Sources.Constant PmRefPu(k = governor.R * generatorSynchronous.Pm0Pu);
 
- // Network
+  // Network
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0.000242, UPu = 0.952859) annotation(
     Placement(visible = true, transformation(origin = {-132, 0}, extent = {{-16, -16}, {16, 16}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line gridImpedance(BPu = 0, GPu = 0, RPu = 0.0036, XPu = 0.036) annotation(
@@ -138,6 +171,11 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
+  Omega0Pu.setPoint.value = pss.omegaRefPu;
+  Omega0Pu.setPoint.value = governor.omegaRefPu;
+
+  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(PmRefPu.y, governor.PmRefPu);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{-12, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal2, transformer.terminal1) annotation(
@@ -146,17 +184,15 @@ equation
     Line(points = {{-120, 0}, {-132, 0}}, color = {0, 0, 255}));
   connect(load.terminal, gridImpedance.terminal2) annotation(
     Line(points = {{-80, -38}, {-80, 0}}, color = {0, 0, 255}));
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
-  connect(governor.PmRefPu, PmRefPu.y);
   connect(nodeFault.terminal, transformer.terminal1) annotation(
     Line(points = {{-52, 50}, {-52, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -34}, {78, -34}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
     Line(points = {{38, 10}, {70, 10}, {70, 6}, {78, 6}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, pss.omegaPu) annotation(
     Line(points = {{38, -6}, {78, -6}}, color = {0, 0, 127}));
-  connect(pss.UpssPu, avr.UpssPu) annotation(
+  connect(pss.VPssPu, avr.UpssPu) annotation(
     Line(points = {{101, 0}, {110, 0}, {110, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));

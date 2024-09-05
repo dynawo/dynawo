@@ -13,9 +13,9 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
-  extends Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters;
-  extends Dynawo.Electrical.Controls.IEC.Parameters.PControlParameters;
-  extends Dynawo.Electrical.Controls.IEC.Parameters.QControlParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -191,7 +191,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.BaseControls.Auxiliaries.ElecMeasurements elecMeasurements(SNom = SNom) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.ElecMeasurements elecMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Initial parameters

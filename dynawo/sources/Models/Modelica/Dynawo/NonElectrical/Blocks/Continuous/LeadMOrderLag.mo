@@ -16,7 +16,7 @@ model LeadMOrderLag "Lead-lag filter with M poles"
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real K = 1 "Gain";
-  parameter Integer M = 1 "Lag order";
+  parameter Integer M "Lag order";
   parameter Types.Time t1 "Lead time constant in s";
   parameter Types.Time t2 "Lag time constant in s";
 

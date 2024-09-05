@@ -31,10 +31,8 @@ jobs:
     if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-cxx11
     name: Distribution Linux cxx11
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-nightly-fedora:latest
     env:
       DYNAWO_BUILD_TYPE: Release
-      DYNAWO_COMPILER: GCC
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
@@ -44,23 +42,28 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
+        uses: addnab/docker-run-action@v3
+        with:
+          image: dynawo/dynawo-distribution-cxx11:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_FORCE_CXX11_ABI -e DYNAWO_NB_PROCESSORS_USED
+          shell: bash
+          run: |
+            cd /dynawo
+            export DYNAWO_HOME=$(pwd)
+            util/envDynawo.sh build-user
+            util/envDynawo.sh build-doc
+            util/envDynawo.sh distrib
+            util/envDynawo.sh distrib-headers
+            util/envDynawo.sh distrib-omc
+            for file in distributions/Dynawo_v*.zip ; do mv $file ${file//_/_Linux_minimal_} ; done
+            for file in distributions/Dynawo_headers_v*.zip ; do mv $file ${file//_headers_/_Linux_headers_} ; done
+            for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_} ; done
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-        shell: bash
-        run: |
-          export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-user
-          util/envDynawo.sh build-doc
-          util/envDynawo.sh distrib
-          util/envDynawo.sh distrib-headers
-          util/envDynawo.sh distrib-omc
-          for file in distributions/Dynawo_v*.zip ; do mv $file ${file//_/_Linux_minimal_} ; done
-          for file in distributions/Dynawo_headers_v*.zip ; do mv $file ${file//_headers_/_Linux_headers_} ; done
-          for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_} ; done
 
       - name: Upload assets
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
@@ -72,46 +75,46 @@ jobs:
             const release = require('.github/release.js')
             await release({github, context, core, glob})
 
-  # distribution-centos7:
-  #   if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-centos7
-  #   name: Distribution Linux centos7
-  #   runs-on: ubuntu-latest
-  #   container: dynawo/dynawo-distribution-centos7:latest
-  #   env:
-  #     DYNAWO_BUILD_TYPE: Release
-  #     DYNAWO_COMPILER: GCC
-  #     DYNAWO_RESULTS_SHOW: "false"
-  #     DYNAWO_NB_PROCESSORS_USED: 2
-  #
-  #   steps:
-  #     - name: Checkout
-  #       run: |
-  #         git clone ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
-  #         cd dynawo
-  #         git checkout ${GITHUB_SHA}
-  #
-  #     - name: Build
-  #       env:
-  #         DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-  #         DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-  #       run: |
-  #         cd dynawo
-  #         export DYNAWO_HOME=$(pwd)
-  #         util/envDynawo.sh build-user
-  #         util/envDynawo.sh distrib-omc
-  #         for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_centos7_} ; done
-  #
-  #     - name: Upload assets
-  #       uses: actions/github-script@v6
-  #       env:
-  #         release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
-  #         files: |
-  #           dynawo/distributions/Dynawo_Linux_*.zip
-  #       with:
-  #         retries: 3
-  #         script: |
-  #           const release = require('.github/release.js')
-  #           await release({github, context, core, glob})
+  distribution-centos7:
+    if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-centos7
+    name: Distribution Linux centos7
+    runs-on: ubuntu-latest
+    env:
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_NB_PROCESSORS_USED: 2
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Build
+        uses: addnab/docker-run-action@v3
+        with:
+          image: dynawo/dynawo-distribution-centos7:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED
+          shell: bash
+          run: |
+            cd /dynawo
+            export DYNAWO_HOME=$(pwd)
+            util/envDynawo.sh build-user
+            util/envDynawo.sh distrib-omc
+            for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_centos7_} ; done
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+
+      - name: Upload assets
+        uses: actions/github-script@v7
+        env:
+          release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
+          files: |
+            distributions/Dynawo_Linux_*.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
 
   distribution-gcc11:
     if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-gcc11
@@ -123,6 +126,7 @@ jobs:
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_PYTHON_COMMAND: python3
 
     steps:
       - name: Checkout sources
@@ -140,7 +144,7 @@ jobs:
           for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_gcc11_} ; done
 
       - name: Upload assets
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
@@ -213,7 +217,7 @@ jobs:
           move /y *.zip ${{ github.workspace }}
 
       - name: Upload Dynawo distribution
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
