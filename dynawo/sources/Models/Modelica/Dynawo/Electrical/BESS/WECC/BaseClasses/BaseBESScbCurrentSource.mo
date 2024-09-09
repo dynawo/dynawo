@@ -95,13 +95,18 @@ partial model BaseBESScbCurrentSource "Partial base model for WECC BESS with ele
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit SOC0Pu "Initial state of charge in pu (base SNom)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
   // Initial parameters calculated by the initialization model
-  parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  //parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  //parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
+  //parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
+
+  final parameter Types.ComplexPerUnit i0Pu = ComplexMath.conj(s0Pu / u0Pu);
+  final parameter Types.ComplexPerUnit u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  final parameter Types.ComplexPerUnit s0Pu = Complex(P0Pu, Q0Pu);
 
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;

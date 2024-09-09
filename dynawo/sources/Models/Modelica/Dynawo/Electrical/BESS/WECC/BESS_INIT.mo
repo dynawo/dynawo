@@ -21,30 +21,31 @@ model BESS_INIT "Initialization model for WECC BESS model"
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
-  // Initial parameters
   parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
-  Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ActivePowerPu PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
   Types.PerUnit PF0 "Start value of power factor";
   Types.ReactivePowerPu QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)";
-  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
-  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseInj0 "Start value of voltage angle at injector in rad";
 
+  final parameter Types.ComplexPerUnit i0Pu = ComplexMath.conj(s0Pu / u0Pu) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  final parameter Types.ComplexApparentPowerPu s0Pu = Complex(P0Pu, Q0Pu) "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
+  final parameter Types.ComplexVoltagePu u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0)"Start value of complex voltage at terminal in pu (base UNom)";
+
 equation
-  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
-  s0Pu = Complex(P0Pu, Q0Pu);
-  i0Pu = ComplexMath.conj(s0Pu / u0Pu);
+  //u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  //s0Pu = Complex(P0Pu, Q0Pu);
+  //i0Pu = ComplexMath.conj(s0Pu / u0Pu);
   iInj0Pu = -i0Pu * SystemBase.SnRef / SNom;
   uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
