@@ -74,6 +74,7 @@ record ParamsREEC
   parameter Types.VoltageModulePu VUpPu "High voltage condition trigger voltage for FRT in pu (base UNom) (typical: 1.1..1.3)" annotation(
   Dialog(tab="Electrical Control"));
 
+  // Initial parameters
   parameter Types.CurrentModulePu Id0Pu "Start value of d-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
   parameter Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
   parameter Types.PerUnit PF0 "Start value of powerfactor";

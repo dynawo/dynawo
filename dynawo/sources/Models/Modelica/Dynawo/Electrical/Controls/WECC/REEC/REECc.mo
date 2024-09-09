@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 model REECc "WECC Electrical Control type C"
 extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
 
+  // REEC-C parameters
   parameter Types.PerUnit SOCMaxPu "Maximum allowable state of charge in pu (base SNom) (typical: 0.8..1)" annotation(
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit SOCMinPu "Minimum allowable state of charge in pu (base SNom) (typical: 0..0.2)" annotation(
@@ -58,7 +59,7 @@ extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
     Dialog(tab = "Electrical Control"));
 
-// Input
+  // Input variable
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {227.5, -149.5}, extent = {{-13.5, -13.5}, {13.5, 13.5}}, rotation = 0), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
@@ -87,8 +88,8 @@ extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   Modelica.Blocks.Sources.Constant SOCinit(k = SOC0Pu)  annotation(
     Placement(visible = true, transformation(origin = {269, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
- // Initial parameters
- parameter Types.PerUnit SOC0Pu "Initial state of charge in pu (base SNom)";
+  // Initial parameter
+  parameter Types.PerUnit SOC0Pu "Initial state of charge in pu (base SNom)";
 
 equation
   connect(limiter1.y, add1.u1) annotation(

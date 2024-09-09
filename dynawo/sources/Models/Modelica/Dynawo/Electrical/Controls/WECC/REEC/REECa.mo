@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 model REECa "WECC Electrical Control type A"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
 
+  // REEC-A parameters
   parameter Types.PerUnit VDLIp11 annotation(
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp12 annotation(
@@ -62,7 +63,7 @@ model REECa "WECC Electrical Control type A"
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control"));
 
-  // Input
+  // Input variable
   Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
 
@@ -80,7 +81,6 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {-79, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant PFlagConst(k = PFlag) annotation(
     Placement(visible = true, transformation(origin = {-175, -71}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Modelica.Blocks.Logical.Switch switch3 annotation(
     Placement(visible = true, transformation(origin = {-75, -70}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
@@ -93,7 +93,6 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {279, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = Iqh1Pu, uMin = Iql1Pu) annotation(
     Placement(visible = true, transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Dynawo.Electrical.Controls.WECC.BaseControls.IqInjectionLogic iqInjectionLogic(IqFrzPu = IqFrzPu, tHoldIq = tHoldIq) annotation(
     Placement(visible = true, transformation(origin = {309, 190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationA currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag, tHoldIpMax = tHoldIpMax) annotation(

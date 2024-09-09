@@ -1,4 +1,4 @@
-# Copyright (c) 2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,21 +6,13 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-
-add_subdirectory(BaseClasses B)
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 
 set(MODEL_FILES
   package.mo
   package.order
-  PVCurrentSourceB.mo
-  PVCurrentSourceB.extvar
-  PVCurrentSource_INIT.mo
-  PVVoltageSourceA.mo
-  PVVoltageSourceA.extvar
-  PVVoltageSourceB.mo
-  PVVoltageSourceB.extvar
-  PVVoltageSource_INIT.mo
+  BaseBESScbCurrentSource.mo
   )
 
 #

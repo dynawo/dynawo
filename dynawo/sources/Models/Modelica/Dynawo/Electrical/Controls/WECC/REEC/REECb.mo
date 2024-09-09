@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 model REECb "WECC Electrical Control type B"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
 
+  // REEC-B parameter
   parameter Types.VoltageModulePu  VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
   Dialog(tab="Electrical Control"));
 
