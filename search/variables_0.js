@@ -19,7 +19,6 @@ var searchData=
   ['angle0_5f',['angle0_',['../d7/d93/a02981.html#adef6c3bccc1732ac29ad4a0883b7dc45',1,'DYN::BusInterfaceIIDM::angle0_()'],['../dd/d5c/a02985.html#a442a67630b9791f4d16cbedc2ab04fc9',1,'DYN::CalculatedBusInterfaceIIDM::angle0_()'],['../de/da4/a03005.html#a1ba63a6eeeb03db054cf502e0e6fcabf',1,'DYN::FictBusInterfaceIIDM::angle0_()'],['../d7/dee/a03205.html#a7328231104a1d275d1f2f4ef038e82ae',1,'DYN::ModelBus::angle0_()']]],
   ['angleo_5f',['angleO_',['../dd/d02/a03145.html#a24daffcc9830eedbf805b973640c60ba',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['ap_5f',['Ap_',['../d2/de3/a02637.html#a3e00b02bb03e31e720a1470b26dd2c65',1,'DYN::SparseMatrix']]],
-  ['append_5f',['append_',['../df/d46/a02673.html#a58336d4eaee3940cd5e56dd6b79b3243',1,'DYN::Trace::TraceAppender']]],
   ['appender_5f',['appender_',['../d7/d6e/a02273.html#ae3dfec1a8b38d5d333de3d4c0d7efaaf',1,'job::AppenderHandler']]],
   ['appenderhandler_5f',['appenderHandler_',['../d7/dbe/a02333.html#ad00562d3807e9580cf69732f2d76eed0',1,'job::LogsHandler']]],
   ['appenders_5f',['appenders_',['../dc/d43/a02205.html#af9f17766a9a3651fdab2202cab74da28',1,'job::LogsEntry']]],

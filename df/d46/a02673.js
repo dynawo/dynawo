@@ -1,7 +1,6 @@
 var a02673 =
 [
     [ "TraceAppender", "df/d46/a02673.html#a4ef28699229768a567fab0bfe6556197", null ],
-    [ "doesAppend", "df/d46/a02673.html#a90852c23ffb86b0352c77c22b110cc1b", null ],
     [ "getFilePath", "df/d46/a02673.html#a05feef3172713c0b9bd9151f38c0a681", null ],
     [ "getLvlFilter", "df/d46/a02673.html#a10b683aadbd4bf4ec57a85c738004bc9", null ],
     [ "getSeparator", "df/d46/a02673.html#a1ecb0b128822d5f6fa681ec5892909ca", null ],
@@ -10,7 +9,6 @@ var a02673 =
     [ "getTag", "df/d46/a02673.html#abe09a2d67c4bbc64968ced7f7de2c7b8", null ],
     [ "getTimeStampFormat", "df/d46/a02673.html#ac970a2a2ccc340d93d3f95c221a050dc", null ],
     [ "isPersistant", "df/d46/a02673.html#aa2de1add86f6af4a2bdd93b9466e2e28", null ],
-    [ "setAppend", "df/d46/a02673.html#afb515e76c98865ff6270ac5c89ac59de", null ],
     [ "setFilePath", "df/d46/a02673.html#af158ac4ee937ae36b8d4f5aa2fd8c289", null ],
     [ "setLvlFilter", "df/d46/a02673.html#adc02faa72890c6706dd41bcaf5146c7e", null ],
     [ "setPersistant", "df/d46/a02673.html#ad10ddb935580cb56c30457f1fd76f12b", null ],
@@ -19,7 +17,6 @@ var a02673 =
     [ "setShowTimeStamp", "df/d46/a02673.html#a22a055962c3f44bd2723a644ffe9dbdd", null ],
     [ "setTag", "df/d46/a02673.html#a7baf8306a7a4e4901d8c5700da74d7e6", null ],
     [ "setTimeStampFormat", "df/d46/a02673.html#ad831222967767a4cab8449faab07192f", null ],
-    [ "append_", "df/d46/a02673.html#a58336d4eaee3940cd5e56dd6b79b3243", null ],
     [ "filePath_", "df/d46/a02673.html#a7b1ecb412babe19edf5d4f052c7510d9", null ],
     [ "lvlFilter_", "df/d46/a02673.html#a9b93fee0c35fcabc279ad98eac335309", null ],
     [ "persistant_", "df/d46/a02673.html#a910b25e4a86d55f9959bfa1bf8f71760", null ],

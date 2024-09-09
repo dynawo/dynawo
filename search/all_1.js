@@ -176,7 +176,6 @@ var searchData=
   ['angleo_5f',['angleO_',['../dd/d02/a03145.html#a24daffcc9830eedbf805b973640c60ba',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['ap_5f',['Ap_',['../d2/de3/a02637.html#a3e00b02bb03e31e720a1470b26dd2c65',1,'DYN::SparseMatrix']]],
   ['api',['API',['../df/dd3/a02569.html#ab65468b98196803043b63655fcfd1d58adc9caeca5753a30e9d3a355f3bb353ea',1,'DYN::Error']]],
-  ['append_5f',['append_',['../df/d46/a02673.html#a58336d4eaee3940cd5e56dd6b79b3243',1,'DYN::Trace::TraceAppender']]],
   ['appender_5f',['appender_',['../d7/d6e/a02273.html#ae3dfec1a8b38d5d333de3d4c0d7efaaf',1,'job::AppenderHandler']]],
   ['appenderentry',['AppenderEntry',['../d6/d3b/a02121.html',1,'job::AppenderEntry'],['../d6/d3b/a02121.html#a7f7a407b6b264a6baaf49bd37260b369',1,'job::AppenderEntry::AppenderEntry()']]],
   ['appenderentryfactory',['AppenderEntryFactory',['../d8/db2/a02125.html',1,'job']]],

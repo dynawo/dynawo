@@ -34,7 +34,6 @@ var searchData=
   ['disableexportiidm',['disableExportIIDM',['../da/d0a/a03297.html#a1d03381c294a48a7696487fd535e2019',1,'DYN::Simulation']]],
   ['disablelogging',['disableLogging',['../d8/d69/a02661.html#a66640be8ccf953a4aaa3b4856ebdc99a',1,'DYN::Trace']]],
   ['disconnectnode',['disconnectNode',['../d4/d39/a02965.html#aef151d6e5fb76569d26575fcc55856ff',1,'DYN::VoltageLevelInterface::disconnectNode()'],['../d1/db3/a03013.html#a4e77f3d9791015e322c313eb6ddb6686',1,'DYN::FictVoltageLevelInterfaceIIDM::disconnectNode()'],['../d0/dcd/a03113.html#adc809e56c89bc7bd96ba0fd6343f89e2',1,'DYN::VoltageLevelInterfaceIIDM::disconnectNode()'],['../d2/dfa/a03285.html#aabc14596cfe642001fe03ac8e7b3d5e9',1,'DYN::ModelVoltageLevel::disconnectNode()']]],
-  ['doesappend',['doesAppend',['../df/d46/a02673.html#a90852c23ffb86b0352c77c22b110cc1b',1,'DYN::Trace::TraceAppender']]],
   ['double2string',['double2String',['../d7/d5e/a00467.html#a896d37750480df79d5c2ec2d0760e62e',1,'DYN']]],
   ['doubleequals',['doubleEquals',['../d7/d5e/a00467.html#a6a4d4ee76caa82a0d7f10b7d3c7b7ff6',1,'DYN']]],
   ['doubleiszero',['doubleIsZero',['../d7/d5e/a00467.html#a7a639ffbca471975cc9419495a6cbbe1',1,'DYN']]],

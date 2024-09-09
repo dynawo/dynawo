@@ -54,6 +54,8 @@ var searchData=
   ['reset',['reset',['../d6/dd6/a01633.html#ae90e3a3942f5229c5f952cbdcb9bd8fc',1,'criteria::CriteriaParamsVoltageLevel::reset()'],['../dd/d98/a02557.html#a7691266a1e1ddc4f2080ca2b3b8e6ab9',1,'DYN::BitMask::reset()'],['../dd/d61/a03197.html#ab09a5f16466117658e96733acc0d746a',1,'DYN::Derivatives::reset()'],['../d6/df4/a03201.html#a0d2b2061ce4f58d982a85feb94d5084f',1,'DYN::BusDerivatives::reset()']]],
   ['resetalgebraicrestoration',['resetAlgebraicRestoration',['../d8/d1e/a03309.html#a57cbaca4925480c9aa934e30b0d27624',1,'DYN::SolverKINAlgRestoration']]],
   ['resetcurrentustatus',['resetCurrentUStatus',['../d7/dee/a03205.html#a4f5a3aa0621c5af76e8a0e5f6f131d99',1,'DYN::ModelBus::resetCurrentUStatus()'],['../d9/d59/a03213.html#a7b3ea90ccbfb4e8ce491c6632b7f41fb',1,'DYN::ModelBusContainer::resetCurrentUStatus()']]],
+  ['resetcustomappender',['resetCustomAppender',['../d8/d69/a02661.html#a76de36fc84be513d3d2cb02daa313995',1,'DYN::Trace']]],
+  ['resetcustomappender_5f',['resetCustomAppender_',['../d8/d69/a02661.html#a8bccbd6d9b48a016c34cfebe73d0db9a',1,'DYN::Trace']]],
   ['resetcustomappenders',['resetCustomAppenders',['../d8/d69/a02661.html#a307efa62de51e067f029f51acf146e77',1,'DYN::Trace']]],
   ['resetcustomappenders_5f',['resetCustomAppenders_',['../d8/d69/a02661.html#afc3fe327a69bdfd37672ab9d5626af41',1,'DYN::Trace']]],
   ['resetnodeinjection',['resetNodeInjection',['../d7/dee/a03205.html#a679dfbdc2e1826d54e28610a3a86a723',1,'DYN::ModelBus::resetNodeInjection()'],['../da/d0c/a03229.html#a4162b35e145ab19da7ddf125b92de6c5',1,'DYN::ModelHvdcLink::resetNodeInjection()']]],

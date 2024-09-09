@@ -104,7 +104,6 @@ var searchData=
   ['distancetrippedzone2',['DistanceTrippedZone2',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51af781c6cef3ebcec2a37700777d304b84',1,'DYN::KeyTimeline_t']]],
   ['distancetrippedzone3',['DistanceTrippedZone3',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51aa08811d6a3a5a7d8dfee5c48a0f54df8',1,'DYN::KeyTimeline_t']]],
   ['distancetrippedzone4',['DistanceTrippedZone4',['../d9/dfe/a02649.html#a9294fd85b78754e1a11fec544395ad51ae8aa2bfb8141b5c7acf21a2cc1d5de30',1,'DYN::KeyTimeline_t']]],
-  ['doesappend',['doesAppend',['../df/d46/a02673.html#a90852c23ffb86b0352c77c22b110cc1b',1,'DYN::Trace::TraceAppender']]],
   ['double',['DOUBLE',['../dc/d09/a02429.html#a2cbaec8f87518439389f2969d247f7b9a4987f093886c7303a260c5fc9979ceab',1,'parameters::Parameter::DOUBLE()'],['../df/d5c/a02933.html#af404bdea1223607a505379fcd45c93c1addca62de32b5709b67c9c206c08c9373',1,'DYN::StateVariable::DOUBLE()'],['../d2/d46/a02937.html#a3269f81522dc42ab14097f0605f66b9ea4eb4a48039f8d2ffd8a7868f5662d9ef',1,'DYN::StaticParameter::DOUBLE()']]],
   ['double2string',['double2String',['../d7/d5e/a00467.html#a896d37750480df79d5c2ec2d0760e62e',1,'DYN']]],
   ['doubleequals',['doubleEquals',['../d7/d5e/a00467.html#a6a4d4ee76caa82a0d7f10b7d3c7b7ff6',1,'DYN']]],

@@ -33,6 +33,7 @@ var searchData=
   ['printconstraints',['printConstraints',['../da/d0a/a03297.html#a6387d01d38db1cd1a291a76026c57a9a',1,'DYN::Simulation']]],
   ['printcurrenttime',['printCurrentTime',['../da/d0a/a03297.html#a7e38ad328c6e9687618c17c9a65e9e96',1,'DYN::Simulation']]],
   ['printcurves',['printCurves',['../da/d0a/a03297.html#ae0c77d95c3e1c028eb9b76f7353a09f2',1,'DYN::Simulation']]],
+  ['printdynawologheader',['printDynawoLogHeader',['../d8/d69/a02661.html#a5dc8eeed52390a75e42b6bf5c69deb1d',1,'DYN::Trace']]],
   ['printend',['printEnd',['../da/d0a/a03297.html#a2d33c7961584ab9b45037f7d8513d6ef',1,'DYN::Simulation::printEnd()'],['../d8/d5d/a03329.html#ab1761800c064e29a25808a8204729411',1,'DYN::Solver::printEnd()'],['../d1/d3a/a03353.html#ab1c4cdbc05b85b9ed488d9a3f3e7d79c',1,'DYN::Solver::Impl::printEnd()']]],
   ['printequations',['printEquations',['../d5/dbe/a02697.html#a8165fd6d34cb77713790169ff471d4a2',1,'DYN::ConnectorContainer::printEquations()'],['../df/d50/a02725.html#aaed65177471aac73acdf84036fd7ecf2',1,'DYN::Model::printEquations()'],['../dc/de8/a02737.html#a629e25e2c42a570c82fd8afecffe5045',1,'DYN::ModelMulti::printEquations()']]],
   ['printfinalstate',['printFinalState',['../da/d0a/a03297.html#a5e2073e6fda20d07a5dd36ed8909f26e',1,'DYN::Simulation']]],

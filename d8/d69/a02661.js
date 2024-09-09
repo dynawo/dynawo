@@ -7,7 +7,10 @@ var a02661 =
     [ "TextSink", "d8/d69/a02661.html#a2e22b115025b40573e1d70adb147f303", null ],
     [ "addAppenders", "d8/d69/a02661.html#aa85a2e204d4b3f69fafd512a45080b55", null ],
     [ "addAppenders_", "d8/d69/a02661.html#af12904be3cc20423969f237f1ef8bab0", null ],
+    [ "clearLogFile", "d8/d69/a02661.html#a6e05bfb78310e1a365ea07eef4430d6b", null ],
+    [ "clearLogFile_", "d8/d69/a02661.html#a7c880e341ea56b2ce14dca9b20c29a5d", null ],
     [ "compile", "d8/d69/a02661.html#a90ce0bedf47a172a020ded5230213215", null ],
+    [ "configureSink", "d8/d69/a02661.html#a80d13b14ede4e3b75dd25fefa1d631d3", null ],
     [ "debug", "d8/d69/a02661.html#ac2b286a8d73821c19afa910857de6fc0", null ],
     [ "disableLogging", "d8/d69/a02661.html#a66640be8ccf953a4aaa3b4856ebdc99a", null ],
     [ "enableLogging", "d8/d69/a02661.html#a6ead755599c78d30183ac714e6bbf07b", null ],
@@ -26,6 +29,9 @@ var a02661 =
     [ "modeler", "d8/d69/a02661.html#a2dc793e91044d1105e542dbef99554fc", null ],
     [ "network", "d8/d69/a02661.html#a341e9509c5448c5ba113cefc68b9b2b9", null ],
     [ "parameters", "d8/d69/a02661.html#a895437987b11c322e386a71db0276ff1", null ],
+    [ "printDynawoLogHeader", "d8/d69/a02661.html#a5dc8eeed52390a75e42b6bf5c69deb1d", null ],
+    [ "resetCustomAppender", "d8/d69/a02661.html#a76de36fc84be513d3d2cb02daa313995", null ],
+    [ "resetCustomAppender_", "d8/d69/a02661.html#a8bccbd6d9b48a016c34cfebe73d0db9a", null ],
     [ "resetCustomAppenders", "d8/d69/a02661.html#a307efa62de51e067f029f51acf146e77", null ],
     [ "resetCustomAppenders_", "d8/d69/a02661.html#afc3fe327a69bdfd37672ab9d5626af41", null ],
     [ "resetPersistantCustomAppender", "d8/d69/a02661.html#abe712a665a3902e14b3be578e9f9f9f0", null ],
@@ -42,5 +48,6 @@ var a02661 =
     [ "defaultLevel_", "d8/d69/a02661.html#a375085fe7a8227699b8adf965404e365", null ],
     [ "mutex_", "d8/d69/a02661.html#a27895ae6af1a3ea7783d450d0b4f9457", null ],
     [ "originalSinks_", "d8/d69/a02661.html#a52b7b9674e794dda747107167ade0bce", null ],
-    [ "sinks_", "d8/d69/a02661.html#ad57e6aaa172f3f4e73dd445a7c22c260", null ]
+    [ "sinks_", "d8/d69/a02661.html#ad57e6aaa172f3f4e73dd445a7c22c260", null ],
+    [ "traceAppenders_", "d8/d69/a02661.html#a7566b60eb1140b48129a781c1fa327e1", null ]
 ];
