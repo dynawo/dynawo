@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.WECC.REEC.BaseClasses;
 partial model BaseREEC "WECC Electrical Control REEC common"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
 
-  // Inputs
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-270, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {9, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PInjPu(start = PInj0Pu) "Active power at injector terminal in pu (generator convention) (base SNom)" annotation(
@@ -30,7 +30,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Modelica.Blocks.Interfaces.RealInput UPu(start = UInj0Pu) "Voltage magnitude at injector terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
 
-  // Outputs
+  // Output variables
   Modelica.Blocks.Interfaces.RealOutput idCmdPu(start = Id0Pu) "idCmdPu setpoint for generator control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {551, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = Iq0Pu) "iqCmdPu setpoint for generator control in pu (base SNom, UNom)" annotation(
@@ -98,7 +98,6 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {50, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = Dbd2Pu, uMin = Dbd1Pu) annotation(
     Placement(visible = true, transformation(origin = {164, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Modelica.Blocks.Math.Gain gain(k = Kqv) annotation(
     Placement(visible = true, transformation(origin = {204, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Tan tan annotation(
