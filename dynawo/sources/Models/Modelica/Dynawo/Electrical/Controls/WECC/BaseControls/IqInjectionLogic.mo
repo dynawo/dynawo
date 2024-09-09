@@ -17,12 +17,16 @@ model IqInjectionLogic "Reactive Current Injection Logic"
   parameter Types.CurrentModulePu IqFrzPu "Constant reactive current injection value in pu (base SNom, UNom)";
   parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection";
 
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput iqVPu(start = 0) "Input for voltage-dependent reactive current injection in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput vDip(start = false) "Ongoing voltage dip" annotation(
     Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  // Output variable
   Modelica.Blocks.Interfaces.RealOutput iqInjPu(start = 0) "Reactive current injection in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Types.Time vDipInjEndTime(start = -1) "ending time of the voltage dip start (in seconds)";
 
 equation
