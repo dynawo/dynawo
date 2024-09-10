@@ -2016,6 +2016,8 @@ class Warn:
                 line = line.replace(INFO_OMC_PARAM,"")
             if has_omc_trace (line) or has_omc_equation_indexes (line) or "infoStreamPrint" in line:
                 continue
+            if ".attribute" in line:
+                continue
             elif "MMC_DEFSTRINGLIT" in line:
                 line = line.replace("static const MMC_DEFSTRINGLIT(","")
                 line = line.replace(");","")
