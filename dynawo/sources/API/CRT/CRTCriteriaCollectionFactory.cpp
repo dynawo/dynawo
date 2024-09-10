@@ -23,9 +23,9 @@
 
 namespace criteria {
 
-boost::shared_ptr<CriteriaCollection>
+std::unique_ptr<CriteriaCollection>
 CriteriaCollectionFactory::newInstance() {
-  return boost::shared_ptr<CriteriaCollection>(new CriteriaCollection());
+  return std::unique_ptr<CriteriaCollection>(new CriteriaCollection());
 }
 
 }  // namespace criteria

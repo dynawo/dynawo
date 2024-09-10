@@ -25,19 +25,19 @@ using std::string;
 
 namespace curves {
 
-boost::shared_ptr<CurvesCollection>
+std::unique_ptr<CurvesCollection>
 CurvesCollectionFactory::newInstance(const string& id) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(id));
+  return std::unique_ptr<CurvesCollection>(new CurvesCollection(id));
 }
 
-boost::shared_ptr<CurvesCollection>
-CurvesCollectionFactory::copyInstance(boost::shared_ptr<CurvesCollection> original) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(*original));
+std::unique_ptr<CurvesCollection>
+CurvesCollectionFactory::copyInstance(const std::shared_ptr<CurvesCollection>& original) {
+  return std::unique_ptr<CurvesCollection>(new CurvesCollection(*original));
 }
 
-boost::shared_ptr<CurvesCollection>
+std::unique_ptr<CurvesCollection>
 CurvesCollectionFactory::copyInstance(const CurvesCollection& original) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(original));
+  return std::unique_ptr<CurvesCollection>(new CurvesCollection(original));
 }
 
 }  // namespace curves

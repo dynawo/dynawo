@@ -14,13 +14,12 @@
 #include "CRTCriteriaParamsFactory.h"
 #include "CRTCriteriaParams.h"
 
-using boost::shared_ptr;
 
 namespace criteria {
 
-shared_ptr<CriteriaParams>
+std::unique_ptr<CriteriaParams>
 CriteriaParamsFactory::newCriteriaParams() {
-  return shared_ptr<CriteriaParams>(new CriteriaParams());
+  return std::unique_ptr<CriteriaParams>(new CriteriaParams());
 }
 
 }  // namespace criteria

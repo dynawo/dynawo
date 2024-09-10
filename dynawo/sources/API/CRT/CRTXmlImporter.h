@@ -36,12 +36,12 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromFile()
    */
-  boost::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const;
+  std::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const;
 
    /**
    * @copydoc Importer::importFromStream()
    */
-  boost::shared_ptr<CriteriaCollection> importFromStream(std::istream& stream) const;
+  std::shared_ptr<CriteriaCollection> importFromStream(std::istream& stream) const;
 };
 
 }  // namespace criteria

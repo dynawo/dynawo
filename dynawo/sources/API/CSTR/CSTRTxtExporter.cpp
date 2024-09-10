@@ -30,12 +30,10 @@ using std::fstream;
 using std::ostream;
 using std::string;
 
-using boost::shared_ptr;
-
 namespace constraints {
 
 void
-TxtExporter::exportToFile(const boost::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
+TxtExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -46,7 +44,7 @@ TxtExporter::exportToFile(const boost::shared_ptr<ConstraintsCollection>& constr
 }
 
 void
-TxtExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
+TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
   const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< separator in txt file
   for (ConstraintsCollection::const_iterator itConstraint = constraints->cbegin();
           itConstraint != constraints->cend();

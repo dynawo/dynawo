@@ -21,6 +21,7 @@
 #define SOLVERS_COMMON_DYNSOLVERFACTORY_H_
 
 #include <map>
+#include <memory>
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/dll.hpp>
@@ -60,13 +61,15 @@ class SolverFactory {
    */
   virtual void destroy(Solver*) const = 0;
 
+  using SolverPtr = std::unique_ptr<Solver, std::function<void(Solver*)> >;  ///< Alias for Solver unique pointer with SolverDelete custom destructor
+
   /**
    * @brief Create a solver loading given lib
    *
    * @param lib : Name of the solver library to load
    * @return Pointer to the created solver
    */
-  static boost::shared_ptr<Solver> createSolverFromLib(const std::string& lib);
+  static SolverPtr createSolverFromLib(const std::string& lib);
 
   boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the solver
 };
