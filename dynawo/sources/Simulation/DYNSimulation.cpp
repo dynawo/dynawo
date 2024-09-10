@@ -105,7 +105,6 @@
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNSolver.h"
-#include "DYNSolverFactory.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNModeler.h"
@@ -266,7 +265,7 @@ Simulation::configureCriteria() {
       it != itEnd; ++it) {
     criteria::XmlImporter parser;
     std::string path = createAbsolutePath(*it, context_->getInputDirectory());
-    boost::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
+    std::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
     if (!criteriaCollection_)
       criteriaCollection_ = ccollec;
     else

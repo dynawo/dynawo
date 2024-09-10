@@ -20,8 +20,6 @@
 #ifndef API_CRV_CRVCURVESCOLLECTIONFACTORY_H_
 #define API_CRV_CRVCURVESCOLLECTIONFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "CRVCurvesCollection.h"
 
 namespace curves {
@@ -39,27 +37,27 @@ class CurvesCollectionFactory {
    *
    * @param id id of the new instance
    *
-   * @return shared pointer to a new empty @p CurvesCollection
+   * @return unique pointer to a new empty @p CurvesCollection
    */
-  static boost::shared_ptr<CurvesCollection> newInstance(const std::string& id);
+  static std::unique_ptr<CurvesCollection> newInstance(const std::string& id);
 
   /**
    * @brief Create new CurvesCollection instance as a clone of given instance
    *
    * @param[in] original CurvesCollection to be cloned
    *
-   * @return Shared pointer to a new @p CurvesCollection copied from original
+   * @return Unique pointer to a new @p CurvesCollection copied from original
    */
-  static boost::shared_ptr<CurvesCollection> copyInstance(boost::shared_ptr<CurvesCollection> original);
+  static std::unique_ptr<CurvesCollection> copyInstance(const std::shared_ptr<CurvesCollection>& original);
 
   /**
    * @brief Create new CurvesCollection instance as a clone of given instance
    *
    * @param[in] original CurvesCollection to be cloned
    *
-   * @return Shared pointer to a new @p CurvesCollection copied from original
+   * @return Unique pointer to a new @p CurvesCollection copied from original
    */
-  static boost::shared_ptr<CurvesCollection> copyInstance(const CurvesCollection& original);
+  static std::unique_ptr<CurvesCollection> copyInstance(const CurvesCollection& original);
 };
 }  // namespace curves
 

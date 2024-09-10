@@ -139,7 +139,7 @@ class DataInterface {
    * @brief set the criteria for this model
    * @param criteria criteria to be used
    */
-  virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
+  virtual void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
 
   /**
    * @brief check if criteria for static model is respected

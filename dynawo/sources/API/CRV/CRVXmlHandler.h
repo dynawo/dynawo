@@ -90,7 +90,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return Curves collection parsed.
    */
-  boost::shared_ptr<CurvesCollection> getCurvesCollection();
+  std::shared_ptr<CurvesCollection> getCurvesCollection();
 
  private:
   /**
@@ -98,7 +98,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addCurve();
 
-  boost::shared_ptr<CurvesCollection> curvesCollection_;  ///< Curves collection parsed
+  std::shared_ptr<CurvesCollection> curvesCollection_;  ///< Curves collection parsed
   CurveHandler curveHandler_;  ///< handler used to read curve element
 };
 

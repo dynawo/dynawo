@@ -29,7 +29,7 @@ namespace constraints {
 //-----------------------------------------------------
 
 TEST(APICSTRTest, Constraint) {
-  boost::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
+  const std::unique_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
 
   constraint->setModelName("model");
   constraint->setType(CONSTRAINT_BEGIN);
@@ -61,7 +61,7 @@ TEST(APICSTRTest, ConstraintData) {
 }
 
 TEST(APICSTRTest, ConstraintWithData) {
-  boost::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
+  const std::unique_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
 
   constraint->setModelName("model2");
   constraint->setType(CONSTRAINT_END);

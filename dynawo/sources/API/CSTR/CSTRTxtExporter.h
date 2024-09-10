@@ -39,7 +39,7 @@ class TxtExporter : public Exporter {
    * @param constraints Constraints to export
    * @param filePath File to export txt formatted timeline to
    */
-  void exportToFile(const boost::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const;
+  void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const;
 
    /**
    * @brief Export method in txt format
@@ -47,7 +47,7 @@ class TxtExporter : public Exporter {
    * @param constraints Constraints to export
    * @param stream Stream to export txt formatted timeline to
    */
-  void exportToStream(const boost::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const;
+  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const;
 };
 
 }  // namespace constraints

@@ -807,7 +807,7 @@ class SubModel {
    *
    * @param constraints constraints collections to use
    */
-  void setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints);
+  void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints);
 
   /**
    * @brief set the simulation working directory to use
@@ -1622,7 +1622,7 @@ class SubModel {
 
   double currentTime_;  ///< current simulation time
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints_;  ///< constraints collection where constraints should be added
+  std::shared_ptr<constraints::ConstraintsCollection> constraints_;  ///< constraints collection where constraints should be added
 
   std::string workingDirectory_;  ///< Working directory of the simulation (configuration of the simulation)
 

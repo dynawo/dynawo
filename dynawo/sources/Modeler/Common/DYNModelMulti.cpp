@@ -87,7 +87,7 @@ ModelMulti::setTimeline(const shared_ptr<Timeline>& timeline) {
 }
 
 void
-ModelMulti::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
+ModelMulti::setConstraints(const std::shared_ptr<ConstraintsCollection>& constraints) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->setConstraints(constraints);
 }
