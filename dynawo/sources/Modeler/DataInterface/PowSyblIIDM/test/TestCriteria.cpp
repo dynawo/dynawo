@@ -799,7 +799,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
                                                                                 CriteriaParams::FINAL};
 
   for (criteria::CriteriaParams::CriteriaScope_t criteriaScope : criteriaScopeArray) {
-    boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
+    std::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
     criteriaParams->setPMax(200);
     criteriaParams->setPMin(150);
     criteriaParams->setType(CriteriaParams::LOCAL_VALUE);
@@ -987,7 +987,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
   }
 
   for (criteria::CriteriaParams::CriteriaScope_t criteriaScope : criteriaScopeArray) {
-    boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
+    std::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
     criteriaParams->setPMax(825);
     criteriaParams->setPMin(120);
     criteriaParams->setType(CriteriaParams::SUM);
@@ -1103,36 +1103,36 @@ TEST(DataInterfaceIIDMTest, Timeline) {
 }
 
 TEST(DataInterfaceIIDMTest, testBusCriteria) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::SUM);
+  ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap1));
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap1));
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(100);
-  criteriap->setPMin(0);
-  ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
+  criteriap1->addVoltageLevel(vl);
+  criteriap1->setPMax(100);
+  criteriap1->setPMin(0);
+  ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap1));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::SUM);
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(100);
-  criteriap->setPMin(0);
-  ASSERT_TRUE(BusCriteria::criteriaEligibleForBus(criteriap));
-  criteriap->setId("MyCriteria");
+  criteriap1->addVoltageLevel(vl);
+  criteriap1->setPMax(100);
+  criteriap1->setPMin(0);
+  ASSERT_TRUE(BusCriteria::criteriaEligibleForBus(criteriap1));
+  criteriap1->setId("MyCriteria");
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 190));
   exportStates(data);
   boost::shared_ptr<BusInterface> bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
-  BusCriteria criteria(criteriap);
+  BusCriteria criteria(criteriap1);
   // VNom lower than min
   criteria.addBus(bus);
   ASSERT_TRUE(criteria.empty());
@@ -1157,13 +1157,13 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   exportStates(data);
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // v>0.8*vNom
-  BusCriteria criteria2(criteriap);
+  BusCriteria criteria2(criteriap1);
   criteria2.addBus(bus);
   ASSERT_FALSE(criteria2.checkCriteria(0, false));
   ASSERT_EQ(criteria2.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria2.getFailingCriteria()[0].second, "BusAboveVoltage MyBus 190 0.844444 180 0.8 MyCriteria");
 
-  boost::shared_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
+  std::shared_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   criteriap2->setType(CriteriaParams::LOCAL_VALUE);
   vl.reset();
   vl.setUMinPu(0.2);
@@ -1192,329 +1192,329 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
 }
 
 TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  std::unique_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
-  criteriap->addVoltageLevel(vl);
+  criteriap1->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  criteria->setParams(std::move(criteriap1));
+  std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
+  collection1->add(CriteriaCollection::BUS, criteria);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection1));
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap2->setType(CriteriaParams::LOCAL_VALUE);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap2->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  criteria->setParams(std::move(criteriap2));
+  std::unique_ptr<CriteriaCollection> collection2 = CriteriaCollectionFactory::newInstance();
+  collection2->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 200));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection2));
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap3 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap3->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap3->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap3->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  criteria->setParams(std::move(criteriap3));
+  std::unique_ptr<CriteriaCollection> collection3 = CriteriaCollectionFactory::newInstance();
+  collection3->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection3));
   // v > 0.8*vNom
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap4 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap4->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap4->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap4->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap4));
   criteria->addCountry("BE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection4 = CriteriaCollectionFactory::newInstance();
+  collection4->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection4));
   // v > 0.8*vNom but criteria filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap5 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap5->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap5->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap5->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap5));
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection5 = CriteriaCollectionFactory::newInstance();
+  collection5->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection5));
   // v > 0.8*vNom and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap6 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap6->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap6->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap6->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap6));
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection6 = CriteriaCollectionFactory::newInstance();
+  collection6->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225, false));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection6));
   // v > 0.8*vNom and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  std::unique_ptr<CriteriaParams> criteriap7 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap7->setType(CriteriaParams::LOCAL_VALUE);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap7->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap7));
   criteria->addComponentId("MyDummyName");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection7 = CriteriaCollectionFactory::newInstance();
+  collection7->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 200));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection7));
   // bus not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap8 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap8->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap8->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap8->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap8));
   criteria->addComponentId("MyBus");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection8 = CriteriaCollectionFactory::newInstance();
+  collection8->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection8));
   // v > 0.8*vNom
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::FINAL);
+  std::unique_ptr<CriteriaParams> criteriap9 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap9->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap9->setScope(CriteriaParams::FINAL);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap9->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap9));
   criteria->addComponentId("MyBus");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection9 = CriteriaCollectionFactory::newInstance();
+  collection9->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection9));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap10 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap10->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap10->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap10->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap10));
   criteria->addComponentId("MyBus");
   criteria->addCountry("BE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection10 = CriteriaCollectionFactory::newInstance();
+  collection10->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection10));
   // v > 0.8*vNom but the bus is ignored due to country filter
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap11 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap11->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap11->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap11->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap11));
   criteria->addComponentId("MyBus");
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection11 = CriteriaCollectionFactory::newInstance();
+  collection11->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection11));
   // v > 0.8*vNom and the country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap12 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap12->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap12->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap12->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap12));
   criteria->addComponentId("MyBus");
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection12 = CriteriaCollectionFactory::newInstance();
+  collection12->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225, false));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection12));
   // v > 0.8*vNom and the country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  std::unique_ptr<CriteriaParams> criteriap13 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap13->setType(CriteriaParams::LOCAL_VALUE);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap13->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap13));
   criteria->addComponentId("MyBusBarSection", "DummyVoltageLevel");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection13 = CriteriaCollectionFactory::newInstance();
+  collection13->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection13));
   // voltage level not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  std::unique_ptr<CriteriaParams> criteriap14 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap14->setType(CriteriaParams::LOCAL_VALUE);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap14->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap14));
   criteria->addComponentId("DummyBBS", "MyVoltageLevel");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection14 = CriteriaCollectionFactory::newInstance();
+  collection14->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection14));
   // bbs not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap15 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap15->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap15->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap15->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap15));
   criteria->addComponentId("MyBusBarSection", "MyVoltageLevel");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection15 = CriteriaCollectionFactory::newInstance();
+  collection15->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection15));
   // v > 0.8*vNom
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::FINAL);
+  std::unique_ptr<CriteriaParams> criteriap16 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap16->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap16->setScope(CriteriaParams::FINAL);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap16->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap16));
   criteria->addComponentId("MyBusBarSection", "MyVoltageLevel");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::BUS, criteria);
+  std::unique_ptr<CriteriaCollection> collection16 = CriteriaCollectionFactory::newInstance();
+  collection16->add(CriteriaCollection::BUS, criteria);
   data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection16));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap));
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap1));
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl);
-  ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap));
-  criteriap->setPMax(200);
-  ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap));
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap));
-  criteriap->setId("MyCriteria");
+  criteriap1->addVoltageLevel(vl);
+  ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap1));
+  criteriap1->setPMax(200);
+  ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap1));
+  criteriap1->setPMin(50);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap1));
+  criteriap1->setId("MyCriteria");
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
-  LoadCriteria criteria(criteriap);
+  LoadCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < loads.size(); ++i)
     criteria.addLoad(loads[i]);
@@ -1542,7 +1542,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // V < uMinPu*VNom
-  LoadCriteria criteria2(criteriap);
+  LoadCriteria criteria2(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria2.addLoad(loads[i]);
   ASSERT_FALSE(criteria2.empty());
@@ -1553,7 +1553,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // OK
-  LoadCriteria criteria3(criteriap);
+  LoadCriteria criteria3(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria3.addLoad(loads[i]);
   ASSERT_FALSE(criteria3.empty());
@@ -1564,7 +1564,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P> PMax
-  LoadCriteria criteria4(criteriap);
+  LoadCriteria criteria4(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria4.addLoad(loads[i]);
   ASSERT_FALSE(criteria4.empty());
@@ -1576,8 +1576,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P< PMin
-  criteriap->setScope(CriteriaParams::FINAL);
-  LoadCriteria criteria5(criteriap);
+  criteriap1->setScope(CriteriaParams::FINAL);
+  LoadCriteria criteria5(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria5.addLoad(loads[i]);
   ASSERT_FALSE(criteria5.empty());
@@ -1588,25 +1588,25 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourceUnderPower MyLoad 40 50 MyCriteria");
 
   // Multiple voltage levels
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   vl.reset();
   vl.setUNomMin(300);
   vl.setUNomMax(400);
-  criteriap->addVoltageLevel(vl);
+  criteriap2->addVoltageLevel(vl);
   criteria::CriteriaParamsVoltageLevel vl2;
   vl2.setUNomMin(225);
   vl2.setUNomMax(400);
-  criteriap->addVoltageLevel(vl2);
-  criteriap->setPMax(200);
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setId("MyCriteria");
+  criteriap2->addVoltageLevel(vl2);
+  criteriap2->setPMax(200);
+  criteriap2->setPMin(50);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
+  criteriap2->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap2->setId("MyCriteria");
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P> PMax
-  LoadCriteria criteria6(criteriap);
+  LoadCriteria criteria6(std::move(criteriap2));
   for (size_t i = 0; i < loads.size(); ++i)
     criteria6.addLoad(loads[i]);
   ASSERT_FALSE(criteria6.empty());
@@ -1616,24 +1616,24 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::SUM);
-  ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap));
-  criteriap->setId("MyCriteria");
+  criteriap1->addVoltageLevel(vl);
+  criteriap1->setPMax(200);
+  criteriap1->setPMin(50);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
+  criteriap1->setType(CriteriaParams::SUM);
+  ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap1));
+  criteriap1->setId("MyCriteria");
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
-  LoadCriteria criteria(criteriap);
+  LoadCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < loads.size(); ++i)
     criteria.addLoad(loads[i]);
@@ -1661,7 +1661,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // V < uMinPu*VNom
-  LoadCriteria criteria2(criteriap);
+  LoadCriteria criteria2(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria2.addLoad(loads[i]);
   ASSERT_FALSE(criteria2.empty());
@@ -1672,7 +1672,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // OK
-  LoadCriteria criteria3(criteriap);
+  LoadCriteria criteria3(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria3.addLoad(loads[i]);
   ASSERT_FALSE(criteria3.empty());
@@ -1683,7 +1683,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P> PMax
-  LoadCriteria criteria4(criteriap);
+  LoadCriteria criteria4(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria4.addLoad(loads[i]);
   ASSERT_FALSE(criteria4.empty());
@@ -1695,8 +1695,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P< PMin
-  criteriap->setScope(CriteriaParams::FINAL);
-  LoadCriteria criteria5(criteriap);
+  criteriap1->setScope(CriteriaParams::FINAL);
+  LoadCriteria criteria5(criteriap1);
   for (size_t i = 0; i < loads.size(); ++i)
     criteria5.addLoad(loads[i]);
   ASSERT_FALSE(criteria5.empty());
@@ -1707,29 +1707,29 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourcePowerBelowMin 20 50 MyCriteria");
 
   // Multiple voltage levels
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(300);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl);
+  criteriap2->addVoltageLevel(vl);
   criteria::CriteriaParamsVoltageLevel vl2;
   vl2.setUNomMin(400);
   vl.setUNomMax(600);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl2);
-  criteriap->setPMax(200);
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setId("MyCriteria");
+  criteriap2->addVoltageLevel(vl2);
+  criteriap2->setPMax(200);
+  criteriap2->setPMin(50);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
+  criteriap2->setType(CriteriaParams::SUM);
+  criteriap2->setId("MyCriteria");
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P> PMax
-  LoadCriteria criteria6(criteriap);
+  LoadCriteria criteria6(std::move(criteriap2));
   for (size_t i = 0; i < loads.size(); ++i)
     criteria6.addLoad(loads[i]);
   loads = data->getNetwork()->getVoltageLevels()[1]->getLoads();
@@ -1742,399 +1742,399 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap1->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap1));
+  std::shared_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
+  collection1->add(CriteriaCollection::LOAD, criteria);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 100, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection1));
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap2->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap2->addVoltageLevel(vl);
+  criteriap2->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap2));
+  std::unique_ptr<CriteriaCollection> collection2 = CriteriaCollectionFactory::newInstance();
+  collection2->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection2));
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap3 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap3->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap3->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap3->addVoltageLevel(vl);
+  criteriap3->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap3));
+  std::unique_ptr<CriteriaCollection> collection3 = CriteriaCollectionFactory::newInstance();
+  collection3->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection3));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap4 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap4->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap4->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap4->addVoltageLevel(vl);
+  criteriap4->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap4));
+  std::unique_ptr<CriteriaCollection> collection4 = CriteriaCollectionFactory::newInstance();
+  collection4->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection4));
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap5 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap5->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap5->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap5->addVoltageLevel(vl);
+  criteriap5->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap5));
   criteria->addCountry("BE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection5 = CriteriaCollectionFactory::newInstance();
+  collection5->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection5));
   // P > PMax but country filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap6 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap6->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap6->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap6->addVoltageLevel(vl);
+  criteriap6->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap6));
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection6 = CriteriaCollectionFactory::newInstance();
+  collection6->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection6));
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap7 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap7->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap7->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap7->addVoltageLevel(vl);
+  criteriap7->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap7));
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection7 = CriteriaCollectionFactory::newInstance();
+  collection7->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100, false));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection7));
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap8 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap8->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap8->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap8->addVoltageLevel(vl);
+  criteriap8->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap8));
   criteria->addComponentId("MyDummyName");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection8 = CriteriaCollectionFactory::newInstance();
+  collection8->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection8));
   // load not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap9 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap9->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap9->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap9->addVoltageLevel(vl);
+  criteriap9->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap9));
   criteria->addComponentId("MyLoad");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection9 = CriteriaCollectionFactory::newInstance();
+  collection9->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection9));
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap10 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap10->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap10->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap10->addVoltageLevel(vl);
+  criteriap10->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap10));
   criteria->addComponentId("MyLoad2");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection10 = CriteriaCollectionFactory::newInstance();
+  collection10->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection10));
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::FINAL);
+  std::unique_ptr<CriteriaParams> criteriap11 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap11->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap11->setScope(CriteriaParams::FINAL);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap11->addVoltageLevel(vl);
+  criteriap11->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap11));
   criteria->addComponentId("MyLoad");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection11 = CriteriaCollectionFactory::newInstance();
+  collection11->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection11));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap12 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap12->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap12->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap12->addVoltageLevel(vl);
+  criteriap12->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap12));
   criteria->addComponentId("MyLoad");
   criteria->addCountry("BE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection12 = CriteriaCollectionFactory::newInstance();
+  collection12->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection12));
   // P > PMax but country filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap13 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap13->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap13->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap13->addVoltageLevel(vl);
+  criteriap13->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap13));
   criteria->addComponentId("MyLoad");
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection13 = CriteriaCollectionFactory::newInstance();
+  collection13->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection13));
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap14 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap14->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap14->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap14->addVoltageLevel(vl);
+  criteriap14->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap14));
   criteria->addComponentId("MyLoad");
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection14 = CriteriaCollectionFactory::newInstance();
+  collection14->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100, false));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection14));
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::SUM);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap1->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap1));
+  std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
+  collection1->add(CriteriaCollection::LOAD, criteria);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 100, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection1));
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap2->setType(CriteriaParams::SUM);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap2->addVoltageLevel(vl);
+  criteriap2->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap2));
+  std::unique_ptr<CriteriaCollection> collection2 = CriteriaCollectionFactory::newInstance();
+  collection2->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection2));
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap3 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap3->setType(CriteriaParams::SUM);
+  criteriap3->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap3->addVoltageLevel(vl);
+  criteriap3->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap3));
+  std::unique_ptr<CriteriaCollection> collection3 = CriteriaCollectionFactory::newInstance();
+  collection3->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection3));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap4 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap4->setType(CriteriaParams::SUM);
+  criteriap4->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap4->addVoltageLevel(vl);
+  criteriap4->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap4));
   criteria->addComponentId("MyDummyName");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection4 = CriteriaCollectionFactory::newInstance();
+  collection4->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection4));
   // load not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap5 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap5->setType(CriteriaParams::SUM);
+  criteriap5->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap5->addVoltageLevel(vl);
+  criteriap5->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap5));
+  std::unique_ptr<CriteriaCollection> collection5 = CriteriaCollectionFactory::newInstance();
+  collection5->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 50, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection5));
   // sum(P)<= PMax
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap6 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap6->setType(CriteriaParams::SUM);
+  criteriap6->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
-  criteriap->setId("MyCriteria");
+  criteriap6->addVoltageLevel(vl);
+  criteriap6->setPMax(150);
+  criteriap6->setId("MyCriteria");
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap6));
+  std::unique_ptr<CriteriaCollection> collection6 = CriteriaCollectionFactory::newInstance();
+  collection6->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection6));
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false));
   std::vector<std::pair<double, std::string> > failingCriteria;
@@ -2142,56 +2142,56 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   ASSERT_EQ(failingCriteria.size(), 1);
   ASSERT_EQ(failingCriteria[0].second, "SourcePowerAboveMax 300 150 MyCriteria");
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap7 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap7->setType(CriteriaParams::SUM);
+  criteriap7->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap7->addVoltageLevel(vl);
+  criteriap7->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap7));
   criteria->addComponentId("MyLoad2");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  std::unique_ptr<CriteriaCollection> collection7 = CriteriaCollectionFactory::newInstance();
+  collection7->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection7));
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::FINAL);
+  std::unique_ptr<CriteriaParams> criteriap8 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap8->setType(CriteriaParams::SUM);
+  criteriap8->setScope(CriteriaParams::FINAL);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap8->addVoltageLevel(vl);
+  criteriap8->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::LOAD, criteria);
+  criteria->setParams(std::move(criteriap8));
+  std::unique_ptr<CriteriaCollection> collection8 = CriteriaCollectionFactory::newInstance();
+  collection8->add(CriteriaCollection::LOAD, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection8));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testDontTestFictitiousLoadsInCriteria) {
-  boost::shared_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
+  std::unique_ptr<CriteriaParams> criteriaParams = CriteriaParamsFactory::newCriteriaParams();
   criteriaParams->setType(CriteriaParams::LOCAL_VALUE);
   criteriaParams->setScope(CriteriaParams::DYNAMIC);
   criteriaParams->setPMax(90);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithOneFictitiousLoadAmongTwo(180, 190, 100, 100));
   exportStates(data);
   std::vector<boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
-  LoadCriteria criteria(criteriaParams);
+  LoadCriteria criteria(std::move(criteriaParams));
   for (size_t i = 0; i < loads.size(); ++i)
     criteria.addLoad(loads[i]);
   criteria.checkCriteria(0, false);
@@ -2200,27 +2200,27 @@ TEST(DataInterfaceIIDMTest, testDontTestFictitiousLoadsInCriteria) {
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap1));
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl);
-  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-  criteriap->setPMax(200);
-  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-  criteriap->setId("MyCriteria");
+  criteriap1->addVoltageLevel(vl);
+  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap1));
+  criteriap1->setPMax(200);
+  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap1));
+  criteriap1->setPMin(50);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap1));
+  criteriap1->setId("MyCriteria");
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-  GeneratorCriteria criteria(criteriap);
+  GeneratorCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < generators.size(); ++i)
     criteria.addGenerator(generators[i]);
@@ -2248,7 +2248,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // V < uMinPu*VNom
-  GeneratorCriteria criteria2(criteriap);
+  GeneratorCriteria criteria2(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria2.addGenerator(generators[i]);
   ASSERT_FALSE(criteria2.empty());
@@ -2259,7 +2259,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // OK
-  GeneratorCriteria criteria3(criteriap);
+  GeneratorCriteria criteria3(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria3.addGenerator(generators[i]);
   ASSERT_FALSE(criteria3.empty());
@@ -2270,7 +2270,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P> PMax
-  GeneratorCriteria criteria4(criteriap);
+  GeneratorCriteria criteria4(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria4.addGenerator(generators[i]);
   ASSERT_FALSE(criteria4.empty());
@@ -2282,8 +2282,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P< PMin
-  criteriap->setScope(CriteriaParams::FINAL);
-  GeneratorCriteria criteria5(criteriap);
+  criteriap1->setScope(CriteriaParams::FINAL);
+  GeneratorCriteria criteria5(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria5.addGenerator(generators[i]);
   ASSERT_FALSE(criteria5.empty());
@@ -2294,26 +2294,26 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourceUnderPower MyGen 40 50 MyCriteria");
 
   // Multiple voltage levels
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   vl.reset();
   vl.setUNomMin(300);
   vl.setUNomMax(400);
-  criteriap->addVoltageLevel(vl);
+  criteriap2->addVoltageLevel(vl);
   criteria::CriteriaParamsVoltageLevel vl2;
   vl2.setUNomMin(225);
   vl2.setUNomMax(400);
-  criteriap->addVoltageLevel(vl2);
-  criteriap->setPMax(200);
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setId("MyCriteria");
+  criteriap2->addVoltageLevel(vl2);
+  criteriap2->setPMax(200);
+  criteriap2->setPMin(50);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
+  criteriap2->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap2->setId("MyCriteria");
 
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P> PMax
-  GeneratorCriteria criteria6(criteriap);
+  GeneratorCriteria criteria6(std::move(criteriap2));
   for (size_t i = 0; i < generators.size(); ++i)
     criteria6.addGenerator(generators[i]);
   ASSERT_FALSE(criteria6.empty());
@@ -2323,24 +2323,24 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::SUM);
-  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-  criteriap->setId("MyCriteria");
+  criteriap1->addVoltageLevel(vl);
+  criteriap1->setPMax(200);
+  criteriap1->setPMin(50);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
+  criteriap1->setType(CriteriaParams::SUM);
+  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap1));
+  criteriap1->setId("MyCriteria");
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-  GeneratorCriteria criteria(criteriap);
+  GeneratorCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < generators.size(); ++i)
     criteria.addGenerator(generators[i]);
@@ -2368,7 +2368,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // V < uMinPu*VNom
-  GeneratorCriteria criteria2(criteriap);
+  GeneratorCriteria criteria2(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria2.addGenerator(generators[i]);
   ASSERT_FALSE(criteria2.empty());
@@ -2379,7 +2379,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // OK
-  GeneratorCriteria criteria3(criteriap);
+  GeneratorCriteria criteria3(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria3.addGenerator(generators[i]);
   ASSERT_FALSE(criteria3.empty());
@@ -2390,7 +2390,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P> PMax
-  GeneratorCriteria criteria4(criteriap);
+  GeneratorCriteria criteria4(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria4.addGenerator(generators[i]);
   ASSERT_FALSE(criteria4.empty());
@@ -2402,8 +2402,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P< PMin
-  criteriap->setScope(CriteriaParams::FINAL);
-  GeneratorCriteria criteria5(criteriap);
+  criteriap1->setScope(CriteriaParams::FINAL);
+  GeneratorCriteria criteria5(criteriap1);
   for (size_t i = 0; i < generators.size(); ++i)
     criteria5.addGenerator(generators[i]);
   ASSERT_FALSE(criteria5.empty());
@@ -2414,29 +2414,29 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourcePowerBelowMin 20 50 MyCriteria");
 
   // Multiple voltage levels
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(300);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl);
+  criteriap2->addVoltageLevel(vl);
   criteria::CriteriaParamsVoltageLevel vl2;
   vl2.setUNomMin(400);
   vl.setUNomMax(600);
   vl.setUMaxPu(0.8);
   vl.setUMinPu(0.2);
-  criteriap->addVoltageLevel(vl2);
-  criteriap->setPMax(200);
-  criteriap->setPMin(50);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setId("MyCriteria");
+  criteriap2->addVoltageLevel(vl2);
+  criteriap2->setPMax(200);
+  criteriap2->setPMin(50);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
+  criteriap2->setType(CriteriaParams::SUM);
+  criteriap2->setId("MyCriteria");
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P> PMax
-  GeneratorCriteria criteria6(criteriap);
+  GeneratorCriteria criteria6(std::move(criteriap2));
   for (size_t i = 0; i < generators.size(); ++i)
     criteria6.addGenerator(generators[i]);
   generators = data->getNetwork()->getVoltageLevels()[1]->getGenerators();
@@ -2449,436 +2449,436 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap1->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(criteriap1);
+  std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
+  collection1->add(CriteriaCollection::GENERATOR, criteria);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 100, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection1));
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap1->addVoltageLevel(vl);
+  criteriap1->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(criteriap1);
+  std::unique_ptr<CriteriaCollection> collection2 = CriteriaCollectionFactory::newInstance();
+  collection2->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection2));
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap2->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap2->addVoltageLevel(vl);
+  criteriap2->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap2));
+  std::unique_ptr<CriteriaCollection> collection3 = CriteriaCollectionFactory::newInstance();
+  collection3->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection3));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap3 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap3->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap3->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap3->addVoltageLevel(vl);
+  criteriap3->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap3));
+  std::unique_ptr<CriteriaCollection> collection4 = CriteriaCollectionFactory::newInstance();
+  collection4->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection4));
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap4 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap4->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap4->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap4->addVoltageLevel(vl);
+  criteriap4->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap4));
   criteria->addCountry("BE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection5 = CriteriaCollectionFactory::newInstance();
+  collection5->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection5));
   // P > PMax but country filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap5 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap5->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap5->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap5->addVoltageLevel(vl);
+  criteriap5->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap5));
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection6 = CriteriaCollectionFactory::newInstance();
+  collection6->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection6));
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap6 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap6->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap6->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap6->addVoltageLevel(vl);
+  criteriap6->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap6));
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection7 = CriteriaCollectionFactory::newInstance();
+  collection7->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection7));
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap7 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap7->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap7->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap7->addVoltageLevel(vl);
+  criteriap7->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap7));
   criteria->addComponentId("MyDummyName");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection8 = CriteriaCollectionFactory::newInstance();
+  collection8->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection8));
   // generator not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap8 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap8->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap8->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap8->addVoltageLevel(vl);
+  criteriap8->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap8));
   criteria->addComponentId("MyGen");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection9 = CriteriaCollectionFactory::newInstance();
+  collection9->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection9));
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap9 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap9->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap9->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap9->addVoltageLevel(vl);
+  criteriap9->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap9));
   criteria->addComponentId("MyGend2");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection10 = CriteriaCollectionFactory::newInstance();
+  collection10->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection10));
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::FINAL);
+  std::unique_ptr<CriteriaParams> criteriap10 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap10->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap10->setScope(CriteriaParams::FINAL);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap10->addVoltageLevel(vl);
+  criteriap10->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap10));
   criteria->addComponentId("MyGen");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection11 = CriteriaCollectionFactory::newInstance();
+  collection11->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection11));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap11 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap11->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap11->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap11->addVoltageLevel(vl);
+  criteriap11->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap11));
   criteria->addComponentId("MyGen");
   criteria->addCountry("BE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection12 = CriteriaCollectionFactory::newInstance();
+  collection12->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection12));
   // P > PMax but criteria filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap12 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap12->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap12->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap12->addVoltageLevel(vl);
+  criteriap12->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap12));
   criteria->addComponentId("MyGen");
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection13 = CriteriaCollectionFactory::newInstance();
+  collection13->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection13));
   // P > PMax and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap13 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap13->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap13->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap13->addVoltageLevel(vl);
+  criteriap13->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap13));
   criteria->addComponentId("MyGen");
   criteria->addCountry("FRANCE");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection14 = CriteriaCollectionFactory::newInstance();
+  collection14->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection14));
   // P > PMax and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::SUM);
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
   criteria::CriteriaParamsVoltageLevel vl;
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
+  criteriap1->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap1));
+  std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
+  collection1->add(CriteriaCollection::GENERATOR, criteria);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 100, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection1));
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap2->setType(CriteriaParams::SUM);
+  criteriap2->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap2->addVoltageLevel(vl);
+  criteriap2->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
+  criteria->setParams(std::move(criteriap2));
+  std::unique_ptr<CriteriaCollection> collection2 = CriteriaCollectionFactory::newInstance();
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection2));
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap3 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap3->setType(CriteriaParams::SUM);
+  criteriap3->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap3->addVoltageLevel(vl);
+  criteriap3->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap3));
+  std::unique_ptr<CriteriaCollection> collection3 = CriteriaCollectionFactory::newInstance();
+  collection3->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection3));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap4 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap4->setType(CriteriaParams::SUM);
+  criteriap4->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(200);
+  criteriap4->addVoltageLevel(vl);
+  criteriap4->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap4));
   criteria->addComponentId("MyDummyName");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection4 = CriteriaCollectionFactory::newInstance();
+  collection4->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 200, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection4));
   // generator not found
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap5 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap5->setType(CriteriaParams::SUM);
+  criteriap5->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap5->addVoltageLevel(vl);
+  criteriap5->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap5));
+  std::unique_ptr<CriteriaCollection> collection5 = CriteriaCollectionFactory::newInstance();
+  collection5->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 50, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection5));
   // sum(P)<= PMax
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap6 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap6->setType(CriteriaParams::SUM);
+  criteriap6->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap6->addVoltageLevel(vl);
+  criteriap6->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap6));
+  std::unique_ptr<CriteriaCollection> collection6 = CriteriaCollectionFactory::newInstance();
+  collection6->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection6));
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::DYNAMIC);
+  std::unique_ptr<CriteriaParams> criteriap7 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap7->setType(CriteriaParams::SUM);
+  criteriap7->setScope(CriteriaParams::DYNAMIC);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap7->addVoltageLevel(vl);
+  criteriap7->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
+  criteria->setParams(std::move(criteriap7));
   criteria->addComponentId("MyGen2");
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  std::unique_ptr<CriteriaCollection> collection7 = CriteriaCollectionFactory::newInstance();
+  collection7->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection7));
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false));
 
-  criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setType(CriteriaParams::SUM);
-  criteriap->setScope(CriteriaParams::FINAL);
+  std::unique_ptr<CriteriaParams> criteriap8 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap8->setType(CriteriaParams::SUM);
+  criteriap8->setScope(CriteriaParams::FINAL);
   vl.reset();
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
-  criteriap->addVoltageLevel(vl);
-  criteriap->setPMax(150);
+  criteriap8->addVoltageLevel(vl);
+  criteriap8->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
-  criteria->setParams(criteriap);
-  collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
+  criteria->setParams(std::move(criteriap8));
+  std::unique_ptr<CriteriaCollection> collection8 = CriteriaCollectionFactory::newInstance();
+  collection8->add(CriteriaCollection::GENERATOR, criteria);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(std::move(collection8));
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
@@ -2913,12 +2913,12 @@ TEST(DataInterfaceIIDMTest, NoVoltageLevelInCriteria) {
                 };
 
   for (VLTestConfig& vlTestConfig : vlTestConfigArray) {
-    boost::shared_ptr<criteria::CriteriaParams> criteriaParamsWithoutVoltageLevel = CriteriaParamsFactory::newCriteriaParams();
+    std::shared_ptr<criteria::CriteriaParams> criteriaParamsWithoutVoltageLevel = CriteriaParamsFactory::newCriteriaParams();
     criteriaParamsWithoutVoltageLevel->setType(vlTestConfig.vlTestType);
     criteriaParamsWithoutVoltageLevel->setScope(vlTestConfig.vlTestScope);
     criteriaParamsWithoutVoltageLevel->setPMax(40);
 
-    boost::shared_ptr<criteria::CriteriaParams> criteriaParamsWithVoltageLevel = CriteriaParamsFactory::newCriteriaParams();
+    std::shared_ptr<criteria::CriteriaParams> criteriaParamsWithVoltageLevel = CriteriaParamsFactory::newCriteriaParams();
     criteriaParamsWithVoltageLevel->setType(vlTestConfig.vlTestType);
     criteriaParamsWithVoltageLevel->setScope(vlTestConfig.vlTestScope);
     criteriaParamsWithVoltageLevel->setPMax(40);

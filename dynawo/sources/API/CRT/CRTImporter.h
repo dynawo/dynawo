@@ -21,8 +21,6 @@
 #ifndef API_CRT_CRTIMPORTER_H_
 #define API_CRT_CRTIMPORTER_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "CRTCriteriaCollection.h"
 
 namespace criteria {
@@ -52,7 +50,7 @@ class Importer {
    *
    * @return criteria imported
    */
-  virtual boost::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const = 0;
+  virtual std::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const = 0;
 
   /**
    * @brief Import criteria from stream
@@ -61,7 +59,7 @@ class Importer {
    *
    * @return criteria collection imported
    */
-  virtual boost::shared_ptr<CriteriaCollection> importFromStream(std::istream& stream) const = 0;
+  virtual std::shared_ptr<CriteriaCollection> importFromStream(std::istream& stream) const = 0;
 };
 
 #ifdef __clang__

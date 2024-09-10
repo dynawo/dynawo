@@ -29,7 +29,7 @@ namespace curves {
 //-----------------------------------------------------
 
 TEST(APICRVTest, Point) {
-  boost::shared_ptr<Point> point = PointFactory::newPoint(5.2, 3.5);
+  const std::unique_ptr<Point> point = PointFactory::newPoint(5.2, 3.5);
 
   ASSERT_EQ(point->getTime(), 5.2);
   ASSERT_EQ(point->getValue(), 3.5);

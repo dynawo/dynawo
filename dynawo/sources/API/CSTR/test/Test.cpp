@@ -33,7 +33,7 @@ namespace constraints {
 //-----------------------------------------------------
 
 TEST(APICSTRTest, CollectionAddConstraints) {
-  boost::shared_ptr<ConstraintsCollection> collection;
+  std::shared_ptr<ConstraintsCollection> collection;
   collection = ConstraintsCollectionFactory::newInstance("test");
 
   collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN);  // add first constraint
@@ -55,7 +55,7 @@ TEST(APICSTRTest, CollectionAddConstraints) {
 }
 
 TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
-  boost::shared_ptr<ConstraintsCollection> collection;
+  std::shared_ptr<ConstraintsCollection> collection;
   collection = ConstraintsCollectionFactory::newInstance("test");
 
   int side = 1;
@@ -83,7 +83,7 @@ TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
 }
 
 TEST(APICSTRTest, CollectionEraseConstraint) {
-  boost::shared_ptr<ConstraintsCollection> collection;
+  std::unique_ptr<ConstraintsCollection> collection;
   collection = ConstraintsCollectionFactory::newInstance("test");
 
   collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN);  // add first constraint
