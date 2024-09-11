@@ -14,6 +14,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  GovHydro4.mo
   HyGov.mo
   HyGov.extvar
   )
