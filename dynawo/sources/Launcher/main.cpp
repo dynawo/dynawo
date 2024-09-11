@@ -68,7 +68,7 @@ int main(int argc, char ** argv) {
   po::options_description desc;
   desc.add_options()
     ("help,h", "produce help message")
-    ("version,v", "print dynawo version");
+    ("version,v", "print dynawo version")
     ("interractive,i", "experimental interractive simulator");
 
   po::options_description hidden("Hidden options");
@@ -110,7 +110,6 @@ int main(int argc, char ** argv) {
       usage(desc);
       return 1;
     }
-
     DYN::InitXerces xerces;
     DYN::InitLibXml2 libxml2;
     DYN::IoDicos& dicos = DYN::IoDicos::instance();

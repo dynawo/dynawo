@@ -1082,17 +1082,17 @@ Simulation::simulate() {
         }
         intermediateStates_.pop();
       }
-    // Interception mecanism -------------------------
-    Trace::info() << "TITI tCurrent_: " << tCurrent_ << Trace::endline;
-    bool intercept = tCurrent_ == 100;
-    if (intercept) {
-      Trace::info() << "!! INTERCEPT !!" << Trace::endline;
-      string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
-      // terminate();
-      // setInitialStateFile(finalValuesDir);
-      dumpState();
-    }
-    // -----------------------------------------------
+    // // Interception mecanism -------------------------
+    // Trace::info() << "TITI tCurrent_: " << tCurrent_ << Trace::endline;
+    // bool intercept = tCurrent_ == 100;
+    // if (intercept) {
+    //   Trace::info() << "!! INTERCEPT !!" << Trace::endline;
+    //   string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
+    //   // terminate();
+    //   // setInitialStateFile(finalValuesDir);
+    //   dumpState();
+    // }
+    // // -----------------------------------------------
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process

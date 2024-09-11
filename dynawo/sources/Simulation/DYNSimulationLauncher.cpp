@@ -202,15 +202,16 @@ void launchSimuInterractive(const std::string& jobsFileName) {
       print(exc.what(), DYN::ERROR);
       throw;
     }
-    bool isRunning = true;
-    while (isRunning) {
+    bool rerun = true;
+    while (rerun) {
       try {
+        rerun = false;
         simulation->simulate();
         simulation->terminate();
       } catch (const DYN::Interception& interception) {
         simulation->dumpState();
-        simulation->simulate();
         print(interception.what(), DYN::WARN);
+        rerun = true;
         throw;
       } catch (const DYN::Error& err) {
         // Needed as otherwise terminate might crash due to missing staticRef variables
