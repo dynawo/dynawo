@@ -21,7 +21,7 @@ model GovHydro4 "Governor type GovHydro4"
     Dialog(tab = "General parameters"));
   parameter Types.Frequency DeltaOmegaEpsPu "Frequency Intentional db hysteresis in pu, typical: 0" annotation(
     Dialog(tab = "General parameters"));
-  parameter Types.ActivePower DeltaPDbPu "ActivePower Unintentional dead-band in pu, typical: 0" annotation(
+  parameter Types.PerUnit DeltaPDbPu "Active power unintentional dead-band in pu, typical: 0" annotation(
     Dialog(tab = "General parameters"));
   parameter Types.PerUnit DTurb "Turbine damping factor in pu, typical: 0.5 (simple turbine) or 1.1 (real turbine) (if ModelInt == 0 then 0.5 else 1.1)" annotation(
     Dialog(tab = "General parameters"));
