@@ -1085,7 +1085,7 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
 }
 
 void ModelMulti::printVariableNames(bool withVariableType) {
-  Trace::clearLogFile(Trace::variables());
+  Trace::clearLogFile(Trace::variables(), DEBUG);
   Trace::printDynawoLogHeader(Trace::variables());
   int nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
