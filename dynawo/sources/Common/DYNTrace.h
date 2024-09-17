@@ -51,12 +51,34 @@ class Trace {
   typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_file_backend > FileSink;  ///< File sink for log
   typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_ostream_backend > TextSink;  ///< Text sink for log
 
+  using TagAndSeverityLevel = std::pair<std::string, SeverityLevel>;  ///< Alias for tag and severity pair
+
+  /**
+   * @brief Hash structure for TagAndSeverityLevel
+   */
+  struct TagAndSeverityLevelHash {
+    /**
+     * @brief Operator to retrieve tagAndSeverityLevel hash value
+     *
+     * @param tagAndSeverityLevel the tagAndSeverityLevel to hash
+     * @returns the hash value
+     */
+    std::size_t operator()(const TagAndSeverityLevel& tagAndSeverityLevel) const {
+      std::size_t seed = 0;
+      boost::hash_combine(seed, tagAndSeverityLevel.first);
+      boost::hash_combine(seed, tagAndSeverityLevel.second);
+      return seed;
+    }
+  };
+
   /**
    * @brief Stucture defining traces for a specific thread
    */
   struct TraceSinks {
-    std::vector< boost::shared_ptr<FileSink> > sinks;  ///<  vector of file sink
-    std::vector< boost::shared_ptr<FileSink> > persistantSinks;  ///<  vector of persistant file sink
+    std::unordered_multimap<TagAndSeverityLevel, boost::shared_ptr<FileSink>,
+                        TagAndSeverityLevelHash> sinks;  ///< multimap each appender tag-severitylevel pair to its corresponding file sink
+    std::unordered_multimap<TagAndSeverityLevel, boost::shared_ptr<FileSink>,
+                        TagAndSeverityLevelHash> persistentSinks;  ///< multimap each appender tag-severitylevel pair to its corresponding persistent file sink
   };
 
   /**
@@ -99,7 +121,7 @@ class Trace {
       separator_(),
       showTimeStamp_(false),
       timeStampFormat_(),
-      persistant_(false) { }
+      persistent_(false) { }
 
     /**
      * @brief Tag attribute getter
@@ -161,8 +183,8 @@ class Trace {
      * @brief Determines if log should be kept when reseting
      * @returns whether the log should be kept when reseting
      */
-    bool isPersistant() const {
-      return persistant_;
+    bool isPersistent() const {
+      return persistent_;
     }
 
     /**
@@ -222,12 +244,12 @@ class Trace {
     }
 
     /**
-     * @brief Set the persistant attribute
+     * @brief Set the persistent attribute
      *
-     * @param persistant determines if the log must be kept when reseting
+     * @param persistent determines if the log must be kept when reseting
      */
-    void setPersistant(bool persistant) {
-      persistant_ = persistant;
+    void setPersistent(bool persistent) {
+      persistent_ = persistent;
     }
 
    private:
@@ -238,7 +260,7 @@ class Trace {
     std::string separator_;  ///< separator used between each log information date severity log
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
-    bool persistant_;  ///< Do not remove this appender when resetting
+    bool persistent_;  ///< Do not remove this appender when resetting
   };
 
   /**
@@ -274,15 +296,15 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders : Appenders to add
    */
-  static void addAppenders(const std::vector<TraceAppender>& appenders);
+  static void clearAndAddAppenders(const std::vector<TraceAppender>& appenders);
 
   /**
-   * @brief Reset non-persistant custom appenders of trace system
+   * @brief Reset non-persistent custom appenders of trace system
    */
   static void resetCustomAppenders();
 
   /**
-   * @brief Reset a specific non-persistant custom appender of trace system
+   * @brief Reset a specific non-persistent custom appender of trace system
    *
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param slv : Severity level.
@@ -290,17 +312,17 @@ class Trace {
   static void resetCustomAppender(const std::string& tag, SeverityLevel slv);
 
   /**
-   * @brief Reset persistant custom appenders of trace system
+   * @brief Reset persistent custom appenders of trace system
    */
-  static void resetPersistantCustomAppenders();
+  static void resetPersistentCustomAppenders();
 
   /**
-   * @brief Reset a specific persistant custom appenders of trace system
+   * @brief Reset a specific persistent custom appenders of trace system
    *
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param slv : Severity level.
    */
-  static void resetPersistantCustomAppender(const std::string& tag, SeverityLevel slv);
+  static void resetPersistentCustomAppender(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief Get SeverityLevel associated to a string
@@ -448,8 +470,9 @@ class Trace {
    * @brief Clear the content of the log file related to a specific tag
    *
    * @param tag the tag related to the log file to clear
+   * @param slv severity level
    */
-  static void clearLogFile(const std::string& tag);
+  static void clearLogFile(const std::string& tag, SeverityLevel slv);
 
  private:
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
@@ -482,31 +505,32 @@ class Trace {
    */
   void init_();
 
-    /**
+  /**
    * @brief Add custom appenders to trace system
    *
    * Implementation of static function
    *
    * @param[in] appenders : Appenders to add
    */
-  void addAppenders_(const std::vector<TraceAppender>& appenders);
+  void clearAndAddAppenders_(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief  configure a sink to add it to the logging core singleton
    *
    * @param appenders appenders containing the data to configure the sink
+   * @param eraseSinks erase non-persistent sinks
    */
-  void configureSink(const std::vector<TraceAppender>& appenders);
+  void configureSink(const std::vector<TraceAppender>& appenders, bool eraseSinks);
 
   /**
-   * @brief Reset non-persistant custom appenders of trace system
+   * @brief Reset non-persistent custom appenders of trace system
    *
    * Implementation of static function
    */
   void resetCustomAppenders_();
 
   /**
-   * @brief Reset a specific non-persistant custom appender of trace system
+   * @brief Reset a specific non-persistent custom appender of trace system
    *
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param slv : Severity level.
@@ -516,21 +540,21 @@ class Trace {
   void resetCustomAppender_(const std::string& tag, SeverityLevel slv);
 
   /**
-   * @brief Reset persistant custom appenders of trace system
+   * @brief Reset persistent custom appenders of trace system
    *
    * Implementation of static function
    */
-  void resetPersistantCustomAppenders_();
+  void resetPersistentCustomAppenders_();
 
   /**
-   * @brief Reset a specific persistant custom appenders of trace system
+   * @brief Reset a specific persistent custom appenders of trace system
    *
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param slv : Severity level.
    *
    * Implementation of static function
    */
-  void resetPersistantCustomAppender_(const std::string& tag, SeverityLevel slv);
+  void resetPersistentCustomAppender_(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief test if a log exists
@@ -560,13 +584,15 @@ class Trace {
    * Implementation of static function
    *
    * @param tag the tag related to the log file to clear
+   * @param slv severity level
    */
-  void clearLogFile_(const std::string& tag);
+  void clearLogFile_(const std::string& tag, SeverityLevel slv);
 
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  std::unordered_map<std::string, TraceAppender> traceAppenders_;  ///< map each appender tag to its corresponding boost sink configuration
+  std::unordered_multimap<TagAndSeverityLevel, TraceAppender,
+                                      TagAndSeverityLevelHash> traceAppenders_;  ///< multimap each appender tag to its corresponding boost sink configuration
   std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
