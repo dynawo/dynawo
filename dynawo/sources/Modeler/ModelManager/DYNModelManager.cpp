@@ -272,8 +272,8 @@ ModelManager::setFequations() {
 void
 ModelManager::setGequations() {
   modelModelicaDynamic()->setGequations(gEquationIndex_);
-  for (int i = 0; i < data()->nbDelays; ++i) {
-    gEquationIndex_[modelData()->nZeroCrossings + i] = "Root equation for delay " + std::to_string(i);
+  for (long i = 0; i < static_cast<long>(data()->nbDelays); ++i) {
+    gEquationIndex_[static_cast<int>(modelData()->nZeroCrossings + i)] = "Root equation for delay " + std::to_string(i);
   }
 }
 
