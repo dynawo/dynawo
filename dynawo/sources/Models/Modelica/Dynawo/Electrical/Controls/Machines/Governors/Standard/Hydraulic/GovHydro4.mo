@@ -21,7 +21,7 @@ model GovHydro4 "Governor type GovHydro4"
     Dialog(tab = "General parameters"));
   parameter Types.Frequency DeltaOmegaEpsPu "Frequency Intentional db hysteresis in pu, typical: 0" annotation(
     Dialog(tab = "General parameters"));
-  parameter Types.PerUnit DeltaPDb "ActivePower Unintentional dead-band in pu, typical: 0" annotation(
+  parameter Types.PerUnit DeltaPDb "Unintentional dead-band in pu, typical: 0" annotation(
     Dialog(tab = "General parameters"));
   parameter Types.PerUnit DTurb "Turbine damping factor in pu, typical: 0.5 (simple turbine) or 1.1 (real turbine) (if ModelInt == 0 then 0.5 else 1.1)" annotation(
     Dialog(tab = "General parameters"));
@@ -90,9 +90,9 @@ model GovHydro4 "Governor type GovHydro4"
     Placement(visible = true, transformation(origin = {-98, -82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = QNl) annotation(
     Placement(visible = true, transformation(origin = {22, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.DeadBand dbOmega(EpsMax = DeltaOmegaEpsPu, UMax = DeltaPDbPu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadBand dbOmega(EpsMax = DeltaOmegaEpsPu, UMax = DeltaOmegaDbPu) annotation(
     Placement(visible = true, transformation(origin = {-158, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.BacklashHysteresis dbPower(H0 = false, U0 = InitSet, UHigh = DeltaPDbPu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.BacklashHysteresis dbPower(H0 = false, U0 = InitSet, UHigh = DeltaPDb) annotation(
     Placement(visible = true, transformation(origin = {78, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression deltaomega(y = addDeltaOmega.y) annotation(
     Placement(visible = true, transformation(origin = {166, 77}, extent = {{-18, -13}, {18, 13}}, rotation = -90)));
