@@ -60,7 +60,7 @@ model GovHydro4 "Governor type GovHydro4"
   final parameter Real KaplanTable[7, 2] = [0.1, 0; 0.4, 0.35; 0.5, 0.468; 0.7, 0.796; 0.8, 0.917; 0.9, 0.99; 1, 1] "Kaplan ModelInt look up table" annotation(
     Dialog(tab = "Turbine type"));
   final parameter Real SimpleTable[2, 2] = [0, 0; 1, 1] "Proportional table for simple ModelInt";
-  final parameter Real Lookuptab[:, :] = if ModelInt == 0 then SimpleTable else if ModelInt == 1 then FrancisPeltonTable elseif ModelInt == 2 then KaplanTable else CustomTable;
+  final parameter Real Lookuptab[:, :] = if ModelInt == 0 then SimpleTable elseif ModelInt == 1 then FrancisPeltonTable elseif ModelInt == 2 then KaplanTable else CustomTable;
   final parameter Boolean Sel = if ModelInt == 3 then true else false;
   
   // inputs, outputs
