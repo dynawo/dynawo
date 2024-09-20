@@ -46,11 +46,11 @@ partial model BaseGeneratorSynchronousKundur6thOrder "6th order synchronous mach
   parameter Types.PerUnit RQ1PPu "Quadrature axis 1st damper resistance in pu";
   parameter Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in pu";
   parameter Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in pu";
-  parameter Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";
+
   // pu factor for excitation voltage
   parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in pu";
   parameter Types.PerUnit MdPPuEfdNom "Direct axis mutual inductance used to determine the excitation voltage in nominal conditions in pu";
-  final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd elseif ExcitationPu == ExcitationPuType.NoLoad then RfPPu / MdPPu elseif ExcitationPu == ExcitationPuType.NoLoadSaturated then RfPPu * (1 + md) / MdPPu else RfPPu / MdPPuEfdNom "Scaling factor for excitation pu voltage";
+  final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd elseif ExcitationPu == ExcitationPuType.NoLoad then RfPPu / MdPPu elseif ExcitationPu == ExcitationPuType.NoLoadSaturated then RfPPu * (1 + ASat) / MdPPu else RfPPu / MdPPuEfdNom "Scaling factor for excitation pu voltage";
 
   // Start values given as inputs of the initialization process
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
@@ -88,11 +88,6 @@ partial model BaseGeneratorSynchronousKundur6thOrder "6th order synchronous mach
   parameter Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in pu";
   parameter Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in pu";
   parameter Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in pu";
-  parameter Types.PerUnit Mds0Pu "Start value of direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in pu";
-  parameter Types.PerUnit Mqs0Pu "Start value of quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in pu";
-  parameter Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in pu";
-  parameter Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in pu";
-  parameter Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in pu";
 
   // d-q axis pu variables (base UNom, SNom)
   Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in pu";
@@ -123,11 +118,7 @@ partial model BaseGeneratorSynchronousKundur6thOrder "6th order synchronous mach
   Types.PerUnit lambdaAirGapPu(start = LambdaAirGap0Pu) "Total air gap flux in pu";
   Types.PerUnit lambdaADPu(start = LambdaAD0Pu) "Common flux of direct axis in pu";
   Types.PerUnit lambdaAQPu(start = LambdaAQ0Pu) "Common flux of quadrature axis in pu";
-  Types.PerUnit mdsPu(start = Mds0Pu) "Direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in pu";
-  Types.PerUnit mqsPu(start = Mqs0Pu) "Quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in pu";
-  Types.PerUnit cos2Eta(start = Cos2Eta0) "Common flux of direct axis contribution to the total air gap flux in pu";
-  Types.PerUnit sin2Eta(start = Sin2Eta0) "Common flux of quadrature axis contribution to the total air gap flux in pu";
-  Types.PerUnit miPu(start = Mi0Pu) "Intermediate axis saturated mutual inductance in pu";
+
 
 equation
   assert(SNom <> PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
@@ -152,7 +143,7 @@ equation
     0 = RDPPu * iDPu + der(lambdaDPu) / SystemBase.omegaNom;
     0 = RQ1PPu * iQ1Pu + der(lambdaQ1Pu) / SystemBase.omegaNom;
     0 = RQ2PPu * iQ2Pu + der(lambdaQ2Pu) / SystemBase.omegaNom;
-    // Mechanical equations
+    // Mechanical equations - omegaPu is considered equal to 1
     der(theta) = (omegaPu.value - omegaRefPu.value) * SystemBase.omegaNom;
     2 * H * der(omegaPu.value) = cmPu * PNomTurb / SNom - cePu - DPu * (omegaPu.value - omegaRefPu.value);
     cePu = lambdaqPu * idPu - lambdadPu * iqPu;
@@ -191,11 +182,6 @@ equation
     lambdaADPu = 0;
     lambdaAQPu = 0;
     lambdaAirGapPu = 0;
-    mdsPu = 0;
-    mqsPu = 0;
-    cos2Eta = 0;
-    sin2Eta = 0;
-    miPu = 0;
     MdSatPPu = MdPPu;
     MqSatPPu = MqPPu;
   end if;

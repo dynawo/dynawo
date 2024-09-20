@@ -18,6 +18,7 @@ set(MODEL_FILES
   BaseGeneratorSynchronous.mo
   BaseGeneratorSynchronousKundur6thOrder.mo
   GeneratorSynchronousParameters.mo
+  GeneratorSynchronousParametersKundur6thOrder.mo
   )
 
 #

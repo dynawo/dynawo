@@ -15,12 +15,16 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseGeneratorSynchronous_INIT.mo
+  BaseGeneratorSynchronousKundur_INIT.mo
   BaseGeneratorSynchronousExt_INIT.mo
   BaseGeneratorSynchronousExt3W_INIT.mo
   BaseGeneratorSynchronousExt4W_INIT.mo
   BaseGeneratorSynchronousInt_INIT.mo
+  BaseGeneratorSynchronousIntKundur_INIT.mo
   MdPPuEfdNomCalculation.mo
+  MdPPuEfdNomCalculationKundur.mo
   RotorPositionEstimation.mo
+  RotorPositionEstimationKundur.mo
   )
 
 #

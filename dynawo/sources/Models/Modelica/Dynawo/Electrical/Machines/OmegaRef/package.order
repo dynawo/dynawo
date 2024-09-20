@@ -6,6 +6,7 @@ GeneratorPV
 GeneratorPVDiagramPQ
 GeneratorPV_INIT
 GeneratorSynchronous
+GeneratorSynchronousKundur6thOrder
 GeneratorSynchronousInt_INIT
 GeneratorSynchronousExt3W_INIT
 GeneratorSynchronousExt4W_INIT

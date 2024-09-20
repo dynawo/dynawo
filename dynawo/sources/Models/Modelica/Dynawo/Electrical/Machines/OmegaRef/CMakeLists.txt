@@ -25,6 +25,7 @@ set(MODEL_FILES
   GeneratorPVDiagramPQ.extvar
   GeneratorPV_INIT.mo
   GeneratorSynchronous.mo
+  GeneratorSynchronousKundur6thOrder.mo
   GeneratorSynchronous.extvar
   GeneratorSynchronousInt_INIT.mo
   GeneratorSynchronousExt3W_INIT.mo

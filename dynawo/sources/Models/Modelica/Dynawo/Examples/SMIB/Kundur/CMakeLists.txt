@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,15 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Kundur K)
-add_subdirectory(Resources R)
-add_subdirectory(Standard S)
-
 set(MODEL_FILES
   package.mo
   package.order
-  SMIBStepEfdPm.mo
-  SMIBStepPm.mo
+  KundurStaticCase.mo
+  KundurStepEfd.mo
+  KundurVRStepEfd.mo
+  KundurVRPSSStepEfd.mo
   )
 
 #

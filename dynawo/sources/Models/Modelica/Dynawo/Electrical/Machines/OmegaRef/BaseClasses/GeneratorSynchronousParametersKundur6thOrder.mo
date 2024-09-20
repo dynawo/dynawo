@@ -13,7 +13,7 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses;
 * of simulation tools for power systems.
 */
 
-record GeneratorSynchronousParameters "Synchronous machine record: Common parameters to the init and the dynamic models"
+record GeneratorSynchronousParametersKundur6thOrder "Synchronous machine record: Common parameters to the init and the dynamic models"
   type ExcitationPuType = enumeration(NoLoad "1 pu gives nominal air-gap stator voltage at no load", NoLoadSaturated "1 pu gives nominal air-gap stator voltage at no load, accounting for saturation", UserBase "User defined base for the excitation voltage", Nominal "Base for excitation voltage in nominal conditions (PNomAlt, QNom, UNom)", Kundur "Base voltage as per Kundur, Power System Stability and Control");
 
   // General parameters of the synchronous machine
@@ -46,4 +46,4 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
   final parameter Types.PerUnit rTfoPu = if RTfPu > 0.0 or XTfPu > 0.0 then UNomHV / UBaseHV / (UNomLV / UBaseLV) else 1.0 "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
 
   annotation(preferredView = "text");
-end GeneratorSynchronousParameters;
+end GeneratorSynchronousParametersKundur6thOrder;
