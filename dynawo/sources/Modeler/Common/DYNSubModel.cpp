@@ -222,6 +222,25 @@ SubModel::loadVariables(const map<string, string>& mapVariables) {
 }
 
 void
+SubModel::dumpInternalVariables(map<string, string>&) {
+    // no internal variables to dump for default SubModel, only concerns specific child classes
+}
+
+void
+SubModel::loadInternalVariables(const map<string, string>& mapInternalVariables) {
+  map<string, string >::const_iterator iter = mapInternalVariables.find(internalVariablesFileName());
+
+  if (iter != mapInternalVariables.end()) {
+    loadInternalVariables(iter->second);
+  }
+}
+
+void
+SubModel::loadInternalVariables(const std::string&) {
+    // no internal variables to read from dump for default SubModel, only concerns specific child classes
+}
+
+void
 SubModel::initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob) {
   getSize();
 

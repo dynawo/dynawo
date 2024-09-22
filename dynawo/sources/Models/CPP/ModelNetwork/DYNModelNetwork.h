@@ -286,6 +286,16 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    */
   void printModel() const override;
 
+  /**
+   * @copydoc SubModel::dumpInternalVariables(std::map< std::string, std::string >& mapInternalVariables)
+   */
+  void dumpInternalVariables(std::map< std::string, std::string >& mapInternalVariables);
+
+  /**
+   * @copydoc SubModel::loadInternalVariables(const std::string& internalVariables)
+   */
+  void loadInternalVariables(const std::string& internalVariables);
+
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()

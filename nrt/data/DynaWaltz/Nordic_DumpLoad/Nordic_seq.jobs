@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+    <dyn:job name="Nordic Test System with a fault, the tripping of a line and a voltage collapse (job 1 / 2)">
+        <dyn:solver lib="dynawo_SolverSIM" parFile="Solver.par" parId="Solver"/>
+        <dyn:modeler compileDir="0/outputs/compilation">
+            <dyn:network iidmFile="Nordic.xiidm" parFile="Network.par" parId="Network"/>
+            <dyn:dynModels dydFile="Nordic.dyd"/>
+            <dyn:dynModels dydFile="Events.dyd"/>
+            <dyn:precompiledModels useStandardModels="true"/>
+            <dyn:modelicaModels useStandardModels="false"/>
+        </dyn:modeler>
+        <dyn:simulation startTime="0" stopTime="50"/>
+        <dyn:outputs directory="0/outputs">
+            <dyn:timeline exportMode="XML"/>
+            <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
+            <dyn:curves inputFile="Nordic.crv" exportMode="CSV"/>
+            <dyn:logs>
+                <dyn:appender tag="" file="dynawaltz.log" lvlFilter="INFO"/>
+            </dyn:logs>
+        </dyn:outputs>
+    </dyn:job>
+    <dyn:job name="Nordic Test System with a fault, the tripping of a line and a voltage collapse (job 2 / 2)">
+        <dyn:solver lib="dynawo_SolverSIM" parFile="Solver.par" parId="Solver"/>
+        <dyn:modeler compileDir="1/outputs/compilation">
+            <dyn:network iidmFile="0/outputs/finalState/outputIIDM.xml" parFile="Network.par" parId="Network"/>
+            <dyn:dynModels dydFile="Nordic.dyd"/>
+            <dyn:dynModels dydFile="Events.dyd"/>
+            <dyn:initialState file="0/outputs/finalState/outputState.dmp"/>
+            <dyn:precompiledModels useStandardModels="true"/>
+            <dyn:modelicaModels useStandardModels="false"/>
+        </dyn:modeler>
+        <dyn:simulation startTime="50" stopTime="175"/>
+        <dyn:outputs directory="1/outputs">
+            <dyn:timeline exportMode="XML"/>
+            <dyn:finalState exportIIDMFile="false" exportDumpFile="false"/>
+            <dyn:curves inputFile="Nordic.crv" exportMode="CSV"/>
+            <dyn:logs>
+                <dyn:appender tag="" file="dynawaltz.log" lvlFilter="INFO"/>
+            </dyn:logs>
+        </dyn:outputs>
+    </dyn:job>
+</dyn:jobs>

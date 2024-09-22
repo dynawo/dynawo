@@ -17,9 +17,14 @@
  * @brief Model of phase tap changer : implementation
  *
  */
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "DYNModelPhaseTapChanger.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
+
+using std::stringstream;
 
 namespace DYN {
 
@@ -136,6 +141,32 @@ void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
       DYNAddTimelineEvent(network, id(), TapDown);
     }
   }
+}
+
+void ModelPhaseTapChanger::dumpInternalVariables(stringstream& ssInternalVariables) const {
+  boost::archive::binary_oarchive os(ssInternalVariables);
+  os << thresholdI_;
+  os << whenUp_;
+  os << whenDown_;
+  os << whenLastTap_;
+  os << moveUp_;
+  os << moveDown_;
+  os << tapRefDown_;
+  os << tapRefUp_;
+  os << currentOverThresholdState_;
+}
+
+void ModelPhaseTapChanger::loadInternalVariables(stringstream& ssInternalVariables) {
+  boost::archive::binary_iarchive is(ssInternalVariables);
+  is >> thresholdI_;
+  is >> whenUp_;
+  is >> whenDown_;
+  is >> whenLastTap_;
+  is >> moveUp_;
+  is >> moveDown_;
+  is >> tapRefDown_;
+  is >> tapRefUp_;
+  is >> currentOverThresholdState_;
 }
 
 }  // namespace DYN

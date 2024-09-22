@@ -113,6 +113,13 @@ class SubModel {
   virtual void dumpVariables(std::map< std::string, std::string >& mapVariables) = 0;
 
   /**
+   * @brief export the internal variables values of the sub model for dump
+   *
+   * @param mapInternalVariables : map associating the file where values should be dumped with the stream of values
+   */
+  virtual void dumpInternalVariables(std::map< std::string, std::string >& mapInternalVariables);
+
+  /**
    * @brief load the parameters values from a previous dump
    *
    * @param parameters : stream of values where the parameters were dumped
@@ -125,6 +132,13 @@ class SubModel {
    * @param variables : stream of values where the variables were dumped
    */
   virtual void loadVariables(const std::string& variables) = 0;
+
+  /**
+   * @brief load the internal variables values from a previous dump
+   *
+   * @param internalVariables : stream of values where the internal variables were dumped
+   */
+  virtual void loadInternalVariables(const std::string& internalVariables);
 
   /**
    * @brief set the silent flag for discrete variables
@@ -626,6 +640,13 @@ class SubModel {
    * @param mapVariables map associating name of the model and data saved
    */
   void loadVariables(const std::map< std::string, std::string >& mapVariables);
+
+  /**
+   * @brief load internal variables from a previous save
+   *
+   * @param mapInternalVariables map associating name of the model and data saved
+   */
+  void loadInternalVariables(const std::map< std::string, std::string >& mapInternalVariables);
 
   /**
    * @brief get the current values of discrete variables
@@ -1403,6 +1424,15 @@ class SubModel {
    */
   inline std::string variablesFileName() const {
     return modelType() + "-" + name() + "-variables.bin";
+  }
+
+    /**
+   * @brief get the name of the file where internal variables should be dumped
+   *
+   * @return name of the file where internal variables should be dumped
+   */
+  inline std::string internalVariablesFileName() const {
+    return modelType() + "-" + name() + "-internalvariables.bin";
   }
 
   /**
