@@ -30,6 +30,7 @@
 
 using std::vector;
 using std::string;
+using std::stringstream;
 using boost::shared_ptr;
 using parameters::ParametersSet;
 
@@ -194,6 +195,16 @@ NetworkComponent::getStartingPointMode(const std::string& startingPointMode) {
 void
 NetworkComponent::printInternalParameters(std::ofstream& /*fstream*/) const {
   // not needed
+}
+
+void
+NetworkComponent::dumpInternalVariables(stringstream&) const {
+  // not needed: internal variables are specific to child classes
+}
+
+void
+NetworkComponent::loadInternalVariables(stringstream&) {
+  // not needed: internal variables are specific to child classes
 }
 
 }  // namespace DYN

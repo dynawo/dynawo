@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+    <curve model="NETWORK" variable="1011_131_Upu_value"/>
+    <curve model="NETWORK" variable="4011_401_Upu_value"/>
+    <curve model="NETWORK" variable="B11___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG09__11_Upu_value"/>
+    <curve model="NETWORK" variable="1012_131_Upu_value"/>
+    <curve model="NETWORK" variable="4012_401_Upu_value"/>
+    <curve model="NETWORK" variable="B12___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG01__11_Upu_value"/>
+    <curve model="NETWORK" variable="BG10__11_Upu_value"/>
+    <curve model="NETWORK" variable="1013_131_Upu_value"/>
+    <curve model="NETWORK" variable="B13___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG02__11_Upu_value"/>
+    <curve model="NETWORK" variable="1014_131_Upu_value"/>
+    <curve model="NETWORK" variable="BG03__11_Upu_value"/>
+    <curve model="NETWORK" variable="1021_131_Upu_value"/>
+    <curve model="NETWORK" variable="BG04__11_Upu_value"/>
+    <curve model="NETWORK" variable="1022_131_Upu_value"/>
+    <curve model="NETWORK" variable="4022_401_Upu_value"/>
+    <curve model="NETWORK" variable="B22___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG05__11_Upu_value"/>
+    <curve model="NETWORK" variable="1041_131_Upu_value"/>
+    <curve model="NETWORK" variable="B01___21_Upu_value"/>
+    <curve model="NETWORK" variable="1042_131_Upu_value"/>
+    <curve model="NETWORK" variable="B02___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG06__11_Upu_value"/>
+    <curve model="NETWORK" variable="1043_131_Upu_value"/>
+    <curve model="NETWORK" variable="B03___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG07__11_Upu_value"/>
+    <curve model="NETWORK" variable="1044_131_Upu_value"/>
+    <curve model="NETWORK" variable="4044_401_Upu_value"/>
+    <curve model="NETWORK" variable="B04___21_Upu_value"/>
+    <curve model="NETWORK" variable="1045_131_Upu_value"/>
+    <curve model="NETWORK" variable="4045_401_Upu_value"/>
+    <curve model="NETWORK" variable="B05___21_Upu_value"/>
+    <curve model="NETWORK" variable="2031_221_Upu_value"/>
+    <curve model="NETWORK" variable="4031_401_Upu_value"/>
+    <curve model="NETWORK" variable="B31___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG12__11_Upu_value"/>
+    <curve model="NETWORK" variable="2032_221_Upu_value"/>
+    <curve model="NETWORK" variable="B32___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG08__11_Upu_value"/>
+    <curve model="NETWORK" variable="4021_401_Upu_value"/>
+    <curve model="NETWORK" variable="BG11__11_Upu_value"/>
+    <curve model="NETWORK" variable="4032_401_Upu_value"/>
+    <curve model="NETWORK" variable="4041_401_Upu_value"/>
+    <curve model="NETWORK" variable="B41___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG13__11_Upu_value"/>
+    <curve model="NETWORK" variable="4042_401_Upu_value"/>
+    <curve model="NETWORK" variable="B42___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG14__11_Upu_value"/>
+    <curve model="NETWORK" variable="4043_401_Upu_value"/>
+    <curve model="NETWORK" variable="B43___21_Upu_value"/>
+    <curve model="NETWORK" variable="4046_401_Upu_value"/>
+    <curve model="NETWORK" variable="B46___21_Upu_value"/>
+    <curve model="NETWORK" variable="4047_401_Upu_value"/>
+    <curve model="NETWORK" variable="B47___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG15__11_Upu_value"/>
+    <curve model="NETWORK" variable="4051_401_Upu_value"/>
+    <curve model="NETWORK" variable="B51___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG16__11_Upu_value"/>
+    <curve model="NETWORK" variable="4061_401_Upu_value"/>
+    <curve model="NETWORK" variable="B61___21_Upu_value"/>
+    <curve model="NETWORK" variable="4062_401_Upu_value"/>
+    <curve model="NETWORK" variable="B62___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG17__11_Upu_value"/>
+    <curve model="NETWORK" variable="4063_401_Upu_value"/>
+    <curve model="NETWORK" variable="B63___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG18__11_Upu_value"/>
+    <curve model="NETWORK" variable="4071_401_Upu_value"/>
+    <curve model="NETWORK" variable="B71___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG19__11_Upu_value"/>
+    <curve model="NETWORK" variable="4072_401_Upu_value"/>
+    <curve model="NETWORK" variable="B72___21_Upu_value"/>
+    <curve model="NETWORK" variable="BG20__11_Upu_value"/>
+</curvesInput>
