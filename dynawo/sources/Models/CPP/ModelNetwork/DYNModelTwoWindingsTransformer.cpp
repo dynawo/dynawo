@@ -60,6 +60,7 @@ using parameters::ParametersSet;
 
 using std::vector;
 using std::string;
+using std::stringstream;
 using std::map;
 using boost::shared_ptr;
 
@@ -1794,5 +1795,22 @@ ModelTwoWindingsTransformer::printInternalParameters(std::ofstream& fstream) con
   paramName = id() + "_" + "rho";
   fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getRho() << std::endl;
 }
+
+void
+ModelTwoWindingsTransformer::dumpInternalVariables(stringstream& ssInternalVariables) const {
+  if (modelRatioChanger_)
+    modelRatioChanger_->dumpInternalVariables(ssInternalVariables);
+  if (modelPhaseChanger_)
+    modelPhaseChanger_->dumpInternalVariables(ssInternalVariables);
+}
+
+void
+ModelTwoWindingsTransformer::loadInternalVariables(stringstream& ssInternalVariables) {
+  if (modelRatioChanger_)
+    modelRatioChanger_->loadInternalVariables(ssInternalVariables);
+  if (modelPhaseChanger_)
+    modelPhaseChanger_->loadInternalVariables(ssInternalVariables);
+}
+
 
 }  // namespace DYN

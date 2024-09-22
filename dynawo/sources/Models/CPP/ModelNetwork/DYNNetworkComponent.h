@@ -22,6 +22,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <sstream>
 #include <unordered_map>
 
 #include <boost/shared_ptr.hpp>
@@ -417,6 +418,20 @@ class NetworkComponent {  ///< Base class for network component models
   * @param fstream the file to stream parameters to
   */
   virtual void printInternalParameters(std::ofstream& fstream) const;
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param ssInternalVariables : stringstream with binary formated internalVariables
+   */
+  virtual void dumpInternalVariables(std::stringstream& ssInternalVariables) const;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param ssInternalVariables : stringstream with binary formated internalVariables
+   */
+  virtual void loadInternalVariables(std::stringstream& ssInternalVariables);
 
  protected:
   /**
