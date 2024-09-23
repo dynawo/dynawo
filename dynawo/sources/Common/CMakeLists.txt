@@ -111,10 +111,9 @@ add_library(dynawo_Common SHARED ${COMMON_SOURCES})
 add_dependencies(dynawo_Common create_keys_files)
 
 target_include_directories(dynawo_Common
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/sources> # for config.h & gitversion.h
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/sources> # for config.h & gitversion.h
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 target_include_directories(dynawo_Common SYSTEM

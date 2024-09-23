@@ -48,8 +48,6 @@
 
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
-#include "config.h"
-#include "gitversion.h"
 
 using std::string;
 using std::vector;
@@ -147,15 +145,6 @@ void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
-  for (const TraceAppender& appender : appenders) {
-    traceAppenders_.insert(std::make_pair(appender.getTag(), appender));
-  }
-
-  configureSink(appenders);
-  logging::add_common_attributes();
-}
-
-void Trace::configureSink(const std::vector<TraceAppender>& appenders) {
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
 
@@ -165,11 +154,13 @@ void Trace::configureSink(const std::vector<TraceAppender>& appenders) {
     traceSink.persistantSinks = traceSinkOld.persistantSinks;
   }
 
+  std::stringstream s;
   // Add appender
   for (unsigned int i = 0; i < appenders.size(); ++i) {
-    boost::shared_ptr<FileSink> sink(new FileSink(
+    const std::ios_base::openmode mode = appenders[i].doesAppend() ? std::ios_base::app : std::ios_base::out;
+    boost::shared_ptr< FileSink > sink(new FileSink(
       keywords::file_name = appenders[i].getFilePath(),
-      keywords::open_mode = std::ios_base::out));
+      keywords::open_mode = mode));
 
     // build format for each appenders depending on its attributes
     string separator = appenders[i].getSeparator();
@@ -212,6 +203,8 @@ void Trace::configureSink(const std::vector<TraceAppender>& appenders) {
       sinks_.insert(std::make_pair(currentId, traceSink));
     }
   }
+
+  logging::add_common_attributes();
 }
 
 void Trace::resetPersistantCustomAppenders() {
@@ -284,34 +277,6 @@ void Trace::resetCustomAppenders_() {
   TraceSinks& traceSink = sinks_.at(currentId);
   for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.sinks.begin(); itSinks != traceSink.sinks.end(); ++itSinks) {
     logging::core::get()->remove_sink(*itSinks);
-  }
-  traceSink.sinks.clear();
-}
-
-void Trace::resetCustomAppender(const std::string& tag, SeverityLevel slv) {
-  instance().resetCustomAppender_(tag, slv);
-}
-
-void Trace::resetCustomAppender_(const std::string& tag, SeverityLevel slv) {
-  boost::lock_guard<boost::mutex> lock(mutex_);
-
-  logging::attributes::current_thread_id::value_type currentId =
-    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
-  if (sinks_.find(currentId) == sinks_.end()) {
-    return;
-  }
-
-  boost::log::attribute_value_set set;
-  set.insert("Severity",  attrs::make_attribute_value(slv));
-  if (tag != "")
-    set.insert("Tag",  attrs::make_attribute_value(tag));
-  set.insert("Thread", attrs::make_attribute_value(currentId));
-
-  TraceSinks& traceSink = sinks_.at(currentId);
-  for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.sinks.begin();
-    itSinks != traceSink.sinks.end(); ++itSinks) {
-    if ((*itSinks)->will_consume(set))
-      logging::core::get()->remove_sink(*itSinks);
   }
   traceSink.sinks.clear();
 }
@@ -415,29 +380,6 @@ Trace::logExists_(const std::string& tag, SeverityLevel slv) {
       return true;
   }
   return false;
-}
-
-void
-Trace::printDynawoLogHeader(const std::string& tag) {
-  info(tag) << " ============================================================ " << endline;
-  info(tag) << DYNLog(DynawoVersion) << "  " << std::setw(8) << DYNAWO_VERSION_STRING << endline;
-  info(tag) << DYNLog(DynawoRevision) << "  " << std::setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << endline;
-  info(tag) << " ============================================================ " << endline;
-}
-
-void
-Trace::clearLogFile(const std::string& tag) {
-  return instance().clearLogFile_(tag);
-}
-
-void
-Trace::clearLogFile_(const std::string& tag) {
-  resetCustomAppender(tag, DEBUG);
-  auto variablesAppender = traceAppenders_.find(tag);
-  assert(variablesAppender != traceAppenders_.end());
-  std::vector<TraceAppender> variablesAppenderVec;
-  variablesAppenderVec.push_back(variablesAppender->second);
-  configureSink(variablesAppenderVec);
 }
 
 SeverityLevel

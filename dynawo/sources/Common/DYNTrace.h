@@ -33,7 +33,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/thread/mutex.hpp>
-#include <boost/optional.hpp>
 #include <unordered_map>
 
 namespace DYN {
@@ -99,6 +98,7 @@ class Trace {
       separator_(),
       showTimeStamp_(false),
       timeStampFormat_(),
+      append_(false),
       persistant_(false) { }
 
     /**
@@ -155,6 +155,14 @@ class Trace {
      */
     const std::string& getTimeStampFormat() const {
       return timeStampFormat_;
+    }
+
+    /**
+     * @brief Determines if log is appended to existing file
+     * @returns whether the log must appended to existing log file
+     */
+    bool doesAppend() const {
+      return append_;
     }
 
     /**
@@ -222,6 +230,15 @@ class Trace {
     }
 
     /**
+     * @brief Set the append attribute
+     *
+     * @param append determines if the log must appended to existing file
+     */
+    void setAppend(bool append) {
+      append_ = append;
+    }
+
+    /**
      * @brief Set the persistant attribute
      *
      * @param persistant determines if the log must be kept when reseting
@@ -238,6 +255,7 @@ class Trace {
     std::string separator_;  ///< separator used between each log information date severity log
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
+    bool append_;  ///< Append to existing file instead of erasing
     bool persistant_;  ///< Do not remove this appender when resetting
   };
 
@@ -280,14 +298,6 @@ class Trace {
    * @brief Reset non-persistant custom appenders of trace system
    */
   static void resetCustomAppenders();
-
-  /**
-   * @brief Reset a specific non-persistant custom appender of trace system
-   *
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @param slv : Severity level.
-   */
-  static void resetCustomAppender(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief Reset persistant custom appenders of trace system
@@ -437,20 +447,6 @@ class Trace {
     return slv >= defaultLevel_;
   }
 
-  /**
-   * @brief Print Dynawo log header in the log file corresponding to input tag
-   *
-   * @param tag tag to print the Dynawo log header in the right log file
-   */
-  static void printDynawoLogHeader(const std::string& tag);
-
-  /**
-   * @brief Clear the content of the log file related to a specific tag
-   *
-   * @param tag the tag related to the log file to clear
-   */
-  static void clearLogFile(const std::string& tag);
-
  private:
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
@@ -492,28 +488,11 @@ class Trace {
   void addAppenders_(const std::vector<TraceAppender>& appenders);
 
   /**
-   * @brief  configure a sink to add it to the logging core singleton
-   *
-   * @param appenders appenders containing the data to configure the sink
-   */
-  void configureSink(const std::vector<TraceAppender>& appenders);
-
-  /**
    * @brief Reset non-persistant custom appenders of trace system
    *
    * Implementation of static function
    */
   void resetCustomAppenders_();
-
-  /**
-   * @brief Reset a specific non-persistant custom appender of trace system
-   *
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @param slv : Severity level.
-   *
-   * Implementation of static function
-   */
-  void resetCustomAppender_(const std::string& tag, SeverityLevel slv);
 
   /**
    * @brief Reset persistant custom appenders of trace system
@@ -554,19 +533,9 @@ class Trace {
    */
   void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
 
-  /**
-   * @brief Clear the content of the log file related to a specific tag
-   *
-   * Implementation of static function
-   *
-   * @param tag the tag related to the log file to clear
-   */
-  void clearLogFile_(const std::string& tag);
-
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  std::unordered_map<std::string, TraceAppender> traceAppenders_;  ///< map each appender tag to its corresponding boost sink configuration
   std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
