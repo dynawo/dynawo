@@ -1797,19 +1797,19 @@ ModelTwoWindingsTransformer::printInternalParameters(std::ofstream& fstream) con
 }
 
 void
-ModelTwoWindingsTransformer::dumpInternalVariables(stringstream& ssInternalVariables) const {
+ModelTwoWindingsTransformer::dumpInternalVariables(stringstream& streamVariables) const {
   if (modelRatioChanger_)
-    modelRatioChanger_->dumpInternalVariables(ssInternalVariables);
+    modelRatioChanger_->dumpInternalVariables(streamVariables);
   if (modelPhaseChanger_)
-    modelPhaseChanger_->dumpInternalVariables(ssInternalVariables);
+    modelPhaseChanger_->dumpInternalVariables(streamVariables);
 }
 
 void
-ModelTwoWindingsTransformer::loadInternalVariables(stringstream& ssInternalVariables) {
+ModelTwoWindingsTransformer::loadInternalVariables(stringstream& streamVariables) {
   if (modelRatioChanger_)
-    modelRatioChanger_->loadInternalVariables(ssInternalVariables);
+    modelRatioChanger_->loadInternalVariables(streamVariables);
   if (modelPhaseChanger_)
-    modelPhaseChanger_->loadInternalVariables(ssInternalVariables);
+    modelPhaseChanger_->loadInternalVariables(streamVariables);
 }
 
 

@@ -343,16 +343,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   void loadVariables(const std::map< std::string, std::string>& mapVariables);
 
   /**
-   * @copydoc Model::dumpInternalVariables(std::map< std::string, std::string> & mapInternalVariables)
-   */
-  void dumpInternalVariables(std::map< std::string, std::string>& mapInternalVariables) override;
-
-  /**
-   * @copydoc Model::loadInternalVariables(const std::map< std::string, std::string> & mapInternalVariables)
-   */
-  void loadInternalVariables(const std::map< std::string, std::string>& mapInternalVariables) override;
-
-  /**
    * @copydoc Model::rotateBuffers()
    */
   void rotateBuffers();

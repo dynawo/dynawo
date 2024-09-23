@@ -693,12 +693,6 @@ ModelMulti::dumpVariables(std::map< string, string >& mapVariables) {
 }
 
 void
-ModelMulti::dumpInternalVariables(std::map< string, string >& mapInternalVariables) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->dumpInternalVariables(mapInternalVariables);
-}
-
-void
 ModelMulti::getModelParameterValue(const string& curveModelName, const string& curveVariable, double& value, bool& found) {
   shared_ptr<SubModel> subModel = findSubModelByName(curveModelName);
   if (subModel) {
@@ -723,12 +717,6 @@ void
 ModelMulti::loadVariables(const std::map< string, string >& mapVariables) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->loadVariables(mapVariables);
-}
-
-void
-ModelMulti::loadInternalVariables(const std::map< string, string >& mapInternalVariables) {
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
-    (*it)->loadInternalVariables(mapInternalVariables);
 }
 
 void

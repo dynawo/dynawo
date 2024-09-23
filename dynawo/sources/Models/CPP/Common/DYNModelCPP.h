@@ -84,16 +84,12 @@ class ModelCPP : public SubModel {
   double evalCalculatedVarI(unsigned iCalculatedVar) const override = 0;
 
   /**
-   * @brief export the parameters of the sub model for dump
-   *
-   * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
+   * @copydoc SubModel::dumpParameters(std::map< std::string, std::string >& mapParameters)
    */
   void dumpParameters(std::map< std::string, std::string >& mapParameters) override;
 
   /**
-   * @brief export the variables values of the sub model for dump
-   *
-   * @param mapVariables : map associating the file where values should be dumped with the stream of values
+   * @copydoc SubModel::dumpVariables(std::map< std::string, std::string >& mapVariables)
    */
   void dumpVariables(std::map< std::string, std::string >& mapVariables) override;
 
@@ -272,14 +268,12 @@ class ModelCPP : public SubModel {
   }
 
   /**
-   * @brief load the variables values from a previous dump
-   * @param variables : stream of values where the variables were dumped
+   * @copydoc SubModel::loadVariables(const std::string& variables)
    */
   void loadVariables(const std::string& variables) override;
 
   /**
-   * @brief load the parameters values from a previous dump
-   * @param parameters : stream of values where the parameters were dumped
+   * @copydoc SubModel::loadParameters(const std::string& parameters)
    */
   void loadParameters(const std::string& parameters) override;
 
@@ -321,6 +315,20 @@ class ModelCPP : public SubModel {
   inline bool isStartingFromDump() const {
     return isStartingFromDump_;
   }
+
+ protected:
+   /**
+   * @brief export the variables values of the sub model for dump in a stream
+   *
+   * @param streamVariables : map associating the file where values should be dumped with the stream of values
+   */
+  virtual void dumpVariablesInStream(std::stringstream& streamVariables);
+
+  /**
+   * @brief load the variables values from a previous dump
+   * @param streamVariables : stream of values where the variables were dumped
+   */
+  virtual void loadVariablesFromStream(std::stringstream& streamVariables);
 
  private:
   std::string modelType_;  ///< model type

@@ -1497,7 +1497,6 @@ Simulation::dumpState(const boost::filesystem::path& dumpFile) {
 
   model_->dumpParameters(mapValues);
   model_->dumpVariables(mapValues);
-  model_->dumpInternalVariables(mapValues);
 
   boost::shared_ptr<zip::ZipFile> archive = zip::ZipFileFactory::newInstance();
 
@@ -1546,8 +1545,6 @@ Simulation::loadState(const string& fileName) {
   // loading parameters/model variables
   model_->loadParameters(mapValues);
   model_->loadVariables(mapValues);
-  model_->loadInternalVariables(mapValues);
-
   return tCurrent_;
 }
 

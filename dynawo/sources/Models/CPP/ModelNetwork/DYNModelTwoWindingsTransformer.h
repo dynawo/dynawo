@@ -424,14 +424,14 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   void printInternalParameters(std::ofstream& fstream) const override;
 
   /**
-   * @copydoc NetworkComponent::dumpInternalVariables(std::stringstream& ssInternalVariables) const
+   * @copydoc NetworkComponent::dumpInternalVariables(std::stringstream& streamVariables) const
    */
-  void dumpInternalVariables(std::stringstream& ssInternalVariables) const override;
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
 
   /**
-   * @copydoc NetworkComponent::loadInternalVariables(std::stringstream& ssInternalVariables)
+   * @copydoc NetworkComponent::loadInternalVariables(std::stringstream& streamVariables)
    */
-  void loadInternalVariables(std::stringstream& ssInternalVariables) override;
+  void loadInternalVariables(std::stringstream& streamVariables) override;
 
  private:
   /**

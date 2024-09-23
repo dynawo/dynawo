@@ -423,21 +423,6 @@ class Model {
   virtual void loadVariables(const std::map< std::string, std::string>& mapVariables) = 0;
 
   /**
-   * @brief export the internal variables of the model for dump
-   *
-   * @param mapInternalVariables : map associating the file where values should be dumped with the stream of values
-   */
-  virtual void dumpInternalVariables(std::map< std::string, std::string >& mapInternalVariables) = 0;
-
-  /**
-   * @brief load the internal variables of the model from a previous dumpDYNNetworkComponent
-   *
-   * @param mapInternalVariables : map associating the file where values should be dumped with the stream of values
-   */
-  virtual void loadInternalVariables(const std::map< std::string, std::string>& mapInternalVariables) = 0;
-
-
-  /**
    * @brief copy current values in "pre" buffers (need for modelica sub models)
    *
    */
