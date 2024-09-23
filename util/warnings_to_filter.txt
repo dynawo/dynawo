@@ -120,6 +120,7 @@ warning: return type of member DYN::ModelCPP::defineVariables is not documented
 warning: return type of member DYN::ModelCPP::defineVariablesInit is not documented
 warning: return type of member DYN::ModelCPP::dumpParameters is not documented
 warning: return type of member DYN::ModelCPP::dumpVariables is not documented
+warning: return type of member DYN::ModelCPP::dumpVariablesInStream is not documented
 warning: return type of member DYN::ModelCPP::evalDynamicYType is not documented
 warning: return type of member DYN::ModelCPP::evalF is not documented
 warning: return type of member DYN::ModelCPP::evalG is not documented
@@ -138,6 +139,7 @@ warning: return type of member DYN::ModelCPP::initParams is not documented
 warning: return type of member DYN::ModelCPP::initSubBuffers is not documented
 warning: return type of member DYN::ModelCPP::loadParameters is not documented
 warning: return type of member DYN::ModelCPP::loadVariables is not documented
+warning: return type of member DYN::ModelCPP::loadVariablesFromStream is not documented
 warning: return type of member DYN::ModelCPP::notifyTimeStep is not documented
 warning: return type of member DYN::ModelCPP::rotateBuffers is not documented
 warning: return type of member DYN::ModelCPP::setFequations is not documented

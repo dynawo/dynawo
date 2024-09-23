@@ -161,10 +161,8 @@ ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double 
   }
 }
 
-void ModelRatioTapChanger::dumpInternalVariables(stringstream& ssInternalVariables) const {
-  boost::archive::binary_oarchive os(ssInternalVariables);
-  os << tolV_;
-  os << targetV_;
+void ModelRatioTapChanger::dumpInternalVariables(stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
   os << whenUp_;
   os << whenDown_;
   os << whenLastTap_;
@@ -177,10 +175,8 @@ void ModelRatioTapChanger::dumpInternalVariables(stringstream& ssInternalVariabl
   os << uTargetState_;
 }
 
-void ModelRatioTapChanger::loadInternalVariables(stringstream& ssInternalVariables) {
-  boost::archive::binary_iarchive is(ssInternalVariables);
-  is >> tolV_;
-  is >> targetV_;
+void ModelRatioTapChanger::loadInternalVariables(stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
   is >> whenUp_;
   is >> whenDown_;
   is >> whenLastTap_;
