@@ -143,9 +143,8 @@ void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
   }
 }
 
-void ModelPhaseTapChanger::dumpInternalVariables(stringstream& ssInternalVariables) const {
-  boost::archive::binary_oarchive os(ssInternalVariables);
-  os << thresholdI_;
+void ModelPhaseTapChanger::dumpInternalVariables(stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
   os << whenUp_;
   os << whenDown_;
   os << whenLastTap_;
@@ -156,9 +155,8 @@ void ModelPhaseTapChanger::dumpInternalVariables(stringstream& ssInternalVariabl
   os << currentOverThresholdState_;
 }
 
-void ModelPhaseTapChanger::loadInternalVariables(stringstream& ssInternalVariables) {
-  boost::archive::binary_iarchive is(ssInternalVariables);
-  is >> thresholdI_;
+void ModelPhaseTapChanger::loadInternalVariables(stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
   is >> whenUp_;
   is >> whenDown_;
   is >> whenLastTap_;

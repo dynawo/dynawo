@@ -24,8 +24,6 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelNetwork.h"
 #include "DYNModelNetwork.hpp"
@@ -1458,31 +1456,22 @@ ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
 }
 
 void
-ModelNetwork::dumpInternalVariables(std::map< std::string, std::string>& mapInternalVariables) {
-  stringstream ssInternalVariables;
-  boost::archive::binary_oarchive os(ssInternalVariables);
-  string cSum = getCheckSum();
-  os << cSum;
+ModelNetwork::dumpVariablesInStream(stringstream& streamVariables) {
+  ModelCPP::dumpVariablesInStream(streamVariables);
+
+  // Dump internal variables of components
   for (const auto& component : getComponents()) {
-      component->dumpInternalVariables(ssInternalVariables);
+      component->dumpInternalVariables(streamVariables);
   }
-  mapInternalVariables[ internalVariablesFileName() ] = ssInternalVariables.str();
 }
 
 void
-ModelNetwork::loadInternalVariables(const std::string& internalVariables) {
-  stringstream ssInternalVariables(internalVariables);
-  boost::archive::binary_iarchive is(ssInternalVariables);
-  string cSum = getCheckSum();
-  string cSumRead;
-  is >> cSumRead;
-  for (const auto& component : getComponents()) {
-    component->loadInternalVariables(ssInternalVariables);
-  }
+ModelNetwork::loadVariablesFromStream(stringstream& streamVariables) {
+  ModelCPP::loadVariablesFromStream(streamVariables);
 
-  if (cSumRead != cSum) {
-    Trace::warn() << DYNLog(WrongCheckSum, internalVariablesFileName().c_str()) << Trace::endline;
-    return;
+  // Load internal variables of components
+  for (const auto& component : getComponents()) {
+    component->loadInternalVariables(streamVariables);
   }
 }
 
