@@ -1456,7 +1456,7 @@ ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
 }
 
 void
-ModelNetwork::dumpVariablesInStream(stringstream& streamVariables) {
+ModelNetwork::dumpVariablesInStream(stringstream& streamVariables) const {
   ModelCPP::dumpVariablesInStream(streamVariables);
 
   // Dump internal variables of components
