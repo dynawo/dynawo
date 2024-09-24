@@ -12,6 +12,8 @@
 add_subdirectory(BaseConverters B)
 
 set(MODEL_FILES
+  InjectorCurrentSource.mo
+  InjectorVoltageSource.mo
   package.mo
   package.order
   WT4Injector.mo
