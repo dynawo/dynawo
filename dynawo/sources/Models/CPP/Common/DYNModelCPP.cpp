@@ -61,7 +61,7 @@ ModelCPP::dumpVariables(map< string, string >& mapVariables) {
 }
 
 void
-ModelCPP::dumpVariablesInStream(stringstream& streamVariables) {
+ModelCPP::dumpVariablesInStream(stringstream& streamVariables) const {
   boost::archive::binary_oarchive os(streamVariables);
   string cSum = getCheckSum();
 
