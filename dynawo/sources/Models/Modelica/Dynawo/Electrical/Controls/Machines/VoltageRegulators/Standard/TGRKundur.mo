@@ -1,0 +1,63 @@
+within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
+
+/*
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model TGRKundur "Proportional voltage regulator based on Kundur's book"
+
+  parameter Types.PerUnit Ka "Exciter gain";
+  parameter Types.Time tR "Transducer time constant in s";
+  parameter Types.Time Ta;
+  parameter Types.Time Tb;
+
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Output voltage of power system stabilizer in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "Reference stator voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  //Output variable
+  Modelica.Blocks.Interfaces.RealOutput efdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Continuous.FirstOrder transducer(k = 1, T = tR, y_start = Us0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add3 error(k1 = 1, k2 = -1, k3 = 1) annotation(
+    Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain exciter(k = Ka) annotation(
+    Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+
+  final parameter Types.VoltageModulePu UsRef0Pu = Efd0Pu / Ka + Us0Pu "Initial reference stator voltage in pu (base UNom)";
+equation
+  connect(UsRefPu, error.u1) annotation(
+    Line(points = {{-120, 40}, {-40, 40}, {-40, 8}, {-22, 8}}, color = {0, 0, 127}));
+  connect(error.y, exciter.u) annotation(
+    Line(points = {{1, 0}, {18, 0}}, color = {0, 0, 127}));
+  connect(transducer.y, error.u2) annotation(
+    Line(points = {{-58, 0}, {-22, 0}}, color = {0, 0, 127}));
+  connect(UsPu, transducer.u) annotation(
+    Line(points = {{-120, 0}, {-82, 0}}, color = {0, 0, 127}));
+  connect(UPssPu, error.u3) annotation(
+    Line(points = {{-120, -40}, {-40, -40}, {-40, -8}, {-22, -8}}, color = {0, 0, 127}));
+  connect(exciter.y, efdPu) annotation(
+    Line(points = {{42, 0}, {110, 0}}, color = {0, 0, 127}));
+  annotation(
+    preferredView = "diagram",
+    Documentation(info = "<html><head></head><body>This model is inherited from the Kundur \"Power System Stability and Control\" book, section 13.3.3.
+  Notations are kept identical whenever possible for readability reasons.</body></html>"));
+end TGRKundur;

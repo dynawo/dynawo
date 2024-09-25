@@ -21,6 +21,7 @@ add_subdirectory(Nordic N)
 add_subdirectory(RVS R)
 add_subdirectory(SVarC SV)
 add_subdirectory(Photovoltaics P)
+add_subdirectory(TwoAreas TA)
 add_subdirectory(Wind W)
 
 set(MODEL_FILES
