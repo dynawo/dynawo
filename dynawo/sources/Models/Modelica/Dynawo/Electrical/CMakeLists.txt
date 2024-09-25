@@ -11,6 +11,7 @@
 add_subdirectory(Constants Cs)
 add_subdirectory(Controls C)
 add_subdirectory(Events E)
+add_subdirectory(BESS BE)
 add_subdirectory(Buses B)
 add_subdirectory(Loads L)
 add_subdirectory(HVDC H)

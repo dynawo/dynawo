@@ -373,6 +373,9 @@ warning: return type of member DYN::Trace::disableLogging is not documented
 warning: return type of member DYN::Trace::enableLogging is not documented
 warning: return type of member DYN::Trace::init is not documented
 warning: return type of member DYN::Trace::log is not documented
+warning: return type of member DYN::Trace::clearLogFile is not documented
+warning: return type of member DYN::Trace::printDynawoLogHeader is not documented
+warning: return type of member DYN::Trace::resetCustomAppender is not documented
 warning: return type of member DYN::ComponentInterface::importStaticParameters is not documented
 warning: return type of member DYN::TwoWTransformerInterface::addCurrentLimitInterface1 is not documented
 warning: return type of member DYN::TwoWTransformerInterface::addCurrentLimitInterface2 is not documented

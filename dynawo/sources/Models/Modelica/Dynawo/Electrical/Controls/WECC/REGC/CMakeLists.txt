@@ -12,7 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  GeneratorControl.mo
+  REGCbCS.mo
   )
 
 #

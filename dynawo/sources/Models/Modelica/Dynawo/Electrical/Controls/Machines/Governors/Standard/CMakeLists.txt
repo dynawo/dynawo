@@ -12,6 +12,7 @@
 
 add_subdirectory(Hydraulic H)
 add_subdirectory(Steam S)
+add_subdirectory(Generic G)
 
 set(MODEL_FILES
   package.mo
