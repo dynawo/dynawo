@@ -314,6 +314,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a08d23177a6d7155236bd1b04ee179055"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a03289.html#a08d23177a6d7155236bd1b04ee179055">printInternalParameters</a> (std::ofstream &amp;fstream) const</td></tr>
 <tr class="memdesc:a08d23177a6d7155236bd1b04ee179055"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial values internal parameters of a model in a file  <a href="#a08d23177a6d7155236bd1b04ee179055">More...</a><br /></td></tr>
 <tr class="separator:a08d23177a6d7155236bd1b04ee179055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb42fc557d13a4a013c0b191f0b8bb06"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a03289.html#acb42fc557d13a4a013c0b191f0b8bb06">dumpInternalVariables</a> (std::stringstream &amp;streamVariables) const</td></tr>
+<tr class="memdesc:acb42fc557d13a4a013c0b191f0b8bb06"><td class="mdescLeft">&#160;</td><td class="mdescRight">append the internal variables values to a stringstream  <a href="#acb42fc557d13a4a013c0b191f0b8bb06">More...</a><br /></td></tr>
+<tr class="separator:acb42fc557d13a4a013c0b191f0b8bb06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60c87ea005c042dbce501a693e7869d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a03289.html#a60c87ea005c042dbce501a693e7869d2">loadInternalVariables</a> (std::stringstream &amp;streamVariables)</td></tr>
+<tr class="memdesc:a60c87ea005c042dbce501a693e7869d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">import the internal variables values of the component from stringstream  <a href="#a60c87ea005c042dbce501a693e7869d2">More...</a><br /></td></tr>
+<tr class="separator:a60c87ea005c042dbce501a693e7869d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76ca9141fdc5cd8c782af8184df04f3c"><td class="memTemplParams" colspan="2"><a id="a76ca9141fdc5cd8c782af8184df04f3c"></a>
 template&lt;&gt; </td></tr>
 <tr class="memitem:a76ca9141fdc5cd8c782af8184df04f3c"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getParameterDynamicNoThrow</b> (const std::unordered_map&lt; std::string, <a class="el" href="../../db/d00/a02745.html">ParameterModeler</a> &gt; &amp;, const std::string &amp;, bool &amp;, const std::vector&lt; std::string &gt; &amp;) const</td></tr>
@@ -704,6 +710,42 @@ Private Member Functions</h2></td></tr>
 </dl>
 
 <p>Implemented in <a class="el" href="../../d2/dfa/a03285.html#aba7c83d417211899fa1256b9de51c2e2">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d0/d84/a03281.html#a40650d557674b258652a427c6af26f8b">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../da/d0c/a03229.html#a62cfa1a1f54bd1401458159b0d2c811e">DYN::ModelHvdcLink</a>, <a class="el" href="../../d8/d81/a03265.html#a3bc94e1a4c7d0aedb7cffcbc9c8cb2e3">DYN::ModelSwitch</a>, <a class="el" href="../../dd/d07/a03233.html#ac4fdba388c57be2c6ff8095cf04d1a6a">DYN::ModelLine</a>, <a class="el" href="../../d1/da3/a03221.html#a8913143b3e3f0ccd845839facd8b3dd8">DYN::ModelDanglingLine</a>, <a class="el" href="../../df/d62/a03257.html#a62f10a04b10ad0e59d3a997b09504f9d">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d7/dee/a03205.html#af716c8980c2341b75af105673a8a4c0d">DYN::ModelBus</a>, <a class="el" href="../../d5/da4/a03225.html#ac644aff431ebea04306ac2fc6b9398f9">DYN::ModelGenerator</a>, <a class="el" href="../../da/d34/a03237.html#ad596455a920e780df0ac678567e6541b">DYN::ModelLoad</a>, <a class="el" href="../../dc/df1/a03261.html#a2ed89466842df5e839bec699ae67327f">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d4/d46/a03277.html#a16b46b3e52e7370d44172d36e6d27421">DYN::ModelThreeWindingsTransformer</a>.</p>
+
+</div>
+</div>
+<a id="acb42fc557d13a4a013c0b191f0b8bb06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb42fc557d13a4a013c0b191f0b8bb06">&#9670;&nbsp;</a></span>dumpInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::NetworkComponent::dumpInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>append the internal variables values to a stringstream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="../../d0/d84/a03281.html#a9e53339771e5a264c8a8f5a84be215e8">DYN::ModelTwoWindingsTransformer</a>.</p>
 
 </div>
 </div>
@@ -1545,6 +1587,42 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a60c87ea005c042dbce501a693e7869d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c87ea005c042dbce501a693e7869d2">&#9670;&nbsp;</a></span>loadInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::NetworkComponent::loadInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>import the internal variables values of the component from stringstream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="../../d0/d84/a03281.html#a23186e9b1415e67555ba6e2baa98d52e">DYN::ModelTwoWindingsTransformer</a>.</p>
+
+</div>
+</div>
 <a id="a6a960348ec031bcf8627c80cc04e7224"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6a960348ec031bcf8627c80cc04e7224">&#9670;&nbsp;</a></span>operator=()</h2>
 
@@ -2263,7 +2341,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/d9d/a03289.html">NetworkComponent</a></li>
-    <li class="footer">Generated on Wed Sep 25 2024 09:44:28 for Dynawo by
+    <li class="footer">Generated on Wed Sep 25 2024 15:28:18 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

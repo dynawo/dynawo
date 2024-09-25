@@ -151,6 +151,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a64d9cce766cd1503ad6a8fbde5577a9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d56/a03253.html#a64d9cce766cd1503ad6a8fbde5577a9a">setSide</a> (const std::string &amp;side)</td></tr>
 <tr class="memdesc:a64d9cce766cd1503ad6a8fbde5577a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the reference side  <a href="#a64d9cce766cd1503ad6a8fbde5577a9a">More...</a><br /></td></tr>
 <tr class="separator:a64d9cce766cd1503ad6a8fbde5577a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a848bdb623419324c9f6a56fd1f1f3888"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d56/a03253.html#a848bdb623419324c9f6a56fd1f1f3888">dumpInternalVariables</a> (std::stringstream &amp;streamVariables) const</td></tr>
+<tr class="memdesc:a848bdb623419324c9f6a56fd1f1f3888"><td class="mdescLeft">&#160;</td><td class="mdescRight">append the internal variables values to a stringstream  <a href="#a848bdb623419324c9f6a56fd1f1f3888">More...</a><br /></td></tr>
+<tr class="separator:a848bdb623419324c9f6a56fd1f1f3888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7e63d78cc8b1dca037202e76e63bd99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d56/a03253.html#ac7e63d78cc8b1dca037202e76e63bd99">loadInternalVariables</a> (std::stringstream &amp;streamVariables)</td></tr>
+<tr class="memdesc:ac7e63d78cc8b1dca037202e76e63bd99"><td class="mdescLeft">&#160;</td><td class="mdescRight">import the internal variables values of the component from stringstream  <a href="#ac7e63d78cc8b1dca037202e76e63bd99">More...</a><br /></td></tr>
+<tr class="separator:ac7e63d78cc8b1dca037202e76e63bd99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a03269"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03269')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/d33/a03269.html">DYN::ModelTapChanger</a></td></tr>
 <tr class="memitem:ae208e87157defb8e8bd9c1158cba1628 inherit pub_methods_a03269"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d33/a03269.html#ae208e87157defb8e8bd9c1158cba1628">ModelTapChanger</a> (const std::string &amp;<a class="el" href="../../d9/d33/a03269.html#ab5a8072674f3a2a1928ec9b65630c999">id</a>, int lowIndex)</td></tr>
 <tr class="memdesc:ae208e87157defb8e8bd9c1158cba1628 inherit pub_methods_a03269"><td class="mdescLeft">&#160;</td><td class="mdescRight">unique constructor  <a href="../../d9/d33/a03269.html#ae208e87157defb8e8bd9c1158cba1628">More...</a><br /></td></tr>
@@ -327,6 +333,32 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a848bdb623419324c9f6a56fd1f1f3888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a848bdb623419324c9f6a56fd1f1f3888">&#9670;&nbsp;</a></span>dumpInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelRatioTapChanger::dumpInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>append the internal variables values to a stringstream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a7757329752ffe1b3467ec0dfd8c0fa37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7757329752ffe1b3467ec0dfd8c0fa37">&#9670;&nbsp;</a></span>evalG()</h2>
 
@@ -531,6 +563,32 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 <p>decide whether if the tap changer should increase/decrease tap to increase the target U </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if one tap up increase the voltage </dd></dl>
+
+</div>
+</div>
+<a id="ac7e63d78cc8b1dca037202e76e63bd99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e63d78cc8b1dca037202e76e63bd99">&#9670;&nbsp;</a></span>loadInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelRatioTapChanger::loadInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>import the internal variables values of the component from stringstream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -759,7 +817,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/d56/a03253.html">ModelRatioTapChanger</a></li>
-    <li class="footer">Generated on Wed Sep 25 2024 09:44:28 for Dynawo by
+    <li class="footer">Generated on Wed Sep 25 2024 15:28:18 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

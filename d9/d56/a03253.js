@@ -2,10 +2,12 @@ var a03253 =
 [
     [ "ModelRatioTapChanger", "d9/d56/a03253.html#aa36990e1447f4747275544727a125d45", null ],
     [ "~ModelRatioTapChanger", "d9/d56/a03253.html#a8a2767f3bc8da8e2a3b0b88338b6d7ec", null ],
+    [ "dumpInternalVariables", "d9/d56/a03253.html#a848bdb623419324c9f6a56fd1f1f3888", null ],
     [ "evalG", "d9/d56/a03253.html#a7757329752ffe1b3467ec0dfd8c0fa37", null ],
     [ "evalZ", "d9/d56/a03253.html#a125d558edc3bd82be0e0b3d1206456ee", null ],
     [ "getTolV", "d9/d56/a03253.html#ae0b50ae961f8601ca534dafbeb76f8e1", null ],
     [ "getUpIncreaseTargetU", "d9/d56/a03253.html#afd38f13108ddde19b9e1b1b431ed6cee", null ],
+    [ "loadInternalVariables", "d9/d56/a03253.html#ac7e63d78cc8b1dca037202e76e63bd99", null ],
     [ "setSide", "d9/d56/a03253.html#a64d9cce766cd1503ad6a8fbde5577a9a", null ],
     [ "setTargetV", "d9/d56/a03253.html#a95891ff6586c90c17028f6f88a8a38ed", null ],
     [ "setTolV", "d9/d56/a03253.html#af5db7847911fa4df90e2443155163f07", null ],

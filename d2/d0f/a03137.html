@@ -96,6 +96,7 @@ $(document).ready(function(){initNavTree('d2/d0f/a03137.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d7/d66/a03134.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -678,19 +679,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memdesc:aed59444912b966cd6fa30e953fc7fc1d inherit pub_methods_a02757"><td class="mdescLeft">&#160;</td><td class="mdescRight">get index of this submodel in the global continuous variable table  <a href="../../d9/da5/a02757.html#aed59444912b966cd6fa30e953fc7fc1d">More...</a><br /></td></tr>
 <tr class="separator:aed59444912b966cd6fa30e953fc7fc1d inherit pub_methods_a02757"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a34771deb6a0a083beae2b143a3eee4d5"><td class="memItemLeft" align="right" valign="top"><a id="a34771deb6a0a083beae2b143a3eee4d5"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a34771deb6a0a083beae2b143a3eee4d5">modelType_</a></td></tr>
-<tr class="memdesc:a34771deb6a0a083beae2b143a3eee4d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">model type <br /></td></tr>
-<tr class="separator:a34771deb6a0a083beae2b143a3eee4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb9de82698c67d19a498506b5fba4449"><td class="memItemLeft" align="right" valign="top"><a id="abb9de82698c67d19a498506b5fba4449"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#abb9de82698c67d19a498506b5fba4449">isStartingFromDump_</a></td></tr>
-<tr class="memdesc:abb9de82698c67d19a498506b5fba4449"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the model is starting from dumped values <br /></td></tr>
-<tr class="separator:abb9de82698c67d19a498506b5fba4449"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a9eec349f38937cfded63917884d56d51"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a9eec349f38937cfded63917884d56d51">dumpVariablesInStream</a> (std::stringstream &amp;streamVariables) const</td></tr>
+<tr class="memdesc:a9eec349f38937cfded63917884d56d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables values of the sub model for dump in a stream  <a href="#a9eec349f38937cfded63917884d56d51">More...</a><br /></td></tr>
+<tr class="separator:a9eec349f38937cfded63917884d56d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3479bc0939ecee238f6b05f3a7566d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#ac3479bc0939ecee238f6b05f3a7566d2">loadVariablesFromStream</a> (std::stringstream &amp;streamVariables)</td></tr>
+<tr class="memdesc:ac3479bc0939ecee238f6b05f3a7566d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the variables values from a previous dump  <a href="#ac3479bc0939ecee238f6b05f3a7566d2">More...</a><br /></td></tr>
+<tr class="separator:ac3479bc0939ecee238f6b05f3a7566d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_a02757"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02757')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d9/da5/a02757.html">DYN::SubModel</a></td></tr>
 <tr class="memitem:adf72905dfc581f53e294309a39515da3 inherit pro_methods_a02757"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/a02757.html#adf72905dfc581f53e294309a39515da3">parametersFileName</a> () const</td></tr>
 <tr class="memdesc:adf72905dfc581f53e294309a39515da3 inherit pro_methods_a02757"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the file where parameters should be dumped  <a href="../../d9/da5/a02757.html#adf72905dfc581f53e294309a39515da3">More...</a><br /></td></tr>
@@ -720,6 +716,20 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a72ae69f1d1f8da7ce4245c0c0ae408de inherit pro_methods_a02757"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/a02757.html#a72ae69f1d1f8da7ce4245c0c0ae408de">hasDataCheckCoherence</a> () const</td></tr>
 <tr class="memdesc:a72ae69f1d1f8da7ce4245c0c0ae408de inherit pro_methods_a02757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the sub model has a data check coherence operation (non-empty function)  <a href="../../d9/da5/a02757.html#a72ae69f1d1f8da7ce4245c0c0ae408de">More...</a><br /></td></tr>
 <tr class="separator:a72ae69f1d1f8da7ce4245c0c0ae408de inherit pro_methods_a02757"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a34771deb6a0a083beae2b143a3eee4d5"><td class="memItemLeft" align="right" valign="top"><a id="a34771deb6a0a083beae2b143a3eee4d5"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#a34771deb6a0a083beae2b143a3eee4d5">modelType_</a></td></tr>
+<tr class="memdesc:a34771deb6a0a083beae2b143a3eee4d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">model type <br /></td></tr>
+<tr class="separator:a34771deb6a0a083beae2b143a3eee4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9de82698c67d19a498506b5fba4449"><td class="memItemLeft" align="right" valign="top"><a id="abb9de82698c67d19a498506b5fba4449"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html#abb9de82698c67d19a498506b5fba4449">isStartingFromDump_</a></td></tr>
+<tr class="memdesc:abb9de82698c67d19a498506b5fba4449"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the model is starting from dumped values <br /></td></tr>
+<tr class="separator:abb9de82698c67d19a498506b5fba4449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_a02757"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02757')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d9/da5/a02757.html">DYN::SubModel</a></td></tr>
 <tr class="memitem:a79d86a5f23a7fe16764550ecf3140da3 inherit pro_attribs_a02757"><td class="memItemLeft" align="right" valign="top"><a id="a79d86a5f23a7fe16764550ecf3140da3"></a>
 boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/a02757.html#a79d86a5f23a7fe16764550ecf3140da3">readPARParameters_</a></td></tr>
@@ -1230,6 +1240,42 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 </dl>
 
 <p>Implements <a class="el" href="../../d9/da5/a02757.html#a13a22ea2409bb899f24a40f1331b3f30">DYN::SubModel</a>.</p>
+
+</div>
+</div>
+<a id="a9eec349f38937cfded63917884d56d51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eec349f38937cfded63917884d56d51">&#9670;&nbsp;</a></span>dumpVariablesInStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::ModelCPP::dumpVariablesInStream </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>export the variables values of the sub model for dump in a stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: map associating the file where values should be dumped with the stream of values </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="../../d2/daf/a03245.html#aae4d1cdb25cb562a9ff1cb19fc923af3">DYN::ModelNetwork</a>.</p>
 
 </div>
 </div>
@@ -1929,6 +1975,42 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 
 </div>
 </div>
+<a id="ac3479bc0939ecee238f6b05f3a7566d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3479bc0939ecee238f6b05f3a7566d2">&#9670;&nbsp;</a></span>loadVariablesFromStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::ModelCPP::loadVariablesFromStream </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>load the variables values from a previous dump </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stream of values where the variables were dumped </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="../../d2/daf/a03245.html#a4462f650043a957211ab7c365c6d4a35">DYN::ModelNetwork</a>.</p>
+
+</div>
+</div>
 <a id="afc8c3f03f682e7f62f7d3c7e55a6472b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc8c3f03f682e7f62f7d3c7e55a6472b">&#9670;&nbsp;</a></span>modelType()</h2>
 
@@ -2157,7 +2239,7 @@ boost::shared_ptr&lt; <a class="el" href="../../de/da0/a02437.html">parameters::
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d0f/a03137.html">ModelCPP</a></li>
-    <li class="footer">Generated on Wed Sep 25 2024 09:44:27 for Dynawo by
+    <li class="footer">Generated on Wed Sep 25 2024 15:28:18 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
