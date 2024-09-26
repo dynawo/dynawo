@@ -36,8 +36,8 @@
   <dyn:connect id1="Generator2" var1="generator_limUQUp" id2="SignalNQ" var2="vrremote_limUQUp_2_"/>
   <dyn:connect id1="Generator1" var1="generator_limUQDown" id2="SignalNQ" var2="vrremote_limUQDown_1_"/>
   <dyn:connect id1="Generator2" var1="generator_limUQDown" id2="SignalNQ" var2="vrremote_limUQDown_2_"/>
-  <dyn:connect id1="SignalNQ" var1="vrremote_URegulated" id2="Generator1" var2="generator_UPu"/>
-  <dyn:connect id1="SignalNQ" var1="vrremote_URef" id2="StepURef" var2="step_step_value"/>
+  <dyn:connect id1="SignalNQ" var1="vrremote_URegulatedPu" id2="Generator1" var2="generator_UPu"/>
+  <dyn:connect id1="SignalNQ" var1="vrremote_URefPu" id2="StepURef" var2="step_step_value"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line1Bis" var2="line_switchOffSignal2"/>
   <!-- System 2 (without freezing in VRRemote) -->
   <dyn:blackBoxModel id="Generator1NoFreezing" lib="GeneratorPQPropSignalN" parFile="VRRemote.par" parId="Generator1"/>
@@ -60,7 +60,7 @@
   <dyn:connect id1="Generator2NoFreezing" var1="generator_limUQUp" id2="SignalNQNoFreezing" var2="vrremote_limUQUp_2_"/>
   <dyn:connect id1="Generator1NoFreezing" var1="generator_limUQDown" id2="SignalNQNoFreezing" var2="vrremote_limUQDown_1_"/>
   <dyn:connect id1="Generator2NoFreezing" var1="generator_limUQDown" id2="SignalNQNoFreezing" var2="vrremote_limUQDown_2_"/>
-  <dyn:connect id1="SignalNQNoFreezing" var1="vrremote_URegulated" id2="Generator1NoFreezing" var2="generator_UPu"/>
-  <dyn:connect id1="SignalNQNoFreezing" var1="vrremote_URef" id2="StepURef" var2="step_step_value"/>
+  <dyn:connect id1="SignalNQNoFreezing" var1="vrremote_URegulatedPu" id2="Generator1NoFreezing" var2="generator_UPu"/>
+  <dyn:connect id1="SignalNQNoFreezing" var1="vrremote_URefPu" id2="StepURef" var2="step_step_value"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line1BisNoFreezing" var2="line_switchOffSignal2"/>
 </dyn:dynamicModelsArchitecture>
