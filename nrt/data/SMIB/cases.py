@@ -200,6 +200,26 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt5bPss2b", "
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ###############################################################
+# SMIB with constant mechanical power, St5b, Pss2b and Scl1c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St5b - Pss2b - Scl1c"
+case_description = "SMIB test case with a fault using St5b, Pss2b and Scl1c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt5bPss2bScl1c", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+# SMIB with constant mechanical power, St5b, Pss2b and Scl2c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St5b - Pss2b - Scl2c"
+case_description = "SMIB test case with a fault using St5b, Pss2b and Scl2c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt5bPss2bScl2c", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
 #     SMIB with constant mechanical power, St6b and Pss3b     #
 ###############################################################
 
@@ -220,12 +240,72 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt6cPss6c", "
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ###############################################################
+# SMIB with constant mechanical power, St6c, Pss6c and Oel2c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St6c - Pss6c - Oel2c"
+case_description = "SMIB test case with a fault using St6c, Pss6c and Oel2c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt6cPss6cOel2c", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+# SMIB with constant mechanical power, St6c, Pss6c and Oel3c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St6c - Pss6c - Oel3c"
+case_description = "SMIB test case with a fault using St6c, Pss6c and Oel3c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt6cPss6cOel3c", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+# SMIB with constant mechanical power, St6c, Pss6c and Oel4c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St6c - Pss6c - Oel4c"
+case_description = "SMIB test case with a fault using St6c, Pss6c and Oel4c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt6cPss6cOel4c", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+# SMIB with constant mechanical power, St6c, Pss6c and Oel5c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St6c - Pss6c - Oel5c"
+case_description = "SMIB test case with a fault using St6c, Pss6c and Oel5c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt6cPss6cOel5c", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
 #     SMIB with constant mechanical power, St7b and Pss2a     #
 ###############################################################
 
 case_name = "SMIB - Fault - PmConst - St7b - Pss2a"
 case_description = "SMIB test case with a fault using St7b and Pss2a regulations"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt7bPss2a", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#  SMIB with constant mechanical power, St7b, Pss2a and Uel1  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St7b - Pss2a - Uel1"
+case_description = "SMIB test case with a fault using St7b, Pss2a and Uel1 regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt7bPss2aUel1", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+# SMIB with constant mechanical power, St7b, Pss2a and Uel2c  #
+###############################################################
+
+case_name = "SMIB - Fault - PmConst - St7b - Pss2a - Uel2c"
+case_description = "SMIB test case with a fault using St7b, Pss2a and Uel2c regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "PmConstSt7bPss2aUel2c", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
