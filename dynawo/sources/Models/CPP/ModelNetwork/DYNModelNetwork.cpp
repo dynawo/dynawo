@@ -1455,4 +1455,24 @@ ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
   }
 }
 
+void
+ModelNetwork::dumpVariablesInStream(stringstream& streamVariables) const {
+  ModelCPP::dumpVariablesInStream(streamVariables);
+
+  // Dump internal variables of components
+  for (const auto& component : getComponents()) {
+      component->dumpInternalVariables(streamVariables);
+  }
+}
+
+void
+ModelNetwork::loadVariablesFromStream(stringstream& streamVariables) {
+  ModelCPP::loadVariablesFromStream(streamVariables);
+
+  // Load internal variables of components
+  for (const auto& component : getComponents()) {
+    component->loadInternalVariables(streamVariables);
+  }
+}
+
 }  // namespace DYN

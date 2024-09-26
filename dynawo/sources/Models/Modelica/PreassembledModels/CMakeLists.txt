@@ -11,6 +11,8 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  BESScbWeccCurrentSource.xml
+  BESScbWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
@@ -191,8 +193,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhotovoltaicsWeccCurrentSource.xml
-  PhotovoltaicsWeccVoltageSource.xml
+  PhotovoltaicsWeccCurrentSourceB.xml
+  PhotovoltaicsWeccVoltageSourceA.xml
+  PhotovoltaicsWeccVoltageSourceB.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml

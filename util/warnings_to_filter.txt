@@ -63,6 +63,7 @@ warning: return type of member DYN::Model::copyContinuousVariables is not docume
 warning: return type of member DYN::Model::copyDiscreteVariables is not documented
 warning: return type of member DYN::Model::dumpParameters is not documented
 warning: return type of member DYN::Model::dumpVariables is not documented
+warning: return type of member DYN::Model::dumpInternalVariables is not documented
 warning: return type of member DYN::Model::evalCalculatedVariables is not documented
 warning: return type of member DYN::Model::evalDynamicFType is not documented
 warning: return type of member DYN::Model::evalDynamicYType is not documented
@@ -88,6 +89,7 @@ warning: return type of member DYN::Model::initBuffers is not documented
 warning: return type of member DYN::Model::initSilentZ is not documented
 warning: return type of member DYN::Model::loadParameters is not documented
 warning: return type of member DYN::Model::loadVariables is not documented
+warning: return type of member DYN::Model::loadInternalVariables is not documented
 warning: return type of member DYN::Model::printModelValues is not documented
 warning: return type of member DYN::Model::printModel is not documented
 warning: return type of member DYN::Model::reinitMode is not documented
@@ -118,6 +120,7 @@ warning: return type of member DYN::ModelCPP::defineVariables is not documented
 warning: return type of member DYN::ModelCPP::defineVariablesInit is not documented
 warning: return type of member DYN::ModelCPP::dumpParameters is not documented
 warning: return type of member DYN::ModelCPP::dumpVariables is not documented
+warning: return type of member DYN::ModelCPP::dumpVariablesInStream is not documented
 warning: return type of member DYN::ModelCPP::evalDynamicYType is not documented
 warning: return type of member DYN::ModelCPP::evalF is not documented
 warning: return type of member DYN::ModelCPP::evalG is not documented
@@ -136,6 +139,7 @@ warning: return type of member DYN::ModelCPP::initParams is not documented
 warning: return type of member DYN::ModelCPP::initSubBuffers is not documented
 warning: return type of member DYN::ModelCPP::loadParameters is not documented
 warning: return type of member DYN::ModelCPP::loadVariables is not documented
+warning: return type of member DYN::ModelCPP::loadVariablesFromStream is not documented
 warning: return type of member DYN::ModelCPP::notifyTimeStep is not documented
 warning: return type of member DYN::ModelCPP::rotateBuffers is not documented
 warning: return type of member DYN::ModelCPP::setFequations is not documented
@@ -320,6 +324,7 @@ warning: return type of member DYN::SubModel::defineVariablesInit is not documen
 warning: return type of member DYN::SubModel::dumpParameters is not documented
 warning: return type of member DYN::SubModel::dumpUserReadableElementList is not documented
 warning: return type of member DYN::SubModel::dumpVariables is not documented
+warning: return type of member DYN::SubModel::dumpInternalVariables is not documented
 warning: return type of member DYN::SubModel::evalDynamicFType is not documented
 warning: return type of member DYN::SubModel::evalDynamicYType is not documented
 warning: return type of member DYN::SubModel::evalF is not documented
@@ -339,6 +344,7 @@ warning: return type of member DYN::SubModel::init is not documented
 warning: return type of member DYN::SubModel::initializeFromData is not documented
 warning: return type of member DYN::SubModel::loadParameters is not documented
 warning: return type of member DYN::SubModel::loadVariables is not documented
+warning: return type of member DYN::SubModel::loadInternalVariables is not documented
 warning: return type of member DYN::SubModel::rotateBuffers is not documented
 warning: return type of member DYN::SubModelFactory::destroy is not documented
 warning: return type of member DYN::SwitchInterface::open is not documented
@@ -431,4 +437,6 @@ warning: return type of member DYN::SolverCommonFixedTimeStep::hasPrediction is 
 warning: return type of member DYN::SolverCommonFixedTimeStep::saveContinuousVariables is not documented
 warning: return type of member DYN::SolverCommonFixedTimeStep::restoreContinuousVariables is not documented
 warning: return type of member DYN::NetworkComponent::printInternalParameters is not documented
+warning: return type of member DYN::NetworkComponent::dumpInternalVariables is not documented
+warning: return type of member DYN::NetworkComponent::loadInternalVariables is not documented
 warning: return type of member DYN::SubModel::printInternalParameters is not documented

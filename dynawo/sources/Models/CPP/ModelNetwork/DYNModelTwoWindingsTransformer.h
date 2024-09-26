@@ -29,7 +29,7 @@
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELTWOWINDINGSTRANSFORMER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELTWOWINDINGSTRANSFORMER_H_
-
+#include <sstream>
 
 #include <boost/shared_ptr.hpp>
 #include "DYNNetworkComponent.h"
@@ -422,6 +422,20 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   * @param fstream the file to stream parameters to
   */
   void printInternalParameters(std::ofstream& fstream) const override;
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables) override;
 
  private:
   /**
