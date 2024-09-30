@@ -1,6 +1,6 @@
 within Dynawo.Examples.TwoAreas;
 
-model KundurPSS "Kundur two-area system with buses, lines and transformers"
+model KundurPSSA "Kundur two-area system with buses, lines and transformers"
   /*
       * Copyright (c) 2022, RTE (http://www.rte-france.com)
       * See AUTHORS.txt
@@ -36,15 +36,34 @@ Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousKundur6thOrder G2(ASat =
     Placement(visible = true, transformation(origin = {-241, 33}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.TGRKundur tgr1(Us0Pu = G1.UStator0Pu, Efd0Pu = G1.Efd0Pu, tR = 0.01, Ka = 200, Ta = 1.0, Tb = 10.0);
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PssKundur2 pss1(t1 = 0.05, t2 = 0.02, t3 = 3.0, t4 = 5.4, tW = 10, KStab = 20);
+  Electrical.Loads.LoadZIP load(Ip = 0, Iq = 0, Pp = 1, Pq = 1, Zp = 0, Zq = 0, i0Pu = ComplexMath.conj(load.s0Pu / load.u0Pu), s0Pu = Complex(-2.5, -1.0), u0Pu = Complex(0.878, -0.361))  annotation(
+    Placement(visible = true, transformation(origin = {-10, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Real deltaf;
+  input Types.ActivePowerPu PRefPu;
+  input Types.ReactivePowerPu QRefPu;
+
+  Real deltaU;
+
+  output Real ILoad;
+  output Real IPhaseLoad;
+  output Real ULoad;
+  output Real UPhaseLoad;
+  output Real deltaF1;
+  output Real deltaF2;
+  output Real deltaFrequency;
 
 equation
+  deltaU = -ComplexMath.'abs'(load.u0Pu) + ULoad;
+  ILoad = ComplexMath.'abs'(ComplexMath.conj(Complex(load.PPu, load.QPu)/bus07.terminal.V));
+  IPhaseLoad = ComplexMath.arg(ComplexMath.conj(Complex(load.PPu, load.QPu)/bus07.terminal.V));
+  ULoad = load.UPu.value;
+  UPhaseLoad = ComplexMath.arg(bus07.terminal.V);
+  deltaF1 = (G1.omegaPu.value - G1.omegaRefPu.value) * Dynawo.Electrical.SystemBase.omegaNom;
+  deltaF2 = (G3.omegaPu.value - G3.omegaRefPu.value) * Dynawo.Electrical.SystemBase.omegaNom;
+  deltaFrequency = (G1.omegaPu.value - G3.omegaPu.value)*Dynawo.Electrical.SystemBase.omegaNom;
+
   connect(G2.terminal, bus02.terminal) annotation(
     Line(points = {{-130, -42}, {-130, -20}}, color = {0, 0, 255}));
-
-  deltaf = (G1.omegaPu.value - G3.omegaPu.value)*Dynawo.Electrical.SystemBase.omegaNom;
-
   G1.switchOffSignal1.value = false;
   G1.switchOffSignal2.value = false;
   G1.switchOffSignal3.value = false;
@@ -57,6 +76,14 @@ equation
   G4.switchOffSignal1.value = false;
   G4.switchOffSignal2.value = false;
   G4.switchOffSignal3.value = false;
+  load.switchOffSignal1.value = false;
+  load.switchOffSignal2.value = false;
+
+  load.PRefPu = PRefPu;
+  load.QRefPu = QRefPu;
+  load.deltaP = 0;
+  load.deltaQ = 0;
+
   tgr1.UsRefPu = G1.Efd0Pu / tgr1.Ka + G1.UStator0Pu;
   G1.efdPu.value = tgr1.efdPu;
   tgr1.UPssPu = pss1.UPssPu * K;
@@ -95,7 +122,9 @@ equation
     Line(points = {{262, 70}, {240, 70}}, color = {0, 0, 255}));
   connect(G1.terminal, bus01.terminal) annotation(
     Line(points = {{-240, 34}, {-240, 70}}, color = {0, 0, 255}));
+  connect(load.terminal, bus07.terminal) annotation(
+    Line(points = {{-10, 42}, {-44, 42}, {-44, 70}, {-60, 70}}, color = {0, 0, 255}));
   annotation(
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", maxIntegrationOrder = "2", s = "dassl"));
-end KundurPSS;
+end KundurPSSA;
