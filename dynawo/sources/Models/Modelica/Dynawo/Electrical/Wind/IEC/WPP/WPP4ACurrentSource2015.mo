@@ -83,7 +83,7 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, -14}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = U0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = X0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
 
     Placement(visible = true, transformation(origin = {-140, 12}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 

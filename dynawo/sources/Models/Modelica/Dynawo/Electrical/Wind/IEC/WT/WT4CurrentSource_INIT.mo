@@ -33,6 +33,12 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
 
   //QControl parameter
   parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)";
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+    parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
 
   //QLimiter parameters
   parameter Boolean QlConst "True if limits are constant";
@@ -52,8 +58,9 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
   Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)";
   Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)";
   Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.PerUnit UWt0DroppedPu "Initial voltage module at the output of the voltage drop block (This voltage is the one that is controlled in QControl)";
 
-  Modelica.Blocks.Math.Min min annotation(
+  Modelica.Blocks.Math.Min min3 annotation(
     Placement(visible = true, transformation(origin = {190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds2(table = TableQMaxPwtcFilt) annotation(
     Placement(visible = true, transformation(origin = {110, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -123,9 +130,10 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad";
 
 equation
-  XWT0Pu = if MqG == 0 then U0Pu else -Q0Pu * SystemBase.SnRef / SNom;
+  UWt0DroppedPu = ((U0Pu + RDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + XDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu))^2 + (-XDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + RDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu))^2)^0.5;
+  XWT0Pu = if MqG == 0 then UWt0DroppedPu - URef0Pu else -Q0Pu * SystemBase.SnRef / SNom;
   QMax0Pu = if QlConst then QMaxPu else max0.y;
-  QMin0Pu = if QlConst then QMinPu else min.y;
+  QMin0Pu = if QlConst then QMinPu else min3.y;
   IpMax0Pu = combiTable1Ds4.y[1];
   IqMax0Pu = min1.y;
   IqMin0Pu = max3.y;
@@ -146,11 +154,11 @@ equation
     Line(points = {{62, -160}, {80, -160}, {80, -180}, {98, -180}}, color = {0, 0, 127}));
   connect(combiTable1Ds3.y[1], max0.u2) annotation(
     Line(points = {{122, -180}, {140, -180}, {140, -186}, {178, -186}}, color = {0, 0, 127}));
-  connect(combiTable1Ds2.y[1], min.u2) annotation(
+  connect(combiTable1Ds2.y[1], min3.u2) annotation(
     Line(points = {{122, -140}, {160, -140}, {160, -26}, {178, -26}}, color = {0, 0, 127}));
   connect(combiTable1Ds1.y[1], max0.u1) annotation(
     Line(points = {{122, -60}, {140, -60}, {140, -174}, {178, -174}}, color = {0, 0, 127}));
-  connect(combiTable1Ds.y[1], min.u1) annotation(
+  connect(combiTable1Ds.y[1], min3.u1) annotation(
     Line(points = {{122, -20}, {140, -20}, {140, -14}, {178, -14}}, color = {0, 0, 127}));
   connect(sqrtNoEvent.y, min1.u1) annotation(
     Line(points = {{122, 180}, {130, 180}, {130, 186}, {138, 186}}, color = {0, 0, 127}));

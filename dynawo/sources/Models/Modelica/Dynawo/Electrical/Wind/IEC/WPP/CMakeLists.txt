@@ -20,7 +20,8 @@ set(MODEL_FILES
   WPP4BCurrentSource2015.extvar
   WPP4BCurrentSource2020.mo
   WPP4BCurrentSource2020.extvar
-  WPP4CurrentSource_INIT.mo
+  WPP4CurrentSource2015_INIT.mo
+  WPP4CurrentSource2020_INIT.mo
   )
 
 #

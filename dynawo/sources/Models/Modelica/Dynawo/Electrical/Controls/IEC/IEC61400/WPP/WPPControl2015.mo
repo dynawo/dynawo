@@ -43,7 +43,7 @@ model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
     Placement(visible = true, transformation(origin = {-200, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {30, -2}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-49, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = U0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = X0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables

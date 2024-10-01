@@ -70,11 +70,11 @@ model WPPControl2020 "Control model for IEC N°61400-27-1:2020 standard WPP"
     Placement(visible = true, transformation(origin = {40, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements measurements(DfMaxPu = DfMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIFilt, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPRef(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), XWT0Pu}, nu = 2, tLag = tLag, tLead = tLead) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPRef(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), X0Pu}, nu = 2, tLag = tLag, tLead = tLead) annotation(
     Placement(visible = true, transformation(origin = {-80, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPM(X0Pu = {-P0Pu * SystemBase.SnRef / SNom, -Q0Pu * SystemBase.SnRef / SNom, U0Pu, SystemBase.omegaRef0Pu}, nu = 4, tLag = tLag, tLead = tLead) annotation(
     Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationPD(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), X0Pu}, nu = 2, tLag = tLag, tLead = tLead) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationPD(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), XWT0Pu}, nu = 2, tLag = tLag, tLead = tLead) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
