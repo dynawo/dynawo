@@ -48,9 +48,9 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
 equation
   /* External loop */
   PRef0Pu = PFilter0Pu;
-  UdFilter0Pu = UFilterRef0Pu - Kff*IdPcc0Pu;
+  UdFilter0Pu = UFilterRef0Pu - Kff*IdPcc0Pu - DeltaVVId0;
   QRef0Pu = QFilter0Pu;
-  UqFilter0Pu = - Kff*IqPcc0Pu;
+  UqFilter0Pu = - Kff*IqPcc0Pu - DeltaVVIq0;
 
   /* DC voltage control */
   IdcSourceRef0Pu = IdcSource0Pu;
