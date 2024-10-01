@@ -15,7 +15,8 @@ set(MODEL_FILES
   CurrentLimitParameters.mo
   GridProtectionParameters.mo
   PControlParameters.mo
-  QControlParameters.mo
+  QControlParameters2015.mo
+  QControlParameters2020.mo
   QLimitParameters.mo
   )
 

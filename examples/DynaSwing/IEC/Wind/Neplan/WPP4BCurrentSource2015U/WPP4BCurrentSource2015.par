@@ -82,6 +82,8 @@
     <par type="DOUBLE" name="WPP_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_UUnderPu" value="0.9"/>
     <!-- UfMeasurement -->
+    <par type="DOUBLE" name="WPP_tphiFilt" value="0.02"/>
+    <par type="BOOL" name="WPP_Mzc" value="false"/>
     <par type="DOUBLE" name="WPP_DfMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_tUFilt" value="0.01"/>
     <par type="DOUBLE" name="WPP_tfFilt" value="0.01"/>

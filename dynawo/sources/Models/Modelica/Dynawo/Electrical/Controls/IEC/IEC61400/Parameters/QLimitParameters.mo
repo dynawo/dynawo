@@ -29,7 +29,15 @@ record QLimitParameters
     Dialog(tab = "QLimitTables"));
   parameter Real TableQMaxUwtcFilt42 = 0.33 annotation(
     Dialog(tab = "QLimitTables"));
-  parameter Real TableQMaxUwtcFilt[:,:] = [TableQMaxUwtcFilt11, TableQMaxUwtcFilt12; TableQMaxUwtcFilt21, TableQMaxUwtcFilt22; TableQMaxUwtcFilt31, TableQMaxUwtcFilt32; TableQMaxUwtcFilt41, TableQMaxUwtcFilt42] "Voltage dependency of reactive power maximum limit" annotation(
+  parameter Real TableQMaxUwtcFilt51 = 1.21 annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter Real TableQMaxUwtcFilt52 = 0.33 annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter Real TableQMaxUwtcFilt61 = 1.22 annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter Real TableQMaxUwtcFilt62 = 0.33 annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter Real TableQMaxUwtcFilt[:,:] = [TableQMaxUwtcFilt11, TableQMaxUwtcFilt12; TableQMaxUwtcFilt21, TableQMaxUwtcFilt22; TableQMaxUwtcFilt31, TableQMaxUwtcFilt32; TableQMaxUwtcFilt41, TableQMaxUwtcFilt42; TableQMaxUwtcFilt51, TableQMaxUwtcFilt52; TableQMaxUwtcFilt61, TableQMaxUwtcFilt62] "Voltage dependency of reactive power maximum limit" annotation(
     Dialog(tab = "QLimitTables"));
 
   parameter Real TableQMinUwtcFilt11 = 0 annotation(
