@@ -715,7 +715,7 @@ Simulation::configureLogs() {
         app.setTimeStampFormat((*itApp)->getTimeStampFormat());
         appenders.push_back(app);
       }
-      Trace::addAppenders(appenders);
+      Trace::clearAndAddAppenders(appenders);
 
       // Add DYNAWO version and revision in each header of appender
       itApp = appendersEntry.begin();
