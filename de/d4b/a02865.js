@@ -1,4 +1,5 @@
 var a02865 =
 [
-    [ "operator()", "de/d4b/a02865.html#afed2f24eec4786ca67e61b164b8d38d7", null ]
+    [ "CurrentLimitSideHash", "d4/d69/a02869.html", "d4/d69/a02869" ],
+    [ "currentLimits", "de/d4b/a02865.html#a43ad197a35ea2abe89d8a0052ea05c87", null ]
 ];

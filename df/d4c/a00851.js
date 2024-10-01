@@ -1,7 +1,7 @@
 var a00851 =
 [
-    [ "DYNDATA", "dc/d0a/a03125.html", "dc/d0a/a03125" ],
-    [ "memoryManagerChars", "dc/ddf/a03129.html", "dc/ddf/a03129" ],
+    [ "DYNDATA", "dc/ddf/a03129.html", "dc/ddf/a03129" ],
+    [ "memoryManagerChars", "d0/d2a/a03133.html", "d0/d2a/a03133" ],
     [ "BASE_ARRAY_H_", "df/d4c/a00851.html#a39f076128be5e0868fc138bfdd438448", null ],
     [ "BOOLEAN_ARRAY_H_", "df/d4c/a00851.html#ad393b5d34c6494c7aa1cbecf0c950723", null ],
     [ "INTEGER_ARRAY_H_", "df/d4c/a00851.html#aec5976c7a2cdb60bd88d7afe840a44f0", null ],

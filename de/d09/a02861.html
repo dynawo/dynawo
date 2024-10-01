@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::CurrentLimits Struct Reference</title>
+<title>Dynawo: DYN::CurrentLimit Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,34 +95,31 @@ $(document).ready(function(){initNavTree('de/d09/a02861.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d7/de8/a02858.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::CurrentLimits Struct Reference</div>  </div>
+<div class="title">DYN::CurrentLimit Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Current limits.  
+<p>Current limit.  
  <a href="../../de/d09/a02861.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d0/d5c/a00668_source.html">DYNCurrentLimits.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4b/a02865.html">CurrentLimitSideHash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for CurrentLimitSide.  <a href="../../de/d4b/a02865.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a43ad197a35ea2abe89d8a0052ea05c87"><td class="memItemLeft" align="right" valign="top"><a id="a43ad197a35ea2abe89d8a0052ea05c87"></a>
-std::unordered_map&lt; <a class="el" href="../../d0/d5c/a00668.html#a226f780bafecbaf93400149cb031d002">CurrentLimitSide</a>, boost::shared_ptr&lt; <a class="el" href="../../dd/dc1/a02857.html">CurrentLimit</a> &gt;, <a class="el" href="../../de/d4b/a02865.html">CurrentLimitSideHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d09/a02861.html#a43ad197a35ea2abe89d8a0052ea05c87">currentLimits</a></td></tr>
-<tr class="memdesc:a43ad197a35ea2abe89d8a0052ea05c87"><td class="mdescLeft">&#160;</td><td class="mdescRight">current limits <br /></td></tr>
-<tr class="separator:a43ad197a35ea2abe89d8a0052ea05c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa50a31a8a0240a66c84545e561afad"><td class="memItemLeft" align="right" valign="top"><a id="a2fa50a31a8a0240a66c84545e561afad"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d09/a02861.html#a2fa50a31a8a0240a66c84545e561afad">permanentLimit</a></td></tr>
+<tr class="memdesc:a2fa50a31a8a0240a66c84545e561afad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permanent limit. <br /></td></tr>
+<tr class="separator:a2fa50a31a8a0240a66c84545e561afad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a254447bdefd7b47cf3fddb535d86c230"><td class="memItemLeft" align="right" valign="top"><a id="a254447bdefd7b47cf3fddb535d86c230"></a>
+std::vector&lt; <a class="el" href="../../dd/dc1/a02857.html">TemporaryLimit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d09/a02861.html#a254447bdefd7b47cf3fddb535d86c230">temporaryLimits</a></td></tr>
+<tr class="memdesc:a254447bdefd7b47cf3fddb535d86c230"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of temporary limits <br /></td></tr>
+<tr class="separator:a254447bdefd7b47cf3fddb535d86c230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Current limits. </p>
+<div class="textblock"><p>Current limit. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="../../d0/d5c/a00668_source.html">DYNCurrentLimits.h</a></li>
 </ul>
@@ -142,8 +139,8 @@ std::unordered_map&lt; <a class="el" href="../../d0/d5c/a00668.html#a226f780bafe
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d09/a02861.html">CurrentLimits</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:23 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d09/a02861.html">CurrentLimit</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SolverFactory Class Reference</title>
+<title>Dynawo: DYN::SolverCommon Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,68 +95,47 @@ $(document).ready(function(){initNavTree('d5/d83/a03337.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d2/db9/a03334.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SolverFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::SolverCommon Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d5/d83/a03337.html" title="SolverFactory class. ">SolverFactory</a> class.  
+<p><a class="el" href="../../d5/d83/a03337.html" title="SolverCommon static class. ">SolverCommon</a> static class.  
  <a href="../../d5/d83/a03337.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d7/d59/a01013_source.html">DYNSolverFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::SolverFactory:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d5/d83/a03337.png" usemap="#DYN::SolverFactory_map" alt=""/>
-  <map id="DYN::SolverFactory_map" name="DYN::SolverFactory_map">
-<area href="../../dd/d8e/a03377.html" title="SolverIDA factory class. " alt="DYN::SolverIDAFactory" shape="rect" coords="0,56,158,80"/>
-<area href="../../df/d67/a03361.html" title="SolverSIM factory class. " alt="DYN::SolverSIMFactory" shape="rect" coords="168,56,326,80"/>
-<area href="../../d2/d7f/a03369.html" title="SolverTRAP factory class. " alt="DYN::SolverTRAPFactory" shape="rect" coords="336,56,494,80"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d0/d2b/a01010_source.html">DYNSolverCommon.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1a9995b963846832f7c1fd906c7f8d08"><td class="memItemLeft" align="right" valign="top"><a id="a1a9995b963846832f7c1fd906c7f8d08"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#a1a9995b963846832f7c1fd906c7f8d08">SolverFactory</a> ()</td></tr>
-<tr class="memdesc:a1a9995b963846832f7c1fd906c7f8d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a1a9995b963846832f7c1fd906c7f8d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="memItemLeft" align="right" valign="top"><a id="acab1ac8b0d0f36a325c891a939f2d0e5"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#acab1ac8b0d0f36a325c891a939f2d0e5">~SolverFactory</a> ()</td></tr>
-<tr class="memdesc:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac65d140b18f58dda550003c47e97fc2e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d8/d5d/a03329.html">Solver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#ac65d140b18f58dda550003c47e97fc2e">create</a> () const =0</td></tr>
-<tr class="memdesc:ac65d140b18f58dda550003c47e97fc2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of a solver  <a href="#ac65d140b18f58dda550003c47e97fc2e">More...</a><br /></td></tr>
-<tr class="separator:ac65d140b18f58dda550003c47e97fc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dccb03730530e6b2bf7e0eec8d42492"><td class="memItemLeft" align="right" valign="top"><a id="a8dccb03730530e6b2bf7e0eec8d42492"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#a8dccb03730530e6b2bf7e0eec8d42492">destroy</a> (<a class="el" href="../../d8/d5d/a03329.html">Solver</a> *) const =0</td></tr>
-<tr class="memdesc:a8dccb03730530e6b2bf7e0eec8d42492"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy an instance of a solver <br /></td></tr>
-<tr class="separator:a8dccb03730530e6b2bf7e0eec8d42492"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3504ac5d306e30488a661a38225a7573"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d8/d5d/a03329.html">Solver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#a3504ac5d306e30488a661a38225a7573">createSolverFromLib</a> (const std::string &amp;lib)</td></tr>
-<tr class="memdesc:a3504ac5d306e30488a661a38225a7573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a solver loading given lib.  <a href="#a3504ac5d306e30488a661a38225a7573">More...</a><br /></td></tr>
-<tr class="separator:a3504ac5d306e30488a661a38225a7573"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:abbfdaf69d4a3f097dc187edac6c723c1"><td class="memItemLeft" align="right" valign="top"><a id="abbfdaf69d4a3f097dc187edac6c723c1"></a>
-boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#abbfdaf69d4a3f097dc187edac6c723c1">lib_</a></td></tr>
-<tr class="memdesc:abbfdaf69d4a3f097dc187edac6c723c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Library of the solver. <br /></td></tr>
-<tr class="separator:abbfdaf69d4a3f097dc187edac6c723c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae22a765890981f862cc40c7f1ae313a2"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#ae22a765890981f862cc40c7f1ae313a2">copySparseToKINSOL</a> (const <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;smj, SUNMatrix &amp;JJ, const int &amp;size, sunindextype *lastRowVals)</td></tr>
+<tr class="memdesc:ae22a765890981f862cc40c7f1ae313a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy one sparse matrix to the KINSOL structure.  <a href="#ae22a765890981f862cc40c7f1ae313a2">More...</a><br /></td></tr>
+<tr class="separator:ae22a765890981f862cc40c7f1ae313a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e6598680f4c559ea6013d4bd5ec939d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#a8e6598680f4c559ea6013d4bd5ec939d">propagateMatrixStructureChangeToKINSOL</a> (const <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;smj, SUNMatrix &amp;JJ, const int &amp;size, sunindextype **lastRowVals, SUNLinearSolver &amp;LS, bool log)</td></tr>
+<tr class="memdesc:a8e6598680f4c559ea6013d4bd5ec939d"><td class="mdescLeft">&#160;</td><td class="mdescRight">propagate the matrix structure change to KINSOL structure  <a href="#a8e6598680f4c559ea6013d4bd5ec939d">More...</a><br /></td></tr>
+<tr class="separator:a8e6598680f4c559ea6013d4bd5ec939d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc90baae8ddadbd9db634c38fd678f32"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#afc90baae8ddadbd9db634c38fd678f32">printLargestErrors</a> (std::vector&lt; std::pair&lt; double, size_t &gt; &gt; &amp;fErr, const <a class="el" href="../../dd/d01/a02729.html">Model</a> &amp;model, int nbErrors)</td></tr>
+<tr class="memdesc:afc90baae8ddadbd9db634c38fd678f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the largest residuals errors.  <a href="#afc90baae8ddadbd9db634c38fd678f32">More...</a><br /></td></tr>
+<tr class="separator:afc90baae8ddadbd9db634c38fd678f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a5db2f9fc86f4d05d026e36941946f7"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#a9a5db2f9fc86f4d05d026e36941946f7">weightedInfinityNorm</a> (const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)</td></tr>
+<tr class="memdesc:a9a5db2f9fc86f4d05d026e36941946f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the weighted infinity norm of a vector.  <a href="#a9a5db2f9fc86f4d05d026e36941946f7">More...</a><br /></td></tr>
+<tr class="separator:a9a5db2f9fc86f4d05d026e36941946f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad73387d9a562e36de7b071196eece157"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#ad73387d9a562e36de7b071196eece157">weightedL2Norm</a> (const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)</td></tr>
+<tr class="memdesc:ad73387d9a562e36de7b071196eece157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the weighted l2 norm of a vector.  <a href="#ad73387d9a562e36de7b071196eece157">More...</a><br /></td></tr>
+<tr class="separator:ad73387d9a562e36de7b071196eece157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a770961aba4603c6b798c09a35ae2bb33"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#a770961aba4603c6b798c09a35ae2bb33">weightedInfinityNorm</a> (const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)</td></tr>
+<tr class="memdesc:a770961aba4603c6b798c09a35ae2bb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the weighted infinity norm of a sub vector.  <a href="#a770961aba4603c6b798c09a35ae2bb33">More...</a><br /></td></tr>
+<tr class="separator:a770961aba4603c6b798c09a35ae2bb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4aaac216b64f4c4666c25f96327cb62"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d83/a03337.html#ab4aaac216b64f4c4666c25f96327cb62">weightedL2Norm</a> (const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)</td></tr>
+<tr class="memdesc:ab4aaac216b64f4c4666c25f96327cb62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the weighted l2 norm of a sub vector.  <a href="#ab4aaac216b64f4c4666c25f96327cb62">More...</a><br /></td></tr>
+<tr class="separator:ab4aaac216b64f4c4666c25f96327cb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d5/d83/a03337.html" title="SolverFactory class. ">SolverFactory</a> class. </p>
-<p>Utility interface used to define a building class for solvers. </p>
+<div class="textblock"><p><a class="el" href="../../d5/d83/a03337.html" title="SolverCommon static class. ">SolverCommon</a> static class. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac65d140b18f58dda550003c47e97fc2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac65d140b18f58dda550003c47e97fc2e">&#9670;&nbsp;</a></span>create()</h2>
+<a id="ae22a765890981f862cc40c7f1ae313a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae22a765890981f862cc40c7f1ae313a2">&#9670;&nbsp;</a></span>copySparseToKINSOL()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,41 +144,33 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="../../d8/d5d/a03329.html">Solver</a>* DYN::SolverFactory::create </td>
+          <td class="memname">static bool DYN::SolverCommon::copySparseToKINSOL </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>smj</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>create a new instance of a solver </p>
-<dl class="section return"><dt>Returns</dt><dd>the new instance of solver </dd></dl>
-
-<p>Implemented in <a class="el" href="../../df/d67/a03361.html#ab8ab7f326a81125e2bd642ceb9b0e0f4">DYN::SolverSIMFactory</a>, <a class="el" href="../../d2/d7f/a03369.html#ae4708839d9c483ec3b7e7ee0ad63455a">DYN::SolverTRAPFactory</a>, and <a class="el" href="../../dd/d8e/a03377.html#a7cc4872af4778e6df68e5122109bf17a">DYN::SolverIDAFactory</a>.</p>
-
-</div>
-</div>
-<a id="a3504ac5d306e30488a661a38225a7573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3504ac5d306e30488a661a38225a7573">&#9670;&nbsp;</a></span>createSolverFromLib()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d8/d5d/a03329.html">Solver</a>&gt; DYN::SolverFactory::createSolverFromLib </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SUNMatrix &amp;&#160;</td>
+          <td class="paramname"><em>JJ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sunindextype *&#160;</td>
+          <td class="paramname"><em>lastRowVals</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -209,19 +180,345 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
 </table>
 </div><div class="memdoc">
 
-<p>Create a solver loading given lib. </p>
+<p>Copy one sparse matrix to the KINSOL structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the solver library to load </td></tr>
+    <tr><td class="paramname">smj</td><td>Sparse matrix to copy to the KINSOL structure </td></tr>
+    <tr><td class="paramname">JJ</td><td>KINSOL structure where to copy the matrix </td></tr>
+    <tr><td class="paramname">size</td><td>size of the square matrix (nb columns) </td></tr>
+    <tr><td class="paramname">lastRowVals</td><td>pointer to the latest value of the previous matrix</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the created solver </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the matrix structure has changed, <b>false</b> else </dd></dl>
+
+</div>
+</div>
+<a id="afc90baae8ddadbd9db634c38fd678f32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc90baae8ddadbd9db634c38fd678f32">&#9670;&nbsp;</a></span>printLargestErrors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void DYN::SolverCommon::printLargestErrors </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::pair&lt; double, size_t &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fErr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../dd/d01/a02729.html">Model</a> &amp;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbErrors</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print the largest residuals errors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fErr</td><td>vector containing a pair with the residual function value and the global index of the residual function </td></tr>
+    <tr><td class="paramname">model</td><td>model currently simulated </td></tr>
+    <tr><td class="paramname">nbErrors</td><td>maximum number of errors to be displayed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8e6598680f4c559ea6013d4bd5ec939d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6598680f4c559ea6013d4bd5ec939d">&#9670;&nbsp;</a></span>propagateMatrixStructureChangeToKINSOL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void DYN::SolverCommon::propagateMatrixStructureChangeToKINSOL </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d2/de3/a02637.html">SparseMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>smj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SUNMatrix &amp;&#160;</td>
+          <td class="paramname"><em>JJ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sunindextype **&#160;</td>
+          <td class="paramname"><em>lastRowVals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SUNLinearSolver &amp;&#160;</td>
+          <td class="paramname"><em>LS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>log</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>propagate the matrix structure change to KINSOL structure </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">smj</td><td>Sparse matrix to copy to the KINSOL structure </td></tr>
+    <tr><td class="paramname">JJ</td><td>KINSOL structure where to copy the matrix </td></tr>
+    <tr><td class="paramname">size</td><td>size of the square matrix (nb columns) </td></tr>
+    <tr><td class="paramname">lastRowVals</td><td>pointer to the latest value of the previous matrix </td></tr>
+    <tr><td class="paramname">LS</td><td>linear solver pointer </td></tr>
+    <tr><td class="paramname">log</td><td><b>true</b> if a log should be added if a complete re-initialization is done </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9a5db2f9fc86f4d05d026e36941946f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a5db2f9fc86f4d05d026e36941946f7">&#9670;&nbsp;</a></span>weightedInfinityNorm() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double DYN::SolverCommon::weightedInfinityNorm </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>weights</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the weighted infinity norm of a vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>vector which norm is to be computed </td></tr>
+    <tr><td class="paramname">weights</td><td>vector of weights to compute the norm</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the weighted infinity-norm of the vector </dd></dl>
+
+</div>
+</div>
+<a id="a770961aba4603c6b798c09a35ae2bb33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a770961aba4603c6b798c09a35ae2bb33">&#9670;&nbsp;</a></span>weightedInfinityNorm() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double DYN::SolverCommon::weightedInfinityNorm </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>weights</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the weighted infinity norm of a sub vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>vector which norm is to be computed </td></tr>
+    <tr><td class="paramname">vec_index</td><td>indices of sub vector to compute norm </td></tr>
+    <tr><td class="paramname">weights</td><td>vector of weights to compute the norm, must have the same size as vec_index</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the weighted infinity-norm of the sub vector </dd></dl>
+
+</div>
+</div>
+<a id="ad73387d9a562e36de7b071196eece157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad73387d9a562e36de7b071196eece157">&#9670;&nbsp;</a></span>weightedL2Norm() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double DYN::SolverCommon::weightedL2Norm </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>weights</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the weighted l2 norm of a vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>vector which norm is to be computed </td></tr>
+    <tr><td class="paramname">weights</td><td>vector of weights to compute the norm</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the weighted l2 norm of the vector </dd></dl>
+
+</div>
+</div>
+<a id="ab4aaac216b64f4c4666c25f96327cb62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4aaac216b64f4c4666c25f96327cb62">&#9670;&nbsp;</a></span>weightedL2Norm() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double DYN::SolverCommon::weightedL2Norm </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>weights</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the weighted l2 norm of a sub vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>vector which norm is to be computed </td></tr>
+    <tr><td class="paramname">vec_index</td><td>indices of sub vector to compute norm </td></tr>
+    <tr><td class="paramname">weights</td><td>vector of weights to compute the norm, must have the same size as vec_index</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the weighted l2 norm of the sub vector </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d7/d59/a01013_source.html">DYNSolverFactory.h</a></li>
+<li><a class="el" href="../../d0/d2b/a01010_source.html">DYNSolverCommon.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -239,8 +536,8 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d83/a03337.html">SolverFactory</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d83/a03337.html">SolverCommon</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

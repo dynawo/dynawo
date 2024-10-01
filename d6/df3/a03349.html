@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::stat_t Struct Reference</title>
+<title>Dynawo: DYN::SolverDelete Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,61 +95,102 @@ $(document).ready(function(){initNavTree('d6/df3/a03349.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d6/d1c/a03346.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::stat_t Struct Reference</div>  </div>
+<div class="title">DYN::SolverDelete Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Structure for storing solver statistics.  
+<p><a class="el" href="../../d6/df3/a03349.html" title="SolverDelete class. ">SolverDelete</a> class.  
  <a href="../../d6/df3/a03349.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../de/def/a01016_source.html">DYNSolverImpl.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d7/d59/a01013_source.html">DYNSolverFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a0a3377f7fff14783360e8cab6464ce94"><td class="memItemLeft" align="right" valign="top"><a id="a0a3377f7fff14783360e8cab6464ce94"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a0a3377f7fff14783360e8cab6464ce94">nst_</a></td></tr>
-<tr class="memdesc:a0a3377f7fff14783360e8cab6464ce94"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of steps <br /></td></tr>
-<tr class="separator:a0a3377f7fff14783360e8cab6464ce94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5368dfe73f3d2c7f1835152ba3a48815"><td class="memItemLeft" align="right" valign="top"><a id="a5368dfe73f3d2c7f1835152ba3a48815"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a5368dfe73f3d2c7f1835152ba3a48815">nre_</a></td></tr>
-<tr class="memdesc:a5368dfe73f3d2c7f1835152ba3a48815"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of residual evaluations <br /></td></tr>
-<tr class="separator:a5368dfe73f3d2c7f1835152ba3a48815"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a7399c4643bf4ea03807ee5bb187eca"><td class="memItemLeft" align="right" valign="top"><a id="a2a7399c4643bf4ea03807ee5bb187eca"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a2a7399c4643bf4ea03807ee5bb187eca">nni_</a></td></tr>
-<tr class="memdesc:a2a7399c4643bf4ea03807ee5bb187eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of nonlinear iterations <br /></td></tr>
-<tr class="separator:a2a7399c4643bf4ea03807ee5bb187eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aacaea3e1bbde675903c15ef2bb9bd5"><td class="memItemLeft" align="right" valign="top"><a id="a5aacaea3e1bbde675903c15ef2bb9bd5"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a5aacaea3e1bbde675903c15ef2bb9bd5">nje_</a></td></tr>
-<tr class="memdesc:a5aacaea3e1bbde675903c15ef2bb9bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of Jacobian evaluations <br /></td></tr>
-<tr class="separator:a5aacaea3e1bbde675903c15ef2bb9bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ddf47089b7a5641feebb61c1884d6ff"><td class="memItemLeft" align="right" valign="top"><a id="a8ddf47089b7a5641feebb61c1884d6ff"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a8ddf47089b7a5641feebb61c1884d6ff">netf_</a></td></tr>
-<tr class="memdesc:a8ddf47089b7a5641feebb61c1884d6ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of error test failures <br /></td></tr>
-<tr class="separator:a8ddf47089b7a5641feebb61c1884d6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace65dd182b205a692777a5e45ccc7e94"><td class="memItemLeft" align="right" valign="top"><a id="ace65dd182b205a692777a5e45ccc7e94"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#ace65dd182b205a692777a5e45ccc7e94">ncfn_</a></td></tr>
-<tr class="memdesc:ace65dd182b205a692777a5e45ccc7e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of nonlinear convergence failures <br /></td></tr>
-<tr class="separator:ace65dd182b205a692777a5e45ccc7e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e89355a9557448a1c007f600327604b"><td class="memItemLeft" align="right" valign="top"><a id="a1e89355a9557448a1c007f600327604b"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a1e89355a9557448a1c007f600327604b">nge_</a></td></tr>
-<tr class="memdesc:a1e89355a9557448a1c007f600327604b"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of root function evaluations <br /></td></tr>
-<tr class="separator:a1e89355a9557448a1c007f600327604b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8a6184cff0391105cae2b4e50081cf0"><td class="memItemLeft" align="right" valign="top"><a id="af8a6184cff0391105cae2b4e50081cf0"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#af8a6184cff0391105cae2b4e50081cf0">nze_</a></td></tr>
-<tr class="memdesc:af8a6184cff0391105cae2b4e50081cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of discrete variable evaluations <br /></td></tr>
-<tr class="separator:af8a6184cff0391105cae2b4e50081cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c5b44af2629997e8b1ed21a89b70f5f"><td class="memItemLeft" align="right" valign="top"><a id="a7c5b44af2629997e8b1ed21a89b70f5f"></a>
-long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a7c5b44af2629997e8b1ed21a89b70f5f">nme_</a></td></tr>
-<tr class="memdesc:a7c5b44af2629997e8b1ed21a89b70f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of mode evaluations <br /></td></tr>
-<tr class="separator:a7c5b44af2629997e8b1ed21a89b70f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0a2b426b56dc6989922372e3f5f947fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#a0a2b426b56dc6989922372e3f5f947fa">SolverDelete</a> (<a class="el" href="../../d3/d55/a03341.html">SolverFactory</a> *factory)</td></tr>
+<tr class="memdesc:a0a2b426b56dc6989922372e3f5f947fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a0a2b426b56dc6989922372e3f5f947fa">More...</a><br /></td></tr>
+<tr class="separator:a0a2b426b56dc6989922372e3f5f947fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f88820569b4e255fdd75b2ddc7f9a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#ad4f88820569b4e255fdd75b2ddc7f9a8">operator()</a> (<a class="el" href="../../d7/d2c/a03333.html">Solver</a> *solver)</td></tr>
+<tr class="memdesc:ad4f88820569b4e255fdd75b2ddc7f9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to use this class as a Functor.  <a href="#ad4f88820569b4e255fdd75b2ddc7f9a8">More...</a><br /></td></tr>
+<tr class="separator:ad4f88820569b4e255fdd75b2ddc7f9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af04dc4fb659d1587f7f3a1acf66c9836"><td class="memItemLeft" align="right" valign="top"><a id="af04dc4fb659d1587f7f3a1acf66c9836"></a>
+<a class="el" href="../../d3/d55/a03341.html">SolverFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df3/a03349.html#af04dc4fb659d1587f7f3a1acf66c9836">factory_</a></td></tr>
+<tr class="memdesc:af04dc4fb659d1587f7f3a1acf66c9836"><td class="mdescLeft">&#160;</td><td class="mdescRight">factory associated to the solver to destroy <br /></td></tr>
+<tr class="separator:af04dc4fb659d1587f7f3a1acf66c9836"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure for storing solver statistics. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../de/def/a01016_source.html">DYNSolverImpl.h</a></li>
+<div class="textblock"><p><a class="el" href="../../d6/df3/a03349.html" title="SolverDelete class. ">SolverDelete</a> class. </p>
+<p>Manage the destruction of a solver. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0a2b426b56dc6989922372e3f5f947fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2b426b56dc6989922372e3f5f947fa">&#9670;&nbsp;</a></span>SolverDelete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DYN::SolverDelete::SolverDelete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d55/a03341.html">SolverFactory</a> *&#160;</td>
+          <td class="paramname"><em>factory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factory</td><td>solver factory to delete </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad4f88820569b4e255fdd75b2ddc7f9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f88820569b4e255fdd75b2ddc7f9a8">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::SolverDelete::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d2c/a03333.html">Solver</a> *&#160;</td>
+          <td class="paramname"><em>solver</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to use this class as a Functor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">solver</td><td>pointer to the solver to delete map </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d7/d59/a01013_source.html">DYNSolverFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -167,8 +208,8 @@ long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/df3/a03349.html">stat_t</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/df3/a03349.html">SolverDelete</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

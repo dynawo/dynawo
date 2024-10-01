@@ -1,33 +1,17 @@
 var a03217 =
 [
-    [ "side_t", "d1/df1/a03217.html#a29a71bc96416cbb9a294eec80bd96ba5", [
-      [ "SIDE_UNDEFINED", "d1/df1/a03217.html#a29a71bc96416cbb9a294eec80bd96ba5af1c24dcb64e6112787b882fd57b822da", null ],
-      [ "SIDE_1", "d1/df1/a03217.html#a29a71bc96416cbb9a294eec80bd96ba5ae6b9069a9ec6e4953dd99018bd33ff86", null ],
-      [ "SIDE_2", "d1/df1/a03217.html#a29a71bc96416cbb9a294eec80bd96ba5a203d1e26402ffd19b164fd53485f3b40", null ],
-      [ "SIDE_3", "d1/df1/a03217.html#a29a71bc96416cbb9a294eec80bd96ba5a8afb2fbe2f70258cddf48d68ce9faf5a", null ]
-    ] ],
-    [ "state_t", "d1/df1/a03217.html#a43e3e5308575fdfe91a02cf1a5321fa8", [
-      [ "COMPONENT_OPEN", "d1/df1/a03217.html#a43e3e5308575fdfe91a02cf1a5321fa8aed668bb775622c43290dac3498af6895", null ],
-      [ "COMPONENT_CLOSE", "d1/df1/a03217.html#a43e3e5308575fdfe91a02cf1a5321fa8a868e12efb224e5ab7d085204d0b2ba6e", null ]
-    ] ],
-    [ "ModelCurrentLimits", "d1/df1/a03217.html#aea7f9ef521b108d6988a3106fe5f326e", null ],
-    [ "addLimit", "d1/df1/a03217.html#a7fa98e2233ff59dc34b1ac0463377660", null ],
-    [ "constraintData", "d1/df1/a03217.html#aebe0158ffe473065d1717d01119471de", null ],
-    [ "evalG", "d1/df1/a03217.html#a60370d1c7291cf7ae11aa48e675f3220", null ],
-    [ "evalZ", "d1/df1/a03217.html#a06f5b6c06fb3c303d29efaf86ef30c0f", null ],
-    [ "setFactorPuToA", "d1/df1/a03217.html#ab5884cbab8b9598f912fea6c4c09dae6", null ],
-    [ "setMaxTimeOperation", "d1/df1/a03217.html#a6217f8e87e3270031c014347caef9896", null ],
-    [ "setSide", "d1/df1/a03217.html#acf36df2c94ac22b53b77e524762c20e3", null ],
-    [ "sizeG", "d1/df1/a03217.html#a15718e30c941fb7ddb680a1c8bc834c7", null ],
-    [ "sizeZ", "d1/df1/a03217.html#a185d29db3348d7cc3f7f83040588d6bc", null ],
-    [ "acceptableDurations_", "d1/df1/a03217.html#a5aecdc0842f4890bb3f36afa1f0463b3", null ],
-    [ "activated_", "d1/df1/a03217.html#a90a6e3177f5748a32bffe02f466c450b", null ],
-    [ "factorPuToA_", "d1/df1/a03217.html#a99395486278b6a17ee6cc9e676c802fe", null ],
-    [ "lastCurrentValue_", "d1/df1/a03217.html#af1a5b443b135a62c1bea4b8444cd6dcb", null ],
-    [ "limits_", "d1/df1/a03217.html#a460a5f2d15a2d334c19b18173417530a", null ],
-    [ "maxTimeOperation_", "d1/df1/a03217.html#a3741533458c6eb324bf27836e4fcb192", null ],
-    [ "nbTemporaryLimits_", "d1/df1/a03217.html#a85654ab765d6677bece1181e30c947e4", null ],
-    [ "openingAuthorized_", "d1/df1/a03217.html#a75db2b1bb7b57b0df8d7fae9527fde39", null ],
-    [ "side_", "d1/df1/a03217.html#a844953367fc8fe4b03bb33e7b437977c", null ],
-    [ "tLimitReached_", "d1/df1/a03217.html#aa41e0e52b46e7095d35e75aa68a21f39", null ]
+    [ "ModelBusContainer", "d1/df1/a03217.html#a07a5b6ac97b5f2695347bb01d070385a", null ],
+    [ "add", "d1/df1/a03217.html#a15fba481928d4aea84014b74a97c82d4", null ],
+    [ "evalF", "d1/df1/a03217.html#aa884deb00a8ec768d1f7093502941c77", null ],
+    [ "evalJt", "d1/df1/a03217.html#a29a284a7ea0248412536e9bc93259eda", null ],
+    [ "evalJtPrim", "d1/df1/a03217.html#aaefb082bd08351f85d7229b48e5cf191", null ],
+    [ "exploreNeighbors", "d1/df1/a03217.html#a67217e0627420b218eee4bc4ab3a09ab", null ],
+    [ "getSubNetworks", "d1/df1/a03217.html#afd1b6cef759a31ef68af3d862aebc9c4", null ],
+    [ "initDerivatives", "d1/df1/a03217.html#a6c5cc2241578370a125419c3014edb2c", null ],
+    [ "initRefIslands", "d1/df1/a03217.html#a4bb7cf8083a182f23ee843a9167c1072", null ],
+    [ "resetCurrentUStatus", "d1/df1/a03217.html#a7b3ea90ccbfb4e8ce491c6632b7f41fb", null ],
+    [ "resetNodeInjections", "d1/df1/a03217.html#af47ec19771129cb5258e051195097230", null ],
+    [ "resetSubNetwork", "d1/df1/a03217.html#a2c5160c1075defd95514fde8f4aca10d", null ],
+    [ "models_", "d1/df1/a03217.html#a3976be468c819b3bf91c834c0d36a2cf", null ],
+    [ "subNetworks_", "d1/df1/a03217.html#a564137dde21fc01280ef085f69551601", null ]
 ];

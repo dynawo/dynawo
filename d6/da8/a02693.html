@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Connector Class Reference</title>
+<title>Dynawo: DYN::connectedSubModel Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,10 +96,10 @@ $(document).ready(function(){initNavTree('d6/da8/a02693.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../df/d5e/a02690.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Connector Class Reference</div>  </div>
+<div class="title">DYN::connectedSubModel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -107,71 +107,60 @@ $(document).ready(function(){initNavTree('d6/da8/a02693.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad7a33ae09e18b9675443a6dcf7726c7b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../df/dff/a02689.html">connectedSubModel</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#ad7a33ae09e18b9675443a6dcf7726c7b">connectedSubModels</a> ()</td></tr>
-<tr class="memdesc:ad7a33ae09e18b9675443a6dcf7726c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the submodels connected by the connector  <a href="#ad7a33ae09e18b9675443a6dcf7726c7b">More...</a><br /></td></tr>
-<tr class="separator:ad7a33ae09e18b9675443a6dcf7726c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b77ebe74392f85ea8044e5781c89c93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a6b77ebe74392f85ea8044e5781c89c93">addConnectedSubModel</a> (const <a class="el" href="../../df/dff/a02689.html">connectedSubModel</a> &amp;subModel)</td></tr>
-<tr class="memdesc:a6b77ebe74392f85ea8044e5781c89c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a submodel to the list of the submodel connected by the connector  <a href="#a6b77ebe74392f85ea8044e5781c89c93">More...</a><br /></td></tr>
-<tr class="separator:a6b77ebe74392f85ea8044e5781c89c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eae9f9937c692e59c908dcf30e9ffaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a9eae9f9937c692e59c908dcf30e9ffaa">addConnectedSubModel</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/da5/a02757.html">SubModel</a> &gt; &amp;subModel, const boost::shared_ptr&lt; <a class="el" href="../../d5/db0/a02777.html">Variable</a> &gt; &amp;variable, bool negated)</td></tr>
-<tr class="memdesc:a9eae9f9937c692e59c908dcf30e9ffaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a submodel to the list of the submodel connected by the connector  <a href="#a9eae9f9937c692e59c908dcf30e9ffaa">More...</a><br /></td></tr>
-<tr class="separator:a9eae9f9937c692e59c908dcf30e9ffaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54754ee3b17df3ef5c6308053965a3bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a54754ee3b17df3ef5c6308053965a3bc">nbConnectedSubModels</a> () const</td></tr>
-<tr class="memdesc:a54754ee3b17df3ef5c6308053965a3bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the number of subModel connected by the connector  <a href="#a54754ee3b17df3ef5c6308053965a3bc">More...</a><br /></td></tr>
-<tr class="separator:a54754ee3b17df3ef5c6308053965a3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7002ef5d5ffe8a57c1128dbb326b48"><td class="memItemLeft" align="right" valign="top"><a id="aee7002ef5d5ffe8a57c1128dbb326b48"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#aee7002ef5d5ffe8a57c1128dbb326b48">connectedSubModel</a> ()</td></tr>
+<tr class="memdesc:aee7002ef5d5ffe8a57c1128dbb326b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
+<tr class="separator:aee7002ef5d5ffe8a57c1128dbb326b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f953411f4b4393654dc0e6fb3e52eb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a4f953411f4b4393654dc0e6fb3e52eb8">connectedSubModel</a> (const boost::shared_ptr&lt; <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> &gt; &amp;<a class="el" href="../../d6/da8/a02693.html#af213dca085f01293cb0920adc32164c5">subModel</a>, const boost::shared_ptr&lt; <a class="el" href="../../d9/d95/a02781.html">Variable</a> &gt; <a class="el" href="../../d6/da8/a02693.html#ab74eee97c014990d464679b1992b9790">variable</a>, bool <a class="el" href="../../d6/da8/a02693.html#a77d517882e192a516c0be1c78ca1cf2f">negated</a>)</td></tr>
+<tr class="memdesc:a4f953411f4b4393654dc0e6fb3e52eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#a4f953411f4b4393654dc0e6fb3e52eb8">More...</a><br /></td></tr>
+<tr class="separator:a4f953411f4b4393654dc0e6fb3e52eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af213dca085f01293cb0920adc32164c5"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#af213dca085f01293cb0920adc32164c5">subModel</a> () const</td></tr>
+<tr class="memdesc:af213dca085f01293cb0920adc32164c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the submodel connected by the connector  <a href="#af213dca085f01293cb0920adc32164c5">More...</a><br /></td></tr>
+<tr class="separator:af213dca085f01293cb0920adc32164c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab74eee97c014990d464679b1992b9790"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d9/d95/a02781.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#ab74eee97c014990d464679b1992b9790">variable</a> () const</td></tr>
+<tr class="memdesc:ab74eee97c014990d464679b1992b9790"><td class="mdescLeft">&#160;</td><td class="mdescRight">the variable connected by the connectord inside the sub model  <a href="#ab74eee97c014990d464679b1992b9790">More...</a><br /></td></tr>
+<tr class="separator:ab74eee97c014990d464679b1992b9790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d517882e192a516c0be1c78ca1cf2f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a77d517882e192a516c0be1c78ca1cf2f">negated</a> () const</td></tr>
+<tr class="memdesc:a77d517882e192a516c0be1c78ca1cf2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the negated attribute  <a href="#a77d517882e192a516c0be1c78ca1cf2f">More...</a><br /></td></tr>
+<tr class="separator:a77d517882e192a516c0be1c78ca1cf2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a68063b5a8b37b2ecaf77f3b069ee30c0"><td class="memItemLeft" align="right" valign="top"><a id="a68063b5a8b37b2ecaf77f3b069ee30c0"></a>
-std::vector&lt; <a class="el" href="../../df/dff/a02689.html">connectedSubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a68063b5a8b37b2ecaf77f3b069ee30c0">connectedSubModels_</a></td></tr>
-<tr class="memdesc:a68063b5a8b37b2ecaf77f3b069ee30c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">submodels connected by this connector <br /></td></tr>
-<tr class="separator:a68063b5a8b37b2ecaf77f3b069ee30c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a8b033481b736e7efe6f22cd921e59799"><td class="memItemLeft" align="right" valign="top"><a id="a8b033481b736e7efe6f22cd921e59799"></a>
+boost::shared_ptr&lt; <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a8b033481b736e7efe6f22cd921e59799">subModel_</a></td></tr>
+<tr class="memdesc:a8b033481b736e7efe6f22cd921e59799"><td class="mdescLeft">&#160;</td><td class="mdescRight">submodel connected by the connector <br /></td></tr>
+<tr class="separator:a8b033481b736e7efe6f22cd921e59799"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2307bea09f9ac09b9edfd3a569b47f8c"><td class="memItemLeft" align="right" valign="top"><a id="a2307bea09f9ac09b9edfd3a569b47f8c"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d9/d95/a02781.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a2307bea09f9ac09b9edfd3a569b47f8c">variable_</a></td></tr>
+<tr class="memdesc:a2307bea09f9ac09b9edfd3a569b47f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">the variable <br /></td></tr>
+<tr class="separator:a2307bea09f9ac09b9edfd3a569b47f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f1c09d2671b8af2e99140d6f8ab761"><td class="memItemLeft" align="right" valign="top"><a id="a14f1c09d2671b8af2e99140d6f8ab761"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da8/a02693.html#a14f1c09d2671b8af2e99140d6f8ab761">negated_</a></td></tr>
+<tr class="memdesc:a14f1c09d2671b8af2e99140d6f8ab761"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the opposite of the variable should be used in the connector's equations <br /></td></tr>
+<tr class="separator:a14f1c09d2671b8af2e99140d6f8ab761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class <a class="el" href="../../d6/da8/a02693.html">Connector</a> : defines a connection between two/severables submodels works the same way as the modelica connector </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6b77ebe74392f85ea8044e5781c89c93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b77ebe74392f85ea8044e5781c89c93">&#9670;&nbsp;</a></span>addConnectedSubModel() <span class="overload">[1/2]</span></h2>
+<div class="textblock"><p>class <a class="el" href="../../d6/da8/a02693.html">connectedSubModel</a> : define a sub model used in a connector </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4f953411f4b4393654dc0e6fb3e52eb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f953411f4b4393654dc0e6fb3e52eb8">&#9670;&nbsp;</a></span>connectedSubModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Connector::addConnectedSubModel </td>
+          <td class="memname">DYN::connectedSubModel::connectedSubModel </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../df/dff/a02689.html">connectedSubModel</a> &amp;&#160;</td>
-          <td class="paramname"><em>subModel</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add a submodel to the list of the submodel connected by the connector </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">subModel</td><td>subModel connected by the connector </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9eae9f9937c692e59c908dcf30e9ffaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eae9f9937c692e59c908dcf30e9ffaa">&#9670;&nbsp;</a></span>addConnectedSubModel() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Connector::addConnectedSubModel </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/da5/a02757.html">SubModel</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>subModel</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d5/db0/a02777.html">Variable</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d9/d95/a02781.html">Variable</a> &gt;&#160;</td>
           <td class="paramname"><em>variable</em>, </td>
         </tr>
         <tr>
@@ -186,22 +175,28 @@ std::vector&lt; <a class="el" href="../../df/dff/a02689.html">connectedSubModel<
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>add a submodel to the list of the submodel connected by the connector </p>
+<p>constructor </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">subModel</td><td>subModel to add </td></tr>
-    <tr><td class="paramname">variable</td><td>the variable inside the subModel to use in the connector's equations </td></tr>
-    <tr><td class="paramname">negated</td><td><b>true</b> if the opposite of the variable should be used </td></tr>
+    <tr><td class="paramname">subModel</td><td>submodel connected </td></tr>
+    <tr><td class="paramname">variable</td><td>the variable to use in the connector </td></tr>
+    <tr><td class="paramname">negated</td><td><b>true</b> if the opposite of the variable should be used in the connector's equations </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ad7a33ae09e18b9675443a6dcf7726c7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7a33ae09e18b9675443a6dcf7726c7b">&#9670;&nbsp;</a></span>connectedSubModels()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a77d517882e192a516c0be1c78ca1cf2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d517882e192a516c0be1c78ca1cf2f">&#9670;&nbsp;</a></span>negated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,10 +205,10 @@ std::vector&lt; <a class="el" href="../../df/dff/a02689.html">connectedSubModel<
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="../../df/dff/a02689.html">connectedSubModel</a>&gt;&amp; DYN::Connector::connectedSubModels </td>
+          <td class="memname">bool DYN::connectedSubModel::negated </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -223,28 +218,64 @@ std::vector&lt; <a class="el" href="../../df/dff/a02689.html">connectedSubModel<
 </table>
 </div><div class="memdoc">
 
-<p>getter of the submodels connected by the connector </p>
-<dl class="section return"><dt>Returns</dt><dd>submodels connected by the connector </dd></dl>
+<p>getter of the negated attribute </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the opposite of the variable should be used in the connector's equations </dd></dl>
 
 </div>
 </div>
-<a id="a54754ee3b17df3ef5c6308053965a3bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54754ee3b17df3ef5c6308053965a3bc">&#9670;&nbsp;</a></span>nbConnectedSubModels()</h2>
+<a id="af213dca085f01293cb0920adc32164c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af213dca085f01293cb0920adc32164c5">&#9670;&nbsp;</a></span>subModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int DYN::Connector::nbConnectedSubModels </td>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../dd/d4a/a02761.html">SubModel</a>&gt; DYN::connectedSubModel::subModel </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>getter of the number of subModel connected by the connector </p>
-<dl class="section return"><dt>Returns</dt><dd>number of subModel connected by the connector </dd></dl>
+<p>getter of the submodel connected by the connector </p>
+<dl class="section return"><dt>Returns</dt><dd>the submodel connected by the connector </dd></dl>
+
+</div>
+</div>
+<a id="ab74eee97c014990d464679b1992b9790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab74eee97c014990d464679b1992b9790">&#9670;&nbsp;</a></span>variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d9/d95/a02781.html">Variable</a>&gt; DYN::connectedSubModel::variable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the variable connected by the connectord inside the sub model </p>
+<dl class="section return"><dt>Returns</dt><dd>the variable </dd></dl>
 
 </div>
 </div>
@@ -267,8 +298,8 @@ std::vector&lt; <a class="el" href="../../df/dff/a02689.html">connectedSubModel<
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/da8/a02693.html">Connector</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:23 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/da8/a02693.html">connectedSubModel</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['keep',['keep',['../dc/ddf/a03129.html#a405846834c838b9f9a56fb00687ec486',1,'DYN::memoryManagerChars']]],
+  ['keep',['keep',['../d0/d2a/a03133.html#a405846834c838b9f9a56fb00687ec486',1,'DYN::memoryManagerChars']]],
   ['keepsubnetwork',['KeepSubNetwork',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa57278a918c4155e2d5bc7733019ef396',1,'DYN::KeyLog_t']]],
   ['key',['key',['../df/dd3/a02569.html#afece191155e6c688708e8f0ba53cce0d',1,'DYN::Error']]],
   ['key2str',['key2Str',['../d8/deb/a00545.html#a543b39db82612484e7242b9bfe754628',1,'gtest_dynawo.h']]],
@@ -9,8 +9,8 @@ var searchData=
   ['keyerror_5ft',['KeyError_t',['../da/d03/a02577.html',1,'DYN']]],
   ['keylog_5ft',['KeyLog_t',['../d6/d10/a02621.html',1,'DYN']]],
   ['keytimeline_5ft',['KeyTimeline_t',['../d9/dfe/a02649.html',1,'DYN']]],
-  ['kin_5falgebraic',['KIN_ALGEBRAIC',['../d8/d1e/a03309.html#a4bf0942b1f7375689c1a69d86ce7b6ddae1741c9246fb712f4ee2052fef4a099d',1,'DYN::SolverKINAlgRestoration']]],
-  ['kin_5fderivatives',['KIN_DERIVATIVES',['../d8/d1e/a03309.html#a4bf0942b1f7375689c1a69d86ce7b6dda8b41dc73f7b613015418c561d01440c3',1,'DYN::SolverKINAlgRestoration']]],
+  ['kin_5falgebraic',['KIN_ALGEBRAIC',['../d8/dde/a03313.html#a4bf0942b1f7375689c1a69d86ce7b6ddae1741c9246fb712f4ee2052fef4a099d',1,'DYN::SolverKINAlgRestoration']]],
+  ['kin_5fderivatives',['KIN_DERIVATIVES',['../d8/dde/a03313.html#a4bf0942b1f7375689c1a69d86ce7b6dda8b41dc73f7b613015418c561d01440c3',1,'DYN::SolverKINAlgRestoration']]],
   ['kind',['kind',['../d8/d9c/a01733.html#ad02b1b78371283242dcb02205e187d9e',1,'constraints::ConstraintData']]],
   ['kind_5ft',['kind_t',['../d8/d9c/a01733.html#a6207b5c13ad5fa57b92d6477f533d387',1,'constraints::ConstraintData']]],
   ['kinerrorvalue',['KinErrorValue',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa3af580d678f43cbd1c6550fd01a0d403',1,'DYN::KeyLog_t']]],
@@ -25,7 +25,7 @@ var searchData=
   ['kinlsetupfail',['KinLsetupFail',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567faf58a67dd41aebdcf14f4c9caa97b4449',1,'DYN::KeyLog_t']]],
   ['kinlsolvefail',['KinLsolveFail',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa2269d34cb8719742d8458765be3e0aae',1,'DYN::KeyLog_t']]],
   ['kinmaxiterreached',['KinMaxIterReached',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa1452bac7ec9c614f813594383e7c84e0',1,'DYN::KeyLog_t']]],
-  ['kinmem_5f',['KINMem_',['../d8/dde/a03313.html#aa318a5852764ed1df2e2278432b93fc0',1,'DYN::SolverKINCommon']]],
+  ['kinmem_5f',['KINMem_',['../d8/ddd/a03317.html#aa318a5852764ed1df2e2278432b93fc0',1,'DYN::SolverKINCommon']]],
   ['kinmemfail',['KinMemFail',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567faf7d23320f78c039cd5b30cbb67885e6e',1,'DYN::KeyLog_t']]],
   ['kinmemnull',['KinMemNull',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa1ad6b9e35708edfb5ebc23863f06eb24',1,'DYN::KeyLog_t']]],
   ['kinmxnewt5xexceeded',['KinMxNewt5xExceeded',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567faef87a4baff834ffa043195fb9a19fa3a',1,'DYN::KeyLog_t']]],
@@ -35,9 +35,9 @@ var searchData=
   ['kinstepltstptol',['KinStepLtStpTol',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fac75681f6d888a3e7c3a195c9ca25a0c9',1,'DYN::KeyLog_t']]],
   ['kinsysfuncfail',['KinSysFuncFail',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa78ec17e16a95fff0b0baee4c2030c2d3',1,'DYN::KeyLog_t']]],
   ['kinvectoroperr',['KinVectoropErr',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567faeedc100f25bac9dbd3104fba7c8568b0',1,'DYN::KeyLog_t']]],
-  ['knownbus_5f',['knownBus_',['../dd/d07/a03233.html#a6fbdbb91704a48b8ce2c0d2f25bb83b1',1,'DYN::ModelLine::knownBus_()'],['../d0/d84/a03281.html#a7776bdcbecbc04d3898f67b260ba9d13',1,'DYN::ModelTwoWindingsTransformer::knownBus_()']]],
-  ['knownbus_5ft',['KnownBus_t',['../dd/d07/a03233.html#add62bcaad0b3548c7a216133916e466d',1,'DYN::ModelLine::KnownBus_t()'],['../d0/d84/a03281.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer::KnownBus_t()']]],
-  ['kp_5f',['kp_',['../da/d34/a03237.html#a68de877356309b94db9b14fb4e4c0b14',1,'DYN::ModelLoad']]],
-  ['kq_5f',['kq_',['../da/d34/a03237.html#a9eb5463381cf12aea870adccd0560cc6',1,'DYN::ModelLoad']]],
-  ['kreducestep_5f',['kReduceStep_',['../d3/dfd/a03357.html#ae86b87327b830528d9c270ab59d48494',1,'DYN::SolverCommonFixedTimeStep']]]
+  ['knownbus_5f',['knownBus_',['../da/d34/a03237.html#a6fbdbb91704a48b8ce2c0d2f25bb83b1',1,'DYN::ModelLine::knownBus_()'],['../d2/dfa/a03285.html#a7776bdcbecbc04d3898f67b260ba9d13',1,'DYN::ModelTwoWindingsTransformer::knownBus_()']]],
+  ['knownbus_5ft',['KnownBus_t',['../da/d34/a03237.html#add62bcaad0b3548c7a216133916e466d',1,'DYN::ModelLine::KnownBus_t()'],['../d2/dfa/a03285.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer::KnownBus_t()']]],
+  ['kp_5f',['kp_',['../dc/dc7/a03241.html#a68de877356309b94db9b14fb4e4c0b14',1,'DYN::ModelLoad']]],
+  ['kq_5f',['kq_',['../dc/dc7/a03241.html#a9eb5463381cf12aea870adccd0560cc6',1,'DYN::ModelLoad']]],
+  ['kreducestep_5f',['kReduceStep_',['../df/d67/a03361.html#ae86b87327b830528d9c270ab59d48494',1,'DYN::SolverCommonFixedTimeStep']]]
 ];

@@ -95,15 +95,29 @@ $(document).ready(function(){initNavTree('d8/d1e/a02801.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::VariableNativeFactory Member List</div>  </div>
+<div class="title">DYN::VariableNative Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNativeFactory</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a018f0dcbbaf4e22ba847bccd0243db50">create</a>(const std::string &amp;name, const typeVar_t &amp;type, bool isState, bool negated=false)</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNativeFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#aa53a4ad174d9af305d7e918e9770d429">createCalculated</a>(const std::string &amp;name, const typeVar_t &amp;type, bool negated=false)</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNativeFactory</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#af4c815ae1d0b0ebd989ca90ed1080452">createState</a>(const std::string &amp;name, const typeVar_t &amp;type, bool negated=false)</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNativeFactory</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#abc427cd31b10dc64667b12f0d3cc9208">getIndex</a>() const</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#ac405b90d345ec23e7b2b81d6e3fd9e50">getName</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a3f1fb631a4a9afc434848dd99a7cc328">getNegated</a>() const</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a5316e74b3930690eef136ab6ab2378bd">getType</a>() const</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#aa028b1dc473c368f45c1eaa11296bc56">index_</a></td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a4f1d21c927ca3dd3b609ae40d5cc6134">indexSet</a>() const</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a9b1c390db423cc65dfa295002ae9e610">isAlias</a>() const</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a8f2ea753987271f7ba23a619d800e2b5">isState</a>() const</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a6b9b9de767db310d12a5676f71ec10c7">isState_</a></td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#ac762e958eff220aabc7a6b447dfa8777">negated_</a></td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a9c472054434719df86296f158e3a8e0d">setIndex</a>(const int &amp;index)</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a69bb357bdc98f63e584849baa37cc574">type_</a></td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d95/a02781.html#afedfc480818763cdd9343d784fcfbd68">Variable</a>(const std::string &amp;name, bool isAlias)</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#a0349475e1f52610e1e2777bd7c5ebdcb">VariableNative</a>(const std::string &amp;name, const typeVar_t &amp;type, bool isState, bool negated)</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#af6a630243844343031ccbcd16c757a51">VariableNative</a>()</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d95/a02781.html#a764e54ddbd24a65d0ce70e69cd6c5d10">~Variable</a>()</td><td class="entry"><a class="el" href="../../d9/d95/a02781.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d1e/a02801.html#ab2379cabab9a84a7c625b26779b97f31">~VariableNative</a>()=default</td><td class="entry"><a class="el" href="../../d8/d1e/a02801.html">DYN::VariableNative</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +134,7 @@ $(document).ready(function(){initNavTree('d8/d1e/a02801.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:22 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

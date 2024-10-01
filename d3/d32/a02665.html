@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Trace::TraceSinks Struct Reference</title>
+<title>Dynawo: DYN::Trace::TagAndSeverityLevelHash Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,32 +95,63 @@ $(document).ready(function(){initNavTree('d3/d32/a02665.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d3/dd0/a02662.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Trace::TraceSinks Struct Reference</div>  </div>
+<div class="title">DYN::Trace::TagAndSeverityLevelHash Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Stucture defining traces for a specific thread.  
+<p>Hash structure for TagAndSeverityLevel.  
  <a href="../../d3/d32/a02665.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d3/d87/a00539_source.html">DYNTrace.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aff3103ffee87eba1626261f350bf043a"><td class="memItemLeft" align="right" valign="top"><a id="aff3103ffee87eba1626261f350bf043a"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d8/d69/a02661.html#ac6cbc4466135a8df56745e551c5fa942">FileSink</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d32/a02665.html#aff3103ffee87eba1626261f350bf043a">sinks</a></td></tr>
-<tr class="memdesc:aff3103ffee87eba1626261f350bf043a"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of file sink <br /></td></tr>
-<tr class="separator:aff3103ffee87eba1626261f350bf043a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44f91ccb99733d3f19ea38f42307ca60"><td class="memItemLeft" align="right" valign="top"><a id="a44f91ccb99733d3f19ea38f42307ca60"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d8/d69/a02661.html#ac6cbc4466135a8df56745e551c5fa942">FileSink</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d32/a02665.html#a44f91ccb99733d3f19ea38f42307ca60">persistantSinks</a></td></tr>
-<tr class="memdesc:a44f91ccb99733d3f19ea38f42307ca60"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of persistant file sink <br /></td></tr>
-<tr class="separator:a44f91ccb99733d3f19ea38f42307ca60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abf4d9c5fb1f5ae0fa5916a1c97abbb0a"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d32/a02665.html#abf4d9c5fb1f5ae0fa5916a1c97abbb0a">operator()</a> (const <a class="el" href="../../d8/d69/a02661.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a> &amp;tagAndSeverityLevel) const</td></tr>
+<tr class="memdesc:abf4d9c5fb1f5ae0fa5916a1c97abbb0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator to retrieve tagAndSeverityLevel hash value.  <a href="#abf4d9c5fb1f5ae0fa5916a1c97abbb0a">More...</a><br /></td></tr>
+<tr class="separator:abf4d9c5fb1f5ae0fa5916a1c97abbb0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stucture defining traces for a specific thread. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<div class="textblock"><p>Hash structure for TagAndSeverityLevel. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abf4d9c5fb1f5ae0fa5916a1c97abbb0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf4d9c5fb1f5ae0fa5916a1c97abbb0a">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t DYN::Trace::TagAndSeverityLevelHash::operator() </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d8/d69/a02661.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a> &amp;&#160;</td>
+          <td class="paramname"><em>tagAndSeverityLevel</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Operator to retrieve tagAndSeverityLevel hash value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tagAndSeverityLevel</td><td>the tagAndSeverityLevel to hash </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the hash value </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="../../d3/d87/a00539_source.html">DYNTrace.h</a></li>
 </ul>
 </div><!-- contents -->
@@ -139,8 +170,8 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d8/d69/a02661.ht
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d8/d69/a02661.html">Trace</a></li><li class="navelem"><a class="el" href="../../d3/d32/a02665.html">TraceSinks</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d8/d69/a02661.html">Trace</a></li><li class="navelem"><a class="el" href="../../d3/d32/a02665.html">TagAndSeverityLevelHash</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

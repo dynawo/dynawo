@@ -1,11 +1,10 @@
 var a02833 =
 [
-    [ "BusFailingCriteria", "d0/d2b/a02833.html#ab9d417097f28ffac70ab3aba33b046b4", null ],
-    [ "getDistance", "d0/d2b/a02833.html#a0636fced5d74e9123d52f34a01aa8303", null ],
-    [ "printOneFailingCriteriaIntoLog", "d0/d2b/a02833.html#a0b2b18592f8f3a0a3442bcb6005bc409", null ],
-    [ "printOneFailingCriteriaIntoTimeline", "d0/d2b/a02833.html#a1e47e72926a31d455f91a52c80dbc9e5", null ],
-    [ "v_", "d0/d2b/a02833.html#af9f40a2ed42b95f8ba91d323c7667c5d", null ],
-    [ "vBound_", "d0/d2b/a02833.html#af9add492a21834086f8c4f03081d81e1", null ],
-    [ "vBoundPu_", "d0/d2b/a02833.html#affc15977cc37c6f1cfca44294ba67cc8", null ],
-    [ "vPu_", "d0/d2b/a02833.html#acc8d14ba539819028ef3843adc93e9ee", null ]
+    [ "BusFailingCriteria", "dc/dfd/a02837.html", "dc/dfd/a02837" ],
+    [ "BusCriteria", "d0/d2b/a02833.html#a0ab52896701c89a6c53256fc3146f7f9", null ],
+    [ "addBus", "d0/d2b/a02833.html#a399ef76918b051f208b4e023ffbef2c2", null ],
+    [ "checkCriteria", "d0/d2b/a02833.html#a205fc902aceedd88ee637cb827cd135e", null ],
+    [ "criteriaEligibleForBus", "d0/d2b/a02833.html#aa460bb562821587e2c6acb42d89145b0", null ],
+    [ "empty", "d0/d2b/a02833.html#aa709f28a847f4680db9e9356b6a723e2", null ],
+    [ "buses_", "d0/d2b/a02833.html#a3398d7c85e7298391f2ba6d6079f4c46", null ]
 ];

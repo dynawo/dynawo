@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SubModelFactories Class Reference</title>
+<title>Dynawo: DYN::SubModelFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,214 +95,73 @@ $(document).ready(function(){initNavTree('d1/da5/a02769.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../dd/deb/a02766.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SubModelFactories Class Reference</div>  </div>
+<div class="title">DYN::SubModelFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d1/da5/a02769.html" title="SubModelFactories class. ">SubModelFactories</a> class.  
+<p><a class="el" href="../../d1/da5/a02769.html" title="SubModelFactory class. ">SubModelFactory</a> class.  
  <a href="../../d1/da5/a02769.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d4/dc4/a00617_source.html">DYNSubModelFactory.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for DYN::SubModelFactories:</div>
+Inheritance diagram for DYN::SubModelFactory:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d1/da5/a02769.png" usemap="#DYN::SubModelFactories_map" alt=""/>
-  <map id="DYN::SubModelFactories_map" name="DYN::SubModelFactories_map">
+  <img src="../../d1/da5/a02769.png" usemap="#DYN::SubModelFactory_map" alt=""/>
+  <map id="DYN::SubModelFactory_map" name="DYN::SubModelFactory_map">
+<area href="../../dc/d10/a03169.html" title="ModelAreaSheddingFactory Model factory. " alt="DYN::ModelAreaSheddingFactory" shape="rect" coords="319,112,628,136"/>
+<area href="../../db/d44/a03153.html" title="ModelCentralizedShuntsSectionControl factory. " alt="DYN::ModelCentralizedShuntsSectionControlFactory" shape="rect" coords="319,168,628,192"/>
+<area href="../../dd/d02/a03145.html" title="ModelLoadRestorativeWithLimits factory. " alt="DYN::ModelLoadRestorativeWithLimitsFactory" shape="rect" coords="319,224,628,248"/>
+<area href="../../d2/daf/a03245.html" title="Network Model factory. " alt="DYN::ModelNetworkFactory" shape="rect" coords="319,280,628,304"/>
+<area href="../../d6/d04/a03193.html" title="Reference frequency factory. " alt="DYN::ModelOmegaRefFactory" shape="rect" coords="319,336,628,360"/>
+<area href="../../d7/d90/a03177.html" title="ModelVariationAreaFactory Model factory. " alt="DYN::ModelVariationAreaFactory" shape="rect" coords="319,392,628,416"/>
+<area href="../../d0/d04/a03161.html" title="ModelVoltageMeasurementsUtilitiesFactory factory. " alt="DYN::ModelVoltageMeasurementsUtilitiesFactory" shape="rect" coords="319,448,628,472"/>
+<area href="../../d1/d30/a03185.html" title="ModelVoltageSetPointChangeFactory Model factory. " alt="DYN::ModelVoltageSetPointChangeFactory" shape="rect" coords="319,504,628,528"/>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab5351c207c612eb73ef3a9739a98ad61"><td class="memItemLeft" align="right" valign="top"><a id="ab5351c207c612eb73ef3a9739a98ad61"></a>
-typedef std::map&lt; std::string, <a class="el" href="../../da/d73/a02765.html">SubModelFactory</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a></td></tr>
-<tr class="memdesc:ab5351c207c612eb73ef3a9739a98ad61"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator type on <a class="el" href="../../da/d73/a02765.html" title="SubModelFactory class. ">SubModelFactory</a> map. <br /></td></tr>
-<tr class="separator:ab5351c207c612eb73ef3a9739a98ad61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4fdc8a4a7dd70013ba210eeb94d331eb"><td class="memItemLeft" align="right" valign="top"><a id="a4fdc8a4a7dd70013ba210eeb94d331eb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a4fdc8a4a7dd70013ba210eeb94d331eb">SubModelFactories</a> ()</td></tr>
-<tr class="memdesc:a4fdc8a4a7dd70013ba210eeb94d331eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a4fdc8a4a7dd70013ba210eeb94d331eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac68cc519b03e4c72239c2f4b7378a278"><td class="memItemLeft" align="right" valign="top"><a id="ac68cc519b03e4c72239c2f4b7378a278"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#ac68cc519b03e4c72239c2f4b7378a278">~SubModelFactories</a> ()</td></tr>
-<tr class="memdesc:ac68cc519b03e4c72239c2f4b7378a278"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:ac68cc519b03e4c72239c2f4b7378a278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc4c5c842403576888b3c7ca1e3878fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/da5/a02769.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#afc4c5c842403576888b3c7ca1e3878fc">find</a> (const std::string &amp;lib)</td></tr>
-<tr class="memdesc:afc4c5c842403576888b3c7ca1e3878fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get available factory for a given library name.  <a href="#afc4c5c842403576888b3c7ca1e3878fc">More...</a><br /></td></tr>
-<tr class="separator:afc4c5c842403576888b3c7ca1e3878fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0c8640f5a30c88b65290e718cb38b16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#af0c8640f5a30c88b65290e718cb38b16">end</a> (<a class="el" href="../../d1/da5/a02769.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a> &amp;iter)</td></tr>
-<tr class="memdesc:af0c8640f5a30c88b65290e718cb38b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a map iterator is the end operator of factories map.  <a href="#af0c8640f5a30c88b65290e718cb38b16">More...</a><br /></td></tr>
-<tr class="separator:af0c8640f5a30c88b65290e718cb38b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ee9d92721e6cc93227fa125c25197a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a9ee9d92721e6cc93227fa125c25197a0">add</a> (const std::string &amp;lib, <a class="el" href="../../da/d73/a02765.html">SubModelFactory</a> *factory)</td></tr>
-<tr class="memdesc:a9ee9d92721e6cc93227fa125c25197a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a factory associated to a given given library name.  <a href="#a9ee9d92721e6cc93227fa125c25197a0">More...</a><br /></td></tr>
-<tr class="separator:a9ee9d92721e6cc93227fa125c25197a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e0552afdb132766a0e2fc8fa3448f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#af9e0552afdb132766a0e2fc8fa3448f0">add</a> (const std::string &amp;lib, const boost::function&lt; deleteSubModelFactory_t &gt; &amp;<a class="el" href="../../d7/d59/a01013.html#ae06ace1114b6742f6c3f55977e345710">deleteFactory</a>)</td></tr>
-<tr class="memdesc:af9e0552afdb132766a0e2fc8fa3448f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a factory associated to its destruction method.  <a href="#af9e0552afdb132766a0e2fc8fa3448f0">More...</a><br /></td></tr>
-<tr class="separator:af9e0552afdb132766a0e2fc8fa3448f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bb6496935dc2d52e0c560aeefe28aa8"><td class="memItemLeft" align="right" valign="top"><a id="a1bb6496935dc2d52e0c560aeefe28aa8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a1bb6496935dc2d52e0c560aeefe28aa8">SubModelFactory</a> ()</td></tr>
+<tr class="memdesc:a1bb6496935dc2d52e0c560aeefe28aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:a1bb6496935dc2d52e0c560aeefe28aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae89abfad8d2a15989016592b78982a"><td class="memItemLeft" align="right" valign="top"><a id="aeae89abfad8d2a15989016592b78982a"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#aeae89abfad8d2a15989016592b78982a">~SubModelFactory</a> ()</td></tr>
+<tr class="memdesc:aeae89abfad8d2a15989016592b78982a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aeae89abfad8d2a15989016592b78982a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd583c8cef912d3c0ee48ac7dc7338a8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#acd583c8cef912d3c0ee48ac7dc7338a8">create</a> () const =0</td></tr>
+<tr class="memdesc:acd583c8cef912d3c0ee48ac7dc7338a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of a submodel  <a href="#acd583c8cef912d3c0ee48ac7dc7338a8">More...</a><br /></td></tr>
+<tr class="separator:acd583c8cef912d3c0ee48ac7dc7338a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31031e42bdb59f3bd55ef9000c94762"><td class="memItemLeft" align="right" valign="top"><a id="ac31031e42bdb59f3bd55ef9000c94762"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#ac31031e42bdb59f3bd55ef9000c94762">destroy</a> (<a class="el" href="../../dd/d4a/a02761.html">SubModel</a> *) const =0</td></tr>
+<tr class="memdesc:ac31031e42bdb59f3bd55ef9000c94762"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy an instance of a submodel <br /></td></tr>
+<tr class="separator:ac31031e42bdb59f3bd55ef9000c94762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a85998552d18633d6af5527d081a84ce8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/da5/a02769.html">SubModelFactories</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a85998552d18633d6af5527d081a84ce8">getInstance</a> ()</td></tr>
-<tr class="memdesc:a85998552d18633d6af5527d081a84ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get unique instance.  <a href="#a85998552d18633d6af5527d081a84ce8">More...</a><br /></td></tr>
-<tr class="separator:a85998552d18633d6af5527d081a84ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadba5eed3d7b590d7a855998f7b264a"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#acadba5eed3d7b590d7a855998f7b264a">createSubModelFromLib</a> (const std::string &amp;lib)</td></tr>
+<tr class="memdesc:acadba5eed3d7b590d7a855998f7b264a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a submodel loading given lib.  <a href="#acadba5eed3d7b590d7a855998f7b264a">More...</a><br /></td></tr>
+<tr class="separator:acadba5eed3d7b590d7a855998f7b264a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa66382e18d00c812c8390232e6ed79aa"><td class="memItemLeft" align="right" valign="top"><a id="aa66382e18d00c812c8390232e6ed79aa"></a>
-std::map&lt; std::string, <a class="el" href="../../da/d73/a02765.html">SubModelFactory</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#aa66382e18d00c812c8390232e6ed79aa">factoryMap_</a></td></tr>
-<tr class="memdesc:aa66382e18d00c812c8390232e6ed79aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a library factory with the name of the library <br /></td></tr>
-<tr class="separator:aa66382e18d00c812c8390232e6ed79aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7898b3af84931d1572aa4a6d0ed1820c"><td class="memItemLeft" align="right" valign="top"><a id="a7898b3af84931d1572aa4a6d0ed1820c"></a>
-std::map&lt; std::string, boost::function&lt; deleteSubModelFactory_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a7898b3af84931d1572aa4a6d0ed1820c">factoryMapDelete_</a></td></tr>
-<tr class="memdesc:a7898b3af84931d1572aa4a6d0ed1820c"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a library factory with its destruction method <br /></td></tr>
-<tr class="separator:a7898b3af84931d1572aa4a6d0ed1820c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87c7565d49811d4ce00434c86757eaec"><td class="memItemLeft" align="right" valign="top"><a id="a87c7565d49811d4ce00434c86757eaec"></a>
-std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a87c7565d49811d4ce00434c86757eaec">factoriesMutex_</a></td></tr>
-<tr class="memdesc:a87c7565d49811d4ce00434c86757eaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to handle multithreading access to factories. <br /></td></tr>
-<tr class="separator:a87c7565d49811d4ce00434c86757eaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a801e01b80f9214f3af8c933f24e9f297"><td class="memItemLeft" align="right" valign="top"><a id="a801e01b80f9214f3af8c933f24e9f297"></a>
+boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/a02769.html#a801e01b80f9214f3af8c933f24e9f297">lib_</a></td></tr>
+<tr class="memdesc:a801e01b80f9214f3af8c933f24e9f297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Library of the submodel. <br /></td></tr>
+<tr class="separator:a801e01b80f9214f3af8c933f24e9f297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d1/da5/a02769.html" title="SubModelFactories class. ">SubModelFactories</a> class. </p>
-<p>Manage submodel factories to avoid loading the same library multiple time. </p>
+<div class="textblock"><p><a class="el" href="../../d1/da5/a02769.html" title="SubModelFactory class. ">SubModelFactory</a> class. </p>
+<p>Utility interface used to define a building class for sub models. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9ee9d92721e6cc93227fa125c25197a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ee9d92721e6cc93227fa125c25197a0">&#9670;&nbsp;</a></span>add() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SubModelFactories::add </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../da/d73/a02765.html">SubModelFactory</a> *&#160;</td>
-          <td class="paramname"><em>factory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a factory associated to a given given library name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the submodel library to add - key in the map </td></tr>
-    <tr><td class="paramname">factory</td><td>: Pointer to the <a class="el" href="../../d9/da5/a02757.html" title="SubModel Class. ">SubModel</a> to add - value in the map </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af9e0552afdb132766a0e2fc8fa3448f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e0552afdb132766a0e2fc8fa3448f0">&#9670;&nbsp;</a></span>add() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SubModelFactories::add </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::function&lt; deleteSubModelFactory_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>deleteFactory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a factory associated to its destruction method. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the submodel library to add - key in the map </td></tr>
-    <tr><td class="paramname">deleteFactory</td><td>: function pointer to a desctruction method map </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af0c8640f5a30c88b65290e718cb38b16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0c8640f5a30c88b65290e718cb38b16">&#9670;&nbsp;</a></span>end()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::SubModelFactories::end </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d1/da5/a02769.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a> &amp;&#160;</td>
-          <td class="paramname"><em>iter</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Test if a map iterator is the end operator of factories map. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iter</td><td>: Iterator to test, typically obtained via <code><a class="el" href="../../d1/da5/a02769.html#afc4c5c842403576888b3c7ca1e3878fc" title="Get available factory for a given library name. ">SubModelFactories::find()</a></code> function </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the iterator is the end operator of the factories, <b>false</b> otherwise. </dd></dl>
-
-</div>
-</div>
-<a id="afc4c5c842403576888b3c7ca1e3878fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc4c5c842403576888b3c7ca1e3878fc">&#9670;&nbsp;</a></span>find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/da5/a02769.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a> DYN::SubModelFactories::find </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get available factory for a given library name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the submodel library to load </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A map iterator whose key is the library name and whose value is a pointer to the <a class="el" href="../../da/d73/a02765.html" title="SubModelFactory class. ">SubModelFactory</a>. </dd></dl>
-
-</div>
-</div>
-<a id="a85998552d18633d6af5527d081a84ce8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85998552d18633d6af5527d081a84ce8">&#9670;&nbsp;</a></span>getInstance()</h2>
+<a id="acd583c8cef912d3c0ee48ac7dc7338a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd583c8cef912d3c0ee48ac7dc7338a8">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,9 +170,40 @@ std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d1/da5/a02769.html">SubModelFactories</a>&amp; DYN::SubModelFactories::getInstance </td>
+          <td class="memname">virtual <a class="el" href="../../dd/d4a/a02761.html">SubModel</a>* DYN::SubModelFactory::create </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>create a new instance of a submodel </p>
+<dl class="section return"><dt>Returns</dt><dd>the new instance of submodel </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d2/daf/a03245.html#a437a6f892d00ca6e102c5b97a9114683">DYN::ModelNetworkFactory</a>, <a class="el" href="../../dd/d02/a03145.html#ab90ef519f09c7ed9e5e4b719aa1ce452">DYN::ModelLoadRestorativeWithLimitsFactory</a>, <a class="el" href="../../d0/d04/a03161.html#a7205e09c4fd26162644fef5bae166de4">DYN::ModelVoltageMeasurementsUtilitiesFactory</a>, <a class="el" href="../../db/d44/a03153.html#ad6eb84354a62ba98333ed0c90f7e7215">DYN::ModelCentralizedShuntsSectionControlFactory</a>, <a class="el" href="../../d6/d04/a03193.html#a3e32614283fd852f11a7c493fae15a37">DYN::ModelOmegaRefFactory</a>, <a class="el" href="../../dc/d10/a03169.html#a061c1e00a4e9423f8a50f60597f30b68">DYN::ModelAreaSheddingFactory</a>, <a class="el" href="../../d7/d90/a03177.html#a9dab9da6d0d71cafc380d806f7981e3f">DYN::ModelVariationAreaFactory</a>, and <a class="el" href="../../d1/d30/a03185.html#affdb8f49762cd0ccac57c69b8996cc5c">DYN::ModelVoltageSetPointChangeFactory</a>.</p>
+
+</div>
+</div>
+<a id="acadba5eed3d7b590d7a855998f7b264a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acadba5eed3d7b590d7a855998f7b264a">&#9670;&nbsp;</a></span>createSubModelFromLib()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../dd/d4a/a02761.html">SubModel</a>&gt; DYN::SubModelFactory::createSubModelFromLib </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>lib</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -324,8 +214,14 @@ std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </table>
 </div><div class="memdoc">
 
-<p>Get unique instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>The unique instance </dd></dl>
+<p>Create a submodel loading given lib. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lib</td><td>: Name of the submodel library to load </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the created submodel </dd></dl>
 
 </div>
 </div>
@@ -348,8 +244,8 @@ std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/da5/a02769.html">SubModelFactories</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/da5/a02769.html">SubModelFactory</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

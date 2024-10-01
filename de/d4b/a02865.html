@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::CurrentLimits::CurrentLimitSideHash Struct Reference</title>
+<title>Dynawo: DYN::CurrentLimits Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,63 +95,35 @@ $(document).ready(function(){initNavTree('de/d4b/a02865.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d3/dee/a02862.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::CurrentLimits::CurrentLimitSideHash Struct Reference</div>  </div>
+<div class="title">DYN::CurrentLimits Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Hash structure for CurrentLimitSide.  
+<p>Current limits.  
  <a href="../../de/d4b/a02865.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d0/d5c/a00668_source.html">DYNCurrentLimits.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:afed2f24eec4786ca67e61b164b8d38d7"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4b/a02865.html#afed2f24eec4786ca67e61b164b8d38d7">operator()</a> (<a class="el" href="../../d0/d5c/a00668.html#a226f780bafecbaf93400149cb031d002">CurrentLimitSide</a> currentLimitSide) const</td></tr>
-<tr class="memdesc:afed2f24eec4786ca67e61b164b8d38d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator to retrieve currentLimitSide hash value.  <a href="#afed2f24eec4786ca67e61b164b8d38d7">More...</a><br /></td></tr>
-<tr class="separator:afed2f24eec4786ca67e61b164b8d38d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d69/a02869.html">CurrentLimitSideHash</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for CurrentLimitSide.  <a href="../../d4/d69/a02869.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a43ad197a35ea2abe89d8a0052ea05c87"><td class="memItemLeft" align="right" valign="top"><a id="a43ad197a35ea2abe89d8a0052ea05c87"></a>
+std::unordered_map&lt; <a class="el" href="../../d0/d5c/a00668.html#a226f780bafecbaf93400149cb031d002">CurrentLimitSide</a>, boost::shared_ptr&lt; <a class="el" href="../../de/d09/a02861.html">CurrentLimit</a> &gt;, <a class="el" href="../../d4/d69/a02869.html">CurrentLimitSideHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4b/a02865.html#a43ad197a35ea2abe89d8a0052ea05c87">currentLimits</a></td></tr>
+<tr class="memdesc:a43ad197a35ea2abe89d8a0052ea05c87"><td class="mdescLeft">&#160;</td><td class="mdescRight">current limits <br /></td></tr>
+<tr class="separator:a43ad197a35ea2abe89d8a0052ea05c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Hash structure for CurrentLimitSide. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="afed2f24eec4786ca67e61b164b8d38d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afed2f24eec4786ca67e61b164b8d38d7">&#9670;&nbsp;</a></span>operator()()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t DYN::CurrentLimits::CurrentLimitSideHash::operator() </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d5c/a00668.html#a226f780bafecbaf93400149cb031d002">CurrentLimitSide</a>&#160;</td>
-          <td class="paramname"><em>currentLimitSide</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Operator to retrieve currentLimitSide hash value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentLimitSide</td><td>the currentLimitSide to hash </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the hash value </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<div class="textblock"><p>Current limits. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="../../d0/d5c/a00668_source.html">DYNCurrentLimits.h</a></li>
 </ul>
 </div><!-- contents -->
@@ -170,8 +142,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d09/a02861.html">CurrentLimits</a></li><li class="navelem"><a class="el" href="../../de/d4b/a02865.html">CurrentLimitSideHash</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:23 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d4b/a02865.html">CurrentLimits</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

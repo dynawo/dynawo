@@ -1,6 +1,10 @@
 var a02849 =
 [
-    [ "~CurrentLimitInterface", "d5/dd2/a02849.html#a2649ad67e2cdcbe0ca67333b56d26d8a", null ],
-    [ "getAcceptableDuration", "d5/dd2/a02849.html#abf10c2fa3a5f97d0d75dde1412aab4b1", null ],
-    [ "getLimit", "d5/dd2/a02849.html#a7031713913c28ceec6fe491d76ca96f0", null ]
+    [ "GeneratorCriteria", "d5/dd2/a02849.html#ae4fb4b6761e4c3def5e944d944c4a954", null ],
+    [ "addGenerator", "d5/dd2/a02849.html#a83e09fa55611777bd74feaa6e4f244e5", null ],
+    [ "checkCriteria", "d5/dd2/a02849.html#a1c2fcd1f61a42c0a4c851c083ebe260e", null ],
+    [ "checkCriteriaInLocalValueOrSumType", "d5/dd2/a02849.html#a43e8606cf3e24659ca78f71990767336", null ],
+    [ "criteriaEligibleForGenerator", "d5/dd2/a02849.html#a5c72a09196491c85c08ee93658976b46", null ],
+    [ "empty", "d5/dd2/a02849.html#adccf8513b1ba749ab0515b3370675d03", null ],
+    [ "generators_", "d5/dd2/a02849.html#ad1392da3e52e020715b11d4d4b474160", null ]
 ];

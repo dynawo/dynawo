@@ -1,8 +1,8 @@
 var searchData=
 [
   ['keepsubnetwork',['KeepSubNetwork',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa57278a918c4155e2d5bc7733019ef396',1,'DYN::KeyLog_t']]],
-  ['kin_5falgebraic',['KIN_ALGEBRAIC',['../d8/d1e/a03309.html#a4bf0942b1f7375689c1a69d86ce7b6ddae1741c9246fb712f4ee2052fef4a099d',1,'DYN::SolverKINAlgRestoration']]],
-  ['kin_5fderivatives',['KIN_DERIVATIVES',['../d8/d1e/a03309.html#a4bf0942b1f7375689c1a69d86ce7b6dda8b41dc73f7b613015418c561d01440c3',1,'DYN::SolverKINAlgRestoration']]],
+  ['kin_5falgebraic',['KIN_ALGEBRAIC',['../d8/dde/a03313.html#a4bf0942b1f7375689c1a69d86ce7b6ddae1741c9246fb712f4ee2052fef4a099d',1,'DYN::SolverKINAlgRestoration']]],
+  ['kin_5fderivatives',['KIN_DERIVATIVES',['../d8/dde/a03313.html#a4bf0942b1f7375689c1a69d86ce7b6dda8b41dc73f7b613015418c561d01440c3',1,'DYN::SolverKINAlgRestoration']]],
   ['kinerrorvalue',['KinErrorValue',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa3af580d678f43cbd1c6550fd01a0d403',1,'DYN::KeyLog_t']]],
   ['kinfirstsysfuncerr',['KinFirstSysFuncErr',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa3e0184f965f92492dc5a647562f25fdc',1,'DYN::KeyLog_t']]],
   ['kinillinput',['KinIllInput',['../d6/d10/a02621.html#a963225344a251150ba0ad6d5264f567fa5e4db6ca4b6e227454dc6ba65be01dad',1,'DYN::KeyLog_t']]],

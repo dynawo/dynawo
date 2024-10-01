@@ -95,22 +95,26 @@ $(document).ready(function(){initNavTree('d9/d93/a02753.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::StaticRefInterface Member List</div>  </div>
+<div class="title">DYN::RingBuffer Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#ab86352eb72884c4b9d4c68fb39efc72a">getModelID</a>() const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a9f81dc9d8ed0899fd2de2445e7d6c1c3">getModelVar</a>() const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#ab656046aeac2cb527b71c5ab7fd2d789">getStaticVar</a>() const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a65f2063c471f8dffbedf2ca538e65f15">modelID_</a></td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a09d8dff117d7f701b68bb7a7fb13768a">modelVar_</a></td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a869f557cbbee5f0e6d522acb02bb0e5b">setModelID</a>(const std::string &amp;modelID)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a6a1ba26b0ca11ad2b6b9e73de5f204b7">setModelVar</a>(const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a8cfc48d6b6d027fb48fb0bc4a4ea7f78">setStaticVar</a>(const std::string &amp;staticVar)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a101886c8300663cd43f00f15a9503a12">staticVar_</a></td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a3e109d66fed1323eab5a73ae861a0d62">~StaticRefInterface</a>()=default</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::StaticRefInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a07a4add1e5799c6d73e6bc408341dfa1">add</a>(double time, double value)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a45b55406c41acc3342e6e180ae5876b1">addNoCheck</a>(double time, double value)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a96dee574ce1d6d2de1a7a5ebae4bb8de">comparePairTime</a>(const std::pair&lt; double, double &gt; &amp;pair, const double &amp;time_value) const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a26007cf32fd0b9a5a456e59a040dcf0a">get</a>(double time, double delay) const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a6a92c0adbeef919c1f240c4e0d49b83c">getLastRegisteredPoint</a>() const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#afd1155173455e5cd1b7cc7535866c524">interpol</a>(const std::pair&lt; double, double &gt; &amp;p1, const std::pair&lt; double, double &gt; &amp;p2, double time)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a96df715cc4d327a537c92ca61d8c917d">maxDelay</a>(double delayMax)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a609a67545ddf6ec2740b06634961511c">maxDelay</a>() const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a5532385a381f135c208a5047969798fa">maxDelay_</a></td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a69ad1b5bc88d242d00a6697973c5880d">points</a>(std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;vec) const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a110e553c846e4ca76e3d33084987ff93">queue_</a></td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#a9a79374ea00ec0cb0e4d4899b14dd4a1">removeUseless</a>()</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d93/a02753.html#af87a5ad958ec87bf59eafb5760d8f862">RingBuffer</a>(double maxDelay)</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d93/a02753.html#ae433c039455069df5c059b02050f7e59">size</a>() const</td><td class="entry"><a class="el" href="../../d9/d93/a02753.html">DYN::RingBuffer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -127,7 +131,7 @@ $(document).ready(function(){initNavTree('d9/d93/a02753.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

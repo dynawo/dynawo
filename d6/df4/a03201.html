@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::BusDerivatives Class Reference</title>
+<title>Dynawo: DYN::Derivatives Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -99,61 +99,47 @@ $(document).ready(function(){initNavTree('d6/df4/a03201.html','../../');});
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../da/dd3/a03198.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::BusDerivatives Class Reference</div>  </div>
+<div class="title">DYN::Derivatives Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Class for Derivative elements of Bus <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a>.  
- <a href="../../d6/df4/a03201.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d0/d85/a00908_source.html">DYNDerivative.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0d2b2061ce4f58d982a85feb94d5084f"><td class="memItemLeft" align="right" valign="top"><a id="a0d2b2061ce4f58d982a85feb94d5084f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a0d2b2061ce4f58d982a85feb94d5084f">reset</a> ()</td></tr>
-<tr class="memdesc:a0d2b2061ce4f58d982a85feb94d5084f"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset <br /></td></tr>
-<tr class="separator:a0d2b2061ce4f58d982a85feb94d5084f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e6a10cc7fa9d08ea0cbcd611bd3d76d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a4e6a10cc7fa9d08ea0cbcd611bd3d76d">addDerivative</a> (<a class="el" href="../../d0/d85/a00908.html#a1005e6185e88f78be2fc883fc2fca6bc">typeDerivative_t</a> type, const int &amp;numVar, const double &amp;value)</td></tr>
-<tr class="memdesc:a4e6a10cc7fa9d08ea0cbcd611bd3d76d"><td class="mdescLeft">&#160;</td><td class="mdescRight">add derivative  <a href="#a4e6a10cc7fa9d08ea0cbcd611bd3d76d">More...</a><br /></td></tr>
-<tr class="separator:a4e6a10cc7fa9d08ea0cbcd611bd3d76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c7cbc47ef251bc43f37b806ff02c181"><td class="memItemLeft" align="right" valign="top">const std::map&lt; int, double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a8c7cbc47ef251bc43f37b806ff02c181">getValues</a> (<a class="el" href="../../d0/d85/a00908.html#a1005e6185e88f78be2fc883fc2fca6bc">typeDerivative_t</a> type) const</td></tr>
-<tr class="memdesc:a8c7cbc47ef251bc43f37b806ff02c181"><td class="mdescLeft">&#160;</td><td class="mdescRight">get values  <a href="#a8c7cbc47ef251bc43f37b806ff02c181">More...</a><br /></td></tr>
-<tr class="separator:a8c7cbc47ef251bc43f37b806ff02c181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b9d1698ccf7e339905c199fb40c82b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a87b9d1698ccf7e339905c199fb40c82b">empty</a> () const</td></tr>
-<tr class="memdesc:a87b9d1698ccf7e339905c199fb40c82b"><td class="mdescLeft">&#160;</td><td class="mdescRight">state whether empty  <a href="#a87b9d1698ccf7e339905c199fb40c82b">More...</a><br /></td></tr>
-<tr class="separator:a87b9d1698ccf7e339905c199fb40c82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab09a5f16466117658e96733acc0d746a"><td class="memItemLeft" align="right" valign="top"><a id="ab09a5f16466117658e96733acc0d746a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#ab09a5f16466117658e96733acc0d746a">reset</a> ()</td></tr>
+<tr class="memdesc:ab09a5f16466117658e96733acc0d746a"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset <br /></td></tr>
+<tr class="separator:ab09a5f16466117658e96733acc0d746a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeb11e2ebe088c282ad2c9da68b032a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#aaeb11e2ebe088c282ad2c9da68b032a5">addValue</a> (const int &amp;numVar, const double &amp;value)</td></tr>
+<tr class="memdesc:aaeb11e2ebe088c282ad2c9da68b032a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">add value  <a href="#aaeb11e2ebe088c282ad2c9da68b032a5">More...</a><br /></td></tr>
+<tr class="separator:aaeb11e2ebe088c282ad2c9da68b032a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a832c0f2aef87581168e7cfd1e0c8cfd9"><td class="memItemLeft" align="right" valign="top">const std::map&lt; int, double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a832c0f2aef87581168e7cfd1e0c8cfd9">getValues</a> () const</td></tr>
+<tr class="memdesc:a832c0f2aef87581168e7cfd1e0c8cfd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get values  <a href="#a832c0f2aef87581168e7cfd1e0c8cfd9">More...</a><br /></td></tr>
+<tr class="separator:a832c0f2aef87581168e7cfd1e0c8cfd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf200ff00fd993842dfd33d92bd24fd5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#adf200ff00fd993842dfd33d92bd24fd5">empty</a> () const</td></tr>
+<tr class="memdesc:adf200ff00fd993842dfd33d92bd24fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">state whether empty  <a href="#adf200ff00fd993842dfd33d92bd24fd5">More...</a><br /></td></tr>
+<tr class="separator:adf200ff00fd993842dfd33d92bd24fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a366665f1e556084e39e7082b9a2461c5"><td class="memItemLeft" align="right" valign="top"><a id="a366665f1e556084e39e7082b9a2461c5"></a>
-<a class="el" href="../../dd/d61/a03197.html">Derivatives</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a366665f1e556084e39e7082b9a2461c5">irDerivatives_</a></td></tr>
-<tr class="memdesc:a366665f1e556084e39e7082b9a2461c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ir derivative <br /></td></tr>
-<tr class="separator:a366665f1e556084e39e7082b9a2461c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e572a33a0890d3d8c37da6d50272206"><td class="memItemLeft" align="right" valign="top"><a id="a1e572a33a0890d3d8c37da6d50272206"></a>
-<a class="el" href="../../dd/d61/a03197.html">Derivatives</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#a1e572a33a0890d3d8c37da6d50272206">iiDerivatives_</a></td></tr>
-<tr class="memdesc:a1e572a33a0890d3d8c37da6d50272206"><td class="mdescLeft">&#160;</td><td class="mdescRight">ii derivative <br /></td></tr>
-<tr class="separator:a1e572a33a0890d3d8c37da6d50272206"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef277c949f9a7442af1586dada8ac7c"><td class="memItemLeft" align="right" valign="top"><a id="aaef277c949f9a7442af1586dada8ac7c"></a>
+std::map&lt; int, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df4/a03201.html#aaef277c949f9a7442af1586dada8ac7c">values_</a></td></tr>
+<tr class="memdesc:aaef277c949f9a7442af1586dada8ac7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">associated num var with value of the derivative <br /></td></tr>
+<tr class="separator:aaef277c949f9a7442af1586dada8ac7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class for Derivative elements of Bus <a class="el" href="../../df/d50/a02725.html" title="Generic model Generic class for Model. ">Model</a>. </p>
-<p>class Bus <a class="el" href="../../dd/d61/a03197.html">Derivatives</a> </p>
+<div class="textblock"><p>class <a class="el" href="../../d6/df4/a03201.html">Derivatives</a> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4e6a10cc7fa9d08ea0cbcd611bd3d76d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e6a10cc7fa9d08ea0cbcd611bd3d76d">&#9670;&nbsp;</a></span>addDerivative()</h2>
+<a id="aaeb11e2ebe088c282ad2c9da68b032a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb11e2ebe088c282ad2c9da68b032a5">&#9670;&nbsp;</a></span>addValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::BusDerivatives::addDerivative </td>
+          <td class="memname">void DYN::Derivatives::addValue </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d85/a00908.html#a1005e6185e88f78be2fc883fc2fca6bc">typeDerivative_t</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const int &amp;&#160;</td>
           <td class="paramname"><em>numVar</em>, </td>
         </tr>
@@ -171,20 +157,19 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>add derivative </p>
+<p>add value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>derivative type </td></tr>
     <tr><td class="paramname">numVar</td><td>number of variable </td></tr>
-    <tr><td class="paramname">value</td><td>number of value </td></tr>
+    <tr><td class="paramname">value</td><td>value </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a87b9d1698ccf7e339905c199fb40c82b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87b9d1698ccf7e339905c199fb40c82b">&#9670;&nbsp;</a></span>empty()</h2>
+<a id="adf200ff00fd993842dfd33d92bd24fd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf200ff00fd993842dfd33d92bd24fd5">&#9670;&nbsp;</a></span>empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +178,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool DYN::BusDerivatives::empty </td>
+          <td class="memname">bool DYN::Derivatives::empty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -207,33 +192,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>state whether empty </p>
-<dl class="section return"><dt>Returns</dt><dd><b>empty_</b> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><b>empty</b> </dd></dl>
 
 </div>
 </div>
-<a id="a8c7cbc47ef251bc43f37b806ff02c181"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c7cbc47ef251bc43f37b806ff02c181">&#9670;&nbsp;</a></span>getValues()</h2>
+<a id="a832c0f2aef87581168e7cfd1e0c8cfd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a832c0f2aef87581168e7cfd1e0c8cfd9">&#9670;&nbsp;</a></span>getValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::map&lt;int, double&gt;&amp; DYN::BusDerivatives::getValues </td>
+          <td class="memname">const std::map&lt;int, double&gt;&amp; DYN::Derivatives::getValues </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d85/a00908.html#a1005e6185e88f78be2fc883fc2fca6bc">typeDerivative_t</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>get values </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>type of derivatives </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>map of variables' values </dd></dl>
 
 </div>
@@ -257,8 +243,8 @@ Private Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/df4/a03201.html">BusDerivatives</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:23 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/df4/a03201.html">Derivatives</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,7 +1,30 @@
 var a02877 =
 [
-    [ "dataInterfaceType_t", "d1/dc2/a02877.html#af267d6198a033f242b66120c84cae469", [
-      [ "DATAINTERFACE_IIDM", "d1/dc2/a02877.html#af267d6198a033f242b66120c84cae469a5dd818d1bf6ed77013d76940139e2f0f", null ]
-    ] ],
-    [ "build", "d1/dc2/a02877.html#a82ccbaee5d34acacd97797a27d59c43b", null ]
+    [ "~DataInterface", "d1/dc2/a02877.html#addd7f4cd8404ab931b33ccd598e42c4b", null ],
+    [ "canUseVariant", "d1/dc2/a02877.html#a309971065dd1d2a60dd8e4f86b1cbd2d", null ],
+    [ "checkCriteria", "d1/dc2/a02877.html#ae080140fa11498e1ccc1c60634d1cd9f", null ],
+    [ "clone", "d1/dc2/a02877.html#a486f40ff74deb16fc05a1010049994f2", null ],
+    [ "configureCriteria", "d1/dc2/a02877.html#ab70045c218610a14d7ea244b77f5c4fd", null ],
+    [ "dumpToFile", "d1/dc2/a02877.html#aa303994128dd1a2aa273eef4fd4023f9", null ],
+    [ "exportStateVariables", "d1/dc2/a02877.html#ad32280961eccbf724e85f4212f5a7f7e", null ],
+    [ "findConnectedComponents", "d1/dc2/a02877.html#a203d3376b7c0bec0f5ae1a9233bac5a9", null ],
+    [ "findLostEquipments", "d1/dc2/a02877.html#ac0b110419b38ea8a8ace47670c73f740", null ],
+    [ "getBusName", "d1/dc2/a02877.html#a21474236ac4bddbe79e961f4f122c9b8", null ],
+    [ "getFailingCriteria", "d1/dc2/a02877.html#acfd29130a1dbaf8aaee502cb69b09cc4", null ],
+    [ "getNetwork", "d1/dc2/a02877.html#adb99731cce9499275f295f3fd39b35eb", null ],
+    [ "getServiceManager", "d1/dc2/a02877.html#a9fe64f91c9735ca519b6860e880e3e58", null ],
+    [ "getStateVariableReference", "d1/dc2/a02877.html#a3617b374079355f94f5a20021a1611d9", null ],
+    [ "getStaticParameterBoolValue", "d1/dc2/a02877.html#a0d63da2d2ae541a31cf0f5f2b6628523", null ],
+    [ "getStaticParameterDoubleValue", "d1/dc2/a02877.html#ab7a9e5977fd429c705a2d88307d52e75", null ],
+    [ "getStaticParameterIntValue", "d1/dc2/a02877.html#aeec47a5e21d12bd0fed9f7415e7022de", null ],
+    [ "hasDynamicModel", "d1/dc2/a02877.html#a61ab2ac0087f4a108732c9021593594b", null ],
+    [ "importStaticParameters", "d1/dc2/a02877.html#ab83835e5ce431fbd30e2fc0288855b89", null ],
+    [ "instantiateNetwork", "d1/dc2/a02877.html#a8166fe6ebeb950f2fc2c00797cda8ff5", null ],
+    [ "mapConnections", "d1/dc2/a02877.html#ab9d813fbc8e629cd936ffe135cb4c651", null ],
+    [ "selectVariant", "d1/dc2/a02877.html#a5b1de608cf26541a8625f95bb850cd8b", null ],
+    [ "setDynamicModel", "d1/dc2/a02877.html#a9f0b4d080ed74d6a018c89000d3dac60", null ],
+    [ "setModelNetwork", "d1/dc2/a02877.html#a2f16859a4c2e1ae667a7a86c34f57d91", null ],
+    [ "setReference", "d1/dc2/a02877.html#a7b843fda45e9bbd64849f35c94ed8434", null ],
+    [ "setTimeline", "d1/dc2/a02877.html#a2260e675488e3dba17cd0af3085b44b3", null ],
+    [ "updateFromModel", "d1/dc2/a02877.html#a1297af56124573be3c453bd69e69fc0d", null ]
 ];

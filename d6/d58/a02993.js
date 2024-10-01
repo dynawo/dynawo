@@ -1,6 +1,8 @@
 var a02993 =
 [
-    [ "SeasonName", "d6/d58/a02993.html#ae20296d87ef4f4c8172ee6286c52eed2", null ],
-    [ "~CurrentLimitsPerSeasonIIDMExtension", "d6/d58/a02993.html#a5c3b790c998bc1aaf7399878079f6e96", null ],
-    [ "getCurrentLimits", "d6/d58/a02993.html#af45666316d8c247b57958e359649080b", null ]
+    [ "CurrentLimitInterfaceIIDM", "d6/d58/a02993.html#ae1da763c41d468cc1ea5086c9eeb88c0", null ],
+    [ "getAcceptableDuration", "d6/d58/a02993.html#a3a9e8dc3a2688ef1e4ffb2287b85d0ad", null ],
+    [ "getLimit", "d6/d58/a02993.html#a4c582538eb579725b04955f1aa621bd7", null ],
+    [ "acceptableDuration_", "d6/d58/a02993.html#ae9ba69e688b8a1a642a334cc4a6c0f78", null ],
+    [ "limit_", "d6/d58/a02993.html#a9f6d1b41ae6316c4fb06a9c70c5a7445", null ]
 ];

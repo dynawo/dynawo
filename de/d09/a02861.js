@@ -1,5 +1,5 @@
 var a02861 =
 [
-    [ "CurrentLimitSideHash", "de/d4b/a02865.html", "de/d4b/a02865" ],
-    [ "currentLimits", "de/d09/a02861.html#a43ad197a35ea2abe89d8a0052ea05c87", null ]
+    [ "permanentLimit", "de/d09/a02861.html#a2fa50a31a8a0240a66c84545e561afad", null ],
+    [ "temporaryLimits", "de/d09/a02861.html#a254447bdefd7b47cf3fddb535d86c230", null ]
 ];

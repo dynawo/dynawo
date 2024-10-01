@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::BusBarSectionInterface Class Reference</title>
+<title>Dynawo: DYN::VariableNativeFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,39 +95,36 @@ $(document).ready(function(){initNavTree('d7/d75/a02805.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d5/dd8/a02802.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::BusBarSectionInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::VariableNativeFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>bus bar section data interface  
+<p>native variable factory class  
  <a href="../../d7/d75/a02805.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d9/d0f/a00644_source.html">DYNBusBarSectionInterface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../db/d3a/a00641_source.html">DYNVariableNativeFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a98c75bd14fcfc58109b7d4175df92d18"><td class="memItemLeft" align="right" valign="top"><a id="a98c75bd14fcfc58109b7d4175df92d18"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#a98c75bd14fcfc58109b7d4175df92d18">~BusBarSectionInterface</a> ()=default</td></tr>
-<tr class="memdesc:a98c75bd14fcfc58109b7d4175df92d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a98c75bd14fcfc58109b7d4175df92d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0c80e7812813ace775bdeab08e7aca3"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#aa0c80e7812813ace775bdeab08e7aca3">id</a> () const =0</td></tr>
-<tr class="memdesc:aa0c80e7812813ace775bdeab08e7aca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the id of the bus bar section  <a href="#aa0c80e7812813ace775bdeab08e7aca3">More...</a><br /></td></tr>
-<tr class="separator:aa0c80e7812813ace775bdeab08e7aca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a946cb82d2873298ff4aa4c732cc7fb2a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#a946cb82d2873298ff4aa4c732cc7fb2a">setV</a> (const double &amp;v)=0</td></tr>
-<tr class="memdesc:a946cb82d2873298ff4aa4c732cc7fb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the voltage magnitude of the bus bar section  <a href="#a946cb82d2873298ff4aa4c732cc7fb2a">More...</a><br /></td></tr>
-<tr class="separator:a946cb82d2873298ff4aa4c732cc7fb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71f944e9d39ff6582d8e9c0ede594287"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#a71f944e9d39ff6582d8e9c0ede594287">setAngle</a> (const double &amp;angle)=0</td></tr>
-<tr class="memdesc:a71f944e9d39ff6582d8e9c0ede594287"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the voltage angle of the bus bar section  <a href="#a71f944e9d39ff6582d8e9c0ede594287">More...</a><br /></td></tr>
-<tr class="separator:a71f944e9d39ff6582d8e9c0ede594287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a018f0dcbbaf4e22ba847bccd0243db50"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d8/d1e/a02801.html">VariableNative</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#a018f0dcbbaf4e22ba847bccd0243db50">create</a> (const std::string &amp;name, const <a class="el" href="../../dc/d8e/a00473.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> &amp;type, bool isState, bool negated=false)</td></tr>
+<tr class="memdesc:a018f0dcbbaf4e22ba847bccd0243db50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance.  <a href="#a018f0dcbbaf4e22ba847bccd0243db50">More...</a><br /></td></tr>
+<tr class="separator:a018f0dcbbaf4e22ba847bccd0243db50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4c815ae1d0b0ebd989ca90ed1080452"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d8/d1e/a02801.html">VariableNative</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#af4c815ae1d0b0ebd989ca90ed1080452">createState</a> (const std::string &amp;name, const <a class="el" href="../../dc/d8e/a00473.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> &amp;type, bool negated=false)</td></tr>
+<tr class="memdesc:af4c815ae1d0b0ebd989ca90ed1080452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new (state) <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance.  <a href="#af4c815ae1d0b0ebd989ca90ed1080452">More...</a><br /></td></tr>
+<tr class="separator:af4c815ae1d0b0ebd989ca90ed1080452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa53a4ad174d9af305d7e918e9770d429"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d8/d1e/a02801.html">VariableNative</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d75/a02805.html#aa53a4ad174d9af305d7e918e9770d429">createCalculated</a> (const std::string &amp;name, const <a class="el" href="../../dc/d8e/a00473.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> &amp;type, bool negated=false)</td></tr>
+<tr class="memdesc:aa53a4ad174d9af305d7e918e9770d429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new (calculated, i.e. non-state) <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance.  <a href="#aa53a4ad174d9af305d7e918e9770d429">More...</a><br /></td></tr>
+<tr class="separator:aa53a4ad174d9af305d7e918e9770d429"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>bus bar section data interface </p>
+<div class="textblock"><p>native variable factory class </p>
+<p><a class="el" href="../../d7/d75/a02805.html" title="native variable factory class ">VariableNativeFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a></code> objects. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa0c80e7812813ace775bdeab08e7aca3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0c80e7812813ace775bdeab08e7aca3">&#9670;&nbsp;</a></span>id()</h2>
+<a id="a018f0dcbbaf4e22ba847bccd0243db50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a018f0dcbbaf4e22ba847bccd0243db50">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,60 +133,58 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::string DYN::BusBarSectionInterface::id </td>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d8/d1e/a02801.html">VariableNative</a>&gt; DYN::VariableNativeFactory::create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter for the id of the bus bar section </p>
-<dl class="section return"><dt>Returns</dt><dd>the id of the bus bar section </dd></dl>
-
-</div>
-</div>
-<a id="a71f944e9d39ff6582d8e9c0ede594287"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71f944e9d39ff6582d8e9c0ede594287">&#9670;&nbsp;</a></span>setAngle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::BusBarSectionInterface::setAngle </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>angle</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="../../dc/d8e/a00473.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>set the voltage angle of the bus bar section </p>
+<p>Create new <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">angle</td><td>voltage angle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> type (INTEGER, BOOLEAN, ...) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">isState</td><td><b>whether</b> the variable is needed for local model simulation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a></code> with given name, type, and negated attributes </dd></dl>
 
 </div>
 </div>
-<a id="a946cb82d2873298ff4aa4c732cc7fb2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a946cb82d2873298ff4aa4c732cc7fb2a">&#9670;&nbsp;</a></span>setV()</h2>
+<a id="aa53a4ad174d9af305d7e918e9770d429"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa53a4ad174d9af305d7e918e9770d429">&#9670;&nbsp;</a></span>createCalculated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,32 +193,104 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::BusBarSectionInterface::setV </td>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d8/d1e/a02801.html">VariableNative</a>&gt; DYN::VariableNativeFactory::createCalculated </td>
           <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="../../dc/d8e/a00473.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>set the voltage magnitude of the bus bar section </p>
+<p>Create new (calculated, i.e. non-state) <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>voltage magnitude </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> type (INTEGER, BOOLEAN, ...) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a></code> with given name, type, and negated attributes </dd></dl>
+
+</div>
+</div>
+<a id="af4c815ae1d0b0ebd989ca90ed1080452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4c815ae1d0b0ebd989ca90ed1080452">&#9670;&nbsp;</a></span>createState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d8/d1e/a02801.html">VariableNative</a>&gt; DYN::VariableNativeFactory::createState </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../dc/d8e/a00473.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create new (state) <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a> type (INTEGER, BOOLEAN, ...) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d8/d1e/a02801.html" title="native variable class with values ">VariableNative</a></code> with given name, type, and negated attributes </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d0f/a00644_source.html">DYNBusBarSectionInterface.h</a></li>
+<li><a class="el" href="../../db/d3a/a00641_source.html">DYNVariableNativeFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -241,8 +308,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/d75/a02805.html">BusBarSectionInterface</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:23 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/d75/a02805.html">VariableNativeFactory</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:22 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

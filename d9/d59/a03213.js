@@ -1,17 +1,14 @@
 var a03213 =
 [
-    [ "ModelBusContainer", "d9/d59/a03213.html#a07a5b6ac97b5f2695347bb01d070385a", null ],
-    [ "add", "d9/d59/a03213.html#a15fba481928d4aea84014b74a97c82d4", null ],
-    [ "evalF", "d9/d59/a03213.html#aa884deb00a8ec768d1f7093502941c77", null ],
-    [ "evalJt", "d9/d59/a03213.html#a29a284a7ea0248412536e9bc93259eda", null ],
-    [ "evalJtPrim", "d9/d59/a03213.html#aaefb082bd08351f85d7229b48e5cf191", null ],
-    [ "exploreNeighbors", "d9/d59/a03213.html#a67217e0627420b218eee4bc4ab3a09ab", null ],
-    [ "getSubNetworks", "d9/d59/a03213.html#afd1b6cef759a31ef68af3d862aebc9c4", null ],
-    [ "initDerivatives", "d9/d59/a03213.html#a6c5cc2241578370a125419c3014edb2c", null ],
-    [ "initRefIslands", "d9/d59/a03213.html#a4bb7cf8083a182f23ee843a9167c1072", null ],
-    [ "resetCurrentUStatus", "d9/d59/a03213.html#a7b3ea90ccbfb4e8ce491c6632b7f41fb", null ],
-    [ "resetNodeInjections", "d9/d59/a03213.html#af47ec19771129cb5258e051195097230", null ],
-    [ "resetSubNetwork", "d9/d59/a03213.html#a2c5160c1075defd95514fde8f4aca10d", null ],
-    [ "models_", "d9/d59/a03213.html#a3976be468c819b3bf91c834c0d36a2cf", null ],
-    [ "subNetworks_", "d9/d59/a03213.html#a564137dde21fc01280ef085f69551601", null ]
+    [ "SubNetwork", "d9/d59/a03213.html#a7a1554bda2d7cf7a96f4abcf98e3b24b", null ],
+    [ "SubNetwork", "d9/d59/a03213.html#a16961499d52aad5d788f96ed4c6dcd7a", null ],
+    [ "addBus", "d9/d59/a03213.html#a8f77f21e94807af8f677e1156a341cad", null ],
+    [ "bus", "d9/d59/a03213.html#a669834f45699089c9f61b09970e9f39b", null ],
+    [ "getNum", "d9/d59/a03213.html#a9268487fd995138df5551fdb603f061f", null ],
+    [ "nbBus", "d9/d59/a03213.html#a607f8857ed127980d47a2bc070998a83", null ],
+    [ "setNum", "d9/d59/a03213.html#a0028dea750483d707d90697be8c2438f", null ],
+    [ "shutDownNodes", "d9/d59/a03213.html#a9b57418998aa1bce13596ea527945c7e", null ],
+    [ "turnOnNodes", "d9/d59/a03213.html#a37da1452e45285345454c9a78f1d1522", null ],
+    [ "bus_", "d9/d59/a03213.html#a3987793f3efc8dc10dabeb00d25d3c02", null ],
+    [ "num_", "d9/d59/a03213.html#a4c494be750b557f650d4dbf0c0d91a32", null ]
 ];

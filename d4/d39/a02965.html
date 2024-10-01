@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::VoltageLevelInterface Class Reference</title>
+<title>Dynawo: DYN::TwoWTransformerInterface Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,132 +95,243 @@ $(document).ready(function(){initNavTree('d4/d39/a02965.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d6/d0c/a02962.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::VoltageLevelInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::TwoWTransformerInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/d39/a02965.html" title="VoltageLevelInterface class. ">VoltageLevelInterface</a> class.  
- <a href="../../d4/d39/a02965.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d0/d0a/a00743_source.html">DYNVoltageLevelInterface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dc/dce/a00740_source.html">DYNTwoWTransformerInterface.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for DYN::VoltageLevelInterface:</div>
+Inheritance diagram for DYN::TwoWTransformerInterface:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d4/d39/a02965.png" usemap="#DYN::VoltageLevelInterface_map" alt=""/>
-  <map id="DYN::VoltageLevelInterface_map" name="DYN::VoltageLevelInterface_map">
-<area href="../../d1/db3/a03013.html" title="FictVoltageLevelInterface class for IIDM. " alt="DYN::FictVoltageLevelInterfaceIIDM" shape="rect" coords="0,56,216,80"/>
-<area href="../../d0/dcd/a03113.html" title="VoltageLevelInterface class for IIDM. " alt="DYN::VoltageLevelInterfaceIIDM" shape="rect" coords="226,56,442,80"/>
+  <img src="../../d4/d39/a02965.png" usemap="#DYN::TwoWTransformerInterface_map" alt=""/>
+  <map id="DYN::TwoWTransformerInterface_map" name="DYN::TwoWTransformerInterface_map">
+<area href="../../db/d27/a02817.html" title="Class describing a component of the network. " alt="DYN::ComponentInterface" shape="rect" coords="127,0,372,24"/>
+<area href="../../d1/db3/a03013.html" alt="DYN::FictTwoWTransformerInterfaceIIDM" shape="rect" coords="0,112,245,136"/>
+<area href="../../d0/dcd/a03113.html" alt="DYN::TwoWTransformerInterfaceIIDM" shape="rect" coords="255,112,500,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:aa640378559edc3ac305b0dcde5446d68"><td class="memItemLeft" align="right" valign="top"><a id="aa640378559edc3ac305b0dcde5446d68"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aa640378559edc3ac305b0dcde5446d68">VoltageLevelTopologyKind_t</a> { <b>BUS_BREAKER</b> = 1, 
-<b>NODE_BREAKER</b> = 2
- }</td></tr>
-<tr class="memdesc:aa640378559edc3ac305b0dcde5446d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the voltage level topology. <br /></td></tr>
-<tr class="separator:aa640378559edc3ac305b0dcde5446d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a86a28077a98b0a3f2b5523ccd94d2431"><td class="memItemLeft" align="right" valign="top"><a id="a86a28077a98b0a3f2b5523ccd94d2431"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a86a28077a98b0a3f2b5523ccd94d2431">~VoltageLevelInterface</a> ()=default</td></tr>
-<tr class="memdesc:a86a28077a98b0a3f2b5523ccd94d2431"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a86a28077a98b0a3f2b5523ccd94d2431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0f1c9b9eeb9da6ae1caf2516dcd83fc"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ab0f1c9b9eeb9da6ae1caf2516dcd83fc">getID</a> () const =0</td></tr>
-<tr class="memdesc:ab0f1c9b9eeb9da6ae1caf2516dcd83fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltageLevel's id.  <a href="#ab0f1c9b9eeb9da6ae1caf2516dcd83fc">More...</a><br /></td></tr>
-<tr class="separator:ab0f1c9b9eeb9da6ae1caf2516dcd83fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a395a8c12510b0435386be76daf9e211f"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a395a8c12510b0435386be76daf9e211f">getVNom</a> () const =0</td></tr>
-<tr class="memdesc:a395a8c12510b0435386be76daf9e211f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the voltageLevel.  <a href="#a395a8c12510b0435386be76daf9e211f">More...</a><br /></td></tr>
-<tr class="separator:a395a8c12510b0435386be76daf9e211f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9d26e18dbef5399a91dbfe0e04cd01f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d4/d39/a02965.html#aa640378559edc3ac305b0dcde5446d68">VoltageLevelTopologyKind_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ac9d26e18dbef5399a91dbfe0e04cd01f">getVoltageLevelTopologyKind</a> () const =0</td></tr>
-<tr class="memdesc:ac9d26e18dbef5399a91dbfe0e04cd01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage level topology kind.  <a href="#ac9d26e18dbef5399a91dbfe0e04cd01f">More...</a><br /></td></tr>
-<tr class="separator:ac9d26e18dbef5399a91dbfe0e04cd01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf13283e35be8a347c4df61e7515bd25"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#abf13283e35be8a347c4df61e7515bd25">connectNode</a> (const unsigned int &amp;node)=0</td></tr>
-<tr class="memdesc:abf13283e35be8a347c4df61e7515bd25"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker)  <a href="#abf13283e35be8a347c4df61e7515bd25">More...</a><br /></td></tr>
-<tr class="separator:abf13283e35be8a347c4df61e7515bd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef151d6e5fb76569d26575fcc55856ff"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aef151d6e5fb76569d26575fcc55856ff">disconnectNode</a> (const unsigned int &amp;node)=0</td></tr>
-<tr class="memdesc:aef151d6e5fb76569d26575fcc55856ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)  <a href="#aef151d6e5fb76569d26575fcc55856ff">More...</a><br /></td></tr>
-<tr class="separator:aef151d6e5fb76569d26575fcc55856ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a890d29c8937c24e574bda54f64d10ca5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a890d29c8937c24e574bda54f64d10ca5">isNodeConnected</a> (const unsigned int &amp;node)=0</td></tr>
-<tr class="memdesc:a890d29c8937c24e574bda54f64d10ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if one node is connected to a node where there is a bus bar section  <a href="#a890d29c8937c24e574bda54f64d10ca5">More...</a><br /></td></tr>
-<tr class="separator:a890d29c8937c24e574bda54f64d10ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60adf8e5ea13987d3bd97e0b7baa7f75"><td class="memItemLeft" align="right" valign="top"><a id="a60adf8e5ea13987d3bd97e0b7baa7f75"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a60adf8e5ea13987d3bd97e0b7baa7f75">exportSwitchesState</a> ()=0</td></tr>
-<tr class="memdesc:a60adf8e5ea13987d3bd97e0b7baa7f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the new state of switches due to topology change (connect/disconnect node) <br /></td></tr>
-<tr class="separator:a60adf8e5ea13987d3bd97e0b7baa7f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe588058abd007aa8a81f346282e30c7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#abe588058abd007aa8a81f346282e30c7">addBus</a> (const boost::shared_ptr&lt; <a class="el" href="../../d5/d34/a02809.html">BusInterface</a> &gt; &amp;bus)=0</td></tr>
-<tr class="memdesc:abe588058abd007aa8a81f346282e30c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of bus interface to the voltageLevel interface.  <a href="#abe588058abd007aa8a81f346282e30c7">More...</a><br /></td></tr>
-<tr class="separator:abe588058abd007aa8a81f346282e30c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ad4562574ff3fbeaeb05377e83a0592"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a9ad4562574ff3fbeaeb05377e83a0592">addSwitch</a> (const boost::shared_ptr&lt; <a class="el" href="../../dd/d4c/a02949.html">SwitchInterface</a> &gt; &amp;sw)=0</td></tr>
-<tr class="memdesc:a9ad4562574ff3fbeaeb05377e83a0592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of switch interface to the voltageLevel interface.  <a href="#a9ad4562574ff3fbeaeb05377e83a0592">More...</a><br /></td></tr>
-<tr class="separator:a9ad4562574ff3fbeaeb05377e83a0592"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca157e7f6aae8091eddda47eed6ec45c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aca157e7f6aae8091eddda47eed6ec45c">addLoad</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/dfc/a02901.html">LoadInterface</a> &gt; &amp;load)=0</td></tr>
-<tr class="memdesc:aca157e7f6aae8091eddda47eed6ec45c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of load interface to the voltageLevel interface.  <a href="#aca157e7f6aae8091eddda47eed6ec45c">More...</a><br /></td></tr>
-<tr class="separator:aca157e7f6aae8091eddda47eed6ec45c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab62b69e6d39c6344db6b1b330560e3a4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ab62b69e6d39c6344db6b1b330560e3a4">addShuntCompensator</a> (const boost::shared_ptr&lt; <a class="el" href="../../dd/d0d/a02929.html">ShuntCompensatorInterface</a> &gt; &amp;shunt)=0</td></tr>
-<tr class="memdesc:ab62b69e6d39c6344db6b1b330560e3a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of shunt compensator interface to the voltageLevel interface.  <a href="#ab62b69e6d39c6344db6b1b330560e3a4">More...</a><br /></td></tr>
-<tr class="separator:ab62b69e6d39c6344db6b1b330560e3a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af578a883e6bd38d60109b4469280f86a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#af578a883e6bd38d60109b4469280f86a">addStaticVarCompensator</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/d7d/a02941.html">StaticVarCompensatorInterface</a> &gt; &amp;svc)=0</td></tr>
-<tr class="memdesc:af578a883e6bd38d60109b4469280f86a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of static var compensator interface to the voltageLevel interface.  <a href="#af578a883e6bd38d60109b4469280f86a">More...</a><br /></td></tr>
-<tr class="separator:af578a883e6bd38d60109b4469280f86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4b1887da3dd6a946e3bc5fbf002be04"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ac4b1887da3dd6a946e3bc5fbf002be04">addGenerator</a> (const boost::shared_ptr&lt; <a class="el" href="../../d7/d68/a02885.html">GeneratorInterface</a> &gt; &amp;generator)=0</td></tr>
-<tr class="memdesc:ac4b1887da3dd6a946e3bc5fbf002be04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of generator interface to the voltageLevel interface.  <a href="#ac4b1887da3dd6a946e3bc5fbf002be04">More...</a><br /></td></tr>
-<tr class="separator:ac4b1887da3dd6a946e3bc5fbf002be04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa89f829239546f431ade6d310670e6ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aa89f829239546f431ade6d310670e6ae">addDanglingLine</a> (const boost::shared_ptr&lt; <a class="el" href="../../d4/d69/a02869.html">DanglingLineInterface</a> &gt; &amp;danglingLine)=0</td></tr>
-<tr class="memdesc:aa89f829239546f431ade6d310670e6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of dangling line interface to the voltageLevel interface.  <a href="#aa89f829239546f431ade6d310670e6ae">More...</a><br /></td></tr>
-<tr class="separator:aa89f829239546f431ade6d310670e6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a252fc67300ccfd723ff0c148b6d5f2af"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a252fc67300ccfd723ff0c148b6d5f2af">addVscConverter</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VscConverterInterface</a> &gt; &amp;vsc)=0</td></tr>
-<tr class="memdesc:a252fc67300ccfd723ff0c148b6d5f2af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of vsc converter interface to the voltageLevel interface.  <a href="#a252fc67300ccfd723ff0c148b6d5f2af">More...</a><br /></td></tr>
-<tr class="separator:a252fc67300ccfd723ff0c148b6d5f2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd1a92ddecdfdfb5f797246ee02885d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#abd1a92ddecdfdfb5f797246ee02885d2">addLccConverter</a> (const boost::shared_ptr&lt; <a class="el" href="../../dd/d44/a02893.html">LccConverterInterface</a> &gt; &amp;lcc)=0</td></tr>
-<tr class="memdesc:abd1a92ddecdfdfb5f797246ee02885d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of lcc converter interface to the voltageLevel interface.  <a href="#abd1a92ddecdfdfb5f797246ee02885d2">More...</a><br /></td></tr>
-<tr class="separator:abd1a92ddecdfdfb5f797246ee02885d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94a7b9f95b9f0e30c302da44278a113f"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d5/d34/a02809.html">BusInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a94a7b9f95b9f0e30c302da44278a113f">getBuses</a> () const =0</td></tr>
-<tr class="memdesc:a94a7b9f95b9f0e30c302da44278a113f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of bus interface.  <a href="#a94a7b9f95b9f0e30c302da44278a113f">More...</a><br /></td></tr>
-<tr class="separator:a94a7b9f95b9f0e30c302da44278a113f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf68693f4126f4c5d8356e2750540d0b"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../dd/d4c/a02949.html">SwitchInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#adf68693f4126f4c5d8356e2750540d0b">getSwitches</a> () const =0</td></tr>
-<tr class="memdesc:adf68693f4126f4c5d8356e2750540d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of switch interface.  <a href="#adf68693f4126f4c5d8356e2750540d0b">More...</a><br /></td></tr>
-<tr class="separator:adf68693f4126f4c5d8356e2750540d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82a90abba068ca6337b574e385b1097f"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d1/dfc/a02901.html">LoadInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a82a90abba068ca6337b574e385b1097f">getLoads</a> () const =0</td></tr>
-<tr class="memdesc:a82a90abba068ca6337b574e385b1097f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of load interface.  <a href="#a82a90abba068ca6337b574e385b1097f">More...</a><br /></td></tr>
-<tr class="separator:a82a90abba068ca6337b574e385b1097f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bc3f533caead3d7fa98b9fc2ee9086c"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../dd/d0d/a02929.html">ShuntCompensatorInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a0bc3f533caead3d7fa98b9fc2ee9086c">getShuntCompensators</a> () const =0</td></tr>
-<tr class="memdesc:a0bc3f533caead3d7fa98b9fc2ee9086c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of shunt compensator interface.  <a href="#a0bc3f533caead3d7fa98b9fc2ee9086c">More...</a><br /></td></tr>
-<tr class="separator:a0bc3f533caead3d7fa98b9fc2ee9086c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae59825bbca0abc23592e53230de03ef8"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../df/d7d/a02941.html">StaticVarCompensatorInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ae59825bbca0abc23592e53230de03ef8">getStaticVarCompensators</a> () const =0</td></tr>
-<tr class="memdesc:ae59825bbca0abc23592e53230de03ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of static var compensator interface.  <a href="#ae59825bbca0abc23592e53230de03ef8">More...</a><br /></td></tr>
-<tr class="separator:ae59825bbca0abc23592e53230de03ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57da8528e458db7d7cc78f6161c95df2"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d7/d68/a02885.html">GeneratorInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a57da8528e458db7d7cc78f6161c95df2">getGenerators</a> () const =0</td></tr>
-<tr class="memdesc:a57da8528e458db7d7cc78f6161c95df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of generator interface.  <a href="#a57da8528e458db7d7cc78f6161c95df2">More...</a><br /></td></tr>
-<tr class="separator:a57da8528e458db7d7cc78f6161c95df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bf7f2cc26afdbf1e60794aad3f12dac"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d4/d69/a02869.html">DanglingLineInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a6bf7f2cc26afdbf1e60794aad3f12dac">getDanglingLines</a> () const =0</td></tr>
-<tr class="memdesc:a6bf7f2cc26afdbf1e60794aad3f12dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of danglingLine interface.  <a href="#a6bf7f2cc26afdbf1e60794aad3f12dac">More...</a><br /></td></tr>
-<tr class="separator:a6bf7f2cc26afdbf1e60794aad3f12dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0385b3ba6470401237d2eeb869587e1"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VscConverterInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#af0385b3ba6470401237d2eeb869587e1">getVscConverters</a> () const =0</td></tr>
-<tr class="memdesc:af0385b3ba6470401237d2eeb869587e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of vsc converter interface.  <a href="#af0385b3ba6470401237d2eeb869587e1">More...</a><br /></td></tr>
-<tr class="separator:af0385b3ba6470401237d2eeb869587e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3863ece65f7537d03f773aa58b87156"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../dd/d44/a02893.html">LccConverterInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aa3863ece65f7537d03f773aa58b87156">getLccConverters</a> () const =0</td></tr>
-<tr class="memdesc:aa3863ece65f7537d03f773aa58b87156"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the vector of lcc converter interface.  <a href="#aa3863ece65f7537d03f773aa58b87156">More...</a><br /></td></tr>
-<tr class="separator:aa3863ece65f7537d03f773aa58b87156"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e8fb203c27141f98f470c26a3f4afb4"><td class="memItemLeft" align="right" valign="top"><a id="a6e8fb203c27141f98f470c26a3f4afb4"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a6e8fb203c27141f98f470c26a3f4afb4">mapConnections</a> ()=0</td></tr>
-<tr class="memdesc:a6e8fb203c27141f98f470c26a3f4afb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">for each components, if there is a dynamic model, indicate for nodes where component is connected that there is an outside connection <br /></td></tr>
-<tr class="separator:a6e8fb203c27141f98f470c26a3f4afb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af40d1b2100c0c5195d4cf80aa0ce8cba"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#af40d1b2100c0c5195d4cf80aa0ce8cba">isNodeBreakerTopology</a> () const =0</td></tr>
-<tr class="memdesc:af40d1b2100c0c5195d4cf80aa0ce8cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">get if the topology of the voltage level is node breaker one  <a href="#af40d1b2100c0c5195d4cf80aa0ce8cba">More...</a><br /></td></tr>
-<tr class="separator:af40d1b2100c0c5195d4cf80aa0ce8cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aa53a28e1373c772163aa6597e65a22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a6aa53a28e1373c772163aa6597e65a22">TwoWTransformerInterface</a> (bool <a class="el" href="../../db/d27/a02817.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
+<tr class="memdesc:a6aa53a28e1373c772163aa6597e65a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a6aa53a28e1373c772163aa6597e65a22">More...</a><br /></td></tr>
+<tr class="separator:a6aa53a28e1373c772163aa6597e65a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f2a2a0b5cc1bf59538ddbde3037685f"><td class="memItemLeft" align="right" valign="top"><a id="a8f2a2a0b5cc1bf59538ddbde3037685f"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a8f2a2a0b5cc1bf59538ddbde3037685f">~TwoWTransformerInterface</a> ()=default</td></tr>
+<tr class="memdesc:a8f2a2a0b5cc1bf59538ddbde3037685f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a8f2a2a0b5cc1bf59538ddbde3037685f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f574352923f19595c6d18ea73f2b016"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a0f574352923f19595c6d18ea73f2b016">setBusInterface1</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d85/a02813.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
+<tr class="memdesc:a0f574352923f19595c6d18ea73f2b016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the tfo's bus interface side 1.  <a href="#a0f574352923f19595c6d18ea73f2b016">More...</a><br /></td></tr>
+<tr class="separator:a0f574352923f19595c6d18ea73f2b016"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a601af4b9d13b66b5f5eefad53ad37cb3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a601af4b9d13b66b5f5eefad53ad37cb3">setVoltageLevelInterface1</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VoltageLevelInterface</a> &gt; &amp;voltageLevelInterface)=0</td></tr>
+<tr class="memdesc:a601af4b9d13b66b5f5eefad53ad37cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the tfo's voltageLevel interface side 1.  <a href="#a601af4b9d13b66b5f5eefad53ad37cb3">More...</a><br /></td></tr>
+<tr class="separator:a601af4b9d13b66b5f5eefad53ad37cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54f2bc757a9c75ae91d990a8c765eef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ab54f2bc757a9c75ae91d990a8c765eef">setBusInterface2</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d85/a02813.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
+<tr class="memdesc:ab54f2bc757a9c75ae91d990a8c765eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the tfo's bus interface side 2.  <a href="#ab54f2bc757a9c75ae91d990a8c765eef">More...</a><br /></td></tr>
+<tr class="separator:ab54f2bc757a9c75ae91d990a8c765eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67bde9acec6c33946426153825928a97"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a67bde9acec6c33946426153825928a97">setVoltageLevelInterface2</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VoltageLevelInterface</a> &gt; &amp;voltageLevelInterface)=0</td></tr>
+<tr class="memdesc:a67bde9acec6c33946426153825928a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the tfo's voltageLevel interface side 2.  <a href="#a67bde9acec6c33946426153825928a97">More...</a><br /></td></tr>
+<tr class="separator:a67bde9acec6c33946426153825928a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe9c7ffc62ecd7269b8bc380f54584ec"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d3/d85/a02813.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#abe9c7ffc62ecd7269b8bc380f54584ec">getBusInterface1</a> () const =0</td></tr>
+<tr class="memdesc:abe9c7ffc62ecd7269b8bc380f54584ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's bus interface side 1.  <a href="#abe9c7ffc62ecd7269b8bc380f54584ec">More...</a><br /></td></tr>
+<tr class="separator:abe9c7ffc62ecd7269b8bc380f54584ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae67df8fa9385ec4dee8dea3c129b32e"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d3/d85/a02813.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aae67df8fa9385ec4dee8dea3c129b32e">getBusInterface2</a> () const =0</td></tr>
+<tr class="memdesc:aae67df8fa9385ec4dee8dea3c129b32e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's bus interface side 2.  <a href="#aae67df8fa9385ec4dee8dea3c129b32e">More...</a><br /></td></tr>
+<tr class="separator:aae67df8fa9385ec4dee8dea3c129b32e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd442b2454ec10a87a7da193f6ca3cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#acdd442b2454ec10a87a7da193f6ca3cc">addCurrentLimitInterface1</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a> &gt; &amp;currentLimitInterface)=0</td></tr>
+<tr class="memdesc:acdd442b2454ec10a87a7da193f6ca3cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a curent limit interface for side 1.  <a href="#acdd442b2454ec10a87a7da193f6ca3cc">More...</a><br /></td></tr>
+<tr class="separator:acdd442b2454ec10a87a7da193f6ca3cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b0e9dae9271385a74ce5c491edcf59"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a10b0e9dae9271385a74ce5c491edcf59">addCurrentLimitInterface2</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a> &gt; &amp;currentLimitInterface)=0</td></tr>
+<tr class="memdesc:a10b0e9dae9271385a74ce5c491edcf59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a curent limit interface for side 2.  <a href="#a10b0e9dae9271385a74ce5c491edcf59">More...</a><br /></td></tr>
+<tr class="separator:a10b0e9dae9271385a74ce5c491edcf59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1f040b818f95a6a08378eca8c0f7b33"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aa1f040b818f95a6a08378eca8c0f7b33">getCurrentLimitInterfaces1</a> () const =0</td></tr>
+<tr class="memdesc:aa1f040b818f95a6a08378eca8c0f7b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current limit interfaces for side 1.  <a href="#aa1f040b818f95a6a08378eca8c0f7b33">More...</a><br /></td></tr>
+<tr class="separator:aa1f040b818f95a6a08378eca8c0f7b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1128ef596bb88308bb644da057bec50"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ab1128ef596bb88308bb644da057bec50">getCurrentLimitInterfaces2</a> () const =0</td></tr>
+<tr class="memdesc:ab1128ef596bb88308bb644da057bec50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current limit interfaces for side 2.  <a href="#ab1128ef596bb88308bb644da057bec50">More...</a><br /></td></tr>
+<tr class="separator:ab1128ef596bb88308bb644da057bec50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed8b439ae02bb437ce91258bbf7f8e8f"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aed8b439ae02bb437ce91258bbf7f8e8f">getActiveSeason</a> () const =0</td></tr>
+<tr class="memdesc:aed8b439ae02bb437ce91258bbf7f8e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve active season for the transformer.  <a href="#aed8b439ae02bb437ce91258bbf7f8e8f">More...</a><br /></td></tr>
+<tr class="separator:aed8b439ae02bb437ce91258bbf7f8e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912b1c13fd91bd975a61a2b0249e8a60"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a912b1c13fd91bd975a61a2b0249e8a60">getID</a> () const =0</td></tr>
+<tr class="memdesc:a912b1c13fd91bd975a61a2b0249e8a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's id.  <a href="#a912b1c13fd91bd975a61a2b0249e8a60">More...</a><br /></td></tr>
+<tr class="separator:a912b1c13fd91bd975a61a2b0249e8a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f876ca5a3403aa9c52ed9a4a6d894fb"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a4f876ca5a3403aa9c52ed9a4a6d894fb">getInitialConnected1</a> ()=0</td></tr>
+<tr class="memdesc:a4f876ca5a3403aa9c52ed9a4a6d894fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the tfo's side 1.  <a href="#a4f876ca5a3403aa9c52ed9a4a6d894fb">More...</a><br /></td></tr>
+<tr class="separator:a4f876ca5a3403aa9c52ed9a4a6d894fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890fd10486fa9eb4829de214aab363c9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a890fd10486fa9eb4829de214aab363c9">getInitialConnected2</a> ()=0</td></tr>
+<tr class="memdesc:a890fd10486fa9eb4829de214aab363c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the tfo's side 2.  <a href="#a890fd10486fa9eb4829de214aab363c9">More...</a><br /></td></tr>
+<tr class="separator:a890fd10486fa9eb4829de214aab363c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79819636623b9a4cc29a6a4a756f4f8f"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a79819636623b9a4cc29a6a4a756f4f8f">getVNom1</a> () const =0</td></tr>
+<tr class="memdesc:a79819636623b9a4cc29a6a4a756f4f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the tfo's side 1.  <a href="#a79819636623b9a4cc29a6a4a756f4f8f">More...</a><br /></td></tr>
+<tr class="separator:a79819636623b9a4cc29a6a4a756f4f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8730a01faabc9e74ccd8fd99261b976"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ab8730a01faabc9e74ccd8fd99261b976">getVNom2</a> () const =0</td></tr>
+<tr class="memdesc:ab8730a01faabc9e74ccd8fd99261b976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the tfo's side 2.  <a href="#ab8730a01faabc9e74ccd8fd99261b976">More...</a><br /></td></tr>
+<tr class="separator:ab8730a01faabc9e74ccd8fd99261b976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f96422ae8c2b19fec2b7b4c7ea24064"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a0f96422ae8c2b19fec2b7b4c7ea24064">getRatedU1</a> () const =0</td></tr>
+<tr class="memdesc:a0f96422ae8c2b19fec2b7b4c7ea24064"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the rated voltage of the tfo's side 1.  <a href="#a0f96422ae8c2b19fec2b7b4c7ea24064">More...</a><br /></td></tr>
+<tr class="separator:a0f96422ae8c2b19fec2b7b4c7ea24064"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad557e4fa82768e090c37b6879aec0c91"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ad557e4fa82768e090c37b6879aec0c91">getRatedU2</a> () const =0</td></tr>
+<tr class="memdesc:ad557e4fa82768e090c37b6879aec0c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the rated voltage of the tfo's side 2.  <a href="#ad557e4fa82768e090c37b6879aec0c91">More...</a><br /></td></tr>
+<tr class="separator:ad557e4fa82768e090c37b6879aec0c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4018e360c4ef6c16b73e796a18a44d4d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a4018e360c4ef6c16b73e796a18a44d4d">getP1</a> ()=0</td></tr>
+<tr class="memdesc:a4018e360c4ef6c16b73e796a18a44d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power of the transformer at side 1.  <a href="#a4018e360c4ef6c16b73e796a18a44d4d">More...</a><br /></td></tr>
+<tr class="separator:a4018e360c4ef6c16b73e796a18a44d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9981287776fe4b38458a2a9435e47e"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a8d9981287776fe4b38458a2a9435e47e">getQ1</a> ()=0</td></tr>
+<tr class="memdesc:a8d9981287776fe4b38458a2a9435e47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power of the transformer at side 1.  <a href="#a8d9981287776fe4b38458a2a9435e47e">More...</a><br /></td></tr>
+<tr class="separator:a8d9981287776fe4b38458a2a9435e47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7786a8f88c4bccbe93edc7d15c49b9c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ae7786a8f88c4bccbe93edc7d15c49b9c">getP2</a> ()=0</td></tr>
+<tr class="memdesc:ae7786a8f88c4bccbe93edc7d15c49b9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power of the transformer at side 2.  <a href="#ae7786a8f88c4bccbe93edc7d15c49b9c">More...</a><br /></td></tr>
+<tr class="separator:ae7786a8f88c4bccbe93edc7d15c49b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef2513dc186dc7a679ffb7d45c58ab5"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#abef2513dc186dc7a679ffb7d45c58ab5">getQ2</a> ()=0</td></tr>
+<tr class="memdesc:abef2513dc186dc7a679ffb7d45c58ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power of the transformer at side 2.  <a href="#abef2513dc186dc7a679ffb7d45c58ab5">More...</a><br /></td></tr>
+<tr class="separator:abef2513dc186dc7a679ffb7d45c58ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd394ee72ae51467c34f419af82bb1f7"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d8/dea/a02913.html">PhaseTapChangerInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#acd394ee72ae51467c34f419af82bb1f7">getPhaseTapChanger</a> () const =0</td></tr>
+<tr class="memdesc:acd394ee72ae51467c34f419af82bb1f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the instance of phaseTapChanger interface.  <a href="#acd394ee72ae51467c34f419af82bb1f7">More...</a><br /></td></tr>
+<tr class="separator:acd394ee72ae51467c34f419af82bb1f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4bdcf1e6a2e4e83d07fb81bf58f614b"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../db/d8d/a02917.html">RatioTapChangerInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aa4bdcf1e6a2e4e83d07fb81bf58f614b">getRatioTapChanger</a> () const =0</td></tr>
+<tr class="memdesc:aa4bdcf1e6a2e4e83d07fb81bf58f614b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the instance of ratioTapChanger interface.  <a href="#aa4bdcf1e6a2e4e83d07fb81bf58f614b">More...</a><br /></td></tr>
+<tr class="separator:aa4bdcf1e6a2e4e83d07fb81bf58f614b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4fe25977f020acad614d7fdb9c3c34"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aba4fe25977f020acad614d7fdb9c3c34">setPhaseTapChanger</a> (const boost::shared_ptr&lt; <a class="el" href="../../d8/dea/a02913.html">PhaseTapChangerInterface</a> &gt; &amp;tapChanger)=0</td></tr>
+<tr class="memdesc:aba4fe25977f020acad614d7fdb9c3c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the instance of phase tap changer interface.  <a href="#aba4fe25977f020acad614d7fdb9c3c34">More...</a><br /></td></tr>
+<tr class="separator:aba4fe25977f020acad614d7fdb9c3c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bf1fbdfb4b53e3a1b1e275b12cf3ce6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a9bf1fbdfb4b53e3a1b1e275b12cf3ce6">setRatioTapChanger</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d8d/a02917.html">RatioTapChangerInterface</a> &gt; &amp;tapChanger)=0</td></tr>
+<tr class="memdesc:a9bf1fbdfb4b53e3a1b1e275b12cf3ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the instance of ratio tap changer interface.  <a href="#a9bf1fbdfb4b53e3a1b1e275b12cf3ce6">More...</a><br /></td></tr>
+<tr class="separator:a9bf1fbdfb4b53e3a1b1e275b12cf3ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace1c0ad16b0fef966c87f255ccc6a7ea"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#ace1c0ad16b0fef966c87f255ccc6a7ea">getR</a> () const =0</td></tr>
+<tr class="memdesc:ace1c0ad16b0fef966c87f255ccc6a7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the resistance of the tfo.  <a href="#ace1c0ad16b0fef966c87f255ccc6a7ea">More...</a><br /></td></tr>
+<tr class="separator:ace1c0ad16b0fef966c87f255ccc6a7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8053a787daf939dd694f273c1464f205"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a8053a787daf939dd694f273c1464f205">getX</a> () const =0</td></tr>
+<tr class="memdesc:a8053a787daf939dd694f273c1464f205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactance of the tfo.  <a href="#a8053a787daf939dd694f273c1464f205">More...</a><br /></td></tr>
+<tr class="separator:a8053a787daf939dd694f273c1464f205"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8138814b6d39331f4a5542e5f948e10"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#aa8138814b6d39331f4a5542e5f948e10">getG</a> () const =0</td></tr>
+<tr class="memdesc:aa8138814b6d39331f4a5542e5f948e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the conductance of the tfo.  <a href="#aa8138814b6d39331f4a5542e5f948e10">More...</a><br /></td></tr>
+<tr class="separator:aa8138814b6d39331f4a5542e5f948e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88d72af746f007d1d2241aebdf767751"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a88d72af746f007d1d2241aebdf767751">getB</a> () const =0</td></tr>
+<tr class="memdesc:a88d72af746f007d1d2241aebdf767751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the susceptance of the tfo.  <a href="#a88d72af746f007d1d2241aebdf767751">More...</a><br /></td></tr>
+<tr class="separator:a88d72af746f007d1d2241aebdf767751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8128a3bdb1f69e5b8a0c5909ab96f441"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d39/a02965.html#a8128a3bdb1f69e5b8a0c5909ab96f441">exportStateVariablesUnitComponent</a> ()=0</td></tr>
+<tr class="memdesc:a8128a3bdb1f69e5b8a0c5909ab96f441"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a8128a3bdb1f69e5b8a0c5909ab96f441">More...</a><br /></td></tr>
+<tr class="separator:a8128a3bdb1f69e5b8a0c5909ab96f441"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02817"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02817')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../db/d27/a02817.html">DYN::ComponentInterface</a></td></tr>
+<tr class="memitem:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a> (bool <a class="el" href="../../db/d27/a02817.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
+<tr class="memdesc:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../db/d27/a02817.html#a54a4adcbcd28a26428cafa45a848e172">More...</a><br /></td></tr>
+<tr class="separator:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top"><a id="aaeea1b605a906a6b2772ff8b092dc17b"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#aaeea1b605a906a6b2772ff8b092dc17b">~ComponentInterface</a> ()=default</td></tr>
+<tr class="memdesc:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a> (bool hasDynamicModel)</td></tr>
+<tr class="memdesc:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasDynamicModel_ attribute.  <a href="../../db/d27/a02817.html#ae2a3edef5ec14f6635bcaa11a5def0c2">More...</a><br /></td></tr>
+<tr class="separator:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a> (const boost::shared_ptr&lt; <a class="el" href="../../dd/d4a/a02761.html">SubModel</a> &gt; &amp;model)</td></tr>
+<tr class="memdesc:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's model attribute.  <a href="../../db/d27/a02817.html#ad4a2e77952f4983e5705c0feb2ffefd3">More...</a><br /></td></tr>
+<tr class="separator:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a> (const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td></tr>
+<tr class="memdesc:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a component variable with a model variable  <a href="../../db/d27/a02817.html#aa4d21f5feedc23bfd0c89f2b32e71746">More...</a><br /></td></tr>
+<tr class="separator:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a> () const</td></tr>
+<tr class="memdesc:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasDynamicModel_ attribute.  <a href="../../db/d27/a02817.html#a22ebe68dfef59fe4b694885643908c31">More...</a><br /></td></tr>
+<tr class="separator:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a> (bool filterForCriteriaCheck)</td></tr>
+<tr class="memdesc:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">update state variables with data from model (c++ or dynamic model)  <a href="../../db/d27/a02817.html#ab673e4fea551130c3776e4a0fda6fea6">More...</a><br /></td></tr>
+<tr class="separator:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top"><a id="aa68ff5ea43ce54304c3062f1614213dc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a> ()</td></tr>
+<tr class="memdesc:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model <br /></td></tr>
+<tr class="separator:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a> (const <a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;type)</td></tr>
+<tr class="memdesc:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the interface.  <a href="../../db/d27/a02817.html#ad2b7a24d4bb3aed941d24831988b3da5">More...</a><br /></td></tr>
+<tr class="separator:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a157a82e17608a36a7965614cde1c6234">getType</a> () const</td></tr>
+<tr class="memdesc:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type.  <a href="../../db/d27/a02817.html#a157a82e17608a36a7965614cde1c6234">More...</a><br /></td></tr>
+<tr class="separator:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a> () const</td></tr>
+<tr class="memdesc:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type as string.  <a href="../../db/d27/a02817.html#a13bc31f9a55abf04ac162196ad6a3ace">More...</a><br /></td></tr>
+<tr class="separator:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a22639f8b88b1d70984852928d87676ec">isConnected</a> () const</td></tr>
+<tr class="memdesc:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../db/d27/a02817.html#a22639f8b88b1d70984852928d87676ec">More...</a><br /></td></tr>
+<tr class="separator:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a> () const</td></tr>
+<tr class="memdesc:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../db/d27/a02817.html#ac298501e2706de0701bcf0405d69780c">More...</a><br /></td></tr>
+<tr class="separator:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24fd6f4706d72ca980eb5c338f1b642 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top"><a id="ac24fd6f4706d72ca980eb5c338f1b642"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ac24fd6f4706d72ca980eb5c338f1b642">importStaticParameters</a> ()=0</td></tr>
+<tr class="memdesc:ac24fd6f4706d72ca980eb5c338f1b642 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters <br /></td></tr>
+<tr class="separator:ac24fd6f4706d72ca980eb5c338f1b642 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top"><a id="a0b2709afa47d455b8bc9512348d93f30"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a> ()</td></tr>
+<tr class="memdesc:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables <br /></td></tr>
+<tr class="separator:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d167dccb153a1ffcee78ad0f2e3a72e inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a> (const std::string &amp;varName) const =0</td></tr>
+<tr class="memdesc:a6d167dccb153a1ffcee78ad0f2e3a72e inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="../../db/d27/a02817.html#a6d167dccb153a1ffcee78ad0f2e3a72e">More...</a><br /></td></tr>
+<tr class="separator:a6d167dccb153a1ffcee78ad0f2e3a72e inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02817"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a> () const</td></tr>
+<tr class="memdesc:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasInitialConditions_ attribute.  <a href="../../db/d27/a02817.html#a9be4aae7894693081ca3436f3d8aa328">More...</a><br /></td></tr>
+<tr class="separator:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02817"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02817"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a> (const std::string &amp;name) const</td></tr>
+<tr class="memdesc:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../db/d27/a02817.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">More...</a><br /></td></tr>
+<tr class="separator:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_a02817"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a02817')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../db/d27/a02817.html">DYN::ComponentInterface</a></td></tr>
+<tr class="memitem:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02817"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> { <br />
+&#160;&#160;<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a>, 
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a8089dfd2e85bdc3fc21030715c846872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the type of the component.  <a href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872">More...</a><br /></td></tr>
+<tr class="separator:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_a02817"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02817')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../db/d27/a02817.html">DYN::ComponentInterface</a></td></tr>
+<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02817"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02817"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a> (const int index) const</td></tr>
+<tr class="memdesc:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../db/d27/a02817.html#ac256bc3546483d0c4ccffb61dfa58a3a">More...</a><br /></td></tr>
+<tr class="separator:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a360fb8d74db3b5e8d1acb4f636c9647d">hasInitialConditions</a> (bool hasInitialConditions)</td></tr>
+<tr class="memdesc:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasInitialConditions_ attribute.  <a href="../../db/d27/a02817.html#a360fb8d74db3b5e8d1acb4f636c9647d">More...</a><br /></td></tr>
+<tr class="separator:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a02817"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02817')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../db/d27/a02817.html">DYN::ComponentInterface</a></td></tr>
+<tr class="memitem:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02817"><td class="memItemLeft" align="right" valign="top"><a id="a4e9a1ad375b2c22292b200713cb94bac"></a>
+std::vector&lt; <a class="el" href="../../d2/d46/a02937.html">StateVariable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td></tr>
+<tr class="memdesc:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">state variable <br /></td></tr>
+<tr class="separator:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02817"><td class="memItemLeft" align="right" valign="top"><a id="afba20d4e78f70ec9e147378934d10b33"></a>
+std::unordered_map&lt; std::string, <a class="el" href="../../df/d7d/a02941.html">StaticParameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#afba20d4e78f70ec9e147378934d10b33">staticParameters_</a></td></tr>
+<tr class="memdesc:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">static parameter by name, from iidm data <br /></td></tr>
+<tr class="separator:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02817"><td class="memItemLeft" align="right" valign="top"><a id="a3b7f69e17315c6cb35ffb9231dcb5e6a"></a>
+<a class="el" href="../../db/d27/a02817.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d27/a02817.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td></tr>
+<tr class="memdesc:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02817"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the interface <br /></td></tr>
+<tr class="separator:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02817"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/d39/a02965.html" title="VoltageLevelInterface class. ">VoltageLevelInterface</a> class. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abe588058abd007aa8a81f346282e30c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe588058abd007aa8a81f346282e30c7">&#9670;&nbsp;</a></span>addBus()</h2>
+<div class="textblock"><p>class <a class="el" href="../../d4/d39/a02965.html">TwoWTransformerInterface</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6aa53a28e1373c772163aa6597e65a22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aa53a28e1373c772163aa6597e65a22">&#9670;&nbsp;</a></span>TwoWTransformerInterface()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,10 +340,45 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addBus </td>
+          <td class="memname">DYN::TwoWTransformerInterface::TwoWTransformerInterface </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d5/d34/a02809.html">BusInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bus</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hasInitialConditions</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hasInitialConditions</td><td><b>true</b> if component has initial conditions set, <b>false</b> else </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acdd442b2454ec10a87a7da193f6ca3cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd442b2454ec10a87a7da193f6ca3cc">&#9670;&nbsp;</a></span>addCurrentLimitInterface1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::addCurrentLimitInterface1 </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>currentLimitInterface</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -243,20 +389,20 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of bus interface to the voltageLevel interface. </p>
+<p>Add a curent limit interface for side 1. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bus</td><td>instance of bus interface to add </td></tr>
+    <tr><td class="paramname">currentLimitInterface</td><td>current limit interface for the side 1 of the tfo </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a082ea0ea16c686fc8fcfc6eac4a17b10">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a825b98e982b857369fcb6f82a5ca4e6f">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#ac7aa8e8f1a89e90869e4e4bb50aa2242">DYN::FictTwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a6124154ded9372cc6da8da4b7e288168">DYN::TwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="aa89f829239546f431ade6d310670e6ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa89f829239546f431ade6d310670e6ae">&#9670;&nbsp;</a></span>addDanglingLine()</h2>
+<a id="a10b0e9dae9271385a74ce5c491edcf59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b0e9dae9271385a74ce5c491edcf59">&#9670;&nbsp;</a></span>addCurrentLimitInterface2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,10 +411,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addDanglingLine </td>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::addCurrentLimitInterface2 </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d4/d69/a02869.html">DanglingLineInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>danglingLine</em></td><td>)</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>currentLimitInterface</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -279,20 +425,20 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of dangling line interface to the voltageLevel interface. </p>
+<p>Add a curent limit interface for side 2. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">danglingLine</td><td>instance of danglingLine interface to add </td></tr>
+    <tr><td class="paramname">currentLimitInterface</td><td>current limit interface for the side 2 of the tfo </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#adbb154b5d528a20d2c5f38839bb7e23c">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#acac1a1bc147811dff745c0c4aa69a247">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#ab99e6fc627debe49d29d207066ba73d2">DYN::FictTwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#ab06d71cbf5014a43d7d95ea280754789">DYN::TwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="ac4b1887da3dd6a946e3bc5fbf002be04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4b1887da3dd6a946e3bc5fbf002be04">&#9670;&nbsp;</a></span>addGenerator()</h2>
+<a id="a8128a3bdb1f69e5b8a0c5909ab96f441"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8128a3bdb1f69e5b8a0c5909ab96f441">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,10 +447,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addGenerator </td>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d7/d68/a02885.html">GeneratorInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>generator</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -315,20 +460,16 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of generator interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">generator</td><td>instance of generator interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>update iidm structure from state variables for each unit component </p>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a82c7e9e42fd9239f7b8a4c7a2b18f120">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#ad3556c10c9461f9a818931a3d0a0a6df">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implements <a class="el" href="../../db/d27/a02817.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a746660ba227d74ee089d670f90771ee1">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a8c43aab7d3616d8850b39bd5cb15026f">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="abd1a92ddecdfdfb5f797246ee02885d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd1a92ddecdfdfb5f797246ee02885d2">&#9670;&nbsp;</a></span>addLccConverter()</h2>
+<a id="aed8b439ae02bb437ce91258bbf7f8e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8b439ae02bb437ce91258bbf7f8e8f">&#9670;&nbsp;</a></span>getActiveSeason()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -337,10 +478,251 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addLccConverter </td>
+          <td class="memname">virtual std::string DYN::TwoWTransformerInterface::getActiveSeason </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/d44/a02893.html">LccConverterInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>lcc</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve active season for the transformer. </p>
+<dl class="section return"><dt>Returns</dt><dd>active season </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a178c1ae2e527bb140008abf984e20d93">DYN::FictTwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a5031b95c8d6d6329e9ca3e359e469fd4">DYN::TwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a88d72af746f007d1d2241aebdf767751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88d72af746f007d1d2241aebdf767751">&#9670;&nbsp;</a></span>getB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getB </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the susceptance of the tfo. </p>
+<dl class="section return"><dt>Returns</dt><dd>The susceptance of the tfo in siemens </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#aa95d761bda19340ae9a8c77b81bac7d7">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a2da2232f2bcebd6081e7c779cd907b58">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="abe9c7ffc62ecd7269b8bc380f54584ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe9c7ffc62ecd7269b8bc380f54584ec">&#9670;&nbsp;</a></span>getBusInterface1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d3/d85/a02813.html">BusInterface</a>&gt; DYN::TwoWTransformerInterface::getBusInterface1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the tfo's bus interface side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 1 of the tfo is connected </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#ab5e96f47a94c5a3f292369f8b5004d6b">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a5fd6e01b231c4b7a06f04b89fee087f0">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aae67df8fa9385ec4dee8dea3c129b32e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae67df8fa9385ec4dee8dea3c129b32e">&#9670;&nbsp;</a></span>getBusInterface2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d3/d85/a02813.html">BusInterface</a>&gt; DYN::TwoWTransformerInterface::getBusInterface2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the tfo's bus interface side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 2 of the tfo is connected </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#accbc403841569de1526bcd3c11898ae7">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a7da396f3523cedf3324b662053821a7f">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aa1f040b818f95a6a08378eca8c0f7b33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1f040b818f95a6a08378eca8c0f7b33">&#9670;&nbsp;</a></span>getCurrentLimitInterfaces1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;boost::shared_ptr&lt;<a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a>&gt; &gt; DYN::TwoWTransformerInterface::getCurrentLimitInterfaces1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the current limit interfaces for side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the tfo's side 1 </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a9688b97b551fc0898fbbd2d4d8c34958">DYN::FictTwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a0516e3d6ba71a9d445b5bc66e6a3c64e">DYN::TwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ab1128ef596bb88308bb644da057bec50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1128ef596bb88308bb644da057bec50">&#9670;&nbsp;</a></span>getCurrentLimitInterfaces2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;boost::shared_ptr&lt;<a class="el" href="../../dc/da3/a02853.html">CurrentLimitInterface</a>&gt; &gt; DYN::TwoWTransformerInterface::getCurrentLimitInterfaces2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the current limit interfaces for side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the tfo's side 2 </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a814e5b45f99f1524398f5c85a26561cb">DYN::FictTwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a18c77d3578b6464bed47a8f7898a5f43">DYN::TwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aa8138814b6d39331f4a5542e5f948e10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8138814b6d39331f4a5542e5f948e10">&#9670;&nbsp;</a></span>getG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getG </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the conductance of the tfo. </p>
+<dl class="section return"><dt>Returns</dt><dd>The conductance of the tfo in siemens </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a467758e400475ed7ab48cc9215a94e99">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a4439eb460d60b0eecd0005f5a4bf67d0">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a912b1c13fd91bd975a61a2b0249e8a60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912b1c13fd91bd975a61a2b0249e8a60">&#9670;&nbsp;</a></span>getID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string DYN::TwoWTransformerInterface::getID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the tfo's id. </p>
+<dl class="section return"><dt>Returns</dt><dd>The id of the tfo </dd></dl>
+
+<p>Implements <a class="el" href="../../db/d27/a02817.html#a756e16926e294a2a77cfa29991544595">DYN::ComponentInterface</a>.</p>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a7a254bd6488fbb2330aee65bf3eeaf93">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#afa2ae8a6d8acaf2cde2f2f6d50f7def0">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a4f876ca5a3403aa9c52ed9a4a6d894fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f876ca5a3403aa9c52ed9a4a6d894fb">&#9670;&nbsp;</a></span>getInitialConnected1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::TwoWTransformerInterface::getInitialConnected1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -351,20 +733,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of lcc converter interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lcc</td><td>instance of lcc converter interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getter for the initial connection state of the tfo's side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the tfo's side 1 is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a2da62dcd535c79326f66dcf0fa586fcd">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a030f56f00ed77c1d2f70039981360f59">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a7205ee765b31c91dfd01647e67245287">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#aec46697abe8e20b35b0033ac810b8de4">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="aca157e7f6aae8091eddda47eed6ec45c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca157e7f6aae8091eddda47eed6ec45c">&#9670;&nbsp;</a></span>addLoad()</h2>
+<a id="a890fd10486fa9eb4829de214aab363c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a890fd10486fa9eb4829de214aab363c9">&#9670;&nbsp;</a></span>getInitialConnected2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -373,10 +750,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addLoad </td>
+          <td class="memname">virtual bool DYN::TwoWTransformerInterface::getInitialConnected2 </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d1/dfc/a02901.html">LoadInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>load</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -387,20 +763,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of load interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">load</td><td>instance of load interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getter for the initial connection state of the tfo's side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the tfo's side 2 is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a59f01712d5975fc216e207554ef32864">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a3951222a6442ad5e3eff9ad340084b0b">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a85770c3771c29a9698e08fc6a206e310">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a7a0e23ee0746f1a347a1af0a1c10cdae">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="ab62b69e6d39c6344db6b1b330560e3a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab62b69e6d39c6344db6b1b330560e3a4">&#9670;&nbsp;</a></span>addShuntCompensator()</h2>
+<a id="a4018e360c4ef6c16b73e796a18a44d4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4018e360c4ef6c16b73e796a18a44d4d">&#9670;&nbsp;</a></span>getP1()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,10 +780,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addShuntCompensator </td>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getP1 </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/d0d/a02929.html">ShuntCompensatorInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shunt</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -423,20 +793,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of shunt compensator interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shunt</td><td>instance of shunt compensator interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getter for the active power of the transformer at side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd>The active power of the transformer in MW at side 1 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#adfbab880ed7a33f20d0b0af1f4cb0991">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#ab448fa9ccad7ca1f571cf97dfc6b28ad">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a1619d65c136710d11b920a3b8ded029e">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#aea6c3a82a5f1776238e954ee874db0ff">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="af578a883e6bd38d60109b4469280f86a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af578a883e6bd38d60109b4469280f86a">&#9670;&nbsp;</a></span>addStaticVarCompensator()</h2>
+<a id="ae7786a8f88c4bccbe93edc7d15c49b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7786a8f88c4bccbe93edc7d15c49b9c">&#9670;&nbsp;</a></span>getP2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,10 +810,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addStaticVarCompensator </td>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getP2 </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/d7d/a02941.html">StaticVarCompensatorInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>svc</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -459,20 +823,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of static var compensator interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">svc</td><td>instance of static var compensator interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getter for the active power of the transformer at side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd>The active power of the transformer in MW at side 2 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a6167e74de7c62530a8fe92061e95753d">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#ae2693080bae0a4ce0fb408841aaa4246">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a370e9e65a14bfbf0d8e6ea766e56a74a">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a036d826a393bb762a12f4b6b83351ba2">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a9ad4562574ff3fbeaeb05377e83a0592"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ad4562574ff3fbeaeb05377e83a0592">&#9670;&nbsp;</a></span>addSwitch()</h2>
+<a id="acd394ee72ae51467c34f419af82bb1f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd394ee72ae51467c34f419af82bb1f7">&#9670;&nbsp;</a></span>getPhaseTapChanger()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -481,10 +840,39 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addSwitch </td>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d8/dea/a02913.html">PhaseTapChangerInterface</a>&gt; DYN::TwoWTransformerInterface::getPhaseTapChanger </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dd/d4c/a02949.html">SwitchInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>sw</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the instance of phaseTapChanger interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>the instance of phaseTapChanger interface </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a2c638ea0c38b05177e07927d12b6c5d2">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a2b7df4e89547c532c9fa83d59a3e5d2c">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a8d9981287776fe4b38458a2a9435e47e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d9981287776fe4b38458a2a9435e47e">&#9670;&nbsp;</a></span>getQ1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getQ1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -495,20 +883,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of switch interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sw</td><td>instance of switch interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getter for the reactive power of the transformer at side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd>The reactive power of the transformer in Mvar at side 1 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a7401b6a51192077d669324a970c12fbe">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a755c9566baf8f5ed091f2d38a126016e">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#aa4a27a5e57e226b473dafc65dec181b0">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a87f1b697f67b35000f9faf3d4f2369aa">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a252fc67300ccfd723ff0c148b6d5f2af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a252fc67300ccfd723ff0c148b6d5f2af">&#9670;&nbsp;</a></span>addVscConverter()</h2>
+<a id="abef2513dc186dc7a679ffb7d45c58ab5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef2513dc186dc7a679ffb7d45c58ab5">&#9670;&nbsp;</a></span>getQ2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -517,10 +900,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::addVscConverter </td>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getQ2 </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VscConverterInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vsc</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -531,20 +913,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>Add a new instance of vsc converter interface to the voltageLevel interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vsc</td><td>instance of vsc converter interface to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getter for the reactive power of the transformer at side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd>The reactive power of the transformer in Mvar at side 2 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a3a2d729225bdcd062330c46c7fe69664">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#aa12d33065bf9a11b565f39fc6a6e5b4e">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#afa2ae48cc98f253abb8d5f9c44e281e4">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a229d507e43a5f978bf78e20023637a0f">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="abf13283e35be8a347c4df61e7515bd25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf13283e35be8a347c4df61e7515bd25">&#9670;&nbsp;</a></span>connectNode()</h2>
+<a id="ace1c0ad16b0fef966c87f255ccc6a7ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace1c0ad16b0fef966c87f255ccc6a7ea">&#9670;&nbsp;</a></span>getR()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -553,10 +930,220 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::connectNode </td>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getR </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the resistance of the tfo. </p>
+<dl class="section return"><dt>Returns</dt><dd>The resistance of the tfo in ohm </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a258c2749369e0caeb2b95a2435af0f9a">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a308c825d55c399ecb6380b742ef268c3">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a0f96422ae8c2b19fec2b7b4c7ea24064"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f96422ae8c2b19fec2b7b4c7ea24064">&#9670;&nbsp;</a></span>getRatedU1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getRatedU1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the rated voltage of the tfo's side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd>The rated voltage of the tfo's side 1 in kV </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#adfe725a0cbcf284594fddaa016f1fb51">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a437800d0bb9e72c0b3755dac90ecce41">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ad557e4fa82768e090c37b6879aec0c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad557e4fa82768e090c37b6879aec0c91">&#9670;&nbsp;</a></span>getRatedU2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getRatedU2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the rated voltage of the tfo's side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd>The rated voltage of the tfo's side 2 in kV </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a8bba3836524a29671d3da064fdd589aa">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a8824bb6195892c0b01bbfe5ac9b6b4cc">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aa4bdcf1e6a2e4e83d07fb81bf58f614b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4bdcf1e6a2e4e83d07fb81bf58f614b">&#9670;&nbsp;</a></span>getRatioTapChanger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../db/d8d/a02917.html">RatioTapChangerInterface</a>&gt; DYN::TwoWTransformerInterface::getRatioTapChanger </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the instance of ratioTapChanger interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>the instance of ratioTapChanger interface </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#aaa58d5cdf890ff6326172f8215a38d77">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a9f8304c95e1dab206e338ef393604e8d">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a79819636623b9a4cc29a6a4a756f4f8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79819636623b9a4cc29a6a4a756f4f8f">&#9670;&nbsp;</a></span>getVNom1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getVNom1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the nominal voltage of the tfo's side 1. </p>
+<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the tfo's side 1 in kV </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#ad183fd65c4f1d4259a98d2a034e5f0cd">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a2821ae53671886ac3793b9611d1b1021">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="ab8730a01faabc9e74ccd8fd99261b976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8730a01faabc9e74ccd8fd99261b976">&#9670;&nbsp;</a></span>getVNom2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getVNom2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the nominal voltage of the tfo's side 2. </p>
+<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the tfo's side 2 in kV </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a0b23913684b2dc666f66e281c7e81054">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a2549fd5f1868716d23b4d906d8dfa1aa">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a8053a787daf939dd694f273c1464f205"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8053a787daf939dd694f273c1464f205">&#9670;&nbsp;</a></span>getX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double DYN::TwoWTransformerInterface::getX </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the reactance of the tfo. </p>
+<dl class="section return"><dt>Returns</dt><dd>The reactance of the tfo in ohm </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a5537ac54b089c57a66ca47704f599ca0">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a83fdc5ca83575e1a65bca9eca35b5f36">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a0f574352923f19595c6d18ea73f2b016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f574352923f19595c6d18ea73f2b016">&#9670;&nbsp;</a></span>setBusInterface1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::setBusInterface1 </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d85/a02813.html">BusInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>busInterface</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -567,20 +1154,20 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker) </p>
+<p>Setter for the tfo's bus interface side 1. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">node</td><td>node to connect </td></tr>
+    <tr><td class="paramname">busInterface</td><td>of the bus where the side 1 of the tfo is connected </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a0824aaf3dadc4bf0f487fb75857111c3">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a7fcf8d3e45072156c6bf2c1cb7f982ac">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a0aa37794224f09aecbb3a94b22077e22">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a861dbcd448a633e01cb7505ea93da556">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="aef151d6e5fb76569d26575fcc55856ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef151d6e5fb76569d26575fcc55856ff">&#9670;&nbsp;</a></span>disconnectNode()</h2>
+<a id="ab54f2bc757a9c75ae91d990a8c765eef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab54f2bc757a9c75ae91d990a8c765eef">&#9670;&nbsp;</a></span>setBusInterface2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -589,10 +1176,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::VoltageLevelInterface::disconnectNode </td>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::setBusInterface2 </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d85/a02813.html">BusInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>busInterface</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -603,20 +1190,20 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker) </p>
+<p>Setter for the tfo's bus interface side 2. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">node</td><td>node to disconnect </td></tr>
+    <tr><td class="paramname">busInterface</td><td>of the bus where the side 2 of the tfo is connected </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#adc809e56c89bc7bd96ba0fd6343f89e2">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a4e77f3d9791015e322c313eb6ddb6686">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#aaec283a99eab4c3bfa83bb8000c08fa9">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#af7a02405ed22e483155de5bcd11dad95">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a94a7b9f95b9f0e30c302da44278a113f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94a7b9f95b9f0e30c302da44278a113f">&#9670;&nbsp;</a></span>getBuses()</h2>
+<a id="aba4fe25977f020acad614d7fdb9c3c34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4fe25977f020acad614d7fdb9c3c34">&#9670;&nbsp;</a></span>setPhaseTapChanger()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -625,400 +1212,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../d5/d34/a02809.html">BusInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getBuses </td>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::setPhaseTapChanger </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of bus interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of bus interface of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a5c1c1eaa67e58f046b835c07c0b03b48">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a466331dfa77104884fb9cd589c242f60">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a6bf7f2cc26afdbf1e60794aad3f12dac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bf7f2cc26afdbf1e60794aad3f12dac">&#9670;&nbsp;</a></span>getDanglingLines()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../d4/d69/a02869.html">DanglingLineInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getDanglingLines </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of danglingLine interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of danglingLine of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a2ca45e5b7062dbb2846bc992fe01464e">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#aa1021efe5e9a48bc3558d7198579c044">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a57da8528e458db7d7cc78f6161c95df2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57da8528e458db7d7cc78f6161c95df2">&#9670;&nbsp;</a></span>getGenerators()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../d7/d68/a02885.html">GeneratorInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getGenerators </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of generator interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of generator interface of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#afb9c58906e9eeda68230abac4b3a7fa4">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#aba119712f3d84a89b2c34390e372fb49">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="ab0f1c9b9eeb9da6ae1caf2516dcd83fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0f1c9b9eeb9da6ae1caf2516dcd83fc">&#9670;&nbsp;</a></span>getID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::string DYN::VoltageLevelInterface::getID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the voltageLevel's id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The id of the voltageLevel </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#adac84f67f9745428246af8a2a612fbbe">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a93d8e27a66045b27c0d94f04619d1ddf">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="aa3863ece65f7537d03f773aa58b87156"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3863ece65f7537d03f773aa58b87156">&#9670;&nbsp;</a></span>getLccConverters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../dd/d44/a02893.html">LccConverterInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getLccConverters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of lcc converter interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of lcc converter of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#aafaefdaff10931233c6138016471bdfe">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a23a04714bc4feefdb72a8f756d27e91c">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a82a90abba068ca6337b574e385b1097f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a90abba068ca6337b574e385b1097f">&#9670;&nbsp;</a></span>getLoads()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../d1/dfc/a02901.html">LoadInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getLoads </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of load interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of load interface of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a703e63f0107014c34f7dd7f4d6f9cd20">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#ab827ea75dd036a9c1142e16895ec154d">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a0bc3f533caead3d7fa98b9fc2ee9086c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bc3f533caead3d7fa98b9fc2ee9086c">&#9670;&nbsp;</a></span>getShuntCompensators()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../dd/d0d/a02929.html">ShuntCompensatorInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getShuntCompensators </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of shunt compensator interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of shunt compensator interface of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a890ad7e12b6d4e0571ebacde95391fc7">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a3fa3bc75a816468a18242b2c931e2e9f">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="ae59825bbca0abc23592e53230de03ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae59825bbca0abc23592e53230de03ef8">&#9670;&nbsp;</a></span>getStaticVarCompensators()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../df/d7d/a02941.html">StaticVarCompensatorInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getStaticVarCompensators </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of static var compensator interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of static var compensator interface of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a565643b282fd6233f649cbddb90c0c69">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a24d0f5fd5c051e6909d61a2352d5a15e">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="adf68693f4126f4c5d8356e2750540d0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf68693f4126f4c5d8356e2750540d0b">&#9670;&nbsp;</a></span>getSwitches()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../dd/d4c/a02949.html">SwitchInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getSwitches </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of switch interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of switch interface of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a22854c403a79ead2870511cbdcbf33ab">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a726bc38a506a829876e0086efc9f31bd">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a395a8c12510b0435386be76daf9e211f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a395a8c12510b0435386be76daf9e211f">&#9670;&nbsp;</a></span>getVNom()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::VoltageLevelInterface::getVNom </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the nominal voltage of the voltageLevel. </p>
-<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the voltageLevel </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a859620486a9164fb39543b08283f4668">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a0aecb1aafe38974928ee6d189b3ce800">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="ac9d26e18dbef5399a91dbfe0e04cd01f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9d26e18dbef5399a91dbfe0e04cd01f">&#9670;&nbsp;</a></span>getVoltageLevelTopologyKind()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="../../d4/d39/a02965.html#aa640378559edc3ac305b0dcde5446d68">VoltageLevelTopologyKind_t</a> DYN::VoltageLevelInterface::getVoltageLevelTopologyKind </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the voltage level topology kind. </p>
-<dl class="section return"><dt>Returns</dt><dd>The voltage level topology kind </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a516dc2e5b8775c1df5f27141081d758e">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a4b7bdc52c4cf23ff4953409fc619e317">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="af0385b3ba6470401237d2eeb869587e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0385b3ba6470401237d2eeb869587e1">&#9670;&nbsp;</a></span>getVscConverters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; boost::shared_ptr&lt;<a class="el" href="../../db/d6c/a02969.html">VscConverterInterface</a>&gt; &gt;&amp; DYN::VoltageLevelInterface::getVscConverters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the vector of vsc converter interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>vector of vsc converter of the newtork interface </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a5398d2f0f24194de5abcf337a07ac80e">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#a3ab021b043f8aed59d2ace39bcd601d3">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="af40d1b2100c0c5195d4cf80aa0ce8cba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af40d1b2100c0c5195d4cf80aa0ce8cba">&#9670;&nbsp;</a></span>isNodeBreakerTopology()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::VoltageLevelInterface::isNodeBreakerTopology </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get if the topology of the voltage level is node breaker one </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the topology of the voltage level is node breaker one </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/db3/a03013.html#a5ac0eaed3113aa7f471d3f9e74bf319f">DYN::FictVoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d0/dcd/a03113.html#aa3d21fbaf1848eabd8269cddd2707a97">DYN::VoltageLevelInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a890d29c8937c24e574bda54f64d10ca5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a890d29c8937c24e574bda54f64d10ca5">&#9670;&nbsp;</a></span>isNodeConnected()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::VoltageLevelInterface::isNodeConnected </td>
-          <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d8/dea/a02913.html">PhaseTapChangerInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tapChanger</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1029,21 +1226,128 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>check if one node is connected to a node where there is a bus bar section </p>
+<p>Setter for the instance of phase tap changer interface. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">node</td><td>node to check </td></tr>
+    <tr><td class="paramname">tapChanger</td><td>the instance of phaseTapChanger interface </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> is the node is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#abcabf50d53d5ab1ca352f18fb14c010b">DYN::VoltageLevelInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a7a55b5bc59ef2659a90c432914ccf2e8">DYN::FictVoltageLevelInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#aae9235a0b1e2140db6171ae605432c4a">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a1b24b60a6bb44f7848c046d4af21aacc">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a9bf1fbdfb4b53e3a1b1e275b12cf3ce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bf1fbdfb4b53e3a1b1e275b12cf3ce6">&#9670;&nbsp;</a></span>setRatioTapChanger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::setRatioTapChanger </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d8d/a02917.html">RatioTapChangerInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tapChanger</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for the instance of ratio tap changer interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tapChanger</td><td>the instance of ratioTapChanger interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#aaba265d1dcbb46a6e1cee2d7d27c1ac1">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#af4c438b39517fc104cfd30431a496b62">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a601af4b9d13b66b5f5eefad53ad37cb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a601af4b9d13b66b5f5eefad53ad37cb3">&#9670;&nbsp;</a></span>setVoltageLevelInterface1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::setVoltageLevelInterface1 </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VoltageLevelInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>voltageLevelInterface</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for the tfo's voltageLevel interface side 1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">voltageLevelInterface</td><td>of the bus where the side 1 of the tfo is connected </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#adac024f819582e92eeb5131cadd899a7">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#ae4487342dab6063c54fd26da98f7abe9">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a67bde9acec6c33946426153825928a97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67bde9acec6c33946426153825928a97">&#9670;&nbsp;</a></span>setVoltageLevelInterface2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::TwoWTransformerInterface::setVoltageLevelInterface2 </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02969.html">VoltageLevelInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>voltageLevelInterface</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for the tfo's voltageLevel interface side 2. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">voltageLevelInterface</td><td>of the bus where the side 2 of the tfo is connected </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a3b5beea9364fac140a20fe26d5c009c8">DYN::TwoWTransformerInterfaceIIDM</a>, and <a class="el" href="../../d1/db3/a03013.html#a783f3e5b29d8b588afec8c0b674d3645">DYN::FictTwoWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d0/d0a/a00743_source.html">DYNVoltageLevelInterface.h</a></li>
+<li><a class="el" href="../../dc/dce/a00740_source.html">DYNTwoWTransformerInterface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1061,8 +1365,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/d39/a02965.html">VoltageLevelInterface</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/d39/a02965.html">TwoWTransformerInterface</a></li>
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:22 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

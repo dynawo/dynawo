@@ -1,25 +1,4 @@
 var a02957 =
 [
-    [ "~ThreeWTransformerInterface", "dd/d08/a02957.html#afb75f36474f44cd04dad27727db07008", null ],
-    [ "addCurrentLimitInterface1", "dd/d08/a02957.html#a9a5ab6d615f98bd94533c7ffb2598e93", null ],
-    [ "addCurrentLimitInterface2", "dd/d08/a02957.html#a7063d4632508c8751fb166cd41624d5f", null ],
-    [ "addCurrentLimitInterface3", "dd/d08/a02957.html#a23adde4e05f4f25ea1e82020d093ec03", null ],
-    [ "exportStateVariablesUnitComponent", "dd/d08/a02957.html#a9a5f175dcf05b628ae4695609ec8c9a3", null ],
-    [ "getActiveSeason", "dd/d08/a02957.html#a06b9de3c435cb647621d41bc4a53eab8", null ],
-    [ "getBusInterface1", "dd/d08/a02957.html#a1e565e5f5932089a1d8aaec36e40a8a8", null ],
-    [ "getBusInterface2", "dd/d08/a02957.html#a3c29552498f6e44269b37b4cc480832d", null ],
-    [ "getBusInterface3", "dd/d08/a02957.html#a096720779f84d985856994f331b207ed", null ],
-    [ "getCurrentLimitInterfaces1", "dd/d08/a02957.html#aca285c8cc2157cb82bd596f3729b854f", null ],
-    [ "getCurrentLimitInterfaces2", "dd/d08/a02957.html#a06dfe296a677f94e981beaee393f5660", null ],
-    [ "getCurrentLimitInterfaces3", "dd/d08/a02957.html#afc7cb10e1637869c7f82e73954708601", null ],
-    [ "getID", "dd/d08/a02957.html#ae1aa050334666d7d896668b7eacab3bd", null ],
-    [ "getInitialConnected1", "dd/d08/a02957.html#afc5de636ab69d95dd87758e4977949f2", null ],
-    [ "getInitialConnected2", "dd/d08/a02957.html#aaf2345d9e4ff8a85383210f6a6a6bebf", null ],
-    [ "getInitialConnected3", "dd/d08/a02957.html#a756d71e2facdd1ed54c28067e57fbdcf", null ],
-    [ "setBusInterface1", "dd/d08/a02957.html#aa58c9113c04e20f6898c5aec3592ab73", null ],
-    [ "setBusInterface2", "dd/d08/a02957.html#a89ad718d0639811dcbbf884992cd9930", null ],
-    [ "setBusInterface3", "dd/d08/a02957.html#a8ff9e067ef85810a31be726d8c7c66bd", null ],
-    [ "setVoltageLevelInterface1", "dd/d08/a02957.html#a0a01d5a4c9b40f689d1c2db79ea7878e", null ],
-    [ "setVoltageLevelInterface2", "dd/d08/a02957.html#a52ebf709c08feadf84a79bd6656ae84c", null ],
-    [ "setVoltageLevelInterface3", "dd/d08/a02957.html#a069b78c9c875968d8c3121178da48b29", null ]
+    [ "operator()", "dd/d08/a02957.html#aa60f4ebb44605e00878729658fadaee4", null ]
 ];

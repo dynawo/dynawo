@@ -1,10 +1,9 @@
 var a02845 =
 [
-    [ "GeneratorCriteria", "dd/d4f/a02845.html#ae4fb4b6761e4c3def5e944d944c4a954", null ],
-    [ "addGenerator", "dd/d4f/a02845.html#a83e09fa55611777bd74feaa6e4f244e5", null ],
-    [ "checkCriteria", "dd/d4f/a02845.html#a1c2fcd1f61a42c0a4c851c083ebe260e", null ],
-    [ "checkCriteriaInLocalValueOrSumType", "dd/d4f/a02845.html#a43e8606cf3e24659ca78f71990767336", null ],
-    [ "criteriaEligibleForGenerator", "dd/d4f/a02845.html#a5c72a09196491c85c08ee93658976b46", null ],
-    [ "empty", "dd/d4f/a02845.html#adccf8513b1ba749ab0515b3370675d03", null ],
-    [ "generators_", "dd/d4f/a02845.html#ad1392da3e52e020715b11d4d4b474160", null ]
+    [ "LoadFailingCriteria", "dd/d4f/a02845.html#a5bc7efb4e07af03bcf90abf642c0949d", null ],
+    [ "getDistance", "dd/d4f/a02845.html#a623642b5b7834e39862edd3669ea8127", null ],
+    [ "printOneFailingCriteriaIntoLog", "dd/d4f/a02845.html#afda3b37b5952ac8cbeef2bd7e13c03d9", null ],
+    [ "printOneFailingCriteriaIntoTimeline", "dd/d4f/a02845.html#a19e9cdc585d404689bc939214fec0d4e", null ],
+    [ "p_", "dd/d4f/a02845.html#affc8c26736c47ecd0428a98b9297b431", null ],
+    [ "pBound_", "dd/d4f/a02845.html#a687ae6618fc9ad3792dd884a985adfd5", null ]
 ];

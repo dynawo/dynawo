@@ -115,14 +115,17 @@ $(document).ready(function(){initNavTree('d8/d69/a02661.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbb/a02669.html">Hasher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash for current_thread_id::value_type.  <a href="../../d6/dbb/a02669.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d46/a02673.html">Hasher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash for current_thread_id::value_type.  <a href="../../df/d46/a02673.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d46/a02673.html">TraceAppender</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d8/d69/a02661.html" title="Trace static class. ">Trace</a> appender class.  <a href="../../df/d46/a02673.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d32/a02665.html">TagAndSeverityLevelHash</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for TagAndSeverityLevel.  <a href="../../d3/d32/a02665.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d32/a02665.html">TraceSinks</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stucture defining traces for a specific thread.  <a href="../../d3/d32/a02665.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da6/a02677.html">TraceAppender</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d8/d69/a02661.html" title="Trace static class. ">Trace</a> appender class.  <a href="../../d0/da6/a02677.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbb/a02669.html">TraceSinks</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stucture defining traces for a specific thread.  <a href="../../d6/dbb/a02669.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -135,6 +138,10 @@ typedef boost::log::sinks::synchronous_sink&lt; boost::log::sinks::text_file_bac
 typedef boost::log::sinks::synchronous_sink&lt; boost::log::sinks::text_ostream_backend &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a2e22b115025b40573e1d70adb147f303">TextSink</a></td></tr>
 <tr class="memdesc:a2e22b115025b40573e1d70adb147f303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Text sink for log. <br /></td></tr>
 <tr class="separator:a2e22b115025b40573e1d70adb147f303"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="memItemLeft" align="right" valign="top"><a id="aafd2f7abce58ba76c46e7de79b45d7b7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a> = std::pair&lt; std::string, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> &gt;</td></tr>
+<tr class="memdesc:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for tag and severity pair. <br /></td></tr>
+<tr class="separator:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -150,39 +157,39 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a53362ff6bec8ecfccaa5c65237dacc9d">isLoggingEnabled</a> ()</td></tr>
 <tr class="memdesc:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if logging is enabled.  <a href="#a53362ff6bec8ecfccaa5c65237dacc9d">More...</a><br /></td></tr>
 <tr class="separator:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa85a2e204d4b3f69fafd512a45080b55"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#aa85a2e204d4b3f69fafd512a45080b55">addAppenders</a> (const std::vector&lt; <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:aa85a2e204d4b3f69fafd512a45080b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#aa85a2e204d4b3f69fafd512a45080b55">More...</a><br /></td></tr>
-<tr class="separator:aa85a2e204d4b3f69fafd512a45080b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a632d5d8ddfe05fb0c4a75cdf98267995">clearAndAddAppenders</a> (const std::vector&lt; <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
+<tr class="memdesc:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#a632d5d8ddfe05fb0c4a75cdf98267995">More...</a><br /></td></tr>
+<tr class="separator:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a307efa62de51e067f029f51acf146e77"><td class="memItemLeft" align="right" valign="top"><a id="a307efa62de51e067f029f51acf146e77"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a307efa62de51e067f029f51acf146e77">resetCustomAppenders</a> ()</td></tr>
-<tr class="memdesc:a307efa62de51e067f029f51acf146e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistant custom appenders of trace system. <br /></td></tr>
+<tr class="memdesc:a307efa62de51e067f029f51acf146e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistent custom appenders of trace system. <br /></td></tr>
 <tr class="separator:a307efa62de51e067f029f51acf146e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76de36fc84be513d3d2cb02daa313995"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a76de36fc84be513d3d2cb02daa313995">resetCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a76de36fc84be513d3d2cb02daa313995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistant custom appender of trace system.  <a href="#a76de36fc84be513d3d2cb02daa313995">More...</a><br /></td></tr>
+<tr class="memdesc:a76de36fc84be513d3d2cb02daa313995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistent custom appender of trace system.  <a href="#a76de36fc84be513d3d2cb02daa313995">More...</a><br /></td></tr>
 <tr class="separator:a76de36fc84be513d3d2cb02daa313995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5f0b2597a662806adb2f3b736545f1e"><td class="memItemLeft" align="right" valign="top"><a id="ae5f0b2597a662806adb2f3b736545f1e"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ae5f0b2597a662806adb2f3b736545f1e">resetPersistantCustomAppenders</a> ()</td></tr>
-<tr class="memdesc:ae5f0b2597a662806adb2f3b736545f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistant custom appenders of trace system. <br /></td></tr>
-<tr class="separator:ae5f0b2597a662806adb2f3b736545f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe712a665a3902e14b3be578e9f9f9f0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#abe712a665a3902e14b3be578e9f9f9f0">resetPersistantCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:abe712a665a3902e14b3be578e9f9f9f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistant custom appenders of trace system.  <a href="#abe712a665a3902e14b3be578e9f9f9f0">More...</a><br /></td></tr>
-<tr class="separator:abe712a665a3902e14b3be578e9f9f9f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="memItemLeft" align="right" valign="top"><a id="a3c4394a1492ec44bb3a95bf8fb116bb2"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a3c4394a1492ec44bb3a95bf8fb116bb2">resetPersistentCustomAppenders</a> ()</td></tr>
+<tr class="memdesc:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistent custom appenders of trace system. <br /></td></tr>
+<tr class="separator:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ab96ee04bf35308dc28a8f00f2b8fd035">resetPersistentCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
+<tr class="memdesc:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistent custom appenders of trace system.  <a href="#ab96ee04bf35308dc28a8f00f2b8fd035">More...</a><br /></td></tr>
+<tr class="separator:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69639af6b8047ec50a512d070bc0cd9d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a69639af6b8047ec50a512d070bc0cd9d">severityLevelFromString</a> (std::string level)</td></tr>
 <tr class="memdesc:a69639af6b8047ec50a512d070bc0cd9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get SeverityLevel associated to a string.  <a href="#a69639af6b8047ec50a512d070bc0cd9d">More...</a><br /></td></tr>
 <tr class="separator:a69639af6b8047ec50a512d070bc0cd9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af47b277a2efdd794a442b758f0f52b92"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#af47b277a2efdd794a442b758f0f52b92">stringFromSeverityLevel</a> (<a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> level)</td></tr>
 <tr class="memdesc:af47b277a2efdd794a442b758f0f52b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string representation of a severity level.  <a href="#af47b277a2efdd794a442b758f0f52b92">More...</a><br /></td></tr>
 <tr class="separator:af47b277a2efdd794a442b758f0f52b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2b286a8d73821c19afa910857de6fc0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ac2b286a8d73821c19afa910857de6fc0">debug</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
+<tr class="memitem:ac2b286a8d73821c19afa910857de6fc0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ac2b286a8d73821c19afa910857de6fc0">debug</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
 <tr class="memdesc:ac2b286a8d73821c19afa910857de6fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get debug severity level stream.  <a href="#ac2b286a8d73821c19afa910857de6fc0">More...</a><br /></td></tr>
 <tr class="separator:ac2b286a8d73821c19afa910857de6fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a52c38e4b1900200dc8d044e44bdb6e7b">info</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
+<tr class="memitem:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a52c38e4b1900200dc8d044e44bdb6e7b">info</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
 <tr class="memdesc:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get info severity level stream.  <a href="#a52c38e4b1900200dc8d044e44bdb6e7b">More...</a><br /></td></tr>
 <tr class="separator:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#aed71ecb5071fd4ad758cb4a11afe90d0">warn</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
+<tr class="memitem:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#aed71ecb5071fd4ad758cb4a11afe90d0">warn</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
 <tr class="memdesc:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get warning severity level stream.  <a href="#aed71ecb5071fd4ad758cb4a11afe90d0">More...</a><br /></td></tr>
 <tr class="separator:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8622cc7364876bbbaabe38021fca2ff5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a8622cc7364876bbbaabe38021fca2ff5">error</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
+<tr class="memitem:a8622cc7364876bbbaabe38021fca2ff5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a8622cc7364876bbbaabe38021fca2ff5">error</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
 <tr class="memdesc:a8622cc7364876bbbaabe38021fca2ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get error severity level stream.  <a href="#a8622cc7364876bbbaabe38021fca2ff5">More...</a><br /></td></tr>
 <tr class="separator:a8622cc7364876bbbaabe38021fca2ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a341e9509c5448c5ba113cefc68b9b2b9"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a341e9509c5448c5ba113cefc68b9b2b9">network</a> ()</td></tr>
@@ -206,7 +213,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a095fbe7be6e7a689d79d776257dcb643"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a095fbe7be6e7a689d79d776257dcb643">solver</a> ()</td></tr>
 <tr class="memdesc:a095fbe7be6e7a689d79d776257dcb643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get solver identifier.  <a href="#a095fbe7be6e7a689d79d776257dcb643">More...</a><br /></td></tr>
 <tr class="separator:a095fbe7be6e7a689d79d776257dcb643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73030d1e0ff4f63f34867c229263d85f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a73030d1e0ff4f63f34867c229263d85f">endline</a> (<a class="el" href="../../d0/da6/a02677.html">TraceStream</a> &amp;os)</td></tr>
+<tr class="memitem:a73030d1e0ff4f63f34867c229263d85f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a73030d1e0ff4f63f34867c229263d85f">endline</a> (<a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> &amp;os)</td></tr>
 <tr class="memdesc:a73030d1e0ff4f63f34867c229263d85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print end of line in trace.  <a href="#a73030d1e0ff4f63f34867c229263d85f">More...</a><br /></td></tr>
 <tr class="separator:a73030d1e0ff4f63f34867c229263d85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54921ad88a19128556e6698d859ab21e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a54921ad88a19128556e6698d859ab21e">logExists</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
@@ -218,42 +225,42 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a5dc8eeed52390a75e42b6bf5c69deb1d">printDynawoLogHeader</a> (const std::string &amp;tag)</td></tr>
 <tr class="memdesc:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print Dynawo log header in the log file corresponding to input tag.  <a href="#a5dc8eeed52390a75e42b6bf5c69deb1d">More...</a><br /></td></tr>
 <tr class="separator:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e05bfb78310e1a365ea07eef4430d6b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a6e05bfb78310e1a365ea07eef4430d6b">clearLogFile</a> (const std::string &amp;tag)</td></tr>
-<tr class="memdesc:a6e05bfb78310e1a365ea07eef4430d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a6e05bfb78310e1a365ea07eef4430d6b">More...</a><br /></td></tr>
-<tr class="separator:a6e05bfb78310e1a365ea07eef4430d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a709a2d09fed3d64a437ac19265ba7c82"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a709a2d09fed3d64a437ac19265ba7c82">clearLogFile</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
+<tr class="memdesc:a709a2d09fed3d64a437ac19265ba7c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a709a2d09fed3d64a437ac19265ba7c82">More...</a><br /></td></tr>
+<tr class="separator:a709a2d09fed3d64a437ac19265ba7c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a7864c4cc32f90dedd4dc6bc7ed00f919">init_</a> ()</td></tr>
 <tr class="memdesc:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init function.  <a href="#a7864c4cc32f90dedd4dc6bc7ed00f919">More...</a><br /></td></tr>
 <tr class="separator:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af12904be3cc20423969f237f1ef8bab0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#af12904be3cc20423969f237f1ef8bab0">addAppenders_</a> (const std::vector&lt; <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:af12904be3cc20423969f237f1ef8bab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#af12904be3cc20423969f237f1ef8bab0">More...</a><br /></td></tr>
-<tr class="separator:af12904be3cc20423969f237f1ef8bab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d13b14ede4e3b75dd25fefa1d631d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a80d13b14ede4e3b75dd25fefa1d631d3">configureSink</a> (const std::vector&lt; <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:a80d13b14ede4e3b75dd25fefa1d631d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure a sink to add it to the logging core singleton  <a href="#a80d13b14ede4e3b75dd25fefa1d631d3">More...</a><br /></td></tr>
-<tr class="separator:a80d13b14ede4e3b75dd25fefa1d631d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a453ef21746e95eba6d0709596f261dd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a453ef21746e95eba6d0709596f261dd5">clearAndAddAppenders_</a> (const std::vector&lt; <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
+<tr class="memdesc:a453ef21746e95eba6d0709596f261dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#a453ef21746e95eba6d0709596f261dd5">More...</a><br /></td></tr>
+<tr class="separator:a453ef21746e95eba6d0709596f261dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a439cfe7a22ca398d54d9f93d7122ca31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a439cfe7a22ca398d54d9f93d7122ca31">configureSink</a> (const std::vector&lt; <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a> &gt; &amp;appenders, bool eraseSinks)</td></tr>
+<tr class="memdesc:a439cfe7a22ca398d54d9f93d7122ca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure a sink to add it to the logging core singleton  <a href="#a439cfe7a22ca398d54d9f93d7122ca31">More...</a><br /></td></tr>
+<tr class="separator:a439cfe7a22ca398d54d9f93d7122ca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc3fe327a69bdfd37672ab9d5626af41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#afc3fe327a69bdfd37672ab9d5626af41">resetCustomAppenders_</a> ()</td></tr>
-<tr class="memdesc:afc3fe327a69bdfd37672ab9d5626af41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistant custom appenders of trace system.  <a href="#afc3fe327a69bdfd37672ab9d5626af41">More...</a><br /></td></tr>
+<tr class="memdesc:afc3fe327a69bdfd37672ab9d5626af41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistent custom appenders of trace system.  <a href="#afc3fe327a69bdfd37672ab9d5626af41">More...</a><br /></td></tr>
 <tr class="separator:afc3fe327a69bdfd37672ab9d5626af41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a8bccbd6d9b48a016c34cfebe73d0db9a">resetCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistant custom appender of trace system.  <a href="#a8bccbd6d9b48a016c34cfebe73d0db9a">More...</a><br /></td></tr>
+<tr class="memdesc:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistent custom appender of trace system.  <a href="#a8bccbd6d9b48a016c34cfebe73d0db9a">More...</a><br /></td></tr>
 <tr class="separator:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2034e2f9d31e2d5141c92bc0b149259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ad2034e2f9d31e2d5141c92bc0b149259">resetPersistantCustomAppenders_</a> ()</td></tr>
-<tr class="memdesc:ad2034e2f9d31e2d5141c92bc0b149259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistant custom appenders of trace system.  <a href="#ad2034e2f9d31e2d5141c92bc0b149259">More...</a><br /></td></tr>
-<tr class="separator:ad2034e2f9d31e2d5141c92bc0b149259"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4165b98fbd0b6f53ff853a701723f07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#aa4165b98fbd0b6f53ff853a701723f07">resetPersistantCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:aa4165b98fbd0b6f53ff853a701723f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistant custom appenders of trace system.  <a href="#aa4165b98fbd0b6f53ff853a701723f07">More...</a><br /></td></tr>
-<tr class="separator:aa4165b98fbd0b6f53ff853a701723f07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a935f9eaefff49d3e4922f93882a5b973"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a935f9eaefff49d3e4922f93882a5b973">resetPersistentCustomAppenders_</a> ()</td></tr>
+<tr class="memdesc:a935f9eaefff49d3e4922f93882a5b973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistent custom appenders of trace system.  <a href="#a935f9eaefff49d3e4922f93882a5b973">More...</a><br /></td></tr>
+<tr class="separator:a935f9eaefff49d3e4922f93882a5b973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b31bd1980c016db75e45913c1f7b4cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a3b31bd1980c016db75e45913c1f7b4cb">resetPersistentCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
+<tr class="memdesc:a3b31bd1980c016db75e45913c1f7b4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistent custom appenders of trace system.  <a href="#a3b31bd1980c016db75e45913c1f7b4cb">More...</a><br /></td></tr>
+<tr class="separator:a3b31bd1980c016db75e45913c1f7b4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c21220bde51642160d957c4b0cc98dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a9c21220bde51642160d957c4b0cc98dc">logExists_</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
 <tr class="memdesc:a9c21220bde51642160d957c4b0cc98dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">test if a log exists  <a href="#a9c21220bde51642160d957c4b0cc98dc">More...</a><br /></td></tr>
 <tr class="separator:a9c21220bde51642160d957c4b0cc98dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73e79e893ac9c7738748237f3aaee341"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a73e79e893ac9c7738748237f3aaee341">log_</a> (<a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv, const std::string &amp;tag, const std::string &amp;message)</td></tr>
 <tr class="memdesc:a73e79e893ac9c7738748237f3aaee341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a log to logging core.  <a href="#a73e79e893ac9c7738748237f3aaee341">More...</a><br /></td></tr>
 <tr class="separator:a73e79e893ac9c7738748237f3aaee341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c880e341ea56b2ce14dca9b20c29a5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a7c880e341ea56b2ce14dca9b20c29a5d">clearLogFile_</a> (const std::string &amp;tag)</td></tr>
-<tr class="memdesc:a7c880e341ea56b2ce14dca9b20c29a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a7c880e341ea56b2ce14dca9b20c29a5d">More...</a><br /></td></tr>
-<tr class="separator:a7c880e341ea56b2ce14dca9b20c29a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a846264cffadc0debbcf69a6f11885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a34a846264cffadc0debbcf69a6f11885">clearLogFile_</a> (const std::string &amp;tag, <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
+<tr class="memdesc:a34a846264cffadc0debbcf69a6f11885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a34a846264cffadc0debbcf69a6f11885">More...</a><br /></td></tr>
+<tr class="separator:a34a846264cffadc0debbcf69a6f11885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -266,12 +273,12 @@ Static Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a7566b60eb1140b48129a781c1fa327e1"><td class="memItemLeft" align="right" valign="top"><a id="a7566b60eb1140b48129a781c1fa327e1"></a>
-std::unordered_map&lt; std::string, <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a7566b60eb1140b48129a781c1fa327e1">traceAppenders_</a></td></tr>
-<tr class="memdesc:a7566b60eb1140b48129a781c1fa327e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">map each appender tag to its corresponding boost sink configuration <br /></td></tr>
-<tr class="separator:a7566b60eb1140b48129a781c1fa327e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46b645a509df6446195a38e250e5c74c"><td class="memItemLeft" align="right" valign="top"><a id="a46b645a509df6446195a38e250e5c74c"></a>
+std::unordered_multimap&lt; <a class="el" href="../../d8/d69/a02661.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a>, <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a>, <a class="el" href="../../d3/d32/a02665.html">TagAndSeverityLevelHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#a46b645a509df6446195a38e250e5c74c">traceAppenders_</a></td></tr>
+<tr class="memdesc:a46b645a509df6446195a38e250e5c74c"><td class="mdescLeft">&#160;</td><td class="mdescRight">multimap each appender tag to its corresponding boost sink configuration <br /></td></tr>
+<tr class="separator:a46b645a509df6446195a38e250e5c74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="memItemLeft" align="right" valign="top"><a id="ad57e6aaa172f3f4e73dd445a7c22c260"></a>
-std::unordered_map&lt; boost::log::attributes::current_thread_id::value_type, <a class="el" href="../../d3/d32/a02665.html">TraceSinks</a>, <a class="el" href="../../d6/dbb/a02669.html">Hasher</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ad57e6aaa172f3f4e73dd445a7c22c260">sinks_</a></td></tr>
+std::unordered_map&lt; boost::log::attributes::current_thread_id::value_type, <a class="el" href="../../d6/dbb/a02669.html">TraceSinks</a>, <a class="el" href="../../df/d46/a02673.html">Hasher</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d69/a02661.html#ad57e6aaa172f3f4e73dd445a7c22c260">sinks_</a></td></tr>
 <tr class="memdesc:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="mdescLeft">&#160;</td><td class="mdescRight">thread specific sinks <br /></td></tr>
 <tr class="separator:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52b7b9674e794dda747107167ade0bce"><td class="memItemLeft" align="right" valign="top"><a id="a52b7b9674e794dda747107167ade0bce"></a>
@@ -295,8 +302,8 @@ static const <a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f
 <p><a class="el" href="../../d8/d69/a02661.html" title="Trace static class. ">Trace</a> static class is used to generate log files and configure them. It is also the only interface for logging streams in Dynawo.<br />
 Traces generated before any call to <code><a class="el" href="../../d8/d69/a02661.html#aeb4d1e4c93e960d1e3f7fcdf69c8de7b" title="Init function. ">init()</a></code> static function are ignored. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa85a2e204d4b3f69fafd512a45080b55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa85a2e204d4b3f69fafd512a45080b55">&#9670;&nbsp;</a></span>addAppenders()</h2>
+<a id="a632d5d8ddfe05fb0c4a75cdf98267995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a632d5d8ddfe05fb0c4a75cdf98267995">&#9670;&nbsp;</a></span>clearAndAddAppenders()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -305,9 +312,9 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void DYN::Trace::addAppenders </td>
+          <td class="memname">static void DYN::Trace::clearAndAddAppenders </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>appenders</em></td><td>)</td>
           <td></td>
         </tr>
@@ -329,8 +336,8 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 
 </div>
 </div>
-<a id="af12904be3cc20423969f237f1ef8bab0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af12904be3cc20423969f237f1ef8bab0">&#9670;&nbsp;</a></span>addAppenders_()</h2>
+<a id="a453ef21746e95eba6d0709596f261dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a453ef21746e95eba6d0709596f261dd5">&#9670;&nbsp;</a></span>clearAndAddAppenders_()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,9 +346,9 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Trace::addAppenders_ </td>
+          <td class="memname">void DYN::Trace::clearAndAddAppenders_ </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>appenders</em></td><td>)</td>
           <td></td>
         </tr>
@@ -364,8 +371,8 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 
 </div>
 </div>
-<a id="a6e05bfb78310e1a365ea07eef4430d6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e05bfb78310e1a365ea07eef4430d6b">&#9670;&nbsp;</a></span>clearLogFile()</h2>
+<a id="a709a2d09fed3d64a437ac19265ba7c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a709a2d09fed3d64a437ac19265ba7c82">&#9670;&nbsp;</a></span>clearLogFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,8 +384,18 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
           <td class="memname">static void DYN::Trace::clearLogFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
+          <td class="paramname"><em>slv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -392,14 +409,15 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag</td><td>the tag related to the log file to clear </td></tr>
+    <tr><td class="paramname">slv</td><td>severity level </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a7c880e341ea56b2ce14dca9b20c29a5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c880e341ea56b2ce14dca9b20c29a5d">&#9670;&nbsp;</a></span>clearLogFile_()</h2>
+<a id="a34a846264cffadc0debbcf69a6f11885"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a846264cffadc0debbcf69a6f11885">&#9670;&nbsp;</a></span>clearLogFile_()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,8 +429,18 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
           <td class="memname">void DYN::Trace::clearLogFile_ </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/ddb/a00542.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
+          <td class="paramname"><em>slv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -427,6 +455,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag</td><td>the tag related to the log file to clear </td></tr>
+    <tr><td class="paramname">slv</td><td>severity level </td></tr>
   </table>
   </dd>
 </dl>
@@ -461,8 +490,8 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 
 </div>
 </div>
-<a id="a80d13b14ede4e3b75dd25fefa1d631d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80d13b14ede4e3b75dd25fefa1d631d3">&#9670;&nbsp;</a></span>configureSink()</h2>
+<a id="a439cfe7a22ca398d54d9f93d7122ca31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a439cfe7a22ca398d54d9f93d7122ca31">&#9670;&nbsp;</a></span>configureSink()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,9 +502,19 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
         <tr>
           <td class="memname">void DYN::Trace::configureSink </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/d46/a02673.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/da6/a02677.html">TraceAppender</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>appenders</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>eraseSinks</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -489,6 +528,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">appenders</td><td>appenders containing the data to configure the sink </td></tr>
+    <tr><td class="paramname">eraseSinks</td><td>erase non-persistent sinks </td></tr>
   </table>
   </dd>
 </dl>
@@ -505,7 +545,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a> DYN::Trace::debug </td>
+          <td class="memname">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> DYN::Trace::debug </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
@@ -526,7 +566,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d0/da6/a02677.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d4/d9d/a02681.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
 
 </div>
 </div>
@@ -596,9 +636,9 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a>&amp; DYN::Trace::endline </td>
+          <td class="memname">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a>&amp; DYN::Trace::endline </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/da6/a02677.html">TraceStream</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> &amp;&#160;</td>
           <td class="paramname"><em>os</em></td><td>)</td>
           <td></td>
         </tr>
@@ -617,7 +657,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="../../d0/da6/a02677.html" title="Trace stream class. ">TraceStream</a> with the end of line added.End of line function for stream-like logging </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="../../d4/d9d/a02681.html" title="Trace stream class. ">TraceStream</a> with the end of line added.End of line function for stream-like logging </dd></dl>
 
 </div>
 </div>
@@ -659,7 +699,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a> DYN::Trace::error </td>
+          <td class="memname">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> DYN::Trace::error </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
@@ -680,7 +720,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d0/da6/a02677.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d4/d9d/a02681.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
 
 </div>
 </div>
@@ -694,7 +734,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a> DYN::Trace::info </td>
+          <td class="memname">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> DYN::Trace::info </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
@@ -715,7 +755,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d0/da6/a02677.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d4/d9d/a02681.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
 
 </div>
 </div>
@@ -1182,7 +1222,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 </table>
 </div><div class="memdoc">
 
-<p>Reset a specific non-persistant custom appender of trace system. </p>
+<p>Reset a specific non-persistent custom appender of trace system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
@@ -1227,7 +1267,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 </table>
 </div><div class="memdoc">
 
-<p>Reset a specific non-persistant custom appender of trace system. </p>
+<p>Reset a specific non-persistent custom appender of trace system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
@@ -1262,13 +1302,13 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 </table>
 </div><div class="memdoc">
 
-<p>Reset non-persistant custom appenders of trace system. </p>
+<p>Reset non-persistent custom appenders of trace system. </p>
 <p>Implementation of static function </p>
 
 </div>
 </div>
-<a id="abe712a665a3902e14b3be578e9f9f9f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe712a665a3902e14b3be578e9f9f9f0">&#9670;&nbsp;</a></span>resetPersistantCustomAppender()</h2>
+<a id="ab96ee04bf35308dc28a8f00f2b8fd035"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab96ee04bf35308dc28a8f00f2b8fd035">&#9670;&nbsp;</a></span>resetPersistentCustomAppender()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1277,7 +1317,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void DYN::Trace::resetPersistantCustomAppender </td>
+          <td class="memname">static void DYN::Trace::resetPersistentCustomAppender </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>tag</em>, </td>
@@ -1301,7 +1341,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 </table>
 </div><div class="memdoc">
 
-<p>Reset a specific persistant custom appenders of trace system. </p>
+<p>Reset a specific persistent custom appenders of trace system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
@@ -1312,8 +1352,8 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 
 </div>
 </div>
-<a id="aa4165b98fbd0b6f53ff853a701723f07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4165b98fbd0b6f53ff853a701723f07">&#9670;&nbsp;</a></span>resetPersistantCustomAppender_()</h2>
+<a id="a3b31bd1980c016db75e45913c1f7b4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b31bd1980c016db75e45913c1f7b4cb">&#9670;&nbsp;</a></span>resetPersistentCustomAppender_()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1322,7 +1362,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Trace::resetPersistantCustomAppender_ </td>
+          <td class="memname">void DYN::Trace::resetPersistentCustomAppender_ </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>tag</em>, </td>
@@ -1346,7 +1386,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 </table>
 </div><div class="memdoc">
 
-<p>Reset a specific persistant custom appenders of trace system. </p>
+<p>Reset a specific persistent custom appenders of trace system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
@@ -1358,8 +1398,8 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 
 </div>
 </div>
-<a id="ad2034e2f9d31e2d5141c92bc0b149259"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2034e2f9d31e2d5141c92bc0b149259">&#9670;&nbsp;</a></span>resetPersistantCustomAppenders_()</h2>
+<a id="a935f9eaefff49d3e4922f93882a5b973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a935f9eaefff49d3e4922f93882a5b973">&#9670;&nbsp;</a></span>resetPersistentCustomAppenders_()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1368,7 +1408,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Trace::resetPersistantCustomAppenders_ </td>
+          <td class="memname">void DYN::Trace::resetPersistentCustomAppenders_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1381,7 +1421,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 </table>
 </div><div class="memdoc">
 
-<p>Reset persistant custom appenders of trace system. </p>
+<p>Reset persistent custom appenders of trace system. </p>
 <p>Implementation of static function </p>
 
 </div>
@@ -1572,7 +1612,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d0/da6/a02677.html">TraceStream</a> DYN::Trace::warn </td>
+          <td class="memname">static <a class="el" href="../../d4/d9d/a02681.html">TraceStream</a> DYN::Trace::warn </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
@@ -1593,7 +1633,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d0/da6/a02677.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d4/d9d/a02681.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
 
 </div>
 </div>
@@ -1617,7 +1657,7 @@ Traces generated before any call to <code><a class="el" href="../../d8/d69/a0266
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d8/d69/a02661.html">Trace</a></li>
-    <li class="footer">Generated on Mon Sep 30 2024 12:23:24 for Dynawo by
+    <li class="footer">Generated on Tue Oct 1 2024 08:17:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
