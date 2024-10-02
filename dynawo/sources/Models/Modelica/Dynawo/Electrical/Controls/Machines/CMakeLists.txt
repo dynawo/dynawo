@@ -11,8 +11,11 @@
 add_subdirectory(Protections P)
 add_subdirectory(VoltageRegulators V)
 add_subdirectory(Governors G)
+add_subdirectory(OverExcitationLimiters O)
 add_subdirectory(PowerSystemStabilizers PSS)
 add_subdirectory(ReactivePowerControlLoops R)
+add_subdirectory(StatorCurrentLimiters S)
+add_subdirectory(UnderExcitationLimiters U)
 
 set(MODEL_FILES
   # Machines control models

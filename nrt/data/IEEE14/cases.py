@@ -184,6 +184,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEE
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
+#      IEEE14 - OVA                     #
+#########################################
+
+case_name = "IEEE14 - Over Voltage Automaton"
+case_description = "IEEE14 with an over-voltage automaton on generator 3"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_OverVoltageAutomaton", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
 #      IEEE14 - UVA                     #
 #########################################
 

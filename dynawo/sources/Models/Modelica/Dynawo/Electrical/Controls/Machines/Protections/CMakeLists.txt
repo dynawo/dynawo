@@ -21,6 +21,8 @@ set(MODEL_FILES
   LVRT4Points.extvar
   LVRT10Points.mo
   LVRT10Points.extvar
+  OVA.mo
+  OVA.extvar
   SpeedProtection.mo
   SpeedProtection.extvar
   UVA.mo
