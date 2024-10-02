@@ -25,9 +25,9 @@ model VRRemote "Model for coordinated primary voltage regulation. This model is 
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput[NbGenMax] limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)" annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Regulated voltage reference in per-unit" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Regulated voltage reference in in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URegulatedPu(start = U0Pu) "Regulated voltage in per-unit" annotation(
+  Modelica.Blocks.Interfaces.RealInput URegulatedPu(start = U0Pu) "Regulated voltage in in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput NQ "Signal to change the reactive power generation of the generators participating in the coordinated primary voltage regulation of the considered bus (generator convention)" annotation(
@@ -35,8 +35,8 @@ model VRRemote "Model for coordinated primary voltage regulation. This model is 
 
   parameter Boolean[NbGenMax] limUQDown0 = fill(true, NbGenMax) "Whether the minimum reactive power limits are initially reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)";
   parameter Boolean[NbGenMax] limUQUp0 = fill(true, NbGenMax) "Whether the maximum reactive power limits are initially reached or not (for each generator participating in the coordinated primary voltage regulation of the considered bus)";
-  parameter Types.VoltageModule U0Pu "Start value of the regulated voltage in per-unit";
-  parameter Types.VoltageModule URef0Pu "Start value of the regulated voltage reference in per-unit";
+  parameter Types.VoltageModule U0Pu "Start value of the regulated voltage in in pu (base UNom)";
+  parameter Types.VoltageModule URef0Pu "Start value of the regulated voltage reference in in pu (base UNom)";
   parameter Boolean Frozen0 = false "Start value of the frozen status";
 
 protected

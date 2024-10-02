@@ -202,7 +202,7 @@
     <par type="DOUBLE" name="vrremote_U0Pu" value="1.05"/>
     <par type="DOUBLE" name="vrremote_URef0Pu" value="1.05"/>
     <par type="DOUBLE" name="vrremote_Gain" value="1"/>
-    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
+    <par type="DOUBLE" name="vrremote_tIntegral" value="0.01"/>
   </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="50"/>
