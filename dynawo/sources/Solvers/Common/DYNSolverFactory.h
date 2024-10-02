@@ -61,7 +61,7 @@ class SolverFactory {
    */
   virtual void destroy(Solver*) const = 0;
 
-  using SolverPtr = std::unique_ptr<Solver, std::function<void(Solver*)> >;
+  using SolverPtr = std::unique_ptr<Solver, std::function<void(Solver*)> >;  ///< Alias for Solver unique pointer with SolverDelete custom destructor
 
   /**
    * @brief Create a solver loading given lib
