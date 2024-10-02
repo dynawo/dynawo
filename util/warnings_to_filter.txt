@@ -368,7 +368,7 @@ warning: return type of member DYN::Timers::add is not documented
 warning: return type of member DYN::Trace::resetCustomAppenders is not documented
 warning: return type of member DYN::Trace::resetPersistentCustomAppender is not documented
 warning: return type of member DYN::Trace::resetPersistentCustomAppenders is not documented
-warning: return type of member DYN::Trace::addAppenders is not documented
+warning: return type of member DYN::Trace::clearAndAddAppenders is not documented
 warning: return type of member DYN::Trace::disableLogging is not documented
 warning: return type of member DYN::Trace::enableLogging is not documented
 warning: return type of member DYN::Trace::init is not documented
