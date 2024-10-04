@@ -16,4 +16,6 @@
     <dyn:blackBoxModel id="DisconnectLine" lib="EventQuadripoleDisconnection" parFile="../Nordic/Events.par" parId="DisconnectLine"/>
     <dyn:connect id1="Fault" var1="fault_terminal" id2="NETWORK" var2="4032_401_ACPIN"/>
     <dyn:connect id1="DisconnectLine" var1="event_state1_value" id2="NETWORK" var2="L4032-4044_state_value"/>
+    <dyn:blackBoxModel id="ConnectLine" lib="EventQuadripoleConnection" parFile="../Nordic/Events.par" parId="ConnectLine"/>
+    <dyn:connect id1="ConnectLine" var1="event_state1_value" id2="NETWORK" var2="L4032-4044_state_value"/>
 </dyn:dynamicModelsArchitecture>
