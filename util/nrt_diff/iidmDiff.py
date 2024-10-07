@@ -15,6 +15,7 @@ import os
 import sys
 import operator
 import XMLUtils
+import diffUtils
 
 try:
     settings_dir = os.path.join(os.path.dirname(__file__))
@@ -149,8 +150,7 @@ def OutputIIDMCloseEnough (path_left, path_right):
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " is not in the equivalent object on right side\n"
                 else:
                     try:
-                        difference = abs(float(firstObj.values[attr1])- float(secondObj.values[attr1]))
-                        if (difference > settings.max_iidm_cmp_tol):
+                        if not diffUtils.isclose(float(firstObj.values[attr1]), float(secondObj.values[attr1])):
                             nb_differences+=1
                             differences.append([difference, firstObj, attr1])
                     except ValueError:
