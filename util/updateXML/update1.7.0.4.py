@@ -235,7 +235,7 @@ def update(jobs):
     for PVxml in PVxmls:
         PVxml.set_lib_name("PhotovoltaicsWeccVoltageSourceB")
 
-    weccs = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccCurrentSourceB" or bbm.get_lib_name() == "PhotovoltaicsWeccVoltageSourceB")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccCurrentSourceB" or bbm.get_lib_name() == "PhotovoltaicsWeccVoltageSourceB")
     for weccPV in weccs:
         value = weccPV.parset.get_param_value("photovoltaics_DPMax")
         weccPV.parset.remove_param_or_ref("photovoltaics_DPMax")
@@ -286,7 +286,7 @@ def update(jobs):
         weccPV.parset.remove_param_or_ref("photovoltaics_UMinPu")
         weccPV.parset.add_param("DOUBLE", "photovoltaics_VDipPu", value)
 
-    weccs = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource")
     for weccWTG4A in weccs:
         value = weccWTG4A.parset.get_param_value("WTG4A_DPMax")
         weccWTG4A.parset.remove_param_or_ref("WTG4A_DPMax")
@@ -343,7 +343,7 @@ def update(jobs):
         weccWTG4A.parset.remove_param_or_ref("WTG4A_HoldIpMax")
         weccWTG4A.parset.add_param("DOUBLE", "WTG4A_tHoldIpMax", value)
 
-    weccs = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTGBWeccCurrentSource")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTGBWeccCurrentSource")
     for weccWTG4B in weccs:
         value = weccWTG4B.parset.get_param_value("WTG4B_DPMax")
         weccWTG4B.parset.remove_param_or_ref("WTG4B_DPMax")
@@ -400,7 +400,7 @@ def update(jobs):
         weccWTG4B.parset.remove_param_or_ref("WTG4B_HoldIpMax")
         weccWTG4B.parset.add_param("DOUBLE", "WTG4B_tHoldIpMax", value)
 
-    weccs = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WT4AWeccCurrentSource")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WT4AWeccCurrentSource")
     for weccWT4A in weccs:
         value = weccWT4A.parset.get_param_value("WT4A_DPMax")
         weccWT4A.parset.remove_param_or_ref("WT4A_DPMax")
@@ -457,7 +457,7 @@ def update(jobs):
         weccWT4A.parset.remove_param_or_ref("WT4A_HoldIpMax")
         weccWT4A.parset.add_param("DOUBLE", "WT4A_tHoldIpMax", value)
 
-    weccs = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WT4BWeccCurrentSource")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WT4BWeccCurrentSource")
     for weccWT4B in weccs:
         value = weccWT4B.parset.get_param_value("WT4B_DPMax")
         weccWT4B.parset.remove_param_or_ref("WT4B_DPMax")
