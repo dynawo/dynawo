@@ -141,6 +141,7 @@ def compare_constraints_info (left_file_info, right_file_info):
                 msg += "[ERROR] object " + firstId + " has different kinds in the two files\n"
             if firstObj.value != "" or secondObj.value != "":
                 try:
+                    difference = abs(float(firstObj.value)- float(secondObj.value))
                     if not diffUtils.isclose(float(firstObj.value), float(secondObj.value)):
                         nb_differences+=1
                         differences.append([difference, firstId])
