@@ -569,7 +569,7 @@ class ReaderOMC:
                 (final_expr, idx, no_event_found) = self.find_value(idx, splitted_eq)
                 self.analyse_eq_expr(final_expr, node, no_event_found)
             else:
-                (final_expr, idx, no_event_found) = self.find_value(idx, splitted_eq)
+                (final_expr, idx, _) = self.find_value(idx, splitted_eq)
                 root.eq = final_expr
                 root.no_event = no_event_found_parent
                 if "der(" in final_expr or "der (" in final_expr:

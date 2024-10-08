@@ -98,13 +98,6 @@ class TraceStream {
   TraceStream& operator=(const TraceStream& ts);
 
   /**
-   * @brief Destructor
-   *
-   * Destruct the TraceStream object.
-   */
-  ~TraceStream() = default;
-
-  /**
    * @brief Operator<< overload for C strings
    *
    * Not treated by template operator<< overload
