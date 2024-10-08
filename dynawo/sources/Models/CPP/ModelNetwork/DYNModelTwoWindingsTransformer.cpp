@@ -1812,5 +1812,12 @@ ModelTwoWindingsTransformer::loadInternalVariables(stringstream& streamVariables
     modelPhaseChanger_->loadInternalVariables(streamVariables);
 }
 
+void
+ModelTwoWindingsTransformer::resetInternalVariables() {
+  if (modelRatioChanger_)
+    modelRatioChanger_->resetInternalVariables();
+  if (modelPhaseChanger_)
+    modelPhaseChanger_->resetInternalVariables();
+}
 
 }  // namespace DYN

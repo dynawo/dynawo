@@ -45,6 +45,11 @@ class ModelRatioTapChanger : public ModelTapChanger {
   virtual ~ModelRatioTapChanger();
 
   /**
+   * @brief reset internal variables values
+   */
+  void resetInternalVariables();
+
+  /**
    * @brief  evaluate the zero crossing functions
    *
    * @param t : time to use during the evaluation
