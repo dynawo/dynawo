@@ -56,13 +56,7 @@ ModelCPP::loadParameters(const string& /*parameters*/) {
 void
 ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   stringstream values;
-  dumpVariablesInStream(values);
-  mapVariables[ variablesFileName() ] = values.str();
-}
-
-void
-ModelCPP::dumpVariablesInStream(stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
+  boost::archive::binary_oarchive os(values);
   string cSum = getCheckSum();
 
   vector<double> y(yLocal_, yLocal_ + sizeY());
@@ -75,20 +69,21 @@ ModelCPP::dumpVariablesInStream(stringstream& streamVariables) const {
   os << yp;
   os << z;
   os << g;
+
+  dumpInternalVariables(values);
+
+  mapVariables[ variablesFileName() ] = values.str();
+}
+
+void
+ModelCPP::dumpInternalVariables(stringstream&) const {
+  // no internal variables
 }
 
 void
 ModelCPP::loadVariables(const string& variables) {
   stringstream values(variables);
-  loadVariablesFromStream(values);
-
-  // notify we used dumped values
-  isStartingFromDump_ = true;
-}
-
-void
-ModelCPP::loadVariablesFromStream(stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
+  boost::archive::binary_iarchive is(values);
 
   string cSum = getCheckSum();
   string cSumRead;
@@ -128,6 +123,17 @@ ModelCPP::loadVariablesFromStream(stringstream& streamVariables) {
   std::copy(ypValues.begin(), ypValues.end(), ypLocal_);
   std::copy(zValues.begin(), zValues.end(), zLocal_);
   std::copy(gValues.begin(), gValues.end(), gLocal_);
+
+  // load internal variables
+  loadInternalVariables(values);
+
+  // notify we used dumped values
+  isStartingFromDump_ = true;
+}
+
+void
+ModelCPP::loadInternalVariables(stringstream&) {
+  // no internal variables
 }
 
 void

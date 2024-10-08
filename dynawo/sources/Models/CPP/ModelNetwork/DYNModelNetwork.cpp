@@ -1456,9 +1456,7 @@ ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
 }
 
 void
-ModelNetwork::dumpVariablesInStream(stringstream& streamVariables) const {
-  ModelCPP::dumpVariablesInStream(streamVariables);
-
+ModelNetwork::dumpInternalVariables(stringstream& streamVariables) const {
   // Dump internal variables of components
   for (const auto& component : getComponents()) {
       component->dumpInternalVariables(streamVariables);
@@ -1466,12 +1464,26 @@ ModelNetwork::dumpVariablesInStream(stringstream& streamVariables) const {
 }
 
 void
-ModelNetwork::loadVariablesFromStream(stringstream& streamVariables) {
-  ModelCPP::loadVariablesFromStream(streamVariables);
+ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
+  try {
+    for (const auto& component : getComponents()) {
+      component->loadInternalVariables(streamVariables);
+    }
+  } catch (boost::archive::archive_exception& exc) {
+    // Failure because dump is too short
+    Trace::warn() << DYNLog(NetworkInitInternalVarFailed) << Trace::endline;
+    for (const auto& component : getComponents()) {
+      component->resetInternalVariables();
+    }
+    return;
+  }
 
-  // Load internal variables of components
-  for (const auto& component : getComponents()) {
-    component->loadInternalVariables(streamVariables);
+  if (streamVariables.peek() != EOF) {
+    // Failure because dump is too large
+    Trace::warn() << DYNLog(NetworkInitInternalVarFailed) << Trace::endline;
+    for (const auto& component : getComponents()) {
+      component->resetInternalVariables();
+    }
   }
 }
 

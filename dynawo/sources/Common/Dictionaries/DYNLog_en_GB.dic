@@ -100,6 +100,7 @@ HvdcExtDynModel               =             HVDC %1% using an external dynamic m
 AddingHvdcToNetwork           =             adding HVDC %1% to the Network.
 TapChangerLocked              =             %1%:  Tap changer is blocked
 NetworkInitSwitchCurrentsFailed =           model network : initialization of switches' currents failed
+NetworkInitInternalVarFailed  =             model network : initialization of internal variables from dump failed
 NetworkStats                  =             network statistics:
 NetworkNbVoltagelevel         =             number of voltage levels              : %1%
 NetworkNbBus                  =             number of buses                       : %1% (static: %2%, dynamic: %3%)
