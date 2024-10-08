@@ -150,6 +150,7 @@ def OutputIIDMCloseEnough (path_left, path_right):
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " is not in the equivalent object on right side\n"
                 else:
                     try:
+                        difference = abs(float(firstObj.values[attr1])- float(secondObj.values[attr1]))
                         if not diffUtils.isclose(float(firstObj.values[attr1]), float(secondObj.values[attr1])):
                             nb_differences+=1
                             differences.append([difference, firstObj, attr1])

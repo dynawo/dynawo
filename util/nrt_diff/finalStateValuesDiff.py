@@ -69,6 +69,7 @@ def compare_fsv_info (left_file_info, right_file_info):
             secondObj = right_file_info[firstId]
             if firstObj.value != "" or secondObj.value != "":
                 try:
+                    difference = abs(float(firstObj.value)- float(secondObj.value))
                     if not diffUtils.isclose(float(firstObj.value), float(secondObj.value)):
                         nb_differences+=1
                         differences.append([difference, firstId])
