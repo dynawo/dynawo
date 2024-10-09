@@ -268,10 +268,7 @@ ModelBus::initSize() {
     if (hasConnection_ || hasShortCircuitCapabilities_)
       sizeY_ = 4;
     sizeZ_ = 3;  // numCC, switchOff, state
-    sizeG_ = 0;
-    if (network_->hasConstraints()) {
-      sizeG_ = 2;  // U> Umax or U< Umin
-    }
+    sizeG_ = 2;  // U> Umax or U< Umin
     sizeMode_ = 0;
     sizeCalculatedVar_ = nbCalculatedVariables_;
   }
@@ -736,7 +733,6 @@ ModelBus::evalG(const double& /*t*/) {
 
 void
 ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
-  if (!network_->hasConstraints()) return;
   gEquationIndex[0] = "U > UMax localModel:"+id();
   gEquationIndex[1] = "U < UMin localModel:"+id();
 
