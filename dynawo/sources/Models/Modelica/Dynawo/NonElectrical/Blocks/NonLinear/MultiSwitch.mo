@@ -14,7 +14,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 
 block MultiSwitch "Switch between N Real signals"
 
-  parameter Integer nu(min=0) = 0 "Number of input connections" annotation(
+  parameter Integer nu(min = 1) "Number of input connections" annotation(
     Dialog(connectorSizing=true), HideResult=true);
 
   Modelica.Blocks.Interfaces.RealVectorInput u[nu] "Connector of Real vector input signal" annotation(
@@ -24,12 +24,23 @@ block MultiSwitch "Switch between N Real signals"
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+protected
+  Real v[nu];
+
 equation
   assert(f + 1 <= nu, "MultiSwitch: Inputs must be consistent. However, there are not enough inputs connected :
     f + 1 (= " + String(f + 1) + ") > nu (= " + String(nu) + ")");
   assert(f >= 0, "MultiSwitch: f must be positive. However, f = " + String(f));
 
-  y = u[f+1];
+  for i in 1:nu loop
+    if i == f+1 then
+      v[i] = u[i];
+    else
+      v[i] = 0;
+    end if;
+  end for;
+
+  y = sum(v);
 
   annotation(
     preferredView = "diagram",

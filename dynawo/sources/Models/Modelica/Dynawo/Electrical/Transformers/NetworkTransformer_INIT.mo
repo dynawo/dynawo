@@ -51,7 +51,7 @@ equation
   u20Pu = rTfoPu * u10Pu + ZPu * i20Pu;
   i10Pu = rTfoPu * rTfoPu * YPu * u10Pu - rTfoPu * i20Pu;
   // Equations can also be rewritten with the following
-  // i10Pu = rTfoPu * rTfoPu * ( 1 / ZPu + YPu) * u10Pu - rTfoPu * u20Pu / ZPu;
+  // i10Pu = rTfoPu * rTfoPu * (1 / ZPu + YPu) * u10Pu - rTfoPu * u20Pu / ZPu;
   // i20Pu = - rTfoPu * u10Pu / ZPu + u20Pu / ZPu;
 
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
