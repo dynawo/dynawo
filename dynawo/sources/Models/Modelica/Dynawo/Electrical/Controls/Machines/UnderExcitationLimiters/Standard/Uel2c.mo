@@ -56,7 +56,7 @@ model Uel2c "IEEE (2016) overexcitation limiter type UEL2C model"
     Placement(visible = true, transformation(origin = {-440, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput VFbPu(start = UsRef0Pu) "Reference voltage from ST7C in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-440, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput VfPu(start = (QRef0Pu - QGen0Pu) / Kuf) "Input stabilizer signal" annotation(
+  Modelica.Blocks.Interfaces.RealInput VfPu(start = (QRef0Pu - QGen0Pu) / Kuf) "Excitation system stabilizer signal" annotation(
     Placement(visible = true, transformation(origin = {-440, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable

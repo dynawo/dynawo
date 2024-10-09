@@ -166,10 +166,6 @@ equation
   connect(generatorSynchronous.omegaPu, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const.y, avr.USclOelPu) annotation(
-    Line(points = {{152, 80}, {148, 80}, {148, 68}, {142, 68}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const.y, avr.USclUelPu) annotation(
-    Line(points = {{152, 80}, {148, 80}, {148, 64}, {142, 64}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(UPssPu.y, avr.UPssPu) annotation(
     Line(points = {{101, 0}, {110, 0}, {110, 50}, {118, 50}}, color = {0, 0, 127}));
   connect(UsRefPu.y, avr.UsRefPu) annotation(
@@ -210,8 +206,8 @@ equation
     experiment(StartTime = 0, StopTime = 15, Tolerance = 1e-06, Interval = 0.01),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-  Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This test case has been created to test the GovCt2 governor model.&nbsp;</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It has been derifved from&nbsp;</span>Dynawo.Examples.SMIB.Standard.GovSteam1ExcSt4b2.</div><div><br></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It represents a synchronous machine with AVR and governor connected to a load.</span></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">A load represents a 501 MVA synchronous machine connected to an infinite bus through a transformer and a line, with&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">an active and reactive load between the transformer and the line.</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br><br>A load step is introduced at t=0.1 s.</span></div><div><font face=\"DejaVu Sans Mono\"><br></font></div><div><font face=\"DejaVu Sans Mono\">Below the response of generated active power, mechanical power and voltage are shown.</font></div><div><br></div><div><font face=\"DejaVu Sans Mono\">
-  <figure>PGenPu:</figure><figure><img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/GovCt2_PGenPu.png\"><br></figure><figure>PmPu:</figure>
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This test case has been created to test the GovCt2 governor model.&nbsp;</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It has been derifved from&nbsp;</span>Dynawo.Examples.SMIB.Standard.GovSteam1ExcSt4b2.</div><div><br></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It represents a synchronous machine with AVR and governor connected to a load.</span></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">A load represents a 501 MVA synchronous machine connected to an infinite bus through a transformer and a line, with&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">an active and reactive load between the transformer and the line.</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br><br>A load step is introduced at t=0.1 s.</span></div><div><font face=\"DejaVu Sans Mono\"><br></font></div><div><font face=\"DejaVu Sans Mono\">Below the response of generated active power, mechanical power and voltage are shown.</font></div><div><br></div><div><font face=\"DejaVu Sans Mono\">
+    <figure>PGenPu:</figure><figure><img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/GovCt2_PGenPu.png\"><br></figure><figure>PmPu:</figure>
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/GovCt2_PmPu.png\">
     </figure><figure>UPu:</figure>

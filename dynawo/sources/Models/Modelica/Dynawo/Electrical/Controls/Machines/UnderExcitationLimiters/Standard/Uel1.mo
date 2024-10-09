@@ -35,7 +35,7 @@ model Uel1 "IEEE (2016) underexcitation limiter type UEL1 model"
     Placement(visible = true, transformation(origin = {-220, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput utPu(re(start = ut0Pu.re), im(start = ut0Pu.im)) "Complex stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput VfPu(start = Vf0Pu) "Input stabilizer signal" annotation(
+  Modelica.Blocks.Interfaces.RealInput VfPu(start = Vf0Pu) "Excitation system stabilizer signal" annotation(
     Placement(visible = true, transformation(origin = {-220, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable

@@ -1,5 +1,15 @@
 AcRotatingExciter
+BaseAc1
+BaseAc6
+BaseAc7
+BaseAc8
+BaseDc1
 BaseIEEEX
+BaseSt1
+BaseSt4
+BaseSt5
+BaseSt6
+BaseSt7
 PotentialCircuit
 RectifierRegulationCharacteristic
 SatChar
