@@ -240,6 +240,8 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
     } else {
       DYNAddTimelineEvent(network_, id_, SVarCConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+      if (modelBus_->getSwitchOff())
+        modelBus_->switchOn();
     }
     stateModified_ = true;
     setConnected(currState);

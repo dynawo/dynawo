@@ -19,6 +19,8 @@
 5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection tripped zone 2
 5.379999 | _BUS____7-BUS____8-1_AC | LINE : opening on side 1
 5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection tripped zone 2
+5.379999 | _BUS____7-BUS____8-1_AC | LINE : opening on side 2
+5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection tripped zone 2
 5.379999 | GEN____8_SM | GENERATOR : disconnecting
 5.379999 | _BUS____7-BUS____8-1_AC_side1_Distance | Distance protection tripped zone 2
 5.379999 | GEN____8_SM | GENERATOR : disconnecting

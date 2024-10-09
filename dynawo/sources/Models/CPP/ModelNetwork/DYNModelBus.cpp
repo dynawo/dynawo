@@ -548,17 +548,21 @@ ModelBus::getY0() {
     if (getSwitchOff()) {
       y_[urNum_] = 0.0;
       y_[uiNum_] = 0.0;
+      connectionState_ = OPEN;
     } else {
       y_[urNum_] = ur0_;
       y_[uiNum_] = ui0_;
+      connectionState_ = CLOSED;
     }
   } else {
     if (getSwitchOff()) {
       y_[urNum_] = 0.0;
       y_[uiNum_] = 0.0;
+      connectionState_ = OPEN;
     } else {
       y_[urNum_] = ur0_;
       y_[uiNum_] = ui0_;
+      connectionState_ = CLOSED;
     }
 
     yp_[urNum_] = 0.0;
@@ -720,7 +724,7 @@ ModelBus::evalZ(const double& /*t*/) {
     }
     connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   }
-  return topologyModified_? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
+  return topologyModified_ ? NetworkComponent::TOPO_CHANGE : NetworkComponent::NO_CHANGE;
 }
 
 void
