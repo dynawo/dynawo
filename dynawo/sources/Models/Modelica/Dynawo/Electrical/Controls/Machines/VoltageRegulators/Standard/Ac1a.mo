@@ -14,12 +14,18 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model Ac1a "IEEE exciter type AC1A model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac1c(
-    PositionOel = 2,
-    PositionScl = 0,
-    PositionUel = 2,
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseAc1(
+    max1.nu = 2,
+    min1.nu = 2,
     VeMinPu = 0,
     VfeMaxPu = 999);
+
+equation
+  max1.u[2] = UUelPu;
+  min1.u[2] = UOelPu;
+
+  connect(add3.y, feedback.u1) annotation(
+    Line(points = {{-178, -20}, {-88, -20}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end Ac1a;

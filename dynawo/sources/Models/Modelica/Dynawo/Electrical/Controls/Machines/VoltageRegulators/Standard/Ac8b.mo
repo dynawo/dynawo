@@ -14,17 +14,17 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model Ac8b "IEEE exciter type AC8B model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac8c(
-    Kc1 = 0,
-    Ki = 0,
-    PositionOel = 0,
-    PositionPss = 1,
-    PositionScl = 0,
-    PositionUel = 0,
-    Sw1 = false,
-    Thetap = 0,
-    VbMaxPu = 999,
-    XlPu = 0);
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseAc8(sum1.nin = 2);
+
+equation
+  sum1.u[2] = UPssPu;
+
+  connect(sum1.y, pid.u_s) annotation(
+    Line(points = {{-198, -40}, {18, -40}}, color = {0, 0, 127}));
+  connect(pid.y, limitedFirstOrder.u) annotation(
+    Line(points = {{42, -40}, {158, -40}}, color = {0, 0, 127}));
+  connect(constant1.y, product.u1) annotation(
+    Line(points = {{-258, 40}, {200, 40}, {200, 6}, {218, 6}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end Ac8b;

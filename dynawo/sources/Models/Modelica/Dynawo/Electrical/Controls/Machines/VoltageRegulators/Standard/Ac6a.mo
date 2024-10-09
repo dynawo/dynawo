@@ -14,11 +14,15 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model Ac6a "IEEE excitation system type AC6A model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac6c(
-    PositionOel = 0,
-    PositionScl = 0,
-    PositionUel = 1,
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseAc6(
+    sum1.nin = 2,
     VeMinPu = 0);
+
+equation
+  sum1.u[2] = UUelPu;
+
+  connect(limitedLeadLag.y, feedback.u1) annotation(
+    Line(points = {{-38, 0}, {112, 0}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
