@@ -129,7 +129,7 @@ SubModel::hasTimeline() const {
 }
 
 void
-SubModel::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
+SubModel::setConstraints(const std::shared_ptr<ConstraintsCollection>& constraints) {
   constraints_ = constraints;
 }
 
