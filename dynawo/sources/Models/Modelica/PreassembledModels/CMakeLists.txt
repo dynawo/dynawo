@@ -79,8 +79,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsPmConstDc1a.xml
   GeneratorSynchronousFourWindingsPmConstIEEX2A.xml
   GeneratorSynchronousFourWindingsPmConstSt5bPss2b.xml
-  GeneratorSynchronousFourWindingsPmConstSt5bPss2bScl1c.xml
-  GeneratorSynchronousFourWindingsPmConstSt5bPss2bScl2c.xml
+  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl1c.xml
+  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl2c.xml
   GeneratorSynchronousFourWindingsPmConstSt6bPss3b.xml
   GeneratorSynchronousFourWindingsPmConstSt6cPss6c.xml
   GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel2c.xml

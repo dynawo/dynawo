@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model Ac16c_INIT "IEEE excitation system types AC1C and AC6C initialization model"
+model Ac168_INIT "IEEE excitation system types AC1C, AC6A, AC6C and AC8B initialization model"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT;
 
   //Regulation parameters
@@ -45,4 +45,4 @@ equation
   VeMax0Pu = acRotatingExciter_INIT.VeMax0Pu;
 
   annotation(preferredView = "text");
-end Ac16c_INIT;
+end Ac168_INIT;

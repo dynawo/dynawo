@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model Ac78c_INIT "IEEE exciter types AC7C and AC8C initialization model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac16c_INIT;
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac168_INIT;
 
   //Regulation parameters
   parameter Types.PerUnit Kc1 "Rectifier loading factor proportional to commutating reactance (exciter)";
