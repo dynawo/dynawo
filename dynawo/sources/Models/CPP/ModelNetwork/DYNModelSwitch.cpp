@@ -191,11 +191,17 @@ ModelSwitch::getY0() {
     y_[0] = inLoop_ ? 1. : 0.;
     y_[1] = inLoop_ ? 1. : 0.;
   } else {
-    y_[0] = inLoop_ ? 1. : ir0_;
-    y_[1] = inLoop_ ? 1. : ii0_;
-    yp_[0] = 0.;
-    yp_[1] = 0.;
-    z_[0] = getConnectionState();
+    if (!network_->isStartingFromDump()) {
+      y_[0] = inLoop_ ? 1. : ir0_;
+      y_[1] = inLoop_ ? 1. : ii0_;
+      yp_[0] = 0.;
+      yp_[1] = 0.;
+      z_[0] = getConnectionState();
+    } else {
+      setInitialCurrents();
+      connectionState_ = static_cast<State>(z_[0]);
+      topologyModified_ = true;
+    }
   }
 }
 
