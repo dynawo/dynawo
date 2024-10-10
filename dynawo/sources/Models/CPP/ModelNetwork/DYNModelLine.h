@@ -297,6 +297,20 @@ class ModelLine : public NetworkComponent {
    */
   void initSize() override;
 
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables) override;
+
  private:
   KnownBus_t knownBus_;  ///< known bus
   boost::shared_ptr<ModelCurrentLimits> currentLimits1_;  ///< current limit side 1

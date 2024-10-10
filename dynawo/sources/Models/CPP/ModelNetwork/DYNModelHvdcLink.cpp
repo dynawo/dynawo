@@ -20,6 +20,8 @@
  */
 //======================================================================
 #include <iostream>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelHvdcLink.h"
 
@@ -60,67 +62,68 @@ startingPointMode_(WARM) {
 
 void
 ModelHvdcLink::init(int& /*yNum*/) {
-  std::shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
-  // no state variable for simple hvdc model: no indexes to set
-  // calculate active power at the two points of common coupling
-  setConvertersActivePower(dcLine);
+  if (!network_->isStartingFromDump()) {
+    std::shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
+    // no state variable for simple hvdc model: no indexes to set
+    // calculate active power at the two points of common coupling
+    setConvertersActivePower(dcLine);
 
-  // calculate reactive power at the two points of common coupling
-  setConvertersReactivePower(dcLine);
-
-  switch (startingPointMode_) {
-  case FLAT:
-    if (dcLine->getConverter1()->getBusInterface()) {
-      double uNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-      double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
-      double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-      double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
-      double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
-      double U201 = ur01 * ur01 + ui01 * ui01;
-      if (!doubleIsZero(U201)) {
-        ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
-        ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+    // calculate reactive power at the two points of common coupling
+    setConvertersReactivePower(dcLine);
+    switch (startingPointMode_) {
+    case FLAT:
+      if (dcLine->getConverter1()->getBusInterface()) {
+        double uNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+        double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+        double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+        double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+        double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+        double U201 = ur01 * ur01 + ui01 * ui01;
+        if (!doubleIsZero(U201)) {
+          ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
+          ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+        }
       }
-    }
-    if (dcLine->getConverter2()->getBusInterface()) {
-      double uNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-      double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
-      double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-      double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
-      double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
-      double U202 = ur02 * ur02 + ui02 * ui02;
-      if (!doubleIsZero(U202)) {
-        ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
-        ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+      if (dcLine->getConverter2()->getBusInterface()) {
+        double uNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+        double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+        double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+        double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+        double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+        double U202 = ur02 * ur02 + ui02 * ui02;
+        if (!doubleIsZero(U202)) {
+          ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
+          ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+        }
       }
-    }
-    break;
-  case WARM:
-    if (dcLine->getConverter1()->getBusInterface()) {
-      double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
-      double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
-      double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-      double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
-      double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
-      double U201 = ur01 * ur01 + ui01 * ui01;
-      if (!doubleIsZero(U201)) {
-        ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
-        ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+      break;
+    case WARM:
+      if (dcLine->getConverter1()->getBusInterface()) {
+        double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
+        double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+        double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+        double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+        double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+        double U201 = ur01 * ur01 + ui01 * ui01;
+        if (!doubleIsZero(U201)) {
+          ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
+          ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+        }
       }
-    }
-    if (dcLine->getConverter2()->getBusInterface()) {
-      double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
-      double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
-      double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-      double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
-      double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
-      double U202 = ur02 * ur02 + ui02 * ui02;
-      if (!doubleIsZero(U202)) {
-        ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
-        ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+      if (dcLine->getConverter2()->getBusInterface()) {
+        double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
+        double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+        double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+        double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+        double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+        double U202 = ur02 * ur02 + ui02 * ui02;
+        if (!doubleIsZero(U202)) {
+          ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
+          ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+        }
       }
+      break;
     }
-    break;
   }
 }
 
@@ -146,12 +149,115 @@ ModelHvdcLink::initSize() {
 void
 ModelHvdcLink::getY0() {
   if (!network_->isInitModel()) {
-    // get init value for state variables
+    if (!network_->isStartingFromDump()) {
+      // get init value for state variables
 
-    // get init value for discrete variables
-    z_[state1Num_] = getConnected1();
-    z_[state2Num_] = getConnected2();
+      // get init value for discrete variables
+      z_[state1Num_] = getConnected1();
+      z_[state2Num_] = getConnected2();
+    } else {
+      // get init value for state variables
+
+      // get init value for discrete variables
+      setConnected1(static_cast<State>(static_cast<int>(z_[state1Num_])));
+      switch (connectionState1_) {
+        case CLOSED:
+        {
+          if (modelBus1_->getConnectionState() != CLOSED) {
+            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case OPEN:
+        {
+          if (modelBus1_->getConnectionState() != OPEN) {
+            modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case CLOSED_1:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case CLOSED_2:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case CLOSED_3:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case UNDEFINED_STATE:
+        {
+          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+        }
+      }
+
+      setConnected2(static_cast<State>(static_cast<int>(z_[state2Num_])));
+      switch (connectionState2_) {
+        case CLOSED:
+        {
+          if (modelBus2_->getConnectionState() != CLOSED) {
+            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case OPEN:
+        {
+          if (modelBus2_->getConnectionState() != OPEN) {
+            modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case CLOSED_1:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case CLOSED_2:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case CLOSED_3:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case UNDEFINED_STATE:
+        {
+          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+        }
+      }
+    }
   }
+}
+
+void
+ModelHvdcLink::dumpInternalVariables(std::stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
+  os << P01_;
+  os << Q01_;
+  os << P02_;
+  os << Q02_;
+  os << ir01_;
+  os << ii01_;
+  os << ir02_;
+  os << ii02_;
+}
+
+void
+ModelHvdcLink::loadInternalVariables(std::stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
+  is >> P01_;
+  is >> Q01_;
+  is >> P02_;
+  is >> Q02_;
+  is >> ir01_;
+  is >> ii01_;
+  is >> ir02_;
+  is >> ii02_;
 }
 
 void
