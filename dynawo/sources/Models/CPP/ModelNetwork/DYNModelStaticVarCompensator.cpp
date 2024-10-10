@@ -20,6 +20,8 @@
  */
 //======================================================================
 #include <iostream>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelStaticVarCompensator.h"
 
@@ -101,45 +103,47 @@ ModelStaticVarCompensator::setFequations(map<int, string>& /*fEquationIndex*/) {
 
 void
 ModelStaticVarCompensator::init(int& /*yNum*/) {
-  double gTotal0 = 0.;
-  double bTotal0 = 0.;
-  double ur0 = 0.;
-  double ui0 = 0.;
-  double U0 = 0.;
-  std::shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
-  double P0 = svc->getP() / SNREF;
-  double Q0;
-  double unomBus = svc->getBusInterface()->getVNom();
-  double thetaBus0 = svc->getBusInterface()->getAngle0();
-  double uBus0 = 0.;
-  switch (startingPointMode_) {
-  case FLAT:
-    Q0 = svc->getReactivePowerSetPoint() / SNREF;
-    if (svc->getBusInterface()) {
-      uBus0 = svc->getBusInterface()->getVNom();
+  if (!network_->isStartingFromDump()) {
+    double gTotal0 = 0.;
+    double bTotal0 = 0.;
+    double ur0 = 0.;
+    double ui0 = 0.;
+    double U0 = 0.;
+    std::shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
+    double P0 = svc->getP() / SNREF;
+    double Q0;
+    double unomBus = svc->getBusInterface()->getVNom();
+    double thetaBus0 = svc->getBusInterface()->getAngle0();
+    double uBus0 = 0.;
+    switch (startingPointMode_) {
+    case FLAT:
+      Q0 = svc->getReactivePowerSetPoint() / SNREF;
+      if (svc->getBusInterface()) {
+        uBus0 = svc->getBusInterface()->getVNom();
+      }
+      break;
+    case WARM:
+      Q0 = svc->getQ() / SNREF;
+      if (svc->getBusInterface()) {
+        uBus0 = svc->getBusInterface()->getV0();
+      }
+      break;
+    default:
+      Q0 = 0.;
+      break;
     }
-    break;
-  case WARM:
-    Q0 = svc->getQ() / SNREF;
-    if (svc->getBusInterface()) {
-      uBus0 = svc->getBusInterface()->getV0();
+    ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
+    ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
+    U0 = sqrt(ur0 * ur0 + ui0 * ui0);
+    if (!doubleIsZero(U0)) {
+      gTotal0 = P0 / (U0 * U0);
+      bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
+      ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
+      ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
     }
-    break;
-  default:
-    Q0 = 0.;
-    break;
+    gSvc0_ = gTotal0;
+    bSvc0_ = bTotal0;
   }
-  ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
-  ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
-  U0 = sqrt(ur0 * ur0 + ui0 * ui0);
-  if (!doubleIsZero(U0)) {
-    gTotal0 = P0 / (U0 * U0);
-    bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
-    ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
-    ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
-  }
-  gSvc0_ = gTotal0;
-  bSvc0_ = bTotal0;
 }
 
 double
@@ -219,9 +223,66 @@ ModelStaticVarCompensator::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffs
 void
 ModelStaticVarCompensator::getY0() {
   if (!network_->isInitModel()) {
-    z_[modeNum_] = mode_;
-    z_[connectionStateNum_] = getConnected();
+    if (!network_->isStartingFromDump()) {
+      z_[modeNum_] = mode_;
+      z_[connectionStateNum_] = getConnected();
+    } else {
+      mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
+      setConnected(static_cast<State>(static_cast<int>(z_[connectionStateNum_])));
+      switch (connectionState_) {
+        case CLOSED:
+        {
+          if (modelBus_->getConnectionState() != CLOSED) {
+            modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case OPEN:
+        {
+          if (modelBus_->getConnectionState() != OPEN) {
+            modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case CLOSED_1:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case CLOSED_2:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case CLOSED_3:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case UNDEFINED_STATE:
+        {
+          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+        }
+      }
+    }
   }
+}
+
+void
+ModelStaticVarCompensator::dumpInternalVariables(std::stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
+  os << ir0_;
+  os << ii0_;
+  os << gSvc0_;
+  os << bSvc0_;
+}
+
+void
+ModelStaticVarCompensator::loadInternalVariables(std::stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
+  is >> ir0_;
+  is >> ii0_;
+  is >> gSvc0_;
+  is >> bSvc0_;
 }
 
 NetworkComponent::StateChange_t

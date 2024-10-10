@@ -22,6 +22,8 @@
 #include <cassert>
 
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "PARParametersSet.h"
 #include "DYNModelBus.h"
@@ -505,17 +507,18 @@ ModelBus::evalCalculatedVars() {
 
 void
 ModelBus::init(int& yNum) {
-  switch (startingPointMode_) {
-  case FLAT:
-    u0_ = bus_.lock()->getVNom() / unom_;
-    break;
-  case WARM:
-    u0_ = bus_.lock()->getV0() / unom_;
-    break;
+  if (!network_->isStartingFromDump()) {
+    switch (startingPointMode_) {
+    case FLAT:
+      u0_ = bus_.lock()->getVNom() / unom_;
+      break;
+    case WARM:
+      u0_ = bus_.lock()->getV0() / unom_;
+      break;
+    }
+    ur0_ = u0_ * cos(angle0_);
+    ui0_ = u0_ * sin(angle0_);
   }
-  ur0_ = u0_ * cos(angle0_);
-  ui0_ = u0_ * sin(angle0_);
-
   if (network_->isInitModel()) {
     urYNum_ = yNum;
     ++yNum;
@@ -552,28 +555,75 @@ ModelBus::getY0() {
       y_[uiNum_] = ui0_;
     }
   } else {
-    if (getSwitchOff()) {
-      y_[urNum_] = 0.0;
-      y_[uiNum_] = 0.0;
+    if (!network_->isStartingFromDump()) {
+      if (getSwitchOff()) {
+        y_[urNum_] = 0.0;
+        y_[uiNum_] = 0.0;
+      } else {
+        y_[urNum_] = ur0_;
+        y_[uiNum_] = ui0_;
+      }
+
+      yp_[urNum_] = 0.0;
+      yp_[uiNum_] = 0.0;
+      if (hasConnection_ || hasShortCircuitCapabilities_) {
+        y_[irNum_] = ir0_;
+        y_[iiNum_] = ii0_;
+        yp_[irNum_] = 0.0;
+        yp_[iiNum_] = 0.0;
+      }
+
+      // We assume here that z_[numSubNetworkNum_] was already initialized!!
+      if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.)) {
+        z_[switchOffNum_] = fromNativeBool(false);
+      }
+      z_[connectionStateNum_] = connectionState_;
     } else {
-      y_[urNum_] = ur0_;
-      y_[uiNum_] = ui0_;
-    }
+      ur0_ = y_[urNum_];
+      ui0_ = y_[uiNum_];
+      ir0_ = y_[irNum_];
+      ii0_ = y_[iiNum_];
 
-    yp_[urNum_] = 0.0;
-    yp_[uiNum_] = 0.0;
-    if (hasConnection_ || hasShortCircuitCapabilities_) {
-      y_[irNum_] = ir0_;
-      y_[iiNum_] = ii0_;
-      yp_[irNum_] = 0.0;
-      yp_[iiNum_] = 0.0;
-    }
+      State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
 
-    // We assume here that z_[numSubNetworkNum_] was already initialized!!
-    if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
-      z_[switchOffNum_] = fromNativeBool(false);
-    z_[connectionStateNum_] = connectionState_;
+      if (currState != connectionState_) {
+        topologyModified_ = true;
+        if (isNodeBreaker_ && connectableSwitches_.size() == 0) {
+          throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
+        }
+        if (currState == OPEN) {
+          switchOff();
+          // open all switch connected to this node
+          for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
+            connectableSwitches_[i].lock()->open();
+          }
+        } else if (currState == CLOSED) {
+          switchOn();
+        }
+      }
+      connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+    }
   }
+}
+
+void
+ModelBus::dumpInternalVariables(std::stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
+  os << angle0_;
+  os << u0_;
+  os << U_;
+  os << U2Pu_;
+  os << UPu_;
+}
+
+void
+ModelBus::loadInternalVariables(std::stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
+  is >> angle0_;
+  is >> u0_;
+  is >> U_;
+  is >> U2Pu_;
+  is >> UPu_;
 }
 
 void
