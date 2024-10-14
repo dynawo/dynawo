@@ -194,7 +194,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 <a name="requirements_windows"></a>
 #### Windows
 
-- [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
+- [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 and 2017 were also tested
 - [CMake](https://cmake.org/)
 - Java ([openjdk](https://openjdk.java.net/) for example) to build OpenModelica Compiler
 - [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
@@ -279,17 +279,10 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 ``` batch
 > git config --global core.eol lf
 > git config --global core.autocrlf input
-> set OPENMODELICAHOME=
-> set OPENMODELICALIBRARY=
 > md dynawo-project && cd dynawo-project
-> git clone https://github.com/dynawo/dynawo.git dynawo
+> git clone https://github.com/dynawo/dynawo.git
 > cd dynawo
-> cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "NMake Makefiles"
-> cmake --build b-3-p
-> cmake -S dynawo -B b -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/Install -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles
-> cmake --build b --target install
-> cmake --build b --target models
-> cmake --build b --target solvers
+> util\windows\dynawo.cmd build
 ```
 
 **Warning** We try to limit as far as possible the name of the build and install folders (for example d-i instead of dynawo-install or b-3-p for build-3rd-parties) because of Windows limitation of length of path for folders. We know it causes problems and the only solution is to install Dyna&omega;o in a shorter length directory path.
