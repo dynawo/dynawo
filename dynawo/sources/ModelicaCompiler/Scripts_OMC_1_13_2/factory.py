@@ -3244,6 +3244,7 @@ class Factory:
         if len(all_parameters) >= push_back_threshold:
             self.list_for_defineparameters.append("  };\n")
 
+            self.list_for_defineparameters.append("  parameters.reserve(parameterModelerArray.size());  // with GCC -O3 optimization, pre-allocating the required capacity of the parameters vector prevents excessive RAM usage and out-of-memory errors on some systems")
             self.list_for_defineparameters.append("  for (size_t parameterModelerIndex = 0; parameterModelerIndex < parameterModelerArray.size(); ++parameterModelerIndex)\n")
             self.list_for_defineparameters.append("  {\n")
             self.list_for_defineparameters.append("    parameters.push_back(ParameterModeler(std::get<0>(parameterModelerArray[parameterModelerIndex]), std::get<1>(parameterModelerArray[parameterModelerIndex]), std::get<2>(parameterModelerArray[parameterModelerIndex])));\n")
