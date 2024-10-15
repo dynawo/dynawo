@@ -169,6 +169,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   IECWT4ACurrentSource2020.xml
   IECWT4BCurrentSource2015.xml
   IECWT4BCurrentSource2020.xml
+  InertialGrid.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml
