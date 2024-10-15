@@ -73,6 +73,7 @@ IECWT4ACurrentSource2015
 IECWT4ACurrentSource2020
 IECWT4BCurrentSource2015
 IECWT4BCurrentSource2020
+InertialGrid
 InfiniteBus
 InfiniteBusFromTable
 InfiniteBusWithVariations

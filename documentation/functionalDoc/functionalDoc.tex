@@ -424,7 +424,7 @@ The controls package gathers all the controls and regulations models for the dif
 \item Common models, such as set point, perturbation, step and switch-off, are included into the Basics package.
 \item The Converters package which features three types of grid forming controls. See \cite{GridForming} for more info.
 \item The Current package includes a current limit automaton model and a phase shifter blocking I model (stopping the action of the phase shifter if the current becomes too high).
-\item The Frequency package has the implicit frequency model, called SignalN.
+\item The Frequency package has the implicit frequency model, called SignalN. In addition, it also contains a directory called SystemFrequencyResponse with models allowing to simulate the frequency response of a system following a disturbance.
 \item The Generic package contains an example implementation to call a C function from a Modelica model. This model can serve for example to include an OPF-based automaton into a \Dynawo simulation.
 \item The HVDC package contains two power transfer controls that enable one link to compensate the loss of another link in parallel.
 \item The Machines package with the different regulations for the machines such as voltage regulations, governors, power system stabilizers or under-voltage protection. Regulations are then classified depending on their origin: simplified regulations, standard regulations, etc.
@@ -501,6 +501,7 @@ A classical shunt element (ShuntB) is modeled into this package, with a constant
 ~~\\
 
 A Sources package is available in the library: it offers at the moment a Id/Iq-injector model, a BG-injector model, a Uri injector model and a converter model.
+In addition, it also contains an inertial grid model which behaves as a bus with a constant voltage magnitude and an angle that is determined by the output of a system frequency response control.
 
 \paragraph{StaticVarCompensators}
 ~~\\
@@ -545,7 +546,7 @@ The different preassembled models delivered with \Dynawo are:
 \item TransformerFixedRatio, a fixed ratio transformer model.
 \item UnderVoltageAutomaton corresponding to the under-voltage protection model
 \item The \ac{WECC} wind models, both the 4A and 4B subtypes.
-\item Other simple and unitary models: Line, InfiniteBus, InjectorPB, SetPoint, Step, etc.
+\item Other simple and unitary models: Line, InfiniteBus, InjectorPB, SetPoint, Step, InertialGrid, etc.
 \end{itemize}
 
 \subsubsection{Examples}
@@ -553,6 +554,7 @@ The different preassembled models delivered with \Dynawo are:
 Different small cases are provided into the Examples section. They can serve as a basis or a source of inspiration for anyone interested into conducting Modelica-based simulations using the \Dynawo library.
 
 At the moment, ENTSO-E digital controller report test case, SMIB networks, Migrate grid forming examples and \ac{WECC} test cases for PV and wind components are the examples available into the library.
+Two additional examples are available for observing the frequency response in different situations: the first one is the use of the system frequency response in open loop (as done in the reference paper from Anderson \cite{Anderson}) and the second one is a test case done with two inertial grids connected in order to induce an interarea oscillation (as explained in \cite{Cardozo_InertialGrid}).
 
 \section{Solvers}
 
