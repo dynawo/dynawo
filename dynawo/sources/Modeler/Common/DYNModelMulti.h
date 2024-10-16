@@ -323,7 +323,15 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param curvesCollection set of curves
    * @return vector of Point
    */
-  std::vector<boost::shared_ptr<curves::Point> > getCalculatedVarForStream(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
+  std::vector<boost::shared_ptr<curves::Point> > getLastCurvesValues(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
+
+  /**
+   * @brief update the subset of calculated variables needed for curves
+   *
+   * @param curvesCollection set of curves
+   * @return vector of Point
+   */
+  std::vector<std::string> getCurvesNames(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
