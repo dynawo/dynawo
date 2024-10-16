@@ -1086,12 +1086,25 @@ ModelMulti::updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollectio
 }
 
 vector<shared_ptr<Point> >
-ModelMulti::getCalculatedVarForStream(shared_ptr<curves::CurvesCollection>& curvesCollection) const {
+ModelMulti::getLastCurvesValues(shared_ptr<curves::CurvesCollection>& curvesCollection) const {
   vector<shared_ptr<Point>> v;
   for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
       itCurve != itCurveEnd; ++itCurve) {
     if ((*itCurve)->getAvailable()) {
       v.push_back((*itCurve)->getLastPoint());
+    }
+  }
+  return v;
+}
+
+vector<string>
+ModelMulti::getCurvesNames(shared_ptr<curves::CurvesCollection>& curvesCollection) const {
+  vector<string> v;
+  for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
+      itCurve != itCurveEnd; ++itCurve) {
+    if ((*itCurve)->getAvailable()) {
+      string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
+      v.push_back(curveName);
     }
   }
   return v;
