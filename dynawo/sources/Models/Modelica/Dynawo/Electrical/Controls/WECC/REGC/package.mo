@@ -13,6 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 * of simulation tools for power systems.
 */
 
-package REGC "Renewable energy generator converter models for WECC"
+package REGC "Renewable Energy Generator/Converter models for WECC"
   extends Icons.Package;
 end REGC;

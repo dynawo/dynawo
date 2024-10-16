@@ -31,7 +31,7 @@
   <dyn:connect id1="Generator2" var1="generator_N" id2="SignalN" var2="step_step_value"/>
   <dyn:connect id1="Generator1" var1="generator_NQ" id2="SignalNQ" var2="vrremote_NQ"/>
   <dyn:connect id1="Generator2" var1="generator_NQ" id2="SignalNQ" var2="vrremote_NQ"/>
-  <dyn:connect id1="SignalNQ" var1="vrremote_URegulated" id2="Generator1" var2="generator_UPu"/>
+  <dyn:connect id1="SignalNQ" var1="vrremote_URegulatedPu" id2="Generator1" var2="generator_UPu"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line1Bis" var2="line_switchOffSignal2"/>
   <!-- System 2 with transformers -->
   <dyn:blackBoxModel id="Generator3" lib="GeneratorPVTfoSignalN" parFile="GeneratorPVTfo.par" parId="Generator3"/>

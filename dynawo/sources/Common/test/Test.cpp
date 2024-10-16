@@ -265,7 +265,7 @@ TEST(CommonTest, testTrace) {
   app.setTimeStampFormat("");
   std::vector<Trace::TraceAppender> appenders;
   appenders.push_back(app);
-  Trace::addAppenders(appenders);
+  Trace::clearAndAddAppenders(appenders);
 
   Trace::error("MyTag") << " MyErrorMessage" << Trace::endline;
   TraceStream str(Trace::error("MyTag"));

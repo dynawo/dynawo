@@ -17,10 +17,14 @@
  * @brief Model of ratio tap changer : implementation
  *
  */
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelRatioTapChanger.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
+
+using std::stringstream;
 
 namespace DYN {
 
@@ -155,6 +159,34 @@ ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double 
       DYNAddTimelineEvent(network, id(), TapDown);
     }
   }
+}
+
+void ModelRatioTapChanger::dumpInternalVariables(stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
+  os << whenUp_;
+  os << whenDown_;
+  os << whenLastTap_;
+  os << moveUp_;
+  os << moveDown_;
+  os << tapRefDown_;
+  os << tapRefUp_;
+  os << uMaxState_;
+  os << uMinState_;
+  os << uTargetState_;
+}
+
+void ModelRatioTapChanger::loadInternalVariables(stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
+  is >> whenUp_;
+  is >> whenDown_;
+  is >> whenLastTap_;
+  is >> moveUp_;
+  is >> moveDown_;
+  is >> tapRefDown_;
+  is >> tapRefUp_;
+  is >> uMaxState_;
+  is >> uMinState_;
+  is >> uTargetState_;
 }
 
 }  // namespace DYN

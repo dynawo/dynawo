@@ -13,9 +13,10 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
