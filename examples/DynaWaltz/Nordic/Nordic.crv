@@ -12,6 +12,7 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
+    <curve model="g01" variable="voltageRegulator_efdPu_value"/>
     <curve model="NETWORK" variable="1011_131_Upu_value"/>
     <curve model="NETWORK" variable="4011_401_Upu_value"/>
     <curve model="NETWORK" variable="B11___21_Upu_value"/>

@@ -549,7 +549,7 @@ class Simulation {
     return model_;
   }
 
- private:
+ protected:
   /**
    * @brief open a file stream
    * @param stream file stream stream to open
@@ -636,7 +636,7 @@ class Simulation {
    */
   bool hasIntermediateStateToDump() const;
 
- private:
+ protected:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   boost::shared_ptr<Solver> solver_;  ///< solver used for the simulation
@@ -701,7 +701,7 @@ class Simulation {
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 
- private:
+ protected:
   /**
    * @brief configure the constraints outputs
    */
