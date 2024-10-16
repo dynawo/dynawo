@@ -104,6 +104,8 @@
     <xs:attribute name="criteriaStep" type="xs:int"/>
     <xs:attribute name="precision" type="xs:float"/>
     <xs:attribute name="timeout" type="xs:float"/>
+    <xs:attribute name="timeSync" type="xs:boolean"/>
+    <xs:attribute name="timeSyncAcceleration" type="xs:float"/>
   </xs:complexType>
 
   <xs:complexType name="OutputsEntry">
