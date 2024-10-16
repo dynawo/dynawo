@@ -53,6 +53,7 @@ using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
 using curves::Curve;
+using curves::Point;
 using constraints::ConstraintsCollection;
 using std::fstream;
 
@@ -1082,6 +1083,18 @@ ModelMulti::updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollectio
       subModel->updateCalculatedVarForCurve(curve);
     }
   }
+}
+
+vector<shared_ptr<Point> >
+ModelMulti::getCalculatedVarForStream(shared_ptr<curves::CurvesCollection>& curvesCollection) const {
+  vector<shared_ptr<Point>> v;
+  for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
+      itCurve != itCurveEnd; ++itCurve) {
+    if ((*itCurve)->getAvailable()) {
+      v.push_back((*itCurve)->getLastPoint());
+    }
+  }
+  return v;
 }
 
 void ModelMulti::printVariableNames(bool withVariableType) {

@@ -23,6 +23,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNSimulation.h"
+#include "DYNSimulationRT.h"
 #include "DYNSimulationContext.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNTimer.h"
@@ -40,6 +41,7 @@ namespace parser = xml::sax::parser;
 
 using DYN::Trace;
 using DYN::Simulation;
+using DYN::SimulationRT;
 using DYN::SimulationContext;
 
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
@@ -92,9 +94,10 @@ void launchSimu(const std::string& jobsFileName) {
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    std::unique_ptr<Simulation> simulation;
+
+    std::shared_ptr<SimulationRT> simulation;
     try {
-      simulation = std::unique_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation = std::shared_ptr<SimulationRT>(new SimulationRT((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);
@@ -120,7 +123,7 @@ void launchSimu(const std::string& jobsFileName) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
         simulation->disableExportIIDM();
-        simulation->setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_NONE);
+        simulation->setLostEquipmentsExportMode(SimulationRT::EXPORT_LOSTEQUIPMENTS_NONE);
       }
       print(err.what(), DYN::ERROR);
       simulation->terminate();
@@ -165,7 +168,7 @@ void launchSimuInterractive(const std::string& jobsFileName) {
 #endif
 
   job::XmlImporter importer;
-  boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
+  std::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
   std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
   if (jobsCollection->begin() == jobsCollection->end())
     throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
@@ -176,15 +179,15 @@ void launchSimuInterractive(const std::string& jobsFileName) {
       ++itJobEntry) {
     print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
 
-    boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
+    std::shared_ptr<SimulationContext> context = std::shared_ptr<SimulationContext>(new SimulationContext());
     context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
     context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    boost::shared_ptr<Simulation> simulation;
+    std::shared_ptr<Simulation> simulation;
     try {
-      simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation = std::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);

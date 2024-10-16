@@ -582,7 +582,7 @@ class Simulation {
     return model_;
   }
 
- private:
+ protected:
   /**
    * @brief open a file stream
    * @param stream file stream stream to open
@@ -734,7 +734,7 @@ class Simulation {
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 
- private:
+ protected:
   /**
    * @brief configure the constraints outputs
    */

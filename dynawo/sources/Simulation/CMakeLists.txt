@@ -12,13 +12,15 @@ set(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(SIM_SOURCES
-    DYNSimulation.cpp
-    DYNSimulationLauncher.cpp
+      DYNSimulation.cpp
+      DYNSimulationRT.cpp
+      DYNSimulationLauncher.cpp
     )
 
 set(SIM_INCLUDE_HEADERS
-    DYNSimulation.h
-    DYNSimulationLauncher.h
+      DYNSimulation.h
+      DYNSimulationRT.h
+      DYNSimulationLauncher.h
     )
 
 add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
