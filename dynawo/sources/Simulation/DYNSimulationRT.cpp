@@ -720,7 +720,7 @@ SimulationRT::configureLogs() {
         app.setTimeStampFormat((*itApp)->getTimeStampFormat());
         appenders.push_back(app);
       }
-      Trace::addAppenders(appenders);
+      Trace::clearAndAddAppenders(appenders);
 
       // Add DYNAWO version and revision in each header of appender
       itApp = appendersEntry.begin();
@@ -1221,7 +1221,6 @@ SimulationRT::updateParametersValues() {
 }
 
 void
-
 SimulationRT::updateCurves(bool updateCalculateVariable) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SimulationRT::updateCurves()");
@@ -1229,24 +1228,16 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
   if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 
-  if (updateCalculateVariable)
+  if (updateCalculateVariable) {
     model_->updateCalculatedVarForCurves(curvesCollection_);
-    model_->updateCalculatedVarForCurvesAndStreams(curvesCollection_);
+  }
 
   curvesCollection_->updateCurves(tCurrent_);
 }
 
-SimulationRT::updateStreams(bool updateCalculateVariable) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("SimulationRT::updateCurves()");
-#endif
-  if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
-    return;
-
-  if (updateCalculateVariable)
-    model_->updateCalculatedVarForCurves(curvesCollection_);
-
-  curvesCollection_->updateCurves(tCurrent_);
+void
+SimulationRT::curvesToStream() {
+    std::vector< shared_ptr<curves::Point> > v = model_->getCalculatedVarForStream(curvesCollection_);
 }
 
 void
@@ -1300,7 +1291,6 @@ SimulationRT::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SimulationRT::terminate()");
 #endif
-  Trace::info() << "TITI IN terminate()"<< Trace::endline;
   updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {

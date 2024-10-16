@@ -76,6 +76,14 @@ Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameter
   }
 }
 
+boost::shared_ptr<Point>
+Curve::getLastPoint() const {
+  if (points_.size() >= 0)
+    return points_.back();
+  else
+    return boost::shared_ptr<Point>(nullptr);
+}
+
 void
 Curve::setModelName(const string& modelName) {
   modelName_ = modelName;

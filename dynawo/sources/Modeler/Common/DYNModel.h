@@ -38,6 +38,7 @@ class ConstraintsCollection;
 namespace curves {
 class Curve;
 class CurvesCollection;
+class Point;
 }  // namespace curves
 
 namespace DYN {
@@ -383,6 +384,13 @@ class Model {
    * @param curvesCollection set of curves
    */
   virtual void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
+
+  /**
+   * @brief update the subset of calculated variables needed for curves
+   *
+   * @param curvesCollection set of curves
+   */
+  virtual std::vector<boost::shared_ptr<curves::Point> > getCalculatedVarForStream(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
 
   /**
    * @brief export the parameters of the model for dump

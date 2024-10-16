@@ -58,6 +58,11 @@ class Curve {
   void update(const double& time);
 
   /**
+   * @brief get last point value
+   */
+  boost::shared_ptr<Point> getLastPoint() const;
+
+  /**
    * @brief Setter for curve's model name
    * @param modelName curve's model name
    */

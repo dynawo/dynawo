@@ -629,6 +629,11 @@ class SimulationRT {
   void updateCurves(bool updateCalculateVariable = true);
 
   /**
+   * @brief update streams : at the end of each iteration, new points are added to curve
+   */
+  void curvesToStream();
+
+  /**
    * @brief dump the current time of the simulation in a file
    * @param fileName file where the current time is dumped
    */
