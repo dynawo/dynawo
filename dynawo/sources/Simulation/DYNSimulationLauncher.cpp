@@ -26,6 +26,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNSimulation.h"
+#include "DYNSimulationRT.h"
 #include "DYNSimulationContext.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNTimer.h"
@@ -40,6 +41,7 @@ namespace parser = xml::sax::parser;
 
 using DYN::Trace;
 using DYN::Simulation;
+using DYN::SimulationRT;
 using DYN::SimulationContext;
 
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
@@ -92,9 +94,9 @@ void launchSimu(const std::string& jobsFileName) {
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    boost::shared_ptr<Simulation> simulation;
+    boost::shared_ptr<SimulationRT> simulation;
     try {
-      simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation = boost::shared_ptr<SimulationRT>(new SimulationRT((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);
@@ -120,7 +122,7 @@ void launchSimu(const std::string& jobsFileName) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
         simulation->disableExportIIDM();
-        simulation->setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_NONE);
+        simulation->setLostEquipmentsExportMode(SimulationRT::EXPORT_LOSTEQUIPMENTS_NONE);
       }
       print(err.what(), DYN::ERROR);
       simulation->terminate();

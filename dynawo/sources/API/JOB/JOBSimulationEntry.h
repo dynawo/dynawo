@@ -118,6 +118,38 @@ class SimulationEntry {
     timeout_ = timeout;
   }
 
+  /**
+   * @brief timeSync getter
+   * @returns the boolean indicating if simulation must be sync with user clock
+   */
+  bool getTimeSync() const {
+    return timeSync_;
+  }
+
+  /**
+   * @brief timeSync setter
+   * @param timeSync boolean indicating if simulation must be sync with user clock
+   */
+  void setTimeSync(bool timeSync) {
+    timeSync_ = timeSync;
+  }
+
+  /**
+   * @brief timeSyncAcceleration getter
+   * @returns the acceleration ratio between simulation time and user clock
+   */
+  double getTimeSyncAcceleration() const {
+    return timeSyncAcceleration_;
+  }
+
+  /**
+   * @brief timeSyncAcceleration setter
+   * @param timeSyncAcceleration acceleration ratio between simulation time and user clock
+   */
+  void setTimeSyncAcceleration(double timeSyncAcceleration) {
+    timeSyncAcceleration_ = timeSyncAcceleration;
+  }
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
@@ -125,6 +157,8 @@ class SimulationEntry {
   int criteriaStep_;                        ///< criteria verification time step
   double precision_;                        ///< precision of the simulation
   double timeout_;                          ///< simulation timeout
+  bool timeSync_;                           ///< indicating if simulation must be sync with user clock
+  double timeSyncAcceleration_;             ///< simulation timeout
 };
 
 }  // namespace job
