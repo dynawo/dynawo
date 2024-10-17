@@ -17,15 +17,15 @@ model GeneratorPQProp "Model for generator PQ based on SignalN for the frequency
   extends BaseClasses.BasePQProp(QGenRawPu(start = QGen0Pu));
 
 equation
-  when QGenRawPu <= QMinPu then
+  when QGenRawPu - QDeadBand <= QMinPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenRawPu >= QMaxPu then
+  elsewhen QGenRawPu + QDeadBand >= QMaxPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
-  elsewhen QGenRawPu > QMinPu and QGenRawPu < QMaxPu then
+  elsewhen QGenRawPu + QDeadBand > QMinPu and QGenRawPu - QDeadBand < QMaxPu then
     qStatus = QStatus.Standard;
     limUQDown = false;
     limUQUp = false;

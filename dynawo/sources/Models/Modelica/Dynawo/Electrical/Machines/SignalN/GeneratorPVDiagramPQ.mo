@@ -18,15 +18,15 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   extends BaseClasses.BaseQStator(QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt));
 
 equation
-  when QGenPu <= QMinPu and UPu >= URefPu then
+  when QGenPu - QDeadBand  <= QMinPu and UPu + UDeadBand >= URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
+  elsewhen QGenPu + QDeadBand >= QMaxPu and UPu - UDeadBand <= URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
-  elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
+  elsewhen (QGenPu + QDeadBand > QMinPu or UPu -UDeadBand < URefPu) and (QGenPu - QDeadBand < QMaxPu or UPu + UDeadBand > URefPu) then
     qStatus = QStatus.Standard;
     limUQDown = false;
     limUQUp = false;
