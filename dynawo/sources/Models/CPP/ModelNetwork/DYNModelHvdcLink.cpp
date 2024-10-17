@@ -188,7 +188,7 @@ ModelHvdcLink::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
 
 NetworkComponent::StateChange_t
 ModelHvdcLink::evalZ(const double& /*t*/) {
-  if (modelBus1_->getConnectionState() == OPEN)
+  if (modelBus1_->getSwitchOff())
     z_[state1Num_] = OPEN;
   // evaluation of the discrete variables current values
   State currState1 = static_cast<State>(static_cast<int>(z_[state1Num_]));
@@ -200,12 +200,14 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
     } else {
       DYNAddTimelineEvent(network_, id_, Converter1Connected);
       modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+      if (modelBus1_->getSwitchOff())
+        modelBus1_->switchOn();
     }
     setConnected1(currState1);
     stateModified_ = true;
   }
 
-  if (modelBus2_->getConnectionState() == OPEN)
+  if (modelBus2_->getSwitchOff())
     z_[state2Num_] = OPEN;
 
   State currState2 = static_cast<State>(static_cast<int>(z_[state2Num_]));
@@ -217,6 +219,8 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
     } else {
       DYNAddTimelineEvent(network_, id_, Converter2Connected);
       modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+      if (modelBus2_->getSwitchOff())
+        modelBus2_->switchOn();
     }
     setConnected2(currState2);
     stateModified_ = true;
