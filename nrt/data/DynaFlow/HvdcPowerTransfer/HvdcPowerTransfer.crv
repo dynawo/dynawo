@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -20,4 +20,4 @@
   <curve model="HVDC2" variable="acemulation_KACEmulation"/>
   <curve model="HVDC1" variable="hvdc_running_value"/>
   <curve model="HVDC2" variable="hvdc_running_value"/>
-  </curvesInput>
+</curvesInput>

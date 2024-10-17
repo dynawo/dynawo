@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -12,16 +12,16 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="BESScb" variable="BESScb_injector_PInjPu"/>
-    <curve model="BESScb" variable="BESScb_injector_PInjPuSn"/>
-    <curve model="BESScb" variable="BESScb_injector_QInjPu"/>
-    <curve model="BESScb" variable="BESScb_injector_QInjPuSn"/>
-    <curve model="BESScb" variable="BESScb_injector_terminal_V_re"/>
-    <curve model="BESScb" variable="BESScb_injector_terminal_i_re"/>
-    <curve model="BESScb" variable="BESScb_injector_terminal_V_im"/>
-    <curve model="BESScb" variable="BESScb_injector_terminal_i_im"/>
-    <curve model="BESScb" variable="BESScb_injector_UPu"/>
-    <curve model="BESScb" variable="BESScb_pll_omegaPLLPu"/>
-    <curve model="BESScb" variable="BESScb_reecC_idCmdPu"/>
-    <curve model="BESScb" variable="BESScb_reecC_iqCmdPu"/>
+  <curve model="BESScb" variable="BESScb_injector_PInjPu"/>
+  <curve model="BESScb" variable="BESScb_injector_PInjPuSn"/>
+  <curve model="BESScb" variable="BESScb_injector_QInjPu"/>
+  <curve model="BESScb" variable="BESScb_injector_QInjPuSn"/>
+  <curve model="BESScb" variable="BESScb_injector_terminal_V_re"/>
+  <curve model="BESScb" variable="BESScb_injector_terminal_i_re"/>
+  <curve model="BESScb" variable="BESScb_injector_terminal_V_im"/>
+  <curve model="BESScb" variable="BESScb_injector_terminal_i_im"/>
+  <curve model="BESScb" variable="BESScb_injector_UPu"/>
+  <curve model="BESScb" variable="BESScb_pll_omegaPLLPu"/>
+  <curve model="BESScb" variable="BESScb_reecC_idCmdPu"/>
+  <curve model="BESScb" variable="BESScb_reecC_iqCmdPu"/>
 </curvesInput>

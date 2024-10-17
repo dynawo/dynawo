@@ -18,15 +18,24 @@ model GeneratorPV "Model for generator PV based on SignalN for the frequency han
   extends BaseClasses.BaseQStator(QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt));
 
 equation
-  when QGenPu <= QMinPu and UPu >= URefPu then
+  when QGenPu + QDeadBandPu <= QMinPu and UPu - UDeadBandPu > URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu + UDeadBandPu < URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
-  elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
+  // If the two following branches are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
+  elsewhen QGenPu + QDeadBandPu <= QMinPu and UPu == URefPu then
+    qStatus = QStatus.AbsorptionMax;
+    limUQDown = true;
+    limUQUp = false;
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu == URefPu then
+    qStatus = QStatus.GenerationMax;
+    limUQDown = false;
+    limUQUp = true;
+  elsewhen (QGenPu - QDeadBandPu > QMinPu or UPu + UDeadBandPu < URefPu) and (QGenPu + QDeadBandPu < QMaxPu or UPu - UDeadBandPu > URefPu) then
     qStatus = QStatus.Standard;
     limUQDown = false;
     limUQUp = false;

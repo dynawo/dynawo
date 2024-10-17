@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -22,4 +22,4 @@
   <curve model="CLA" variable="currentLimitAutomaton_order"/>
   <curve model="CLA" variable="currentLimitAutomaton_currentLimitAutomaton1_order_value"/>
   <curve model="CLA" variable="currentLimitAutomaton_currentLimitAutomaton2_order_value"/>
-  </curvesInput>
+</curvesInput>
