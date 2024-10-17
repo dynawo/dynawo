@@ -100,7 +100,7 @@ model SclReferenceCurrent "IRef calculation for SCL2C"
     Placement(visible = true, transformation(origin = {130, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain3(k = KFb) annotation(
     Placement(visible = true, transformation(origin = {30, -100}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VInvMaxPu, uMin = VInvMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VInvMaxPu, uMin = VInvMinPu) annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = FixedRd) annotation(
     Placement(visible = true, transformation(origin = {-190, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
