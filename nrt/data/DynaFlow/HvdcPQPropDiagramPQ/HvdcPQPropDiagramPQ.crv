@@ -22,4 +22,4 @@
   <curve model="Hvdc2" variable="hvdc_QInj2MaxPu"/>
   <curve model="Hvdc1" variable="hvdc_U1Pu"/>
   <curve model="Hvdc1" variable="hvdc_U2Pu"/>
-  </curvesInput>
+</curvesInput>

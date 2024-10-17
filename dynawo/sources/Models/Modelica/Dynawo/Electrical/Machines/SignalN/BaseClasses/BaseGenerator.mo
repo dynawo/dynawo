@@ -40,6 +40,8 @@ partial model BaseGenerator "Base dynamic model for generators based on SignalN 
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in pu (base SnRef) (receptor convention)";
   parameter QStatus qStatus0 "Start voltage regulation status: Standard, AbsorptionMax, GenerationMax";
+  parameter Real UDeadBand(min = 0) "voltage deadband around the target";
+  parameter Real QDeadBand(min = 0) "ractive power deadband around the target";
 
 protected
   Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";

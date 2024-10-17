@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2022, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
-<!-- Grid forming converters (droop control) -->
+  <!-- Grid forming converters (droop control) -->
   <blackBoxModel id="INF" lib="GridFormingConverterDroopControl" parFile="fic.PAR" parId="GFM1" staticId="INF">
     <staticRef var="converter_PGenPu" staticVar="p"/>
     <staticRef var="converter_QGenPu" staticVar="q"/>
@@ -31,7 +31,7 @@
     <staticRef var="converter_state" staticVar="state"/>
   </blackBoxModel>
   <macroConnect connector="GFMToNode" id1="HVDC2" id2="NETWORK"/>
-<!-- Grid following converters (WECC) -->
+  <!-- Grid following converters (WECC) -->
   <blackBoxModel id="WP1" lib="WTG4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP1">
     <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
     <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
@@ -44,7 +44,7 @@
     <staticRef var="WTG4A_injector_state" staticVar="state"/>
   </blackBoxModel>
   <macroConnect connector="WTG4AToNode" id1="WP2" id2="NETWORK"/>
-<!-- Grid frequency -->
+  <!-- Grid frequency -->
   <blackBoxModel id="OMEGAREF" lib="DYNModelOmegaRef" parFile="fic.PAR" parId="OMEGAREF"/>
   <macroConnect connector="OmegaRefToGFM" id1="OMEGAREF" id2="INF" index1="0"/>
   <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="0" name2="INF"/>
@@ -56,10 +56,10 @@
   <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="3" name2="WP1"/>
   <macroConnect connector="OmegaRefToWTG4A" id1="OMEGAREF" id2="WP2" index1="4"/>
   <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="4" name2="WP2"/>
-<!-- Events -->
+  <!-- Events -->
   <blackBoxModel id="FAULT" lib="NodeFault" parFile="fic.PAR" parId="FAULT"/>
   <connect id1="NETWORK" var1="DDDDDP71_ACPIN" id2="FAULT" var2="fault_terminal"/>
-<!-- Macro-connectors-->
+  <!-- Macro-connectors-->
   <macroConnector id="GFMToNode">
     <connect var1="converter_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
   </macroConnector>

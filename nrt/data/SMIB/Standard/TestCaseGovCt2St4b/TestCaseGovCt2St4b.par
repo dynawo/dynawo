@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -52,7 +52,7 @@
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>
     <par type="DOUBLE" name="generator_UPhase0" value="0"/>
     <!-- Governor -->
-    <par type="INT"    name="governor_RSelectInt" value="1"/>
+    <par type="INT" name="governor_RSelectInt" value="1"/>
     <par type="DOUBLE" name="governor_aSetPu" value="10"/>
     <par type="DOUBLE" name="governor_DeltaOmegaDbPu" value="0"/>
     <par type="DOUBLE" name="governor_DeltaOmegaMaxPu" value="1"/>
@@ -111,7 +111,7 @@
     <par type="DOUBLE" name="governor_ValveMaxPu" value="1"/>
     <par type="DOUBLE" name="governor_ValveMinPu" value="0.175"/>
     <par type="DOUBLE" name="governor_WFnlPu" value="0.187"/>
-    <par type="BOOL"   name="governor_WFSpdBool" value="false"/>
+    <par type="BOOL" name="governor_WFSpdBool" value="false"/>
     <!--Voltage regulator -->
     <par type="DOUBLE" name="voltageRegulator_Kc" value="0.113"/>
     <par type="DOUBLE" name="voltageRegulator_Kg" value="0"/>

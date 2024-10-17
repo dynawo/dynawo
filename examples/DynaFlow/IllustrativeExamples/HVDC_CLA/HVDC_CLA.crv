@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -15,4 +15,4 @@
   <!--Curves for scenario-->
   <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_iSide2"/>
   <curve model="HVDC" variable="hvdc_P1Pu"/>
-  </curvesInput>
+</curvesInput>
