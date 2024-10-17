@@ -58,7 +58,7 @@ model VarLimPIDFreeze "PI controller with limited output (with adjustable limits
     Placement(transformation(origin = {80, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
   Modelica.Blocks.Math.Gain gainTrack(k = 1 / (K * Ni)) annotation(
     Placement(transformation(extent = {{0, -80}, {-20, -60}})));
-  Modelica.Blocks.Nonlinear.VariableLimiter limiter annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter limiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(extent = {{70, -10}, {90, 10}})));
   Modelica.Blocks.Sources.Constant FFzero(k = 0) if not WithFeedForward annotation(
     Placement(transformation(extent = {{30, -35}, {40, -25}})));
