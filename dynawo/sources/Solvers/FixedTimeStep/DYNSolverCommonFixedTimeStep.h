@@ -206,6 +206,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   void updateTimeStep(double& tNxt);
 
   inline void setInitStep(double /*initStep*/) {
+    // do nothing
   }
 
  protected:

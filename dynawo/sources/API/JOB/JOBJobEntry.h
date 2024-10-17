@@ -115,9 +115,6 @@ class JobEntry {
    */
   JobEntry() = default;
 
-  /// @brief Destructor
-  ~JobEntry() = default;
-
   /**
    * @brief Copy assignment operator
    * @param other the job entry to copy

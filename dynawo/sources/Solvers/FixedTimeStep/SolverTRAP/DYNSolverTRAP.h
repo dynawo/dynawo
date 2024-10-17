@@ -100,7 +100,9 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   * @brief TRAP version of computePrediction. We just compute the
   * first Yp.
   */
-  void computePrediction() {}
+  void computePrediction() {
+    // do nothing
+  }
 
   /**
   * @copydoc SolverCommonFixedTimeStep::hasPrediction()
