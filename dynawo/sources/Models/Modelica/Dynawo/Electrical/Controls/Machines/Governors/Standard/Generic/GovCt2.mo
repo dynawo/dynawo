@@ -150,7 +150,7 @@ model GovCt2 "Governor type GovCT2"
   // Output
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power output in pu (base PBaseMw) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  
+
   // Blocks
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-244, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -246,11 +246,11 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-238, -120}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.FirstOrder lastValue(T = tLastValue, y(fixed = true), y_start = initValvePu) annotation(
     Placement(visible = true, transformation(origin = {124, -152}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limitDeltaOmegaMinMax(uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitDeltaOmegaMinMax(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-100, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limitFsrt(uMax = 1.0, uMin = -9999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitFsrt(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 1.0, uMin = -9999) annotation(
     Placement(visible = true, transformation(origin = {28, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter limitValveMaxValveMin(limitsAtInit = true, strict = false) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter limitValveMaxValveMin(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, strict = false) annotation(
     Placement(visible = true, transformation(origin = {130, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minLowValueSelect annotation(
     Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -463,7 +463,7 @@ equation
     Line(points = {{209, 198}, {226, 198}}, color = {0, 0, 127}));
   connect(PGenPu, gainChangeBaseIn.u) annotation(
     Line(points = {{-333, -181}, {-308, -181}, {-308, -182}}, color = {0, 0, 127}));
-  
+
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
