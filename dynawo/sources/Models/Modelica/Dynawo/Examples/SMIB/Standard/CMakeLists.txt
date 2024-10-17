@@ -16,6 +16,7 @@ set(MODEL_FILES
   GovSteam1St4bPss2b1.mo
   GovSteam1St4b2.mo
   GovSteam1St4bPss2b3.mo
+  GovSteamEuSt4b.mo
   )
 
 #
