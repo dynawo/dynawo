@@ -336,8 +336,9 @@ class ModelCPP : public SubModel {
    * @brief load the internal variables values from a previous dump
    *
    * @param streamVariables : stream of values where the variables were dumped
+   * @return success
    */
-  virtual void loadInternalVariables(std::stringstream& streamVariables);
+  virtual bool loadInternalVariables(std::stringstream& streamVariables);
 
  private:
   std::string modelType_;  ///< model type

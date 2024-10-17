@@ -81,11 +81,6 @@ id_(id),
 network_(NULL) { }
 
 void
-NetworkComponent::resetInternalVariables() {
-  // nothing to do
-}
-
-void
 NetworkComponent::setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset) {
   yType_ = &(yType[offset]);
 }

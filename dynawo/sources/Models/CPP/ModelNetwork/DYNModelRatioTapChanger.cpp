@@ -47,7 +47,7 @@ ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
 
 ModelRatioTapChanger::~ModelRatioTapChanger() {}
 
-void ModelRatioTapChanger::resetInternalVariables() {
+void ModelRatioTapChanger::getY0() {
   whenUp_ = VALDEF;
   whenDown_ = VALDEF;
   whenLastTap_ = VALDEF;

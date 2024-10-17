@@ -1463,7 +1463,7 @@ ModelNetwork::dumpInternalVariables(stringstream& streamVariables) const {
   }
 }
 
-void
+bool
 ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
   try {
     for (const auto& component : getComponents()) {
@@ -1471,20 +1471,14 @@ ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
     }
   } catch (boost::archive::archive_exception& exc) {
     // Failure because dump is too short
-    Trace::warn() << DYNLog(NetworkInitInternalVarFailed) << Trace::endline;
-    for (const auto& component : getComponents()) {
-      component->resetInternalVariables();
-    }
-    return;
+    return false;
   }
 
   if (streamVariables.peek() != EOF) {
     // Failure because dump is too large
-    Trace::warn() << DYNLog(NetworkInitInternalVarFailed) << Trace::endline;
-    for (const auto& component : getComponents()) {
-      component->resetInternalVariables();
-    }
+    return false;
   }
+  return true;
 }
 
 }  // namespace DYN

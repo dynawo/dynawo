@@ -54,11 +54,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   explicit ModelTwoWindingsTransformer(const boost::shared_ptr<TwoWTransformerInterface>& tfo);
 
   /**
-   * @brief reset internal variables values
-   */
-  void resetInternalVariables() override;
-
-  /**
    * @brief  indicate which modelBus are known (case of line without modelBus at one side)
    */
   typedef enum {

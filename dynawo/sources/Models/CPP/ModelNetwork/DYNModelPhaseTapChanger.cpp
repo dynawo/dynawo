@@ -42,7 +42,7 @@ ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id, int lowIndex)
 
 ModelPhaseTapChanger::~ModelPhaseTapChanger() {}
 
-void ModelPhaseTapChanger::resetInternalVariables() {
+void ModelPhaseTapChanger::getY0() {
   whenUp_ = VALDEF;
   whenDown_ = VALDEF;
   whenLastTap_ = VALDEF;

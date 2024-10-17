@@ -46,7 +46,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
   /**
    * @brief reset internal variables values
    */
-  void resetInternalVariables();
+  void getY0();
 
   /**
    * @brief  evaluate the zero crossing functions
