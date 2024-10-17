@@ -87,7 +87,7 @@ partial model BaseAc1 "IEEE excitation system type AC1 base model"
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, Y0 = Efe0Pu, YMax = VaMaxPu, YMin = VaMinPu, tFilter = tA) annotation(
     Placement(visible = true, transformation(origin = {10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = EfeMaxPu, uMin = EfeMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EfeMaxPu, uMin = EfeMinPu) annotation(
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters
