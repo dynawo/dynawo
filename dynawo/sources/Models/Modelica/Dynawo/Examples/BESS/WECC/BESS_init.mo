@@ -13,7 +13,7 @@ within Dynawo.Examples.BESS.WECC;
 */
 
 model BESS_init
-  Electrical.BESS.WECC.BESS_INIT bess_init(P0Pu = -0.03, Q0Pu = 0,RPu = 0, SNom = 6, U0Pu = 1, UPhase0 = 0.00000144621, XPu = 1e-10)  annotation(
+  Electrical.BESS.WECC.BESS_INIT bess_init(P0Pu = -0.03, Q0Pu = 0,RPu = 0, SNom = 6, U0Pu = 1, UPhase0 = 0.00000144621, XPu = 1e-10) annotation(
     Placement(visible = true, transformation(origin = {-38, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 end BESS_init;
