@@ -36,7 +36,7 @@ namespace criteria {
 //-----------------------------------------------------
 
 TEST(APICRTTest, CriteriaParams) {
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  const std::unique_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
 //
   // test default constructor attributes
   ASSERT_EQ(criteriap->getScope(), CriteriaParams::UNDEFINED_SCOPE);
@@ -89,7 +89,7 @@ TEST(APICRTTest, Criteria) {
   assert(!criteria->getParams());
 
   // set attributes
-  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setScope(CriteriaParams::FINAL);
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setId("MyId");
@@ -139,7 +139,7 @@ TEST(APICRTTest, Criteria) {
 }
 
 TEST(APICRTTest, CriteriaCollection) {
-  boost::shared_ptr<CriteriaCollection> criteriaCol = CriteriaCollectionFactory::newInstance();
+  const std::unique_ptr<CriteriaCollection> criteriaCol = CriteriaCollectionFactory::newInstance();
 
   // test default constructor attributes
   assert(criteriaCol->begin(CriteriaCollection::BUS) == criteriaCol->end(CriteriaCollection::BUS));
