@@ -47,6 +47,19 @@ ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
 
 ModelRatioTapChanger::~ModelRatioTapChanger() {}
 
+void ModelRatioTapChanger::resetInternalVariables() {
+  whenUp_ = VALDEF;
+  whenDown_ = VALDEF;
+  whenLastTap_ = VALDEF;
+  moveUp_ = false;
+  moveDown_ = false;
+  tapRefDown_ = -1;
+  tapRefUp_ = -1;
+  uMaxState_ = false;
+  uMinState_ = false;
+  uTargetState_ = true;
+}
+
 bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
   // decide whether we should increase/decrease tap
   bool increaseRate = false;

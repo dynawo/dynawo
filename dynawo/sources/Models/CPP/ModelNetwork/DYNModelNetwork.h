@@ -286,20 +286,20 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    */
   void printModel() const override;
 
-
   /**
-   * @brief export the variables values of the sub model for dump in a stream
+   * @brief export the internal variables values of the sub model for dump in a stream
    *
    * @param streamVariables : map associating the file where values should be dumped with the stream of values
    */
-  void dumpVariablesInStream(std::stringstream& streamVariables) const override;
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
 
   /**
-   * @brief load the variables values from a previous dump
+   * @brief load the internal variables values from a previous dump
    *
    * @param streamVariables : stream of values where the variables were dumped
+   * @return success
    */
-  void loadVariablesFromStream(std::stringstream& streamVariables) override;
+  bool loadInternalVariables(std::stringstream& streamVariables) override;
 
  protected:
   /**

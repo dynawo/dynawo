@@ -44,6 +44,11 @@ class ModelPhaseTapChanger : public ModelTapChanger {
   virtual ~ModelPhaseTapChanger();
 
   /**
+   * @brief reset internal variables values
+   */
+  void resetInternalVariables();
+
+  /**
    * @brief  evaluate the zero crossing functions
    *
    * @param t : time to use during the evaluation

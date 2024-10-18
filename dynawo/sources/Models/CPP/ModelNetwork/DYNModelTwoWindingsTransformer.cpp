@@ -1680,13 +1680,17 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
 
 void
 ModelTwoWindingsTransformer::getY0() {
-  if (!network_->isInitModel()) {
+  if (!network_->isInitModel() && !network_->isStartingFromDump()) {
     z_[connectionStateNum_] = getConnectionState();
     z_[currentStepIndexNum_] = getCurrentStepIndex();
     z_[currentLimitsDesactivateNum_] = getCurrentLimitsDesactivate();
     z_[disableInternalTapChangerNum_] = getDisableInternalTapChanger();
     z_[tapChangerLockedNum_] = getTapChangerLocked();
     z_[deltaUTarget] = 0.;
+    if (modelRatioChanger_)
+      modelRatioChanger_->resetInternalVariables();
+    if (modelPhaseChanger_)
+      modelPhaseChanger_->resetInternalVariables();
   }
 }
 
@@ -1811,6 +1815,5 @@ ModelTwoWindingsTransformer::loadInternalVariables(stringstream& streamVariables
   if (modelPhaseChanger_)
     modelPhaseChanger_->loadInternalVariables(streamVariables);
 }
-
 
 }  // namespace DYN
