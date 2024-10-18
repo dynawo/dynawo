@@ -84,11 +84,6 @@ class NetworkComponent {  ///< Base class for network component models
   explicit NetworkComponent(const std::string& id);
 
   /**
-   * @brief reset internal variables values
-   */
-  virtual void resetInternalVariables();
-
-  /**
    * @brief add bus neighbors
    */
   virtual void addBusNeighbors() = 0;
