@@ -121,7 +121,7 @@ ModelCPP::loadVariables(const string& variables) {
   if (!res) {
     // If loadInternalVariables fails, the internal variables of some the models may still be loaded, and will be reset
     // with getY0 during model initialization.
-    Trace::warn() << DYNLog(NetworkInitInternalVarFailed) << Trace::endline;
+    Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
     return;
   }
 
