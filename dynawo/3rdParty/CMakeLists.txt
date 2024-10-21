@@ -635,6 +635,7 @@ if(NOT OMCompiler)
     endif()
 
     ExternalProject_Add(openmodelica
+      DEPENDS             omdev
       INSTALL_DIR         ${OPENMODELICA_INSTALL}
       DOWNLOAD_DIR        ${DOWNLOAD_DIR}
       TMP_DIR             ${TMP_DIR}

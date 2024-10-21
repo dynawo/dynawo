@@ -231,7 +231,7 @@ $> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cm
 To build Dyna&omega;o you need to clone this repository and launch the following commands in the source code directory, it will create a `myEnvDynawo.sh` file that will be your personal entrypoint to launch Dyna&omega;o and parametrise some options.
 
 ``` bash
-$> git clone https://github.com/dynawo/dynawo.git dynawo
+$> git clone https://github.com/dynawo/dynawo.git
 $> cd dynawo
 $> echo '#!/bin/bash
 export DYNAWO_HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -282,11 +282,11 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 > set OPENMODELICAHOME=
 > set OPENMODELICALIBRARY=
 > md dynawo-project && cd dynawo-project
-> git clone https://github.com/dynawo/dynawo.git dynawo
+> git clone https://github.com/dynawo/dynawo.git
 > cd dynawo
-> cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "NMake Makefiles"
+> cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "Ninja"
 > cmake --build b-3-p
-> cmake -S dynawo -B b -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/Install -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles
+> cmake -S dynawo -B b -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/Install -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "Ninja"
 > cmake --build b --target install
 > cmake --build b --target models
 > cmake --build b --target solvers
