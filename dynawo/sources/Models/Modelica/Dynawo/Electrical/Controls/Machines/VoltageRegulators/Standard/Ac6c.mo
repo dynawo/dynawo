@@ -78,7 +78,7 @@ model Ac6c "IEEE excitation system type AC6C model"
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedLeadLag limitedLeadLag(Y0 = Va0Pu, YMax = VaMaxPu, YMin = VaMinPu, t1 = tC, t2 = tB) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.AcRotatingExciter acRotatingExciter(
     AEx = AEx,
@@ -102,7 +102,7 @@ model Ac6c "IEEE excitation system type AC6C model"
     Placement(visible = true, transformation(origin = {330, -100}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kh) annotation(
     Placement(visible = true, transformation(origin = {230, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VhMaxPu, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VhMaxPu, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {190, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {tH, 1}, b = {tJ, 1}, x_scaled(start = {Vh0Pu}), x_start = {Vh0Pu}, y(start = Vh0Pu)) annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
