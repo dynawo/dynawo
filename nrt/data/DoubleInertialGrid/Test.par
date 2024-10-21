@@ -1,0 +1,101 @@
+<?xml version='1.0 ' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="IDA">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="1e-7"/>
+    <par type="DOUBLE" name="minStep" value="1e-7"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="10"/>
+  </set>
+  <set id="LoadPQ">
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="LoadZIP">
+    <par type="DOUBLE" name="load_Zp" value="0"/>
+    <par type="DOUBLE" name="load_Ip" value="0"/>
+    <par type="DOUBLE" name="load_Pp" value="1"/>
+    <par type="DOUBLE" name="load_Zq" value="0"/>
+    <par type="DOUBLE" name="load_Iq" value="0"/>
+    <par type="DOUBLE" name="load_Pq" value="1"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="InertialGrid1">
+    <par type="DOUBLE" name="inertialGrid_DPu" value="2"/>
+    <par type="DOUBLE" name="inertialGrid_Fh" value="0"/>
+    <par type="DOUBLE" name="inertialGrid_H" value="2.6"/>
+    <par type="DOUBLE" name="inertialGrid_Km" value="1"/>
+    <par type="DOUBLE" name="inertialGrid_R" value="0.05"/>
+    <par type="DOUBLE" name="inertialGrid_SNom" value="32350"/>
+    <par type="DOUBLE" name="inertialGrid_Tr" value="15"/>
+    <reference name="inertialGrid_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="inertialGrid_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="inertialGrid_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="inertialGrid_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="InertialGrid2">
+    <par type="DOUBLE" name="inertialGrid_DPu" value="2"/>
+    <par type="DOUBLE" name="inertialGrid_Fh" value="0"/>
+    <par type="DOUBLE" name="inertialGrid_H" value="2.6"/>
+    <par type="DOUBLE" name="inertialGrid_Km" value="1"/>
+    <par type="DOUBLE" name="inertialGrid_R" value="0.05"/>
+    <par type="DOUBLE" name="inertialGrid_SNom" value="32350"/>
+    <par type="DOUBLE" name="inertialGrid_Tr" value="15"/>
+    <reference name="inertialGrid_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="inertialGrid_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="inertialGrid_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="inertialGrid_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="Network">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="PRef">
+    <par type="DOUBLE" name="step_tStep" value="10"/>
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="1"/>
+  </set>
+  <set id="DeltaP">
+    <par type="DOUBLE" name="step_tStep" value="10"/>
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="16.175"/>
+  </set>
+</parametersSet>
