@@ -7,6 +7,7 @@ var a03253 =
     [ "evalZ", "d9/d56/a03253.html#a913d40d0735663c67aaf0a0cb220e9f8", null ],
     [ "getIncreaseTap", "d9/d56/a03253.html#a87d4d2154b37158761d63c38ce63b39c", null ],
     [ "loadInternalVariables", "d9/d56/a03253.html#a498faa41d5e8d374ad84a3e5a994aa28", null ],
+    [ "resetInternalVariables", "d9/d56/a03253.html#a924108625b3501e3acca1780106e8a21", null ],
     [ "setThresholdI", "d9/d56/a03253.html#a83d8b3d173a9bc2e498c29937b52eee2", null ],
     [ "sizeG", "d9/d56/a03253.html#a5e293b9b67909d929ac2a8e048fd4d78", null ],
     [ "sizeZ", "d9/d56/a03253.html#aa47b07d675c20b05560abb2d57141299", null ],

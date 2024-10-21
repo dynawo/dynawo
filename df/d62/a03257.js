@@ -8,6 +8,7 @@ var a03257 =
     [ "getTolV", "df/d62/a03257.html#ae0b50ae961f8601ca534dafbeb76f8e1", null ],
     [ "getUpIncreaseTargetU", "df/d62/a03257.html#afd38f13108ddde19b9e1b1b431ed6cee", null ],
     [ "loadInternalVariables", "df/d62/a03257.html#ac7e63d78cc8b1dca037202e76e63bd99", null ],
+    [ "resetInternalVariables", "df/d62/a03257.html#a69fd1093c17c290697173f1c72b786bc", null ],
     [ "setSide", "df/d62/a03257.html#a64d9cce766cd1503ad6a8fbde5577a9a", null ],
     [ "setTargetV", "df/d62/a03257.html#a95891ff6586c90c17028f6f88a8a38ed", null ],
     [ "setTolV", "df/d62/a03257.html#af5db7847911fa4df90e2443155163f07", null ],
