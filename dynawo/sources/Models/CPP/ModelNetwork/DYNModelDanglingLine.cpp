@@ -684,7 +684,7 @@ ModelDanglingLine::evalZ(const double& t) {
       z_[0] = OPEN;
   }
 
-  if (modelBus_->getConnectionState() == OPEN)
+  if (modelBus_->getSwitchOff())
     z_[0] = OPEN;
 
   State currState = static_cast<State>(static_cast<int>(z_[0]));
@@ -694,6 +694,8 @@ ModelDanglingLine::evalZ(const double& t) {
     if (currState == CLOSED) {
       DYNAddTimelineEvent(network_, id_, DanglingLineConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+      if (modelBus_->getSwitchOff())
+        modelBus_->switchOn();
     } else if (currState == OPEN) {
       DYNAddTimelineEvent(network_, id_, DanglingLineDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
