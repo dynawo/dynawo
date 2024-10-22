@@ -1273,7 +1273,6 @@ Simulation::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
-  Trace::info() << "TITI IN terminate()"<< Trace::endline;
   updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
