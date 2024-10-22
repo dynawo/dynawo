@@ -329,7 +329,7 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 }
 
 void
-SolverIDA::calculateIC(double tEnd) {
+SolverIDA::calculateIC(double /*tEnd*/) {
 #ifdef _DEBUG_
   vector<double> y0;
   y0.assign(vectorY_.begin(), vectorY_.end());
@@ -391,7 +391,7 @@ SolverIDA::calculateIC(double tEnd) {
     }
 #endif
     flagInit_ = true;
-    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, startFromDump() ? initStep_ : tEnd);
+    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
 
     // gathering of values computed by IDACalcIC
@@ -516,10 +516,10 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   model.evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solver->flagInit()) {
-    Trace::debug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
+    Trace::debug(Trace::solver()) << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
     for (int i = 0; i < model.sizeF(); ++i) {
       if (std::abs(irr[i]) > 1e-04) {
-        Trace::debug() << "  f[" << i << "]=" << irr[i] << Trace::endline;
+        Trace::debug(Trace::solver()) << "  f[" << i << "]=" << irr[i] << Trace::endline;
       }
     }
   }
