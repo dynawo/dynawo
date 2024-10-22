@@ -20,10 +20,8 @@ partial block BasePulse "Base block of pulse"
   Types.Time tTrigger(start = -Modelica.Constants.inf) "Start time of pulse in s";
 
 equation
-  when time - pre(tTrigger) >= tPulse then
-    tTrigger = pre(tTrigger);
-  elsewhen u and time - pre(tTrigger) >= tPulse then
-    tTrigger = time;
+  when edge(u) then
+    tTrigger = if time - pre(tTrigger) >= tPulse then time else pre(tTrigger);
   end when;
 
   annotation(
