@@ -33,7 +33,7 @@
 
 #include "DYNSimulation.h"
 // #include "PARParametersSetCollection.h"
-// #include "DYNDataInterface.h"
+#include "WSCServer.h"
 
 namespace websocket {
 class WebsocketServer;
@@ -113,12 +113,28 @@ class SimulationRT: public Simulation {
    */
   void curvesToStream();
 
+  /**
+   * @brief update curves : at the end of each iteration, new points are added to curve
+   * @param updateCalculateVariable @b true is calculated variables should be updated
+   */
+  void updateCurves(bool updateCalculateVariable = true);
+
+  /**
+   * @brief end the simulation : export data, curves,...
+   */
+  void terminate();
+
+  // /**
+  //  * @brief run websocket server in a new thread
+  //  */
+  // void runWsServerInThread();
+
  protected:
-  boost::shared_ptr<websocket::WebsocketServer> wsServer_;  ///< instance of websocket server
+  boost::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
+  std::thread wsServerThread_;  ///< thread instance for websocket server >
 
   bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
   double timeSyncAcceleration_;  ///< acceleration factor clockTime/simulationTime >
-  std::vector<std::string> curvesNames_;  ///< curves names >
 };
 }  // end of namespace DYN
 

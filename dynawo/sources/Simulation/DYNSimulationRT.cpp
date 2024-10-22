@@ -30,18 +30,18 @@
 #endif
 
 
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
+// #include <boost/archive/binary_iarchive.hpp>
+// #include <boost/archive/binary_oarchive.hpp>
+// #include <boost/serialization/vector.hpp>
+// #include <boost/filesystem.hpp>
+// #include <boost/algorithm/string/classification.hpp>
+// #include <boost/algorithm/string/split.hpp>
 
-#include <libzip/ZipFile.h>
-#include <libzip/ZipFileFactory.h>
-#include <libzip/ZipEntry.h>
-#include <libzip/ZipInputStream.h>
-#include <libzip/ZipOutputStream.h>
+// #include <libzip/ZipFile.h>
+// #include <libzip/ZipFileFactory.h>
+// #include <libzip/ZipEntry.h>
+// #include <libzip/ZipInputStream.h>
+// #include <libzip/ZipOutputStream.h>
 
 #include "TLTimelineFactory.h"
 // #include "TLTimeline.h"
@@ -157,6 +157,10 @@ timeSync_(false),
 timeSyncAcceleration_(10.) {
   setTimeSync(jobEntry_->getSimulationEntry()->getTimeSync());
   setTimeSyncAcceleration(jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+  wsServer_ = boost::make_shared<wsc::WebsocketServer>();
+  std::cout << "will run server" << std::endl;
+  wsServer_->run(9001);
+  std::cout << "run server ok" << std::endl;
 }
 
 void
@@ -172,7 +176,6 @@ SimulationRT::simulate() {
   }
   const bool updateCalculatedVariable = false;
   updateCurves(updateCalculatedVariable);  // initial curves
-  curvesNames_ = model_->getCurvesNames()
 
   bool criteriaChecked = true;
   try {
@@ -343,20 +346,121 @@ SimulationRT::simulate() {
 
 void
 SimulationRT::curvesToStream() {
-  vector< shared_ptr<curves::Point> > points = model_->getLastCurvesValues(curvesCollection_);
-
-  if (points.size() != curvesNames_.size() && points.size() > 0) {
-    double time = points.at(0)->getTime();
-    stringstream stream;
-    stream << "{\n\t\"curves\": {\n";
-    stream << "\t\t" << "\"time\": " << time << "\n,";
-    stream << "\t\t" << "\"values\": [" << time << "\n,";
-    for (int i = 0; i < points.size(); i++) {
-      stream << "\t\t\t" << "\"" << curvesNames_.at(i) << curves << time << "\n,";
+  stringstream stream;
+  double time = -1;
+  stream << "{\n\t\"curves\": {\n";
+  stream << "\t\t" << "\"values\": {\n";
+  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
+        itCurve != curvesCollection_->end();
+        ++itCurve) {
+    if ((*itCurve)->getAvailable()) {
+      boost::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
+      if (point) {
+        string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
+        if (time < 0)
+          time = point->getTime();
+        double value = point->getValue();
+        stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue() << ",\n";
+      }
     }
-    string formatedString = stream.str();
-    Trace::warn() << formatedString << Trace::endline();
+  }
+  stream << "\t\t" << "},\n";
+  stream << "\t\t" << "\"time\": " << time << "\n}";
+  stream << "\t}\n}";
+
+  const string formatedString = stream.str();
+  if (wsServer_) {
+    wsServer_->sendMessage(formatedString);
+    Trace::info() << "sent message: \n" << formatedString << Trace::endline;
+    // std::cout << "sent message: \n" << formatedString << std::endl;
+  }
+  // Trace::warn() << formatedString << Trace::endline;
+}
+
+void
+SimulationRT::updateCurves(bool updateCalculateVariable) {
+  if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
+    return;
+  Simulation::updateCurves(updateCalculateVariable);
+  curvesToStream();
+}
+
+
+void
+SimulationRT::terminate() {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("Simulation::terminate()");
+#endif
+  if (wsServer_)
+    wsServer_->stop();
+
+  updateParametersValues();   // update parameter curves' value
+
+  if (curvesOutputFile_ != "") {
+    ofstream fileCurves;
+    openFileStream(fileCurves, curvesOutputFile_);
+    printCurves(fileCurves);
+    fileCurves.close();
+  }
+
+  if (finalStateValuesOutputFile_ != "") {
+    ofstream fileFinalStateValues;
+    openFileStream(fileFinalStateValues, finalStateValuesOutputFile_);
+    printFinalStateValues(fileFinalStateValues);
+    fileFinalStateValues.close();
+  }
+
+  if (timelineOutputFile_ != "") {
+    ofstream fileTimeline;
+    openFileStream(fileTimeline, timelineOutputFile_);
+    printTimeline(fileTimeline);
+    fileTimeline.close();
+  }
+
+  if (constraintsOutputFile_ != "") {
+    ofstream fileConstraints;
+    openFileStream(fileConstraints, constraintsOutputFile_);
+    printConstraints(fileConstraints);
+    fileConstraints.close();
+  }
+
+  if (dumpFinalValues_) {
+    string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
+    if (!exists(finalValuesDir))
+      create_directory(finalValuesDir);
+    model_->printModelValues(finalValuesDir, "dumpFinalValues");
+  }
+
+  if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+    Timer timer2("DataInterfaceIIDM::exportStateVariables");
+#endif
+    data_->exportStateVariables();
+  }
+
+  if (data_ && isLostEquipmentsExported() && lostEquipmentsOutputFile_ != "") {
+    ofstream fileLostEquipments;
+    openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
+    printLostEquipments(fileLostEquipments);
+    fileLostEquipments.close();
+  }
+
+  if (finalState_.dumpFile_)
+    dumpState();
+
+  if (finalState_.iidmFile_)
+    dumpIIDMFile();
+
+  printEnd();
+  if (wasLoggingEnabled_ && !Trace::isLoggingEnabled()) {
+    // re-enable logging for upper project
+    Trace::enableLogging();
   }
 }
+
+// void
+// SimulationRT::runWebsocketServer() {
+//   wsServer_->run(9001);
+// }
 
 }  // end of namespace DYN
