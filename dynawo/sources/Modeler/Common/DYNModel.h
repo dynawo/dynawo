@@ -385,20 +385,20 @@ class Model {
    */
   virtual void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
 
-  /**
-   * @brief update the subset of calculated variables needed for curves
-   *
-   * @param curvesCollection set of curves
-   */
-  virtual std::vector<boost::shared_ptr<curves::Point> > getLastCurvesValues(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
+  // /**
+  //  * @brief update the subset of calculated variables needed for curves
+  //  *
+  //  * @param curvesCollection set of curves
+  //  */
+  // virtual std::vector<boost::shared_ptr<curves::Point> > getLastCurvesValues(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
 
-  /**
-   * @brief update the subset of calculated variables needed for curves
-   *
-   * @param curvesCollection set of curves
-   * @return vector of Point
-   */
-  virtual std::vector<std::string> getCurvesNames(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
+  // /**
+  //  * @brief update the subset of calculated variables needed for curves
+  //  *
+  //  * @param curvesCollection set of curves
+  //  * @return vector of Point
+  //  */
+  // virtual std::vector<std::string> getCurvesNames(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
 
   /**
    * @brief export the parameters of the model for dump
