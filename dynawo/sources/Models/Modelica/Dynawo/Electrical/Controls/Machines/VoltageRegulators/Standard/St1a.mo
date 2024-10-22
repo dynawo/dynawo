@@ -14,9 +14,18 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model St1a "IEEE excitation system type ST1A model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St1c(
-    PositionOel = 3,
-    PositionScl = 0);
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseSt1(
+    max1.nu = 2,
+    max2.nu = 2,
+    min2.nu = 2,
+    sum1.nin = 3);
+
+equation
+  min2.u[2] = UOelPu;
+  sum1.u[2] = 0;
+
+  connect(max1.yMax, transferFunction1.u) annotation(
+    Line(points = {{-78, 6}, {-40, 6}, {-40, 0}, {-2, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end St1a;

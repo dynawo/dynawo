@@ -13,14 +13,16 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model Ac8b_INIT "IEEE excitation system type AC8B initialization model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac78c_INIT(
-    Kc1 = 0,
-    Ki = 0,
-    Sw1 = false,
-    Thetap = 0,
-    VbMaxPu = 999,
-    XlPu = 0);
+model Ac8b_INIT "IEEE exciter types AC8B initialization model"
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.Ac16c_INIT;
+
+  //Regulation parameters
+  parameter Types.PerUnit Kp "Potential source gain";
+
+  Types.VoltageModulePu Vb0Pu "Initial available exciter field voltage in pu (base UNom)";
+
+equation
+  Vb0Pu = Kp;
 
   annotation(preferredView = "text");
 end Ac8b_INIT;

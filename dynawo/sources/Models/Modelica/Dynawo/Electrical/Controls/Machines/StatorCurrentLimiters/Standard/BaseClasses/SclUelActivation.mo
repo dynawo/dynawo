@@ -26,9 +26,9 @@ model SclUelActivation "IUelBias calculation for SCL2C"
   Modelica.Blocks.Interfaces.RealInput IUelActPu(start = IUelRef0Pu) "SCL UEL actual current in pu (base SnRef, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput IUelRefPu(start = IUelRef0Pu) "SCL UEL reference current in pu (base SnRef, UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tErr(start = tErr0) "SCL timer error in s" annotation(
-    Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput IUelBiasPu(start = 0) "Output current in pu (base SnRef, UNom)" annotation(

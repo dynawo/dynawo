@@ -14,101 +14,31 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model St4c "IEEE exciter type ST4C model"
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseSt4;
 
   //Regulation parameters
-  parameter Types.PerUnit Kc "Rectifier loading factor proportional to commutating reactance";
-  parameter Types.PerUnit Kg "Feedback gain of inner loop field regulator";
-  parameter Types.PerUnit Ki "Potential circuit (current) gain coefficient";
-  parameter Types.PerUnit Kim "Integral gain of second PI";
-  parameter Types.PerUnit Kir "Integral gain of first PI";
-  parameter Types.PerUnit Kp "Potential circuit gain";
-  parameter Types.PerUnit Kpm "Proportional gain of second PI";
-  parameter Types.PerUnit Kpr "Proportional gain of first PI";
   parameter Integer PositionOel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at inner loop output";
   parameter Integer PositionPss "Input location : (0) none, (1) voltage error summation, (2) after take-over UEL";
   parameter Integer PositionScl "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at inner loop output";
   parameter Integer PositionUel "Input location : (0) none, (1) voltage error summation, (2) take-over at AVR input, (3) take-over at inner loop output";
   parameter Boolean Sw1 "If true, power source derived from terminal voltage, if false, independent from terminal voltage";
-  parameter Types.Time tA "Voltage regulator time constant in s";
   parameter Types.Time tG "Feedback time constant of inner loop field regulator in s";
-  parameter Types.Angle Thetap "Potential circuit phase angle in rad";
-  parameter Types.Time tR "Stator voltage filter time constant in s";
-  parameter Types.VoltageModulePu VaMaxPu "Maximum output voltage of limited first order in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu VaMinPu "Minimum output voltage of limited first order in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu VbMaxPu "Maximum available exciter field voltage in pu (base UNom)";
   parameter Types.VoltageModulePu VgMaxPu "Maximum feedback voltage of inner loop field regulator in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu VmMaxPu "Maximum output voltage of second PI in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu VmMinPu "Minimum output voltage of second PI in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu VrMaxPu "Maximum output voltage of first PI in pu (user-selected base voltage)";
-  parameter Types.VoltageModulePu VrMinPu "Minimum output voltage of first PI in pu (user-selected base voltage)";
-  parameter Types.PerUnit XlPu "Reactance associated with potential source in pu (base SNom, UNom)";
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput IrPu(start = Ir0Pu) "Rotor current in pu (base SNom, user-selected base voltage)" annotation(
-    Placement(visible = true, transformation(origin = {-380, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base SNom, UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput UOelPu(start = UOel0Pu) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput USclOelPu(start = USclOel0Pu) "Stator current overexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, 200}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 80}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput USclUelPu(start = USclUel0Pu) "Stator current underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = Us0Pu) "Reference stator voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput utPu(re(start = ut0Pu.re), im(start = ut0Pu.im)) "Complex stator voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput UUelPu(start = UUel0Pu) "Underexcitation limitation output voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-380, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {370, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.Constant const(k = VbMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {190, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {90, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min3 annotation(
-    Placement(visible = true, transformation(origin = {250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Product product1 annotation(
-    Placement(visible = true, transformation(origin = {190, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
-    Placement(visible = true, transformation(origin = {130, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limPI1(Ki = Kir, Kp = Kpr, Y0 = Kg * Efd0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
-    Placement(visible = true, transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-330, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Product product annotation(
-    Placement(visible = true, transformation(origin = {310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limPI2(Ki = Kim, Kp = Kpm, Y0 = Efd0Pu / Vb0Pu, YMax = VmMaxPu, YMin = VmMinPu) annotation(
-    Placement(visible = true, transformation(origin = {70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {20, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = Kc) annotation(
-    Placement(visible = true, transformation(origin = {-310, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sum sum1(k = {-1, 1, 1, 1, 1, 1}, nin = 6) annotation(
-    Placement(visible = true, transformation(origin = {-270, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(Y0 = Efd0Pu / Vb0Pu, YMax = VaMaxPu, YMin = VaMinPu, tFilter = tA) annotation(
-    Placement(visible = true, transformation(origin = {250, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
-    Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = Kg, T = tG, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {250, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-210, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add annotation(
-    Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {190, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {-310, -220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
