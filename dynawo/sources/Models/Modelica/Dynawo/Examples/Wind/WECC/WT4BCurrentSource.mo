@@ -48,6 +48,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Kqv = 2,
     Kvi = 0.7,
     Kvp = 1,
+    Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     PF0(fixed = false),
@@ -62,7 +63,6 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     QMaxPu = 0.4,
     QMinPu = -0.4,
     RPu = 0,
-    RateFlag = false,
     RrpwrPu = 10,
     SNom = 100,
     UInj0Pu(fixed = false),
@@ -91,7 +91,9 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     VRef1Pu = 0,
     VUpPu = 1.1,
     XPu = 0.15,
-    i0Pu(re(fixed = false), im(fixed = false)),
+    brkpt = 0.1,
+    i0Pu( im(fixed = false),re(fixed = false)),
+    lvpl1 = 1.22,
     s0Pu = Complex(-0.7, -0.2),
     tFilterGC = 0.02,
     tG = 0.02,
@@ -102,7 +104,8 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     tPord = 0.01,
     tRv = 0.01,
     u0Pu = Complex(1, 0),
-    uInj0Pu(re(fixed = false), im(fixed = false))) annotation(
+    uInj0Pu( im(fixed = false),re(fixed = false)),
+    zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   Modelica.Blocks.Sources.Constant PInjRefPu(k = 0.7) annotation(
