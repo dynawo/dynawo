@@ -64,7 +64,7 @@ equation
     Line(points = {{11, 11}, {20, 11}, {20, 40}, {28, 40}}, color = {0, 0, 127}));
   connect(udqRef.uqSourceRefPu, firstOrder1.u) annotation(
     Line(points = {{11, 3}, {28, 3}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.udPu, udqRef.udInjPu) annotation(
+  connect(transformRItoDQ.ydPu, udqRef.udInjPu) annotation(
     Line(points = {{-29, 4}, {-11, 4}}, color = {0, 0, 127}));
   connect(uInjPu, transformRItoDQ.uPu) annotation(
     Line(points = {{-130, 4}, {-51, 4}}, color = {85, 170, 255}));
@@ -80,7 +80,7 @@ equation
     Line(points = {{101, -6}, {110, -6}, {110, -20}, {130, -20}}, color = {0, 0, 127}));
   connect(firstOrder.y, transformDQtoRI.udPu) annotation(
     Line(points = {{51, 40}, {70, 40}, {70, 7}, {79, 7}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.uqPu, udqRef.uqInjPu) annotation(
+  connect(transformRItoDQ.yqPu, udqRef.uqInjPu) annotation(
     Line(points = {{-29, -8}, {-20, -8}, {-20, -1}, {-11, -1}}, color = {0, 0, 127}));
   connect(pll.phi, transformRItoDQ.phi) annotation(
     Line(points = {{-79, -33}, {-60, -33}, {-60, -8}, {-51, -8}}, color = {0, 0, 127}));

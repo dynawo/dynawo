@@ -127,6 +127,10 @@
     <par type="DOUBLE" name="WTG4B_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WTG4B_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="WTG4B_VDLIq42" value="1"/>
+    <par type="BOOL" name="WTG4B_Lvplsw" value="false"/>
+    <par type="DOUBLE" name="WTG4B_zerox" value="0.1"/>
+    <par type="DOUBLE" name="WTG4B_brkpt" value="0.05"/>
+    <par type="DOUBLE" name="WTG4B_lvpl1" value="1.22"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

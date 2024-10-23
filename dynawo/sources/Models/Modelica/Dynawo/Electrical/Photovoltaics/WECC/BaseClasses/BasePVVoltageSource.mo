@@ -31,6 +31,10 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef)";
 
+  // REGC-B Parameters
+  parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
+  Dialog(tab="Generator Converter"));
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-79, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
@@ -39,7 +43,7 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCbCS wecc_regc(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, tFilterGC = tFilterGC, tG = tG) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCb wecc_regc(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, QInj0Pu = QInj0Pu, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, tFilterGC = tFilterGC, tG = tG, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -47,8 +51,6 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
-    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.InjectorURI injector(i0Pu = i0Pu, u0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements1(SNom = SNom) annotation(
@@ -77,30 +79,26 @@ equation
 
   connect(OmegaRef.y, pll.omegaRefPu) annotation(
     Line(points = {{-180, 38}, {-171, 38}}, color = {0, 0, 127}));
-  connect(wecc_regc.idRefPu, VSourceRef.idPu) annotation(
-    Line(points = {{-29, -6}, {-11, -6}}, color = {0, 0, 127}));
   connect(line.terminal1, measurements.terminal1) annotation(
     Line(points = {{140, 0}, {150, 0}}, color = {0, 0, 255}));
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{170, 0}, {190, 0}}, color = {0, 0, 255}));
-  connect(VSourceRef.urSourcePu, injector.urPu) annotation(
-    Line(points = {{11, 4}, {29, 4}}, color = {0, 0, 127}));
-  connect(VSourceRef.uiSourcePu, injector.uiPu) annotation(
-    Line(points = {{11, -4}, {29, -4}}, color = {0, 0, 127}));
   connect(measurements1.terminal2, line.terminal2) annotation(
     Line(points = {{110, 0}, {120, 0}}, color = {0, 0, 255}));
   connect(measurements1.UPu, wecc_regc.UPu) annotation(
     Line(points = {{90, -11}, {90, -30}, {-46, -30}, {-46, -11}}, color = {0, 0, 127}));
-  connect(measurements1.uPu, VSourceRef.uInjPu) annotation(
-    Line(points = {{102, -11}, {102, -20}, {0, -20}, {0, -11}}, color = {85, 170, 255}));
-  connect(wecc_regc.iqRefPu, VSourceRef.iqPu) annotation(
-    Line(points = {{-29, 4}, {-11, 4}}, color = {0, 0, 127}));
   connect(injector.terminal, source.terminal1) annotation(
     Line(points = {{51.5, 0}, {60, 0}}, color = {0, 0, 255}));
   connect(source.terminal2, measurements1.terminal1) annotation(
     Line(points = {{80, 0}, {90, 0}}, color = {0, 0, 255}));
   connect(measurements.uPu, pll.uPu) annotation(
     Line(points = {{162, 11}, {162, 60}, {-180, 60}, {-180, 50}, {-171, 50}}, color = {85, 170, 255}));
+  connect(measurements1.uPu, wecc_regc.uInjPu) annotation(
+    Line(points = {{102, -11}, {102, -20}, {-36, -20}, {-36, -11}}, color = {85, 170, 255}));
+  connect(wecc_regc.urSource, injector.urPu) annotation(
+    Line(points = {{-29, 4}, {29, 4}}, color = {0, 0, 127}));
+  connect(wecc_regc.uiSource, injector.uiPu) annotation(
+    Line(points = {{-29, -4}, {29, -4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
