@@ -1,4 +1,4 @@
-BESScbWeccCurrentSource
+BESSWeccCurrentSource
 BooleanTable
 Bus
 BusWithInit
@@ -98,8 +98,11 @@ OverVoltageAutomaton
 PhaseShifterBlockingI
 PhaseShifterI
 PhaseShifterP
-PhotovoltaicsWeccCurrentSourceB
-PhotovoltaicsWeccVoltageSourceB
+PhotovoltaicsWeccCurrentSource
+PhotovoltaicsWeccVoltageSource1
+PhotovoltaicsWeccVoltageSource2
+PhotovoltaicsWeccVoltageSource3
+PhotovoltaicsWeccVoltageSource4
 PowerTransferHVDCEmulation
 Ramp
 SecondaryVoltageControlSimp

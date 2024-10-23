@@ -11,7 +11,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  BESScbCurrentSource.mo
+  BESSCurrentSource.mo
   )
 
 #

@@ -14,7 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCPV.par" parId="1"/>
   <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCPV.par" parId="2"/>
-  <dyn:blackBoxModel id="WECCPV" lib="PhotovoltaicsWeccCurrentSourceB" parFile="WECCPV.par" parId="3"/>
+  <dyn:blackBoxModel id="WECCPV" lib="PhotovoltaicsWeccCurrentSource" parFile="WECCPV.par" parId="3"/>
   <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCPV.par" parId="4"/>
   <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WECCPV" var2="photovoltaics_omegaRefPu"/>
   <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
