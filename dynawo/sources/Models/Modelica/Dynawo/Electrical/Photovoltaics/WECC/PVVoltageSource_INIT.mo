@@ -27,8 +27,8 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   // Lines parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit RSourcePu "Source resistance in pu (base SnRef, UNom) (typically set to zero, typical: 0..0.01)";
-  parameter Types.PerUnit XSourcePu "Source reactance in pu (base SnRef, UNom) (typical: 0.05..0.2)";
+  parameter Types.PerUnit RSourcePu "Source resistance in pu (base SNom, UNom) (typically set to zero, typical: 0..0.01)";
+  parameter Types.PerUnit XSourcePu "Source reactance in pu (base SNom, UNom) (typical: 0.05..0.2)";
 
   parameter Types.PerUnit P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
@@ -57,7 +57,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
   i0Pu = ComplexMath.conj(s0Pu / u0Pu);
   iSource0Pu = - i0Pu * SystemBase.SnRef / SNom;
-  uSource0Pu = u0Pu - Complex(RPu + RSourcePu, XPu + XSourcePu) * i0Pu;
+  uSource0Pu = u0Pu - Complex(RPu + RSourcePu * SystemBase.SnRef / SNom, XPu + XSourcePu * SystemBase.SnRef / SNom) * i0Pu;
   uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
   UInjPhase0 = ComplexMath.arg(uInj0Pu);
