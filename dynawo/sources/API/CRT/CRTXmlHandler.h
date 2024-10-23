@@ -195,7 +195,7 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the criteria read in xml file
    * @return criteria object build thanks to infos read in xml file
    */
-  boost::shared_ptr<Criteria> get() const;
+  std::shared_ptr<Criteria> get() const;
 
  protected:
   /**
@@ -217,7 +217,7 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<Criteria> criteriaRead_;  ///< current criteria
+  std::shared_ptr<Criteria> criteriaRead_;  ///< current criteria
   CriteriaParamsHandler criteriaParamsHandler_;  ///< handler used to read criteria parameters element
   ComponentHandler cmpHandler_;  ///< handler used to read component elements
   ElementWithIdHandler countryHandler_;  ///< handler used to read country elements

@@ -41,54 +41,54 @@ class NetworkInterfaceIIDM : public NetworkInterface {
   explicit NetworkInterfaceIIDM(powsybl::iidm::Network& network);
 
   /**
-   * @copydoc NetworkInterface::addLine(const boost::shared_ptr<LineInterface>& line)
+   * @copydoc NetworkInterface::addLine(const std::shared_ptr<LineInterface>& line)
    */
-  void addLine(const boost::shared_ptr<LineInterface>& line);
+  void addLine(const std::shared_ptr<LineInterface>& line);
 
   /**
-   * @copydoc NetworkInterface::addTwoWTransformer(const boost::shared_ptr<TwoWTransformerInterface>& tfo)
+   * @copydoc NetworkInterface::addTwoWTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo)
    */
-  void addTwoWTransformer(const boost::shared_ptr<TwoWTransformerInterface>& tfo);
+  void addTwoWTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo);
 
   /**
-   * @copydoc NetworkInterface::addThreeWTransformer(const boost::shared_ptr<ThreeWTransformerInterface>& tfo)
+   * @copydoc NetworkInterface::addThreeWTransformer(const std::shared_ptr<ThreeWTransformerInterface>& tfo)
    */
-  void addThreeWTransformer(const boost::shared_ptr<ThreeWTransformerInterface>& tfo);
+  void addThreeWTransformer(const std::shared_ptr<ThreeWTransformerInterface>& tfo);
 
   /**
-   * @copydoc NetworkInterface::addVoltageLevel(const boost::shared_ptr<VoltageLevelInterface>& voltageLevel)
+   * @copydoc NetworkInterface::addVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel)
    */
-  void addVoltageLevel(const boost::shared_ptr<VoltageLevelInterface>& voltageLevel);
+  void addVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel);
 
   /**
-   * @copydoc NetworkInterface::addHvdcLine(const boost::shared_ptr<HvdcLineInterface>& hvdc)
+   * @copydoc NetworkInterface::addHvdcLine(const std::shared_ptr<HvdcLineInterface>& hvdc)
    */
-  void addHvdcLine(const boost::shared_ptr<HvdcLineInterface>& hvdc);
+  void addHvdcLine(const std::shared_ptr<HvdcLineInterface>& hvdc);
 
   /**
    * @copydoc NetworkInterface::getLines() const
    */
-  const std::vector< boost::shared_ptr<LineInterface> >& getLines() const;
+  const std::vector<std::shared_ptr<LineInterface> >& getLines() const;
 
   /**
    * @copydoc NetworkInterface::getTwoWTransformers() const
    */
-  const std::vector< boost::shared_ptr<TwoWTransformerInterface> >& getTwoWTransformers() const;
+  const std::vector<std::shared_ptr<TwoWTransformerInterface> >& getTwoWTransformers() const;
 
   /**
    * @copydoc NetworkInterface::getThreeWTransformers() const
    */
-  const std::vector< boost::shared_ptr<ThreeWTransformerInterface> >& getThreeWTransformers() const;
+  const std::vector<std::shared_ptr<ThreeWTransformerInterface> >& getThreeWTransformers() const;
 
   /**
    * @copydoc NetworkInterface::getVoltageLevels() const
    */
-  const std::vector< boost::shared_ptr<VoltageLevelInterface> >& getVoltageLevels() const;
+  const std::vector<std::shared_ptr<VoltageLevelInterface> >& getVoltageLevels() const;
 
   /**
    * @copydoc NetworkInterface::getHvdcLines() const
    */
-  const std::vector< boost::shared_ptr<HvdcLineInterface> >& getHvdcLines() const;
+  const std::vector<std::shared_ptr<HvdcLineInterface> >& getHvdcLines() const;
 
   /**
    * @copydoc NetworkInterface::getSlackNodeBusId
@@ -102,11 +102,11 @@ class NetworkInterfaceIIDM : public NetworkInterface {
   NetworkInterfaceIIDM();
 
   powsybl::iidm::Network& networkIIDM_;                                              ///< reference to the iidm network instance
-  std::vector< boost::shared_ptr<LineInterface> > lines_;                            ///< vector of line interface of the network
-  std::vector< boost::shared_ptr<TwoWTransformerInterface> > twoWTransformers_;      ///< vector of two windings transformer interface of the network
-  std::vector< boost::shared_ptr<ThreeWTransformerInterface> > threeWTransformers_;  ///< vector of three windings transformer interface of the network
-  std::vector< boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;            ///< vector of voltage level interface of the network
-  std::vector< boost::shared_ptr<HvdcLineInterface> > hvdcs_;                        ///< vector of hvdc line interface of the network
+  std::vector<std::shared_ptr<LineInterface> > lines_;                            ///< vector of line interface of the network
+  std::vector<std::shared_ptr<TwoWTransformerInterface> > twoWTransformers_;      ///< vector of two windings transformer interface of the network
+  std::vector<std::shared_ptr<ThreeWTransformerInterface> > threeWTransformers_;  ///< vector of three windings transformer interface of the network
+  std::vector<std::shared_ptr<VoltageLevelInterface> > voltageLevels_;            ///< vector of voltage level interface of the network
+  std::vector<std::shared_ptr<HvdcLineInterface> > hvdcs_;                        ///< vector of hvdc line interface of the network
 };
 }  // namespace DYN
 

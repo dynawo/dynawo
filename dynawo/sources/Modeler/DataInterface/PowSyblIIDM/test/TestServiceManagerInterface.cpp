@@ -59,7 +59,6 @@
 #include <powsybl/iidm/TwoWindingsTransformer.hpp>
 #include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 
-using boost::shared_ptr;
 using powsybl::iidm::Bus;
 using powsybl::iidm::DanglingLine;
 using powsybl::iidm::LccConverterStation;
@@ -143,12 +142,12 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
   VoltageLevelInterfaceIIDM vl2(vlIIDM2);
-  shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
-  shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
-  shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(b3));
-  shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
-  shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
-  shared_ptr<SwitchInterface> switch2(new SwitchInterfaceIIDM(aSwitch2));
+  std::shared_ptr<BusInterface> bus1 = std::make_shared<BusInterfaceIIDM>(b1);
+  std::shared_ptr<BusInterface> bus2 = std::make_shared<BusInterfaceIIDM>(b2);
+  std::shared_ptr<BusInterface> bus3 = std::make_shared<BusInterfaceIIDM>(b3);
+  std::unique_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
+  const std::unique_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
+  const std::unique_ptr<SwitchInterface> switch2(new SwitchInterfaceIIDM(aSwitch2));
   switch1->setBusInterface1(bus1);
   switch1->setBusInterface2(bus2);
   switch2->setBusInterface1(bus1);
@@ -156,7 +155,7 @@ TEST(DataInterfaceTest, ServiceManager) {
   vl.addBus(bus1);
   vl.addBus(bus2);
   vl.addBus(bus3);
-  vl.addBus(bus4);
+  vl.addBus(std::move(bus4));
 
   interface.initFromIIDM();
 
@@ -207,15 +206,15 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   // Node/breaker voltage level with internal connections
 
-  shared_ptr<BusInterface> bus54 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[3];
+  std::shared_ptr<BusInterface> bus54 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[3];
   ASSERT_EQ("BUS54", bus54->getBusBarSectionIdentifiers()[0]);
   connected = serviceManager->getBusesConnectedBySwitch(bus54->getID(), vl2.getID());
   ASSERT_EQ(0, connected.size());
   ASSERT_FALSE(serviceManager->isBusConnected(bus54->getID(), vl2.getID()));
 
-  shared_ptr<BusInterface> bus51 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[0];
-  shared_ptr<BusInterface> bus52 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[1];
-  shared_ptr<BusInterface> bus53 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[2];
+  std::shared_ptr<BusInterface> bus51 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[0];
+  std::shared_ptr<BusInterface> bus52 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[1];
+  std::shared_ptr<BusInterface> bus53 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[2];
   ASSERT_EQ("BUS51", bus51->getBusBarSectionIdentifiers()[0]);
   ASSERT_EQ("BUS52", bus52->getBusBarSectionIdentifiers()[0]);
   ASSERT_EQ("BUS53", bus53->getBusBarSectionIdentifiers()[0]);
@@ -231,7 +230,7 @@ TEST(DataInterfaceTest, ServiceManager) {
   ASSERT_EQ(bus53->getID(), connected[1]);
   ASSERT_TRUE(serviceManager->isBusConnected(bus52->getID(), vl2.getID()));
 
-  boost::shared_ptr<SwitchInterface> switch5152 = interface.getNetwork()->getVoltageLevels()[1]->getSwitches()[0];
+  std::shared_ptr<SwitchInterface> switch5152 = interface.getNetwork()->getVoltageLevels()[1]->getSwitches()[0];
   switch5152->open();
 
   connected = serviceManager->getBusesConnectedBySwitch(bus51->getID(), vl2.getID());
@@ -523,12 +522,12 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   VscConverterInterfaceIIDM vscItf(vsc);
   BatteryInterfaceIIDM batItf(battery);
 
-  shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
-  shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
-  shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(b3));
-  shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
-  shared_ptr<BusInterface> bus5(new BusInterfaceIIDM(b5));
-  shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
+  std::shared_ptr<BusInterface> bus1 = std::make_shared<BusInterfaceIIDM>(b1);
+  std::shared_ptr<BusInterface> bus2 = std::make_shared<BusInterfaceIIDM>(b2);
+  std::shared_ptr<BusInterface> bus3 = std::make_shared<BusInterfaceIIDM>(b3);
+  std::unique_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
+  std::shared_ptr<BusInterface> bus5 = std::make_shared<BusInterfaceIIDM>(b5);
+  const std::unique_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
 
   switch1->setBusInterface1(bus1);
   switch1->setBusInterface2(bus2);
@@ -537,7 +536,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   vl.addBus(bus1);
   vl.addBus(bus2);
   vl.addBus(bus3);
-  vl.addBus(bus4);
+  vl.addBus(std::move(bus4));
 
   vl2.addBus(bus5);
 

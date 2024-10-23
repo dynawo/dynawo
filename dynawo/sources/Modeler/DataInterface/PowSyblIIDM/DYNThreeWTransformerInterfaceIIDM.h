@@ -24,11 +24,11 @@
 #include "DYNThreeWTransformerInterface.h"
 #include "DYNVoltageLevelInterface.h"
 #include "DYNActiveSeasonIIDMExtension.h"
+#include "DYNCurrentLimitInterface.h"
 #include "DYNIIDMExtensions.hpp"
 
 #include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
-#include <boost/shared_ptr.hpp>
 
 namespace DYN {
 
@@ -49,34 +49,34 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   explicit ThreeWTransformerInterfaceIIDM(powsybl::iidm::ThreeWindingsTransformer& tfo);
 
   /**
-   * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
+   * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
+  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
+   * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
+  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface3(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
+   * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface3(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
+  void addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
 
   /**
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces1() const
    */
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces2() const
    */
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces3() const
    */
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces3() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces3() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getActiveSeason()
@@ -84,49 +84,49 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   std::string getActiveSeason() const final;
 
   /**
-   * @copydoc ThreeWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc ThreeWTransformerInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc ThreeWTransformerInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::setBusInterface3(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc ThreeWTransformerInterface::setBusInterface3(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface3(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface3(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
-   * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface3(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface3(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface3(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface3(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc ThreeWTransformerInterface::getBusInterface1() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getBusInterface2() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getBusInterface3() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface3() const;
+  std::shared_ptr<BusInterface> getBusInterface3() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getID() const
@@ -200,15 +200,15 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
 
  private:
   powsybl::iidm::ThreeWindingsTransformer& tfoIIDM_;  ///< reference to the tfo's iidm instance
-  boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
-  boost::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected
-  boost::shared_ptr<BusInterface> busInterface3_;  ///< busInterface of the bus where the side 3 of the tfo is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevelInterface of the voltageLevel where the side 1 of the tfo is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevelInterface of the voltageLevel where the side 2 of the tfo is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface3_;  ///< voltageLevelInterface of the voltageLevel where the side 3 of the tfo is connected
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces3_;  ///< current limit interfaces for side 3
+  std::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
+  std::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected
+  std::shared_ptr<BusInterface> busInterface3_;  ///< busInterface of the bus where the side 3 of the tfo is connected
+  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevelInterface of the voltageLevel where the side 1 of the tfo is connected
+  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevelInterface of the voltageLevel where the side 2 of the tfo is connected
+  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface3_;  ///< voltageLevelInterface of the voltageLevel where the side 3 of the tfo is connected
+  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
+  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
+  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces3_;  ///< current limit interfaces for side 3
   boost::optional<bool> initialConnected1_;  ///< whether the tfo is initially connected at side 1
   boost::optional<bool> initialConnected2_;  ///< whether the tfo is initially connected at side 2
   boost::optional<bool> initialConnected3_;  ///< whether the tfo is initially connected at side 3

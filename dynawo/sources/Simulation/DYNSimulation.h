@@ -648,8 +648,8 @@ class Simulation {
   boost::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
   std::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   std::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
-  boost::shared_ptr<std::vector<
-          boost::shared_ptr<ComponentInterface> > > connectedComponents_;  ///< instance of vector of connected components at simulation start
+  std::shared_ptr<std::vector<
+          std::shared_ptr<ComponentInterface> > > connectedComponents_;  ///< instance of vector of connected components at simulation start
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file

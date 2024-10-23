@@ -36,7 +36,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    * @brief default constructor
    * @param tfo three windings transformer data interface used to build the model
    */
-  explicit ModelThreeWindingsTransformer(const boost::shared_ptr<ThreeWTransformerInterface>& tfo);
+  explicit ModelThreeWindingsTransformer(const std::shared_ptr<ThreeWTransformerInterface>& tfo);
 
   /**
    * @brief  calculated variables type
@@ -55,7 +55,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus1(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
     modelBus1_ = model;
   }
 
@@ -64,7 +64,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus2(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
   }
 
@@ -73,7 +73,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus3(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus3(const std::shared_ptr<ModelBus>& model) {
     modelBus3_ = model;
   }
 
@@ -246,9 +246,9 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   void initSize();
 
  private:
-  boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
-  boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
-  boost::shared_ptr<ModelBus> modelBus3_;  ///< model bus 3
+  std::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
+  std::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
+  std::shared_ptr<ModelBus> modelBus3_;  ///< model bus 3
 };
 }  // namespace DYN
 

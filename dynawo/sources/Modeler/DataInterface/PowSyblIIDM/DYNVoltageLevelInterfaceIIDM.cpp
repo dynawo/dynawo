@@ -39,13 +39,11 @@
 #include <vector>
 #include <string>
 
-using boost::shared_ptr;
 using std::string;
 using std::vector;
 using std::pair;
 using std::map;
 using std::set;
-using std::list;
 using std::stringstream;
 
 namespace DYN {
@@ -106,106 +104,106 @@ VoltageLevelInterfaceIIDM::getVoltageLevelTopologyKind() const {
 }
 
 void
-VoltageLevelInterfaceIIDM::addSwitch(const shared_ptr<SwitchInterface>& sw) {
+VoltageLevelInterfaceIIDM::addSwitch(const std::shared_ptr<SwitchInterface>& sw) {
   switchesById_[sw->getID()] = sw;
   switches_.push_back(sw);
 }
 
 void
-VoltageLevelInterfaceIIDM::addBus(const shared_ptr<BusInterface>& bus) {
+VoltageLevelInterfaceIIDM::addBus(const std::shared_ptr<BusInterface>& bus) {
   buses_.push_back(bus);
 }
 
 void
-VoltageLevelInterfaceIIDM::addGenerator(const shared_ptr<GeneratorInterface>& generator) {
+VoltageLevelInterfaceIIDM::addGenerator(const std::shared_ptr<GeneratorInterface>& generator) {
   generators_.push_back(generator);
 }
 
 void
-VoltageLevelInterfaceIIDM::addLoad(const shared_ptr<LoadInterface>& load) {
+VoltageLevelInterfaceIIDM::addLoad(const std::shared_ptr<LoadInterface>& load) {
   loads_.push_back(load);
 }
 
 void
-VoltageLevelInterfaceIIDM::addShuntCompensator(const shared_ptr<ShuntCompensatorInterface>& shunt) {
+VoltageLevelInterfaceIIDM::addShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& shunt) {
   shunts_.push_back(shunt);
 }
 
 void
-VoltageLevelInterfaceIIDM::addDanglingLine(const shared_ptr<DanglingLineInterface>& line) {
+VoltageLevelInterfaceIIDM::addDanglingLine(const std::shared_ptr<DanglingLineInterface>& line) {
   danglingLines_.push_back(line);
 }
 
 void
-VoltageLevelInterfaceIIDM::addStaticVarCompensator(const shared_ptr<StaticVarCompensatorInterface>& svc) {
+VoltageLevelInterfaceIIDM::addStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& svc) {
   staticVarCompensators_.push_back(svc);
 }
 
 void
-VoltageLevelInterfaceIIDM::addVscConverter(const shared_ptr<VscConverterInterface>& vsc) {
+VoltageLevelInterfaceIIDM::addVscConverter(const std::shared_ptr<VscConverterInterface>& vsc) {
   vscConverters_.push_back(vsc);
 }
 
 void
-VoltageLevelInterfaceIIDM::addLccConverter(const shared_ptr<LccConverterInterface>& lcc) {
+VoltageLevelInterfaceIIDM::addLccConverter(const std::shared_ptr<LccConverterInterface>& lcc) {
   lccConverters_.push_back(lcc);
 }
 
-const vector< shared_ptr<BusInterface> >&
+const vector<std::shared_ptr<BusInterface> >&
 VoltageLevelInterfaceIIDM::getBuses() const {
   return buses_;
 }
 
-const vector< shared_ptr<SwitchInterface> >&
+const vector<std::shared_ptr<SwitchInterface> >&
 VoltageLevelInterfaceIIDM::getSwitches() const {
   return switches_;
 }
 
-const vector< shared_ptr<LoadInterface> >&
+const vector<std::shared_ptr<LoadInterface> >&
 VoltageLevelInterfaceIIDM::getLoads() const {
   return loads_;
 }
 
-const vector< shared_ptr<ShuntCompensatorInterface> >&
+const vector<std::shared_ptr<ShuntCompensatorInterface> >&
 VoltageLevelInterfaceIIDM::getShuntCompensators() const {
   return shunts_;
 }
 
-const vector< shared_ptr<StaticVarCompensatorInterface> >&
+const vector<std::shared_ptr<StaticVarCompensatorInterface> >&
 VoltageLevelInterfaceIIDM::getStaticVarCompensators() const {
   return staticVarCompensators_;
 }
 
-const vector< shared_ptr<GeneratorInterface> >&
+const vector<std::shared_ptr<GeneratorInterface> >&
 VoltageLevelInterfaceIIDM::getGenerators() const {
   return generators_;
 }
 
-const vector< shared_ptr<DanglingLineInterface> >&
+const vector<std::shared_ptr<DanglingLineInterface> >&
 VoltageLevelInterfaceIIDM::getDanglingLines() const {
   return danglingLines_;
 }
 
-const vector< shared_ptr<VscConverterInterface> >&
+const vector<std::shared_ptr<VscConverterInterface> >&
 VoltageLevelInterfaceIIDM::getVscConverters() const {
   return vscConverters_;
 }
 
-const vector< shared_ptr<LccConverterInterface> >&
+const vector<std::shared_ptr<LccConverterInterface> >&
 VoltageLevelInterfaceIIDM::getLccConverters() const {
   return lccConverters_;
 }
 
 void
 VoltageLevelInterfaceIIDM::mapConnections() {
-  vector<shared_ptr<LoadInterface> >::const_iterator iLoad;
+  vector<std::shared_ptr<LoadInterface> >::const_iterator iLoad;
   for (iLoad = loads_.begin(); iLoad != loads_.end(); ++iLoad) {
     if ((*iLoad)->hasDynamicModel()) {
       (*iLoad)->getBusInterface()->hasConnection(true);
     }
   }
 
-  vector<shared_ptr<SwitchInterface> >::const_iterator iSwitch;
+  vector<std::shared_ptr<SwitchInterface> >::const_iterator iSwitch;
   for (iSwitch = switches_.begin(); iSwitch != switches_.end(); ++iSwitch) {
     if ((*iSwitch)->hasDynamicModel()) {
       (*iSwitch)->getBusInterface1()->hasConnection(true);
@@ -213,42 +211,42 @@ VoltageLevelInterfaceIIDM::mapConnections() {
     }
   }
 
-  vector<shared_ptr<ShuntCompensatorInterface> >::const_iterator iShunt;
+  vector<std::shared_ptr<ShuntCompensatorInterface> >::const_iterator iShunt;
   for (iShunt = shunts_.begin(); iShunt != shunts_.end(); ++iShunt) {
     if ((*iShunt)->hasDynamicModel()) {
       (*iShunt)->getBusInterface()->hasConnection(true);
     }
   }
 
-  vector<shared_ptr<StaticVarCompensatorInterface> >::const_iterator iSvc;
+  vector<std::shared_ptr<StaticVarCompensatorInterface> >::const_iterator iSvc;
   for (iSvc = staticVarCompensators_.begin(); iSvc != staticVarCompensators_.end(); ++iSvc) {
     if ((*iSvc)->hasDynamicModel()) {
       (*iSvc)->getBusInterface()->hasConnection(true);
     }
   }
 
-  vector<shared_ptr<GeneratorInterface> >::const_iterator iGen;
+  vector<std::shared_ptr<GeneratorInterface> >::const_iterator iGen;
   for (iGen = generators_.begin(); iGen != generators_.end(); ++iGen) {
     if ((*iGen)->hasDynamicModel()) {
       (*iGen)->getBusInterface()->hasConnection(true);
     }
   }
 
-  vector<shared_ptr<DanglingLineInterface> >::const_iterator iDangling;
+  vector<std::shared_ptr<DanglingLineInterface> >::const_iterator iDangling;
   for (iDangling = danglingLines_.begin(); iDangling != danglingLines_.end(); ++iDangling) {
     if ((*iDangling)->hasDynamicModel()) {
       (*iDangling)->getBusInterface()->hasConnection(true);
     }
   }
 
-  vector<shared_ptr<VscConverterInterface> >::const_iterator iVsc;
+  vector<std::shared_ptr<VscConverterInterface> >::const_iterator iVsc;
   for (iVsc = vscConverters_.begin(); iVsc != vscConverters_.end(); ++iVsc) {
     if ((*iVsc)->hasDynamicModel()) {
       (*iVsc)->getBusInterface()->hasConnection(true);
     }
   }
 
-  vector<shared_ptr<LccConverterInterface> >::const_iterator iLcc;
+  vector<std::shared_ptr<LccConverterInterface> >::const_iterator iLcc;
   for (iLcc = lccConverters_.begin(); iLcc != lccConverters_.end(); ++iLcc) {
     if ((*iLcc)->hasDynamicModel()) {
       (*iLcc)->getBusInterface()->hasConnection(true);
@@ -293,8 +291,8 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     busName.str("");
     busName.clear();
     busName << "calculatedBus_" << voltageLevelIIDM_.getId() << "_" << i;
-    shared_ptr<CalculatedBusInterfaceIIDM> bus(new CalculatedBusInterfaceIIDM(voltageLevelIIDM_, busName.str(), i));
-    calculatedBus_.push_back(bus);
+    std::unique_ptr<CalculatedBusInterfaceIIDM> bus(new CalculatedBusInterfaceIIDM(voltageLevelIIDM_, busName.str(), i));
+    calculatedBus_.push_back(std::move(bus));
   }
 
   vector<unsigned int> component = topoComponents.second;
@@ -355,7 +353,7 @@ void
 VoltageLevelInterfaceIIDM::exportSwitchesState() {
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
-  for (std::unordered_map<shared_ptr<SwitchInterface>, double, SwitchInterfaceHash>::const_iterator iter = switchState_.begin(),
+  for (std::unordered_map<std::shared_ptr<SwitchInterface>, double, SwitchInterfaceHash>::const_iterator iter = switchState_.begin(),
       iterEnd = switchState_.end(); iter != iterEnd; ++iter) {
     int state = static_cast<int>(iter->second);
     if (state == OPEN)
@@ -413,7 +411,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
   for (vector<string>::iterator iter = shortestPath.begin(); iter != shortestPath.end(); ++iter) {
     const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(*iter);
     if (sw && sw.get().isOpen()) {
-      map<string, shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(*iter);
+      map<string, std::shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(*iter);
       if (itSw != switchesById_.end()) {
         switchState_[itSw->second] = CLOSED;
       }
@@ -458,7 +456,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
             const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(switchID);
             if (sw && sw.get().getKind() == powsybl::iidm::SwitchKind::BREAKER) {
               if (!sw.get().isOpen()) {
-                map<string, shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(switchID);
+                map<string, std::shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(switchID);
                 if (itSw != switchesById_.end()) {
                   switchState_[itSw->second] = OPEN;
                 }

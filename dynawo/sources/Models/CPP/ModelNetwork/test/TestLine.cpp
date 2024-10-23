@@ -40,7 +40,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-static std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = true) {
   powsybl::iidm::Network networkIIDM("test", "test");
 
@@ -101,16 +101,16 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   if (open || !closed2) {
     lIIDM.getTerminal2().disconnect();
   }
-  shared_ptr<LineInterfaceIIDM> dlItfIIDM = shared_ptr<LineInterfaceIIDM>(new LineInterfaceIIDM(lIIDM));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  std::unique_ptr<LineInterfaceIIDM> dlItfIIDM =  std::unique_ptr<LineInterfaceIIDM>(new LineInterfaceIIDM(lIIDM));
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
   dlItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
   dlItfIIDM->setVoltageLevelInterface2(vlItfIIDM);
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM;
+  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM;
   if (closed1)
-    bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM;
+    bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
+  std::shared_ptr<BusInterfaceIIDM> bus2ItfIIDM;
   if (closed2)
-    bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+    bus2ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus2);
   if (closed1)
     dlItfIIDM->setBusInterface1(bus1ItfIIDM);
   if (closed2)
@@ -118,38 +118,38 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
 
   powsybl::iidm::CurrentLimits& currentLimits1 = lIIDM.getCurrentLimits1();
   if (!std::isnan(currentLimits1.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-    dlItfIIDM->addCurrentLimitInterface1(cLimit);
+    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(),
+                                                                                    std::numeric_limits<unsigned long>::max()));
+    dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
   }
   for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(
-          new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
-      dlItfIIDM->addCurrentLimitInterface1(cLimit);
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+      dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
   powsybl::iidm::CurrentLimits& currentLimits2 = lIIDM.getCurrentLimits2();
   if (!std::isnan(currentLimits2.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-    dlItfIIDM->addCurrentLimitInterface1(cLimit);
+    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(),
+                                                                                    std::numeric_limits<unsigned long>::max()));
+    dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
   }
   for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(
-          new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
-      dlItfIIDM->addCurrentLimitInterface1(cLimit);
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+      dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
 
-  shared_ptr<ModelLine> dl = shared_ptr<ModelLine>(new ModelLine(dlItfIIDM));
+  std::unique_ptr<ModelLine> dl = std::unique_ptr<ModelLine>(new ModelLine(std::move(dlItfIIDM)));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   dl->setNetwork(network);
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
   int offset = 0;
   if (closed1) {
-    shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+    std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
     bus1->setNetwork(network);
     bus1->setVoltageLevel(vl);
     dl->setModelBus1(bus1);
@@ -171,7 +171,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     bus1->init(offset);
   }
   if (closed2) {
-    shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+    std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(bus2ItfIIDM, false);
     bus2->setNetwork(network);
     bus2->setVoltageLevel(vl);
     dl->setModelBus2(bus2);
@@ -192,26 +192,26 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
       z2[ModelBus::switchOffNum_] = -1;
     bus2->init(offset);
   }
-  return std::make_pair(dl, vl);
+  return std::make_pair(std::move(dl), vl);
 }
 
 
 TEST(ModelsModelNetwork, ModelNetworkLineInitializationClosed) {
-  shared_ptr<ModelLine> dl = createModelLine(false, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(false, false).first;
   ASSERT_EQ(dl->id(), "MyLine");
   ASSERT_EQ(dl->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineInitializationOpened) {
-  shared_ptr<ModelLine> dl = createModelLine(true, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(true, false).first;
   ASSERT_EQ(dl->id(), "MyLine");
   ASSERT_EQ(dl->getConnectionState(), OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineInitializationClosed2) {
-  shared_ptr<ModelLine> dl = createModelLine(false, false, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(false, false, false).first;
   ASSERT_EQ(dl->id(), "MyLine");
   ASSERT_EQ(dl->getConnectionState(), CLOSED_2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
@@ -220,7 +220,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineInitializationClosed2) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineInitializationClosed1) {
-  shared_ptr<ModelLine> dl = createModelLine(false, false, true, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(false, false, true, false).first;
   ASSERT_EQ(dl->id(), "MyLine");
   ASSERT_EQ(dl->getConnectionState(), CLOSED_1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
@@ -229,7 +229,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineInitializationClosed1) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
-  shared_ptr<ModelLine> dl = createModelLine(false, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(false, false).first;
   dl->initSize();
   std::vector<double> y(dl->sizeY(), 0.);
   std::vector<double> yp(dl->sizeY(), 0.);
@@ -456,14 +456,14 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
 
-  shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
+  const std::unique_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeCalculatedVar(), 0);
   delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
-  shared_ptr<ModelLine> dl = createModelLine(false, false, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(false, false, false).first;
   dl->initSize();
   std::vector<double> y(dl->sizeY(), 0.);
   std::vector<double> yp(dl->sizeY(), 0.);
@@ -693,7 +693,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
-  shared_ptr<ModelLine> dl = createModelLine(false, false, true, false).first;
+  const std::unique_ptr<ModelLine> dl = createModelLine(false, false, true, false).first;
   dl->initSize();
   std::vector<double> y(dl->sizeY(), 0.);
   std::vector<double> yp(dl->sizeY(), 0.);
@@ -923,8 +923,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
-  shared_ptr<ModelLine> dl = p.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
   dl->initSize();
   unsigned nbZ = 2;
   unsigned nbG = 6;
@@ -1073,7 +1073,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[4], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[5], ROOT_DOWN);
 
-  shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
+  const std::unique_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeZ(), 0);
   ASSERT_EQ(dlInit->sizeG(), 0);
@@ -1081,8 +1081,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
-  shared_ptr<ModelLine> dl = p.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
   dl->initSize();
   unsigned nbY = 0;
   unsigned nbF = 0;
@@ -1126,7 +1126,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   // test evalDerivatives
   ASSERT_NO_THROW(dl->evalDerivatives(1));
 
-  shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
+  const std::shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeY(), 0);
   ASSERT_EQ(dlInit->sizeF(), 0);
@@ -1138,8 +1138,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
-  shared_ptr<ModelLine> dl = p.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
 
   std::vector<ParameterModeler> parameters;
   dl->defineParameters(parameters);
@@ -1232,14 +1232,14 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_NO_THROW(dl->evalDerivativesPrim());
 
   // Closed_1 line
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p2 = createModelLine(false, false, true, false);
-  shared_ptr<ModelLine> dl2 = p2.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p2 = createModelLine(false, false, true, false);
+  const std::unique_ptr<ModelLine>& dl2 = p2.first;
 
   ASSERT_THROW_DYNAWO(dl2->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
 
   // Open line
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p3 = createModelLine(true, false);
-  shared_ptr<ModelLine> dl3 = p3.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p3 = createModelLine(true, false);
+  const std::unique_ptr<ModelLine>& dl3 = p3.first;
 
   ASSERT_NO_THROW(dl3->setSubModelParameters(parametersModels));
   std::vector<propertyContinuousVar_t> yTypes3(nbY, UNDEFINED_PROPERTY);
@@ -1304,8 +1304,8 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
-  shared_ptr<ModelLine> dl = p.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
 
   std::vector<ParameterModeler> parameters;
   dl->defineNonGenericParameters(parameters);
@@ -1340,8 +1340,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineJt) {
-  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
-  shared_ptr<ModelLine> dl = p.first;
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
   dl->initSize();
   SparseMatrix smj;
   int size = dl->sizeY();
@@ -1354,7 +1354,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineJt) {
   dl->evalJtPrim(smjPrime, 0);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 
-  shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
+  const std::unique_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
   SparseMatrix smjInit;
   smjInit.init(dlInit->sizeY(), dlInit->sizeY());

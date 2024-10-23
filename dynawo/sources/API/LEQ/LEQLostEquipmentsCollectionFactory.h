@@ -20,7 +20,8 @@
 #ifndef API_LEQ_LEQLOSTEQUIPMENTSCOLLECTIONFACTORY_H_
 #define API_LEQ_LEQLOSTEQUIPMENTSCOLLECTIONFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace lostEquipments {
 class LostEquipmentsCollection;
@@ -37,9 +38,9 @@ class LostEquipmentsCollectionFactory {
   /**
    * @brief Create new LostEquipmentsCollection instance
    *
-   * @return shared pointer to a new empty @p LostEquipmentsCollection
+   * @return unique pointer to a new empty @p LostEquipmentsCollection
    */
-  static boost::shared_ptr<LostEquipmentsCollection> newInstance();
+  static std::unique_ptr<LostEquipmentsCollection> newInstance();
 };
 }  // namespace lostEquipments
 

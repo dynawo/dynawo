@@ -21,10 +21,9 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTWOWTRANSFORMERINTERFACEIIDM_H_
 
 #include "DYNTwoWTransformerInterface.h"
+#include "DYNCurrentLimitInterface.h"
 #include "DYNActiveSeasonIIDMExtension.h"
 #include "DYNIIDMExtensions.hpp"
-
-#include <boost/shared_ptr.hpp>
 
 #include <powsybl/iidm/TwoWindingsTransformer.hpp>
 
@@ -61,24 +60,24 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
 
 
   /**
-   * @copydoc TwoWTransformerInterface::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
+   * @copydoc TwoWTransformerInterface::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
+  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
 
   /**
-   * @copydoc TwoWTransformerInterface::addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
+   * @copydoc TwoWTransformerInterface::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
+  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
 
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces1() const
    */
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const;
 
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces2() const
    */
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const;
 
   /**
    * @copydoc TwoWTransformerInterface::getActiveSeason()
@@ -86,34 +85,34 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   std::string getActiveSeason() const final;
 
   /**
-   * @copydoc TwoWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc TwoWTransformerInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc TwoWTransformerInterface::setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc TwoWTransformerInterface::setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
-   * @copydoc TwoWTransformerInterface::setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc TwoWTransformerInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc TwoWTransformerInterface::setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc TwoWTransformerInterface::setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc TwoWTransformerInterface::getBusInterface1() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const;
 
   /**
    * @copydoc TwoWTransformerInterface::getBusInterface2() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const;
 
   /**
    * @copydoc TwoWTransformerInterface::getID() const
@@ -165,22 +164,22 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc TwoWTransformerInterface::getPhaseTapChanger() const
    */
-  boost::shared_ptr<PhaseTapChangerInterface> getPhaseTapChanger() const;
+  const std::unique_ptr<PhaseTapChangerInterface>& getPhaseTapChanger() const;
 
   /**
    * @copydoc TwoWTransformerInterface::getRatioTapChanger() const
    */
-  boost::shared_ptr<RatioTapChangerInterface> getRatioTapChanger() const;
+  const std::unique_ptr<RatioTapChangerInterface>& getRatioTapChanger() const;
 
   /**
-   * @copydoc TwoWTransformerInterface::setPhaseTapChanger(const boost::shared_ptr<PhaseTapChangerInterface>& tapChanger)
+   * @copydoc TwoWTransformerInterface::setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger)
    */
-  void setPhaseTapChanger(const boost::shared_ptr<PhaseTapChangerInterface>& tapChanger);
+  void setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger);
 
   /**
-   * @copydoc TwoWTransformerInterface::setRatioTapChanger(const boost::shared_ptr<RatioTapChangerInterface>& tapChanger)
+   * @copydoc TwoWTransformerInterface::setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger)
    */
-  void setRatioTapChanger(const boost::shared_ptr<RatioTapChangerInterface>& tapChanger);
+  void setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger);
 
   /**
    * @copydoc TwoWTransformerInterface::getR() const
@@ -256,15 +255,15 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
 
  private:
   powsybl::iidm::TwoWindingsTransformer& tfoIIDM_;  ///< reference to the tfo's iidm instance
-  boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
-  boost::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevel interface where the side 2 of the line is connected
-  boost::shared_ptr<PhaseTapChangerInterface> phaseTapChanger_;  ///< reference to the phase tap changer interface instance
-  boost::shared_ptr<RatioTapChangerInterface> ratioTapChanger_;  ///< reference to the ratio tap changer interface instance
+  std::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
+  std::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected
+  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
+  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevel interface where the side 2 of the line is connected
+  std::unique_ptr<PhaseTapChangerInterface> phaseTapChanger_;  ///< reference to the phase tap changer interface instance
+  std::unique_ptr<RatioTapChangerInterface> ratioTapChanger_;  ///< reference to the ratio tap changer interface instance
 
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
-  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
+  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
+  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
 
   ActiveSeasonIIDMExtension* activeSeasonExtension_;                                         ///< Active season extension
   IIDMExtensions::DestroyFunction<ActiveSeasonIIDMExtension> destroyActiveSeasonExtension_;  ///< active season destroy function
