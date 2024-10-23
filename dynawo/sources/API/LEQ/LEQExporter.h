@@ -23,7 +23,6 @@
 
 #include "LEQLostEquipmentsCollection.h"
 
-#include <boost/shared_ptr.hpp>
 #include <string>
 #include <iostream>
 
@@ -53,7 +52,7 @@ class Exporter {
    * @param lostEquipments Lost equipments to export
    * @param filePath File to export to
    */
-  virtual void exportToFile(const boost::shared_ptr<LostEquipmentsCollection>& lostEquipments, const std::string& filePath) const = 0;
+  virtual void exportToFile(const std::shared_ptr<LostEquipmentsCollection>& lostEquipments, const std::string& filePath) const = 0;
 
   /**
    * @brief Export method for this exporter
@@ -61,7 +60,7 @@ class Exporter {
    * @param lostEquipments Lost equipments to export
    * @param stream Stream to export to
    */
-  virtual void exportToStream(const boost::shared_ptr<LostEquipmentsCollection>& lostEquipments, std::ostream& stream) const = 0;
+  virtual void exportToStream(const std::shared_ptr<LostEquipmentsCollection>& lostEquipments, std::ostream& stream) const = 0;
 };
 
 #ifdef __clang__

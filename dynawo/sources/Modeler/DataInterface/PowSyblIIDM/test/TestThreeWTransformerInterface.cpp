@@ -125,40 +125,40 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces3().size(), 0);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
-  tfoInterface.addCurrentLimitInterface1(curLimItf1);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
-  tfoInterface.addCurrentLimitInterface2(curLimItf2);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf3(new CurrentLimitInterfaceIIDM(3, 3));
-  tfoInterface.addCurrentLimitInterface3(curLimItf3);
+  std::unique_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
+  tfoInterface.addCurrentLimitInterface1(std::move(curLimItf1));
+  std::unique_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
+  tfoInterface.addCurrentLimitInterface2(std::move(curLimItf2));
+  std::unique_ptr<CurrentLimitInterface> curLimItf3(new CurrentLimitInterfaceIIDM(3, 3));
+  tfoInterface.addCurrentLimitInterface3(std::move(curLimItf3));
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 1);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 1);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces3().size(), 1);
 
   ASSERT_EQ(tfoInterface.getBusInterface1().get(), nullptr);
   vl1Bus1.setV(10.0).setAngle(0.01);
-  const boost::shared_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
-  tfoInterface.setBusInterface1(busItf1);
+  std::unique_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
+  tfoInterface.setBusInterface1(std::move(busItf1));
   ASSERT_EQ(tfoInterface.getBusInterface1().get()->getID(), "VL1_BUS1");
 
   ASSERT_EQ(tfoInterface.getBusInterface2().get(), nullptr);
   vl2Bus1.setV(11.0).setAngle(0.02);
-  const boost::shared_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
-  tfoInterface.setBusInterface2(busItf2);
+  std::unique_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
+  tfoInterface.setBusInterface2(std::move(busItf2));
   ASSERT_EQ(tfoInterface.getBusInterface2().get()->getID(), "VL2_BUS1");
 
   ASSERT_EQ(tfoInterface.getBusInterface3().get(), nullptr);
   vl3Bus1.setV(12.0).setAngle(0.03);
-  const boost::shared_ptr<BusInterface> busItf3(new BusInterfaceIIDM(vl3Bus1));
-  tfoInterface.setBusInterface3(busItf3);
+  std::unique_ptr<BusInterface> busItf3(new BusInterfaceIIDM(vl3Bus1));
+  tfoInterface.setBusInterface3(std::move(busItf3));
   ASSERT_EQ(tfoInterface.getBusInterface3().get()->getID(), "VL3_BUS1");
 
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf1(new VoltageLevelInterfaceIIDM(vl1));
-  tfoInterface.setVoltageLevelInterface1(voltageLevelItf1);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf2(new VoltageLevelInterfaceIIDM(vl2));
-  tfoInterface.setVoltageLevelInterface2(voltageLevelItf2);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf3(new VoltageLevelInterfaceIIDM(vl3));
-  tfoInterface.setVoltageLevelInterface3(voltageLevelItf3);
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf1(new VoltageLevelInterfaceIIDM(vl1));
+  tfoInterface.setVoltageLevelInterface1(std::move(voltageLevelItf1));
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf2(new VoltageLevelInterfaceIIDM(vl2));
+  tfoInterface.setVoltageLevelInterface2(std::move(voltageLevelItf2));
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf3(new VoltageLevelInterfaceIIDM(vl3));
+  tfoInterface.setVoltageLevelInterface3(std::move(voltageLevelItf3));
 
   ASSERT_TRUE(tfoInterface.isConnected());
   ASSERT_TRUE(tfoInterface.isPartiallyConnected());

@@ -23,7 +23,6 @@
 
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
 
 #include "DYNNetworkComponent.h"
 #include "DYNBitMask.h"
@@ -45,7 +44,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @param bus bus data interface to use for the model
    * @param isNodeBreaker true if the voltage level is in NODE BREAKER
    */
-  explicit ModelBus(const boost::shared_ptr<BusInterface>& bus, bool isNodeBreaker);
+  explicit ModelBus(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker);
 
   /**
    * @brief calculated variables type
@@ -100,7 +99,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief add a bus to the neighbors
    * @param bus bus to add
    */
-  void addNeighbor(boost::shared_ptr<ModelBus>& bus);  // add a bus to the neighbors (i.e. AC-connected) list
+  void addNeighbor(std::shared_ptr<ModelBus>& bus);  // add a bus to the neighbors (i.e. AC-connected) list
 
   /**
    * @brief clear neighbors
@@ -310,7 +309,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
     return angle0_;
   }
 
-  std::vector<boost::weak_ptr<ModelBus> > neighbors_;  ///< list of buses within the same AC-connected component
+  std::vector<std::weak_ptr<ModelBus> > neighbors_;  ///< list of buses within the same AC-connected component
 
   /**
    * @brief  scan a subnetwork in order to find all neighboring buses
@@ -504,7 +503,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief setter for the voltage level that contains the bus
    * @param voltageLevel VoltageLevel model that contains the bus
    */
-  inline void setVoltageLevel(const boost::weak_ptr<ModelVoltageLevel>& voltageLevel) {
+  inline void setVoltageLevel(const std::weak_ptr<ModelVoltageLevel>& voltageLevel) {
     modelVoltageLevel_ = voltageLevel;
   }
 
@@ -512,7 +511,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief getter for the voltage level that contains the bus
    * @return the voltage level that contains the bus
    */
-  inline boost::shared_ptr<ModelVoltageLevel> getVoltageLevel() const {
+  inline std::shared_ptr<ModelVoltageLevel> getVoltageLevel() const {
     return modelVoltageLevel_.lock();
   }
 
@@ -536,7 +535,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief add a model of switch to the list of connectable switches
    * @param sw model of switch to add
    */
-  inline void addSwitch(const boost::weak_ptr<ModelSwitch>& sw) {
+  inline void addSwitch(const std::weak_ptr<ModelSwitch>& sw) {
     connectableSwitches_.push_back(sw);
   }
 
@@ -569,8 +568,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   }
 
  private:
-  boost::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus
-  boost::weak_ptr<BusInterface> bus_;  ///< reference to the bus interface object
+  std::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus
+  std::weak_ptr<BusInterface> bus_;  ///< reference to the bus interface object
 
   double uMin_;  ///< minimum allowed voltage
   double uMax_;  ///< maximum allowed voltage
@@ -611,7 +610,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   double u0_;  ///< initial voltage
   double angle0_;  ///< initial angle
   std::vector<std::string> busBarSectionIdentifiers_;  ///< identifiers of bus bar sections on the same electrical node
-  std::vector<boost::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
+  std::vector<std::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
 
   const std::string modelType_;  ///< model Type
   const bool isNodeBreaker_;  ///< true if the bus is modeled as node-breaker (called also calculated bus)
@@ -657,7 +656,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @brief  add a bus to the sub-network
    * @param bus bus
    */
-  inline void addBus(const boost::shared_ptr<ModelBus>& bus) {
+  inline void addBus(const std::shared_ptr<ModelBus>& bus) {
     assert(bus && "Undefined bus");
     bus_.push_back(bus);
   }   // add a bus to the sub-network
@@ -675,7 +674,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @param num num
    * @return bus
    */
-  inline boost::shared_ptr<ModelBus> bus(int num) const {
+  inline std::shared_ptr<ModelBus> bus(int num) const {
     assert(num >= 0 && static_cast<size_t>(num) < bus_.size() && "Bus index unknown");
     return bus_[num];
   }
@@ -692,7 +691,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
 
  private:
   int num_;  ///< number of bus
-  std::vector<boost::shared_ptr<ModelBus> > bus_;  ///< vector of ModelBus located within the sub-network
+  std::vector<std::shared_ptr<ModelBus> > bus_;  ///< vector of ModelBus located within the sub-network
 };
 
 /**
@@ -709,7 +708,7 @@ class ModelBusContainer {
    * @brief add bus
    * @param model model
    */
-  void add(const boost::shared_ptr<ModelBus>& model);
+  void add(const std::shared_ptr<ModelBus>& model);
 
   /**
    * @brief remove all buses from the sub-network
@@ -776,7 +775,7 @@ class ModelBusContainer {
   void resetCurrentUStatus();
 
  private:
-  std::vector<boost::shared_ptr<ModelBus> > models_;  ///< model bus
+  std::vector<std::shared_ptr<ModelBus> > models_;  ///< model bus
   std::vector<boost::shared_ptr<SubNetwork> > subNetworks_;  ///< sub network
 };
 }  // namespace DYN

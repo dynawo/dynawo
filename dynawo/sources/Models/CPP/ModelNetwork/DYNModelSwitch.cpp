@@ -40,7 +40,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-ModelSwitch::ModelSwitch(const shared_ptr<SwitchInterface>& sw) :
+ModelSwitch::ModelSwitch(const std::shared_ptr<SwitchInterface>& sw) :
 NetworkComponent(sw->getID()),
 topologyModified_(false),
 inLoop_(false),
@@ -56,7 +56,7 @@ canBeClosed_(!sw->isOpen() || sw->isRetained()) {
   iiYNum_ = 0;
 }
 
-boost::shared_ptr<ModelBus>
+std::shared_ptr<ModelBus>
 ModelSwitch::getModelBus1() const {
   if (!modelBus1_)
     throw DYNError(Error::MODELER, SwitchMissingBus1, id());
@@ -64,7 +64,7 @@ ModelSwitch::getModelBus1() const {
   return modelBus1_;
 }
 
-boost::shared_ptr<ModelBus>
+std::shared_ptr<ModelBus>
 ModelSwitch::getModelBus2() const {
   if (!modelBus2_)
     throw DYNError(Error::MODELER, SwitchMissingBus2, id());
@@ -272,8 +272,8 @@ ModelSwitch::close() {
 
 void
 ModelSwitch::addBusNeighbors() {
-  shared_ptr<ModelBus> bus1 = modelBus1_;
-  shared_ptr<ModelBus> bus2 = modelBus2_;
+  std::shared_ptr<ModelBus> bus1 = modelBus1_;
+  std::shared_ptr<ModelBus> bus2 = modelBus2_;
   if (getConnectionState() == CLOSED) {
     bus1->addNeighbor(bus2);
     bus2->addNeighbor(bus1);

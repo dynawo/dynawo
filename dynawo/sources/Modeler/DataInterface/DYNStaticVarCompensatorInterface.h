@@ -66,19 +66,19 @@ class StaticVarCompensatorInterface : public ComponentInterface {
    * @brief Setter for the staticVarCompensator's bus interface
    * @param busInterface of the bus where the static var compensator is connected
    */
-  virtual void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the staticVarCompensator's voltage interface
    * @param voltageLevelInterface of the voltageLevel where the staticVarCompensator is connected
    */
-  virtual void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the staticVarCompensator's bus interface
    * @return busInterface of the bus where the static var compensator is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface() const = 0;
 
   /**
    * @brief Getter for the nominal voltage of the bus where the static var compensator is connected

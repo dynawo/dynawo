@@ -54,61 +54,61 @@ class TwoWTransformerInterface : public ComponentInterface {
    * @brief Setter for the tfo's bus interface side 1
    * @param busInterface of the bus where the side 1 of the tfo is connected
    */
-  virtual void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the tfo's voltageLevel interface side 1
    * @param voltageLevelInterface of the bus where the side 1 of the tfo is connected
    */
-  virtual void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Setter for the tfo's bus interface side 2
    * @param busInterface of the bus where the side 2 of the tfo is connected
    */
-  virtual void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the tfo's voltageLevel interface side 2
    * @param voltageLevelInterface of the bus where the side 2 of the tfo is connected
    */
-  virtual void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the tfo's bus interface side 1
    * @return busInterface of the bus where the side 1 of the tfo is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface1() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface1() const = 0;
 
   /**
    * @brief Getter for the tfo's bus interface side 2
    * @return busInterface of the bus where the side 2 of the tfo is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface2() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface2() const = 0;
 
   /**
    * @brief Add a curent limit interface for side 1
    * @param currentLimitInterface current limit interface for the side 1 of the tfo
    */
-  virtual void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
 
   /**
    * @brief Add a curent limit interface for side 2
    * @param currentLimitInterface current limit interface for the side 2 of the tfo
    */
-  virtual void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 1
    * @return currentLimitInterface of the tfo's side 1
    */
-  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const = 0;
+  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 2
    * @return currentLimitInterface of the tfo's side 2
    */
-  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const = 0;
+  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const = 0;
 
   /**
    * @brief Retrieve active season for the transformer
@@ -186,24 +186,24 @@ class TwoWTransformerInterface : public ComponentInterface {
    * @brief Getter for the instance of phaseTapChanger interface
    * @return the instance of phaseTapChanger interface
    */
-  virtual boost::shared_ptr<PhaseTapChangerInterface> getPhaseTapChanger() const = 0;
+  virtual const std::unique_ptr<PhaseTapChangerInterface>& getPhaseTapChanger() const = 0;
 
   /**
    * @brief Getter for the instance of ratioTapChanger interface
    * @return the instance of ratioTapChanger interface
    */
-  virtual boost::shared_ptr<RatioTapChangerInterface> getRatioTapChanger() const = 0;
+  virtual const std::unique_ptr<RatioTapChangerInterface>& getRatioTapChanger() const = 0;
 
   /**
    * @brief Setter for the instance of phase tap changer interface
    * @param tapChanger the instance of phaseTapChanger interface
    */
-  virtual void setPhaseTapChanger(const boost::shared_ptr<PhaseTapChangerInterface>& tapChanger) = 0;
+  virtual void setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger) = 0;
   /**
    * @brief Setter for the instance of ratio tap changer interface
    * @param tapChanger the instance of ratioTapChanger interface
    */
-  virtual void setRatioTapChanger(const boost::shared_ptr<RatioTapChangerInterface>& tapChanger) = 0;
+  virtual void setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger) = 0;
 
   /**
    * @brief Getter for the resistance of the tfo

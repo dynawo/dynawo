@@ -38,7 +38,6 @@
 #include "DYNModelVoltageLevel.h"
 
 
-using std::map;
 using std::string;
 using std::vector;
 
@@ -49,7 +48,7 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
-ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
+ModelLoad::ModelLoad(const std::shared_ptr<LoadInterface>& load) :
 NetworkComponent(load->getID()),
 load_(load),
 stateModified_(false),
@@ -207,7 +206,7 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
-  shared_ptr<LoadInterface> load = load_.lock();
+  std::shared_ptr<LoadInterface> load = load_.lock();
   double thetaNode = load->getBusInterface()->getAngle0();
   double unomNode = load->getBusInterface()->getVNom();
   switch (startingPointMode_) {
