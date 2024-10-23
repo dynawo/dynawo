@@ -356,16 +356,20 @@ SimulationRT::curvesToStream() {
     if ((*itCurve)->getAvailable()) {
       boost::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
       if (point) {
-        string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
-        if (time < 0)
+        if (time < 0) {
           time = point->getTime();
+          stream << "\n";
+        }
+        else
+          stream << ",\n";
+        string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
         double value = point->getValue();
-        stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue() << ",\n";
+        stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue();
       }
     }
   }
   stream << "\t\t" << "},\n";
-  stream << "\t\t" << "\"time\": " << time << "\n}";
+  stream << "\t\t" << "\"time\": " << time << "\n";
   stream << "\t}\n}";
 
   const string formatedString = stream.str();
