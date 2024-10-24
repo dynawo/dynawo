@@ -95,6 +95,96 @@ void launchSimu(const std::string& jobsFileName) {
     context->setWorkingDirectory(prefixJobFile);
 
 
+    std::shared_ptr<Simulation> simulation;
+    try {
+      simulation = std::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation->init();
+    } catch (const DYN::Error& err) {
+      print(err.what(), DYN::ERROR);
+      throw;
+    } catch (const DYN::MessageError& e) {
+      print(e.what(), DYN::ERROR);
+      throw;
+    } catch (const char *s) {
+      print(s, DYN::ERROR);
+      throw;
+    } catch (const std::string& Msg) {
+      print(Msg, DYN::ERROR);
+      throw;
+    } catch (const std::exception& exc) {
+      print(exc.what(), DYN::ERROR);
+      throw;
+    }
+
+    try {
+      simulation->simulate();
+      simulation->terminate();
+    } catch (const DYN::Error& err) {
+      // Needed as otherwise terminate might crash due to missing staticRef variables
+      if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
+        simulation->disableExportIIDM();
+        simulation->setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_NONE);
+      }
+      print(err.what(), DYN::ERROR);
+      simulation->terminate();
+      throw;
+    } catch (const DYN::Terminate& e) {
+      print(e.what(), DYN::ERROR);
+      simulation->terminate();
+      throw;
+    } catch (const DYN::MessageError& e) {
+      print(e.what(), DYN::ERROR);
+      simulation->terminate();
+      throw;
+    } catch (const char *s) {
+      print(s, DYN::ERROR);
+      simulation->terminate();
+      throw;
+    } catch (const std::string& Msg) {
+      print(Msg, DYN::ERROR);
+      simulation->terminate();
+      throw;
+    } catch (const std::exception& exc) {
+      print(exc.what(), DYN::ERROR);
+      simulation->terminate();
+      throw;
+    }
+    simulation->clean();
+    print(DYNLog(EndOfJob, (*itJobEntry)->getName()));
+    Trace::resetCustomAppenders();
+    Trace::init();
+    print(DYNLog(JobSuccess, (*itJobEntry)->getName()));
+    if ((*itJobEntry)->getOutputsEntry()) {
+      std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
+      print(DYNLog(ResultFolder, outputsDirectory));
+    }
+  }
+}
+
+
+void launchSimuInterractive(const std::string& jobsFileName) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  DYN::Timer timer("Main::launchSimuInterractive");
+#endif
+
+  job::XmlImporter importer;
+  std::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
+  std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
+  if (jobsCollection->begin() == jobsCollection->end())
+    throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
+  Trace::init();
+
+  for (job::job_iterator itJobEntry = jobsCollection->begin();
+      itJobEntry != jobsCollection->end();
+      ++itJobEntry) {
+    print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
+
+    std::shared_ptr<SimulationContext> context = std::shared_ptr<SimulationContext>(new SimulationContext());
+    context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
+    context->setInputDirectory(prefixJobFile);
+    context->setWorkingDirectory(prefixJobFile);
+
     std::shared_ptr<SimulationRT> simulation;
     try {
       simulation = std::shared_ptr<SimulationRT>(new SimulationRT((*itJobEntry), context));
@@ -162,99 +252,99 @@ void launchSimu(const std::string& jobsFileName) {
 }
 
 
-void launchSimuInterractive(const std::string& jobsFileName) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  DYN::Timer timer("Main::LaunchSimu");
-#endif
+// void launchSimuInterractive(const std::string& jobsFileName) {
+// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
+//   DYN::Timer timer("Main::LaunchSimu");
+// #endif
 
-  job::XmlImporter importer;
-  std::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
-  std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
-  if (jobsCollection->begin() == jobsCollection->end())
-    throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
-  Trace::init();
+//   job::XmlImporter importer;
+//   boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
+//   std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
+//   if (jobsCollection->begin() == jobsCollection->end())
+//     throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
+//   Trace::init();
 
-  for (job::job_iterator itJobEntry = jobsCollection->begin();
-      itJobEntry != jobsCollection->end();
-      ++itJobEntry) {
-    print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
+//   for (job::job_iterator itJobEntry = jobsCollection->begin();
+//       itJobEntry != jobsCollection->end();
+//       ++itJobEntry) {
+//     print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
 
-    std::shared_ptr<SimulationContext> context = std::shared_ptr<SimulationContext>(new SimulationContext());
-    context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
-    context->setInputDirectory(prefixJobFile);
-    context->setWorkingDirectory(prefixJobFile);
+//     boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
+//     context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+//     context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
+//     context->setInputDirectory(prefixJobFile);
+//     context->setWorkingDirectory(prefixJobFile);
 
-    std::shared_ptr<Simulation> simulation;
-    try {
-      simulation = std::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
-      simulation->init();
-    } catch (const DYN::Error& err) {
-      print(err.what(), DYN::ERROR);
-      throw;
-    } catch (const DYN::MessageError& e) {
-      print(e.what(), DYN::ERROR);
-      throw;
-    } catch (const char *s) {
-      print(s, DYN::ERROR);
-      throw;
-    } catch (const std::string& Msg) {
-      print(Msg, DYN::ERROR);
-      throw;
-    } catch (const std::exception& exc) {
-      print(exc.what(), DYN::ERROR);
-      throw;
-    }
-    bool rerun = true;
-    while (rerun) {
-      try {
-        rerun = false;
-        simulation->simulate();
-        simulation->terminate();
-      } catch (const DYN::Interception& interception) {
-        simulation->dumpState();
-        print(interception.what(), DYN::WARN);
-        rerun = true;
-        throw;
-      } catch (const DYN::Error& err) {
-        // Needed as otherwise terminate might crash due to missing staticRef variables
-        if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
-          simulation->disableExportIIDM();
-          simulation->setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_NONE);
-        }
-        print(err.what(), DYN::ERROR);
-        simulation->terminate();
-        throw;
-      } catch (const DYN::Terminate& e) {
-        print(e.what(), DYN::ERROR);
-        simulation->terminate();
-        throw;
-      } catch (const DYN::MessageError& e) {
-        print(e.what(), DYN::ERROR);
-        simulation->terminate();
-        throw;
-      } catch (const char *s) {
-        print(s, DYN::ERROR);
-        simulation->terminate();
-        throw;
-      } catch (const std::string& Msg) {
-        print(Msg, DYN::ERROR);
-        simulation->terminate();
-        throw;
-      } catch (const std::exception& exc) {
-        print(exc.what(), DYN::ERROR);
-        simulation->terminate();
-        throw;
-      }
-    }
-    simulation->clean();
-    print(DYNLog(EndOfJob, (*itJobEntry)->getName()));
-    Trace::resetCustomAppenders();
-    Trace::init();
-    print(DYNLog(JobSuccess, (*itJobEntry)->getName()));
-    if ((*itJobEntry)->getOutputsEntry()) {
-      std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
-      print(DYNLog(ResultFolder, outputsDirectory));
-    }
-  }
-}
+//     boost::shared_ptr<Simulation> simulation;
+//     try {
+//       simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+//       simulation->init();
+//     } catch (const DYN::Error& err) {
+//       print(err.what(), DYN::ERROR);
+//       throw;
+//     } catch (const DYN::MessageError& e) {
+//       print(e.what(), DYN::ERROR);
+//       throw;
+//     } catch (const char *s) {
+//       print(s, DYN::ERROR);
+//       throw;
+//     } catch (const std::string& Msg) {
+//       print(Msg, DYN::ERROR);
+//       throw;
+//     } catch (const std::exception& exc) {
+//       print(exc.what(), DYN::ERROR);
+//       throw;
+//     }
+//     bool rerun = true;
+//     while (rerun) {
+//       try {
+//         rerun = false;
+//         simulation->simulate();
+//         simulation->terminate();
+//       } catch (const DYN::Interception& interception) {
+//         simulation->dumpState();
+//         print(interception.what(), DYN::WARN);
+//         rerun = true;
+//         throw;
+//       } catch (const DYN::Error& err) {
+//         // Needed as otherwise terminate might crash due to missing staticRef variables
+//         if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
+//           simulation->disableExportIIDM();
+//           simulation->setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_NONE);
+//         }
+//         print(err.what(), DYN::ERROR);
+//         simulation->terminate();
+//         throw;
+//       } catch (const DYN::Terminate& e) {
+//         print(e.what(), DYN::ERROR);
+//         simulation->terminate();
+//         throw;
+//       } catch (const DYN::MessageError& e) {
+//         print(e.what(), DYN::ERROR);
+//         simulation->terminate();
+//         throw;
+//       } catch (const char *s) {
+//         print(s, DYN::ERROR);
+//         simulation->terminate();
+//         throw;
+//       } catch (const std::string& Msg) {
+//         print(Msg, DYN::ERROR);
+//         simulation->terminate();
+//         throw;
+//       } catch (const std::exception& exc) {
+//         print(exc.what(), DYN::ERROR);
+//         simulation->terminate();
+//         throw;
+//       }
+//     }
+//     simulation->clean();
+//     print(DYNLog(EndOfJob, (*itJobEntry)->getName()));
+//     Trace::resetCustomAppenders();
+//     Trace::init();
+//     print(DYNLog(JobSuccess, (*itJobEntry)->getName()));
+//     if ((*itJobEntry)->getOutputsEntry()) {
+//       std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
+//       print(DYNLog(ResultFolder, outputsDirectory));
+//     }
+//   }
+// }
