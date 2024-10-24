@@ -115,42 +115,42 @@ macro(COMPILE_PREASSEMBLED_MODEL
         ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
         (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit 1)
       COMMAND
-        ${CMAKE_COMMAND} -E echo "@echo off" > ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "@echo off" > ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_INSTALL_DIR=${installdir}" >> wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_INSTALL_DIR=${installdir}" >> wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_DDB_DIR=${ddbdir}" >> wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_DDB_DIR=${ddbdir}" >> wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_SCRIPTS_DIR=${sbindir}" >> wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_SCRIPTS_DIR=${sbindir}" >> wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_RESOURCES_DIR=${sharedir}" >> wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_RESOURCES_DIR=${sharedir}" >> wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_DICTIONARIES=dictionaries_mapping" >> wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_DICTIONARIES=dictionaries_mapping" >> wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_XSD_DIR=${sharedir}/xsd/" >> wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_XSD_DIR=${sharedir}/xsd/" >> wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_ADEPT_INSTALL_DIR=${ADEPT_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_ADEPT_INSTALL_DIR=${ADEPT_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_INSTALL_OPENMODELICA=${INSTALL_OPENMODELICA}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_INSTALL_OPENMODELICA=${INSTALL_OPENMODELICA}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_XERCESC_INSTALL_DIR=${XERCESC_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_XERCESC_INSTALL_DIR=${XERCESC_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_SUITESPARSE_INSTALL_DIR=${SUITESPARSE_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_SUITESPARSE_INSTALL_DIR=${SUITESPARSE_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_SUNDIALS_INSTALL_DIR=${SUNDIALS_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_SUNDIALS_INSTALL_DIR=${SUNDIALS_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_BOOST_HOME=${BOOST_ROOT}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_BOOST_HOME=${BOOST_ROOT}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set DYNAWO_LIBXML_HOME=${LIBXML_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set DYNAWO_LIBXML_HOME=${LIBXML_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "set OPENMODELICAHOME=${INSTALL_OPENMODELICA}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "set OPENMODELICAHOME=${INSTALL_OPENMODELICA}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "${runtime_PATH}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "${runtime_PATH}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
-        ${CMAKE_COMMAND} -E echo "%*" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        ${CMAKE_COMMAND} -E echo "%%*" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat
       COMMAND
           ${CMAKE_COMMAND} -E env
-            cmd /c ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat $<TARGET_FILE:generate-preassembled> --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
+            cmd /c ${CMAKE_CURRENT_BINARY_DIR}/wrapper${MODEL_NAME}.bat $<TARGET_FILE:generate-preassembled> --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
             (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit 1)
       COMMENT "Building ${MODEL_NAME}"
       )
