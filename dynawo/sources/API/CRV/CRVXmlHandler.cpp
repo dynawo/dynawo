@@ -58,7 +58,7 @@ curveHandler_(parser::ElementName(namespace_uri(), "curve")) {
 
 XmlHandler::~XmlHandler() {}
 
-shared_ptr<CurvesCollection>
+std::shared_ptr<CurvesCollection>
 XmlHandler::getCurvesCollection() {
   return curvesCollection_;
 }

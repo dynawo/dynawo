@@ -37,19 +37,19 @@ namespace criteria {
 
 TEST(APICRTTest, testXmlImporterMissingFile) {
   XmlImporter importer;
-  boost::shared_ptr<CriteriaCollection> criteria;
+  std::shared_ptr<CriteriaCollection> criteria;
   ASSERT_THROW_DYNAWO(criteria = importer.importFromFile("res/dummmyFile.crt"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APICRTTest, testXmlWrongFile) {
   XmlImporter importer;
-  boost::shared_ptr<CriteriaCollection> criteria;
+  std::shared_ptr<CriteriaCollection> criteria;
   ASSERT_THROW_DYNAWO(criteria = importer.importFromFile("res/wrongFile.crt"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
 TEST(APICRTTest, testXmlWrongStream) {
   XmlImporter importer;
-  boost::shared_ptr<CriteriaCollection> criteria;
+  std::shared_ptr<CriteriaCollection> criteria;
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(criteria = importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
@@ -57,7 +57,7 @@ TEST(APICRTTest, testXmlWrongStream) {
 
 TEST(APICRTTest, testXmlFileImporter) {
   XmlImporter importer;
-  boost::shared_ptr<CriteriaCollection> criteriaCollection;
+  std::shared_ptr<CriteriaCollection> criteriaCollection;
   ASSERT_NO_THROW(criteriaCollection = importer.importFromFile("res/criteria.crt"));
 
   size_t idx = 0;
@@ -176,8 +176,8 @@ TEST(APICRTTest, testXmlFileImporter) {
 }
 
 TEST(APICRTTest, testXmlStreamImporter) {
-  boost::shared_ptr<XmlImporter> importer = boost::shared_ptr<XmlImporter>(new XmlImporter());
-  boost::shared_ptr<CriteriaCollection> criteria;
+  std::shared_ptr<XmlImporter> importer = std::make_shared<XmlImporter>();
+  std::shared_ptr<CriteriaCollection> criteria;
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<criteria xmlns=\"http://www.rte-france.com/dynawo\">"
