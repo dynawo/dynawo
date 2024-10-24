@@ -69,6 +69,22 @@ class DataInterface;
 class SimulationContext;
 
 /**
+ * @brief RTCompanion class
+ *
+ * class including all
+ *
+//  */
+// class RTCompanion {
+// public:
+//   RTCompanion();
+//   void startClock();
+// private:
+//   bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
+//   double timeSyncAcceleration_;  ///< acceleration factor clockTime/simulationTime >
+//   double timeReference_;
+// }
+
+/**
  * @brief SimulationRT class
  *
  * SimulationRT class is the entry point for Dynawo real-time simulations. It is
