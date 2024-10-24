@@ -127,8 +127,8 @@ using std::vector;
 using std::stringstream;
 using std::map;
 using std::setw;
-using boost::shared_ptr;
-using boost::dynamic_pointer_cast;
+using std::shared_ptr;
+using std::dynamic_pointer_cast;
 
 namespace fs = boost::filesystem;
 
@@ -157,7 +157,7 @@ timeSync_(false),
 timeSyncAcceleration_(10.) {
   setTimeSync(jobEntry_->getSimulationEntry()->getTimeSync());
   setTimeSyncAcceleration(jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  wsServer_ = boost::make_shared<wsc::WebsocketServer>();
+  wsServer_ = std::make_shared<wsc::WebsocketServer>();
   std::cout << "will run server" << std::endl;
   wsServer_->run(9001);
   std::cout << "run server ok" << std::endl;
