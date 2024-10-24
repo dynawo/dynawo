@@ -64,7 +64,7 @@ TEST(APICRTTest, testXmlFileImporter) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCollection->begin(CriteriaCollection::BUS),
       itEnd = criteriaCollection->end(CriteriaCollection::BUS);
       it != itEnd; ++it, ++idx) {
-    boost::shared_ptr<Criteria> criteria = *it;
+    std::shared_ptr<Criteria> criteria = *it;
     if (idx == 0) {
       size_t idx2 = 0;
       for (Criteria::component_id_const_iterator it2 = criteria->begin(), it2End = criteria->end();
@@ -102,7 +102,7 @@ TEST(APICRTTest, testXmlFileImporter) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCollection->begin(CriteriaCollection::LOAD),
       itEnd = criteriaCollection->end(CriteriaCollection::LOAD);
       it != itEnd; ++it, ++idx) {
-    boost::shared_ptr<Criteria> criteria = *it;
+    std::shared_ptr<Criteria> criteria = *it;
     if (idx == 0) {
       assert(criteria->begin() == criteria->end());
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);

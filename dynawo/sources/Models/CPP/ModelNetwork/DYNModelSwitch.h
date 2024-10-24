@@ -21,7 +21,6 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELSWITCH_H_
 
 #include <boost/shared_ptr.hpp>
-#include <boost/enable_shared_from_this.hpp>
 #include "DYNNetworkComponent.h"
 #include "DYNModelBus.h"
 
@@ -31,13 +30,13 @@ class SwitchInterface;
 /**
  * @brief Generic AC switch model
  */
-class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public NetworkComponent {
+class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public NetworkComponent {
  public:
   /**
    * @brief default constructor
    * @param sw : switch data interface used to build the model
    */
-  explicit ModelSwitch(const boost::shared_ptr<SwitchInterface>& sw);
+  explicit ModelSwitch(const std::shared_ptr<SwitchInterface>& sw);
 
   /**
    * @brief  calculated variables type
@@ -68,7 +67,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
    *
    * @param model model of the bus
    */
-  void setModelBus1(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
     modelBus1_ = model;
     modelBus1_->addSwitch(shared_from_this());
   }
@@ -78,7 +77,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
    *
    * @param model model of the bus
    */
-  void setModelBus2(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
     modelBus2_->addSwitch(shared_from_this());
   }
@@ -136,13 +135,13 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
    * @brief retrieve the bus at end 1 of the switch
    * @return bus 1
    */
-  boost::shared_ptr<ModelBus> getModelBus1() const;
+  std::shared_ptr<ModelBus> getModelBus1() const;
 
   /**
    * @brief retrieve the bus at end 2 of the switch
    * @return bus 2
    */
-  boost::shared_ptr<ModelBus> getModelBus2() const;
+  std::shared_ptr<ModelBus> getModelBus2() const;
 
   /**
    * @brief evaluate node injection
@@ -333,8 +332,8 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   void setInitialCurrents();
 
  private:
-  boost::shared_ptr<ModelBus> modelBus1_;  ///< bus at end 1 of the switch
-  boost::shared_ptr<ModelBus> modelBus2_;  ///< bus at end 2 of the switch
+  std::shared_ptr<ModelBus> modelBus1_;  ///< bus at end 1 of the switch
+  std::shared_ptr<ModelBus> modelBus2_;  ///< bus at end 2 of the switch
   State connectionState_;  ///< "internal" switch connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the switch connection state was modified
   bool inLoop_;  ///< inLoop

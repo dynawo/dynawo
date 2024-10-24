@@ -34,17 +34,17 @@ RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioT
     tapChanger.setTapPosition(i);
     const auto& x = tapChanger.getStep(i);
     powsybl::iidm::RatioTapChangerStep R(x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    steps_.push_back(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(R)));
+    steps_.push_back(std::unique_ptr<StepInterface>(new StepInterfaceIIDM(R)));
   }
   tapChanger.setTapPosition(oldTapPosition);
 }
 
 void
-RatioTapChangerInterfaceIIDM::addStep(const shared_ptr<StepInterface>& step) {
-  steps_.push_back(step);
+RatioTapChangerInterfaceIIDM::addStep(std::unique_ptr<StepInterface> step) {
+  steps_.push_back(std::move(step));
 }
 
-std::vector<shared_ptr<StepInterface> >
+const std::vector<std::unique_ptr<StepInterface> >&
 RatioTapChangerInterfaceIIDM::getSteps() const {
   return steps_;
 }

@@ -24,8 +24,6 @@
 
 #include <powsybl/iidm/RatioTapChanger.hpp>
 
-#include <boost/shared_ptr.hpp>
-
 #include <string>
 #include <vector>
 
@@ -46,12 +44,12 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   /**
    * @copydoc RatioTapChangerInterface::getSteps() const
    */
-  std::vector<boost::shared_ptr<StepInterface> > getSteps() const;
+  const std::vector<std::unique_ptr<StepInterface> >& getSteps() const;
 
   /**
-   * @copydoc RatioTapChangerInterface::addStep(const boost::shared_ptr<StepInterface>& step)
+   * @copydoc RatioTapChangerInterface::addStep(std::unique_ptr<StepInterface> step)
    */
-  void addStep(const boost::shared_ptr<StepInterface>& step);
+  void addStep(std::unique_ptr<StepInterface> step);
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentPosition() const
@@ -129,7 +127,7 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   double getTargetDeadBand() const;
 
  private:
-  std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer
+  std::vector<std::unique_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer
   powsybl::iidm::RatioTapChanger& tapChangerIIDM_;        ///< reference to the iidm ratioTapChanger's instance
   const std::string terminalRefSide_;                     ///< terminal reference side
 };

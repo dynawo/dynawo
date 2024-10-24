@@ -33,13 +33,9 @@
 #include <vector>
 #include <string>
 
-using boost::shared_ptr;
 using std::string;
 using std::vector;
-using std::pair;
-using std::map;
-using std::set;
-using std::list;
+
 
 namespace DYN {
 FictVoltageLevelInterfaceIIDM::FictVoltageLevelInterfaceIIDM(const std::string& Id, const double& VNom, const string& country) :
@@ -78,51 +74,51 @@ FictVoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& /*node*/) {
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addSwitch(const boost::shared_ptr<SwitchInterface>& /*sw*/) {
+FictVoltageLevelInterfaceIIDM::addSwitch(const std::shared_ptr<SwitchInterface>& /*sw*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addBus(const boost::shared_ptr<BusInterface>& bus) {
+FictVoltageLevelInterfaceIIDM::addBus(const std::shared_ptr<BusInterface>& bus) {
     buses_.push_back(bus);
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addGenerator(const boost::shared_ptr<GeneratorInterface>& /*generator*/) {
+FictVoltageLevelInterfaceIIDM::addGenerator(const std::shared_ptr<GeneratorInterface>& /*generator*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addLoad(const boost::shared_ptr<LoadInterface>& /*load*/) {
+FictVoltageLevelInterfaceIIDM::addLoad(const std::shared_ptr<LoadInterface>& /*load*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& /*shunt*/) {
+FictVoltageLevelInterfaceIIDM::addShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& /*shunt*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addDanglingLine(const boost::shared_ptr<DanglingLineInterface>& /*danglingLine*/) {
+FictVoltageLevelInterfaceIIDM::addDanglingLine(const std::shared_ptr<DanglingLineInterface>& /*danglingLine*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& /*svc*/) {
+FictVoltageLevelInterfaceIIDM::addStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& /*svc*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addVscConverter(const boost::shared_ptr<VscConverterInterface>& /*vsc*/) {
+FictVoltageLevelInterfaceIIDM::addVscConverter(const std::shared_ptr<VscConverterInterface>& /*vsc*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::addLccConverter(const boost::shared_ptr<LccConverterInterface>& /*lcc*/) {
+FictVoltageLevelInterfaceIIDM::addLccConverter(const std::shared_ptr<LccConverterInterface>& /*lcc*/) {
   /* not needed */
 }
 
-const vector< shared_ptr<BusInterface> >&
+const vector<std::shared_ptr<BusInterface> >&
 FictVoltageLevelInterfaceIIDM::getBuses() const {
     return buses_;
 }

@@ -119,7 +119,7 @@ class Criteria {
    * @param timeline timeline
    * @param currentTime current simulation time
    */
-  void printAllFailingCriteriaIntoLog(std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToFailingCriteriaMap,
+  void printAllFailingCriteriaIntoLog(std::multimap<double, std::unique_ptr<FailingCriteria> >& distanceToFailingCriteriaMap,
                                       const boost::shared_ptr<timeline::Timeline>& timeline,
                                       double currentTime);
 
@@ -159,7 +159,7 @@ class BusCriteria : public Criteria {
    * @brief add a bus to the criteria
    * @param bus bus to add
    */
-  void addBus(const boost::shared_ptr<BusInterface>& bus);
+  void addBus(const std::shared_ptr<BusInterface>& bus);
 
   /**
    * @brief returns true if no bus was added
@@ -219,7 +219,7 @@ class BusCriteria : public Criteria {
   };
 
  private:
-  std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< buses of this criteria
+  std::vector<std::shared_ptr<BusInterface> > buses_;  ///< buses of this criteria
 };
 
 
@@ -255,7 +255,7 @@ class LoadCriteria : public Criteria {
    * @brief add a load to the criteria
    * @param load load to add
    */
-  void addLoad(const boost::shared_ptr<LoadInterface>& load);
+  void addLoad(const std::shared_ptr<LoadInterface>& load);
 
   /**
    * @brief returns true if no load was added
@@ -321,16 +321,16 @@ class LoadCriteria : public Criteria {
    * @param sum sum of network loads active powers
    * @param atLeastOneEligibleLoadWasFound true if there is at least one load to calculate the sum of network loads active powers
    */
-  void checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::LoadInterface> load,
+  void checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::LoadInterface>& load,
                                           double loadActivePower,
-                                          std::multimap<double, boost::shared_ptr<LoadInterface> >& loadToSourcesAddedIntoSumMap,
-                                          std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToLoadFailingCriteriaMap,
+                                          std::multimap<double, std::shared_ptr<LoadInterface> >& loadToSourcesAddedIntoSumMap,
+                                          std::multimap<double, std::unique_ptr<FailingCriteria> >& distanceToLoadFailingCriteriaMap,
                                           std::unordered_set<std::string>& alreadyChecked,
                                           bool& isCriteriaOk,
                                           double& sum,
                                           bool& atLeastOneEligibleLoadWasFound);
 
-  std::vector<boost::shared_ptr<LoadInterface> > loads_;  ///< loads of this criteria
+  std::vector<std::shared_ptr<LoadInterface> > loads_;  ///< loads of this criteria
 };
 
 
@@ -366,7 +366,7 @@ class GeneratorCriteria : public Criteria {
    * @brief add a generator to the criteria
    * @param generator generator to add
    */
-  void addGenerator(const boost::shared_ptr<GeneratorInterface>& generator);
+  void addGenerator(const std::shared_ptr<GeneratorInterface>& generator);
 
   /**
    * @brief returns true if no generator was added
@@ -387,16 +387,16 @@ class GeneratorCriteria : public Criteria {
    * @param sum sum of network generators active powers
    * @param atLeastOneEligibleGeneratorWasFound true if there is at least one generator to calculate the sum of network generators active powers
    */
-  void checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::GeneratorInterface> generator,
+  void checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::GeneratorInterface>& generator,
                                           double generatorActivePower,
-                                          std::multimap<double, boost::shared_ptr<GeneratorInterface> >& generatorToSourcesAddedIntoSumMap,
-                                          std::multimap<double, std::shared_ptr<FailingCriteria> >& distanceToGeneratorFailingCriteriaMap,
+                                          std::multimap<double, std::shared_ptr<GeneratorInterface> >& generatorToSourcesAddedIntoSumMap,
+                                          std::multimap<double, std::unique_ptr<FailingCriteria> >& distanceToGeneratorFailingCriteriaMap,
                                           std::unordered_set<std::string>& alreadyChecked,
                                           bool& isCriteriaOk,
                                           double& sum,
                                           bool& atLeastOneEligibleGeneratorWasFound);
 
-  std::vector<boost::shared_ptr<GeneratorInterface> > generators_;  ///< loads of this criteria
+  std::vector<std::shared_ptr<GeneratorInterface> > generators_;  ///< loads of this criteria
 };
 }  // namespace DYN
 

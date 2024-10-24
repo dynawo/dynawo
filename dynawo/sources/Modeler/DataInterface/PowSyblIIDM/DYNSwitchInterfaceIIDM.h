@@ -22,7 +22,6 @@
 
 #include <powsybl/iidm/Switch.hpp>
 
-#include <boost/shared_ptr.hpp>
 #include "DYNSwitchInterface.h"
 
 namespace DYN {
@@ -46,24 +45,24 @@ class SwitchInterfaceIIDM : public SwitchInterface {
   explicit SwitchInterfaceIIDM(powsybl::iidm::Switch& sw);
 
   /**
-   * @copydoc SwitchInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc SwitchInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc SwitchInterface::setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc SwitchInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
    * @copydoc SwitchInterface::getBusInterface1() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const;
 
   /**
    * @copydoc SwitchInterface::getBusInterface2() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const;
 
   /**
    * @copydoc SwitchInterface::isOpen() const
@@ -111,8 +110,8 @@ class SwitchInterfaceIIDM : public SwitchInterface {
 
  private:
   powsybl::iidm::Switch& switchIIDM_;              ///< reference to the iidm switch instance
-  boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the switch is connected
-  boost::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the switch is connected
+  std::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the switch is connected
+  std::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the switch is connected
 };                                                 ///< class for switch model interface
 }  // namespace DYN
 

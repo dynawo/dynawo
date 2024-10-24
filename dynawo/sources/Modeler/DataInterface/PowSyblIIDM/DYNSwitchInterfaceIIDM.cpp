@@ -21,7 +21,7 @@
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNModelConstants.h"
 
-using boost::shared_ptr;
+using std::shared_ptr;
 
 namespace DYN {
 

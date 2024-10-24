@@ -30,7 +30,6 @@
 #include "DYNVoltageLevelInterface.h"
 #include "DYNTrace.h"
 
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -67,31 +66,31 @@ LineInterfaceIIDM::~LineInterfaceIIDM() {
 }
 
 void
-LineInterfaceIIDM::setVoltageLevelInterface1(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+LineInterfaceIIDM::setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   voltageLevelInterface1_ = voltageLevelInterface;
 }
 
 void
-LineInterfaceIIDM::setBusInterface1(const shared_ptr<BusInterface>& busInterface) {
+LineInterfaceIIDM::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) {
   busInterface1_ = busInterface;
 }
 
 void
-LineInterfaceIIDM::setVoltageLevelInterface2(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+LineInterfaceIIDM::setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   voltageLevelInterface2_ = voltageLevelInterface;
 }
 
 void
-LineInterfaceIIDM::setBusInterface2(const shared_ptr<BusInterface>& busInterface) {
+LineInterfaceIIDM::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) {
   busInterface2_ = busInterface;
 }
 
-shared_ptr<BusInterface>
+std::shared_ptr<BusInterface>
 LineInterfaceIIDM::getBusInterface1() const {
   return busInterface1_;
 }
 
-shared_ptr<BusInterface>
+std::shared_ptr<BusInterface>
 LineInterfaceIIDM::getBusInterface2() const {
   return busInterface2_;
 }
@@ -238,21 +237,21 @@ LineInterfaceIIDM::getID() const {
 }
 
 void
-LineInterfaceIIDM::addCurrentLimitInterface1(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
-  currentLimitInterfaces1_.push_back(currentLimitInterface);
+LineInterfaceIIDM::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
+  currentLimitInterfaces1_.push_back(std::move(currentLimitInterface));
 }
 
 void
-LineInterfaceIIDM::addCurrentLimitInterface2(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
-  currentLimitInterfaces2_.push_back(currentLimitInterface);
+LineInterfaceIIDM::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
+  currentLimitInterfaces2_.push_back(std::move(currentLimitInterface));
 }
 
-std::vector<shared_ptr<CurrentLimitInterface> >
+const std::vector<std::unique_ptr<CurrentLimitInterface> >&
 LineInterfaceIIDM::getCurrentLimitInterfaces1() const {
   return currentLimitInterfaces1_;
 }
 
-std::vector<shared_ptr<CurrentLimitInterface> >
+const std::vector<std::unique_ptr<CurrentLimitInterface> >&
 LineInterfaceIIDM::getCurrentLimitInterfaces2() const {
   return currentLimitInterfaces2_;
 }

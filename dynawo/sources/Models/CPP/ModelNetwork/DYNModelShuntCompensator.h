@@ -37,7 +37,7 @@ class ModelShuntCompensator : public NetworkComponent {
    * @brief default constructor
    * @param shunt : shunt compensator data interface used to build the model
    */
-  explicit ModelShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& shunt);
+  explicit ModelShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& shunt);
 
   /**
    * @brief  calculated variables type
@@ -78,7 +78,7 @@ class ModelShuntCompensator : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus(const boost::shared_ptr<ModelBus>& model);
+  void setModelBus(const std::shared_ptr<ModelBus>& model);
 
   /**
    * @brief evaluate node injection
@@ -328,7 +328,7 @@ class ModelShuntCompensator : public NetworkComponent {
   bool isAvailable() const;
 
  private:
-  boost::weak_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object
+  std::weak_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object
 
   int currentSection_;  ///< The current number of connected section of the shunt compensator
   int maximumSection_;  ///< The maximum number of sections of the shunt compensator
@@ -338,7 +338,7 @@ class ModelShuntCompensator : public NetworkComponent {
   double tLastOpening_;  ///< Last shunt opening time
   ShuntType_t type_;  ///< The type of the shunt compensator (CAPACITOR or REACTANCE)
 
-  boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
 
   // Parameters
   double noReclosingDelay_;  ///< The non reclosing delay of the shunt compensator in seconds

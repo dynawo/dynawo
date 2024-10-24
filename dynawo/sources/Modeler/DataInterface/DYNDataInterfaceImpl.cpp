@@ -34,8 +34,8 @@ namespace DYN {
 
 template <class ComponentType>
 static inline
-bool componentsHasDynamicModel(const vector<shared_ptr<ComponentType> >& components) {
-  if (std::any_of(components.begin(), components.end(), [](const shared_ptr<ComponentType>& component) { return !component->hasDynamicModel(); }))
+bool componentsHasDynamicModel(const vector<std::shared_ptr<ComponentType> >& components) {
+  if (std::any_of(components.begin(), components.end(), [](const std::shared_ptr<ComponentType>& component) { return !component->hasDynamicModel(); }))
     return true;
   return false;
 }
@@ -43,7 +43,7 @@ bool componentsHasDynamicModel(const vector<shared_ptr<ComponentType> >& compone
 bool
 DataInterfaceImpl::instantiateNetwork() const {
   const boost::shared_ptr<NetworkInterface>& network = getNetwork();
-  const vector<shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
+  const vector<std::shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
   for (const auto& voltageLevel : voltageLevels) {
     if (componentsHasDynamicModel(voltageLevel->getBuses()))
       return true;

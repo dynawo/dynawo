@@ -55,49 +55,49 @@ class LineInterface : public ComponentInterface {
    * @brief Add a curent limit interface for side 1
    * @param currentLimitInterface current limit interface for the side 1 of the line
    */
-  virtual void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
 
   /**
    * @brief Add a curent limit interface for side 2
    * @param currentLimitInterface current limit interface for the side 2 of the line
    */
-  virtual void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 1
    * @return currentLimitInterface of the line's side 1
    */
-  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const = 0;
+  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 2
    * @return currentLimitInterface of the line's side 2
    */
-  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const = 0;
+  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const = 0;
 
   /**
    * @brief Setter for the line's bus interface side 1
    * @param busInterface of the bus where the side 1 of the line is connected
    */
-  virtual void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the line's bus interface side 2
    * @param busInterface of the bus where the side 2 of the line is connected
    */
-  virtual void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Getter for the line's bus interface side 1
    * @return busInterface of the bus where the side 1 of the line is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface1() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface1() const = 0;
 
   /**
    * @brief Getter for the line's bus interface side 2
    * @return busInterface of the bus where the side 2 of the line is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface2() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface2() const = 0;
 
   /**
    * @brief Getter for the nominal voltage of the line side 1

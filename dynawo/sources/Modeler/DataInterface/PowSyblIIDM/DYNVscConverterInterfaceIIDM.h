@@ -28,7 +28,6 @@
 
 #include <powsybl/iidm/VscConverterStation.hpp>
 
-#include <boost/shared_ptr.hpp>
 
 namespace DYN {
 
@@ -37,7 +36,6 @@ namespace DYN {
  */
 class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorInterfaceIIDM {
  public:
-
   /**
    * @brief Constructor
    * @param vsc vsc converter iidm instance
@@ -60,19 +58,19 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   bool isConnected() const;
 
   /**
-   * @copydoc VscConverterInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc VscConverterInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc VscConverterInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc VscConverterInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc VscConverterInterface::getBusInterface() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc VscConverterInterface::getInitialConnected()

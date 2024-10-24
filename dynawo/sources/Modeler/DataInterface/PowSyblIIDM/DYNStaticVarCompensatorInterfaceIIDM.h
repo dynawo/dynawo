@@ -22,7 +22,6 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSTATICVARCOMPENSATORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSTATICVARCOMPENSATORINTERFACEIIDM_H_
 
-#include <boost/shared_ptr.hpp>
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
 
@@ -76,19 +75,19 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   bool isConnected() const;
 
   /**
-   * @copydoc StaticVarCompensatorInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc StaticVarCompensatorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc StaticVarCompensatorInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc StaticVarCompensatorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc StaticVarCompensatorInterface::getBusInterface() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getInitialConnected()

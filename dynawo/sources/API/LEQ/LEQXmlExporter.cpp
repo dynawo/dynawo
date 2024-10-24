@@ -32,16 +32,15 @@ using std::fstream;
 using std::ostream;
 using std::string;
 
-using boost::shared_ptr;
-
 using xml::sax::formatter::AttributeList;
 using xml::sax::formatter::Formatter;
 using xml::sax::formatter::FormatterPtr;
 
+
 namespace lostEquipments {
 
 void
-XmlExporter::exportToFile(const boost::shared_ptr<LostEquipmentsCollection>& lostEquipments, const string& filePath) const {
+XmlExporter::exportToFile(const std::shared_ptr<LostEquipmentsCollection>& lostEquipments, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -53,7 +52,7 @@ XmlExporter::exportToFile(const boost::shared_ptr<LostEquipmentsCollection>& los
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<LostEquipmentsCollection>& lostEquipments, ostream& stream) const {
+XmlExporter::exportToStream(const std::shared_ptr<LostEquipmentsCollection>& lostEquipments, ostream& stream) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();

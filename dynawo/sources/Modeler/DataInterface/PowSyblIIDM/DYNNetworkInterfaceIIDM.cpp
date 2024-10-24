@@ -28,7 +28,7 @@
 
 using std::string;
 using std::vector;
-using boost::shared_ptr;
+using std::shared_ptr;
 
 namespace DYN {
 
@@ -88,8 +88,8 @@ NetworkInterfaceIIDM::getHvdcLines() const {
 
 boost::optional<std::string>
 NetworkInterfaceIIDM::getSlackNodeBusId() const {
-  auto found = std::find_if(voltageLevels_.begin(), voltageLevels_.end(), [](const boost::shared_ptr<VoltageLevelInterface>& vl){
-    auto vlIIDM = boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(vl);
+  auto found = std::find_if(voltageLevels_.begin(), voltageLevels_.end(), [](const std::shared_ptr<VoltageLevelInterface>& vl){
+    auto vlIIDM = std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(vl);
     // Voltage level may be fictitious, so vlIIDM may be nullptr
     if (vlIIDM) {
       return vlIIDM->getSlackBusId().has_value();
@@ -97,7 +97,7 @@ NetworkInterfaceIIDM::getSlackNodeBusId() const {
       return false;
     }
   });
-  return (found == voltageLevels_.end()) ? boost::none : boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(*found)->getSlackBusId();
+  return (found == voltageLevels_.end()) ? boost::none : std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(*found)->getSlackBusId();
 }
 
 }  // namespace DYN

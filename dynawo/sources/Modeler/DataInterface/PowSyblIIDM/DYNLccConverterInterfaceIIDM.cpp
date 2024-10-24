@@ -25,11 +25,8 @@
 #include <powsybl/iidm/HvdcLine.hpp>
 #include <powsybl/iidm/LccConverterStation.hpp>
 
-#include <boost/shared_ptr.hpp>
-
 #include <string>
 
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -77,16 +74,16 @@ LccConverterInterfaceIIDM::importStaticParameters() {
 }
 
 void
-LccConverterInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
+LccConverterInterfaceIIDM::setBusInterface(const std::shared_ptr<BusInterface>& busInterface) {
   setBusInterfaceInjector(busInterface);
 }
 
 void
-LccConverterInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+LccConverterInterfaceIIDM::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
-shared_ptr<BusInterface>
+std::shared_ptr<BusInterface>
 LccConverterInterfaceIIDM::getBusInterface() const {
   return getBusInterfaceInjector();
 }

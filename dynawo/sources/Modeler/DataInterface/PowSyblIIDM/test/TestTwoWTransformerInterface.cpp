@@ -136,29 +136,29 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
 
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 0);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
-  tfoInterface.addCurrentLimitInterface1(curLimItf1);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
-  tfoInterface.addCurrentLimitInterface2(curLimItf2);
+  std::unique_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
+  tfoInterface.addCurrentLimitInterface1(std::move(curLimItf1));
+  std::unique_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
+  tfoInterface.addCurrentLimitInterface2(std::move(curLimItf2));
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 1);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 1);
 
   ASSERT_EQ(tfoInterface.getBusInterface1().get(), nullptr);
   vl1Bus1.setV(10.0).setAngle(0.01);
-  const boost::shared_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
-  tfoInterface.setBusInterface1(busItf1);
+  std::unique_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
+  tfoInterface.setBusInterface1(std::move(busItf1));
   ASSERT_EQ(tfoInterface.getBusInterface1().get()->getID(), "VL1_BUS1");
 
   ASSERT_EQ(tfoInterface.getBusInterface2().get(), nullptr);
   vl2Bus1.setV(11.0).setAngle(0.02);
-  const boost::shared_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
-  tfoInterface.setBusInterface2(busItf2);
+  std::unique_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
+  tfoInterface.setBusInterface2(std::move(busItf2));
   ASSERT_EQ(tfoInterface.getBusInterface2().get()->getID(), "VL2_BUS1");
 
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf1(new VoltageLevelInterfaceIIDM(vl1));
-  tfoInterface.setVoltageLevelInterface1(voltageLevelItf1);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf2(new VoltageLevelInterfaceIIDM(vl2));
-  tfoInterface.setVoltageLevelInterface2(voltageLevelItf2);
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf1(new VoltageLevelInterfaceIIDM(vl1));
+  tfoInterface.setVoltageLevelInterface1(std::move(voltageLevelItf1));
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf2(new VoltageLevelInterfaceIIDM(vl2));
+  tfoInterface.setVoltageLevelInterface2(std::move(voltageLevelItf2));
 
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
   ASSERT_EQ(tfoInterface.getVNom1(), 380.0);
@@ -212,9 +212,8 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
     .setTargetV(25.0)
     .setTargetDeadband(1.0)
     .add();
-  const boost::shared_ptr<RatioTapChangerInterface> ratioTapChangerItf( \
-      new RatioTapChangerInterfaceIIDM(transformer.getRatioTapChanger(), tfoInterface.getID()));
-  tfoInterface.setRatioTapChanger(ratioTapChangerItf);
+  std::unique_ptr<RatioTapChangerInterface> ratioTapChangerItf(new RatioTapChangerInterfaceIIDM(transformer.getRatioTapChanger(), tfoInterface.getID()));
+  tfoInterface.setRatioTapChanger(std::move(ratioTapChangerItf));
   ASSERT_TRUE(tfoInterface.getRatioTapChanger());
 
   // TODO(TBA) tfoInterface.importStaticParameters();
@@ -261,8 +260,8 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
     .setRegulationValue(250.0)
     .setTargetDeadband(2.0)
     .add();
-  const boost::shared_ptr<PhaseTapChangerInterface> phaseTapChangerItf(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
-  tfoInterface.setPhaseTapChanger(phaseTapChangerItf);
+  std::unique_ptr<PhaseTapChangerInterface> phaseTapChangerItf(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
+  tfoInterface.setPhaseTapChanger(std::move(phaseTapChangerItf));
   ASSERT_TRUE(tfoInterface.getPhaseTapChanger());
 
   ASSERT_EQ(tfoInterface.getR(), 3.0);
@@ -351,10 +350,10 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
   powsybl::iidm::TwoWindingsTransformer& transformer = network.getTwoWindingsTransformer("2WT_VL1_VL2");
 
   TwoWTransformerInterfaceIIDM tfoInterface(transformer);
-  const boost::shared_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
-  const boost::shared_ptr<VoltageLevelInterface> vl2Itf(new VoltageLevelInterfaceIIDM(vl2));
-  tfoInterface.setVoltageLevelInterface1(vl1Itf);
-  tfoInterface.setVoltageLevelInterface2(vl2Itf);
+  std::unique_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
+  std::unique_ptr<VoltageLevelInterface> vl2Itf(new VoltageLevelInterfaceIIDM(vl2));
+  tfoInterface.setVoltageLevelInterface1(std::move(vl1Itf));
+  tfoInterface.setVoltageLevelInterface2(std::move(vl2Itf));
 
   ASSERT_FALSE(tfoInterface.getInitialConnected1());
   ASSERT_FALSE(tfoInterface.isConnected());

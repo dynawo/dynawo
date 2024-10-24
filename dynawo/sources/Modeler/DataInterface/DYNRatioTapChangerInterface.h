@@ -21,7 +21,9 @@
 #define MODELER_DATAINTERFACE_DYNRATIOTAPCHANGERINTERFACE_H_
 
 #include <vector>
-#include <boost/shared_ptr.hpp>
+#include <memory>
+#include <string>
+
 
 namespace DYN {
 class StepInterface;
@@ -45,13 +47,13 @@ class RatioTapChangerInterface {
    * @brief Getter for steps of the ratio tap changer
    * @return steps of the ratio tap changer
    */
-  virtual std::vector<boost::shared_ptr<StepInterface> > getSteps() const = 0;
+  virtual const std::vector<std::unique_ptr<StepInterface> >& getSteps() const = 0;
 
   /**
    * @brief Add a new step to the ratio tap changer
    * @param step step to add to the ratio tap changer
    */
-  virtual void addStep(const boost::shared_ptr<StepInterface>& step) = 0;
+  virtual void addStep(std::unique_ptr<StepInterface> step) = 0;
 
   /**
    * @brief Getter for the current tap position

@@ -41,7 +41,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @brief default constructor for hvdc-vsc link
    * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  explicit ModelHvdcLink(const boost::shared_ptr<HvdcLineInterface>& dcLine);
+  explicit ModelHvdcLink(const std::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief list of calculated variables indexes
@@ -295,7 +295,7 @@ class ModelHvdcLink : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus1(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
     modelBus1_ = model;
   }
 
@@ -304,7 +304,7 @@ class ModelHvdcLink : public NetworkComponent {
    *
    * @return model model of the bus
    */
-  inline const boost::shared_ptr<ModelBus>& getModelBus1() {
+  inline const std::shared_ptr<ModelBus>& getModelBus1() {
     return modelBus1_;
   }
 
@@ -313,7 +313,7 @@ class ModelHvdcLink : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus2(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
   }
 
@@ -322,7 +322,7 @@ class ModelHvdcLink : public NetworkComponent {
    *
    * @return model model of the bus
    */
-  inline const boost::shared_ptr<ModelBus>& getModelBus2() {
+  inline const std::shared_ptr<ModelBus>& getModelBus2() {
     return modelBus2_;
   }
 
@@ -331,19 +331,19 @@ class ModelHvdcLink : public NetworkComponent {
    * @brief set attributes for hvdc link
    * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  void setAttributes(const boost::shared_ptr<HvdcLineInterface>& dcLine);
+  void setAttributes(const std::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief setter for the active power at the two points of common coupling
    * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  void setConvertersActivePower(const boost::shared_ptr<HvdcLineInterface>& dcLine);
+  void setConvertersActivePower(const std::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief setter for the reactive power at the two points of common coupling (for VSC)
    * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  void setConvertersReactivePower(const boost::shared_ptr<HvdcLineInterface>& dcLine);
+  void setConvertersReactivePower(const std::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief getter for the active power value at the point of common coupling 1
@@ -478,10 +478,10 @@ class ModelHvdcLink : public NetworkComponent {
   double ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const;
 
  private:
-  boost::weak_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object
+  std::weak_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object
 
-  boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus at point of common coupling 1
-  boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus at point of common coupling 2
+  std::shared_ptr<ModelBus> modelBus1_;  ///< model bus at point of common coupling 1
+  std::shared_ptr<ModelBus> modelBus2_;  ///< model bus at point of common coupling 2
 
   double pSetPoint_;  ///< active power set-point for the link in MW
 

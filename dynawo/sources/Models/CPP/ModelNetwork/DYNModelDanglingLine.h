@@ -37,7 +37,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief default constructor
    * @param line : dangling line data interface
    */
-  explicit ModelDanglingLine(const boost::shared_ptr<DanglingLineInterface>& line);
+  explicit ModelDanglingLine(const std::shared_ptr<DanglingLineInterface>& line);
 
   /**
    * @brief  calculated variables type
@@ -62,7 +62,7 @@ class ModelDanglingLine : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus(const std::shared_ptr<ModelBus>& model) {
     modelBus_ = model;
   }
 
@@ -71,7 +71,7 @@ class ModelDanglingLine : public NetworkComponent {
    *
    * @return model of the bus
    */
-  const boost::shared_ptr<ModelBus>& getModelBus() {
+  const std::shared_ptr<ModelBus>& getModelBus() {
     return modelBus_;
   }
 
@@ -487,7 +487,7 @@ class ModelDanglingLine : public NetworkComponent {
   double ii2_dUiFict() const;
 
 
-  boost::shared_ptr<ModelBus> modelBus_;  ///< bus
+  std::shared_ptr<ModelBus> modelBus_;  ///< bus
   State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the line connection state was modified
   double currentLimitsDesactivate_;  ///< current limits

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2024, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,15 +11,13 @@
 // simulation tool for power systems.
 //
 
-#include "CRTCriteriaFactory.h"
-#include "CRTCriteria.h"
+#include "DYNModelSwitchFactory.h"
 
+namespace DYN {
 
-namespace criteria {
-
-std::unique_ptr<Criteria>
-CriteriaFactory::newCriteria() {
-  return std::unique_ptr<Criteria>(new Criteria());
+std::shared_ptr<ModelSwitch>
+ModelSwitchFactory::newInstance(const std::shared_ptr<SwitchInterface>& sw) {
+  return std::make_shared<ModelSwitch>(sw);
 }
 
-}  // namespace criteria
+}  // namespace DYN

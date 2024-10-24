@@ -14,7 +14,6 @@
 #ifndef API_CRT_CRTCRITERIAFACTORY_H_
 #define API_CRT_CRTCRITERIAFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
 
 #include "CRTCriteria.h"
 
@@ -31,9 +30,9 @@ class CriteriaFactory {
   /**
    * @brief Create new Criteria instance
    *
-   * @returns a shared pointer to a new @p Criteria
+   * @returns a unique pointer to a new @p Criteria
    */
-  static boost::shared_ptr<Criteria> newCriteria();
+  static std::unique_ptr<Criteria> newCriteria();
 };
 
 }  //  namespace criteria

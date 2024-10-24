@@ -26,7 +26,7 @@
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 
 using std::string;
-using boost::shared_ptr;
+
 
 namespace DYN {
 
@@ -97,16 +97,16 @@ ShuntCompensatorInterfaceIIDM::importStaticParameters() {
 }
 
 void
-ShuntCompensatorInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
+ShuntCompensatorInterfaceIIDM::setBusInterface(const std::shared_ptr<BusInterface>& busInterface) {
   setBusInterfaceInjector(busInterface);
 }
 
 void
-ShuntCompensatorInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+ShuntCompensatorInterfaceIIDM::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
-shared_ptr<BusInterface>
+std::shared_ptr<BusInterface>
 ShuntCompensatorInterfaceIIDM::getBusInterface() const {
   return getBusInterfaceInjector();
 }

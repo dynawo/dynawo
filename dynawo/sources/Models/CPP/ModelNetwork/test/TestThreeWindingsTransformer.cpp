@@ -37,7 +37,8 @@
 using boost::shared_ptr;
 
 namespace DYN {
-static std::pair<shared_ptr<ModelThreeWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<std::shared_ptr<ModelThreeWindingsTransformer>,
+std::shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelThreeWindingsTransformer(bool open, bool initModel) {
   powsybl::iidm::Network networkIIDM("test", "test");
 
@@ -111,33 +112,33 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
     transformer.getLeg2().getTerminal().disconnect();
     transformer.getLeg3().getTerminal().disconnect();
   }
-  shared_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = shared_ptr<ThreeWTransformerInterfaceIIDM>(new ThreeWTransformerInterfaceIIDM(transformer));
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus3));
+  std::unique_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = std::unique_ptr<ThreeWTransformerInterfaceIIDM>(new ThreeWTransformerInterfaceIIDM(transformer));
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
+  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
+  std::shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus2);
+  std::shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus3);
   tw3ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
   tw3ItfIIDM->setBusInterface1(bus1ItfIIDM);
   tw3ItfIIDM->setBusInterface2(bus2ItfIIDM);
   tw3ItfIIDM->setBusInterface2(bus3ItfIIDM);
 
-  shared_ptr<ModelThreeWindingsTransformer> t3w = shared_ptr<ModelThreeWindingsTransformer>(new ModelThreeWindingsTransformer(tw3ItfIIDM));
+  std::shared_ptr<ModelThreeWindingsTransformer> t3w = std::make_shared<ModelThreeWindingsTransformer>(std::move(tw3ItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   t3w->setNetwork(network);
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
-  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, false));
-  t3w->setModelBus1(bus1);
-  t3w->setModelBus2(bus2);
-  t3w->setModelBus3(bus3);
+  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
+  std::unique_ptr<ModelBus> bus1 = std::unique_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  std::unique_ptr<ModelBus> bus2 = std::unique_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  std::unique_ptr<ModelBus> bus3 = std::unique_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, false));
+  t3w->setModelBus1(std::move(bus1));
+  t3w->setModelBus2(std::move(bus2));
+  t3w->setModelBus3(std::move(bus3));
   return std::make_pair(t3w, vl);
 }
 
 
 TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClosed) {
-  shared_ptr<ModelThreeWindingsTransformer> tw3 = createModelThreeWindingsTransformer(false, false).first;
+  std::shared_ptr<ModelThreeWindingsTransformer> tw3 = createModelThreeWindingsTransformer(false, false).first;
   ASSERT_EQ(tw3->id(), "MyThreeWindingsTransformer");
 
   tw3->initSize();
@@ -201,7 +202,7 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   std::unordered_map<std::string, ParameterModeler> parametersModels;
   ASSERT_NO_THROW(tw3->setSubModelParameters(parametersModels));
 
-  shared_ptr<ModelThreeWindingsTransformer> tw3Init = createModelThreeWindingsTransformer(false, true).first;
+  std::shared_ptr<ModelThreeWindingsTransformer> tw3Init = createModelThreeWindingsTransformer(false, true).first;
   tw3Init->initSize();
   ASSERT_EQ(tw3->sizeF(), 0);
   ASSERT_EQ(tw3->sizeY(), 0);

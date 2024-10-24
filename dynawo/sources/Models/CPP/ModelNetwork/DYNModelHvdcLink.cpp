@@ -39,15 +39,13 @@
 #include "DYNModelVoltageLevel.h"
 
 using boost::shared_ptr;
-using boost::dynamic_pointer_cast;
 using std::vector;
-using std::map;
 using std::string;
 using std::abs;
 
 namespace DYN {
 
-ModelHvdcLink::ModelHvdcLink(const shared_ptr<HvdcLineInterface>& dcLine) :
+ModelHvdcLink::ModelHvdcLink(const std::shared_ptr<HvdcLineInterface>& dcLine) :
 NetworkComponent(dcLine->getID()),
 dcLine_(dcLine),
 stateModified_(false),
@@ -62,7 +60,7 @@ startingPointMode_(WARM) {
 
 void
 ModelHvdcLink::init(int& /*yNum*/) {
-  shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
+  std::shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
   // no state variable for simple hvdc model: no indexes to set
   // calculate active power at the two points of common coupling
   setConvertersActivePower(dcLine);
@@ -521,7 +519,7 @@ ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::stri
 }
 
 void
-ModelHvdcLink::setAttributes(const shared_ptr<HvdcLineInterface>& dcLine) {
+ModelHvdcLink::setAttributes(const std::shared_ptr<HvdcLineInterface>& dcLine) {
   // retrieve data from ConverterInterface  (IIDM)
   lossFactor1_ = dcLine->getConverter1()->getLossFactor() / 100.;
   lossFactor2_ = dcLine->getConverter2()->getLossFactor() / 100.;
@@ -536,7 +534,7 @@ ModelHvdcLink::setAttributes(const shared_ptr<HvdcLineInterface>& dcLine) {
 }
 
 void
-ModelHvdcLink::setConvertersActivePower(const shared_ptr<HvdcLineInterface>& dcLine) {
+ModelHvdcLink::setConvertersActivePower(const std::shared_ptr<HvdcLineInterface>& dcLine) {
   if (dcLine->getConverter1()->hasP() && dcLine->getConverter2()->hasP() && startingPointMode_ == WARM) {
     // retrieve active power at the two points of common coupling from load flow data in IIDM file
     P01_ = -dcLine->getConverter1()->getP() / SNREF;
@@ -558,7 +556,7 @@ ModelHvdcLink::setConvertersActivePower(const shared_ptr<HvdcLineInterface>& dcL
 }
 
 void
-ModelHvdcLink::setConvertersReactivePower(const shared_ptr<HvdcLineInterface>& dcLine) {
+ModelHvdcLink::setConvertersReactivePower(const std::shared_ptr<HvdcLineInterface>& dcLine) {
   if (dcLine->getConverter1()->hasQ() && dcLine->getConverter2()->hasQ() && startingPointMode_ == WARM) {
     // retrieve reactive power at the two points of common coupling from load flow data in IIDM file
     Q01_ = -dcLine->getConverter1()->getQ() / SNREF;
@@ -568,8 +566,8 @@ ModelHvdcLink::setConvertersReactivePower(const shared_ptr<HvdcLineInterface>& d
     switch (dcLine->getConverter1()->getConverterType()) {
       case ConverterInterface::VSC_CONVERTER:
         {
-        shared_ptr<VscConverterInterface> vsc1 = dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter1());
-        shared_ptr<VscConverterInterface> vsc2 = dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter2());
+        std::shared_ptr<VscConverterInterface> vsc1 = std::dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter1());
+        std::shared_ptr<VscConverterInterface> vsc2 = std::dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter2());
         double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in Mvar (generator convention)
         double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in Mvar (generator convention)
         Q01_ = qSetPoint1 / SNREF;
@@ -578,8 +576,8 @@ ModelHvdcLink::setConvertersReactivePower(const shared_ptr<HvdcLineInterface>& d
         }
       case ConverterInterface::LCC_CONVERTER:
         {
-        shared_ptr<LccConverterInterface> lcc1 = dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter1());
-        shared_ptr<LccConverterInterface> lcc2 = dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter2());
+        std::shared_ptr<LccConverterInterface> lcc1 = std::dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter1());
+        std::shared_ptr<LccConverterInterface> lcc2 = std::dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter2());
         double powerFactor1 = lcc1->getPowerFactor();
         double powerFactor2 = lcc2->getPowerFactor();
         Q01_ = -abs(powerFactor1 * P01_);

@@ -40,7 +40,7 @@ using std::string;
 
 namespace DYN {
 
-ModelGenerator::ModelGenerator(const shared_ptr<GeneratorInterface>& generator) :
+ModelGenerator::ModelGenerator(const std::shared_ptr<GeneratorInterface>& generator) :
 NetworkComponent(generator->getID()),
 generator_(generator),
 Pc_(0.),
@@ -365,7 +365,7 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 void
 ModelGenerator::init(int & /*yNum*/) {
   double uNode = 0.;
-  shared_ptr<GeneratorInterface> generator = generator_.lock();
+  std::shared_ptr<GeneratorInterface> generator = generator_.lock();
   double thetaNode = generator->getBusInterface()->getAngle0();
   double unomNode = generator->getBusInterface()->getVNom();
   switch (startingPointMode_) {
