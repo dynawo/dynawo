@@ -166,9 +166,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void setSolverSpecificParameters() = 0;
 
   /**
-   * @copydoc Solver::init(const boost::shared_ptr<Model>& model, double t0, double tEnd)
+   * @copydoc Solver::init(const std::shared_ptr<Model>& model, double t0, double tEnd)
    */
-  virtual void init(const boost::shared_ptr<Model>& model, double t0, double tEnd) = 0;
+  virtual void init(const std::shared_ptr<Model>& model, double t0, double tEnd) = 0;
 
   /**
    * @copydoc Solver::calculateIC()
@@ -250,7 +250,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param t0 initial time of the simulation
    * @param model model to simulate, gives the size of all internal structure
    */
-  void init(double t0, const boost::shared_ptr<Model>& model);
+  void init(double t0, const std::shared_ptr<Model>& model);
 
   /**
    * @brief delete all internal structure allocated by init method
@@ -332,7 +332,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual bool setupNewAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
-  boost::shared_ptr<Model> model_;  ///< model currently simulated
+  std::shared_ptr<Model> model_;  ///< model currently simulated
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added or removed
 
   std::vector<state_g> g0_;  ///< previous values of root functions

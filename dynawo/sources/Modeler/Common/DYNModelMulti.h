@@ -315,7 +315,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   *
   * @param curvesCollection set of curves
   */
-  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
+  void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
@@ -363,9 +363,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints);
 
   /**
-   * @copydoc Model::initCurves(boost::shared_ptr<curves::Curve>& curve)
+   * @copydoc Model::initCurves(std::shared_ptr<curves::Curve>& curve)
    */
-  bool initCurves(boost::shared_ptr<curves::Curve>& curve);
+  bool initCurves(std::shared_ptr<curves::Curve>& curve);
 
  public:
   /**

@@ -113,8 +113,8 @@ static void compile(boost::shared_ptr<DynamicData> dyd) {
   cf.concatRefs();
 }
 
-static boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0, bool enableSilentZ = true) {
-  boost::shared_ptr<Model> model = modeler.getModel();
+static std::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0, bool enableSilentZ = true) {
+  std::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
   model->initSilentZ(enableSilentZ);
   model->setIsInitProcess(true);
@@ -128,7 +128,7 @@ static boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart 
 }
 
 
-static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
+static std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
  std::string parFileName, const double& tStart, const double& tStop) {
   SolverFactory::SolverPtr solver = initSolver();
 
@@ -161,14 +161,14 @@ static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolver
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  boost::shared_ptr<Model> model = initModel(modeler, tStart);
+  std::shared_ptr<Model> model = initModel(modeler, tStart);
 
   solver->init(model, tStart, tStop);
 
   return std::make_pair(std::move(solver), model);
 }
 
-static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool enableSilentZ = true) {
+static std::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool enableSilentZ = true) {
 // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -183,14 +183,14 @@ static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool e
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  boost::shared_ptr<Model> model = initModel(modeler, 0, enableSilentZ);
+  std::shared_ptr<Model> model = initModel(modeler, 0, enableSilentZ);
   return model;
 }
 
-static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
+static std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
  const double& tStart, const double& tStop, bool enableSilentZ = true) {
   SolverFactory::SolverPtr solver = initSolver(enableSilentZ);
-  boost::shared_ptr<Model> model = initModelFromDyd(dydFileName, enableSilentZ);
+  std::shared_ptr<Model> model = initModelFromDyd(dydFileName, enableSilentZ);
   solver->init(model, tStart, tStop);
 
   return std::make_pair(std::move(solver), model);
@@ -199,9 +199,9 @@ static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolver
 TEST(SimulationTest, testSolverIDATestAlpha) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop);
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -266,9 +266,9 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
 TEST(SimulationTest, testSolverIDATestBeta) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop);
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -323,10 +323,10 @@ TEST(SimulationTest, testSolverIDATestBeta) {
 TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   const double tStart = 0.;
   const double tStop = 3.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModel("jobs/solverTestDelta.dyd",
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModel("jobs/solverTestDelta.dyd",
   "jobs/solverTestDelta.iidm", "jobs/solverTestDelta.par", tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -436,10 +436,10 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
 TEST(SimulationTest, testSolverIDASilentZ) {
   const double tStart = 0.;
   const double tStop = 10.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
                                                                                                 tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -483,10 +483,10 @@ TEST(SimulationTest, testSolverIDASilentZ) {
 TEST(SimulationTest, testSolverIDASilentZDisabled) {
   const double tStart = 0.;
   const double tStop = 10.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
                                                                                                 tStart, tStop, false);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -535,10 +535,10 @@ TEST(SimulationTest, testSolverIDASilentZDisabled) {
 TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuous) {
   const double tStart = 0.;
   const double tStop = 10.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous.dyd",
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous.dyd",
                                                                                                 tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -572,10 +572,10 @@ TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuous) {
 TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuousDisabled) {
   const double tStart = 0.;
   const double tStop = 10.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous.dyd",
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous.dyd",
                                                                                                 tStart, tStop, false);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -609,10 +609,10 @@ TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuousDisabled) {
 TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuous2) {
   const double tStart = 0.;
   const double tStop = 10.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous2.dyd",
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous2.dyd",
                                                                                                 tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -655,7 +655,7 @@ TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuous2) {
 
 TEST(SimulationTest, testSolverIDAInit) {
   const SolverFactory::SolverPtr solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
-  boost::shared_ptr<Model> model = initModelFromDyd("jobs/solverTestAlpha.dyd");
+  std::shared_ptr<Model> model = initModelFromDyd("jobs/solverTestAlpha.dyd");
 
   // IDASVtolerances
   std::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
