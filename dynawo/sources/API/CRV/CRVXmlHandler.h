@@ -23,7 +23,6 @@
 #ifndef API_CRV_CRVXMLHANDLER_H_
 #define API_CRV_CRVXMLHANDLER_H_
 
-#include <boost/shared_ptr.hpp>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
@@ -53,7 +52,7 @@ class CurveHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the curve read in xml file
    * @return curve object build thanks to infos read in xml file
    */
-  boost::shared_ptr<Curve> get() const;
+  std::shared_ptr<Curve> get() const;
 
  protected:
   /**
@@ -63,7 +62,7 @@ class CurveHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<Curve> curveRead_;  ///< current curve
+  std::shared_ptr<Curve> curveRead_;  ///< current curve
 };
 
 /**

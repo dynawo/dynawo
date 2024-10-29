@@ -20,13 +20,8 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
-#include <set>
 #include <vector>
-#include <algorithm>
-#include <map>
 #include <cstring>
-
-#include <boost/shared_ptr.hpp>
 
 #include <ida/ida.h>
 #include <nvector/nvector_serial.h>
@@ -46,21 +41,11 @@
 #include "DYNTimer.h"
 #include "DYNSolverCommon.h"
 
-using std::endl;
 using std::make_pair;
-using std::map;
-using std::max;
-using std::min;
-using std::ofstream;
-using std::ostringstream;
-using std::set;
-using std::setfill;
 using std::setw;
 using std::string;
 using std::stringstream;
 using std::vector;
-
-using boost::shared_ptr;
 
 using parameters::ParametersSet;
 
@@ -169,7 +154,7 @@ SolverIDA::solverType() const {
 }
 
 void
-SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tEnd) {
+SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd) {
   // test if there is continuous variable in the simulated problem.
   if (model->sizeY() == 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDANoContinuousVars);

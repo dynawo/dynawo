@@ -747,7 +747,7 @@ Simulation::importFinalStateValuesRequest() {
 
   // A map for existing Curves is built so we can locate them fast and update them from the Final State Values
   // A Curve is identified by the pair model name, variable name
-  typedef std::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
+  typedef std::unordered_map<std::pair<std::string, std::string>, std::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
   CurvesMap curvesMap;
   for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
     curvesMap.insert(std::make_pair(std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve));
@@ -760,11 +760,11 @@ Simulation::importFinalStateValuesRequest() {
     if (entry != curvesMap.end()) {
       entry->second->setExportType(curves::Curve::EXPORT_AS_BOTH);
     } else {
-      boost::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+      std::unique_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
       curve->setModelName((*itFinalStateValue)->getModelName());
       curve->setVariable((*itFinalStateValue)->getVariable());
       curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
-      curvesCollection_->add(curve);
+      curvesCollection_->add(std::move(curve));
     }
   }
 }
@@ -798,7 +798,7 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
 void
 Simulation::initStructure() {
   model_->initBuffers();
-  shared_ptr<ModelMulti> model = dynamic_pointer_cast<ModelMulti>(model_);
+  std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
   if (!model->checkConnects()) {
     throw DYNError(Error::MODELER, WrongConnect);
   }
@@ -890,7 +890,7 @@ Simulation::init() {
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
-    shared_ptr<curves::Curve>& curve = *itCurve;
+    std::shared_ptr<curves::Curve>& curve = *itCurve;
     bool added = model_->initCurves(curve);
     if (added)
       ++nbCurves;

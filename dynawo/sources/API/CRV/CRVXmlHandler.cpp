@@ -32,11 +32,6 @@
 #include "CRVXmlHandler.h"
 #include "CRVCurve.h"
 
-
-using std::string;
-using std::map;
-using boost::shared_ptr;
-
 namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
@@ -80,7 +75,7 @@ void CurveHandler::create(attributes_type const & attributes) {
   curveRead_->setVariable(attributes["variable"]);
 }
 
-shared_ptr<Curve>
+std::shared_ptr<Curve>
 CurveHandler::get() const {
   return curveRead_;
 }
