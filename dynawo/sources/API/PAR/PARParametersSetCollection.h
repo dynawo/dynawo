@@ -48,7 +48,7 @@ class ParametersSetCollection {
    * @throws Error::API exception if force is false and a set with given
    * ID already exists.
    */
-  void addParametersSet(boost::shared_ptr<ParametersSet> paramSet, bool force = false);
+  void addParametersSet(std::shared_ptr<ParametersSet> paramSet, bool force = false);
 
   /**
    * @brief Get parameters set with current id if available in the collection
@@ -57,7 +57,7 @@ class ParametersSetCollection {
    * @returns Reference to wanted ParametersSet instance
    * @throws Error::API exception if set with given ID do not exists
    */
-  boost::shared_ptr<ParametersSet> getParametersSet(const std::string& id);
+  std::shared_ptr<ParametersSet> getParametersSet(const std::string& id);
 
   /**
    * @brief add parameters and references coming from macroParameterSets
@@ -168,17 +168,17 @@ class ParametersSetCollection {
      *
      * @returns Parameters' set pointed to by this
      */
-    const boost::shared_ptr<ParametersSet>& operator*() const;
+    const std::shared_ptr<ParametersSet>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the ParametersSet pointed to by this
      */
-    const boost::shared_ptr<ParametersSet>* operator->() const;
+    const std::shared_ptr<ParametersSet>* operator->() const;
 
    private:
-    std::map<std::string, boost::shared_ptr<ParametersSet> >::const_iterator current_; /**< Hidden map iterator */
+    std::map<std::string, std::shared_ptr<ParametersSet> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -289,7 +289,7 @@ class ParametersSetCollection {
   macroparameterset_const_iterator cendMacroParameterSet() const;
 
  private:
-  std::map<std::string, boost::shared_ptr<ParametersSet> > parametersSets_; /**< Map of the parameters set */
+  std::map<std::string, std::shared_ptr<ParametersSet> > parametersSets_; /**< Map of the parameters set */
   std::map<std::string, boost::shared_ptr<MacroParameterSet> > macroParametersSets_;  ///< Map of macroParametersSet (key->id, value->MacroParameterSet)
 };
 

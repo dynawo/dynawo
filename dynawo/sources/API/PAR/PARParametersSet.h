@@ -24,12 +24,12 @@
 #include "PARReference.h"
 #include "PARMacroParSet.h"
 
-#include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 #include <unordered_map>
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace parameters {
 
@@ -40,7 +40,7 @@ namespace parameters {
  * ParametersSet objects describe a set of parameters.
  * Available types are those availables in @p Parameter class
  */
-class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
+class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
  public:
   /**
    * @brief constructor
@@ -80,7 +80,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to current ParametersSet instance
    * @throws if the origin parameter does not exist, or the destination parameter already exists
    */
-  boost::shared_ptr<ParametersSet> createAlias(const std::string& aliasName, const std::string& origName);
+  std::shared_ptr<ParametersSet> createAlias(const std::string& aliasName, const std::string& origName);
 
   /**
    * @brief Adds a bool parameter in the parameters set
@@ -91,7 +91,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value);
 
   /**
    * @brief Adds an int parameter in the parameters set
@@ -102,7 +102,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value);
 
   /**
    * @brief Adds a double parameter in the parameters set
@@ -113,7 +113,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value);
 
   /**
    * @brief Adds a string parameter in the parameters set
@@ -124,7 +124,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value);
 
   /**
    * @brief Adds a bool parameter in the parameters set
@@ -138,7 +138,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds an int parameter in the parameters set
@@ -152,7 +152,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds a double parameter in the parameters set
@@ -166,7 +166,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds a string parameter in the parameters set
@@ -180,7 +180,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column);
 
   /**
    * @brief Add a new parameter in the map
@@ -190,7 +190,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param[in] param Parameter to add to the set
    * @returns Reference to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param);
+  std::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param);
 
   /**
    * @brief Add a new macroParSet
@@ -199,7 +199,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @returns Reference to current ParametersSet instance
    * @throws API exception if the macroParSet is already in the map
    */
-  boost::shared_ptr<ParametersSet> addMacroParSet(const boost::shared_ptr<MacroParSet>& macroParSet);
+  std::shared_ptr<ParametersSet> addMacroParSet(const boost::shared_ptr<MacroParSet>& macroParSet);
 
   /**
    * @brief Add a new reference in the map
@@ -209,7 +209,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param[in] ref Reference to add to the set
    * @returns Reference to current ParametersSet instance
    */
-  boost::shared_ptr<ParametersSet> addReference(boost::shared_ptr<Reference> ref);
+  std::shared_ptr<ParametersSet> addReference(boost::shared_ptr<Reference> ref);
 
   /**
    * @brief Get a parameter from the parameters set
@@ -277,7 +277,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    *
    * @param parametersSet : ParametersSet to use for extension
    */
-  void extend(boost::shared_ptr<ParametersSet> parametersSet);
+  void extend(std::shared_ptr<ParametersSet> parametersSet);
 
   /**
    * @brief Get a vector of parameter names
@@ -577,7 +577,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @copydoc ParametersSet::createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column)
    */
   template<typename T>
-  boost::shared_ptr<ParametersSet> addParameter(const std::string& name, T value, const std::string& row, const std::string& column) {
+  std::shared_ptr<ParametersSet> addParameter(const std::string& name, T value, const std::string& row, const std::string& column) {
     const std::vector<std::string>& parNames = tableParameterNames(name, row, column);
     std::string firstParName;
     bool isFirstParName = true;

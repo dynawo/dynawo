@@ -7,6 +7,7 @@
 #include <math.h>
 
 #include "DYNElement.h"
+#include "PARParametersSetFactory.h"
 
 #include "GeneratorPQ_Init.h"
 #include "GeneratorPQ_Init_definition.h"
@@ -301,18 +302,18 @@ void ModelGeneratorPQ_Init::callCustomParametersConstructors()
 {
 }
 
-boost::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Init::setSharedParametersDefaultValues()
+std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Init::setSharedParametersDefaultValues()
 {
 
    // Propagating shared parameters default value 
 
    // This value may be updated later on through *.par/*.iidm data 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
 
   return parametersSet;
 }
 
-void ModelGeneratorPQ_Init::setParameters( boost::shared_ptr<parameters::ParametersSet> params )
+void ModelGeneratorPQ_Init::setParameters( std::shared_ptr<parameters::ParametersSet> params )
 {
   generator_P0Pu_ = params->getParameter("generator_P0Pu")->getDouble();
   generator_Q0Pu_ = params->getParameter("generator_Q0Pu")->getDouble();
