@@ -7,6 +7,7 @@
 #include <math.h>
 
 #include "DYNElement.h"
+#include "PARParametersSetFactory.h"
 
 #include "Test_Dyn.h"
 #include "Test_Dyn_definition.h"
@@ -292,13 +293,13 @@ void ModelTest_Dyn::evalDynamicFType_omc(propertyF_t* fType)
 {
 }
 
-boost::shared_ptr<parameters::ParametersSet> ModelTest_Dyn::setSharedParametersDefaultValues()
+std::shared_ptr<parameters::ParametersSet> ModelTest_Dyn::setSharedParametersDefaultValues()
 {
 
    // Propagating shared parameters default value 
 
    // This value may be updated later on through *.par/*.iidm data 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
   double a_internal;
   double b_internal;
 
@@ -309,7 +310,7 @@ boost::shared_ptr<parameters::ParametersSet> ModelTest_Dyn::setSharedParametersD
   return parametersSet;
 }
 
-void ModelTest_Dyn::setParameters( boost::shared_ptr<parameters::ParametersSet> params )
+void ModelTest_Dyn::setParameters( std::shared_ptr<parameters::ParametersSet> params )
 {
   a_ = params->getParameter("a")->getDouble();
   b_ = params->getParameter("b")->getDouble();

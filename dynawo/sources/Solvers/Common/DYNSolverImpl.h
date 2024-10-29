@@ -88,9 +88,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet> &params)
+   * @copydoc Solver::setParameters(const std::shared_ptr<parameters::ParametersSet> &params)
    */
-  void setParameters(const boost::shared_ptr<parameters::ParametersSet>& params);
+  void setParameters(const std::shared_ptr<parameters::ParametersSet>& params);
 
   /**
    * @copydoc Solver::defineParameters()
@@ -125,7 +125,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::checkUnusedParameters()
    */
-  void checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const;
+  void checkUnusedParameters(const std::shared_ptr<parameters::ParametersSet>& params) const;
 
   /**
    * @copydoc Solver::findParameter(const std::string &name)
@@ -133,14 +133,14 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   ParameterSolver& findParameter(const std::string& name);
 
   /**
-   * @copydoc Solver::setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet)
+   * @copydoc Solver::setParameterFromSet(const std::string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet)
    */
-  void setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet);
+  void setParameterFromSet(const std::string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet);
 
   /**
-   * @copydoc Solver::setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params)
+   * @copydoc Solver::setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params)
    */
-  void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params);
+  void setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params);
 
   /**
    * @copydoc Solver::setSolverParameters()

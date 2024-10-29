@@ -36,6 +36,7 @@
 #include "DYNSolverFactory.h"
 #include "DYNDynamicData.h"
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "PARParameterFactory.h"
 #include "DYNTrace.h"
 #include "TLTimelineFactory.h"
@@ -49,7 +50,7 @@ static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true) {
   // Solver
   SolverFactory::SolverPtr solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
-  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("order", 2));
   params->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));
@@ -657,7 +658,7 @@ TEST(SimulationTest, testSolverIDAInit) {
   boost::shared_ptr<Model> model = initModelFromDyd("jobs/solverTestAlpha.dyd");
 
   // IDASVtolerances
-  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("order", 2));
   params->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));
@@ -668,7 +669,7 @@ TEST(SimulationTest, testSolverIDAInit) {
   ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
 
   // IDASetMinStep
-  boost::shared_ptr<parameters::ParametersSet> params2 = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params2 = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params2->addParameter(parameters::ParameterFactory::newParameter("order", 2));
   params2->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
   params2->addParameter(parameters::ParameterFactory::newParameter("minStep", -1.));
@@ -679,7 +680,7 @@ TEST(SimulationTest, testSolverIDAInit) {
   ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
 
   // IDASetMaxStep
-  boost::shared_ptr<parameters::ParametersSet> params3 = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params3 = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params3->addParameter(parameters::ParameterFactory::newParameter("order", 2));
   params3->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
   params3->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));
@@ -690,7 +691,7 @@ TEST(SimulationTest, testSolverIDAInit) {
   ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
 
   // IDASetMaxOrder
-  boost::shared_ptr<parameters::ParametersSet> params4 = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params4 = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params4->addParameter(parameters::ParameterFactory::newParameter("order", -2));
   params4->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
   params4->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));

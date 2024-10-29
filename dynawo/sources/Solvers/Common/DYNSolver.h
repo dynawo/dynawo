@@ -86,7 +86,7 @@ class Solver {
    *
    * @param params parameter set used to set the solver's parameters
    */
-  virtual void setParameters(const boost::shared_ptr<parameters::ParametersSet>& params) = 0;
+  virtual void setParameters(const std::shared_ptr<parameters::ParametersSet>& params) = 0;
 
   /**
    * @brief define each parameters of the solver
@@ -131,7 +131,7 @@ class Solver {
    *
    * @param params parameter set to check
    */
-  virtual void checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const = 0;
+  virtual void checkUnusedParameters(const std::shared_ptr<parameters::ParametersSet>& params) const = 0;
 
   /**
    * @brief search for a parameter with a given name
@@ -147,14 +147,14 @@ class Solver {
    * @param parName the name of the parameter to be set
    * @param parametersSet the set to scan for a value
    */
-  virtual void setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet) = 0;
+  virtual void setParameterFromSet(const std::string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet) = 0;
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
    *
    * @param params parameter set to check
   */
-  virtual void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params) = 0;
+  virtual void setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params) = 0;
 
   /**
    * @brief set the solver parameters value

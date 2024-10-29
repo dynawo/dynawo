@@ -1265,7 +1265,7 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
   std::copy(z.begin(), z.end(), zLocal_.begin());
 }
 
-void ModelMulti::setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
+void ModelMulti::setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) {
   localInitParameters_ = localInitParameters;
 }
 
