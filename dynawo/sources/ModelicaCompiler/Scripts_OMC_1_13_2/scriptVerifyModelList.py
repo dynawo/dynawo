@@ -11,35 +11,34 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
-import os, sys,re, locale, codecs
-import shutil
+import os
 from optparse import OptionParser
-from xml.dom.minidom import parse
+
 try:
-    from lxml import etree
+  from lxml import etree
+  print("running with lxml.etree")
 except ImportError:
+  try:
+    # Python 2.5
+    import xml.etree.cElementTree as etree
+    print("running with cElementTree on Python 2.5+")
+  except ImportError:
     try:
-        # Python 2.5
-        import xml.etree.cElementTree as etree
-        print("running with cElementTree on Python 2.5+")
+      # Python 2.5
+      import xml.etree.ElementTree as etree
+      print("running with ElementTree on Python 2.5+")
     except ImportError:
+      try:
+        # normal cElementTree install
+        import cElementTree as etree
+        print("running with cElementTree")
+      except ImportError:
         try:
-            # Python 2.5
-            import xml.etree.ElementTree as etree
-            print("running with ElementTree on Python 2.5+")
+          # normal ElementTree install
+          import elementtree.ElementTree as etree
+          print("running with ElementTree")
         except ImportError:
-            try:
-                # normal cElementTree install
-                import cElementTree as etree
-                print("running with cElementTree")
-            except ImportError:
-                try:
-                    # normal ElementTree install
-                    import elementtree.ElementTree as etree
-                    print("running with ElementTree")
-                except ImportError:
-                    print("Failed to import ElementTree from any known place")
-                    sys.exit(1)
+          print("Failed to import ElementTree from any known place")
 
 ##
 # Script to verify a model list file
@@ -63,12 +62,12 @@ def main():
     dyd_file_name = options.dydFileName
     model_list_file = options.modelListfile
 
-    print (dyd_file_name, model_list_file)
+    print(dyd_file_name, model_list_file)
     if( os.path.isfile(options.modelListfile) ):
       dyd = open(dyd_file_name,"wb")
       modellist = open(model_list_file,"r")
     else:
-      print ("Error: modelListfile not valid.")
+      print("Error: modelListfile not valid.")
       return
 
     root = etree.parse(modellist).getroot()
@@ -78,7 +77,7 @@ def main():
     modellist.close()
     dyd.close()
 
-    print ("Verified Model List File: "+ dyd_file_name)
+    print("Verified Model List File: "+ dyd_file_name)
 
 
 if __name__ == "__main__":

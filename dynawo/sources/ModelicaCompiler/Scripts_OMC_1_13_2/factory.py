@@ -99,8 +99,8 @@ class ZeroCrossingFilter:
 
 
         indexes_to_filter = []
-        self.number_of_zero_crossings = -2 #to ignore opening and closing {
-        nb_zero_crossing_tot = -1; #to ignore opening {
+        self.number_of_zero_crossings = -2  # to ignore opening and closing {
+        nb_zero_crossing_tot = -1  # to ignore opening {
         for line in filtered_func :
             if "time > 999999.0" not in line:
                 self.function_zero_crossing_description_raw_func.append(line)
@@ -134,15 +134,15 @@ class ZeroCrossingFilter:
         filtered_iter = filter( filter_eq_data, self.reader.function_zero_crossings_raw_func.get_body() )
         filtered_func = list(filtered_iter)
 
-        nb_zero_crossing_tot = 0;
+        nb_zero_crossing_tot = 0
         variable_to_filter = []
         for line in filtered_func :
             if "gout" in line:
                 if nb_zero_crossing_tot in indexes_to_filter:
                     variable_to_filter.extend(find_all_temporary_variable_in_line(line))
                 nb_zero_crossing_tot +=1
-        nb_zero_crossing_tot = 0;
-        current_index = 0;
+        nb_zero_crossing_tot = 0
+        current_index = 0
         for line in filtered_func :
             if "gout" in line:
                 if nb_zero_crossing_tot in indexes_to_filter:
@@ -437,18 +437,18 @@ class Factory:
         # ... We group some vars into categories.
         # For filters, see dataContainer.py
         self.list_vars_der = list(filter (is_der_real_var, list_vars_read)) # Derived from state vars
-        self.list_vars_discr =  list(filter(is_discrete_real_var, list_vars_read)) # Vars discrete real
-        self.list_vars_int =  list(filter(is_integer_var, list_vars_read)) # Vars integer
-        self.list_vars_bool =  list(filter(is_bool_var, list_vars_read)) # Vars boolean
-        self.list_vars_when =  list(filter(is_when_var, list_vars_read)) # Vars when (bool & "$whenCondition")
-        self.list_vars_dummy =  list(filter(is_dummy_var, list_vars_read))
+        self.list_vars_discr = list(filter(is_discrete_real_var, list_vars_read)) # Vars discrete real
+        self.list_vars_int = list(filter(is_integer_var, list_vars_read)) # Vars integer
+        self.list_vars_bool = list(filter(is_bool_var, list_vars_read)) # Vars boolean
+        self.list_vars_when = list(filter(is_when_var, list_vars_read)) # Vars when (bool & "$whenCondition")
+        self.list_vars_dummy = list(filter(is_dummy_var, list_vars_read))
 
-        self.list_params_real =  list(filter(is_param_real, list_vars_read)) # Real Params (all)
+        self.list_params_real = list(filter(is_param_real, list_vars_read)) # Real Params (all)
 
-        self.list_params_bool =  list(filter(is_param_bool, list_vars_read)) # Params booleans (all)
+        self.list_params_bool = list(filter(is_param_bool, list_vars_read)) # Params booleans (all)
 
-        self.list_params_integer =  list(filter(is_param_integer, list_vars_read)) # Full Params (all)
-        self.list_params_string =  list(filter(is_param_string, list_vars_read)) # Params string (all)
+        self.list_params_integer = list(filter(is_param_integer, list_vars_read)) # Full Params (all)
+        self.list_params_string = list(filter(is_param_string, list_vars_read)) # Params string (all)
 
         ## Removing of WhenVar bool variables, we only keep "real" boolean variables
         tmp_var = []
@@ -1199,7 +1199,7 @@ class Factory:
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
 
         # bulding relations objects
-        content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
+        content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0]
         relations_found = re.findall(r'  data->simulationInfo->relations.*?= tmp[0-9]+;', content_to_analyze)
         self.nb_existing_relations = len(relations_found)
         content_to_analyze = list(self.zc_filter.get_function_zero_crossings_raw_func())
@@ -1788,7 +1788,7 @@ class Factory:
 
         for eq in self.list_additional_equations_from_call_for_setf:
             fequation_index = str(eq.get_num_dyn())
-            linetoadd = "  fEquationIndex["+ fequation_index +"] = \"call to external function " + eq.get_function_name() + " \";\n";
+            linetoadd = "  fEquationIndex["+ fequation_index +"] = \"call to external function " + eq.get_function_name() + " \";\n"
             self.listfor_setfequations.append(linetoadd)
         return self.listfor_setfequations
 
@@ -1805,7 +1805,7 @@ class Factory:
 
 
         self.list_for_setgequations.append("// ---------------- boolean conditions -------------\n")
-        nb_zero_crossing = 0;
+        nb_zero_crossing = 0
         for line in filtered_func :
             self.list_for_setgequations.append(line)
             if "  static const char *res[] = {" != line and "  };" != line.rstrip():
@@ -2010,7 +2010,7 @@ class Factory:
             self.list_for_setg.extend(self.modes.get_body_for_evalg_tmps())
 
         # print all gout at the end of the function
-        nb_zero_crossing = 0;
+        nb_zero_crossing = 0
         for line in filtered_func:
             if "gout" in line:
                 if "tmp" in line:
@@ -2061,7 +2061,7 @@ class Factory:
         motif = self.assignment_format
         motif_string = "%s = %s.c_str();\n"
 
-        for par in filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
+        for par in filter(lambda x: (param_scope(x) != INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
             name_underscore = par.get_name() + "_"
             affectation_line = ""
             test_param_address(par.get_name())
@@ -2084,7 +2084,7 @@ class Factory:
         dict_line_par_by_param = {}
         pattern_num = re.compile(r',(?P<num>\d+)}')
         # Prepare initRpar lines
-        for par in filter(lambda x: (param_scope(x) ==  INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
+        for par in filter(lambda x: (param_scope(x) == INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
             # the variable is initialised through an equation (rather than a hard-coded value)
             if (not par.get_init_by_param()) and (not par.get_init_by_param_in_06inz()):
                 print('failed to generate parameter setting for ' + par.get_name() + ' : no initialisation formula')
@@ -2131,9 +2131,9 @@ class Factory:
         keys = dict_line_par_by_param.keys()
         sorted_keys = sorted(keys)
         for key in sorted_keys:
-            self.list_for_initrpar +=  "{\n"
-            self.list_for_initrpar +=  dict_line_par_by_param[key]
-            self.list_for_initrpar +=  "}\n"
+            self.list_for_initrpar += "{\n"
+            self.list_for_initrpar += dict_line_par_by_param[key]
+            self.list_for_initrpar += "}\n"
 
     ##
     # prepare the lines that constitues the body of initRpar
@@ -2183,9 +2183,9 @@ class Factory:
         #   data->modelData.nStates = n1 - nbDummy;
         #   data->modelData.nVariablesReal = n2 - 2*nbDummy;
 
-        self.list_for_setupdatastruc.append("  data->modelData = (MODEL_DATA *)calloc(1,sizeof(MODEL_DATA));\n");
-        self.list_for_setupdatastruc.append("  data->simulationInfo = (SIMULATION_INFO *)calloc(1,sizeof(SIMULATION_INFO));\n");
-        self.list_for_setupdatastruc.append("  data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));\n");
+        self.list_for_setupdatastruc.append("  data->modelData = (MODEL_DATA *)calloc(1,sizeof(MODEL_DATA));\n")
+        self.list_for_setupdatastruc.append("  data->simulationInfo = (SIMULATION_INFO *)calloc(1,sizeof(SIMULATION_INFO));\n")
+        self.list_for_setupdatastruc.append("  data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));\n")
         self.list_for_setupdatastruc.append("  data->nbDummy = %s;\n" % len(self.list_vars_dummy) )
 
         # Filtering the body lines of the function
@@ -2801,7 +2801,7 @@ class Factory:
             elif "typedef" in line:
                 match_typedef = ptrn_typedef.search(line)
                 if match_typedef is not None:
-                    base_name =  match_typedef.group('name1')
+                    base_name = match_typedef.group('name1')
                     new_name = match_typedef.group('name2')
                     if base_name in self.list_adept_structs:
                         self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +ADEPT_SUFFIX + new_name + ADEPT_SUFFIX +";\n")
@@ -2841,7 +2841,7 @@ class Factory:
 
         # define local parameters
         lines_local_par_definition = []
-        for par in filter(lambda x: (param_scope(x) ==  SHARED_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
+        for par in filter(lambda x: (param_scope(x) == SHARED_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
             local_par_name = to_compile_name(par.get_name()) + local_name_prefix
             all_parameters_names [par.get_name()] = local_par_name
             par_value_type = par.get_value_type_c()
@@ -2855,7 +2855,7 @@ class Factory:
         self.list_for_setsharedparamsdefault.append('  boost::shared_ptr<parameters::ParametersSet> ' + parameters_set_name + ' = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));\n')
 
         line_par_other = []
-        for par in filter(lambda x: (param_scope(x) ==  SHARED_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
+        for par in filter(lambda x: (param_scope(x) == SHARED_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
                 init_val = par.get_start_text()[0]
                 local_par_name = all_parameters_names [par.get_name()]
 
@@ -2881,7 +2881,7 @@ class Factory:
         self.list_for_setsharedparamsdefault.append('  return parametersSet;\n')
 
         # convert native Modelica booleans
-        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items] + [all_parameters_names[par.get_name()] for par in filter(lambda x: (param_scope(x) ==  SHARED_PARAMETER), self.list_params_bool)], self.list_for_setsharedparamsdefault)
+        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items] + [all_parameters_names[par.get_name()] for par in filter(lambda x: (param_scope(x) == SHARED_PARAMETER), self.list_params_bool)], self.list_for_setsharedparamsdefault)
 
     ##
     # returns the lines describing shared parameters initial value setting
@@ -2897,11 +2897,11 @@ class Factory:
     def prepare_for_setparams(self):
         # Pattern of the body lines of setParameters
         motif_double = "  %s = params->getParameter(\"%s\")->getDouble();\n"
-        motif_bool =  "  %s = params->getParameter(\"%s\")->getBool();\n"
-        motif_string =  "  %s = params->getParameter(\"%s\")->getString();\n"
+        motif_bool = "  %s = params->getParameter(\"%s\")->getBool();\n"
+        motif_string = "  %s = params->getParameter(\"%s\")->getString();\n"
         motif_integer = "  %s = params->getParameter(\"%s\")->getInt();\n"
 
-        for par in filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
+        for par in filter(lambda x: (param_scope(x) != INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
             motif = None
             if (par in self.list_params_real):
                 motif = motif_double
@@ -2930,28 +2930,28 @@ class Factory:
     # @param self : object pointer
     # @return list of lines
     def get_list_params_real_not_internal_for_h(self):
-        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_real))
+        return list(filter(lambda x: (param_scope(x) != INTERNAL_PARAMETER), self.list_params_real))
 
     ##
     # returns the lines that declares non-internal boolean parameters
     # @param self : object pointer
     # @return list of lines
     def get_list_params_bool_not_internal_for_h(self):
-        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_bool))
+        return list(filter(lambda x: (param_scope(x) != INTERNAL_PARAMETER), self.list_params_bool))
 
     ##
     # returns the lines that declares non-internal string parameters
     # @param self : object pointer
     # @return list of lines
     def get_list_params_string_not_internal_for_h(self):
-        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_string))
+        return list(filter(lambda x: (param_scope(x) != INTERNAL_PARAMETER), self.list_params_string))
 
     ##
     # returns the lines that declares non-internal integer parameters
     # @param self : object pointer
     # @return list of lines
     def get_list_params_integer_not_internal_for_h(self):
-        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_integer))
+        return list(filter(lambda x: (param_scope(x) != INTERNAL_PARAMETER), self.list_params_integer))
 
     ##
     # returns the lines that should be included in header to define variables
@@ -3184,7 +3184,7 @@ class Factory:
     def prepare_for_setvariables(self):
         line_ptrn_native_state = '  variables.push_back (VariableNativeFactory::createState ("%s", %s, %s));\n'
         line_ptrn_native_calculated = '  variables.push_back (VariableNativeFactory::createCalculated ("%s", %s, %s));\n'
-        line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s, %s));\n'
+        line_ptrn_alias = '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s, %s));\n'
 
         # System vars
         for v in self.list_all_vars:

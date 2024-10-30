@@ -11,10 +11,37 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
-import os, sys,re, locale, codecs
+import os, sys
 import shutil
 from optparse import OptionParser
-from xml.dom.minidom import parse
+
+try:
+  from lxml import etree
+  print("running with lxml.etree")
+except ImportError:
+  try:
+    # Python 2.5
+    import xml.etree.cElementTree as etree
+    print("running with cElementTree on Python 2.5+")
+  except ImportError:
+    try:
+      # Python 2.5
+      import xml.etree.ElementTree as etree
+      print("running with ElementTree on Python 2.5+")
+    except ImportError:
+      try:
+        # normal cElementTree install
+        import cElementTree as etree
+        print("running with cElementTree")
+      except ImportError:
+        try:
+          # normal ElementTree install
+          import elementtree.ElementTree as etree
+          print("running with ElementTree")
+        except ImportError:
+          print("Failed to import ElementTree from any known place")
+
+from modelicaScriptsExceptions import UnknownExtVar
 
 ##
 # Copy file to tmp file
@@ -42,38 +69,46 @@ def list_external_variables (external_variables_file_path):
     liste_var_optional_ext_continuous = []
     liste_var_ext_boolean = []
 
-    doc = parse (external_variables_file_path)
-    for node in doc.getElementsByTagName("external_variables"):
-        for variable in node.getElementsByTagName("variable"):
+    xml_tree = etree.parse(external_variables_file_path)
+    root_element = xml_tree.getroot()
+
+    xmlns = "{http://www.rte-france.com/dynawo}"
+    if root_element.tag != (xmlns + "external_variables"):
+        raise UnknownExtVar(root_element.tag)
+
+    for elem in root_element:
+        if elem.tag == (xmlns + "variable"):
             default_value = "0"
             default_value_bool = "true"
             size = 1
             optional = False
-            if ( variable.hasAttribute("defaultValue") ):
-                default_value = variable.getAttribute("defaultValue")
-            if ( variable.hasAttribute("size") ):
-                size = int(variable.getAttribute("size"))
-            if ( variable.hasAttribute("optional") ):
-                optional = (variable.getAttribute("optional") == "true")
+            if "defaultValue" in elem.attrib:
+                default_value = elem.attrib["defaultValue"]
+            if "size" in elem.attrib:
+                size = int(elem.attrib["size"])
+            if "optional" in elem.attrib:
+                optional = (elem.attrib["optional"] == "true")
 
-            if (variable.getAttribute("type") == "continuous"):
+            if elem.attrib["type"] == "continuous":
                 if not optional:
-                    liste_var_ext_continuous.append((variable.getAttribute("id"), default_value))
+                    liste_var_ext_continuous.append((elem.attrib["id"], default_value))
                 else:
-                    liste_var_optional_ext_continuous.append((variable.getAttribute("id"), default_value))
-            elif (variable.getAttribute("type") == "discrete"):
-                liste_var_ext_discrete.append((variable.getAttribute("id"), default_value))
-            elif (variable.getAttribute("type") == "boolean"):
-                liste_var_ext_boolean.append((variable.getAttribute("id"), default_value_bool))
-            elif (variable.getAttribute("type") == "continuousArray"):
-              for i in range(1,size+1):
-                if not optional:
-                  liste_var_ext_continuous.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
-                else:
-                  liste_var_optional_ext_continuous.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
-            elif (variable.getAttribute("type") == "discreteArray"):
-              for i in range(1,size+1):
-                liste_var_ext_discrete.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
+                    liste_var_optional_ext_continuous.append((elem.attrib["id"], default_value))
+            elif elem.attrib["type"] == "discrete":
+                liste_var_ext_discrete.append((elem.attrib["id"], default_value))
+            elif elem.attrib["type"] == "boolean":
+                liste_var_ext_boolean.append((elem.attrib["id"], default_value_bool))
+            elif elem.attrib["type"] == "continuousArray":
+                for i in range(1, size + 1):
+                    if not optional:
+                        liste_var_ext_continuous.append((elem.attrib["id"] + "[" + str(i) + "]", default_value))
+                    else:
+                        liste_var_optional_ext_continuous.append((elem.attrib["id"] + "[" + str(i) + "]", default_value))
+            elif elem.attrib["type"] == "discreteArray":
+                for i in range(1, size + 1):
+                    liste_var_ext_discrete.append((elem.attrib["id"] + "[" + str(i) + "]", default_value))
+        else:
+            raise UnknownExtVar(elem.tag)
 
     return (liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete, liste_var_ext_boolean)
 
@@ -81,7 +116,7 @@ def list_external_variables (external_variables_file_path):
 # Add fictitious equation read in xml file
 def pre_compil():
 
-    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete, liste_var_ext_boolean = list_external_variables (file_var_ext_name)
+    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete, liste_var_ext_boolean = list_external_variables(file_var_ext_name)
 
     model_name = os.path.basename(file_name).replace(".mo", "")
     # modification of the .mo file

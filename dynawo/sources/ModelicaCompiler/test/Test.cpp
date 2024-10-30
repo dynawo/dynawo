@@ -46,6 +46,8 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   std::string result = ssPython.str();
   boost::erase_all(result, "\n");
   std::string res = "Executing command : " + varExtCommand +
+      "running with lxml.etree"
+      "running with lxml.etree"
       "    [INFO]: Starting init model generation"
       "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
@@ -56,6 +58,8 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
       "    [INFO]: Discrete variable generator.switchOffSignal2.value is defined as silent (not used in continuous equations)."
       "    [INFO]: Discrete variable generator.switchOffSignal3.value is defined as silent (not used in continuous equations).";
   std::string res2 = "Executing command : " + varExtCommand +
+      "running with lxml.etree"
+      "running with lxml.etree"
       "    [INFO]: Starting init model generation"
       "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."

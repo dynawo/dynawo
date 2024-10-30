@@ -12,7 +12,6 @@
 # simulation tool for power systems.
 
 import re
-import sys
 import copy
 
 from utils import *
@@ -2036,7 +2035,7 @@ class Warn:
             elif OMC_METATYPE_TMPMETA in line:
                 tmp_body.append(replace_modelica_strings(line))
             elif "FILE_INFO info" in line:
-                continue;
+                continue
             elif "omc_assert_warning" in line:
                 if not with_throw:
                     tmp_body.append(line)
