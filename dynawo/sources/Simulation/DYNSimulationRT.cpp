@@ -52,7 +52,7 @@
 #include "CRVCurvesCollectionFactory.h"
 // #include "CRVCurvesCollection.h"
 // #include "CRVXmlImporter.h"
-// #include "CRVCurveFactory.h"
+#include "CRVCurveFactory.h"
 // #include "CRVCurve.h"
 #include "CRVPoint.h"
 // #include "CRVXmlExporter.h"
@@ -151,16 +151,17 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-SimulationRT::SimulationRT(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
-Simulation(jobEntry, context, data),
-timeSync_(false),
-timeSyncAcceleration_(10.) {
-  setTimeSync(jobEntry_->getSimulationEntry()->getTimeSync());
-  setTimeSyncAcceleration(jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  wsServer_ = std::make_shared<wsc::WebsocketServer>();
-  std::cout << "will run server" << std::endl;
-  wsServer_->run(9001);
-  std::cout << "run server ok" << std::endl;
+SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>()) :
+Simulation(jobEntry, context, data) {
+  timeManager_ = std::make_shared<TimeManager>(
+    jobEntry_->getSimulationEntry()->getTimeSync(),
+    jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+  if (timeManager_->getTimeSync()) {
+    wsServer_ = std::make_shared<wsc::WebsocketServer>();
+    std::cout << "will run server" << std::endl;
+    wsServer_->run(9001);
+    std::cout << "run server ok" << std::endl;
+  }
 }
 
 void
@@ -175,6 +176,8 @@ SimulationRT::simulate() {
     model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
   }
   const bool updateCalculatedVariable = false;
+  if (timeManager_)
+    initStepDurationCurve();
   updateCurves(updateCalculatedVariable);  // initial curves
 
   bool criteriaChecked = true;
@@ -190,9 +193,9 @@ SimulationRT::simulate() {
       }
     }
 
-    boost::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
-    boost::optional<int> iterationStep;
-    boost::optional<double> timeStep;
+    std::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
+    std::optional<int> iterationStep;
+    std::optional<double> timeStep;
     if (curvesEntry != nullptr) {
       iterationStep = curvesEntry->getIterationStep();
       timeStep = curvesEntry->getTimeStep();
@@ -201,16 +204,13 @@ SimulationRT::simulate() {
     double nextTimeStep = 0;
     const auto startTimeSync = std::chrono::system_clock::now();
     std::chrono::time_point<std::chrono::system_clock> afterSleepTime;
+    if (timeManager_)
+      timeManager_->start(tCurrent_);
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       // RT sleep
-      // std::chrono::time_point<std::chrono::system_clock> tCurrentSync = startTimeSync + std::chrono::seconds(tCurrent_/timeSyncAcceleration_);
-      if (timeSync_) {
-        std::this_thread::sleep_until(startTimeSync + std::chrono::milliseconds(static_cast<int>(1000*tCurrent_/timeSyncAcceleration_)));
-        afterSleepTime = std::chrono::system_clock::now();
-        Trace::warn() << "TITI tCurrent_ = " << tCurrent_  << " s; "
-        << "RT now: " << (std::chrono::duration_cast<std::chrono::milliseconds>(afterSleepTime - startTimeSync)).count()/1000.  << " s; "
-        << Trace::endline;
-      }
+      if (timeManager_)
+        timeManager_->wait(tCurrent_);
+
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
       if (elapsed > timeout) {
@@ -229,6 +229,9 @@ SimulationRT::simulate() {
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
+        if (timeManager_)
+          Trace::info() << "TimeManagement (ModeChange): tCurrent_ = " << tCurrent_
+          << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
         updateCurves(true);
         model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
@@ -236,10 +239,13 @@ SimulationRT::simulate() {
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
         printHighestDerivativesValues();
-      } else if (solverState.getFlags(NotSilentZChange)
+       } else if (solverState.getFlags(NotSilentZChange)
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
         updateCurves(true);
+        if (timeManager_)
+          Trace::info() << "TimeManagement (SilentZish): tCurrent_ = " << tCurrent_
+          << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
       }
@@ -288,12 +294,15 @@ SimulationRT::simulate() {
         }
         intermediateStates_.pop();
       }
-      if (timeSync_) {
-        const auto afterStepTime = std::chrono::system_clock::now();
-        Trace::warn() << "TITI tCurrent_ = " << tCurrent_  << " s; "
-        << "step computation time: " << (std::chrono::duration_cast<std::chrono::milliseconds>(afterStepTime - afterSleepTime)).count() << " ms"
-        << Trace::endline;
-      }
+      // if (timeManager_) {
+      //   const auto afterStepTime = std::chrono::system_clock::now();
+      //   Trace::warn() << "TITI tCurrent_ = " << tCurrent_  << " s; "
+      //   << "step computation time: " << (std::chrono::duration_cast<std::chrono::milliseconds>(afterStepTime - afterSleepTime)).count() << " ms"
+      //   << Trace::endline;
+      // }
+      if (timeManager_)
+        Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
+        << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
@@ -354,21 +363,23 @@ SimulationRT::curvesToStream() {
         itCurve != curvesCollection_->end();
         ++itCurve) {
     if ((*itCurve)->getAvailable()) {
-      boost::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
+      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
       if (point) {
         if (time < 0) {
           time = point->getTime();
           stream << "\n";
-        }
-        else
+        } else {
           stream << ",\n";
+        }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
         double value = point->getValue();
         stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue();
       }
     }
   }
-  stream << "\t\t" << "},\n";
+  stream << "\n\t\t" << "},\n";
+  // if (timeManager_)
+  //   stream << "\t\t" << "\"stepdurationms\": " << timeManager_->getStepDuration() << ",\n";
   stream << "\t\t" << "\"time\": " << time << "\n";
   stream << "\t}\n}";
 
@@ -376,9 +387,7 @@ SimulationRT::curvesToStream() {
   if (wsServer_) {
     wsServer_->sendMessage(formatedString);
     Trace::info() << "sent message: \n" << formatedString << Trace::endline;
-    // std::cout << "sent message: \n" << formatedString << std::endl;
   }
-  // Trace::warn() << formatedString << Trace::endline;
 }
 
 void
@@ -386,9 +395,21 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
   if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
   Simulation::updateCurves(updateCalculateVariable);
+  if (timeManager_)
+    timeManager_->updateStepDurationValue();
   curvesToStream();
 }
 
+void
+SimulationRT::initStepDurationCurve() {
+  std::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+  curve->setModelName("Simulation");
+  curve->setVariable("stepDurationMs");
+  curve->setAvailable(true);
+  curve->setBuffer(timeManager_->getStepDurationAddr());
+  curvesCollection_->add(curve);
+  std::cout << "ADDED CURVE TS" << std::endl;
+}
 
 void
 SimulationRT::terminate() {

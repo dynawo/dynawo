@@ -80,6 +80,7 @@ void
 WebsocketServer::sendMessage(const string& message) {
   // Lock the connection list and broadcast to all connected clients
   std::lock_guard<std::mutex> lock(connectionLock_);
+  std::cout << "WebsocketServer sendMessage" << std::endl;
   for (auto it : connections_) {
       server_.send(it, message, websocketpp::frame::opcode::text);
   }

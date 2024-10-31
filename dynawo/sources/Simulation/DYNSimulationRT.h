@@ -34,6 +34,7 @@
 #include "DYNSimulation.h"
 // #include "PARParametersSetCollection.h"
 #include "WSCServer.h"
+#include "DYNTimeManager.h"
 
 namespace websocket {
 class WebsocketServer;
@@ -43,9 +44,6 @@ namespace timeline {
 class Timeline;
 }
 
-namespace curves {
-class CurvesCollection;
-}
 
 namespace constraints {
 class ConstraintsCollection;
@@ -67,22 +65,11 @@ class Solver;
 class DynamicData;
 class DataInterface;
 class SimulationContext;
+class TimeManager;
 
-/**
- * @brief RTCompanion class
- *
- * class including all
- *
-//  */
-// class RTCompanion {
-// public:
-//   RTCompanion();
-//   void startClock();
-// private:
-//   bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
-//   double timeSyncAcceleration_;  ///< acceleration factor clockTime/simulationTime >
-//   double timeReference_;
-// }
+
+
+
 
 /**
  * @brief SimulationRT class
@@ -100,29 +87,14 @@ class SimulationRT: public Simulation {
    * @param context context of the simulation (configuration, directories, locale, etc...)
    * @param data data interface to use for the simulation (NULL if we build it inside simulation)
    */
-  SimulationRT(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
+  SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry,
+              const std::shared_ptr<SimulationContext>& context,
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
    * @brief launch the simulation
    */
   void simulate();
-
-  /**
-   * @brief timeSync setter
-   * @param timeSync boolean indicating if simulation must be sync with user clock
-   */
-  void setTimeSync(bool timeSync) {
-    timeSync_ = timeSync;
-  }
-
-  /**
-   * @brief timeSyncAcceleration setter
-   * @param timeSyncAcceleration acceleration ratio between simulation time and user clock
-   */
-  void setTimeSyncAcceleration(double timeSyncAcceleration) {
-    timeSyncAcceleration_ = timeSyncAcceleration;
-  }
 
   /**
    * @brief update streams : at the end of each iteration, new points are added to curve
@@ -134,6 +106,11 @@ class SimulationRT: public Simulation {
    * @param updateCalculateVariable @b true is calculated variables should be updated
    */
   void updateCurves(bool updateCalculateVariable = true);
+
+  /**
+   * @brief add curve for step duration
+   */
+  void initStepDurationCurve();
 
   /**
    * @brief end the simulation : export data, curves,...
@@ -148,9 +125,7 @@ class SimulationRT: public Simulation {
  protected:
   std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
   std::thread wsServerThread_;  ///< thread instance for websocket server >
-
-  bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
-  double timeSyncAcceleration_;  ///< acceleration factor clockTime/simulationTime >
+  std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >
 };
 }  // end of namespace DYN
 
