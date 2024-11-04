@@ -228,41 +228,23 @@ ModelStaticVarCompensator::getY0() {
       z_[connectionStateNum_] = getConnected();
     } else {
       mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
-      setConnected(static_cast<State>(static_cast<int>(z_[connectionStateNum_])));
-      switch (connectionState_) {
-        case CLOSED:
-        {
-          if (modelBus_->getConnectionState() != CLOSED) {
-            modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      State svcCurrState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+      if (svcCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case OPEN:
-        {
-          if (modelBus_->getConnectionState() != OPEN) {
-            modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      } else if (svcCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case CLOSED_1:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_2:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_3:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case UNDEFINED_STATE:
-        {
-          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-        }
+      } else if (svcCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
       }
+      setConnected(svcCurrState);
     }
   }
 }

@@ -847,43 +847,25 @@ ModelDanglingLine::getY0() {
   } else {
     urFict0_ = y_[0];
     uiFict0_ = y_[1];
-    connectionState_ = static_cast<State>(static_cast<int>(z_[0]));
     setCurrentLimitsDesactivate(z_[1]);
 
-    switch (connectionState_) {
-      case CLOSED:
-      {
-        if (modelBus_->getConnectionState() != CLOSED) {
-          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-          stateModified_ = true;
-        }
-        break;
+    State danglingLineCurrState = static_cast<State>(static_cast<int>(z_[0]));
+    if (danglingLineCurrState == CLOSED) {
+      if (modelBus_->getConnectionState() != CLOSED) {
+        modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+        stateModified_ = true;
       }
-      case OPEN:
-      {
-        if (modelBus_->getConnectionState() != OPEN) {
-          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-          stateModified_ = true;
-        }
-        break;
+    } else if (danglingLineCurrState == OPEN) {
+      if (modelBus_->getConnectionState() != OPEN) {
+        modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+        stateModified_ = true;
       }
-      case CLOSED_1:
-      {
-        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-      }
-      case CLOSED_2:
-      {
-        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-      }
-      case CLOSED_3:
-      {
-        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-      }
-      case UNDEFINED_STATE:
-      {
-        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-      }
+    } else if (danglingLineCurrState == UNDEFINED_STATE) {
+      throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+    } else {
+      throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
     }
+    connectionState_ = danglingLineCurrState;
   }
 }
 
