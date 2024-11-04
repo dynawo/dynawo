@@ -256,41 +256,23 @@ ModelShuntCompensator::getY0() {
       z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
       z_[currentSectionNum_] = getCurrentSection();
     } else {
-      setConnected(static_cast<State>(static_cast<int>(z_[0])));
-      switch (connectionState_) {
-        case CLOSED:
-        {
-          if (modelBus_->getConnectionState() != CLOSED) {
-            modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      State shuntCurrState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+      if (shuntCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case OPEN:
-        {
-          if (modelBus_->getConnectionState() != OPEN) {
-            modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      } else if (shuntCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case CLOSED_1:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_2:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_3:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case UNDEFINED_STATE:
-        {
-          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-        }
+      } else if (shuntCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
       }
+      connectionState_ = shuntCurrState;
       currentSection_ = z_[currentSectionNum_];
     }
   }

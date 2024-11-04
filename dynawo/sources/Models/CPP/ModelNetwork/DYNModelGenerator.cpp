@@ -224,41 +224,23 @@ ModelGenerator::getY0() {
       z_[1] = Pc_;
       z_[2] = Qc_;
     } else {
-      setConnected(static_cast<State>(static_cast<int>(z_[0])));
-      switch (connectionState_) {
-        case CLOSED:
-        {
-          if (modelBus_->getConnectionState() != CLOSED) {
-            modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      State genCurrState = static_cast<State>(static_cast<int>(z_[0]));
+      if (genCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case OPEN:
-        {
-          if (modelBus_->getConnectionState() != OPEN) {
-            modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      } else if (genCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case CLOSED_1:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_2:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_3:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case UNDEFINED_STATE:
-        {
-          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-        }
+      } else if (genCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
       }
+      setConnected(genCurrState);
       Pc_ = z_[1];
       Qc_ = z_[2];
     }
@@ -420,7 +402,7 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelGenerator::init(int & /*yNum*/) {
-  if(!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump()) {
     double uNode = 0.;
     std::shared_ptr<GeneratorInterface> generator = generator_.lock();
     double thetaNode = generator->getBusInterface()->getAngle0();

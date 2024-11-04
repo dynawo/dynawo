@@ -674,41 +674,23 @@ ModelLoad::getY0() {
         zQprim0_ = yp_[index];
         ++index;
       }
-      setConnected(static_cast<State>(static_cast<int>(z_[0])));
-      switch (connectionState_) {
-        case CLOSED:
-        {
-          if (modelBus_->getConnectionState() != CLOSED) {
-            modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      State loadCurrState = static_cast<State>(static_cast<int>(z_[0]));
+      if (loadCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case OPEN:
-        {
-          if (modelBus_->getConnectionState() != OPEN) {
-            modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-            stateModified_ = true;
-          }
-          break;
+      } else if (loadCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
         }
-        case CLOSED_1:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_2:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case CLOSED_3:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        case UNDEFINED_STATE:
-        {
-          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-        }
+      } else if (loadCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
       }
+      setConnected(loadCurrState);
     }
   }
 }
