@@ -93,6 +93,12 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   void dumpToFile(const std::string& filepath) const;
 
   /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  void dumpToFile(std::stringstream& stream) const;
+
+  /**
    * @copydoc DataInterface::canUseVariant() const
    */
   bool canUseVariant() const;
