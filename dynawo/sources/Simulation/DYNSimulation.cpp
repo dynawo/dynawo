@@ -1468,6 +1468,12 @@ Simulation::dumpIIDMFile(const boost::filesystem::path& iidmFile) {
 }
 
 void
+Simulation::dumpIIDMFile(std::stringstream& stream) const {
+  if (data_ && finalState_.iidmFile_)
+    data_->dumpToFile(stream);
+}
+
+void
 Simulation::dumpIIDMFile() {
   if (finalState_.iidmFile_) {
     dumpIIDMFile(*finalState_.iidmFile_);
