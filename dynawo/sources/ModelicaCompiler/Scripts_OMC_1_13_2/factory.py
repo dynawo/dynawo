@@ -1333,7 +1333,7 @@ class Factory:
                 if (var in self.list_name_discrete_vars or var in self.list_name_integer_vars):
                     boolean = False
                     for var_bool in self.list_vars_bool:
-                        if var_bool.name == var:
+                        if var_bool.name == var and "limUQDown" not in var and "limUQUp" not in var:
                             boolean = True
                     evaluated_var = eq.get_evaluated_var()
                     if (eq.get_type() == DIFFERENTIAL or eq.get_type() == MIXED):
