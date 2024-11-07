@@ -1,3 +1,4 @@
+BESScbWeccCurrentSource
 BooleanTable
 Bus
 BusWithInit
@@ -27,6 +28,7 @@ GeneratorPVTfoRpcl2SignalN
 GeneratorPVTfoRpclSignalN
 GeneratorPVTfoSignalN
 GeneratorSynchronousFourWindings
+GeneratorSynchronousFourWindingsGovCt2St4b
 GeneratorSynchronousFourWindingsGoverPropVRPropInt
 GeneratorSynchronousFourWindingsGovSteam1St4b
 GeneratorSynchronousFourWindingsGovSteam1St4bPss2b
@@ -71,6 +73,7 @@ IECWT4ACurrentSource2015
 IECWT4ACurrentSource2020
 IECWT4BCurrentSource2015
 IECWT4BCurrentSource2020
+InertialGrid
 InfiniteBus
 InfiniteBusFromTable
 InfiniteBusWithVariations
@@ -88,11 +91,12 @@ LoadTwoTransformersTapChangers
 LossOfSynchronismProtection
 NetworkTransformer
 NodeFault
+OverVoltageAutomaton
 PhaseShifterBlockingI
 PhaseShifterI
 PhaseShifterP
-PhotovoltaicsWeccCurrentSource
-PhotovoltaicsWeccVoltageSource
+PhotovoltaicsWeccCurrentSourceB
+PhotovoltaicsWeccVoltageSourceB
 PowerTransferHVDCEmulation
 Ramp
 SecondaryVoltageControlSimp

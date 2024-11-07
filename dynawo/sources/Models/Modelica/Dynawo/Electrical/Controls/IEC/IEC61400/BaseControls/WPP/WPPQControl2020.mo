@@ -13,7 +13,8 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
 */
 
 model WPPQControl2020 "Reactive power control module for wind power plants (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
 
   //QControl parameters
   parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
@@ -28,20 +29,20 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Dialog(tab = "QControlWP"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput PWPFiltComPu(start = -P0Pu * SystemBase.SnRef / SNom) annotation(
-    Placement(visible = true, transformation(origin = {-340, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QWPFiltComPu(start = -Q0Pu * SystemBase.SnRef / SNom) annotation(
-    Placement(visible = true, transformation(origin = {-340, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UWPFiltComPu(start = U0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-340, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput xWPRefComPu(start = X0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-340, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PWPFiltComPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power communicated to WP in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-340, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput QWPFiltComPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Filtered reactive power communicated to WP in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-340, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UWPFiltComPu(start = U0Pu) "Filtered voltage module communicated to WP in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-340, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput xWPRefComPu(start = X0Pu) "Reference reactive power or voltage communicated to WP in pu (base SNom or UNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-340, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.BooleanOutput fWPFrt(start = false) annotation(
-    Placement(visible = true, transformation(origin = {360, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput xPDRefPu(start = XWT0Pu) annotation(
-    Placement(visible = true, transformation(origin = {360, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanOutput fWPFrt(start = false) "True if fault status" annotation(
+    Placement(visible = true, transformation(origin = {360, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110},extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput xPDRefPu(start = XWT0Pu) "Reference reactive power or voltage communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {360, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{100, -10}, {120, 10}}, rotation = 0)));
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TableQwpMaxPwpFiltCom) annotation(
     Placement(visible = true, transformation(origin = {-190, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

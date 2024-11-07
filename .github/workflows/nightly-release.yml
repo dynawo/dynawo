@@ -45,7 +45,7 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Create nightly tag and release if necessary
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           body: |
             Dynawo's nightly release. Compiled on *release* settings.
@@ -97,7 +97,7 @@ jobs:
         run: du -hs distributions/*
 
       - name: Upload assets for release
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           tag_name: ${{ env.DYNAWO_TAG }}
           draft: false
@@ -114,7 +114,7 @@ jobs:
       # The secrets.DISPATCH_TOKEN should contain a fine-grained PAT with access to dynawo/dynawo-algorithms with Repository permissions 'Contents: Read and write'
       - name: Tell dynawo-algorithms the nightly release is ready
         if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
@@ -158,7 +158,7 @@ jobs:
         run: du -hs distributions/*
 
       - name: Upload assets for release
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           tag_name: ${{ env.DYNAWO_TAG }}
           draft: false
@@ -251,7 +251,7 @@ jobs:
           move /y *.zip ${{ github.workspace }}
 
       - name: Upload OpenModelica, 3rd parties and dynawo distribution
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           tag_name: ${{ env.DYNAWO_TAG }}
           draft: false
@@ -266,7 +266,7 @@ jobs:
 
       - name: Tell dynawo-algorithms the nightly release is ready
         if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |

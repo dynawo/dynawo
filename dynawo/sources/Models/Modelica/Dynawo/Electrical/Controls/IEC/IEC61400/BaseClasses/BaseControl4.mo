@@ -13,6 +13,8 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseControl4 "Whole generator base control module for type 4 wind turbines (IEC N°61400-27-1)"
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

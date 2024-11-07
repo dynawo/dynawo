@@ -179,13 +179,13 @@ def update(jobs):
     for genxml in genxmls:
         genxml.set_lib_name("GeneratorSynchronousThreeWindingsHyGovScrxTfo")
 
-    gens = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsGovSteam1St4b")
+    gens = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsGovSteam1St4b")
     for gen in gens:
         value = gen.parset.get_param_value("voltageRegulator_VrMaxPu")
         gen.parset.add_param("DOUBLE", "voltageRegulator_VaMaxPu", value)
         value = gen.parset.get_param_value("voltageRegulator_VrMinPu")
         gen.parset.add_param("DOUBLE", "voltageRegulator_VaMinPu", value)
-    gens = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsGovSteam1St4bPss2b")
+    gens = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsGovSteam1St4bPss2b")
     for gen in gens:
         value = gen.parset.get_param_value("voltageRegulator_VrMaxPu")
         gen.parset.add_param("DOUBLE", "voltageRegulator_VaMaxPu", value)
@@ -200,7 +200,7 @@ def update(jobs):
         value = gen.parset.get_param_value("powerSystemStabilizer_tw3")
         gen.parset.remove_param_or_ref("powerSystemStabilizer_tw3")
         gen.parset.add_param("DOUBLE", "powerSystemStabilizer_tW3", value)
-        value = gen.parset.get_param_value("powerSystemStabilizer_tw4)
+        value = gen.parset.get_param_value("powerSystemStabilizer_tw4")
         gen.parset.remove_param_or_ref("powerSystemStabilizer_tw4")
         gen.parset.add_param("DOUBLE", "powerSystemStabilizer_tW4", value)
         value = gen.parset.get_param_value("powerSystemStabilizer_Vsi1MaxPu")
@@ -221,7 +221,7 @@ def update(jobs):
         value = gen.parset.get_param_value("powerSystemStabilizer_VstMinPu")
         gen.parset.remove_param_or_ref("powerSystemStabilizer_VstMinPu")
         gen.parset.add_param("DOUBLE", "powerSystemStabilizer_VPssMinPu", value)
-    gens = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsTGov1Sexs")
+    gens = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsTGov1Sexs")
     for gen in gens:
         value = gen.parset.get_param_value("governor_Tg1")
         gen.parset.remove_param_or_ref("governor_Tg1")
@@ -232,7 +232,7 @@ def update(jobs):
         value = gen.parset.get_param_value("governor_Tg3")
         gen.parset.remove_param_or_ref("governor_Tg3")
         gen.parset.add_param("DOUBLE", "governor_t3", value)
-    gens = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsTGov1SexsPss2a")
+    gens = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousFourWindingsTGov1SexsPss2a")
     for gen in gens:
         value = gen.parset.get_param_value("governor_Tg1")
         gen.parset.remove_param_or_ref("governor_Tg1")
@@ -289,14 +289,14 @@ def update(jobs):
         gen.parset.remove_param_or_ref("powerSystemStabilizer_IC2")
         gen.parset.remove_param_or_ref("powerSystemStabilizer_PNomAlt")
         gen.parset.remove_param_or_ref("powerSystemStabilizer_Upss0Pu")
-    gens = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousThreeWindingsHyGovScrx")
+    gens = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousThreeWindingsHyGovScrx")
     for gen in gens:
         value = gen.parset.get_param_value("governor_VelMax")
         gen.parset.remove_param_or_ref("governor_VelMax")
         gen.parset.add_param("DOUBLE", "governor_VelMaxPu", value)
         gen.parset.remove_param_or_ref("governor_PNomAlt")
         gen.parset.remove_param_or_ref("governor_SNom")
-    gens = job.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousThreeWindingsHyGovScrxTfo")
+    gens = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GeneratorSynchronousThreeWindingsHyGovScrxTfo")
     for gen in gens:
         value = gen.parset.get_param_value("governor_VelMax")
         gen.parset.remove_param_or_ref("governor_VelMax")

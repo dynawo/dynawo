@@ -13,6 +13,6 @@ within Dynawo.Electrical.Controls.WECC;
 * of simulation tools for power systems.
 */
 
-package REEC "Renewable energy electrical control models for WECC"
+package REEC "Renewable Energy Electrical Control models for WECC"
   extends Icons.Package;
 end REEC;

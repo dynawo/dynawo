@@ -81,6 +81,8 @@
     <par type="DOUBLE" name="WT_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WT_UUnderPu" value="0.9"/>
     <!-- UfMeasurement -->
+    <par type="DOUBLE" name="WT_tphiFilt" value="0.02"/>
+    <par type="BOOL" name="WT_Mzc" value="false"/>
     <par type="DOUBLE" name="WT_DfMaxPu" value="1"/>
     <par type="DOUBLE" name="WT_tUFilt" value="0.01"/>
     <par type="DOUBLE" name="WT_tfFilt" value="0.01"/>

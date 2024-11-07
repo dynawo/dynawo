@@ -81,6 +81,7 @@ set(MODEL_FILES
   St7b.extvar
   St7c.mo
   St7c.extvar
+  St7c_INIT.mo
   St9c.mo
   St9c.extvar
   Stxc_INIT.mo

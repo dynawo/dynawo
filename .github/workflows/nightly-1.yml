@@ -21,7 +21,7 @@ jobs:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: ${{ matrix.build-type }}
       DYNAWO_COMPILER: ${{ matrix.compiler }}
-      DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_NB_PROCESSORS_USED: 1
 
     steps:
       - name: Checkout sources

@@ -15,7 +15,7 @@
   <!-- Machine with constant mechanical power, a voltage regulator (St7b) and a power system stabilizer (Pss2a). -->
   <dyn:modelicaModel id="GeneratorSynchronousFourWindingsPmConstSt7bPss2a">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
-    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St7b" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Exciter_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St7b" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St7c_INIT"/>
     <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Pss_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>

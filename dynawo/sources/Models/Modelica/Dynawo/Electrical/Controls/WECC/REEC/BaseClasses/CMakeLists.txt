@@ -12,7 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
-  ElectricalControlCommon.mo
+  BaseREEC.mo
   )
 
 #

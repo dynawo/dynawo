@@ -200,7 +200,7 @@ ModelManager::associateBuffers() {
     if (!yLocalInit_.empty())
       dataInit_->localData[0]->realVars = yLocalInit_.data();
     if (!ypLocalInit_.empty())
-      dataInit_->localData[0]->derivativesVars =ypLocalInit_.data();
+      dataInit_->localData[0]->derivativesVars = ypLocalInit_.data();
     if (!zLocalInit_.empty())
       dataInit_->localData[0]->discreteVars = zLocalInit_.data();
 
@@ -272,6 +272,9 @@ ModelManager::setFequations() {
 void
 ModelManager::setGequations() {
   modelModelicaDynamic()->setGequations(gEquationIndex_);
+  for (long i = 0; i < static_cast<long>(data()->nbDelays); ++i) {
+    gEquationIndex_[static_cast<int>(modelData()->nZeroCrossings + i)] = "Root equation for delay " + std::to_string(i);
+  }
 }
 
 void

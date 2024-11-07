@@ -29,6 +29,7 @@ NodeOn = NodeOff
 TapChangersArming = TapChangersUnarming
 TransformerSwitchOff = TransformerSwitchOn
 ProtectionDisconnected = ProtectionConnected
+OVAArming = OVADisarming
 UVAArming = UVADisarming
 OverspeedArming = OverspeedDisarming
 UnderspeedArming = UnderspeedDisarming

@@ -19,6 +19,7 @@
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELPHASETAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELPHASETAPCHANGER_H_
+#include <sstream>
 
 #include "DYNModelTapChanger.h"
 
@@ -41,6 +42,11 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @brief destructor
    */
   virtual ~ModelPhaseTapChanger();
+
+  /**
+   * @brief reset internal variables values
+   */
+  void resetInternalVariables();
 
   /**
    * @brief  evaluate the zero crossing functions
@@ -90,6 +96,20 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param threshold current threshold
    */
   inline void setThresholdI(double threshold) { thresholdI_ = threshold; }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables);
 
  private:
   /**

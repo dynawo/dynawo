@@ -24,14 +24,16 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
+  // Lines parameters
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RSourcePu "Source resistance in pu (base SnRef, UNom) (typically set to zero, typical: 0..0.01)";
+  parameter Types.PerUnit XSourcePu "Source reactance in pu (base SnRef, UNom) (typical: 0.05..0.2)";
+
   parameter Types.PerUnit P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit RSourcePu "Source resistance in pu (base SnRef, UNom) (typically set to zero, typical: 0..0.01)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XSourcePu "Source reactance in pu (base SnRef, UNom) (typical: 0.05..0.2)";
 
   Types.ComplexPerUnit i0Pu "Start value of complex current in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
@@ -62,7 +64,7 @@ equation
   sInj0Pu = uInj0Pu * ComplexMath.conj(iSource0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  PF0 = PInj0Pu / ComplexMath.'abs'(sInj0Pu);
+  PF0 = if (not(ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.'abs'(sInj0Pu) else 0;
   UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
   UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
   Id0Pu = cos(UInjPhase0) * iSource0Pu.re + sin(UInjPhase0) * iSource0Pu.im;

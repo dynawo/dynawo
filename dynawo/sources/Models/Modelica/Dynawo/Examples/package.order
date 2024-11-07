@@ -1,6 +1,6 @@
 Overview
 BaseClasses
-SMIB
+BESS
 ENTSOE
 GridForming
 HVDC
@@ -8,8 +8,11 @@ IEEE14
 IEEE57
 IEEE118
 IllustrativeExamples
+InertialGrid
 Nordic
-RVS
-SVarC
 Photovoltaics
+RVS
+SMIB
+SVarC
+SystemFrequencyResponse
 Wind

@@ -63,7 +63,7 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
 
       - name: Upload assets
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
@@ -105,7 +105,7 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
 
       - name: Upload assets
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
@@ -144,7 +144,7 @@ jobs:
           for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_gcc11_} ; done
 
       - name: Upload assets
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |
@@ -217,7 +217,7 @@ jobs:
           move /y *.zip ${{ github.workspace }}
 
       - name: Upload Dynawo distribution
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           release_id: ${{ github.event_name != 'workflow_dispatch' && github.event.release.id || inputs.release-id }}
           files: |

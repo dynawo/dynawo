@@ -13,7 +13,9 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 standard"
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

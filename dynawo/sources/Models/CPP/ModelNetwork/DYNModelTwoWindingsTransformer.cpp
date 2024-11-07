@@ -60,6 +60,7 @@ using parameters::ParametersSet;
 
 using std::vector;
 using std::string;
+using std::stringstream;
 using std::map;
 using boost::shared_ptr;
 
@@ -1679,13 +1680,17 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
 
 void
 ModelTwoWindingsTransformer::getY0() {
-  if (!network_->isInitModel()) {
+  if (!network_->isInitModel() && !network_->isStartingFromDump()) {
     z_[connectionStateNum_] = getConnectionState();
     z_[currentStepIndexNum_] = getCurrentStepIndex();
     z_[currentLimitsDesactivateNum_] = getCurrentLimitsDesactivate();
     z_[disableInternalTapChangerNum_] = getDisableInternalTapChanger();
     z_[tapChangerLockedNum_] = getTapChangerLocked();
     z_[deltaUTarget] = 0.;
+    if (modelRatioChanger_)
+      modelRatioChanger_->resetInternalVariables();
+    if (modelPhaseChanger_)
+      modelPhaseChanger_->resetInternalVariables();
   }
 }
 
@@ -1793,6 +1798,22 @@ ModelTwoWindingsTransformer::printInternalParameters(std::ofstream& fstream) con
   fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getG() << std::endl;
   paramName = id() + "_" + "rho";
   fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getRho() << std::endl;
+}
+
+void
+ModelTwoWindingsTransformer::dumpInternalVariables(stringstream& streamVariables) const {
+  if (modelRatioChanger_)
+    modelRatioChanger_->dumpInternalVariables(streamVariables);
+  if (modelPhaseChanger_)
+    modelPhaseChanger_->dumpInternalVariables(streamVariables);
+}
+
+void
+ModelTwoWindingsTransformer::loadInternalVariables(stringstream& streamVariables) {
+  if (modelRatioChanger_)
+    modelRatioChanger_->loadInternalVariables(streamVariables);
+  if (modelPhaseChanger_)
+    modelPhaseChanger_->loadInternalVariables(streamVariables);
 }
 
 }  // namespace DYN

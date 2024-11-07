@@ -12,35 +12,7 @@
     of simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="Generator" variable="generator_UPu"/>
-  <curve model="Generator" variable="generator_PGen"/>
-  <curve model="Generator" variable="generator_QGen"/>
-  <curve model="Generator" variable="generator_PGenPu"/>
-  <curve model="Generator" variable="generator_QGenPu"/>
-  <curve model="Load1" variable="load_PPu"/>
-  <curve model="Load1" variable="load_QPu"/>
   <curve model="Load2" variable="load_PPu"/>
   <curve model="Load2" variable="load_QPu"/>
-  <curve model="Load3" variable="load_PPu"/>
-  <curve model="Load3" variable="load_QPu"/>
-  <curve model="Load4" variable="load_PPu"/>
-  <curve model="Load4" variable="load_QPu"/>
-  <curve model="Transformer" variable="transformer_terminal1_V_re"/>
-  <curve model="Transformer" variable="transformer_terminal1_V_im"/>
-  <curve model="Transformer" variable="transformer_terminal2_V_re"/>
-  <curve model="Transformer" variable="transformer_terminal2_V_im"/>
-  <curve model="Transformer" variable="transformer_terminal1_i_re"/>
-  <curve model="Transformer" variable="transformer_terminal1_i_im"/>
-  <curve model="Transformer" variable="transformer_terminal2_i_re"/>
-  <curve model="Transformer" variable="transformer_terminal2_i_im"/>
-  <curve model="Transformer" variable="transformer_P1Pu"/>
-  <curve model="Transformer" variable="transformer_Q1Pu"/>
-  <curve model="Transformer" variable="transformer_P2Pu"/>
-  <curve model="Transformer" variable="transformer_Q2Pu"/>
-  <curve model="Transformer" variable="transformer_U1Pu"/>
-  <curve model="Transformer" variable="transformer_U2Pu"/>
   <curve model="Bus1" variable="bus_U"/>
-  <curve model="Bus1" variable="bus_UPhaseDeg"/>
-  <curve model="Bus2" variable="bus_U"/>
-  <curve model="Bus2" variable="bus_UPhaseDeg"/>
 </curvesInput>

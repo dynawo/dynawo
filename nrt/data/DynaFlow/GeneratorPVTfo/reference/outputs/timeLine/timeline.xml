@@ -17,12 +17,12 @@
   <event time="70.000000" modelName="Generator8" message="Generator : maximum reactive power limit reached"/>
   <event time="70.000000" modelName="Generator11" message="Generator : maximum reactive power limit reached"/>
   <event time="70.000000" modelName="Generator7" message="Generator : maximum reactive power limit reached"/>
+  <event time="80.000000" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
   <event time="80.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.22"/>
   <event time="80.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.22"/>
   <event time="100.000000" modelName="Generator7" message="Generator : back to voltage / reactive power regulation"/>
   <event time="120.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.23"/>
   <event time="120.000000" modelName="SVC1" message="Secondary Voltage Regulation : new level 0.19"/>
-  <event time="140.000000" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
   <event time="140.000000" modelName="Generator11" message="Generator : back to voltage / reactive power regulation"/>
   <event time="180.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.24"/>
   <event time="180.000000" modelName="SVC3" message="Secondary Voltage Regulation : new level 0.19"/>

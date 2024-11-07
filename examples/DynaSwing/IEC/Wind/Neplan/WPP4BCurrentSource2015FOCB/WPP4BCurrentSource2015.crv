@@ -12,9 +12,9 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="WPP4A" variable="WPP_wPPControl2015_qControl_PWPPu"/>
-  <curve model="WPP4A" variable="WPP_wPPControl2015_qControl_QWPPu"/>
-  <curve model="WPP4A" variable="WPP_wPPControl2015_qControl_UWPPu"/>
+  <curve model="WPP4B" variable="WPP_wPPControl2015_qControl_PWPPu"/>
+  <curve model="WPP4B" variable="WPP_wPPControl2015_qControl_QWPPu"/>
+  <curve model="WPP4B" variable="WPP_wPPControl2015_qControl_UWPPu"/>
   <curve model="WPP4B" variable="WPP_terminal_V_re"/>
   <curve model="WPP4B" variable="WPP_terminal_V_im"/>
   <curve model="WPP4B" variable="WPP_terminal_i_re"/>

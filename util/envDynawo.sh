@@ -55,10 +55,13 @@ where [option] can be:"
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynaflow                        build DynaFlow related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaFlow models and solvers)
         build-dynaswing                       build DynaSwing related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaSwing models and solvers)
+        build-dynawaltz                       build DynaWaltz related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaWaltz models and solvers)
         build-dynawo-core                     build Dynawo without models
         build-dynawo-target                   build a specific Dynawo target (use help to see all cmake targets)
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
+        build-dynaflow-models                 build DynaFlow preassembled models
+        build-dynaswing-models                build DynaSwing preassembled models
         build-dynawaltz-models                build Dynawaltz preassembled models
         build-nrt-models                      build nrt preassembled models
         build-nrt-extend-models               build nrt extend preassembled models
@@ -925,6 +928,30 @@ build_dynawo_models() {
   fi
 }
 
+build_dynaflow_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED DYNAFLOW_MODELS || error_exit "Error during make models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target DYNAFLOW_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
+  fi
+}
+
+build_dynaswing_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED DYNASWING_MODELS || error_exit "Error during make models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target DYNASWING_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
+  fi
+}
+
 build_dynawaltz_models() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
@@ -1007,6 +1034,10 @@ build_dynaflow() {
 
 build_dynaswing() {
   build_dynaX DYNASWING_MODELS || error_exit "Error during build_dynaflow."
+}
+
+build_dynawaltz() {
+  build_dynaX DYNAWALTZ_MODELS || error_exit "Error during build_dynawaltz."
 }
 
 build_user() {
@@ -2299,6 +2330,10 @@ case $MODE in
     build_dynaswing || error_exit "Error while building DynaSwing"
     ;;
 
+  build-dynawaltz)
+    build_dynawaltz || error_exit "Error while building DynaWaltz"
+    ;;
+
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
@@ -2311,8 +2346,16 @@ case $MODE in
     build_dynawo_models || error_exit "Failed to build Dynawo models"
     ;;
 
+  build-dynaflow-models)
+    build_dynaflow_models || error_exit "Failed to build DynaFlow models"
+    ;;
+
+  build-dynaswing-models)
+    build_dynaswing_models || error_exit "Failed to build DynaSwing models"
+    ;;
+
   build-dynawaltz-models)
-    build_dynawaltz_models || error_exit "Failed to build Dynawaltz models"
+    build_dynawaltz_models || error_exit "Failed to build DynaWaltz models"
     ;;
 
   build-dynawo-models-cpp)

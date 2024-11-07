@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="LOAD_PQ" lib="LoadPQ" parFile="Test.par" parId="LoadPQ" staticId="LOAD_PQ"/>
+  <dyn:blackBoxModel id="LOAD_ZIP" lib="LoadZIP" parFile="Test.par" parId="LoadZIP" staticId="LOAD_ZIP"/>
+  <dyn:blackBoxModel id="IG1" lib="InertialGrid" parFile="Test.par" parId="InertialGrid1" staticId="IG1"/>
+  <dyn:blackBoxModel id="IG2" lib="InertialGrid" parFile="Test.par" parId="InertialGrid2" staticId="IG2"/>
+  <dyn:blackBoxModel id="PREFPU_LOADPQ" lib="Step" parFile="Test.par" parId="PRef"/>
+  <dyn:blackBoxModel id="DELTAP_LOADPQ" lib="Step" parFile="Test.par" parId="DeltaP"/>
+  <dyn:connect id1="LOAD_PQ" var1="load_terminal" id2="NETWORK" var2="BUS_IG1_ACPIN"/>
+  <dyn:connect id1="LOAD_ZIP" var1="load_terminal" id2="NETWORK" var2="BUS_L_ACPIN"/>
+  <dyn:connect id1="IG1" var1="inertialGrid_terminal" id2="NETWORK" var2="BUS_IG1_ACPIN"/>
+  <dyn:connect id1="IG2" var1="inertialGrid_terminal" id2="NETWORK" var2="BUS_IG2_ACPIN"/>
+  <dyn:connect id1="PREFPU_LOADPQ" var1="step_step_value" id2="LOAD_PQ" var2="load_PRefPu"/>
+  <dyn:connect id1="DELTAP_LOADPQ" var1="step_step_value" id2="LOAD_PQ" var2="load_deltaP"/>
+</dyn:dynamicModelsArchitecture>
