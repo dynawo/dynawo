@@ -13,5 +13,5 @@
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="omegaPu" type="continuous"/>
-  <variable id="omegaRefPu" type="continuous"/>
+  <variable id="omegaRefPu" type="continuous" optional="true"/>
 </external_variables>
