@@ -23,7 +23,11 @@ partial model GenSystem_interface "Interface class for generator system module (
 
   */
   extends Parameters.Nominal;
-  extends Parameters.Initial;
+  extends Parameters.InitialGenSystem;
+  extends Parameters.InitialPqGrid;
+  extends Parameters.InitialUGrid;
+  extends Parameters.InitialUGs;
+  extends Parameters.InitialIGs;
 
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = -IGsRe0Pu * SNom / SystemBase.SnRef), im(start = -IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(

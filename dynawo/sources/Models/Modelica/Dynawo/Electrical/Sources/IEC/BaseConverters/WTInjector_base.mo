@@ -14,8 +14,14 @@ partial model WTInjector_base "Converter model and grid interface according to I
     */
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   extends Parameters.Circuit;
+  extends Parameters.InitialGenSystem;
+  extends Parameters.InitialIGs;
+  extends Parameters.InitialPqGrid;
+  extends Parameters.InitialUGrid;
+  extends Parameters.InitialUGs;
+  extends Parameters.InitialUiGrid;
   extends Parameters.Nominal;
-  extends Parameters.Initial;
+  
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {105, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
