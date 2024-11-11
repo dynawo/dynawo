@@ -25,9 +25,6 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
                            ---
 */
 
-  //Nominal parameter
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-
   extends Parameters.Nominal;
   extends Parameters.Circuit;
   extends Parameters.Initial;
