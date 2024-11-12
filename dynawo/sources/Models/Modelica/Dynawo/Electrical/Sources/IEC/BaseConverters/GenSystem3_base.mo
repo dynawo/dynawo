@@ -75,7 +75,7 @@ model GenSystem3_base "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitP(Falling = -9999, Rising = DipMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-100, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = DiqMaxPu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitQ(Rising = DiqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addXRe(k2 = -1 / XEqv) annotation(
     Placement(visible = true, transformation(origin = {78, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -103,7 +103,7 @@ equation
     Line(points = {{-151.5, 44}, {-149.75, 44}, {-149.75, 52}, {-142, 52}}, color = {0, 0, 127}));
   connect(ipMaxPu, limitP.limit1) annotation(
     Line(points = {{-230, 80}, {-150, 80}, {-150, 68}, {-142, 68}}, color = {0, 0, 127}));
-  connect(limitQ.y, slewRateLimiter.u) annotation(
+  connect(limitQ.y, rateLimitQ.u) annotation(
     Line(points = {{-119, -20}, {-112, -20}}, color = {0, 0, 127}));
   connect(limitP.y, rateLimitP.u) annotation(
     Line(points = {{-119, 60}, {-112, 60}}, color = {0, 0, 127}));
