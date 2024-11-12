@@ -36,7 +36,7 @@ model CoordinatedVControl "System with two generators and a coordinated voltage 
 
   // Generators Control
   Dynawo.Electrical.Controls.Basics.Step SignalN(Height = 0.1, Value0 = 0, tStep = 70);
-  Dynawo.Electrical.Controls.Voltage.VRRemote SignalNQ(FreezingActivated = true, Gain = 1, NbGenMax = 2, U0 = 1.05, URef0 = 1.05, tIntegral = 10);
+  Dynawo.Electrical.Controls.Voltage.VRRemote SignalNQ(FreezingActivated = true, Gain = 1, NbGenMax = 2, U0Pu = 1.05, URef0Pu = 1.05, tIntegral = 10);
 
   // Event
   Dynawo.Electrical.Events.Event.SingleBooleanEvent DisconnectLine(stateEvent1 = true, tEvent = 50);
@@ -60,8 +60,8 @@ equation
   Generator2.N = SignalN.step.value;
   Generator2.NQ = SignalNQ.NQ;
   Generator2.PRefPu = Generator2.PRef0Pu;
-  SignalNQ.URegulated = Generator1.UPu;
-  SignalNQ.URef = SignalNQ.URef0;
+  SignalNQ.URegulatedPu = Generator1.UPu;
+  SignalNQ.URefPu = SignalNQ.URef0Pu;
   SignalNQ.limUQDown[1] = Generator1.limUQDown;
   SignalNQ.limUQDown[2] = Generator2.limUQDown;
   SignalNQ.limUQUp[1] = Generator1.limUQUp;
