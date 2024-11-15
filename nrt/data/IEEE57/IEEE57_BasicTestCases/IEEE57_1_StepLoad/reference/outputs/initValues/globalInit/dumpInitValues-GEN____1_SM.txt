@@ -1,13 +1,13 @@
  ====== VARIABLES VALUES ======
-generator_lambdaDPu                               : y =       0.976546 yp =      -0.000042
-generator_lambdaQ1Pu                              : y =      -0.441756 yp =      -0.000009
-generator_lambdaQ2Pu                              : y =      -0.441756 yp =      -0.000050
-generator_lambdafPu                               : y =       1.150966 yp =       0.000001
-generator_omegaPu_value                           : y =       1.000000 yp =      -0.000002
+generator_lambdaDPu                               : y =       0.976546 yp =       0.000000
+generator_lambdaQ1Pu                              : y =      -0.441756 yp =       0.000000
+generator_lambdaQ2Pu                              : y =      -0.441756 yp =       0.000000
+generator_lambdafPu                               : y =       1.150966 yp =       0.000000
+generator_omegaPu_value                           : y =       1.000000 yp =       0.000000
 generator_omegaRefPu_value                        : y =       1.000000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.000008 yp =       0.000000
 generator_terminal_V_re                           : y =       1.039999 yp =       0.000000
-generator_theta                                   : y =       0.516384 yp =      -0.000000
+generator_theta                                   : y =       0.516384 yp =       0.000000
 governor_PmRefPu                                  : y =       0.311303 yp =       0.000000
 governor_deltaPmRefPu                             : y =       0.000000 yp =       0.000000
 voltageRegulator_UsRefPu                          : y =       1.126912 yp =       0.000000
@@ -72,13 +72,13 @@ voltageRegulator_limUsRef_u                       : alias of voltageRegulator_Us
 voltageRegulator_limUsRef_y                       : alias of voltageRegulator_feedback_u1
 voltageRegulator_limiterWithLag_u                 : alias of voltageRegulator_gain_y
 voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_EfdPu
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu_value                          : y =       1.586429
 generator_IStatorPu_value                         : y =       4.766626
-generator_PGen                                    : y =     478.690052
+generator_PGen                                    : y =     478.690050
 generator_PGenPu                                  : y =       4.786901
 generator_PePu                                    : y =       0.280190
-generator_QGen                                    : y =     128.851034
+generator_QGen                                    : y =     128.851028
 generator_QGenPu                                  : y =       1.288510
 generator_QStatorPu_value                         : y =       1.421380
 generator_QStatorPuQNom_value                     : y =       0.190694
@@ -95,7 +95,7 @@ governor_PmCst_y                                  : y =       0.311303
 governor_feedback_u1                              : y =       1.000000
 governor_omegaRefPu_y                             : y =       1.000000
 governor_switch_u3                                : y =       0.311303
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 voltageRegulator_limiterWithLag_tUMaxReached      : z =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached      : z =   1.000000e+60
 generator_running_value                           : z =       1.000000

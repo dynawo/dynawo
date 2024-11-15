@@ -1,7 +1,7 @@
  ====== VARIABLES VALUES ======
 tapChanger_UMonitored_value                       : y =       0.992373 yp =       0.000000
 tapChanger_valueToMonitor_value                   : alias of tapChanger_UMonitored_value
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 tapChanger_tTapDown                               : z =   1.000000e+60
 tapChanger_tTapUp                                 : z =   1.000000e+60
 tapChanger_tValueAboveMaxWhileRunning             : z =   1.000000e+60

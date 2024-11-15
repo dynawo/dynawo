@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 omegaRef_0_value                                  : y =       1.000000 yp =       0.000000
 omegaRef_1_value                                  : y =       1.000000 yp =       0.000000
 omegaRef_2_value                                  : y =       1.000000 yp =       0.000000
@@ -23,7 +23,7 @@ omegaRef_grp_3_value                              : y =       1.000000 yp =     
 omegaRef_grp_4_value                              : y =       1.000000 yp =       0.000000
 omegaRef_grp_5_value                              : y =       1.000000 yp =       0.000000
 omegaRef_grp_6_value                              : y =       1.000000 yp =       0.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 numcc_node_0_value                                : z =       0.000000
 numcc_node_1_value                                : z =       0.000000
 numcc_node_2_value                                : z =       0.000000
@@ -47,3 +47,4 @@ weight_gen_3                                       =    8755.200000
 weight_gen_4                                       =    6539.400000
 weight_gen_5                                       =    6539.400000
 weight_gen_6                                       =    9281.250000
+ ====== INTERNAL PARAMETERS VALUES ======

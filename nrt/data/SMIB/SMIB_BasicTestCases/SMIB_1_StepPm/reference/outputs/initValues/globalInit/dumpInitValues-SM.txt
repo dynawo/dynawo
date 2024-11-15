@@ -1,9 +1,9 @@
  ====== VARIABLES VALUES ======
-generator_lambdaDPu                               : y =       0.908445 yp =       0.000381
+generator_lambdaDPu                               : y =       0.908445 yp =       0.000000
 generator_lambdaQ1Pu                              : y =      -0.577451 yp =       0.000000
-generator_lambdaQ2Pu                              : y =      -0.577451 yp =       0.000009
-generator_lambdafPu                               : y =       1.162561 yp =      -0.000030
-generator_omegaPu_value                           : y =       1.000000 yp =       0.000006
+generator_lambdaQ2Pu                              : y =      -0.577451 yp =       0.000000
+generator_lambdafPu                               : y =       1.162561 yp =       0.000000
+generator_omegaPu_value                           : y =       1.000000 yp =       0.000000
 generator_omegaRefPu_value                        : y =       1.000000 yp =       0.000000
 generator_terminal_V_im                           : y =       0.474565 yp =       0.000000
 generator_terminal_V_re                           : y =       0.880236 yp =       0.000000
@@ -40,9 +40,9 @@ generator_udPu                                    : y =       0.637107 yp =     
 generator_ufPu                                    : y =       0.001119 yp =       0.000000
 generator_uqPu                                    : y =       0.770793 yp =       0.000000
 governor_PmPu                                     : y =       0.903000 yp =       0.000000
-governor_PmRawPu_u3                               : y =      -0.000000 yp =       0.000000
+governor_PmRawPu_u3                               : y =       0.000000 yp =       0.000000
 governor_PmRawPu_y                                : y =       0.903000 yp =       0.000000
-governor_feedback_y                               : y =      -0.000000 yp =       0.000000
+governor_feedback_y                               : y =       0.000000 yp =       0.000000
 governor_limiter_y                                : y =       0.903000 yp =       0.000000
 voltageRegulator_EfdPu                            : y =       2.557825 yp =       0.000000
 voltageRegulator_UsPu                             : y =       1.000014 yp =       0.000000
@@ -72,13 +72,13 @@ voltageRegulator_limUsRef_u                       : alias of voltageRegulator_Us
 voltageRegulator_limUsRef_y                       : alias of voltageRegulator_feedback_u1
 voltageRegulator_limiterWithLag_u                 : alias of voltageRegulator_gain_y
 voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_EfdPu
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu_value                          : y =       2.558042
 generator_IStatorPu_value                         : y =      22.199818
-generator_PGen                                    : y =    1997.905158
+generator_PGen                                    : y =    1997.905157
 generator_PGenPu                                  : y =      19.979052
 generator_PePu                                    : y =       0.902957
-generator_QGen                                    : y =     967.900295
+generator_QGen                                    : y =     967.900293
 generator_QGenPu                                  : y =       9.679003
 generator_QStatorPu_value                         : y =       9.679003
 generator_QStatorPuQNom_value                     : y =       3.255401
@@ -95,7 +95,7 @@ governor_PmCst_y                                  : y =       0.903000
 governor_feedback_u1                              : y =       1.000000
 governor_omegaRefPu_y                             : y =       1.000000
 governor_switch_u3                                : y =       0.903000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 voltageRegulator_limiterWithLag_tUMaxReached      : z =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached      : z =   1.000000e+60
 generator_running_value                           : z =       1.000000
