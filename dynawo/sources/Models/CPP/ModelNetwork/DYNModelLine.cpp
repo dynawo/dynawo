@@ -872,43 +872,46 @@ ModelLine::evalZ(const double& t) {
       z_[0] = OPEN;
   }
 
+  State currState = static_cast<State>(static_cast<int>(z_[0]));
   switch (knownBus_) {
-  case BUS1_BUS2:
-  {
-    if (modelBus1_->getConnectionState() == OPEN && modelBus2_->getConnectionState() == OPEN) {
-      z_[0] = OPEN;
-    } else if (modelBus1_->getConnectionState() == OPEN) {
-      if (getConnectionState() == CLOSED_1)
+    case BUS1_BUS2:
+    {
+      if (modelBus1_->getSwitchOff() && modelBus2_->getSwitchOff()) {
         z_[0] = OPEN;
-      else if (getConnectionState() == OPEN)
-        z_[0] = OPEN;
-      else if (getConnectionState() == CLOSED_2 || getConnectionState() == CLOSED)
-        z_[0] = CLOSED_2;
-    } else if (modelBus2_->getConnectionState() == OPEN) {
-      if (getConnectionState() == CLOSED_2)
-        z_[0] = OPEN;
-      else if (getConnectionState() == OPEN)
-        z_[0] = OPEN;
-      else if (getConnectionState() == CLOSED_1 || getConnectionState() == CLOSED)
-        z_[0] = CLOSED_1;
+      } else if (modelBus1_->getSwitchOff()) {
+        if (currState == CLOSED_1)
+          z_[0] = OPEN;
+        else if (currState == OPEN)
+          z_[0] = OPEN;
+        else if (currState == CLOSED_2 || currState == CLOSED)
+          z_[0] = CLOSED_2;
+      } else if (modelBus2_->getSwitchOff()) {
+        if (currState == CLOSED_2)
+          z_[0] = OPEN;
+        else if (currState == OPEN)
+          z_[0] = OPEN;
+        else if (currState == CLOSED_1 || currState == CLOSED)
+          z_[0] = CLOSED_1;
+      }
+      break;
     }
-    break;
-  }
-  case BUS1:
-  {
-    if (modelBus1_->getConnectionState() == OPEN)
-      z_[0] = OPEN;
-    break;
-  }
-  case BUS2:
-  {
-    if (modelBus2_->getConnectionState() == OPEN)
-      z_[0] = OPEN;
-    break;
-  }
+    case BUS1:
+    {
+      if (modelBus1_->getSwitchOff())
+        if (currState == CLOSED_1)
+          z_[0] = OPEN;
+      break;
+    }
+    case BUS2:
+    {
+      if (modelBus2_->getSwitchOff())
+        if (currState == CLOSED_2)
+          z_[0] = OPEN;
+      break;
+    }
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[0]));
+  currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
@@ -958,16 +961,24 @@ ModelLine::evalZ(const double& t) {
             DYNAddTimelineEvent(network_, id_, LineClosed);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            if (modelBus1_->getSwitchOff())
+              modelBus1_->switchOn();
+            if (modelBus2_->getSwitchOff())
+              modelBus2_->switchOn();
             break;
           case CLOSED:
             break;
           case CLOSED_1:
             DYNAddTimelineEvent(network_, id_, LineCloseSide2);
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            if (modelBus2_->getSwitchOff())
+              modelBus2_->switchOn();
             break;
           case CLOSED_2:
             DYNAddTimelineEvent(network_, id_, LineCloseSide1);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+            if (modelBus1_->getSwitchOff())
+              modelBus1_->switchOn();
             break;
           case CLOSED_3:
             topologyModified_ = false;
@@ -984,6 +995,8 @@ ModelLine::evalZ(const double& t) {
             case OPEN:
               DYNAddTimelineEvent(network_, id_, LineCloseSide1);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              if (modelBus1_->getSwitchOff())
+                modelBus1_->switchOn();
               break;
             case CLOSED:
               DYNAddTimelineEvent(network_, id_, LineOpenSide2);
@@ -996,6 +1009,8 @@ ModelLine::evalZ(const double& t) {
               DYNAddTimelineEvent(network_, id_, LineOpenSide2);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              if (modelBus1_->getSwitchOff())
+                modelBus1_->switchOn();
               break;
             case CLOSED_3:
               topologyModified_ = false;
@@ -1012,6 +1027,8 @@ ModelLine::evalZ(const double& t) {
               case OPEN:
                 DYNAddTimelineEvent(network_, id_, LineCloseSide2);
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (modelBus2_->getSwitchOff())
+                  modelBus2_->switchOn();
                 break;
               case CLOSED:
                 DYNAddTimelineEvent(network_, id_, LineOpenSide1);
@@ -1022,6 +1039,8 @@ ModelLine::evalZ(const double& t) {
                 DYNAddTimelineEvent(network_, id_, LineOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (modelBus2_->getSwitchOff())
+                  modelBus2_->switchOn();
                 break;
               case CLOSED_2:
                 break;
