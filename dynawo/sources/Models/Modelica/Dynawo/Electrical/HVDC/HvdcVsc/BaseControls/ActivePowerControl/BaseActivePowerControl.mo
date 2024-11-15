@@ -47,7 +47,7 @@ model BaseActivePowerControl "Base active power control for the HVDC VSC model"
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = POpMaxPu, uMin = POpMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = POpMaxPu, uMin = POpMinPu) annotation(
     Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = SlopePRefPu, y(start = P0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

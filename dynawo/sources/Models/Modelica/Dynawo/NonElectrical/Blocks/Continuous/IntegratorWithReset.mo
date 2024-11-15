@@ -30,7 +30,7 @@ block IntegratorWithReset "Integrator with absolute limits and reset"
 
   Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tI, y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = YMax, uMin = YMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));

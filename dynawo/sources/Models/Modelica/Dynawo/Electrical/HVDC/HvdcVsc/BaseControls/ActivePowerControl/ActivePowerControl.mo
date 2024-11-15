@@ -26,7 +26,7 @@ model ActivePowerControl "Active power control for the HVDC VSC model"
     Placement(visible = true, transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UDcMaxPu, uMin = UDcMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = UDcMaxPu, uMin = UDcMinPu) annotation(
     Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = KiDeltaP, Kp = KpDeltaP, Y0 = 0, YMax = IpMaxPu, YMin = -IpMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -45,7 +45,7 @@ model REGCbCS "WECC Generator/Converter type B with current source interface"
     Placement(visible = true, transformation(origin = {120, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = -1) annotation(
     Placement(visible = true, transformation(origin = {40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0.01) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 999, uMin = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-80, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tG, UseRateLim = true, Y0 = Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

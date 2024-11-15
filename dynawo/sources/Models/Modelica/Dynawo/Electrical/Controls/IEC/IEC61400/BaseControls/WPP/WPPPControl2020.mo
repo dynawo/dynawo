@@ -39,7 +39,7 @@ model WPPPControl2020 "Active power control module for wind power plants (IEC NÂ
 
   Modelica.Blocks.Math.Add3 add3 annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PErrMaxPu, uMin = PErrMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = PErrMaxPu, uMin = PErrMinPu) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

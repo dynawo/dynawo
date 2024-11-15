@@ -65,7 +65,7 @@ model AcVoltageControl "AC voltage control for HVDC"
     Placement(visible = true, transformation(origin = {-90, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = InPu) annotation(
     Placement(visible = true, transformation(origin = {-50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,7 +75,7 @@ model AcVoltageControl "AC voltage control for HVDC"
     Placement(visible = true, transformation(origin = {-270, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tMeasure, y_start = P0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 2, uMin = 0.1) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 2, uMin = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold annotation(
     Placement(visible = true, transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

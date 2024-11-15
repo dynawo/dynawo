@@ -63,7 +63,7 @@ model IEEEG1 "Steam turbine governor"
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limitedIntegrator(outMax = PMaxPu, outMin = PMinPu, y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = Uo, uMin = Uc) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = Uo, uMin = Uc) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = t7, y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

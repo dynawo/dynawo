@@ -73,7 +73,7 @@ model ExAc1 "IEEE exciter type EXAC1 model, defined in IEEE 1981 Excitation Syst
     Placement(visible = true, transformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(Asq = VExcThresholdPu, Bsq = Bsq, Sq = Sq, UHigh = VExcHighPu, ULow = VExcLowPu, YHigh = VExcSatHighPu, YLow = VExcSatLowPu) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 999, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

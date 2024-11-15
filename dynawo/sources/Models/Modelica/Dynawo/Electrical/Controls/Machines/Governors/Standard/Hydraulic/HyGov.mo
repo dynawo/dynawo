@@ -76,7 +76,7 @@ model HyGov "Governor type HYGOV"
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {240, -20}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VelMaxPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VelMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-190, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = 1 / tR, Kp = 1, Y0 = OpeningGate0, YMax = OpeningGateMax, YMin = OpeningGateMin) annotation(
     Placement(visible = true, transformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

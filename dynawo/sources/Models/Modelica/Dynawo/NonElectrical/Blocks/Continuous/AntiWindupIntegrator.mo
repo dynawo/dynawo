@@ -32,11 +32,11 @@ block AntiWindupIntegrator "Integrator with absolute and rate limits, anti windu
 
   Modelica.Blocks.Math.Gain gain(k = 1 / tI) annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = DyMax, uMin = DyMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = DyMax, uMin = DyMin) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = YMax, uMin = YMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

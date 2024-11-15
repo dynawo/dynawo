@@ -27,7 +27,7 @@ block LimRateLimFirstOrder "First-order filter with non-windup limiter and slew 
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = DuMax, uMin = DuMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = DuMax, uMin = DuMin) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

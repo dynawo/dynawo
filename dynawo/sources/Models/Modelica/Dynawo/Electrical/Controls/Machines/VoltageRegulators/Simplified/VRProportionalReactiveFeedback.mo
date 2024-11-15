@@ -49,9 +49,9 @@ model VRProportionalReactiveFeedback
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 error(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterEfd(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EfdMaxPu, uMin = EfdMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterEfd(uMax = EfdMaxPu, uMin = EfdMinPu) annotation(
     Placement(visible = true, transformation(origin = {170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterQ(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = QsMaxPu, uMin = QsMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterQ(uMax = QsMaxPu, uMin = QsMinPu) annotation(
     Placement(visible = true, transformation(origin = {-90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-40, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -59,7 +59,7 @@ model VRProportionalReactiveFeedback
     Placement(visible = true, transformation(origin = {10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UsRefTotal annotation(
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -42,7 +42,7 @@ model Uel1 "IEEE (2016) underexcitation limiter type UEL1 model"
   Modelica.Blocks.Interfaces.RealOutput UUelPu(start = 0) "Underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VUiMaxPu, uMin = VUiMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VUiMaxPu, uMin = VUiMinPu) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.Add add1(k1 = Complex(Kuc, 0), k2 = Complex(0, -1)) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -50,9 +50,9 @@ model Uel1 "IEEE (2016) underexcitation limiter type UEL1 model"
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VUrMaxPu, uMin = -999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = VUrMaxPu, uMin = -999) annotation(
     Placement(visible = true, transformation(origin = {-50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VUcMaxPu, uMin = -999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = VUcMaxPu, uMin = -999) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kur) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

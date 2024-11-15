@@ -38,13 +38,13 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   discrete Real levelDiscrete(start = Level0) "Discrete level demand";
 
   //Blocks
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 1) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 1) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(outMax = 1, y_start = Level0) annotation(
     Placement(visible = true, transformation(origin = {50, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = DerLevelMaxPu / 60) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = DerLevelMaxPu / 60) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Alpha) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

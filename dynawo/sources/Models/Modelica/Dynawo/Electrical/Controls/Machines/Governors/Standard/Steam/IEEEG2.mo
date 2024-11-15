@@ -40,7 +40,7 @@ model IEEEG2 "IEEE governor type IEEEG2"
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k2 = -K) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = PMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = PMaxPu, uMin = PMinPu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t4 / 2, 1}, b = {-t4, 1}, x_scaled(start = {Pm0Pu}), x_start = {Pm0Pu}, y(start = Pm0Pu)) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

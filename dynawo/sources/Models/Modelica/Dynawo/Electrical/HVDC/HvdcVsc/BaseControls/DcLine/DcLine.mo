@@ -29,8 +29,8 @@ model DcLine "DC line model"
   Modelica.Blocks.Interfaces.RealOutput UDc2Pu(start = UDc20Pu) "DC voltage at terminal 2 in pu (base UDcNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 1, uMin = -1);
-  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 1, uMin = -1);
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = 1, uMin = -1);
+  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = 1, uMin = -1);
 
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SNom) (DC to AC)";
   parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SNom) (DC to AC)";

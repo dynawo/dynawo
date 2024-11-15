@@ -118,7 +118,7 @@ model GovSteam1 "Steam turbine governor, based on the GovSteamIEEE1 (with option
     Placement(visible = true, transformation(origin = {420, -50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.LimIntegrator limitedIntegrator(outMax = PMaxPu, outMin = PMinPu, y_start = PmRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = Uo, uMin = Uc) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = Uo, uMin = Uc) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds pgv(fileName = TablesFile, tableName = PgvTableName, tableOnFile = true) annotation(
 Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

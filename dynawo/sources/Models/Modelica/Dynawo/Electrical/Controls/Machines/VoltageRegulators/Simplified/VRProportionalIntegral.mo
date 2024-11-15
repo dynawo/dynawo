@@ -54,7 +54,7 @@ model VRProportionalIntegral "Proportional integral voltage regulator, keeps mac
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackNonWindUp annotation(
     Placement(visible = true, transformation(origin = {120, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Nonlinear.Limiter limUsRef(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UsRefMaxPu, uMin = UsRefMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limUsRef(uMax = UsRefMaxPu, uMin = UsRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UsRefTotal annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

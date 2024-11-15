@@ -64,9 +64,9 @@ model Pss6c "IEEE power system stabilizer type 6C"
 
   Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-370, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PGenMaxPu, uMin = PGenMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = PGenMaxPu, uMin = PGenMinPu) annotation(
     Placement(visible = true, transformation(origin = {-310, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = OmegaMaxPu, uMin = OmegaMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = OmegaMaxPu, uMin = OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-310, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t1, y_start = PGen0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-270, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -96,7 +96,7 @@ model Pss6c "IEEE power system stabilizer type 6C"
     Placement(visible = true, transformation(origin = {270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum2(nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-10, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
     Placement(visible = true, transformation(origin = {310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Hysteresis hysteresis(uHigh = PPssOnPu, uLow = PPssOffPu, y(start = PGen0Pu * SystemBase.SnRef / SNom > PPssOffPu)) annotation(
     Placement(visible = true, transformation(origin = {-310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

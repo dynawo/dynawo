@@ -63,9 +63,9 @@ model Pss2c "IEEE power system stabilizer type 2C"
   Modelica.Blocks.Interfaces.RealOutput VPssPu(start = 0) "Voltage output of power system stabilizer in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {370, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = OmegaMaxPu, uMin = OmegaMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = OmegaMaxPu, uMin = OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-250, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PGenMaxPu, uMin = PGenMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = PGenMaxPu, uMin = PGenMinPu) annotation(
     Placement(visible = true, transformation(origin = {-250, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-310, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -97,7 +97,7 @@ model Pss2c "IEEE power system stabilizer type 2C"
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction3(a = {t13, 1}, b = {t12, 1}) annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
     Placement(visible = true, transformation(origin = {270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Hysteresis hysteresis(uHigh = PPssOnPu, uLow = PPssOffPu, y(start = PGen0Pu * SystemBase.SnRef / SNom > PPssOffPu)) annotation(
     Placement(visible = true, transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

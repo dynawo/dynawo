@@ -54,7 +54,7 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-69, -91}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter PRefLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = FEMaxPu, uMin = FEMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter PRefLim(uMax = FEMaxPu, uMin = FEMinPu) annotation(
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimPID limPID(Ti = Kpg / Kig, controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpg, xi_start = PInj0Pu / Kpg, yMax = PMaxPu, yMin = PMinPu, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -62,7 +62,7 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tP, y_start = PGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter QVErrLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EMaxPu, uMin = EMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter QVErrLim(uMax = EMaxPu, uMin = EMinPu) annotation(
     Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {150, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -100,9 +100,9 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-190, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = DUp) annotation(
     Placement(visible = true, transformation(origin = {-190, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 0, uMin = -999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = 0, uMin = -999) annotation(
     Placement(visible = true, transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = 999, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-149, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
