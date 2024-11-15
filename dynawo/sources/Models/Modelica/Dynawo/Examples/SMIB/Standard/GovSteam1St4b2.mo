@@ -153,10 +153,6 @@ equation
   connect(generatorSynchronous.omegaPu, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const.y, avr.USclOelPu) annotation(
-    Line(points = {{152, 80}, {148, 80}, {148, 68}, {142, 68}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const.y, avr.USclUelPu) annotation(
-    Line(points = {{152, 80}, {148, 80}, {148, 64}, {142, 64}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(UPssPu.y, avr.UPssPu) annotation(
     Line(points = {{101, 0}, {110, 0}, {110, 50}, {118, 50}}, color = {0, 0, 127}));
   connect(UsRefPu.y, avr.UsRefPu) annotation(

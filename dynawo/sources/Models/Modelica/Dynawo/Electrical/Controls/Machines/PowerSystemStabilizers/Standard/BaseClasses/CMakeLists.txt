@@ -13,6 +13,8 @@ set(MODEL_FILES
     package.mo
     package.order
     BasePss1a.mo
+    BasePss2.mo
+    BasePss3.mo
     )
 
 #
