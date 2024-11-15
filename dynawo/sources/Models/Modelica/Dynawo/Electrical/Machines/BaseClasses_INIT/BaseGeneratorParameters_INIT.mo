@@ -25,7 +25,7 @@ partial model BaseGeneratorParameters_INIT "Base initialization model for simpli
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-  Types.ComplexCurrentPu i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

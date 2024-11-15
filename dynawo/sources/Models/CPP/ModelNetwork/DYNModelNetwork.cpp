@@ -72,6 +72,8 @@
 #include "DYNElement.h"
 #include "DYNSolverKINSubModel.h"
 
+#include "DYNFileSystemUtils.h"
+
 
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
@@ -1230,7 +1232,43 @@ ModelNetwork::initParams() {
                                   parameters::ParametersSetFactory::newParametersSet("networkModelLocalInitParameters");
   networkModelLocalInitParameters->createParameter("mxiter", 5);
 
+  Trace::debug() << DYNLog(SolveParameters, name()) << Trace::endline;
+
   solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], networkModelLocalInitParameters);
+
+  /*static std::string baseY = "tmpSolY/solY-";
+  static std::string baseYp = "tmpSolYp/solYp-";
+  stringstream nomFichierY;
+  nomFichierY << baseY << "Init" << ".txt";
+  stringstream nomFichierYp;
+  nomFichierYp << baseYp << "Init" << ".txt";
+
+  if (!exists("tmpSolY")) {
+    create_directory("tmpSolY");
+  }
+
+  if (!exists("tmpSolYp")) {
+    create_directory("tmpSolYp");
+  }
+
+  const auto& xNames = xNamesInit();
+
+  std::ofstream fileY;
+  fileY.open(nomFichierY.str().c_str(), std::ofstream::out);
+
+  for (unsigned int i = 0; i < yLocalInit_.size(); ++i) {
+    fileY << i << " " << xNames[i] << " " << yLocalInit_[i] << "\n";
+  }
+
+  std::ofstream fileYp;
+  fileYp.open(nomFichierYp.str().c_str(), std::ofstream::out);
+
+  for (unsigned int i = 0; i < ypLocalInit_.size(); ++i) {
+    fileYp << i << " " << xNames[i] << " " << ypLocalInit_[i] << "\n";
+  }
+
+  fileY.close();
+  fileYp.close();*/
 
   try {
   solver.solve();
@@ -1485,6 +1523,13 @@ ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
     return false;
   }
   return true;
+}
+
+void
+ModelNetwork::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) {
+  for (const auto& component : initComponents_) {
+    component->instantiateVariables(variables);
+  }
 }
 
 }  // namespace DYN

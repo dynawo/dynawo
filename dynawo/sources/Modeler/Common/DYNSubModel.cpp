@@ -1285,7 +1285,7 @@ SubModel::hasConstraints() const {
 }
 
 string
-SubModel::getFequationByLocalIndex(const int index) {
+SubModel::getFequationByLocalIndex(const int index) const {
   map<int, string>::const_iterator it = fEquationIndex().find(index);
   if (it != fEquationIndex().end()) {
     return it->second;
