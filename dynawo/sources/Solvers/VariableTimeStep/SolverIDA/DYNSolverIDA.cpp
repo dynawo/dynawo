@@ -367,13 +367,26 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 #endif
 
   // Updating discrete variable values and mode
+  Trace::debug() << "Updating discrete variable values and mode" << Trace::endline;
   model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+  Trace::debug() << "Updating evalG" << Trace::endline;
   model_->evalG(tSolve_, g0_);
+  Trace::debug() << "Updating evalZMode" << Trace::endline;
   evalZMode(g0_, g1_, tSolve_);
+  Trace::debug() << "End Updating discrete variable values and mode" << Trace::endline;
 
   model_->rotateBuffers();
   state_.reset();
   model_->reinitMode();
+
+  /*int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
+  analyseFlag(flag);
+  Trace::debug() << "End IDACalcIC" << Trace::endline;
+
+  // gathering of values computed by IDACalcIC
+  flag = IDAGetConsistentIC(IDAMem_, sundialsVectorY_, sundialsVectorYp_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetConsistentIC");*/
 
   // loops until a stable state is found
   bool change(true);
@@ -388,10 +401,12 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   solverKINNormal_->setCheckJacobian(true);
 #endif
   do {
+    Trace::debug() << "Start algebraic restoration" << Trace::endline;
     // call to solver KIN in order to find the new (adequate) algebraic variables' values
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
+    Trace::debug() << "End algebraic restoration" << Trace::endline;
 
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
@@ -406,8 +421,10 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     }
 #endif
     flagInit_ = true;
+    Trace::debug() << "Start IDACalcIC" << Trace::endline;
     int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
+    Trace::debug() << "End IDACalcIC" << Trace::endline;
 
     // gathering of values computed by IDACalcIC
     flag = IDAGetConsistentIC(IDAMem_, sundialsVectorY_, sundialsVectorYp_);
@@ -430,13 +447,17 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     // Root stabilization
     change = false;
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+    Trace::debug() << "Start calculateIC evalG" << Trace::endline;
     model_->evalG(tSolve_, g1_);
+    Trace::debug() << "End calculateIC evalG" << Trace::endline;
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
 #ifdef _DEBUG_
         printUnstableRoot(tSolve_, g0_, g1_);
 #endif
       g0_.assign(g1_.begin(), g1_.end());
+      Trace::debug() << "Start calculateIC evalZMode" << Trace::endline;
       change = evalZMode(g0_, g1_, tSolve_);
+      Trace::debug() << "End calculateIC evalZMode" << Trace::endline;
     }
 
     model_->rotateBuffers();
