@@ -279,7 +279,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
+  const int nbErr = 50;
   Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, size_t> > fErr;
   for (size_t i = 0; i < solver->indexF_.size(); ++i)

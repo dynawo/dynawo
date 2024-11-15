@@ -51,7 +51,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal side in pu (base SnRef)";
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal side (base UNom)";
-  Types.ComplexCurrentPu i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
+  flow Types.ComplexCurrentPu i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
   Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in pu (base SNom)";
   Types.CurrentModulePu I0Pu "Start value of current module at terminal side in pu (base UNom, SNom)";
 
