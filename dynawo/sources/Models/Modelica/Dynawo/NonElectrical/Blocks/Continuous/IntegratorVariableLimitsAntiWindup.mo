@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,21 +13,16 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimits "Integrator with limited value of output (variable limits) and freeze"
+model IntegratorVariableLimitsAntiWindup "Integrator with limited value of output (variable limits) and anti-windup"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
-  parameter Types.Time tDer = 0.01 "Time constant of derivative filters for limits, in s";
+  parameter Types.PerUnit Kaw "Antiwindup gain";
   parameter Types.PerUnit Tol "Tolerance on limit crossing as a fraction of the difference between initial limits";
-
-  Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0);
-  Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0);
 
   final parameter Boolean FrozenMax0 = Y0 > LimitMax0 - Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at upper limit";
   final parameter Boolean FrozenMin0 = Y0 < LimitMin0 + Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at lower limit";
 
 protected
-  Real derLimitMax(start = 0) "Filtered derivative of upper limit";
-  Real derLimitMin(start = 0) "Filtered derivative of lower limit";
   Boolean isFrozenMax(start = FrozenMax0) "If true, integration is frozen at upper limit";
   Boolean isFrozenMin(start = FrozenMin0) "If true, integration is frozen at lower limit";
   Boolean keepFreezingMax(start = FrozenMax0) "If true, integration stays frozen at upper limit";
@@ -36,20 +31,15 @@ protected
   Boolean startFreezingMin(start = FrozenMin0) "If true, integration becomes frozen at lower limit";
 
 equation
-  limitMax = derivativeLimitMax.u;
-  limitMin = derivativeLimitMin.u;
-  derLimitMax = derivativeLimitMax.y;
-  derLimitMin = derivativeLimitMin.y;
-
-  v = K * u;
-
-  startFreezingMax = w > limitMax and v > derLimitMax;
-  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > derLimitMax and pre(isFrozenMax);
+  startFreezingMax = w > limitMax and v > 0;
+  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > 0 and pre(isFrozenMax);
   isFrozenMax = startFreezingMax or keepFreezingMax;
 
-  startFreezingMin = w < limitMin and v < derLimitMin;
-  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < derLimitMin and pre(isFrozenMin);
+  startFreezingMin = w < limitMin and v < 0;
+  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < 0 and pre(isFrozenMin);
   isFrozenMin = startFreezingMin or keepFreezingMin;
+
+  v = K * u + Kaw * (y - w);
 
   if isFrozenMax then
     w = limitMax;
@@ -63,7 +53,7 @@ equation
     preferredView = "text",
     Documentation(info= "<html><head></head><body><p>
 This blocks computes <strong>w</strong> as <em>integral</em>
-of the input <strong>u</strong> multiplied by the gain <em>K</em>.</p>
+of variable&nbsp;<strong>v&nbsp;</strong>which is equal to input <b>u</b> multiplied by gain <em>K</em> added to an antiwindup term.</p>
 
 <p>If the integral reaches a given upper limit <b>limitMax</b> or lower limit&nbsp;<b>limitMin</b>, the integration is halted and only restarted if the input drives
 the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p>
@@ -110,4 +100,4 @@ the integral away from the bounds, with a sufficient margin defined by <em>Tol</
           extent={{-8,-2},{60,-60}},
           textString="s"),
         Line(points={{4,0},{46,0}})}));
-end IntegratorVariableLimits;
+end IntegratorVariableLimitsAntiWindup;
