@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,27 +13,21 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimits "Integrator with limited value of output (variable limits) and freeze"
+model IntegratorVariableLimitsContinuous "Integrator with limited value of output (variable limits) and freeze"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
-  parameter Types.Time tDer = 0.01 "Time constant of derivative filters for limits, in s";
-  parameter Types.PerUnit Tol "Tolerance on limit crossing as a fraction of the difference between initial limits";
+  parameter Types.Time tDer = 1e-3 "Time constant of derivative filter for limits in s";
+  parameter Real TolInput = 1e-5 "Tolerance on limit crossing for integrator input";
+  parameter Real TolOutput = 1e-5 "Tolerance on limit crossing for integrator output";
 
   Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0);
   Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0);
 
-  final parameter Boolean FrozenMax0 = Y0 > LimitMax0 - Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at upper limit";
-  final parameter Boolean FrozenMin0 = Y0 < LimitMin0 + Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at lower limit";
-
 protected
   Real derLimitMax(start = 0) "Filtered derivative of upper limit";
   Real derLimitMin(start = 0) "Filtered derivative of lower limit";
-  Boolean isFrozenMax(start = FrozenMax0) "If true, integration is frozen at upper limit";
-  Boolean isFrozenMin(start = FrozenMin0) "If true, integration is frozen at lower limit";
-  Boolean keepFreezingMax(start = FrozenMax0) "If true, integration stays frozen at upper limit";
-  Boolean keepFreezingMin(start = FrozenMin0) "If true, integration stays frozen at lower limit";
-  Boolean startFreezingMax(start = FrozenMax0) "If true, integration becomes frozen at upper limit";
-  Boolean startFreezingMin(start = FrozenMin0) "If true, integration becomes frozen at lower limit";
+  Types.PerUnit kFreezeMax "Freeze coefficient for upper limit";
+  Types.PerUnit kFreezeMin "Freeze coefficient for lower limit";
 
 equation
   limitMax = derivativeLimitMax.u;
@@ -41,42 +35,37 @@ equation
   derLimitMax = derivativeLimitMax.y;
   derLimitMin = derivativeLimitMin.y;
 
-  startFreezingMax = w > limitMax and v > derLimitMax;
-  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > derLimitMax and pre(isFrozenMax);
-  isFrozenMax = startFreezingMax or keepFreezingMax;
-
-  startFreezingMin = w < limitMin and v < derLimitMin;
-  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < derLimitMin and pre(isFrozenMin);
-  isFrozenMin = startFreezingMin or keepFreezingMin;
+  kFreezeMax = (1 / 4) * (1 + tanh((w - limitMax) / TolOutput)) * (1 + tanh((v - derLimitMax) / TolInput));
+  kFreezeMin = (1 / 4) * (1 + tanh((limitMin - w) / TolOutput)) * (1 + tanh((derLimitMin - v) / TolInput));
 
   v = K * u;
 
-  if isFrozenMax then
-    w = limitMax;
-  elseif isFrozenMin then
-    w = limitMin;
-  else
-    der(w) = v;
-  end if;
+  der(w) = derLimitMax * kFreezeMax + derLimitMin * kFreezeMin + v * (1 - kFreezeMax - kFreezeMin);
 
   annotation(
     preferredView = "text",
     Documentation(info= "<html><head></head><body><p>
-This blocks computes <strong>w</strong> as <em>integral</em>
-of the input <strong>u</strong> multiplied by the gain <em>K</em>.</p>
+This blocks computes <strong>w</strong> as integral
+of the input <strong>u</strong> multiplied by the gain <em>K</em>, with v = K * u<em>.</em></p>
 
 <p>If the integral reaches a given upper limit <b>limitMax</b> or lower limit&nbsp;<b>limitMin</b>, the integration is halted and only restarted if the input drives
-the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p>
+the integral away from the bounds.</p>
 
-<p>This margin is aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen sates.</p>
+<p>This freeze is imposed through two coefficients <b>kFreezeMax</b> and <b>kFreezeMin</b>, each defined by a continuous expression involving the hyperbolic tangent, the integrator input <b>v</b>, the integrator output <b>w</b>, the limit <b>limitMax</b> or <b>limitMin</b> and its filtered derivative <b>derLimitMax</b> or <b>derLimitMin</b>.</p>
 
-<p>If the integration is halted, the integrator output follows the variable limit it has reached.</p>
+<p>w &gt; limitMax and v &gt; derLimitMax =&gt; kFreezeMax = 1, kFreezeMin = 0 =&gt; der(w) = derLimitMax</p>
+
+<p>w &lt; limitMin and v &lt; derLimitMin =&gt; kFreezeMax = 0, kFreezeMin = 1 =&gt; der(w) = derLimitMin</p>
+
+<p>limitMax &gt; w &gt; limitMin or derLimitMax &gt; v &gt; derLimitMin =&gt; kFreezeMax = kFreezeMin = 0 =&gt; der(w) = v</p>
+
+<p>The parameters <i>TolInput</i> and <i>TolOutput</i> determine the width of the transition zone from one domain to another.</p>
 
 <p>The output <strong>y</strong> is the result of the limitation of <b>w</b> by both variable limits.</p>
 
 <p>If the \"upper\" limit is smaller than the \"lower\" one, the output <i>y</i> is ruled by the parameter <i>DefaultLimitMax</i>: <i>y</i> is equal to either&nbsp;<b>limitMax&nbsp;</b>or&nbsp;<b>limitMin</b>.</p>
 
-<p>The integrator output is initialized with the parameter <em>Y0</em>.</p>
+<p>The integrator is initialized with the value <em>Y0</em>.</p>
 </body></html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -97,7 +86,7 @@ the integral away from the bounds, with a sufficient margin defined by <em>Tol</
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
+        Rectangle( lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
         Text(
           extent={{-54,46},{-4,-48}},
           textString="lim"),
@@ -110,4 +99,4 @@ the integral away from the bounds, with a sufficient margin defined by <em>Tol</
           extent={{-8,-2},{60,-60}},
           textString="s"),
         Line(points={{4,0},{46,0}})}));
-end IntegratorVariableLimits;
+end IntegratorVariableLimitsContinuous;

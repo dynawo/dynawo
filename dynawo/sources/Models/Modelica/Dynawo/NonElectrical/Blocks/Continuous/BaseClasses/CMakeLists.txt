@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseIntegratorVariableLimits.mo
   BasePIAntiWindup.mo
   )
 
