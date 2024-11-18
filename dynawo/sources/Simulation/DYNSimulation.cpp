@@ -841,10 +841,10 @@ Simulation::init() {
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
   }
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
   model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
   model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
-#endif
+// #endif
 
   tCurrent_ = tStart_;
 
