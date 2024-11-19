@@ -24,6 +24,7 @@
 
 #include <boost/optional.hpp>
 #include <cassert>
+#include "DYNTrace.h"
 #include <limits>
 #include <sstream>
 
@@ -176,13 +177,14 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time)
 }
 
 modeChangeType_t
-DelayManager::evalMode(const double time) {
+DelayManager::evalMode(const double time, const std::string& modelName) {
   std::unordered_map<size_t, Delay>::iterator it;
   modeChangeType_t delay_mode = NO_MODE;
   for (it = delays_.begin(); it != delays_.end(); ++it) {
     double delayTime = it->second.getDelayTime();
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
       it->second.trigger();
+      Trace::debug() << modelName << " mode for delay " << it->first << " delayTime " << delayTime << Trace::endline;
       delay_mode = ALGEBRAIC_J_UPDATE_MODE;
     }
   }
