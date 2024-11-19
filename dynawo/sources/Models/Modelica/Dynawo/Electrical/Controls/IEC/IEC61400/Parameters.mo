@@ -80,23 +80,45 @@ record ControlSubstructureQ
     Dialog(tab = "QControl"));
 end ControlSubstructureQ;
 
-record ControlSubstructure4P
+record ControlSubstructure4bP
+  extends ControlSubstructure4P;
   parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.PerUnit DPRefMin4BPu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
-    Dialog(tab = "PControl"));
   parameter Types.Time tPAero "Reference power order lag time constant in s" annotation(
     Dialog(tab = "PControl"));
   parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
     Dialog(tab = "PControl"));
+  end ControlSubstructure4bP;
+
+record ControlSubstructure4aP
+  extends ControlSubstructure4P;
+  parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPRefMax4APu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPRefMin4APu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPWTRef4A "Reference power order lag time constant in s" annotation(
+    Dialog(tab = "PControl"));
   parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
     Dialog(tab = "PControl"));
+end ControlSubstructure4aP;
+
+record ControlSubstructure4P
+  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
+    Dialog(tab = "PControl"));
+ parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
+    Dialog(tab = "PControl"));
 end ControlSubstructure4P;
-    
+
 record TableCurrentLimit
   parameter Real TableIpMaxUwt11 = 0 annotation(
     Dialog(tab = "CurrentLimitTables"));
@@ -164,7 +186,6 @@ record TableCurrentLimit
   parameter Real TableIqMaxUwt[:,:] = [TableIqMaxUwt11, TableIqMaxUwt12; TableIqMaxUwt21, TableIqMaxUwt22; TableIqMaxUwt31, TableIqMaxUwt32; TableIqMaxUwt41, TableIqMaxUwt42; TableIqMaxUwt51, TableIqMaxUwt52; TableIqMaxUwt61, TableIqMaxUwt62; TableIqMaxUwt71, TableIqMaxUwt72; TableIqMaxUwt81, TableIqMaxUwt82] "Voltage dependency of reactive current limits" annotation(
     Dialog(tab = "CurrentLimitTables"));
 end TableCurrentLimit;
-
 
 record TableGridProtection
   parameter Real TabletUoverUwtfilt11 = 1 annotation(
@@ -313,7 +334,6 @@ record TablePControl
     Dialog(tab = "PControlTables"));
 end TablePControl;
 
-
 record TableQControl2015
   parameter Real TableQwpUErr11 = -0.05 annotation(
     Dialog(tab = "QControlTables"));
@@ -389,7 +409,6 @@ record TableQControl2020
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
 end TableQControl2020;
-
 
 record TableQLimit
   parameter Real TableQMaxUwtcFilt11 = 0 annotation(
