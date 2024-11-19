@@ -24,6 +24,7 @@
 
 #include <boost/optional.hpp>
 #include <cassert>
+#include "DYNTrace.h"
 #include <limits>
 #include <sstream>
 
@@ -184,6 +185,7 @@ DelayManager::evalMode(const double time) {
     double delayTime = delay.getDelayTime();
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
       delay.trigger();
+      Trace::debug() << modelName << " mode for delay " << it->first << " delayTime " << delayTime << Trace::endline;
       delay_mode = ALGEBRAIC_J_UPDATE_MODE;
     }
   }

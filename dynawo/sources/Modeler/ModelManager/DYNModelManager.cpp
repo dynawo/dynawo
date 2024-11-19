@@ -427,7 +427,7 @@ ModelManager::evalZ(const double t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double t) {
-  modeChangeType_t delay_mode = delayManager_.evalMode(t);
+  modeChangeType_t delay_mode = delayManager_.evalMode(t, name());
 
   return std::max(delay_mode, modelModelica()->evalMode(t));
 }
@@ -841,7 +841,7 @@ ModelManager::loadParameters(const string& parameters) {
   }
 
   // To activate all delays
-  delayManager_.evalMode(getCurrentTime());
+  delayManager_.evalMode(getCurrentTime(), name());
 
   // copy of loaded parameters in the map
   const std::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
