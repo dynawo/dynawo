@@ -12,7 +12,7 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
       *
       * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
       */
-  extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWT4;
+
     //QControl parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ;
   //Measurement parameters for control
@@ -20,8 +20,52 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
   //Measurement parameters for protection
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementProtection;
   
+  
+  // Parameter imports
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Circuit;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Pll;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.ControlP;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.ControlQ;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.QLimiter;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GridProtection;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  
+  //Interface
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+//Input variables
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
+    Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 90), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
+    Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput xWTRefPu(start = XWT0Pu) "Reactive power loop reference : reactive power or voltage reference depending on the Q control mode (MqG), in pu (base SNom or UNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
+    Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
+
+//Initial parameters
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUiGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQControl;
+  
+  replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.WTInjector_base injector() annotation(
+    Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  
   replaceable Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.InterfaceControlSubstructure controlSubstructure annotation(
     Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements protectionMeasurements(DfMaxPu = DfpMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIpFilt, tPFilt = tPpFilt, tQFilt = tQpFilt, tS = tS, tUFilt = tUpFilt, tfFilt = tfpFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {60, 80}, extent = {{20, 20}, {-20, -20}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements controlMeasurements(DfMaxPu = DfcMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIcFilt, tPFilt = tPcFilt, tQFilt = tQcFilt, tS = tS, tUFilt = tUcFilt, tfFilt = tfcFilt, u0Pu = u0Pu) annotation(
@@ -75,7 +119,13 @@ equation
     Line(points = {{-38, -32}, {-20, -32}, {-20, -24}, {-2, -24}}, color = {0, 0, 127}));
   connect(controlSubstructure.tanPhi, tanPhi) annotation(
     Line(points = {{-82, -44}, {-114, -44}, {-114, -40}, {-130, -40}}, color = {0, 0, 127}));
+connect(injector.terminal, terminal) annotation(
+    Line(points = {{42, -40}, {130, -40}}, color = {0, 0, 255}));
+  connect(pll.thetaPll, injector.theta) annotation(
+    Line(points = {{-20, 54}, {-20, 0}, {8, 0}, {8, -18}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {69, -1}, extent = {{-40, 19}, {41, -19}}, textString = "B"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}));
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -3}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT 2020")}),
+  Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}})));
+
 end BaseWTCurrentSource2020;

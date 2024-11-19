@@ -15,6 +15,15 @@ within Dynawo.Electrical.Controls.IEC.IEC61400;
 package Parameters "Parameters of lookup tables for variable dependencies in the context of IEC N°61400-27-1"
   extends Icons.Package;
   
+  record InitialQControl
+    parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
+    Dialog(tab = "Operating point"));
+  end InitialQControl;
+  
 record GridMeasurementControl
   parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
     Dialog(tab = "MeasurementC"));
@@ -72,7 +81,6 @@ record ControlSubstructureQ
 end ControlSubstructureQ;
 
 record ControlSubstructure4P
-    //PControl parameters
   parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
@@ -89,7 +97,7 @@ record ControlSubstructure4P
     Dialog(tab = "PControl"));
 end ControlSubstructure4P;
     
-record CurrentLimitParameters
+record TableCurrentLimit
   parameter Real TableIpMaxUwt11 = 0 annotation(
     Dialog(tab = "CurrentLimitTables"));
   parameter Real TableIpMaxUwt12 = 0 annotation(
@@ -155,10 +163,10 @@ record CurrentLimitParameters
     Dialog(tab = "CurrentLimitTables"));
   parameter Real TableIqMaxUwt[:,:] = [TableIqMaxUwt11, TableIqMaxUwt12; TableIqMaxUwt21, TableIqMaxUwt22; TableIqMaxUwt31, TableIqMaxUwt32; TableIqMaxUwt41, TableIqMaxUwt42; TableIqMaxUwt51, TableIqMaxUwt52; TableIqMaxUwt61, TableIqMaxUwt62; TableIqMaxUwt71, TableIqMaxUwt72; TableIqMaxUwt81, TableIqMaxUwt82] "Voltage dependency of reactive current limits" annotation(
     Dialog(tab = "CurrentLimitTables"));
-end CurrentLimitParameters;
+end TableCurrentLimit;
 
 
-record GridProtectionParameters
+record TableGridProtection
   parameter Real TabletUoverUwtfilt11 = 1 annotation(
     Dialog(tab = "GridProtectionTables"));
   parameter Real TabletUoverUwtfilt12 = 0.33 annotation(
@@ -270,9 +278,9 @@ record GridProtectionParameters
     Dialog(tab = "GridProtectionTables"));
   parameter Real Tabletfunderfwtfilt[:,:] = [Tabletfunderfwtfilt11, Tabletfunderfwtfilt12; Tabletfunderfwtfilt21, Tabletfunderfwtfilt22; Tabletfunderfwtfilt31, Tabletfunderfwtfilt32; Tabletfunderfwtfilt41, Tabletfunderfwtfilt42; Tabletfunderfwtfilt51, Tabletfunderfwtfilt52; Tabletfunderfwtfilt61, Tabletfunderfwtfilt62] "Disconnection time versus under frequency lookup table" annotation(
     Dialog(tab = "GridProtectionTables"));
-end GridProtectionParameters;
+end TableGridProtection;
 
-record PControlParameters
+record TablePControl
   parameter Real TablePwpBiasfwpFiltCom11 = 0.95 annotation(
     Dialog(tab = "PControlTables"));
   parameter Real TablePwpBiasfwpFiltCom12 = 1 annotation(
@@ -303,10 +311,10 @@ record PControlParameters
     Dialog(tab = "PControlTables"));
   parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32; TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42; TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52; TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62; TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72] "Table for defining power variation versus frequency" annotation(
     Dialog(tab = "PControlTables"));
-end PControlParameters;
+end TablePControl;
 
 
-record QControlParameters2015
+record TableQControl2015
   parameter Real TableQwpUErr11 = -0.05 annotation(
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpUErr12 = 1.21 annotation(
@@ -333,9 +341,9 @@ record QControlParameters2015
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32; TableQwpUErr41, TableQwpUErr42; TableQwpUErr51, TableQwpUErr52; TableQwpUErr61, TableQwpUErr62] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
-end QControlParameters2015;
+end TableQControl2015;
 
-record QControlParameters2020
+record TableQControl2020
   parameter Real TableQwpMaxPwpFiltCom11 = 0 annotation(
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpMaxPwpFiltCom12 = 0.33 annotation(
@@ -380,10 +388,10 @@ record QControlParameters2020
     Dialog(tab = "QControlTables"));
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
-end QControlParameters2020;
+end TableQControl2020;
 
 
-record QLimitParameters
+record TableQLimit
   parameter Real TableQMaxUwtcFilt11 = 0 annotation(
     Dialog(tab = "QLimitTables"));
   parameter Real TableQMaxUwtcFilt12 = 0 annotation(
@@ -467,7 +475,7 @@ record QLimitParameters
     Dialog(tab = "QLimitTables"));
   parameter Real TableQMinPwtcFilt[:,:] = [TableQMinPwtcFilt11, TableQMinPwtcFilt12; TableQMinPwtcFilt21, TableQMinPwtcFilt22; TableQMinPwtcFilt31, TableQMinPwtcFilt32; TableQMinPwtcFilt41, TableQMinPwtcFilt42] "Active power dependency of reactive power minimum limit" annotation(
     Dialog(tab = "QLimitTables"));
-end QLimitParameters;
+end TableQLimit;
 
   annotation(
     preferredView = "text");

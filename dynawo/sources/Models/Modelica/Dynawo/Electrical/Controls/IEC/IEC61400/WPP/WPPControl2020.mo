@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.WPP;
 
 model WPPControl2020 "Control model for IEC N°61400-27-1:2020 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPControl;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2020;
 
   //PControl parameters
   parameter Types.ActivePowerPu PErrMaxPu "Maximum control error for power PI controller in pu (base SNom)" annotation(

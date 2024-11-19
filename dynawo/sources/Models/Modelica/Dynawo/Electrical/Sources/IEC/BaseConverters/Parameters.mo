@@ -15,6 +15,10 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 package Parameters "Parameters for IEC Wind Turbine converter classes"
   extends Icons.Package;
 
+record IntegrationTimeStep
+  parameter Types.Time tS "Integration time step in s";
+end IntegrationTimeStep;
+
 record Nominal "Nominal parameters for generator system"
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 end Nominal;

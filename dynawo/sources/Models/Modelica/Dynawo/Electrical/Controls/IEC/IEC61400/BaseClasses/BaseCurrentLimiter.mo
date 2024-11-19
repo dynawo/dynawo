@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseCurrentLimiter "Current limitation base module for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

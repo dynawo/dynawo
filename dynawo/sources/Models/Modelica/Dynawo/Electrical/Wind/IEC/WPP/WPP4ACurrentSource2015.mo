@@ -14,7 +14,7 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1:2015 standard : WT4A, communication modules"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
 
   //Uf measurement parameters
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(

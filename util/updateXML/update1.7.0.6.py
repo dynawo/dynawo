@@ -21,7 +21,7 @@ def update(jobs):
             lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2020")
 
     model_templates = jobs.dyds.get_model_templates(lambda _: True)
     for model_template in model_templates:
@@ -29,4 +29,4 @@ def update(jobs):
             lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2020")

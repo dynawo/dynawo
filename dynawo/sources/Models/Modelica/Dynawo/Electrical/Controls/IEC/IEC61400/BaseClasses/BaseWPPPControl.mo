@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 model BaseWPPPControl "Base active power control module for wind power plants (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";

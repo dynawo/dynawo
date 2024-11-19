@@ -14,7 +14,7 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
 
   //Uf measurement parameters
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(

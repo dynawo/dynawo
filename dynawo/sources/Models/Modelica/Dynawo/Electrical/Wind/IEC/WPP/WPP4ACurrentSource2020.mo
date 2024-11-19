@@ -14,7 +14,7 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1:2020 standard : WT4A, communication modules"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2020;
 
   //WPP Qcontrol parameters
   parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(

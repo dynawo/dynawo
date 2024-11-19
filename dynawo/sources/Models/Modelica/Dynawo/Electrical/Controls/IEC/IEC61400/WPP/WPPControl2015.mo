@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.WPP;
 
 model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPControl;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
 
   //PControl parameters
   parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(

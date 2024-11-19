@@ -214,28 +214,28 @@ def update(jobs):
 
     for modelica_model in modelica_models:
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.QLimitParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TableQLimit"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit")
     for modelica_model in modelica_models:
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.CurrentLimitParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TableCurrentLimit"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit")
     for modelica_model in modelica_models:
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TableGridProtection"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection")
     for modelica_model in modelica_models:
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.PControlParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TablePControl"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl")
     for modelica_model in modelica_models:
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(
             lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.QControlParameters"
@@ -482,28 +482,28 @@ def update(jobs):
 
     for model_template in model_templates:
         unit_dynamic_models = model_template.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.QLimitParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TableQLimit"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit")
     for model_template in model_templates:
         unit_dynamic_models = model_template.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.CurrentLimitParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TableCurrentLimit"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit")
     for model_template in model_templates:
         unit_dynamic_models = model_template.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.GridProtectionParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TableGridProtection"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection")
     for model_template in model_templates:
         unit_dynamic_models = model_template.get_unit_dynamic_models(
-            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.PControlParameters"
+            lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.TablePControl"
         )
         for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters")
+            unit_dynamic_model.set_name("Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl")
     for model_template in model_templates:
         unit_dynamic_models = model_template.get_unit_dynamic_models(
             lambda unit_dynamic_model: unit_dynamic_model.get_name() == "Dynawo.Electrical.Controls.IEC.Parameters.QControlParameters"
