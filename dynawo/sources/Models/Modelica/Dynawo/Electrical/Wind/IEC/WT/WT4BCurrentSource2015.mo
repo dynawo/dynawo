@@ -83,15 +83,15 @@ model WT4BCurrentSource2015 "Wind Turbine Type 4B model from IEC 61400-27-1:2015
     Placement(visible = true, transformation(origin = {10, -84}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
 equation
-  connect(control4B.ipMaxPu, wT4Injector.ipMaxPu) annotation(
+  connect(control4B.ipMaxPu, injector.ipMaxPu) annotation(
     Line(points = {{-36, -24}, {-2, -24}}, color = {0, 0, 127}));
-  connect(control4B.ipCmdPu, wT4Injector.ipCmdPu) annotation(
+  connect(control4B.ipCmdPu, injector.ipCmdPu) annotation(
     Line(points = {{-36, -32}, {-2, -32}}, color = {0, 0, 127}));
-  connect(control4B.iqMaxPu, wT4Injector.iqMaxPu) annotation(
+  connect(control4B.iqMaxPu, injector.iqMaxPu) annotation(
     Line(points = {{-36, -40}, {-2, -40}}, color = {0, 0, 127}));
-  connect(control4B.iqCmdPu, wT4Injector.iqCmdPu) annotation(
+  connect(control4B.iqCmdPu, injector.iqCmdPu) annotation(
     Line(points = {{-36, -48}, {-2, -48}}, color = {0, 0, 127}));
-  connect(control4B.iqMinPu, wT4Injector.iqMinPu) annotation(
+  connect(control4B.iqMinPu, injector.iqMinPu) annotation(
     Line(points = {{-36, -56}, {-2, -56}}, color = {0, 0, 127}));
   connect(xWTRefPu, control4B.xWTRefPu) annotation(
     Line(points = {{-130, -60}, {-100, -60}, {-100, -52}, {-80, -52}}, color = {0, 0, 127}));
@@ -99,13 +99,13 @@ equation
     Line(points = {{-130, -40}, {-80, -40}}, color = {0, 0, 127}));
   connect(PWTRefPu, control4B.PWTRefPu) annotation(
     Line(points = {{-130, -20}, {-100, -20}, {-100, -34}, {-80, -34}}, color = {0, 0, 127}));
-  connect(wT4Injector.uWtPu, gridProtection.uWtPu) annotation(
+  connect(injector.uWtPu, gridProtection.uWtPu) annotation(
     Line(points = {{42, -28}, {100, -28}, {100, 102}, {72, 102}}, color = {85, 170, 255}));
-  connect(gridProtection.fOCB, wT4Injector.fOCB) annotation(
+  connect(gridProtection.fOCB, injector.fOCB) annotation(
     Line(points = {{60, 58}, {60, -10}, {20, -10}, {20, -18}}, color = {255, 0, 255}));
   connect(omegaRefPu, gridProtection.omegaRefPu) annotation(
     Line(points = {{0, 130}, {0, 120}, {52, 120}, {52, 102}}, color = {0, 0, 127}));
-  connect(wT4Injector.uWtPu, complexToPolar.u) annotation(
+  connect(injector.uWtPu, complexToPolar.u) annotation(
     Line(points = {{42, -28}, {50, -28}, {50, 30}, {22, 30}}, color = {85, 170, 255}));
   connect(complexToPolar.len, control4B.UWTPu) annotation(
     Line(points = {{-2, 36}, {-86, 36}, {-86, -28}, {-80, -28}}, color = {0, 0, 127}));
@@ -115,13 +115,13 @@ equation
     Line(points = {{-2, 24}, {-60, 24}, {-60, 108}, {-12, 108}, {-12, 98}}, color = {0, 0, 127}));
   connect(mechanical.PAeroPu, control4B.PAeroPu) annotation(
     Line(points = {{51, -105}, {-58, -105}, {-58, -62}}, color = {0, 0, 127}));
-  connect(wT4Injector.PAgPu, mechanical.PAgPu) annotation(
+  connect(injector.PAgPu, mechanical.PAgPu) annotation(
     Line(points = {{42, -56}, {46, -56}, {46, -97}, {51, -97}}, color = {0, 0, 127}));
   connect(mechanical.omegaGenPu, control4B.omegaGenPu) annotation(
     Line(points = {{75, -97}, {76, -97}, {76, -14}, {-58, -14}, {-58, -18}}, color = {0, 0, 127}));
-  connect(wT4Injector.uWtPu, pQCalculus.uWtPu) annotation(
+  connect(injector.uWtPu, pQCalculus.uWtPu) annotation(
     Line(points = {{42, -28}, {50, -28}, {50, -82}, {22, -82}}, color = {85, 170, 255}));
-  connect(wT4Injector.iWtPu, pQCalculus.iWtPu) annotation(
+  connect(injector.iWtPu, pQCalculus.iWtPu) annotation(
     Line(points = {{42, -24}, {58, -24}, {58, -86}, {22, -86}}, color = {85, 170, 255}));
   connect(pQCalculus.QWtPu, control4B.QWTPu) annotation(
     Line(points = {{0, -82}, {-86, -82}, {-86, -58}, {-80, -58}}, color = {0, 0, 127}));

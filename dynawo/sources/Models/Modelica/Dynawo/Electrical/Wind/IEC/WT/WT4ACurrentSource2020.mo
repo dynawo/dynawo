@@ -85,7 +85,7 @@ model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
     Placement(visible = true, transformation(origin = {-75, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
 equation
-  connect(gridProtection.fOCB, wT4Injector.fOCB) annotation(
+  connect(gridProtection.fOCB, injector.fOCB) annotation(
     Line(points = {{60, -2}, {60, -10}, {20, -10}, {20, -18}}, color = {255, 0, 255}));
   connect(omegaRefPu, protectionMeasurements.omegaRefPu) annotation(
     Line(points = {{0, 130}, {0, 116}, {48, 116}, {48, 102}}, color = {0, 0, 127}));
@@ -95,23 +95,23 @@ equation
     Line(points = {{44, 58}, {44, 50}, {52, 50}, {52, 42}}, color = {0, 0, 127}));
   connect(protectionMeasurements.UFiltPu, gridProtection.UWTPFiltPu) annotation(
     Line(points = {{56, 58}, {56, 50}, {68, 50}, {68, 42}}, color = {0, 0, 127}));
-  connect(wT4Injector.iWtPu, controlMeasurements.iPu) annotation(
+  connect(injector.iWtPu, controlMeasurements.iPu) annotation(
     Line(points = {{42, -24}, {100, -24}, {100, 106}, {-80, 106}, {-80, 102}}, color = {85, 170, 255}));
-  connect(wT4Injector.iWtPu, protectionMeasurements.iPu) annotation(
+  connect(injector.iWtPu, protectionMeasurements.iPu) annotation(
     Line(points = {{42, -24}, {100, -24}, {100, 106}, {60, 106}, {60, 102}}, color = {85, 170, 255}));
-  connect(wT4Injector.uWtPu, controlMeasurements.uPu) annotation(
+  connect(injector.uWtPu, controlMeasurements.uPu) annotation(
     Line(points = {{42, -28}, {104, -28}, {104, 110}, {-92, 110}, {-92, 102}}, color = {85, 170, 255}));
-  connect(wT4Injector.uWtPu, protectionMeasurements.uPu) annotation(
+  connect(injector.uWtPu, protectionMeasurements.uPu) annotation(
     Line(points = {{42, -28}, {104, -28}, {104, 110}, {72, 110}, {72, 102}}, color = {85, 170, 255}));
-  connect(control4A.ipMaxPu, wT4Injector.ipMaxPu) annotation(
+  connect(control4A.ipMaxPu, injector.ipMaxPu) annotation(
     Line(points = {{-38, -24}, {-2, -24}}, color = {0, 0, 127}));
-  connect(control4A.ipCmdPu, wT4Injector.ipCmdPu) annotation(
+  connect(control4A.ipCmdPu, injector.ipCmdPu) annotation(
     Line(points = {{-38, -32}, {-2, -32}}, color = {0, 0, 127}));
-  connect(control4A.iqMaxPu, wT4Injector.iqMaxPu) annotation(
+  connect(control4A.iqMaxPu, injector.iqMaxPu) annotation(
     Line(points = {{-38, -40}, {-2, -40}}, color = {0, 0, 127}));
-  connect(control4A.iqCmdPu, wT4Injector.iqCmdPu) annotation(
+  connect(control4A.iqCmdPu, injector.iqCmdPu) annotation(
     Line(points = {{-38, -48}, {-2, -48}}, color = {0, 0, 127}));
-  connect(control4A.iqMinPu, wT4Injector.iqMinPu) annotation(
+  connect(control4A.iqMinPu, injector.iqMinPu) annotation(
     Line(points = {{-38, -56}, {-2, -56}}, color = {0, 0, 127}));
   connect(xWTRefPu, control4A.xWTRefPu) annotation(
     Line(points = {{-130, -60}, {-100, -60}, {-100, -52}, {-82, -52}}, color = {0, 0, 127}));

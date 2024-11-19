@@ -16,6 +16,7 @@ add_subdirectory(WPP W)
 add_subdirectory(WT T)
 
 set(MODEL_FILES
+  Parameters.mo
   package.mo
   package.order
   )

@@ -21,7 +21,7 @@ model GenSystem3b
     Placement(visible = true, transformation(origin = {-189, 119}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression absU2(y = complexToAbs.len) annotation(
     Placement(visible = true, transformation(origin = {-210, 300}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tWo, k = tWo) annotation(
+  Modelica.Blocks.Continuous.Derivative washoutFilter(T = tWo, k = tWo) annotation(
     Placement(visible = true, transformation(origin = {-180, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D lutTCrb(table = tCrb) annotation(
     Placement(visible = true, transformation(origin = {-140, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -74,9 +74,9 @@ equation
     Line(points = {{-184, 94}, {-180, 94}, {-180, 98}, {-178, 98}}, color = {0, 0, 127}));
   connect(constMCrb.y, switchMCrb.u2) annotation(
     Line(points = {{-184, 120}, {-182, 120}, {-182, 104}, {-178, 104}}, color = {255, 0, 255}));
-  connect(absU2.y, derivative.u) annotation(
+  connect(absU2.y, washoutFilter.u) annotation(
     Line(points = {{-204, 300}, {-192, 300}}, color = {0, 0, 127}));
-  connect(derivative.y, lutTCrb.u[1]) annotation(
+  connect(washoutFilter.y, lutTCrb.u[1]) annotation(
     Line(points = {{-168, 300}, {-152, 300}}, color = {0, 0, 127}));
   connect(lutTCrb.y[1], delay.u) annotation(
     Line(points = {{-128, 300}, {-114, 300}, {-114, 290}, {-106, 290}}, color = {0, 0, 127}));
@@ -119,5 +119,5 @@ equation
   connect(absU.y, addXEqv.u2) annotation(
     Line(points = {{-142, -58}, {-84, -58}, {-84, -26}, {-74, -26}}, color = {0, 0, 127}));
   annotation(
-    Diagram);
+    Diagram(graphics = {Rectangle(origin = {-76, 289}, lineColor = {23, 156, 125}, lineThickness = 1, extent = {{-44, 29}, {44, -29}}), Text(origin = {-44, 267}, lineColor = {23, 156, 125}, extent = {{10, -7}, {-10, 7}}, textString = "rising value\ndetection")}));
 end GenSystem3b;

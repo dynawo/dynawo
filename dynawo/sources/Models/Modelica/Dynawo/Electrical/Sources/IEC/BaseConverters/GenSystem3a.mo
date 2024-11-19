@@ -20,15 +20,12 @@ model GenSystem3a
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integratorIm(y_start = IGsIm0Pu - UGsRe0Pu / XEqv) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+
 equation
   connect(realExpression1.y, rotationGridToWt.theta) annotation(
     Line(points = {{12, 92}, {18, 92}, {18, 76}, {10, 76}}, color = {0, 0, 127}));
-  connect(rateLimitP.y, feedbackP.u1) annotation(
-    Line(points = {{-88, 60}, {-78, 60}}, color = {0, 0, 127}));
   connect(feedbackP.y, piP.u) annotation(
     Line(points = {{-60, 60}, {-54, 60}, {-54, 61}, {-48, 61}}, color = {0, 0, 127}));
-  connect(slewRateLimiter.y, feedbackQ.u1) annotation(
-    Line(points = {{-88, -20}, {-78, -20}}, color = {0, 0, 127}));
   connect(feedbackQ.y, piQ.u) annotation(
     Line(points = {{-60, -20}, {-54, -20}, {-54, -18}, {-48, -18}}, color = {0, 0, 127}));
   connect(rotationGridToWt.iGsRePu, feedbackP.u2) annotation(
@@ -55,6 +52,10 @@ equation
     Line(points = {{-230, 60}, {-142, 60}}, color = {0, 0, 127}));
   connect(iqCmdPu, limitQ.u) annotation(
     Line(points = {{-230, -20}, {-142, -20}}, color = {0, 0, 127}));
+  connect(rateLimitP.y, feedbackP.u1) annotation(
+    Line(points = {{-88, 60}, {-78, 60}}, color = {0, 0, 127}));
+  connect(rateLimitQ.y, feedbackQ.u1) annotation(
+    Line(points = {{-88, -20}, {-78, -20}}, color = {0, 0, 127}));
   annotation(
     Icon,
     Diagram);
