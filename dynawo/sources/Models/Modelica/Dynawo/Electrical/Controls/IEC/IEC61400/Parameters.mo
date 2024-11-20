@@ -496,6 +496,92 @@ record TableQLimit
     Dialog(tab = "QLimitTables"));
 end TableQLimit;
 
+record CurrentLimiter
+ parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+end CurrentLimiter;
+
+record ControlP
+  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
+    Dialog(tab = "PControl"));
+end ControlP;
+
+record Pll
+  parameter Types.Time tPll "PLL first order filter time constant in s" annotation(Dialog(tab = "PLL"));
+  parameter Types.VoltageModulePu UPll1Pu "Voltage below which the angle of the voltage is filtered and possibly also frozen, in pu (base UNom)" annotation(Dialog(tab = "PLL"));
+  parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically)" annotation(Dialog(tab = "PLL"));
+end Pll;
+
+record ControlQ
+  parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kiu "Voltage PI controller integration gain in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+end ControlQ;
+
+record QLimiter
+  parameter Boolean QlConst "True if limits are constant" annotation(
+      Dialog(tab = "QLimiter"));
+    parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+      Dialog(tab = "QLimiter"));
+    parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+      Dialog(tab = "QLimiter"));
+end QLimiter;
+
+record GridProtection
+  parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(
+    Dialog(tab = "GridProtection"));
+  parameter Types.PerUnit fUnderPu "WT under frequency protection activation threshold in pu (base fNom)" annotation(
+    Dialog(tab = "GridProtection"));
+  parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(
+    Dialog(tab = "GridProtection"));
+  parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
+    Dialog(tab = "GridProtection"));
+end GridProtection;
+
+
   annotation(
     preferredView = "text");
 end Parameters;

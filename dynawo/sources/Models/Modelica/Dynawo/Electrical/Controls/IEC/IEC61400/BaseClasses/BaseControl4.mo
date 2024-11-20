@@ -22,16 +22,16 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   
   
   //PControl parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.ControlP;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlP;
 
   //Current limiter parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
   
   //QControl parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.ControlQ;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlQ;
   
   //QLimiter parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.QLimiter;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omega0Pu) "Generator angular frequency in pu (base omegaNom)" annotation(
