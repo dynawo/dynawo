@@ -2,6 +2,7 @@ BaseClasses
 BacklashHysteresis
 ConditionalForward
 DeadBand
+DeadZone
 DelayFlag
 FixedBooleanDelay
 FlipFlopR
