@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.order
   BacklashHysteresis.mo
   DeadBand.mo
+  DeadZone.mo
   DelayFlag.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
