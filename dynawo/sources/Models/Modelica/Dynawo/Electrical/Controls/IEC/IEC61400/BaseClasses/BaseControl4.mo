@@ -58,7 +58,8 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   //Initial parameters
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQControl;  
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;  
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;  
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
 
 equation

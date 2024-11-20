@@ -15,9 +15,9 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
 
   //Nominal parameters
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-  parameter Types.Time tS "Integration time step in s";
-
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  
   //Measurement parameters
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
     Dialog(tab = "Measurement"));

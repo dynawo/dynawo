@@ -19,15 +19,8 @@ partial model BaseGridProtection "Grid protection base system for wind turbines 
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   //Grid protection parameters
-  parameter Types.AngularVelocityPu fOverPu "WT over frequency protection activation threshold in pu (base omegaNom)" annotation(
-    Dialog(tab = "GridProtection"));
-  parameter Types.AngularVelocityPu fUnderPu "WT under frequency protection activation threshold in pu (base omegaNom)" annotation(
-    Dialog(tab = "GridProtection"));
-  parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(
-    Dialog(tab = "GridProtection"));
-  parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
-    Dialog(tab = "GridProtection"));
-
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
+  
   //Output variable
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

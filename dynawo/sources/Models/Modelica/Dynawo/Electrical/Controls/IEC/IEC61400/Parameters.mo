@@ -15,14 +15,17 @@ within Dynawo.Electrical.Controls.IEC.IEC61400;
 package Parameters "Parameters of lookup tables for variable dependencies in the context of IEC N°61400-27-1"
   extends Icons.Package;
   
-  record InitialQControl
+  record InitialQLimits
     parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "Operating point"));
-  end InitialQControl;
+  end InitialQLimits;
+
+  record InitialQSetpoint
+    parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
+      Dialog(tab = "Operating point"));
+  end InitialQSetpoint;
   
 record GridMeasurementControl
   parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
@@ -81,6 +84,7 @@ record ControlSubstructureQ2020
 end ControlSubstructureQ2020;
 
 record ControlSubstructureQBase
+   extends RDropXDrop;
    parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
@@ -101,8 +105,6 @@ record ControlSubstructureQBase
     Dialog(tab = "QControl"));
   parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
   parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(
     Dialog(tab = "QControl"));
   parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
@@ -115,9 +117,15 @@ record ControlSubstructureQBase
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
 end ControlSubstructureQBase;
+
+record RDropXDrop
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+      Dialog(tab = "QControl"));
+  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+      Dialog(tab = "QControl"));
+
+end RDropXDrop; 
 
 record ControlSubstructure4bP
   extends ControlSubstructure4P;

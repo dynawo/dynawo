@@ -56,7 +56,8 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQControl;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;
   
   replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector injector() annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

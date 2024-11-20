@@ -83,10 +83,18 @@ record InitialUiGrid "Initial voltage and current for grid side"
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(Dialog(group = "Initialization"));
 end InitialUiGrid;
 
-record InitialUGrid "Initial voltage for grid side"
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(Dialog(tab = "Operating point"));
-  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(Dialog(tab = "Operating point"));
+record InitialUGrid "Initial voltage module and phase for grid side"
+  extends InitialUModuleGrid;
+  extends InitialUPhaseGrid;
 end InitialUGrid;
+
+record InitialUModuleGrid
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(Dialog(tab = "Operating point"));
+end InitialUModuleGrid;
+
+record InitialUPhaseGrid
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(Dialog(tab = "Operating point"));
+end InitialUPhaseGrid;
 
 record InitialIGs "Initial current for generator system (GS) side"
   parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
@@ -100,16 +108,37 @@ record InitialUGs "Initial voltage for generator system (GS) side"
 end InitialUGs;
 
 record InitialPqGrid "Initial P and Q for grid side"
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(Dialog(tab = "Operating point"));
+  extends InitialQGrid;
+  extends InitialPGrid;
 end InitialPqGrid;
 
+record InitialQGrid "Initial Q for grid side"
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(Dialog(tab = "Operating point"));
+end InitialQGrid;
+
+record InitialPGrid "Initial P for grid side"
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+end InitialPGrid;
+
 record InitialGenSystem "Initial parameters for Generator System"
+  extends InitialGenSystemP;
+  extends InitialGenSystemQ;
+  extends InitialPAg;
+end InitialGenSystem;
+
+record InitialGenSystemP "Initial IpMax"
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
+  end InitialGenSystemP;
+
+record InitialGenSystemQ "Initial IqMin, IqMax"
   parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
+end InitialGenSystemQ;
+
+record InitialPAg "Initial PAg"
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
-end InitialGenSystem;
+end InitialPAg;
+
 
 end Parameters;

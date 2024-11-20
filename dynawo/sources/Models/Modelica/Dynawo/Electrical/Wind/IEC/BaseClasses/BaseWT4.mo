@@ -24,7 +24,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlP;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlQ;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQBase;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
@@ -52,7 +52,8 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQControl;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;
   
   Dynawo.Electrical.Sources.IEC.WT4Injector injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, XesPu = XesPu, i0Pu = i0Pu, tG = tG, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
