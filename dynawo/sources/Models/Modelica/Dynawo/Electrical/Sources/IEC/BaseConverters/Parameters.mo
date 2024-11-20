@@ -49,7 +49,7 @@ record GenSystem4 "Control parameters for generator system of WT Type 4"
     Dialog(tab = "Control"));
 end GenSystem4;
 
-record GenSystem3 "Control parameters for generator system of WT Type 3A and 3B"
+record GenSystem3 "Do not use. Use 3a or 3b instead."
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Control"));
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
@@ -59,6 +59,7 @@ record GenSystem3 "Control parameters for generator system of WT Type 3A and 3B"
 end GenSystem3;
 
 record GenSystem3a "Control parameters for generator system of WT, specific to Type 3A"
+  extends GenSystem3;
   parameter Types.PerUnit KPc "Current PI controller proportional gain" annotation(
     Dialog(tab = "Control"));
   parameter Types.Time TIc "Current PI controller integration time constant" annotation(
@@ -66,7 +67,8 @@ record GenSystem3a "Control parameters for generator system of WT, specific to T
 end GenSystem3a;
 
 record GenSystem3b "Control parameters for generator system of WT, specific to Type 3B"
-  parameter Real tCrb[:,:] "Crowbar duration versus voltage variation look-up table, for example [-99,0.1; -1,0.1; -0.1,0; 0,0]" annotation(
+  extends GenSystem3;
+  parameter Real tCrb[:,:] = [-99,0.1; -1,0.1; -0.1,0; 0,0] "Crowbar duration versus voltage variation look-up table, for example [-99,0.1; -1,0.1; -0.1,0; 0,0]" annotation(
     Dialog(tab = "Control"));
     parameter Types.Time tWo "Time constant for crowbar washout filter" annotation(
     Dialog(tab = "Control"));

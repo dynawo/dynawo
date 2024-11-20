@@ -12,7 +12,7 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model GenSystem_interface "Interface class for generator system module (IEC N°61400-27-1)"
+partial model InterfaceGenSystem "Interface class for generator system module (IEC N°61400-27-1)"
 
   /*
     Equivalent circuit and conventions:
@@ -59,4 +59,4 @@ partial model GenSystem_interface "Interface class for generator system module (
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})),
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-100, -20}, {100, 20}}, textString = "Generator"), Text(origin = {0, -30}, extent = {{-100, -20}, {100, 20}}, textString = "System")}));
-end GenSystem_interface;
+end InterfaceGenSystem;

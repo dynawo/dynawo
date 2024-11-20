@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
-partial model WTInjector_base "Converter model and grid interface according to IEC N°61400-27-1 standard for type 4A wind turbines"
+partial model BaseWTInjector "Converter model and grid interface according to IEC N°61400-27-1 standard for type 4A wind turbines"
   /*
     * Copyright (c) 2024, RTE (http://www.rte-france.com)
     * See AUTHORS.txt
@@ -56,7 +56,7 @@ partial model WTInjector_base "Converter model and grid interface according to I
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(BesPu = BesPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, ResPu = ResPu, SNom = SNom, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
-  replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem_interface genSystem annotation(
+  replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.InterfaceGenSystem genSystem annotation(
     Placement(visible = true, transformation(origin = {-40, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation
@@ -98,4 +98,4 @@ equation
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-31, 21}, extent = {{-75, -21}, {75, 21}}, textString = "IEC WT"), Text(origin = {0, -30}, extent = {{-90, -30}, {90, 30}}, textString = "Converter")}, coordinateSystem(initialScale = 0.1)));
-end WTInjector_base;
+end BaseWTInjector;

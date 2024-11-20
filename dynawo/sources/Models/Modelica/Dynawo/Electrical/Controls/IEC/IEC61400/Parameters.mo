@@ -65,8 +65,8 @@ record Mechanical
     Dialog(tab = "Mechanical"));
 end Mechanical;
 
-record ControlSubstructureQ
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
+record ControlSubstructureQ2020
+      parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
@@ -78,7 +78,46 @@ record ControlSubstructureQ
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-end ControlSubstructureQ;
+end ControlSubstructureQ2020;
+
+record ControlSubstructureQBase
+   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kiu "Voltage PI controller integration gain in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+end ControlSubstructureQBase;
 
 record ControlSubstructure4bP
   extends ControlSubstructure4P;
@@ -522,44 +561,6 @@ record Pll
   parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically)" annotation(Dialog(tab = "PLL"));
 end Pll;
 
-record ControlQ
-  parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kiu "Voltage PI controller integration gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-end ControlQ;
 
 record QLimiter
   parameter Boolean QlConst "True if limits are constant" annotation(
@@ -581,6 +582,54 @@ record GridProtection
     Dialog(tab = "GridProtection"));
 end GridProtection;
 
+record TorquePi "Parameters used in torque PI controller"
+  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, typical value = 999" annotation(Dialog(tab="PControl"));
+  parameter Types.ActivePowerPu DPRefMaxPu "Maximum ramp rate for reference power of the wind turbine, typical value = 0.3" annotation(Dialog(tab="PControl"));
+  parameter Types.ActivePowerPu DPRefMinPu "Minimum ramp rate for reference power of the wind turbine, typical value = -0.3" annotation(Dialog(tab="PControl"));
+  parameter Types.PerUnit KDtd "Active drive train damping: gain, typical value = 1.5" annotation(Dialog(tab="PControl"));
+  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), typical value = true" annotation(Dialog(tab="PControl"));
+  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), typical value = false" annotation(Dialog(tab="PControl"));
+  parameter Boolean MPUscale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), typical value = false" annotation(Dialog(tab="PControl"));
+  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, typical value = 11.3" annotation(Dialog(tab="PControl"));
+  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, typical value = 0" annotation(Dialog(tab="PControl"));
+  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, typical value = 0.15" annotation(Dialog(tab="PControl"));
+  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, typical value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab="PControl"));
+  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, typical value = 0.005" annotation(Dialog(tab="PControl"));
+  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, typical value = 0.005" annotation(Dialog(tab="PControl"));
+  parameter Types.Time tPord "Power order lag time constant, typical value = 0.01" annotation(Dialog(tab="PControl"));
+  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, typical value = 0.5" annotation(Dialog(tab="PControl"));
+  parameter Types.PerUnit DTauMaxPu "Torque ramp rate limit, as required by some grid codes, typical value = 0.25" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.PerUnit DTauUvrtMaxPu "Torque rise rate limit during UVRT, typical value = 0" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.PerUnit KIp  "Integrator time constant of the PI controller, typical value = 5" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.PerUnit KPp  "Proportional gain of the PI controller, typical value = 8" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Boolean MPUvrt  "Mode for UVRT power control (false: reactive power control -- true: voltage control), typical value = true" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.PerUnit TauEMinPu  "Minimum torque for the electrical generator, typical value = 0.001" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.PerUnit TauUscalePu  "Voltage scaling factor for reset torque, typical value = 1" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.Time tDvs  "Time delay following deep a voltage dip, typical value = 0.05" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.Time tS  "Integration time step, used for single-step delay in DelayFlag block, typical value = 0.001" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, typical value = 0.15" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.VoltageModulePu UPdipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), typical value = 0.9" annotation(
+    Dialog(tab = "TorquePi"));
+  parameter Types.ActivePower PBaseTurb "Base power for active power values inside the unit model in MW or MVA, typical value = PNomTurb";
+  parameter Types.ActivePower PBaseMeasurement "Base power for incoming active power measurement values in MW or MVA, typical value = SystemBase.SnRef";
+  
+  // initial parameters
+  parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base PNomTurb) (generator convention)";
+  parameter Types.ActivePowerPu PWtcFilt0Pu = POrd0Pu*PBaseTurb/PBaseMeasurement "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)";
+  parameter Types.VoltageModulePu UWtc0Pu "Initial value of voltage magnitude at turbine terminal in pu (base Un)";
+  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)";
+  final parameter Types.PerUnit TauEMax0Pu = POrd0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base PNomTurb/OmegaNom)";
+end TorquePi;
 
   annotation(
     preferredView = "text");

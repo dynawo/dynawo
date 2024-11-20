@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 model GenSystem3b
-  extends GenSystem3_base;
+  extends BaseGenSystem3;
   extends Parameters.GenSystem3b;
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToAbs annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

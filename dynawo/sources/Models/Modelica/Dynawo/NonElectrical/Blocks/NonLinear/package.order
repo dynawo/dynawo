@@ -26,3 +26,5 @@ StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
+IntegratorVariableLimitsContinuousSetFreeze
+firstOrderVariableLimitsAntiwindup

@@ -15,10 +15,9 @@ within Dynawo.Electrical.Sources.IEC;
 model WT3aInjector "Converter model and grid interface according to IEC N°61400-27-1 standard for type 3A
  wind turbines"
   
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.WTInjector_base(
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector(
       redeclare Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem3a genSystem(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, KPc = KPc, TIc = TIc, XEqv = XEqv, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0)
       );
-  extends BaseConverters.Parameters.GenSystem3;
   extends BaseConverters.Parameters.GenSystem3a;
   annotation(
     Icon(graphics = {Text(origin = {58, 22}, extent = {{-20, -20}, {20, 20}}, textString = "3A")}));

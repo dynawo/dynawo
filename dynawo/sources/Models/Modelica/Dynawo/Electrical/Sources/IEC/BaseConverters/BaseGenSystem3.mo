@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
-model GenSystem3_base "Type 4 generator system module (IEC N°61400-27-1)"
+model BaseGenSystem3 "Type 4 generator system module (IEC N°61400-27-1)"
   /*
     * Copyright (c) 2024, RTE (http://www.rte-france.com)
     * See AUTHORS.txt
@@ -123,4 +123,4 @@ equation
     preferredView = "diagram",
     Diagram(graphics = {Rectangle(origin = {-1, 9}, lineColor = {23, 156, 125}, fillColor = {23, 156, 125}, fillPattern = FillPattern.Solid, lineThickness = 0.75, extent = {{-27, 109}, {27, -109}})}, coordinateSystem(extent = {{-220, -100}, {220, 320}})),
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-100, -20}, {100, 20}}, textString = "Generator"), Text(origin = {0, -30}, extent = {{-100, -20}, {100, 20}}, textString = "System")}));
-end GenSystem3_base;
+end BaseGenSystem3;

@@ -12,16 +12,15 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
       *
       * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
       */
-
-    //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ;
+  
+  // Parameter imports
+  //QControl parameters
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQBase;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ2020;
   //Measurement parameters for control
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementControl;
   //Measurement parameters for protection
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementProtection;
-  
-  
-  // Parameter imports
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
@@ -29,8 +28,7 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Circuit;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlP;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.CurrentLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlQ;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
@@ -60,7 +58,7 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQControl;
   
-  replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.WTInjector_base injector() annotation(
+  replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector injector() annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
   replaceable Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.InterfaceControlSubstructure controlSubstructure annotation(

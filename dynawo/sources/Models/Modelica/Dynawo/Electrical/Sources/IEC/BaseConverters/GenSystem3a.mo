@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 model GenSystem3a
-  extends GenSystem3_base;
+  extends BaseGenSystem3;
   extends Parameters.GenSystem3a;
   
   Modelica.Blocks.Continuous.PI piP(T = TIc, k = KPc) annotation(

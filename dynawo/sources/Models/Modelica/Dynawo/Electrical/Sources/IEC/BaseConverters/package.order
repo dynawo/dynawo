@@ -1,9 +1,9 @@
 ElecSystem
 GenSystem4
 RefFrameRotation
-GenSystem_interface
-WTInjector_base
+InterfaceGenSystem
+BaseWTInjector
 Parameters
+BaseGenSystem3
 GenSystem3a
-GenSystem3_base
 GenSystem3b

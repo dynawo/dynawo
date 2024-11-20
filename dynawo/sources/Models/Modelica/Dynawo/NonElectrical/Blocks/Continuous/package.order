@@ -27,3 +27,4 @@ TransferFunction
 VarLimPIDFreeze
 Washout
 WeightedDifference
+VarLimLimDetection
