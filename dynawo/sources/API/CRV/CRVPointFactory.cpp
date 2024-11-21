@@ -21,12 +21,14 @@
 #include "CRVPointFactory.h"
 #include "CRVPoint.h"
 
+#include "make_unique.hpp"
+
 
 namespace curves {
 
 std::unique_ptr<Point>
 PointFactory::newPoint(const double& time, const double& value) {
-  return std::unique_ptr<Point>(new Point(time, value));
+  return DYN::make_unique<Point>(time, value);
 }
 
 }  // namespace curves

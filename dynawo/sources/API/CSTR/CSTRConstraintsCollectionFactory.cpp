@@ -21,6 +21,7 @@
 #include "CSTRConstraintsCollectionFactory.h"
 
 #include "CSTRConstraintsCollection.h"
+#include "make_unique.hpp"
 
 using std::string;
 
@@ -28,7 +29,7 @@ namespace constraints {
 
 std::unique_ptr<ConstraintsCollection>
 ConstraintsCollectionFactory::newInstance(const string& id) {
-  return std::unique_ptr<ConstraintsCollection>(new ConstraintsCollection(id));
+  return DYN::make_unique<ConstraintsCollection>(id);
 }
 
 }  // namespace constraints

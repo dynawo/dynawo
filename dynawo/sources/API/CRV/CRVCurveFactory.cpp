@@ -21,12 +21,14 @@
 #include "CRVCurveFactory.h"
 #include "CRVCurve.h"
 
+#include "make_unique.hpp"
+
 
 namespace curves {
 
 std::unique_ptr<Curve>
 CurveFactory::newCurve() {
-  return std::unique_ptr<Curve>(new Curve());
+  return DYN::make_unique<Curve>();
 }
 
 }  // namespace curves

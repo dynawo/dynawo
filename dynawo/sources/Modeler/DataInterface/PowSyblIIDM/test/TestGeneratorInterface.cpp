@@ -28,6 +28,7 @@
 #include <powsybl/iidm/extensions/iidm/CoordinatedReactiveControlAdder.hpp>
 #include <powsybl/iidm/ExtensionProviders.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 namespace powsybl {
@@ -96,7 +97,7 @@ TEST(DataInterfaceTest, Generator_1) {
   genItf.importStaticParameters();
 
   ASSERT_EQ(genItf.getBusInterface().get(), nullptr);
-  std::unique_ptr<BusInterface> busItf(new BusInterfaceIIDM(bus1));
+  std::unique_ptr<BusInterface> busItf = DYN::make_unique<BusInterfaceIIDM>(bus1);
   genItf.setBusInterface(std::move(busItf));
   ASSERT_EQ(genItf.getBusInterface().get()->getID(), "VL1_BUS1");
 

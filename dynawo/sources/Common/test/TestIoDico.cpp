@@ -18,6 +18,7 @@
  */
 
 #include "gtest_dynawo.h"
+#include "make_unique.hpp"
 
 #include "DYNIoDico.h"
 #include "DYNMessage.h"
@@ -57,7 +58,7 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   ASSERT_EQ(dico->msg("MyFourthEntry"), "My Fourth Entry");
 
   ASSERT_THROW(dicos.addDico("MyIoDico", "dico", ""), MessageError);
-  const std::unique_ptr<IoDico> dico2 = std::unique_ptr<IoDico>(new IoDico(*dico.get()));
+  const std::unique_ptr<IoDico> dico2 = DYN::make_unique<IoDico>(*dico.get());
   ASSERT_EQ(dico2->msg("MyEntry"), "My First Entry");
   ASSERT_EQ(dico2->msg("MySecondEntry"), "My Second Entry %u");
   ASSERT_EQ(dico2->msg("MyThirdEntry"), "My Third Entry");
