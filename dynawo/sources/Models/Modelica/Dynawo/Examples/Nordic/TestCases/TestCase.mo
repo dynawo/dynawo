@@ -242,6 +242,7 @@ model TestCase "Nordic test system case with variable reference frequency"
   Types.AngularVelocityPu check_f_g07;
   Types.AngularVelocityPu check_f_g17;
 
+  Dynawo.Electrical.Controls.Voltage.TapChangerBlocking1 tcblock(Umin=0.9);
 
   Dynawo.Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
