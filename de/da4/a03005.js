@@ -14,6 +14,7 @@ var a03005 =
     [ "convertThreeWindingsTransformers", "de/da4/a03005.html#a80e031faa726be1ddb923583840f453c", null ],
     [ "copy", "de/da4/a03005.html#aa8f7430dd217f2458b870a88cdacd715", null ],
     [ "dumpToFile", "de/da4/a03005.html#a7d9ac642c08aebdb17cf0ab9b7462032", null ],
+    [ "dumpToFile", "de/da4/a03005.html#ae4d080bbaaa8a95d8e3c2204fa1d74fb", null ],
     [ "exportStateVariables", "de/da4/a03005.html#a2ca9b7390e8c6f5c6bc8f0e3054f9adb", null ],
     [ "findBusBreakerBusInterface", "de/da4/a03005.html#ae522df439bcd62345421ef63fc8ea125", null ],
     [ "findBusInterface", "de/da4/a03005.html#abbc719e1f6cc6269323893e8069b9939", null ],

@@ -6,6 +6,7 @@ var a02877 =
     [ "clone", "d1/dc2/a02877.html#a486f40ff74deb16fc05a1010049994f2", null ],
     [ "configureCriteria", "d1/dc2/a02877.html#a7877ad95dd2f64b905d49e5c67c29262", null ],
     [ "dumpToFile", "d1/dc2/a02877.html#aa303994128dd1a2aa273eef4fd4023f9", null ],
+    [ "dumpToFile", "d1/dc2/a02877.html#ab96c835117ed4ce47a53f36146736d74", null ],
     [ "exportStateVariables", "d1/dc2/a02877.html#ad32280961eccbf724e85f4212f5a7f7e", null ],
     [ "findConnectedComponents", "d1/dc2/a02877.html#a203d3376b7c0bec0f5ae1a9233bac5a9", null ],
     [ "findLostEquipments", "d1/dc2/a02877.html#ac0b110419b38ea8a8ace47670c73f740", null ],

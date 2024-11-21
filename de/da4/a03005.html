@@ -144,6 +144,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a7d9ac642c08aebdb17cf0ab9b7462032"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#a7d9ac642c08aebdb17cf0ab9b7462032">dumpToFile</a> (const std::string &amp;filepath) const</td></tr>
 <tr class="memdesc:a7d9ac642c08aebdb17cf0ab9b7462032"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the network to a file with the proper format  <a href="#a7d9ac642c08aebdb17cf0ab9b7462032">More...</a><br /></td></tr>
 <tr class="separator:a7d9ac642c08aebdb17cf0ab9b7462032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d080bbaaa8a95d8e3c2204fa1d74fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#ae4d080bbaaa8a95d8e3c2204fa1d74fb">dumpToFile</a> (std::stringstream &amp;stream) const</td></tr>
+<tr class="memdesc:ae4d080bbaaa8a95d8e3c2204fa1d74fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the final state of the network in a stream  <a href="#ae4d080bbaaa8a95d8e3c2204fa1d74fb">More...</a><br /></td></tr>
+<tr class="separator:ae4d080bbaaa8a95d8e3c2204fa1d74fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abed20de3d818bdd51a1b1a322e36f250"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#abed20de3d818bdd51a1b1a322e36f250">canUseVariant</a> () const</td></tr>
 <tr class="memdesc:abed20de3d818bdd51a1b1a322e36f250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if variant management is supported.  <a href="#abed20de3d818bdd51a1b1a322e36f250">More...</a><br /></td></tr>
 <tr class="separator:abed20de3d818bdd51a1b1a322e36f250"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -817,7 +820,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </div>
 </div>
 <a id="a7d9ac642c08aebdb17cf0ab9b7462032"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d9ac642c08aebdb17cf0ab9b7462032">&#9670;&nbsp;</a></span>dumpToFile()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d9ac642c08aebdb17cf0ab9b7462032">&#9670;&nbsp;</a></span>dumpToFile() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -849,6 +852,42 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </dl>
 
 <p>Implements <a class="el" href="../../d1/dc2/a02877.html#aa303994128dd1a2aa273eef4fd4023f9">DYN::DataInterface</a>.</p>
+
+</div>
+</div>
+<a id="ae4d080bbaaa8a95d8e3c2204fa1d74fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d080bbaaa8a95d8e3c2204fa1d74fb">&#9670;&nbsp;</a></span>dumpToFile() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::DataInterfaceIIDM::dumpToFile </td>
+          <td>(</td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>dump the final state of the network in a stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>the stream to export to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../d1/dc2/a02877.html#ab96c835117ed4ce47a53f36146736d74">DYN::DataInterface</a>.</p>
 
 </div>
 </div>
@@ -2501,7 +2540,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/da4/a03005.html">DataInterfaceIIDM</a></li>
-    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 13:11:08 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
