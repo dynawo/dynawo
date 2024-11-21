@@ -2791,8 +2791,8 @@
   </set>
   <set id="IDAOrder2">
     <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="0.000001"/>
-    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="initStep" value="0.00001"/>
+    <par type="DOUBLE" name="minStep" value="0.00001"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-3"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
