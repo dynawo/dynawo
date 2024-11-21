@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2024, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,17 +11,19 @@
 // simulation tool for power systems.
 //
 
-#include "CRTCriteriaParamsFactory.h"
-#include "CRTCriteriaParams.h"
+#ifndef COMMON_MAKE_UNIQUE_HPP_
+#define COMMON_MAKE_UNIQUE_HPP_
 
-#include "make_unique.hpp"
+#include <memory>
 
 
-namespace criteria {
+namespace DYN {
 
-std::unique_ptr<CriteriaParams>
-CriteriaParamsFactory::newCriteriaParams() {
-  return DYN::make_unique<CriteriaParams>();
+template<typename T, typename ...Args>
+std::unique_ptr<T> make_unique(Args&& ...args) {
+  return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
-}  // namespace criteria
+}  // namespace DYN
+
+#endif  // COMMON_MAKE_UNIQUE_HPP_

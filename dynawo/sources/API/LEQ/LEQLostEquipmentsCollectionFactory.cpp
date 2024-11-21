@@ -19,15 +19,16 @@
  */
 
 #include "LEQLostEquipmentsCollectionFactory.h"
-
 #include "LEQLostEquipmentsCollection.h"
+
+#include "make_unique.hpp"
 
 
 namespace lostEquipments {
 
 std::unique_ptr<LostEquipmentsCollection>
 LostEquipmentsCollectionFactory::newInstance() {
-  return std::unique_ptr<LostEquipmentsCollection>(new LostEquipmentsCollection());
+  return DYN::make_unique<LostEquipmentsCollection>();
 }
 
 }  // namespace lostEquipments

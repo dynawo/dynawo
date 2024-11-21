@@ -18,6 +18,8 @@
 #include "DYNModelConstants.h"
 #include "CRTCriteriaParamsVoltageLevel.h"
 
+#include "make_unique.hpp"
+
 namespace DYN {
 
 Criteria::Criteria(const std::shared_ptr<criteria::CriteriaParams>& params) :
@@ -74,23 +76,23 @@ BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<tim
     const criteria::CriteriaParamsVoltageLevel& vl = params_->getVoltageLevels()[0];
     double vNom = (*it)->getVNom();
     if (vl.hasUMaxPu() && v > vl.getUMaxPu()*vNom) {
-      std::unique_ptr<FailingCriteria> busFailingCriteria(new BusFailingCriteria(Bound::MAX,
-                                                                                  (*it)->getID(),
-                                                                                  v,
-                                                                                  v/vNom,
-                                                                                  vl.getUMaxPu()*vNom,
-                                                                                  vl.getUMaxPu(),
-                                                                                  params_->getId()));
+      std::unique_ptr<FailingCriteria> busFailingCriteria = DYN::make_unique<BusFailingCriteria>(Bound::MAX,
+                                                                                                  (*it)->getID(),
+                                                                                                  v,
+                                                                                                  v/vNom,
+                                                                                                  vl.getUMaxPu()*vNom,
+                                                                                                  vl.getUMaxPu(),
+                                                                                                  params_->getId());
       distanceToBusFailingCriteriaMap.insert(std::make_pair(busFailingCriteria->getDistance(), std::move(busFailingCriteria)));
     }
     if (vl.hasUMinPu() && v < vl.getUMinPu()*vNom) {
-      std::unique_ptr<FailingCriteria> busFailingCriteria(new BusFailingCriteria(Bound::MIN,
-                                                                                  (*it)->getID(),
-                                                                                  v,
-                                                                                  v/vNom,
-                                                                                  vl.getUMinPu()*vNom,
-                                                                                  vl.getUMinPu(),
-                                                                                  params_->getId()));
+      std::unique_ptr<FailingCriteria> busFailingCriteria = DYN::make_unique<BusFailingCriteria>(Bound::MIN,
+                                                                                                  (*it)->getID(),
+                                                                                                  v,
+                                                                                                  v/vNom,
+                                                                                                  vl.getUMinPu()*vNom,
+                                                                                                  vl.getUMinPu(),
+                                                                                                  params_->getId());
       distanceToBusFailingCriteriaMap.insert(std::make_pair(busFailingCriteria->getDistance(), std::move(busFailingCriteria)));
     }
   }
@@ -332,21 +334,21 @@ LoadCriteria::checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::Load
                                                   bool& atLeastOneEligibleLoadWasFound) {
   if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
     if (params_->hasPMax() && loadActivePower > params_->getPMax()) {
-      std::unique_ptr<FailingCriteria> loadFailingCriteria(new LoadFailingCriteria(Bound::MAX,
-                                                            load->getID(),
-                                                            loadActivePower,
-                                                            params_->getPMax(),
-                                                            params_->getId()));
+      std::unique_ptr<FailingCriteria> loadFailingCriteria = DYN::make_unique<LoadFailingCriteria>(Bound::MAX,
+                                                                                                    load->getID(),
+                                                                                                    loadActivePower,
+                                                                                                    params_->getPMax(),
+                                                                                                    params_->getId());
       distanceToLoadFailingCriteriaMap.insert(std::make_pair(loadFailingCriteria->getDistance(), std::move(loadFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(load->getID());
     }
     if (params_->hasPMin() && loadActivePower < params_->getPMin()) {
-      std::unique_ptr<FailingCriteria> loadFailingCriteria(new LoadFailingCriteria(Bound::MIN,
-                                                            load->getID(),
-                                                            loadActivePower,
-                                                            params_->getPMin(),
-                                                            params_->getId()));
+      std::unique_ptr<FailingCriteria> loadFailingCriteria = DYN::make_unique<LoadFailingCriteria>(Bound::MIN,
+                                                                                                    load->getID(),
+                                                                                                    loadActivePower,
+                                                                                                    params_->getPMin(),
+                                                                                                    params_->getId());
       distanceToLoadFailingCriteriaMap.insert(std::make_pair(loadFailingCriteria->getDistance(), std::move(loadFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(load->getID());
@@ -588,21 +590,21 @@ GeneratorCriteria::checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN:
                                                       bool& atLeastOneEligibleGeneratorWasFound) {
   if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
     if (params_->hasPMax() && generatorActivePower > params_->getPMax()) {
-      std::unique_ptr<FailingCriteria> generatorFailingCriteria(new LoadCriteria::LoadFailingCriteria(Bound::MAX,
-                                                                generator->getID(),
-                                                                generatorActivePower,
-                                                                params_->getPMax(),
-                                                                params_->getId()));
+      std::unique_ptr<FailingCriteria> generatorFailingCriteria = DYN::make_unique<LoadCriteria::LoadFailingCriteria>(Bound::MAX,
+                                                                                                                      generator->getID(),
+                                                                                                                      generatorActivePower,
+                                                                                                                      params_->getPMax(),
+                                                                                                                      params_->getId());
       distanceToGeneratorFailingCriteriaMap.insert(std::make_pair(generatorFailingCriteria->getDistance(), std::move(generatorFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(generator->getID());
     }
     if (params_->hasPMin() && generatorActivePower < params_->getPMin()) {
-      std::unique_ptr<FailingCriteria> generatorFailingCriteria(new LoadCriteria::LoadFailingCriteria(Bound::MIN,
-                                                                generator->getID(),
-                                                                generatorActivePower,
-                                                                params_->getPMin(),
-                                                                params_->getId()));
+      std::unique_ptr<FailingCriteria> generatorFailingCriteria = DYN::make_unique<LoadCriteria::LoadFailingCriteria>(Bound::MIN,
+                                                                                                                      generator->getID(),
+                                                                                                                      generatorActivePower,
+                                                                                                                      params_->getPMin(),
+                                                                                                                      params_->getId());
       distanceToGeneratorFailingCriteriaMap.insert(std::make_pair(generatorFailingCriteria->getDistance(), std::move(generatorFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(generator->getID());

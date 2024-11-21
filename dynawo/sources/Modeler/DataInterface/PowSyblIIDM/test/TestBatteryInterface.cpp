@@ -16,6 +16,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNCommon.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
+#include "make_unique.hpp"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Battery.hpp>
@@ -84,7 +85,7 @@ TEST(DataInterfaceTest, Battery_1) {
   batItf.importStaticParameters();
 
   ASSERT_EQ(batItf.getBusInterface().get(), nullptr);
-  std::unique_ptr<BusInterface> busItf(new BusInterfaceIIDM(bus1));
+  std::unique_ptr<BusInterface> busItf = DYN::make_unique<BusInterfaceIIDM>(bus1);
   batItf.setBusInterface(std::move(busItf));
   ASSERT_EQ(batItf.getBusInterface().get()->getID(), "VL1_BUS1");
 
