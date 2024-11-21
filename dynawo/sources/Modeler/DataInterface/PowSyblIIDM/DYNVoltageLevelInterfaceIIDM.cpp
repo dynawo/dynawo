@@ -29,6 +29,7 @@
 #include "DYNLccConverterInterface.h"
 #include "DYNModelConstants.h"
 #include "DYNTrace.h"
+#include "make_unique.hpp"
 
 #include <powsybl/iidm/TopologyKind.hpp>
 #include <powsybl/iidm/SwitchKind.hpp>
@@ -291,7 +292,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     busName.str("");
     busName.clear();
     busName << "calculatedBus_" << voltageLevelIIDM_.getId() << "_" << i;
-    std::unique_ptr<CalculatedBusInterfaceIIDM> bus(new CalculatedBusInterfaceIIDM(voltageLevelIIDM_, busName.str(), i));
+    std::unique_ptr<CalculatedBusInterfaceIIDM> bus = DYN::make_unique<CalculatedBusInterfaceIIDM>(voltageLevelIIDM_, busName.str(), i);
     calculatedBus_.push_back(std::move(bus));
   }
 

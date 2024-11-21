@@ -35,6 +35,7 @@
 #include "DYNVariable.h"
 #include "DYNElement.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 using boost::shared_ptr;
@@ -101,7 +102,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   if (open || !closed2) {
     lIIDM.getTerminal2().disconnect();
   }
-  std::unique_ptr<LineInterfaceIIDM> dlItfIIDM =  std::unique_ptr<LineInterfaceIIDM>(new LineInterfaceIIDM(lIIDM));
+  std::unique_ptr<LineInterfaceIIDM> dlItfIIDM = DYN::make_unique<LineInterfaceIIDM>(lIIDM);
   std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
   dlItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
   dlItfIIDM->setVoltageLevelInterface2(vlItfIIDM);
@@ -118,30 +119,32 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
 
   powsybl::iidm::CurrentLimits& currentLimits1 = lIIDM.getCurrentLimits1();
   if (!std::isnan(currentLimits1.getPermanentLimit())) {
-    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(),
-                                                                                    std::numeric_limits<unsigned long>::max()));
+    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits1.getPermanentLimit(),
+                                                                                                    std::numeric_limits<unsigned long>::max());
     dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
   }
   for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
-      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
+                                                                                                      currentLimit.getAcceptableDuration());
       dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
   powsybl::iidm::CurrentLimits& currentLimits2 = lIIDM.getCurrentLimits2();
   if (!std::isnan(currentLimits2.getPermanentLimit())) {
-    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(),
-                                                                                    std::numeric_limits<unsigned long>::max()));
+    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits2.getPermanentLimit(),
+                                                                                                    std::numeric_limits<unsigned long>::max());
     dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
   }
   for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
-      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
+                                                                                                      currentLimit.getAcceptableDuration());
       dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
 
-  std::unique_ptr<ModelLine> dl = std::unique_ptr<ModelLine>(new ModelLine(std::move(dlItfIIDM)));
+  std::unique_ptr<ModelLine> dl = DYN::make_unique<ModelLine>(std::move(dlItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
