@@ -90,7 +90,7 @@ var searchData=
   ['maxtimeoperation_5f',['maxTimeOperation_',['../d1/da3/a03221.html#a3741533458c6eb324bf27836e4fcb192',1,'DYN::ModelCurrentLimits']]],
   ['maxvaluethreshold',['maxValueThreshold',['../d5/d1d/a03165.html#ad9fa4a7df24010c2e5300f7555a998ab',1,'DYN::ModelVoltageMeasurementsUtilities']]],
   ['memorymanagerchars',['memoryManagerChars',['../d0/d2a/a03133.html',1,'DYN::memoryManagerChars'],['../d0/d2a/a03133.html#a48854f613c484d91f28fafff8bd0dc05',1,'DYN::memoryManagerChars::memoryManagerChars()']]],
-  ['merge',['merge',['../da/d24/a01609.html#a2cd26d9629da400d51fb0421e8289ce4',1,'criteria::CriteriaCollection']]],
+  ['merge',['merge',['../da/d24/a01609.html#ab8764dda31d2212c02504146bd0bd078',1,'criteria::CriteriaCollection']]],
   ['mergeconnectors',['mergeConnectors',['../da/dd2/a02701.html#a075d673c555614fbdcc31ccaac26b3b8',1,'DYN::ConnectorContainer::mergeConnectors()'],['../da/dd2/a02701.html#ad8c87c47895312284e415076d4360a85',1,'DYN::ConnectorContainer::mergeConnectors(boost::shared_ptr&lt; Connector &gt; connector, boost::shared_ptr&lt; Connector &gt; reference, std::list&lt; boost::shared_ptr&lt; Connector &gt; &gt; &amp;connectorsList, std::unordered_map&lt; int, boost::shared_ptr&lt; Connector &gt; &gt; &amp;connectorsByVarNum, bool flowConnector=false)']]],
   ['mergeflowconnector',['mergeFlowConnector',['../da/dd2/a02701.html#a6ad789cc7595852238e57eb327524f8c',1,'DYN::ConnectorContainer']]],
   ['mergeoppositeeventsdicos',['mergeOppositeEventsDicos',['../d0/dce/a02617.html#af47a3c90ae3371d2d54b89869f189e8d',1,'DYN::IoDicos']]],

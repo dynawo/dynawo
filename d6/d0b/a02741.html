@@ -294,9 +294,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afbb450e2d5337896e29fd7a5b5039961"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0b/a02741.html#afbb450e2d5337896e29fd7a5b5039961">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d2e/a02537.html">timeline::Timeline</a> &gt; &amp;timeline)</td></tr>
 <tr class="memdesc:afbb450e2d5337896e29fd7a5b5039961"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the timeline to use during the simulation (where events should be added)  <a href="#afbb450e2d5337896e29fd7a5b5039961">More...</a><br /></td></tr>
 <tr class="separator:afbb450e2d5337896e29fd7a5b5039961"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b2bbccda95ec6a6b7dac78ce56a911f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0b/a02741.html#a2b2bbccda95ec6a6b7dac78ce56a911f">setConstraints</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;constraints)</td></tr>
-<tr class="memdesc:a2b2bbccda95ec6a6b7dac78ce56a911f"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the constraints collection to use during the simulation (where constraints should be added)  <a href="#a2b2bbccda95ec6a6b7dac78ce56a911f">More...</a><br /></td></tr>
-<tr class="separator:a2b2bbccda95ec6a6b7dac78ce56a911f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d5b5bab0d76651a3ea61ff2b23fab0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0b/a02741.html#af0d5b5bab0d76651a3ea61ff2b23fab0">setConstraints</a> (const std::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;constraints)</td></tr>
+<tr class="memdesc:af0d5b5bab0d76651a3ea61ff2b23fab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the constraints collection to use during the simulation (where constraints should be added)  <a href="#af0d5b5bab0d76651a3ea61ff2b23fab0">More...</a><br /></td></tr>
+<tr class="separator:af0d5b5bab0d76651a3ea61ff2b23fab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dad471817fa25d1a4880b4ef45923ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0b/a02741.html#a7dad471817fa25d1a4880b4ef45923ba">initCurves</a> (boost::shared_ptr&lt; <a class="el" href="../../d9/df5/a01673.html">curves::Curve</a> &gt; &amp;curve)</td></tr>
 <tr class="memdesc:a7dad471817fa25d1a4880b4ef45923ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize curve (reference with the variable, variable exists ...)  <a href="#a7dad471817fa25d1a4880b4ef45923ba">More...</a><br /></td></tr>
 <tr class="separator:a7dad471817fa25d1a4880b4ef45923ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2847,8 +2847,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a2b2bbccda95ec6a6b7dac78ce56a911f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b2bbccda95ec6a6b7dac78ce56a911f">&#9670;&nbsp;</a></span>setConstraints()</h2>
+<a id="af0d5b5bab0d76651a3ea61ff2b23fab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d5b5bab0d76651a3ea61ff2b23fab0">&#9670;&nbsp;</a></span>setConstraints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2859,7 +2859,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void DYN::ModelMulti::setConstraints </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>constraints</em></td><td>)</td>
           <td></td>
         </tr>
@@ -2879,7 +2879,7 @@ template&lt;class T &gt; </div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../dd/d01/a02729.html#a6f664b925ce90e55b5602588bfd25034">DYN::Model</a>.</p>
+<p>Implements <a class="el" href="../../dd/d01/a02729.html#a1d198ed08776d021b35f4db4eee7c931">DYN::Model</a>.</p>
 
 </div>
 </div>
@@ -3420,7 +3420,7 @@ template&lt;class T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d0b/a02741.html">ModelMulti</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:13 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

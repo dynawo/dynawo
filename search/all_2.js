@@ -46,7 +46,7 @@ var searchData=
   ['busbarsectioninterface',['BusBarSectionInterface',['../d5/d34/a02809.html',1,'DYN']]],
   ['buscomponents_5f',['busComponents_',['../de/da4/a03005.html#aa3d2507b60b0ce60e7f336b9d6690751',1,'DYN::DataInterfaceIIDM']]],
   ['buscontainer_5f',['busContainer_',['../d6/d24/a03249.html#a94d36b753905f8e1d36b530d7008df1e',1,'DYN::ModelNetwork']]],
-  ['buscriteria',['BusCriteria',['../d0/d2b/a02833.html',1,'DYN::BusCriteria'],['../d0/d2b/a02833.html#a0ab52896701c89a6c53256fc3146f7f9',1,'DYN::BusCriteria::BusCriteria()']]],
+  ['buscriteria',['BusCriteria',['../d0/d2b/a02833.html',1,'DYN::BusCriteria'],['../d0/d2b/a02833.html#a3449c582ce719b065d65e4b68c44e96a',1,'DYN::BusCriteria::BusCriteria()']]],
   ['buscriteria_5f',['busCriteria_',['../da/d24/a01609.html#ac1db875b07a856d2ff18b6949bf3f866',1,'criteria::CriteriaCollection']]],
   ['buscriteriahandler_5f',['busCriteriaHandler_',['../d4/d41/a01661.html#a40c713233d0d0cd4ceeebae83bfdce74',1,'criteria::XmlHandler']]],
   ['busderivatives',['BusDerivatives',['../d7/dee/a03205.html',1,'DYN']]],

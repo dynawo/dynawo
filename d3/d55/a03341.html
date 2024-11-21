@@ -95,6 +95,7 @@ $(document).ready(function(){initNavTree('d3/d55/a03341.html','../../');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
@@ -120,6 +121,13 @@ Inheritance diagram for DYN::SolverFactory:</div>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae81d3f1e1eb1129f7fd351339b93b857"><td class="memItemLeft" align="right" valign="top"><a id="ae81d3f1e1eb1129f7fd351339b93b857"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> = std::unique_ptr&lt; <a class="el" href="../../d7/d2c/a03333.html">Solver</a>, std::function&lt; void(<a class="el" href="../../d7/d2c/a03333.html">Solver</a> *)&gt; &gt;</td></tr>
+<tr class="memdesc:ae81d3f1e1eb1129f7fd351339b93b857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for <a class="el" href="../../d7/d2c/a03333.html" title="Solver interface class. ">Solver</a> unique pointer with <a class="el" href="../../d6/df3/a03349.html" title="SolverDelete class. ">SolverDelete</a> custom destructor. <br /></td></tr>
+<tr class="separator:ae81d3f1e1eb1129f7fd351339b93b857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a9995b963846832f7c1fd906c7f8d08"><td class="memItemLeft" align="right" valign="top"><a id="a1a9995b963846832f7c1fd906c7f8d08"></a>
@@ -140,9 +148,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3504ac5d306e30488a661a38225a7573"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d7/d2c/a03333.html">Solver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html#a3504ac5d306e30488a661a38225a7573">createSolverFromLib</a> (const std::string &amp;lib)</td></tr>
-<tr class="memdesc:a3504ac5d306e30488a661a38225a7573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a solver loading given lib.  <a href="#a3504ac5d306e30488a661a38225a7573">More...</a><br /></td></tr>
-<tr class="separator:a3504ac5d306e30488a661a38225a7573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eb79ca757549edba15c0879bba305e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d3/d55/a03341.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html#a5eb79ca757549edba15c0879bba305e2">createSolverFromLib</a> (const std::string &amp;lib)</td></tr>
+<tr class="memdesc:a5eb79ca757549edba15c0879bba305e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a solver loading given lib.  <a href="#a5eb79ca757549edba15c0879bba305e2">More...</a><br /></td></tr>
+<tr class="separator:a5eb79ca757549edba15c0879bba305e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -185,8 +193,8 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
 
 </div>
 </div>
-<a id="a3504ac5d306e30488a661a38225a7573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3504ac5d306e30488a661a38225a7573">&#9670;&nbsp;</a></span>createSolverFromLib()</h2>
+<a id="a5eb79ca757549edba15c0879bba305e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eb79ca757549edba15c0879bba305e2">&#9670;&nbsp;</a></span>createSolverFromLib()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +203,7 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d7/d2c/a03333.html">Solver</a>&gt; DYN::SolverFactory::createSolverFromLib </td>
+          <td class="memname">static <a class="el" href="../../d3/d55/a03341.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> DYN::SolverFactory::createSolverFromLib </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>lib</em></td><td>)</td>
@@ -240,7 +248,7 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d55/a03341.html">SolverFactory</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:14 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:50 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

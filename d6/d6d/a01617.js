@@ -1,4 +1,4 @@
 var a01617 =
 [
-    [ "newInstance", "d6/d6d/a01617.html#ae6e528bcc669047ebc720325d834788a", null ]
+    [ "newInstance", "d6/d6d/a01617.html#ac1984a6858565e3365e4150c7d54ddb3", null ]
 ];

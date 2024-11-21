@@ -18,7 +18,7 @@ var searchData=
   ['builddefaultextensiondefinition',['buildDefaultExtensionDefinition',['../d6/def/a03033.html#aa69dc65d44dbc4738659f3cd0f0d5b86',1,'DYN::IIDMExtensions']]],
   ['buildgraph',['buildGraph',['../dc/d45/a03085.html#a004c7058956976e90ad87f48bdc93aba',1,'DYN::ServiceManagerInterfaceIIDM']]],
   ['bus',['bus',['../d9/d59/a03213.html#a669834f45699089c9f61b09970e9f39b',1,'DYN::SubNetwork']]],
-  ['buscriteria',['BusCriteria',['../d0/d2b/a02833.html#a0ab52896701c89a6c53256fc3146f7f9',1,'DYN::BusCriteria']]],
+  ['buscriteria',['BusCriteria',['../d0/d2b/a02833.html#a3449c582ce719b065d65e4b68c44e96a',1,'DYN::BusCriteria']]],
   ['busfailingcriteria',['BusFailingCriteria',['../dc/dfd/a02837.html#ab9d417097f28ffac70ab3aba33b046b4',1,'DYN::BusCriteria::BusFailingCriteria']]],
   ['businterface',['BusInterface',['../d3/d85/a02813.html#a496b1cf709d17989bd5e8a64882dbff5',1,'DYN::BusInterface']]],
   ['businterfaceiidm',['BusInterfaceIIDM',['../dd/d5c/a02985.html#a468be008b3d66af5bee34a6f4252ac32',1,'DYN::BusInterfaceIIDM']]]

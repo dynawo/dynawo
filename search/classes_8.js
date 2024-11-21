@@ -9,7 +9,7 @@ var searchData=
   ['iidmextensiontrait_3c_20generatoractivepowercontroliidmextension_20_3e',['IIDMExtensionTrait&lt; GeneratorActivePowerControlIIDMExtension &gt;',['../d6/dfe/a03053.html',1,'DYN']]],
   ['iidmextensiontrait_3c_20staticvarcompensatorinterfaceiidmextension_20_3e',['IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt;',['../dc/d23/a03041.html',1,'DYN']]],
   ['impl',['Impl',['../d3/dfd/a03357.html',1,'DYN::Solver']]],
-  ['importer',['Importer',['../df/dbf/a02161.html',1,'job::Importer'],['../db/d95/a01637.html',1,'criteria::Importer'],['../d7/d62/a01805.html',1,'dynamicdata::Importer'],['../d9/dc5/a01705.html',1,'curves::Importer'],['../d7/d18/a02409.html',1,'parameters::Importer'],['../da/d3e/a02025.html',1,'externalVariables::Importer']]],
+  ['importer',['Importer',['../df/dbf/a02161.html',1,'job::Importer'],['../db/d95/a01637.html',1,'criteria::Importer'],['../d9/dc5/a01705.html',1,'curves::Importer'],['../d7/d18/a02409.html',1,'parameters::Importer'],['../d7/d62/a01805.html',1,'dynamicdata::Importer'],['../da/d3e/a02025.html',1,'externalVariables::Importer']]],
   ['initialstateentry',['InitialStateEntry',['../d7/d4c/a02165.html',1,'job']]],
   ['initialstateentryfactory',['InitialStateEntryFactory',['../de/d08/a02169.html',1,'job']]],
   ['initialstatehandler',['InitialStateHandler',['../df/d4d/a02285.html',1,'job']]],

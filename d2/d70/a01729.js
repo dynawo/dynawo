@@ -1,5 +1,5 @@
 var a01729 =
 [
-    [ "importFromFile", "d2/d70/a01729.html#a936cb53be95adcd81c164cadf236999d", null ],
-    [ "importFromStream", "d2/d70/a01729.html#a98230d544c970679b3e32e39dc18f8b5", null ]
+    [ "importFromFile", "d2/d70/a01729.html#ae87b891a23d5a8f0dd5f46e713cd474b", null ],
+    [ "importFromStream", "d2/d70/a01729.html#ad9d68630f8d02d91dbc3f8a25199c50c", null ]
 ];

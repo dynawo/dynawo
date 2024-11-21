@@ -135,12 +135,12 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a25c608c49ace62270c6b666c89737785"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../db/d6a/a02613.html">IoDico</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a25c608c49ace62270c6b666c89737785">getIoDico</a> (const std::string &amp;dicoName)</td></tr>
-<tr class="memdesc:a25c608c49ace62270c6b666c89737785"><td class="mdescLeft">&#160;</td><td class="mdescRight">try to find a dictionary with the name <b>dicoName</b>  <a href="#a25c608c49ace62270c6b666c89737785">More...</a><br /></td></tr>
-<tr class="separator:a25c608c49ace62270c6b666c89737785"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a254c272294b379e6f0e5cb6d99ad2506"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../df/d40/a02609.html">OppositeEventDico</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a254c272294b379e6f0e5cb6d99ad2506">getOppositeEventsDico</a> (const std::string &amp;dicoName)</td></tr>
-<tr class="memdesc:a254c272294b379e6f0e5cb6d99ad2506"><td class="mdescLeft">&#160;</td><td class="mdescRight">try to find a opposite event dictionary with the name <b>dicoName</b>  <a href="#a254c272294b379e6f0e5cb6d99ad2506">More...</a><br /></td></tr>
-<tr class="separator:a254c272294b379e6f0e5cb6d99ad2506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223898f34123d83335e268e642173072"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../db/d6a/a02613.html">IoDico</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a223898f34123d83335e268e642173072">getIoDico</a> (const std::string &amp;dicoName)</td></tr>
+<tr class="memdesc:a223898f34123d83335e268e642173072"><td class="mdescLeft">&#160;</td><td class="mdescRight">try to find a dictionary with the name <b>dicoName</b>  <a href="#a223898f34123d83335e268e642173072">More...</a><br /></td></tr>
+<tr class="separator:a223898f34123d83335e268e642173072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfeb28e393a816191939765ea13d2b9a"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../df/d40/a02609.html">OppositeEventDico</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#abfeb28e393a816191939765ea13d2b9a">getOppositeEventsDico</a> (const std::string &amp;dicoName)</td></tr>
+<tr class="memdesc:abfeb28e393a816191939765ea13d2b9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">try to find a opposite event dictionary with the name <b>dicoName</b>  <a href="#abfeb28e393a816191939765ea13d2b9a">More...</a><br /></td></tr>
+<tr class="separator:abfeb28e393a816191939765ea13d2b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab648d28294b60b86f0dae479daa2bbd6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#ab648d28294b60b86f0dae479daa2bbd6">hasIoDico</a> (const std::string &amp;dicoName)</td></tr>
 <tr class="memdesc:ab648d28294b60b86f0dae479daa2bbd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if a dictionary exist thanks to its name  <a href="#ab648d28294b60b86f0dae479daa2bbd6">More...</a><br /></td></tr>
 <tr class="separator:ab648d28294b60b86f0dae479daa2bbd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,14 +167,14 @@ Private Attributes</h2></td></tr>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a2d15bad7b425a434ab23ff6832a1771a">paths_</a></td></tr>
 <tr class="memdesc:a2d15bad7b425a434ab23ff6832a1771a"><td class="mdescLeft">&#160;</td><td class="mdescRight">path where dictionnaries are researched <br /></td></tr>
 <tr class="separator:a2d15bad7b425a434ab23ff6832a1771a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f3fc38b1ce80fbf8a7f441001fcad6c"><td class="memItemLeft" align="right" valign="top"><a id="a7f3fc38b1ce80fbf8a7f441001fcad6c"></a>
-std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../db/d6a/a02613.html">IoDico</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a7f3fc38b1ce80fbf8a7f441001fcad6c">dicos_</a></td></tr>
-<tr class="memdesc:a7f3fc38b1ce80fbf8a7f441001fcad6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">map association between dictionary and their name <br /></td></tr>
-<tr class="separator:a7f3fc38b1ce80fbf8a7f441001fcad6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e5ffd6ec5156552d8899d716fd00161"><td class="memItemLeft" align="right" valign="top"><a id="a3e5ffd6ec5156552d8899d716fd00161"></a>
-std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../df/d40/a02609.html">OppositeEventDico</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a3e5ffd6ec5156552d8899d716fd00161">oppositeEventsDicos_</a></td></tr>
-<tr class="memdesc:a3e5ffd6ec5156552d8899d716fd00161"><td class="mdescLeft">&#160;</td><td class="mdescRight">map association between dictionary and their name <br /></td></tr>
-<tr class="separator:a3e5ffd6ec5156552d8899d716fd00161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12b37c911aac62426d930cf79570a061"><td class="memItemLeft" align="right" valign="top"><a id="a12b37c911aac62426d930cf79570a061"></a>
+std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../db/d6a/a02613.html">IoDico</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a12b37c911aac62426d930cf79570a061">dicos_</a></td></tr>
+<tr class="memdesc:a12b37c911aac62426d930cf79570a061"><td class="mdescLeft">&#160;</td><td class="mdescRight">map association between dictionary and their name <br /></td></tr>
+<tr class="separator:a12b37c911aac62426d930cf79570a061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5abafd245223c94b6941ba2714b3ce10"><td class="memItemLeft" align="right" valign="top"><a id="a5abafd245223c94b6941ba2714b3ce10"></a>
+std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../df/d40/a02609.html">OppositeEventDico</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dce/a02617.html#a5abafd245223c94b6941ba2714b3ce10">oppositeEventsDicos_</a></td></tr>
+<tr class="memdesc:a5abafd245223c94b6941ba2714b3ce10"><td class="mdescLeft">&#160;</td><td class="mdescRight">map association between dictionary and their name <br /></td></tr>
+<tr class="separator:a5abafd245223c94b6941ba2714b3ce10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../d0/dce/a02617.html" title="IoDicos class description. IoDicos read all the dictionary and give an access to a dictionary thanks ...">IoDicos</a> class description. <a class="el" href="../../d0/dce/a02617.html" title="IoDicos class description. IoDicos read all the dictionary and give an access to a dictionary thanks ...">IoDicos</a> read all the dictionary and give an access to a dictionary thanks to his name. </p>
@@ -322,8 +322,8 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../df/d40
 
 </div>
 </div>
-<a id="a25c608c49ace62270c6b666c89737785"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25c608c49ace62270c6b666c89737785">&#9670;&nbsp;</a></span>getIoDico()</h2>
+<a id="a223898f34123d83335e268e642173072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223898f34123d83335e268e642173072">&#9670;&nbsp;</a></span>getIoDico()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -332,7 +332,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../df/d40
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../db/d6a/a02613.html">IoDico</a>&gt; DYN::IoDicos::getIoDico </td>
+          <td class="memname">static std::shared_ptr&lt;<a class="el" href="../../db/d6a/a02613.html">IoDico</a>&gt; DYN::IoDicos::getIoDico </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>dicoName</em></td><td>)</td>
@@ -357,8 +357,8 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../df/d40
 
 </div>
 </div>
-<a id="a254c272294b379e6f0e5cb6d99ad2506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a254c272294b379e6f0e5cb6d99ad2506">&#9670;&nbsp;</a></span>getOppositeEventsDico()</h2>
+<a id="abfeb28e393a816191939765ea13d2b9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfeb28e393a816191939765ea13d2b9a">&#9670;&nbsp;</a></span>getOppositeEventsDico()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,7 +367,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../df/d40
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../df/d40/a02609.html">OppositeEventDico</a>&gt; DYN::IoDicos::getOppositeEventsDico </td>
+          <td class="memname">static std::shared_ptr&lt;<a class="el" href="../../df/d40/a02609.html">OppositeEventDico</a>&gt; DYN::IoDicos::getOppositeEventsDico </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>dicoName</em></td><td>)</td>
@@ -530,7 +530,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../df/d40
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/dce/a02617.html">IoDicos</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:13 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -129,9 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad05f2736071ab81437ca4d110675665f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d24/a01609.html#ad05f2736071ab81437ca4d110675665f">add</a> (<a class="el" href="../../da/d24/a01609.html#aa1f8551055dee1a8a893af8fa533d7f7">CriteriaCollectionType_t</a> type, const boost::shared_ptr&lt; <a class="el" href="../../d0/d1d/a01597.html">Criteria</a> &gt; &amp;criteria)</td></tr>
 <tr class="memdesc:ad05f2736071ab81437ca4d110675665f"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a criteria to the collection  <a href="#ad05f2736071ab81437ca4d110675665f">More...</a><br /></td></tr>
 <tr class="separator:ad05f2736071ab81437ca4d110675665f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cd26d9629da400d51fb0421e8289ce4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d24/a01609.html#a2cd26d9629da400d51fb0421e8289ce4">merge</a> (const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">CriteriaCollection</a> &gt; &amp;other)</td></tr>
-<tr class="memdesc:a2cd26d9629da400d51fb0421e8289ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">merge this collection with the other one  <a href="#a2cd26d9629da400d51fb0421e8289ce4">More...</a><br /></td></tr>
-<tr class="separator:a2cd26d9629da400d51fb0421e8289ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8764dda31d2212c02504146bd0bd078"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d24/a01609.html#ab8764dda31d2212c02504146bd0bd078">merge</a> (const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">CriteriaCollection</a> &gt; &amp;other)</td></tr>
+<tr class="memdesc:ab8764dda31d2212c02504146bd0bd078"><td class="mdescLeft">&#160;</td><td class="mdescRight">merge this collection with the other one  <a href="#ab8764dda31d2212c02504146bd0bd078">More...</a><br /></td></tr>
+<tr class="separator:ab8764dda31d2212c02504146bd0bd078"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4bb891f0c8764970da501bc4f684ff2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da1/a01613.html">CriteriaCollectionConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d24/a01609.html#ab4bb891f0c8764970da501bc4f684ff2">begin</a> (<a class="el" href="../../da/d24/a01609.html#aa1f8551055dee1a8a893af8fa533d7f7">CriteriaCollectionType_t</a> type) const</td></tr>
 <tr class="memdesc:ab4bb891f0c8764970da501bc4f684ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="../../d3/da1/a01613.html" title="Const iterator over criteria. ">CriteriaCollectionConstIterator</a> to the beginning of the criteria' vector.  <a href="#ab4bb891f0c8764970da501bc4f684ff2">More...</a><br /></td></tr>
 <tr class="separator:ab4bb891f0c8764970da501bc4f684ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,8 +265,8 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/d1d/a01597.ht
 
 </div>
 </div>
-<a id="a2cd26d9629da400d51fb0421e8289ce4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cd26d9629da400d51fb0421e8289ce4">&#9670;&nbsp;</a></span>merge()</h2>
+<a id="ab8764dda31d2212c02504146bd0bd078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8764dda31d2212c02504146bd0bd078">&#9670;&nbsp;</a></span>merge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +274,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/d1d/a01597.ht
         <tr>
           <td class="memname">void criteria::CriteriaCollection::merge </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">CriteriaCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">CriteriaCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -311,7 +311,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/d1d/a01597.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>criteria</b></li><li class="navelem"><a class="el" href="../../da/d24/a01609.html">CriteriaCollection</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:13 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -122,19 +122,19 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc5/a01705.html#a695ce5e9825f5b7d08986c1b5244980d">~Importer</a> ()=default</td></tr>
 <tr class="memdesc:a695ce5e9825f5b7d08986c1b5244980d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a695ce5e9825f5b7d08986c1b5244980d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1af4da831ac02db6d3883c440258ebc"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc5/a01705.html#ab1af4da831ac02db6d3883c440258ebc">importFromFile</a> (const std::string &amp;fileName) const =0</td></tr>
-<tr class="memdesc:ab1af4da831ac02db6d3883c440258ebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import curves's collection from file.  <a href="#ab1af4da831ac02db6d3883c440258ebc">More...</a><br /></td></tr>
-<tr class="separator:ab1af4da831ac02db6d3883c440258ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a194c89848d3af47a1fa1ec8efd9f4d6c"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc5/a01705.html#a194c89848d3af47a1fa1ec8efd9f4d6c">importFromStream</a> (std::istream &amp;stream) const =0</td></tr>
-<tr class="memdesc:a194c89848d3af47a1fa1ec8efd9f4d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import curves's collection from stream.  <a href="#a194c89848d3af47a1fa1ec8efd9f4d6c">More...</a><br /></td></tr>
-<tr class="separator:a194c89848d3af47a1fa1ec8efd9f4d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3e1d6addd0f76205613c5f664f68df"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc5/a01705.html#a5d3e1d6addd0f76205613c5f664f68df">importFromFile</a> (const std::string &amp;fileName) const =0</td></tr>
+<tr class="memdesc:a5d3e1d6addd0f76205613c5f664f68df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import curves's collection from file.  <a href="#a5d3e1d6addd0f76205613c5f664f68df">More...</a><br /></td></tr>
+<tr class="separator:a5d3e1d6addd0f76205613c5f664f68df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1463f2a4b5c8966066b9a5b2b2b6076"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc5/a01705.html#ac1463f2a4b5c8966066b9a5b2b2b6076">importFromStream</a> (std::istream &amp;stream) const =0</td></tr>
+<tr class="memdesc:ac1463f2a4b5c8966066b9a5b2b2b6076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import curves's collection from stream.  <a href="#ac1463f2a4b5c8966066b9a5b2b2b6076">More...</a><br /></td></tr>
+<tr class="separator:ac1463f2a4b5c8966066b9a5b2b2b6076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../d9/dc5/a01705.html" title="Importer interface class. ">Importer</a> interface class. </p>
 <p>Import class for curves collection. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab1af4da831ac02db6d3883c440258ebc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1af4da831ac02db6d3883c440258ebc">&#9670;&nbsp;</a></span>importFromFile()</h2>
+<a id="a5d3e1d6addd0f76205613c5f664f68df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d3e1d6addd0f76205613c5f664f68df">&#9670;&nbsp;</a></span>importFromFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +143,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../de/d96/a01685.html">CurvesCollection</a>&gt; curves::Importer::importFromFile </td>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../de/d96/a01685.html">CurvesCollection</a>&gt; curves::Importer::importFromFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>fileName</em></td><td>)</td>
@@ -166,12 +166,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Curves collection imported </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d70/a01729.html#a936cb53be95adcd81c164cadf236999d">curves::XmlImporter</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d70/a01729.html#ae87b891a23d5a8f0dd5f46e713cd474b">curves::XmlImporter</a>.</p>
 
 </div>
 </div>
-<a id="a194c89848d3af47a1fa1ec8efd9f4d6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a194c89848d3af47a1fa1ec8efd9f4d6c">&#9670;&nbsp;</a></span>importFromStream()</h2>
+<a id="ac1463f2a4b5c8966066b9a5b2b2b6076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1463f2a4b5c8966066b9a5b2b2b6076">&#9670;&nbsp;</a></span>importFromStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +180,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../de/d96/a01685.html">CurvesCollection</a>&gt; curves::Importer::importFromStream </td>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../de/d96/a01685.html">CurvesCollection</a>&gt; curves::Importer::importFromStream </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
           <td class="paramname"><em>stream</em></td><td>)</td>
@@ -203,7 +203,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Curves collection imported </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d70/a01729.html#a98230d544c970679b3e32e39dc18f8b5">curves::XmlImporter</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d70/a01729.html#ad9d68630f8d02d91dbc3f8a25199c50c">curves::XmlImporter</a>.</p>
 
 </div>
 </div>
@@ -227,7 +227,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../d9/dc5/a01705.html">Importer</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:13 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -287,9 +287,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a3d77c2de8bea8ed5695c0f696aff0381"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a3d77c2de8bea8ed5695c0f696aff0381">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d2e/a02537.html">timeline::Timeline</a> &gt; &amp;timeline)=0</td></tr>
 <tr class="memdesc:a3d77c2de8bea8ed5695c0f696aff0381"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the timeline to use during the simulation (where events should be added)  <a href="#a3d77c2de8bea8ed5695c0f696aff0381">More...</a><br /></td></tr>
 <tr class="separator:a3d77c2de8bea8ed5695c0f696aff0381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f664b925ce90e55b5602588bfd25034"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a6f664b925ce90e55b5602588bfd25034">setConstraints</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;constraints)=0</td></tr>
-<tr class="memdesc:a6f664b925ce90e55b5602588bfd25034"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the constraints collection to use during the simulation (where constraints should be added)  <a href="#a6f664b925ce90e55b5602588bfd25034">More...</a><br /></td></tr>
-<tr class="separator:a6f664b925ce90e55b5602588bfd25034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d198ed08776d021b35f4db4eee7c931"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#a1d198ed08776d021b35f4db4eee7c931">setConstraints</a> (const std::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;constraints)=0</td></tr>
+<tr class="memdesc:a1d198ed08776d021b35f4db4eee7c931"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the constraints collection to use during the simulation (where constraints should be added)  <a href="#a1d198ed08776d021b35f4db4eee7c931">More...</a><br /></td></tr>
+<tr class="separator:a1d198ed08776d021b35f4db4eee7c931"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7b29f9715f971cb913256217f3b1802"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/a02729.html#ab7b29f9715f971cb913256217f3b1802">initCurves</a> (boost::shared_ptr&lt; <a class="el" href="../../d9/df5/a01673.html">curves::Curve</a> &gt; &amp;curve)=0</td></tr>
 <tr class="memdesc:ab7b29f9715f971cb913256217f3b1802"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize curve (reference with the variable, variable exists ...)  <a href="#ab7b29f9715f971cb913256217f3b1802">More...</a><br /></td></tr>
 <tr class="separator:ab7b29f9715f971cb913256217f3b1802"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1765,8 +1765,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a id="a6f664b925ce90e55b5602588bfd25034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f664b925ce90e55b5602588bfd25034">&#9670;&nbsp;</a></span>setConstraints()</h2>
+<a id="a1d198ed08776d021b35f4db4eee7c931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d198ed08776d021b35f4db4eee7c931">&#9670;&nbsp;</a></span>setConstraints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1777,7 +1777,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="memname">virtual void DYN::Model::setConstraints </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d0/d78/a01745.html">constraints::ConstraintsCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>constraints</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1797,7 +1797,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d6/d0b/a02741.html#a2b2bbccda95ec6a6b7dac78ce56a911f">DYN::ModelMulti</a>.</p>
+<p>Implemented in <a class="el" href="../../d6/d0b/a02741.html#af0d5b5bab0d76651a3ea61ff2b23fab0">DYN::ModelMulti</a>.</p>
 
 </div>
 </div>
@@ -2260,7 +2260,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d01/a02729.html">Model</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:13 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

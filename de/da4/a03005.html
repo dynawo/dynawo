@@ -186,9 +186,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:ab99e0f324cc065189c043b4cf6754417"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../d3/d53/a02389.html">lostEquipments::LostEquipmentsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#ab99e0f324cc065189c043b4cf6754417">findLostEquipments</a> (const boost::shared_ptr&lt; std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d27/a02817.html">ComponentInterface</a> &gt; &gt; &gt; &amp;connectedComponents)</td></tr>
 <tr class="memdesc:ab99e0f324cc065189c043b4cf6754417"><td class="mdescLeft">&#160;</td><td class="mdescRight">find lost equipments (equipments which have lost connection)  <a href="#ab99e0f324cc065189c043b4cf6754417">More...</a><br /></td></tr>
 <tr class="separator:ab99e0f324cc065189c043b4cf6754417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a727de8ced9e5cb1b82adc780da8471cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#a727de8ced9e5cb1b82adc780da8471cc">configureCriteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
-<tr class="memdesc:a727de8ced9e5cb1b82adc780da8471cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the criteria for this model  <a href="#a727de8ced9e5cb1b82adc780da8471cc">More...</a><br /></td></tr>
-<tr class="separator:a727de8ced9e5cb1b82adc780da8471cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab056a4624329c61d5742e6bdd5ca4d68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#ab056a4624329c61d5742e6bdd5ca4d68">configureCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
+<tr class="memdesc:ab056a4624329c61d5742e6bdd5ca4d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the criteria for this model  <a href="#ab056a4624329c61d5742e6bdd5ca4d68">More...</a><br /></td></tr>
+<tr class="separator:ab056a4624329c61d5742e6bdd5ca4d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a964c9328799eb13cf8f6afc60fb7f488"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#a964c9328799eb13cf8f6afc60fb7f488">checkCriteria</a> (double t, bool finalStep)</td></tr>
 <tr class="memdesc:a964c9328799eb13cf8f6afc60fb7f488"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if criteria for static model is respected  <a href="#a964c9328799eb13cf8f6afc60fb7f488">More...</a><br /></td></tr>
 <tr class="separator:a964c9328799eb13cf8f6afc60fb7f488"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -294,15 +294,15 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a1f1d459e01ea0144340a4f850c972d2f"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../df/d1b/a03029.html">HvdcLineInterfaceIIDM</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#a1f1d459e01ea0144340a4f850c972d2f">importHvdcLine</a> (powsybl::iidm::HvdcLine &amp;hvdcLineIIDM)</td></tr>
 <tr class="memdesc:a1f1d459e01ea0144340a4f850c972d2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">import and create a hvdc line interface thanks to the IIDM instance  <a href="#a1f1d459e01ea0144340a4f850c972d2f">More...</a><br /></td></tr>
 <tr class="separator:a1f1d459e01ea0144340a4f850c972d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423e0d25d5b2afe7a60ddad1da71ed99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#a423e0d25d5b2afe7a60ddad1da71ed99">configureBusCriteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
-<tr class="memdesc:a423e0d25d5b2afe7a60ddad1da71ed99"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the bus criteria  <a href="#a423e0d25d5b2afe7a60ddad1da71ed99">More...</a><br /></td></tr>
-<tr class="separator:a423e0d25d5b2afe7a60ddad1da71ed99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac053f2ff17f6f4d38db20f9dba7f55cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#ac053f2ff17f6f4d38db20f9dba7f55cc">configureLoadCriteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
-<tr class="memdesc:ac053f2ff17f6f4d38db20f9dba7f55cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the load criteria  <a href="#ac053f2ff17f6f4d38db20f9dba7f55cc">More...</a><br /></td></tr>
-<tr class="separator:ac053f2ff17f6f4d38db20f9dba7f55cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb0b4b3027d21a5e46b5c7179f90ca5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#acb0b4b3027d21a5e46b5c7179f90ca5a">configureGeneratorCriteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
-<tr class="memdesc:acb0b4b3027d21a5e46b5c7179f90ca5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the generator criteria  <a href="#acb0b4b3027d21a5e46b5c7179f90ca5a">More...</a><br /></td></tr>
-<tr class="separator:acb0b4b3027d21a5e46b5c7179f90ca5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af95c3f76d123c71b7ea3b9b461b8c4f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#af95c3f76d123c71b7ea3b9b461b8c4f5">configureBusCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
+<tr class="memdesc:af95c3f76d123c71b7ea3b9b461b8c4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the bus criteria  <a href="#af95c3f76d123c71b7ea3b9b461b8c4f5">More...</a><br /></td></tr>
+<tr class="separator:af95c3f76d123c71b7ea3b9b461b8c4f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa480732de7c3c90896feec3dcba58eda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#aa480732de7c3c90896feec3dcba58eda">configureLoadCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
+<tr class="memdesc:aa480732de7c3c90896feec3dcba58eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the load criteria  <a href="#aa480732de7c3c90896feec3dcba58eda">More...</a><br /></td></tr>
+<tr class="separator:aa480732de7c3c90896feec3dcba58eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44447fc19a880aadf74a9aeb6e405c0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#a44447fc19a880aadf74a9aeb6e405c0d">configureGeneratorCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
+<tr class="memdesc:a44447fc19a880aadf74a9aeb6e405c0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the generator criteria  <a href="#a44447fc19a880aadf74a9aeb6e405c0d">More...</a><br /></td></tr>
+<tr class="separator:a44447fc19a880aadf74a9aeb6e405c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8f7430dd217f2458b870a88cdacd715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da4/a03005.html#aa8f7430dd217f2458b870a88cdacd715">copy</a> (const <a class="el" href="../../de/da4/a03005.html">DataInterfaceIIDM</a> &amp;other)</td></tr>
 <tr class="memdesc:aa8f7430dd217f2458b870a88cdacd715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy data interface info.  <a href="#aa8f7430dd217f2458b870a88cdacd715">More...</a><br /></td></tr>
 <tr class="separator:aa8f7430dd217f2458b870a88cdacd715"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -609,8 +609,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a423e0d25d5b2afe7a60ddad1da71ed99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a423e0d25d5b2afe7a60ddad1da71ed99">&#9670;&nbsp;</a></span>configureBusCriteria()</h2>
+<a id="af95c3f76d123c71b7ea3b9b461b8c4f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af95c3f76d123c71b7ea3b9b461b8c4f5">&#9670;&nbsp;</a></span>configureBusCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,7 +621,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="memname">void DYN::DataInterfaceIIDM::configureBusCriteria </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>criteria</em></td><td>)</td>
           <td></td>
         </tr>
@@ -643,8 +643,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a727de8ced9e5cb1b82adc780da8471cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a727de8ced9e5cb1b82adc780da8471cc">&#9670;&nbsp;</a></span>configureCriteria()</h2>
+<a id="ab056a4624329c61d5742e6bdd5ca4d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab056a4624329c61d5742e6bdd5ca4d68">&#9670;&nbsp;</a></span>configureCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -655,7 +655,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="memname">void DYN::DataInterfaceIIDM::configureCriteria </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>criteria</em></td><td>)</td>
           <td></td>
         </tr>
@@ -675,12 +675,12 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/dc2/a02877.html#ab70045c218610a14d7ea244b77f5c4fd">DYN::DataInterface</a>.</p>
+<p>Implements <a class="el" href="../../d1/dc2/a02877.html#a7877ad95dd2f64b905d49e5c67c29262">DYN::DataInterface</a>.</p>
 
 </div>
 </div>
-<a id="acb0b4b3027d21a5e46b5c7179f90ca5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb0b4b3027d21a5e46b5c7179f90ca5a">&#9670;&nbsp;</a></span>configureGeneratorCriteria()</h2>
+<a id="a44447fc19a880aadf74a9aeb6e405c0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44447fc19a880aadf74a9aeb6e405c0d">&#9670;&nbsp;</a></span>configureGeneratorCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -691,7 +691,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="memname">void DYN::DataInterfaceIIDM::configureGeneratorCriteria </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>criteria</em></td><td>)</td>
           <td></td>
         </tr>
@@ -713,8 +713,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="ac053f2ff17f6f4d38db20f9dba7f55cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac053f2ff17f6f4d38db20f9dba7f55cc">&#9670;&nbsp;</a></span>configureLoadCriteria()</h2>
+<a id="aa480732de7c3c90896feec3dcba58eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa480732de7c3c90896feec3dcba58eda">&#9670;&nbsp;</a></span>configureLoadCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -725,7 +725,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="memname">void DYN::DataInterfaceIIDM::configureLoadCriteria </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../da/d24/a01609.html">criteria::CriteriaCollection</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>criteria</em></td><td>)</td>
           <td></td>
         </tr>
@@ -2501,7 +2501,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/da4/a03005.html">DataInterfaceIIDM</a></li>
-    <li class="footer">Generated on Fri Nov 15 2024 15:25:13 for Dynawo by
+    <li class="footer">Generated on Thu Nov 21 2024 09:46:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

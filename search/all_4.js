@@ -80,7 +80,7 @@ var searchData=
   ['destroyfunction',['DestroyFunction',['../d6/def/a03033.html#a059d3ba2c94d27925287040ea881c017',1,'DYN::IIDMExtensions']]],
   ['destroyfunctionbase',['DestroyFunctionBase',['../d6/def/a03033.html#ace3f751cb9731e40dc4434a51c9efd04',1,'DYN::IIDMExtensions']]],
   ['destroygeneratoractivepowercontrol_5f',['destroyGeneratorActivePowerControl_',['../dd/de7/a03025.html#a31ef3d27fa263467646e57e12c31fad9',1,'DYN::GeneratorInterfaceIIDM']]],
-  ['dicos_5f',['dicos_',['../d0/dce/a02617.html#a7f3fc38b1ce80fbf8a7f441001fcad6c',1,'DYN::IoDicos']]],
+  ['dicos_5f',['dicos_',['../d0/dce/a02617.html#a12b37c911aac62426d930cf79570a061',1,'DYN::IoDicos']]],
   ['dictionarykey',['dictionaryKey',['../d5/d95/a02625.html#afbb1c87f16575e50ad81b186c8726926',1,'DYN::Message']]],
   ['differential',['DIFFERENTIAL',['../dc/d8e/a00473.html#a732348349c2b2231cfb2b9d0417349a6a9db0a4af877cb6f9ae593e62089999dc',1,'DYN']]],
   ['differential_5feq',['DIFFERENTIAL_EQ',['../dc/d8e/a00473.html#a8b1ac858a7be39680e8c19dc9e860dd2af1443cbe4e12e145947943d524db106f',1,'DYN']]],

@@ -13,7 +13,7 @@ var searchData=
   ['omegarefmin_5f',['omegaRefMin_',['../dd/d61/a03197.html#ae6c9b7263d02e545912fa887944dbc3d',1,'DYN::ModelOmegaRef']]],
   ['omegarefnum_5f',['omegaRefNum_',['../da/d34/a03237.html#a5ca94e70f59f7236d211ace83e1c0e64',1,'DYN::ModelLine']]],
   ['openingauthorized_5f',['openingAuthorized_',['../d1/da3/a03221.html#a75db2b1bb7b57b0df8d7fae9527fde39',1,'DYN::ModelCurrentLimits']]],
-  ['oppositeeventsdicos_5f',['oppositeEventsDicos_',['../d0/dce/a02617.html#a3e5ffd6ec5156552d8899d716fd00161',1,'DYN::IoDicos']]],
+  ['oppositeeventsdicos_5f',['oppositeEventsDicos_',['../d0/dce/a02617.html#a5abafd245223c94b6941ba2714b3ce10',1,'DYN::IoDicos']]],
   ['optimizealgebraicresidualsevaluations_5f',['optimizeAlgebraicResidualsEvaluations_',['../df/d67/a03361.html#a458b9e16ae7675c10d521237faac9bcf',1,'DYN::SolverCommonFixedTimeStep']]],
   ['optimizereinitalgebraicresidualsevaluations_5f',['optimizeReinitAlgebraicResidualsEvaluations_',['../d3/dfd/a03357.html#a0bb4db819d7ff93b8e8cc80db4fcf06f',1,'DYN::Solver::Impl']]],
   ['optional_5f',['optional_',['../dd/dfc/a02037.html#a36012fccfbb5137f7686e31847081b0d',1,'externalVariables::Variable']]],
