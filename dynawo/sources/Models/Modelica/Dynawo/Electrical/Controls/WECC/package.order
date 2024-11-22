@@ -1,9 +1,7 @@
 BaseControls
-Utilities
+Mechanical
 Parameters
-DriveTrainPmConstant
-DriveTrainPeFiltered
-ElectricalControlPV
-ElectricalControlWind
-GeneratorControl
-PlantControl
+REEC
+REGC
+REPC
+Utilities

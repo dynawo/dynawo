@@ -129,7 +129,7 @@ SubModel::hasTimeline() const {
 }
 
 void
-SubModel::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
+SubModel::setConstraints(const std::shared_ptr<ConstraintsCollection>& constraints) {
   constraints_ = constraints;
 }
 
@@ -695,7 +695,7 @@ SubModel::printInitModelValues(const std::string& directory, const std::string& 
 }
 
 void
-SubModel::printValuesParameters(std::ofstream& fstream) const {
+SubModel::printValuesParameters(std::ofstream& fstream) {
   std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
   for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
@@ -1324,7 +1324,7 @@ SubModel::gEquationIndex() {
 }
 
 void
-SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
+SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
   const bool isInitParam = false;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
@@ -1397,7 +1397,7 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
   if (calculatedVarsInit_.size() > 0) {
     fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
     const vector<string>& calculatedVarNames = (*this).getCalculatedVarNamesInit();
-    for (unsigned int i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
+    for (size_t i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
       fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
         << std::setw(15) << DYN::double2String(calculatedVarsInit_[i]) << "\n";
   }

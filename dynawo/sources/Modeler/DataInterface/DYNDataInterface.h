@@ -139,7 +139,7 @@ class DataInterface {
    * @brief set the criteria for this model
    * @param criteria criteria to be used
    */
-  virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
+  virtual void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
 
   /**
    * @brief check if criteria for static model is respected
@@ -192,6 +192,12 @@ class DataInterface {
    * @param filepath file to create
    */
   virtual void dumpToFile(const std::string& filepath) const = 0;
+
+  /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  virtual void dumpToFile(std::stringstream& stream) const = 0;
 
   /**
    * @brief Retrieve service manager associated with this data interface

@@ -36,10 +36,13 @@ set(MODEL_FILES
   NetworkTransformer_INIT.mo
   TransformerPhaseTapChanger.mo
   TransformerPhaseTapChanger.extvar
+  TransformerPhaseTapChanger_INIT.mo
   TransformerRatioTapChanger.mo
   TransformerRatioTapChanger.extvar
+  TransformerRatioTapChanger_INIT.mo
   TransformerFixedRatioAndPhase.mo
   TransformerFixedRatioAndPhase.extvar
+  TransformerFixedRatioAndPhase_INIT.mo
   )
 
 #

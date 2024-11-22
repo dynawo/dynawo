@@ -29,6 +29,7 @@
         "INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
         "OPENMODELICA_INSTALL": "${workspaceFolder}/OpenModelica/Install",
         "OPENMODELICA_SRC": "${workspaceFolder}/OpenModelica/Source",
+        "OPENMODELICAHOME": "${workspaceFolder}/OpenModelica/Install",
         "BUILD_TESTS": "ON",
         "BUILD_TESTS_COVERAGE": "OFF",
         "BOOST_ROOT_DEFAULT": "true",

@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model St9c "IEEE exciter type ST9C model"
+model St9c "IEEE exciter type ST9C model (2016 standard)"
 
   //Regulation parameters
   parameter Types.PerUnit Ka "Voltage regulator gain";

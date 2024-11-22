@@ -1,0 +1,4 @@
+40.000000 | _BUS____8-BUS___10-2_AC | LINE : opening on side 2
+50.000000 | ShuntRegulation | Section of shunt 0 +1
+50.000000 | Condenser | SHUNT : disconnecting
+60.000000 | ShuntRegulation | Section of shunt 1 -1

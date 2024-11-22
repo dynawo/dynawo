@@ -25,7 +25,6 @@
 #include <iostream>
 #include <sstream>
 
-using boost::shared_ptr;
 using std::map;
 using std::string;
 using std::stringstream;
@@ -49,11 +48,11 @@ ConstraintsCollection::addConstraint(
   // find if a constraint of same description already exists
   // if this is the case, if type are different (and the first is begin), erase constraints of this description
   bool addConstraint = true;
-  map<string, vector<shared_ptr<Constraint> > >::iterator iter = constraintsByModel_.find(modelName);
+  map<string, vector<std::shared_ptr<Constraint> > >::iterator iter = constraintsByModel_.find(modelName);
   if (iter == constraintsByModel_.end()) {
-    constraintsByModel_[modelName] = vector<shared_ptr<Constraint> >();
+    constraintsByModel_[modelName] = vector<std::shared_ptr<Constraint> >();
   } else {
-    vector<shared_ptr<Constraint> > constraints = iter->second;
+    vector<std::shared_ptr<Constraint> > constraints = iter->second;
     stringstream oldId;
     for (unsigned int i = 0; i < constraints.size(); ++i) {
       const string& oldDescription = constraints[i]->getDescription();
@@ -73,7 +72,7 @@ ConstraintsCollection::addConstraint(
   }
 
   if (addConstraint) {
-    shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
+    std::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
     constraint->setModelName(modelName);
     constraint->setDescription(description);
     constraint->setTime(time);
@@ -134,11 +133,11 @@ ConstraintsCollection::const_iterator::operator!=(const ConstraintsCollection::c
   return current_ != other.current_;
 }
 
-const shared_ptr<Constraint>& ConstraintsCollection::const_iterator::operator*() const {
+const std::shared_ptr<Constraint>& ConstraintsCollection::const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<Constraint>* ConstraintsCollection::const_iterator::operator->() const {
+const std::shared_ptr<Constraint>* ConstraintsCollection::const_iterator::operator->() const {
   return &(current_->second);
 }
 

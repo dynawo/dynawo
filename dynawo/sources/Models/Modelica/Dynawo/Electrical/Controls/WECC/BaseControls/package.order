@@ -1,7 +1,6 @@
-BaseDriveTrain
-CurrentLimitsCalculationPV
-CurrentLimitsCalculationWind
-ElectricalControlCommon
+CurrentLimitsCalculationA
+CurrentLimitsCalculationB
+CurrentLimitsCalculationC
 IqInjectionLogic
 LineDropCompensation
 UdqRef

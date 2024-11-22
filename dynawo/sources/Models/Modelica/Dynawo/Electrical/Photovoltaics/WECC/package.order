@@ -1,4 +1,6 @@
-PVCurrentSource
+BaseClasses
+PVCurrentSourceB
 PVCurrentSource_INIT
-PVVoltageSource
+PVVoltageSourceA
+PVVoltageSourceB
 PVVoltageSource_INIT

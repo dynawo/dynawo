@@ -84,6 +84,10 @@ VRLimitationUsRefMax      =             Voltage regulator : upper limit reached 
 // --> Protection
 ProtectionDisconnected    =              Protection disconnected
 ProtectionConnected       =              Protection connected
+// --> Over-voltage automaton
+OVATripped                =              Over-voltage generator tripped
+OVAArming                 =              Over-voltage automaton for generator arming
+OVADisarming              =              Over-voltage automaton for generator disarming
 // --> Under-voltage automaton
 UVATripped                =              Under-voltage generator tripped
 UVAArming                 =              Under-voltage automaton for generator arming
@@ -162,6 +166,9 @@ IECProtectionUUnder        =              IEC WT disconnected due to undervoltag
 // --> Motor
 MotorConnected             =             Motor : connecting
 MotorDisconnected          =             Motor : disconnecting
+// --> DYNCentralizedShuntsSectionControl Model
+CSSCSectionUp              =               Section of shunt %1% +1
+CSSCSectionDown            =               Section of shunt %1% -1
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off

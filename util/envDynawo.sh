@@ -55,10 +55,13 @@ where [option] can be:"
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynaflow                        build DynaFlow related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaFlow models and solvers)
         build-dynaswing                       build DynaSwing related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaSwing models and solvers)
+        build-dynawaltz                       build DynaWaltz related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaWaltz models and solvers)
         build-dynawo-core                     build Dynawo without models
         build-dynawo-target                   build a specific Dynawo target (use help to see all cmake targets)
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
+        build-dynaflow-models                 build DynaFlow preassembled models
+        build-dynaswing-models                build DynaSwing preassembled models
         build-dynawaltz-models                build Dynawaltz preassembled models
         build-nrt-models                      build nrt preassembled models
         build-nrt-extend-models               build nrt extend preassembled models
@@ -462,6 +465,7 @@ set_environment() {
   export_var_env_force DYNAWO_MODELICA_LIB=3.2.3
   export_var_env DYNAWO_SRC_OPENMODELICA=UNDEFINED
   export_var_env DYNAWO_INSTALL_OPENMODELICA=UNDEFINED
+  export OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
 
   # JQuery config
   export_var_env DYNAWO_JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
@@ -827,6 +831,7 @@ config_dynawo() {
     -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR \
     -DUSE_ADEPT:BOOL=$DYNAWO_USE_ADEPT \
     -DINSTALL_OPENMODELICA:PATH=$DYNAWO_INSTALL_OPENMODELICA \
+    -DOPENMODELICAHOME=$OPENMODELICAHOME \
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
@@ -923,6 +928,30 @@ build_dynawo_models() {
   fi
 }
 
+build_dynaflow_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED DYNAFLOW_MODELS || error_exit "Error during make models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target DYNAFLOW_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
+  fi
+}
+
+build_dynaswing_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED DYNASWING_MODELS || error_exit "Error during make models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target DYNASWING_MODELS --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
+  fi
+}
+
 build_dynawaltz_models() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
@@ -1007,6 +1036,10 @@ build_dynaswing() {
   build_dynaX DYNASWING_MODELS || error_exit "Error during build_dynaflow."
 }
 
+build_dynawaltz() {
+  build_dynaX DYNAWALTZ_MODELS || error_exit "Error during build_dynawaltz."
+}
+
 build_user() {
   install_launcher || error_exit "Error during Dynawo installation."
 }
@@ -1041,7 +1074,7 @@ build_tests() {
 
   tests=$@
   if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests --config Debug
+    cmake --build $DYNAWO_BUILD_DIR --target tests-run --config Debug
   else
     cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Debug
   fi
@@ -1105,7 +1138,7 @@ build_tests_coverage() {
 
   cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config Debug || error_exit "Error during make reset-coverage."
   if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage --config Debug || error_exit "Error during make tests-coverage."
+    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage-run --config Debug || error_exit "Error during make tests-coverage."
   else
     for test in ${tests}; do
       cmake --build $DYNAWO_BUILD_DIR --target ${test}-coverage --config Debug || error_exit "Error during make ${test}-coverage."
@@ -2297,6 +2330,10 @@ case $MODE in
     build_dynaswing || error_exit "Error while building DynaSwing"
     ;;
 
+  build-dynawaltz)
+    build_dynawaltz || error_exit "Error while building DynaWaltz"
+    ;;
+
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
@@ -2309,8 +2346,16 @@ case $MODE in
     build_dynawo_models || error_exit "Failed to build Dynawo models"
     ;;
 
+  build-dynaflow-models)
+    build_dynaflow_models || error_exit "Failed to build DynaFlow models"
+    ;;
+
+  build-dynaswing-models)
+    build_dynaswing_models || error_exit "Failed to build DynaSwing models"
+    ;;
+
   build-dynawaltz-models)
-    build_dynawaltz_models || error_exit "Failed to build Dynawaltz models"
+    build_dynawaltz_models || error_exit "Failed to build DynaWaltz models"
     ;;
 
   build-dynawo-models-cpp)

@@ -70,7 +70,14 @@ ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   os << z;
   os << g;
 
+  dumpInternalVariables(values);
+
   mapVariables[ variablesFileName() ] = values.str();
+}
+
+void
+ModelCPP::dumpInternalVariables(stringstream&) const {
+  // no internal variables
 }
 
 void
@@ -95,7 +102,6 @@ ModelCPP::loadVariables(const string& variables) {
     return;
   }
 
-
   if (yValues.size() != sizeY() || ypValues.size() != sizeY()) {
     Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
     return;
@@ -111,13 +117,28 @@ ModelCPP::loadVariables(const string& variables) {
     return;
   }
 
+  bool res = loadInternalVariables(values);
+  if (!res) {
+    // If loadInternalVariables fails, the internal variables of some the models may still be loaded, and will be reset
+    // with getY0 during model initialization.
+    Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
+    return;
+  }
+
   // loading values
   std::copy(yValues.begin(), yValues.end(), yLocal_);
   std::copy(ypValues.begin(), ypValues.end(), ypLocal_);
   std::copy(zValues.begin(), zValues.end(), zLocal_);
   std::copy(gValues.begin(), gValues.end(), gLocal_);
+
   // notify we used dumped values
   isStartingFromDump_ = true;
+}
+
+bool
+ModelCPP::loadInternalVariables(stringstream& /*streamVariables*/) {
+  // no internal variables
+  return true;
 }
 
 void

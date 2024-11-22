@@ -27,6 +27,7 @@
 #include "DYNCommonConstants.h"
 #include "DYNStateVariable.h"
 #include "DYNTrace.h"
+#include "DYNCommon.h"
 using boost::shared_ptr;
 using powsybl::iidm::Bus;
 using std::string;
@@ -130,7 +131,13 @@ BusInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 void
 BusInterfaceIIDM::exportStateVariablesUnitComponent() {
   busIIDM_.setV(getStateVarV());
-  busIIDM_.setAngle(getStateVarAngle());
+  double angle = getStateVarAngle();
+  if (doubleIsZero(angle)) {
+    // Avoid to dump very small values (that can't be read by iidm library anymore) instead of 0 on some architectures
+    busIIDM_.setAngle(0.);
+  } else {
+    busIIDM_.setAngle(angle);
+  }
 }
 
 void

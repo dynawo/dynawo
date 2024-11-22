@@ -23,8 +23,8 @@ model NetworkTransformer_INIT
 
   final parameter Types.PerUnit rTfoPu = RatedU2 / RatedU1 * U1Nom / U2Nom "Transformation ratio in pu: U2/U1 in no load conditions";
 
-  parameter Modelica.SIunits.Resistance R "Resistance of the transformer in Ohm";
-  parameter Modelica.SIunits.Reactance X "Reactance of the transformer in Ohm";
+  parameter Modelica.SIunits.Resistance R "Resistance of the transformer in ohm";
+  parameter Modelica.SIunits.Reactance X "Reactance of the transformer in ohm";
   parameter Modelica.SIunits.Conductance G "Conductance of the transformer in S";
   parameter Modelica.SIunits.Susceptance B "Susceptance of the transformer in S";
 

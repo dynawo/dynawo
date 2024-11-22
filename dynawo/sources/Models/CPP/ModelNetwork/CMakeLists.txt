@@ -25,6 +25,7 @@ set(MODEL_SOURCES
   DYNModelLoad.cpp
   DYNModelShuntCompensator.cpp
   DYNModelStaticVarCompensator.cpp
+  DYNModelTapChanger.cpp
   DYNModelThreeWindingsTransformer.cpp
   DYNModelTwoWindingsTransformer.cpp
   DYNModelDanglingLine.cpp
@@ -53,6 +54,7 @@ target_link_libraries(${MODEL_NAME}
   PRIVATE
     dynawo_DataInterface
     dynawo_API_PAR
+    Boost::serialization
   PUBLIC
     dynawo_SolverKINSubModel
   )

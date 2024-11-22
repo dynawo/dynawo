@@ -16,8 +16,8 @@ model RampTrackingFilter "Ramp tracking filter"
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real K = 1 "Gain";
-  parameter Integer M = 1 "Lag order";
-  parameter Integer N = 1 "Order";
+  parameter Integer M "Lag order";
+  parameter Integer N "Order";
   parameter Types.Time t1 "Lead time constant in s";
   parameter Types.Time t2 "Lag time constant in s";
 

@@ -37,6 +37,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #################################################
+#           NORDIC dump-load sequence           #
+#################################################
+
+case_name = "NORDIC dump-load sequence"
+case_description = "NORDIC dump-load from dump sequence while tap changers are moving."
+job_file = os.path.join(os.path.dirname(__file__), "Nordic_DumpLoad/Nordic_seq.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#################################################
 #     IEEE14 - Generator disconnections         #
 #################################################
 case_name = "DynaWaltz - IEEE14 - Generator disconnections"

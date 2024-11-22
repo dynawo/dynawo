@@ -57,6 +57,8 @@ class TestCase:
         self.time_ = 0
         self.code_ = 0
         self.ok_ = True
+        self.outputs = ''
+        self.errors = ''
         self.tooLong_ = False
         self.command_ = ""
         self.name_ = case_name
@@ -244,6 +246,8 @@ class TestCase:
             signal.alarm(int(timeout)*60) # in seconds
 
         code = 0
+        output = ''
+        errors = ''
         errorTooLong = -150
         p = subprocess.Popen(commandStr, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         try:
@@ -255,6 +259,8 @@ class TestCase:
             code = errorTooLong
 
         self.code_ = code
+        self.outputs_ = output
+        self.errors_ = errors
         if code == errorTooLong:
             self.tooLong_ = True
             self.ok_ = False

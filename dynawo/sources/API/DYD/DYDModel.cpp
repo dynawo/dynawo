@@ -37,6 +37,8 @@ namespace dynamicdata {
 
 Model::Model(const string& id, ModelType type) : id_(IdentifiableFactory::newIdentifiable(id)), type_(type) {}
 
+Model::~Model() {}
+
 const string&
 Model::getId() const {
   return id_->get();

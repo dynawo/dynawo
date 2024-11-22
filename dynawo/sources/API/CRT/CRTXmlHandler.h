@@ -38,6 +38,11 @@ class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ElementWithIdHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ElementWithIdHandler();
+
+  /**
    * @brief return the id read in xml file
    * @return id build thanks to infos read in xml file
    */
@@ -65,6 +70,11 @@ class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ComponentHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ComponentHandler();
 
   /**
    * @brief return the id read in xml file
@@ -103,6 +113,11 @@ class CriteriaParamsVoltageLevelHandler : public xml::sax::parser::ComposableEle
   explicit CriteriaParamsVoltageLevelHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~CriteriaParamsVoltageLevelHandler();
+
+  /**
    * @brief return the criteria params voltage level read in xml file
    * @return criteria params voltage level object build thanks to infos read in xml file
    */
@@ -132,10 +147,15 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
   explicit CriteriaParamsHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~CriteriaParamsHandler();
+
+  /**
    * @brief return the criteria params read in xml file
    * @return criteria params  object build thanks to infos read in xml file
    */
-  boost::shared_ptr<CriteriaParams> get() const;
+  std::shared_ptr<CriteriaParams> get() const;
 
  protected:
   /**
@@ -150,7 +170,7 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<CriteriaParams> criteriaParamsRead_;  ///< current parameters
+  std::shared_ptr<CriteriaParams> criteriaParamsRead_;  ///< current parameters
   CriteriaParamsVoltageLevelHandler criteriaParamsVoltageLevelHandler_;  ///< handler used to read voltage level elements
 };
 
@@ -165,6 +185,11 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit CriteriaHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~CriteriaHandler();
 
   /**
    * @brief return the criteria read in xml file
@@ -213,11 +238,16 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   XmlHandler();
 
   /**
+   * @brief Destructor
+   */
+  virtual ~XmlHandler();
+
+  /**
    * @brief Parsed criteria collection getter
    *
    * @return criteria collection parsed.
    */
-  boost::shared_ptr<CriteriaCollection> getCriteriaCollection();
+  std::shared_ptr<CriteriaCollection> getCriteriaCollection();
 
  private:
   /**
@@ -235,7 +265,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addGenCriteria();
 
-  boost::shared_ptr<CriteriaCollection> criteriaCollection_;  ///< Criteria collection parsed
+  std::shared_ptr<CriteriaCollection> criteriaCollection_;  ///< Criteria collection parsed
   CriteriaHandler busCriteriaHandler_;  ///< handler used to read bus criteria element
   CriteriaHandler loadCriteriaHandler_;  ///< handler used to read load criteria element
   CriteriaHandler genCriteriaHandler_;  ///< handler used to read generator criteria element

@@ -45,6 +45,11 @@ class CurveHandler : public xml::sax::parser::ComposableElementHandler {
   explicit CurveHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~CurveHandler();
+
+  /**
    * @brief return the curve read in xml file
    * @return curve object build thanks to infos read in xml file
    */
@@ -76,11 +81,16 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   XmlHandler();
 
   /**
+   * @brief Destructor
+   */
+  virtual ~XmlHandler();
+
+  /**
    * @brief Parsed curves collection getter
    *
    * @return Curves collection parsed.
    */
-  boost::shared_ptr<CurvesCollection> getCurvesCollection();
+  std::shared_ptr<CurvesCollection> getCurvesCollection();
 
  private:
   /**
@@ -88,7 +98,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addCurve();
 
-  boost::shared_ptr<CurvesCollection> curvesCollection_;  ///< Curves collection parsed
+  std::shared_ptr<CurvesCollection> curvesCollection_;  ///< Curves collection parsed
   CurveHandler curveHandler_;  ///< handler used to read curve element
 };
 

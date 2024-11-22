@@ -1,26 +1,40 @@
 Dynawo authors:
 
-Francois BEAUDE
+Gilles AOUIZERATE
+Dimitri BARON
+Thierry BARRÈS
+François BEAUDE
 Mathilde BONGRAIN
+Jean-Luc BOUCHOT
 Gautier BUREAU
 Erick CARDENAS BONET
 Marco CHIARAMELLO
 Angela CHIEH
 Quentin COSSART
-Sebastien DOUMEIX
+Julien DE SLOOVERE
+Sébastien DOUMEIX
+Joy EL FEGHALI
 Lluc FIGUERAS
+Martin FRANKE
+Louis GARBAY
 Erwan GUICHARD
 Adrien GUIRONNET
+Mehdi KARMANI
 Sören LOHR
 Romain LOSSEAU
+Ronan MARACHE
 Emilie MILIN
-Sebastien MURGEY
+Sébastien MURGEY
 Maria NUSCHKE
-Sebastien PETITRENAUD
+Philibert PARQUIER
+Sébastien PETITRENAUD
 Lukas RAZIK
-Florentine ROSIERE
+Florentine ROSIÈRE
 Frédéric SABOT
 Marianne SAUGIER
 Lennart SCHUMACHER
+Gérard THÉVENON
+Frédéric VALLÉE
+Thibaut VERMEULEN
 Pengbo WANG
 Youssef ZAKI

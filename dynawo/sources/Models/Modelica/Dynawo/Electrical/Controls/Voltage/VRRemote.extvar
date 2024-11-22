@@ -12,8 +12,8 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="URegulated" type="continuous"/>
-  <variable id="URef" type="continuous" optional="true"/>
+  <variable id="URegulatedPu" type="continuous"/>
+  <variable id="URefPu" type="continuous" optional="true"/>
   <variable type="discreteArray" id="limUQDown" size="30" optional="true" defaultValue="true"/><!--The size is the number of generators connected to the coordinated primary voltage regulator.-->
   <variable type="discreteArray" id="limUQUp" size="30" optional="true" defaultValue="true"/><!--The size is the number of generators connected to the coordinated primary voltage regulator.-->
 </external_variables>

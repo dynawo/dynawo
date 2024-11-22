@@ -12,8 +12,8 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
- <!-- Machine with three windings, constant mechanical power and a voltage regulator, used for the Nordic 32 test system. -->
- <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsPmConstVRNordic">
+  <!-- Machine with three windings, constant mechanical power and a voltage regulator, used for the Nordic 32 test system. -->
+  <dyn:modelicaModel id="GeneratorSynchronousThreeWindingsPmConstVRNordic">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>

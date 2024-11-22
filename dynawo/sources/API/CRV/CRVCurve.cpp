@@ -25,7 +25,6 @@
 #include <iostream>
 #include <limits>
 
-using boost::shared_ptr;
 using std::string;
 
 namespace curves {
@@ -50,21 +49,21 @@ Curve::update(const double& time) {
       if (negated_)
         value = -1 * value;
 
-      boost::shared_ptr<Point> point = PointFactory::newPoint(time, value);
+      std::unique_ptr<Point> point = PointFactory::newPoint(time, value);
       if (exportType_ == EXPORT_AS_CURVE || exportType_ == EXPORT_AS_BOTH || points_.empty()) {
-        points_.push_back(point);
+        points_.push_back(std::move(point));
       } else {
-        points_.back() = point;
+        points_.back() = std::move(point);
       }
     } else {  // this is a parameter curve
               // we set the value of parameter curve to zero during the simulation
               // and update the value at the end of simulation.
       double value(0);
-      boost::shared_ptr<Point> point = PointFactory::newPoint(time, value);
+      std::unique_ptr<Point> point = PointFactory::newPoint(time, value);
       if (exportType_ == EXPORT_AS_CURVE || exportType_ == EXPORT_AS_BOTH || points_.empty()) {
-        points_.push_back(point);
+        points_.push_back(std::move(point));
       } else {
-        points_.back() = point;
+        points_.back() = std::move(point);
       }
     }
   }
@@ -72,7 +71,7 @@ Curve::update(const double& time) {
 
 void
 Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameterValue) {
-  for (std::vector<boost::shared_ptr<Point> >::iterator it = points_.begin(); it != points_.end(); ++it) {
+  for (std::vector<std::unique_ptr<Point> >::iterator it = points_.begin(); it != points_.end(); ++it) {
     (*it)->setValue(parameterValue);
   }
 }
@@ -212,11 +211,11 @@ Curve::const_iterator::operator!=(const Curve::const_iterator& other) const {
   return current_ != other.current_;
 }
 
-const shared_ptr<Point>& Curve::const_iterator::operator*() const {
+const std::unique_ptr<Point>& Curve::const_iterator::operator*() const {
   return *current_;
 }
 
-const shared_ptr<Point>* Curve::const_iterator::operator->() const {
+const std::unique_ptr<Point>* Curve::const_iterator::operator->() const {
   return &(*current_);
 }
 

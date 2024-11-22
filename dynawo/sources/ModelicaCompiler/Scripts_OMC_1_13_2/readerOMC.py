@@ -610,7 +610,7 @@ class ReaderOMC:
             root.children.append(node2)
 
     def find_expr_in_min_max(self, initial_idx, splitted_eq, expr):
-        nb_parenthesis =  expr.count("min(") + expr.count("max(")
+        nb_parenthesis =  expr.count("(")
         idx = initial_idx
         idx+=1
         sub_eq = expr
@@ -651,7 +651,7 @@ class ReaderOMC:
                 idx+=1
             return (sub_eq[:-1], idx, no_event_found)
         elif splitted_eq[idx].startswith("min(") or splitted_eq[idx].startswith("max("):
-            nb_parenthesis = splitted_eq[idx].count("min(") + splitted_eq[idx].count("max(")
+            nb_parenthesis = splitted_eq[idx].count("(")
             sub_eq= splitted_eq[idx]
             idx+=1
             while nb_parenthesis > 0:

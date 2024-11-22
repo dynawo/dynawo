@@ -31,13 +31,15 @@ class MyEmptyModelManager : public ModelManager {
     ModelManager() {
   }
 
-  virtual ~MyEmptyModelManager() = default;
+  virtual ~MyEmptyModelManager();
 
  protected:
   bool hasInit() const {
     return false;
   }
 };
+
+MyEmptyModelManager::~MyEmptyModelManager() {}
 
 TEST(TestModelManager, TestModelManagerCommonLogs) {
   MyEmptyModelManager mm;
@@ -65,7 +67,7 @@ TEST(TestModelManager, TestModelManagerCommonLogs) {
   ASSERT_NO_THROW(addLogEventRaw5_(&mm, "blah.", "blah.", "blah.", "blah.", "blah."));
   ASSERT_EQ(timeline->getSizeEvents(), 5);
 
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints = constraints::ConstraintsCollectionFactory::newInstance("MyConstraints");
+  std::shared_ptr<constraints::ConstraintsCollection> constraints = constraints::ConstraintsCollectionFactory::newInstance("MyConstraints");
   mm.setConstraints(constraints);
   constraints::ConstraintsCollection::const_iterator it = constraints->cbegin();
   assert(it == constraints->cend());

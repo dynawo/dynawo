@@ -36,6 +36,8 @@
   <dyn:blackBoxModel id="ShuntRegulation" lib="DYNModelCentralizedShuntsSectionControl" parFile="Shunt.par" parId="ShuntRegulationPar"/>
   <dyn:connect id1="ShuntRegulation" var1="UMonitoredPu_value" id2="NETWORK" var2="_BUS___10_TN_Upu_value"/>
   <dyn:connect id1="ShuntRegulation" var1="section_0_value" id2="Condenser" var2="shunt_section_value"/>
+  <dyn:connect id1="ShuntRegulation" var1="running_0_value" id2="Condenser" var2="shunt_running_value"/>
   <dyn:connect id1="ShuntRegulation" var1="section_1_value" id2="Self" var2="shunt_section_value"/>
+  <dyn:connect id1="ShuntRegulation" var1="running_1_value" id2="Self" var2="shunt_running_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="Self" var2="shunt_terminal"/>
 </dyn:dynamicModelsArchitecture>

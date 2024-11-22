@@ -93,6 +93,12 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   void dumpToFile(const std::string& filepath) const;
 
   /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  void dumpToFile(std::stringstream& stream) const;
+
+  /**
    * @copydoc DataInterface::canUseVariant() const
    */
   bool canUseVariant() const;
@@ -171,9 +177,9 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
     findLostEquipments(const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > >& connectedComponents);
 
   /**
-   * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
+   * @copydoc DataInterface::configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
@@ -404,21 +410,21 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    *
    * @param criteria criteria to be used
    */
-  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureBusCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @brief configure the load criteria
    *
    * @param criteria criteria to be used
    */
-  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureLoadCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @brief configure the generator criteria
    *
    * @param criteria criteria to be used
    */
-  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureGeneratorCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @brief Copy data interface info

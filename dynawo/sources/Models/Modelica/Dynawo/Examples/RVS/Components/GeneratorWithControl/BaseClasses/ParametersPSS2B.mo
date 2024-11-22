@@ -16,9 +16,9 @@ within Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses;
 record ParametersPSS2B "Parameter sets for the PSS2B regulations of the RVS test system"
 
   type genFramePreset = enumeration(g10101, g20101, g30101, g40101, g10102, g20102, g30102, g40102, g10107, g20107, g30107, g10113, g20113, g30113, g10115, g20115, g30115, g40115, g50115, g60115, g10116, g10118, g10121, g10122, g20122, g30122, g40122, g50122, g60122, g10123, g20123, g30123) "Generator names";
-  type exciterParamNames = enumeration(tw1, tw2, tw3, t7, Ks3, tw4, t6, VstMaxPu, VstMinPu, Vsi1MaxPu, Vsi1MinPu, Vsi2MaxPu, Vsi2MinPu, t8, t9, M, N, Ks1, t1, t2, t3, t4, t10, t11, Ks2) "Parameter names";
+  type exciterParamNames = enumeration(tW1, tW2, tW3, t7, Ks3, tW4, t6, VPssMaxPu, VPssMinPu, OmegaMaxPu, OmegaMinPu, PGenMaxPu, PGenMinPu, t8, t9, M, N, Ks1, t1, t2, t3, t4, t10, t11, Ks2) "Parameter names";
 
-  // tw1, tw2, tw3, t7, Ks3, tw4, t6, VstMaxPu, VstMinPu, Vsi1MaxPu, Vsi1MinPu, Vsi2MaxPu, Vsi2MinPu, t8, t9, M, N, Ks1, t1, t2, t3, t4, t10, t11, Ks2
+  // tW1, tW2, tW3, t7, Ks3, tW4, t6, VPssMaxPu, VPssMinPu, OmegaMaxPu, OmegaMinPu, PGenMaxPu, PGenMinPu, t8, t9, M, N, Ks1, t1, t2, t3, t4, t10, t11, Ks2
   final constant Real[genFramePreset, exciterParamNames] exciterParams = {
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 0, 0.2, 0.025, 0.2, 0.025, 0.5, 0.1, 1.7857}, //10101 (no PSS)
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 0, 0.2, 0.025, 0.2, 0.025, 0.5, 0.1, 1.7857}, //20101 (no PSS)
@@ -41,7 +41,7 @@ record ParametersPSS2B "Parameter sets for the PSS2B regulations of the RVS test
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 0, 0.2, 0.025, 0.2, 0.025, 0.5, 0.1, 1.7857}, //50115 (no PSS)
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 10.0, 0.2, 0.025, 0.2, 0.025, 0.5, 0.1, 1.667}, //60115
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 10.0, 0.2, 0.025, 0.2, 0.025, 0.5, 0.1, 1.667}, //10116
-    // tw1, tw2, tw3, t7, Ks3, tw4, t6, VstMaxPu, VstMinPu, Vsi1MaxPu, Vsi1MinPu, Vsi2MaxPu, Vsi2MinPu, t8, t9, M, N, Ks1, t1, t2, t3, t4, t10, t11, Ks2
+    // tW1, tW2, tW3, t7, Ks3, tW4, t6, VPssMaxPu, VPssMinPu, OmegaMaxPu, OmegaMinPu, PGenMaxPu, PGenMinPu, t8, t9, M, N, Ks1, t1, t2, t3, t4, t10, t11, Ks2
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 10.0, 0.25, 0.06, 0.1, 0.02, 0.1, 0.02, 1.0}, //10118
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 10.0, 0.25, 0.06, 0.1, 0.02, 0.1, 0.02, 1.0}, //10121
     {10.0, 10.0, 10.0, 10.0, 1.0, 1e-5, 1e-5, 0.05, -0.05, 2.0, -2.0, 2.0, -2.0, 0.5, 0.1, 5, 1, 0, 0.2, 0.025, 0.2, 0.025, 0.5, 0.1, 1.7857}, //10122 (no PSS)

@@ -43,6 +43,8 @@
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
 
+#include "TestUtil.h"
+
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/SubstationAdder.hpp>
@@ -1949,17 +1951,26 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   auto network = createNodeBreakerNetworkIIDM();
 
   shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
-  ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
+  ASSERT_NO_THROW(dataOutput->dumpToFile("network1.xml"));
   const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
   ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::XmlFileParsingError);
 
-  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network1.xml");
   shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
   const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
 
   ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
   ASSERT_EQ(outputNetwork.getId(), network->getId());
   ASSERT_EQ(inputNetwork.getId(), network->getId());
+
+  std::stringstream ss;
+  ASSERT_NO_THROW(dataOutput->dumpToFile(ss));
+
+  std::ofstream outputIIDMFile("network2.xml");
+  outputIIDMFile << ss.str();
+  outputIIDMFile.close();
+
+  ASSERT_TRUE(compareFiles("network1.xml", "network2.xml"));
 }
 
 TEST(DataInterfaceIIDMTest, testClone) {

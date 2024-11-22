@@ -62,6 +62,12 @@ class DynamicData : public boost::noncopyable {
   void initFromDydFiles(const std::vector <std::string>& fileNames);
 
   /**
+  * @brief set of dynamic models collection
+  * @param dynamicModelsCollection the dynamic data model
+  */
+  void setDynamicModelsCollection(const boost::shared_ptr<dynamicdata::DynamicModelsCollection>& dynamicModelsCollection);
+
+  /**
    * @brief get network parameters from a directory
    * @param parFile parameter file
    * @param parSet parameter set

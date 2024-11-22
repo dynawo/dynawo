@@ -65,7 +65,9 @@ genCriteriaHandler_(parser::ElementName(namespace_uri(), "generatorCriteria")) {
   genCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addGenCriteria, lambda::ref(*this)));
 }
 
-shared_ptr<CriteriaCollection>
+XmlHandler::~XmlHandler() {}
+
+std::shared_ptr<CriteriaCollection>
 XmlHandler::getCriteriaCollection() {
   return criteriaCollection_;
 }
@@ -97,6 +99,8 @@ countryHandler_(parser::ElementName(namespace_uri(), "country")) {
   cmpHandler_.onEnd(lambda::bind(&CriteriaHandler::addComponent, lambda::ref(*this)));
   countryHandler_.onEnd(lambda::bind(&CriteriaHandler::addCountry, lambda::ref(*this)));
 }
+
+CriteriaHandler::~CriteriaHandler() {}
 
 void CriteriaHandler::create(attributes_type const & /*attributes*/) {
   criteriaRead_ = CriteriaFactory::newCriteria();
@@ -130,6 +134,8 @@ CriteriaParamsHandler::CriteriaParamsHandler(elementName_type const& root_elemen
   criteriaParamsVoltageLevelHandler_.onEnd(lambda::bind(&CriteriaParamsHandler::addCriteriaParamsVoltageLevel, lambda::ref(*this)));
 }
 
+CriteriaParamsHandler::~CriteriaParamsHandler() {}
+
 void CriteriaParamsHandler::create(attributes_type const & attributes) {
   criteriaParamsRead_ = CriteriaParamsFactory::newCriteriaParams();
   criteriaParamsRead_->setScope(CriteriaParams::string2Scope(attributes["scope"]));
@@ -158,7 +164,7 @@ CriteriaParamsHandler::addCriteriaParamsVoltageLevel() {
     criteriaParamsRead_->addVoltageLevel(*criteriaParamsVoltageLevelHandler_.get());
 }
 
-shared_ptr<CriteriaParams>
+std::shared_ptr<CriteriaParams>
 CriteriaParamsHandler::get() const {
   return criteriaParamsRead_;
 }
@@ -166,6 +172,8 @@ CriteriaParamsHandler::get() const {
 CriteriaParamsVoltageLevelHandler::CriteriaParamsVoltageLevelHandler(elementName_type const& root_element)  {
   onStartElement(root_element, lambda::bind(&CriteriaParamsVoltageLevelHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+CriteriaParamsVoltageLevelHandler::~CriteriaParamsVoltageLevelHandler() {}
 
 void CriteriaParamsVoltageLevelHandler::create(attributes_type const & attributes) {
   criteriaParamsVoltageLevelRead_ = shared_ptr<CriteriaParamsVoltageLevel>(new CriteriaParamsVoltageLevel());
@@ -189,6 +197,8 @@ ElementWithIdHandler::ElementWithIdHandler(elementName_type const& root_element)
   onStartElement(root_element, lambda::bind(&ElementWithIdHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
+ElementWithIdHandler::~ElementWithIdHandler() {}
+
 void ElementWithIdHandler::create(attributes_type const & attributes) {
   idRead_ = attributes["id"].as_string();
 }
@@ -202,6 +212,8 @@ ElementWithIdHandler::getId() const {
 ComponentHandler::ComponentHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&ComponentHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+ComponentHandler::~ComponentHandler() {}
 
 void ComponentHandler::create(attributes_type const & attributes) {
   idRead_ = attributes["id"].as_string();

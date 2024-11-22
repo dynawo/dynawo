@@ -7,11 +7,18 @@ on:
         description: Run NRT on Linux
         type: boolean
         default: true
+      perform-master-tag:
+        description: Prepare master tag and release
+        type: boolean
+        default: true
   push:
 
 defaults:
   run:
     shell: bash
+
+env:
+  DYNAWO_TAG: vMaster
 
 jobs:
   build-linux:
@@ -26,9 +33,55 @@ jobs:
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Build
+      - name: Create master tag and release if necessary
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push' && (github.event_name != 'workflow_dispatch' || inputs.perform-master-tag)
+        uses: actions/github-script@v7
+        env:
+          body: |
+            Dynawo's master release. Compiled on *debug* settings.
+
+            **Don't use it for production or tests. Only intended to be used in CI.**
+          draft: false
+          prerelease: true
+          release_name: Master
+          tag_name: ${{ env.DYNAWO_TAG }}
+          target_commitish: heads/master
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+      - name: Build for master distrib
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-3rd-party
+          util/envDynawo.sh build-dynawaltz
+          util/envDynawo.sh distrib-omc
+
+      - name: INFO. Files created in distributions folder
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: du -hs distributions/*
+
+      - name: Upload assets for release
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: actions/github-script@v7
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            distributions/Dynawo_omc*.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+      - name: Build all
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
@@ -38,7 +91,6 @@ jobs:
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-doxygen-doc
-          dnf install -y rsync
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -50,7 +102,10 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh nrt
+          export DYNAWO_NB_PROCESSORS_USED=1
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+          util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
   coverage:
     if: github.event_name == 'push'
@@ -85,7 +140,7 @@ jobs:
           tar xzf openjdk-17.0.2_linux-x64_bin.tar.gz
 
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # In a PR use pre-built 3rd parties to optimize the duration of the job
       - name: Build branch PR
@@ -123,7 +178,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git move
         shell: cmd

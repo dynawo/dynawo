@@ -65,6 +65,11 @@ class AppenderHandler : public xml::sax::parser::ComposableElementHandler {
   explicit AppenderHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~AppenderHandler();
+
+  /**
    * @brief return the appender read in xml file
    * @return appender object build thanks to infos read in xml file
    */
@@ -94,6 +99,11 @@ class DirectoryHandler : public xml::sax::parser::ComposableElementHandler {
   explicit DirectoryHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~DirectoryHandler();
+
+  /**
    * @brief return the directory read in xml file
    * @return directory object build thanks to infos read in xml file
    */
@@ -121,6 +131,11 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ModelsDirHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ModelsDirHandler();
 
   /**
    * @brief add a directory to the list of directory
@@ -158,6 +173,11 @@ class InitialStateHandler : public xml::sax::parser::ComposableElementHandler {
   explicit InitialStateHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~InitialStateHandler();
+
+  /**
    * @brief get the initial state element read in xml file
    * @return initial state object build thanks to infos read in xml file
    */
@@ -185,6 +205,11 @@ class DynModelsHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit DynModelsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~DynModelsHandler();
 
   /**
    * @brief get the dynModels objects read in xml file
@@ -216,6 +241,11 @@ class NetworkHandler : public xml::sax::parser::ComposableElementHandler {
   explicit NetworkHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~NetworkHandler();
+
+  /**
    * @brief return the network entry element read in xml file
    * @return network entry object builds thanks to infos read in xml file
    */
@@ -243,6 +273,11 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit InitValuesHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~InitValuesHandler();
 
   /**
    * @brief return the init values entry read in xml file
@@ -274,6 +309,11 @@ class FinalValuesHandler : public xml::sax::parser::ComposableElementHandler {
   explicit FinalValuesHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~FinalValuesHandler();
+
+  /**
    * @brief return the final values entry read in xml file
    * @return final values entry object build thanks to infos read in xml file
    */
@@ -301,6 +341,11 @@ class ConstraintsHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ConstraintsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ConstraintsHandler();
 
   /**
    * @brief return the constraints entry read in xml file
@@ -332,6 +377,11 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
   explicit TimelineHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~TimelineHandler();
+
+  /**
    * @brief return the timeline entry read in xml file
    * @return timeline entry object build thanks to infos read in xml file
    */
@@ -359,6 +409,11 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit TimetableHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~TimetableHandler();
 
   /**
    * @brief return the timetable entry read in xml file
@@ -390,6 +445,11 @@ class FinalStateHandler : public xml::sax::parser::ComposableElementHandler {
   explicit FinalStateHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~FinalStateHandler();
+
+  /**
    * @brief return the final state entry read in xml file
    * @return final state entry object build thanks to infos read in xml file
    */
@@ -417,6 +477,11 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit CurvesHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~CurvesHandler();
 
   /**
    * @brief return the curves entry read in xml file
@@ -448,6 +513,11 @@ class FinalStateValuesHandler : public xml::sax::parser::ComposableElementHandle
   explicit FinalStateValuesHandler(elementName_type const& root_element);
 
   /**
+   * @brief default destructor
+   */
+  virtual ~FinalStateValuesHandler();
+
+  /**
    * @brief return the final state values entry read in xml file
    * @return Final state values entry object built from the info read in xml file
    */
@@ -477,6 +547,11 @@ class LostEquipmentsHandler : public xml::sax::parser::ComposableElementHandler 
   explicit LostEquipmentsHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~LostEquipmentsHandler();
+
+  /**
    * @brief return the lostEquipments entry read in xml file
    * @return curves entry object build thanks to infos read in xml file
    */
@@ -504,6 +579,11 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit LogsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~LogsHandler();
 
   /**
    * @brief return the logs entry read in xml file
@@ -539,6 +619,11 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit OutputsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~OutputsHandler();
 
   /**
    * @brief return the outputs entry read in xml file
@@ -630,6 +715,11 @@ class CriteriaFileHandler : public xml::sax::parser::ComposableElementHandler {
   explicit CriteriaFileHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~CriteriaFileHandler();
+
+  /**
    * @brief return the simulation entry read in xml file
    * @return simulation entry object build thanks to infos read in xml file
    */
@@ -657,6 +747,11 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit SimulationHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~SimulationHandler();
 
   /**
    * @brief return the simulation entry read in xml file
@@ -692,6 +787,11 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ModelerHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ModelerHandler();
 
   /**
    * @brief return the modeler entry read in xml file
@@ -753,6 +853,11 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
   explicit SolverHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~SolverHandler();
+
+  /**
    * @brief return the solver entry read in xml file
    * @return solver entry object build thanks to infos read in xml file
    */
@@ -782,6 +887,11 @@ class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
   explicit LocalInitHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~LocalInitHandler();
+
+  /**
    * @brief return the local init entry read in xml file
    * @return local init entry object build thanks to infos read in xml file
    */
@@ -809,6 +919,11 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit JobHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~JobHandler();
 
   /**
    * @brief return the job read in xml file
@@ -870,6 +985,11 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief Constructor
    */
   XmlHandler();
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~XmlHandler();
 
   /**
    * @brief add a job to the jobs list

@@ -26,6 +26,7 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
 
   parameter Boolean AvrInService = true;
   parameter Boolean GovInService = false;
+  parameter Real RatioPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.SNom] / ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.PNom] "Nominal power ratio for HYGOV";
   parameter Types.VoltageModule UNom = 18;
 
   Dynawo.Connectors.ACPower terminal annotation(
@@ -70,31 +71,29 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Controls
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.HYGOV1 hygov(
-    At = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.At],
-    DTurb = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.DTurb],
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.HyGov hygov(
+    At = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.At] * RatioPu,
+    DTurb = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.DTurb] * RatioPu,
     FlowNoLoad = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.FlowNoLoad],
     KDroopPerm = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.KDroopPerm],
     KDroopTemp = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.KDroopTemp],
     OpeningGateMax = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.OpeningGateMax],
     OpeningGateMin = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.OpeningGateMin],
     Pm0Pu = generatorSynchronous.Pm0Pu,
-    PNomTurb = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.PNom],
-    SNom = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.SNom],
     tF = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.tF],
     tG = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.tG],
     tR = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.tR],
     tW = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.tW],
-    VelMax = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.VelMax]) annotation(
+    VelMaxPu = ParametersHYGOV.exciterParams[hygovPreset, ParametersHYGOV.exciterParamNames.VelMaxPu]) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX1 scrx(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SCRX scrx(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     IRotor0Pu = generatorSynchronous.IRotor0Pu,
     K = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.K],
     tA = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.tA],
     tB = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.tB],
     tE = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.tE],
-    UStator0Pu(fixed = false),
+    UStator0Pu = generatorSynchronous.UStator0Pu,
     Ut0Pu = U0Pu,
     VrMaxPu = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.VrMaxPu],
     VrMinPu = ParametersSCRX.exciterParams[scrxPreset, ParametersSCRX.exciterParamNames.VrMinPu]) annotation(
@@ -138,9 +137,6 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at generator terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Initial voltage angle at generator terminal in rad";
 
-initial algorithm
-  scrx.UStator0Pu := generatorSynchronous.UStator0Pu;
-
 equation
   connect(PmRefPu.y, hygov.PmRefPu) annotation(
     Line(points = {{179, 20}, {160, 20}, {160, 12}, {144, 12}}, color = {0, 0, 127}));
@@ -183,7 +179,8 @@ equation
   connect(const.y, scrx.UPssPu) annotation(
     Line(points = {{-168, 20}, {-160, 20}, {-160, -16}, {-144, -16}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Line(points = {{-35.9986, -20}, {-34.0014, -5.4116}, {-30.0014, 9.5884}, {-23.0014, 22.0884}, {-16.0014, 26.5884}, {-6.00142, 21.5884}, {-1, 8.4116}, {0, 0}, {1, -8.4116}, {6.00142, -21.5884}, {16.0014, -26.5884}, {23.0014, -22.0884}, {30.0014, -9.5884}, {34.0014, 5.4116}, {35.9986, 20}}), Line(origin = {-110, 55}, points = {{42, -15}}), Ellipse(extent = {{-60, 60}, {60, -60}}, endAngle = 360), Text(origin = {0, 80}, lineColor = {0, 0, 255}, extent = {{-80, 10}, {80, -10}}, textString = "%name"), Rectangle(extent = {{-100, 100}, {100, -100}})}),
     Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}})));
 end HydroFrame;

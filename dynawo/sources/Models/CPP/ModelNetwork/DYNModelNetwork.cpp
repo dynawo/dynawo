@@ -1455,4 +1455,30 @@ ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
   }
 }
 
+void
+ModelNetwork::dumpInternalVariables(stringstream& streamVariables) const {
+  // Dump internal variables of components
+  for (const auto& component : getComponents()) {
+      component->dumpInternalVariables(streamVariables);
+  }
+}
+
+bool
+ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
+  try {
+    for (const auto& component : getComponents()) {
+      component->loadInternalVariables(streamVariables);
+    }
+  } catch (boost::archive::archive_exception& exc) {
+    // Failure because dump is too short
+    return false;
+  }
+
+  if (streamVariables.peek() != EOF) {
+    // Failure because dump is too large
+    return false;
+  }
+  return true;
+}
+
 }  // namespace DYN

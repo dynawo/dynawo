@@ -50,6 +50,35 @@ set(DATA_INTERFACE_IIDM_HEADERS
   DYNActiveSeasonIIDMExtension.h
   DYNCurrentLimitsPerSeasonIIDMExtension.h
   DYNGeneratorActivePowerControlIIDMExtension.h
+  DYNGeneratorInterfaceIIDM.h
+  DYNDataInterfaceIIDM.h
+  DYNSwitchInterfaceIIDM.h
+  DYNShuntCompensatorInterfaceIIDM.h
+  DYNDanglingLineInterfaceIIDM.h
+  DYNStaticVarCompensatorInterfaceIIDM.h
+  DYNTwoWTransformerInterfaceIIDM.h
+  DYNThreeWTransformerInterfaceIIDM.h
+  DYNVscConverterInterfaceIIDM.h
+  DYNLccConverterInterfaceIIDM.h
+  DYNHvdcLineInterfaceIIDM.h
+  DYNLineInterfaceIIDM.h
+  DYNCalculatedBusInterfaceIIDM.h
+  DYNBatteryInterfaceIIDM.h
+  DYNBusInterfaceIIDM.h
+  DYNLoadInterfaceIIDM.h
+  DYNNetworkInterfaceIIDM.h
+  DYNServiceManagerInterfaceIIDM.h
+  DYNInjectorInterfaceIIDM.h
+  DYNIIDMExtensions.hpp
+  DYNIIDMExtensionsTraits.hpp
+  DYNVoltageLevelInterfaceIIDM.h
+  DYNCurrentLimitInterfaceIIDM.h
+  DYNFictBusInterfaceIIDM.h
+  DYNFictTwoWTransformerInterfaceIIDM.h
+  DYNFictVoltageLevelInterfaceIIDM.h
+  DYNPhaseTapChangerInterfaceIIDM.h
+  DYNRatioTapChangerInterfaceIIDM.h
+  DYNStepInterfaceIIDM.h
   )
 
 add_library(dynawo_DataInterfaceIIDM SHARED ${DATA_INTERFACE_IIDM_SOURCES})

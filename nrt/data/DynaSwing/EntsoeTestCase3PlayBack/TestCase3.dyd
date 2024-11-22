@@ -13,7 +13,7 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBusFromTable" parFile="TestCase3.par" parId="InfiniteBus"/>
-  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2A" parFile="TestCase3.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2a" parFile="TestCase3.par" parId="SynchronousGenerator"/>
   <dyn:connect id1="SynchronousGenerator" var1="generator_terminal" id2="InfiniteBus" var2="infiniteBus_terminal"/>
   <dyn:connect id1="SynchronousGenerator" var1="generator_omegaRefPu_value" id2="InfiniteBus" var2="infiniteBus_omegaRefPu"/>
 </dyn:dynamicModelsArchitecture>

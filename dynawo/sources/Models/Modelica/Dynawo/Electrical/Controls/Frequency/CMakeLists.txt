@@ -8,6 +8,8 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
+add_subdirectory(SystemFrequencyResponse SFR)
+
 set(MODEL_FILES
   # Frequency control models
   package.mo

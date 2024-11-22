@@ -57,6 +57,11 @@ class ParInTableHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ParInTableHandler(elementName_type const & root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ParInTableHandler();
+
+  /**
    * @brief return the parameter in xml file
    * @return parameter object build thanks to infos read in xml file
    */
@@ -84,6 +89,11 @@ class ParTableHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit ParTableHandler(elementName_type const & root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~ParTableHandler();
 
   /**
    * @brief get the type of the current parTable
@@ -155,6 +165,11 @@ class ParHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ParHandler(elementName_type const & root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ParHandler();
+
+  /**
    * @brief return the parameter read in xml file
    * @return parameter object build thanks to infos read in xml file
    */
@@ -182,6 +197,11 @@ class RefHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit RefHandler(elementName_type const & root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~RefHandler();
 
   /**
    * @brief return the reference read in xml file
@@ -213,6 +233,11 @@ class MacroParSetHandler : public xml::sax::parser::ComposableElementHandler {
   explicit MacroParSetHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroParSetHandler();
+
+  /**
    * @brief return the macroParSet read in xml file
    * @return reference object build thanks to infos read in xml file
    */
@@ -240,6 +265,11 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
    * @param root_element complete name of the element read by the handler
    */
   explicit SetHandler(elementName_type const & root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~SetHandler();
 
   /**
    * @brief return the set of parameters read in xml file
@@ -295,6 +325,11 @@ class MacroParameterSetHandler : public xml::sax::parser::ComposableElementHandl
   explicit MacroParameterSetHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroParameterSetHandler();
+
+  /**
    * @brief return the macroParameterSet read in xml file
    * @return reference object build thanks to infos read in xml file
    */
@@ -337,6 +372,11 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief Default constructor
    */
   XmlHandler();
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~XmlHandler();
 
   /**
    * @brief Parsed parameters set collection getter

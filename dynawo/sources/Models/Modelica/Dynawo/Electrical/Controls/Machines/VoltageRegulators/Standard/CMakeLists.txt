@@ -14,12 +14,12 @@ add_subdirectory(BaseClasses_INIT BI)
 set(MODEL_FILES
   package.mo
   package.order
+  Ac168_INIT.mo
   Ac1a.mo
   Ac1a.extvar
   Ac1a_INIT.mo
   Ac1c.mo
   Ac1c.extvar
-  Ac16c_INIT.mo
   Ac6a.mo
   Ac6a.extvar
   Ac6c.mo
@@ -32,7 +32,6 @@ set(MODEL_FILES
   Ac78c_INIT.mo
   Ac8b.mo
   Ac8b.extvar
-  Ac8b_INIT.mo
   Ac8c.mo
   Ac8c.extvar
   BbSex1.mo
@@ -41,15 +40,11 @@ set(MODEL_FILES
   Dc1a.extvar
   Dc1c.mo
   Dc1c.extvar
-  ExcIEEEAC1A.mo
-  ExcIEEEAC1A.extvar
-  ExcIEEEAC1A_INIT.mo
-  ExcIEEEST4B.mo
-  ExcIEEEST4B.extvar
-  ExcIEEEST4B_INIT.mo
+  ExAc1.mo
+  ExAc1.extvar
+  ExAc1_INIT.mo
   IEEET1.mo
   IEEET1.extvar
-  IEEET1_INIT.mo
   IEEEX2.mo
   IEEEX2.extvar
   IEEX2A.mo
@@ -57,15 +52,11 @@ set(MODEL_FILES
   MAXEX2.mo
   MAXEX2.extvar
   MAXEX2_INIT.mo
-  Scrx.mo
-  Scrx.extvar
-  Scrx_INIT.mo
-  SCRX1.mo
-  SCRX1.extvar
-  SCRX1_INIT.mo
+  SCRX.mo
+  SCRX.extvar
+  SCRX_INIT.mo
   SEXS.mo
   SEXS.extvar
-  SEXS_INIT.mo
   St1a.mo
   St1a.extvar
   St1c.mo
@@ -89,6 +80,7 @@ set(MODEL_FILES
   St7b.extvar
   St7c.mo
   St7c.extvar
+  St7c_INIT.mo
   St9c.mo
   St9c.extvar
   Stxc_INIT.mo

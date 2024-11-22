@@ -19,6 +19,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELRATIOTAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELRATIOTAPCHANGER_H_
 
+#include <sstream>
+
 #include "DYNModelTapChanger.h"
 
 namespace DYN {
@@ -36,6 +38,16 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param lowIndex : lowest step index
    */
   explicit ModelRatioTapChanger(const std::string& id, const std::string& side, int lowIndex);
+
+  /**
+   * @brief destructor
+   */
+  virtual ~ModelRatioTapChanger();
+
+  /**
+   * @brief reset internal variables values
+   */
+  void resetInternalVariables();
 
   /**
    * @brief  evaluate the zero crossing functions
@@ -104,6 +116,21 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param side reference side
    */
   inline void setSide(const std::string& side) { side_ = side; }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables);
+
 
  private:
   /**

@@ -312,8 +312,7 @@ SolverCommonFixedTimeStep::callAlgebraicSolver() {
     return KIN_INITIAL_GUESS_OK;
   } else {
     // Step initialization
-    if (hasPrediction())
-      computePrediction();
+    computePrediction();
 
     // Forcing the Jacobian calculation for the next Newton-Raphson resolution
     bool noInitSetup = true;

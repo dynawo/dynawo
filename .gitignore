@@ -6,11 +6,12 @@ dynawo/sources/config.h
 dynawo/sources/gitversion.h*
 install/
 deploy/
-OpenModelica/
+OpenModelica
 distributions/
 nrt/data/**/outputs*/
 examples/**/outputs*/
 nrt/data/*/*/execution/
+nrt/data/SIMOrder1Prediction/compilation/
 dynawo/sources/Models/CPP/ModelNetwork/DYNModelNetwork.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
@@ -113,3 +114,5 @@ nrt/data/TrapezoidalTest/reference/**
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
 myEnvDynawo.sh
+b/
+b-3-p/

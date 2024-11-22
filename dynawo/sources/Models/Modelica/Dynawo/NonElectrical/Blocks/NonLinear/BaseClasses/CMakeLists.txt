@@ -11,6 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseLimiterWithLag.mo
+  BaseLimiterWithLag_INIT.mo
   BasePulse.mo
   BaseRSFlipFlop.mo
   )

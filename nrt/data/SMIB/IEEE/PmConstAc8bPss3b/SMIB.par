@@ -86,7 +86,6 @@
     <par type="DOUBLE" name="voltageRegulator_Kdr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_Ke" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Kir" value="5"/>
-    <par type="DOUBLE" name="voltageRegulator_Kp" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Kpr" value="80"/>
     <par type="DOUBLE" name="voltageRegulator_tA" value="0.01"/>
     <par type="DOUBLE" name="voltageRegulator_tDr" value="0.02"/>

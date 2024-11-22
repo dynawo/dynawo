@@ -308,7 +308,11 @@
     <par type="INT" name="tapChanger_tap0" value="2"/>
   </set>
   <set id="12">
-    <par type="DOUBLE" name="transformer_ThetaTfo" value="0.0"/>
+    <par type="DOUBLE" name="transformer_AlphaTfo0" value="0.0"/>
+    <par type="DOUBLE" name="transformer_P10Pu" value="0.440906"/>
+    <par type="DOUBLE" name="transformer_Q10Pu" value="0.124030"/>
+    <par type="DOUBLE" name="transformer_U10Pu" value="1.019555"/>
+    <par type="DOUBLE" name="transformer_U1Phase0" value="-0.15"/>
     <par type="INT" name="transformer_NbTap" value="11"/>
     <par type="INT" name="transformer_Tap0" value="2"/>
     <par type="DOUBLE" name="transformer_RatioTfoMinPu" value="1.1"/>

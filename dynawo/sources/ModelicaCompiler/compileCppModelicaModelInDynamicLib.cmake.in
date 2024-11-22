@@ -52,6 +52,9 @@ set(CMAKE_MODULE_PATH "${DYNAWO_INSTALL_DIR}/share/cmake")
 
 set(CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 set(CMAKE_CXX_FLAGS "@CMAKE_CXX_FLAGS@")
+if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU' AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 --param max-inline-insns-auto=19")  # since gcc-10, we have to lower max-inline-insns-auto parameter to prevent excessive RAM usage and out-of-memory errors during compilation of some models
+endif()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
 if(NOT MODEL_NAME OR "${MODEL_NAME}" STREQUAL "")

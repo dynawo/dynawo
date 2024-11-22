@@ -1,4 +1,4 @@
- ====== INIT VARIABLES VALUES ======
+ ====== VARIABLES VALUES ======
 _BUS___10_TN_ACPIN_V_re                           : y =       1.014711 yp =       0.000000
 _BUS___10_TN_ACPIN_V_im                           : y =      -0.273737 yp =       0.000000
 _BUS___11_TN_ACPIN_V_re                           : y =       1.021886 yp =       0.000000
@@ -41,7 +41,7 @@ _BUS____8_TN_ACPIN_V_re                           : y =       1.060361 yp =     
 _BUS____8_TN_ACPIN_V_im                           : y =      -0.251831 yp =       0.000000
 _BUS____8_TN_ACPIN_i_re                           : y =      -0.037208 yp =       0.000000
 _BUS____8_TN_ACPIN_i_im                           : y =      -0.156485 yp =       0.000000
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 _BUS___10_TN_Upu_value                            : y =       1.050986
 _BUS___10_TN_phipu_value                          : y =      -0.263496
 _BUS___10_TN_U_value                              : y =      14.503600
@@ -428,7 +428,7 @@ _BUS____5-BUS____6-1_PT_iS2ToS1Side2_value        : y =   -1751.168828
 _BUS____5-BUS____6-1_PT_iSide1_value              : y =     375.787311
 _BUS____5-BUS____6-1_PT_iSide2_value              : y =    1751.168828
 _BUS____5-BUS____6-1_PT_twtState_value            : y =       2.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 _BUS___10_TN_numcc_value                          : z =       0.000000
 _BUS___10_TN_switchOff_value                      : z =      -1.000000
 _BUS___10_TN_state_value                          : z =       2.000000
@@ -555,3 +555,19 @@ transformer_t1st_THT                               =      30.000000
 transformer_tNext_HT                               =      10.000000
 transformer_tNext_THT                              =      10.000000
 transformer_tolV                                   =       0.015000
+ ====== INTERNAL PARAMETERS VALUES ======
+_BUS____4-BUS____9-1_PT_R                          =              0
+_BUS____4-BUS____9-1_PT_X                          =       0.556179
+_BUS____4-BUS____9-1_PT_B                          =              0
+_BUS____4-BUS____9-1_PT_G                          =              0
+_BUS____4-BUS____9-1_PT_rho                        =        1.03199
+_BUS____4-BUS____7-1_PT_R                          =              0
+_BUS____4-BUS____7-1_PT_X                          =        0.20912
+_BUS____4-BUS____7-1_PT_B                          =              0
+_BUS____4-BUS____7-1_PT_G                          =              0
+_BUS____4-BUS____7-1_PT_rho                        =        1.02249
+_BUS____5-BUS____6-1_PT_R                          =              0
+_BUS____5-BUS____6-1_PT_X                          =       0.252021
+_BUS____5-BUS____6-1_PT_B                          =              0
+_BUS____5-BUS____6-1_PT_G                          =              0
+_BUS____5-BUS____6-1_PT_rho                        =        1.07296

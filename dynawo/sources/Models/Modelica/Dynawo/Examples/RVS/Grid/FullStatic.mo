@@ -44,7 +44,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {-264, 292}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_50115_ARTHUR_G5(KGover = 0, PGen0Pu = PRef0Pu_gen_50115, PMaxPu = 999, PMinPu = 0, PNom = 12, PRef0Pu = -PRef0Pu_gen_50115, QMaxPu = 0.06, QMinPu = 0, QPercent = 0.05410822, U0Pu = U0Pu_gen_50115, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {-264, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_115(Gain = 1, NbGenMax = 6, U0 = URef0Pu_bus_115 * UNom_upper, URef0 = URef0Pu_bus_115 * UNom_upper, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_115(Gain = 1, NbGenMax = 6, U0Pu = URef0Pu_bus_115 * UNom_upper, URef0Pu = URef0Pu_bus_115 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-204, 312}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 212}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -70,11 +70,11 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {-106, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Transformers.TransformerVariableTap tfo_1116_116(B = 0, G = 0, NbTap = 33, R = 0.003 * 100, SNom = 150, Tap0 = 8, X = 0.15 * 100, rTfo0Pu = 1 - 0.1 * (16 - 8) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-104, 124}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_116(Gain = 1, NbGenMax = 1, U0 = URef0Pu_bus_116 * UNom_upper, URef0 = URef0Pu_bus_116 * UNom_upper, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_116(Gain = 1, NbGenMax = 1, U0Pu = URef0Pu_bus_116 * UNom_upper, URef0Pu = URef0Pu_bus_116 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-84, 182}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_10116_ASSER_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10116, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_10116, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 1, U0Pu = U0Pu_gen_10116, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {-146, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_118(Gain = 1, NbGenMax = 1, U0 = URef0Pu_bus_118 * UNom_upper, URef0 = URef0Pu_bus_118 * UNom_upper, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_118(Gain = 1, NbGenMax = 1, U0Pu = URef0Pu_bus_118 * UNom_upper, URef0Pu = URef0Pu_bus_118 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {6, 280}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_20101_ABEL_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20101, PMaxPu = 999, PMinPu = 0, PNom = 20, PRef0Pu = -PRef0Pu_gen_20101, QMaxPu = 0.1, QMinPu = 0, QPercent = 0.126, U0Pu = U0Pu_gen_20101, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {-208, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -98,7 +98,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {-168, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-208, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_101(Gain = 1, NbGenMax = 4, U0 = URef0Pu_bus_101 * UNom_lower, URef0 = URef0Pu_bus_101 * UNom_lower, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_101(Gain = 1, NbGenMax = 4, U0Pu = URef0Pu_bus_101 * UNom_lower, URef0Pu = URef0Pu_bus_101 * UNom_lower, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-268, -206}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-4, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -118,7 +118,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {76, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Transformers.TransformerVariableTap tfo_1102_102(B = 0, G = 0, NbTap = 33, R = 0.003 * 100, SNom = 150, Tap0 = 11, X = 0.15 * 100, rTfo0Pu = 1 - 0.1 * (16 - 11) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-74, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_102(Gain = 1, NbGenMax = 4, U0 = URef0Pu_bus_102 * UNom_lower, URef0 = URef0Pu_bus_102 * UNom_lower, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_102(Gain = 1, NbGenMax = 4, U0Pu = URef0Pu_bus_102 * UNom_lower, URef0Pu = URef0Pu_bus_102 * UNom_lower, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-104, -246}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.StaticVarCompensators.SVarCPV sVarC_10106_ALBER_SVC(B0Pu = Q0Pu_sVarC_10106 / 1.05 ^ 2, BMaxPu = 0.5, BMinPu = -1, BShuntPu = 0, U0Pu = 1.05, URef0Pu = 1.05, i0Pu = Complex(0, Q0Pu_sVarC_10106), u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {172, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -150,7 +150,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {206, 278}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_30122_AUBREY_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30122, PMaxPu = 999, PMinPu = 0, PNom = 50, PRef0Pu = -PRef0Pu_gen_30122, QMaxPu = 0.16, QMinPu = -0.1, QPercent = 0.1666667, U0Pu = U0Pu_gen_30122, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {298, 308}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_122(Gain = 1, NbGenMax = 6, U0 = URef0Pu_bus_122 * UNom_upper, URef0 = URef0Pu_bus_122 * UNom_upper, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_122(Gain = 1, NbGenMax = 6, U0Pu = URef0Pu_bus_122 * UNom_upper, URef0Pu = URef0Pu_bus_122 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {226, 328}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Transformers.TransformerVariableTap tfo_1120_120(B = 0, G = 0, NbTap = 33, R = 0.003 * 100, SNom = 200, Tap0 = 10, X = 0.15 * 100, rTfo0Pu = 1 - 0.1 * (16 - 10) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {146, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -166,7 +166,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {296, 146}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_20123_AUSTEN_G2(KGover = 0, PGen0Pu = PRef0Pu_gen_20123, PMaxPu = 999, PMinPu = 0, PNom = 155, PRef0Pu = -PRef0Pu_gen_20123, QMaxPu = 0.8, QMinPu = -0.5, QPercent = 0.258, U0Pu = U0Pu_gen_20123, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {296, 106}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_123(Gain = 1, NbGenMax = 3, U0 = URef0Pu_bus_123 * UNom_upper, URef0 = URef0Pu_bus_123 * UNom_upper, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_123(Gain = 1, NbGenMax = 3, U0Pu = URef0Pu_bus_123 * UNom_upper, URef0Pu = URef0Pu_bus_123 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {226, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_30123_AUSTEN_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30123, PMaxPu = 999, PMinPu = 0, PNom = 350, PRef0Pu = -PRef0Pu_gen_30123, QMaxPu = 1.5, QMinPu = -0.5, QPercent = 0.484, U0Pu = U0Pu_gen_30123, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {296, 66}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -176,7 +176,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {186, -34}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_113(Gain = 1, NbGenMax = 3, U0 = URef0Pu_bus_113 * UNom_upper, URef0 = URef0Pu_bus_113 * UNom_upper, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_113(Gain = 1, NbGenMax = 3, U0Pu = URef0Pu_bus_113 * UNom_upper, URef0Pu = URef0Pu_bus_113 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {126, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -194,7 +194,7 @@ model FullStatic "RVS test grid with buses, lines, shunts, PQ loads and transfor
     Placement(visible = true, transformation(origin = {256, -134}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_10107_ALDER_G1(KGover = 0, PGen0Pu = PRef0Pu_gen_10107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_10107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, U0Pu = U0Pu_gen_10107, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {296, -134}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_107(Gain = 1, NbGenMax = 3, U0 = URef0Pu_bus_107 * UNom_lower, URef0 = URef0Pu_bus_107 * UNom_lower, tIntegral = 0.1) annotation(
+  Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_107(Gain = 1, NbGenMax = 3, U0Pu = URef0Pu_bus_107 * UNom_lower, URef0Pu = URef0Pu_bus_107 * UNom_lower, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {236, -114}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.SignalN.GeneratorPQProp gen_30107_ALDER_G3(KGover = 0, PGen0Pu = PRef0Pu_gen_30107, PMaxPu = 999, PMinPu = 0, PNom = 100, PRef0Pu = -PRef0Pu_gen_30107, QMaxPu = 0.6, QMinPu = 0, QPercent = 0.3333333, U0Pu = U0Pu_gen_30107, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQProp.QStatus.Standard) annotation(
     Placement(visible = true, transformation(origin = {296, -214}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -438,8 +438,8 @@ equation
   tfo_20123_123.switchOffSignal2.value = false;
   tfo_30123_123.switchOffSignal1.value = false;
   tfo_30123_123.switchOffSignal2.value = false;
-  vRRemote_bus_101.URegulated = ComplexMath.'abs'(bus_101_ABEL.terminal.V) * UNom_lower;
-  vRRemote_bus_101.URef = URef0Pu_bus_101 * UNom_lower;
+  vRRemote_bus_101.URegulatedPu = ComplexMath.'abs'(bus_101_ABEL.terminal.V) * UNom_lower;
+  vRRemote_bus_101.URefPu = URef0Pu_bus_101 * UNom_lower;
   vRRemote_bus_101.limUQUp[1] = gen_10101_ABEL_G1.limUQUp;
   vRRemote_bus_101.limUQUp[2] = gen_20101_ABEL_G2.limUQUp;
   vRRemote_bus_101.limUQUp[3] = gen_30101_ABEL_G3.limUQUp;
@@ -472,8 +472,8 @@ equation
   gen_40101_ABEL_G4.N = N.setPoint.value;
   gen_40101_ABEL_G4.NQ = vRRemote_bus_101.NQ;
   gen_40101_ABEL_G4.PRefPu = -PRef0Pu_gen_40101;
-  vRRemote_bus_102.URegulated = ComplexMath.'abs'(bus_102_ADAMS.terminal.V) * UNom_lower;
-  vRRemote_bus_102.URef = URef0Pu_bus_102 * UNom_lower;
+  vRRemote_bus_102.URegulatedPu = ComplexMath.'abs'(bus_102_ADAMS.terminal.V) * UNom_lower;
+  vRRemote_bus_102.URefPu = URef0Pu_bus_102 * UNom_lower;
   vRRemote_bus_102.limUQUp[1] = gen_10102_ADAMS_G1.limUQUp;
   vRRemote_bus_102.limUQUp[2] = gen_20102_ADAMS_G2.limUQUp;
   vRRemote_bus_102.limUQUp[3] = gen_30102_ADAMS_G3.limUQUp;
@@ -506,8 +506,8 @@ equation
   gen_40102_ADAMS_G4.N = N.setPoint.value;
   gen_40102_ADAMS_G4.NQ = vRRemote_bus_102.NQ;
   gen_40102_ADAMS_G4.PRefPu = -PRef0Pu_gen_40102;
-  vRRemote_bus_107.URegulated = ComplexMath.'abs'(bus_107_ALDER.terminal.V) * UNom_lower;
-  vRRemote_bus_107.URef = URef0Pu_bus_107 * UNom_lower;
+  vRRemote_bus_107.URegulatedPu = ComplexMath.'abs'(bus_107_ALDER.terminal.V) * UNom_lower;
+  vRRemote_bus_107.URefPu = URef0Pu_bus_107 * UNom_lower;
   vRRemote_bus_107.limUQUp[1] = gen_10107_ALDER_G1.limUQUp;
   vRRemote_bus_107.limUQUp[2] = gen_20107_ALDER_G2.limUQUp;
   vRRemote_bus_107.limUQUp[3] = gen_30107_ALDER_G3.limUQUp;
@@ -532,8 +532,8 @@ equation
   gen_30107_ALDER_G3.N = N.setPoint.value;
   gen_30107_ALDER_G3.NQ = vRRemote_bus_107.NQ;
   gen_30107_ALDER_G3.PRefPu = -PRef0Pu_gen_30107;
-  vRRemote_bus_113.URegulated = ComplexMath.'abs'(bus_113_ARNE.terminal.V) * UNom_upper;
-  vRRemote_bus_113.URef = URef0Pu_bus_113 * UNom_upper;
+  vRRemote_bus_113.URegulatedPu = ComplexMath.'abs'(bus_113_ARNE.terminal.V) * UNom_upper;
+  vRRemote_bus_113.URefPu = URef0Pu_bus_113 * UNom_upper;
   vRRemote_bus_113.limUQUp[1] = gen_10113_ARNE_G1.limUQUp;
   vRRemote_bus_113.limUQUp[2] = gen_20113_ARNE_G2.limUQUp;
   vRRemote_bus_113.limUQUp[3] = gen_30113_ARNE_G3.limUQUp;
@@ -558,8 +558,8 @@ equation
   gen_30113_ARNE_G3.N = N.setPoint.value;
   gen_30113_ARNE_G3.NQ = vRRemote_bus_113.NQ;
   gen_30113_ARNE_G3.PRefPu = -PRef0Pu_gen_30113;
-  vRRemote_bus_118.URegulated = ComplexMath.'abs'(bus_118_ASTOR.terminal.V) * UNom_upper;
-  vRRemote_bus_118.URef = URef0Pu_bus_118 * UNom_upper;
+  vRRemote_bus_118.URegulatedPu = ComplexMath.'abs'(bus_118_ASTOR.terminal.V) * UNom_upper;
+  vRRemote_bus_118.URefPu = URef0Pu_bus_118 * UNom_upper;
   vRRemote_bus_118.limUQUp[1] = gen_10118_ASTOR_G1.limUQUp;
   vRRemote_bus_118.limUQDown[1] = gen_10118_ASTOR_G1.limUQDown;
   gen_10118_ASTOR_G1.switchOffSignal1.value = false;
@@ -568,8 +568,8 @@ equation
   gen_10118_ASTOR_G1.N = N.setPoint.value;
   gen_10118_ASTOR_G1.NQ = vRRemote_bus_118.NQ;
   gen_10118_ASTOR_G1.PRefPu = -PRef0Pu_gen_10118;
-  vRRemote_bus_115.URegulated = ComplexMath.'abs'(bus_115_ARTHUR.terminal.V) * UNom_upper;
-  vRRemote_bus_115.URef = URef0Pu_bus_115 * UNom_upper;
+  vRRemote_bus_115.URegulatedPu = ComplexMath.'abs'(bus_115_ARTHUR.terminal.V) * UNom_upper;
+  vRRemote_bus_115.URefPu = URef0Pu_bus_115 * UNom_upper;
   vRRemote_bus_115.limUQUp[1] = gen_10115_ARTHUR_G1.limUQUp;
   vRRemote_bus_115.limUQUp[2] = gen_20115_ARTHUR_G2.limUQUp;
   vRRemote_bus_115.limUQUp[3] = gen_30115_ARTHUR_G3.limUQUp;
@@ -618,8 +618,8 @@ equation
   gen_60115_ARTHUR_G6.N = N.setPoint.value;
   gen_60115_ARTHUR_G6.NQ = vRRemote_bus_115.NQ;
   gen_60115_ARTHUR_G6.PRefPu = -PRef0Pu_gen_60115;
-  vRRemote_bus_122.URegulated = ComplexMath.'abs'(bus_122_AUBREY.terminal.V) * UNom_upper;
-  vRRemote_bus_122.URef = URef0Pu_bus_122 * UNom_upper;
+  vRRemote_bus_122.URegulatedPu = ComplexMath.'abs'(bus_122_AUBREY.terminal.V) * UNom_upper;
+  vRRemote_bus_122.URefPu = URef0Pu_bus_122 * UNom_upper;
   vRRemote_bus_122.limUQUp[1] = gen_10122_AUBREY_G1.limUQUp;
   vRRemote_bus_122.limUQUp[2] = gen_20122_AUBREY_G2.limUQUp;
   vRRemote_bus_122.limUQUp[3] = gen_30122_AUBREY_G3.limUQUp;
@@ -668,8 +668,8 @@ equation
   gen_60122_AUBREY_G6.N = N.setPoint.value;
   gen_60122_AUBREY_G6.NQ = vRRemote_bus_122.NQ;
   gen_60122_AUBREY_G6.PRefPu = -PRef0Pu_gen_60122;
-  vRRemote_bus_116.URegulated = ComplexMath.'abs'(bus_116_ASSER.terminal.V) * UNom_upper;
-  vRRemote_bus_116.URef = URef0Pu_bus_116 * UNom_upper;
+  vRRemote_bus_116.URegulatedPu = ComplexMath.'abs'(bus_116_ASSER.terminal.V) * UNom_upper;
+  vRRemote_bus_116.URefPu = URef0Pu_bus_116 * UNom_upper;
   vRRemote_bus_116.limUQUp[1] = gen_10116_ASSER_G1.limUQUp;
   vRRemote_bus_116.limUQDown[1] = gen_10116_ASSER_G1.limUQDown;
   gen_10116_ASSER_G1.switchOffSignal1.value = false;
@@ -678,8 +678,8 @@ equation
   gen_10116_ASSER_G1.N = N.setPoint.value;
   gen_10116_ASSER_G1.NQ = vRRemote_bus_116.NQ;
   gen_10116_ASSER_G1.PRefPu = -PRef0Pu_gen_10116;
-  vRRemote_bus_123.URegulated = ComplexMath.'abs'(bus_123_AUSTEN.terminal.V) * UNom_upper;
-  vRRemote_bus_123.URef = URef0Pu_bus_123 * UNom_upper;
+  vRRemote_bus_123.URegulatedPu = ComplexMath.'abs'(bus_123_AUSTEN.terminal.V) * UNom_upper;
+  vRRemote_bus_123.URefPu = URef0Pu_bus_123 * UNom_upper;
   vRRemote_bus_123.limUQUp[1] = gen_10123_AUSTEN_G1.limUQUp;
   vRRemote_bus_123.limUQUp[2] = gen_20123_AUSTEN_G2.limUQUp;
   vRRemote_bus_123.limUQUp[3] = gen_30123_AUSTEN_G3.limUQUp;

@@ -5,7 +5,7 @@ VL2_BUS1_ACPIN_V_re                               : y =   1.0007580251 yp =   0.
 VL2_BUS1_ACPIN_V_im                               : y =  -0.0002432898 yp =   0.0000000000
 VL2_BUS1_ACPIN_i_re                               : y =   0.0906617226 yp =   0.0000000000
 VL2_BUS1_ACPIN_i_im                               : y =  -0.0227338114 yp =   0.0000000000
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 VL1_BUS1_Upu_value                                : y =   0.9854090771
 VL1_BUS1_phipu_value                              : y =  -0.0343094833
 VL1_BUS1_U_value                                  : y =   0.9854090771
@@ -47,7 +47,7 @@ Transformer_iS2ToS1Side2_value                    : y =4206.1194741524
 Transformer_iSide1_value                          : y =4205.6826856648
 Transformer_iSide2_value                          : y =-4206.1194741524
 Transformer_twtState_value                        : y =   2.0000000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 VL1_BUS1_numcc_value                              : z =   0.0000000000
 VL1_BUS1_switchOff_value                          : z =  -1.0000000000
 VL1_BUS1_state_value                              : z =   2.0000000000
@@ -79,3 +79,9 @@ transformer_t1st_THT                               =  30.0000000000
 transformer_tNext_HT                               =  10.0000000000
 transformer_tNext_THT                              =  10.0000000000
 transformer_tolV                                   =   0.0150000000
+ ====== INTERNAL PARAMETERS VALUES ======
+Transformer_R                                      =            0.1
+Transformer_X                                      =            0.5
+Transformer_B                                      =          1e-05
+Transformer_G                                      =          1e-05
+Transformer_rho                                    =              1

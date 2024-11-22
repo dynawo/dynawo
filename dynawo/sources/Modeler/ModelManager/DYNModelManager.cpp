@@ -198,11 +198,11 @@ ModelManager::associateBuffers() {
     dataInit_->localData[0]->discreteVars = static_cast<modelica_real*>(0);
 
     if (!yLocalInit_.empty())
-      dataInit_->localData[0]->realVars = &(yLocalInit_[0]);
+      dataInit_->localData[0]->realVars = yLocalInit_.data();
     if (!ypLocalInit_.empty())
-      dataInit_->localData[0]->derivativesVars = &(ypLocalInit_[0]);
+      dataInit_->localData[0]->derivativesVars = ypLocalInit_.data();
     if (!zLocalInit_.empty())
-      dataInit_->localData[0]->discreteVars = &(zLocalInit_[0]);
+      dataInit_->localData[0]->discreteVars = zLocalInit_.data();
 
     if (dataInit_->modelData->nVariablesInteger > 0) {
       int offset = dataInit_->nbZ;
@@ -272,6 +272,9 @@ ModelManager::setFequations() {
 void
 ModelManager::setGequations() {
   modelModelicaDynamic()->setGequations(gEquationIndex_);
+  for (long i = 0; i < static_cast<long>(data()->nbDelays); ++i) {
+    gEquationIndex_[static_cast<int>(modelData()->nZeroCrossings + i)] = "Root equation for delay " + std::to_string(i);
+  }
 }
 
 void
@@ -1257,7 +1260,7 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
 }
 
 void
-ModelManager::printValuesParameters(std::ofstream& fstream) const {
+ModelManager::printValuesParameters(std::ofstream& fstream) {
   fstream << " ====== PARAMETERS VALUES ======\n";
   const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param

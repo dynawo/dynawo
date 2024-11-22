@@ -30,6 +30,8 @@ valueType_(valueType),
 mandatory_(mandatory) {
 }
 
+ParameterCommon::~ParameterCommon() {}
+
 void
 ParameterCommon::setIndex(const unsigned int& index) {
   if (indexSet())

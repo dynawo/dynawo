@@ -11,6 +11,8 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  BESScbWeccCurrentSource.xml
+  BESScbWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
@@ -61,8 +63,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVRemoteDiagramPQSignalN.xml
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
   GeneratorSynchronousFourWindings.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
-  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
+  GeneratorSynchronousFourWindingsGovCt2St4b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
+  GeneratorSynchronousFourWindingsGovSteamEuSt4b.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
   GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
@@ -75,17 +79,24 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsPmConstDc1a.xml
   GeneratorSynchronousFourWindingsPmConstIEEX2A.xml
   GeneratorSynchronousFourWindingsPmConstSt5bPss2b.xml
+  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl1c.xml
+  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl2c.xml
   GeneratorSynchronousFourWindingsPmConstSt6bPss3b.xml
   GeneratorSynchronousFourWindingsPmConstSt6cPss6c.xml
+  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel2c.xml
+  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel3c.xml
+  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel4c.xml
+  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel5c.xml
   GeneratorSynchronousFourWindingsPmConstSt7bPss2a.xml
+  GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel1.xml
+  GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel2c.xml
   GeneratorSynchronousFourWindingsPmConstSt9cPss2c.xml
   GeneratorSynchronousFourWindingsPmConstVRNordic.xml
   GeneratorSynchronousFourWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousFourWindingsProportionalRegulations.xml
   GeneratorSynchronousFourWindingsTGov1Dc1a.xml
-  GeneratorSynchronousFourWindingsTGov1Scrx.xml
   GeneratorSynchronousFourWindingsTGov1Sexs.xml
-  GeneratorSynchronousFourWindingsTGov1SexsPss2A.xml
+  GeneratorSynchronousFourWindingsTGov1SexsPss2a.xml
   GeneratorSynchronousFourWindingsTGov3IEEX2A.xml
   GeneratorSynchronousFourWindingsVRKundur.xml
   GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
@@ -96,15 +107,14 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
   GeneratorSynchronousThreeWindingsHyGovScrx.xml
-  GeneratorSynchronousThreeWindingsHyGovScrxRvs.xml
-  GeneratorSynchronousThreeWindingsHyGovScrxRvsTfo.xml
+  GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
   GeneratorSynchronousThreeWindingsIeeeG1IeeeT1.xml
   GeneratorSynchronousThreeWindingsIeeeG1IeeeT1Tfo.xml
   GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
   GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
   GeneratorSynchronousThreeWindingsIEEEG2BbSex1.xml
-  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1a.xml
-  GeneratorSynchronousThreeWindingsPmConstExcIeeeAc1aTfo.xml
+  GeneratorSynchronousThreeWindingsPmConstExAc1.xml
+  GeneratorSynchronousThreeWindingsPmConstExAc1Tfo.xml
   GeneratorSynchronousThreeWindingsPmConstScrx.xml
   GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
   GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
@@ -152,12 +162,15 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
-  IECWPP4ACurrentSource.xml
-  IECWPP4BCurrentSource.xml
+  IECWPP4ACurrentSource2015.xml
+  IECWPP4ACurrentSource2020.xml
+  IECWPP4BCurrentSource2015.xml
+  IECWPP4BCurrentSource2020.xml
   IECWT4ACurrentSource2015.xml
   IECWT4ACurrentSource2020.xml
   IECWT4BCurrentSource2015.xml
   IECWT4BCurrentSource2020.xml
+  InertialGrid.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml
@@ -187,11 +200,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   Measurements.xml
   NetworkTransformer.xml
   NodeFault.xml
+  OverVoltageAutomaton.xml
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhotovoltaicsWeccCurrentSource.xml
-  PhotovoltaicsWeccVoltageSource.xml
+  PhotovoltaicsWeccCurrentSourceB.xml
+  PhotovoltaicsWeccVoltageSourceA.xml
+  PhotovoltaicsWeccVoltageSourceB.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml

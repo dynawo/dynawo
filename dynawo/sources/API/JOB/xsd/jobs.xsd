@@ -124,8 +124,8 @@
 
   <xs:complexType name="InitValuesEntry">
     <xs:attribute name="init" use="optional" type="xs:boolean"/>
-    <xs:attribute name="local" use="required" type="xs:boolean"/>
-    <xs:attribute name="global" use="required" type="xs:boolean"/>
+    <xs:attribute name="local" use="optional" type="xs:boolean"/>
+    <xs:attribute name="global" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="FinalValuesEntry"/>

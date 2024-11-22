@@ -17,9 +17,14 @@
  * @brief Model of phase tap changer : implementation
  *
  */
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "DYNModelPhaseTapChanger.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
+
+using std::stringstream;
 
 namespace DYN {
 
@@ -34,6 +39,19 @@ ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id, int lowIndex)
       tapRefDown_(-1),
       tapRefUp_(-1),
       currentOverThresholdState_(false) {}
+
+ModelPhaseTapChanger::~ModelPhaseTapChanger() {}
+
+void ModelPhaseTapChanger::resetInternalVariables() {
+  whenUp_ = VALDEF;
+  whenDown_ = VALDEF;
+  whenLastTap_ = VALDEF;
+  moveUp_ = false;
+  moveDown_ = false;
+  tapRefDown_ = -1;
+  tapRefUp_ = -1;
+  currentOverThresholdState_ = false;
+}
 
 bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) const {
   // decide whether we should increase/decrease tap depending on tap description
@@ -134,6 +152,30 @@ void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
       DYNAddTimelineEvent(network, id(), TapDown);
     }
   }
+}
+
+void ModelPhaseTapChanger::dumpInternalVariables(stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
+  os << whenUp_;
+  os << whenDown_;
+  os << whenLastTap_;
+  os << moveUp_;
+  os << moveDown_;
+  os << tapRefDown_;
+  os << tapRefUp_;
+  os << currentOverThresholdState_;
+}
+
+void ModelPhaseTapChanger::loadInternalVariables(stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
+  is >> whenUp_;
+  is >> whenDown_;
+  is >> whenLastTap_;
+  is >> moveUp_;
+  is >> moveDown_;
+  is >> tapRefDown_;
+  is >> tapRefUp_;
+  is >> currentOverThresholdState_;
 }
 
 }  // namespace DYN
