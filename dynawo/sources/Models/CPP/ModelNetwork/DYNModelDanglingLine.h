@@ -309,6 +309,20 @@ class ModelDanglingLine : public NetworkComponent {
     return (connectionState_ == CLOSED);
   }
 
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables) override;
+
  private:
   boost::shared_ptr<ModelCurrentLimits> currentLimits_;  ///< current limit
   /**

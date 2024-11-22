@@ -324,6 +324,20 @@ class ModelVoltageLevel : public NetworkComponent {
    */
   void setReferenceG(state_g* g, const int& offsetG);
 
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables) override;
+
  private:
   /**
    * @brief build graph used by the voltage level to deal with topology change

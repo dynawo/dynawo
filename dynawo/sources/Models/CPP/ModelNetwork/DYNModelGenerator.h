@@ -270,6 +270,20 @@ class ModelGenerator : public NetworkComponent {
     return Qc_ / SNREF;
   }
 
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables) override;
+
  private:
   /**
    * @brief get the real part of the current

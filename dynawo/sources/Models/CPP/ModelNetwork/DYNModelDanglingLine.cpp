@@ -20,6 +20,9 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelDanglingLine.h"
@@ -831,16 +834,57 @@ void
 ModelDanglingLine::getY0() {
   if (network_->isInitModel())
     return;
+  if (!network_->isStartingFromDump()) {
+    if (!modelBus_->getSwitchOff()) {
+      y_[0] = urFict0_;
+      y_[1] = uiFict0_;
+    } else {
+      y_[0] = 0;
+      y_[1] = 0;
+    }
 
-  if (!modelBus_->getSwitchOff()) {
-    y_[0] = urFict0_;
-    y_[1] = uiFict0_;
+    z_[0] = static_cast<double> (connectionState_);
   } else {
-    y_[0] = 0;
-    y_[1] = 0;
-  }
+    urFict0_ = y_[0];
+    uiFict0_ = y_[1];
+    setCurrentLimitsDesactivate(z_[1]);
 
-  z_[0] = static_cast<double> (connectionState_);
+    State danglingLineCurrState = static_cast<State>(static_cast<int>(z_[0]));
+    if (danglingLineCurrState == CLOSED) {
+      if (modelBus_->getConnectionState() != CLOSED) {
+        modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+        stateModified_ = true;
+      }
+    } else if (danglingLineCurrState == OPEN) {
+      if (modelBus_->getConnectionState() != OPEN) {
+        modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+        stateModified_ = true;
+      }
+    } else if (danglingLineCurrState == UNDEFINED_STATE) {
+      throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+    } else {
+      throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+    }
+    connectionState_ = danglingLineCurrState;
+  }
+}
+
+void
+ModelDanglingLine::dumpInternalVariables(std::stringstream& streamVariables) const {
+  boost::archive::binary_oarchive os(streamVariables);
+  os << P0_;
+  os << Q0_;
+  os << ir0_;
+  os << ii0_;
+}
+
+void
+ModelDanglingLine::loadInternalVariables(std::stringstream& streamVariables) {
+  boost::archive::binary_iarchive is(streamVariables);
+  is >> P0_;
+  is >> Q0_;
+  is >> ir0_;
+  is >> ii0_;
 }
 
 NetworkComponent::StateChange_t

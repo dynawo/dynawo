@@ -292,10 +292,25 @@ class ModelLine : public NetworkComponent {
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time);  // check whether a discrete event happened
+
   /**
    * @brief update data
    */
   void initSize();
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stringstream with binary formated internalVariables
+   */
+  void loadInternalVariables(std::stringstream& streamVariables) override;
 
  private:
   KnownBus_t knownBus_;  ///< known bus
