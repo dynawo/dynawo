@@ -22,7 +22,7 @@ model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
   
   );
 
-  // GenSystem parameters
+// GenSystem parameters
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem3b;
   // P control parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TorquePi;
@@ -31,9 +31,51 @@ model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
  
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));
+ Dynawo.Electrical.Controls.IEC.IEC61400.WT.Control3AB2020 control annotation(
+    Placement(visible = true, transformation(origin = {-58, -38}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
+ Dynawo.Electrical.Sources.IEC.WT3bInjector injector annotation(
+    Placement(visible = true, transformation(origin = {14, -38}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
 equation
-  connect(controlSubstructure.omegaGenPu, mechanical.omegaGenPu) annotation(
-    Line(points = {{-60, -18}, {-60, -14}, {110, -14}, {110, -72}, {102, -72}}, color = {0, 0, 127}));
+ connect(mechanical.omegaGenPu, control.omegaGenPu) annotation(
+    Line(points = {{102, -72}, {108, -72}, {108, -8}, {-58, -8}, {-58, -14}}, color = {0, 0, 127}));
+ connect(gridProtection.fOCB, injector.fOCB) annotation(
+    Line(points = {{60, -2}, {60, -10}, {14, -10}, {14, -14}}, color = {255, 0, 255}));
+ connect(pll.thetaPll, injector.theta) annotation(
+    Line(points = {{-20, 54}, {-20, 20}, {0, 20}, {0, -14}}, color = {0, 0, 127}));
+ connect(control.PWTRefPu, PWTRefPu) annotation(
+    Line(points = {{-82, -20}, {-130, -20}}, color = {0, 0, 127}));
+ connect(control.PWTCFiltPu, controlMeasurements.PFiltPu) annotation(
+    Line(points = {{-82, -24}, {-96, -24}, {-96, 58}}, color = {0, 0, 127}));
+ connect(controlMeasurements.QFiltPu, control.QWTCFiltPu) annotation(
+    Line(points = {{-92, 58}, {-92, -56}, {-82, -56}}, color = {0, 0, 127}));
+ connect(controlMeasurements.UPu, control.UWTCPu) annotation(
+    Line(points = {{-80, 58}, {-80, 12}, {-90, 12}, {-90, -32}, {-82, -32}}, color = {0, 0, 127}));
+ connect(control.UWTCFiltPu, controlMeasurements.UFiltPu) annotation(
+    Line(points = {{-82, -36}, {-88, -36}, {-88, 10}, {-76, 10}, {-76, 58}}, color = {0, 0, 127}));
+ connect(control.tanPhi, tanPhi) annotation(
+    Line(points = {{-82, -44}, {-112, -44}, {-112, -40}, {-130, -40}}, color = {0, 0, 127}));
+ connect(control.xWTRefPu, xWTRefPu) annotation(
+    Line(points = {{-82, -50}, {-108, -50}, {-108, -60}, {-130, -60}}, color = {0, 0, 127}));
+ connect(control.ipMaxPu, injector.ipMaxPu) annotation(
+    Line(points = {{-34, -30}, {-20, -30}, {-20, -20}, {-10, -20}}, color = {0, 0, 127}));
+ connect(control.ipCmdPu, injector.ipCmdPu) annotation(
+    Line(points = {{-34, -34}, {-18, -34}, {-18, -30}, {-10, -30}}, color = {0, 0, 127}));
+ connect(control.iqMaxPu, injector.iqMaxPu) annotation(
+    Line(points = {{-34, -42}, {-16, -42}, {-16, -38}, {-10, -38}}, color = {0, 0, 127}));
+ connect(control.iqCmdPu, injector.iqCmdPu) annotation(
+    Line(points = {{-34, -46}, {-10, -46}}, color = {0, 0, 127}));
+ connect(control.iqMinPu, injector.iqMinPu) annotation(
+    Line(points = {{-34, -50}, {-20, -50}, {-20, -56}, {-10, -56}}, color = {0, 0, 127}));
+ connect(injector.iWtPu, protectionMeasurements.iPu) annotation(
+    Line(points = {{38, -20}, {86, -20}, {86, 110}, {60, 110}, {60, 102}}, color = {85, 170, 255}));
+ connect(injector.iWtPu, controlMeasurements.iPu) annotation(
+    Line(points = {{38, -20}, {86, -20}, {86, 110}, {-80, 110}, {-80, 102}}, color = {85, 170, 255}));
+ connect(injector.uWtPu, protectionMeasurements.uPu) annotation(
+    Line(points = {{38, -24}, {90, -24}, {90, 114}, {72, 114}, {72, 102}}, color = {85, 170, 255}));
+ connect(injector.uWtPu, controlMeasurements.uPu) annotation(
+    Line(points = {{38, -24}, {90, -24}, {90, 114}, {-92, 114}, {-92, 102}}, color = {85, 170, 255}));
+ connect(injector.terminal, terminal) annotation(
+    Line(points = {{38, -38}, {82, -38}, {82, -40}, {130, -40}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Text(origin = {69, -1}, extent = {{-40, 19}, {41, -19}}, textString = "B"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}));

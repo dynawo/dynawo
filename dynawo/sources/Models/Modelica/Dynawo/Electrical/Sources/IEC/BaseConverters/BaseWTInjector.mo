@@ -55,12 +55,7 @@ partial model BaseWTInjector "Converter model and grid interface according to IE
     Placement(visible = true, transformation(origin = {70, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(BesPu = BesPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, ResPu = ResPu, SNom = SNom, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  
-  replaceable Dynawo.Electrical.Sources.IEC.BaseConverters.InterfaceGenSystem genSystem annotation(
-    Placement(visible = true, transformation(origin = {-40, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
 equation
-  genSystem.running = running.value;
   PGenPu = ComplexMath.real(terminal.V * ComplexMath.conj(-terminal.i));
   QGenPu = ComplexMath.imag(terminal.V * ComplexMath.conj(-terminal.i));
   connect(elecSystem.terminal2, terminal) annotation(
@@ -77,24 +72,6 @@ equation
     Line(points = {{26, -22}, {26, -74}, {58, -74}}, color = {0, 0, 127}));
   connect(elecSystem.uWtRePu, realToComplex1.re) annotation(
     Line(points = {{22, -22}, {22, -86}, {58, -86}}, color = {0, 0, 127}));
-  connect(ipMaxPu, genSystem.ipMaxPu) annotation(
-    Line(points = {{-110, 40}, {-72, 40}, {-72, 16}, {-62, 16}}, color = {0, 0, 127}));
-  connect(ipCmdPu, genSystem.ipCmdPu) annotation(
-    Line(points = {{-110, 20}, {-80, 20}, {-80, 8}, {-62, 8}}, color = {0, 0, 127}));
-  connect(iqMaxPu, genSystem.iqMaxPu) annotation(
-    Line(points = {{-110, 0}, {-62, 0}}, color = {0, 0, 127}));
-  connect(iqCmdPu, genSystem.iqCmdPu) annotation(
-    Line(points = {{-110, -20}, {-80, -20}, {-80, -8}, {-62, -8}}, color = {0, 0, 127}));
-  connect(iqMinPu, genSystem.iqMinPu) annotation(
-    Line(points = {{-110, -40}, {-70, -40}, {-70, -16}, {-62, -16}}, color = {0, 0, 127}));
-  connect(PAgPu, genSystem.PAgPu) annotation(
-    Line(points = {{-80, -110}, {-80, -60}, {-6, -60}, {-6, -16}, {-18, -16}}, color = {0, 0, 127}));
-  connect(fOCB, genSystem.fOCB) annotation(
-    Line(points = {{40, 110}, {40, 80}, {-32, 80}, {-32, 22}}, color = {255, 0, 255}));
-  connect(theta, genSystem.theta) annotation(
-    Line(points = {{-40, 110}, {-40, 22}}, color = {0, 0, 127}));
-  connect(genSystem.terminal, elecSystem.terminal1) annotation(
-    Line(points = {{-18, 0}, {18, 0}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-31, 21}, extent = {{-75, -21}, {75, 21}}, textString = "IEC WT"), Text(origin = {0, -30}, extent = {{-90, -30}, {90, 30}}, textString = "Converter")}, coordinateSystem(initialScale = 0.1)));

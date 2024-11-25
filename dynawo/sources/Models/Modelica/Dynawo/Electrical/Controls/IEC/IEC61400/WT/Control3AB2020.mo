@@ -146,5 +146,5 @@ model Control3AB2020 "Whole generator control module for type 4B wind turbines (
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -160}, {160, 160}})),
-    Icon(graphics = {Text(origin = {75, 31}, extent = {{-76, -18}, {92, 28}}, textString = "B"), Text(origin = {-9, -70}, extent = {{-68, -11}, {88, 22}}, textString = "2020")}));
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Text(origin = {-4, 61}, extent = {{-76, -18}, {92, 28}}, textString = "IEC WT 3"), Text(origin = {-10, -17}, extent = {{-72, -16}, {88, 26}}, textString = "Generator Control\n2020")}));
 end Control3AB2020;
