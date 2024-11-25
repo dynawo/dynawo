@@ -60,7 +60,7 @@ class Curve {
   /**
    * @brief get last point value
    */
-  boost::shared_ptr<Point> getLastPoint() const;
+  std::unique_ptr<Point> getLastPoint() const;
 
   /**
    * @brief Setter for curve's model name

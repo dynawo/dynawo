@@ -76,12 +76,12 @@ Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameter
   }
 }
 
-boost::shared_ptr<Point>
+std::unique_ptr<Point>
 Curve::getLastPoint() const {
   if (points_.size() >= 0)
-    return points_.back();
+    return PointFactory::newPoint(points_.back()->getTime(), points_.back()->getValue());
   else
-    return boost::shared_ptr<Point>(nullptr);
+    return std::unique_ptr<Point>(nullptr);
 }
 
 void
