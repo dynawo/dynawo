@@ -20,8 +20,8 @@ model IntegratorVariableLimitsContinuousSetFreeze "Integrator with limited value
   Real w(start = Y0) "Integrator state variable";
   parameter Real Y0 = 0 "Initial or guess value of output (must be in the limits limitMin .. limitMax)";
   
-  Modelica.Blocks.Continuous.Derivative derivative(T = tDer, x_start = LimitMax0) annotation(Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative1(T = tDer, x_start = LimitMin0) annotation(Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0) annotation(Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0) annotation(Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput freeze if UseFreeze "Optional connector of freeze signal" annotation(Placement(visible = true, transformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput limitMax "Connector of Real input signal used as maximum of output y" annotation(Placement(visible = true, transformation(extent = {{-140, 60}, {-100, 100}}, rotation = 0), iconTransformation(extent = {{-140, 60}, {-100, 100}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput limitMin "Connector of Real input signal used as minimum of output y" annotation(Placement(visible = true, transformation(extent = {{-140, -100}, {-100, -60}}, rotation = 0), iconTransformation(extent = {{-140, -100}, {-100, -60}}, rotation = 0)));
@@ -63,8 +63,8 @@ equation
     freezeLocal = false;
   end if;
 ////////// integrator with limits
-  derLimitMax = derivative.y;
-  derLimitMin = derivative1.y;
+  derLimitMax = derivativeLimitMax.y;
+  derLimitMin = derivativeLimitMin.y;
   kFreezeMax = 1 / 4 * (1 + tanh((w - limitMax) / TolOutput)) * (1 + tanh((v - derLimitMax) / TolInput));
   kFreezeMin = 1 / 4 * (1 + tanh((limitMin - w) / TolOutput)) * (1 + tanh((derLimitMin - v) / TolInput));
   der(w) = derLimitMax * kFreezeMax + derLimitMin * kFreezeMin + v * (1 - kFreezeMax - kFreezeMin);
@@ -82,10 +82,10 @@ equation
   else
     y = w;
   end if;
-
-  connect(limitMax, derivative.u) annotation(Line(points = {{-120, 80}, {-82, 80}}, color = {0, 0, 127}));
-  connect(limitMin, derivative1.u) annotation(Line(points = {{-120, -80}, {-82, -80}}, color = {0, 0, 127}));
-
+  connect(limitMax, derivativeLimitMax.u) annotation(
+    Line(points = {{-120, 80}, {-82, 80}}, color = {0, 0, 127}));
+  connect(limitMin, derivativeLimitMin.u) annotation(
+    Line(points = {{-120, -80}, {-82, -80}}, color = {0, 0, 127}));
   annotation(
     preferredView = "text",
     Documentation(info = "<html><head></head><body><p>
