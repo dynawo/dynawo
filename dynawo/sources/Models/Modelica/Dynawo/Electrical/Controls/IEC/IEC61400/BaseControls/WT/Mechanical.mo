@@ -15,18 +15,11 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
 
   //Nominal parameter
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  
   //Mechanical parameters
-  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom)" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.Time Hgen "Generator inertia time constant in s" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.Time Hwtr "WT rotor inertia time constant in s" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom)" annotation(
-    Dialog(tab = "Mechanical"));
-
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
+ 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PAeroPu(start = -P0Pu * SystemBase.SnRef / SNom) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,10 +50,8 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPAg;
 
 equation
   connect(PAgPu, division1.u1) annotation(

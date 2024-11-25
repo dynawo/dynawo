@@ -29,7 +29,7 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
   extends Parameters.Circuit;
   extends Parameters.InitialIGs;
   extends Parameters.InitialUGs;
-  extends Parameters.InitialUiGrid;
+  extends Parameters.InitialComplexUiGrid;
 
   //Interfaces
   Dynawo.Connectors.ACPower terminal1(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = IGsRe0Pu * SNom / SystemBase.SnRef), im(start = IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(

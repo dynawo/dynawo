@@ -19,19 +19,8 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
   
   //Measurement parameters
-  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "Measurement"));
-
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurement;
+  
   //Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = -i0Pu.re * SystemBase.SnRef / SNom), im(start = -i0Pu.im * SystemBase.SnRef / SNom)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-160, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -90,19 +79,10 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
-    Dialog(tab = "Operating point"));
-
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
+  
 equation
   UWtPu = ComplexMath.'abs'(uPu);
   IWtPu = ComplexMath.'abs'(iPu);

@@ -78,10 +78,14 @@ record GenSystem3b "Control parameters for generator system of WT, specific to T
     Dialog(tab = "Control"));
 end GenSystem3b;
 
-record InitialUiGrid "Initial voltage and current for grid side"
+record InitialComplexUiGrid "Initial voltage and current for grid side"
+  extends InitialComplexUGrid;
   parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(Dialog(group = "Initialization"));
+  end InitialComplexUiGrid;
+
+record InitialComplexUGrid "Initial voltage and current for grid side"
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(Dialog(group = "Initialization"));
-end InitialUiGrid;
+end InitialComplexUGrid;
 
 record InitialUGrid "Initial voltage module and phase for grid side"
   extends InitialUModuleGrid;

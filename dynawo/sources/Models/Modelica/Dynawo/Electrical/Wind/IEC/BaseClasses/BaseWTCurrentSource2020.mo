@@ -48,7 +48,7 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
 //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUiGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;

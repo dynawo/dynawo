@@ -13,6 +13,7 @@ model TorquePi "Sub module for torque control inside active power control module
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TorquePi;
+  
   Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tauEMaxPu(start = 1) annotation(

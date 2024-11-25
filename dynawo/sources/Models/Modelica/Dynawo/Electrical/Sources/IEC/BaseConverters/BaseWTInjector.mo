@@ -19,7 +19,7 @@ partial model BaseWTInjector "Converter model and grid interface according to IE
   extends Parameters.InitialPqGrid;
   extends Parameters.InitialUGrid;
   extends Parameters.InitialUGs;
-  extends Parameters.InitialUiGrid;
+  extends Parameters.InitialComplexUiGrid;
   extends Parameters.Nominal;
   
   //Interface

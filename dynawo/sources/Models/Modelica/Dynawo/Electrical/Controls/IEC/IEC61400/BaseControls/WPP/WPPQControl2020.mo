@@ -17,17 +17,8 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2020;
 
   //QControl parameters
-  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP2020;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWPFiltComPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power communicated to WP in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

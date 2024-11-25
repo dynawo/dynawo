@@ -46,7 +46,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
 //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUiGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
