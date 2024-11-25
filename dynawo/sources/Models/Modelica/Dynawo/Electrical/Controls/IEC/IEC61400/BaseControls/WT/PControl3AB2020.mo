@@ -3,7 +3,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 model PControl3AB2020
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TorquePi;
   
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUscale = MPUscale, MPUvrt = MPUvrt, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, PBaseMeasurement = PBaseMeasurement, PBaseTurb = PBaseTurb, PDtdMaxPu = PDtdMaxPu, POrd0Pu = POrd0Pu, PWtcFilt0Pu = PWtcFilt0Pu, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, UDvsPu = UDvsPu, UPdipPu = UPdipPu, UWtc0Pu = UWtc0Pu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUscale = MPUscale, MPUvrt = MPUvrt, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, PBaseMeasurement = PBaseMeasurement, PBaseTurb = PBaseTurb, PDtdMaxPu = PDtdMaxPu, POrd0Pu = POrd0Pu, PWtcFilt0Pu = PWtcFilt0Pu, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, UDvsPu = UDvsPu, UPdipPu = UPdipPu, UWtc0Pu = UWtc0Pu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {47.2409, -173.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = 1) "Maximum active current (base PNomTurb/sqrt(3)/UNom) in pu" annotation(
     Placement(visible = true, transformation(origin = {-320, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -74,7 +74,7 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-228, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.And andUPdipMPuscale annotation(
     Placement(visible = true, transformation(origin = {-192, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMinPu, Rising = DPRefMaxPu, y_start = POrd0Pu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, y_start = POrd0Pu) annotation(
     Placement(visible = true, transformation(origin = {-252, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productPuScale annotation(
     Placement(visible = true, transformation(origin = {-216, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

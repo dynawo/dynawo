@@ -16,8 +16,8 @@ model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
 
   //Nominal parameters
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-  parameter Types.Time tS "Integration time step in s";
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
 
   //PControl parameters
   parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(

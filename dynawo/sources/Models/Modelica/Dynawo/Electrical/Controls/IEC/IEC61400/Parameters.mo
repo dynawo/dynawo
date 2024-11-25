@@ -592,8 +592,8 @@ end GridProtection;
 
 record TorquePi "Parameters used in torque PI controller"
   parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, typical value = 999" annotation(Dialog(tab="PControl"));
-  parameter Types.ActivePowerPu DPRefMaxPu "Maximum ramp rate for reference power of the wind turbine, typical value = 0.3" annotation(Dialog(tab="PControl"));
-  parameter Types.ActivePowerPu DPRefMinPu "Minimum ramp rate for reference power of the wind turbine, typical value = -0.3" annotation(Dialog(tab="PControl"));
+  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, typical value = 0.3" annotation(Dialog(tab="PControl"));
+  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, typical value = -0.3" annotation(Dialog(tab="PControl"));
   parameter Types.PerUnit KDtd "Active drive train damping: gain, typical value = 1.5" annotation(Dialog(tab="PControl"));
   parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), typical value = true" annotation(Dialog(tab="PControl"));
   parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), typical value = false" annotation(Dialog(tab="PControl"));
