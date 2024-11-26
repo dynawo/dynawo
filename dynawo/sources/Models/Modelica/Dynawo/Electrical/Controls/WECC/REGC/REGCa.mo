@@ -14,21 +14,22 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 model REGCa "WECC Generator Converter REGC type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
 
+  // REGC-A parameters
   parameter Boolean Lvplsw(start=false) "Low voltage power logic switch: 1-enabled/0-disabled" annotation(
-  Dialog(tab="Generator Control"));
+  Dialog(tab="Generator Converter"));
   parameter Types.PerUnit zerox(start=0.0) "LVPL zero crossing in pu" annotation(
-    Dialog(tab="Generator Control"));
+    Dialog(tab="Generator Converter"));
   parameter Types.PerUnit brkpt(start=1.0) "LVPL breakpoint in pu" annotation(
-    Dialog(tab="Generator Control"));
-  parameter Types.PerUnit lvpl1(start=1.0) "LVPL gain breakpoint in pu" annotation(Dialog(
-    tab="Generator Control"));
+    Dialog(tab="Generator Converter"));
+  parameter Types.PerUnit lvpl1(start=1.0) "LVPL gain breakpoint in pu" annotation(
+  Dialog(tab="Generator Converter"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput idCmdPu(start = Id0Pu) "idCmdPu setpoint from electrical control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Iq0Pu) "iqCmdPu setpoint from electrical control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput Qgen0(start = UInj0Pu) "Reactive power setpoint in pu (base Iverter)" annotation(
+  Modelica.Blocks.Interfaces.RealInput Qgen0(start = UInj0Pu) "Reactive power setpoint in pu (base Inverter)" annotation(
     Placement(visible = true, transformation(origin = {-190, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-60, 109}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = UInj0Pu) "Inverter terminal voltage magnitude in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 270)));
@@ -145,10 +146,10 @@ equation
 
 
 </ul> </p></html>"),
-    Diagram(coordinateSystem(initialScale = 0.2, extent = {{-180, -180}, {150, 150}}, grid = {1, 1}), graphics = {Rectangle(origin = {100, 60}, extent = {{-30, 40}, {30, -40}}), Text(origin = {100, 57}, extent = {{-28, 27}, {28, -26}}, textString = "high voltage
+    Diagram(coordinateSystem(initialScale = 0.2, extent = {{-180, -180}, {150, 150}}, grid = {1, 1}),graphics = {Rectangle(origin = {100, 60}, extent = {{-30, 40}, {30, -40}}), Text(origin = {100, 57}, extent = {{-28, 27}, {28, -26}}, textString = "high voltage
 reactive current
 management"), Rectangle(origin = {100, -120}, extent = {{-30, 40}, {30, -40}}), Text(origin = {99, -124.5}, extent = {{-25, 23}, {25, -22}}, textString = "low voltage
 active current
 management")}),
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-25, 20}, extent = {{-53, 60}, {107, -100}}, textString = "REGC_A"), Text(origin = {134, -42}, extent = {{-22, 16}, {36, -28}}, textString = "idRefPu"), Text(origin = {134, 62}, extent = {{-22, 16}, {36, -32}}, textString = "iqRefPu"), Text(origin = {-138, 82}, extent = {{-22, 16}, {36, -28}}, textString = "idCmdPu"), Text(origin = {-138, -38}, extent = {{-22, 16}, {36, -28}}, textString = "iqCmdPu"), Text(origin = {-33, -108}, extent = {{25, 10}, {-25, -10}}, textString = "UPu"), Text(origin = {-5, 123}, extent = {{43, -9}, {-43, 9}}, textString = "Qgen0")}, coordinateSystem(initialScale = 0.2, extent = {{-180, -180}, {150, 150}}, grid = {1, 1})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-25, 20}, extent = {{-53, 60}, {107, -100}}, textString = "REGC A"), Text(origin = {134, -42}, extent = {{-22, 16}, {36, -28}}, textString = "idRefPu"), Text(origin = {134, 62}, extent = {{-22, 16}, {36, -32}}, textString = "iqRefPu"), Text(origin = {-138, 82}, extent = {{-22, 16}, {36, -28}}, textString = "idCmdPu"), Text(origin = {-138, -38}, extent = {{-22, 16}, {36, -28}}, textString = "iqCmdPu"), Text(origin = {-33, -108}, extent = {{25, 10}, {-25, -10}}, textString = "UPu"), Text(origin = {-5, 123}, extent = {{43, -9}, {-43, 9}}, textString = "Qgen0")}));
 end REGCa;

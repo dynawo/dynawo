@@ -4,3 +4,4 @@ PVCurrentSource_INIT
 PVVoltageSourceA
 PVVoltageSourceB
 PVVoltageSource_INIT
+PVCurrentSourceA
