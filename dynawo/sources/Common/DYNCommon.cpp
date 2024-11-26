@@ -95,14 +95,17 @@ int sign(const double& value) {
 
 static double MAXIMUM_PRECISION = 1e-6;  ///< maximum precision
 static int MAXIMUM_PRECISION_AS_NB_DECIMAL = 6;  ///< maximum precision
+
 double getCurrentPrecision() {
   return MAXIMUM_PRECISION;
 }
+
 void setCurrentPrecision(double precision) {
   MAXIMUM_PRECISION = std::abs(precision);
-  MAXIMUM_PRECISION_AS_NB_DECIMAL = static_cast<int>(-std::log10(MAXIMUM_PRECISION));
+  MAXIMUM_PRECISION_AS_NB_DECIMAL = static_cast<int>(-std::log10(MAXIMUM_PRECISION)) + 3;
   MAXIMUM_VALUE_FIXED = std::pow(10, MAXIMUM_PRECISION_AS_NB_DECIMAL);
 }
+
 int getPrecisionAsNbDecimal() {
   return MAXIMUM_PRECISION_AS_NB_DECIMAL;
 }
