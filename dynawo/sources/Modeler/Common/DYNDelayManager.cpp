@@ -77,7 +77,7 @@ DelayManager::dumpDelays() const {
     it->second.points(values);
 
     ss << it->first << ":";
-    ss << it->second.getDelayMax() << ":";
+    ss << DYN::double2String(it->second.getDelayMax()) << ":";
     for (std::vector<std::pair<double, double> >::const_iterator itvec = values.begin(); itvec != values.end(); ++itvec) {
       ss << DYN::double2String(itvec->first) << "," << DYN::double2String(itvec->second) << ";";
     }

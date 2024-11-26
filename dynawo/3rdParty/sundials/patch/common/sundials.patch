@@ -1,7 +1,20 @@
-diff -urpN sundials-6.3.0/include/kinsol/kinsol.h sundials-6.3.0_patched/include/kinsol/kinsol.h
---- sundials-6.3.0/include/kinsol/kinsol.h	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/include/kinsol/kinsol.h	2023-11-22 09:55:03.402892533 +0100
-@@ -132,6 +132,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(vo
+diff --git a/include/ida/ida.h b/include/ida/ida.h
+index 216554ee2..1b8a0d76a 100644
+--- a/include/ida/ida.h
++++ b/include/ida/ida.h
+@@ -146,6 +146,7 @@ SUNDIALS_EXPORT int IDASetMaxErrTestFails(void *ida_mem, int maxnef);
+ SUNDIALS_EXPORT int IDASetSuppressAlg(void *ida_mem, booleantype suppressalg);
+ SUNDIALS_EXPORT int IDASetId(void *ida_mem, N_Vector id);
+ SUNDIALS_EXPORT int IDASetConstraints(void *ida_mem, N_Vector constraints);
++SUNDIALS_EXPORT int IDASetURound(void *ida_mem, realtype uround);
+ 
+ /* Optional step adaptivity input functions */
+ SUNDIALS_EXPORT
+diff --git a/include/kinsol/kinsol.h b/include/kinsol/kinsol.h
+index f2e98e3a6..137b2c721 100644
+--- a/include/kinsol/kinsol.h
++++ b/include/kinsol/kinsol.h
+@@ -132,6 +132,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(void *kinmem, realtype fnormtol);
  SUNDIALS_EXPORT int KINSetScaledStepTol(void *kinmem, realtype scsteptol);
  SUNDIALS_EXPORT int KINSetConstraints(void *kinmem, N_Vector constraints);
  SUNDIALS_EXPORT int KINSetSysFunc(void *kinmem, KINSysFn func);
@@ -9,9 +22,10 @@ diff -urpN sundials-6.3.0/include/kinsol/kinsol.h sundials-6.3.0_patched/include
  
  /* Optional input functions for handling error/info/debug events */
  SUNDIALS_EXPORT int KINSetErrHandlerFn(void *kinmem, KINErrHandlerFn ehfun,
-diff -urpN sundials-6.3.0/src/ida/ida.c sundials-6.3.0_patched/src/ida/ida.c
---- sundials-6.3.0/src/ida/ida.c	2022-08-11 06:41:29.000000000 +0200
-+++ sundials-6.3.0_patched/src/ida/ida.c	2023-11-22 09:55:28.398981849 +0100
+diff --git a/src/ida/ida.c b/src/ida/ida.c
+index a9a0e1b8f..c5b474383 100644
+--- a/src/ida/ida.c
++++ b/src/ida/ida.c
 @@ -3329,8 +3329,10 @@ static int IDARcheck2(IDAMem IDA_mem)
    if (IDA_mem->ida_irfnd == 0) return(IDA_SUCCESS);
  
@@ -45,9 +59,37 @@ diff -urpN sundials-6.3.0/src/ida/ida.c sundials-6.3.0_patched/src/ida/ida.c
      } else {
        if (IDA_mem->ida_iroots[i] == 1)
          IDA_mem->ida_glo[i] = IDA_mem->ida_ghi[i];
-diff -urpN sundials-6.3.0/src/kinsol/kinsol.c sundials-6.3.0_patched/src/kinsol/kinsol.c
---- sundials-6.3.0/src/kinsol/kinsol.c	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol.c	2023-11-22 09:56:09.315128052 +0100
+diff --git a/src/ida/ida_io.c b/src/ida/ida_io.c
+index 0e651a27e..7a6083ea8 100644
+--- a/src/ida/ida_io.c
++++ b/src/ida/ida_io.c
+@@ -822,6 +822,22 @@ int IDASetStepToleranceIC(void *ida_mem, realtype steptol)
+   return(IDA_SUCCESS);
+ }
+ 
++int IDASetURound(void *ida_mem, realtype uround)
++{
++  IDAMem IDA_mem;
++
++  if (ida_mem==NULL) {
++    IDAProcessError(NULL, IDA_MEM_NULL, "IDA", "IDASetURound", MSG_NO_MEM);
++    return(IDA_MEM_NULL);
++  }
++
++  IDA_mem = (IDAMem) ida_mem;
++
++  IDA_mem->ida_uround = uround;
++
++  return(IDA_SUCCESS);
++}
++
+ /*
+  * =================================================================
+  * IDA optional input functions
+diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
+index c1b392898..921436219 100644
+--- a/src/kinsol/kinsol.c
++++ b/src/kinsol/kinsol.c
 @@ -290,6 +290,7 @@ void *KINCreate(SUNContext sunctx)
    kin_mem->kin_sqrt_relfunc     = SUNRsqrt(uround);
    kin_mem->kin_scsteptol        = SUNRpowerR(uround,TWOTHIRDS);
@@ -65,9 +107,10 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol.c sundials-6.3.0_patched/src/kinsol/
      kin_mem->kin_fnorm = N_VWL2Norm(kin_mem->kin_fval, kin_mem->kin_fscale);
      return(KIN_INITIAL_GUESS_OK);
    }
-diff -urpN sundials-6.3.0/src/kinsol/kinsol_impl.h sundials-6.3.0_patched/src/kinsol/kinsol_impl.h
---- sundials-6.3.0/src/kinsol/kinsol_impl.h	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol_impl.h	2023-11-22 09:55:40.647025614 +0100
+diff --git a/src/kinsol/kinsol_impl.h b/src/kinsol/kinsol_impl.h
+index c4a821c7a..30e3bdff9 100644
+--- a/src/kinsol/kinsol_impl.h
++++ b/src/kinsol/kinsol_impl.h
 @@ -87,6 +87,7 @@ typedef struct KINMemRec {
    void *kin_user_data;         /* work space available to func routine         */
    realtype kin_fnormtol;       /* stopping tolerance on L2-norm of function
@@ -76,7 +119,7 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_impl.h sundials-6.3.0_patched/src/ki
    realtype kin_scsteptol;      /* scaled step length tolerance                 */
    int kin_globalstrategy;      /* choices are KIN_NONE, KIN_LINESEARCH
                                    KIN_PICARD and KIN_FP                        */
-@@ -443,6 +444,7 @@ void KINInfoHandler(const char *module,
+@@ -443,6 +444,7 @@ void KINInfoHandler(const char *module, const char *function,
  #define MSG_BAD_MXNEWTSTEP     "Illegal mxnewtstep < 0."
  #define MSG_BAD_RELFUNC        "relfunc < 0 illegal."
  #define MSG_BAD_FNORMTOL       "fnormtol < 0 illegal."
@@ -84,10 +127,11 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_impl.h sundials-6.3.0_patched/src/ki
  #define MSG_BAD_SCSTEPTOL      "scsteptol < 0 illegal."
  #define MSG_BAD_MXNBCF         "mxbcf < 0 illegal."
  #define MSG_BAD_CONSTRAINTS    "Illegal values in constraints vector."
-diff -urpN sundials-6.3.0/src/kinsol/kinsol_io.c sundials-6.3.0_patched/src/kinsol/kinsol_io.c
---- sundials-6.3.0/src/kinsol/kinsol_io.c	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol_io.c	2023-11-22 09:55:45.827044123 +0100
-@@ -856,6 +856,37 @@ int KINSetFuncNormTol(void *kinmem, real
+diff --git a/src/kinsol/kinsol_io.c b/src/kinsol/kinsol_io.c
+index 812dabad9..e2341f802 100644
+--- a/src/kinsol/kinsol_io.c
++++ b/src/kinsol/kinsol_io.c
+@@ -856,6 +856,37 @@ int KINSetFuncNormTol(void *kinmem, realtype fnormtol)
    return(KIN_SUCCESS);
  }
  
@@ -125,10 +169,11 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_io.c sundials-6.3.0_patched/src/kins
  /*
   * -----------------------------------------------------------------
   * Function : KINSetScaledStepTol
-diff -urpN sundials-6.3.0/src/kinsol/kinsol_ls.c sundials-6.3.0_patched/src/kinsol/kinsol_ls.c
---- sundials-6.3.0/src/kinsol/kinsol_ls.c	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol_ls.c	2023-11-22 09:55:52.751068864 +0100
-@@ -248,6 +248,8 @@ int KINSetJacFn(void *kinmem, KINLsJacFn
+diff --git a/src/kinsol/kinsol_ls.c b/src/kinsol/kinsol_ls.c
+index aaea6ca63..3ca2038ca 100644
+--- a/src/kinsol/kinsol_ls.c
++++ b/src/kinsol/kinsol_ls.c
+@@ -248,6 +248,8 @@ int KINSetJacFn(void *kinmem, KINLsJacFn jac)
      kinls_mem->J_data = kin_mem;
    }
  

@@ -154,13 +154,13 @@ class SolverIDA : public Solver::Impl {
    */
   void getLastConf(long int &nst, int & kused, double & hused) const;
 
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
   /**
    * @brief indicates which root was activated
    * @return an array showing which root was activated
    */
   std::vector<state_g> getRootsFound() const;
-#endif
+// #endif
 
   /**
    * @brief computes the problem residual for given values of time, state vector
@@ -255,6 +255,11 @@ class SolverIDA : public Solver::Impl {
   /**
   * @brief set the index of each differential variables
   */
+  void updateAlgebraicRestorationStatistics();
+
+  /**
+  * @brief set the index of each differential variables
+  */
   void setDifferentialVariablesIndices();
 
   /**
@@ -280,6 +285,7 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
