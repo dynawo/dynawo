@@ -93,6 +93,7 @@ minStep_(0.),
 maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
+deltacj_(0.25),
 flagInit_(false),
 nbLastTimeSimulated_(0) {
 }
@@ -132,6 +133,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, false)));
 }
 
 void
@@ -142,6 +144,9 @@ SolverIDA::setSolverSpecificParameters() {
   maxStep_ = findParameter("maxStep").getValue<double>();
   absAccuracy_ = findParameter("absAccuracy").getValue<double>();
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
+  const ParameterSolver& deltacj = findParameter("deltacj");
+  if (deltacj.hasValue())
+    deltacj_ = deltacj.getValue<double>();
 }
 
 const std::string&
@@ -289,6 +294,14 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNoInactiveRootWarn");
 
+  flag = IDASetDeltaCjLSetup(IDAMem_, deltacj_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetDeltaCjLSetup");
+
+  flag = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * minStep_));
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
+
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), ROOT_DOWN);
   g1_.assign(model_->sizeG(), ROOT_DOWN);
@@ -354,7 +367,8 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   Trace::debug() << "Updating discrete variable values and mode" << Trace::endline;
   model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
   Trace::debug() << "Updating evalG" << Trace::endline;
-  model_->evalG(tSolve_, g0_);
+  model_->evalG(tSolve_, g1_);
+  ++stats_.ngeInternal_;
   Trace::debug() << "Updating evalZMode" << Trace::endline;
   evalZMode(g0_, g1_, tSolve_);
   Trace::debug() << "End Updating discrete variable values and mode" << Trace::endline;
@@ -362,15 +376,6 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   model_->rotateBuffers();
   state_.reset();
   model_->reinitMode();
-
-  /*int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
-  analyseFlag(flag);
-  Trace::debug() << "End IDACalcIC" << Trace::endline;
-
-  // gathering of values computed by IDACalcIC
-  flag = IDAGetConsistentIC(IDAMem_, sundialsVectorY_, sundialsVectorYp_);
-  if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetConsistentIC");*/
 
   // loops until a stable state is found
   bool change(true);
@@ -380,6 +385,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
                                                   msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
   setDifferentialVariablesIndices();
+  solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
@@ -390,6 +396,14 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
+
+    solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+    solverKINYPrim_->solve();
+    solverKINYPrim_->getValues(vectorY_, vectorYp_);
+
+    updateAlgebraicRestorationStatistics();
+    updateStatistics();
+
     Trace::debug() << "End algebraic restoration" << Trace::endline;
 
     // Reinitialization (forced to start over with a small time step)
@@ -433,6 +447,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
     Trace::debug() << "Start calculateIC evalG" << Trace::endline;
     model_->evalG(tSolve_, g1_);
+    ++stats_.ngeInternal_;
     Trace::debug() << "End calculateIC evalG" << Trace::endline;
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
 #ifdef _DEBUG_
@@ -452,6 +467,17 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     if (counter >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
   } while (change);
+
+  updateStatistics();
+
+  printEnd();
+  printEndConsole();
+
+  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+  if (flag0 < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+
+  Solver::Impl::resetStats();
 
   // reinit output
   flagInit_ = false;
@@ -607,12 +633,11 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       msg = "IDA_ROOT_RETURN";
       model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
       model_->evalG(tNxt, g1_);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       evalZMode(g0_, g1_, tNxt);
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
-      updateStatistics();
       break;
     default:
       analyseFlag(flag);
@@ -626,10 +651,17 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     nbLastTimeSimulated_ = 0;
   }
 
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
   // A root has been found at tNxt
   if (flag == IDA_ROOT_RETURN) {
     vector<state_g> rootsFound = getRootsFound();
+    int numRoots = 0;
+    for (const auto root : rootsFound) {
+      if (std::fabs(root) > 0) {
+        ++numRoots;
+      }
+    }
+    Trace::debug() << "SolverIDA: numRoots rootsfound " << numRoots << Trace::endline;
     for (unsigned int i = 0; i < rootsFound.size(); i++) {
       if (rootsFound[i] != NO_ROOT) {
         Trace::debug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
@@ -691,7 +723,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   // Destroying the specific data structures
   N_VDestroy_Serial(nvWeights);
   N_VDestroy_Serial(nvErrors);
-#endif
+// #endif
 }
 
 bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
@@ -708,6 +740,19 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
     return true;  // new J factorization
   }
   return false;  // no J factorization
+}
+
+void SolverIDA::updateAlgebraicRestorationStatistics() {
+  long int nNewt = 0;
+  long int nre = 0;
+  long int nje = 0;
+  solverKINNormal_->updateStatistics(nNewt, nre, nje);
+  stats_.nreAlgebraic_ += nre;
+  stats_.njeAlgebraic_ += nje;
+
+  solverKINYPrim_->updateStatistics(nNewt, nre, nje);
+  stats_.nreAlgebraic_ += nre;
+  stats_.njeAlgebraic_ += nje;
 }
 
 /*
@@ -752,21 +797,11 @@ SolverIDA::reinit() {
       model_->reinitMode();
 
       // Update statistics
-      long int nNewt = 0;
-      long int nre = 0;
-      long int nje = 0;
-      solverKINNormal_->updateStatistics(nNewt, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt;
-      stats_.nje_ += nje;
-      solverKINYPrim_->updateStatistics(nNewt, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt;
-      stats_.nje_ += nje;
+      updateAlgebraicRestorationStatistics();
 
       // Root stabilization
       model_->evalG(tSolve_, g1_);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
         break;
       } else {
@@ -783,15 +818,16 @@ SolverIDA::reinit() {
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
 
-    updateStatistics();
   }
+
+  updateStatistics();
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 }
 
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
 vector<state_g>
 SolverIDA::getRootsFound() const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
@@ -804,7 +840,7 @@ SolverIDA::getRootsFound() const {
 
   return rootsFound;
 }
-#endif
+// #endif
 
 double SolverIDA::getTimeStep() const {
   double hused = 0.;
@@ -883,7 +919,7 @@ SolverIDA::updateStatistics() {
   stats_.nni_ += nni;
   stats_.netf_ += netf;
   stats_.ncfn_ += ncfn;
-  stats_.nge_ += nge;
+  stats_.ngeSolver_ += nge;
 }
 
 void

@@ -49,9 +49,12 @@ typedef struct {
   long int nre_;  ///< number of residual evaluations
   long int nni_;  ///< number of nonlinear iterations
   long int nje_;  ///< number of Jacobian evaluations
+  long int nreAlgebraic_;  ///< number of nonlinear iterations
+  long int njeAlgebraic_;  ///< number of Jacobian evaluations
   long int netf_;  ///< number of error test failures
   long int ncfn_;  ///< number of nonlinear convergence failures
-  long int nge_;  ///< number of root function evaluations
+  long int ngeInternal_;  ///< number of root function evaluations
+  long int ngeSolver_;  ///< number of root function evaluations
   long int nze_;  ///< number of discrete variable evaluations
   long int nme_;  ///< number of mode evaluations
 } stat_t;
@@ -205,6 +208,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void printEnd() const override;
 
   /**
+  * @copydoc Solver::printEndConsole()
+  */
+  void printEndConsole() const;
+
+ /**
    * @copydoc Solver::printParameterValues()
    */
   void printParameterValues() const override;

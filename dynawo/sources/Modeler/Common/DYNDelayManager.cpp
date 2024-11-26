@@ -77,7 +77,7 @@ DelayManager::dumpDelays() const {
     delay.points(values);
 
     ss << delayPair.first << ":";
-    ss << delay.getDelayMax() << ":";
+    ss << double2String(delay.getDelayMax()) << ":";
     for (const auto& value : values) {
       ss << double2String(value.first) << "," << double2String(value.second) << ";";
     }

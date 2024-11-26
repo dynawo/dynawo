@@ -156,7 +156,7 @@ Solver::Impl::printHeader() const {
 void
 Solver::Impl::printSolve() const {
   stringstream msg;
-  msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";
+  msg << setfill(' ') << setw(12) << std::scientific << std::setprecision(getPrecisionAsNbDecimal()) << getTSolve() << " ";
 
   printSolveSpecific(msg);
 
@@ -216,9 +216,12 @@ Solver::Impl::resetStats() {
   stats_.nje_ = 0;
   stats_.netf_ = 0;
   stats_.ncfn_ = 0;
-  stats_.nge_ = 0;
+  stats_.ngeInternal_ = 0;
+  stats_.ngeSolver_ = 0;
   stats_.nze_ = 0;
   stats_.nme_ = 0;
+  stats_.nreAlgebraic_ = 0;
+  stats_.njeAlgebraic_ = 0;
 }
 
 void
@@ -253,7 +256,7 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double t
         || zChangeType == NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE) {
       // at least one discrete variable that is used in discrete equations has been modified: continue the propagation
       model_->evalG(time, G1);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       nonSilentZChange = true;
       change = true;
 #ifdef _DEBUG_
@@ -545,8 +548,6 @@ Solver::Impl::setTimeline(const boost::shared_ptr<Timeline>& timeline) {
 
 void
 Solver::Impl::printEnd() const {
-  // (1) Print on the standard output
-  // -----------------------------------
   Trace::info() << Trace::endline;
   Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
   Trace::info() << Trace::endline;
@@ -557,9 +558,32 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbSolverRootFuncEval, stats_.ngeSolver_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbInternalRootFuncEval, stats_.ngeInternal_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
+}
+
+void
+Solver::Impl::printEndConsole() const {
+  std::cout << std::endl;
+  std::cout << DYNLog(SolverExecutionStats) << std::endl;
+  std::cout << std::endl;
+
+  std::cout << DYNLog(SolverNbIter, stats_.nst_) << std::endl;
+  std::cout << DYNLog(SolverNbResEval, stats_.nre_) << std::endl;
+  std::cout << DYNLog(SolverNbJacEval, stats_.nje_) << std::endl;
+  std::cout << DYNLog(SolverNbNonLinIter, stats_.nni_) << std::endl;
+  std::cout << DYNLog(SolverNbErrorTestFail, stats_.netf_) << std::endl;
+  std::cout << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << std::endl;
+  std::cout << DYNLog(SolverNbSolverRootFuncEval, stats_.ngeSolver_) << std::endl;
+  std::cout << DYNLog(SolverNbInternalRootFuncEval, stats_.ngeInternal_) << std::endl;
+  std::cout << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << std::endl;
+  std::cout << DYNLog(SolverNbModeEval, stats_.nme_) << std::endl;
+  std::cout << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << std::endl;
+  std::cout << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << std::endl;
 }
 
 }  // end namespace DYN
