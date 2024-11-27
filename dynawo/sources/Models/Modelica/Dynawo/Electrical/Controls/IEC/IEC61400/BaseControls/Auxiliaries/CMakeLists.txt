@@ -16,9 +16,9 @@ set(MODEL_FILES
   GridProtection2015.mo
   GridProtection2020.mo
   Measurements.mo
+  MeasurementsPQ.mo
   PLL.mo
   UfMeasurement.mo
-  PQCalculus.mo
   )
 
 #

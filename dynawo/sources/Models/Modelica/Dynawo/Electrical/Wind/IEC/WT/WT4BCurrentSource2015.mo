@@ -79,8 +79,8 @@ model WT4BCurrentSource2015 "Wind Turbine Type 4B model from IEC 61400-27-1:2015
     Placement(visible = true, transformation(origin = {10, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {63, -101}, extent = {{-11, 11}, {11, -11}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.PQCalculus pQCalculus annotation(
-    Placement(visible = true, transformation(origin = {10, -84}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ measurementsPQ(P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
+    Placement(visible = true, transformation(origin = {-8, -90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
 equation
   connect(control4B.ipMaxPu, wT4Injector.ipMaxPu) annotation(
@@ -119,14 +119,14 @@ equation
     Line(points = {{42, -56}, {46, -56}, {46, -97}, {51, -97}}, color = {0, 0, 127}));
   connect(mechanical.omegaGenPu, control4B.omegaGenPu) annotation(
     Line(points = {{75, -97}, {76, -97}, {76, -14}, {-58, -14}, {-58, -18}}, color = {0, 0, 127}));
-  connect(wT4Injector.uWtPu, pQCalculus.uWtPu) annotation(
-    Line(points = {{42, -28}, {50, -28}, {50, -82}, {22, -82}}, color = {85, 170, 255}));
-  connect(wT4Injector.iWtPu, pQCalculus.iWtPu) annotation(
-    Line(points = {{42, -24}, {58, -24}, {58, -86}, {22, -86}}, color = {85, 170, 255}));
-  connect(pQCalculus.QWtPu, control4B.QWTPu) annotation(
-    Line(points = {{0, -82}, {-86, -82}, {-86, -58}, {-80, -58}}, color = {0, 0, 127}));
-  connect(pQCalculus.PWtPu, control4B.PWTPu) annotation(
-    Line(points = {{0, -86}, {-90, -86}, {-90, -46}, {-80, -46}}, color = {0, 0, 127}));
+  connect(wT4Injector.uWtPu, measurementsPQ.uPu) annotation(
+    Line(points = {{42, -28}, {50, -28}, {50, -84}, {3, -84}}, color = {85, 170, 255}));
+  connect(wT4Injector.iWtPu, measurementsPQ.iPu) annotation(
+    Line(points = {{42, -24}, {58, -24}, {58, -90}, {3, -90}}, color = {85, 170, 255}));
+  connect(measurementsPQ.PPu, control4B.PWTPu) annotation(
+    Line(points = {{-11, -79}, {-10.5, -79}, {-10.5, -75}, {-92, -75}, {-92, -46}, {-80, -46}}, color = {0, 0, 127}));
+  connect(measurementsPQ.QPu, control4B.QWTPu) annotation(
+    Line(points = {{-5, -79}, {-5.5, -79}, {-5.5, -69}, {-86, -69}, {-86, -58}, {-80, -58}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
