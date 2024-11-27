@@ -28,7 +28,7 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQBase;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
   
   //QLimiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;

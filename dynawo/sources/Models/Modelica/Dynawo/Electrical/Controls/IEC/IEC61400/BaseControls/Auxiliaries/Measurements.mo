@@ -19,7 +19,7 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
   
   //Measurement parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurement;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementWPP;
   
   //Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = -i0Pu.re * SystemBase.SnRef / SNom), im(start = -i0Pu.im * SystemBase.SnRef / SNom)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(

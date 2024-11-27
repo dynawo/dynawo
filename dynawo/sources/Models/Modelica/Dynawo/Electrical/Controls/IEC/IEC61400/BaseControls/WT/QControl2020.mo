@@ -16,7 +16,7 @@ model QControl2020 "Reactive power control module for wind turbines (IEC N°6140
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.deadZoneAtInit = true, deadZone.uMax = DUdb2Pu, deadZone.uMin = DUdb1Pu);
 
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ2020;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput idfHookPu(start = 0) "User-defined fault current injection in pu (base UNom, SNom) (generator convention)" annotation(

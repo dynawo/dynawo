@@ -17,7 +17,7 @@ model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
   // GenSystem parameters
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem4;
   // P control parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructure4aP;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4a;
   
   Modelica.Blocks.Sources.Constant const(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-75, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));

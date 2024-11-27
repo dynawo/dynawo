@@ -20,7 +20,7 @@ model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.UfMeasurement2015;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructure4b2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b2015;
   
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter2015;
@@ -29,7 +29,7 @@ model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
   
   //WT QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2015;
   
   //Qlimiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter2015;

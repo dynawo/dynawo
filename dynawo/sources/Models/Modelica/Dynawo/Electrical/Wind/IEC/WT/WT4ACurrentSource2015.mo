@@ -19,13 +19,13 @@ model WT4ACurrentSource2015 "Wind Turbine Type 4A model from IEC 61400-27-1:2015
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.UfMeasurement2015;
   
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructure4aP2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4a2015;
 
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter2015;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2015;
   
   //Qlimiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter2015;

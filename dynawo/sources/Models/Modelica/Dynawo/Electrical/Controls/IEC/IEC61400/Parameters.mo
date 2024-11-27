@@ -57,14 +57,14 @@ record GridMeasurementProtection
     Dialog(tab = "MeasurementP"));
 end GridMeasurementProtection;
 
-record GridMeasurement
+record GridMeasurementWPP
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(Dialog(tab = "Measurement"));
   parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "Measurement"));
   parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(Dialog(tab = "Measurement"));
   parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(Dialog(tab = "Measurement"));
   parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(Dialog(tab = "Measurement"));
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "Measurement"));
-end GridMeasurement;
+end GridMeasurementWPP;
 
 record UfMeasurement2015
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
@@ -90,7 +90,7 @@ record Mechanical
     Dialog(tab = "Mechanical"));
 end Mechanical;
 
-record ControlSubstructureQ2020
+record QControlWT2020
   parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
@@ -103,9 +103,9 @@ record ControlSubstructureQ2020
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-end ControlSubstructureQ2020;
+end QControlWT2020;
 
-record ControlSubstructureQ2015
+record QControlWT2015
   parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(
@@ -116,9 +116,9 @@ record ControlSubstructureQ2015
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-end ControlSubstructureQ2015;
+end QControlWT2015;
 
-record ControlSubstructureQBase
+record QControlWTBase
    extends RDropXDrop;
    parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
@@ -152,7 +152,7 @@ record ControlSubstructureQBase
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-end ControlSubstructureQBase;
+end QControlWTBase;
 
 record RDropXDrop
   parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
@@ -162,8 +162,8 @@ record RDropXDrop
 
 end RDropXDrop; 
 
-record ControlSubstructure4bP
-  extends ControlSubstructure4P;
+record PControlWT4b
+  extends PControlWT4;
   parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
@@ -174,10 +174,10 @@ record ControlSubstructure4bP
     Dialog(tab = "PControl"));
   parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
     Dialog(tab = "PControl"));
-  end ControlSubstructure4bP;
+  end PControlWT4b;
 
-record ControlSubstructure4aP
-  extends ControlSubstructure4P;
+record PControlWT4a
+  extends PControlWT4;
   parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.PerUnit DPRefMax4APu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
@@ -192,25 +192,25 @@ record ControlSubstructure4aP
     Dialog(tab = "PControl"));
   parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
     Dialog(tab = "PControl"));
-end ControlSubstructure4aP; 
+end PControlWT4a; 
 
-record ControlSubstructure4P
+record PControlWT4
   parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
     Dialog(tab = "PControl"));
-end ControlSubstructure4P;
+end PControlWT4;
 
-record ControlSubstructure4aP2015
+record PControlWT4a2015
   parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(
     Dialog(tab = "PControl"));
   parameter Types.Time tUFiltP4A "Filter time constant for voltage measurement in s" annotation(
     Dialog(tab = "PControl"));
-end ControlSubstructure4aP2015;
+end PControlWT4a2015;
 
-record ControlSubstructure4b2015
+record PControlWT4b2015
   parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
   parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(
@@ -219,7 +219,7 @@ record ControlSubstructure4b2015
     Dialog(tab = "PControl"));
   parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(
     Dialog(tab = "PControl"));
-end ControlSubstructure4b2015;
+end PControlWT4b2015;
 
 record TableCurrentLimit
   parameter Real TableIpMaxUwt11 = 0 annotation(

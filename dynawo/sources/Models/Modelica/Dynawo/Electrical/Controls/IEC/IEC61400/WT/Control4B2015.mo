@@ -16,13 +16,13 @@ model Control4B2015 "Whole generator control module for type 4B wind turbines (I
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseControl4;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructure4b2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b2015;
   
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter2015;
 
   //Q control parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2015;
   
   //Qlimiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter2015;

@@ -14,8 +14,8 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
       */
   // Parameter imports
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQBase;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQ2020;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
   //Measurement parameters for control
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementControl;
   //Measurement parameters for protection

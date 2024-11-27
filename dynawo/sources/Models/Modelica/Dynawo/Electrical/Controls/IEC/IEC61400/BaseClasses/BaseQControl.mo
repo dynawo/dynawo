@@ -19,7 +19,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQBase;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWTMaxPu(start = QMax0Pu) "Maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(

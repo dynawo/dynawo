@@ -24,7 +24,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlP;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructureQBase;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;

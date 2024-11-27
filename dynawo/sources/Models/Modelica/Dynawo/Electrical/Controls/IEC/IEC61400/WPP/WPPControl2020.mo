@@ -26,7 +26,7 @@ model WPPControl2020 "Control model for IEC N°61400-27-1:2020 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.LinearCommunication;
   
   //Measurement parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurement;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementWPP;
   
   //Input variable
   Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(

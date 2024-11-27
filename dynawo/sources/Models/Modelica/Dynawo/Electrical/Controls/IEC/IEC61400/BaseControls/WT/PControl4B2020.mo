@@ -19,7 +19,7 @@ model PControl4B2020 "Active power control module for type 4B wind turbines (IEC
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlSubstructure4bP;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput UWTCFiltPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
