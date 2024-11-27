@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
   
   //Measurement parameters

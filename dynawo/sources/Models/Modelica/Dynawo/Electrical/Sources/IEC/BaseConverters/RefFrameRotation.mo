@@ -13,7 +13,7 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 */
 
 model RefFrameRotation "Reference frame rotation module (IEC N°61400-27-1)"
-  extends Parameters.Nominal;
+  extends Parameters.SNom;
   extends Parameters.InitialIGs;
   extends Parameters.InitialPqGrid;
   extends Parameters.InitialUGrid;

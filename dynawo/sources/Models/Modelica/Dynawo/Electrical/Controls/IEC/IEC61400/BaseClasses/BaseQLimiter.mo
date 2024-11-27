@@ -16,7 +16,7 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
 
   //QLimiter parameters

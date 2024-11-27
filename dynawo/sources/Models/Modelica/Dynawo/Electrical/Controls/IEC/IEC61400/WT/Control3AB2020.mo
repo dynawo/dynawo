@@ -19,13 +19,13 @@ model Control3AB2020 "Whole generator control module for type 4B wind turbines (
     extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;
     extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
     extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
-    extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TorquePi;
+    extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
     extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
     extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
     extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
     extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
     extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
-    extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+    extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
     extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
     //Input variables
   //Output variables

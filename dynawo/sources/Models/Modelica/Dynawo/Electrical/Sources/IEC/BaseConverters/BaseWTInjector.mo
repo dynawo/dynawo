@@ -20,7 +20,7 @@ partial model BaseWTInjector "Converter model and grid interface according to IE
   extends Parameters.InitialUGrid;
   extends Parameters.InitialUGs;
   extends Parameters.InitialComplexUiGrid;
-  extends Parameters.Nominal;
+  extends Parameters.SNom;
   
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(

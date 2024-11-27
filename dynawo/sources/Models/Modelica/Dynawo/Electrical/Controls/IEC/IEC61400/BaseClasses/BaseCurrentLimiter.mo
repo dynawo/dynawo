@@ -16,7 +16,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;

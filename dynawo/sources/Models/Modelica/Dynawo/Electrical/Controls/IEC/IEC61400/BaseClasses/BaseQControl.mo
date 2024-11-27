@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 partial model BaseQControl "Reactive power control base module for wind turbines (IEC N°61400-27-1)"
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
   
   //QControl parameters

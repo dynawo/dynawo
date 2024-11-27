@@ -25,7 +25,7 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
                            ---
 */
 
-  extends Parameters.Nominal;
+  extends Parameters.SNom;
   extends Parameters.Circuit;
   extends Parameters.InitialIGs;
   extends Parameters.InitialUGs;

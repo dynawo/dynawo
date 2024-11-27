@@ -16,7 +16,7 @@ model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
 
   //PControl parameters

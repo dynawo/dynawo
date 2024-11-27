@@ -25,7 +25,7 @@ model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
 // GenSystem parameters
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem3b;
   // P control parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
   //Mechanical parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
  

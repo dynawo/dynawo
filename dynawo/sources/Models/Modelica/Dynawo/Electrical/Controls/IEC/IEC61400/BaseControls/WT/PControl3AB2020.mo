@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model PControl3AB2020
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
   
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUscale = MPUscale, MPUvrt = MPUvrt, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, PBaseMeasurement = PBaseMeasurement, PBaseTurb = PBaseTurb, PDtdMaxPu = PDtdMaxPu, POrd0Pu = POrd0Pu, PWtcFilt0Pu = PWtcFilt0Pu, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, UDvsPu = UDvsPu, UPdipPu = UPdipPu, UWtc0Pu = UWtc0Pu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {47.2409, -173.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}}, rotation = 0)));

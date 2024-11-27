@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   
   //Mechanical parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;

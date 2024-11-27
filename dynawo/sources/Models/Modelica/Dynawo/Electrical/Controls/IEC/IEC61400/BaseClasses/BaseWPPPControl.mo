@@ -16,7 +16,7 @@ model BaseWPPPControl "Base active power control module for wind power plants (I
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
 
   //PControl parameters

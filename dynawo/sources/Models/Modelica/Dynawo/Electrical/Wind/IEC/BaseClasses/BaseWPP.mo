@@ -19,7 +19,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Nominal;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
 
   //Circuit parameters
@@ -32,7 +32,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.ControlP;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT;
   
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;

@@ -15,14 +15,6 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 package Parameters "Parameters for IEC Wind Turbine converter classes"
   extends Icons.Package;
 
-record IntegrationTimeStep
-  parameter Types.Time tS "Integration time step in s";
-end IntegrationTimeStep;
-
-record Nominal "Nominal parameters for generator system"
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-end Nominal;
-
 record Circuit "Circuit parameters for injector"
   parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
@@ -34,20 +26,6 @@ record Circuit "Circuit parameters for injector"
     Dialog(tab = "Electrical"));
 end Circuit;
 
-record GenSystem4 "Control parameters for generator system of WT Type 4"
-  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.Time tG "Current generation time constant in s" annotation(
-    Dialog(tab = "Control"));
-end GenSystem4;
 
 record GenSystem3 "Do not use. Use 3a or 3b instead."
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
@@ -78,14 +56,29 @@ record GenSystem3b "Control parameters for generator system of WT, specific to T
     Dialog(tab = "Control"));
 end GenSystem3b;
 
-record InitialComplexUiGrid "Initial voltage and current for grid side"
-  extends InitialComplexUGrid;
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(Dialog(group = "Initialization"));
-  end InitialComplexUiGrid;
+record GenSystem4 "Control parameters for generator system of WT Type 4"
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.Time tG "Current generation time constant in s" annotation(
+    Dialog(tab = "Control"));
+end GenSystem4;
 
 record InitialComplexUGrid "Initial voltage and current for grid side"
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(Dialog(group = "Initialization"));
 end InitialComplexUGrid;
+
+record InitialComplexUiGrid "Initial voltage and current for grid side"
+  extends InitialComplexUGrid;
+  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(Dialog(group = "Initialization"));
+end InitialComplexUiGrid;
 
 record InitialUGrid "Initial voltage module and phase for grid side"
   extends InitialUModuleGrid;
@@ -133,7 +126,7 @@ end InitialGenSystem;
 
 record InitialGenSystemP "Initial IpMax"
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
-  end InitialGenSystemP;
+end InitialGenSystemP;
 
 record InitialGenSystemQ "Initial IqMin, IqMax"
   parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
@@ -144,5 +137,12 @@ record InitialPAg "Initial PAg"
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
 end InitialPAg;
 
+record IntegrationTimeStep
+  parameter Types.Time tS "Integration time step in s";
+end IntegrationTimeStep;
+
+record SNom "Nominal parameters for generator system"
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+end SNom;
 
 end Parameters;
