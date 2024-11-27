@@ -384,7 +384,8 @@ SolverIDA::calculateIC(double /*tEnd*/) {
                                                   msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
   setDifferentialVariablesIndices();
-  solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+  solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
+                                                msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
