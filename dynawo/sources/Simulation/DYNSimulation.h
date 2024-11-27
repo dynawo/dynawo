@@ -236,6 +236,12 @@ class Simulation {
   void dumpIIDMFile(const boost::filesystem::path& iidmFile);
 
   /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  void dumpIIDMFile(std::stringstream& stream) const;
+
+  /**
    * @brief import curves request from a file (i.e. curves that the user wants to plot)
    * @warning the file should be set before the call of this method
    */

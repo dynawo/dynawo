@@ -158,6 +158,18 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   }
 }
 
+void
+DataInterfaceIIDM::dumpToFile(std::stringstream& stream) const {
+  try {
+    stdcxx::Properties properties;
+    powsybl::iidm::converter::ExportOptions options(properties);
+
+    powsybl::iidm::Network::writeXml("", stream, *networkIIDM_, options);
+  } catch (const powsybl::PowsyblException& exp) {
+    throw DYNError(Error::GENERAL, XmlParsingError, exp.what());
+  }
+}
+
 powsybl::iidm::Network&
 DataInterfaceIIDM::getNetworkIIDM() {
   return *networkIIDM_;

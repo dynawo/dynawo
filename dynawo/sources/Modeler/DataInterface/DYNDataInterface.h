@@ -194,6 +194,12 @@ class DataInterface {
   virtual void dumpToFile(const std::string& filepath) const = 0;
 
   /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  virtual void dumpToFile(std::stringstream& stream) const = 0;
+
+  /**
    * @brief Retrieve service manager associated with this data interface
    *
    * @returns the service manager
