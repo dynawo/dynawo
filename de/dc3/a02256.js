@@ -1,0 +1,4 @@
+var a02256 =
+[
+    [ "newInstance", "de/dc3/a02256.html#a06a2f57ff24c42312a9d5fb58bb4ca2d", null ]
+];

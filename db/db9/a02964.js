@@ -1,0 +1,25 @@
+var a02964 =
+[
+    [ "~ThreeWTransformerInterface", "db/db9/a02964.html#afb75f36474f44cd04dad27727db07008", null ],
+    [ "addCurrentLimitInterface1", "db/db9/a02964.html#ad881326ccedf7573befa0040f2e5fa0e", null ],
+    [ "addCurrentLimitInterface2", "db/db9/a02964.html#aab3ed47b9a7ad5aec7ab29dafeae03fb", null ],
+    [ "addCurrentLimitInterface3", "db/db9/a02964.html#ae82c5d9e078667d41bd77625d66919a3", null ],
+    [ "exportStateVariablesUnitComponent", "db/db9/a02964.html#a9a5f175dcf05b628ae4695609ec8c9a3", null ],
+    [ "getActiveSeason", "db/db9/a02964.html#a06b9de3c435cb647621d41bc4a53eab8", null ],
+    [ "getBusInterface1", "db/db9/a02964.html#a87ad2ffdc4f63c8c5dba588d1484d9f5", null ],
+    [ "getBusInterface2", "db/db9/a02964.html#a4e002d0482177dd7a02d7fce4f16bf09", null ],
+    [ "getBusInterface3", "db/db9/a02964.html#a03570e4ebdfdbf1d5a99e15b819fbd1d", null ],
+    [ "getCurrentLimitInterfaces1", "db/db9/a02964.html#aca572ce1fbf98a43f8f685de88e1c618", null ],
+    [ "getCurrentLimitInterfaces2", "db/db9/a02964.html#a146762e044e76c27ef900b51d49cdfee", null ],
+    [ "getCurrentLimitInterfaces3", "db/db9/a02964.html#a5988d96fd2114ed7dee698d50e406f70", null ],
+    [ "getID", "db/db9/a02964.html#ae1aa050334666d7d896668b7eacab3bd", null ],
+    [ "getInitialConnected1", "db/db9/a02964.html#afc5de636ab69d95dd87758e4977949f2", null ],
+    [ "getInitialConnected2", "db/db9/a02964.html#aaf2345d9e4ff8a85383210f6a6a6bebf", null ],
+    [ "getInitialConnected3", "db/db9/a02964.html#a756d71e2facdd1ed54c28067e57fbdcf", null ],
+    [ "setBusInterface1", "db/db9/a02964.html#af10be8e15e39582c2f835edab215f21a", null ],
+    [ "setBusInterface2", "db/db9/a02964.html#aea81dda14b59127aa5ea48de44061cb8", null ],
+    [ "setBusInterface3", "db/db9/a02964.html#ae2ea66f0ed8370d47ba6cf332a714045", null ],
+    [ "setVoltageLevelInterface1", "db/db9/a02964.html#a2d02c8bd23176976bcde1b219a086089", null ],
+    [ "setVoltageLevelInterface2", "db/db9/a02964.html#a8820e8348592b525b05e009d05a69c1d", null ],
+    [ "setVoltageLevelInterface3", "db/db9/a02964.html#acc9fbffd2cd7fa9dee0f9bd0c8c48030", null ]
+];
