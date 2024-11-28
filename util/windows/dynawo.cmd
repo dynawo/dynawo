@@ -81,21 +81,26 @@ if /I "%~1"=="jobs" (
     for /f "tokens=1,* delims= " %%a in ("%*") do set GENERATE_PREASSEMBLED_ARGS=%%b
     "%DYNAWO_INSTALL_DIR%"sbin\generate-preassembled.exe !GENERATE_PREASSEMBLED_ARGS!
   ) else (
-    if /I "%~1"=="jobs-with-curves" (
-      "%DYNAWO_INSTALL_DIR%"bin\dynawo %2
-      "%DYNAWO_PYTHON_COMMAND%" "%DYNAWO_INSTALL_DIR%\sbin\curvesToHtml\curvesToHtml.py" --jobsFile=%2 --withoutOffset --htmlBrowser="%DYNAWO_BROWSER%"
-      "%DYNAWO_BROWSER%" "%curvesHtml%"
-      echo.
-      echo Open %curvesHtml% with your browser if it does not do it automatically.
-      echo.
+    if /I "%~1"=="dump-model" (
+      for /f "tokens=1,* delims= " %%a in ("%*") do set DUMP_MODEL_ARGS=%%b
+      "%DYNAWO_INSTALL_DIR%"sbin\dumpModel.exe !DUMP_MODEL_ARGS!
     ) else (
-      if /I "%~1"=="version" (
-        "%DYNAWO_INSTALL_DIR%"bin\dynawo --version
+      if /I "%~1"=="jobs-with-curves" (
+        "%DYNAWO_INSTALL_DIR%"bin\dynawo %2
+        "%DYNAWO_PYTHON_COMMAND%" "%DYNAWO_INSTALL_DIR%\sbin\curvesToHtml\curvesToHtml.py" --jobsFile=%2 --withoutOffset --htmlBrowser="%DYNAWO_BROWSER%"
+        "%DYNAWO_BROWSER%" "%curvesHtml%"
+        echo.
+        echo Open %curvesHtml% with your browser if it does not do it automatically.
+        echo.
       ) else (
-        if /I "%~1"=="help" (
-          call :dynawo_help
+        if /I "%~1"=="version" (
+          "%DYNAWO_INSTALL_DIR%"bin\dynawo --version
         ) else (
-          call :dynawo_help
+          if /I "%~1"=="help" (
+            call :dynawo_help
+          ) else (
+            call :dynawo_help
+          )
         )
       )
     )
@@ -115,6 +120,7 @@ echo   where option is:
 echo     jobs ^<jobs-file^>                 launch Dynawo simulation
 echo     jobs-with-curves ^<jobs-file^>     launch Dynawo simulation and open resulting curves in a browser
 echo     generate-preassembled ^<options^>  generate a preassembled model (.dll) from a model description (.xml)
+echo     dump-model ^<options^>             dump variables and parameters of a Dynawo model (.dll) into a xml file
 echo     version                            show dynawo version
 echo     help                               show this message
 exit /B 0
