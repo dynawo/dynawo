@@ -623,6 +623,9 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
+  int flag1 = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * (getTimeStep() + tNxt)));
+  if (flag1 < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
 
   string msg;
@@ -639,6 +642,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
+      // updateStatistics();
       break;
     default:
       analyseFlag(flag);
@@ -818,7 +822,6 @@ SolverIDA::reinit() {
       if (counter >= maxNumberUnstableRoots)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
-
   }
 
   updateStatistics();
