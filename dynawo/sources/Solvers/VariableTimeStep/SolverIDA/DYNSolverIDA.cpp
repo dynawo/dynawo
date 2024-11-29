@@ -94,6 +94,7 @@ maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
 deltacj_(0.25),
+uround_(false),
 flagInit_(false),
 nbLastTimeSimulated_(0) {
 }
@@ -126,6 +127,7 @@ SolverIDA::~SolverIDA() {
 void
 SolverIDA::defineSpecificParameters() {
   const bool mandatory = true;
+  const bool notMandatory = false;
   // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT, mandatory)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE, mandatory)));
@@ -133,7 +135,8 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
-  parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, false)));
+  parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, notMandatory)));
+  parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, notMandatory)));
 }
 
 void
@@ -147,6 +150,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& deltacj = findParameter("deltacj");
   if (deltacj.hasValue())
     deltacj_ = deltacj.getValue<double>();
+  const ParameterSolver& uround = findParameter("uround");
+  if (uround.hasValue())
+    uround_ = uround.getValue<bool>();
 }
 
 const std::string&
@@ -298,9 +304,11 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetDeltaCjLSetup");
 
-  flag = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * minStep_));
-  if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
+  if (uround_) {
+    flag = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * minStep_));
+    if (flag < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
+  }
 
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), ROOT_DOWN);
@@ -623,10 +631,13 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
-  int flag1 = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * (getTimeStep() + tNxt)));
-  if (flag1 < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
+  if (uround_) {
+    int flag1 = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * (getTimeStep() + tNxt)));
+    // std::cout << "uround " << getCurrentPrecision() / (100. * (getTimeStep() + tNxt)) << std::endl;
+    if (flag1 < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
+  }
 
   string msg;
   switch (flag) {
