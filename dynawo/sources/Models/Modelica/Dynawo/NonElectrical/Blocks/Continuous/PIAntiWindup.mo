@@ -18,7 +18,7 @@ block PIAntiWindup "Anti-windup proportional integral controller"
   parameter Types.PerUnit YMax "Maximum output of controller";
   parameter Types.PerUnit YMin "Minimum output of controller";
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = YMax, uMin = YMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

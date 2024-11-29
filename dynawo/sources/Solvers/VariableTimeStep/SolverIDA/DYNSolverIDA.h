@@ -154,13 +154,13 @@ class SolverIDA : public Solver::Impl {
    */
   void getLastConf(long int &nst, int & kused, double & hused) const;
 
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
   /**
    * @brief indicates which root was activated
    * @return an array showing which root was activated
    */
   std::vector<state_g> getRootsFound() const;
-#endif
+// #endif
 
   /**
    * @brief computes the problem residual for given values of time, state vector
@@ -255,7 +255,20 @@ class SolverIDA : public Solver::Impl {
   /**
   * @brief set the index of each differential variables
   */
+  void updateAlgebraicRestorationStatistics();
+
+  /**
+  * @brief set the index of each differential variables
+  */
   void setDifferentialVariablesIndices();
+
+  /**
+   * @brief get matrix used for resolution
+   * @return matrix used for resolution
+   */
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure
@@ -272,11 +285,15 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
+  bool uround_;  ///< to activate change on uround
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
-  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  std::vector<sunindextype> lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+
+  SparseMatrix smj_;  ///< Jacobian matrix
 };
 
 }  // end of namespace DYN

@@ -32,6 +32,8 @@
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
 
+#include "DYNFileSystemUtils.h"
+
 namespace DYN {
 
 SolverKINSubModel::SolverKINSubModel() :
@@ -107,6 +109,9 @@ SolverKINSubModel::init(SubModel* subModel,
   initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN, sundialsVectorY_);
 
   vectorYSubModel_.assign(yBuffer, yBuffer + numF_);
+
+  smj_.init(numF_, numF_);
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
 }
 
 int
@@ -128,6 +133,48 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   realtype* irr = NV_DATA_S(rr);
   memcpy(irr, solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
 
+  /*if (subModel->name() == "NETWORK") {
+    static int nbPrint = 0;
+    static std::string baseY = "tmpSolY/solY-";
+    std::stringstream nomFichierY;
+    nomFichierY << baseY << nbPrint << ".txt";
+
+    if (!exists("tmpSolY")) {
+      create_directory("tmpSolY");
+    }
+
+    const auto& xNames = subModel->xNamesInit();
+
+    std::ofstream fileY;
+    fileY.open(nomFichierY.str().c_str(), std::ofstream::out);
+
+    for (unsigned int i = 0; i < solver->vectorYSubModel_.size(); ++i) {
+      fileY << i << " " << xNames[i] << " " << solver->vectorYSubModel_[i] << "\n";
+    }
+
+    fileY.close();
+
+    ++nbPrint;
+  }*/
+
+#ifdef _DEBUG_
+  // Print the current residual norms, the first one is used as a stopping criterion
+  solver->vectorF_.resize(solver->numF_);
+  memcpy(&solver->vectorF_[0], solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
+  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
+  long int current_nni = 0;
+  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
+  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+
+  const int nbErr = 10;
+  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+  std::vector<std::pair<double, size_t> > fErr;
+  for (size_t i = 0; i < solver->numF_; ++i)
+    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
+  SolverCommon::printLargestErrors(fErr, *subModel, nbErr);
+#endif
+
   return 0;
 }
 
@@ -136,6 +183,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*> (data);
   SubModel* subModel = solver->getSubModel();
+  SparseMatrix& smj = solver->getMatrix();
 
   realtype *iyy = NV_DATA_S(yy);
   std::size_t yL = NV_LENGTH_S(yy);
@@ -143,14 +191,13 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
 
   // Sparse matrix
   // -------------
-  SparseMatrix smj;
   const int size = subModel->sizeY();
   smj.init(size, size);
 
   // Arbitrary value for cj
   const double cj = 1.;
   subModel->evalJt(solver->t0_, cj, smj, 0);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, false);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solver->lastRowVals_, solver->linearSolver_, false);
 
   return 0;
 }

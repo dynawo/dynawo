@@ -40,7 +40,7 @@ model PssKundur "Power system stabilizer based on Kundur's book"
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction phaseCompensation(a = {t2, 1}, b = {t1, 1}) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterPSS(uMax = VsMaxPu, uMin = VsMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterPSS(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VsMaxPu, uMin = VsMinPu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

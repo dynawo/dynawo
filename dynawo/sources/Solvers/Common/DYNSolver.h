@@ -248,6 +248,11 @@ class Solver {
   virtual void printEnd() const = 0;
 
   /**
+  * @brief print a summary of the execution statistics of the solver
+  */
+  virtual void printEndConsole() const = 0;
+
+  /**
    * @brief Print all parameters values
    */
   virtual void printParameterValues() const = 0;

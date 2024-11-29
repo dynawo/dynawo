@@ -28,6 +28,7 @@
 namespace DYN {
 class SparseMatrix;
 class Model;
+class SubModel;
 
 /**
  * @brief SolverCommon static class
@@ -35,30 +36,53 @@ class Model;
 class SolverCommon {
  public:
   /**
-   * @brief Copy one sparse matrix to the KINSOL structure
-   *
-   * @param smj Sparse matrix to copy to the KINSOL structure
-   * @param JJ KINSOL structure where to copy the matrix
-   * @param size size of the square matrix (nb columns)
-   * @param lastRowVals pointer to the latest value of the previous matrix
-   *
-   * @return @b true if the matrix structure has changed, @b false else
-   */
-  static bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype * lastRowVals);
+  * @brief Copy one sparse matrix to the KINSOL structure
+  *
+  * @param smj Sparse matrix to copy to the KINSOL structure
+  * @param sundialsMatrix KINSOL structure where to copy the matrix
+  * @param lastRowVals pointer to the latest value of the previous matrix
+  *
+  * @return @b true if the matrix structure has changed, @b false else
+  */
+  static bool copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix, const std::vector<sunindextype>& lastRowVals);
+
+  /**
+  * @brief Associate underlying vectos of SparseMatrix to SUNMatrix
+  *
+  * @param smj Sparse matrix to copy to the KINSOL structure
+  * @param sundialsMatrix KINSOL structure where to copy the matrix
+  *
+  */
+  static void copySparseMatrixToSUNMatrix(SparseMatrix& smj, SUNMatrix& sundialsMatrix);
+
+  /**
+  * @brief Clean SUNMatrix underlying structure
+  *
+  * @param sundialsMatrix KINSOL matrix
+  *
+  */
+  static void cleanSUNMatrix(SUNMatrix& sundialsMatrix);
+
+  /**
+  * @brief Free SUNMatrix underlying structure
+  *
+  * @param sundialsMatrix KINSOL matrix
+  *
+  */
+  static void freeSUNMatrix(SUNMatrix& sundialsMatrix);
 
   /**
    *
    * @brief propagate the matrix structure change to KINSOL structure
    *
    * @param smj Sparse matrix to copy to the KINSOL structure
-   * @param JJ KINSOL structure where to copy the matrix
-   * @param size size of the square matrix (nb columns)
+   * @param sundialsMatrix KINSOL structure where to copy the matrix
    * @param lastRowVals pointer to the latest value of the previous matrix
    * @param LS linear solver pointer
    * @param log @b true if a log should be added if a complete re-initialization is done
    */
-  static void propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size,
-                                                     sunindextype** lastRowVals, SUNLinearSolver& LS, bool log);
+  static void propagateMatrixStructureChangeToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix,
+      std::vector<sunindextype>& lastRowVals, SUNLinearSolver& LS, bool log);
 
   /**
    * @brief Print the largest residuals errors
@@ -68,6 +92,15 @@ class SolverCommon {
    * @param nbErrors maximum number of errors to be displayed
    */
   static void printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const Model& model, int nbErrors);
+
+ /**
+  * @brief Print the largest residuals errors
+  *
+  * @param fErr vector containing a pair with the residual function value and the global index of the residual function
+  * @param subModel model currently simulated
+  * @param nbErrors maximum number of errors to be displayed
+  */
+  static void printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const SubModel& subModel, int nbErrors);
 
   /**
    * @brief Compute the weighted infinity norm of a vector
