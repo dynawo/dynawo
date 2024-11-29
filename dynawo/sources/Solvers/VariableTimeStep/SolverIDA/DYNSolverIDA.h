@@ -285,6 +285,7 @@ class SolverIDA : public Solver::Impl {
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
   double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
+  bool uround_;  ///< to activate change on uround
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
