@@ -110,6 +110,7 @@ absAccuracy_(0.),
 relAccuracy_(0.),
 deltacj_(0.25),
 uround_(false),
+solveTask_("ONE_STEP"),
 flagInit_(false),
 nbLastTimeSimulated_(0) {
 }
@@ -152,6 +153,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, notMandatory)));
   parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("solveTask", ParameterSolver("solveTask", VAR_TYPE_STRING, notMandatory)));
 }
 
 void
@@ -168,6 +170,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& uround = findParameter("uround");
   if (uround.hasValue())
     uround_ = uround.getValue<bool>();
+  const ParameterSolver& solveTask = findParameter("solveTask");
+  if (solveTask.hasValue())
+    solveTask_ = solveTask.getValue<string>();
 }
 
 std::string
@@ -796,6 +801,14 @@ SolverIDA::reinit() {
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 
+  if (modeChangeType == DIFFERENTIAL_MODE) {
+    ++stats_.nmeDiff_;
+  } else if (modeChangeType == ALGEBRAIC_MODE) {
+    ++stats_.nmeAlg_;
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+    ++stats_.nmeAlgJ_;
+  }
+
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   if (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_) {
     do {
@@ -835,9 +848,9 @@ SolverIDA::reinit() {
       if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
         break;
       } else {
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
         printUnstableRoot(tSolve_, g0_, g1_);
-#endif
+// #endif
         g0_.assign(g1_.begin(), g1_.end());
         evalZMode(g0_, g1_, tSolve_);
         modeChangeType = model_->getModeChangeType();
@@ -971,6 +984,15 @@ SolverIDA::setDifferentialVariablesIndices() {
     if (modelYType[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
       idx[ieq] = RCONST(0.);
   }
+}
+
+int SolverIDA::solveTaskToInt() {
+  if (solveTask_ == "NORMAL") {
+    return IDA_NORMAL;
+  } else if (solveTask_ == "ONE_STEP") {
+    return IDA_ONE_STEP;
+  }
+  return IDA_ONE_STEP;
 }
 
 }  // end namespace DYN
