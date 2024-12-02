@@ -24,9 +24,9 @@ model Pss2c "IEEE power system stabilizer type 2C"
   parameter Types.Time t12 "Fourth lead time constant in s";
   parameter Types.Time t13 "Fourth lag time constant in s";
 
-  Modelica.Blocks.Continuous.TransferFunction transferFunction2(a = {t11, 1}, b = {t10, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction2(a = {t11, 1}, b = {t10, 1}) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction3(a = {t13, 1}, b = {t12, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction3(a = {t13, 1}, b = {t12, 1}) annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Hysteresis hysteresis(uHigh = PPssOnPu, uLow = PPssOffPu, y(start = PGen0Pu * SystemBase.SnRef / SNom > PPssOffPu)) annotation(
     Placement(visible = true, transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
