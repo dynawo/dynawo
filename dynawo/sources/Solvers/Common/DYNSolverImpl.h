@@ -52,6 +52,8 @@ typedef struct {
   long int nje_;  ///< number of Jacobian evaluations
   long int nreAlgebraic_;  ///< number of nonlinear iterations
   long int njeAlgebraic_;  ///< number of Jacobian evaluations
+  long int nreAlgebraicPrim_;  ///< number of nonlinear iterations
+  long int njeAlgebraicPrim_;  ///< number of Jacobian evaluations
   long int netf_;  ///< number of error test failures
   long int ncfn_;  ///< number of nonlinear convergence failures
   long int ngeInternal_;  ///< number of root function evaluations

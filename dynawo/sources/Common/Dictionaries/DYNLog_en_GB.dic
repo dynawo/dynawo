@@ -190,21 +190,23 @@ SolverInstableRootFound       =             at least one root is not stable
 SolverNbYVar                  =             number of continuous variables : %1%
 SolverNbZVar                  =             number of discrete variables : %1%
 SolverExecutionStats          =             execution statistics :
-SolverNbIter                  =             number of time iterations                            = %1%
-SolverNbResEval               =             number of residual evaluations                       = %1%
-SolverNbJacEval               =             number of Jacobian evaluations                       = %1%
-SolverNbAlgebraicResEval      =             number of algebraic restoration residual evaluations = %1%
-SolverNbAlgebraicJacEval      =             number of algebraic restoration Jacobian evaluations = %1%
-SolverNbNonLinIter            =             number of nonlinear iterations                       = %1%
-SolverNbErrorTestFail         =             number of error test failures                        = %1%
-SolverNbNonLinConvFail        =             number of nonlinear convergence failures             = %1%
-SolverNbSolverRootFuncEval    =             number of solver root functions evaluations          = %1%
-SolverNbInternalRootFuncEval  =             number of internal root functions evaluations        = %1%
-SolverNbDiscreteVarsEval      =             number of discrete variables evaluations             = %1%
-SolverNbModeEval              =             number of mode evaluations                           = %1%
-SolverNbModeEvalDiff              =         number of differential mode                          = %1%
-SolverNbModeEvalAlg              =          number of algebraic mode                             = %1%
-SolverNbModeEvalAlgJ              =         number of algebraic J update mode                    = %1%
+SolverNbIter                  =             number of time iterations                                  = %1%
+SolverNbResEval               =             number of residual evaluations                             = %1%
+SolverNbJacEval               =             number of Jacobian evaluations                             = %1%
+SolverNbAlgebraicResEval      =             number of algebraic restoration residual evaluations       = %1%
+SolverNbAlgebraicJacEval      =             number of algebraic restoration Jacobian evaluations       = %1%
+SolverNbAlgebraicPrimResEval  =             number of algebraic prim restoration residual evaluations  = %1%
+SolverNbAlgebraicPrimJacEval  =             number of algebraic prim restoration Jacobian evaluations  = %1%
+SolverNbNonLinIter            =             number of nonlinear iterations                             = %1%
+SolverNbErrorTestFail         =             number of error test failures                              = %1%
+SolverNbNonLinConvFail        =             number of nonlinear convergence failures                   = %1%
+SolverNbSolverRootFuncEval    =             number of solver root functions evaluations                = %1%
+SolverNbInternalRootFuncEval  =             number of internal root functions evaluations              = %1%
+SolverNbDiscreteVarsEval      =             number of discrete variables evaluations                   = %1%
+SolverNbModeEval              =             number of mode evaluations                                 = %1%
+SolverNbModeEvalDiff              =         number of differential mode                                = %1%
+SolverNbModeEvalAlg              =          number of algebraic mode                                   = %1%
+SolverNbModeEvalAlgJ              =         number of algebraic J update mode                          = %1%
 // --> Common to both solvers
 CalculateIC                   =             calculate initial condition of the DAE
 EndCalculateIC                =             end of calculate initial condition of the DAE

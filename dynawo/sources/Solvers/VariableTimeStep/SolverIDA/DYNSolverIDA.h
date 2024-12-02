@@ -297,6 +297,7 @@ class SolverIDA : public Solver::Impl {
   int maxcor_;  ///< test
   int maxncf_;  ///< test
   double nlscoef_;  ///< test
+  bool restorationYPrim_;  ///< test
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
