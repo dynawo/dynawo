@@ -46,5 +46,5 @@ equation
   annotation(
     preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-60, -60}, {60, 60}})),
-    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text( extent = {{-100, -20}, {100, 20}}, textString = "Measurements")}));
+    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, -20}, {100, 20}}, textString = "Measurements")}));
 end ElecMeasurements;
