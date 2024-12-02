@@ -43,7 +43,8 @@
 using boost::shared_ptr;
 
 namespace DYN {
-static std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<std::unique_ptr<ModelTwoWindingsTransformer>,
+std::shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChanger, bool phaseTapChanger,
                                   bool loadTapChangingCapabilities = true, bool closed1 = true, bool closed2 = true) {
   powsybl::iidm::Network networkIIDM("test", "test");
@@ -156,11 +157,11 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
   if (open || !closed2) {
     transformer.getTerminal2().disconnect();
   }
-  shared_ptr<TwoWTransformerInterfaceIIDM> tw2ItfIIDM = shared_ptr<TwoWTransformerInterfaceIIDM>(new TwoWTransformerInterfaceIIDM(transformer));
+  std::unique_ptr<TwoWTransformerInterfaceIIDM> tw2ItfIIDM = std::unique_ptr<TwoWTransformerInterfaceIIDM>(new TwoWTransformerInterfaceIIDM(transformer));
   // add phase tapChanger and steps if exists
   if (transformer.hasPhaseTapChanger()) {
-    shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
-    tw2ItfIIDM->setPhaseTapChanger(tapChanger);
+    std::unique_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
+    tw2ItfIIDM->setPhaseTapChanger(std::move(tapChanger));
   }
   // add ratio tapChanger and steps if exists
   if (transformer.hasRatioTapChanger()) {
@@ -171,8 +172,8 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
       else if (stdcxx::areSame(transformer.getTerminal2(), transformer.getRatioTapChanger().getRegulationTerminal().get()))
         side = "TWO";
     }
-    shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(transformer.getRatioTapChanger(), side));
-    tw2ItfIIDM->setRatioTapChanger(tapChanger);
+    std::unique_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(transformer.getRatioTapChanger(), side));
+    tw2ItfIIDM->setRatioTapChanger(std::move(tapChanger));
   }
 
   if (transformer.getCurrentLimits1()) {
@@ -180,15 +181,16 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-      tw2ItfIIDM->addCurrentLimitInterface1(cLimit);
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
+                                                                                      std::numeric_limits<unsigned long>::max()));
+      tw2ItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
-        tw2ItfIIDM->addCurrentLimitInterface1(cLimit);
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        tw2ItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
       }
     }
   }
@@ -198,38 +200,39 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-      tw2ItfIIDM->addCurrentLimitInterface2(cLimit);
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
+                                                                                      std::numeric_limits<unsigned long>::max()));
+      tw2ItfIIDM->addCurrentLimitInterface2(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
-        tw2ItfIIDM->addCurrentLimitInterface2(cLimit);
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        tw2ItfIIDM->addCurrentLimitInterface2(std::move(cLimit));
       }
     }
   }
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
   tw2ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
   tw2ItfIIDM->setVoltageLevelInterface2(vlItfIIDM);
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
+  std::shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus2);
   tw2ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
   if (closed1)
     tw2ItfIIDM->setBusInterface1(bus1ItfIIDM);
   if (closed2)
     tw2ItfIIDM->setBusInterface2(bus2ItfIIDM);
 
-  shared_ptr<ModelTwoWindingsTransformer> t2w = shared_ptr<ModelTwoWindingsTransformer>(new ModelTwoWindingsTransformer(tw2ItfIIDM));
+  std::unique_ptr<ModelTwoWindingsTransformer> t2w = std::unique_ptr<ModelTwoWindingsTransformer>(new ModelTwoWindingsTransformer(std::move(tw2ItfIIDM)));
   ModelNetwork* network = new ModelNetwork();
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setIsInitModel(initModel);
   t2w->setNetwork(network);
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
   int offset = 0;
   if (closed1) {
-    shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+    std::unique_ptr<ModelBus> bus1 = std::unique_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
     bus1->setNetwork(network);
     bus1->setVoltageLevel(vl);
     bus1->initSize();
@@ -248,10 +251,10 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     if (!initModel)
       z1[ModelBus::switchOffNum_] = -1;
     bus1->init(offset);
-    t2w->setModelBus1(bus1);
+    t2w->setModelBus1(std::move(bus1));
   }
   if (closed2) {
-    shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+    std::unique_ptr<ModelBus> bus2 = std::unique_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
     bus2->setNetwork(network);
     bus2->setVoltageLevel(vl);
     bus2->initSize();
@@ -270,14 +273,14 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     if (!initModel)
       z2[ModelBus::switchOffNum_] = -1;
     bus2->init(offset);
-    t2w->setModelBus2(bus2);
+    t2w->setModelBus2(std::move(bus2));
   }
-  return std::make_pair(t2w, vl);
+  return std::make_pair(std::move(t2w), vl);
 }
 
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
-  shared_ptr<ModelTwoWindingsTransformer> t2w = createModelTwoWindingsTransformer(false, false, true, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2w = createModelTwoWindingsTransformer(false, false, true, false).first;
   ASSERT_EQ(t2w->id(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2w->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getCurrentLimitsDesactivate(), 0.);
@@ -287,7 +290,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
   ASSERT_EQ(t2w->getTerminalRefId(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2w->getSide(), "ONE");
 
-  shared_ptr<ModelTwoWindingsTransformer> t2wNoLTCCapabilities = createModelTwoWindingsTransformer(false, false, true, false, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2wNoLTCCapabilities = createModelTwoWindingsTransformer(false, false, true, false, false).first;
   ASSERT_EQ(t2wNoLTCCapabilities->id(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2wNoLTCCapabilities->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2wNoLTCCapabilities->getCurrentLimitsDesactivate(), 0.);
@@ -297,7 +300,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
   ASSERT_EQ(t2wNoLTCCapabilities->getTerminalRefId(), "");
   ASSERT_EQ(t2wNoLTCCapabilities->getSide(), "");
 
-  shared_ptr<ModelTwoWindingsTransformer> t2wPhase = createModelTwoWindingsTransformer(true, false, false, true, true, false, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2wPhase = createModelTwoWindingsTransformer(true, false, false, true, true, false, false).first;
   ASSERT_EQ(t2wPhase->id(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2wPhase->getConnectionState(), OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2wPhase->getCurrentLimitsDesactivate(), 0.);
@@ -309,7 +312,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) {
-  shared_ptr<ModelTwoWindingsTransformer> t2w = createModelTwoWindingsTransformer(false, false, true, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2w = createModelTwoWindingsTransformer(false, false, true, false).first;
   t2w->initSize();
   std::vector<double> y(t2w->sizeY(), 0.);
   std::vector<double> yp(t2w->sizeY(), 0.);
@@ -529,7 +532,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   delete[] zConnected;
 }
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOpened) {
-  shared_ptr<ModelTwoWindingsTransformer> t2w = createModelTwoWindingsTransformer(true, false, true, false, true, true, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2w = createModelTwoWindingsTransformer(true, false, true, false, true, true, false).first;
   t2w->initSize();
   std::vector<double> y(t2w->sizeY(), 0.);
   std::vector<double> yp(t2w->sizeY(), 0.);
@@ -729,8 +732,8 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
-  std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
-  shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
+  std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
+  const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
   t2w->initSize();
   unsigned nbZ = 6;
   unsigned nbG = 8;
@@ -794,14 +797,14 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   ASSERT_EQ(g[6], ROOT_DOWN);
   ASSERT_EQ(g[7], ROOT_DOWN);
 
-  shared_ptr<ModelTwoWindingsTransformer> t2wInit = createModelTwoWindingsTransformer(false, true, true, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2wInit = createModelTwoWindingsTransformer(false, true, true, false).first;
   t2wInit->initSize();
   ASSERT_EQ(t2wInit->sizeF(), 0);
   ASSERT_EQ(t2wInit->sizeY(), 0);
   ASSERT_EQ(t2wInit->sizeZ(), 0);
   ASSERT_EQ(t2wInit->sizeG(), 0);
 
-  shared_ptr<ModelTwoWindingsTransformer> t2wPhase = createModelTwoWindingsTransformer(false, false, false, true).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2wPhase = createModelTwoWindingsTransformer(false, false, false, true).first;
   t2wPhase->initSize();
   nbG = 10;
   ASSERT_EQ(t2wPhase->sizeZ(), nbZ);
@@ -810,9 +813,9 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariables) {
-  std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(true, false, true,
+  std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(true, false, true,
       false, true, true, false);
-  shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
+  const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
   t2w->initSize();
   unsigned nbZ = 6;
   unsigned nbG = 8;
@@ -873,7 +876,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   ASSERT_EQ(g[5], ROOT_DOWN);
   ASSERT_EQ(g[6], ROOT_DOWN);
 
-  shared_ptr<ModelTwoWindingsTransformer> t2wInit = createModelTwoWindingsTransformer(false, true, true, false).first;
+  const std::unique_ptr<ModelTwoWindingsTransformer> t2wInit = createModelTwoWindingsTransformer(false, true, true, false).first;
   t2wInit->initSize();
   ASSERT_EQ(t2wInit->sizeF(), 0);
   ASSERT_EQ(t2wInit->sizeY(), 0);
@@ -883,8 +886,8 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerContinuousVariables) {
-  std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
-  shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
+  std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
+  const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
   t2w->initSize();
   unsigned nbY = 0;
   unsigned nbF = 0;
@@ -909,8 +912,8 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerContinuousVariables) 
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDefineInstantiate) {
-  std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
-  shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
+  std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
+  const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
 
   std::vector<shared_ptr<Variable> > definedVariables;
   std::vector<shared_ptr<Variable> > instantiatedVariables;
@@ -969,8 +972,8 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerJt) {
-  std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
-  shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
+  std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
+  const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
   t2w->initSize();
   t2w->evalYMat();
   SparseMatrix smj;

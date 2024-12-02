@@ -44,7 +44,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @brief default constructor
    * @param[in] voltageLevel voltage level data interface to use for the model
    */
-  explicit ModelVoltageLevel(const boost::shared_ptr<VoltageLevelInterface>& voltageLevel);
+  explicit ModelVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel);
 
   /**
    * @brief list of calculated variables indexes
@@ -57,7 +57,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @brief getter for the voltage level components
    * @return the voltage level components
    */
-  inline const std::vector<boost::shared_ptr<NetworkComponent> >& getComponents() const {
+  inline const std::vector<std::shared_ptr<NetworkComponent> >& getComponents() const {
     return components_;
   }
 
@@ -73,19 +73,19 @@ class ModelVoltageLevel : public NetworkComponent {
    * @brief add a new component instance to the voltage level model
    * @param component instance to add
    */
-  void addComponent(const boost::shared_ptr<NetworkComponent>& component);
+  void addComponent(const std::shared_ptr<NetworkComponent>& component);
 
   /**
    * @brief add a new bus component instance to the voltage level model
    * @param bus component instance to add
    */
-  void addBus(const boost::shared_ptr<ModelBus>& bus);
+  void addBus(const std::shared_ptr<ModelBus>& bus);
 
   /**
    * @brief add a new switch component instance to the voltage level model
    * @param sw component instance to add
    */
-  void addSwitch(const boost::shared_ptr<ModelSwitch>& sw);
+  void addSwitch(const std::shared_ptr<ModelSwitch>& sw);
 
   /**
    * @brief compute switches loops
@@ -125,7 +125,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param bus the bus from which to look for the closest bus bar section
    * @return true is the closest bus bar section is switched off or unreachable, false otherwise
    */
-  bool isClosestBBSSwitchedOff(const boost::shared_ptr<ModelBus>& bus);
+  bool isClosestBBSSwitchedOff(const std::shared_ptr<ModelBus>& bus);
   /**
    * @brief set the initial currents of each switch
    */
@@ -334,11 +334,11 @@ class ModelVoltageLevel : public NetworkComponent {
   std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > ClosestBBS_;  ///< node id -> closest bbs + shortest path
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
-  std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
-  std::map<int, boost::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index
-  std::vector<boost::shared_ptr<ModelBus> > busesWithBBS_;  ///< vector of buses that contain a bus bar section
-  std::vector<boost::shared_ptr<ModelSwitch> > switches_;  ///< all switch components in a voltage level
-  std::map<std::string, boost::shared_ptr<ModelSwitch> > switchesById_;  ///< map of voltage level switches with their id
+  std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
+  std::map<int, std::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index
+  std::vector<std::shared_ptr<ModelBus> > busesWithBBS_;  ///< vector of buses that contain a bus bar section
+  std::vector<std::shared_ptr<ModelSwitch> > switches_;  ///< all switch components in a voltage level
+  std::map<std::string, std::shared_ptr<ModelSwitch> > switchesById_;  ///< map of voltage level switches with their id
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated var
 };
 

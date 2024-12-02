@@ -67,25 +67,25 @@ class SwitchInterface : public ComponentInterface {
    * @brief Setter for the switch's bus interface side 1
    * @param busInterface of the bus where the side 1 of the switch is connected
    */
-  virtual void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the switch's bus interface side 2
    * @param busInterface of the bus where the side 2 of the switch is connected
    */
-  virtual void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Getter for the switch's bus interface side 1
    * @return busInterface of the bus where the side 1 of the switch is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface1() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface1() const = 0;
 
   /**
    * @brief Getter for the switch's bus interface side 2
    * @return busInterface of the bus where the side 2 of the switch is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface2() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface2() const = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
@@ -109,7 +109,7 @@ struct SwitchInterfaceHash {
    * @param switchInterface the SwitchInterface to hash
    * @returns the hash value
    */
-  size_t operator()(const boost::shared_ptr<SwitchInterface>& switchInterface) const {
+  size_t operator()(const std::shared_ptr<SwitchInterface>& switchInterface) const {
     const std::string id = switchInterface->getID();
     return std::hash<std::string>()(id);
   }

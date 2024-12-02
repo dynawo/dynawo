@@ -80,7 +80,7 @@ TEST(DataInterfaceTest, ShuntCompensator_1) {
   powsybl::iidm::ShuntCompensator& shuntCompensator = network.getShuntCompensator("SHUNT1");
 
   ShuntCompensatorInterfaceIIDM shuntCompensatorIfce(shuntCompensator);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
   shuntCompensatorIfce.setVoltageLevelInterface(voltageLevelIfce);
 
   ASSERT_EQ(shuntCompensatorIfce.getComponentVarIndex(std::string("currentSection")), ShuntCompensatorInterfaceIIDM::VAR_CURRENTSECTION);
@@ -99,8 +99,8 @@ TEST(DataInterfaceTest, ShuntCompensator_1) {
   ASSERT_TRUE(shuntCompensatorIfce.getInitialConnected());
 
   ASSERT_EQ(shuntCompensatorIfce.getBusInterface().get(), nullptr);
-  const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
-  shuntCompensatorIfce.setBusInterface(busIfce);
+  std::unique_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
+  shuntCompensatorIfce.setBusInterface(std::move(busIfce));
   ASSERT_EQ(shuntCompensatorIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getCurrentSection(), 2UL);
@@ -146,7 +146,7 @@ TEST(DataInterfaceTest, ShuntCompensator_1) {
       .add();
   powsybl::iidm::ShuntCompensator& shuntCompensator_2 = network.getShuntCompensator("SHUNT2");
   ShuntCompensatorInterfaceIIDM shuntCompensatorIfce_2(shuntCompensator_2);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce_2(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce_2 = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
   shuntCompensatorIfce_2.setVoltageLevelInterface(voltageLevelIfce_2);
   ASSERT_FALSE(shuntCompensatorIfce_2.isLinear());
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(0), 0.);

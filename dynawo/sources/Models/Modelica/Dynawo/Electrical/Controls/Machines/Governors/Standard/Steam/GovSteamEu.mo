@@ -137,7 +137,7 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {10, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneOmega(uMax = DeltaOmegaDbPu) annotation(
     Placement(visible = true, transformation(origin = {168, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivativetDPctPc(T = tFp, initType = Modelica.Blocks.Types.Init.InitialState, k = tDp, y_start = 0)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivativetDPctPc(T = tFp, initType = Modelica.Blocks.Types.Init.InitialState, k = tDp, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {204, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertEn(T = tEn, initType = Modelica.Blocks.Types.Init.InitialState, y_start = initPcPu) annotation(
     Placement(visible = true, transformation(origin = {304, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

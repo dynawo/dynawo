@@ -39,27 +39,24 @@
 using std::vector;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
-using boost::weak_ptr;
 using std::map;
 using std::string;
-using std::pair;
 using std::make_pair;
-using std::list;
 
 namespace DYN {
 
-ModelVoltageLevel::ModelVoltageLevel(const shared_ptr<VoltageLevelInterface>& voltageLevel) :
+ModelVoltageLevel::ModelVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel) :
 NetworkComponent(voltageLevel->getID()),
 graph_(boost::none),
 topologyKind_(voltageLevel->getVoltageLevelTopologyKind()) { }
 
 void
-ModelVoltageLevel::addComponent(const shared_ptr<NetworkComponent>& component) {
+ModelVoltageLevel::addComponent(const std::shared_ptr<NetworkComponent>& component) {
   components_.push_back(component);
 }
 
 void
-ModelVoltageLevel::addBus(const shared_ptr<ModelBus>& bus) {
+ModelVoltageLevel::addBus(const std::shared_ptr<ModelBus>& bus) {
   busesByIndex_.insert(make_pair(bus->getBusIndex(), bus));
   components_.push_back(bus);
   if (bus->hasBBS())
@@ -67,7 +64,7 @@ ModelVoltageLevel::addBus(const shared_ptr<ModelBus>& bus) {
 }
 
 void
-ModelVoltageLevel::addSwitch(const shared_ptr<ModelSwitch>& sw) {
+ModelVoltageLevel::addSwitch(const std::shared_ptr<ModelSwitch>& sw) {
   switches_.push_back(sw);
   components_.push_back(sw);
   switchesById_[sw->id()] = sw;
@@ -79,12 +76,12 @@ ModelVoltageLevel::defineGraph() {
   weights1_.clear();
 
   // add vertex to voltage level graph
-  for (map<int, shared_ptr<ModelBus> >::const_iterator  itBus = busesByIndex_.begin(); itBus != busesByIndex_.end(); ++itBus) {
+  for (map<int, std::shared_ptr<ModelBus> >::const_iterator  itBus = busesByIndex_.begin(); itBus != busesByIndex_.end(); ++itBus) {
     graph_->addVertex(itBus->first);
   }
 
   // add edges to voltage level graph
-  for (vector<shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
+  for (vector<std::shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
     if (!(*itSw)->canBeClosed())
       continue;
     int node1 = (*itSw)->getModelBus1()->getBusIndex();
@@ -96,7 +93,7 @@ ModelVoltageLevel::defineGraph() {
 
 void
 ModelVoltageLevel::setInitialSwitchCurrents() {
-  for (vector<shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
+  for (vector<std::shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
     (*itSw)->setInitialCurrents();
   }
 }
@@ -119,10 +116,10 @@ ModelVoltageLevel::computeLoops() {
 //
 
   int islandIndex = 1;
-  map< int, vector< shared_ptr<ModelBus> > > busByRefIslands;
+  map<int, vector<std::shared_ptr<ModelBus> > > busByRefIslands;
 
   // iterate on all the voltage levels switches
-  for (vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
+  for (vector<std::shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
     // init
     (*itSwitch)->inLoop(false);
     // If the switch is closed we get the island index of its nodes and we compare them
@@ -147,9 +144,9 @@ ModelVoltageLevel::computeLoops() {
         busByRefIslands[ref1].push_back((*itSwitch)->getModelBus2());
       } else {                 // 4) node 1 and node 2 indexes have been set but are different : we set node 2 index equals to node 1 index
                                //    and propagate the index value
-        map< int, vector< shared_ptr<ModelBus> > >::iterator iter = busByRefIslands.find(ref2);
+        map<int, vector<std::shared_ptr<ModelBus> > >::iterator iter = busByRefIslands.find(ref2);
         if (iter != busByRefIslands.end()) {
-          vector< shared_ptr<ModelBus> > vectBus = iter->second;
+          vector<std::shared_ptr<ModelBus> > vectBus = iter->second;
           for (unsigned int i = 0; i < vectBus.size(); ++i) {
             vectBus[i]->setRefIslands(ref1);
             busByRefIslands[ref1].push_back(vectBus[i]);
@@ -183,7 +180,7 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
 
   // find the shortest path between the node and the bus bar section
   unsigned int nodeClosestBBS = std::numeric_limits<unsigned>::max();
-  for (vector<boost::shared_ptr<ModelBus> >::const_iterator itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
+  for (vector<std::shared_ptr<ModelBus> >::const_iterator itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
     int nodeBBS = (*itBBS)->getBusIndex();
     vector<string> ret;
     graph_->shortestPath(node, nodeBBS, weights1_, ret);
@@ -199,7 +196,7 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
 }
 
 bool
-ModelVoltageLevel::isClosestBBSSwitchedOff(const shared_ptr<ModelBus>& bus) {
+ModelVoltageLevel::isClosestBBSSwitchedOff(const std::shared_ptr<ModelBus>& bus) {
   // If in bus breaker topology, just look if the bus is switched off
   if (topologyKind_ == VoltageLevelInterface::BUS_BREAKER) {
     return bus->getSwitchOff();
@@ -213,7 +210,7 @@ ModelVoltageLevel::isClosestBBSSwitchedOff(const shared_ptr<ModelBus>& bus) {
       vector<string> shortestPath;
       const unsigned int nodeBBS = findClosestBBS(node, shortestPath);
 
-      map<int, shared_ptr<ModelBus> >::const_iterator itBus = busesByIndex_.find(nodeBBS);
+      map<int, std::shared_ptr<ModelBus> >::const_iterator itBus = busesByIndex_.find(nodeBBS);
       if (itBus == busesByIndex_.end())
         return true;
 
@@ -235,7 +232,7 @@ ModelVoltageLevel::connectNode(const unsigned int nodeToConnect) {
 
     // iterate on the shortest path found and close identified switches
     for (vector<string>::const_iterator itSwitchName = shortestPath.begin(); itSwitchName != shortestPath.end(); ++itSwitchName) {
-      shared_ptr<ModelSwitch> sw = switchesById_.find(*itSwitchName)->second;
+      std::shared_ptr<ModelSwitch> sw = switchesById_.find(*itSwitchName)->second;
       sw->close();
     }
   }
@@ -269,11 +266,11 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
     if (graph_ == boost::none)
       defineGraph();
 
-    vector<shared_ptr<ModelBus> >::const_iterator itBBS;
+    vector<std::shared_ptr<ModelBus> >::const_iterator itBBS;
     for (itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
       // define a weight for each switch inside the voltage level depending on their connection state
       std::unordered_map<string, float> weights;
-      for (vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
+      for (vector<std::shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
         if (!(*itSwitch)->canBeClosed())
           continue;
         weights[(*itSwitch)->id()] = ((*itSwitch)->getConnectionState() == OPEN) ? 0 : 1;
@@ -285,7 +282,7 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
       graph_->shortestPath(nodeToDisconnect, nodeBBS, weights, path);
 
       while (!path.empty()) {
-        shared_ptr<ModelSwitch> sw = switchesById_.find(*path.begin())->second;
+        std::shared_ptr<ModelSwitch> sw = switchesById_.find(*path.begin())->second;
         sw->open();
         weights[*path.begin()] = 0;
         path.clear();
@@ -307,7 +304,7 @@ ModelVoltageLevel::initSize() {
   componentIndexByCalculatedVar_.clear();
 
   // the size of the voltage level is the sum of the unit components sizes
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     (*itComponent)->initSize();
     sizeY_ += (*itComponent)->sizeY();
@@ -324,7 +321,7 @@ ModelVoltageLevel::initSize() {
 
 void
 ModelVoltageLevel::init(int& yNum) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     (*itComponent)->init(yNum);
   }
@@ -332,14 +329,14 @@ ModelVoltageLevel::init(int& yNum) {
 
 void
 ModelVoltageLevel::getY0() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->getY0();
 }
 
 void
 ModelVoltageLevel::evalF(propertyF_t type) {
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
       itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalF(type);
 }
@@ -347,7 +344,7 @@ ModelVoltageLevel::evalF(propertyF_t type) {
 void
 ModelVoltageLevel::setFequations(map<int, string>& fEquationIndex) {
   unsigned int offset = 0;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0) {
       map<int, string> fTypeComponent;
@@ -369,7 +366,7 @@ ModelVoltageLevel::setFequations(map<int, string>& fEquationIndex) {
 void
 ModelVoltageLevel::evalStaticFType() {
   unsigned int offsetComponent = 0;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0) {
       (*itComponent)->setBufferFType(fType_, offsetComponent);
@@ -381,7 +378,7 @@ ModelVoltageLevel::evalStaticFType() {
 
 void
 ModelVoltageLevel::evalDynamicFType() {
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
+  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0)
       (*itComponent)->evalDynamicFType();
   }
@@ -391,7 +388,7 @@ ModelVoltageLevel::evalDynamicFType() {
 void
 ModelVoltageLevel::collectSilentZ(BitMask* silentZTable) {
   unsigned int offsetComponent = 0;
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
+  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
       itComponent != itEnd; ++itComponent) {
     if ((*itComponent)->sizeZ() != 0) {
       (*itComponent)->collectSilentZ(&silentZTable[offsetComponent]);
@@ -402,7 +399,7 @@ ModelVoltageLevel::collectSilentZ(BitMask* silentZTable) {
 
 void
 ModelVoltageLevel::evalYMat() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalYMat();
 }
@@ -410,7 +407,7 @@ ModelVoltageLevel::evalYMat() {
 void
 ModelVoltageLevel::evalStaticYType() {
   unsigned int offset = 0;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
       (*itComponent)->setBufferYType(yType_, offset);
@@ -422,7 +419,7 @@ ModelVoltageLevel::evalStaticYType() {
 
 void
 ModelVoltageLevel::evalDynamicYType() {
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
+  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0)
       (*itComponent)->evalDynamicYType();
   }
@@ -430,7 +427,7 @@ ModelVoltageLevel::evalDynamicYType() {
 
 void
 ModelVoltageLevel::evalG(const double& t) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalG(t);
 }
@@ -438,7 +435,7 @@ ModelVoltageLevel::evalG(const double& t) {
 void
 ModelVoltageLevel::setGequations(map<int, string>& gEquationIndex) {
   unsigned int offset = 0;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeG() != 0) {
       map<int, string> GpropComponent;
@@ -459,7 +456,7 @@ NetworkComponent::StateChange_t
 ModelVoltageLevel::evalZ(const double& t) {
   bool topoChange = false;
   bool stateChange = false;
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
+  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
       itComponent != itEnd; ++itComponent) {
     switch ((*itComponent)->evalZ(t)) {
     case NetworkComponent::TOPO_CHANGE:
@@ -484,7 +481,7 @@ ModelVoltageLevel::evalState(const double& time) {
   bool topoChange = false;
   bool stateChange = false;
 
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     switch ((*itComponent)->evalState(time)) {
     case NetworkComponent::TOPO_CHANGE:
@@ -513,35 +510,35 @@ ModelVoltageLevel::evalState(const double& time) {
 
 void
 ModelVoltageLevel::evalDerivatives(const double cj) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalDerivatives(cj);
 }
 
 void
 ModelVoltageLevel::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalJt(jt, cj, rowOffset);
 }
 
 void
 ModelVoltageLevel::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalJtPrim(jt, rowOffset);
 }
 
 void
 ModelVoltageLevel::evalNodeInjection() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalNodeInjection();
 }
 
 void
 ModelVoltageLevel::evalCalculatedVars() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalCalculatedVars();
 }
@@ -580,7 +577,7 @@ ModelVoltageLevel::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelVoltageLevel::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     (*itComponent)->instantiateVariables(variables);
   }
@@ -588,7 +585,7 @@ ModelVoltageLevel::instantiateVariables(vector<shared_ptr<Variable> >& variables
 
 void
 ModelVoltageLevel::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->setSubModelParameters(params);
 }
@@ -606,21 +603,21 @@ ModelVoltageLevel::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 ModelVoltageLevel::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->defineNonGenericParameters(parameters);
 }
 
 void
 ModelVoltageLevel::defineElements(vector<Element> &elements, map<string, int>& mapElement) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->defineElements(elements, mapElement);
 }
 
 void
 ModelVoltageLevel::addBusNeighbors() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->addBusNeighbors();
 }
@@ -629,7 +626,7 @@ void
 ModelVoltageLevel::setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int & offsetF) {
   int offsetYComponent = offsetY;
   int offsetFComponent = offsetF;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
       (*itComponent)->setReferenceY(y, yp, f, offsetYComponent, offsetFComponent);
@@ -642,7 +639,7 @@ ModelVoltageLevel::setReferenceY(double* y, double* yp, double* f, const int & o
 void
 ModelVoltageLevel::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
   int offsetZComponent = offsetZ;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeZ() != 0) {
       (*itComponent)->setReferenceZ(z, zConnected, offsetZComponent);
@@ -654,7 +651,7 @@ ModelVoltageLevel::setReferenceZ(double* z, bool* zConnected, const int& offsetZ
 void
 ModelVoltageLevel::setReferenceG(state_g* g, const int& offsetG) {
   int offsetGComponent = offsetG;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeG() != 0) {
       (*itComponent)->setReferenceG(g, offsetGComponent);
@@ -666,7 +663,7 @@ ModelVoltageLevel::setReferenceG(state_g* g, const int& offsetG) {
 void
 ModelVoltageLevel::setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVar) {
   int offsetCalculatedVarComponent = offsetCalculatedVar;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
+  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeCalculatedVar() != 0) {
       (*itComponent)->setReferenceCalculatedVar(calculatedVars, offsetCalculatedVarComponent);

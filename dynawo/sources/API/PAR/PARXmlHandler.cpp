@@ -33,6 +33,7 @@
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "PARParametersSetCollection.h"
 #include "PARParametersSetCollectionFactory.h"
 #include "PARMacroParameterSet.h"
@@ -107,10 +108,10 @@ SetHandler::~SetHandler() {}
 
 void
 SetHandler::create(attributes_type const & attributes) {
-  setRead_ = shared_ptr<ParametersSet>(new ParametersSet(attributes["id"].as_string()));
+  setRead_ = ParametersSetFactory::newParametersSet(attributes["id"].as_string());
 }
 
-shared_ptr<ParametersSet>
+std::shared_ptr<ParametersSet>
 SetHandler::get() const {
   return setRead_;
 }

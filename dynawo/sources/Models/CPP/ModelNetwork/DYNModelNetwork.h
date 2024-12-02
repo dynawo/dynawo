@@ -342,7 +342,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief get the network components depending on the model used (init or not)
    * @return the vector of network component modeled
    */
-  inline const std::vector<boost::shared_ptr<NetworkComponent> >& getComponents() const {
+  inline const std::vector<std::shared_ptr<NetworkComponent> >& getComponents() const {
     return isInitModel_ ?  initComponents_ : components_;
   }
 
@@ -350,7 +350,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief get the voltage levels depending on the model used (init or not)
    * @return the vector of voltage levels modeled
    */
-  inline const std::vector<boost::shared_ptr<ModelVoltageLevel> >& getVoltageLevels() const {
+  inline const std::vector<std::shared_ptr<ModelVoltageLevel> >& getVoltageLevels() const {
     return isInitModel_ ?  vLevelInitComponents_ : vLevelComponents_;
   }
 
@@ -382,11 +382,11 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
 
-  boost::shared_ptr<ModelBusContainer> busContainer_;  ///< all network buses
-  std::vector<boost::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components
-  std::vector<boost::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
-  std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
-  std::vector<boost::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
+  std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
+  std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components
+  std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
+  std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
+  std::vector<std::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };
 

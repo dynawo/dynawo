@@ -37,7 +37,7 @@ class ModelLoad : public NetworkComponent {
    * @brief default constructor
    * @param load : load data interface used to build the model
    */
-  explicit ModelLoad(const boost::shared_ptr<LoadInterface>& load);
+  explicit ModelLoad(const std::shared_ptr<LoadInterface>& load);
 
   /**
    * @brief  calculated variables type
@@ -64,7 +64,7 @@ class ModelLoad : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus(const boost::shared_ptr<ModelBus>& model) {
+  void setModelBus(const std::shared_ptr<ModelBus>& model) {
     modelBus_ = model;
   }
 
@@ -73,7 +73,7 @@ class ModelLoad : public NetworkComponent {
    *
    * @return model of the bus
    */
-  const boost::shared_ptr<ModelBus>& getModelBus() const {
+  const std::shared_ptr<ModelBus>& getModelBus() const {
     return modelBus_;
   }
 
@@ -487,8 +487,8 @@ class ModelLoad : public NetworkComponent {
   }
 
  private:
-  boost::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
-  boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  std::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
+  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp

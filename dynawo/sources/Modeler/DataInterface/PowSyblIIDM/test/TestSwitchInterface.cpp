@@ -57,10 +57,10 @@ TEST(DataInterfaceTest, Switch) {
   ASSERT_TRUE(sw.isConnected());
   ASSERT_TRUE(sw.isPartiallyConnected());
 
-  const boost::shared_ptr<BusInterface> x_b1(new BusInterfaceIIDM(b1));
-  const boost::shared_ptr<BusInterface> x_b2(new BusInterfaceIIDM(b2));
-  sw.setBusInterface1(x_b1);
-  sw.setBusInterface2(x_b2);
+  std::unique_ptr<BusInterface> x_b1(new BusInterfaceIIDM(b1));
+  std::unique_ptr<BusInterface> x_b2(new BusInterfaceIIDM(b2));
+  sw.setBusInterface1(std::move(x_b1));
+  sw.setBusInterface2(std::move(x_b2));
   ASSERT_EQ(sw.getBusInterface1()->getID(), "BUS1");
   ASSERT_EQ(sw.getBusInterface2()->getID(), "BUS2");
 

@@ -40,6 +40,7 @@
 #include "DYNDynamicData.h"
 #include "DYNParameterSolver.h"
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "PARParameterFactory.h"
 #include "TLTimelineFactory.h"
 #include "DYNTrace.h"
@@ -52,7 +53,7 @@ static SolverFactory::SolverPtr initSolver(bool optimizeAlgebraicResidualsEvalua
   // Solver
   SolverFactory::SolverPtr solver = SolverFactory::createSolverFromLib("../dynawo_SolverTRAP" + std::string(sharedLibraryExtension()));
 
-  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
   params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));

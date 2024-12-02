@@ -50,7 +50,7 @@ using std::string;
 
 namespace DYN {
 
-ModelLine::ModelLine(const shared_ptr<LineInterface>& line) :
+ModelLine::ModelLine(const std::shared_ptr<LineInterface>& line) :
 NetworkComponent(line->getID()),
 topologyModified_(false),
 updateYMat_(true),
@@ -135,7 +135,7 @@ modelType_("Line") {
   currentLimitsDesactivate_ = 0.;
 
   // current limits side 1
-  vector<shared_ptr<CurrentLimitInterface> > cLimit1 = line->getCurrentLimitInterfaces1();
+  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -154,7 +154,7 @@ modelType_("Line") {
   }
 
   // current limits side 2
-  vector<shared_ptr<CurrentLimitInterface> > cLimit2 = line->getCurrentLimitInterfaces2();
+  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);

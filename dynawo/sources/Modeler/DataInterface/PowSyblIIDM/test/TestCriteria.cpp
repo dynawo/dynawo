@@ -36,6 +36,7 @@
 #include "CRTCriteriaParamsFactory.h"
 #include "CRTCriteriaCollection.h"
 #include "CRTCriteriaCollectionFactory.h"
+#include "PARParametersSetFactory.h"
 #include "TLTimelineFactory.h"
 #include <boost/algorithm/string.hpp>
 
@@ -751,7 +752,7 @@ initModel(shared_ptr<DataInterface> data) {
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet->createParameter("bus_uMax", 0.);
   parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
   parametersSet->createParameter("load_alpha", 0.);
@@ -820,7 +821,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       dataInterfaceArray.push_back(data);
     }
     for (int busIndex = 0; busIndex < numberOfNodes; ++busIndex) {
-      boost::shared_ptr<BusInterface> bus = dataInterfaceArray[busIndex]->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
+      std::shared_ptr<BusInterface> bus = dataInterfaceArray[busIndex]->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
       busCriteria.addBus(bus);
     }
 
@@ -876,7 +877,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     exportStates(loadData);
 
     LoadCriteria loadCriteria(criteriaParams);
-    std::vector<boost::shared_ptr<LoadInterface> > loads = loadData->getNetwork()->getVoltageLevels()[0]->getLoads();
+    std::vector<std::shared_ptr<LoadInterface> > loads = loadData->getNetwork()->getVoltageLevels()[0]->getLoads();
     for (size_t loadsIdx = 0; loadsIdx < loads.size(); ++loadsIdx) {
       loadCriteria.addLoad(loads[loadsIdx]);
     }
@@ -931,7 +932,7 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     }
 
     GeneratorCriteria generatorCriteria(criteriaParams);
-    std::vector< boost::shared_ptr<GeneratorInterface> > generators = loadData->getNetwork()->getVoltageLevels()[0]->getGenerators();
+    std::vector<std::shared_ptr<GeneratorInterface> > generators = loadData->getNetwork()->getVoltageLevels()[0]->getGenerators();
     for (size_t generatorsIdx = 0; generatorsIdx < generators.size(); ++generatorsIdx) {
       generatorCriteria.addGenerator(generators[generatorsIdx]);
     }
@@ -1014,8 +1015,8 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       exportStates(data);
 
       LoadCriteria loadCriteria(criteriaParams);
-      std::vector<boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
-      for (const boost::shared_ptr<LoadInterface>& load : loads) {
+      std::vector<std::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+      for (const std::shared_ptr<LoadInterface>& load : loads) {
         loadCriteria.addLoad(load);
       }
 
@@ -1057,8 +1058,8 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       }
 
       GeneratorCriteria generatorCriteria(criteriaParams);
-      std::vector<boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-      for (const boost::shared_ptr<GeneratorInterface>& generator : generators) {
+      std::vector<std::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+      for (const std::shared_ptr<GeneratorInterface>& generator : generators) {
         generatorCriteria.addGenerator(generator);
       }
 
@@ -1131,7 +1132,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 190));
   exportStates(data);
-  boost::shared_ptr<BusInterface> bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
+  std::shared_ptr<BusInterface> bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   BusCriteria criteria(criteriap1);
   // VNom lower than min
   criteria.addBus(bus);
@@ -1198,7 +1199,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   vl.setUNomMin(225);
   vl.setUNomMax(400);
   criteriap1->addVoltageLevel(vl);
-  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  std::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(std::move(criteriap1));
   std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
   collection1->add(CriteriaCollection::BUS, criteria);
@@ -1513,7 +1514,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
   exportStates(data);
-  std::vector< boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  std::vector<std::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   LoadCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < loads.size(); ++i)
@@ -1632,7 +1633,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
   exportStates(data);
-  std::vector< boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  std::vector<std::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   LoadCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < loads.size(); ++i)
@@ -1750,7 +1751,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   criteriap1->addVoltageLevel(vl);
-  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  std::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(std::move(criteriap1));
   std::shared_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
   collection1->add(CriteriaCollection::LOAD, criteria);
@@ -2031,7 +2032,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   criteriap1->addVoltageLevel(vl);
-  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  std::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(std::move(criteriap1));
   std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
   collection1->add(CriteriaCollection::LOAD, criteria);
@@ -2190,7 +2191,7 @@ TEST(DataInterfaceIIDMTest, testDontTestFictitiousLoadsInCriteria) {
   criteriaParams->setPMax(90);
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithOneFictitiousLoadAmongTwo(180, 190, 100, 100));
   exportStates(data);
-  std::vector<boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  std::vector<std::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   LoadCriteria criteria(std::move(criteriaParams));
   for (size_t i = 0; i < loads.size(); ++i)
     criteria.addLoad(loads[i]);
@@ -2219,7 +2220,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 190, 100, 100));
   exportStates(data);
-  std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  std::vector<std::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   GeneratorCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < generators.size(); ++i)
@@ -2339,7 +2340,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
 
   shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 190, 100, 100));
   exportStates(data);
-  std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  std::vector<std::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   GeneratorCriteria criteria(criteriap1);
   // VNom lower than min
   for (size_t i = 0; i < generators.size(); ++i)
@@ -2457,7 +2458,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   criteriap1->addVoltageLevel(vl);
-  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  std::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap1);
   std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
   collection1->add(CriteriaCollection::GENERATOR, criteria);
@@ -2738,7 +2739,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   vl.setUNomMax(400);
   vl.setUMaxPu(0.8);
   criteriap1->addVoltageLevel(vl);
-  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  std::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(std::move(criteriap1));
   std::unique_ptr<CriteriaCollection> collection1 = CriteriaCollectionFactory::newInstance();
   collection1->add(CriteriaCollection::GENERATOR, criteria);
@@ -2940,11 +2941,11 @@ TEST(DataInterfaceIIDMTest, NoVoltageLevelInCriteria) {
                                                                                               190);
     boost::shared_ptr<DataInterface> dataWithLoads = createDataItfFromNetworkCriteria(loadNetwork);
     exportStates(dataWithLoads);
-    const std::vector<shared_ptr<VoltageLevelInterface> > loadVoltageLevels = dataWithLoads->getNetwork()->getVoltageLevels();
+    const std::vector<std::shared_ptr<VoltageLevelInterface> > loadVoltageLevels = dataWithLoads->getNetwork()->getVoltageLevels();
     LoadCriteria loadCriteriaWithoutVoltageLevel(criteriaParamsWithoutVoltageLevel);
     LoadCriteria loadCriteriaWithVoltageLevel(criteriaParamsWithVoltageLevel);
     for (size_t vlIdx = 0; vlIdx < loadVoltageLevels.size(); ++vlIdx) {
-      const std::vector<boost::shared_ptr<LoadInterface> > loads = loadVoltageLevels[vlIdx]->getLoads();
+      const std::vector<std::shared_ptr<LoadInterface> > loads = loadVoltageLevels[vlIdx]->getLoads();
       for (size_t loadIdx = 0; loadIdx < loads.size(); ++loadIdx) {
         loadCriteriaWithoutVoltageLevel.addLoad(loads[loadIdx]);
         loadCriteriaWithVoltageLevel.addLoad(loads[loadIdx]);
@@ -2988,11 +2989,11 @@ TEST(DataInterfaceIIDMTest, NoVoltageLevelInCriteria) {
                                                                                                         190);
     boost::shared_ptr<DataInterface> dataWithGenerators = createDataItfFromNetworkCriteria(generatorNetwork);
     exportStates(dataWithGenerators);
-    const std::vector<shared_ptr<VoltageLevelInterface> > generatorVoltageLevels = dataWithGenerators->getNetwork()->getVoltageLevels();
+    const std::vector<std::shared_ptr<VoltageLevelInterface> > generatorVoltageLevels = dataWithGenerators->getNetwork()->getVoltageLevels();
     GeneratorCriteria generatorCriteriaWithoutVoltageLevel(criteriaParamsWithoutVoltageLevel);
     GeneratorCriteria generatorCriteriaWithVoltageLevel(criteriaParamsWithVoltageLevel);
     for (size_t genVLidx = 0; genVLidx < generatorVoltageLevels.size(); ++genVLidx) {
-      const std::vector<boost::shared_ptr<GeneratorInterface> > generators = generatorVoltageLevels[genVLidx]->getGenerators();
+      const std::vector<std::shared_ptr<GeneratorInterface> > generators = generatorVoltageLevels[genVLidx]->getGenerators();
       for (size_t generatorIdx = 0; generatorIdx < generators.size(); ++generatorIdx) {
         generatorCriteriaWithoutVoltageLevel.addGenerator(generators[generatorIdx]);
         generatorCriteriaWithVoltageLevel.addGenerator(generators[generatorIdx]);
