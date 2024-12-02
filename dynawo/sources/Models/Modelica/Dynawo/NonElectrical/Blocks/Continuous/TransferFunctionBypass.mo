@@ -13,7 +13,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * of simulation tools for power systems.
 */
 
-block TransferFunction "Linear transfer function"
+block TransferFunctionBypass "Linear transfer function, bypassed if highest-order coefficient of denominator is zero"
   extends Modelica.Blocks.Interfaces.SISO(y(start = y_start));
 
   parameter Real b[:] = {1} "Numerator coefficients of transfer function (e.g., 2*s+3 is specified as {2,3})";
@@ -31,7 +31,8 @@ protected
   parameter Integer nb = size(b, 1) "Size of numerator of transfer function";
   parameter Integer nx = size(a, 1) - 1 "Size of vector x";
   parameter Real bb[:] = vector([zeros(max(0,na-nb),1);b]) "Numerator coefficients, padded if necessary by zeroes for highest-order coefficients";
-  parameter Real d = bb[1] / a[1] "Ratio of highest-order coefficients of numerator and denominator";
+  parameter Real d = bb[1] / a_one "Ratio of highest-order coefficients of numerator and denominator";
+  parameter Real a_one = if a[1] > 100 * Modelica.Constants.eps then a[1] else 1 "Non-zero value of highest-order coefficient of denominator";
   parameter Real a_end = if a[end] > 100 * Modelica.Constants.eps * sqrt(a*a) then a[end] else 1 "Non-zero value of lowest-order coefficient of denominator";
 
   Real x_scaled[nx](start = a_end * x_start) "Scaled vector x";
@@ -39,10 +40,16 @@ protected
 equation
   assert(size(b,1) <= size(a,1), "Transfer function is not proper");
 
-  if nx == 0 then
+  if a[1] <= 100 * Modelica.Constants.eps then
+    y = u;
+    if nx > 0 then
+      der(x_scaled[1:nx]) = zeros(nx);
+      x = x_start;
+    end if;
+  elseif nx == 0 then
     y = d*u;
   else
-    der(x_scaled[1])    = (-a[2:na]*x_scaled + a_end*u) / a[1];
+    der(x_scaled[1])    = (-a[2:na]*x_scaled + a_end*u) / a_one;
     der(x_scaled[2:nx]) = x_scaled[1:nx-1];
     y = ((bb[2:na] - d*a[2:na])*x_scaled) / a_end + d*u;
     x = x_scaled / a_end;
@@ -76,7 +83,7 @@ results in the following transfer function:
 </p>
 <pre>      2*s + 4
  y = --------- * u
-       s + 3</pre><p>This block differs from the one of the same name in the Modelica Standard Library in one respect : the initial equations are absent since Dynawo ignores them, start values are given for&nbsp;<b>y</b>&nbsp;and for&nbsp;<b>x_scaled</b>&nbsp;instead.</p><p></p>
+       s + 3</pre><p><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This block differs from the one of the same name in the Modelica Standard Library</span>&nbsp;on two counts :</p><ul><li>If the highest-order component of the denominator is zero, the block returns the input as output;</li><li>The initial equations are absent since Dynawo ignores them, start values are given for&nbsp;<b>y</b>&nbsp;and for&nbsp;<b>x_scaled</b>&nbsp;instead.</li></ul><p></p>
 </body></html>"),
     Icon(
         coordinateSystem(preserveAspectRatio=true,
@@ -103,4 +110,4 @@ results in the following transfer function:
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
         Line(points={{-100,0},{-60,0}}, color={0,0,255}),
         Line(points={{60,0},{100,0}}, color={0,0,255})}));
-end TransferFunction;
+end TransferFunctionBypass;

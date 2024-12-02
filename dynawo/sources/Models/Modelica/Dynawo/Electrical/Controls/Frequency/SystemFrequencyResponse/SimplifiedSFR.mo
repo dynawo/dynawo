@@ -25,9 +25,9 @@ model SimplifiedSFR "Simplified system frequency response model, based on the pr
   Modelica.Blocks.Interfaces.RealOutput deltaOmegaPu(start = 0) "Incremental speed in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.TransferFunction inertia(a = {2 * H, DPu}, b = {1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction inertia(a = {2 * H, DPu}, b = {1}) annotation(
     Placement(visible = true, transformation(origin = {-22, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction feedbackLoop(a = {R * Tr, R}, b = {Km * Fh * Tr, Km}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction feedbackLoop(a = {R * Tr, R}, b = {Km * Fh * Tr, Km}) annotation(
     Placement(visible = true, transformation(origin = {-22, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Math.Gain gain(k = Dynawo.Electrical.SystemBase.fNom) annotation(
     Placement(visible = true, transformation(origin = {56, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
