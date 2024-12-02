@@ -291,7 +291,12 @@ class SolverIDA : public Solver::Impl {
   double relAccuracy_;  ///< absolute error tolerance
   double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
   bool uround_;  ///< to activate change on uround
+  bool newReinit_;  ///< test
   std::string solveTask_;  ///< test
+  int maxnef_;  ///< test
+  int maxcor_;  ///< test
+  int maxncf_;  ///< test
+  double nlscoef_;  ///< test
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
@@ -299,6 +304,8 @@ class SolverIDA : public Solver::Impl {
   std::vector<sunindextype> lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 
   SparseMatrix smj_;  ///< Jacobian matrix
+
+  bool allLogs_;  ///< test
 };
 
 }  // end of namespace DYN

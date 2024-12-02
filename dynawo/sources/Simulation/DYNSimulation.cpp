@@ -1018,7 +1018,6 @@ Simulation::simulate() {
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
         model_->notifyTimeStep();
-        Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
