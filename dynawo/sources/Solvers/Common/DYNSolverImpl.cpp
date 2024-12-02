@@ -222,6 +222,9 @@ Solver::Impl::resetStats() {
   stats_.nme_ = 0;
   stats_.nreAlgebraic_ = 0;
   stats_.njeAlgebraic_ = 0;
+  stats_.nmeDiff_= 0;
+  stats_.nmeAlg_= 0;
+  stats_.nmeAlgJ_ = 0;
 }
 
 void
@@ -562,6 +565,9 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbInternalRootFuncEval, stats_.ngeInternal_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
 }
@@ -582,6 +588,9 @@ Solver::Impl::printEndConsole() const {
   std::cout << DYNLog(SolverNbInternalRootFuncEval, stats_.ngeInternal_) << std::endl;
   std::cout << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << std::endl;
   std::cout << DYNLog(SolverNbModeEval, stats_.nme_) << std::endl;
+  std::cout << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << std::endl;
+  std::cout << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << std::endl;
+  std::cout << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << std::endl;
 }

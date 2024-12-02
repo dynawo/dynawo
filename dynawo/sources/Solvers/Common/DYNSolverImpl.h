@@ -57,6 +57,9 @@ typedef struct {
   long int ngeSolver_;  ///< number of root function evaluations
   long int nze_;  ///< number of discrete variable evaluations
   long int nme_;  ///< number of mode evaluations
+  long int nmeDiff_;  ///< number of mode evaluations
+  long int nmeAlg_;  ///< number of mode evaluations
+  long int nmeAlgJ_;  ///< number of mode evaluations
 } stat_t;
 
 class Message;
