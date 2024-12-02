@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SolverFactory Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('dd/d68/a03348.html','../../');});
+$(document).ready(function(){initNavTree('d2/d7d/a03351.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,144 +94,21 @@ $(document).ready(function(){initNavTree('dd/d68/a03348.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="../../d6/d55/a03345.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SolverFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::SolverCommon Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dd/d68/a03348.html" title="SolverFactory class. ">SolverFactory</a> class.  
- <a href="../../dd/d68/a03348.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../de/def/a01016_source.html">DYNSolverFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::SolverFactory:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../dd/d68/a03348.png" usemap="#DYN::SolverFactory_map" alt=""/>
-  <map id="DYN::SolverFactory_map" name="DYN::SolverFactory_map">
-<area href="../../d6/d8d/a03388.html" title="SolverIDA factory class. " alt="DYN::SolverIDAFactory" shape="rect" coords="0,56,158,80"/>
-<area href="../../d0/db9/a03372.html" title="SolverSIM factory class. " alt="DYN::SolverSIMFactory" shape="rect" coords="168,56,326,80"/>
-<area href="../../d0/d57/a03380.html" title="SolverTRAP factory class. " alt="DYN::SolverTRAPFactory" shape="rect" coords="336,56,494,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ae81d3f1e1eb1129f7fd351339b93b857"><td class="memItemLeft" align="right" valign="top"><a id="ae81d3f1e1eb1129f7fd351339b93b857"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> = std::unique_ptr&lt; <a class="el" href="../../d2/d5b/a03340.html">Solver</a>, std::function&lt; void(<a class="el" href="../../d2/d5b/a03340.html">Solver</a> *)&gt; &gt;</td></tr>
-<tr class="memdesc:ae81d3f1e1eb1129f7fd351339b93b857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for <a class="el" href="../../d2/d5b/a03340.html" title="Solver interface class. ">Solver</a> unique pointer with <a class="el" href="../../d2/deb/a03356.html" title="SolverDelete class. ">SolverDelete</a> custom destructor. <br /></td></tr>
-<tr class="separator:ae81d3f1e1eb1129f7fd351339b93b857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1a9995b963846832f7c1fd906c7f8d08"><td class="memItemLeft" align="right" valign="top"><a id="a1a9995b963846832f7c1fd906c7f8d08"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#a1a9995b963846832f7c1fd906c7f8d08">SolverFactory</a> ()</td></tr>
-<tr class="memdesc:a1a9995b963846832f7c1fd906c7f8d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a1a9995b963846832f7c1fd906c7f8d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="memItemLeft" align="right" valign="top"><a id="acab1ac8b0d0f36a325c891a939f2d0e5"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#acab1ac8b0d0f36a325c891a939f2d0e5">~SolverFactory</a> ()</td></tr>
-<tr class="memdesc:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac65d140b18f58dda550003c47e97fc2e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d5b/a03340.html">Solver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#ac65d140b18f58dda550003c47e97fc2e">create</a> () const =0</td></tr>
-<tr class="memdesc:ac65d140b18f58dda550003c47e97fc2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of a solver  <a href="#ac65d140b18f58dda550003c47e97fc2e">More...</a><br /></td></tr>
-<tr class="separator:ac65d140b18f58dda550003c47e97fc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dccb03730530e6b2bf7e0eec8d42492"><td class="memItemLeft" align="right" valign="top"><a id="a8dccb03730530e6b2bf7e0eec8d42492"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#a8dccb03730530e6b2bf7e0eec8d42492">destroy</a> (<a class="el" href="../../d2/d5b/a03340.html">Solver</a> *) const =0</td></tr>
-<tr class="memdesc:a8dccb03730530e6b2bf7e0eec8d42492"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy an instance of a solver <br /></td></tr>
-<tr class="separator:a8dccb03730530e6b2bf7e0eec8d42492"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a5eb79ca757549edba15c0879bba305e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/d68/a03348.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#a5eb79ca757549edba15c0879bba305e2">createSolverFromLib</a> (const std::string &amp;lib)</td></tr>
-<tr class="memdesc:a5eb79ca757549edba15c0879bba305e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a solver loading given lib.  <a href="#a5eb79ca757549edba15c0879bba305e2">More...</a><br /></td></tr>
-<tr class="separator:a5eb79ca757549edba15c0879bba305e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:abbfdaf69d4a3f097dc187edac6c723c1"><td class="memItemLeft" align="right" valign="top"><a id="abbfdaf69d4a3f097dc187edac6c723c1"></a>
-boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d68/a03348.html#abbfdaf69d4a3f097dc187edac6c723c1">lib_</a></td></tr>
-<tr class="memdesc:abbfdaf69d4a3f097dc187edac6c723c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Library of the solver. <br /></td></tr>
-<tr class="separator:abbfdaf69d4a3f097dc187edac6c723c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dd/d68/a03348.html" title="SolverFactory class. ">SolverFactory</a> class. </p>
-<p>Utility interface used to define a building class for solvers. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac65d140b18f58dda550003c47e97fc2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac65d140b18f58dda550003c47e97fc2e">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="../../d2/d5b/a03340.html">Solver</a>* DYN::SolverFactory::create </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>create a new instance of a solver </p>
-<dl class="section return"><dt>Returns</dt><dd>the new instance of solver </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/db9/a03372.html#ab8ab7f326a81125e2bd642ceb9b0e0f4">DYN::SolverSIMFactory</a>, <a class="el" href="../../d0/d57/a03380.html#ae4708839d9c483ec3b7e7ee0ad63455a">DYN::SolverTRAPFactory</a>, and <a class="el" href="../../d6/d8d/a03388.html#a7cc4872af4778e6df68e5122109bf17a">DYN::SolverIDAFactory</a>.</p>
-
-</div>
-</div>
-<a id="a5eb79ca757549edba15c0879bba305e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5eb79ca757549edba15c0879bba305e2">&#9670;&nbsp;</a></span>createSolverFromLib()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/d68/a03348.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> DYN::SolverFactory::createSolverFromLib </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create a solver loading given lib. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the solver library to load </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the created solver </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../de/def/a01016_source.html">DYNSolverFactory.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#ae22a765890981f862cc40c7f1ae313a2">copySparseToKINSOL</a>(const SparseMatrix &amp;smj, SUNMatrix &amp;JJ, const int &amp;size, sunindextype *lastRowVals)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#afc90baae8ddadbd9db634c38fd678f32">printLargestErrors</a>(std::vector&lt; std::pair&lt; double, size_t &gt; &gt; &amp;fErr, const Model &amp;model, int nbErrors)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#a8e6598680f4c559ea6013d4bd5ec939d">propagateMatrixStructureChangeToKINSOL</a>(const SparseMatrix &amp;smj, SUNMatrix &amp;JJ, const int &amp;size, sunindextype **lastRowVals, SUNLinearSolver &amp;LS, bool log)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#a9a5db2f9fc86f4d05d026e36941946f7">weightedInfinityNorm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#a770961aba4603c6b798c09a35ae2bb33">weightedInfinityNorm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#ad73387d9a562e36de7b071196eece157">weightedL2Norm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d7d/a03351.html#ab4aaac216b64f4c4666c25f96327cb62">weightedL2Norm</a>(const std::vector&lt; double &gt; &amp;vec, const std::vector&lt; int &gt; &amp;vec_index, const std::vector&lt; double &gt; &amp;weights)</td><td class="entry"><a class="el" href="../../d2/d7d/a03351.html">DYN::SolverCommon</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -247,8 +124,7 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d68/a03348.html">SolverFactory</a></li>
-    <li class="footer">Generated on Fri Nov 29 2024 18:09:43 for Dynawo by
+    <li class="footer">Generated on Mon Dec 2 2024 13:32:53 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

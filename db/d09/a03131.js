@@ -1,0 +1,27 @@
+var a03131 =
+[
+    [ "VscConverterInterfaceIIDM", "db/d09/a03131.html#a668cba0be50ad6784fd6b6ab5ca5c056", null ],
+    [ "exportStateVariablesUnitComponent", "db/d09/a03131.html#a9c5ae5a30ffad34bc4a201dbbbe6b28b", null ],
+    [ "getBusInterface", "db/d09/a03131.html#ae821ce5e81857253e714434f3e49485a", null ],
+    [ "getComponentVarIndex", "db/d09/a03131.html#a0dbff8a5f2d94cfb139a43ca9c04db18", null ],
+    [ "getID", "db/d09/a03131.html#a5feac8dfa922dd492d147e39e2209d27", null ],
+    [ "getInitialConnected", "db/d09/a03131.html#a57b9aa727fc4024629aea8bf9eeb6bee", null ],
+    [ "getLossFactor", "db/d09/a03131.html#a2a6defdfb685a1875bbdbf830ff49344", null ],
+    [ "getP", "db/d09/a03131.html#a7c760d9b83d37dc59ab407803645e03a", null ],
+    [ "getQ", "db/d09/a03131.html#a7ea88db1a3d7a4f9b60db16e5ab8d21a", null ],
+    [ "getQMax", "db/d09/a03131.html#ae0d98807b970e9c32a9b0013033fd78d", null ],
+    [ "getQMin", "db/d09/a03131.html#a571e12456b7fbf62ec8ffb2b2a9a4e69", null ],
+    [ "getReactiveCurvesPoints", "db/d09/a03131.html#ab96acce67f4885245cf65fa4e5f16f30", null ],
+    [ "getReactivePowerSetpoint", "db/d09/a03131.html#a3fad19b26f34897d4b747a8f70dab08f", null ],
+    [ "getVNom", "db/d09/a03131.html#ad571aacfbd48e9bbc331c5f3ad8867d6", null ],
+    [ "getVoltageRegulatorOn", "db/d09/a03131.html#a58c1318610c5f05f708a156d6eb54a3e", null ],
+    [ "getVoltageSetpoint", "db/d09/a03131.html#acdda170b83474c9b8bff6cbb0da9d4d2", null ],
+    [ "getVscIIDM", "db/d09/a03131.html#af138bb8ce2de681d8a9103e12ff4d689", null ],
+    [ "hasP", "db/d09/a03131.html#ada606654d36c2cb0b0275732cb45678c", null ],
+    [ "hasQ", "db/d09/a03131.html#a717dfcec0cd68ee073d5e58df51ca4ee", null ],
+    [ "importStaticParameters", "db/d09/a03131.html#afd3c4b5e8525862ed89dad6c855e9054", null ],
+    [ "isConnected", "db/d09/a03131.html#aa1d6227483041c513485767f86ef7dfd", null ],
+    [ "setBusInterface", "db/d09/a03131.html#adc78a2ee2f7618e287df9a85a2af858b", null ],
+    [ "setVoltageLevelInterface", "db/d09/a03131.html#ae168bb00d8250f3184ee3fc7f818aad9", null ],
+    [ "vscConverterIIDM_", "db/d09/a03131.html#a6e075e8f327e16032f4a1a0f5b389977", null ]
+];

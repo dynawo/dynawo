@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: externalVariables::Importer Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('db/d68/a02028.html','../../');});
+$(document).ready(function(){initNavTree('da/df2/a02031.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,123 +94,17 @@ $(document).ready(function(){initNavTree('db/d68/a02028.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="../../da/d3e/a02025.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">externalVariables::Importer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">externalVariables::Importer Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../db/d68/a02028.html" title="Importer interface class. ">Importer</a> interface class.  
- <a href="../../db/d68/a02028.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../de/d79/a00203_source.html">EXTVARImporter.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for externalVariables::Importer:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../db/d68/a02028.png" usemap="#externalVariables::Importer_map" alt=""/>
-  <map id="externalVariables::Importer_map" name="externalVariables::Importer_map">
-<area href="../../df/dfb/a02068.html" title="XML importer interface class. " alt="externalVariables::XmlImporter" shape="rect" coords="0,56,184,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a93f76660e61ef93618c1ff07a4c11413"><td class="memItemLeft" align="right" valign="top"><a id="a93f76660e61ef93618c1ff07a4c11413"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/a02028.html#a93f76660e61ef93618c1ff07a4c11413">~Importer</a> ()=default</td></tr>
-<tr class="memdesc:a93f76660e61ef93618c1ff07a4c11413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a93f76660e61ef93618c1ff07a4c11413"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eb48a3a9478286c14863bce5b4cefc0"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d1/d39/a02048.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/a02028.html#a9eb48a3a9478286c14863bce5b4cefc0">importFromFile</a> (const std::string &amp;fileName) const =0</td></tr>
-<tr class="memdesc:a9eb48a3a9478286c14863bce5b4cefc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#a9eb48a3a9478286c14863bce5b4cefc0">More...</a><br /></td></tr>
-<tr class="separator:a9eb48a3a9478286c14863bce5b4cefc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac70d88ef04caa547f31ed55a92117307"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d1/d39/a02048.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/a02028.html#ac70d88ef04caa547f31ed55a92117307">importFromStream</a> (std::istream &amp;stream) const =0</td></tr>
-<tr class="memdesc:ac70d88ef04caa547f31ed55a92117307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#ac70d88ef04caa547f31ed55a92117307">More...</a><br /></td></tr>
-<tr class="separator:ac70d88ef04caa547f31ed55a92117307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../db/d68/a02028.html" title="Importer interface class. ">Importer</a> interface class. </p>
-<p>Import class for dynamic models collections. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9eb48a3a9478286c14863bce5b4cefc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eb48a3a9478286c14863bce5b4cefc0">&#9670;&nbsp;</a></span>importFromFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d1/d39/a02048.html">VariablesCollection</a>&gt; externalVariables::Importer::importFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileName</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Import external (i.e. C++-connected) variables. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fileName</td><td>File name </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
-
-<p>Implemented in <a class="el" href="../../df/dfb/a02068.html#a6d72f799f4dbe35a4d2f3ebc30f56b2f">externalVariables::XmlImporter</a>.</p>
-
-</div>
-</div>
-<a id="ac70d88ef04caa547f31ed55a92117307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac70d88ef04caa547f31ed55a92117307">&#9670;&nbsp;</a></span>importFromStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d1/d39/a02048.html">VariablesCollection</a>&gt; externalVariables::Importer::importFromStream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Import external (i.e. C++-connected) variables. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>Stream to import </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
-
-<p>Implemented in <a class="el" href="../../df/dfb/a02068.html#ad9b45ff32142b4a1a4cb5ea63e929463">externalVariables::XmlImporter</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../de/d79/a00203_source.html">EXTVARImporter.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../da/df2/a02031.html">externalVariables::Importer</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../da/df2/a02031.html#a9eb48a3a9478286c14863bce5b4cefc0">importFromFile</a>(const std::string &amp;fileName) const =0</td><td class="entry"><a class="el" href="../../da/df2/a02031.html">externalVariables::Importer</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/df2/a02031.html#ac70d88ef04caa547f31ed55a92117307">importFromStream</a>(std::istream &amp;stream) const =0</td><td class="entry"><a class="el" href="../../da/df2/a02031.html">externalVariables::Importer</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/df2/a02031.html#a93f76660e61ef93618c1ff07a4c11413">~Importer</a>()=default</td><td class="entry"><a class="el" href="../../da/df2/a02031.html">externalVariables::Importer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -226,8 +120,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../db/d68/a02028.html">Importer</a></li>
-    <li class="footer">Generated on Fri Nov 29 2024 18:09:43 for Dynawo by
+    <li class="footer">Generated on Mon Dec 2 2024 13:32:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

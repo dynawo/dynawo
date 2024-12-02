@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: PARXmlHandler.h File Reference</title>
+<title>Dynawo: PARXmlExporter.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,55 +97,24 @@ $(document).ready(function(){initNavTree('df/d70/a00431.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">PARXmlHandler.h File Reference</div>  </div>
+<div class="title">PARXmlExporter.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler for parameters collection file : header file.  
+<p>Dynawo parameters collection XML exporter : header file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;xml/sax/parser/ComposableDocumentHandler.h&gt;</code><br />
-<code>#include &lt;xml/sax/parser/ComposableElementHandler.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../df/d15/a00416_source.html">PARParametersSetCollection.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d9c/a00413_source.html">PARParametersSet.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d00/a00401_source.html">PARMacroParameterSet.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/de6/a00404_source.html">PARMacroParSet.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../db/dbc/a00395_source.html">PARExporter.h</a>&quot;</code><br />
 </div>
 <p><a href="../../df/d70/a00431_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4e/a02484.html">parameters::TableParameter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure defining a parameter element inside a table  <a href="../../de/d4e/a02484.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d57/a02488.html">parameters::ParInTableHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse a par element inside a table element.  <a href="../../d6/d57/a02488.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d90/a02492.html">parameters::ParTableHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse parTable element.  <a href="../../d6/d90/a02492.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df5/a02496.html">parameters::ParHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse parameter element.  <a href="../../d1/df5/a02496.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dad/a02500.html">parameters::RefHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse reference element.  <a href="../../d4/dad/a02500.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df4/a02504.html">parameters::MacroParSetHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse macroParSet element.  <a href="../../d3/df4/a02504.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/de2/a02508.html">parameters::SetHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse a set of parameter element.  <a href="../../d9/de2/a02508.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/da2/a02512.html">parameters::MacroParameterSetHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse a set of macroParameterSet element.  <a href="../../db/da2/a02512.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dab/a02516.html">parameters::XmlHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters file handler class.  <a href="../../d2/dab/a02516.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d50/a02487.html">parameters::XmlExporter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">XML exporter interface class.  <a href="../../d1/d50/a02487.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler for parameters collection file : header file. </p>
-<p>XmlHandler is the implementation of Dynawo handler for parsing parameters collection files. </p>
+<div class="textblock"><p>Dynawo parameters collection XML exporter : header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -162,8 +131,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_3ca465b5eed564a5034afd193fcfe73a.html">PAR</a></li><li class="navelem"><a class="el" href="../../df/d70/a00431.html">PARXmlHandler.h</a></li>
-    <li class="footer">Generated on Fri Nov 29 2024 18:09:42 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_3ca465b5eed564a5034afd193fcfe73a.html">PAR</a></li><li class="navelem"><a class="el" href="../../df/d70/a00431.html">PARXmlExporter.h</a></li>
+    <li class="footer">Generated on Mon Dec 2 2024 13:32:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
