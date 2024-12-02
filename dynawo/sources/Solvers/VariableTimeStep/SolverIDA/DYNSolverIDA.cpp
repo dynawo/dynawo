@@ -102,6 +102,7 @@ maxcor_(4),
 maxncf_(10),
 nlscoef_(0.33),
 flagInit_(false),
+restorationYPrim_(true),
 nbLastTimeSimulated_(0),
 allLogs_(false) {
 }
@@ -151,6 +152,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("maxncf", ParameterSolver("maxncf", VAR_TYPE_INT, notMandatory)));
   parameters_.insert(make_pair("nlscoef", ParameterSolver("nlscoef", VAR_TYPE_DOUBLE, notMandatory)));
   parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("restorationYPrim", ParameterSolver("restorationYPrim", VAR_TYPE_BOOL, notMandatory)));
 }
 
 void
@@ -188,6 +190,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& allLogs = findParameter("allLogs");
   if (allLogs.hasValue())
     allLogs_ = allLogs.getValue<bool>();
+  const ParameterSolver& restorationYPrim = findParameter("restorationYPrim");
+  if (restorationYPrim.hasValue())
+    restorationYPrim_ = restorationYPrim.getValue<bool>();
 }
 
 const std::string&
@@ -394,9 +399,11 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   // KINSOL solver Init
   //-----------------------
   solverKINNormal_.reset(new SolverKINAlgRestoration());
-  solverKINYPrim_.reset(new SolverKINAlgRestoration());
   solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
-  solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+  if (restorationYPrim_) {
+    solverKINYPrim_.reset(new SolverKINAlgRestoration());
+    solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+  }
 }
 
 void
@@ -444,8 +451,10 @@ SolverIDA::calculateIC(double /*tEnd*/) {
                                                   msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
   setDifferentialVariablesIndices();
-  solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
-                                                msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
+  if (restorationYPrim_) {
+    solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
+                                              msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
+  }
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
@@ -457,9 +466,11 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
 
-    solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-    solverKINYPrim_->solve();
-    solverKINYPrim_->getValues(vectorY_, vectorYp_);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+      solverKINYPrim_->solve();
+      solverKINYPrim_->getValues(vectorY_, vectorYp_);
+    }
 
     updateAlgebraicRestorationStatistics();
     updateStatistics();
@@ -797,13 +808,17 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
     setDifferentialVariablesIndices();
-    solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+    }
     return false;  // no J factorization
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                    printflAlgJ_);
     setDifferentialVariablesIndices();
-    solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+    }
     return true;  // new J factorization
   }
   return false;  // no J factorization
@@ -817,9 +832,11 @@ void SolverIDA::updateAlgebraicRestorationStatistics() {
   stats_.nreAlgebraic_ += nre;
   stats_.njeAlgebraic_ += nje;
 
-  solverKINYPrim_->updateStatistics(nNewt, nre, nje);
-  stats_.nreAlgebraic_ += nre;
-  stats_.njeAlgebraic_ += nje;
+  if (restorationYPrim_) {
+    solverKINYPrim_->updateStatistics(nNewt, nre, nje);
+    stats_.nreAlgebraicPrim_ += nre;
+    stats_.njeAlgebraicPrim_ += nje;
+  }
 }
 
 /*
@@ -862,14 +879,17 @@ SolverIDA::reinit() {
       solverKINNormal_->solve(noInitSetup, evaluateOnlyMode);
       solverKINNormal_->getValues(vectorY_, vectorYp_);
 
-      // Recomputation of differential variables' values
-      for (unsigned int i = 0; i < modelYType.size(); i++)
-        if (modelYType[i] != DYN::DIFFERENTIAL)
-          vectorYp_[i] = 0;
+      if (restorationYPrim_) {
+        // Recomputation of differential variables' values
+        for (unsigned int i = 0; i < modelYType.size(); i++)
+          if (modelYType[i] != DYN::DIFFERENTIAL)
+            vectorYp_[i] = 0;
 
-      solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-      solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
-      solverKINYPrim_->getValues(vectorY_, vectorYp_);
+        solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+        solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
+        solverKINYPrim_->getValues(vectorY_, vectorYp_);
+      }
+
       model_->reinitMode();
 
       // Update statistics
@@ -898,7 +918,6 @@ SolverIDA::reinit() {
     if (newReinit_) {
       updateStatistics();
 
-      Trace::info() << "call of IDAReInit" << Trace::endline;
       int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
       if (flag0 < 0)
         throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
@@ -908,7 +927,6 @@ SolverIDA::reinit() {
   if (!newReinit_) {
     updateStatistics();
 
-    Trace::info() << "call of IDAReInit" << Trace::endline;
     int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
     if (flag0 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");

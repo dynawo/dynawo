@@ -222,6 +222,8 @@ Solver::Impl::resetStats() {
   stats_.nme_ = 0;
   stats_.nreAlgebraic_ = 0;
   stats_.njeAlgebraic_ = 0;
+  stats_.nreAlgebraicPrim_ = 0;
+  stats_.njeAlgebraicPrim_ = 0;
   stats_.nmeDiff_= 0;
   stats_.nmeAlg_= 0;
   stats_.nmeAlgJ_ = 0;
@@ -570,6 +572,8 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << Trace::endline;
 }
 
 void
@@ -593,6 +597,8 @@ Solver::Impl::printEndConsole() const {
   std::cout << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << std::endl;
+  std::cout << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << std::endl;
+  std::cout << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << std::endl;
 }
 
 }  // end namespace DYN
