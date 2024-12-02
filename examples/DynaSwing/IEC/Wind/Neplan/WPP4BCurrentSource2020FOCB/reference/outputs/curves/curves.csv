@@ -1,4 +1,4 @@
-time;WPP4B_WPP_wPPControl_measurements_PGenNomPu;WPP4B_WPP_wPPControl_measurements_QGenNomPu;WPP4B_WPP_wPPControl_measurements_UPu;WPP4B_WPP_terminal_V_re;WPP4B_WPP_terminal_V_im;WPP4B_WPP_terminal_i_re;WPP4B_WPP_terminal_i_im;WPP4B_WPP_wT4BCurrentSource_gridProtection_fOCB;
+time;WPP4B_WPP_wPPControl_measurements_PPu;WPP4B_WPP_wPPControl_measurements_QPu;WPP4B_WPP_wPPControl_measurements_UPu;WPP4B_WPP_terminal_V_re;WPP4B_WPP_terminal_V_im;WPP4B_WPP_terminal_i_re;WPP4B_WPP_terminal_i_im;WPP4B_WPP_wT4BCurrentSource_gridProtection_fOCB;
 0.000000;1.000164;-0.210035;1.000164;0.976169;0.217767;-0.930285;-0.422694;-1.000000;
 0.000001;1.000164;-0.210035;1.000164;0.976169;0.217767;-0.930285;-0.422694;-1.000000;
 0.000002;1.000164;-0.210035;1.000164;0.976169;0.217767;-0.930285;-0.422694;-1.000000;

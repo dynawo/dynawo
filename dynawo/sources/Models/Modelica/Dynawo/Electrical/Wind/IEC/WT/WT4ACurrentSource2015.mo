@@ -101,9 +101,9 @@ equation
     Line(points = {{-2, 36}, {-86, 36}, {-86, 102}, {-28, 102}, {-28, 98}}, color = {0, 0, 127}));
   connect(complexToPolar.phi, pll.theta) annotation(
     Line(points = {{-2, 24}, {-60, 24}, {-60, 108}, {-12, 108}, {-12, 98}}, color = {0, 0, 127}));
-  connect(measurementsPQ.PGenNomPu, control4A.PWTPu) annotation(
+  connect(measurementsPQ.PPu, control4A.PWTPu) annotation(
     Line(points = {{-13, -79}, {-12.5, -79}, {-12.5, -73}, {-92, -73}, {-92, -46}, {-80, -46}}, color = {0, 0, 127}));
-  connect(measurementsPQ.QGenNomPu, control4A.QWTPu) annotation(
+  connect(measurementsPQ.QPu, control4A.QWTPu) annotation(
     Line(points = {{-7, -79}, {-6.5, -79}, {-6.5, -69}, {-88, -69}, {-88, -58.5}, {-80, -58.5}, {-80, -58}}, color = {0, 0, 127}));
   connect(wT4Injector.uWtPu, measurementsPQ.uPu) annotation(
     Line(points = {{42, -28}, {50, -28}, {50, -84}, {1, -84}}, color = {85, 170, 255}));

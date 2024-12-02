@@ -123,9 +123,9 @@ equation
     Line(points = {{42, -28}, {50, -28}, {50, -84}, {3, -84}}, color = {85, 170, 255}));
   connect(wT4Injector.iWtPu, measurementsPQ.iPu) annotation(
     Line(points = {{42, -24}, {58, -24}, {58, -90}, {3, -90}}, color = {85, 170, 255}));
-  connect(measurementsPQ.PGenNomPu, control4B.PWTPu) annotation(
+  connect(measurementsPQ.PPu, control4B.PWTPu) annotation(
     Line(points = {{-11, -79}, {-10.5, -79}, {-10.5, -75}, {-92, -75}, {-92, -46}, {-80, -46}}, color = {0, 0, 127}));
-  connect(measurementsPQ.QGenNomPu, control4B.QWTPu) annotation(
+  connect(measurementsPQ.QPu, control4B.QWTPu) annotation(
     Line(points = {{-5, -79}, {-5.5, -79}, {-5.5, -69}, {-86, -69}, {-86, -58}, {-80, -58}}, color = {0, 0, 127}));
 
   annotation(
