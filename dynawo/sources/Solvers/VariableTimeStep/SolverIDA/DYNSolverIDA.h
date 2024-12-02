@@ -269,6 +269,11 @@ class SolverIDA : public Solver::Impl {
     return smj_;
   }
 
+  /**
+  * @brief Check jacobian
+  */
+  int solveTaskToInt();
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
@@ -286,6 +291,7 @@ class SolverIDA : public Solver::Impl {
   double relAccuracy_;  ///< absolute error tolerance
   double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
   bool uround_;  ///< to activate change on uround
+  std::string solveTask_;  ///< test
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
