@@ -110,9 +110,15 @@ absAccuracy_(0.),
 relAccuracy_(0.),
 deltacj_(0.25),
 uround_(false),
+newReinit_(false),
 solveTask_("ONE_STEP"),
+maxnef_(10),
+maxcor_(4),
+maxncf_(10),
+nlscoef_(0.33),
 flagInit_(false),
-nbLastTimeSimulated_(0) {
+nbLastTimeSimulated_(0),
+allLogs_(false) {
 }
 
 void
@@ -153,7 +159,13 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, notMandatory)));
   parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("newReinit", ParameterSolver("newReinit", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("solveTask", ParameterSolver("solveTask", VAR_TYPE_STRING, notMandatory)));
+  parameters_.insert(make_pair("maxnef", ParameterSolver("maxnef", VAR_TYPE_INT, notMandatory)));
+  parameters_.insert(make_pair("maxcor", ParameterSolver("maxcor", VAR_TYPE_INT, notMandatory)));
+  parameters_.insert(make_pair("maxncf", ParameterSolver("maxncf", VAR_TYPE_INT, notMandatory)));
+  parameters_.insert(make_pair("nlscoef", ParameterSolver("nlscoef", VAR_TYPE_DOUBLE, notMandatory)));
+  parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, notMandatory)));
 }
 
 void
@@ -170,9 +182,27 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& uround = findParameter("uround");
   if (uround.hasValue())
     uround_ = uround.getValue<bool>();
+  const ParameterSolver& newReinit = findParameter("newReinit");
+  if (newReinit.hasValue())
+    newReinit_ = newReinit.getValue<bool>();
   const ParameterSolver& solveTask = findParameter("solveTask");
   if (solveTask.hasValue())
     solveTask_ = solveTask.getValue<string>();
+  const ParameterSolver& maxnef = findParameter("maxnef");
+  if (maxnef.hasValue())
+    maxnef_ = maxnef.getValue<int>();
+  const ParameterSolver& maxcor = findParameter("maxcor");
+  if (maxcor.hasValue())
+    maxcor_ = maxcor.getValue<int>();
+  const ParameterSolver& maxncf = findParameter("maxncf");
+  if (maxncf.hasValue())
+    maxncf_ = maxncf.getValue<int>();
+  const ParameterSolver& nlscoef = findParameter("nlscoef");
+  if (nlscoef.hasValue())
+    nlscoef_ = nlscoef.getValue<double>();
+  const ParameterSolver& allLogs = findParameter("allLogs");
+  if (allLogs.hasValue())
+    allLogs_ = allLogs.getValue<bool>();
 }
 
 std::string
@@ -358,6 +388,22 @@ SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tE
   flag = IDASetMaxNumJacsIC(IDAMem_, 100);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxNumJacsIC");
+
+  flag = IDASetMaxErrTestFails(IDAMem_, maxnef_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxErrTestFails");
+
+  flag = IDASetMaxNonlinIters(IDAMem_, maxcor_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxNonlinIters");
+
+  flag = IDASetMaxConvFails(IDAMem_, maxncf_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxConvFails");
+
+  flag = IDASetNonlinConvCoef(IDAMem_, nlscoef_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNonlinConvCoef");
 
   // KINSOL solver Init
   //-----------------------
@@ -650,7 +696,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
-  int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
+  int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, solveTaskToInt());
   if (uround_) {
     int flag1 = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * (getTimeStep() + tNxt)));
     // std::cout << "uround " << getCurrentPrecision() / (100. * (getTimeStep() + tNxt)) << std::endl;
@@ -686,8 +732,8 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     nbLastTimeSimulated_ = 0;
   }
 
-// #ifdef _DEBUG_
-  // A root has been found at tNxt
+if (allLogs_) {
+    // A root has been found at tNxt
   if (flag == IDA_ROOT_RETURN) {
     vector<state_g> rootsFound = getRootsFound();
     int numRoots = 0;
@@ -758,7 +804,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   // Destroying the specific data structures
   N_VDestroy_Serial(nvWeights);
   N_VDestroy_Serial(nvErrors);
-// #endif
+}
 }
 
 bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
@@ -811,6 +857,7 @@ SolverIDA::reinit() {
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   if (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_) {
+    Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
     do {
       model_->rotateBuffers();
       state_.reset();
@@ -849,7 +896,8 @@ SolverIDA::reinit() {
         break;
       } else {
 // #ifdef _DEBUG_
-        printUnstableRoot(tSolve_, g0_, g1_);
+        if (allLogs_)
+          printUnstableRoot(tSolve_, g0_, g1_);
 // #endif
         g0_.assign(g1_.begin(), g1_.end());
         evalZMode(g0_, g1_, tSolve_);
@@ -860,13 +908,25 @@ SolverIDA::reinit() {
       if (counter >= maxNumberUnstableRoots)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
+
+    if (newReinit_) {
+      updateStatistics();
+
+      Trace::info() << "call of IDAReInit" << Trace::endline;
+      int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+      if (flag0 < 0)
+        throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+    }
   }
 
-  updateStatistics();
+  if (!newReinit_) {
+    updateStatistics();
 
-  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
-  if (flag0 < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+    Trace::info() << "call of IDAReInit" << Trace::endline;
+    int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+    if (flag0 < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+  }
 }
 
 // #ifdef _DEBUG_
