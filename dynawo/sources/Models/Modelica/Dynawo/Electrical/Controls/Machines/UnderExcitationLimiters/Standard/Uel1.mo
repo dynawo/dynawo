@@ -62,9 +62,9 @@ model Uel1 "IEEE (2016) underexcitation limiter type UEL1 model"
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = Kui, Kp = Kul, YMax = VUiMaxPu, YMin = VUiMinPu) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tU2, 1}, b = {tU1, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunctionBypass transferFunction(a = {tU2, 1}, b = {tU1, 1}) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tU4, 1}, b = {tU3, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunctionBypass transferFunction1(a = {tU4, 1}, b = {tU3, 1}) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter

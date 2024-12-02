@@ -63,9 +63,9 @@ model BasePss3 "IEEE power system stabilizer type 3 base model"
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {A4, A3, 1}, b = {A2, A1, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunctionBypass transferFunction(a = {A4, A3, 1}, b = {A2, A1, 1}) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {A8, A7, 1}, b = {A6, A5, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunctionBypass transferFunction1(a = {A8, A7, 1}, b = {A6, A5, 1}) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VPssMaxPu, uMin = VPssMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
