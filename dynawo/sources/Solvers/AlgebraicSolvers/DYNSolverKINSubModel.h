@@ -68,7 +68,7 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
             const double t0,
             double* yBuffer,
             double* fBuffer,
-            boost::shared_ptr<parameters::ParametersSet> localInitParameters);
+            std::shared_ptr<parameters::ParametersSet> localInitParameters);
 
   /**
    * @brief solve the equations of F(u) = 0 to find the new value of u

@@ -78,7 +78,7 @@ class DynamicData : public boost::noncopyable {
    * @brief set network parameters
    * @param parameters parameters set
    */
-  inline void setNetworkParameters(const boost::shared_ptr<parameters::ParametersSet>& parameters) {
+  inline void setNetworkParameters(const std::shared_ptr<parameters::ParametersSet>& parameters) {
     networkParameters_ = parameters;
   }
 
@@ -86,7 +86,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get network parameters
    * @returns parameters set
    */
-  inline boost::shared_ptr<parameters::ParametersSet> getNetworkParameters() const {
+  inline std::shared_ptr<parameters::ParametersSet> getNetworkParameters() const {
     return networkParameters_;
   }
 
@@ -145,7 +145,7 @@ class DynamicData : public boost::noncopyable {
    * @param id : id of the set of parameters
    * @return set of the parameters associate to the file and the id
    */
-  boost::shared_ptr<parameters::ParametersSet> getParametersSet(const std::string& modelId, const std::string& file, const std::string& id);
+  std::shared_ptr<parameters::ParametersSet> getParametersSet(const std::string& modelId, const std::string& file, const std::string& id);
 
  public:
   /**
@@ -219,7 +219,7 @@ class DynamicData : public boost::noncopyable {
    * @param modelSet model parameters set
    */
   void resolveParReferences(boost::shared_ptr<dynamicdata::Model> model,
-                            boost::shared_ptr<parameters::ParametersSet> modelSet);
+                            std::shared_ptr<parameters::ParametersSet> modelSet);
 
   /**
    * @brief create model descriptions
@@ -232,8 +232,8 @@ class DynamicData : public boost::noncopyable {
    * @param udmName : name of the unit dynamic model
    * @param udmSet : set of parameters associated to the unit dynamic model
    */
-  void mergeParameters(boost::shared_ptr<parameters::ParametersSet>& concatParams, const std::string& udmName,
-                       const boost::shared_ptr<parameters::ParametersSet>& udmSet);
+  void mergeParameters(std::shared_ptr<parameters::ParametersSet>& concatParams, const std::string& udmName,
+                       const std::shared_ptr<parameters::ParametersSet>& udmSet);
 
   /**
    * @brief associate set of parameters with models descriptions
@@ -263,7 +263,7 @@ class DynamicData : public boost::noncopyable {
   boost::shared_ptr<dynamicdata::DynamicModelsCollection> dynamicModelsCollection_;  ///< dynamic models collection, input from API DYD
 
   boost::shared_ptr<DataInterface> dataInterface_;  ///< static data interface
-  boost::shared_ptr<parameters::ParametersSet> networkParameters_;  ///< network parameters
+  std::shared_ptr<parameters::ParametersSet> networkParameters_;  ///< network parameters
 
   /// warning : keep map container to be sure that models are always sorted with the same order whatever is the order in input file to avoid mathematical issues
   std::map<std::string, boost::shared_ptr<ModelDescription> > modelDescriptions_;  ///< map of model descriptions

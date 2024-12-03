@@ -77,15 +77,15 @@ extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
     Placement(visible = true, transformation(origin = {400, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {311, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tBattery, y_start = 0)  annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tBattery, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {270, -250}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {320, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter4(limitsAtInit = true, uMax = SOCMaxPu, uMin = SOCMinPu)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter4(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = SOCMaxPu, uMin = SOCMinPu)  annotation(
     Placement(visible = true, transformation(origin = {360, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = Iqh1Pu, uMin = Iql1Pu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = Iqh1Pu, uMin = Iql1Pu) annotation(
     Placement(visible = true, transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant SOCinit(k = SOC0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant SOCinit(k = SOC0Pu) annotation(
     Placement(visible = true, transformation(origin = {269, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameter

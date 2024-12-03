@@ -137,7 +137,7 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {10, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneOmega(uMax = DeltaOmegaDbPu) annotation(
     Placement(visible = true, transformation(origin = {168, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivativetDPctPc(T = tFp, initType = Modelica.Blocks.Types.Init.InitialState, k = tDp, y_start = 0)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivativetDPctPc(T = tFp, initType = Modelica.Blocks.Types.Init.InitialState, k = tDp, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {204, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertEn(T = tEn, initType = Modelica.Blocks.Types.Init.InitialState, y_start = initPcPu) annotation(
     Placement(visible = true, transformation(origin = {304, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -175,17 +175,17 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {206, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegratortRh(initType = Modelica.Blocks.Types.Init.InitialState, k = 1 / tRh, outMax = PRhMaxPu, outMin = 0, y_start = if tRh > 0.0 then Pm0Pu else 0.0) annotation(
     Placement(visible = true, transformation(origin = {330, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterCv(uMax = CHoPu, uMin = CHcPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterCv(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = CHoPu, uMin = CHcPu) annotation(
     Placement(visible = true, transformation(origin = {86, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterDeltaF(uMax = OmegaFMaxPu, uMin = OmegaFMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterDeltaF(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = OmegaFMaxPu, uMin = OmegaFMinPu) annotation(
     Placement(visible = true, transformation(origin = {78, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterDeltaOmega(uMax = OmegaOmegaMaxPu, uMin = OmegaOmegaMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterDeltaOmega(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = OmegaOmegaMaxPu, uMin = OmegaOmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {254, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterIv(uMax = CIoPu, uMin = CIcPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterIv(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = CIoPu, uMin = CIcPu) annotation(
     Placement(visible = true, transformation(origin = {86, -294}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterP(uMax = PMaxPu, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterP(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {384, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterP2(uMax = PMaxPu, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterP2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {460, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minEmergencyBoiler annotation(
     Placement(visible = true, transformation(origin = {14, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

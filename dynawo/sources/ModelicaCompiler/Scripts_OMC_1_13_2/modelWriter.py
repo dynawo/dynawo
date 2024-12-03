@@ -330,6 +330,7 @@ class ModelWriter(ModelWriterBase):
         self.file_content.append("#include <math.h>\n")
         self.file_content.append("\n")
         self.file_content.append("#include \"DYNElement.h\"\n")
+        self.file_content.append("#include \"PARParametersSetFactory.h\"\n")
         self.file_content.append("\n")
         self.file_content.append(HASHTAG_INCLUDE + self.className + ".h\"\n")
         if self.init_pb_:
@@ -605,7 +606,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_setParameters(self):
         self.addEmptyLine()
-        self.addLine(self.void_function_prefix+ self.className + "::setParameters( boost::shared_ptr<parameters::ParametersSet> params )\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setParameters( std::shared_ptr<parameters::ParametersSet> params )\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_setparams())
@@ -617,7 +618,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_setSharedParamsDefault(self):
         self.addEmptyLine()
-        self.addLine("boost::shared_ptr<parameters::ParametersSet> Model" + self.className + "::setSharedParametersDefaultValues()\n")
+        self.addLine("std::shared_ptr<parameters::ParametersSet> Model" + self.className + "::setSharedParametersDefaultValues()\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_setsharedparamsdefaultvalue())

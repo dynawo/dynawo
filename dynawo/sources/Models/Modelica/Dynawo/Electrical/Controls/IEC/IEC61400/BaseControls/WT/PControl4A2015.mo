@@ -27,7 +27,7 @@ model PControl4A2015 "Active power control module for type 4A wind turbines (IEC
   Modelica.Blocks.Interfaces.RealInput UWTPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFiltP4A, y_start = U0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFiltP4A, y_start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

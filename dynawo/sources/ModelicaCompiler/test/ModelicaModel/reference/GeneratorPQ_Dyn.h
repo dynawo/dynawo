@@ -41,8 +41,8 @@ namespace DYN {
     void evalStaticFType_omc(propertyF_t* fType);
     void evalDynamicYType_omc(propertyContinuousVar_t* yType);
     void evalDynamicFType_omc(propertyF_t* fType);
-    boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
-    void setParameters( boost::shared_ptr<parameters::ParametersSet> params );
+    std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
+    void setParameters( std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
@@ -62,7 +62,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("e751e62d76527f62b6c445d947278912"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("5c13ffb62c43d78c709fc8792b49ef8b"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
 
     private:

@@ -26,6 +26,7 @@ set(API_PAR_SOURCES
     PARParametersSet.cpp
     PARParametersSetCollection.cpp
     PARParametersSetCollectionFactory.cpp
+    PARParametersSetFactory.cpp
     PARXmlExporter.cpp
     PARXmlHandler.cpp
     PARXmlImporter.cpp
@@ -41,6 +42,7 @@ set(API_PAR_INCLUDE_HEADERS
     PARParametersSet.h
     PARParametersSetCollection.h
     PARParametersSetCollectionFactory.h
+    PARParametersSetFactory.h
     PARXmlExporter.h
     PARXmlImporter.h
     PARExporter.h

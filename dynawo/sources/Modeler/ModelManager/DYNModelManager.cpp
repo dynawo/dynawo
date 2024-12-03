@@ -27,6 +27,7 @@
 #include <boost/serialization/vector.hpp>
 
 #include "PARParameter.h"
+#include "PARParametersSetFactory.h"
 
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
@@ -53,6 +54,7 @@ using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
 
 using parameters::ParametersSet;
+using parameters::ParametersSetFactory;
 
 namespace DYN {
 
@@ -117,7 +119,7 @@ ModelManager::initializeStaticData() {
 }
 
 void
-ModelManager::createParametersValueSet(const std::unordered_map<string, ParameterModeler>& parameters, shared_ptr<ParametersSet>& parametersSet) {
+ModelManager::createParametersValueSet(const std::unordered_map<string, ParameterModeler>& parameters, std::shared_ptr<ParametersSet>& parametersSet) {
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = it->second;
     const string& parameterName = parameter.getName();
@@ -168,7 +170,7 @@ ModelManager::init(const double t0) {
 
 void ModelManager::setSubModelParameters() {
   if (modelModelica()->isDataStructInitialized()) {
-    shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
+    std::shared_ptr<ParametersSet> mergedParametersSet = ParametersSetFactory::newParametersSet("merged_" + name());
 
     const std::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
 
@@ -471,7 +473,7 @@ ModelManager::collectSilentZ(BitMask* silentZTable) {
 void
 ModelManager::setSharedParametersDefaultValues(const bool isInit, const parameterOrigin_t& origin) {
   ModelModelica * model = isInit ? modelModelicaInit() : modelModelicaDynamic();
-  const shared_ptr<parameters::ParametersSet> sharedParametersInitialValues = model->setSharedParametersDefaultValues();
+  const std::shared_ptr<parameters::ParametersSet> sharedParametersInitialValues = model->setSharedParametersDefaultValues();
   const std::unordered_map<string, ParameterModeler>& parameters = isInit ? getParametersInit() : getParametersDynamic();
 
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
@@ -518,7 +520,7 @@ ModelManager::initParams() {
     modelInitUsed_ = true;
   }
 
-  shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
+  std::shared_ptr<ParametersSet> mergedParametersSet = ParametersSetFactory::newParametersSet("merged_" + name());
   const std::unordered_map<string, ParameterModeler>& parametersInit = getParametersInit();
   createParametersValueSet(parametersInit, mergedParametersSet);
 

@@ -410,7 +410,7 @@ class SubModel {
    * @param t0 time to use when calling initialization
    * @param localInitParameters local initialization solver parameters
    */
-  void initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters);
+  void initSub(const double t0, std::shared_ptr<parameters::ParametersSet> localInitParameters);
 
   /**
    * @brief initialize size and offset to use during the simulation
@@ -895,7 +895,7 @@ class SubModel {
    * @param parametersSet the set to scan for a value
    * @param origin the origin of the set data (MO, PAR, INIT, ...)
    */
-  void setParameterFromSet(ParameterModeler& parameter, const boost::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
+  void setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
@@ -1360,7 +1360,7 @@ class SubModel {
    *
    * @param params parameters set read from PAR file
    */
-  void setPARParameters(const boost::shared_ptr<parameters::ParametersSet>& params);
+  void setPARParameters(const std::shared_ptr<parameters::ParametersSet>& params);
 
   /**
    * @brief retrieve the value of a parameter
@@ -1524,7 +1524,7 @@ class SubModel {
   }
 
  protected:
-  boost::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
+  std::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
 
   // size of subModel
   unsigned int sizeF_;  ///< size of the local F function
@@ -1577,7 +1577,7 @@ class SubModel {
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
-  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+  std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
  private:
   int sizeFSave_;  ///< save of the size of F

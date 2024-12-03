@@ -81,7 +81,7 @@ BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<tim
                                                                                   vl.getUMaxPu()*vNom,
                                                                                   vl.getUMaxPu(),
                                                                                   params_->getId()));
-      distanceToBusFailingCriteriaMap.insert({busFailingCriteria->getDistance(), std::move(busFailingCriteria)});
+      distanceToBusFailingCriteriaMap.insert(std::make_pair(busFailingCriteria->getDistance(), std::move(busFailingCriteria)));
     }
     if (vl.hasUMinPu() && v < vl.getUMinPu()*vNom) {
       std::unique_ptr<FailingCriteria> busFailingCriteria(new BusFailingCriteria(Bound::MIN,
@@ -91,7 +91,7 @@ BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<tim
                                                                                   vl.getUMinPu()*vNom,
                                                                                   vl.getUMinPu(),
                                                                                   params_->getId()));
-      distanceToBusFailingCriteriaMap.insert({busFailingCriteria->getDistance(), std::move(busFailingCriteria)});
+      distanceToBusFailingCriteriaMap.insert(std::make_pair(busFailingCriteria->getDistance(), std::move(busFailingCriteria)));
     }
   }
   if (!distanceToBusFailingCriteriaMap.empty()) {
@@ -337,7 +337,7 @@ LoadCriteria::checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::Load
                                                             loadActivePower,
                                                             params_->getPMax(),
                                                             params_->getId()));
-      distanceToLoadFailingCriteriaMap.insert({loadFailingCriteria->getDistance(), std::move(loadFailingCriteria)});
+      distanceToLoadFailingCriteriaMap.insert(std::make_pair(loadFailingCriteria->getDistance(), std::move(loadFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(load->getID());
     }
@@ -347,7 +347,7 @@ LoadCriteria::checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::Load
                                                             loadActivePower,
                                                             params_->getPMin(),
                                                             params_->getId()));
-      distanceToLoadFailingCriteriaMap.insert({loadFailingCriteria->getDistance(), std::move(loadFailingCriteria)});
+      distanceToLoadFailingCriteriaMap.insert(std::make_pair(loadFailingCriteria->getDistance(), std::move(loadFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(load->getID());
     }
@@ -593,7 +593,7 @@ GeneratorCriteria::checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN:
                                                                 generatorActivePower,
                                                                 params_->getPMax(),
                                                                 params_->getId()));
-      distanceToGeneratorFailingCriteriaMap.insert({generatorFailingCriteria->getDistance(), std::move(generatorFailingCriteria)});
+      distanceToGeneratorFailingCriteriaMap.insert(std::make_pair(generatorFailingCriteria->getDistance(), std::move(generatorFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(generator->getID());
     }
@@ -603,7 +603,7 @@ GeneratorCriteria::checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN:
                                                                 generatorActivePower,
                                                                 params_->getPMin(),
                                                                 params_->getId()));
-      distanceToGeneratorFailingCriteriaMap.insert({generatorFailingCriteria->getDistance(), std::move(generatorFailingCriteria)});
+      distanceToGeneratorFailingCriteriaMap.insert(std::make_pair(generatorFailingCriteria->getDistance(), std::move(generatorFailingCriteria)));
       isCriteriaOk &= false;
       alreadyChecked.insert(generator->getID());
     }

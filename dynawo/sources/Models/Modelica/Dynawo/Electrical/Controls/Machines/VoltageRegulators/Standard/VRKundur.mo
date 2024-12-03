@@ -38,7 +38,7 @@ model VRKundur "Proportional voltage regulator based on Kundur's book"
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain exciter(k = Ka) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterAVR(uMax = EfdMaxPu, uMin = EfdMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterAVR(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EfdMaxPu, uMin = EfdMinPu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";

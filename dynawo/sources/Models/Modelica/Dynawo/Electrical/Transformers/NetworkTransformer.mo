@@ -78,7 +78,7 @@ equation
     terminal2.V = rTfoPu * terminal1.V + ZPu * terminal2.i;
     terminal1.i = rTfoPu * rTfoPu * YPu * terminal1.V - rTfoPu * terminal2.i;
     // Equations can also be rewritten with the following
-    // terminal1.i = rTfoPu * rTfoPu * ( 1 / ZPu + YPu) * terminal1.V - rTfoPu * terminal2.V / ZPu;
+    // terminal1.i = rTfoPu * rTfoPu * (1 / ZPu + YPu) * terminal1.V - rTfoPu * terminal2.V / ZPu;
     // terminal2.i = - rTfoPu * terminal1.V / ZPu + terminal2.V / ZPu;
   else
     terminal1.i = Complex(0);

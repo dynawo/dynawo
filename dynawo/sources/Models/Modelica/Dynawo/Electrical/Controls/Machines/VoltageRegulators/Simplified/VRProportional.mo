@@ -45,7 +45,7 @@ model VRProportional "Simple proportional voltage regulator"
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limUsRef(uMax = UsRefMaxPu, uMin = UsRefMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limUsRef(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UsRefMaxPu, uMin = UsRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UsRefTotal annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
