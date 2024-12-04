@@ -58,8 +58,8 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator2">
     <par type="DOUBLE" name="generator_PMin" value="0"/>
@@ -74,8 +74,8 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator5">
     <par type="DOUBLE" name="generator_PMin" value="0"/>
@@ -90,8 +90,8 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator8">
     <par type="DOUBLE" name="generator_PMin" value="0"/>
@@ -106,8 +106,8 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator11">
     <par type="DOUBLE" name="generator_PMin" value="0"/>
@@ -122,8 +122,8 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator13">
     <par type="DOUBLE" name="generator_PMin" value="0"/>
@@ -138,8 +138,8 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="50"/>

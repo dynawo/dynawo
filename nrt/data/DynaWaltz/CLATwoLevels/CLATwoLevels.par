@@ -25,8 +25,8 @@
     <par type="DOUBLE" name="generator_QMax" value="100000"/>
     <par type="DOUBLE" name="generator_KGover" value="1"/>
     <par type="DOUBLE" name="generator_PNom" value="1"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Network">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>

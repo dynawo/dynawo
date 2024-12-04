@@ -101,16 +101,16 @@
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator2">
     <macroParSet id="macro_generator_diagram"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl"/>
-    <par type="DOUBLE" name="generator_QDeadBand" value="0.0001"/>
-    <par type="DOUBLE" name="generator_UDeadBand" value="0.0001"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="SVC">
     <macroParSet id="macro_svc"/>

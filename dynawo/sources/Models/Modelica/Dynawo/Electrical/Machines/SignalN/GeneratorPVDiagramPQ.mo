@@ -18,24 +18,24 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   extends BaseClasses.BaseQStator(QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt));
 
 equation
-  when QGenPu + QDeadBand  <= QMinPu and UPu - UDeadBand >= URefPu then
+  when QGenPu + QDeadBandPu  <= QMinPu and UPu - UDeadBandPu > URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBand >= QMaxPu and UPu + UDeadBand <= URefPu then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu + UDeadBandPu < URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
   // If the two following branches branch are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
-  elsewhen QGenPu + QDeadBand  <= QMinPu and UPu == URefPu then
+  elsewhen QGenPu + QDeadBandPu  <= QMinPu and UPu == URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBand >= QMaxPu and UPu == URefPu then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu == URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
-  elsewhen (QGenPu - QDeadBand > QMinPu or UPu + UDeadBand < URefPu) and (QGenPu + QDeadBand < QMaxPu or UPu - UDeadBand > URefPu) then
+  elsewhen (QGenPu - QDeadBandPu > QMinPu or UPu + UDeadBandPu < URefPu) and (QGenPu + QDeadBandPu < QMaxPu or UPu - UDeadBandPu > URefPu) then
     qStatus = QStatus.Standard;
     limUQDown = false;
     limUQUp = false;
