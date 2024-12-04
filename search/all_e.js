@@ -82,7 +82,7 @@ var searchData=
   ['newconstraint',['newConstraint',['../d7/db4/a01747.html#a31310a067201003c050ebc3fdfa6b268',1,'constraints::ConstraintFactory']]],
   ['newcriteria',['newCriteria',['../de/db6/a01627.html#ad19f7032bc29afefcd1415be03099b7d',1,'criteria::CriteriaFactory']]],
   ['newcriteriaparams',['newCriteriaParams',['../dd/d2d/a01635.html#ad9ae1da3af99340b0e7cec3fc66a5a04',1,'criteria::CriteriaParamsFactory']]],
-  ['newcurve',['newCurve',['../d7/db8/a01687.html#a8228634b686d8ca355b39adda62be48b',1,'curves::CurveFactory']]],
+  ['newcurve',['newCurve',['../d7/db8/a01687.html#a54e485a9985fce7a628626f28da43ed9',1,'curves::CurveFactory']]],
   ['newevent',['newEvent',['../d3/d09/a02539.html#ab3c8f7b761200a1466817d647a97aa84',1,'timeline::EventFactory']]],
   ['newfinalstatevalue',['newFinalStateValue',['../d2/d31/a02087.html#a0d4114646c1cfab16b393a580e85f4fb',1,'finalStateValues::FinalStateValueFactory']]],
   ['newidentifiable',['newIdentifiable',['../df/d5b/a01807.html#a5c36c13fa78f88b1ecfe630df9c0e84d',1,'dynamicdata::IdentifiableFactory']]],

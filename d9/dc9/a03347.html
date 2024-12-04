@@ -184,9 +184,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc9/a03347.html#afbc872a1db8139299066e6e7877aa39b">setSolverSpecificParameters</a> ()=0</td></tr>
 <tr class="memdesc:afbc872a1db8139299066e6e7877aa39b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the solver specific parameters value <br /></td></tr>
 <tr class="separator:afbc872a1db8139299066e6e7877aa39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840270377fa5d2f3064423fec4ede3f7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc9/a03347.html#a840270377fa5d2f3064423fec4ede3f7">init</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;model, double t0, double tEnd)=0</td></tr>
-<tr class="memdesc:a840270377fa5d2f3064423fec4ede3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the solver  <a href="#a840270377fa5d2f3064423fec4ede3f7">More...</a><br /></td></tr>
-<tr class="separator:a840270377fa5d2f3064423fec4ede3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac80b12bc7336cf88595714bca1127331"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc9/a03347.html#ac80b12bc7336cf88595714bca1127331">init</a> (const std::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;model, double t0, double tEnd)=0</td></tr>
+<tr class="memdesc:ac80b12bc7336cf88595714bca1127331"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the solver  <a href="#ac80b12bc7336cf88595714bca1127331">More...</a><br /></td></tr>
+<tr class="separator:ac80b12bc7336cf88595714bca1127331"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a723c7b8ffadcb278164d68682fcfc641"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc9/a03347.html#a723c7b8ffadcb278164d68682fcfc641">calculateIC</a> (double tEnd)=0</td></tr>
 <tr class="memdesc:a723c7b8ffadcb278164d68682fcfc641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the intial condition of the DAE.  <a href="#a723c7b8ffadcb278164d68682fcfc641">More...</a><br /></td></tr>
 <tr class="separator:a723c7b8ffadcb278164d68682fcfc641"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -657,8 +657,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a id="a840270377fa5d2f3064423fec4ede3f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a840270377fa5d2f3064423fec4ede3f7">&#9670;&nbsp;</a></span>init()</h2>
+<a id="ac80b12bc7336cf88595714bca1127331"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac80b12bc7336cf88595714bca1127331">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -669,7 +669,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="memname">virtual void DYN::Solver::init </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>model</em>, </td>
         </tr>
         <tr>
@@ -707,7 +707,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d9/d58/a03371.html#aca29a5592e487db33306b0cb72587eed">DYN::Solver::Impl</a>, <a class="el" href="../../d0/d87/a03399.html#aecd605e6632bf5e16750bd93c9f84f19">DYN::SolverIDA</a>, <a class="el" href="../../dc/d58/a03383.html#afc4e29cc7d320c7a59c277b822f8bb17">DYN::SolverSIM</a>, and <a class="el" href="../../df/dea/a03391.html#abeab6a0979630d69f11917a51877fbbc">DYN::SolverTRAP</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d58/a03371.html#a675902d8d8bd2401d8cfe7af994c8168">DYN::Solver::Impl</a>, <a class="el" href="../../d0/d87/a03399.html#aec25378ffd54381973c1666f492f9a96">DYN::SolverIDA</a>, <a class="el" href="../../dc/d58/a03383.html#a1b25a3dfe81673c522ffdfa5293ef6d9">DYN::SolverSIM</a>, and <a class="el" href="../../df/dea/a03391.html#af995a2b5a3da87d31d466c420ce65d1b">DYN::SolverTRAP</a>.</p>
 
 </div>
 </div>
@@ -1204,7 +1204,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dc9/a03347.html">Solver</a></li>
-    <li class="footer">Generated on Wed Dec 4 2024 12:05:22 for Dynawo by
+    <li class="footer">Generated on Wed Dec 4 2024 13:48:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

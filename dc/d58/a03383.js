@@ -8,7 +8,7 @@ var a03383 =
     [ "getName", "dc/d58/a03383.html#a016f6651da5983a23446d040ac01d331", null ],
     [ "getTimeStep", "dc/d58/a03383.html#a89b181c907dbe77668618914e649ddc8", null ],
     [ "hasPrediction", "dc/d58/a03383.html#acd6cfc3416a0049f2f084033636f4b55", null ],
-    [ "init", "dc/d58/a03383.html#afc4e29cc7d320c7a59c277b822f8bb17", null ],
+    [ "init", "dc/d58/a03383.html#a1b25a3dfe81673c522ffdfa5293ef6d9", null ],
     [ "restoreContinuousVariables", "dc/d58/a03383.html#a1d4f1ef19acc6b2e8d54a9fddf424893", null ],
     [ "saveContinuousVariables", "dc/d58/a03383.html#affda453c0b56dfdd651775f821aee4ed", null ],
     [ "setSolverSpecificParameters", "dc/d58/a03383.html#aa57a0379b50a40de6af317f8956ebd16", null ],

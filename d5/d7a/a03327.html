@@ -139,9 +139,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#a814100bf78d6e94e753b94daca350739">~SolverKINAlgRestoration</a> ()</td></tr>
 <tr class="memdesc:a814100bf78d6e94e753b94daca350739"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
 <tr class="separator:a814100bf78d6e94e753b94daca350739"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a4b35a9b82d1a3315f7ac3fe27324d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#a1a4b35a9b82d1a3315f7ac3fe27324d9">init</a> (const boost::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;model, <a class="el" href="../../d5/d7a/a03327.html#a4bf0942b1f7375689c1a69d86ce7b6dd">modeKin_t</a> mode)</td></tr>
-<tr class="memdesc:a1a4b35a9b82d1a3315f7ac3fe27324d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the solver  <a href="#a1a4b35a9b82d1a3315f7ac3fe27324d9">More...</a><br /></td></tr>
-<tr class="separator:a1a4b35a9b82d1a3315f7ac3fe27324d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e7ea33ebfdd5e6a8991af8c145b946"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#a58e7ea33ebfdd5e6a8991af8c145b946">init</a> (const std::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;model, <a class="el" href="../../d5/d7a/a03327.html#a4bf0942b1f7375689c1a69d86ce7b6dd">modeKin_t</a> mode)</td></tr>
+<tr class="memdesc:a58e7ea33ebfdd5e6a8991af8c145b946"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the solver  <a href="#a58e7ea33ebfdd5e6a8991af8c145b946">More...</a><br /></td></tr>
+<tr class="separator:a58e7ea33ebfdd5e6a8991af8c145b946"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9efae067371d26c3b0ad2c3ab3a30a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#ab9efae067371d26c3b0ad2c3ab3a30a2">setupNewAlgebraicRestoration</a> (double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl)</td></tr>
 <tr class="memdesc:ab9efae067371d26c3b0ad2c3ab3a30a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize a new algebraic restoration  <a href="#ab9efae067371d26c3b0ad2c3ab3a30a2">More...</a><br /></td></tr>
 <tr class="separator:ab9efae067371d26c3b0ad2c3ab3a30a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,10 +236,10 @@ Static Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a629ea52fbe8c878dba6c4af2a8d3185a"><td class="memItemLeft" align="right" valign="top"><a id="a629ea52fbe8c878dba6c4af2a8d3185a"></a>
-boost::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#a629ea52fbe8c878dba6c4af2a8d3185a">model_</a></td></tr>
-<tr class="memdesc:a629ea52fbe8c878dba6c4af2a8d3185a"><td class="mdescLeft">&#160;</td><td class="mdescRight">model currently simulated <br /></td></tr>
-<tr class="separator:a629ea52fbe8c878dba6c4af2a8d3185a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee93dd149899a81b4d99720fb5b5fd1a"><td class="memItemLeft" align="right" valign="top"><a id="aee93dd149899a81b4d99720fb5b5fd1a"></a>
+std::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#aee93dd149899a81b4d99720fb5b5fd1a">model_</a></td></tr>
+<tr class="memdesc:aee93dd149899a81b4d99720fb5b5fd1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">model currently simulated <br /></td></tr>
+<tr class="separator:aee93dd149899a81b4d99720fb5b5fd1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eaef635cba29a338bc2030787953f4e"><td class="memItemLeft" align="right" valign="top"><a id="a3eaef635cba29a338bc2030787953f4e"></a>
 std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d7a/a03327.html#a3eaef635cba29a338bc2030787953f4e">vectorYOrYpSolution_</a></td></tr>
 <tr class="memdesc:a3eaef635cba29a338bc2030787953f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solution of the restoration after the call of the solver. <br /></td></tr>
@@ -653,8 +653,8 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
-<a id="a1a4b35a9b82d1a3315f7ac3fe27324d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a4b35a9b82d1a3315f7ac3fe27324d9">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a58e7ea33ebfdd5e6a8991af8c145b946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58e7ea33ebfdd5e6a8991af8c145b946">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -662,7 +662,7 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
         <tr>
           <td class="memname">void DYN::SolverKINAlgRestoration::init </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d1/d89/a02739.html">Model</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>model</em>, </td>
         </tr>
         <tr>
@@ -1007,7 +1007,7 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d7a/a03327.html">SolverKINAlgRestoration</a></li>
-    <li class="footer">Generated on Wed Dec 4 2024 12:05:22 for Dynawo by
+    <li class="footer">Generated on Wed Dec 4 2024 13:48:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

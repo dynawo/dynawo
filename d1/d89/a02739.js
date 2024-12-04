@@ -32,7 +32,7 @@ var a02739 =
     [ "getYType", "d1/d89/a02739.html#a507a3d8fc58f954da1882e8c9c0ae736", null ],
     [ "init", "d1/d89/a02739.html#a747f0a73f729d63880de5e2f5cb004a9", null ],
     [ "initBuffers", "d1/d89/a02739.html#aa47f8be146be575733337a6e1c18377e", null ],
-    [ "initCurves", "d1/d89/a02739.html#ab7b29f9715f971cb913256217f3b1802", null ],
+    [ "initCurves", "d1/d89/a02739.html#a3e420b7e7ddbf69efe52c88f61e5da56", null ],
     [ "initSilentZ", "d1/d89/a02739.html#a17eada5dafd122d98067d4e55f199726", null ],
     [ "loadParameters", "d1/d89/a02739.html#afaba860f65318fc13f731f7d73a469fe", null ],
     [ "loadVariables", "d1/d89/a02739.html#adfa7d1fe2d25a4f54dc276f7e46522cf", null ],
@@ -63,5 +63,5 @@ var a02739 =
     [ "sizeMode", "d1/d89/a02739.html#a540f8eb9641ee41da1ee58dc2030cf84", null ],
     [ "sizeY", "d1/d89/a02739.html#aea2c45f22061b2ce5c608f159ebdf810", null ],
     [ "sizeZ", "d1/d89/a02739.html#a3f20f5440d93fbeec1467e64901ed061", null ],
-    [ "updateCalculatedVarForCurves", "d1/d89/a02739.html#a8349c70513d17b196ee93af12719321e", null ]
+    [ "updateCalculatedVarForCurves", "d1/d89/a02739.html#a5fd2b11910aea163e2a5c62b09ca48ba", null ]
 ];

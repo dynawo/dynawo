@@ -13,7 +13,7 @@ var a03327 =
     [ "getMode", "d5/d7a/a03327.html#a43a120194de6a42699b7cacca1729c9b", null ],
     [ "getModel", "d5/d7a/a03327.html#a0aeb16fe745c1c995a68b9e80205dd0e", null ],
     [ "getValues", "d5/d7a/a03327.html#ad8be6dd34f0d963928601a29c0d1d81a", null ],
-    [ "init", "d5/d7a/a03327.html#a1a4b35a9b82d1a3315f7ac3fe27324d9", null ],
+    [ "init", "d5/d7a/a03327.html#a58e7ea33ebfdd5e6a8991af8c145b946", null ],
     [ "initVarAndEqTypes", "d5/d7a/a03327.html#ac5ed58a1ca3be232aff22a3820b18516", null ],
     [ "resetAlgebraicRestoration", "d5/d7a/a03327.html#a57cbaca4925480c9aa934e30b0d27624", null ],
     [ "setInitialValues", "d5/d7a/a03327.html#a8d2d6ff9e504d816d82a6f007aee1002", null ],
@@ -26,7 +26,7 @@ var a03327 =
     [ "indexF_", "d5/d7a/a03327.html#a2aa393bebb20f745fd7d3b5af90b6272", null ],
     [ "indexY_", "d5/d7a/a03327.html#adb2a04b093620de24ccbf00a1ecd99f1", null ],
     [ "mode_", "d5/d7a/a03327.html#a4bc4c3840f212a28ec2e5fd2851f19fb", null ],
-    [ "model_", "d5/d7a/a03327.html#a629ea52fbe8c878dba6c4af2a8d3185a", null ],
+    [ "model_", "d5/d7a/a03327.html#aee93dd149899a81b4d99720fb5b5fd1a", null ],
     [ "vectorYForRestoration_", "d5/d7a/a03327.html#a188ee09f3ec495908772998c8ee901c5", null ],
     [ "vectorYOrYpSolution_", "d5/d7a/a03327.html#a3eaef635cba29a338bc2030787953f4e", null ],
     [ "vectorYpForRestoration_", "d5/d7a/a03327.html#aaf2e4939ed6c59711e3210bdc6e50cb7", null ]

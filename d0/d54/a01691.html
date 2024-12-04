@@ -123,9 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaeb5b57e21a61c8f760e2df114c6594e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#aaeb5b57e21a61c8f760e2df114c6594e">CurvesCollection</a> (const std::string &amp;id)</td></tr>
 <tr class="memdesc:aaeb5b57e21a61c8f760e2df114c6594e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#aaeb5b57e21a61c8f760e2df114c6594e">More...</a><br /></td></tr>
 <tr class="separator:aaeb5b57e21a61c8f760e2df114c6594e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a661ba9d9488c9c99e62331a07f328144"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#a661ba9d9488c9c99e62331a07f328144">add</a> (const boost::shared_ptr&lt; <a class="el" href="../../d2/d34/a01679.html">Curve</a> &gt; &amp;curve)</td></tr>
-<tr class="memdesc:a661ba9d9488c9c99e62331a07f328144"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a curve to the collection  <a href="#a661ba9d9488c9c99e62331a07f328144">More...</a><br /></td></tr>
-<tr class="separator:a661ba9d9488c9c99e62331a07f328144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ad30aae632079149f9059c4a4af7ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#a64ad30aae632079149f9059c4a4af7ce">add</a> (const std::shared_ptr&lt; <a class="el" href="../../d2/d34/a01679.html">Curve</a> &gt; &amp;curve)</td></tr>
+<tr class="memdesc:a64ad30aae632079149f9059c4a4af7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a curve to the collection  <a href="#a64ad30aae632079149f9059c4a4af7ce">More...</a><br /></td></tr>
+<tr class="separator:a64ad30aae632079149f9059c4a4af7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acccefc8fb870778ec28e3c89bee98d28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#acccefc8fb870778ec28e3c89bee98d28">updateCurves</a> (const double &amp;time)</td></tr>
 <tr class="memdesc:acccefc8fb870778ec28e3c89bee98d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new point for each curve  <a href="#acccefc8fb870778ec28e3c89bee98d28">More...</a><br /></td></tr>
 <tr class="separator:acccefc8fb870778ec28e3c89bee98d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,10 +144,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a612fbb4f294871c83accc5f355782a6b"><td class="memItemLeft" align="right" valign="top"><a id="a612fbb4f294871c83accc5f355782a6b"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d2/d34/a01679.html">Curve</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#a612fbb4f294871c83accc5f355782a6b">curves_</a></td></tr>
-<tr class="memdesc:a612fbb4f294871c83accc5f355782a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the curves object. <br /></td></tr>
-<tr class="separator:a612fbb4f294871c83accc5f355782a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a740a14c99536d92adf930a1d6ff572f5"><td class="memItemLeft" align="right" valign="top"><a id="a740a14c99536d92adf930a1d6ff572f5"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d2/d34/a01679.html">Curve</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#a740a14c99536d92adf930a1d6ff572f5">curves_</a></td></tr>
+<tr class="memdesc:a740a14c99536d92adf930a1d6ff572f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the curves object. <br /></td></tr>
+<tr class="separator:a740a14c99536d92adf930a1d6ff572f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2e780e8cc019bcdee0e630995f54f16"><td class="memItemLeft" align="right" valign="top"><a id="ab2e780e8cc019bcdee0e630995f54f16"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d54/a01691.html#ab2e780e8cc019bcdee0e630995f54f16">id_</a></td></tr>
 <tr class="memdesc:ab2e780e8cc019bcdee0e630995f54f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Curves collections id. <br /></td></tr>
@@ -192,8 +192,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a661ba9d9488c9c99e62331a07f328144"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a661ba9d9488c9c99e62331a07f328144">&#9670;&nbsp;</a></span>add()</h2>
+<a id="a64ad30aae632079149f9059c4a4af7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ad30aae632079149f9059c4a4af7ce">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +201,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         <tr>
           <td class="memname">void curves::CurvesCollection::add </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d2/d34/a01679.html">Curve</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d2/d34/a01679.html">Curve</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>curve</em></td><td>)</td>
           <td></td>
         </tr>
@@ -344,7 +344,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../d0/d54/a01691.html">CurvesCollection</a></li>
-    <li class="footer">Generated on Wed Dec 4 2024 12:05:21 for Dynawo by
+    <li class="footer">Generated on Wed Dec 4 2024 13:48:53 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

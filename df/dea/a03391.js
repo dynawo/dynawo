@@ -7,7 +7,7 @@ var a03391 =
     [ "getName", "df/dea/a03391.html#ab3ff4812cb9300afd52649cc24510bfd", null ],
     [ "getTimeStep", "df/dea/a03391.html#ad656868f5c4529483ca4ad8c9b357dcf", null ],
     [ "hasPrediction", "df/dea/a03391.html#aefc980552f4c1f1d17776de8370b3bd8", null ],
-    [ "init", "df/dea/a03391.html#abeab6a0979630d69f11917a51877fbbc", null ],
+    [ "init", "df/dea/a03391.html#af995a2b5a3da87d31d466c420ce65d1b", null ],
     [ "restoreContinuousVariables", "df/dea/a03391.html#a1a035db8b14a9640d8930487158f216d", null ],
     [ "saveContinuousVariables", "df/dea/a03391.html#aabc94efa23da0dff3aa24ffa41cc3ba3", null ],
     [ "setSolverSpecificParameters", "df/dea/a03391.html#a6973e452bcb99005e3ad8f9e5d355061", null ],
