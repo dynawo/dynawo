@@ -140,8 +140,6 @@ using finalStateValues::FinalStateValuesCollectionFactory;
 
 using constraints::ConstraintsCollectionFactory;
 
-using lostEquipments::LostEquipmentsCollectionFactory;
-
 using parameters::ParametersSet;
 using parameters::ParametersSetFactory;
 using parameters::ParametersSetCollection;

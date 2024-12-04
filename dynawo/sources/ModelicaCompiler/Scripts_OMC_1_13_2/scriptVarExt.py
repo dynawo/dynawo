@@ -11,7 +11,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
-import os, sys,re, locale, codecs
+import os, sys
 import shutil
 from optparse import OptionParser
 from xml.dom.minidom import parse
