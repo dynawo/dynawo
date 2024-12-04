@@ -1415,6 +1415,7 @@ SubModel::checkDataCoherence(const double) {
 
 void
 SubModel::printInternalParameters(std::ofstream& /*fstream*/) const {
+  // do nothing
 }
 
 }  // namespace DYN
