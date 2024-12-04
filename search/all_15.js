@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['u0_5f',['U0_',['../de/d4f/a02995.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../dc/d94/a02999.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../de/dc6/a03019.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()'],['../d6/dcf/a03219.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../db/dd3/a03251.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()']]],
+  ['u0_5f',['u0_',['../d6/dcf/a03219.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../db/dd3/a03251.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../de/d4f/a02995.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../dc/d94/a02999.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../de/dc6/a03019.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
   ['u0pu_5f',['u0Pu_',['../d4/dbc/a03159.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['u2pu_5f',['U2Pu_',['../d6/dcf/a03219.html#a7d907b69c37cccb7382ba6d36b503b5b',1,'DYN::ModelBus']]],
   ['u_5f',['U_',['../d6/dcf/a03219.html#a990b7793275b61e9d4c7a1271a0669a4',1,'DYN::ModelBus']]],
@@ -46,7 +46,7 @@ var searchData=
   ['umaxstate_5f',['uMaxState_',['../de/d11/a03267.html#a230bda68edddc6841375937e6642f83d',1,'DYN::ModelRatioTapChanger']]],
   ['umin_5f',['uMin_',['../d6/dcf/a03219.html#a962ec8c10f19a902a350a49d5ff8f6a6',1,'DYN::ModelBus']]],
   ['uminpu',['uMinPu',['../de/ddd/a00653.html#a320744a0d22db5702ebc7aa8eaee31d4',1,'DYN']]],
-  ['uminpu_5f',['UMinPu_',['../d4/dbc/a03159.html#a3c30ba887a588bae6646158007b325aa',1,'DYN::ModelLoadRestorativeWithLimits::UMinPu_()'],['../db/dca/a01639.html#a8e7869c1827a2c4f773e12de88d68c29',1,'criteria::CriteriaParamsVoltageLevel::uMinPu_()']]],
+  ['uminpu_5f',['uMinPu_',['../db/dca/a01639.html#a8e7869c1827a2c4f773e12de88d68c29',1,'criteria::CriteriaParamsVoltageLevel::uMinPu_()'],['../d4/dbc/a03159.html#a3c30ba887a588bae6646158007b325aa',1,'DYN::ModelLoadRestorativeWithLimits::UMinPu_()']]],
   ['uminpureached_5f',['UMinPuReached_',['../d4/dbc/a03159.html#af7044ffa845192d007e503245781fa94',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['uminstate_5f',['uMinState_',['../de/d11/a03267.html#a2696d61e29ac7f8dcf0019013f947546',1,'DYN::ModelRatioTapChanger']]],
   ['unabletocloseline',['UnableToCloseLine',['../d0/d9a/a02631.html#a963225344a251150ba0ad6d5264f567fa2c5fb088eede4f489db8c2f81d826d7c',1,'DYN::KeyLog_t']]],

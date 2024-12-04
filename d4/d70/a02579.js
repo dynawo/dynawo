@@ -13,7 +13,6 @@ var a02579 =
     ] ],
     [ "Error", "d4/d70/a02579.html#acdcd7e365fc83f94c8a1c8b942c8f6ef", null ],
     [ "Error", "d4/d70/a02579.html#a72debca1865ab895e1202f46d947893a", null ],
-    [ "~Error", "d4/d70/a02579.html#a1b8741ab63dedac8474da712055e68ac", null ],
     [ "Error", "d4/d70/a02579.html#a4f79ffc23261c7ec3f17f7765969bbe4", null ],
     [ "key", "d4/d70/a02579.html#afece191155e6c688708e8f0ba53cce0d", null ],
     [ "operator=", "d4/d70/a02579.html#a2f505fa788e2267b128013fb58d20e9d", null ],
