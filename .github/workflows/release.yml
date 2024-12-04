@@ -206,7 +206,9 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/dynawo/OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "Ninja"
-          cmake --build b --target install solvers models || exit /b 1
+          cmake --build b --target install || exit /b 1
+          cmake --build b --target models || exit /b 1
+          cmake --build b --target solvers || exit /b 1
 
       - name: Deploy Dynawo
         shell: cmd
