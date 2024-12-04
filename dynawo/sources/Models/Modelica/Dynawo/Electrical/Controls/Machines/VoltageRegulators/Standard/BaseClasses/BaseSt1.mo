@@ -67,7 +67,7 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {tB1, 1}, b = {tC1, 1}, x_scaled(start = {Efd0Pu / Ka}), x_start = {Efd0Pu / Ka}, y(start = Efd0Pu / Ka)) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = ViMaxPu, uMin = ViMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = ViMaxPu, uMin = ViMinPu) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-310, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -79,7 +79,7 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {390, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = VrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {250, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

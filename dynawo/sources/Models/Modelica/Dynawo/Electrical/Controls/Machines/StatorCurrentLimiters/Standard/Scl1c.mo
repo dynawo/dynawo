@@ -89,9 +89,9 @@ model Scl1c "IEEE (2016) stator current limiter type SCL1C model"
     Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limPIUel(Ki = KiUex, Kp = KpUex, YMax = VSclMaxPu, YMin = VSclMinPu) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterOel(uMax = 999, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterOel(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {190, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiterUel(uMax = 999, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiterUel(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
