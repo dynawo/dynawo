@@ -1470,7 +1470,7 @@ ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
     for (const auto& component : getComponents()) {
       component->loadInternalVariables(streamVariables);
     }
-  } catch (boost::archive::archive_exception& exc) {
+  } catch (boost::archive::archive_exception&) {
     // Failure because dump is too short
     return false;
   }
