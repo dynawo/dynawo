@@ -291,7 +291,7 @@ ModelMulti::init(const double t0) {
     for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
       (*it)->evalZSub(t0);
 
-    for (unsigned j = 0; j < 10 && propagateZModif(); ++j) {
+    for (unsigned j = 0; j < 10 && propagateZModif() != NO_Z_CHANGE; ++j) {
       for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
         (*it)->evalGSub(t0);
       for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)

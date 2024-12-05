@@ -1447,5 +1447,4 @@ ModelNetwork::setGequations() {
     }
   }
 }
-
 }  // namespace DYN
