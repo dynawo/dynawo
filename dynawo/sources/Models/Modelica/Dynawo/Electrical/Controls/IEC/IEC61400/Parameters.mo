@@ -17,15 +17,15 @@ package Parameters "Parameters of lookup tables for variable dependencies in the
   
 record Aerodynamic2d
   parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(
-    Dialog(tab = "aerodynamic"));
+    Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(
-    Dialog(tab = "aerodynamic"));
+    Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(
-    Dialog(tab = "aerodynamic"));
+    Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = -0.03" annotation(
-    Dialog(tab = "aerodynamic"));
+    Dialog(tab = "Aerodynamic"));
   parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(
-    Dialog(tab = "aerodynamic"));
+    Dialog(tab = "Aerodynamic"));
 end Aerodynamic2d;
 
 record GridMeasurementControl
@@ -167,10 +167,10 @@ record PControlWPP2020
     Dialog(tab = "PControlWP"));
 end PControlWPP2020;
 
-record PControlWT
+record PControlWT4Base
   parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
     Dialog(tab = "PControl"));
-end PControlWT;
+end PControlWT4Base;
 
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
@@ -217,8 +217,6 @@ record PControlWT3 "Parameters used in Type 3a P control including torque PI con
   parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base PNomTurb) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
   parameter Types.ActivePowerPu PWtcFilt0Pu = POrd0Pu*SNom/PBaseMeasurement "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.VoltageModulePu UWtc0Pu "Initial value of voltage magnitude at turbine terminal in pu (base Un)" annotation(
     Dialog(tab = "Initialization"));
   final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
     Dialog(tab = "Initialization"));
@@ -834,13 +832,13 @@ end QLimiter2015;
 
 record GridProtection
   parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(
-    Dialog(tab = "GridProtection"));
+    Dialog(tab = "Protection", group = "Param"));
   parameter Types.PerUnit fUnderPu "WT under frequency protection activation threshold in pu (base fNom)" annotation(
-    Dialog(tab = "GridProtection"));
+    Dialog(tab = "Protection", group = "Param"));
   parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(
-    Dialog(tab = "GridProtection"));
+    Dialog(tab = "Protection", group = "Param"));
   parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
-    Dialog(tab = "GridProtection"));
+    Dialog(tab = "Protection", group = "Param"));
 end GridProtection;
 
 record UfMeasurement2015

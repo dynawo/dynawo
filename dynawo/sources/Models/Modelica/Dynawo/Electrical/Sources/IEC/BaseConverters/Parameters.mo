@@ -29,46 +29,46 @@ end Circuit;
 
 record GenSystem3 "Do not use. Use 3a or 3b instead."
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
 end GenSystem3;
 
 record GenSystem3a "Control parameters for generator system of WT, specific to Type 3A"
   extends GenSystem3;
   parameter Types.PerUnit KPc "Current PI controller proportional gain" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.Time TIc "Current PI controller integration time constant" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
 end GenSystem3a;
 
 record GenSystem3b "Control parameters for generator system of WT, specific to Type 3B"
   extends GenSystem3;
   parameter Real tCrb[:,:] = [-99,0.1; -1,0.1; -0.1,0; 0,0] "Crowbar duration versus voltage variation look-up table, for example [-99,0.1; -1,0.1; -0.1,0; 0,0]" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
     parameter Types.Time tWo "Time constant for crowbar washout filter" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.Time tG "Current generation time constant" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
 end GenSystem3b;
 
 record GenSystem4 "Control parameters for generator system of WT Type 4"
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
   parameter Types.Time tG "Current generation time constant in s" annotation(
-    Dialog(tab = "Control"));
+    Dialog(tab = "genSystem"));
 end GenSystem4;
 
 record InitialComplexUGrid "Initial voltage and current for grid side"

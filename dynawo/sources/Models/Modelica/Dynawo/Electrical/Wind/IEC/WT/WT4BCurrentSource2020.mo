@@ -19,6 +19,7 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem4;
   // P control parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
   //Mechanical parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
   

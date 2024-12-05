@@ -32,7 +32,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
   
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;

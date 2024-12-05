@@ -22,7 +22,7 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   
   
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
 
   //Current limiter parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
