@@ -3,7 +3,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 model PControl3AB2020
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
   
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUscale = MPUscale, MPUvrt = MPUvrt, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, PBaseMeasurement = PBaseMeasurement, PBaseTurb = PBaseTurb, PDtdMaxPu = PDtdMaxPu, POrd0Pu = POrd0Pu, PWtcFilt0Pu = PWtcFilt0Pu, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, UDvsPu = UDvsPu, UPdipPu = UPdipPu, UWtc0Pu = UWtc0Pu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MpUScale = MpUScale, MPUvrt = MPUvrt, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, PBaseMeasurement = PBaseMeasurement, SNom = SNom, PDtdMaxPu = PDtdMaxPu, POrd0Pu = POrd0Pu, PWtcFilt0Pu = PWtcFilt0Pu, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, UDvsPu = UDvsPu, UpDipPu = UpDipPu, UWtc0Pu = UWtc0Pu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {47.2409, -173.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = 1) "Maximum active current (base PNomTurb/sqrt(3)/UNom) in pu" annotation(
     Placement(visible = true, transformation(origin = {-320, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -66,9 +66,9 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-54, -74}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
   Modelica.Blocks.Logical.Switch switchUDip annotation(
     Placement(visible = true, transformation(origin = {-154, -58}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant constMPUscale(k = MPUscale) annotation(
+  Modelica.Blocks.Sources.BooleanConstant constMpUScale(k = MpUScale) annotation(
     Placement(visible = true, transformation(origin = {-228, 40}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constUPdip(k = UPdipPu) annotation(
+  Modelica.Blocks.Sources.Constant constUPdip(k = UpDipPu) annotation(
     Placement(visible = true, transformation(origin = {-249, -13}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
   Modelica.Blocks.Logical.Less lessUpdip annotation(
     Placement(visible = true, transformation(origin = {-228, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -82,7 +82,7 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-232, -166}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant constFalse(k = false) annotation(
     Placement(visible = true, transformation(origin = {188, -144}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain changeBase(k = PBaseMeasurement / PBaseTurb) annotation(
+  Modelica.Blocks.Math.Gain changeBase(k = PBaseMeasurement / SNom) annotation(
     Placement(visible = true, transformation(origin = {-310, -166}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(limitLargerZero.y, divisionIPcmd.u2) annotation(
@@ -143,7 +143,7 @@ equation
     Line(points = {{-143, -58}, {-60, -58}, {-60, -62}}, color = {0, 0, 127}));
   connect(lessUpdip.u2, constUPdip.y) annotation(
     Line(points = {{-240, -2}, {-249, -2}, {-249, -5}}, color = {0, 0, 127}));
-  connect(constMPUscale.y, andUPdipMPuscale.u1) annotation(
+  connect(constMpUScale.y, andUPdipMPuscale.u1) annotation(
     Line(points = {{-221, 40}, {-212.4, 40}, {-212.4, 14}, {-204, 14}}, color = {255, 0, 255}));
   connect(lessUpdip.y, andUPdipMPuscale.u2) annotation(
     Line(points = {{-217, 6}, {-204, 6}}, color = {255, 0, 255}));

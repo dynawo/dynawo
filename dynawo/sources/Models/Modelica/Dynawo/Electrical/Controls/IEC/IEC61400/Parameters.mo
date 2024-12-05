@@ -16,41 +16,46 @@ package Parameters "Parameters of lookup tables for variable dependencies in the
   extends Icons.Package;
   
 record Aerodynamic2d
-  parameter Types.ActivePowerPu DPOmegaThetaPu"Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028";
-  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48";
-  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03";
-  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = -0.03";
-  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0";
+  parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(
+    Dialog(tab = "aerodynamic"));
+  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(
+    Dialog(tab = "aerodynamic"));
+  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(
+    Dialog(tab = "aerodynamic"));
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = -0.03" annotation(
+    Dialog(tab = "aerodynamic"));
+  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(
+    Dialog(tab = "aerodynamic"));
 end Aerodynamic2d;
 
 record GridMeasurementControl
   parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementC"));
+    Dialog(tab = "Measurement", group = "Control"));
   parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
+    Dialog(tab = "Measurement", group = "Control"));
   parameter Types.Time tIcFilt "Filter time constant for current control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
+    Dialog(tab = "Measurement", group = "Control"));
   parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
+    Dialog(tab = "Measurement", group = "Control"));
   parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
+    Dialog(tab = "Measurement", group = "Control"));
   parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
+    Dialog(tab = "Measurement", group = "Control"));
 end GridMeasurementControl;
 
 record GridMeasurementProtection
   parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementP"));
+    Dialog(tab = "Measurement", group = "Protection"));
   parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
+    Dialog(tab = "Measurement", group = "Protection"));
   parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
+    Dialog(tab = "Measurement", group = "Protection"));
   parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
+    Dialog(tab = "Measurement", group = "Protection"));
   parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
+    Dialog(tab = "Measurement", group = "Protection"));
   parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
+    Dialog(tab = "Measurement", group = "Protection"));
 end GridMeasurementProtection;
 
 record GridMeasurementWPP
@@ -64,29 +69,29 @@ end GridMeasurementWPP;
 
 record CurrentLimiter
  parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation)" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority)" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
 end CurrentLimiter;
 
 record CurrentLimiter2015
   parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(
-    Dialog(tab = "CurrentLimiter"));
+    Dialog(tab = "CurrentLimiter", group = "Parameters"));
 end CurrentLimiter2015;
 
 record InitialQLimits
     parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
+    Dialog(tab = "Initialization"));
     parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
+    Dialog(tab = "Initialization"));
 end InitialQLimits;
 
 record InitialQSetpoint
@@ -168,52 +173,57 @@ record PControlWT
 end PControlWT;
 
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
-  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, typical value = 999" annotation(Dialog(tab="PControl"));
-  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, typical value = 0.3" annotation(Dialog(tab="PControl"));
-  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, typical value = -0.3" annotation(Dialog(tab="PControl"));
-  parameter Types.PerUnit KDtd "Active drive train damping: gain, typical value = 1.5" annotation(Dialog(tab="PControl"));
-  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), typical value = true" annotation(Dialog(tab="PControl"));
-  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), typical value = false" annotation(Dialog(tab="PControl"));
-  parameter Boolean MPUscale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), typical value = false" annotation(Dialog(tab="PControl"));
-  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, typical value = 11.3" annotation(Dialog(tab="PControl"));
-  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, typical value = 0" annotation(Dialog(tab="PControl"));
-  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, typical value = 0.15" annotation(Dialog(tab="PControl"));
-  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, typical value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab="PControl"));
-  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, typical value = 0.005" annotation(Dialog(tab="PControl"));
-  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, typical value = 0.005" annotation(Dialog(tab="PControl"));
-  parameter Types.Time tPord "Power order lag time constant, typical value = 0.01" annotation(Dialog(tab="PControl"));
-  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, typical value = 0.5" annotation(Dialog(tab="PControl"));
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
+  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, typical value = 999" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, typical value = 0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, typical value = -0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.PerUnit KDtd "Active drive train damping: gain, typical value = 1.5" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), typical value = true" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), typical value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Boolean MpUScale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), typical value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, typical value = 11.3" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, typical value = 0" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, typical value = 0.15" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, typical value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, typical value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, typical value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.Time tPord "Power order lag time constant, typical value = 0.01" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, typical value = 0.5" annotation(Dialog(tab = "PControl", group = "PControl"));
   parameter Types.PerUnit DTauMaxPu "Torque ramp rate limit, as required by some grid codes, typical value = 0.25" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.PerUnit DTauUvrtMaxPu "Torque rise rate limit during UVRT, typical value = 0" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.PerUnit KIp  "Integrator time constant of the PI controller, typical value = 5" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.PerUnit KPp  "Proportional gain of the PI controller, typical value = 8" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Boolean MPUvrt  "Mode for UVRT power control (false: reactive power control -- true: voltage control), typical value = true" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.PerUnit TauEMinPu  "Minimum torque for the electrical generator, typical value = 0.001" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.PerUnit TauUscalePu  "Voltage scaling factor for reset torque, typical value = 1" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.Time tDvs  "Time delay following deep a voltage dip, typical value = 0.05" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.Time tS  "Integration time step, used for single-step delay in DelayFlag block, typical value = 0.001" annotation(
-    Dialog(tab = "TorquePi"));
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, typical value = 0.15" annotation(
-    Dialog(tab = "TorquePi"));
-  parameter Types.VoltageModulePu UPdipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), typical value = 0.9" annotation(
-    Dialog(tab = "TorquePi"));
-  parameter Types.ActivePower PBaseTurb "Base power for active power values inside the unit model in MW or MVA, typical value = PNomTurb";
+    Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.VoltageModulePu UpDipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), typical value = 0.9" annotation(
+    Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.ActivePower PBaseMeasurement "Base power for incoming active power measurement values in MW or MVA, typical value = SystemBase.SnRef";
   
   // initial parameters
-  parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base PNomTurb) (generator convention)";
-  parameter Types.ActivePowerPu PWtcFilt0Pu = POrd0Pu*PBaseTurb/PBaseMeasurement "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)";
-  parameter Types.VoltageModulePu UWtc0Pu "Initial value of voltage magnitude at turbine terminal in pu (base Un)";
-  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)";
-  final parameter Types.PerUnit TauEMax0Pu = POrd0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base PNomTurb/OmegaNom)";
+  parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base PNomTurb) (generator convention)" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.ActivePowerPu PWtcFilt0Pu = POrd0Pu*SNom/PBaseMeasurement "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.VoltageModulePu UWtc0Pu "Initial value of voltage magnitude at turbine terminal in pu (base Un)" annotation(
+    Dialog(tab = "Initialization"));
+  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
+    Dialog(tab = "Initialization"));
+  final parameter Types.PerUnit TauEMax0Pu = POrd0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base PNomTurb/OmegaNom)" annotation(
+    Dialog(tab = "Initialization"));
 end PControlWT3;
 
 record PControlWT4
@@ -274,6 +284,27 @@ record PControlWT4b2015
   parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(
     Dialog(tab = "PControl"));
 end PControlWT4b2015;
+
+record PitchAngleControl
+  parameter Real DThetaCmax "Pitch maximum positive ramp rate of power PI controller, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaCmin  "Pitch dependent term of aerodynamic power partial derivative with respect to changes in Wind Turbine Rotor speed, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaMax "Pitch maximum positive ramp rate in degrees/s, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaMin "Pitch maximum negative ramp rate in degrees/s, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaOmegamax "Pitch maximum positive ramp rate of speed PI controller in degrees/s, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaOmegamin "Pitch maximum negative ramp rate of speed PI controller in degrees/s, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KIcPu "Integration gain of power PI controller, typical value = 1e-9" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KIomegaPu "Integration gain of Speed PI controller, typical value = 15" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KPcPu "Proportional gain of power PI controller, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KPomegaPu "Proportional gain of speed PI controller, typical value = 15" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KPXPu "Cross coupling pitch gain , typical value = 0.03" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaCmax "Maximum WT pitch angle of power PI controller in degrees, typical value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaCmin "Minimum WT pitch angle of power PI controller in degrees, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaMax "Maximum WT pitch angle in degrees, typical value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaMin "Minimum WT pitch angle in degrees, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaOmegamax "Maximum WT pitch angle of speed PI controller in degrees, typical value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaOmegamin "Minimum WT pitch angle of speed PI controller in degrees, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real TTheta "WT pitch time constant in s, typical value = 0.25" annotation(Dialog(tab = "PitchAngleCtrl"));
+end PitchAngleControl;
 
 record Pll
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(Dialog(tab = "PLL"));
@@ -410,379 +441,379 @@ end RDropXDrop;
 
 record TableCurrentLimit
   parameter Real TableIpMaxUwt11 = 0 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt12 = 0 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt21 = 0.1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt22 = 0 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt31 = 0.15 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt32 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt41 = 0.9 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt42 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt51 = 0.925 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt52 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt61 = 1.075 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt62 = 1.0001 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt71 = 1.1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt72 = 1.0001 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIpMaxUwt[:,:] = [TableIpMaxUwt11, TableIpMaxUwt12; TableIpMaxUwt21, TableIpMaxUwt22; TableIpMaxUwt31, TableIpMaxUwt32; TableIpMaxUwt41, TableIpMaxUwt42; TableIpMaxUwt51, TableIpMaxUwt52; TableIpMaxUwt61, TableIpMaxUwt62; TableIpMaxUwt71, TableIpMaxUwt72] "Voltage dependency of active current limits" annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
 
   parameter Real TableIqMaxUwt11 = 0 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt12 = 0 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt21 = 0.1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt22 = 0 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt31 = 0.15 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt32 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt41 = 0.9 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt42 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt51 = 0.925 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt52 = 0.33 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt61 = 1.075 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt62 = 0.33 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt71 = 1.1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt72 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt81 = 1.1001 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt82 = 1 annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
   parameter Real TableIqMaxUwt[:,:] = [TableIqMaxUwt11, TableIqMaxUwt12; TableIqMaxUwt21, TableIqMaxUwt22; TableIqMaxUwt31, TableIqMaxUwt32; TableIqMaxUwt41, TableIqMaxUwt42; TableIqMaxUwt51, TableIqMaxUwt52; TableIqMaxUwt61, TableIqMaxUwt62; TableIqMaxUwt71, TableIqMaxUwt72; TableIqMaxUwt81, TableIqMaxUwt82] "Voltage dependency of reactive current limits" annotation(
-    Dialog(tab = "CurrentLimitTables"));
+    Dialog(tab = "CurrentLimiter", group = "Tables"));
 end TableCurrentLimit;
 
 record TableGridProtection
   parameter Real TabletUoverUwtfilt11 = 1 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt12 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt21 = 1.5 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt22 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt31 = 2 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt32 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt41 = 2.01 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt42 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt51 = 2.02 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt52 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt61 = 2.03 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt62 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt71 = 2.04 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt72 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt81 = 2.05 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt82 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUoverUwtfilt[:,:] = [TabletUoverUwtfilt11, TabletUoverUwtfilt12; TabletUoverUwtfilt21, TabletUoverUwtfilt22; TabletUoverUwtfilt31, TabletUoverUwtfilt32; TabletUoverUwtfilt41, TabletUoverUwtfilt42; TabletUoverUwtfilt51, TabletUoverUwtfilt52; TabletUoverUwtfilt61, TabletUoverUwtfilt62; TabletUoverUwtfilt71, TabletUoverUwtfilt72; TabletUoverUwtfilt81, TabletUoverUwtfilt82] "Disconnection time versus over voltage lookup table" annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
 
   parameter Real TabletUunderUwtfilt11 = 0 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt12 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt21 = 0.5 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt22 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt31 = 1 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt32 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt41 = 1.01 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt42 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt51 = 1.02 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt52 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt61 = 1.03 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt62 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt71 = 1.04 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt72 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real TabletUunderUwtfilt[:,:] = [TabletUunderUwtfilt11, TabletUunderUwtfilt12; TabletUunderUwtfilt21, TabletUunderUwtfilt22; TabletUunderUwtfilt31, TabletUunderUwtfilt32; TabletUunderUwtfilt41, TabletUunderUwtfilt42; TabletUunderUwtfilt51, TabletUunderUwtfilt52; TabletUunderUwtfilt61, TabletUunderUwtfilt62; TabletUunderUwtfilt71, TabletUunderUwtfilt72] "Disconnection time versus under voltage lookup table" annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
 
   parameter Real Tabletfoverfwtfilt11 = 1 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt12 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt21 = 1.5 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt22 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt31 = 2 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt32 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt41 = 2.01 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt42 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfoverfwtfilt[:,:] = [Tabletfoverfwtfilt11, Tabletfoverfwtfilt12; Tabletfoverfwtfilt21, Tabletfoverfwtfilt22; Tabletfoverfwtfilt31, Tabletfoverfwtfilt32; Tabletfoverfwtfilt41, Tabletfoverfwtfilt42] "Disconnection time versus over frequency lookup table" annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
 
   parameter Real Tabletfunderfwtfilt11 = 0 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt12 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt21 = 0.5 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt22 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt31 = 1 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt32 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt41 = 1.01 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt42 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt51 = 1.02 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt52 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt61 = 1.03 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt62 = 0.33 annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
   parameter Real Tabletfunderfwtfilt[:,:] = [Tabletfunderfwtfilt11, Tabletfunderfwtfilt12; Tabletfunderfwtfilt21, Tabletfunderfwtfilt22; Tabletfunderfwtfilt31, Tabletfunderfwtfilt32; Tabletfunderfwtfilt41, Tabletfunderfwtfilt42; Tabletfunderfwtfilt51, Tabletfunderfwtfilt52; Tabletfunderfwtfilt61, Tabletfunderfwtfilt62] "Disconnection time versus under frequency lookup table" annotation(
-    Dialog(tab = "GridProtectionTables"));
+    Dialog(tab = "Protection", group = "Tables"));
 end TableGridProtection;
 
 record TablePControl
   parameter Real TablePwpBiasfwpFiltCom11 = 0.95 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom12 = 1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom21 = 1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom22 = 0 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom31 = 1.05 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom32 = -1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom41 = 1.06 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom42 = -1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom51 = 1.07 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom52 = -1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom61 = 1.08 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom62 = -1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom71 = 1.09 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom72 = -1 annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
   parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32; TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42; TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52; TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62; TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72] "Table for defining power variation versus frequency" annotation(
-    Dialog(tab = "PControlTables"));
+    Dialog(tab = "PControl", group = "Tables"));
 end TablePControl;
 
 record TableQControl2015
   parameter Real TableQwpUErr11 = -0.05 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr12 = 1.21 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr21 = 0 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr22 = 0.21 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr31 = 0.05 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr32 = -0.79 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr41 = 0.06 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr42 = -0.79 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr51 = 0.07 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr52 = -0.79 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr61 = 0.08 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr62 = -0.79 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32; TableQwpUErr41, TableQwpUErr42; TableQwpUErr51, TableQwpUErr52; TableQwpUErr61, TableQwpUErr62] "Table for the UQ static mode" annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
 end TableQControl2015;
 
 record TableQControl2020
   parameter Real TableQwpMaxPwpFiltCom11 = 0 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMaxPwpFiltCom12 = 0.33 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMaxPwpFiltCom21 = 0.5 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMaxPwpFiltCom22 = 0.33 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMaxPwpFiltCom31 = 1 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMaxPwpFiltCom32 = 0.33 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMaxPwpFiltCom[:,:] = [TableQwpMaxPwpFiltCom11, TableQwpMaxPwpFiltCom12; TableQwpMaxPwpFiltCom21, TableQwpMaxPwpFiltCom22; TableQwpMaxPwpFiltCom31, TableQwpMaxPwpFiltCom32] "Power dependent reactive power maximum limit" annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
 
   parameter Real TableQwpMinPwpFiltCom11 = 0 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMinPwpFiltCom12 = -0.33 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMinPwpFiltCom21 = 0.5 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMinPwpFiltCom22 = -0.33 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMinPwpFiltCom31 = 1 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMinPwpFiltCom32 = -0.33 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11, TableQwpMinPwpFiltCom12; TableQwpMinPwpFiltCom21, TableQwpMinPwpFiltCom22; TableQwpMinPwpFiltCom31, TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
 
   parameter Real TableQwpUErr11 = -0.05 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr12 = 1.21 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr21 = 0 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr22 = 0.21 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr31 = 0.05 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr32 = -0.79 annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
-    Dialog(tab = "QControlTables"));
+    Dialog(tab = "QControlWP", group = "Tables"));
 end TableQControl2020;
 
 record TableQLimit
   parameter Real TableQMaxUwtcFilt11 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt12 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt21 = 0.001 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt22 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt31 = 0.8 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt32 = 0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt41 = 1.2 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt42 = 0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt51 = 1.21 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt52 = 0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt61 = 1.22 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt62 = 0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxUwtcFilt[:,:] = [TableQMaxUwtcFilt11, TableQMaxUwtcFilt12; TableQMaxUwtcFilt21, TableQMaxUwtcFilt22; TableQMaxUwtcFilt31, TableQMaxUwtcFilt32; TableQMaxUwtcFilt41, TableQMaxUwtcFilt42; TableQMaxUwtcFilt51, TableQMaxUwtcFilt52; TableQMaxUwtcFilt61, TableQMaxUwtcFilt62] "Voltage dependency of reactive power maximum limit" annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
 
   parameter Real TableQMinUwtcFilt11 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt12 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt21 = 0.001 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt22 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt31 = 0.8 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt32 = -0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt41 = 1.2 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt42 = -0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinUwtcFilt[:,:] = [TableQMinUwtcFilt11, TableQMinUwtcFilt12; TableQMinUwtcFilt21, TableQMinUwtcFilt22; TableQMinUwtcFilt31, TableQMinUwtcFilt32; TableQMinUwtcFilt41, TableQMinUwtcFilt42] "Voltage dependency of reactive power minimum limit" annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
 
   parameter Real TableQMaxPwtcFilt11 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt12 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt21 = 0.001 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt22 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt31 = 0.3 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt32 = 0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt41 = 1 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt42 = 0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMaxPwtcFilt[:,:] = [TableQMaxPwtcFilt11, TableQMaxPwtcFilt12; TableQMaxPwtcFilt21, TableQMaxPwtcFilt22; TableQMaxPwtcFilt31, TableQMaxPwtcFilt32; TableQMaxPwtcFilt41, TableQMaxPwtcFilt42] "Active power dependency of reactive power maximum limit" annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
 
   parameter Real TableQMinPwtcFilt11 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt12 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt21 = 0.001 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt22 = 0 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt31 = 0.3 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt32 = -0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt41 = 1 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt42 = -0.33 annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
   parameter Real TableQMinPwtcFilt[:,:] = [TableQMinPwtcFilt11, TableQMinPwtcFilt12; TableQMinPwtcFilt21, TableQMinPwtcFilt22; TableQMinPwtcFilt31, TableQMinPwtcFilt32; TableQMinPwtcFilt41, TableQMinPwtcFilt42] "Active power dependency of reactive power minimum limit" annotation(
-    Dialog(tab = "QLimitTables"));
+    Dialog(tab = "QLimiter", group = "Tables"));
 end TableQLimit;
 
 record QLimiter

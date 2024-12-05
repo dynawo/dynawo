@@ -13,7 +13,7 @@ model TorquePi "Sub module for torque control inside active power control module
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  
+
   Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tauEMaxPu(start = 1) annotation(
@@ -48,7 +48,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {143, 117}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constUDvsPu(k = UDvsPu) annotation(
     Placement(visible = true, transformation(origin = {-361, 13}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constUPdipPu(k = UPdipPu) annotation(
+  Modelica.Blocks.Sources.Constant constUpDipPu(k = UpDipPu) annotation(
     Placement(visible = true, transformation(origin = {-361, 59}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constZero(k = 1e-9) annotation(
     Placement(visible = true, transformation(origin = {-197, 129}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
@@ -103,7 +103,7 @@ model TorquePi "Sub module for torque control inside active power control module
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
     Placement(visible = true, transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // initialization helpers
-  final parameter Types.PerUnit Torque0Pu = PWtcFilt0Pu * PBaseMeasurement / PBaseTurb / SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base PNomTurb/OmegaNom)";
+  final parameter Types.PerUnit Torque0Pu = PWtcFilt0Pu * PBaseMeasurement / SNom / SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base PNomTurb/OmegaNom)";
   final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base PNomTurb/OmegaNom)";
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {130, 176}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
@@ -150,7 +150,7 @@ equation
     Line(points = {{150.7, 117}, {153.7, 117}, {153.7, 128}}, color = {0, 0, 127}));
   connect(minResetvalue.yMin, ratelimResetvalue.u) annotation(
     Line(points = {{-275, -186}, {-265, -186}, {-265, -176}, {-238, -176}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
-  connect(constUPdipPu.y, lessUPdip.u2) annotation(
+  connect(constUpDipPu.y, lessUPdip.u2) annotation(
     Line(points = {{-353.3, 59}, {-350.3, 59}, {-350.3, 70}}, color = {0, 0, 127}));
   connect(constUDvsPu.y, lessUDvs.u2) annotation(
     Line(points = {{-353.3, 13}, {-350.3, 13}, {-350.3, 24}}, color = {0, 0, 127}));

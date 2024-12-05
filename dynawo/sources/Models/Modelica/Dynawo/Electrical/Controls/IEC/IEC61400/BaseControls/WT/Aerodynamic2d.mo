@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
   
 model Aerodynamic2d "Two-dimensional aerodynmaic module for type 3 wind turbines (IEC N°61400-27-1:2020)"
 
-  // parameters
+    // parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Aerodynamic2d;
   
   // inputs
@@ -48,6 +48,7 @@ model Aerodynamic2d "Two-dimensional aerodynmaic module for type 3 wind turbines
     Placement(visible = true, transformation(origin = {22, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productPOmega annotation(
     Placement(visible = true, transformation(origin = {28, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(addTheta.y, gainDPThetaPu.u) annotation(
     Line(points = {{-25, 54}, {10, 54}}, color = {0, 0, 127}));
@@ -79,5 +80,7 @@ equation
     Line(points = {{-61, 42}, {-54.5, 42}, {-54.5, 48}, {-48, 48}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3")),
-    Icon(graphics = {Text(origin = {2, 4}, extent = {{-86, 72}, {86, -72}}, textString = "Aero\ndynamic\n2d"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Icon(graphics = {Text(origin = {0, 4}, extent = {{-98, 86}, {98, -86}}, textString = "Aero
+dynamic
+2d"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end Aerodynamic2d;

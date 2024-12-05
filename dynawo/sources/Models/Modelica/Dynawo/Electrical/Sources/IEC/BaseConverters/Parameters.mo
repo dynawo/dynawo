@@ -72,12 +72,12 @@ record GenSystem4 "Control parameters for generator system of WT Type 4"
 end GenSystem4;
 
 record InitialComplexUGrid "Initial voltage and current for grid side"
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(Dialog(group = "Initialization"));
+  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(Dialog(tab = "Initialization"));
 end InitialComplexUGrid;
 
 record InitialComplexUiGrid "Initial voltage and current for grid side"
   extends InitialComplexUGrid;
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(Dialog(group = "Initialization"));
+  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(Dialog(tab = "Initialization"));
 end InitialComplexUiGrid;
 
 record InitialUGrid "Initial voltage module and phase for grid side"
@@ -94,14 +94,14 @@ record InitialUPhaseGrid
 end InitialUPhaseGrid;
 
 record InitialIGs "Initial current for generator system (GS) side"
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
+  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
+  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
 end InitialIGs;
 
 record InitialUGs "Initial voltage for generator system (GS) side"
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(Dialog(group = "Initialization"));
+  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(Dialog(tab = "Initialization"));
   parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group = "Initialization"));
+    Dialog(tab = "Initialization"));
 end InitialUGs;
 
 record InitialPqGrid "Initial P and Q for grid side"
@@ -125,16 +125,16 @@ record InitialGenSystem "Initial parameters for Generator System"
 end InitialGenSystem;
 
 record InitialGenSystemP "Initial IpMax"
-  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
+  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
 end InitialGenSystemP;
 
 record InitialGenSystemQ "Initial IqMin, IqMax"
-  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
-  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
+  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
 end InitialGenSystemQ;
 
 record InitialPAg "Initial PAg"
-  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(Dialog(group = "Initialization"));
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
 end InitialPAg;
 
 record IntegrationTimeStep
