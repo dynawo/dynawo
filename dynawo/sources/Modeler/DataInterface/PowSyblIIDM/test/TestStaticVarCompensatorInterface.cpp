@@ -25,6 +25,7 @@
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControlAdder.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 namespace powsybl {
@@ -103,7 +104,7 @@ TEST(DataInterfaceTest, SVarC_1) {
 
   ASSERT_EQ(svcInterface.getBusInterface().get(), nullptr);
   svcInterface.importStaticParameters();
-  std::unique_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
+  std::unique_ptr<BusInterface> busIfce = DYN::make_unique<BusInterfaceIIDM>(bus1);
   svcInterface.setBusInterface(std::move(busIfce));
   ASSERT_EQ(svcInterface.getBusInterface().get()->getID(), "VL1_BUS1");
   ASSERT_DOUBLE_EQ(svcInterface.getVNom(), 382.0);
