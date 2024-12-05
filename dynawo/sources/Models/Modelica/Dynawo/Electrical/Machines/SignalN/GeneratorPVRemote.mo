@@ -25,7 +25,7 @@ equation
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
-  // If the two following branches branch are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
+  // If the two following branches are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
   elsewhen QGenPu + QDeadBandPu <= QMinPu and URegulated - UDeadBandPu == URef then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
