@@ -118,5 +118,5 @@ equation
     Line(points = {{-220, -110}, {-182, -110}, {-182, -98}, {-158, -98}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}})),
-    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-1, 8}, extent = {{-67, 64}, {67, -64}}, textString = "Pitch\nAngle")}));
 end PitchAngleControl;

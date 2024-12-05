@@ -35,6 +35,10 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
     Placement(visible = true, transformation(origin = {-58, -38}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
  Dynawo.Electrical.Sources.IEC.WT3aInjector injector annotation(
     Placement(visible = true, transformation(origin = {14, -38}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
+ Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Aerodynamic2d aerodynamic2d annotation(
+    Placement(visible = true, transformation(origin = {-71, -107}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+ Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.PitchAngleControl pitchAngleControl annotation(
+    Placement(visible = true, transformation(origin = {-10, -108}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
 equation
  connect(control.ipMaxPu, injector.ipMaxPu) annotation(
     Line(points = {{-34, -30}, {-28, -30}, {-28, -21}, {-10, -21}}, color = {0, 0, 127}));

@@ -78,5 +78,6 @@ equation
   connect(constTheta0.y, addTheta.u2) annotation(
     Line(points = {{-61, 42}, {-54.5, 42}, {-54.5, 48}, {-48, 48}}, color = {0, 0, 127}));
   annotation(
-    uses(Modelica(version = "3.2.3")));
+    uses(Modelica(version = "3.2.3")),
+    Icon(graphics = {Text(origin = {2, 4}, extent = {{-86, 72}, {86, -72}}, textString = "Aero\ndynamic\n2d"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end Aerodynamic2d;
