@@ -11,5 +11,5 @@ var a00494 =
     [ "FilteredBoostGraph", "d5/d0f/a00494.html#a03bdeaa9cdeb2887906b98c7e93c5ae7", null ],
     [ "PathDescription", "d5/d0f/a00494.html#a2756067ac4299feb1969fdeb75e33393", null ],
     [ "Vertex", "d5/d0f/a00494.html#a647fa4b703900efea039dfd0f045be9f", null ],
-    [ "VertexProperty", "d5/d0f/a00494.html#a4f357cd082eb3003a73e7cad07cdd077", null ]
+    [ "VertexProperty", "d5/d0f/a00494.html#a3b41190895ba885934add0c54df91118", null ]
 ];

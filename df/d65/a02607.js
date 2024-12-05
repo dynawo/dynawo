@@ -11,6 +11,5 @@ var a02607 =
     [ "shortestPath", "df/d65/a02607.html#acd97b4a0ced6c3727e47f1a8f7b530ef", null ],
     [ "edges_", "df/d65/a02607.html#a5fc80e477c4299de63bb6fc9a1d8e065", null ],
     [ "internalGraph_", "df/d65/a02607.html#a844c45da1c48544cb913a59fa021a71b", null ],
-    [ "vertices_", "df/d65/a02607.html#aa7a7435519119601c949911c1f1ec548", null ],
-    [ "verticesIds_", "df/d65/a02607.html#a3e5c76c426435be5ba8ca947b1fcc1e2", null ]
+    [ "vertices_", "df/d65/a02607.html#aa7a7435519119601c949911c1f1ec548", null ]
 ];
