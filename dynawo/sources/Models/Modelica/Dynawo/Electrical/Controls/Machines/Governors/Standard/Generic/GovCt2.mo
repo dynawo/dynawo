@@ -270,17 +270,17 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {184, 114}, extent = {{-8, -8}, {8, 8}}, rotation = -180)));
   Modelica.Blocks.Math.Product prodOmegaDm annotation(
     Placement(visible = true, transformation(origin = {236, 202}, extent = {{8, -8}, {-8, 8}}, rotation = 180)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitFsrt(Falling = RDownPu, Rising = RUpPu, Td = tDRatelim, strict = false, y_start = initFsrtPu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitFsrt(Falling = RDownPu, Rising = RUpPu, Td = tDRatelim, strict = false, y_start = initFsrtPu, y(start = initFsrtPu)) annotation(
     Placement(visible = true, transformation(origin = {-4, 40}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitPRate(Rising = PRatePu, Td = tDRatelim, y_start = (ValveMaxPu - WFnlPu) * KTurb) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitPRate(Rising = PRatePu, Td = tDRatelim, y_start = (ValveMaxPu - WFnlPu) * KTurb, y(start = (ValveMaxPu - WFnlPu) * KTurb)) annotation(
     Placement(visible = true, transformation(origin = {138, 14}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
   Modelica.Blocks.Logical.Switch switchWFSpd annotation(
     Placement(visible = true, transformation(origin = {272, -126}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Tables.CombiTable1Ds tablePLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.LastTwoPoints, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {138, 38}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {initPMechNoLossPu}, y_start = initPMechNoLossPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tB, 1}, b = {tC, 1}, x_start = {initPMechNoLossPu}, y_start = initPMechNoLossPu) annotation(
     Placement(visible = true, transformation(origin = {254, 106}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSB, 1}, b = {tSA, 1}, initType = Modelica.Blocks.Types.Init.InitialOutput, x_start = {initTexPu}, y_start = initTexPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSB, 1}, b = {tSA, 1}, x_start = {initTexPu}, y_start = initTexPu) annotation(
     Placement(visible = true, transformation(origin = {80, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initial parameters

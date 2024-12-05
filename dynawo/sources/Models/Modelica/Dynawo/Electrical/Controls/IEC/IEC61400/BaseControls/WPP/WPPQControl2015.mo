@@ -54,7 +54,7 @@ model WPPQControl2015 "Reactive power control module for wind power plants (IEC 
     Placement(visible = true, transformation(origin = {-290, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection1(DyMax = DXRefMaxPu, DyMin = DXRefMinPu, U0 = XWT0Pu, Y0 = XWT0Pu, YMax = XRefMaxPu, YMin = XRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {326, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction1(a = {txfv, 1}, b = {txft, 1}, x_start = {XWT0Pu}, y_start = XWT0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {txfv, 1}, b = {txft, 1}, x_start = {XWT0Pu}, y_start = XWT0Pu) annotation(
     Placement(visible = true, transformation(origin = {296, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false) annotation(
     Placement(visible = true, transformation(origin = {260, 138}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -109,4 +109,5 @@ equation
   connect(firstOrder1.y, gain.u) annotation(
     Line(points = {{-278, -100}, {-200, -100}, {-200, -72}, {-122, -72}}, color = {0, 0, 127}));
 
+  annotation(preferredView = "diagram");
 end WPPQControl2015;
