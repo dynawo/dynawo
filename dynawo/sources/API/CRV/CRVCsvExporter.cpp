@@ -36,7 +36,7 @@ using std::ostream;
 namespace curves {
 
 void
-CsvExporter::exportToFile(const boost::shared_ptr<CurvesCollection>& curves, const string& filePath) const {
+CsvExporter::exportToFile(const std::shared_ptr<CurvesCollection>& curves, const string& filePath) const {
   // open export file
   fstream file;
   file.open(filePath.c_str(), fstream::out);
@@ -48,7 +48,7 @@ CsvExporter::exportToFile(const boost::shared_ptr<CurvesCollection>& curves, con
 }
 
 void
-CsvExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, ostream& stream) const {
+CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ostream& stream) const {
   const std::string CSVEXPORTER_SEPARATOR = ";";  ///< separator in csv file
 
   // check if there are curves to be printed

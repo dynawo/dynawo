@@ -23,7 +23,6 @@
 
 #include "CRVCurve.h"
 
-#include <boost/shared_ptr.hpp>
 #include <string>
 
 namespace curves {
@@ -48,7 +47,7 @@ class CurvesCollection {
    *
    * @param curve curve to add to the collection
    */
-  void add(const boost::shared_ptr<Curve>& curve);
+  void add(const std::shared_ptr<Curve>& curve);
 
   /**
    * @brief add a new point for each curve
@@ -128,17 +127,17 @@ class CurvesCollection {
      *
      * @returns Curve pointed to by this
      */
-    boost::shared_ptr<Curve>& operator*() const;
+    std::shared_ptr<Curve>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Curve pointed to by this
      */
-    boost::shared_ptr<Curve>* operator->() const;
+    std::shared_ptr<Curve>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<Curve> >::iterator current_;  ///< current vector iterator
+    std::vector<std::shared_ptr<Curve> >::iterator current_;  ///< current vector iterator
   };
 
   /**
@@ -211,17 +210,17 @@ class CurvesCollection {
      *
      * @returns Curve pointed to by this
      */
-    const boost::shared_ptr<Curve>& operator*() const;
+    const std::shared_ptr<Curve>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Curve pointed to by this
      */
-    const boost::shared_ptr<Curve>* operator->() const;
+    const std::shared_ptr<Curve>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<Curve> >::const_iterator current_;  ///< current vector const iterator
+    std::vector<std::shared_ptr<Curve> >::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
@@ -249,7 +248,7 @@ class CurvesCollection {
   iterator end();
 
  private:
-  std::vector<boost::shared_ptr<Curve> > curves_;  ///< Vector of the curves object
+  std::vector<std::shared_ptr<Curve> > curves_;  ///< Vector of the curves object
   std::string id_;                                 ///< Curves collections id
 };
 

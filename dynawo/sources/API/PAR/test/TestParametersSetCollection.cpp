@@ -20,6 +20,7 @@
 
 #include "gtest_dynawo.h"
 
+#include "PARParametersSetFactory.h"
 #include "PARParametersSetCollectionFactory.h"
 #include "PARParametersSetCollection.h"
 #include "PARMacroParSet.h"
@@ -42,11 +43,11 @@ TEST(APIPARTest, CollectionAddParametersSet) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
 
   // Add a set of parameters to this collection
-  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
+  std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
   collection->addParametersSet(parametersSet);
 
   // Add a set of parameters with same id: it should raise an error
-  shared_ptr<ParametersSet> anotherParametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
+  std::shared_ptr<ParametersSet> anotherParametersSet = ParametersSetFactory::newParametersSet("parameters");
   ASSERT_THROW_DYNAWO(collection->addParametersSet(anotherParametersSet), DYN::Error::API, DYN::KeyError_t::ParametersSetAlreadyExists);
 
   // Check hasParametersSet
@@ -54,7 +55,7 @@ TEST(APIPARTest, CollectionAddParametersSet) {
   ASSERT_EQ(collection->hasParametersSet("inexistant"), false);
 
   // Get the added parameters set
-  shared_ptr<ParametersSet> parametersSet2 = collection->getParametersSet("parameters");
+  std::shared_ptr<ParametersSet> parametersSet2 = collection->getParametersSet("parameters");
   ASSERT_EQ(parametersSet, parametersSet2);
 
   // Try to get a parameters set that hasn't been added: it should raise an error
@@ -70,7 +71,7 @@ TEST(APIPARTest, CollectionFactory) {
   shared_ptr<ParametersSetCollection> collection1 = ParametersSetCollectionFactory::newCollection();
 
   // Add a set of parameters to this collection
-  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
+  std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
   collection1->addParametersSet(parametersSet);
 
   // Copy this collection in a new collection
@@ -91,9 +92,9 @@ TEST(APIPARTest, CollectionIterator) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
 
   // Add several sets of parameters to this collection
-  shared_ptr<ParametersSet> parametersSet1 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters1"));
-  shared_ptr<ParametersSet> parametersSet2 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters2"));
-  shared_ptr<ParametersSet> parametersSet3 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters3"));
+  std::shared_ptr<ParametersSet> parametersSet1 = ParametersSetFactory::newParametersSet("parameters1");
+  std::shared_ptr<ParametersSet> parametersSet2 = ParametersSetFactory::newParametersSet("parameters2");
+  std::shared_ptr<ParametersSet> parametersSet3 = ParametersSetFactory::newParametersSet("parameters3");
   collection->addParametersSet(parametersSet1);
   collection->addParametersSet(parametersSet2);
   collection->addParametersSet(parametersSet3);
@@ -123,14 +124,14 @@ TEST(APIPARTest, MacroParameterSetTest) {
   shared_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
   macroParameterSet->addParameter(parameter2);
   macroParameterSet->addReference(reference);
-  shared_ptr<ParametersSet> parametersSet1 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters1"));
+  std::shared_ptr<ParametersSet> parametersSet1 = ParametersSetFactory::newParametersSet("parameters1");
   parametersSet1->addParameter(parameter1);
   ASSERT_NO_THROW(collection->addMacroParameterSet(macroParameterSet));
   ASSERT_THROW_DYNAWO(collection->addMacroParameterSet(macroParameterSet), DYN::Error::API, DYN::KeyError_t::MacroParameterSetAlreadyExists);
   shared_ptr<MacroParSet> macroParSet = shared_ptr<MacroParSet>(new MacroParSet("macroParameterSet"));
   ASSERT_NO_THROW(parametersSet1->addMacroParSet(macroParSet));
   collection->addParametersSet(parametersSet1);
-  ASSERT_NO_THROW(shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
+  ASSERT_NO_THROW(std::shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
   ASSERT_NO_THROW(collection->getParametersFromMacroParameter());
   ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
   ASSERT_NO_THROW(itMacroParameterSet++);

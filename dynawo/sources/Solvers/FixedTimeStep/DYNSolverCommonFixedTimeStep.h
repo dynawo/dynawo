@@ -95,7 +95,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    * @param tEnd final time value.
    *
    */
-  void initCommon(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void initCommon(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
@@ -206,6 +206,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   void updateTimeStep(double& tNxt);
 
   inline void setInitStep(double /*initStep*/) {
+    // do nothing
   }
 
  protected:

@@ -29,6 +29,7 @@
 #include "DYNModelNetwork.hpp"
 
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelSwitchFactory.h"
@@ -1225,8 +1226,8 @@ ModelNetwork::initParams() {
   // otherwise, the network is not balanced, and the global init of the model would be necessary to compute switches currents
   SolverKINSubModel solver;
 
-  boost::shared_ptr<parameters::ParametersSet> networkModelLocalInitParameters =
-      boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("networkModelLocalInitParameters"));
+  std::shared_ptr<parameters::ParametersSet> networkModelLocalInitParameters =
+                                  parameters::ParametersSetFactory::newParametersSet("networkModelLocalInitParameters");
   networkModelLocalInitParameters->createParameter("mxiter", 5);
 
   solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], networkModelLocalInitParameters);

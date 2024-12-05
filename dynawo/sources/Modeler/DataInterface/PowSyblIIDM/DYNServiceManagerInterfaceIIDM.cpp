@@ -129,10 +129,9 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), weights)) {
-      if (!buses[busIndex]->getBusBarSectionIdentifiers().empty()) {
-        return true;
-      }
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), weights) &&
+        !buses[busIndex]->getBusBarSectionIdentifiers().empty()) {
+      return true;
     }
   }
   return false;

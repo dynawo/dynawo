@@ -40,6 +40,7 @@
 #include "DYNDynamicData.h"
 #include "DYNParameterSolver.h"
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "PARParameterFactory.h"
 #include "TLTimelineFactory.h"
 #include "DYNTrace.h"
@@ -52,7 +53,7 @@ static SolverFactory::SolverPtr initSolver(bool optimizeAlgebraicResidualsEvalua
   // Solver
   SolverFactory::SolverPtr solver = SolverFactory::createSolverFromLib("../dynawo_SolverTRAP" + std::string(sharedLibraryExtension()));
 
-  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  std::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newParametersSet("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
   params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
@@ -103,8 +104,8 @@ static void compile(boost::shared_ptr<DynamicData> dyd) {
   cf.concatRefs();
 }
 
-static boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler, bool silentZenabled = true) {
-  boost::shared_ptr<Model> model = modeler.getModel();
+static std::shared_ptr<Model> initModel(const double& tStart, Modeler modeler, bool silentZenabled = true) {
+  std::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
   model->initSilentZ(silentZenabled);
   model->setIsInitProcess(true);
@@ -117,7 +118,7 @@ static boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler,
   return model;
 }
 
-static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
+static std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
  const double& tStart, const double& tStop, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true, bool enableSilentZ = true) {
   SolverFactory::SolverPtr solver = initSolver(optimizeAlgebraicResidualsEvaluations, skipNR, enableSilentZ);
   // DYD
@@ -134,7 +135,7 @@ static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolver
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  boost::shared_ptr<Model> model = initModel(tStart, modeler, enableSilentZ);
+  std::shared_ptr<Model> model = initModel(tStart, modeler, enableSilentZ);
 
   solver->init(model, tStart, tStop);
 
@@ -144,9 +145,9 @@ static std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > initSolver
 TEST(SimulationTest, testSolverTRAPTestAlpha) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop);
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 
@@ -215,9 +216,9 @@ TEST(SimulationTest, testSolverTRAPTestAlpha) {
 TEST(SimulationTest, testSolverTRAPTestBeta) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<SolverFactory::SolverPtr, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop);
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
+  std::shared_ptr<Model> model = p.second;
 
   solver->calculateIC(tStop);
 

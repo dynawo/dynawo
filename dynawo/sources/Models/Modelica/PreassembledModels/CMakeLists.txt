@@ -205,8 +205,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSourceB.xml
+  PhotovoltaicsWeccCurrentSourceBNoPlantControl.xml
   PhotovoltaicsWeccVoltageSourceA.xml
+  PhotovoltaicsWeccVoltageSourceANoPlantControl.xml
   PhotovoltaicsWeccVoltageSourceB.xml
+  PhotovoltaicsWeccVoltageSourceBNoPlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
