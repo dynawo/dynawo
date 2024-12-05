@@ -15,6 +15,13 @@ within Dynawo.Electrical.Controls.IEC.IEC61400;
 package Parameters "Parameters of lookup tables for variable dependencies in the context of IEC N°61400-27-1"
   extends Icons.Package;
   
+record Aerodynamic2d
+  parameter Types.ActivePowerPu DPOmegaThetaPu"Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028";
+  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48";
+  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03";
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = -0.03";
+  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0";
+end Aerodynamic2d;
 
 record GridMeasurementControl
   parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(

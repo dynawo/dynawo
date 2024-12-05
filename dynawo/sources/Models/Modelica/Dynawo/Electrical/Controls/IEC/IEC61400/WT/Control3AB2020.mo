@@ -143,6 +143,8 @@ model Control3AB2020 "Whole generator control module for type 4B wind turbines (
     Line(points = {{78, 0}, {-66, 0}, {-66, 82}, {-154, 82}, {-154, 100}, {-180, 100}}, color = {0, 0, 127}));
   connect(qControl.iqCmdPu, iqCmdPu) annotation(
     Line(points = {{42, -84}, {86, -84}, {86, -80}, {170, -80}}, color = {0, 0, 127}));
+  connect(tanPhi, qControl.tanPhi) annotation(
+    Line(points = {{-180, -60}, {-116, -60}, {-116, -64}, {-40, -64}, {-40, -54}, {10, -54}, {10, -58}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -160}, {160, 160}})),
