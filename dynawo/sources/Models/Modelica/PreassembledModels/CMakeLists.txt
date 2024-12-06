@@ -244,6 +244,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   UFLS3Steps.xml
   UFLS10Steps.xml
   UnderVoltageAutomaton.xml
+  VariableImpedantFault.xml
   VRRemote.xml
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
