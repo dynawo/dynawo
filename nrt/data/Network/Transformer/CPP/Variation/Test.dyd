@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -16,9 +16,9 @@
   <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>-->
   <!--<dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="Test.par" parId="GeneratorSynchronousThreeWindingsProportionalRegulations" staticId="Generator">-->
   <dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsGoverPropVRPropInt" parFile="Test.par" parId="GeneratorSynchronousThreeWindingsGoverPropVRPropInt" staticId="Generator">
-  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPQ" parFile="Test.par" parId="GeneratorPQ" staticId="Generator">-->
-  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPV" parFile="Test.par" parId="GeneratorPV" staticId="Generator">-->
-  <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPVFixed" parFile="Test.par" parId="GeneratorPVFixed" staticId="Generator">-->
+    <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPQ" parFile="Test.par" parId="GeneratorPQ" staticId="Generator">-->
+    <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPV" parFile="Test.par" parId="GeneratorPV" staticId="Generator">-->
+    <!--<dyn:blackBoxModel id="Generator" lib="GeneratorPVFixed" parFile="Test.par" parId="GeneratorPVFixed" staticId="Generator">-->
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
     <dyn:staticRef var="generator_state" staticVar="state"/>
@@ -26,13 +26,10 @@
   <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@Generator@@NODE@_ACPIN"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="Test.par" parId="OmegaRef"/>
   <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
-
   <dyn:blackBoxModel id="Disconnect_Load4" lib="EventConnectedStatus" parFile="Test.par" parId="Disconnect_Load4"/>
   <dyn:connect id1="Disconnect_Load4" var1="event_state1_value" id2="NETWORK" var2="Load4_state_value"/>
   <dyn:blackBoxModel id="Connect_Load4" lib="EventConnectedStatus" parFile="Test.par" parId="Connect_Load4"/>
   <dyn:connect id1="Connect_Load4" var1="event_state1_value" id2="NETWORK" var2="Load4_state_value"/>
-
   <dyn:blackBoxModel id="Disconnect_Load1" lib="EventConnectedStatus" parFile="Test.par" parId="Disconnect_Load1"/>
   <dyn:connect id1="Disconnect_Load1" var1="event_state1_value" id2="NETWORK" var2="Load1_state_value"/>
-
 </dyn:dynamicModelsArchitecture>

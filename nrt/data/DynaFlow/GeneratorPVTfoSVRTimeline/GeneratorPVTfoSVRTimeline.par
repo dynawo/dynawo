@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -92,21 +92,25 @@
   </macroParameterSet>
   <macroParameterSet id="macro_svc_tfo">
     <!-- Generator 1 parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.06"/>
     <!-- Generator 2 parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.1"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_2_" value="0.06"/>
   </macroParameterSet>
   <set id="Generator1">
     <macroParSet id="macro_generator"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator2">
     <macroParSet id="macro_generator_diagram"/>
     <macroParSet id="macro_tfo"/>
     <macroParSet id="macro_qnomalt"/>
     <macroParSet id="macro_rpcl"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="SVC">
     <macroParSet id="macro_svc"/>

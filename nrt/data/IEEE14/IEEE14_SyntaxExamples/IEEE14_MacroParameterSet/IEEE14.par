@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <macroParameterSet id="macro1">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -20,6 +20,8 @@
     <par name="generator_QMinTableFile" type="STRING" value="nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____3_SM_Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="12293692827806051710_tableqmin"/>
     <macroParSet id="macro1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="12497041103945231709">
     <par name="generator_KGover" type="DOUBLE" value="1"/>
@@ -30,6 +32,8 @@
     <par name="generator_QMinTableFile" type="STRING" value="nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____1_SM_Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="12497041103945231709_tableqmin"/>
     <macroParSet id="macro1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="3926348227757243444">
     <par name="generator_KGover" type="DOUBLE" value="1"/>
@@ -40,6 +44,8 @@
     <par name="generator_QMinTableFile" type="STRING" value="nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____2_SM_Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="3926348227757243444_tableqmin"/>
     <macroParSet id="macro1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="5381922176910680352">
     <par name="generator_KGover" type="DOUBLE" value="0"/>
@@ -50,6 +56,8 @@
     <par name="generator_QMinTableFile" type="STRING" value="nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____6_SM_Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="5381922176910680352_tableqmin"/>
     <macroParSet id="macro1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="5821770868043647431">
     <par name="generator_KGover" type="DOUBLE" value="0"/>
@@ -60,6 +68,8 @@
     <par name="generator_QMinTableFile" type="STRING" value="nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="5821770868043647431_tableqmin"/>
     <macroParSet id="macro1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="GenericRestorativeLoad">
     <par name="load_Alpha" type="DOUBLE" value="1.5"/>

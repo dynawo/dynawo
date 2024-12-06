@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -21,4 +21,4 @@
   <curve model="HVDC" variable="hvdc_Q2Pu"/>
   <curve model="HVDC" variable="hvdc_Theta1"/>
   <curve model="HVDC" variable="hvdc_Theta2"/>
-  </curvesInput>
+</curvesInput>

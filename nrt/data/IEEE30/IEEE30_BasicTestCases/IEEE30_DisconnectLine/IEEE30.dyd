@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -117,7 +117,6 @@
     <dyn:staticRef var="load_QPu" staticVar="q"/>
     <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:blackBoxModel>
-
   <dyn:blackBoxModel id="B1-G1" lib="GeneratorPVSignalN" parFile="IEEE30.par" parId="Generator1" staticId="B1-G1">
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
@@ -156,7 +155,6 @@
   <dyn:connect id1="B8-G1" var1="generator_N" id2="Model_Signal_N" var2="signalN_N"/>
   <dyn:connect id1="B11-G1" var1="generator_N" id2="Model_Signal_N" var2="signalN_N"/>
   <dyn:connect id1="B13-G1" var1="generator_N" id2="Model_Signal_N" var2="signalN_N"/>
-
   <dyn:connect id1="B2-L1" var1="load_terminal" id2="NETWORK" var2="B2_ACPIN"/>
   <dyn:connect id1="B3-L1" var1="load_terminal" id2="NETWORK" var2="B3_ACPIN"/>
   <dyn:connect id1="B4-L1" var1="load_terminal" id2="NETWORK" var2="B4_ACPIN"/>
@@ -178,7 +176,6 @@
   <dyn:connect id1="B26-L1" var1="load_terminal" id2="NETWORK" var2="B26_ACPIN"/>
   <dyn:connect id1="B29-L1" var1="load_terminal" id2="NETWORK" var2="B29_ACPIN"/>
   <dyn:connect id1="B30-L1" var1="load_terminal" id2="NETWORK" var2="B30_ACPIN"/>
-
   <dyn:connect id1="B2-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B2_switchOff"/>
   <dyn:connect id1="B3-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B3_switchOff"/>
   <dyn:connect id1="B4-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B4_switchOff"/>
@@ -200,7 +197,6 @@
   <dyn:connect id1="B26-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B26_switchOff"/>
   <dyn:connect id1="B29-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B29_switchOff"/>
   <dyn:connect id1="B30-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B30_switchOff"/>
-
   <dyn:connect id1="B1-G1" var1="generator_terminal" id2="NETWORK" var2="B1_ACPIN"/>
   <dyn:connect id1="B1-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B1_switchOff"/>
   <dyn:connect id1="B2-G1" var1="generator_terminal" id2="NETWORK" var2="B2_ACPIN"/>
