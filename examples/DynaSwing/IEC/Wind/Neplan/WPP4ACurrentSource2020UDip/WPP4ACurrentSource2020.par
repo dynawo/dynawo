@@ -146,27 +146,27 @@
     <par type="DOUBLE" name="WPP_UPhase0" value="0.21949"/>
   </set>
   <set id="PRefPu">
-    <par type="DOUBLE" name="step_Height" value="-0.5"/>
-    <par type="DOUBLE" name="step_tStep" value="2"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
     <par type="DOUBLE" name="step_Value0" value="1"/>
   </set>
   <set id="omegaRefPu">
-    <par type="DOUBLE" name="doubleStep_Height1" value="-0.01"/>
-    <par type="DOUBLE" name="doubleStep_Height2" value="0.01"/>
-    <par type="DOUBLE" name="doubleStep_tStep1" value="20"/>
-    <par type="DOUBLE" name="doubleStep_tStep2" value="21"/>
+    <par type="DOUBLE" name="doubleStep_Height1" value="0"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="0"/>
+    <par type="DOUBLE" name="doubleStep_tStep1" value="0"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="0"/>
     <par type="DOUBLE" name="doubleStep_Value0" value="1"/>
   </set>
   <set id="InfiniteBus">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0678"/>
     <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0"/>
     <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="0.99"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="-0.04"/>
     <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="0"/>
     <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="0"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="20"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="21"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="0"/>
   </set>
   <set id="Line">
     <par type="DOUBLE" name="line_RPu" value="0.015"/>
@@ -176,7 +176,7 @@
   </set>
   <set id="ImpedantFault">
     <par type="STRING" name="variableImpedantFault_ImpedanceTimeTable" value="ImpedanceTable"/>
-    <par type="STRING" name="variableImpedantFault_ImpedanceTableFile" value="examples/DynaSwing/IEC/Wind/Neplan/WPP4ACurrentSource2020VoltageDip/TableVariableImpedance.txt"/>
+    <par type="STRING" name="variableImpedantFault_ImpedanceTableFile" value="examples/DynaSwing/IEC/Wind/Neplan/WPP4ACurrentSource2020UDip/TableVariableImpedance.txt"/>
   </set>
   <set id="Line1">
     <par type="DOUBLE" name="line_RPu" value="0.01"/>
@@ -223,5 +223,6 @@
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-7"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-8"/>
   </set>
 </parametersSet>
