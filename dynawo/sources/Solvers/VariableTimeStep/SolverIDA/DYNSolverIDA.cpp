@@ -101,8 +101,8 @@ maxnef_(10),
 maxcor_(4),
 maxncf_(10),
 nlscoef_(0.33),
-flagInit_(false),
 restorationYPrim_(true),
+flagInit_(false),
 nbLastTimeSimulated_(0),
 allLogs_(false) {
 }
