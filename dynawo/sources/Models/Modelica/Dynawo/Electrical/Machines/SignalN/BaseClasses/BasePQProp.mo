@@ -19,7 +19,7 @@ partial model BasePQProp "Base dynamic model for a proportional reactive power r
   input Types.PerUnit NQ "Signal to change the reactive power generation of the generator depending on the centralized distant voltage regulation (generator convention)";
 
   parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
-  parameter Real QDeadBandPu(min = 0) "Reactive power deadband around the target in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QDeadBandPu(min = 0) "Reactive power deadband around the target in pu (base SnRef)";
 
 protected
   Types.ReactivePowerPu QGenRawPu "Reactive power generation without taking limits into account in pu (base SnRef) (generator convention)";

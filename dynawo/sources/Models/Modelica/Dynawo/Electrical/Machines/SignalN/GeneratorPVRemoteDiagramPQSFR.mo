@@ -17,11 +17,11 @@ model GeneratorPVRemoteDiagramPQSFR "Model for generator PV with a PQ diagram, b
   extends BaseClasses.BasePVRemote;
 
 equation
-  when QGenPu + QDeadBandPu <= QMinPu and URegulated - UDeadBandPu >= URef then
+  when QGenPu + QDeadBandPu <= QMinPu and URegulated - UDeadBandPu > URef then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBandPu >= QMaxPu and URegulated + UDeadBandPu <= URef then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and URegulated + UDeadBandPu < URef then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;

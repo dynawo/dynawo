@@ -17,11 +17,11 @@ model GeneratorPVDiagramPQSFR "Model for generator PV based on SignalN for the f
   extends BaseClasses.BasePV;
 
 equation
-  when QGenPu + QDeadBandPu <= QMinPu and UPu - UDeadBandPu >= URefPu then
+  when QGenPu + QDeadBandPu <= QMinPu and UPu - UDeadBandPu > URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu + UDeadBandPu <= URefPu then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu + UDeadBandPu < URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
