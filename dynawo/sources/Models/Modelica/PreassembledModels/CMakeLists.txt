@@ -105,6 +105,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousThreeWindingsGovHydro4St4b.xml
   GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
   GeneratorSynchronousThreeWindingsHyGovScrx.xml
   GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
