@@ -13,7 +13,8 @@ model TorquePi "Sub module for torque control inside active power control module
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
 
   Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
@@ -97,15 +98,16 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {-72, -72}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression zero3(y = constZero.y) annotation(
     Placement(visible = true, transformation(origin = {-350, -78}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = 1, LimitMin0 = TauEMinPu,UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu,UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
     Placement(visible = true, transformation(origin = {-152, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = KIp / KPp, LimitMax0 = 1, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = PiIntegrator0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = KIp / KPp, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = PiIntegrator0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
     Placement(visible = true, transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // initialization helpers
-  final parameter Types.PerUnit Torque0Pu = PWtcFilt0Pu * PBaseMeasurement / SNom / SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base PNomTurb/OmegaNom)";
-  final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base PNomTurb/OmegaNom)";
+  final parameter Types.PerUnit Torque0Pu = -P0Pu * SystemBase.SnRef / SNom / SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom/OmegaNom)";
+  final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
+  
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {130, 176}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 0.001) annotation(

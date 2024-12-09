@@ -43,7 +43,7 @@ model GenSystem3b
     Placement(visible = true, transformation(origin = {16, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
     Placement(visible = true, transformation(origin = {66, 298}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal annotation(
+  Modelica.Blocks.Math.BooleanToReal crowbarFlag annotation(
     Placement(visible = true, transformation(origin = {110, 290}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addXEqv(k2 = 1 / XEqv)  annotation(
     Placement(visible = true, transformation(origin = {-62, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -104,11 +104,11 @@ equation
     Line(points = {{0, 250}, {38, 250}, {38, 290}, {54, 290}}, color = {0, 0, 127}));
   connect(timer.y, greaterEqual.u1) annotation(
     Line(points = {{28, 300}, {42, 300}, {42, 298}, {54, 298}}, color = {0, 0, 127}));
-  connect(greaterEqual.y, booleanToReal.u) annotation(
+  connect(greaterEqual.y, crowbarFlag.u) annotation(
     Line(points = {{78, 298}, {84, 298}, {84, 290}, {98, 290}}, color = {255, 0, 255}));
-  connect(booleanToReal.y, prodCrowbarQ.u1) annotation(
+  connect(crowbarFlag.y, prodCrowbarQ.u1) annotation(
     Line(points = {{122, 290}, {140, 290}, {140, 180}, {-200, 180}, {-200, -14}, {-192, -14}}, color = {0, 0, 127}));
-  connect(booleanToReal.y, switchMCrb.u1) annotation(
+  connect(crowbarFlag.y, switchMCrb.u1) annotation(
     Line(points = {{122, 290}, {140, 290}, {140, 180}, {-200, 180}, {-200, 108}, {-178, 108}}, color = {0, 0, 127}));
   connect(lagTgQ.y, addXIm.u2) annotation(
     Line(points = {{54, -40}, {66, -40}}, color = {0, 0, 127}));

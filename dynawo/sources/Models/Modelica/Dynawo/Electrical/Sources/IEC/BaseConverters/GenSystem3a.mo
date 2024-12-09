@@ -4,7 +4,7 @@ model GenSystem3a
   extends BaseGenSystem3;
   extends Parameters.GenSystem3a;
   
-  Modelica.Blocks.Continuous.PI piP(T = TIc, k = KPc) annotation(
+  Modelica.Blocks.Continuous.PI piP(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 61}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackP annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
@@ -14,7 +14,7 @@ model GenSystem3a
     Placement(visible = true, transformation(origin = {1.02426e-05, 54}, extent = {{-8.00002, -24}, {8.00002, 24}}, rotation = 180)));
   Modelica.Blocks.Math.Feedback feedbackQ annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.PI piQ(T = TIc, k = KPc) annotation(
+  Modelica.Blocks.Continuous.PI piQ(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, -19}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integratorRe(y_start = IGsRe0Pu + UGsIm0Pu / XEqv) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));

@@ -2,15 +2,17 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model PControl3AB2020
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemP;
   
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, PBaseMeasurement = PBaseMeasurement, PDtdMaxPu = PDtdMaxPu, POrd0Pu = POrd0Pu, PWtcFilt0Pu = PWtcFilt0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UPhase0 = UPhase0, UpDipPu = UpDipPu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, P0Pu = P0Pu, PBaseMeasurement = PBaseMeasurement, PDtdMaxPu = PDtdMaxPu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UpDipPu = UpDipPu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {47.2409, -173.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = 1.2) "Maximum active current (base PNomTurb/sqrt(3)/UNom) in pu" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current (base PNomTurb/sqrt(3)/UNom) in pu" annotation(
     Placement(visible = true, transformation(origin = {-320, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = 1) "Angular velocity of generator in pu (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omega0Pu) "Angular velocity of generator in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 110}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = 1) "Angular velocity of Wind Turbine Rotor (WTR) in pu (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Angular velocity of Wind Turbine Rotor (WTR) in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PWTCFiltPu(start = POrd0Pu) "Measured (=filtered) active power for Wind Turbine Control (WTC) in pu (base Systembase.SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-352, -166}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -18,9 +20,9 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-320, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UTCHookPu(start = 0) "TODO (turbine control = TC?) in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, -280}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, -270}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UWTCFiltPu(start = 1) "Undiltered current for Wind Turbine Control (WTC) in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UWTCFiltPu(start = U0Pu) "Undiltered current for Wind Turbine Control (WTC) in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, 260}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 260}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UWTCPu(start = 1) "Measured (=filtered) current for Wind Turbine Control (WTC) in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UWTCPu(start = U0Pu) "Measured (=filtered) current for Wind Turbine Control (WTC) in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, 220}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 210}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput ipCmdPu "Active current command for generator system model in pu (base PNomTurb/sqrt(3)/UNom)" annotation(
     Placement(visible = true, transformation(origin = {310, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {310, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -34,7 +36,7 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {272, 242}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productPmax annotation(
     Placement(visible = true, transformation(origin = {144, 214}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.firstOrderVariableLimitsAntiwindup lagPOrd(DyMax = DPMaxPu, DyMin = -9999, Y0 = POrd0Pu, tI = tPord) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.firstOrderVariableLimitsAntiwindup lagPOrd(DyMax = DPMaxPu, DyMin = -9999, Y0 = -P0Pu * SystemBase.SnRef / SNom, tI = tPord) annotation(
     Placement(visible = true, transformation(origin = {188, -172}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constInftyNeg(k = -9999) annotation(
     Placement(visible = true, transformation(origin = {155, -187}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -75,7 +77,7 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-228, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.And andUPdipMPuscale annotation(
     Placement(visible = true, transformation(origin = {-192, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, y_start = POrd0Pu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-252, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productPuScale annotation(
     Placement(visible = true, transformation(origin = {-216, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -183,5 +185,7 @@ equation
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -300}, {300, 300}})),
-    Icon(coordinateSystem(extent = {{-300, -300}, {300, 300}}), graphics = {Rectangle(extent = {{-298, 298}, {298, -298}}), Text(origin = {-11, 0}, extent = {{-243, 206}, {243, -206}}, textString = "IEC WT 3 AB\n2020\nP Control")}));
+    Icon(coordinateSystem(extent = {{-300, -300}, {300, 300}}), graphics = {Rectangle(extent = {{-298, 298}, {298, -298}}), Text(origin = {-11, 0}, extent = {{-243, 206}, {243, -206}}, textString = "IEC WT 3 AB
+2020
+P Control")}));
 end PControl3AB2020;

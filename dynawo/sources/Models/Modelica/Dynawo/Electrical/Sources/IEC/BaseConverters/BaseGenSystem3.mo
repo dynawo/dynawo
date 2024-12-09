@@ -73,9 +73,9 @@ model BaseGenSystem3 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter limitQ annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitP(Falling = -9999, Rising = DipMaxPu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitP(Falling = -9999, Rising = DipMaxPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-100, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitQ(Rising = DiqMaxPu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitQ(Rising = DiqMaxPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addXRe(k2 = -1 / XEqv) annotation(
     Placement(visible = true, transformation(origin = {78, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
