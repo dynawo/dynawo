@@ -75,7 +75,7 @@ TEST(APIDYDTest, ModelTemplateExpansionImport_export) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelTemplateExpansionRefIterators) {
-  boost::shared_ptr<ModelTemplateExpansion> model;
+  std::unique_ptr<ModelTemplateExpansion> model;
   model = ModelTemplateExpansionFactory::newModel("ModelTemplateExpansion");
   boost::shared_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
   model->addMacroStaticRef(macroStaticRef);
@@ -84,7 +84,7 @@ TEST(APIDYDTest, ModelTemplateExpansionRefIterators) {
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
   for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<StaticRef> ref = *it;
+    std::shared_ptr<StaticRef> ref = *it;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }

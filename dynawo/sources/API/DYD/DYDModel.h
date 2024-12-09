@@ -29,7 +29,6 @@
 #include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
-#include <vector>
 
 namespace dynamicdata {
 
@@ -141,7 +140,7 @@ class Model {
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */
-  const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key);
+  const std::unique_ptr<StaticRef>& findStaticRef(const std::string& key);
 
   /**
    * @brief find a macroStaticRef thanks to its id
@@ -168,7 +167,7 @@ class Model {
  protected:
   boost::shared_ptr<Identifiable> id_;                                         ///< Model's ID
   ModelType type_;                                                             ///< Model's type
-  std::map<std::string, boost::shared_ptr<StaticRef> > staticRefs_;            ///< map of static ref
+  std::map<std::string, std::unique_ptr<StaticRef> > staticRefs_;              ///< map of static ref
   std::map<std::string, boost::shared_ptr<MacroStaticRef> > macroStaticRefs_;  ///< map of the macroStaticRef
 };
 

@@ -22,7 +22,7 @@
 
 #include "DYDUnitDynamicModel.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace dynamicdata {
 
@@ -40,9 +40,9 @@ class UnitDynamicModelFactory {
    *
    * @param[in] modelId ID for new UnitDynamicModel instance
    * @param[in] modelName name of model used to instanciate this model
-   * @returns Shared pointer to a new @p UnitDynamicModel with given ID
+   * @returns Unique pointer to a new @p UnitDynamicModel with given ID
    */
-  static boost::shared_ptr<UnitDynamicModel> newModel(const std::string& modelId, const std::string& modelName);
+  static std::unique_ptr<UnitDynamicModel> newModel(const std::string& modelId, const std::string& modelName);
 };
 
 }  // namespace dynamicdata

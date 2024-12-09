@@ -49,7 +49,7 @@ class ModelDescription {
    * @brief default constructor.
    * @param model another model
    */
-  explicit ModelDescription(const boost::shared_ptr<dynamicdata::Model>& model) :
+  explicit ModelDescription(const std::shared_ptr<dynamicdata::Model>& model) :
   model_(model),
   hasCompiledModel_(false) { }
 
@@ -129,7 +129,7 @@ class ModelDescription {
    * @brief get dynamic model
    * @returns dynamic model
    */
-  inline boost::shared_ptr<dynamicdata::Model> getModel() const {
+  inline std::shared_ptr<dynamicdata::Model> getModel() const {
     return model_;
   }
 
@@ -200,7 +200,7 @@ class ModelDescription {
 
 
  protected:
-  boost::shared_ptr<dynamicdata::Model> model_;  ///< dynamic model
+  std::shared_ptr<dynamicdata::Model> model_;  ///< dynamic model
   boost::weak_ptr<SubModel> subModel_;  ///< submodel associated to the model description
   std::shared_ptr<parameters::ParametersSet> parameters_;  ///< set of parameters associated to the model
   std::vector<boost::shared_ptr<StaticRefInterface> > staticRefInterfaces_;  ///< Static reference

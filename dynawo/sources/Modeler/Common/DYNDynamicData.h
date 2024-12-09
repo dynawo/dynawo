@@ -18,6 +18,7 @@
 #ifndef MODELER_COMMON_DYNDYNAMICDATA_H_
 #define MODELER_COMMON_DYNDYNAMICDATA_H_
 
+#include "DYNConnectInterface.h"
 #include "DYDBlackBoxModel.h"
 #include "PARParameter.h"
 
@@ -43,7 +44,6 @@ class NetworkConnector;
 }  // namespace dynamicdata
 
 namespace DYN {
-class ConnectInterface;
 class ModelDescription;
 class SubModel;
 class DataInterface;
@@ -102,7 +102,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get all dynamic model descriptions
    * @return list of model descriptions
    */
-  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getModelDescriptions() const {
+  inline const std::map<std::string, std::shared_ptr<ModelDescription> >& getModelDescriptions() const {
     return modelDescriptions_;
   }
 
@@ -110,7 +110,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get all system-wide (i.e. not within Modelica model) connects
    * @return list of connects
    */
-  inline const std::vector <boost::shared_ptr<dynamicdata::Connector> >& getSystemConnects() const {
+  inline const std::vector<std::shared_ptr<dynamicdata::Connector> >& getSystemConnects() const {
     return systemConnects_;
   }
 
@@ -119,13 +119,13 @@ class DynamicData : public boost::noncopyable {
    *
    * @param connect connect interface to add
    */
-  void addConnectInterface(const boost::shared_ptr<ConnectInterface>& connect);
+  void addConnectInterface(std::unique_ptr<ConnectInterface> connect);
 
   /**
    * @brief return the list of all connectors
    * @return list of all connectors
    */
-  inline const std::map<std::string, boost::shared_ptr<ConnectInterface> >& getConnectInterfaces() const {
+  inline const std::map<std::string, std::unique_ptr<ConnectInterface> >& getConnectInterfaces() const {
     return connects_;
   }
 
@@ -152,7 +152,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get black box model descriptions
    * @return list of black box model descriptions
    */
-  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getBlackBoxModelDescriptions() const {
+  inline const std::map<std::string, std::shared_ptr<ModelDescription> >& getBlackBoxModelDescriptions() const {
     return blackBoxModels_;
   }
 
@@ -160,7 +160,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get model template expansion descriptions
    * @return list of model template expansion descriptions
    */
-  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getModelTemplateExpansionDescriptions() const {
+  inline const std::map<std::string, std::shared_ptr<ModelDescription> >& getModelTemplateExpansionDescriptions() const {
     return modelTemplateExpansions_;
   }
 
@@ -168,7 +168,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get model template descriptions to be compiled
    * @return list of model template descriptions to be compiled
    */
-  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getModelTemplateDescriptionsToBeCompiled() const {
+  inline const std::map<std::string, std::shared_ptr<ModelDescription> >& getModelTemplateDescriptionsToBeCompiled() const {
     return usefulModelTemplates_;
   }
 
@@ -176,7 +176,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get unit dynamic models map
    * @return map of unit dynamic models
    */
-  inline const std::map< boost::shared_ptr<dynamicdata::UnitDynamicModel>, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& getUnitDynamicModelsMap() const {
+  inline const std::map<std::shared_ptr<dynamicdata::UnitDynamicModel>, std::shared_ptr<dynamicdata::UnitDynamicModel> >& getUnitDynamicModelsMap() const {
     return unitDynamicModelsMap_;
   }
 
@@ -184,7 +184,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get modelica model reference map
    * @return map of modelica model reference
    */
-  inline const std::map< boost::shared_ptr<ModelDescription>, boost::shared_ptr<ModelDescription> >& getModelicaModelReferenceMap() const {
+  inline const std::map<std::shared_ptr<ModelDescription>, std::shared_ptr<ModelDescription> >& getModelicaModelReferenceMap() const {
     return modelicaModelReferenceMap_;
   }
 
@@ -192,7 +192,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get reference modelica models
    * @return list of reference modelica models
    */
-  inline std::vector< boost::shared_ptr<ModelDescription> > getReferenceModelicaModels() const {
+  inline std::vector<std::shared_ptr<ModelDescription> > getReferenceModelicaModels() const {
     return referenceModelicaModels_;
   }
 
@@ -218,7 +218,7 @@ class DynamicData : public boost::noncopyable {
    * @param model model which references in parameters set have to be resolved
    * @param modelSet model parameters set
    */
-  void resolveParReferences(boost::shared_ptr<dynamicdata::Model> model,
+  void resolveParReferences(std::shared_ptr<dynamicdata::Model> model,
                             std::shared_ptr<parameters::ParametersSet> modelSet);
 
   /**
@@ -266,25 +266,25 @@ class DynamicData : public boost::noncopyable {
   std::shared_ptr<parameters::ParametersSet> networkParameters_;  ///< network parameters
 
   /// warning : keep map container to be sure that models are always sorted with the same order whatever is the order in input file to avoid mathematical issues
-  std::map<std::string, boost::shared_ptr<ModelDescription> > modelDescriptions_;  ///< map of model descriptions
-  std::vector <boost::shared_ptr<dynamicdata::Connector> > systemConnects_;  ///< connects which are not fully inside a model
-  std::map<std::string, boost::shared_ptr<ConnectInterface> > connects_;  ///< connects interfaces
+  std::map<std::string, std::shared_ptr<ModelDescription> > modelDescriptions_;  ///< map of model descriptions
+  std::vector<std::shared_ptr<dynamicdata::Connector> > systemConnects_;  ///< connects which are not fully inside a model
+  std::map<std::string, std::unique_ptr<ConnectInterface> > connects_;  ///< connects interfaces
 
   // generate by classifyModelDescriptions in DydAnalyser
-  std::map<std::string, boost::shared_ptr<ModelDescription> > modelicaModels_;  ///< modelica models presented in dynamic data
-  std::map<std::string, boost::shared_ptr<ModelDescription> > blackBoxModels_;  ///< black box models presented in dynamic data
-  std::map<std::string, boost::shared_ptr<ModelDescription> > modelTemplateExpansions_;  ///< model templates expansions presented in dynamic data
-  std::map<std::string, boost::shared_ptr<ModelDescription> > modelTemplates_;  ///< model templates presented in dynamic data
+  std::map<std::string, std::shared_ptr<ModelDescription> > modelicaModels_;  ///< modelica models presented in dynamic data
+  std::map<std::string, std::shared_ptr<ModelDescription> > blackBoxModels_;  ///< black box models presented in dynamic data
+  std::map<std::string, std::shared_ptr<ModelDescription> > modelTemplateExpansions_;  ///< model templates expansions presented in dynamic data
+  std::map<std::string, std::shared_ptr<ModelDescription> > modelTemplates_;  ///< model templates presented in dynamic data
 
   // generate by markModelTemplatesCalledByExpansions in DydAnalyser
-  std::map<std::string, boost::shared_ptr<ModelDescription> > usefulModelTemplates_;  ///< useful model template called by at least one expansion
+  std::map<std::string, std::shared_ptr<ModelDescription> > usefulModelTemplates_;  ///< useful model template called by at least one expansion
   // generate by mappingModelicaModels in DydAnalyser
-  std::map< boost::shared_ptr<dynamicdata::UnitDynamicModel>,
-            boost::shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModelsMap_;  ///< map of unit dynamic model between two composed modelica models
-  std::vector< boost::shared_ptr<ModelDescription> > mappedModelDescriptions_;  ///< model descriptions already mapped
-  std::map< boost::shared_ptr<ModelDescription>,
-            boost::shared_ptr<ModelDescription> > modelicaModelReferenceMap_;  ///< map between a modelica model and its reference modelica model descriptions
-  std::vector< boost::shared_ptr<ModelDescription> > referenceModelicaModels_;  ///< reference modelica models descriptions list
+  std::map< std::shared_ptr<dynamicdata::UnitDynamicModel>,
+            std::shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModelsMap_;  ///< map of unit dynamic model between two composed modelica models
+  std::vector<std::shared_ptr<ModelDescription> > mappedModelDescriptions_;  ///< model descriptions already mapped
+  std::map< std::shared_ptr<ModelDescription>,
+            std::shared_ptr<ModelDescription> > modelicaModelReferenceMap_;  ///< map between a modelica model and its reference modelica model descriptions
+  std::vector<std::shared_ptr<ModelDescription> > referenceModelicaModels_;  ///< reference modelica models descriptions list
 };  ///< Dynamic data class
 
 }  // namespace DYN

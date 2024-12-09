@@ -22,7 +22,8 @@
 
 #include "DYDConnector.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace dynamicdata {
 
@@ -42,9 +43,9 @@ class ConnectorFactory {
    * @param[in] var1 : first model connected port name
    * @param[in] model2 : shared pointer to the second model
    * @param[in] var2 : second model connected port name
-   * @returns Shared pointer to a new @p Connector
+   * @returns Unique pointer to a new @p Connector
    */
-  static boost::shared_ptr<Connector> newConnector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
+  static std::unique_ptr<Connector> newConnector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
 };
 
 }  // namespace dynamicdata

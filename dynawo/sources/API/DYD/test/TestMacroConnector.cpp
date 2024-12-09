@@ -38,9 +38,9 @@ TEST(APIDYDTest, MacroConnector) {
 
   ASSERT_EQ(macroConnector->getId(), "macroConnector");
 
-  std::map<std::string, boost::shared_ptr<MacroConnection> > connect = macroConnector->getConnectors();
+  std::map<std::string, std::shared_ptr<MacroConnection> > connect = macroConnector->getConnectors();
   ASSERT_EQ(connect.size(), 2);
-  std::map<std::string, boost::shared_ptr<MacroConnection> >::const_iterator iter = connect.begin();
+  std::map<std::string, std::shared_ptr<MacroConnection> >::const_iterator iter = connect.begin();
   int index = 0;
   for (; iter != connect.end(); ++iter) {
     if (index == 0)
@@ -50,9 +50,9 @@ TEST(APIDYDTest, MacroConnector) {
     ++index;
   }
 
-  std::map<std::string, boost::shared_ptr<MacroConnection> > initConnect = macroConnector->getInitConnectors();
+  std::map<std::string, std::shared_ptr<MacroConnection> > initConnect = macroConnector->getInitConnectors();
   ASSERT_EQ(initConnect.size(), 2);
-  std::map<std::string, boost::shared_ptr<MacroConnection> >::const_iterator iter2 = initConnect.begin();
+  std::map<std::string, std::shared_ptr<MacroConnection> >::const_iterator iter2 = initConnect.begin();
   int index2 = 0;
   for (; iter2 != initConnect.end(); ++iter2) {
     if (index2 == 0)
