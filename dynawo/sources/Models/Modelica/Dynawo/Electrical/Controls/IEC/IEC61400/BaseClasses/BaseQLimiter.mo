@@ -55,8 +55,8 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
 
   //Initial parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
   
 equation
   connect(combiTable1Ds3.y[1], max.u2) annotation(

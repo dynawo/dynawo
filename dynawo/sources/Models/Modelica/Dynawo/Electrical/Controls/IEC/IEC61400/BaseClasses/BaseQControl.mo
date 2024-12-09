@@ -124,7 +124,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
 
 equation
   connect(switch7.y, iqCmdPu) annotation(

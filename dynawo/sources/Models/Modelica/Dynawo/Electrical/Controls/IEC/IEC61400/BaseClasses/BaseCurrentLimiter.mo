@@ -115,7 +115,8 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {130, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemP;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemQ;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
   

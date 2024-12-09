@@ -15,14 +15,14 @@ within Dynawo.Electrical.Wind.IEC.WT;
 model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020 standard"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020(pll.tS = tS, pll.tPll = tPll);
 
-  // Parameters
+// Parameters
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem3a;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Aerodynamic2d;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PitchAngleControl;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPAg;
   
- 
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));
  Dynawo.Electrical.Controls.IEC.IEC61400.WT.Control3AB2020 control(DPMaxPu=DPMaxPu, DPRefMax4abPu=DPRefMax4abPu, DPRefMin4abPu=DPRefMin4abPu, DTauMaxPu=DTauMaxPu, DTauUvrtMaxPu=DTauUvrtMaxPu,
@@ -79,20 +79,20 @@ equation
     Line(points = {{38, -56}, {46, -56}, {46, -72}, {58, -72}}, color = {0, 0, 127}));
   connect(mechanical.omegaWTRPu, control.omegaWTRPu) annotation(
     Line(points = {{102, -88}, {108, -88}, {108, -4}, {-64, -4}, {-64, -14}}, color = {0, 0, 127}));
- connect(aerodynamic2d.pAeroPu, mechanical.PAeroPu) annotation(
-    Line(points = {{-20, -94}, {12, -94}, {12, -88}, {58, -88}}, color = {0, 0, 127}));
- connect(mechanical.omegaWTRPu, aerodynamic2d.omegaWTRPu) annotation(
+  connect(mechanical.omegaWTRPu, aerodynamic2d.omegaWTRPu) annotation(
     Line(points = {{102, -88}, {108, -88}, {108, -118}, {-58, -118}, {-58, -102}, {-48, -102}}, color = {0, 0, 127}));
- connect(pitchAngleControl.theta, aerodynamic2d.theta) annotation(
-    Line(points = {{-64.8, -95.76}, {-53.8, -95.76}, {-53.8, -86.76}, {-47.8, -86.76}}, color = {0, 0, 127}));
- connect(mechanical.omegaWTRPu, pitchAngleControl.omegaWTRPu) annotation(
-    Line(points = {{102, -88}, {108, -88}, {108, -118}, {-116, -118}, {-116, -86}, {-92, -86}}, color = {0, 0, 127}));
- connect(control.omegaRefPu, pitchAngleControl.omegaRefPu) annotation(
-    Line(points = {{-34, -22}, {-32, -22}, {-32, -14}, {-18, -14}, {-18, -76}, {-110, -76}, {-110, -92}, {-92, -92}}, color = {0, 0, 127}));
- connect(control.POrdPu, pitchAngleControl.pOrdPu) annotation(
-    Line(points = {{-50, -62}, {-50, -74}, {-112, -74}, {-112, -100}, {-92, -100}}, color = {0, 0, 127}));
- connect(PWTRefPu, pitchAngleControl.pWTrefPu) annotation(
+  connect(aerodynamic2d.pAeroPu, mechanical.PAeroPu) annotation(
+    Line(points = {{-20, -94}, {12, -94}, {12, -88}, {58, -88}}, color = {0, 0, 127}));
+  connect(PWTRefPu, pitchAngleControl.pWTrefPu) annotation(
     Line(points = {{-130, -20}, {-116, -20}, {-116, -78}, {-118, -78}, {-118, -106}, {-92, -106}}, color = {0, 0, 127}));
+  connect(control.POrdPu, pitchAngleControl.pOrdPu) annotation(
+    Line(points = {{-50, -62}, {-50, -74}, {-112, -74}, {-112, -100}, {-92, -100}}, color = {0, 0, 127}));
+  connect(control.omegaRefPu, pitchAngleControl.omegaRefPu) annotation(
+    Line(points = {{-34, -22}, {-32, -22}, {-32, -14}, {-18, -14}, {-18, -76}, {-110, -76}, {-110, -92}, {-92, -92}}, color = {0, 0, 127}));
+  connect(mechanical.omegaWTRPu, pitchAngleControl.omegaWTRPu) annotation(
+    Line(points = {{102, -88}, {108, -88}, {108, -118}, {-116, -118}, {-116, -86}, {-92, -86}}, color = {0, 0, 127}));
+  connect(pitchAngleControl.theta, aerodynamic2d.theta) annotation(
+    Line(points = {{-64.8, -95.76}, {-53.8, -95.76}, {-53.8, -86.76}, {-47.8, -86.76}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Text(origin = {69, -1}, extent = {{-40, 19}, {41, -19}}, textString = "B"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}));

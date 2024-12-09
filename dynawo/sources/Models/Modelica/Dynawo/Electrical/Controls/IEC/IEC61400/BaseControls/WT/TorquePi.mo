@@ -97,9 +97,9 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {-72, -72}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression zero3(y = constZero.y) annotation(
     Placement(visible = true, transformation(origin = {-350, -78}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = 1, LimitMin0 = TauEMinPu,UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
     Placement(visible = true, transformation(origin = {-152, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = KIp / KPp, UseFreeze = true, UseReset = true, UseSet = true, Y0 = PiIntegrator0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = KIp / KPp, LimitMax0 = 1, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = PiIntegrator0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
     Placement(visible = true, transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
