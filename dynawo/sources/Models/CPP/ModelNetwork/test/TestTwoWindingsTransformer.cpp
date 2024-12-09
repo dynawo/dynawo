@@ -38,6 +38,7 @@
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 using boost::shared_ptr;
@@ -157,10 +158,10 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
   if (open || !closed2) {
     transformer.getTerminal2().disconnect();
   }
-  std::unique_ptr<TwoWTransformerInterfaceIIDM> tw2ItfIIDM = std::unique_ptr<TwoWTransformerInterfaceIIDM>(new TwoWTransformerInterfaceIIDM(transformer));
+  std::unique_ptr<TwoWTransformerInterfaceIIDM> tw2ItfIIDM = DYN::make_unique<TwoWTransformerInterfaceIIDM>(transformer);
   // add phase tapChanger and steps if exists
   if (transformer.hasPhaseTapChanger()) {
-    std::unique_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
+    std::unique_ptr<PhaseTapChangerInterfaceIIDM> tapChanger = DYN::make_unique<PhaseTapChangerInterfaceIIDM>(transformer.getPhaseTapChanger());
     tw2ItfIIDM->setPhaseTapChanger(std::move(tapChanger));
   }
   // add ratio tapChanger and steps if exists
@@ -172,7 +173,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
       else if (stdcxx::areSame(transformer.getTerminal2(), transformer.getRatioTapChanger().getRegulationTerminal().get()))
         side = "TWO";
     }
-    std::unique_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(transformer.getRatioTapChanger(), side));
+    std::unique_ptr<RatioTapChangerInterfaceIIDM> tapChanger = DYN::make_unique<RatioTapChangerInterfaceIIDM>(transformer.getRatioTapChanger(), side);
     tw2ItfIIDM->setRatioTapChanger(std::move(tapChanger));
   }
 
@@ -181,15 +182,16 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                                                      std::numeric_limits<unsigned long>::max()));
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits.getPermanentLimit(),
+                                                                                                      std::numeric_limits<unsigned long>::max());
       tw2ItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration());
         tw2ItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
       }
     }
@@ -200,15 +202,16 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                                                      std::numeric_limits<unsigned long>::max()));
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits.getPermanentLimit(),
+                                                                                                      std::numeric_limits<unsigned long>::max());
       tw2ItfIIDM->addCurrentLimitInterface2(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration());
         tw2ItfIIDM->addCurrentLimitInterface2(std::move(cLimit));
       }
     }
@@ -224,7 +227,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
   if (closed2)
     tw2ItfIIDM->setBusInterface2(bus2ItfIIDM);
 
-  std::unique_ptr<ModelTwoWindingsTransformer> t2w = std::unique_ptr<ModelTwoWindingsTransformer>(new ModelTwoWindingsTransformer(std::move(tw2ItfIIDM)));
+  std::unique_ptr<ModelTwoWindingsTransformer> t2w = DYN::make_unique<ModelTwoWindingsTransformer>(std::move(tw2ItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setIsInitModel(initModel);
@@ -232,7 +235,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
   int offset = 0;
   if (closed1) {
-    std::unique_ptr<ModelBus> bus1 = std::unique_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+    std::unique_ptr<ModelBus> bus1 = DYN::make_unique<ModelBus>(bus1ItfIIDM, false);
     bus1->setNetwork(network);
     bus1->setVoltageLevel(vl);
     bus1->initSize();
@@ -254,7 +257,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     t2w->setModelBus1(std::move(bus1));
   }
   if (closed2) {
-    std::unique_ptr<ModelBus> bus2 = std::unique_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+    std::unique_ptr<ModelBus> bus2 = DYN::make_unique<ModelBus>(bus2ItfIIDM, false);
     bus2->setNetwork(network);
     bus2->setVoltageLevel(vl);
     bus2->initSize();
