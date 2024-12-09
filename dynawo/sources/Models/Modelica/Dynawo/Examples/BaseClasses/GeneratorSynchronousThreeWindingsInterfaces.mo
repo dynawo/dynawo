@@ -31,6 +31,10 @@ model GeneratorSynchronousThreeWindingsInterfaces "Synchronous generator with re
     Placement(visible = true, transformation(origin = {30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput IRotorPu_out annotation(
     Placement(visible = true, transformation(origin = {-90, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-90, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iStatorPu_out annotation(
+    Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu_out annotation(
+    Placement(visible = true, transformation(origin = {90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput UPu_out annotation(
     Placement(visible = true, transformation(origin = {-90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 180), iconTransformation(origin = {-90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealOutput UStatorPu_out annotation(
@@ -43,6 +47,8 @@ equation
   PGenPu_out = PGenPu;
   omegaRefPu_out = omegaRefPu.value;
   IRotorPu_out = IRotorPu.value;
+  iStatorPu_out = iStatorPu;
+  uPu_out = uPu;
   UPu_out = UPu;
   UStatorPu_out = UStatorPu.value;
 
