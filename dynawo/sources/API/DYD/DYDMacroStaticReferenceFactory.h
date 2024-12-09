@@ -22,7 +22,7 @@
 
 #include "DYDMacroStaticReference.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace dynamicdata {
 
@@ -39,9 +39,9 @@ class MacroStaticReferenceFactory {
    * @brief Create new MacroStaticReference instance
    *
    * @param[in] id : id for new MacroStaticReference instance
-   * @returns a shared pointer to a new @p macroStaticReference with given ID
+   * @returns a unique pointer to a new @p macroStaticReference with given ID
    */
-  static boost::shared_ptr<MacroStaticReference> newMacroStaticReference(const std::string& id);
+  static std::unique_ptr<MacroStaticReference> newMacroStaticReference(const std::string& id);
 };
 
 }  //  namespace dynamicdata
