@@ -30,7 +30,7 @@ equation
   elseif u > 0 and u <= ULow then
     y = 1 - A1 * u;
   elseif u > ULow and u < UHigh then
-    y = sqrt(UHigh - u ^ 2);
+    y = noEvent(if UHigh > u ^ 2 then sqrt(UHigh - u ^ 2) else 0);
   elseif u >= UHigh and u <= 1 then
     y = A2 * (1 - u);
   else

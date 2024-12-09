@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.mo
   package.order
   GovCt2St4b.mo
+  GovHydro4St4b.mo
   GovSteam1St4bPss2b1.mo
   GovSteam1St4b2.mo
   GovSteam1St4bPss2b3.mo
