@@ -24,10 +24,8 @@
 #include "DYDStaticRefFactory.h"
 #include "DYNMacrosMessage.h"
 
-using boost::shared_ptr;
 using std::map;
 using std::string;
-using std::vector;
 
 namespace dynamicdata {
 
@@ -42,8 +40,8 @@ void
 MacroStaticReference::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
-  std::pair<std::map<std::string, boost::shared_ptr<StaticRef> >::iterator, bool> ret;
-  ret = staticRefs_.emplace(key, shared_ptr<StaticRef>(StaticRefFactory::newStaticRef(var, staticVar)));
+  std::pair<std::map<std::string, std::unique_ptr<StaticRef> >::iterator, bool> ret;
+  ret = staticRefs_.emplace(key, StaticRefFactory::newStaticRef(var, staticVar));
   if (!ret.second)
     throw DYNError(DYN::Error::API, StaticRefNotUniqueInMacro, id_, var, staticVar);
 }
@@ -68,9 +66,9 @@ MacroStaticReference::endStaticRef() {
   return staticRef_iterator(this, false);
 }
 
-const shared_ptr<StaticRef>&
+const std::unique_ptr<StaticRef>&
 MacroStaticReference::findStaticRef(const string& key) {
-  map<string, shared_ptr<StaticRef> >::const_iterator iter = staticRefs_.find(key);
+  map<string, std::unique_ptr<StaticRef> >::const_iterator iter = staticRefs_.find(key);
   if (iter == staticRefs_.end())
     throw DYNError(DYN::Error::API, StaticRefUndefined, key);
 

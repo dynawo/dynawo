@@ -97,8 +97,8 @@ Modeler::initNetwork() {
 
 void
 Modeler::initModelDescription() {
-  const std::map<string, shared_ptr<ModelDescription> >& modelDescriptions = dyd_->getModelDescriptions();
-  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin();
+  const std::map<string, std::shared_ptr<ModelDescription> >& modelDescriptions = dyd_->getModelDescriptions();
+  for (std::map<string, std::shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin();
         itModelDescription != modelDescriptions.end(); ++itModelDescription) {
     if (itModelDescription->second->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE) {
       continue;
@@ -130,7 +130,7 @@ Modeler::initModelDescription() {
 }
 
 void
-Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescription) {
+Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDescription) {
   std::shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
 
   // params can be a nullptr if no parFile was given for the model
@@ -172,7 +172,7 @@ Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescripti
 }
 
 void
-Modeler::initStaticRefs(const shared_ptr<SubModel>& model, const shared_ptr<ModelDescription>& modelDescription) {
+Modeler::initStaticRefs(const shared_ptr<SubModel>& model, const std::shared_ptr<ModelDescription>& modelDescription) {
   vector<shared_ptr<StaticRefInterface> > references = modelDescription->getStaticRefInterfaces();
 
   vector<shared_ptr<StaticRefInterface> >::const_iterator itReference;
@@ -230,8 +230,8 @@ Modeler::initConnects() {
   Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::modeler()) << DYNLog(DynamicConnectStart) << Trace::endline;
   Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
-  const std::map<string, shared_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
-  for (std::map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
+  const std::map<string, std::unique_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
+  for (std::map<string, std::unique_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
           itConnector != connects.end(); ++itConnector) {
     string id1 = (itConnector->second)->getConnectedModel1();
     string id2 = (itConnector->second)->getConnectedModel2();
@@ -279,13 +279,13 @@ Modeler::findNodeConnectorName(const string& id, const string& labelNode) const 
 }
 
 void
-Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> model,
+Modeler::collectAllInternalConnections(std::shared_ptr<dynamicdata::ModelicaModel> model,
     vector<std::pair<string, string> >& variablesConnectedInternally) const {
 
   string modelId = model->getId();
-  map<string, shared_ptr<dynamicdata::Connector> > pinConnects = model->getConnectors();
-  map<string, shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModels = model->getUnitDynamicModels();
-  map<string, shared_ptr<dynamicdata::MacroConnect> > macroConnects = model->getMacroConnects();
+  map<string, std::shared_ptr<dynamicdata::Connector> > pinConnects = model->getConnectors();
+  map<string, std::shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModels = model->getUnitDynamicModels();
+  map<string, std::shared_ptr<dynamicdata::MacroConnect> > macroConnects = model->getMacroConnects();
 
   map<string, shared_ptr<SubModel> >::const_iterator subModelIter = subModels_.find(modelId);
   if (subModelIter == subModels_.end()) {
@@ -294,9 +294,9 @@ Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> mo
   shared_ptr<SubModel> subModel = subModelIter->second;
 
   // Retrieve internal flow connection
-  for (map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itPinConnect = pinConnects.begin();
+  for (map<string, std::shared_ptr<dynamicdata::Connector> >::const_iterator itPinConnect = pinConnects.begin();
       itPinConnect != pinConnects.end(); ++itPinConnect) {
-    shared_ptr<dynamicdata::Connector> pinConnect = itPinConnect->second;
+    std::shared_ptr<dynamicdata::Connector> pinConnect = itPinConnect->second;
 
     if (unitDynamicModels.find(pinConnect->getFirstModelId()) != unitDynamicModels.end() &&
         unitDynamicModels.find(pinConnect->getSecondModelId()) != unitDynamicModels.end()) {
@@ -309,16 +309,16 @@ Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> mo
   }
 
 
-  for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
+  for (map<string, std::shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
       itMC != macroConnects.end(); ++itMC) {
     string connector = itMC->second->getConnector();
     string model1 = itMC->second->getFirstModelId();
     string model2 = itMC->second->getSecondModelId();
 
-    shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
+    std::shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
     // for each connect, create a system connect
-    map<string, shared_ptr<dynamicdata::MacroConnection> > connectors = macroConnector->getConnectors();
-    for (map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
+    const map<string, std::unique_ptr<dynamicdata::MacroConnection> >& connectors = macroConnector->getConnectors();
+    for (map<string, std::unique_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
         iter != connectors.end(); ++iter) {
       string var1 = iter->second->getFirstVariableId();
       string var2 = iter->second->getSecondVariableId();
@@ -337,16 +337,16 @@ void
 Modeler::SanityCheckFlowConnection() const {
   std::unordered_map<string, unsigned> flowVarId2ConnIndex;
   unsigned connIndex = 0;
-  const std::map<string, shared_ptr<ModelDescription> >& modelDescriptions = dyd_->getModelDescriptions();
-  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin(),
+  const std::map<string, std::shared_ptr<ModelDescription> >& modelDescriptions = dyd_->getModelDescriptions();
+  for (std::map<string, std::shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin(),
       itModelDescriptionEnd = modelDescriptions.end();
       itModelDescription != itModelDescriptionEnd; ++itModelDescription) {
     if (itModelDescription->second->getModel()->getType() != dynamicdata::Model::MODELICA_MODEL) {
       continue;
     }
-    shared_ptr<ModelDescription> modelDesc = itModelDescription->second;
+    std::shared_ptr<ModelDescription> modelDesc = itModelDescription->second;
     string modelId = modelDesc->getID();
-    shared_ptr<dynamicdata::ModelicaModel> model = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelDesc->getModel());
+    std::shared_ptr<dynamicdata::ModelicaModel> model = std::dynamic_pointer_cast<dynamicdata::ModelicaModel>(modelDesc->getModel());
 
     map<string, shared_ptr<SubModel> >::const_iterator subModelIter = subModels_.find(modelId);
     if (subModelIter == subModels_.end()) {
@@ -385,8 +385,8 @@ Modeler::SanityCheckFlowConnection() const {
   }
 
   // Now compare to external flow connections
-  const std::map<string, shared_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
-  for (std::map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
+  const std::map<string, std::unique_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
+  for (std::map<string, std::unique_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
       itConnector != connects.end(); ++itConnector) {
     string id1 = (itConnector->second)->getConnectedModel1();
     string id2 = (itConnector->second)->getConnectedModel2();
