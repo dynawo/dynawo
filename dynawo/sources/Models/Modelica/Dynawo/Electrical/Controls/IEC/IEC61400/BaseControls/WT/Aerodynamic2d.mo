@@ -14,9 +14,8 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
   
 model Aerodynamic2d "Two-dimensional aerodynmaic module for type 3 wind turbines (IEC N°61400-27-1:2020)"
 
-    // parameters
+      // parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Aerodynamic2d;
-  
   // inputs
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

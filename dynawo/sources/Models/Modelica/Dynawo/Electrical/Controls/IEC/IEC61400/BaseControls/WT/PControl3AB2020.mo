@@ -85,8 +85,6 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-232, -166}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant constFalse(k = false) annotation(
     Placement(visible = true, transformation(origin = {188, -144}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Math.Gain changeBase(k = PBaseMeasurement / SNom) annotation(
-    Placement(visible = true, transformation(origin = {-310, -166}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(limitLargerZero.y, divisionIPcmd.u2) annotation(
     Line(points = {{241, 248}, {260, 248}}, color = {0, 0, 127}));
@@ -178,10 +176,8 @@ equation
     Line(points = {{188, -151}, {188, -160}}, color = {255, 0, 255}));
   connect(lagtOmegaRef.y, omegaRefPu) annotation(
     Line(points = {{-163, -166}, {-120, -166}, {-120, -288}, {310, -288}}, color = {0, 0, 127}));
-  connect(PWTCFiltPu, changeBase.u) annotation(
-    Line(points = {{-352, -166}, {-322, -166}}, color = {0, 0, 127}));
-  connect(changeBase.y, combiTableOmegaP.u[1]) annotation(
-    Line(points = {{-299, -166}, {-244, -166}}, color = {0, 0, 127}));
+  connect(PWTCFiltPu, combiTableOmegaP.u[1]) annotation(
+    Line(points = {{-352, -166}, {-244, -166}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -300}, {300, 300}})),
