@@ -72,7 +72,7 @@ model Oel5c "IEEE (2016) overexcitation limiter type OEL5C model"
     Placement(visible = true, transformation(origin = {-160, -140}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tF2, k = KScale2, y_start = KScale2 * Vfe0Pu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tBOel, 1}, b = {tCOel, 1}, x_start = {KScale1 * Input0Pu}, y_start = KScale1 * Input0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunctionBypass transferFunction(a = {tBOel, 1}, b = {tCOel, 1}, x_start = {KScale1 * Input0Pu}, y_start = KScale1 * Input0Pu) annotation(
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = KIfdt) annotation(
     Placement(visible = true, transformation(origin = {-50, 100}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

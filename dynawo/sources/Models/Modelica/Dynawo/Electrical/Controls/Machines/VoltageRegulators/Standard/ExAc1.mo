@@ -61,7 +61,7 @@ model ExAc1 "IEEE exciter type EXAC1 model, defined in IEEE 1981 Excitation Syst
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-250, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag(a = {tB, 1}, b = {tC, 1}, x_start = {Vr0Pu / Ka}, y_start = Vr0Pu / Ka) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tB, 1}, b = {tC, 1}, x_start = {Vr0Pu / Ka}, y_start = Vr0Pu / Ka) annotation(
     Placement(visible = true, transformation(origin = {-90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = Ke, k3 = Kd) annotation(
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
