@@ -122,6 +122,7 @@ TransformerPhaseTapChanger
 TransformerRatioTapChanger
 UFLS10Steps
 UnderVoltageAutomaton
+VariableImpedantFault
 VRRemote
 WT4AWeccCurrentSource
 WT4BWeccCurrentSource
