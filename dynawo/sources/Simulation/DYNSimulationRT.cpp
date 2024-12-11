@@ -129,7 +129,6 @@ using std::map;
 using std::setw;
 using std::shared_ptr;
 using std::dynamic_pointer_cast;
-
 namespace fs = boost::filesystem;
 
 using timeline::TimelineFactory;
@@ -186,7 +185,7 @@ SimulationRT::simulate() {
     if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
-      // save initial connection state at t0 for each equipment
+      // save initial connection state at t0 for each equip ment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
         connectedComponents_ = data_->findConnectedComponents();
@@ -402,7 +401,7 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
 
 void
 SimulationRT::initStepDurationCurve() {
-  std::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+  shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
   curve->setModelName("Simulation");
   curve->setVariable("stepDurationMs");
   curve->setAvailable(true);
