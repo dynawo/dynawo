@@ -85,6 +85,8 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-232, -166}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant constFalse(k = false) annotation(
     Placement(visible = true, transformation(origin = {188, -144}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
+  Modelica.Blocks.Sources.Constant constant1(k = OmegaOffsetPu) annotation(
+    Placement(visible = true, transformation(origin = {-95, -193}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
 equation
   connect(limitLargerZero.y, divisionIPcmd.u2) annotation(
     Line(points = {{241, 248}, {260, 248}}, color = {0, 0, 127}));
@@ -114,8 +116,6 @@ equation
     Line(points = {{78, -178}, {114, -178}}, color = {0, 0, 127}));
   connect(tfDtd.y, limitDtd.u) annotation(
     Line(points = {{47, -244}, {130, -244}}, color = {0, 0, 127}));
-  connect(omegaWTRPu, tfDtd.u) annotation(
-    Line(points = {{-320, 60}, {-297, 60}, {-297, 58}, {-282, 58}, {-282, -244}, {24, -244}}, color = {0, 0, 127}));
   connect(limitDtd.y, addDtd.u2) annotation(
     Line(points = {{153, -244}, {200, -244}, {200, -182}, {226, -182}}, color = {0, 0, 127}));
   connect(addOmegaErr.y, torquePi.omegaErrPu) annotation(
@@ -178,6 +178,8 @@ equation
     Line(points = {{-163, -166}, {-120, -166}, {-120, -288}, {310, -288}}, color = {0, 0, 127}));
   connect(PWTCFiltPu, combiTableOmegaP.u[1]) annotation(
     Line(points = {{-352, -166}, {-244, -166}}, color = {0, 0, 127}));
+  connect(omegaWTRPu, tfDtd.u) annotation(
+    Line(points = {{-320, 60}, {-297, 60}, {-297, 58}, {-282, 58}, {-282, -244}, {24, -244}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -300}, {300, 300}})),
