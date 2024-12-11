@@ -135,7 +135,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
-        if (!DYN::doubleIsZero(lastCurrentValue_ * factorPuToA_)) {
+        if (!DYN::doubleIsZero(lastCurrentValue_)) {
           DYNAddConstraintWithData(network, componentName, true, modelType,
               constraintData(ConstraintData::OverloadOpen, i),
               OverloadOpen, acceptableDurations_[i], side_);
