@@ -3,6 +3,7 @@ BooleanTable
 CombiTimeTable
 DoubleStep
 IntegerDoubleStep
+IntegerTable
 Perturbation
 Perturbation_INIT
 SetPoint
