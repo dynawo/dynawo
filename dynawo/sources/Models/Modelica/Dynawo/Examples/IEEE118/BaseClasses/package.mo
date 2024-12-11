@@ -14,5 +14,5 @@ within Dynawo.Examples.IEEE118;
 */
 
 package BaseClasses
- extends Icons.Package;
+  extends Icons.Package;
 end BaseClasses;
