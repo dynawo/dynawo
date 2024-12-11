@@ -72,7 +72,7 @@ class CurveHandler : public xml::sax::parser::ComposableElementHandler {
  * XmlHandler is the implementation of Dynawo handler for parsing
  * curves' input files.
  */
-class curvesHandlerXmlHandler : public xml::sax::parser::ComposableDocumentHandler {
+class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
  public:
   /**
    * @brief Default constructor
