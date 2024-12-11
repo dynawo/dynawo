@@ -75,14 +75,10 @@ equation
     Line(points = {{38, -24}, {88, -24}, {88, 114}, {-92, 114}, {-92, 102}}, color = {85, 170, 255}));
   connect(injector.uWtPu, protectionMeasurements.uPu) annotation(
     Line(points = {{38, -24}, {88, -24}, {88, 114}, {72, 114}, {72, 102}}, color = {85, 170, 255}));
-  connect(injector.PAgPu, mechanical.PAgPu) annotation(
-    Line(points = {{38, -56}, {46, -56}, {46, -72}, {58, -72}}, color = {0, 0, 127}));
   connect(mechanical.omegaWTRPu, control.omegaWTRPu) annotation(
     Line(points = {{102, -88}, {108, -88}, {108, -4}, {-64, -4}, {-64, -14}}, color = {0, 0, 127}));
   connect(mechanical.omegaWTRPu, aerodynamic2d.omegaWTRPu) annotation(
     Line(points = {{102, -88}, {108, -88}, {108, -118}, {-58, -118}, {-58, -102}, {-48, -102}}, color = {0, 0, 127}));
-  connect(aerodynamic2d.pAeroPu, mechanical.PAeroPu) annotation(
-    Line(points = {{-20, -94}, {12, -94}, {12, -88}, {58, -88}}, color = {0, 0, 127}));
   connect(PWTRefPu, pitchAngleControl.pWTrefPu) annotation(
     Line(points = {{-130, -20}, {-116, -20}, {-116, -78}, {-118, -78}, {-118, -106}, {-92, -106}}, color = {0, 0, 127}));
   connect(control.POrdPu, pitchAngleControl.pOrdPu) annotation(
@@ -93,7 +89,11 @@ equation
     Line(points = {{102, -88}, {108, -88}, {108, -118}, {-116, -118}, {-116, -86}, {-92, -86}}, color = {0, 0, 127}));
   connect(pitchAngleControl.theta, aerodynamic2d.theta) annotation(
     Line(points = {{-64.8, -95.76}, {-53.8, -95.76}, {-53.8, -86.76}, {-47.8, -86.76}}, color = {0, 0, 127}));
+ connect(injector.PAgPu, mechanical.PAgPu) annotation(
+    Line(points = {{38, -56}, {44, -56}, {44, -72}, {58, -72}}, color = {0, 0, 127}));
+ connect(aerodynamic2d.pAeroPu, mechanical.PAeroPu) annotation(
+    Line(points = {{-20, -94}, {40, -94}, {40, -88}, {58, -88}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {69, -1}, extent = {{-40, 19}, {41, -19}}, textString = "B"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}));
+    Icon(graphics = {Text(origin = {81, -3}, extent = {{-12, 15}, {13, -15}}, textString = "A"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}));
 end WT3ACurrentSource2020;
