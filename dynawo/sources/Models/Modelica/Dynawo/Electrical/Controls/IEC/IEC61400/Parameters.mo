@@ -19,7 +19,7 @@ record Aerodynamic2d
   parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = active power setpoint" annotation(Dialog(tab = "Aerodynamic"));
   parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(Dialog(tab = "Aerodynamic"));
 end Aerodynamic2d;
 
