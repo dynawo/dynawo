@@ -127,7 +127,7 @@ using std::vector;
 using std::stringstream;
 using std::map;
 using std::setw;
-using boost::shared_ptr;
+using std::shared_ptr;
 using boost::dynamic_pointer_cast;
 
 namespace fs = boost::filesystem;
@@ -151,7 +151,7 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-SimulationRT::SimulationRT(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
+SimulationRT::SimulationRT(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context, boost::shared_ptr<DataInterface> data) :
 Simulation(jobEntry, context, data) {
   timeManager_ = boost::make_shared<TimeManager>(
     jobEntry_->getSimulationEntry()->getTimeSync(),
@@ -186,7 +186,7 @@ SimulationRT::simulate() {
     if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
-      // save initial connection state at t0 for each equipment
+      // save initial connection state at t0 for each equip ment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
         connectedComponents_ = data_->findConnectedComponents();
@@ -402,7 +402,7 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
 
 void
 SimulationRT::initStepDurationCurve() {
-  boost::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+  shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
   curve->setModelName("Simulation");
   curve->setVariable("stepDurationMs");
   curve->setAvailable(true);
