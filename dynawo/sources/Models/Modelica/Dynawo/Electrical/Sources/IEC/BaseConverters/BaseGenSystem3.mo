@@ -93,8 +93,6 @@ equation
     Line(points = {{165, -66}, {169, -66}}, color = {85, 170, 255}));
   connect(complexToPAg.re, PAgPu) annotation(
     Line(points = {{194, -60}, {230, -60}}, color = {0, 0, 127}));
-  connect(realExpression.y, rotationWtToGrid.theta) annotation(
-    Line(points = {{-9, -52}, {-12.5, -52}, {-12.5, -38}, {-8, -38}}, color = {85, 170, 255}));
   connect(iGs.y, productPAg.u2) annotation(
     Line(points = {{135, -60}, {142, -60}}, color = {85, 170, 255}));
   connect(complexToRealUGs.u, uGs2.y) annotation(
@@ -119,6 +117,8 @@ equation
     Line(points = {{89, -34}, {100, -34}, {100, -6}, {188, -6}}, color = {0, 0, 127}));
   connect(addXRe.y, realToComplexIGs.re) annotation(
     Line(points = {{89, 54}, {100, 54}, {100, 6}, {188, 6}}, color = {0, 0, 127}));
+  connect(realExpression.y, rotationWtToGrid.theta) annotation(
+    Line(points = {{-8, -52}, {-14, -52}, {-14, -38}, {-8, -38}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Rectangle(origin = {-1, 9}, lineColor = {23, 156, 125}, fillColor = {23, 156, 125}, fillPattern = FillPattern.Solid, lineThickness = 0.75, extent = {{-27, 109}, {27, -109}})}, coordinateSystem(extent = {{-220, -100}, {220, 320}})),
