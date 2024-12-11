@@ -55,5 +55,4 @@ install(TARGETS dynawo_SolverCommonFixedTimeStep EXPORT dynawo-targets DESTINATI
 install(FILES ${SOLVER_COMMON_FIXED_TIME_STEP_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 add_subdirectory(SolverSIM)
-add_subdirectory(SolverSIMi)
 add_subdirectory(SolverTRAP)
