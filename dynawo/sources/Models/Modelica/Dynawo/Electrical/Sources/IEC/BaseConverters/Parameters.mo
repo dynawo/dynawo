@@ -28,13 +28,17 @@ end Circuit;
 
 
 record GenSystem3 "Do not use. Use 3a or 3b instead."
+  extends XEqv_;
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "genSystem"));
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "genSystem"));
-  parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom)" annotation(
-    Dialog(tab = "genSystem"));
 end GenSystem3;
+
+record XEqv_
+  parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom)" annotation(Dialog(tab = "genSystem"));
+end XEqv_;
+
 
 record GenSystem3a "Control parameters for generator system of WT, specific to Type 3A"
   extends GenSystem3;

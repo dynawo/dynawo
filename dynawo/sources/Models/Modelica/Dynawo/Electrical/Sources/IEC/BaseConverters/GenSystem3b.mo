@@ -1,7 +1,10 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 model GenSystem3b
-  extends BaseGenSystem3;
+  extends BaseGenSystem3(
+    rateLimitQ.y_start = -(IGsRe0Pu + UGsIm0Pu / XEqv)*sin(UPhase0) + (IGsIm0Pu - UGsRe0Pu / XEqv)*cos(UPhase0) - Modelica.ComplexMath.'abs'(Complex(UGsRe0Pu, UGsIm0Pu))/XEqv,
+    rateLimitP.y_start = (IGsRe0Pu + UGsIm0Pu / XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu / XEqv)*sin(UPhase0)
+    );
   extends Parameters.GenSystem3b;
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToAbs annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -119,5 +122,6 @@ equation
   connect(absU.y, addXEqv.u2) annotation(
     Line(points = {{-142, -58}, {-84, -58}, {-84, -26}, {-74, -26}}, color = {0, 0, 127}));
   annotation(
-    Diagram(graphics = {Rectangle(origin = {-76, 289}, lineColor = {23, 156, 125}, lineThickness = 1, extent = {{-44, 29}, {44, -29}}), Text(origin = {-44, 267}, lineColor = {23, 156, 125}, extent = {{10, -7}, {-10, 7}}, textString = "rising value\ndetection")}));
+    Diagram(graphics = {Rectangle(origin = {-76, 289}, lineColor = {23, 156, 125}, lineThickness = 1, extent = {{-44, 29}, {44, -29}}), Text(origin = {-44, 267}, lineColor = {23, 156, 125}, extent = {{10, -7}, {-10, 7}}, textString = "rising value
+detection")}));
 end GenSystem3b;

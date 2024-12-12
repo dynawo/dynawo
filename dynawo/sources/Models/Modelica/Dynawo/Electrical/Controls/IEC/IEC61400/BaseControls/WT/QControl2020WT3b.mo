@@ -1,0 +1,23 @@
+within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
+
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+model QControl2020WT3b "Reactive power control module for wind turbines (IEC N°61400-27-1:2020) with slightly different initialization for Type 3B wind turbine model"
+  
+  extends QControl2020(antiWindupIntegrator1.Y0 = (IGsRe0Pu + UGsIm0Pu / XEqv)*sin(UPhase0) - (IGsIm0Pu - UGsRe0Pu / XEqv)*cos(UPhase0) + Modelica.ComplexMath.'abs'(Complex(UGsRe0Pu, UGsIm0Pu))/XEqv);
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUPhaseGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
+  
+end QControl2020WT3b;
