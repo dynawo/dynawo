@@ -640,6 +640,71 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     }
   }
 #endif
+  std::vector<double> vectorF(model.sizeY());
+  std::vector<double> vectorFScale(model.sizeY(), 1.);
+  memcpy(&vectorF[0], irr, vectorF.size() * sizeof(vectorF[0]));
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
+  double wL2Norm = SolverCommon::weightedL2Norm(vectorF, vectorFScale);
+  long int current_nni = 0;
+  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+
+  int nbErr = 10;
+  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+  vector<std::pair<double, size_t> > fErr;
+  for (size_t i = 0; i < static_cast<size_t>(model.sizeF()); ++i)
+    fErr.push_back(std::pair<double, size_t>(vectorF[i], i));
+  SolverCommon::printLargestErrors(fErr, model, nbErr);
+
+  if (!solver->flagInit()) {
+    /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.
+     * Indeed, the correction step is successful if sqrt(Sum(w*(y(k+1)-y(k))^2)/n) < tolerance where k is the kth Newton iteration and n the number of variables
+     * The weights (w) used are inversely proportional to the relative accuracy multiplied by the value variable and the absolute accuracy.
+     * The local errors are the sum of the differences between y before and after the Newton iteration (errors += y(k+1) - y(k)).
+     * => Therefore the errors multiplied by the weights are a good indicator of the variables that evolve the more during the Newton iterations.
+     */
+    int nbY = model.sizeY();
+    double thresholdErr = 1;
+
+    if (nbErr > nbY)
+      nbErr = nbY;
+
+    // Defining necessary data structure and retrieving information from IDA
+    N_Vector nvWeights = N_VNew_Serial(nbY, solver->sundialsContext_);
+    N_Vector nvErrors = N_VNew_Serial(nbY, solver->sundialsContext_);
+    if (IDAGetErrWeights(solver->IDAMem_, nvWeights) < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetErrWeights");
+
+    if (IDAGetEstLocalErrors(solver->IDAMem_, nvErrors) < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetEstLocalErrors");
+
+    double *weights = NV_DATA_S(nvWeights);
+    double *errors = NV_DATA_S(nvErrors);
+    std::vector<double> weightedErrors(nbY);
+
+    for (int i = 0; i < nbY; ++i)
+      weightedErrors[i] = fabs(weights[i] * errors[i]);
+
+    // Filling and sorting the vector
+    vector<std::pair<double, int> > yErr;
+    for (int i = 0; i < nbY; ++i) {
+      // Tolerances (RTOL and ATOL) are 1e-04 by default so weights are around 1e4 therefore 1 is a relatively small value
+      if (weightedErrors[i] > thresholdErr) {
+        yErr.push_back(std::pair<double, int>(weightedErrors[i], i));
+      }
+    }
+    std::sort(yErr.begin(), yErr.end(), mapcompabs());
+
+    if (!yErr.empty()) {
+      Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
+      int i = 0;
+      for (vector<std::pair<double, int> >::iterator it = yErr.begin(); it != yErr.end() && i < nbErr; ++it, ++i)
+        Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
+    }
+
+    // Destroying the specific data structures
+    N_VDestroy_Serial(nvWeights);
+    N_VDestroy_Serial(nvErrors);
+  }
 return 0;
 }
 
