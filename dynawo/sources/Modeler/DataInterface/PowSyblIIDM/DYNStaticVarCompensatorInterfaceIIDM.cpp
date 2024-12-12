@@ -144,11 +144,13 @@ StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(theta)));
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(theta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("UNom", StaticParameter("UNom", StaticParameter::DOUBLE).setValue(vNom)));
   } else {
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("UNom", StaticParameter("UNom", StaticParameter::DOUBLE).setValue(0.)));
   }
 }
 
