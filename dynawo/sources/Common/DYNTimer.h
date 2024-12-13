@@ -27,7 +27,7 @@
 #include <chrono>
 #include <boost/core/noncopyable.hpp>
 
-// #define PRINT_TIMERS
+#define PRINT_TIMERS
 
 namespace DYN {
 
