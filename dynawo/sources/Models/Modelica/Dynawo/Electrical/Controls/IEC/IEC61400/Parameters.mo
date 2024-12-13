@@ -83,10 +83,10 @@ record LinearCommunication
 end LinearCommunication;
 
 record Mechanical
-  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom), typical value = 0.3" annotation(Dialog(tab = "Mechanical"));
-  parameter Types.Time Hgen "Generator inertia time constant in s, typical value = 5" annotation(Dialog(tab = "Mechanical"));
-  parameter Types.Time Hwtr "WT rotor inertia time constant in s, typical value = 5" annotation(Dialog(tab = "Mechanical"));
-  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom), typical value = 200" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom), typical value = 2.344" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.Time Hgen "Generator inertia time constant in s, typical value = 3.395" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.Time Hwtr "WT rotor inertia time constant in s, typical value = 0.962" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom), typical value = 1.378" annotation(Dialog(tab = "Mechanical"));
 end Mechanical;
 
 record PControlWPP2015
