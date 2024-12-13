@@ -2,11 +2,14 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model PControl3AB2020
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemP;
-  
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, P0Pu = P0Pu, PBaseMeasurement = PBaseMeasurement, PDtdMaxPu = PDtdMaxPu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UpDipPu = UpDipPu, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+    
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, P0Pu = P0Pu, PDtdMaxPu = PDtdMaxPu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {47.2409, -173.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current (base PNomTurb/sqrt(3)/UNom) in pu" annotation(
     Placement(visible = true, transformation(origin = {-320, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -36,7 +39,7 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {272, 242}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productPmax annotation(
     Placement(visible = true, transformation(origin = {144, 214}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.firstOrderVariableLimitsAntiwindup lagPOrd(DyMax = DPMaxPu, DyMin = -9999, Y0 = -P0Pu * SystemBase.SnRef / SNom, tI = tPord) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.firstOrderVariableLimitsAntiwindup lagPOrd(DyMax = DPMaxPu, DyMin = -9999, Y0 = ((IGsRe0Pu + UGsIm0Pu / XEqv) * cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu / XEqv) * sin(UPhase0)) * U0Pu, tI = tPord) annotation(
     Placement(visible = true, transformation(origin = {188, -172}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constInftyNeg(k = -9999) annotation(
     Placement(visible = true, transformation(origin = {155, -187}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -77,7 +80,7 @@ model PControl3AB2020
     Placement(visible = true, transformation(origin = {-228, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.And andUPdipMPuscale annotation(
     Placement(visible = true, transformation(origin = {-192, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = PWTRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-252, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productPuScale annotation(
     Placement(visible = true, transformation(origin = {-216, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -179,7 +182,7 @@ equation
   connect(PWTCFiltPu, combiTableOmegaP.u[1]) annotation(
     Line(points = {{-352, -166}, {-244, -166}}, color = {0, 0, 127}));
   connect(omegaWTRPu, tfDtd.u) annotation(
-    Line(points = {{-320, 60}, {-297, 60}, {-297, 58}, {-282, 58}, {-282, -244}, {24, -244}}, color = {0, 0, 127}));
+    Line(points = {{-320, 60}, {-284, 60}, {-284, -244}, {24, -244}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -300}, {300, 300}})),

@@ -19,7 +19,7 @@ record Aerodynamic2d
   parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(Dialog(tab = "Aerodynamic"));
   parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = active power setpoint" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = active power setpoint" annotation(Dialog(tab = "Operating point"));
   parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(Dialog(tab = "Aerodynamic"));
 end Aerodynamic2d;
 
@@ -147,15 +147,17 @@ record PControlWT3 "Parameters used in Type 3a P control including torque PI con
   parameter Types.Time tDvs  "Time delay following deep a voltage dip, typical value = 0.05" annotation(Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, typical value = 0.15" annotation(Dialog(tab = "PControl", group = "TorquePi"));
   parameter Types.VoltageModulePu UpDipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), typical value = 0.9" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.ActivePower PBaseMeasurement "Base power for incoming active power measurement values in MW or MVA, typical value = SystemBase.SnRef";
-  
+  parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), typical value = 1.1" annotation(Dialog(tab = "Operating point"));
+ 
   // initial parameters
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
   final parameter Types.ActivePowerPu POrd0Pu = -P0Pu * SystemBase.SnRef / SNom "Initial active power order in pu (base SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
   final parameter Types.ActivePowerPu PWtcFilt0Pu = -P0Pu "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)" annotation(Dialog(tab = "Initialization"));
   final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(Dialog(tab = "Initialization"));
-  final parameter Types.PerUnit TauEMax0Pu = POrd0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(Dialog(tab = "Initialization"));
+  final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(Dialog(tab = "Initialization"));
 end PControlWT3;
+
+
 
 record PControlWT4
   parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(Dialog(tab = "PControl"));

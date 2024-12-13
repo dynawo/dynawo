@@ -13,8 +13,11 @@ model TorquePi "Sub module for torque control inside active power control module
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
 
   Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
@@ -100,7 +103,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {-350, -78}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu,UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
     Placement(visible = true, transformation(origin = {-152, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = KIp / KPp, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = PiIntegrator0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = KIp / KPp, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = ((IGsRe0Pu + UGsIm0Pu / XEqv) * cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu / XEqv) * sin(UPhase0)) * U0Pu / SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
     Placement(visible = true, transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -208,9 +211,9 @@ equation
   connect(TauEMin2.y, integratorKIpKPp.limitMin) annotation(
     Line(points = {{-25, -88}, {-22, -88}, {-22, -68}, {-12, -68}}, color = {0, 0, 127}));
   connect(integratorKIpKPp.y, addKIpKPp.u2) annotation(
-    Line(points = {{12, -60}, {16, -60}, {16, -102}, {-94, -102}, {-94, -58}, {-88, -58}}, color = {0, 0, 127}));
+    Line(points = {{11, -60}, {16, -60}, {16, -102}, {-94, -102}, {-94, -58}, {-88, -58}}, color = {0, 0, 127}));
   connect(integratorKIpKPp.y, freeze.u) annotation(
-    Line(points = {{12, -60}, {16, -60}, {16, -210}, {-96, -210}}, color = {0, 0, 127}));
+    Line(points = {{11, -60}, {16, -60}, {16, -210}, {-96, -210}}, color = {0, 0, 127}));
   connect(gainTauUscale.y, minResetvalue.u[1]) annotation(
     Line(points = {{-334, -168}, {-312, -168}, {-312, -180}, {-296, -180}}, color = {0, 0, 127}));
   connect(addUTcHook.y, minResetvalue.u[2]) annotation(
@@ -220,7 +223,7 @@ equation
   connect(integratorKIpKPp.limitMax, tauEMaxPu) annotation(
     Line(points = {{-12, -52}, {-30, -52}, {-30, 180}, {-410, 180}}, color = {0, 0, 127}));
   connect(greaterEqual.u1, integratorKIpKPp.y) annotation(
-    Line(points = {{-78, 42}, {-88, 42}, {-88, 72}, {16, 72}, {16, -60}, {12, -60}}, color = {0, 0, 127}));
+    Line(points = {{-78, 42}, {-88, 42}, {-88, 72}, {16, 72}, {16, -60}, {11, -60}}, color = {0, 0, 127}));
   connect(OrReset.y, integratorDTauMax.reset) annotation(
     Line(points = {{-234, -14}, {-146, -14}, {-146, 72}}, color = {255, 0, 255}));
   connect(andResetKIpKPp.y, integratorKIpKPp.reset) annotation(

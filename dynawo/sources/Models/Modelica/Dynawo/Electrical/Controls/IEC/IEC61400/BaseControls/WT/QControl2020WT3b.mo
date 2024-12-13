@@ -14,7 +14,9 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model QControl2020WT3b "Reactive power control module for wind turbines (IEC N°61400-27-1:2020) with slightly different initialization for Type 3B wind turbine model"
   
-  extends QControl2020(antiWindupIntegrator1.Y0 = (IGsRe0Pu + UGsIm0Pu / XEqv)*sin(UPhase0) - (IGsIm0Pu - UGsRe0Pu / XEqv)*cos(UPhase0) + Modelica.ComplexMath.'abs'(Complex(UGsRe0Pu, UGsIm0Pu))/XEqv);
+  extends QControl2020(
+    antiWindupIntegrator1.Y0 = (IGsRe0Pu+UGsIm0Pu/XEqv)*sin(UPhase0) - (IGsIm0Pu-UGsRe0Pu/XEqv)*cos(UPhase0) + (UGsIm0Pu^2+UGsRe0Pu^2)^0.5/XEqv
+  );
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUPhaseGrid;
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
