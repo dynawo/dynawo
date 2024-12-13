@@ -1030,7 +1030,7 @@ SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
 
 void
 SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
 #endif
