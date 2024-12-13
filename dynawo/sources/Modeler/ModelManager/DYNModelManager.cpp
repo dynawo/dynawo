@@ -250,7 +250,7 @@ ModelManager::hasDataCheckCoherence() const {
 
 void
 ModelManager::checkDataCoherence(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelManager::checkDataCoherence");
 #endif
 
@@ -337,7 +337,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     stack.independent(&xp[0], static_cast<adept::uIndex>(xp.size()));
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer * timer1 = new Timer("zzz reading");
+    Timer * timer1 = new Timer("ModelManager::evalJtAdept reading");
 #endif
     stack.jacobian(&jac[0]);
     stack.pause_recording();
@@ -347,7 +347,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
     int offsetJPrim = sizeY() * sizeY();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer * timer3 = new Timer("zzz filling");
+    Timer * timer3 = new Timer("ModelManager::evalJtAdept filling");
 #endif
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
@@ -896,7 +896,7 @@ ModelManager::loadParameters(const string& parameters) {
 
 void
 ModelManager::solveParameters() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelManager::solveParameters");
 #endif
   Trace::debug() << "------------------------------" << Trace::endline;

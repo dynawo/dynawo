@@ -924,7 +924,7 @@ ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGI
 
 void
 ModelMulti::setIsInitProcess(bool isInitProcess) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::setIsInitProcess");
 #endif
 
