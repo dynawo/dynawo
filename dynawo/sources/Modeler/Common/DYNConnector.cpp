@@ -484,7 +484,7 @@ ConnectorContainer::setBufferZ(double* z, bool* zConnected) {
 
 void
 ConnectorContainer::evalFConnector(const double /*t*/) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ConnectorContainer::evalF");
 #endif
 
@@ -552,7 +552,7 @@ ConnectorContainer::multiplyAndAdd(const vector<unsigned int>& index, const vect
 
 void
 ConnectorContainer::evalJtConnector(SparseMatrix& jt) const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ConnectorContainer::evalJ");
 #endif
 

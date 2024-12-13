@@ -1153,7 +1153,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const std::shared_ptr<criteria::Cr
 
 bool
 DataInterfaceIIDM::checkCriteria(const double t, const bool finalStep) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("DataInterfaceIIDM::checkCriteria");
 #endif
 #ifdef _DEBUG_

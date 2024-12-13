@@ -141,8 +141,8 @@ ModelNetwork::~ModelNetwork() {
 
 void
 ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("ModelNetwork::initFromData");
+#if defined(_DEBUG_)
+  Timer timer("ModelNetwork::initializeFromData");
 #endif
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::network()) << "Network initialization" << Trace::endline;
@@ -801,7 +801,7 @@ ModelNetwork::analyseComponents() const {
 
 void
 ModelNetwork::computeComponents(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer1("ModelNetwork::computeComponents");
 #endif
   busContainer_->resetSubNetwork();
@@ -1077,7 +1077,7 @@ ModelNetwork::evalJt(const double /*t*/, const double cj, const int rowOffset, S
 
   // init bus derivatives
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer* timer2 = new Timer("evalJt_initBusDerivatives");
+  Timer* timer2 = new Timer("ModelNetwork::evalJt_initBusDerivatives");
 #endif
   busContainer_->initDerivatives();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
@@ -1086,7 +1086,7 @@ ModelNetwork::evalJt(const double /*t*/, const double cj, const int rowOffset, S
 
   // fill bus derivatives
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer* timer3 = new Timer("evalJt_evalDerivatives");
+  Timer* timer3 = new Timer("ModelNetwork::evalJt_evalDerivatives");
 #endif
   for (const auto& component : getComponents())
     component->evalDerivatives(cj);
@@ -1096,7 +1096,7 @@ ModelNetwork::evalJt(const double /*t*/, const double cj, const int rowOffset, S
 
   // fill sparse matrix Jt
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer* timer1 = new Timer("EvalJt_evalJt");
+  Timer* timer1 = new Timer("ModelNetwork::evalJt_evalJt");
 #endif
   for (const auto& component : getComponents())
     component->evalJt(cj, rowOffset, jt);
