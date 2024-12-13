@@ -729,7 +729,7 @@ ConnectorContainer::evalStaticFType() const {
 
 void
 ConnectorContainer::propagateZDiff(const vector<int>& indicesDiff, double* z) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ConnectorContainer::propagateZDiff");
 #endif
   // z modified, it is necessary to propagate the differences if we have a connector for each indicesDiff

@@ -215,7 +215,7 @@ ModelMulti::initBuffers() {
 
 void
 ModelMulti::init(const double t0) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer1("ModelMulti::init");
 #endif
 
@@ -270,7 +270,7 @@ ModelMulti::init(const double t0) {
 
 void
 ModelMulti::printModel() const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::printModel");
 #endif
   for (const auto& subModel : subModels_)
@@ -281,7 +281,7 @@ ModelMulti::printModel() const {
 
 void
 ModelMulti::printParameterValues() const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::printParameterValues");
 #endif
   Trace::debug(Trace::parameters()) << "This file is organized as follows: "<< Trace::endline <<
@@ -562,7 +562,7 @@ ModelMulti::notifyTimeStep() {
 
 void
 ModelMulti::evalCalculatedVariables(const double t, const vector<double>& y, const vector<double>& yp, const vector<double>& z) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::evalCalculatedVariables");
 #endif
   yLocal_.assign(y.begin(), y.end());
@@ -581,7 +581,7 @@ ModelMulti::checkParametersCoherence() const {
 
 void
 ModelMulti::checkDataCoherence(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::checkDataCoherence");
 #endif
 
@@ -1072,7 +1072,7 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
 
 void
 ModelMulti::updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::updateCurves");
 #endif
   for (const auto& curve : curvesCollection->getCurves()) {

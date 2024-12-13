@@ -610,7 +610,7 @@ Simulation::compileModels() const {
 
 void
 Simulation::loadDynamicData() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::loadDynamicData()");
 #endif
   // Load model
@@ -767,7 +767,7 @@ Simulation::importFinalStateValuesRequest() const {
 
 void
 Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr<DynamicData>& dyd) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::initFromData()");
 #endif
   Modeler modeler;
@@ -1152,7 +1152,7 @@ Simulation::endSimulationWithError(const bool criteria, const bool isSimulationD
 
 bool
 Simulation::checkCriteria(const double t, const bool finalStep) const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::checkCriteria()");
 #endif
   constexpr bool filterForCriteriaCheck = true;
@@ -1191,7 +1191,7 @@ Simulation::updateParametersValues() const {
 
 void
 Simulation::updateCurves(const bool updateCalculateVariable) const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::updateCurves()");
 #endif
   if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
@@ -1252,7 +1252,7 @@ Simulation::setCriteriaStep(const int step) {
 
 void
 Simulation::terminate() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::terminate()");
 #endif
   updateParametersValues();   // update parameter curves' value

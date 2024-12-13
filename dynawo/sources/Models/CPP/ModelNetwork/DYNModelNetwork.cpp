@@ -1060,7 +1060,7 @@ ModelNetwork::evalMode(const double t) {
 
 void
 ModelNetwork::evalCalculatedVars() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer3("ModelNetwork::calculatedVars");
 #endif
   for (const auto& component : getComponents())
