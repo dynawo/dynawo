@@ -16,11 +16,11 @@ package Parameters "Parameters for IEC Wind Turbine and Plant classes"
   extends Icons.Package;
 
 record Aerodynamic2d
-  parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = active power setpoint" annotation(Dialog(tab = "Operating point"));
-  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, example value = 0.028" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, example value = 0.48" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, example value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), example value = active power setpoint" annotation(Dialog(tab = "Operating point"));
+  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, example value = 0.0" annotation(Dialog(tab = "Aerodynamic"));
 end Aerodynamic2d;
 
 record Circuit "Circuit parameters for injector"
@@ -35,12 +35,12 @@ record Circuit "Circuit parameters for injector"
 end Circuit;
 
 record CurrentLimiter
- parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom), typical value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom), typical value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom), typical value = 20" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation), typical value = false" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority), typical value = true" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom), typical value = 1.1" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+ parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom), example value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom), example value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom), example value = 20" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation), example value = false" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority), example value = true" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom), example value = 1.1" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
 end CurrentLimiter;
 
 record CurrentLimiter2015
@@ -49,17 +49,17 @@ end CurrentLimiter2015;
 
 record GenSystem3 "Do not use. Use 3a or 3b instead."
     extends XEqv_;
-    parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 1 (Type 3B)" annotation(
       Dialog(tab = "genSystem"));
-    parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(
       Dialog(tab = "genSystem"));
 end GenSystem3;
 
 record GenSystem3a "Control parameters for generator system of WT, specific to Type 3A"
     extends GenSystem3;
-    parameter Types.PerUnit KPc "Current PI controller proportional gain" annotation(
+    parameter Types.PerUnit KPc "Current PI controller proportional gain, example value = 40" annotation(
       Dialog(tab = "genSystem"));
-    parameter Types.Time TIc "Current PI controller integration time constant" annotation(
+    parameter Types.Time TIc "Current PI controller integration time constant, example value = 0.02" annotation(
       Dialog(tab = "genSystem"));
 end GenSystem3a;
 
@@ -67,11 +67,11 @@ record GenSystem3b "Control parameters for generator system of WT, specific to T
     extends GenSystem3;
     parameter Real tCrb[:, :] = [-99, 0.1; -1, 0.1; -0.1, 0; 0, 0] "Crowbar duration versus voltage variation look-up table, for example [-99,0.1; -1,0.1; -0.1,0; 0,0]" annotation(
       Dialog(tab = "genSystem"));
-    parameter Types.Time tWo "Time constant for crowbar washout filter" annotation(
+    parameter Types.Time tWo "Time constant for crowbar washout filter, example value = 0.001" annotation(
       Dialog(tab = "genSystem"));
-    parameter Types.Time tG "Current generation time constant" annotation(
+    parameter Types.Time tG "Current generation time constant, example value = 0.01" annotation(
       Dialog(tab = "genSystem"));
-    parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control)" annotation(
+    parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control, example value = false)" annotation(
       Dialog(tab = "genSystem"));
 end GenSystem3b;
 
@@ -91,30 +91,30 @@ record GenSystem4 "Control parameters for generator system of WT Type 4"
 end GenSystem4;
 
 record GridMeasurementControl
-  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom), typical value = 1" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
 end GridMeasurementControl;
 
 record GridMeasurementProtection
-  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom), typical value = 1" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
 end GridMeasurementProtection;
 
 record GridMeasurementWPP
-  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom), typical value = 1" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tIFilt "Filter time constant for current measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement"));
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom), example value = 1" annotation(Dialog(tab = "Measurement"));
+  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
+  parameter Types.Time tIFilt "Filter time constant for current measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
+  parameter Types.Time tPFilt "Filter time constant for active power measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
+  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
 end GridMeasurementWPP;
 
 record GridProtection
@@ -226,10 +226,10 @@ record LinearCommunication
 end LinearCommunication;
 
 record Mechanical
-  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom), typical value = 2.344" annotation(Dialog(tab = "Mechanical"));
-  parameter Types.Time Hgen "Generator inertia time constant in s, typical value = 3.395" annotation(Dialog(tab = "Mechanical"));
-  parameter Types.Time Hwtr "WT rotor inertia time constant in s, typical value = 0.962" annotation(Dialog(tab = "Mechanical"));
-  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom), typical value = 1.378" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom), example value = 2.344" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.Time Hgen "Generator inertia time constant in s, example value = 3.395" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.Time Hwtr "WT rotor inertia time constant in s, example value = 0.962" annotation(Dialog(tab = "Mechanical"));
+  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom), example value = 1.378" annotation(Dialog(tab = "Mechanical"));
 end Mechanical;
 
 record PControlWPP
@@ -261,32 +261,32 @@ end PControlWPP2015;
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
   extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
-  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, typical value = 999" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, typical value = 0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, typical value = -0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.PerUnit KDtd "Active drive train damping: gain, typical value = 1.5" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), typical value = true" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), typical value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Boolean MpUScale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), typical value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, typical value = 11.3" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, typical value = 0" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, typical value = 0.15" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, typical value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, typical value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, typical value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.Time tPord "Power order lag time constant, typical value = 0.01" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, typical value = 0.5" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.PerUnit DTauMaxPu "Torque ramp rate limit, as required by some grid codes, typical value = 0.25" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit DTauUvrtMaxPu "Torque rise rate limit during UVRT, typical value = 0" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit KIp  "Integrator time constant of the PI controller, typical value = 5" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit KPp  "Proportional gain of the PI controller, typical value = 8" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Boolean MPUvrt  "Mode for UVRT power control (false: reactive power control -- true: voltage control), typical value = true" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit TauEMinPu  "Minimum torque for the electrical generator, typical value = 0.001" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit TauUscalePu  "Voltage scaling factor for reset torque, typical value = 1" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.Time tDvs  "Time delay following deep a voltage dip, typical value = 0.05" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, typical value = 0.15" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.VoltageModulePu UpDipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), typical value = 0.9" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), typical value = 1.1" annotation(Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, example value = 999" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, example value = 0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, example value = -0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.PerUnit KDtd "Active drive train damping: gain, example value = 1.5" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), example value = true" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), example value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Boolean MpUScale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), example value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, example value = 11.3" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, example value = 0" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, example value = 0.15" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, example value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, example value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, example value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.Time tPord "Power order lag time constant, example value = 0.01" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, example value = 0.5" annotation(Dialog(tab = "PControl", group = "PControl"));
+  parameter Types.PerUnit DTauMaxPu "Torque ramp rate limit, as required by some grid codes, example value = 0.25" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.PerUnit DTauUvrtMaxPu "Torque rise rate limit during UVRT, example value = 0" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.PerUnit KIp  "Integrator time constant of the PI controller, example value = 5" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.PerUnit KPp  "Proportional gain of the PI controller, example value = 8" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Boolean MPUvrt  "Mode for UVRT power control (false: reactive power control -- true: voltage control), example value = true" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.PerUnit TauEMinPu  "Minimum torque for the electrical generator, example value = 0.001" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.PerUnit TauUscalePu  "Voltage scaling factor for reset torque, example value = 1" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.Time tDvs  "Time delay following deep a voltage dip, example value = 0.05" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, example value = 0.15" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.VoltageModulePu UpDipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), example value = 0.9" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(Dialog(tab = "Operating point"));
  
   // initial parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
@@ -339,24 +339,24 @@ record PControlWT4Base
 end PControlWT4Base;
 
 record PitchAngleControl
-  parameter Real DThetaCmax "Pitch maximum positive ramp rate of power PI controller, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real DThetaCmin  "Pitch dependent term of aerodynamic power partial derivative with respect to changes in Wind Turbine Rotor speed, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real DThetaMax "Pitch maximum positive ramp rate in degrees/s, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real DThetaMin "Pitch maximum negative ramp rate in degrees/s, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real DThetaOmegamax "Pitch maximum positive ramp rate of speed PI controller in degrees/s, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real DThetaOmegamin "Pitch maximum negative ramp rate of speed PI controller in degrees/s, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real KIcPu "Integration gain of power PI controller, typical value = 1e-9" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real KIomegaPu "Integration gain of Speed PI controller, typical value = 15" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real KPcPu "Proportional gain of power PI controller, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real KPomegaPu "Proportional gain of speed PI controller, typical value = 15" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real KPXPu "Cross coupling pitch gain , typical value = 0.03" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real ThetaCmax "Maximum WT pitch angle of power PI controller in degrees, typical value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real ThetaCmin "Minimum WT pitch angle of power PI controller in degrees, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real ThetaMax "Maximum WT pitch angle in degrees, typical value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real ThetaMin "Minimum WT pitch angle in degrees, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real ThetaOmegamax "Maximum WT pitch angle of speed PI controller in degrees, typical value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real ThetaOmegamin "Minimum WT pitch angle of speed PI controller in degrees, typical value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
-  parameter Real TTheta "WT pitch time constant in s, typical value = 0.25" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaCmax "Pitch maximum positive ramp rate of power PI controller, example value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaCmin  "Pitch dependent term of aerodynamic power partial derivative with respect to changes in Wind Turbine Rotor speed, example value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaMax "Pitch maximum positive ramp rate in degrees/s, example value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaMin "Pitch maximum negative ramp rate in degrees/s, example value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaOmegamax "Pitch maximum positive ramp rate of speed PI controller in degrees/s, example value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real DThetaOmegamin "Pitch maximum negative ramp rate of speed PI controller in degrees/s, example value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KIcPu "Integration gain of power PI controller, example value = 1e-9" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KIomegaPu "Integration gain of Speed PI controller, example value = 15" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KPcPu "Proportional gain of power PI controller, example value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KPomegaPu "Proportional gain of speed PI controller, example value = 15" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real KPXPu "Cross coupling pitch gain , example value = 1" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaCmax "Maximum WT pitch angle of power PI controller in degrees, example value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaCmin "Minimum WT pitch angle of power PI controller in degrees, example value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaMax "Maximum WT pitch angle in degrees, example value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaMin "Minimum WT pitch angle in degrees, example value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaOmegamax "Maximum WT pitch angle of speed PI controller in degrees, example value = 35" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real ThetaOmegamin "Minimum WT pitch angle of speed PI controller in degrees, example value = 0" annotation(Dialog(tab = "PitchAngleCtrl"));
+  parameter Real TTheta "WT pitch time constant in s, example value = 0.25" annotation(Dialog(tab = "PitchAngleCtrl"));
 end PitchAngleControl;
 
 record Pll
@@ -666,8 +666,7 @@ record UfMeasurement2015
 end UfMeasurement2015;
 
 record XEqv_
-    parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom)" annotation(
-      Dialog(tab = "genSystem"));
+    parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(Dialog(tab = "genSystem"));
 end XEqv_;
   
 end Parameters;

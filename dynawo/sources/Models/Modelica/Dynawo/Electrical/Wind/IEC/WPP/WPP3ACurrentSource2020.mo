@@ -16,29 +16,21 @@ model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
   extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2020;
 
-  //WPP Qcontrol parameters
+  //Parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2020;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementWPP;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.LinearCommunication;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementControl;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.Aerodynamic2d;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.PitchAngleControl;
   
-  //WPP PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
   
-  //WP Measurement parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementWPP;
-  
-  //Linear communication parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.LinearCommunication;
-  
-  //Measurement parameters for control
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementControl;
-  
-  //Measurement parameters for protection
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
-  
-  //WT PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
-  
-  //WT QControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
