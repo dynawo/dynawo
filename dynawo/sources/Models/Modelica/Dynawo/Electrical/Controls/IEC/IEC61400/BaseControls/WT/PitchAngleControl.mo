@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model PitchAngleControl
-    extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PitchAngleControl;
+    extends Dynawo.Electrical.Wind.IEC.Parameters.PitchAngleControl;
     
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu annotation(
     Placement(transformation(origin = {-220, 144}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));

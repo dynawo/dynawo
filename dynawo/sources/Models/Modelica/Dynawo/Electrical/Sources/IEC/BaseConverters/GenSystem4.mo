@@ -24,13 +24,13 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Anti-windup features have been added to the first order filters
     because the standard does not specify any change of behavior when the limits are reached.
   */
-  extends Parameters.GenSystem4;
-  extends Parameters.InitialGenSystem;
-  extends Parameters.InitialIGs;
-  extends Parameters.InitialPqGrid;
-  extends Parameters.InitialUGrid;
-  extends Parameters.InitialUGs;
-  extends Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = -IGsRe0Pu * SNom / SystemBase.SnRef), im(start = -IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(

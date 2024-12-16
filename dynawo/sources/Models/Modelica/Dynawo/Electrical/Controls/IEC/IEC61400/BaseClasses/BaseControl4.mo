@@ -13,25 +13,25 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseControl4 "Whole generator base control module for type 4 wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
   
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
   
   
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
 
   //Current limiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
   
   //QLimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omega0Pu) "Generator angular frequency in pu (base omegaNom)" annotation(
@@ -56,11 +56,11 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;  
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;  
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;  
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpoint;  
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
 
 equation
 

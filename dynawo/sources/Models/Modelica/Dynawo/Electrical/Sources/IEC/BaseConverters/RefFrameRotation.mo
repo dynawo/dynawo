@@ -13,10 +13,10 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 */
 
 model RefFrameRotation "Reference frame rotation module (IEC N°61400-27-1)"
-  extends Parameters.SNom;
-  extends Parameters.InitialIGs;
-  extends Parameters.InitialPqGrid;
-  extends Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
    
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(

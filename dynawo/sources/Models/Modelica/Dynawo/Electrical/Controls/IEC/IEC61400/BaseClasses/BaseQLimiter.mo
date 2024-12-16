@@ -13,14 +13,14 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseQLimiter "Reactive power limitation base module for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //QLimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
   
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput QWTMaxPu(start = QMax0Pu) "Maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
@@ -54,9 +54,9 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
   
 equation
   connect(combiTable1Ds3.y[1], max.u2) annotation(

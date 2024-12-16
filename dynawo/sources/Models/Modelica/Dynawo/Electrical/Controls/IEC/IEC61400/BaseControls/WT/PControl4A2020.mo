@@ -16,7 +16,7 @@ model PControl4A2020 "Active power control module for type 4A wind turbines (IEC
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4A, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4APu, absLimRateLimFirstOrderAntiWindup.UseLimits = true);
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4a;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput UWTCFiltPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(

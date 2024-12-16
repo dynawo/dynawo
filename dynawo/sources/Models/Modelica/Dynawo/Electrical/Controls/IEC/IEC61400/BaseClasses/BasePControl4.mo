@@ -20,10 +20,10 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
   */
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -49,9 +49,9 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Placement(visible = true, transformation(origin = {50, -68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemP;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
   
 equation
   connect(const.y, max.u1) annotation(

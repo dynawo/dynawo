@@ -13,14 +13,14 @@ partial model BaseWTInjector "Converter model and grid interface according to IE
     * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
     */
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
-  extends Parameters.Circuit;
-  extends Parameters.InitialGenSystem;
-  extends Parameters.InitialIGs;
-  extends Parameters.InitialPqGrid;
-  extends Parameters.InitialUGrid;
-  extends Parameters.InitialUGs;
-  extends Parameters.InitialComplexUiGrid;
-  extends Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUiGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(

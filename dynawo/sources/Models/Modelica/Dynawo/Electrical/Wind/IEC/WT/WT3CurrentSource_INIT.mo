@@ -14,28 +14,28 @@ within Dynawo.Electrical.Wind.IEC.WT;
 
 model WT3CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 standard : initialization model"
   extends AdditionalIcons.Init;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
 
   //Circuit parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Circuit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
 
   //Current limiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
   
   //parameter Types.CurrentModulePu IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)";
   //parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)";
   //parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)";
 
   //QControl parameter
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
   //parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)";
 
   //QLimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
   //parameter Boolean QlConst "True if limits are constant";
   //parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)";
   //parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)";
@@ -118,8 +118,8 @@ model WT3CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Load flow parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
 
 equation
   XWT0Pu = if MqG == 0 then U0Pu else -Q0Pu * SystemBase.SnRef / SNom;

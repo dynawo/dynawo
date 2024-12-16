@@ -15,10 +15,10 @@ within Dynawo.Electrical.Wind.IEC.WT;
 model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020 standard : measurement, PLL, protection, PControl, QControl, limiters, electrical and generator modules"
  extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020;
   // GenSystem parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem4;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
   // P control parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4a;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   
   Modelica.Blocks.Sources.Constant const(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-75, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -71,7 +71,7 @@ equation
     Line(points = {{-20, 54}, {-20, 20}, {18, 20}, {18, -12}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {69, -1}, extent = {{-40, 19}, {41, -19}}, textString = "B"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}),
+    Icon(graphics = {Text(origin = {2, -5}, extent = {{-63, 25}, {64, -25}}, textString = "Type 4A")}),
  Diagram);
 
 end WT4ACurrentSource2020;

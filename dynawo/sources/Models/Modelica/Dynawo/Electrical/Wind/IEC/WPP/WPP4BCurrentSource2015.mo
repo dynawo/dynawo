@@ -14,35 +14,35 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
 
   //Uf measurement parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.UfMeasurement2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
   
   //Current limiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
   
   //Mechanical parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
   
   //WT QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
   
   //Qlimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
   
   //WPP PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
   
   //WPP QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-140, -14}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-140, -14}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = U0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, 12}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -78,4 +78,6 @@ equation
   connect(elecMeasurements.uPu, wPPControl2015.uPu) annotation(
     Line(points = {{88, -22}, {88, -34}, {-96, -34}, {-96, -2}, {-82, -2}}, color = {85, 170, 255}));
 
+annotation(
+    Icon(graphics = {Text(origin = {1, -30}, extent = {{-73, 35}, {73, -35}}, textString = "Type 4B\n2015")}));
 end WPP4BCurrentSource2015;

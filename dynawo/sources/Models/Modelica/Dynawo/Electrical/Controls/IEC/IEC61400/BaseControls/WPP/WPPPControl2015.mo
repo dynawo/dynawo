@@ -16,7 +16,7 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPPControl;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaWPPu(start = SystemBase.omegaRef0Pu) "Angular frequency communicated to WP in pu (base omegaNom)" annotation(

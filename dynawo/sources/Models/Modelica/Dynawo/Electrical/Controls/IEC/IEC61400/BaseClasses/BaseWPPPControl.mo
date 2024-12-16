@@ -13,14 +13,14 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 model BaseWPPPControl "Base active power control module for wind power plants (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TablePControl;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP;
   
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TablePwpBiasfwpFiltCom) annotation(
     Placement(visible = true, transformation(origin = {-102, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -40,7 +40,7 @@ model BaseWPPPControl "Base active power control module for wind power plants (I
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
   
 equation
   connect(gain1.y, add31.u2) annotation(

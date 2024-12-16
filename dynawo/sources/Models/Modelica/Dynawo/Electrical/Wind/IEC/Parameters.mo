@@ -15,8 +15,13 @@ within Dynawo.Electrical.Wind.IEC;
 package Parameters "Parameters for IEC Wind Turbine and Plant classes"
   extends Icons.Package;
 
-
-
+record Aerodynamic2d
+  parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = active power setpoint" annotation(Dialog(tab = "Operating point"));
+  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(Dialog(tab = "Aerodynamic"));
+end Aerodynamic2d;
 
 record Circuit "Circuit parameters for injector"
     parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
@@ -28,6 +33,19 @@ record Circuit "Circuit parameters for injector"
     parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
       Dialog(tab = "Electrical"));
 end Circuit;
+
+record CurrentLimiter
+ parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom), typical value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom), typical value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom), typical value = 20" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation), typical value = false" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority), typical value = true" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom), typical value = 1.1" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+end CurrentLimiter;
+
+record CurrentLimiter2015
+  parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+end CurrentLimiter2015;
 
 record GenSystem3 "Do not use. Use 3a or 3b instead."
     extends XEqv_;
@@ -57,15 +75,6 @@ record GenSystem3b "Control parameters for generator system of WT, specific to T
       Dialog(tab = "genSystem"));
 end GenSystem3b;
 
-record XEqv_
-    parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom)" annotation(
-      Dialog(tab = "genSystem"));
-end XEqv_;
-
-
-
-
-
 record GenSystem4 "Control parameters for generator system of WT Type 4"
     parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
       Dialog(tab = "genSystem"));
@@ -80,100 +89,6 @@ record GenSystem4 "Control parameters for generator system of WT Type 4"
     parameter Types.Time tG "Current generation time constant in s" annotation(
       Dialog(tab = "genSystem"));
 end GenSystem4;
-
-record InitialComplexUGrid "Initial voltage and current for grid side"
-    parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialComplexUGrid;
-
-record InitialComplexUiGrid "Initial voltage and current for grid side"
-    extends InitialComplexUGrid;
-    parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialComplexUiGrid;
-
-record InitialUGrid "Initial voltage module and phase for grid side"
-    extends InitialUModuleGrid;
-    extends InitialUPhaseGrid;
-end InitialUGrid;
-
-record InitialUModuleGrid
-    parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-      Dialog(tab = "Operating point"));
-end InitialUModuleGrid;
-
-record InitialUPhaseGrid
-    parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
-      Dialog(tab = "Operating point"));
-end InitialUPhaseGrid;
-
-record InitialIGs "Initial current for generator system (GS) side"
-    parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-    parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialIGs;
-
-record InitialUGs "Initial voltage for generator system (GS) side"
-    parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-      Dialog(tab = "Initialization"));
-    parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialUGs;
-
-record InitialPqGrid "Initial P and Q for grid side"
-    extends InitialQGrid;
-    extends InitialPGrid;
-end InitialPqGrid;
-
-record InitialQGrid "Initial Q for grid side"
-    parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-      Dialog(tab = "Operating point"));
-end InitialQGrid;
-
-record InitialPGrid "Initial P for grid side"
-    parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-      Dialog(tab = "Operating point"));
-end InitialPGrid;
-
-record InitialGenSystem "Initial parameters for Generator System"
-    extends InitialGenSystemP;
-    extends InitialGenSystemQ;
-    extends InitialPAg;
-end InitialGenSystem;
-
-record InitialGenSystemP "Initial IpMax"
-    parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialGenSystemP;
-
-record InitialGenSystemQ "Initial IqMin, IqMax"
-    parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-    parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialGenSystemQ;
-
-record InitialPAg "Initial PAg"
-    parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-end InitialPAg;
-
-record IntegrationTimeStep
-    parameter Types.Time tS "Integration time step in s";
-end IntegrationTimeStep;
-
-record SNom "Nominal parameters for generator system"
-    parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-end SNom;
-  
-record Aerodynamic2d
-  parameter Types.ActivePowerPu DPOmegaThetaPu "Aerodynamic power partial derivative, pitch dependent term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.028" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu DPOmega0Pu "Aerodynamic power partial derivative, constant term with respect to changes in Wind Turbine Rotor speed in pu, typical value = 0.48" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu, typical value = -0.03" annotation(Dialog(tab = "Aerodynamic"));
-  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), typical value = active power setpoint" annotation(Dialog(tab = "Operating point"));
-  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, typical value = 0.0" annotation(Dialog(tab = "Aerodynamic"));
-end Aerodynamic2d;
 
 record GridMeasurementControl
   parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom), typical value = 1" annotation(Dialog(tab = "Measurement", group = "Control"));
@@ -202,18 +117,90 @@ record GridMeasurementWPP
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s, typical value = 0.005" annotation(Dialog(tab = "Measurement"));
 end GridMeasurementWPP;
 
-record CurrentLimiter
- parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom), typical value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom), typical value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom), typical value = 20" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation), typical value = false" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority), typical value = true" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom), typical value = 1.1" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-end CurrentLimiter;
+record GridProtection
+  parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(Dialog(tab = "Protection", group = "Param"));
+  parameter Types.PerUnit fUnderPu "WT under frequency protection activation threshold in pu (base fNom)" annotation(Dialog(tab = "Protection", group = "Param"));
+  parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(Dialog(tab = "Protection", group = "Param"));
+  parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(Dialog(tab = "Protection", group = "Param"));
+end GridProtection;
 
-record CurrentLimiter2015
-  parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
-end CurrentLimiter2015;
+record InitialComplexUGrid "Initial voltage and current for grid side"
+    parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialComplexUGrid;
+
+record InitialComplexUiGrid "Initial voltage and current for grid side"
+    extends InitialComplexUGrid;
+    parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialComplexUiGrid;
+
+record InitialGenSystem "Initial parameters for Generator System"
+    extends InitialGenSystemP;
+    extends InitialGenSystemQ;
+    extends InitialPAg;
+end InitialGenSystem;
+
+record InitialGenSystemP "Initial IpMax"
+    parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialGenSystemP;
+
+record InitialGenSystemQ "Initial IqMin, IqMax"
+    parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+    parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialGenSystemQ;
+
+record InitialIGs "Initial current for generator system (GS) side"
+    parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+    parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialIGs;
+
+record InitialPAg "Initial PAg"
+    parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialPAg;
+
+record InitialUGrid "Initial voltage module and phase for grid side"
+    extends InitialUModuleGrid;
+    extends InitialUPhaseGrid;
+end InitialUGrid;
+
+record InitialUGs "Initial voltage for generator system (GS) side"
+    parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+      Dialog(tab = "Initialization"));
+    parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+      Dialog(tab = "Initialization"));
+end InitialUGs;
+
+record InitialUModuleGrid
+    parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+      Dialog(tab = "Operating point"));
+end InitialUModuleGrid;
+
+record InitialPGrid "Initial P for grid side"
+    parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+      Dialog(tab = "Operating point"));
+end InitialPGrid;
+
+record InitialPqGrid "Initial P and Q for grid side"
+    extends InitialQGrid;
+    extends InitialPGrid;
+end InitialPqGrid;
+
+record InitialUPhaseGrid
+    parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+      Dialog(tab = "Operating point"));
+end InitialUPhaseGrid;
+
+record InitialQGrid "Initial Q for grid side"
+    parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+      Dialog(tab = "Operating point"));
+end InitialQGrid;
 
 record InitialQLimits
     parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(Dialog(tab = "Initialization"));
@@ -229,6 +216,10 @@ record InitialQSetpointWPP
   parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "Operating point"));
 end InitialQSetpointWPP;
 
+record IntegrationTimeStep
+    parameter Types.Time tS "Integration time step in s";
+end IntegrationTimeStep;
+
 record LinearCommunication
   parameter Types.Time tLag "Communication lag time constant in s" annotation(Dialog(tab = "LinearCommunication"));
   parameter Types.Time tLead "Communication lead time constant in s" annotation(Dialog(tab = "LinearCommunication"));
@@ -240,13 +231,6 @@ record Mechanical
   parameter Types.Time Hwtr "WT rotor inertia time constant in s, typical value = 0.962" annotation(Dialog(tab = "Mechanical"));
   parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom), typical value = 1.378" annotation(Dialog(tab = "Mechanical"));
 end Mechanical;
-
-record PControlWPP2015
-  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(Dialog(tab = "PControlWP"));
-end PControlWPP2015; 
 
 record PControlWPP
   parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControlWP"));
@@ -267,9 +251,12 @@ record PControlWPP2020
   parameter Types.ActivePowerPu PErrMinPu "Minimum negative control error for power PI controller in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
 end PControlWPP2020;
 
-record PControlWT4Base
-  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(Dialog(tab = "PControl"));
-end PControlWT4Base;
+record PControlWPP2015
+  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControlWP"));
+  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(Dialog(tab = "PControlWP"));
+end PControlWPP2015; 
 
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
   extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
@@ -309,8 +296,6 @@ record PControlWT3 "Parameters used in Type 3a P control including torque PI con
   final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(Dialog(tab = "Initialization"));
 end PControlWT3;
 
-
-
 record PControlWT4
   parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(Dialog(tab = "PControl"));
   parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(Dialog(tab = "PControl"));
@@ -349,6 +334,10 @@ record PControlWT4b2015
   parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "PControl"));
 end PControlWT4b2015;
 
+record PControlWT4Base
+  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(Dialog(tab = "PControl"));
+end PControlWT4Base;
+
 record PitchAngleControl
   parameter Real DThetaCmax "Pitch maximum positive ramp rate of power PI controller, typical value = 6" annotation(Dialog(tab = "PitchAngleCtrl"));
   parameter Real DThetaCmin  "Pitch dependent term of aerodynamic power partial derivative with respect to changes in Wind Turbine Rotor speed, typical value = -3" annotation(Dialog(tab = "PitchAngleCtrl"));
@@ -375,38 +364,6 @@ record Pll
   parameter Types.VoltageModulePu UPll1Pu "Voltage below which the angle of the voltage is filtered and possibly also frozen, in pu (base UNom)" annotation(Dialog(tab = "PLL"));
   parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically)" annotation(Dialog(tab = "PLL"));
 end Pll;
-
-record QControlWPP
-  parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit DXRefMinPu "Minimum negative ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kiwpx "Reactive power or voltage PI controller integral gain in pu/s (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kpwpx "Reactive power or voltage PI controller proportional gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit KwpqRef "Reactive power reference gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kwpqu "Voltage controller cross coupling gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time tUqFilt "Time constant for the UQ static mode in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqDipPu "Voltage threshold for UVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XRefMaxPu "Maximum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-end QControlWPP;
-
-record QControlWPP2015
-  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControlWP"));
-end QControlWPP2015;
-
-record QControlWPP2020
-  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControlWP"));
-end QControlWPP2020;
 
 record QControlWT2015
   parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(Dialog(tab = "QControl"));
@@ -445,11 +402,58 @@ record QControlWTBase
   parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(Dialog(tab = "QControl"));
 end QControlWTBase;
 
+record QControlWPP
+  parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit DXRefMinPu "Minimum negative ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit Kiwpx "Reactive power or voltage PI controller integral gain in pu/s (base SNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit Kpwpx "Reactive power or voltage PI controller proportional gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit KwpqRef "Reactive power reference gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit Kwpqu "Voltage controller cross coupling gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.Time tUqFilt "Time constant for the UQ static mode in s" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.VoltageModulePu UwpqDipPu "Voltage threshold for UVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XRefMaxPu "Maximum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+end QControlWPP;
+
+record QControlWPP2015
+  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControlWP"));
+end QControlWPP2015;
+
+record QControlWPP2020
+  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControlWP"));
+end QControlWPP2020;
+
+record QLimiter
+  parameter Boolean QlConst "True if limits are constant" annotation(  Dialog(tab = "QLimiter"));
+    parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(  Dialog(tab = "QLimiter"));
+    parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(  Dialog(tab = "QLimiter"));
+end QLimiter;
+
+record QLimiter2015
+  parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(Dialog(tab = "QLimiter"));
+  parameter Types.Time tUFiltql "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "QLimiter"));
+end QLimiter2015;
+
 record RDropXDrop
   parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl"));
   parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl"));
 
 end RDropXDrop; 
+
+record SNom "Nominal parameters for generator system"
+    parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+end SNom;
 
 record TableCurrentLimit
   parameter Real TableIpMaxUwt11 = 0 annotation(Dialog(tab = "CurrentLimiter", group = "Tables"));
@@ -653,24 +657,6 @@ record TableQLimit
   parameter Real TableQMinPwtcFilt[:,:] = [TableQMinPwtcFilt11, TableQMinPwtcFilt12; TableQMinPwtcFilt21, TableQMinPwtcFilt22; TableQMinPwtcFilt31, TableQMinPwtcFilt32; TableQMinPwtcFilt41, TableQMinPwtcFilt42] "Active power dependency of reactive power minimum limit" annotation(Dialog(tab = "QLimiter", group = "Tables"));
 end TableQLimit;
 
-record QLimiter
-  parameter Boolean QlConst "True if limits are constant" annotation(  Dialog(tab = "QLimiter"));
-    parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(  Dialog(tab = "QLimiter"));
-    parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(  Dialog(tab = "QLimiter"));
-end QLimiter;
-
-record QLimiter2015
-  parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(Dialog(tab = "QLimiter"));
-  parameter Types.Time tUFiltql "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "QLimiter"));
-end QLimiter2015;
-
-record GridProtection
-  parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(Dialog(tab = "Protection", group = "Param"));
-  parameter Types.PerUnit fUnderPu "WT under frequency protection activation threshold in pu (base fNom)" annotation(Dialog(tab = "Protection", group = "Param"));
-  parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(Dialog(tab = "Protection", group = "Param"));
-  parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(Dialog(tab = "Protection", group = "Param"));
-end GridProtection;
-
 record UfMeasurement2015
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(Dialog(tab = "UfMeasurement"));
   parameter Boolean Mzc "Zero crossing measurement mode (true = 1 if the wind turbine protection system uses zero crossings to detect the frequency - otherwise false = 0)" annotation(Dialog(tab = "UfMeasurement"));
@@ -678,5 +664,10 @@ record UfMeasurement2015
   parameter Types.Time tphiFilt "Filter time constant for voltage angle measurement in s" annotation(Dialog(tab = "UfMeasurement"));
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "UfMeasurement"));
 end UfMeasurement2015;
+
+record XEqv_
+    parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom)" annotation(
+      Dialog(tab = "genSystem"));
+end XEqv_;
   
 end Parameters;

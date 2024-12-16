@@ -93,5 +93,5 @@ equation
     Line(points = {{-20, -94}, {40, -94}, {40, -88}, {58, -88}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {81, -3}, extent = {{-12, 15}, {13, -15}}, textString = "3A"), Text(origin = {3, -41}, extent = {{-53, 24}, {53, -24}}, textString = "2020")}));
+    Icon(graphics = {Text(origin = {-2, -4}, extent = {{-37, 30}, {40, -30}}, textString = "Type 3A")}));
 end WT3ACurrentSource2020;

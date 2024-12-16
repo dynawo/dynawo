@@ -15,11 +15,11 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 model BaseWPPQControl "Reactive power control base module for wind power plants (IEC N°61400-27-1)"
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP;
   
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -59,9 +59,9 @@ model BaseWPPQControl "Reactive power control base module for wind power plants 
     Placement(visible = true, transformation(origin = {170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpointWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpointWPP;
   
 equation
   connect(feedback.y, combiTable1Ds2.u) annotation(

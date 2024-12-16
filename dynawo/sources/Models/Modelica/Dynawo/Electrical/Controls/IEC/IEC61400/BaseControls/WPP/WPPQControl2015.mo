@@ -14,10 +14,10 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
 
 model WPPQControl2015 "Reactive power control module for wind power plants (IEC N°61400-27-1:2015)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
 
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWPPu(start = -P0Pu * SystemBase.SnRef / SNom ) "Active power communicated to WP in pu (base SNom) (generator convention)" annotation(

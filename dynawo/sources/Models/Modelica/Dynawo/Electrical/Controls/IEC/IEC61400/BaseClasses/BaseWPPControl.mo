@@ -13,17 +13,17 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TablePControl;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP;
   
   //Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = -i0Pu.re * SystemBase.SnRef / SNom), im(start = -i0Pu.im * SystemBase.SnRef / SNom)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -39,10 +39,10 @@ model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
     Placement(visible = false, transformation(origin = {-8, -56}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpointWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUiGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpointWPP;
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-65, 110}, extent = {{-35, 26}, {167, -132}}, textString = "WP control and"), Text(origin = {-68, 58}, extent = {{-36, 28}, {172, -140}}, textString = "communication"), Text(origin = {-23, -64}, extent = {{-41, 26}, {87, -6}}, textString = "module")}),

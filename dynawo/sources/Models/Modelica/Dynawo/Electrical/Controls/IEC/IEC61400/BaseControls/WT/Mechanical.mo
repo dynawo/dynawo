@@ -15,10 +15,10 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   
   //Mechanical parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PAeroPu(start = -P0Pu * SystemBase.SnRef / SNom) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
@@ -50,8 +50,8 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPAg;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPAg;
 
 equation
   connect(PAgPu, division1.u1) annotation(

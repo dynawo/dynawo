@@ -16,7 +16,7 @@ model WPPPControl2020 "Active power control module for wind power plants (IEC NÂ
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPPControl;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
   
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput fWPFrt(start = false) "True if fault status" annotation(

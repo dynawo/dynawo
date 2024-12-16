@@ -14,13 +14,13 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.WPP;
 
 model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPControl;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(

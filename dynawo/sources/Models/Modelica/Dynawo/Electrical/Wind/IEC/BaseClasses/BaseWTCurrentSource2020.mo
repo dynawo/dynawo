@@ -14,23 +14,23 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
       */
   // Parameter imports
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
   //Measurement parameters for control
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementControl;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementControl;
   //Measurement parameters for protection
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementProtection;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Circuit;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
-  //extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableGridProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Pll;
+  //extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -48,14 +48,14 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
 //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUiGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpoint;
   
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements protectionMeasurements(DfMaxPu = DfpMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIpFilt, tPFilt = tPpFilt, tQFilt = tQpFilt, tS = tS, tUFilt = tUpFilt, tfFilt = tfpFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {60, 80}, extent = {{20, 20}, {-20, -20}}, rotation = 90)));
@@ -78,7 +78,7 @@ equation
     Line(points = {{-68, 58}, {-68, 54}, {-54, 54}, {-54, 104}, {-12, 104}, {-12, 98}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -3}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT 2020")}),
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, 47}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT 2020")}),
   Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}})));
 
 end BaseWTCurrentSource2020;

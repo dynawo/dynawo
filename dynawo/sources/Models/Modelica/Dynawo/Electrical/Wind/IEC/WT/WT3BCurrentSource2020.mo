@@ -14,12 +14,12 @@ model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
   */
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020(pll.tS = tS, pll.tPll = tPll);
   // Parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem3b;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Aerodynamic2d;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PitchAngleControl;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPAg;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3b;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Aerodynamic2d;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PitchAngleControl;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPAg;
   
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));

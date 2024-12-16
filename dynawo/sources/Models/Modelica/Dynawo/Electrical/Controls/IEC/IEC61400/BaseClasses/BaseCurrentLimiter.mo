@@ -13,13 +13,13 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseCurrentLimiter "Current limitation base module for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   
   //Current limiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -115,10 +115,10 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {130, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemP;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemQ;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemQ;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
   
 equation
   connect(booleanConstant1.y, booleanToInteger.u) annotation(

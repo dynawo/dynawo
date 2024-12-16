@@ -15,10 +15,10 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model UfMeasurement "Measurement module for grid protection (IEC N°61400-27-1:2015)"
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //Uf measurement parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.UfMeasurement2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Dynawo.Electrical.SystemBase.omegaRef0Pu) "Grid angular frequency in pu (base omegaNom)" annotation(
@@ -52,8 +52,8 @@ model UfMeasurement "Measurement module for grid protection (IEC N°61400-27-1:2
     Placement(visible = true, transformation(origin = {-34, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
   
 equation
   connect(uWTPu, complexToPolar.u) annotation(

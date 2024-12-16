@@ -15,19 +15,19 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 standard"
   
   // Parameter imports
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Circuit;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem4;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableGridProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Pll;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
   
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -46,14 +46,14 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
 //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpoint;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUiGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpoint;
   
   Dynawo.Electrical.Sources.IEC.WT4Injector injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, XesPu = XesPu, i0Pu = i0Pu, tG = tG, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

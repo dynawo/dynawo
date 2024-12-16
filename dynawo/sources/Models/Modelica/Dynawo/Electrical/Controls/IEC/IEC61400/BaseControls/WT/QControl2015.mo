@@ -16,7 +16,7 @@ model QControl2015 "Reactive power control module for wind turbines (IEC N°6140
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.deadZoneAtInit = true, deadZone.uMax = Udb2Pu, deadZone.uMin = Udb1Pu);
 
   //Q control parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWTPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power at grid terminal in pu (base SNom) (generator convention)" annotation(

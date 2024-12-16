@@ -25,7 +25,7 @@ block VDrop "Calculates the voltage in the serial impedance distance r+jx from t
 */
 
   //VDrop parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.RDropXDrop;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.RDropXDrop;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power at grid terminal in pu (base SNom) (receptor convention)" annotation(
@@ -40,8 +40,8 @@ block VDrop "Calculates the voltage in the serial impedance distance r+jx from t
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
   
   final parameter Types.VoltageModulePu UDrop0Pu = sqrt((U0Pu - RDropPu * P0Pu / U0Pu - XDropPu * Q0Pu / U0Pu) ^ 2 + (XDropPu * P0Pu / U0Pu - RDropPu * Q0Pu / U0Pu) ^ 2) "Initial voltage amplitude at the point of control in pu (base UNom)";
 

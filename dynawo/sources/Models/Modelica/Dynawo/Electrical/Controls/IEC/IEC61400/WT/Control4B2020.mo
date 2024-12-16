@@ -14,9 +14,9 @@ model Control4B2020 "Whole generator control module for type 4B wind turbines (I
     */
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseControl4;
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b;
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
   //Input variables
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput PAeroPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(

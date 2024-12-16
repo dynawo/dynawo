@@ -15,10 +15,10 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //PLL parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Pll;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput theta(start = UPhase0) "Phase shift between the converter and grid rotating frames in rad" annotation(
@@ -44,7 +44,7 @@ model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
   
 equation
   connect(theta, switch.u3) annotation(

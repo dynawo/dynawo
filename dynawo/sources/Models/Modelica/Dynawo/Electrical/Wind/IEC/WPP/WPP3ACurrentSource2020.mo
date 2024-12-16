@@ -35,7 +35,7 @@ model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1
   extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
   
   //WT QControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
@@ -72,5 +72,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {70, -1}, extent = {{-36, 16}, {36, -16}}, textString = "A")}));
+    Icon(graphics = {Text(origin = {1, -30}, extent = {{-73, 35}, {73, -35}}, textString = "Type 3A\n2020")}));
 end WPP3ACurrentSource2020;

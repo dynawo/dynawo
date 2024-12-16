@@ -16,7 +16,7 @@ model QLimiter2015 "Reactive power limitation module for wind turbines (IEC N°6
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQLimiter;
 
   //Qlimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
   
   
   //Input variables

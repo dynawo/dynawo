@@ -5,7 +5,7 @@ model GenSystem3b
     rateLimitP.y_start=(IGsRe0Pu+UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu-UGsRe0Pu/XEqv)*sin(UPhase0),
     rateLimitQ.y_start=-1*(IGsRe0Pu+UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu-UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2+UGsRe0Pu^2)^0.5/XEqv
   );
-  extends Parameters.GenSystem3b;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3b;
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToAbs annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder lagTgP(T = tG, y_start = IGsRe0Pu + UGsIm0Pu / XEqv)  annotation(

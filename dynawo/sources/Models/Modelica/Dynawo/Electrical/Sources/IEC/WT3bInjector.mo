@@ -14,7 +14,7 @@ model WT3bInjector "Converter model and grid interface according to IEC N°61400
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector;
-  extends BaseConverters.Parameters.GenSystem3b;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3b;
   Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem3b genSystem3b(tCrb = tCrb, tWo = tWo, tG = tG, MCrb = MCrb, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, XEqv = XEqv, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-38, 1.77636e-15}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
 equation

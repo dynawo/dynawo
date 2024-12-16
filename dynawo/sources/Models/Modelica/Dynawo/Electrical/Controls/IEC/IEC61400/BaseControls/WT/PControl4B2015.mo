@@ -16,7 +16,7 @@ model PControl4B2015 "Active power control module for type 4B wind turbines (IEC
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.UseLimits = true, absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4B, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4BPu);
 
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omega0Pu) "Generator angle frequency in pu (base omegaNom)" annotation(

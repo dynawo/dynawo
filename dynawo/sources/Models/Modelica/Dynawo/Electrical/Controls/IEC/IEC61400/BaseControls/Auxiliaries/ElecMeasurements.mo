@@ -23,7 +23,7 @@ model ElecMeasurements "This block measures the voltage and current in pu (base 
 */
 
   //Nominal parameter
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   
   //Interfaces
   Dynawo.Connectors.ACPower terminal1 "Terminal 1, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(

@@ -1,13 +1,13 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model PControl3AB2020
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystemP;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.XEqv_;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
     
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, P0Pu = P0Pu, PDtdMaxPu = PDtdMaxPu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {47.2409, -173.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}}, rotation = 0)));

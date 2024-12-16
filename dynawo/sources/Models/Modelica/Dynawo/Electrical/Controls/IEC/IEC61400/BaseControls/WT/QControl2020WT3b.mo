@@ -17,9 +17,9 @@ model QControl2020WT3b "Reactive power control module for wind turbines (IEC N°
   extends QControl2020(
     antiWindupIntegrator1.Y0 = (IGsRe0Pu+UGsIm0Pu/XEqv)*sin(UPhase0) - (IGsIm0Pu-UGsRe0Pu/XEqv)*cos(UPhase0) + (UGsIm0Pu^2+UGsRe0Pu^2)^0.5/XEqv
   );
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUPhaseGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.XEqv_;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUPhaseGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
   
 end QControl2020WT3b;

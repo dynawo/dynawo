@@ -27,8 +27,8 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = -0.2, offset = wt.PWTRef0Pu, startTime = 999) annotation(
     Placement(visible = true, transformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Wind.IEC.WT.WT3CurrentSource_INIT init(BesPu = wt.BesPu, GesPu = wt.GesPu, IMaxDipPu = wt.IMaxDipPu, IMaxPu = wt.IMaxPu, Kpqu = wt.Kpqu, MdfsLim = wt.MdfsLim, MqG = wt.MqG, Mqpri = wt.Mqpri, P0Pu = wt.P0Pu, Q0Pu = wt.Q0Pu, QMaxPu = wt.QMaxPu, QMinPu = wt.QMinPu, QlConst = wt.QlConst, ResPu = wt.ResPu, SNom = wt.SNom, TableIpMaxUwt = wt.TableIpMaxUwt, TableIqMaxUwt = wt.TableIqMaxUwt, TableQMaxPwtcFilt = wt.TableQMaxPwtcFilt, TableQMaxUwtcFilt = wt.TableQMaxUwtcFilt, TableQMinPwtcFilt = wt.TableQMinPwtcFilt, TableQMinUwtcFilt = wt.TableQMinUwtcFilt, U0Pu = wt.U0Pu, UPhase0 = wt.UPhase0, UpquMaxPu = wt.UpquMaxPu, XesPu = wt.XesPu) annotation(
-    Placement(visible = true, transformation(origin = {-14, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Wind.IEC.WT.WT3CurrentSource_INIT init(BesPu = wt.BesPu, GesPu = wt.GesPu, IMaxDipPu = wt.IMaxDipPu, IMaxPu = wt.IMaxPu, Kpqu = wt.Kpqu, MdfsLim = wt.MdfsLim, MqG = wt.MqG, Mqpri = wt.Mqpri, P0Pu = wt.P0Pu, Q0Pu = wt.Q0Pu, QMaxPu = wt.QMaxPu, QMinPu = wt.QMinPu, QlConst = wt.QlConst, ResPu = wt.ResPu, SNom = wt.SNom, TableIpMaxUwt = wt.TableIpMaxUwt, TableIqMaxUwt = wt.TableIqMaxUwt, TableQMaxPwtcFilt = wt.TableQMaxPwtcFilt, TableQMaxUwtcFilt = wt.TableQMaxUwtcFilt, TableQMinPwtcFilt = wt.TableQMinPwtcFilt, TableQMinUwtcFilt = wt.TableQMinUwtcFilt, U0Pu = wt.U0Pu, UPhase0 = wt.UPhase0, UpquMaxPu = wt.UpquMaxPu, XesPu = wt.XesPu) annotation(
+    Placement(visible = true, transformation(origin = {2, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   wt.injector.switchOffSignal1.value = false;
   wt.injector.switchOffSignal2.value = false;

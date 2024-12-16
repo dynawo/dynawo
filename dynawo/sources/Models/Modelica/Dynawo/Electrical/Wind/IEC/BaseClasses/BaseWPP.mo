@@ -13,44 +13,44 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableCurrentLimit;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableGridProtection;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TablePControl;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableGridProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TablePControl;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.SNom;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //Circuit parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.Circuit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
   
   //Control parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem4;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
   
   //PLL parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Pll;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Pll;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   
   //Current limiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
   
   //WT QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWTBase;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
   
   //QLimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
   
   //Grid protection parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridProtection;
   
   //WPP PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP;
   
   //WPP QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP;
   
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
@@ -68,14 +68,14 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialComplexUiGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialGenSystem;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.InitialQSetpointWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUiGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpointWPP;
   
 equation
   connect(elecMeasurements.terminal2, terminal) annotation(
@@ -83,6 +83,6 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WPP4")}),
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, 39}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WPP")}),
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})));
 end BaseWPP;

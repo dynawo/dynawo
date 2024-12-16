@@ -12,12 +12,12 @@ model TorquePi "Sub module for torque control inside active power control module
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.XEqv_;
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.XEqv_;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
 
   Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));

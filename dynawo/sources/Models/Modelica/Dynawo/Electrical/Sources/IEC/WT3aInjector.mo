@@ -16,7 +16,7 @@ model WT3aInjector "Converter model and grid interface according to IEC N°61400
  wind turbines"
   
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector;
-  extends BaseConverters.Parameters.GenSystem3a;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
   Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem3a genSystem3a(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, KPc = KPc, TIc = TIc, XEqv = XEqv, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-38, -2.22045e-16}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
 equation

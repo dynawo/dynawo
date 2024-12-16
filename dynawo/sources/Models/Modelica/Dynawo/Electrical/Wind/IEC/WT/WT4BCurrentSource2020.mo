@@ -16,12 +16,12 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020;
   
   // GenSystem parameters
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.Parameters.GenSystem4;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
   // P control parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   //Mechanical parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
   
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));

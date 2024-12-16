@@ -20,13 +20,13 @@ model BaseGenSystem3 "Type 4 generator system module (IEC N°61400-27-1)"
          \__/--------------
   
       */
-  extends Parameters.GenSystem3;
-  extends Parameters.InitialGenSystem;
-  extends Parameters.InitialIGs;
-  extends Parameters.InitialPqGrid;
-  extends Parameters.InitialUGrid;
-  extends Parameters.InitialUGs;
-  extends Parameters.SNom;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = -IGsRe0Pu * SNom / SystemBase.SnRef), im(start = -IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

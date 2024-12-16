@@ -16,10 +16,10 @@ model Control4A2020 "Whole generator control module for type 4A wind turbines (I
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseControl4;
   
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4a;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a;
   
   //QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWTCFiltPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power at grid terminal in pu (base SNom) (generator convention)" annotation(

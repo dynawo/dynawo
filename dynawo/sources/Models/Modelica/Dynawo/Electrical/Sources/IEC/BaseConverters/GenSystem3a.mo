@@ -2,7 +2,7 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 model GenSystem3a
   extends BaseGenSystem3;
-  extends Parameters.GenSystem3a;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
   
   Modelica.Blocks.Continuous.PI piP(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 61}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));

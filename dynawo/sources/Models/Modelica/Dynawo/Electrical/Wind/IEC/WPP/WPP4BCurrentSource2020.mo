@@ -14,34 +14,34 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1:2020 standard : WT4B, communication modules"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2020;
 
   //WPP Qcontrol parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2020;
   
   //WPP PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
   
   //WP Measurement parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementWPP;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementWPP;
   
   //Linear communication parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.LinearCommunication;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.LinearCommunication;
   
   //Measurement parameters for control
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementControl;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementControl;
   
   //Measurement parameters for protection
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridMeasurementProtection;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
   
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4b;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b;
   
   //WT QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2020;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
  
   //Mechanical parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
@@ -76,5 +76,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {70, -1}, extent = {{-36, 16}, {36, -16}}, textString = "B")}));
+    Icon(graphics = {Text(origin = {1, -30}, extent = {{-73, 35}, {73, -35}}, textString = "Type 4B\n2020")}));
 end WPP4BCurrentSource2020;

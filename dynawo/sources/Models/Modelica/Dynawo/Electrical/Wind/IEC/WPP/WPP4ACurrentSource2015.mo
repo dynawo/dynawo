@@ -14,28 +14,28 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1:2015 standard : WT4A, communication modules"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.TableQControl2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
 
   //Uf measurement parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.UfMeasurement2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
 
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT4a2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a2015;
   
   //Current limiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimiter2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
   
   //WT QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWT2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
   
   //Qlimiter parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimiter2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
   
   //WPP PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
   
   //WPP QControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlWPP2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2015;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
@@ -77,5 +77,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {70, -1}, extent = {{-36, 16}, {36, -16}}, textString = "A")}));
+    Icon(graphics = {Text(origin = {-3, -25}, extent = {{-57, 28}, {57, -28}}, textString = "Type 4A\n2015")}));
 end WPP4ACurrentSource2015;
