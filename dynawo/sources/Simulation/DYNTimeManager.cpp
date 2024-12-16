@@ -41,7 +41,8 @@ namespace DYN {
 TimeManager::TimeManager(bool timeSync, double timeSyncAcceleration):
 timeSync_(timeSync),
 timeSyncAcceleration_(timeSyncAcceleration),
-stepDuration_(0.0) {}
+stepDuration_(0.0),
+running_(false) {}
 
 void
 TimeManager::setTimeSync(bool timeSync) {
@@ -64,7 +65,10 @@ int TimeManager::getStepDuration() {
 }
 
 void TimeManager::updateStepDurationValue() {
-  stepDuration_ = (1./1000)*(duration_cast<microseconds>(system_clock::now() - stepStart_)).count();
+  if (running_)
+    stepDuration_ = (1./1000)*(duration_cast<microseconds>(system_clock::now() - stepStart_)).count();
+  else
+    stepDuration_ = 0.;
 }
 
 void
@@ -96,7 +100,7 @@ TimeManager::wait(double simuTime) {
     } else {
       system_clock::time_point newStepStart = system_clock::now();
       double computationTimeMs = (1./1000)*(duration_cast<microseconds>(newStepStart - stepStart_)).count();
-      if (computationTimeMs > 0)
+      if (computationTimeMs > 0 && timeSync_)
         std::cout << "TimeManager::wait: last step computation time: " << computationTimeMs << "ms" << std::endl;
       stepStart_ = newStepStart;
     }
