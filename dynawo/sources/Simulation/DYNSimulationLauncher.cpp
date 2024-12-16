@@ -44,6 +44,10 @@ using DYN::Simulation;
 using DYN::SimulationRT;
 using DYN::SimulationContext;
 
+using std::chrono::system_clock;
+using std::chrono::microseconds;
+using std::chrono::duration_cast;
+
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
 template<class T>
 static void print(const T& output, DYN::SeverityLevel level = DYN::INFO) {
@@ -166,7 +170,9 @@ void launchSimuInterractive(const std::string& jobsFileName) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   DYN::Timer timer("Main::launchSimuInterractive");
 #endif
-
+    // TIME
+    std::chrono::system_clock::time_point t_start = system_clock::now();
+    // /TIME
   job::XmlImporter importer;
   std::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
   std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
@@ -184,11 +190,22 @@ void launchSimuInterractive(const std::string& jobsFileName) {
     context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
-
+    // TIME
+    std::chrono::system_clock::time_point t_end = system_clock::now();
+    double duration = (1./1000)*(duration_cast<microseconds>(t_end-t_start)).count();
+    Trace::info() << "TimeManagement: pre-init duration: " << duration << "ms" << Trace::endline;
+    t_start = t_end;
+    // /TIME
     std::shared_ptr<SimulationRT> simulation;
     try {
       simulation = std::shared_ptr<SimulationRT>(new SimulationRT((*itJobEntry), context));
       simulation->init();
+      // TIME
+      t_end = system_clock::now();
+      double duration = (1./1000)*(duration_cast<microseconds>(t_end-t_start)).count();
+      Trace::info() << "TimeManagement: init duration: " << duration << "ms" << Trace::endline;
+      t_start = t_end;
+      // /TIME
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);
       throw;
@@ -208,7 +225,19 @@ void launchSimuInterractive(const std::string& jobsFileName) {
 
     try {
       simulation->simulate();
+      // TIME
+      t_end = system_clock::now();
+      duration = (1./1000)*(duration_cast<microseconds>(t_end-t_start)).count();
+      Trace::info() << "TimeManagement: simulate duration: " << duration << "ms" << Trace::endline;
+      t_start = t_end;
+      // /TIME
       simulation->terminate();
+      // TIME
+      t_end = system_clock::now();
+      duration = (1./1000)*(duration_cast<microseconds>(t_end-t_start)).count();
+      Trace::info() << "TimeManagement: terminate duration: " << duration << "ms" << Trace::endline;
+      t_start = t_end;
+      // /TIME
     } catch (const DYN::Error& err) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
