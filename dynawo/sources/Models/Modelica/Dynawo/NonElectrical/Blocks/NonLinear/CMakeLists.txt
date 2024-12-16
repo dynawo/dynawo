@@ -21,6 +21,7 @@ set(MODEL_FILES
   FlipFlopR.mo
   FlipFlopS.mo
   IntegratorOrFirstOrder.mo
+  LimitedDivision.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
   LimitedLeadLag.mo
