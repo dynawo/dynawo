@@ -15,11 +15,15 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
   extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
-
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  
   //Uf measurement parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
   
   //WT PControl parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
   
   //Current limiter parameters
@@ -39,6 +43,9 @@ model WPP4BCurrentSource2015
   
   //WPP QControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(

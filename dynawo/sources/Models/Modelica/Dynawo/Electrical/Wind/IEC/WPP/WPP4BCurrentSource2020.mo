@@ -15,7 +15,10 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1:2020 standard : WT4B, communication modules"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
   extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2020;
-
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  
   //WPP Qcontrol parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2020;
   
@@ -35,6 +38,7 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
   extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
   
   //WT PControl parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b;
   
   //WT QControl parameters

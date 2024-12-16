@@ -22,7 +22,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
   //WPP PControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
   
-  //WP Measurement parameters
+  //WPP Measurement parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementWPP;
   
   //Linear communication parameters
@@ -35,10 +35,15 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
   extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
   
   //WT PControl parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a;
   
   //WT QControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  
   
   //Input variables
   Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(

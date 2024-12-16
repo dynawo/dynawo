@@ -20,6 +20,7 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
   extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
 
   //WT PControl parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a2015;
   
   //Current limiter parameters
@@ -27,6 +28,9 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
   
   //WT QControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
   
   //Qlimiter parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;

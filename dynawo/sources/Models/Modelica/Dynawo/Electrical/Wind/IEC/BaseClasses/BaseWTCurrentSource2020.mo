@@ -26,7 +26,6 @@ partial model BaseWTCurrentSource2020 "Base for Wind Turbine Types 3 and 4 model
   extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
   extends Dynawo.Electrical.Wind.IEC.Parameters.Pll;
-  //extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
   extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
   extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
   extends Dynawo.Electrical.Wind.IEC.Parameters.GridProtection;
